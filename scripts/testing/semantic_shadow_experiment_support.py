@@ -44,6 +44,12 @@ from lexishift_core.rulegen.semantic_shadow_seed_borrowing import (  # noqa: E40
     augment_shadow_targets_with_neighbor_borrowed_triggers,
 )
 from rulegen_benchmark_dataset import load_benchmark_dataset_payload  # noqa: E402
+from semantic_routing_generalization_bound_splits import (  # noqa: E402
+    build_split_lookup,
+    load_generalization_split_manifest,
+    partition_rows_by_split,
+    resolve_overlap_family_split_id,
+)
 
 
 DEFAULT_DATASET_PATH = (
@@ -52,6 +58,18 @@ DEFAULT_DATASET_PATH = (
 DEFAULT_BENCHMARK_JSON = (
     PROJECT_ROOT / "docs" / "test_outputs" / "rulegen_benchmark_en_es_latest.json"
 )
+DEFAULT_GENERALIZATION_SPLITS_MANIFEST_PATH = (
+    PROJECT_ROOT / "docs" / "test_inputs" / "semantic_routing_generalization_splits_en_es.json"
+)
+_OVERLAP_GENERALIZATION_SPLIT_SECTION = "reviewed_overlap_semantic_families"
+_OVERLAP_GENERALIZATION_METRIC_KEYS = (
+    "overall_accuracy",
+    "abstain_recall",
+    "harmful_allow_rate",
+    "allow_precision",
+    "overblocking_rate",
+)
+_DEFAULT_UNASSIGNED_ROW_SAMPLE_LIMIT = 5
 
 
 @dataclass(frozen=True)
@@ -537,6 +555,150 @@ def build_shadow_signal_availability_summary(
     }
 
 
+def summarize_veto_proxy_rows(rows: Sequence[Mapping[str, object]]) -> dict[str, object]:
+    trigger_rows_total = len(rows)
+    ambiguous_trigger_rows = 0
+    clear_trigger_rows = 0
+    allow_rows = 0
+    abstain_rows = 0
+    true_abstain_count = 0
+    harmful_allow_count = 0
+    true_allow_count = 0
+    false_abstain_count = 0
+
+    for row in rows:
+        should_abstain = bool(row.get("should_abstain"))
+        did_abstain = bool(row.get("did_abstain"))
+        if should_abstain:
+            ambiguous_trigger_rows += 1
+        else:
+            clear_trigger_rows += 1
+        if did_abstain:
+            abstain_rows += 1
+        else:
+            allow_rows += 1
+        outcome = str(row.get("outcome") or "").strip()
+        if outcome == "true_abstain":
+            true_abstain_count += 1
+        elif outcome == "harmful_allow":
+            harmful_allow_count += 1
+        elif outcome == "true_allow":
+            true_allow_count += 1
+        elif outcome == "false_abstain":
+            false_abstain_count += 1
+
+    return {
+        "trigger_rows_total": trigger_rows_total,
+        "ambiguous_trigger_rows": ambiguous_trigger_rows,
+        "clear_trigger_rows": clear_trigger_rows,
+        "allow_rows": allow_rows,
+        "abstain_rows": abstain_rows,
+        "true_abstain_count": true_abstain_count,
+        "harmful_allow_count": harmful_allow_count,
+        "true_allow_count": true_allow_count,
+        "false_abstain_count": false_abstain_count,
+        "overall_accuracy": _safe_rate(true_abstain_count + true_allow_count, trigger_rows_total),
+        "abstain_recall": _safe_rate(true_abstain_count, ambiguous_trigger_rows),
+        "harmful_allow_rate": _safe_rate(harmful_allow_count, ambiguous_trigger_rows),
+        "allow_precision": _safe_rate(true_allow_count, allow_rows),
+        "allow_rate": _safe_rate(allow_rows, trigger_rows_total),
+        "abstain_rate": _safe_rate(abstain_rows, trigger_rows_total),
+        "overblocking_rate": _safe_rate(false_abstain_count, clear_trigger_rows),
+    }
+
+
+def build_overlap_family_generalization_split_summary(
+    row_results: Sequence[Mapping[str, object]],
+    *,
+    manifest_path: Path = DEFAULT_GENERALIZATION_SPLITS_MANIFEST_PATH,
+) -> dict[str, object]:
+    manifest = load_generalization_split_manifest(Path(manifest_path))
+    section = manifest.get(_OVERLAP_GENERALIZATION_SPLIT_SECTION)
+    if not isinstance(section, Mapping):
+        raise ValueError(
+            "Generalization split manifest is missing the "
+            f"{_OVERLAP_GENERALIZATION_SPLIT_SECTION!r} section."
+        )
+    split_ids, split_lookup = build_split_lookup(section)
+    normalized_rows = [row for row in row_results if isinstance(row, Mapping)]
+    rows_by_split, unassigned_rows = partition_rows_by_split(
+        normalized_rows,
+        split_ids=split_ids,
+        split_lookup=split_lookup,
+        resolve_split_id=resolve_overlap_family_split_id,
+    )
+    split_summaries: dict[str, dict[str, object]] = {}
+    assigned_row_count = 0
+    for split_id in split_ids:
+        split_rows = rows_by_split.get(split_id, [])
+        assigned_row_count += len(split_rows)
+        split_summaries[str(split_id)] = {
+            "row_count": len(split_rows),
+            "summary": summarize_veto_proxy_rows(split_rows),
+        }
+
+    tune_summary = (
+        split_summaries.get("tune", {}).get("summary", {})
+        if isinstance(split_summaries.get("tune"), Mapping)
+        else {}
+    )
+    held_out_summary = (
+        split_summaries.get("held_out", {}).get("summary", {})
+        if isinstance(split_summaries.get("held_out"), Mapping)
+        else {}
+    )
+    return {
+        "manifest_path": str(Path(manifest_path)),
+        "section_id": _OVERLAP_GENERALIZATION_SPLIT_SECTION,
+        "section_label": str(section.get("label") or _OVERLAP_GENERALIZATION_SPLIT_SECTION),
+        "split_ids": list(split_ids),
+        "assigned_row_count": assigned_row_count,
+        "unassigned_row_count": len(unassigned_rows),
+        "unassigned_row_samples": _build_unassigned_row_samples(unassigned_rows),
+        "splits": split_summaries,
+        "deltas": {
+            "held_out_minus_tune": {
+                metric_name: _delta_metric(
+                    held_out_summary.get(metric_name),
+                    tune_summary.get(metric_name),
+                )
+                for metric_name in _OVERLAP_GENERALIZATION_METRIC_KEYS
+            }
+        },
+    }
+
+
+def _build_unassigned_row_samples(
+    rows: Sequence[Mapping[str, object]],
+    *,
+    limit: int = _DEFAULT_UNASSIGNED_ROW_SAMPLE_LIMIT,
+) -> list[dict[str, object]]:
+    samples: list[dict[str, object]] = []
+    for row in rows[: max(0, int(limit))]:
+        if not isinstance(row, Mapping):
+            continue
+        slice_dimensions = row.get("slice_dimensions")
+        semantic_families = []
+        if isinstance(slice_dimensions, Mapping):
+            semantic_families = normalize_string_list(slice_dimensions.get("semantic_family"))
+        samples.append(
+            {
+                "target": str(row.get("target") or "").strip(),
+                "trigger": str(row.get("trigger") or "").strip(),
+                "case_ids": normalize_string_list(row.get("case_ids")),
+                "semantic_families": semantic_families,
+                "slice_tags": normalize_string_list(row.get("slice_tags")),
+            }
+        )
+    return samples
+
+
+def _delta_metric(value: object, baseline: object) -> float | None:
+    if not isinstance(value, (int, float)) or not isinstance(baseline, (int, float)):
+        return None
+    return float(value) - float(baseline)
+
+
 def _count_records_with_metadata_keys(
     records: Sequence[TranslationGlossRecord],
     metadata_keys: Sequence[str],
@@ -573,3 +735,9 @@ def _record_has_any_metadata_key(
         elif str(value or "").strip():
             return True
     return False
+
+
+def _safe_rate(numerator: int, denominator: int) -> float | None:
+    if denominator <= 0:
+        return None
+    return float(numerator) / float(denominator)

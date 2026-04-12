@@ -26,6 +26,8 @@ from lexishift_core.rulegen.semantic_shadow_inventory import (  # noqa: E402
 from semantic_shadow_experiment_support import (  # noqa: E402
     DEFAULT_BENCHMARK_JSON,
     DEFAULT_DATASET_PATH,
+    DEFAULT_GENERALIZATION_SPLITS_MANIFEST_PATH,
+    build_overlap_family_generalization_split_summary,
     build_en_es_seed_mode_payloads,
     build_inventory_for_seed_targets,
     build_shadow_signal_availability_summary,
@@ -94,6 +96,12 @@ def _parse_args() -> argparse.Namespace:
         help="Optional reverse translation-pack override for en-es experiments.",
     )
     parser.add_argument(
+        "--generalization-splits-manifest",
+        type=Path,
+        default=DEFAULT_GENERALIZATION_SPLITS_MANIFEST_PATH,
+        help="Explicit tune vs held-out split manifest for reviewed overlap evaluation rows.",
+    )
+    parser.add_argument(
         "--json-out",
         type=Path,
         default=DEFAULT_JSON_OUT,
@@ -124,6 +132,37 @@ def _parse_int(value: object, *, default: int, minimum: int = 0) -> int:
     if value in (None, ""):
         return max(minimum, int(default))
     return max(minimum, int(value))
+
+
+def _extract_split_summary_metric(
+    summary: object,
+    split_id: str,
+    metric_name: str,
+) -> object:
+    if not isinstance(summary, Mapping):
+        return None
+    splits = summary.get("splits")
+    if not isinstance(splits, Mapping):
+        return None
+    split_payload = splits.get(split_id)
+    if not isinstance(split_payload, Mapping):
+        return None
+    split_summary = split_payload.get("summary")
+    if not isinstance(split_summary, Mapping):
+        return None
+    return split_summary.get(metric_name)
+
+
+def _extract_split_delta_metric(summary: object, metric_name: str) -> object:
+    if not isinstance(summary, Mapping):
+        return None
+    deltas = summary.get("deltas")
+    if not isinstance(deltas, Mapping):
+        return None
+    gap = deltas.get("held_out_minus_tune")
+    if not isinstance(gap, Mapping):
+        return None
+    return gap.get(metric_name)
 
 
 def _load_manifest(path: Path) -> dict[str, object]:
@@ -242,6 +281,7 @@ def build_experiment_matrix_report(
     data_root: Path,
     translation_dict: Path | None = None,
     reverse_translation_dict: Path | None = None,
+    generalization_splits_manifest: Path = DEFAULT_GENERALIZATION_SPLITS_MANIFEST_PATH,
 ) -> dict[str, object]:
     manifest = _load_manifest(manifest_path)
     experiment_rows = _materialize_experiment_rows(manifest)
@@ -369,6 +409,7 @@ def build_experiment_matrix_report(
                 experiment.get("support_representative_pruning_mode") or "off"
             ),
             support_score_weights=experiment.get("shadow_support_weights"),
+            include_row_results=True,
         )
         policy_id = str(experiment.get("policy") or "support_score_v1")
         gold_policy = (
@@ -400,6 +441,13 @@ def build_experiment_matrix_report(
             veto_policy.get("sample_false_abstain_rows", [])
             if isinstance(veto_policy, Mapping)
             else []
+        )
+        veto_row_results = (
+            veto_policy.get("row_results", []) if isinstance(veto_policy, Mapping) else []
+        )
+        split_summary = build_overlap_family_generalization_split_summary(
+            veto_row_results,
+            manifest_path=generalization_splits_manifest,
         )
         filtered_trigger_count = sum(
             len(target.reviewed_triggers)
@@ -478,6 +526,7 @@ def build_experiment_matrix_report(
                 "veto_false_abstain_count": veto_summary.get("false_abstain_count"),
                 "veto_harmful_allow_count": veto_summary.get("harmful_allow_count"),
                 "veto_slice_summaries": veto_slice_summaries,
+                "veto_generalization_split_summary": split_summary,
                 "automatic_feature_slice_count": sum(
                     1
                     for key in veto_slice_summaries.keys()
@@ -518,6 +567,7 @@ def build_experiment_matrix_report(
         "reverse_translation_dict_path": (
             str(reverse_translation_dict) if reverse_translation_dict is not None else None
         ),
+        "generalization_splits_manifest_path": str(generalization_splits_manifest),
         "forward_pack_path": str(resources.forward_pack.path),
         "reverse_pack_path": str(resources.reverse_pack.path),
         "forward_pack_provider": resources.forward_provider,
@@ -542,6 +592,7 @@ def _render_markdown(report: Mapping[str, object]) -> str:
         f"- Reverse pack: `{report.get('reverse_pack_path', '')}` ({report.get('reverse_pack_provider', '')})",
         f"- Forward seed max words: `{report.get('forward_seed_max_words', '')}`",
         f"- Neighbor-borrow modes loaded: `{bool(report.get('include_neighbor_borrow_seed_modes'))}`",
+        f"- Generalization split manifest: `{report.get('generalization_splits_manifest_path', '')}`",
         "- Matrix meaning: each row is a full experiment configuration spanning seed admission, promotion scoring, and veto evaluation.",
     ]
     signal_availability = report.get("source_signal_availability")
@@ -585,11 +636,90 @@ def _render_markdown(report: Mapping[str, object]) -> str:
             + " |"
         )
 
+    generalization_rows = [
+        row
+        for row in rows
+        if isinstance(row, Mapping)
+        and isinstance(row.get("veto_generalization_split_summary"), Mapping)
+    ]
+    if generalization_rows:
+        lines.extend(
+            [
+                "",
+                "## Generalization",
+                "| Experiment | Assigned | Tune Acc | Tune Abstain | Tune Harmful | Held Acc | Held Abstain | Held Harmful | Held-Tune Abstain | Held-Tune Harmful |",
+                "| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
+            ]
+        )
+        for row in generalization_rows:
+            split_summary = row.get("veto_generalization_split_summary")
+            lines.append(
+                "| "
+                + " | ".join(
+                    [
+                        str(row.get("experiment_id", "")),
+                        str(split_summary.get("assigned_row_count", "")),
+                        _render_rate(
+                            _extract_split_summary_metric(
+                                split_summary,
+                                "tune",
+                                "overall_accuracy",
+                            )
+                        ),
+                        _render_rate(
+                            _extract_split_summary_metric(
+                                split_summary,
+                                "tune",
+                                "abstain_recall",
+                            )
+                        ),
+                        _render_rate(
+                            _extract_split_summary_metric(
+                                split_summary,
+                                "tune",
+                                "harmful_allow_rate",
+                            )
+                        ),
+                        _render_rate(
+                            _extract_split_summary_metric(
+                                split_summary,
+                                "held_out",
+                                "overall_accuracy",
+                            )
+                        ),
+                        _render_rate(
+                            _extract_split_summary_metric(
+                                split_summary,
+                                "held_out",
+                                "abstain_recall",
+                            )
+                        ),
+                        _render_rate(
+                            _extract_split_summary_metric(
+                                split_summary,
+                                "held_out",
+                                "harmful_allow_rate",
+                            )
+                        ),
+                        _render_rate(_extract_split_delta_metric(split_summary, "abstain_recall")),
+                        _render_rate(
+                            _extract_split_delta_metric(split_summary, "harmful_allow_rate")
+                        ),
+                    ]
+                )
+                + " |"
+            )
+
     lines.extend(["", "## Details"])
     for row in rows:
         if not isinstance(row, Mapping):
             continue
         miss_counts = row.get("harmful_allow_miss_counts", {})
+        split_summary = (
+            row.get("veto_generalization_split_summary")
+            if isinstance(row.get("veto_generalization_split_summary"), Mapping)
+            else {}
+        )
         lines.extend(
             [
                 "",
@@ -609,6 +739,29 @@ def _render_markdown(report: Mapping[str, object]) -> str:
                 f"- Harmful-allow miss counts: `seed_missing={miss_counts.get('seed_missing', 0)}`, `candidate_missing={miss_counts.get('candidate_missing', 0)}`, `promotion_miss={miss_counts.get('promotion_miss', 0)}`",
             ]
         )
+        if split_summary:
+            lines.extend(
+                [
+                    "- Generalization split coverage: "
+                    f"`assigned={split_summary.get('assigned_row_count', 0)}`, "
+                    f"`unassigned={split_summary.get('unassigned_row_count', 0)}`",
+                    "- Tune split veto acc / abstain recall / harmful allow / overblocking: "
+                    f"`{_render_rate(_extract_split_summary_metric(split_summary, 'tune', 'overall_accuracy'))}` / "
+                    f"`{_render_rate(_extract_split_summary_metric(split_summary, 'tune', 'abstain_recall'))}` / "
+                    f"`{_render_rate(_extract_split_summary_metric(split_summary, 'tune', 'harmful_allow_rate'))}` / "
+                    f"`{_render_rate(_extract_split_summary_metric(split_summary, 'tune', 'overblocking_rate'))}`",
+                    "- Held-out split veto acc / abstain recall / harmful allow / overblocking: "
+                    f"`{_render_rate(_extract_split_summary_metric(split_summary, 'held_out', 'overall_accuracy'))}` / "
+                    f"`{_render_rate(_extract_split_summary_metric(split_summary, 'held_out', 'abstain_recall'))}` / "
+                    f"`{_render_rate(_extract_split_summary_metric(split_summary, 'held_out', 'harmful_allow_rate'))}` / "
+                    f"`{_render_rate(_extract_split_summary_metric(split_summary, 'held_out', 'overblocking_rate'))}`",
+                    "- Held-out minus tune acc / abstain recall / harmful allow / overblocking: "
+                    f"`{_render_rate(_extract_split_delta_metric(split_summary, 'overall_accuracy'))}` / "
+                    f"`{_render_rate(_extract_split_delta_metric(split_summary, 'abstain_recall'))}` / "
+                    f"`{_render_rate(_extract_split_delta_metric(split_summary, 'harmful_allow_rate'))}` / "
+                    f"`{_render_rate(_extract_split_delta_metric(split_summary, 'overblocking_rate'))}`",
+                ]
+            )
         trigger_support_weights = row.get("trigger_support_weights")
         if isinstance(trigger_support_weights, Mapping) and trigger_support_weights:
             lines.append(
@@ -660,6 +813,19 @@ def _render_markdown(report: Mapping[str, object]) -> str:
                 lines.append(
                     f"  - `{sample.get('target', '')}` / `{sample.get('trigger', '')}` promoted={sample.get('promoted_targets', [])} cases={sample.get('case_ids', [])} slices={sample.get('slice_tags', [])}"
                 )
+        unassigned_samples = split_summary.get("unassigned_row_samples")
+        if (
+            isinstance(unassigned_samples, Sequence)
+            and not isinstance(unassigned_samples, (str, bytes))
+            and unassigned_samples
+        ):
+            lines.append("- Split-unassigned rows:")
+            for sample in unassigned_samples[:5]:
+                if not isinstance(sample, Mapping):
+                    continue
+                lines.append(
+                    f"  - `{sample.get('target', '')}` / `{sample.get('trigger', '')}` families={sample.get('semantic_families', [])} cases={sample.get('case_ids', [])}"
+                )
     return "\n".join(lines) + "\n"
 
 
@@ -672,6 +838,7 @@ def main() -> int:
         data_root=args.data_root,
         translation_dict=args.translation_dict,
         reverse_translation_dict=args.reverse_translation_dict,
+        generalization_splits_manifest=args.generalization_splits_manifest,
     )
     args.json_out.parent.mkdir(parents=True, exist_ok=True)
     args.json_out.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")

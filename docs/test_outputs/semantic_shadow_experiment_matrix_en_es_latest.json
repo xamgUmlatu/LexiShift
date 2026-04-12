@@ -1,11 +1,19 @@
 {
   "schema_version": 1,
   "pair": "en-es",
-  "generated_at": "2026-04-11T02:50:28Z",
+  "generated_at": "2026-04-12T23:55:35Z",
   "status": "ok",
-  "manifest_path": "docs/test_inputs/semantic_shadow_experiment_matrix_en_es.json",
+  "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_shadow_experiment_matrix_en_es.json",
   "benchmark_dataset": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_cases/en_es.json",
   "benchmark_json": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/rulegen_benchmark_en_es_latest.json",
+  "data_root": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift",
+  "translation_dict_path": null,
+  "reverse_translation_dict_path": null,
+  "generalization_splits_manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json",
+  "forward_pack_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-es-en.sqlite",
+  "reverse_pack_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-en-es.sqlite",
+  "forward_pack_provider": "wiktionary",
+  "reverse_pack_provider": "wiktionary",
   "forward_seed_max_words": 1,
   "include_neighbor_borrow_seed_modes": true,
   "source_signal_availability": {
@@ -1940,6 +1948,117 @@
           "abstain_rate": 1.0,
           "overblocking_rate": null,
           "overall_accuracy": 1.0
+        }
+      },
+      "veto_generalization_split_summary": {
+        "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json",
+        "section_id": "reviewed_overlap_semantic_families",
+        "section_label": "Reviewed overlap ambiguity families",
+        "split_ids": [
+          "tune",
+          "held_out"
+        ],
+        "assigned_row_count": 78,
+        "unassigned_row_count": 97,
+        "unassigned_row_samples": [
+          {
+            "target": "agua",
+            "trigger": "water",
+            "case_ids": [
+              "en-es:agua"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amigo",
+            "trigger": "friend",
+            "case_ids": [
+              "en-es:amigo"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "love",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "affection",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "case_ids": [
+              "en-es:canal"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          }
+        ],
+        "splits": {
+          "tune": {
+            "row_count": 44,
+            "summary": {
+              "trigger_rows_total": 44,
+              "ambiguous_trigger_rows": 18,
+              "clear_trigger_rows": 26,
+              "allow_rows": 33,
+              "abstain_rows": 11,
+              "true_abstain_count": 11,
+              "harmful_allow_count": 7,
+              "true_allow_count": 26,
+              "false_abstain_count": 0,
+              "overall_accuracy": 0.8409090909090909,
+              "abstain_recall": 0.6111111111111112,
+              "harmful_allow_rate": 0.3888888888888889,
+              "allow_precision": 0.7878787878787878,
+              "allow_rate": 0.75,
+              "abstain_rate": 0.25,
+              "overblocking_rate": 0.0
+            }
+          },
+          "held_out": {
+            "row_count": 34,
+            "summary": {
+              "trigger_rows_total": 34,
+              "ambiguous_trigger_rows": 15,
+              "clear_trigger_rows": 19,
+              "allow_rows": 20,
+              "abstain_rows": 14,
+              "true_abstain_count": 14,
+              "harmful_allow_count": 1,
+              "true_allow_count": 19,
+              "false_abstain_count": 0,
+              "overall_accuracy": 0.9705882352941176,
+              "abstain_recall": 0.9333333333333333,
+              "harmful_allow_rate": 0.06666666666666667,
+              "allow_precision": 0.95,
+              "allow_rate": 0.5882352941176471,
+              "abstain_rate": 0.4117647058823529,
+              "overblocking_rate": 0.0
+            }
+          }
+        },
+        "deltas": {
+          "held_out_minus_tune": {
+            "overall_accuracy": 0.1296791443850267,
+            "abstain_recall": 0.3222222222222222,
+            "harmful_allow_rate": -0.32222222222222224,
+            "allow_precision": 0.1621212121212121,
+            "overblocking_rate": 0.0
+          }
         }
       },
       "automatic_feature_slice_count": 52,
@@ -4544,6 +4663,117 @@
           "abstain_rate": 0.3333333333333333,
           "overblocking_rate": 0.0,
           "overall_accuracy": 1.0
+        }
+      },
+      "veto_generalization_split_summary": {
+        "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json",
+        "section_id": "reviewed_overlap_semantic_families",
+        "section_label": "Reviewed overlap ambiguity families",
+        "split_ids": [
+          "tune",
+          "held_out"
+        ],
+        "assigned_row_count": 78,
+        "unassigned_row_count": 97,
+        "unassigned_row_samples": [
+          {
+            "target": "agua",
+            "trigger": "water",
+            "case_ids": [
+              "en-es:agua"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amigo",
+            "trigger": "friend",
+            "case_ids": [
+              "en-es:amigo"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "love",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "affection",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "case_ids": [
+              "en-es:canal"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          }
+        ],
+        "splits": {
+          "tune": {
+            "row_count": 44,
+            "summary": {
+              "trigger_rows_total": 44,
+              "ambiguous_trigger_rows": 18,
+              "clear_trigger_rows": 26,
+              "allow_rows": 36,
+              "abstain_rows": 8,
+              "true_abstain_count": 7,
+              "harmful_allow_count": 11,
+              "true_allow_count": 25,
+              "false_abstain_count": 1,
+              "overall_accuracy": 0.7272727272727273,
+              "abstain_recall": 0.3888888888888889,
+              "harmful_allow_rate": 0.6111111111111112,
+              "allow_precision": 0.6944444444444444,
+              "allow_rate": 0.8181818181818182,
+              "abstain_rate": 0.18181818181818182,
+              "overblocking_rate": 0.038461538461538464
+            }
+          },
+          "held_out": {
+            "row_count": 34,
+            "summary": {
+              "trigger_rows_total": 34,
+              "ambiguous_trigger_rows": 15,
+              "clear_trigger_rows": 19,
+              "allow_rows": 24,
+              "abstain_rows": 10,
+              "true_abstain_count": 8,
+              "harmful_allow_count": 7,
+              "true_allow_count": 17,
+              "false_abstain_count": 2,
+              "overall_accuracy": 0.7352941176470589,
+              "abstain_recall": 0.5333333333333333,
+              "harmful_allow_rate": 0.4666666666666667,
+              "allow_precision": 0.7083333333333334,
+              "allow_rate": 0.7058823529411765,
+              "abstain_rate": 0.29411764705882354,
+              "overblocking_rate": 0.10526315789473684
+            }
+          }
+        },
+        "deltas": {
+          "held_out_minus_tune": {
+            "overall_accuracy": 0.008021390374331583,
+            "abstain_recall": 0.14444444444444443,
+            "harmful_allow_rate": -0.1444444444444445,
+            "allow_precision": 0.01388888888888895,
+            "overblocking_rate": 0.06680161943319837
+          }
         }
       },
       "automatic_feature_slice_count": 51,
@@ -7614,6 +7844,117 @@
           "abstain_rate": 0.3333333333333333,
           "overblocking_rate": 0.0,
           "overall_accuracy": 1.0
+        }
+      },
+      "veto_generalization_split_summary": {
+        "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json",
+        "section_id": "reviewed_overlap_semantic_families",
+        "section_label": "Reviewed overlap ambiguity families",
+        "split_ids": [
+          "tune",
+          "held_out"
+        ],
+        "assigned_row_count": 78,
+        "unassigned_row_count": 97,
+        "unassigned_row_samples": [
+          {
+            "target": "agua",
+            "trigger": "water",
+            "case_ids": [
+              "en-es:agua"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amigo",
+            "trigger": "friend",
+            "case_ids": [
+              "en-es:amigo"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "love",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "affection",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "case_ids": [
+              "en-es:canal"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          }
+        ],
+        "splits": {
+          "tune": {
+            "row_count": 44,
+            "summary": {
+              "trigger_rows_total": 44,
+              "ambiguous_trigger_rows": 18,
+              "clear_trigger_rows": 26,
+              "allow_rows": 36,
+              "abstain_rows": 8,
+              "true_abstain_count": 7,
+              "harmful_allow_count": 11,
+              "true_allow_count": 25,
+              "false_abstain_count": 1,
+              "overall_accuracy": 0.7272727272727273,
+              "abstain_recall": 0.3888888888888889,
+              "harmful_allow_rate": 0.6111111111111112,
+              "allow_precision": 0.6944444444444444,
+              "allow_rate": 0.8181818181818182,
+              "abstain_rate": 0.18181818181818182,
+              "overblocking_rate": 0.038461538461538464
+            }
+          },
+          "held_out": {
+            "row_count": 34,
+            "summary": {
+              "trigger_rows_total": 34,
+              "ambiguous_trigger_rows": 15,
+              "clear_trigger_rows": 19,
+              "allow_rows": 24,
+              "abstain_rows": 10,
+              "true_abstain_count": 8,
+              "harmful_allow_count": 7,
+              "true_allow_count": 17,
+              "false_abstain_count": 2,
+              "overall_accuracy": 0.7352941176470589,
+              "abstain_recall": 0.5333333333333333,
+              "harmful_allow_rate": 0.4666666666666667,
+              "allow_precision": 0.7083333333333334,
+              "allow_rate": 0.7058823529411765,
+              "abstain_rate": 0.29411764705882354,
+              "overblocking_rate": 0.10526315789473684
+            }
+          }
+        },
+        "deltas": {
+          "held_out_minus_tune": {
+            "overall_accuracy": 0.008021390374331583,
+            "abstain_recall": 0.14444444444444443,
+            "harmful_allow_rate": -0.1444444444444445,
+            "allow_precision": 0.01388888888888895,
+            "overblocking_rate": 0.06680161943319837
+          }
         }
       },
       "automatic_feature_slice_count": 51,
@@ -10751,6 +11092,117 @@
           "overall_accuracy": 1.0
         }
       },
+      "veto_generalization_split_summary": {
+        "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json",
+        "section_id": "reviewed_overlap_semantic_families",
+        "section_label": "Reviewed overlap ambiguity families",
+        "split_ids": [
+          "tune",
+          "held_out"
+        ],
+        "assigned_row_count": 78,
+        "unassigned_row_count": 97,
+        "unassigned_row_samples": [
+          {
+            "target": "agua",
+            "trigger": "water",
+            "case_ids": [
+              "en-es:agua"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amigo",
+            "trigger": "friend",
+            "case_ids": [
+              "en-es:amigo"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "love",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "affection",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "case_ids": [
+              "en-es:canal"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          }
+        ],
+        "splits": {
+          "tune": {
+            "row_count": 44,
+            "summary": {
+              "trigger_rows_total": 44,
+              "ambiguous_trigger_rows": 18,
+              "clear_trigger_rows": 26,
+              "allow_rows": 33,
+              "abstain_rows": 11,
+              "true_abstain_count": 10,
+              "harmful_allow_count": 8,
+              "true_allow_count": 25,
+              "false_abstain_count": 1,
+              "overall_accuracy": 0.7954545454545454,
+              "abstain_recall": 0.5555555555555556,
+              "harmful_allow_rate": 0.4444444444444444,
+              "allow_precision": 0.7575757575757576,
+              "allow_rate": 0.75,
+              "abstain_rate": 0.25,
+              "overblocking_rate": 0.038461538461538464
+            }
+          },
+          "held_out": {
+            "row_count": 34,
+            "summary": {
+              "trigger_rows_total": 34,
+              "ambiguous_trigger_rows": 15,
+              "clear_trigger_rows": 19,
+              "allow_rows": 24,
+              "abstain_rows": 10,
+              "true_abstain_count": 8,
+              "harmful_allow_count": 7,
+              "true_allow_count": 17,
+              "false_abstain_count": 2,
+              "overall_accuracy": 0.7352941176470589,
+              "abstain_recall": 0.5333333333333333,
+              "harmful_allow_rate": 0.4666666666666667,
+              "allow_precision": 0.7083333333333334,
+              "allow_rate": 0.7058823529411765,
+              "abstain_rate": 0.29411764705882354,
+              "overblocking_rate": 0.10526315789473684
+            }
+          }
+        },
+        "deltas": {
+          "held_out_minus_tune": {
+            "overall_accuracy": -0.06016042780748654,
+            "abstain_recall": -0.022222222222222254,
+            "harmful_allow_rate": 0.022222222222222254,
+            "allow_precision": -0.0492424242424242,
+            "overblocking_rate": 0.06680161943319837
+          }
+        }
+      },
       "automatic_feature_slice_count": 52,
       "harmful_allow_miss_counts": {
         "seed_missing": 5,
@@ -13843,6 +14295,117 @@
           "abstain_rate": 0.3333333333333333,
           "overblocking_rate": 0.0,
           "overall_accuracy": 1.0
+        }
+      },
+      "veto_generalization_split_summary": {
+        "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json",
+        "section_id": "reviewed_overlap_semantic_families",
+        "section_label": "Reviewed overlap ambiguity families",
+        "split_ids": [
+          "tune",
+          "held_out"
+        ],
+        "assigned_row_count": 78,
+        "unassigned_row_count": 97,
+        "unassigned_row_samples": [
+          {
+            "target": "agua",
+            "trigger": "water",
+            "case_ids": [
+              "en-es:agua"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amigo",
+            "trigger": "friend",
+            "case_ids": [
+              "en-es:amigo"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "love",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "affection",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "case_ids": [
+              "en-es:canal"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          }
+        ],
+        "splits": {
+          "tune": {
+            "row_count": 44,
+            "summary": {
+              "trigger_rows_total": 44,
+              "ambiguous_trigger_rows": 18,
+              "clear_trigger_rows": 26,
+              "allow_rows": 36,
+              "abstain_rows": 8,
+              "true_abstain_count": 7,
+              "harmful_allow_count": 11,
+              "true_allow_count": 25,
+              "false_abstain_count": 1,
+              "overall_accuracy": 0.7272727272727273,
+              "abstain_recall": 0.3888888888888889,
+              "harmful_allow_rate": 0.6111111111111112,
+              "allow_precision": 0.6944444444444444,
+              "allow_rate": 0.8181818181818182,
+              "abstain_rate": 0.18181818181818182,
+              "overblocking_rate": 0.038461538461538464
+            }
+          },
+          "held_out": {
+            "row_count": 34,
+            "summary": {
+              "trigger_rows_total": 34,
+              "ambiguous_trigger_rows": 15,
+              "clear_trigger_rows": 19,
+              "allow_rows": 24,
+              "abstain_rows": 10,
+              "true_abstain_count": 8,
+              "harmful_allow_count": 7,
+              "true_allow_count": 17,
+              "false_abstain_count": 2,
+              "overall_accuracy": 0.7352941176470589,
+              "abstain_recall": 0.5333333333333333,
+              "harmful_allow_rate": 0.4666666666666667,
+              "allow_precision": 0.7083333333333334,
+              "allow_rate": 0.7058823529411765,
+              "abstain_rate": 0.29411764705882354,
+              "overblocking_rate": 0.10526315789473684
+            }
+          }
+        },
+        "deltas": {
+          "held_out_minus_tune": {
+            "overall_accuracy": 0.008021390374331583,
+            "abstain_recall": 0.14444444444444443,
+            "harmful_allow_rate": -0.1444444444444445,
+            "allow_precision": 0.01388888888888895,
+            "overblocking_rate": 0.06680161943319837
+          }
         }
       },
       "automatic_feature_slice_count": 51,
@@ -16954,6 +17517,117 @@
           "abstain_rate": 0.3333333333333333,
           "overblocking_rate": 0.0,
           "overall_accuracy": 1.0
+        }
+      },
+      "veto_generalization_split_summary": {
+        "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json",
+        "section_id": "reviewed_overlap_semantic_families",
+        "section_label": "Reviewed overlap ambiguity families",
+        "split_ids": [
+          "tune",
+          "held_out"
+        ],
+        "assigned_row_count": 78,
+        "unassigned_row_count": 97,
+        "unassigned_row_samples": [
+          {
+            "target": "agua",
+            "trigger": "water",
+            "case_ids": [
+              "en-es:agua"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amigo",
+            "trigger": "friend",
+            "case_ids": [
+              "en-es:amigo"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "love",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "affection",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "case_ids": [
+              "en-es:canal"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          }
+        ],
+        "splits": {
+          "tune": {
+            "row_count": 44,
+            "summary": {
+              "trigger_rows_total": 44,
+              "ambiguous_trigger_rows": 18,
+              "clear_trigger_rows": 26,
+              "allow_rows": 36,
+              "abstain_rows": 8,
+              "true_abstain_count": 7,
+              "harmful_allow_count": 11,
+              "true_allow_count": 25,
+              "false_abstain_count": 1,
+              "overall_accuracy": 0.7272727272727273,
+              "abstain_recall": 0.3888888888888889,
+              "harmful_allow_rate": 0.6111111111111112,
+              "allow_precision": 0.6944444444444444,
+              "allow_rate": 0.8181818181818182,
+              "abstain_rate": 0.18181818181818182,
+              "overblocking_rate": 0.038461538461538464
+            }
+          },
+          "held_out": {
+            "row_count": 34,
+            "summary": {
+              "trigger_rows_total": 34,
+              "ambiguous_trigger_rows": 15,
+              "clear_trigger_rows": 19,
+              "allow_rows": 24,
+              "abstain_rows": 10,
+              "true_abstain_count": 8,
+              "harmful_allow_count": 7,
+              "true_allow_count": 17,
+              "false_abstain_count": 2,
+              "overall_accuracy": 0.7352941176470589,
+              "abstain_recall": 0.5333333333333333,
+              "harmful_allow_rate": 0.4666666666666667,
+              "allow_precision": 0.7083333333333334,
+              "allow_rate": 0.7058823529411765,
+              "abstain_rate": 0.29411764705882354,
+              "overblocking_rate": 0.10526315789473684
+            }
+          }
+        },
+        "deltas": {
+          "held_out_minus_tune": {
+            "overall_accuracy": 0.008021390374331583,
+            "abstain_recall": 0.14444444444444443,
+            "harmful_allow_rate": -0.1444444444444445,
+            "allow_precision": 0.01388888888888895,
+            "overblocking_rate": 0.06680161943319837
+          }
         }
       },
       "automatic_feature_slice_count": 51,
@@ -20088,6 +20762,117 @@
           "abstain_rate": 0.5,
           "overblocking_rate": 0.25,
           "overall_accuracy": 0.8333333333333334
+        }
+      },
+      "veto_generalization_split_summary": {
+        "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json",
+        "section_id": "reviewed_overlap_semantic_families",
+        "section_label": "Reviewed overlap ambiguity families",
+        "split_ids": [
+          "tune",
+          "held_out"
+        ],
+        "assigned_row_count": 78,
+        "unassigned_row_count": 97,
+        "unassigned_row_samples": [
+          {
+            "target": "agua",
+            "trigger": "water",
+            "case_ids": [
+              "en-es:agua"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amigo",
+            "trigger": "friend",
+            "case_ids": [
+              "en-es:amigo"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "love",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "affection",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "case_ids": [
+              "en-es:canal"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          }
+        ],
+        "splits": {
+          "tune": {
+            "row_count": 44,
+            "summary": {
+              "trigger_rows_total": 44,
+              "ambiguous_trigger_rows": 18,
+              "clear_trigger_rows": 26,
+              "allow_rows": 26,
+              "abstain_rows": 18,
+              "true_abstain_count": 10,
+              "harmful_allow_count": 8,
+              "true_allow_count": 18,
+              "false_abstain_count": 8,
+              "overall_accuracy": 0.6363636363636364,
+              "abstain_recall": 0.5555555555555556,
+              "harmful_allow_rate": 0.4444444444444444,
+              "allow_precision": 0.6923076923076923,
+              "allow_rate": 0.5909090909090909,
+              "abstain_rate": 0.4090909090909091,
+              "overblocking_rate": 0.3076923076923077
+            }
+          },
+          "held_out": {
+            "row_count": 34,
+            "summary": {
+              "trigger_rows_total": 34,
+              "ambiguous_trigger_rows": 15,
+              "clear_trigger_rows": 19,
+              "allow_rows": 17,
+              "abstain_rows": 17,
+              "true_abstain_count": 10,
+              "harmful_allow_count": 5,
+              "true_allow_count": 12,
+              "false_abstain_count": 7,
+              "overall_accuracy": 0.6470588235294118,
+              "abstain_recall": 0.6666666666666666,
+              "harmful_allow_rate": 0.3333333333333333,
+              "allow_precision": 0.7058823529411765,
+              "allow_rate": 0.5,
+              "abstain_rate": 0.5,
+              "overblocking_rate": 0.3684210526315789
+            }
+          }
+        },
+        "deltas": {
+          "held_out_minus_tune": {
+            "overall_accuracy": 0.010695187165775444,
+            "abstain_recall": 0.11111111111111105,
+            "harmful_allow_rate": -0.1111111111111111,
+            "allow_precision": 0.013574660633484226,
+            "overblocking_rate": 0.06072874493927122
+          }
         }
       },
       "automatic_feature_slice_count": 52,
@@ -23315,6 +24100,117 @@
           "overall_accuracy": 1.0
         }
       },
+      "veto_generalization_split_summary": {
+        "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json",
+        "section_id": "reviewed_overlap_semantic_families",
+        "section_label": "Reviewed overlap ambiguity families",
+        "split_ids": [
+          "tune",
+          "held_out"
+        ],
+        "assigned_row_count": 78,
+        "unassigned_row_count": 97,
+        "unassigned_row_samples": [
+          {
+            "target": "agua",
+            "trigger": "water",
+            "case_ids": [
+              "en-es:agua"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amigo",
+            "trigger": "friend",
+            "case_ids": [
+              "en-es:amigo"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "love",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "affection",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "case_ids": [
+              "en-es:canal"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          }
+        ],
+        "splits": {
+          "tune": {
+            "row_count": 44,
+            "summary": {
+              "trigger_rows_total": 44,
+              "ambiguous_trigger_rows": 18,
+              "clear_trigger_rows": 26,
+              "allow_rows": 43,
+              "abstain_rows": 1,
+              "true_abstain_count": 1,
+              "harmful_allow_count": 17,
+              "true_allow_count": 26,
+              "false_abstain_count": 0,
+              "overall_accuracy": 0.6136363636363636,
+              "abstain_recall": 0.05555555555555555,
+              "harmful_allow_rate": 0.9444444444444444,
+              "allow_precision": 0.6046511627906976,
+              "allow_rate": 0.9772727272727273,
+              "abstain_rate": 0.022727272727272728,
+              "overblocking_rate": 0.0
+            }
+          },
+          "held_out": {
+            "row_count": 34,
+            "summary": {
+              "trigger_rows_total": 34,
+              "ambiguous_trigger_rows": 15,
+              "clear_trigger_rows": 19,
+              "allow_rows": 27,
+              "abstain_rows": 7,
+              "true_abstain_count": 5,
+              "harmful_allow_count": 10,
+              "true_allow_count": 17,
+              "false_abstain_count": 2,
+              "overall_accuracy": 0.6470588235294118,
+              "abstain_recall": 0.3333333333333333,
+              "harmful_allow_rate": 0.6666666666666666,
+              "allow_precision": 0.6296296296296297,
+              "allow_rate": 0.7941176470588235,
+              "abstain_rate": 0.20588235294117646,
+              "overblocking_rate": 0.10526315789473684
+            }
+          }
+        },
+        "deltas": {
+          "held_out_minus_tune": {
+            "overall_accuracy": 0.03342245989304815,
+            "abstain_recall": 0.2777777777777778,
+            "harmful_allow_rate": -0.2777777777777778,
+            "allow_precision": 0.024978466838932012,
+            "overblocking_rate": 0.10526315789473684
+          }
+        }
+      },
       "automatic_feature_slice_count": 52,
       "harmful_allow_miss_counts": {
         "seed_missing": 0,
@@ -26186,6 +27082,117 @@
           "abstain_rate": 0.3333333333333333,
           "overblocking_rate": 0.0,
           "overall_accuracy": 1.0
+        }
+      },
+      "veto_generalization_split_summary": {
+        "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json",
+        "section_id": "reviewed_overlap_semantic_families",
+        "section_label": "Reviewed overlap ambiguity families",
+        "split_ids": [
+          "tune",
+          "held_out"
+        ],
+        "assigned_row_count": 78,
+        "unassigned_row_count": 97,
+        "unassigned_row_samples": [
+          {
+            "target": "agua",
+            "trigger": "water",
+            "case_ids": [
+              "en-es:agua"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amigo",
+            "trigger": "friend",
+            "case_ids": [
+              "en-es:amigo"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "love",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "affection",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "case_ids": [
+              "en-es:canal"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          }
+        ],
+        "splits": {
+          "tune": {
+            "row_count": 44,
+            "summary": {
+              "trigger_rows_total": 44,
+              "ambiguous_trigger_rows": 18,
+              "clear_trigger_rows": 26,
+              "allow_rows": 33,
+              "abstain_rows": 11,
+              "true_abstain_count": 10,
+              "harmful_allow_count": 8,
+              "true_allow_count": 25,
+              "false_abstain_count": 1,
+              "overall_accuracy": 0.7954545454545454,
+              "abstain_recall": 0.5555555555555556,
+              "harmful_allow_rate": 0.4444444444444444,
+              "allow_precision": 0.7575757575757576,
+              "allow_rate": 0.75,
+              "abstain_rate": 0.25,
+              "overblocking_rate": 0.038461538461538464
+            }
+          },
+          "held_out": {
+            "row_count": 34,
+            "summary": {
+              "trigger_rows_total": 34,
+              "ambiguous_trigger_rows": 15,
+              "clear_trigger_rows": 19,
+              "allow_rows": 24,
+              "abstain_rows": 10,
+              "true_abstain_count": 8,
+              "harmful_allow_count": 7,
+              "true_allow_count": 17,
+              "false_abstain_count": 2,
+              "overall_accuracy": 0.7352941176470589,
+              "abstain_recall": 0.5333333333333333,
+              "harmful_allow_rate": 0.4666666666666667,
+              "allow_precision": 0.7083333333333334,
+              "allow_rate": 0.7058823529411765,
+              "abstain_rate": 0.29411764705882354,
+              "overblocking_rate": 0.10526315789473684
+            }
+          }
+        },
+        "deltas": {
+          "held_out_minus_tune": {
+            "overall_accuracy": -0.06016042780748654,
+            "abstain_recall": -0.022222222222222254,
+            "harmful_allow_rate": 0.022222222222222254,
+            "allow_precision": -0.0492424242424242,
+            "overblocking_rate": 0.06680161943319837
+          }
         }
       },
       "automatic_feature_slice_count": 51,
@@ -29299,6 +30306,117 @@
           "abstain_rate": 0.3333333333333333,
           "overblocking_rate": 0.0,
           "overall_accuracy": 1.0
+        }
+      },
+      "veto_generalization_split_summary": {
+        "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json",
+        "section_id": "reviewed_overlap_semantic_families",
+        "section_label": "Reviewed overlap ambiguity families",
+        "split_ids": [
+          "tune",
+          "held_out"
+        ],
+        "assigned_row_count": 78,
+        "unassigned_row_count": 97,
+        "unassigned_row_samples": [
+          {
+            "target": "agua",
+            "trigger": "water",
+            "case_ids": [
+              "en-es:agua"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amigo",
+            "trigger": "friend",
+            "case_ids": [
+              "en-es:amigo"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "love",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "affection",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "case_ids": [
+              "en-es:canal"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          }
+        ],
+        "splits": {
+          "tune": {
+            "row_count": 44,
+            "summary": {
+              "trigger_rows_total": 44,
+              "ambiguous_trigger_rows": 18,
+              "clear_trigger_rows": 26,
+              "allow_rows": 33,
+              "abstain_rows": 11,
+              "true_abstain_count": 10,
+              "harmful_allow_count": 8,
+              "true_allow_count": 25,
+              "false_abstain_count": 1,
+              "overall_accuracy": 0.7954545454545454,
+              "abstain_recall": 0.5555555555555556,
+              "harmful_allow_rate": 0.4444444444444444,
+              "allow_precision": 0.7575757575757576,
+              "allow_rate": 0.75,
+              "abstain_rate": 0.25,
+              "overblocking_rate": 0.038461538461538464
+            }
+          },
+          "held_out": {
+            "row_count": 34,
+            "summary": {
+              "trigger_rows_total": 34,
+              "ambiguous_trigger_rows": 15,
+              "clear_trigger_rows": 19,
+              "allow_rows": 24,
+              "abstain_rows": 10,
+              "true_abstain_count": 8,
+              "harmful_allow_count": 7,
+              "true_allow_count": 17,
+              "false_abstain_count": 2,
+              "overall_accuracy": 0.7352941176470589,
+              "abstain_recall": 0.5333333333333333,
+              "harmful_allow_rate": 0.4666666666666667,
+              "allow_precision": 0.7083333333333334,
+              "allow_rate": 0.7058823529411765,
+              "abstain_rate": 0.29411764705882354,
+              "overblocking_rate": 0.10526315789473684
+            }
+          }
+        },
+        "deltas": {
+          "held_out_minus_tune": {
+            "overall_accuracy": -0.06016042780748654,
+            "abstain_recall": -0.022222222222222254,
+            "harmful_allow_rate": 0.022222222222222254,
+            "allow_precision": -0.0492424242424242,
+            "overblocking_rate": 0.06680161943319837
+          }
         }
       },
       "automatic_feature_slice_count": 52,
@@ -32416,6 +33534,117 @@
           "overall_accuracy": 1.0
         }
       },
+      "veto_generalization_split_summary": {
+        "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json",
+        "section_id": "reviewed_overlap_semantic_families",
+        "section_label": "Reviewed overlap ambiguity families",
+        "split_ids": [
+          "tune",
+          "held_out"
+        ],
+        "assigned_row_count": 78,
+        "unassigned_row_count": 97,
+        "unassigned_row_samples": [
+          {
+            "target": "agua",
+            "trigger": "water",
+            "case_ids": [
+              "en-es:agua"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amigo",
+            "trigger": "friend",
+            "case_ids": [
+              "en-es:amigo"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "love",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "affection",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "case_ids": [
+              "en-es:canal"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          }
+        ],
+        "splits": {
+          "tune": {
+            "row_count": 44,
+            "summary": {
+              "trigger_rows_total": 44,
+              "ambiguous_trigger_rows": 18,
+              "clear_trigger_rows": 26,
+              "allow_rows": 33,
+              "abstain_rows": 11,
+              "true_abstain_count": 10,
+              "harmful_allow_count": 8,
+              "true_allow_count": 25,
+              "false_abstain_count": 1,
+              "overall_accuracy": 0.7954545454545454,
+              "abstain_recall": 0.5555555555555556,
+              "harmful_allow_rate": 0.4444444444444444,
+              "allow_precision": 0.7575757575757576,
+              "allow_rate": 0.75,
+              "abstain_rate": 0.25,
+              "overblocking_rate": 0.038461538461538464
+            }
+          },
+          "held_out": {
+            "row_count": 34,
+            "summary": {
+              "trigger_rows_total": 34,
+              "ambiguous_trigger_rows": 15,
+              "clear_trigger_rows": 19,
+              "allow_rows": 24,
+              "abstain_rows": 10,
+              "true_abstain_count": 8,
+              "harmful_allow_count": 7,
+              "true_allow_count": 17,
+              "false_abstain_count": 2,
+              "overall_accuracy": 0.7352941176470589,
+              "abstain_recall": 0.5333333333333333,
+              "harmful_allow_rate": 0.4666666666666667,
+              "allow_precision": 0.7083333333333334,
+              "allow_rate": 0.7058823529411765,
+              "abstain_rate": 0.29411764705882354,
+              "overblocking_rate": 0.10526315789473684
+            }
+          }
+        },
+        "deltas": {
+          "held_out_minus_tune": {
+            "overall_accuracy": -0.06016042780748654,
+            "abstain_recall": -0.022222222222222254,
+            "harmful_allow_rate": 0.022222222222222254,
+            "allow_precision": -0.0492424242424242,
+            "overblocking_rate": 0.06680161943319837
+          }
+        }
+      },
       "automatic_feature_slice_count": 52,
       "harmful_allow_miss_counts": {
         "seed_missing": 5,
@@ -35529,6 +36758,117 @@
           "abstain_rate": 0.3333333333333333,
           "overblocking_rate": 0.0,
           "overall_accuracy": 1.0
+        }
+      },
+      "veto_generalization_split_summary": {
+        "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json",
+        "section_id": "reviewed_overlap_semantic_families",
+        "section_label": "Reviewed overlap ambiguity families",
+        "split_ids": [
+          "tune",
+          "held_out"
+        ],
+        "assigned_row_count": 78,
+        "unassigned_row_count": 97,
+        "unassigned_row_samples": [
+          {
+            "target": "agua",
+            "trigger": "water",
+            "case_ids": [
+              "en-es:agua"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amigo",
+            "trigger": "friend",
+            "case_ids": [
+              "en-es:amigo"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "love",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "affection",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "case_ids": [
+              "en-es:canal"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          }
+        ],
+        "splits": {
+          "tune": {
+            "row_count": 44,
+            "summary": {
+              "trigger_rows_total": 44,
+              "ambiguous_trigger_rows": 18,
+              "clear_trigger_rows": 26,
+              "allow_rows": 33,
+              "abstain_rows": 11,
+              "true_abstain_count": 10,
+              "harmful_allow_count": 8,
+              "true_allow_count": 25,
+              "false_abstain_count": 1,
+              "overall_accuracy": 0.7954545454545454,
+              "abstain_recall": 0.5555555555555556,
+              "harmful_allow_rate": 0.4444444444444444,
+              "allow_precision": 0.7575757575757576,
+              "allow_rate": 0.75,
+              "abstain_rate": 0.25,
+              "overblocking_rate": 0.038461538461538464
+            }
+          },
+          "held_out": {
+            "row_count": 34,
+            "summary": {
+              "trigger_rows_total": 34,
+              "ambiguous_trigger_rows": 15,
+              "clear_trigger_rows": 19,
+              "allow_rows": 24,
+              "abstain_rows": 10,
+              "true_abstain_count": 8,
+              "harmful_allow_count": 7,
+              "true_allow_count": 17,
+              "false_abstain_count": 2,
+              "overall_accuracy": 0.7352941176470589,
+              "abstain_recall": 0.5333333333333333,
+              "harmful_allow_rate": 0.4666666666666667,
+              "allow_precision": 0.7083333333333334,
+              "allow_rate": 0.7058823529411765,
+              "abstain_rate": 0.29411764705882354,
+              "overblocking_rate": 0.10526315789473684
+            }
+          }
+        },
+        "deltas": {
+          "held_out_minus_tune": {
+            "overall_accuracy": -0.06016042780748654,
+            "abstain_recall": -0.022222222222222254,
+            "harmful_allow_rate": 0.022222222222222254,
+            "allow_precision": -0.0492424242424242,
+            "overblocking_rate": 0.06680161943319837
+          }
         }
       },
       "automatic_feature_slice_count": 52,
@@ -38646,6 +39986,117 @@
           "overall_accuracy": 1.0
         }
       },
+      "veto_generalization_split_summary": {
+        "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json",
+        "section_id": "reviewed_overlap_semantic_families",
+        "section_label": "Reviewed overlap ambiguity families",
+        "split_ids": [
+          "tune",
+          "held_out"
+        ],
+        "assigned_row_count": 78,
+        "unassigned_row_count": 97,
+        "unassigned_row_samples": [
+          {
+            "target": "agua",
+            "trigger": "water",
+            "case_ids": [
+              "en-es:agua"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amigo",
+            "trigger": "friend",
+            "case_ids": [
+              "en-es:amigo"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "love",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "affection",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "case_ids": [
+              "en-es:canal"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          }
+        ],
+        "splits": {
+          "tune": {
+            "row_count": 44,
+            "summary": {
+              "trigger_rows_total": 44,
+              "ambiguous_trigger_rows": 18,
+              "clear_trigger_rows": 26,
+              "allow_rows": 33,
+              "abstain_rows": 11,
+              "true_abstain_count": 10,
+              "harmful_allow_count": 8,
+              "true_allow_count": 25,
+              "false_abstain_count": 1,
+              "overall_accuracy": 0.7954545454545454,
+              "abstain_recall": 0.5555555555555556,
+              "harmful_allow_rate": 0.4444444444444444,
+              "allow_precision": 0.7575757575757576,
+              "allow_rate": 0.75,
+              "abstain_rate": 0.25,
+              "overblocking_rate": 0.038461538461538464
+            }
+          },
+          "held_out": {
+            "row_count": 34,
+            "summary": {
+              "trigger_rows_total": 34,
+              "ambiguous_trigger_rows": 15,
+              "clear_trigger_rows": 19,
+              "allow_rows": 24,
+              "abstain_rows": 10,
+              "true_abstain_count": 8,
+              "harmful_allow_count": 7,
+              "true_allow_count": 17,
+              "false_abstain_count": 2,
+              "overall_accuracy": 0.7352941176470589,
+              "abstain_recall": 0.5333333333333333,
+              "harmful_allow_rate": 0.4666666666666667,
+              "allow_precision": 0.7083333333333334,
+              "allow_rate": 0.7058823529411765,
+              "abstain_rate": 0.29411764705882354,
+              "overblocking_rate": 0.10526315789473684
+            }
+          }
+        },
+        "deltas": {
+          "held_out_minus_tune": {
+            "overall_accuracy": -0.06016042780748654,
+            "abstain_recall": -0.022222222222222254,
+            "harmful_allow_rate": 0.022222222222222254,
+            "allow_precision": -0.0492424242424242,
+            "overblocking_rate": 0.06680161943319837
+          }
+        }
+      },
       "automatic_feature_slice_count": 52,
       "harmful_allow_miss_counts": {
         "seed_missing": 5,
@@ -41761,6 +43212,117 @@
           "overall_accuracy": 1.0
         }
       },
+      "veto_generalization_split_summary": {
+        "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json",
+        "section_id": "reviewed_overlap_semantic_families",
+        "section_label": "Reviewed overlap ambiguity families",
+        "split_ids": [
+          "tune",
+          "held_out"
+        ],
+        "assigned_row_count": 78,
+        "unassigned_row_count": 97,
+        "unassigned_row_samples": [
+          {
+            "target": "agua",
+            "trigger": "water",
+            "case_ids": [
+              "en-es:agua"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amigo",
+            "trigger": "friend",
+            "case_ids": [
+              "en-es:amigo"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "love",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "affection",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "case_ids": [
+              "en-es:canal"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          }
+        ],
+        "splits": {
+          "tune": {
+            "row_count": 44,
+            "summary": {
+              "trigger_rows_total": 44,
+              "ambiguous_trigger_rows": 18,
+              "clear_trigger_rows": 26,
+              "allow_rows": 43,
+              "abstain_rows": 1,
+              "true_abstain_count": 1,
+              "harmful_allow_count": 17,
+              "true_allow_count": 26,
+              "false_abstain_count": 0,
+              "overall_accuracy": 0.6136363636363636,
+              "abstain_recall": 0.05555555555555555,
+              "harmful_allow_rate": 0.9444444444444444,
+              "allow_precision": 0.6046511627906976,
+              "allow_rate": 0.9772727272727273,
+              "abstain_rate": 0.022727272727272728,
+              "overblocking_rate": 0.0
+            }
+          },
+          "held_out": {
+            "row_count": 34,
+            "summary": {
+              "trigger_rows_total": 34,
+              "ambiguous_trigger_rows": 15,
+              "clear_trigger_rows": 19,
+              "allow_rows": 27,
+              "abstain_rows": 7,
+              "true_abstain_count": 5,
+              "harmful_allow_count": 10,
+              "true_allow_count": 17,
+              "false_abstain_count": 2,
+              "overall_accuracy": 0.6470588235294118,
+              "abstain_recall": 0.3333333333333333,
+              "harmful_allow_rate": 0.6666666666666666,
+              "allow_precision": 0.6296296296296297,
+              "allow_rate": 0.7941176470588235,
+              "abstain_rate": 0.20588235294117646,
+              "overblocking_rate": 0.10526315789473684
+            }
+          }
+        },
+        "deltas": {
+          "held_out_minus_tune": {
+            "overall_accuracy": 0.03342245989304815,
+            "abstain_recall": 0.2777777777777778,
+            "harmful_allow_rate": -0.2777777777777778,
+            "allow_precision": 0.024978466838932012,
+            "overblocking_rate": 0.10526315789473684
+          }
+        }
+      },
       "automatic_feature_slice_count": 52,
       "harmful_allow_miss_counts": {
         "seed_missing": 0,
@@ -44653,6 +46215,117 @@
           "abstain_rate": 0.3333333333333333,
           "overblocking_rate": 0.0,
           "overall_accuracy": 1.0
+        }
+      },
+      "veto_generalization_split_summary": {
+        "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json",
+        "section_id": "reviewed_overlap_semantic_families",
+        "section_label": "Reviewed overlap ambiguity families",
+        "split_ids": [
+          "tune",
+          "held_out"
+        ],
+        "assigned_row_count": 78,
+        "unassigned_row_count": 97,
+        "unassigned_row_samples": [
+          {
+            "target": "agua",
+            "trigger": "water",
+            "case_ids": [
+              "en-es:agua"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amigo",
+            "trigger": "friend",
+            "case_ids": [
+              "en-es:amigo"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "love",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "affection",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "case_ids": [
+              "en-es:canal"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          }
+        ],
+        "splits": {
+          "tune": {
+            "row_count": 44,
+            "summary": {
+              "trigger_rows_total": 44,
+              "ambiguous_trigger_rows": 18,
+              "clear_trigger_rows": 26,
+              "allow_rows": 33,
+              "abstain_rows": 11,
+              "true_abstain_count": 10,
+              "harmful_allow_count": 8,
+              "true_allow_count": 25,
+              "false_abstain_count": 1,
+              "overall_accuracy": 0.7954545454545454,
+              "abstain_recall": 0.5555555555555556,
+              "harmful_allow_rate": 0.4444444444444444,
+              "allow_precision": 0.7575757575757576,
+              "allow_rate": 0.75,
+              "abstain_rate": 0.25,
+              "overblocking_rate": 0.038461538461538464
+            }
+          },
+          "held_out": {
+            "row_count": 34,
+            "summary": {
+              "trigger_rows_total": 34,
+              "ambiguous_trigger_rows": 15,
+              "clear_trigger_rows": 19,
+              "allow_rows": 24,
+              "abstain_rows": 10,
+              "true_abstain_count": 8,
+              "harmful_allow_count": 7,
+              "true_allow_count": 17,
+              "false_abstain_count": 2,
+              "overall_accuracy": 0.7352941176470589,
+              "abstain_recall": 0.5333333333333333,
+              "harmful_allow_rate": 0.4666666666666667,
+              "allow_precision": 0.7083333333333334,
+              "allow_rate": 0.7058823529411765,
+              "abstain_rate": 0.29411764705882354,
+              "overblocking_rate": 0.10526315789473684
+            }
+          }
+        },
+        "deltas": {
+          "held_out_minus_tune": {
+            "overall_accuracy": -0.06016042780748654,
+            "abstain_recall": -0.022222222222222254,
+            "harmful_allow_rate": 0.022222222222222254,
+            "allow_precision": -0.0492424242424242,
+            "overblocking_rate": 0.06680161943319837
+          }
         }
       },
       "automatic_feature_slice_count": 52,
@@ -47768,6 +49441,117 @@
           "abstain_rate": 0.3333333333333333,
           "overblocking_rate": 0.0,
           "overall_accuracy": 1.0
+        }
+      },
+      "veto_generalization_split_summary": {
+        "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json",
+        "section_id": "reviewed_overlap_semantic_families",
+        "section_label": "Reviewed overlap ambiguity families",
+        "split_ids": [
+          "tune",
+          "held_out"
+        ],
+        "assigned_row_count": 78,
+        "unassigned_row_count": 97,
+        "unassigned_row_samples": [
+          {
+            "target": "agua",
+            "trigger": "water",
+            "case_ids": [
+              "en-es:agua"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amigo",
+            "trigger": "friend",
+            "case_ids": [
+              "en-es:amigo"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "love",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "affection",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "case_ids": [
+              "en-es:canal"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          }
+        ],
+        "splits": {
+          "tune": {
+            "row_count": 44,
+            "summary": {
+              "trigger_rows_total": 44,
+              "ambiguous_trigger_rows": 18,
+              "clear_trigger_rows": 26,
+              "allow_rows": 36,
+              "abstain_rows": 8,
+              "true_abstain_count": 7,
+              "harmful_allow_count": 11,
+              "true_allow_count": 25,
+              "false_abstain_count": 1,
+              "overall_accuracy": 0.7272727272727273,
+              "abstain_recall": 0.3888888888888889,
+              "harmful_allow_rate": 0.6111111111111112,
+              "allow_precision": 0.6944444444444444,
+              "allow_rate": 0.8181818181818182,
+              "abstain_rate": 0.18181818181818182,
+              "overblocking_rate": 0.038461538461538464
+            }
+          },
+          "held_out": {
+            "row_count": 34,
+            "summary": {
+              "trigger_rows_total": 34,
+              "ambiguous_trigger_rows": 15,
+              "clear_trigger_rows": 19,
+              "allow_rows": 24,
+              "abstain_rows": 10,
+              "true_abstain_count": 8,
+              "harmful_allow_count": 7,
+              "true_allow_count": 17,
+              "false_abstain_count": 2,
+              "overall_accuracy": 0.7352941176470589,
+              "abstain_recall": 0.5333333333333333,
+              "harmful_allow_rate": 0.4666666666666667,
+              "allow_precision": 0.7083333333333334,
+              "allow_rate": 0.7058823529411765,
+              "abstain_rate": 0.29411764705882354,
+              "overblocking_rate": 0.10526315789473684
+            }
+          }
+        },
+        "deltas": {
+          "held_out_minus_tune": {
+            "overall_accuracy": 0.008021390374331583,
+            "abstain_recall": 0.14444444444444443,
+            "harmful_allow_rate": -0.1444444444444445,
+            "allow_precision": 0.01388888888888895,
+            "overblocking_rate": 0.06680161943319837
+          }
         }
       },
       "automatic_feature_slice_count": 52,
@@ -50939,6 +52723,117 @@
           "overall_accuracy": 1.0
         }
       },
+      "veto_generalization_split_summary": {
+        "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json",
+        "section_id": "reviewed_overlap_semantic_families",
+        "section_label": "Reviewed overlap ambiguity families",
+        "split_ids": [
+          "tune",
+          "held_out"
+        ],
+        "assigned_row_count": 78,
+        "unassigned_row_count": 97,
+        "unassigned_row_samples": [
+          {
+            "target": "agua",
+            "trigger": "water",
+            "case_ids": [
+              "en-es:agua"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amigo",
+            "trigger": "friend",
+            "case_ids": [
+              "en-es:amigo"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "love",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "affection",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "case_ids": [
+              "en-es:canal"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          }
+        ],
+        "splits": {
+          "tune": {
+            "row_count": 44,
+            "summary": {
+              "trigger_rows_total": 44,
+              "ambiguous_trigger_rows": 18,
+              "clear_trigger_rows": 26,
+              "allow_rows": 33,
+              "abstain_rows": 11,
+              "true_abstain_count": 10,
+              "harmful_allow_count": 8,
+              "true_allow_count": 25,
+              "false_abstain_count": 1,
+              "overall_accuracy": 0.7954545454545454,
+              "abstain_recall": 0.5555555555555556,
+              "harmful_allow_rate": 0.4444444444444444,
+              "allow_precision": 0.7575757575757576,
+              "allow_rate": 0.75,
+              "abstain_rate": 0.25,
+              "overblocking_rate": 0.038461538461538464
+            }
+          },
+          "held_out": {
+            "row_count": 34,
+            "summary": {
+              "trigger_rows_total": 34,
+              "ambiguous_trigger_rows": 15,
+              "clear_trigger_rows": 19,
+              "allow_rows": 24,
+              "abstain_rows": 10,
+              "true_abstain_count": 8,
+              "harmful_allow_count": 7,
+              "true_allow_count": 17,
+              "false_abstain_count": 2,
+              "overall_accuracy": 0.7352941176470589,
+              "abstain_recall": 0.5333333333333333,
+              "harmful_allow_rate": 0.4666666666666667,
+              "allow_precision": 0.7083333333333334,
+              "allow_rate": 0.7058823529411765,
+              "abstain_rate": 0.29411764705882354,
+              "overblocking_rate": 0.10526315789473684
+            }
+          }
+        },
+        "deltas": {
+          "held_out_minus_tune": {
+            "overall_accuracy": -0.06016042780748654,
+            "abstain_recall": -0.022222222222222254,
+            "harmful_allow_rate": 0.022222222222222254,
+            "allow_precision": -0.0492424242424242,
+            "overblocking_rate": 0.06680161943319837
+          }
+        }
+      },
       "automatic_feature_slice_count": 52,
       "harmful_allow_miss_counts": {
         "seed_missing": 5,
@@ -54052,6 +55947,117 @@
           "abstain_rate": 0.3333333333333333,
           "overblocking_rate": 0.0,
           "overall_accuracy": 1.0
+        }
+      },
+      "veto_generalization_split_summary": {
+        "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json",
+        "section_id": "reviewed_overlap_semantic_families",
+        "section_label": "Reviewed overlap ambiguity families",
+        "split_ids": [
+          "tune",
+          "held_out"
+        ],
+        "assigned_row_count": 78,
+        "unassigned_row_count": 97,
+        "unassigned_row_samples": [
+          {
+            "target": "agua",
+            "trigger": "water",
+            "case_ids": [
+              "en-es:agua"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amigo",
+            "trigger": "friend",
+            "case_ids": [
+              "en-es:amigo"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "love",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "affection",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "case_ids": [
+              "en-es:canal"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          }
+        ],
+        "splits": {
+          "tune": {
+            "row_count": 44,
+            "summary": {
+              "trigger_rows_total": 44,
+              "ambiguous_trigger_rows": 18,
+              "clear_trigger_rows": 26,
+              "allow_rows": 33,
+              "abstain_rows": 11,
+              "true_abstain_count": 10,
+              "harmful_allow_count": 8,
+              "true_allow_count": 25,
+              "false_abstain_count": 1,
+              "overall_accuracy": 0.7954545454545454,
+              "abstain_recall": 0.5555555555555556,
+              "harmful_allow_rate": 0.4444444444444444,
+              "allow_precision": 0.7575757575757576,
+              "allow_rate": 0.75,
+              "abstain_rate": 0.25,
+              "overblocking_rate": 0.038461538461538464
+            }
+          },
+          "held_out": {
+            "row_count": 34,
+            "summary": {
+              "trigger_rows_total": 34,
+              "ambiguous_trigger_rows": 15,
+              "clear_trigger_rows": 19,
+              "allow_rows": 24,
+              "abstain_rows": 10,
+              "true_abstain_count": 8,
+              "harmful_allow_count": 7,
+              "true_allow_count": 17,
+              "false_abstain_count": 2,
+              "overall_accuracy": 0.7352941176470589,
+              "abstain_recall": 0.5333333333333333,
+              "harmful_allow_rate": 0.4666666666666667,
+              "allow_precision": 0.7083333333333334,
+              "allow_rate": 0.7058823529411765,
+              "abstain_rate": 0.29411764705882354,
+              "overblocking_rate": 0.10526315789473684
+            }
+          }
+        },
+        "deltas": {
+          "held_out_minus_tune": {
+            "overall_accuracy": -0.06016042780748654,
+            "abstain_recall": -0.022222222222222254,
+            "harmful_allow_rate": 0.022222222222222254,
+            "allow_precision": -0.0492424242424242,
+            "overblocking_rate": 0.06680161943319837
+          }
         }
       },
       "automatic_feature_slice_count": 52,
@@ -57169,6 +59175,117 @@
           "overall_accuracy": 1.0
         }
       },
+      "veto_generalization_split_summary": {
+        "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json",
+        "section_id": "reviewed_overlap_semantic_families",
+        "section_label": "Reviewed overlap ambiguity families",
+        "split_ids": [
+          "tune",
+          "held_out"
+        ],
+        "assigned_row_count": 78,
+        "unassigned_row_count": 97,
+        "unassigned_row_samples": [
+          {
+            "target": "agua",
+            "trigger": "water",
+            "case_ids": [
+              "en-es:agua"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amigo",
+            "trigger": "friend",
+            "case_ids": [
+              "en-es:amigo"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "love",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "affection",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "case_ids": [
+              "en-es:canal"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          }
+        ],
+        "splits": {
+          "tune": {
+            "row_count": 44,
+            "summary": {
+              "trigger_rows_total": 44,
+              "ambiguous_trigger_rows": 18,
+              "clear_trigger_rows": 26,
+              "allow_rows": 33,
+              "abstain_rows": 11,
+              "true_abstain_count": 10,
+              "harmful_allow_count": 8,
+              "true_allow_count": 25,
+              "false_abstain_count": 1,
+              "overall_accuracy": 0.7954545454545454,
+              "abstain_recall": 0.5555555555555556,
+              "harmful_allow_rate": 0.4444444444444444,
+              "allow_precision": 0.7575757575757576,
+              "allow_rate": 0.75,
+              "abstain_rate": 0.25,
+              "overblocking_rate": 0.038461538461538464
+            }
+          },
+          "held_out": {
+            "row_count": 34,
+            "summary": {
+              "trigger_rows_total": 34,
+              "ambiguous_trigger_rows": 15,
+              "clear_trigger_rows": 19,
+              "allow_rows": 24,
+              "abstain_rows": 10,
+              "true_abstain_count": 8,
+              "harmful_allow_count": 7,
+              "true_allow_count": 17,
+              "false_abstain_count": 2,
+              "overall_accuracy": 0.7352941176470589,
+              "abstain_recall": 0.5333333333333333,
+              "harmful_allow_rate": 0.4666666666666667,
+              "allow_precision": 0.7083333333333334,
+              "allow_rate": 0.7058823529411765,
+              "abstain_rate": 0.29411764705882354,
+              "overblocking_rate": 0.10526315789473684
+            }
+          }
+        },
+        "deltas": {
+          "held_out_minus_tune": {
+            "overall_accuracy": -0.06016042780748654,
+            "abstain_recall": -0.022222222222222254,
+            "harmful_allow_rate": 0.022222222222222254,
+            "allow_precision": -0.0492424242424242,
+            "overblocking_rate": 0.06680161943319837
+          }
+        }
+      },
       "automatic_feature_slice_count": 52,
       "harmful_allow_miss_counts": {
         "seed_missing": 5,
@@ -60282,6 +62399,117 @@
           "overall_accuracy": 1.0
         }
       },
+      "veto_generalization_split_summary": {
+        "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json",
+        "section_id": "reviewed_overlap_semantic_families",
+        "section_label": "Reviewed overlap ambiguity families",
+        "split_ids": [
+          "tune",
+          "held_out"
+        ],
+        "assigned_row_count": 78,
+        "unassigned_row_count": 97,
+        "unassigned_row_samples": [
+          {
+            "target": "agua",
+            "trigger": "water",
+            "case_ids": [
+              "en-es:agua"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amigo",
+            "trigger": "friend",
+            "case_ids": [
+              "en-es:amigo"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "love",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "affection",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "case_ids": [
+              "en-es:canal"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          }
+        ],
+        "splits": {
+          "tune": {
+            "row_count": 44,
+            "summary": {
+              "trigger_rows_total": 44,
+              "ambiguous_trigger_rows": 18,
+              "clear_trigger_rows": 26,
+              "allow_rows": 33,
+              "abstain_rows": 11,
+              "true_abstain_count": 10,
+              "harmful_allow_count": 8,
+              "true_allow_count": 25,
+              "false_abstain_count": 1,
+              "overall_accuracy": 0.7954545454545454,
+              "abstain_recall": 0.5555555555555556,
+              "harmful_allow_rate": 0.4444444444444444,
+              "allow_precision": 0.7575757575757576,
+              "allow_rate": 0.75,
+              "abstain_rate": 0.25,
+              "overblocking_rate": 0.038461538461538464
+            }
+          },
+          "held_out": {
+            "row_count": 34,
+            "summary": {
+              "trigger_rows_total": 34,
+              "ambiguous_trigger_rows": 15,
+              "clear_trigger_rows": 19,
+              "allow_rows": 24,
+              "abstain_rows": 10,
+              "true_abstain_count": 8,
+              "harmful_allow_count": 7,
+              "true_allow_count": 17,
+              "false_abstain_count": 2,
+              "overall_accuracy": 0.7352941176470589,
+              "abstain_recall": 0.5333333333333333,
+              "harmful_allow_rate": 0.4666666666666667,
+              "allow_precision": 0.7083333333333334,
+              "allow_rate": 0.7058823529411765,
+              "abstain_rate": 0.29411764705882354,
+              "overblocking_rate": 0.10526315789473684
+            }
+          }
+        },
+        "deltas": {
+          "held_out_minus_tune": {
+            "overall_accuracy": -0.06016042780748654,
+            "abstain_recall": -0.022222222222222254,
+            "harmful_allow_rate": 0.022222222222222254,
+            "allow_precision": -0.0492424242424242,
+            "overblocking_rate": 0.06680161943319837
+          }
+        }
+      },
       "automatic_feature_slice_count": 52,
       "harmful_allow_miss_counts": {
         "seed_missing": 5,
@@ -63393,6 +65621,117 @@
           "abstain_rate": 0.3333333333333333,
           "overblocking_rate": 0.0,
           "overall_accuracy": 1.0
+        }
+      },
+      "veto_generalization_split_summary": {
+        "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json",
+        "section_id": "reviewed_overlap_semantic_families",
+        "section_label": "Reviewed overlap ambiguity families",
+        "split_ids": [
+          "tune",
+          "held_out"
+        ],
+        "assigned_row_count": 78,
+        "unassigned_row_count": 97,
+        "unassigned_row_samples": [
+          {
+            "target": "agua",
+            "trigger": "water",
+            "case_ids": [
+              "en-es:agua"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amigo",
+            "trigger": "friend",
+            "case_ids": [
+              "en-es:amigo"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "love",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "affection",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "case_ids": [
+              "en-es:canal"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          }
+        ],
+        "splits": {
+          "tune": {
+            "row_count": 44,
+            "summary": {
+              "trigger_rows_total": 44,
+              "ambiguous_trigger_rows": 18,
+              "clear_trigger_rows": 26,
+              "allow_rows": 33,
+              "abstain_rows": 11,
+              "true_abstain_count": 10,
+              "harmful_allow_count": 8,
+              "true_allow_count": 25,
+              "false_abstain_count": 1,
+              "overall_accuracy": 0.7954545454545454,
+              "abstain_recall": 0.5555555555555556,
+              "harmful_allow_rate": 0.4444444444444444,
+              "allow_precision": 0.7575757575757576,
+              "allow_rate": 0.75,
+              "abstain_rate": 0.25,
+              "overblocking_rate": 0.038461538461538464
+            }
+          },
+          "held_out": {
+            "row_count": 34,
+            "summary": {
+              "trigger_rows_total": 34,
+              "ambiguous_trigger_rows": 15,
+              "clear_trigger_rows": 19,
+              "allow_rows": 24,
+              "abstain_rows": 10,
+              "true_abstain_count": 8,
+              "harmful_allow_count": 7,
+              "true_allow_count": 17,
+              "false_abstain_count": 2,
+              "overall_accuracy": 0.7352941176470589,
+              "abstain_recall": 0.5333333333333333,
+              "harmful_allow_rate": 0.4666666666666667,
+              "allow_precision": 0.7083333333333334,
+              "allow_rate": 0.7058823529411765,
+              "abstain_rate": 0.29411764705882354,
+              "overblocking_rate": 0.10526315789473684
+            }
+          }
+        },
+        "deltas": {
+          "held_out_minus_tune": {
+            "overall_accuracy": -0.06016042780748654,
+            "abstain_recall": -0.022222222222222254,
+            "harmful_allow_rate": 0.022222222222222254,
+            "allow_precision": -0.0492424242424242,
+            "overblocking_rate": 0.06680161943319837
+          }
         }
       },
       "automatic_feature_slice_count": 52,
@@ -66510,6 +68849,117 @@
           "overall_accuracy": 1.0
         }
       },
+      "veto_generalization_split_summary": {
+        "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json",
+        "section_id": "reviewed_overlap_semantic_families",
+        "section_label": "Reviewed overlap ambiguity families",
+        "split_ids": [
+          "tune",
+          "held_out"
+        ],
+        "assigned_row_count": 78,
+        "unassigned_row_count": 97,
+        "unassigned_row_samples": [
+          {
+            "target": "agua",
+            "trigger": "water",
+            "case_ids": [
+              "en-es:agua"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amigo",
+            "trigger": "friend",
+            "case_ids": [
+              "en-es:amigo"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "love",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "affection",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "case_ids": [
+              "en-es:canal"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          }
+        ],
+        "splits": {
+          "tune": {
+            "row_count": 44,
+            "summary": {
+              "trigger_rows_total": 44,
+              "ambiguous_trigger_rows": 18,
+              "clear_trigger_rows": 26,
+              "allow_rows": 33,
+              "abstain_rows": 11,
+              "true_abstain_count": 10,
+              "harmful_allow_count": 8,
+              "true_allow_count": 25,
+              "false_abstain_count": 1,
+              "overall_accuracy": 0.7954545454545454,
+              "abstain_recall": 0.5555555555555556,
+              "harmful_allow_rate": 0.4444444444444444,
+              "allow_precision": 0.7575757575757576,
+              "allow_rate": 0.75,
+              "abstain_rate": 0.25,
+              "overblocking_rate": 0.038461538461538464
+            }
+          },
+          "held_out": {
+            "row_count": 34,
+            "summary": {
+              "trigger_rows_total": 34,
+              "ambiguous_trigger_rows": 15,
+              "clear_trigger_rows": 19,
+              "allow_rows": 24,
+              "abstain_rows": 10,
+              "true_abstain_count": 8,
+              "harmful_allow_count": 7,
+              "true_allow_count": 17,
+              "false_abstain_count": 2,
+              "overall_accuracy": 0.7352941176470589,
+              "abstain_recall": 0.5333333333333333,
+              "harmful_allow_rate": 0.4666666666666667,
+              "allow_precision": 0.7083333333333334,
+              "allow_rate": 0.7058823529411765,
+              "abstain_rate": 0.29411764705882354,
+              "overblocking_rate": 0.10526315789473684
+            }
+          }
+        },
+        "deltas": {
+          "held_out_minus_tune": {
+            "overall_accuracy": -0.06016042780748654,
+            "abstain_recall": -0.022222222222222254,
+            "harmful_allow_rate": 0.022222222222222254,
+            "allow_precision": -0.0492424242424242,
+            "overblocking_rate": 0.06680161943319837
+          }
+        }
+      },
       "automatic_feature_slice_count": 52,
       "harmful_allow_miss_counts": {
         "seed_missing": 5,
@@ -69623,6 +72073,117 @@
           "abstain_rate": 0.3333333333333333,
           "overblocking_rate": 0.0,
           "overall_accuracy": 1.0
+        }
+      },
+      "veto_generalization_split_summary": {
+        "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json",
+        "section_id": "reviewed_overlap_semantic_families",
+        "section_label": "Reviewed overlap ambiguity families",
+        "split_ids": [
+          "tune",
+          "held_out"
+        ],
+        "assigned_row_count": 78,
+        "unassigned_row_count": 97,
+        "unassigned_row_samples": [
+          {
+            "target": "agua",
+            "trigger": "water",
+            "case_ids": [
+              "en-es:agua"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amigo",
+            "trigger": "friend",
+            "case_ids": [
+              "en-es:amigo"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "love",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "affection",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "case_ids": [
+              "en-es:canal"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          }
+        ],
+        "splits": {
+          "tune": {
+            "row_count": 44,
+            "summary": {
+              "trigger_rows_total": 44,
+              "ambiguous_trigger_rows": 18,
+              "clear_trigger_rows": 26,
+              "allow_rows": 33,
+              "abstain_rows": 11,
+              "true_abstain_count": 10,
+              "harmful_allow_count": 8,
+              "true_allow_count": 25,
+              "false_abstain_count": 1,
+              "overall_accuracy": 0.7954545454545454,
+              "abstain_recall": 0.5555555555555556,
+              "harmful_allow_rate": 0.4444444444444444,
+              "allow_precision": 0.7575757575757576,
+              "allow_rate": 0.75,
+              "abstain_rate": 0.25,
+              "overblocking_rate": 0.038461538461538464
+            }
+          },
+          "held_out": {
+            "row_count": 34,
+            "summary": {
+              "trigger_rows_total": 34,
+              "ambiguous_trigger_rows": 15,
+              "clear_trigger_rows": 19,
+              "allow_rows": 24,
+              "abstain_rows": 10,
+              "true_abstain_count": 8,
+              "harmful_allow_count": 7,
+              "true_allow_count": 17,
+              "false_abstain_count": 2,
+              "overall_accuracy": 0.7352941176470589,
+              "abstain_recall": 0.5333333333333333,
+              "harmful_allow_rate": 0.4666666666666667,
+              "allow_precision": 0.7083333333333334,
+              "allow_rate": 0.7058823529411765,
+              "abstain_rate": 0.29411764705882354,
+              "overblocking_rate": 0.10526315789473684
+            }
+          }
+        },
+        "deltas": {
+          "held_out_minus_tune": {
+            "overall_accuracy": -0.06016042780748654,
+            "abstain_recall": -0.022222222222222254,
+            "harmful_allow_rate": 0.022222222222222254,
+            "allow_precision": -0.0492424242424242,
+            "overblocking_rate": 0.06680161943319837
+          }
         }
       },
       "automatic_feature_slice_count": 52,
@@ -72740,6 +75301,117 @@
           "overall_accuracy": 1.0
         }
       },
+      "veto_generalization_split_summary": {
+        "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json",
+        "section_id": "reviewed_overlap_semantic_families",
+        "section_label": "Reviewed overlap ambiguity families",
+        "split_ids": [
+          "tune",
+          "held_out"
+        ],
+        "assigned_row_count": 78,
+        "unassigned_row_count": 97,
+        "unassigned_row_samples": [
+          {
+            "target": "agua",
+            "trigger": "water",
+            "case_ids": [
+              "en-es:agua"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amigo",
+            "trigger": "friend",
+            "case_ids": [
+              "en-es:amigo"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "love",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "affection",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "case_ids": [
+              "en-es:canal"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          }
+        ],
+        "splits": {
+          "tune": {
+            "row_count": 44,
+            "summary": {
+              "trigger_rows_total": 44,
+              "ambiguous_trigger_rows": 18,
+              "clear_trigger_rows": 26,
+              "allow_rows": 33,
+              "abstain_rows": 11,
+              "true_abstain_count": 10,
+              "harmful_allow_count": 8,
+              "true_allow_count": 25,
+              "false_abstain_count": 1,
+              "overall_accuracy": 0.7954545454545454,
+              "abstain_recall": 0.5555555555555556,
+              "harmful_allow_rate": 0.4444444444444444,
+              "allow_precision": 0.7575757575757576,
+              "allow_rate": 0.75,
+              "abstain_rate": 0.25,
+              "overblocking_rate": 0.038461538461538464
+            }
+          },
+          "held_out": {
+            "row_count": 34,
+            "summary": {
+              "trigger_rows_total": 34,
+              "ambiguous_trigger_rows": 15,
+              "clear_trigger_rows": 19,
+              "allow_rows": 24,
+              "abstain_rows": 10,
+              "true_abstain_count": 8,
+              "harmful_allow_count": 7,
+              "true_allow_count": 17,
+              "false_abstain_count": 2,
+              "overall_accuracy": 0.7352941176470589,
+              "abstain_recall": 0.5333333333333333,
+              "harmful_allow_rate": 0.4666666666666667,
+              "allow_precision": 0.7083333333333334,
+              "allow_rate": 0.7058823529411765,
+              "abstain_rate": 0.29411764705882354,
+              "overblocking_rate": 0.10526315789473684
+            }
+          }
+        },
+        "deltas": {
+          "held_out_minus_tune": {
+            "overall_accuracy": -0.06016042780748654,
+            "abstain_recall": -0.022222222222222254,
+            "harmful_allow_rate": 0.022222222222222254,
+            "allow_precision": -0.0492424242424242,
+            "overblocking_rate": 0.06680161943319837
+          }
+        }
+      },
       "automatic_feature_slice_count": 52,
       "harmful_allow_miss_counts": {
         "seed_missing": 5,
@@ -75853,6 +78525,117 @@
           "abstain_rate": 0.3333333333333333,
           "overblocking_rate": 0.0,
           "overall_accuracy": 1.0
+        }
+      },
+      "veto_generalization_split_summary": {
+        "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json",
+        "section_id": "reviewed_overlap_semantic_families",
+        "section_label": "Reviewed overlap ambiguity families",
+        "split_ids": [
+          "tune",
+          "held_out"
+        ],
+        "assigned_row_count": 78,
+        "unassigned_row_count": 97,
+        "unassigned_row_samples": [
+          {
+            "target": "agua",
+            "trigger": "water",
+            "case_ids": [
+              "en-es:agua"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amigo",
+            "trigger": "friend",
+            "case_ids": [
+              "en-es:amigo"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "love",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "affection",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "case_ids": [
+              "en-es:canal"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          }
+        ],
+        "splits": {
+          "tune": {
+            "row_count": 44,
+            "summary": {
+              "trigger_rows_total": 44,
+              "ambiguous_trigger_rows": 18,
+              "clear_trigger_rows": 26,
+              "allow_rows": 31,
+              "abstain_rows": 13,
+              "true_abstain_count": 12,
+              "harmful_allow_count": 6,
+              "true_allow_count": 25,
+              "false_abstain_count": 1,
+              "overall_accuracy": 0.8409090909090909,
+              "abstain_recall": 0.6666666666666666,
+              "harmful_allow_rate": 0.3333333333333333,
+              "allow_precision": 0.8064516129032258,
+              "allow_rate": 0.7045454545454546,
+              "abstain_rate": 0.29545454545454547,
+              "overblocking_rate": 0.038461538461538464
+            }
+          },
+          "held_out": {
+            "row_count": 34,
+            "summary": {
+              "trigger_rows_total": 34,
+              "ambiguous_trigger_rows": 15,
+              "clear_trigger_rows": 19,
+              "allow_rows": 24,
+              "abstain_rows": 10,
+              "true_abstain_count": 8,
+              "harmful_allow_count": 7,
+              "true_allow_count": 17,
+              "false_abstain_count": 2,
+              "overall_accuracy": 0.7352941176470589,
+              "abstain_recall": 0.5333333333333333,
+              "harmful_allow_rate": 0.4666666666666667,
+              "allow_precision": 0.7083333333333334,
+              "allow_rate": 0.7058823529411765,
+              "abstain_rate": 0.29411764705882354,
+              "overblocking_rate": 0.10526315789473684
+            }
+          }
+        },
+        "deltas": {
+          "held_out_minus_tune": {
+            "overall_accuracy": -0.10561497326203206,
+            "abstain_recall": -0.1333333333333333,
+            "harmful_allow_rate": 0.13333333333333336,
+            "allow_precision": -0.09811827956989239,
+            "overblocking_rate": 0.06680161943319837
+          }
         }
       },
       "automatic_feature_slice_count": 52,
@@ -79093,6 +81876,117 @@
           "abstain_rate": 0.3333333333333333,
           "overblocking_rate": 0.0,
           "overall_accuracy": 1.0
+        }
+      },
+      "veto_generalization_split_summary": {
+        "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json",
+        "section_id": "reviewed_overlap_semantic_families",
+        "section_label": "Reviewed overlap ambiguity families",
+        "split_ids": [
+          "tune",
+          "held_out"
+        ],
+        "assigned_row_count": 78,
+        "unassigned_row_count": 97,
+        "unassigned_row_samples": [
+          {
+            "target": "agua",
+            "trigger": "water",
+            "case_ids": [
+              "en-es:agua"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amigo",
+            "trigger": "friend",
+            "case_ids": [
+              "en-es:amigo"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "love",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "affection",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "case_ids": [
+              "en-es:canal"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          }
+        ],
+        "splits": {
+          "tune": {
+            "row_count": 44,
+            "summary": {
+              "trigger_rows_total": 44,
+              "ambiguous_trigger_rows": 18,
+              "clear_trigger_rows": 26,
+              "allow_rows": 31,
+              "abstain_rows": 13,
+              "true_abstain_count": 12,
+              "harmful_allow_count": 6,
+              "true_allow_count": 25,
+              "false_abstain_count": 1,
+              "overall_accuracy": 0.8409090909090909,
+              "abstain_recall": 0.6666666666666666,
+              "harmful_allow_rate": 0.3333333333333333,
+              "allow_precision": 0.8064516129032258,
+              "allow_rate": 0.7045454545454546,
+              "abstain_rate": 0.29545454545454547,
+              "overblocking_rate": 0.038461538461538464
+            }
+          },
+          "held_out": {
+            "row_count": 34,
+            "summary": {
+              "trigger_rows_total": 34,
+              "ambiguous_trigger_rows": 15,
+              "clear_trigger_rows": 19,
+              "allow_rows": 24,
+              "abstain_rows": 10,
+              "true_abstain_count": 8,
+              "harmful_allow_count": 7,
+              "true_allow_count": 17,
+              "false_abstain_count": 2,
+              "overall_accuracy": 0.7352941176470589,
+              "abstain_recall": 0.5333333333333333,
+              "harmful_allow_rate": 0.4666666666666667,
+              "allow_precision": 0.7083333333333334,
+              "allow_rate": 0.7058823529411765,
+              "abstain_rate": 0.29411764705882354,
+              "overblocking_rate": 0.10526315789473684
+            }
+          }
+        },
+        "deltas": {
+          "held_out_minus_tune": {
+            "overall_accuracy": -0.10561497326203206,
+            "abstain_recall": -0.1333333333333333,
+            "harmful_allow_rate": 0.13333333333333336,
+            "allow_precision": -0.09811827956989239,
+            "overblocking_rate": 0.06680161943319837
+          }
         }
       },
       "automatic_feature_slice_count": 52,
@@ -82336,6 +85230,117 @@
           "overall_accuracy": 1.0
         }
       },
+      "veto_generalization_split_summary": {
+        "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json",
+        "section_id": "reviewed_overlap_semantic_families",
+        "section_label": "Reviewed overlap ambiguity families",
+        "split_ids": [
+          "tune",
+          "held_out"
+        ],
+        "assigned_row_count": 78,
+        "unassigned_row_count": 97,
+        "unassigned_row_samples": [
+          {
+            "target": "agua",
+            "trigger": "water",
+            "case_ids": [
+              "en-es:agua"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amigo",
+            "trigger": "friend",
+            "case_ids": [
+              "en-es:amigo"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "love",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "affection",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "case_ids": [
+              "en-es:canal"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          }
+        ],
+        "splits": {
+          "tune": {
+            "row_count": 44,
+            "summary": {
+              "trigger_rows_total": 44,
+              "ambiguous_trigger_rows": 18,
+              "clear_trigger_rows": 26,
+              "allow_rows": 31,
+              "abstain_rows": 13,
+              "true_abstain_count": 12,
+              "harmful_allow_count": 6,
+              "true_allow_count": 25,
+              "false_abstain_count": 1,
+              "overall_accuracy": 0.8409090909090909,
+              "abstain_recall": 0.6666666666666666,
+              "harmful_allow_rate": 0.3333333333333333,
+              "allow_precision": 0.8064516129032258,
+              "allow_rate": 0.7045454545454546,
+              "abstain_rate": 0.29545454545454547,
+              "overblocking_rate": 0.038461538461538464
+            }
+          },
+          "held_out": {
+            "row_count": 34,
+            "summary": {
+              "trigger_rows_total": 34,
+              "ambiguous_trigger_rows": 15,
+              "clear_trigger_rows": 19,
+              "allow_rows": 24,
+              "abstain_rows": 10,
+              "true_abstain_count": 8,
+              "harmful_allow_count": 7,
+              "true_allow_count": 17,
+              "false_abstain_count": 2,
+              "overall_accuracy": 0.7352941176470589,
+              "abstain_recall": 0.5333333333333333,
+              "harmful_allow_rate": 0.4666666666666667,
+              "allow_precision": 0.7083333333333334,
+              "allow_rate": 0.7058823529411765,
+              "abstain_rate": 0.29411764705882354,
+              "overblocking_rate": 0.10526315789473684
+            }
+          }
+        },
+        "deltas": {
+          "held_out_minus_tune": {
+            "overall_accuracy": -0.10561497326203206,
+            "abstain_recall": -0.1333333333333333,
+            "harmful_allow_rate": 0.13333333333333336,
+            "allow_precision": -0.09811827956989239,
+            "overblocking_rate": 0.06680161943319837
+          }
+        }
+      },
       "automatic_feature_slice_count": 52,
       "harmful_allow_miss_counts": {
         "seed_missing": 6,
@@ -85575,6 +88580,117 @@
           "abstain_rate": 0.3333333333333333,
           "overblocking_rate": 0.0,
           "overall_accuracy": 1.0
+        }
+      },
+      "veto_generalization_split_summary": {
+        "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json",
+        "section_id": "reviewed_overlap_semantic_families",
+        "section_label": "Reviewed overlap ambiguity families",
+        "split_ids": [
+          "tune",
+          "held_out"
+        ],
+        "assigned_row_count": 78,
+        "unassigned_row_count": 97,
+        "unassigned_row_samples": [
+          {
+            "target": "agua",
+            "trigger": "water",
+            "case_ids": [
+              "en-es:agua"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amigo",
+            "trigger": "friend",
+            "case_ids": [
+              "en-es:amigo"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "love",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "affection",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "case_ids": [
+              "en-es:canal"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          }
+        ],
+        "splits": {
+          "tune": {
+            "row_count": 44,
+            "summary": {
+              "trigger_rows_total": 44,
+              "ambiguous_trigger_rows": 18,
+              "clear_trigger_rows": 26,
+              "allow_rows": 31,
+              "abstain_rows": 13,
+              "true_abstain_count": 12,
+              "harmful_allow_count": 6,
+              "true_allow_count": 25,
+              "false_abstain_count": 1,
+              "overall_accuracy": 0.8409090909090909,
+              "abstain_recall": 0.6666666666666666,
+              "harmful_allow_rate": 0.3333333333333333,
+              "allow_precision": 0.8064516129032258,
+              "allow_rate": 0.7045454545454546,
+              "abstain_rate": 0.29545454545454547,
+              "overblocking_rate": 0.038461538461538464
+            }
+          },
+          "held_out": {
+            "row_count": 34,
+            "summary": {
+              "trigger_rows_total": 34,
+              "ambiguous_trigger_rows": 15,
+              "clear_trigger_rows": 19,
+              "allow_rows": 23,
+              "abstain_rows": 11,
+              "true_abstain_count": 8,
+              "harmful_allow_count": 7,
+              "true_allow_count": 16,
+              "false_abstain_count": 3,
+              "overall_accuracy": 0.7058823529411765,
+              "abstain_recall": 0.5333333333333333,
+              "harmful_allow_rate": 0.4666666666666667,
+              "allow_precision": 0.6956521739130435,
+              "allow_rate": 0.6764705882352942,
+              "abstain_rate": 0.3235294117647059,
+              "overblocking_rate": 0.15789473684210525
+            }
+          }
+        },
+        "deltas": {
+          "held_out_minus_tune": {
+            "overall_accuracy": -0.13502673796791442,
+            "abstain_recall": -0.1333333333333333,
+            "harmful_allow_rate": 0.13333333333333336,
+            "allow_precision": -0.1107994389901823,
+            "overblocking_rate": 0.11943319838056679
+          }
         }
       },
       "automatic_feature_slice_count": 52,
@@ -88823,6 +91939,117 @@
           "overall_accuracy": 1.0
         }
       },
+      "veto_generalization_split_summary": {
+        "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json",
+        "section_id": "reviewed_overlap_semantic_families",
+        "section_label": "Reviewed overlap ambiguity families",
+        "split_ids": [
+          "tune",
+          "held_out"
+        ],
+        "assigned_row_count": 78,
+        "unassigned_row_count": 97,
+        "unassigned_row_samples": [
+          {
+            "target": "agua",
+            "trigger": "water",
+            "case_ids": [
+              "en-es:agua"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amigo",
+            "trigger": "friend",
+            "case_ids": [
+              "en-es:amigo"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "love",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "affection",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "case_ids": [
+              "en-es:canal"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          }
+        ],
+        "splits": {
+          "tune": {
+            "row_count": 44,
+            "summary": {
+              "trigger_rows_total": 44,
+              "ambiguous_trigger_rows": 18,
+              "clear_trigger_rows": 26,
+              "allow_rows": 31,
+              "abstain_rows": 13,
+              "true_abstain_count": 12,
+              "harmful_allow_count": 6,
+              "true_allow_count": 25,
+              "false_abstain_count": 1,
+              "overall_accuracy": 0.8409090909090909,
+              "abstain_recall": 0.6666666666666666,
+              "harmful_allow_rate": 0.3333333333333333,
+              "allow_precision": 0.8064516129032258,
+              "allow_rate": 0.7045454545454546,
+              "abstain_rate": 0.29545454545454547,
+              "overblocking_rate": 0.038461538461538464
+            }
+          },
+          "held_out": {
+            "row_count": 34,
+            "summary": {
+              "trigger_rows_total": 34,
+              "ambiguous_trigger_rows": 15,
+              "clear_trigger_rows": 19,
+              "allow_rows": 24,
+              "abstain_rows": 10,
+              "true_abstain_count": 8,
+              "harmful_allow_count": 7,
+              "true_allow_count": 17,
+              "false_abstain_count": 2,
+              "overall_accuracy": 0.7352941176470589,
+              "abstain_recall": 0.5333333333333333,
+              "harmful_allow_rate": 0.4666666666666667,
+              "allow_precision": 0.7083333333333334,
+              "allow_rate": 0.7058823529411765,
+              "abstain_rate": 0.29411764705882354,
+              "overblocking_rate": 0.10526315789473684
+            }
+          }
+        },
+        "deltas": {
+          "held_out_minus_tune": {
+            "overall_accuracy": -0.10561497326203206,
+            "abstain_recall": -0.1333333333333333,
+            "harmful_allow_rate": 0.13333333333333336,
+            "allow_precision": -0.09811827956989239,
+            "overblocking_rate": 0.06680161943319837
+          }
+        }
+      },
       "automatic_feature_slice_count": 52,
       "harmful_allow_miss_counts": {
         "seed_missing": 6,
@@ -91937,6 +95164,117 @@
           "abstain_rate": 0.3333333333333333,
           "overblocking_rate": 0.0,
           "overall_accuracy": 1.0
+        }
+      },
+      "veto_generalization_split_summary": {
+        "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json",
+        "section_id": "reviewed_overlap_semantic_families",
+        "section_label": "Reviewed overlap ambiguity families",
+        "split_ids": [
+          "tune",
+          "held_out"
+        ],
+        "assigned_row_count": 78,
+        "unassigned_row_count": 97,
+        "unassigned_row_samples": [
+          {
+            "target": "agua",
+            "trigger": "water",
+            "case_ids": [
+              "en-es:agua"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amigo",
+            "trigger": "friend",
+            "case_ids": [
+              "en-es:amigo"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "love",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "affection",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "case_ids": [
+              "en-es:canal"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          }
+        ],
+        "splits": {
+          "tune": {
+            "row_count": 44,
+            "summary": {
+              "trigger_rows_total": 44,
+              "ambiguous_trigger_rows": 18,
+              "clear_trigger_rows": 26,
+              "allow_rows": 31,
+              "abstain_rows": 13,
+              "true_abstain_count": 12,
+              "harmful_allow_count": 6,
+              "true_allow_count": 25,
+              "false_abstain_count": 1,
+              "overall_accuracy": 0.8409090909090909,
+              "abstain_recall": 0.6666666666666666,
+              "harmful_allow_rate": 0.3333333333333333,
+              "allow_precision": 0.8064516129032258,
+              "allow_rate": 0.7045454545454546,
+              "abstain_rate": 0.29545454545454547,
+              "overblocking_rate": 0.038461538461538464
+            }
+          },
+          "held_out": {
+            "row_count": 34,
+            "summary": {
+              "trigger_rows_total": 34,
+              "ambiguous_trigger_rows": 15,
+              "clear_trigger_rows": 19,
+              "allow_rows": 24,
+              "abstain_rows": 10,
+              "true_abstain_count": 8,
+              "harmful_allow_count": 7,
+              "true_allow_count": 17,
+              "false_abstain_count": 2,
+              "overall_accuracy": 0.7352941176470589,
+              "abstain_recall": 0.5333333333333333,
+              "harmful_allow_rate": 0.4666666666666667,
+              "allow_precision": 0.7083333333333334,
+              "allow_rate": 0.7058823529411765,
+              "abstain_rate": 0.29411764705882354,
+              "overblocking_rate": 0.10526315789473684
+            }
+          }
+        },
+        "deltas": {
+          "held_out_minus_tune": {
+            "overall_accuracy": -0.10561497326203206,
+            "abstain_recall": -0.1333333333333333,
+            "harmful_allow_rate": 0.13333333333333336,
+            "allow_precision": -0.09811827956989239,
+            "overblocking_rate": 0.06680161943319837
+          }
         }
       },
       "automatic_feature_slice_count": 52,
@@ -95055,6 +98393,117 @@
           "overall_accuracy": 1.0
         }
       },
+      "veto_generalization_split_summary": {
+        "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json",
+        "section_id": "reviewed_overlap_semantic_families",
+        "section_label": "Reviewed overlap ambiguity families",
+        "split_ids": [
+          "tune",
+          "held_out"
+        ],
+        "assigned_row_count": 78,
+        "unassigned_row_count": 97,
+        "unassigned_row_samples": [
+          {
+            "target": "agua",
+            "trigger": "water",
+            "case_ids": [
+              "en-es:agua"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amigo",
+            "trigger": "friend",
+            "case_ids": [
+              "en-es:amigo"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "love",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "affection",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "case_ids": [
+              "en-es:canal"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          }
+        ],
+        "splits": {
+          "tune": {
+            "row_count": 44,
+            "summary": {
+              "trigger_rows_total": 44,
+              "ambiguous_trigger_rows": 18,
+              "clear_trigger_rows": 26,
+              "allow_rows": 33,
+              "abstain_rows": 11,
+              "true_abstain_count": 10,
+              "harmful_allow_count": 8,
+              "true_allow_count": 25,
+              "false_abstain_count": 1,
+              "overall_accuracy": 0.7954545454545454,
+              "abstain_recall": 0.5555555555555556,
+              "harmful_allow_rate": 0.4444444444444444,
+              "allow_precision": 0.7575757575757576,
+              "allow_rate": 0.75,
+              "abstain_rate": 0.25,
+              "overblocking_rate": 0.038461538461538464
+            }
+          },
+          "held_out": {
+            "row_count": 34,
+            "summary": {
+              "trigger_rows_total": 34,
+              "ambiguous_trigger_rows": 15,
+              "clear_trigger_rows": 19,
+              "allow_rows": 24,
+              "abstain_rows": 10,
+              "true_abstain_count": 8,
+              "harmful_allow_count": 7,
+              "true_allow_count": 17,
+              "false_abstain_count": 2,
+              "overall_accuracy": 0.7352941176470589,
+              "abstain_recall": 0.5333333333333333,
+              "harmful_allow_rate": 0.4666666666666667,
+              "allow_precision": 0.7083333333333334,
+              "allow_rate": 0.7058823529411765,
+              "abstain_rate": 0.29411764705882354,
+              "overblocking_rate": 0.10526315789473684
+            }
+          }
+        },
+        "deltas": {
+          "held_out_minus_tune": {
+            "overall_accuracy": -0.06016042780748654,
+            "abstain_recall": -0.022222222222222254,
+            "harmful_allow_rate": 0.022222222222222254,
+            "allow_precision": -0.0492424242424242,
+            "overblocking_rate": 0.06680161943319837
+          }
+        }
+      },
       "automatic_feature_slice_count": 52,
       "harmful_allow_miss_counts": {
         "seed_missing": 5,
@@ -98169,6 +101618,117 @@
           "abstain_rate": 0.3333333333333333,
           "overblocking_rate": 0.0,
           "overall_accuracy": 1.0
+        }
+      },
+      "veto_generalization_split_summary": {
+        "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json",
+        "section_id": "reviewed_overlap_semantic_families",
+        "section_label": "Reviewed overlap ambiguity families",
+        "split_ids": [
+          "tune",
+          "held_out"
+        ],
+        "assigned_row_count": 78,
+        "unassigned_row_count": 97,
+        "unassigned_row_samples": [
+          {
+            "target": "agua",
+            "trigger": "water",
+            "case_ids": [
+              "en-es:agua"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amigo",
+            "trigger": "friend",
+            "case_ids": [
+              "en-es:amigo"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "love",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "affection",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "case_ids": [
+              "en-es:canal"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          }
+        ],
+        "splits": {
+          "tune": {
+            "row_count": 44,
+            "summary": {
+              "trigger_rows_total": 44,
+              "ambiguous_trigger_rows": 18,
+              "clear_trigger_rows": 26,
+              "allow_rows": 33,
+              "abstain_rows": 11,
+              "true_abstain_count": 10,
+              "harmful_allow_count": 8,
+              "true_allow_count": 25,
+              "false_abstain_count": 1,
+              "overall_accuracy": 0.7954545454545454,
+              "abstain_recall": 0.5555555555555556,
+              "harmful_allow_rate": 0.4444444444444444,
+              "allow_precision": 0.7575757575757576,
+              "allow_rate": 0.75,
+              "abstain_rate": 0.25,
+              "overblocking_rate": 0.038461538461538464
+            }
+          },
+          "held_out": {
+            "row_count": 34,
+            "summary": {
+              "trigger_rows_total": 34,
+              "ambiguous_trigger_rows": 15,
+              "clear_trigger_rows": 19,
+              "allow_rows": 24,
+              "abstain_rows": 10,
+              "true_abstain_count": 8,
+              "harmful_allow_count": 7,
+              "true_allow_count": 17,
+              "false_abstain_count": 2,
+              "overall_accuracy": 0.7352941176470589,
+              "abstain_recall": 0.5333333333333333,
+              "harmful_allow_rate": 0.4666666666666667,
+              "allow_precision": 0.7083333333333334,
+              "allow_rate": 0.7058823529411765,
+              "abstain_rate": 0.29411764705882354,
+              "overblocking_rate": 0.10526315789473684
+            }
+          }
+        },
+        "deltas": {
+          "held_out_minus_tune": {
+            "overall_accuracy": -0.06016042780748654,
+            "abstain_recall": -0.022222222222222254,
+            "harmful_allow_rate": 0.022222222222222254,
+            "allow_precision": -0.0492424242424242,
+            "overblocking_rate": 0.06680161943319837
+          }
         }
       },
       "automatic_feature_slice_count": 52,
@@ -101287,6 +104847,117 @@
           "overall_accuracy": 1.0
         }
       },
+      "veto_generalization_split_summary": {
+        "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json",
+        "section_id": "reviewed_overlap_semantic_families",
+        "section_label": "Reviewed overlap ambiguity families",
+        "split_ids": [
+          "tune",
+          "held_out"
+        ],
+        "assigned_row_count": 78,
+        "unassigned_row_count": 97,
+        "unassigned_row_samples": [
+          {
+            "target": "agua",
+            "trigger": "water",
+            "case_ids": [
+              "en-es:agua"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amigo",
+            "trigger": "friend",
+            "case_ids": [
+              "en-es:amigo"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "love",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "affection",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "case_ids": [
+              "en-es:canal"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          }
+        ],
+        "splits": {
+          "tune": {
+            "row_count": 44,
+            "summary": {
+              "trigger_rows_total": 44,
+              "ambiguous_trigger_rows": 18,
+              "clear_trigger_rows": 26,
+              "allow_rows": 33,
+              "abstain_rows": 11,
+              "true_abstain_count": 10,
+              "harmful_allow_count": 8,
+              "true_allow_count": 25,
+              "false_abstain_count": 1,
+              "overall_accuracy": 0.7954545454545454,
+              "abstain_recall": 0.5555555555555556,
+              "harmful_allow_rate": 0.4444444444444444,
+              "allow_precision": 0.7575757575757576,
+              "allow_rate": 0.75,
+              "abstain_rate": 0.25,
+              "overblocking_rate": 0.038461538461538464
+            }
+          },
+          "held_out": {
+            "row_count": 34,
+            "summary": {
+              "trigger_rows_total": 34,
+              "ambiguous_trigger_rows": 15,
+              "clear_trigger_rows": 19,
+              "allow_rows": 24,
+              "abstain_rows": 10,
+              "true_abstain_count": 8,
+              "harmful_allow_count": 7,
+              "true_allow_count": 17,
+              "false_abstain_count": 2,
+              "overall_accuracy": 0.7352941176470589,
+              "abstain_recall": 0.5333333333333333,
+              "harmful_allow_rate": 0.4666666666666667,
+              "allow_precision": 0.7083333333333334,
+              "allow_rate": 0.7058823529411765,
+              "abstain_rate": 0.29411764705882354,
+              "overblocking_rate": 0.10526315789473684
+            }
+          }
+        },
+        "deltas": {
+          "held_out_minus_tune": {
+            "overall_accuracy": -0.06016042780748654,
+            "abstain_recall": -0.022222222222222254,
+            "harmful_allow_rate": 0.022222222222222254,
+            "allow_precision": -0.0492424242424242,
+            "overblocking_rate": 0.06680161943319837
+          }
+        }
+      },
       "automatic_feature_slice_count": 52,
       "harmful_allow_miss_counts": {
         "seed_missing": 5,
@@ -104401,6 +108072,117 @@
           "abstain_rate": 0.3333333333333333,
           "overblocking_rate": 0.0,
           "overall_accuracy": 1.0
+        }
+      },
+      "veto_generalization_split_summary": {
+        "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json",
+        "section_id": "reviewed_overlap_semantic_families",
+        "section_label": "Reviewed overlap ambiguity families",
+        "split_ids": [
+          "tune",
+          "held_out"
+        ],
+        "assigned_row_count": 78,
+        "unassigned_row_count": 97,
+        "unassigned_row_samples": [
+          {
+            "target": "agua",
+            "trigger": "water",
+            "case_ids": [
+              "en-es:agua"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amigo",
+            "trigger": "friend",
+            "case_ids": [
+              "en-es:amigo"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "love",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "affection",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "case_ids": [
+              "en-es:canal"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          }
+        ],
+        "splits": {
+          "tune": {
+            "row_count": 44,
+            "summary": {
+              "trigger_rows_total": 44,
+              "ambiguous_trigger_rows": 18,
+              "clear_trigger_rows": 26,
+              "allow_rows": 31,
+              "abstain_rows": 13,
+              "true_abstain_count": 12,
+              "harmful_allow_count": 6,
+              "true_allow_count": 25,
+              "false_abstain_count": 1,
+              "overall_accuracy": 0.8409090909090909,
+              "abstain_recall": 0.6666666666666666,
+              "harmful_allow_rate": 0.3333333333333333,
+              "allow_precision": 0.8064516129032258,
+              "allow_rate": 0.7045454545454546,
+              "abstain_rate": 0.29545454545454547,
+              "overblocking_rate": 0.038461538461538464
+            }
+          },
+          "held_out": {
+            "row_count": 34,
+            "summary": {
+              "trigger_rows_total": 34,
+              "ambiguous_trigger_rows": 15,
+              "clear_trigger_rows": 19,
+              "allow_rows": 24,
+              "abstain_rows": 10,
+              "true_abstain_count": 8,
+              "harmful_allow_count": 7,
+              "true_allow_count": 17,
+              "false_abstain_count": 2,
+              "overall_accuracy": 0.7352941176470589,
+              "abstain_recall": 0.5333333333333333,
+              "harmful_allow_rate": 0.4666666666666667,
+              "allow_precision": 0.7083333333333334,
+              "allow_rate": 0.7058823529411765,
+              "abstain_rate": 0.29411764705882354,
+              "overblocking_rate": 0.10526315789473684
+            }
+          }
+        },
+        "deltas": {
+          "held_out_minus_tune": {
+            "overall_accuracy": -0.10561497326203206,
+            "abstain_recall": -0.1333333333333333,
+            "harmful_allow_rate": 0.13333333333333336,
+            "allow_precision": -0.09811827956989239,
+            "overblocking_rate": 0.06680161943319837
+          }
         }
       },
       "automatic_feature_slice_count": 52,
@@ -107518,6 +111300,117 @@
           "abstain_rate": 0.3333333333333333,
           "overblocking_rate": 0.0,
           "overall_accuracy": 1.0
+        }
+      },
+      "veto_generalization_split_summary": {
+        "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json",
+        "section_id": "reviewed_overlap_semantic_families",
+        "section_label": "Reviewed overlap ambiguity families",
+        "split_ids": [
+          "tune",
+          "held_out"
+        ],
+        "assigned_row_count": 78,
+        "unassigned_row_count": 97,
+        "unassigned_row_samples": [
+          {
+            "target": "agua",
+            "trigger": "water",
+            "case_ids": [
+              "en-es:agua"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amigo",
+            "trigger": "friend",
+            "case_ids": [
+              "en-es:amigo"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "love",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "affection",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "case_ids": [
+              "en-es:canal"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          }
+        ],
+        "splits": {
+          "tune": {
+            "row_count": 44,
+            "summary": {
+              "trigger_rows_total": 44,
+              "ambiguous_trigger_rows": 18,
+              "clear_trigger_rows": 26,
+              "allow_rows": 31,
+              "abstain_rows": 13,
+              "true_abstain_count": 12,
+              "harmful_allow_count": 6,
+              "true_allow_count": 25,
+              "false_abstain_count": 1,
+              "overall_accuracy": 0.8409090909090909,
+              "abstain_recall": 0.6666666666666666,
+              "harmful_allow_rate": 0.3333333333333333,
+              "allow_precision": 0.8064516129032258,
+              "allow_rate": 0.7045454545454546,
+              "abstain_rate": 0.29545454545454547,
+              "overblocking_rate": 0.038461538461538464
+            }
+          },
+          "held_out": {
+            "row_count": 34,
+            "summary": {
+              "trigger_rows_total": 34,
+              "ambiguous_trigger_rows": 15,
+              "clear_trigger_rows": 19,
+              "allow_rows": 23,
+              "abstain_rows": 11,
+              "true_abstain_count": 8,
+              "harmful_allow_count": 7,
+              "true_allow_count": 16,
+              "false_abstain_count": 3,
+              "overall_accuracy": 0.7058823529411765,
+              "abstain_recall": 0.5333333333333333,
+              "harmful_allow_rate": 0.4666666666666667,
+              "allow_precision": 0.6956521739130435,
+              "allow_rate": 0.6764705882352942,
+              "abstain_rate": 0.3235294117647059,
+              "overblocking_rate": 0.15789473684210525
+            }
+          }
+        },
+        "deltas": {
+          "held_out_minus_tune": {
+            "overall_accuracy": -0.13502673796791442,
+            "abstain_recall": -0.1333333333333333,
+            "harmful_allow_rate": 0.13333333333333336,
+            "allow_precision": -0.1107994389901823,
+            "overblocking_rate": 0.11943319838056679
+          }
         }
       },
       "automatic_feature_slice_count": 52,
@@ -110776,6 +114669,117 @@
           "overall_accuracy": 1.0
         }
       },
+      "veto_generalization_split_summary": {
+        "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json",
+        "section_id": "reviewed_overlap_semantic_families",
+        "section_label": "Reviewed overlap ambiguity families",
+        "split_ids": [
+          "tune",
+          "held_out"
+        ],
+        "assigned_row_count": 78,
+        "unassigned_row_count": 97,
+        "unassigned_row_samples": [
+          {
+            "target": "agua",
+            "trigger": "water",
+            "case_ids": [
+              "en-es:agua"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amigo",
+            "trigger": "friend",
+            "case_ids": [
+              "en-es:amigo"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "love",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "affection",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "case_ids": [
+              "en-es:canal"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          }
+        ],
+        "splits": {
+          "tune": {
+            "row_count": 44,
+            "summary": {
+              "trigger_rows_total": 44,
+              "ambiguous_trigger_rows": 18,
+              "clear_trigger_rows": 26,
+              "allow_rows": 31,
+              "abstain_rows": 13,
+              "true_abstain_count": 12,
+              "harmful_allow_count": 6,
+              "true_allow_count": 25,
+              "false_abstain_count": 1,
+              "overall_accuracy": 0.8409090909090909,
+              "abstain_recall": 0.6666666666666666,
+              "harmful_allow_rate": 0.3333333333333333,
+              "allow_precision": 0.8064516129032258,
+              "allow_rate": 0.7045454545454546,
+              "abstain_rate": 0.29545454545454547,
+              "overblocking_rate": 0.038461538461538464
+            }
+          },
+          "held_out": {
+            "row_count": 34,
+            "summary": {
+              "trigger_rows_total": 34,
+              "ambiguous_trigger_rows": 15,
+              "clear_trigger_rows": 19,
+              "allow_rows": 22,
+              "abstain_rows": 12,
+              "true_abstain_count": 8,
+              "harmful_allow_count": 7,
+              "true_allow_count": 15,
+              "false_abstain_count": 4,
+              "overall_accuracy": 0.6764705882352942,
+              "abstain_recall": 0.5333333333333333,
+              "harmful_allow_rate": 0.4666666666666667,
+              "allow_precision": 0.6818181818181818,
+              "allow_rate": 0.6470588235294118,
+              "abstain_rate": 0.35294117647058826,
+              "overblocking_rate": 0.21052631578947367
+            }
+          }
+        },
+        "deltas": {
+          "held_out_minus_tune": {
+            "overall_accuracy": -0.16443850267379678,
+            "abstain_recall": -0.1333333333333333,
+            "harmful_allow_rate": 0.13333333333333336,
+            "allow_precision": -0.12463343108504399,
+            "overblocking_rate": 0.1720647773279352
+          }
+        }
+      },
       "automatic_feature_slice_count": 52,
       "harmful_allow_miss_counts": {
         "seed_missing": 6,
@@ -114003,6 +118007,117 @@
           "overall_accuracy": 1.0
         }
       },
+      "veto_generalization_split_summary": {
+        "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json",
+        "section_id": "reviewed_overlap_semantic_families",
+        "section_label": "Reviewed overlap ambiguity families",
+        "split_ids": [
+          "tune",
+          "held_out"
+        ],
+        "assigned_row_count": 78,
+        "unassigned_row_count": 97,
+        "unassigned_row_samples": [
+          {
+            "target": "agua",
+            "trigger": "water",
+            "case_ids": [
+              "en-es:agua"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amigo",
+            "trigger": "friend",
+            "case_ids": [
+              "en-es:amigo"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "love",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "affection",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "case_ids": [
+              "en-es:canal"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          }
+        ],
+        "splits": {
+          "tune": {
+            "row_count": 44,
+            "summary": {
+              "trigger_rows_total": 44,
+              "ambiguous_trigger_rows": 18,
+              "clear_trigger_rows": 26,
+              "allow_rows": 36,
+              "abstain_rows": 8,
+              "true_abstain_count": 7,
+              "harmful_allow_count": 11,
+              "true_allow_count": 25,
+              "false_abstain_count": 1,
+              "overall_accuracy": 0.7272727272727273,
+              "abstain_recall": 0.3888888888888889,
+              "harmful_allow_rate": 0.6111111111111112,
+              "allow_precision": 0.6944444444444444,
+              "allow_rate": 0.8181818181818182,
+              "abstain_rate": 0.18181818181818182,
+              "overblocking_rate": 0.038461538461538464
+            }
+          },
+          "held_out": {
+            "row_count": 34,
+            "summary": {
+              "trigger_rows_total": 34,
+              "ambiguous_trigger_rows": 15,
+              "clear_trigger_rows": 19,
+              "allow_rows": 24,
+              "abstain_rows": 10,
+              "true_abstain_count": 8,
+              "harmful_allow_count": 7,
+              "true_allow_count": 17,
+              "false_abstain_count": 2,
+              "overall_accuracy": 0.7352941176470589,
+              "abstain_recall": 0.5333333333333333,
+              "harmful_allow_rate": 0.4666666666666667,
+              "allow_precision": 0.7083333333333334,
+              "allow_rate": 0.7058823529411765,
+              "abstain_rate": 0.29411764705882354,
+              "overblocking_rate": 0.10526315789473684
+            }
+          }
+        },
+        "deltas": {
+          "held_out_minus_tune": {
+            "overall_accuracy": 0.008021390374331583,
+            "abstain_recall": 0.14444444444444443,
+            "harmful_allow_rate": -0.1444444444444445,
+            "allow_precision": 0.01388888888888895,
+            "overblocking_rate": 0.06680161943319837
+          }
+        }
+      },
       "automatic_feature_slice_count": 51,
       "harmful_allow_miss_counts": {
         "seed_missing": 7,
@@ -117073,6 +121188,117 @@
           "overall_accuracy": 1.0
         }
       },
+      "veto_generalization_split_summary": {
+        "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json",
+        "section_id": "reviewed_overlap_semantic_families",
+        "section_label": "Reviewed overlap ambiguity families",
+        "split_ids": [
+          "tune",
+          "held_out"
+        ],
+        "assigned_row_count": 78,
+        "unassigned_row_count": 97,
+        "unassigned_row_samples": [
+          {
+            "target": "agua",
+            "trigger": "water",
+            "case_ids": [
+              "en-es:agua"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amigo",
+            "trigger": "friend",
+            "case_ids": [
+              "en-es:amigo"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "love",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "affection",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "case_ids": [
+              "en-es:canal"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          }
+        ],
+        "splits": {
+          "tune": {
+            "row_count": 44,
+            "summary": {
+              "trigger_rows_total": 44,
+              "ambiguous_trigger_rows": 18,
+              "clear_trigger_rows": 26,
+              "allow_rows": 36,
+              "abstain_rows": 8,
+              "true_abstain_count": 7,
+              "harmful_allow_count": 11,
+              "true_allow_count": 25,
+              "false_abstain_count": 1,
+              "overall_accuracy": 0.7272727272727273,
+              "abstain_recall": 0.3888888888888889,
+              "harmful_allow_rate": 0.6111111111111112,
+              "allow_precision": 0.6944444444444444,
+              "allow_rate": 0.8181818181818182,
+              "abstain_rate": 0.18181818181818182,
+              "overblocking_rate": 0.038461538461538464
+            }
+          },
+          "held_out": {
+            "row_count": 34,
+            "summary": {
+              "trigger_rows_total": 34,
+              "ambiguous_trigger_rows": 15,
+              "clear_trigger_rows": 19,
+              "allow_rows": 24,
+              "abstain_rows": 10,
+              "true_abstain_count": 8,
+              "harmful_allow_count": 7,
+              "true_allow_count": 17,
+              "false_abstain_count": 2,
+              "overall_accuracy": 0.7352941176470589,
+              "abstain_recall": 0.5333333333333333,
+              "harmful_allow_rate": 0.4666666666666667,
+              "allow_precision": 0.7083333333333334,
+              "allow_rate": 0.7058823529411765,
+              "abstain_rate": 0.29411764705882354,
+              "overblocking_rate": 0.10526315789473684
+            }
+          }
+        },
+        "deltas": {
+          "held_out_minus_tune": {
+            "overall_accuracy": 0.008021390374331583,
+            "abstain_recall": 0.14444444444444443,
+            "harmful_allow_rate": -0.1444444444444445,
+            "allow_precision": 0.01388888888888895,
+            "overblocking_rate": 0.06680161943319837
+          }
+        }
+      },
       "automatic_feature_slice_count": 51,
       "harmful_allow_miss_counts": {
         "seed_missing": 7,
@@ -120067,6 +124293,117 @@
           "overall_accuracy": 0.6666666666666666
         }
       },
+      "veto_generalization_split_summary": {
+        "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json",
+        "section_id": "reviewed_overlap_semantic_families",
+        "section_label": "Reviewed overlap ambiguity families",
+        "split_ids": [
+          "tune",
+          "held_out"
+        ],
+        "assigned_row_count": 78,
+        "unassigned_row_count": 97,
+        "unassigned_row_samples": [
+          {
+            "target": "agua",
+            "trigger": "water",
+            "case_ids": [
+              "en-es:agua"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amigo",
+            "trigger": "friend",
+            "case_ids": [
+              "en-es:amigo"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "love",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "affection",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "case_ids": [
+              "en-es:canal"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          }
+        ],
+        "splits": {
+          "tune": {
+            "row_count": 44,
+            "summary": {
+              "trigger_rows_total": 44,
+              "ambiguous_trigger_rows": 18,
+              "clear_trigger_rows": 26,
+              "allow_rows": 40,
+              "abstain_rows": 4,
+              "true_abstain_count": 4,
+              "harmful_allow_count": 14,
+              "true_allow_count": 26,
+              "false_abstain_count": 0,
+              "overall_accuracy": 0.6818181818181818,
+              "abstain_recall": 0.2222222222222222,
+              "harmful_allow_rate": 0.7777777777777778,
+              "allow_precision": 0.65,
+              "allow_rate": 0.9090909090909091,
+              "abstain_rate": 0.09090909090909091,
+              "overblocking_rate": 0.0
+            }
+          },
+          "held_out": {
+            "row_count": 34,
+            "summary": {
+              "trigger_rows_total": 34,
+              "ambiguous_trigger_rows": 15,
+              "clear_trigger_rows": 19,
+              "allow_rows": 28,
+              "abstain_rows": 6,
+              "true_abstain_count": 5,
+              "harmful_allow_count": 10,
+              "true_allow_count": 18,
+              "false_abstain_count": 1,
+              "overall_accuracy": 0.6764705882352942,
+              "abstain_recall": 0.3333333333333333,
+              "harmful_allow_rate": 0.6666666666666666,
+              "allow_precision": 0.6428571428571429,
+              "allow_rate": 0.8235294117647058,
+              "abstain_rate": 0.17647058823529413,
+              "overblocking_rate": 0.05263157894736842
+            }
+          }
+        },
+        "deltas": {
+          "held_out_minus_tune": {
+            "overall_accuracy": -0.005347593582887611,
+            "abstain_recall": 0.1111111111111111,
+            "harmful_allow_rate": -0.11111111111111116,
+            "allow_precision": -0.0071428571428571175,
+            "overblocking_rate": 0.05263157894736842
+          }
+        }
+      },
       "automatic_feature_slice_count": 47,
       "harmful_allow_miss_counts": {
         "seed_missing": 9,
@@ -122892,6 +127229,117 @@
           "abstain_rate": 0.0,
           "overblocking_rate": 0.0,
           "overall_accuracy": 0.6666666666666666
+        }
+      },
+      "veto_generalization_split_summary": {
+        "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json",
+        "section_id": "reviewed_overlap_semantic_families",
+        "section_label": "Reviewed overlap ambiguity families",
+        "split_ids": [
+          "tune",
+          "held_out"
+        ],
+        "assigned_row_count": 78,
+        "unassigned_row_count": 97,
+        "unassigned_row_samples": [
+          {
+            "target": "agua",
+            "trigger": "water",
+            "case_ids": [
+              "en-es:agua"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amigo",
+            "trigger": "friend",
+            "case_ids": [
+              "en-es:amigo"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "love",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "affection",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "case_ids": [
+              "en-es:canal"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          }
+        ],
+        "splits": {
+          "tune": {
+            "row_count": 44,
+            "summary": {
+              "trigger_rows_total": 44,
+              "ambiguous_trigger_rows": 18,
+              "clear_trigger_rows": 26,
+              "allow_rows": 40,
+              "abstain_rows": 4,
+              "true_abstain_count": 4,
+              "harmful_allow_count": 14,
+              "true_allow_count": 26,
+              "false_abstain_count": 0,
+              "overall_accuracy": 0.6818181818181818,
+              "abstain_recall": 0.2222222222222222,
+              "harmful_allow_rate": 0.7777777777777778,
+              "allow_precision": 0.65,
+              "allow_rate": 0.9090909090909091,
+              "abstain_rate": 0.09090909090909091,
+              "overblocking_rate": 0.0
+            }
+          },
+          "held_out": {
+            "row_count": 34,
+            "summary": {
+              "trigger_rows_total": 34,
+              "ambiguous_trigger_rows": 15,
+              "clear_trigger_rows": 19,
+              "allow_rows": 27,
+              "abstain_rows": 7,
+              "true_abstain_count": 6,
+              "harmful_allow_count": 9,
+              "true_allow_count": 18,
+              "false_abstain_count": 1,
+              "overall_accuracy": 0.7058823529411765,
+              "abstain_recall": 0.4,
+              "harmful_allow_rate": 0.6,
+              "allow_precision": 0.6666666666666666,
+              "allow_rate": 0.7941176470588235,
+              "abstain_rate": 0.20588235294117646,
+              "overblocking_rate": 0.05263157894736842
+            }
+          }
+        },
+        "deltas": {
+          "held_out_minus_tune": {
+            "overall_accuracy": 0.02406417112299475,
+            "abstain_recall": 0.1777777777777778,
+            "harmful_allow_rate": -0.1777777777777778,
+            "allow_precision": 0.016666666666666607,
+            "overblocking_rate": 0.05263157894736842
+          }
         }
       },
       "automatic_feature_slice_count": 51,
@@ -125723,6 +130171,117 @@
           "overall_accuracy": 0.6666666666666666
         }
       },
+      "veto_generalization_split_summary": {
+        "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json",
+        "section_id": "reviewed_overlap_semantic_families",
+        "section_label": "Reviewed overlap ambiguity families",
+        "split_ids": [
+          "tune",
+          "held_out"
+        ],
+        "assigned_row_count": 78,
+        "unassigned_row_count": 97,
+        "unassigned_row_samples": [
+          {
+            "target": "agua",
+            "trigger": "water",
+            "case_ids": [
+              "en-es:agua"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amigo",
+            "trigger": "friend",
+            "case_ids": [
+              "en-es:amigo"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "love",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "affection",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "case_ids": [
+              "en-es:canal"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          }
+        ],
+        "splits": {
+          "tune": {
+            "row_count": 44,
+            "summary": {
+              "trigger_rows_total": 44,
+              "ambiguous_trigger_rows": 18,
+              "clear_trigger_rows": 26,
+              "allow_rows": 40,
+              "abstain_rows": 4,
+              "true_abstain_count": 4,
+              "harmful_allow_count": 14,
+              "true_allow_count": 26,
+              "false_abstain_count": 0,
+              "overall_accuracy": 0.6818181818181818,
+              "abstain_recall": 0.2222222222222222,
+              "harmful_allow_rate": 0.7777777777777778,
+              "allow_precision": 0.65,
+              "allow_rate": 0.9090909090909091,
+              "abstain_rate": 0.09090909090909091,
+              "overblocking_rate": 0.0
+            }
+          },
+          "held_out": {
+            "row_count": 34,
+            "summary": {
+              "trigger_rows_total": 34,
+              "ambiguous_trigger_rows": 15,
+              "clear_trigger_rows": 19,
+              "allow_rows": 27,
+              "abstain_rows": 7,
+              "true_abstain_count": 6,
+              "harmful_allow_count": 9,
+              "true_allow_count": 18,
+              "false_abstain_count": 1,
+              "overall_accuracy": 0.7058823529411765,
+              "abstain_recall": 0.4,
+              "harmful_allow_rate": 0.6,
+              "allow_precision": 0.6666666666666666,
+              "allow_rate": 0.7941176470588235,
+              "abstain_rate": 0.20588235294117646,
+              "overblocking_rate": 0.05263157894736842
+            }
+          }
+        },
+        "deltas": {
+          "held_out_minus_tune": {
+            "overall_accuracy": 0.02406417112299475,
+            "abstain_recall": 0.1777777777777778,
+            "harmful_allow_rate": -0.1777777777777778,
+            "allow_precision": 0.016666666666666607,
+            "overblocking_rate": 0.05263157894736842
+          }
+        }
+      },
       "automatic_feature_slice_count": 51,
       "harmful_allow_miss_counts": {
         "seed_missing": 7,
@@ -128550,6 +133109,117 @@
           "abstain_rate": 0.3333333333333333,
           "overblocking_rate": 0.0,
           "overall_accuracy": 1.0
+        }
+      },
+      "veto_generalization_split_summary": {
+        "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json",
+        "section_id": "reviewed_overlap_semantic_families",
+        "section_label": "Reviewed overlap ambiguity families",
+        "split_ids": [
+          "tune",
+          "held_out"
+        ],
+        "assigned_row_count": 78,
+        "unassigned_row_count": 97,
+        "unassigned_row_samples": [
+          {
+            "target": "agua",
+            "trigger": "water",
+            "case_ids": [
+              "en-es:agua"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amigo",
+            "trigger": "friend",
+            "case_ids": [
+              "en-es:amigo"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "love",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "affection",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "case_ids": [
+              "en-es:canal"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          }
+        ],
+        "splits": {
+          "tune": {
+            "row_count": 44,
+            "summary": {
+              "trigger_rows_total": 44,
+              "ambiguous_trigger_rows": 18,
+              "clear_trigger_rows": 26,
+              "allow_rows": 36,
+              "abstain_rows": 8,
+              "true_abstain_count": 7,
+              "harmful_allow_count": 11,
+              "true_allow_count": 25,
+              "false_abstain_count": 1,
+              "overall_accuracy": 0.7272727272727273,
+              "abstain_recall": 0.3888888888888889,
+              "harmful_allow_rate": 0.6111111111111112,
+              "allow_precision": 0.6944444444444444,
+              "allow_rate": 0.8181818181818182,
+              "abstain_rate": 0.18181818181818182,
+              "overblocking_rate": 0.038461538461538464
+            }
+          },
+          "held_out": {
+            "row_count": 34,
+            "summary": {
+              "trigger_rows_total": 34,
+              "ambiguous_trigger_rows": 15,
+              "clear_trigger_rows": 19,
+              "allow_rows": 24,
+              "abstain_rows": 10,
+              "true_abstain_count": 8,
+              "harmful_allow_count": 7,
+              "true_allow_count": 17,
+              "false_abstain_count": 2,
+              "overall_accuracy": 0.7352941176470589,
+              "abstain_recall": 0.5333333333333333,
+              "harmful_allow_rate": 0.4666666666666667,
+              "allow_precision": 0.7083333333333334,
+              "allow_rate": 0.7058823529411765,
+              "abstain_rate": 0.29411764705882354,
+              "overblocking_rate": 0.10526315789473684
+            }
+          }
+        },
+        "deltas": {
+          "held_out_minus_tune": {
+            "overall_accuracy": 0.008021390374331583,
+            "abstain_recall": 0.14444444444444443,
+            "harmful_allow_rate": -0.1444444444444445,
+            "allow_precision": 0.01388888888888895,
+            "overblocking_rate": 0.06680161943319837
+          }
         }
       },
       "automatic_feature_slice_count": 51,
@@ -131670,6 +136340,117 @@
           "overall_accuracy": 1.0
         }
       },
+      "veto_generalization_split_summary": {
+        "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json",
+        "section_id": "reviewed_overlap_semantic_families",
+        "section_label": "Reviewed overlap ambiguity families",
+        "split_ids": [
+          "tune",
+          "held_out"
+        ],
+        "assigned_row_count": 78,
+        "unassigned_row_count": 97,
+        "unassigned_row_samples": [
+          {
+            "target": "agua",
+            "trigger": "water",
+            "case_ids": [
+              "en-es:agua"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amigo",
+            "trigger": "friend",
+            "case_ids": [
+              "en-es:amigo"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "love",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "affection",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "case_ids": [
+              "en-es:canal"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          }
+        ],
+        "splits": {
+          "tune": {
+            "row_count": 44,
+            "summary": {
+              "trigger_rows_total": 44,
+              "ambiguous_trigger_rows": 18,
+              "clear_trigger_rows": 26,
+              "allow_rows": 36,
+              "abstain_rows": 8,
+              "true_abstain_count": 7,
+              "harmful_allow_count": 11,
+              "true_allow_count": 25,
+              "false_abstain_count": 1,
+              "overall_accuracy": 0.7272727272727273,
+              "abstain_recall": 0.3888888888888889,
+              "harmful_allow_rate": 0.6111111111111112,
+              "allow_precision": 0.6944444444444444,
+              "allow_rate": 0.8181818181818182,
+              "abstain_rate": 0.18181818181818182,
+              "overblocking_rate": 0.038461538461538464
+            }
+          },
+          "held_out": {
+            "row_count": 34,
+            "summary": {
+              "trigger_rows_total": 34,
+              "ambiguous_trigger_rows": 15,
+              "clear_trigger_rows": 19,
+              "allow_rows": 24,
+              "abstain_rows": 10,
+              "true_abstain_count": 8,
+              "harmful_allow_count": 7,
+              "true_allow_count": 17,
+              "false_abstain_count": 2,
+              "overall_accuracy": 0.7352941176470589,
+              "abstain_recall": 0.5333333333333333,
+              "harmful_allow_rate": 0.4666666666666667,
+              "allow_precision": 0.7083333333333334,
+              "allow_rate": 0.7058823529411765,
+              "abstain_rate": 0.29411764705882354,
+              "overblocking_rate": 0.10526315789473684
+            }
+          }
+        },
+        "deltas": {
+          "held_out_minus_tune": {
+            "overall_accuracy": 0.008021390374331583,
+            "abstain_recall": 0.14444444444444443,
+            "harmful_allow_rate": -0.1444444444444445,
+            "allow_precision": 0.01388888888888895,
+            "overblocking_rate": 0.06680161943319837
+          }
+        }
+      },
       "automatic_feature_slice_count": 51,
       "harmful_allow_miss_counts": {
         "seed_missing": 8,
@@ -134786,6 +139567,117 @@
           "abstain_rate": 0.3333333333333333,
           "overblocking_rate": 0.0,
           "overall_accuracy": 1.0
+        }
+      },
+      "veto_generalization_split_summary": {
+        "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json",
+        "section_id": "reviewed_overlap_semantic_families",
+        "section_label": "Reviewed overlap ambiguity families",
+        "split_ids": [
+          "tune",
+          "held_out"
+        ],
+        "assigned_row_count": 78,
+        "unassigned_row_count": 97,
+        "unassigned_row_samples": [
+          {
+            "target": "agua",
+            "trigger": "water",
+            "case_ids": [
+              "en-es:agua"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amigo",
+            "trigger": "friend",
+            "case_ids": [
+              "en-es:amigo"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "love",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "affection",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "case_ids": [
+              "en-es:canal"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          }
+        ],
+        "splits": {
+          "tune": {
+            "row_count": 44,
+            "summary": {
+              "trigger_rows_total": 44,
+              "ambiguous_trigger_rows": 18,
+              "clear_trigger_rows": 26,
+              "allow_rows": 36,
+              "abstain_rows": 8,
+              "true_abstain_count": 7,
+              "harmful_allow_count": 11,
+              "true_allow_count": 25,
+              "false_abstain_count": 1,
+              "overall_accuracy": 0.7272727272727273,
+              "abstain_recall": 0.3888888888888889,
+              "harmful_allow_rate": 0.6111111111111112,
+              "allow_precision": 0.6944444444444444,
+              "allow_rate": 0.8181818181818182,
+              "abstain_rate": 0.18181818181818182,
+              "overblocking_rate": 0.038461538461538464
+            }
+          },
+          "held_out": {
+            "row_count": 34,
+            "summary": {
+              "trigger_rows_total": 34,
+              "ambiguous_trigger_rows": 15,
+              "clear_trigger_rows": 19,
+              "allow_rows": 24,
+              "abstain_rows": 10,
+              "true_abstain_count": 8,
+              "harmful_allow_count": 7,
+              "true_allow_count": 17,
+              "false_abstain_count": 2,
+              "overall_accuracy": 0.7352941176470589,
+              "abstain_recall": 0.5333333333333333,
+              "harmful_allow_rate": 0.4666666666666667,
+              "allow_precision": 0.7083333333333334,
+              "allow_rate": 0.7058823529411765,
+              "abstain_rate": 0.29411764705882354,
+              "overblocking_rate": 0.10526315789473684
+            }
+          }
+        },
+        "deltas": {
+          "held_out_minus_tune": {
+            "overall_accuracy": 0.008021390374331583,
+            "abstain_recall": 0.14444444444444443,
+            "harmful_allow_rate": -0.1444444444444445,
+            "allow_precision": 0.01388888888888895,
+            "overblocking_rate": 0.06680161943319837
+          }
         }
       },
       "automatic_feature_slice_count": 51,
@@ -137906,6 +142798,117 @@
           "overall_accuracy": 0.6666666666666666
         }
       },
+      "veto_generalization_split_summary": {
+        "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json",
+        "section_id": "reviewed_overlap_semantic_families",
+        "section_label": "Reviewed overlap ambiguity families",
+        "split_ids": [
+          "tune",
+          "held_out"
+        ],
+        "assigned_row_count": 78,
+        "unassigned_row_count": 97,
+        "unassigned_row_samples": [
+          {
+            "target": "agua",
+            "trigger": "water",
+            "case_ids": [
+              "en-es:agua"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amigo",
+            "trigger": "friend",
+            "case_ids": [
+              "en-es:amigo"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "love",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "affection",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "case_ids": [
+              "en-es:canal"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          }
+        ],
+        "splits": {
+          "tune": {
+            "row_count": 44,
+            "summary": {
+              "trigger_rows_total": 44,
+              "ambiguous_trigger_rows": 18,
+              "clear_trigger_rows": 26,
+              "allow_rows": 40,
+              "abstain_rows": 4,
+              "true_abstain_count": 4,
+              "harmful_allow_count": 14,
+              "true_allow_count": 26,
+              "false_abstain_count": 0,
+              "overall_accuracy": 0.6818181818181818,
+              "abstain_recall": 0.2222222222222222,
+              "harmful_allow_rate": 0.7777777777777778,
+              "allow_precision": 0.65,
+              "allow_rate": 0.9090909090909091,
+              "abstain_rate": 0.09090909090909091,
+              "overblocking_rate": 0.0
+            }
+          },
+          "held_out": {
+            "row_count": 34,
+            "summary": {
+              "trigger_rows_total": 34,
+              "ambiguous_trigger_rows": 15,
+              "clear_trigger_rows": 19,
+              "allow_rows": 27,
+              "abstain_rows": 7,
+              "true_abstain_count": 6,
+              "harmful_allow_count": 9,
+              "true_allow_count": 18,
+              "false_abstain_count": 1,
+              "overall_accuracy": 0.7058823529411765,
+              "abstain_recall": 0.4,
+              "harmful_allow_rate": 0.6,
+              "allow_precision": 0.6666666666666666,
+              "allow_rate": 0.7941176470588235,
+              "abstain_rate": 0.20588235294117646,
+              "overblocking_rate": 0.05263157894736842
+            }
+          }
+        },
+        "deltas": {
+          "held_out_minus_tune": {
+            "overall_accuracy": 0.02406417112299475,
+            "abstain_recall": 0.1777777777777778,
+            "harmful_allow_rate": -0.1777777777777778,
+            "allow_precision": 0.016666666666666607,
+            "overblocking_rate": 0.05263157894736842
+          }
+        }
+      },
       "automatic_feature_slice_count": 51,
       "harmful_allow_miss_counts": {
         "seed_missing": 7,
@@ -140733,6 +145736,117 @@
           "abstain_rate": 0.3333333333333333,
           "overblocking_rate": 0.0,
           "overall_accuracy": 1.0
+        }
+      },
+      "veto_generalization_split_summary": {
+        "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json",
+        "section_id": "reviewed_overlap_semantic_families",
+        "section_label": "Reviewed overlap ambiguity families",
+        "split_ids": [
+          "tune",
+          "held_out"
+        ],
+        "assigned_row_count": 78,
+        "unassigned_row_count": 97,
+        "unassigned_row_samples": [
+          {
+            "target": "agua",
+            "trigger": "water",
+            "case_ids": [
+              "en-es:agua"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amigo",
+            "trigger": "friend",
+            "case_ids": [
+              "en-es:amigo"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "love",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "affection",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "case_ids": [
+              "en-es:canal"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          }
+        ],
+        "splits": {
+          "tune": {
+            "row_count": 44,
+            "summary": {
+              "trigger_rows_total": 44,
+              "ambiguous_trigger_rows": 18,
+              "clear_trigger_rows": 26,
+              "allow_rows": 36,
+              "abstain_rows": 8,
+              "true_abstain_count": 7,
+              "harmful_allow_count": 11,
+              "true_allow_count": 25,
+              "false_abstain_count": 1,
+              "overall_accuracy": 0.7272727272727273,
+              "abstain_recall": 0.3888888888888889,
+              "harmful_allow_rate": 0.6111111111111112,
+              "allow_precision": 0.6944444444444444,
+              "allow_rate": 0.8181818181818182,
+              "abstain_rate": 0.18181818181818182,
+              "overblocking_rate": 0.038461538461538464
+            }
+          },
+          "held_out": {
+            "row_count": 34,
+            "summary": {
+              "trigger_rows_total": 34,
+              "ambiguous_trigger_rows": 15,
+              "clear_trigger_rows": 19,
+              "allow_rows": 24,
+              "abstain_rows": 10,
+              "true_abstain_count": 8,
+              "harmful_allow_count": 7,
+              "true_allow_count": 17,
+              "false_abstain_count": 2,
+              "overall_accuracy": 0.7352941176470589,
+              "abstain_recall": 0.5333333333333333,
+              "harmful_allow_rate": 0.4666666666666667,
+              "allow_precision": 0.7083333333333334,
+              "allow_rate": 0.7058823529411765,
+              "abstain_rate": 0.29411764705882354,
+              "overblocking_rate": 0.10526315789473684
+            }
+          }
+        },
+        "deltas": {
+          "held_out_minus_tune": {
+            "overall_accuracy": 0.008021390374331583,
+            "abstain_recall": 0.14444444444444443,
+            "harmful_allow_rate": -0.1444444444444445,
+            "allow_precision": 0.01388888888888895,
+            "overblocking_rate": 0.06680161943319837
+          }
         }
       },
       "automatic_feature_slice_count": 51,
@@ -143853,6 +148967,117 @@
           "overall_accuracy": 1.0
         }
       },
+      "veto_generalization_split_summary": {
+        "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json",
+        "section_id": "reviewed_overlap_semantic_families",
+        "section_label": "Reviewed overlap ambiguity families",
+        "split_ids": [
+          "tune",
+          "held_out"
+        ],
+        "assigned_row_count": 78,
+        "unassigned_row_count": 97,
+        "unassigned_row_samples": [
+          {
+            "target": "agua",
+            "trigger": "water",
+            "case_ids": [
+              "en-es:agua"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amigo",
+            "trigger": "friend",
+            "case_ids": [
+              "en-es:amigo"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "love",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "affection",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "case_ids": [
+              "en-es:canal"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          }
+        ],
+        "splits": {
+          "tune": {
+            "row_count": 44,
+            "summary": {
+              "trigger_rows_total": 44,
+              "ambiguous_trigger_rows": 18,
+              "clear_trigger_rows": 26,
+              "allow_rows": 36,
+              "abstain_rows": 8,
+              "true_abstain_count": 7,
+              "harmful_allow_count": 11,
+              "true_allow_count": 25,
+              "false_abstain_count": 1,
+              "overall_accuracy": 0.7272727272727273,
+              "abstain_recall": 0.3888888888888889,
+              "harmful_allow_rate": 0.6111111111111112,
+              "allow_precision": 0.6944444444444444,
+              "allow_rate": 0.8181818181818182,
+              "abstain_rate": 0.18181818181818182,
+              "overblocking_rate": 0.038461538461538464
+            }
+          },
+          "held_out": {
+            "row_count": 34,
+            "summary": {
+              "trigger_rows_total": 34,
+              "ambiguous_trigger_rows": 15,
+              "clear_trigger_rows": 19,
+              "allow_rows": 24,
+              "abstain_rows": 10,
+              "true_abstain_count": 8,
+              "harmful_allow_count": 7,
+              "true_allow_count": 17,
+              "false_abstain_count": 2,
+              "overall_accuracy": 0.7352941176470589,
+              "abstain_recall": 0.5333333333333333,
+              "harmful_allow_rate": 0.4666666666666667,
+              "allow_precision": 0.7083333333333334,
+              "allow_rate": 0.7058823529411765,
+              "abstain_rate": 0.29411764705882354,
+              "overblocking_rate": 0.10526315789473684
+            }
+          }
+        },
+        "deltas": {
+          "held_out_minus_tune": {
+            "overall_accuracy": 0.008021390374331583,
+            "abstain_recall": 0.14444444444444443,
+            "harmful_allow_rate": -0.1444444444444445,
+            "allow_precision": 0.01388888888888895,
+            "overblocking_rate": 0.06680161943319837
+          }
+        }
+      },
       "automatic_feature_slice_count": 51,
       "harmful_allow_miss_counts": {
         "seed_missing": 8,
@@ -146969,6 +152194,117 @@
           "abstain_rate": 0.3333333333333333,
           "overblocking_rate": 0.0,
           "overall_accuracy": 1.0
+        }
+      },
+      "veto_generalization_split_summary": {
+        "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json",
+        "section_id": "reviewed_overlap_semantic_families",
+        "section_label": "Reviewed overlap ambiguity families",
+        "split_ids": [
+          "tune",
+          "held_out"
+        ],
+        "assigned_row_count": 78,
+        "unassigned_row_count": 97,
+        "unassigned_row_samples": [
+          {
+            "target": "agua",
+            "trigger": "water",
+            "case_ids": [
+              "en-es:agua"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amigo",
+            "trigger": "friend",
+            "case_ids": [
+              "en-es:amigo"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "love",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "amor",
+            "trigger": "affection",
+            "case_ids": [
+              "en-es:amor"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "case_ids": [
+              "en-es:canal"
+            ],
+            "semantic_families": [],
+            "slice_tags": []
+          }
+        ],
+        "splits": {
+          "tune": {
+            "row_count": 44,
+            "summary": {
+              "trigger_rows_total": 44,
+              "ambiguous_trigger_rows": 18,
+              "clear_trigger_rows": 26,
+              "allow_rows": 36,
+              "abstain_rows": 8,
+              "true_abstain_count": 7,
+              "harmful_allow_count": 11,
+              "true_allow_count": 25,
+              "false_abstain_count": 1,
+              "overall_accuracy": 0.7272727272727273,
+              "abstain_recall": 0.3888888888888889,
+              "harmful_allow_rate": 0.6111111111111112,
+              "allow_precision": 0.6944444444444444,
+              "allow_rate": 0.8181818181818182,
+              "abstain_rate": 0.18181818181818182,
+              "overblocking_rate": 0.038461538461538464
+            }
+          },
+          "held_out": {
+            "row_count": 34,
+            "summary": {
+              "trigger_rows_total": 34,
+              "ambiguous_trigger_rows": 15,
+              "clear_trigger_rows": 19,
+              "allow_rows": 24,
+              "abstain_rows": 10,
+              "true_abstain_count": 8,
+              "harmful_allow_count": 7,
+              "true_allow_count": 17,
+              "false_abstain_count": 2,
+              "overall_accuracy": 0.7352941176470589,
+              "abstain_recall": 0.5333333333333333,
+              "harmful_allow_rate": 0.4666666666666667,
+              "allow_precision": 0.7083333333333334,
+              "allow_rate": 0.7058823529411765,
+              "abstain_rate": 0.29411764705882354,
+              "overblocking_rate": 0.10526315789473684
+            }
+          }
+        },
+        "deltas": {
+          "held_out_minus_tune": {
+            "overall_accuracy": 0.008021390374331583,
+            "abstain_recall": 0.14444444444444443,
+            "harmful_allow_rate": -0.1444444444444445,
+            "allow_precision": 0.01388888888888895,
+            "overblocking_rate": 0.06680161943319837
+          }
         }
       },
       "automatic_feature_slice_count": 51,

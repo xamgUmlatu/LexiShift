@@ -59,7 +59,80 @@ def _render_metric_block(label: str, result: Mapping[str, object]) -> list[str]:
             "- Shadow support weights: "
             f"`{json.dumps(shadow_support_weights, sort_keys=True, ensure_ascii=False)}`"
         )
+    lines.extend(
+        _render_generalization_split_lines(result.get("veto_generalization_split_summary"))
+    )
     return lines
+
+
+def _render_generalization_split_lines(summary: object) -> list[str]:
+    if not isinstance(summary, Mapping):
+        return []
+    lines = [
+        "- Generalization split coverage: "
+        f"`assigned={summary.get('assigned_row_count', 0)}`, "
+        f"`unassigned={summary.get('unassigned_row_count', 0)}`",
+        "- Tune veto acc / abstain recall / harmful allow / overblocking: "
+        f"`{render_rate(_split_metric(summary, 'tune', 'overall_accuracy'))}` / "
+        f"`{render_rate(_split_metric(summary, 'tune', 'abstain_recall'))}` / "
+        f"`{render_rate(_split_metric(summary, 'tune', 'harmful_allow_rate'))}` / "
+        f"`{render_rate(_split_metric(summary, 'tune', 'overblocking_rate'))}`",
+        "- Held-out veto acc / abstain recall / harmful allow / overblocking: "
+        f"`{render_rate(_split_metric(summary, 'held_out', 'overall_accuracy'))}` / "
+        f"`{render_rate(_split_metric(summary, 'held_out', 'abstain_recall'))}` / "
+        f"`{render_rate(_split_metric(summary, 'held_out', 'harmful_allow_rate'))}` / "
+        f"`{render_rate(_split_metric(summary, 'held_out', 'overblocking_rate'))}`",
+        "- Held-out minus tune acc / abstain recall / harmful allow / overblocking: "
+        f"`{render_rate(_split_delta_metric(summary, 'overall_accuracy'))}` / "
+        f"`{render_rate(_split_delta_metric(summary, 'abstain_recall'))}` / "
+        f"`{render_rate(_split_delta_metric(summary, 'harmful_allow_rate'))}` / "
+        f"`{render_rate(_split_delta_metric(summary, 'overblocking_rate'))}`",
+    ]
+    unassigned_samples = summary.get("unassigned_row_samples")
+    if (
+        isinstance(unassigned_samples, Sequence)
+        and not isinstance(unassigned_samples, (str, bytes))
+        and unassigned_samples
+    ):
+        lines.append(
+            "- Split-unassigned rows: "
+            + "; ".join(
+                (
+                    f"{sample.get('target', '')}/{sample.get('trigger', '')} "
+                    f"families={sample.get('semantic_families', [])}"
+                )
+                for sample in unassigned_samples[:5]
+                if isinstance(sample, Mapping)
+            )
+        )
+    return lines
+
+
+def _split_metric(summary: object, split_id: str, metric_name: str) -> object:
+    if not isinstance(summary, Mapping):
+        return None
+    splits = summary.get("splits")
+    if not isinstance(splits, Mapping):
+        return None
+    split_payload = splits.get(split_id)
+    if not isinstance(split_payload, Mapping):
+        return None
+    split_summary = split_payload.get("summary")
+    if not isinstance(split_summary, Mapping):
+        return None
+    return split_summary.get(metric_name)
+
+
+def _split_delta_metric(summary: object, metric_name: str) -> object:
+    if not isinstance(summary, Mapping):
+        return None
+    deltas = summary.get("deltas")
+    if not isinstance(deltas, Mapping):
+        return None
+    gap = deltas.get("held_out_minus_tune")
+    if not isinstance(gap, Mapping):
+        return None
+    return gap.get(metric_name)
 
 
 def build_candidate_feature_bucket_risk_report(
@@ -343,6 +416,7 @@ def render_experiment_compare_markdown(report: Mapping[str, object]) -> str:
         "",
         f"- Status: `{report.get('status', 'unknown')}`",
         f"- Generated: `{report.get('generated_at', '')}`",
+        f"- Generalization split manifest: `{report.get('generalization_splits_manifest_path', '')}`",
         f"- Frontier read: `{report.get('frontier_read', '')}`",
         "- Meaning: compare the current control row against a candidate row and measure exact row-level fixes, regressions, and slice deltas.",
         "",

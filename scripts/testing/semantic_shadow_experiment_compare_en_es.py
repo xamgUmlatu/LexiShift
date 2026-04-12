@@ -26,6 +26,8 @@ from lexishift_core.rulegen.semantic_shadow_inventory import (  # noqa: E402
 from semantic_shadow_experiment_support import (  # noqa: E402
     DEFAULT_BENCHMARK_JSON,
     DEFAULT_DATASET_PATH,
+    DEFAULT_GENERALIZATION_SPLITS_MANIFEST_PATH,
+    build_overlap_family_generalization_split_summary,
     build_en_es_seed_mode_payloads,
     build_inventory_for_seed_targets,
     build_trigger_row_metadata_from_cases,
@@ -110,6 +112,12 @@ def _parse_args() -> argparse.Namespace:
         type=str,
         default=DEFAULT_CANDIDATE_EXPERIMENT_ID,
         help="Candidate experiment_id from the manifest.",
+    )
+    parser.add_argument(
+        "--generalization-splits-manifest",
+        type=Path,
+        default=DEFAULT_GENERALIZATION_SPLITS_MANIFEST_PATH,
+        help="Explicit tune vs held-out split manifest for reviewed overlap evaluation rows.",
     )
     parser.add_argument(
         "--json-out",
@@ -231,6 +239,7 @@ def _build_experiment_result(
     seed_mode_payloads: Mapping[str, object],
     reverse_records_by_source: Mapping[str, object],
     trigger_row_metadata: Mapping[tuple[str, str], Mapping[str, object]],
+    generalization_splits_manifest: Path,
 ) -> dict[str, object]:
     seed_mode = str(experiment.get("seed_mode") or "")
     payload = seed_mode_payloads.get(seed_mode)
@@ -337,6 +346,13 @@ def _build_experiment_result(
         else {}
     )
     veto_summary = veto_policy.get("summary") if isinstance(veto_policy, Mapping) else {}
+    veto_row_results = (
+        veto_policy.get("row_results", []) if isinstance(veto_policy, Mapping) else []
+    )
+    split_summary = build_overlap_family_generalization_split_summary(
+        veto_row_results,
+        manifest_path=generalization_splits_manifest,
+    )
 
     filtered_trigger_count = sum(
         len(target.reviewed_triggers)
@@ -388,12 +404,11 @@ def _build_experiment_result(
         "gold_candidate_pool_summary": gold_candidate_pool,
         "gold_summary": gold_summary,
         "veto_summary": veto_summary,
+        "veto_generalization_split_summary": split_summary,
         "veto_slice_summaries": (
             veto_policy.get("slice_summaries", {}) if isinstance(veto_policy, Mapping) else {}
         ),
-        "veto_row_results": (
-            veto_policy.get("row_results", []) if isinstance(veto_policy, Mapping) else []
-        ),
+        "veto_row_results": veto_row_results,
         "sample_harmful_allow_rows": (
             veto_policy.get("sample_harmful_allow_rows", [])
             if isinstance(veto_policy, Mapping)
@@ -698,6 +713,7 @@ def build_experiment_compare_report(
     reverse_translation_dict: Path | None,
     control_experiment_id: str,
     candidate_experiment_id: str,
+    generalization_splits_manifest: Path,
 ) -> dict[str, object]:
     generated_at = datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
     manifest_rows = _load_manifest_rows(manifest_path)
@@ -732,6 +748,7 @@ def build_experiment_compare_report(
         seed_mode_payloads=seed_mode_payloads,
         reverse_records_by_source=reverse_records_by_source,
         trigger_row_metadata=trigger_row_metadata,
+        generalization_splits_manifest=generalization_splits_manifest,
     )
     candidate_result = _build_experiment_result(
         experiment=candidate_row,
@@ -739,6 +756,7 @@ def build_experiment_compare_report(
         seed_mode_payloads=seed_mode_payloads,
         reverse_records_by_source=reverse_records_by_source,
         trigger_row_metadata=trigger_row_metadata,
+        generalization_splits_manifest=generalization_splits_manifest,
     )
     row_comparison = _compare_row_outcomes(
         control_rows=_index_row_results(control_result.get("veto_row_results")),
@@ -778,6 +796,7 @@ def build_experiment_compare_report(
         "reverse_translation_dict_path": (
             str(reverse_translation_dict) if reverse_translation_dict is not None else None
         ),
+        "generalization_splits_manifest_path": str(generalization_splits_manifest),
         "forward_pack_path": str(resources.forward_pack.path),
         "reverse_pack_path": str(resources.reverse_pack.path),
         "forward_pack_provider": resources.forward_provider,
@@ -826,6 +845,7 @@ def main() -> int:
         reverse_translation_dict=args.reverse_translation_dict,
         control_experiment_id=str(args.control_experiment_id or "").strip(),
         candidate_experiment_id=str(args.candidate_experiment_id or "").strip(),
+        generalization_splits_manifest=args.generalization_splits_manifest,
     )
     args.json_out.parent.mkdir(parents=True, exist_ok=True)
     args.json_out.write_text(
