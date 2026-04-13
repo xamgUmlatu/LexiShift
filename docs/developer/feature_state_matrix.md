@@ -773,17 +773,18 @@ Use this file when:
 ## Semantic Routing Runtime Admission Layer
 
 - Status: `implemented`, `default-off`, `verified`
-- Last documented checkpoint: `2026-04-13` landed Phase 4 runtime wiring on top of the earlier Phase 3 helper service, then closed the browser-side rollout gap with explicit extension-options controls plus an `en-es` publish checklist: the browser extension now has a dedicated semantic-gate runtime module that filters deterministic trie matches before span creation, calls helper-side `semantic_admit_batch` for eligible SRS matches, persists semantic inventory/runtime counts into diagnostics, and keeps the whole path behind a default-off setting gate plus explicit fallback policy
-- Last verified: `2026-04-13` targeted extension JS syntax checks, extension-structure tests, targeted runtime-policy/helper/native-host tests, the existing sentence-veto support regression tests, and helper/doc/state checks on the new runtime path and options wiring
+- Last documented checkpoint: `2026-04-14` kept the runtime contract stable but hardened the helper publication layer: semantic publication now stamps a shared `generation_id` into snapshot and semantic inventory, writes a local publication manifest for each pair/profile artifact family, validates ready-pointer referential integrity before writing, exposes manifest state in diagnostics, and clears the manifest on pair/profile reset
+- Last verified: `2026-04-14` targeted helper publication/diagnostics/reset tests, Python compile checks, the synthetic SRS quality harness, and state/doc checks on the generation-aligned publication layer
 - Default behavior:
   - No semantic-routing admission layer is active in the browser runtime by default because `srsSemanticAdmissionEnabled` now defaults to `false`.
   - Current default runtime replacement behavior is still driven by rule emission plus existing SRS gating, not by sentence-level sense competition.
   - The repo now has passive semantic-routing publication scaffolding:
     - `metadata.semantic_admission` can be emitted on rules
     - helper publication can write a semantic inventory sidecar
+    - helper publication now also writes a generation-aligned publication manifest for the ruleset/snapshot/semantic-inventory family
     - helper/native-host can now serve that semantic inventory as a first-class artifact
     - extension helper cache/runtime can now persist and resolve semantic inventory in parallel with ruleset/snapshot
-    - runtime diagnostics can inspect both pointer coverage and sidecar coverage
+    - runtime diagnostics can inspect pointer coverage, sidecar coverage, and current publication generation id
     - helper/native-host can now also answer `semantic_admit_batch` using a named shared policy registry, and the extension runtime can call that service when semantic admission is enabled
   - The shipped runtime gate is still intentionally conservative:
     - only SRS-origin rules that already carry `metadata.semantic_admission` are eligible

@@ -74,6 +74,8 @@ def _seed_store_and_outputs(root: Path) -> HelperPaths:
     paths.ruleset_path("en-en").write_text("{}", encoding="utf-8")
     paths.semantic_inventory_path("en-ja").write_text("{}", encoding="utf-8")
     paths.semantic_inventory_path("en-en").write_text("{}", encoding="utf-8")
+    paths.publication_manifest_path("en-ja").write_text("{}", encoding="utf-8")
+    paths.publication_manifest_path("en-en").write_text("{}", encoding="utf-8")
     return paths
 
 
@@ -115,9 +117,11 @@ class TestHelperEngineReset(unittest.TestCase):
             self.assertFalse(paths.snapshot_path("en-ja").exists())
             self.assertFalse(paths.ruleset_path("en-ja").exists())
             self.assertFalse(paths.semantic_inventory_path("en-ja").exists())
+            self.assertFalse(paths.publication_manifest_path("en-ja").exists())
             self.assertTrue(paths.snapshot_path("en-en").exists())
             self.assertTrue(paths.ruleset_path("en-en").exists())
             self.assertTrue(paths.semantic_inventory_path("en-en").exists())
+            self.assertTrue(paths.publication_manifest_path("en-en").exists())
 
             self.assertEqual(result["pair"], "en-ja")
             self.assertEqual(result["removed_items"], 1)
@@ -125,6 +129,7 @@ class TestHelperEngineReset(unittest.TestCase):
             self.assertEqual(result["removed_snapshots"], 1)
             self.assertEqual(result["removed_rulesets"], 1)
             self.assertEqual(result["removed_semantic_inventories"], 1)
+            self.assertEqual(result["removed_publication_manifests"], 1)
 
     def test_reset_all_removes_all_pairs(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -140,6 +145,8 @@ class TestHelperEngineReset(unittest.TestCase):
             self.assertFalse(paths.ruleset_path("en-en").exists())
             self.assertFalse(paths.semantic_inventory_path("en-ja").exists())
             self.assertFalse(paths.semantic_inventory_path("en-en").exists())
+            self.assertFalse(paths.publication_manifest_path("en-ja").exists())
+            self.assertFalse(paths.publication_manifest_path("en-en").exists())
 
             self.assertEqual(result["pair"], "all")
             self.assertEqual(result["removed_items"], 2)
@@ -147,6 +154,7 @@ class TestHelperEngineReset(unittest.TestCase):
             self.assertEqual(result["removed_snapshots"], 2)
             self.assertEqual(result["removed_rulesets"], 2)
             self.assertEqual(result["removed_semantic_inventories"], 2)
+            self.assertEqual(result["removed_publication_manifests"], 2)
 
 
 class TestHelperEngineProfileIsolation(unittest.TestCase):
@@ -194,11 +202,17 @@ class TestHelperEngineProfileIsolation(unittest.TestCase):
             paths.semantic_inventory_path("en-ja", profile_id=default_profile).write_text(
                 "{}", encoding="utf-8"
             )
+            paths.publication_manifest_path("en-ja", profile_id=default_profile).write_text(
+                "{}", encoding="utf-8"
+            )
             paths.snapshot_path("en-ja", profile_id=other_profile).write_text(
                 "{}", encoding="utf-8"
             )
             paths.ruleset_path("en-ja", profile_id=other_profile).write_text("{}", encoding="utf-8")
             paths.semantic_inventory_path("en-ja", profile_id=other_profile).write_text(
+                "{}", encoding="utf-8"
+            )
+            paths.publication_manifest_path("en-ja", profile_id=other_profile).write_text(
                 "{}", encoding="utf-8"
             )
 
@@ -213,13 +227,20 @@ class TestHelperEngineProfileIsolation(unittest.TestCase):
             self.assertTrue(
                 paths.semantic_inventory_path("en-ja", profile_id=default_profile).exists()
             )
+            self.assertTrue(
+                paths.publication_manifest_path("en-ja", profile_id=default_profile).exists()
+            )
             self.assertFalse(paths.snapshot_path("en-ja", profile_id=other_profile).exists())
             self.assertFalse(paths.ruleset_path("en-ja", profile_id=other_profile).exists())
             self.assertFalse(
                 paths.semantic_inventory_path("en-ja", profile_id=other_profile).exists()
             )
+            self.assertFalse(
+                paths.publication_manifest_path("en-ja", profile_id=other_profile).exists()
+            )
             self.assertEqual(result["profile_id"], other_profile)
             self.assertEqual(result["removed_items"], 1)
+            self.assertEqual(result["removed_publication_manifests"], 1)
 
 
 class TestHelperEngineSemanticInventoryLoad(unittest.TestCase):
@@ -1013,17 +1034,28 @@ class TestHelperEngineRuntimeDiagnostics(unittest.TestCase):
                 encoding="utf-8",
             )
             paths.snapshot_path("en-ja").write_text(
-                '{"stats":{"target_count":2,"rule_count":2},"targets":[{"lemma":"一"},{"lemma":"二"}]}',
+                '{"stats":{"target_count":2,"rule_count":2},"targets":[{"lemma":"一"},{"lemma":"二"}],"generation_id":"en-ja:default:test-generation"}',
                 encoding="utf-8",
             )
             paths.semantic_inventory_path("en-ja").write_text(
                 (
-                    '{"schema_version":1,"pair":"en-ja","profile_id":"default","generated_at":"2026-04-10T00:00:00Z",'
+                    '{"schema_version":1,"pair":"en-ja","profile_id":"default","generated_at":"2026-04-10T00:00:00Z","generation_id":"en-ja:default:test-generation",'
                     '"capability":{"pointer_modes":["jmdict_entry"],"default_unavailable_reason_code":"missing_jmdict_entry_locator","competition_mode":"not_published","competition_reason_code":"missing_shadow_selection","phrase_mode":"not_published","phrase_reason_code":"missing_phrase_inventory"},'
                     '"triggers":{"en-ja:trigger:two":{"trigger_id":"en-ja:trigger:two","source_phrase":"two","normalized_source_phrase":"two","token_count":1}},'
                     '"senses":{"en-ja:jmdict:二:1":{"sense_id":"en-ja:jmdict:二:1","trigger_id":"en-ja:trigger:two","status":"ready","target_lemma":"二","provider":"jmdict","locator":{"provider":"jmdict","locator_kind":"jmdict_entry","kana_forms":["に"]}}},'
                     '"competition_sets":{"en-ja:two:二:v1":{"competition_set_id":"en-ja:two:二:v1","trigger_id":"en-ja:trigger:two","status":"ready","active_sense_id":"en-ja:jmdict:二:1","shadow_sense_ids":["en-ja:jmdict:2:shadow"],"selection_mode":"manual","selection_policy_version":"v1"}},'
                     '"phrase_sets":{}}'
+                ),
+                encoding="utf-8",
+            )
+            paths.publication_manifest_path("en-ja").write_text(
+                (
+                    '{"schema_version":1,"pair":"en-ja","profile_id":"default","generated_at":"2026-04-10T00:00:00Z",'
+                    '"published_at":"2026-04-10T00:00:01Z","generation_id":"en-ja:default:test-generation",'
+                    '"artifacts":{"ruleset":{"path":"rules","exists":true,"sha1":"abc","bytes":1},'
+                    '"snapshot":{"path":"snapshot","exists":true,"sha1":"def","bytes":1},'
+                    '"semantic_inventory":{"path":"inventory","exists":true,"sha1":"ghi","bytes":1}},'
+                    '"validation":{"family_valid":true,"semantic_inventory_included":true,"errors":[]}}'
                 ),
                 encoding="utf-8",
             )
@@ -1043,8 +1075,12 @@ class TestHelperEngineRuntimeDiagnostics(unittest.TestCase):
             self.assertEqual(payload["ruleset_rules_semantic_unavailable"], 1)
             self.assertEqual(payload["ruleset_rules_semantic_not_applicable"], 0)
             self.assertEqual(payload["snapshot_target_count"], 2)
+            self.assertEqual(payload["snapshot_generation_id"], "en-ja:default:test-generation")
             self.assertTrue(payload["semantic_inventory_exists"])
             self.assertEqual(payload["semantic_inventory_schema_version"], 1)
+            self.assertEqual(
+                payload["semantic_inventory_generation_id"], "en-ja:default:test-generation"
+            )
             self.assertEqual(payload["semantic_inventory_pointer_modes"], ["jmdict_entry"])
             self.assertEqual(
                 payload["semantic_inventory_default_unavailable_reason_code"],
@@ -1054,6 +1090,12 @@ class TestHelperEngineRuntimeDiagnostics(unittest.TestCase):
             self.assertEqual(payload["semantic_inventory_sense_count"], 1)
             self.assertEqual(payload["semantic_inventory_competition_set_count"], 1)
             self.assertEqual(payload["semantic_inventory_phrase_set_count"], 0)
+            self.assertTrue(payload["publication_manifest_exists"])
+            self.assertEqual(
+                payload["publication_manifest_generation_id"], "en-ja:default:test-generation"
+            )
+            self.assertTrue(payload["publication_manifest_family_valid"])
+            self.assertEqual(payload["publication_manifest_error_count"], 0)
 
 
 class TestHelperEngineInitializeSrsSet(unittest.TestCase):

@@ -339,6 +339,11 @@ def run_rulegen_job(
         "ruleset_path": (
             str(paths.ruleset_path(pair, profile_id=profile_id)) if config.persist_outputs else None
         ),
+        "publication_manifest_path": (
+            str(paths.publication_manifest_path(pair, profile_id=profile_id))
+            if config.persist_outputs
+            else None
+        ),
         "semantic_inventory_path": (
             str(paths.semantic_inventory_path(pair, profile_id=profile_id))
             if config.persist_outputs and getattr(output, "semantic_inventory", None) is not None

@@ -74,6 +74,9 @@ def get_srs_runtime_diagnostics(
     semantic_inventory_path = paths.semantic_inventory_path(
         normalized_pair, profile_id=normalized_profile_id
     )
+    publication_manifest_path = paths.publication_manifest_path(
+        normalized_pair, profile_id=normalized_profile_id
+    )
     status_path = paths.srs_status_path_for(normalized_profile_id)
     translation_dict_path_text = (
         str(resolved_translation_dict_path) if resolved_translation_dict_path else None
@@ -164,10 +167,12 @@ def get_srs_runtime_diagnostics(
         "snapshot_path": str(snapshot_path),
         "snapshot_exists": snapshot_path.exists(),
         "snapshot_target_count": 0,
+        "snapshot_generation_id": None,
         "snapshot_error": None,
         "semantic_inventory_path": str(semantic_inventory_path),
         "semantic_inventory_exists": semantic_inventory_path.exists(),
         "semantic_inventory_schema_version": None,
+        "semantic_inventory_generation_id": None,
         "semantic_inventory_pointer_modes": [],
         "semantic_inventory_default_unavailable_reason_code": None,
         "semantic_inventory_trigger_count": 0,
@@ -175,6 +180,12 @@ def get_srs_runtime_diagnostics(
         "semantic_inventory_competition_set_count": 0,
         "semantic_inventory_phrase_set_count": 0,
         "semantic_inventory_error": None,
+        "publication_manifest_path": str(publication_manifest_path),
+        "publication_manifest_exists": publication_manifest_path.exists(),
+        "publication_manifest_generation_id": None,
+        "publication_manifest_family_valid": None,
+        "publication_manifest_error_count": 0,
+        "publication_manifest_errors": [],
         "status": load_status(status_path).__dict__,
     }
     if diagnostics["store_exists"]:
@@ -248,6 +259,9 @@ def get_srs_runtime_diagnostics(
             if target_count is None and isinstance(snapshot_payload.get("targets"), list):
                 target_count = len(snapshot_payload.get("targets", []))
             diagnostics["snapshot_target_count"] = int(target_count or 0)
+            diagnostics["snapshot_generation_id"] = (
+                str(snapshot_payload.get("generation_id") or "").strip() or None
+            )
         except Exception as exc:  # noqa: BLE001
             diagnostics["snapshot_error"] = str(exc)
     if diagnostics["semantic_inventory_exists"]:
@@ -257,6 +271,9 @@ def get_srs_runtime_diagnostics(
             )
             diagnostics["semantic_inventory_schema_version"] = semantic_inventory_payload.get(
                 "schema_version"
+            )
+            diagnostics["semantic_inventory_generation_id"] = (
+                str(semantic_inventory_payload.get("generation_id") or "").strip() or None
             )
             capability = semantic_inventory_payload.get("capability")
             if isinstance(capability, dict):
@@ -282,4 +299,27 @@ def get_srs_runtime_diagnostics(
             )
         except Exception as exc:  # noqa: BLE001
             diagnostics["semantic_inventory_error"] = str(exc)
+    if diagnostics["publication_manifest_exists"]:
+        try:
+            manifest_payload = json.loads(publication_manifest_path.read_text(encoding="utf-8"))
+            diagnostics["publication_manifest_generation_id"] = (
+                str(manifest_payload.get("generation_id") or "").strip() or None
+            )
+            validation_payload = manifest_payload.get("validation")
+            if isinstance(validation_payload, dict):
+                family_valid = validation_payload.get("family_valid")
+                diagnostics["publication_manifest_family_valid"] = (
+                    bool(family_valid) if family_valid is not None else None
+                )
+                raw_errors = validation_payload.get("errors")
+                if isinstance(raw_errors, list):
+                    diagnostics["publication_manifest_errors"] = [
+                        str(item) for item in raw_errors if str(item).strip()
+                    ]
+                diagnostics["publication_manifest_error_count"] = len(
+                    diagnostics["publication_manifest_errors"]
+                )
+        except Exception as exc:  # noqa: BLE001
+            diagnostics["publication_manifest_errors"] = [str(exc)]
+            diagnostics["publication_manifest_error_count"] = 1
     return diagnostics
