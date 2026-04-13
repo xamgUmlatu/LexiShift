@@ -182,6 +182,15 @@ When new source families are implemented, prefer this split:
 
 Do not bury new source-family assumptions inside the runtime publication layer.
 
+First repo-facing intake lane now exists for LLM silver batches:
+
+- `docs/test_inputs/semantic_routing/semantic_llm_intake_batch.schema.json`
+- `docs/test_inputs/semantic_routing/semantic_evidence_batch.schema.json`
+- `core/lexishift_core/rulegen/semantic_evidence.py`
+
+That means later API jobs only need to emit cohesive raw batch rows.
+The batch-to-canonical mapping seam is now explicit instead of ad hoc.
+
 ### Experiment discipline
 
 Every source family should be tested in four stages:

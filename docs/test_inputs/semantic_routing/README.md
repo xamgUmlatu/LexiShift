@@ -1,7 +1,7 @@
 # Semantic Routing Planning Schemas
 
-Status: planning-only
-Role: schema sketch for future semantic-routing integration
+Status: planning plus offline-intake staging
+Role: schema sketch for future semantic-routing integration and offline evidence intake
 
 These schema files do not describe a shipped runtime contract yet.
 They exist so future implementation can converge on one LP-symmetric data shape instead of inventing pair-specific payloads ad hoc.
@@ -13,6 +13,10 @@ Files:
   - planned sidecar inventory published alongside ruleset/snapshot for semantic routing
   - intended future helper artifact naming: `srs_semantic_inventory_<pair>.json`
   - includes optional pair capability summary for active-pointer modes and default unavailable reasons
+- `semantic_llm_intake_batch.schema.json`
+  - offline Layer 1 raw LLM intake envelope for shadow, bridge, or cue proposal batches before canonical normalization
+- `semantic_evidence_batch.schema.json`
+  - offline Layer 2 normalized evidence lane emitted after raw source batches are deduped into one common semantic-evidence shape
 - `semantic_admit_batch_request.schema.json`
   - planned helper/runtime request contract for batched semantic admission over concrete matched contexts
   - carries pair/profile, explicit offset encoding, fallback policy, optional requested decision policy, and matched rule pointers plus local context text
@@ -36,3 +40,4 @@ See also:
 - `docs/rulegen/semantic_routing_data_contract.md`
 - `docs/rulegen/semantic_routing_publication_contract.md`
 - `docs/rulegen/semantic_routing_runtime_readiness.md`
+- `core/lexishift_core/rulegen/semantic_evidence.py`

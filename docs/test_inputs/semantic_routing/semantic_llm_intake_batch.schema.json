@@ -1,0 +1,257 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LexiShift Semantic LLM Intake Batch",
+  "description": "Offline intake schema for raw LLM-generated semantic candidate or cue batches before canonical evidence normalization.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "batch_id",
+    "pair",
+    "source_type",
+    "source_id",
+    "source_family",
+    "roles",
+    "generated_at",
+    "ingested_at",
+    "review_state",
+    "model_id",
+    "prompt_version",
+    "items"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "integer",
+      "const": 1
+    },
+    "batch_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "pair": {
+      "type": "string",
+      "pattern": "^[a-z]{2,3}-[a-z]{2,3}$"
+    },
+    "source_type": {
+      "type": "string",
+      "const": "llm"
+    },
+    "source_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_family": {
+      "type": "string",
+      "const": "silver_llm_generation"
+    },
+    "roles": {
+      "$ref": "#/definitions/roleArray"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "ingested_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "review_state": {
+      "$ref": "#/definitions/reviewState"
+    },
+    "model_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "prompt_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "temperature": {
+      "type": "number"
+    },
+    "cost_metadata": {
+      "type": "object"
+    },
+    "provenance": {
+      "type": "object"
+    },
+    "items": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/item"
+      }
+    }
+  },
+  "definitions": {
+    "roleArray": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "enum": [
+          "seed",
+          "candidate_generation",
+          "discrimination",
+          "sense_linking",
+          "cue_generation"
+        ]
+      }
+    },
+    "reviewState": {
+      "type": "string",
+      "enum": [
+        "unreviewed",
+        "accepted",
+        "rejected",
+        "edited"
+      ]
+    },
+    "promotionState": {
+      "type": "string",
+      "enum": [
+        "proposed",
+        "kept",
+        "dropped",
+        "published"
+      ]
+    },
+    "senseHint": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "provider": {
+          "type": "string",
+          "minLength": 1
+        },
+        "locator_kind": {
+          "type": "string",
+          "minLength": 1
+        },
+        "target_key": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sense_label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "canonical_pos": {
+          "type": "string",
+          "minLength": 1
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1
+        },
+        "entry_ord": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sense_ord": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "gloss_ord": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "metadata": {
+          "type": "object"
+        }
+      }
+    },
+    "item": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "row_id",
+        "relation_type",
+        "trigger",
+        "active_target",
+        "candidate_target",
+        "evidence_text"
+      ],
+      "properties": {
+        "row_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "pair": {
+          "type": "string",
+          "pattern": "^[a-z]{2,3}-[a-z]{2,3}$"
+        },
+        "roles": {
+          "$ref": "#/definitions/roleArray"
+        },
+        "relation_type": {
+          "type": "string",
+          "enum": [
+            "shadow_candidate",
+            "bridge_candidate",
+            "anchor_cue"
+          ]
+        },
+        "trigger": {
+          "type": "string",
+          "minLength": 1
+        },
+        "active_target": {
+          "type": "string",
+          "minLength": 1
+        },
+        "candidate_target": {
+          "type": "string",
+          "minLength": 1
+        },
+        "active_sense_hint": {
+          "$ref": "#/definitions/senseHint"
+        },
+        "candidate_sense_hint": {
+          "$ref": "#/definitions/senseHint"
+        },
+        "candidate_pos": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "example_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "prompt_slot": {
+          "type": "string",
+          "minLength": 1
+        },
+        "input_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "raw_response_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "review_state": {
+          "$ref": "#/definitions/reviewState"
+        },
+        "promotion_state": {
+          "$ref": "#/definitions/promotionState"
+        },
+        "runtime_publishable": {
+          "type": "boolean"
+        },
+        "metadata": {
+          "type": "object"
+        }
+      }
+    }
+  }
+}

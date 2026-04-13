@@ -207,6 +207,11 @@ LLM batches should also carry:
 - `temperature`
 - `cost_metadata`
 
+Current repo anchor for the first LLM lane:
+
+- `docs/test_inputs/semantic_routing/semantic_llm_intake_batch.schema.json`
+  - raw batch envelope for offline LLM shadow, bridge, and cue proposals before any canonical normalization
+
 ### Layer 2. Normalized canonical evidence
 
 Purpose:
@@ -223,6 +228,13 @@ This is where we:
 
 This layer should still be richer than runtime.
 It is the build input, not the served package.
+
+Current repo anchors for the first normalized lane:
+
+- `docs/test_inputs/semantic_routing/semantic_evidence_batch.schema.json`
+  - canonical offline evidence shape after raw rows are normalized
+- `core/lexishift_core/rulegen/semantic_evidence.py`
+  - deterministic batch normalizer for the current LLM intake seam
 
 ### Layer 3. Compiled semantic generation
 

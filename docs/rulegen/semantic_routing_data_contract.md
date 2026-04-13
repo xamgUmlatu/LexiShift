@@ -9,6 +9,8 @@ Source-of-truth: planning doc only; current implemented truth still lives in cod
 Planning schemas:
 - `docs/test_inputs/semantic_routing/semantic_admission.schema.json`
 - `docs/test_inputs/semantic_routing/semantic_inventory.schema.json`
+- `docs/test_inputs/semantic_routing/semantic_llm_intake_batch.schema.json`
+- `docs/test_inputs/semantic_routing/semantic_evidence_batch.schema.json`
 - `docs/test_inputs/semantic_routing/semantic_admit_batch_request.schema.json`
 - `docs/test_inputs/semantic_routing/semantic_admit_batch_response.schema.json`
 Related planning doc:
