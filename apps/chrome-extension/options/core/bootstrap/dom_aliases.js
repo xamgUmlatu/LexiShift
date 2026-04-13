@@ -53,6 +53,8 @@
       srsSoundInput: source.srsSoundEnabled || null,
       srsHighlightInput: source.srsHighlightColor || null,
       srsHighlightTextInput: source.srsHighlightColorText || null,
+      srsSemanticAdmissionEnabledInput: source.srsSemanticAdmissionEnabled || null,
+      srsSemanticAdmissionFallbackPolicyInput: source.srsSemanticAdmissionFallbackPolicy || null,
       srsFeedbackSrsInput: source.srsFeedbackSrsEnabled || null,
       srsFeedbackRulesInput: source.srsFeedbackRulesEnabled || null,
       srsExposureLoggingInput: source.srsExposureLoggingEnabled || null,

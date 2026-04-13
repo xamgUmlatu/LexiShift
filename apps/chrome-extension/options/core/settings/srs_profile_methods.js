@@ -1,5 +1,11 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
+  const DEFAULT_SEMANTIC_FALLBACK_POLICY = "legacy_on_unavailable";
+  const SEMANTIC_FALLBACK_POLICIES = new Set([
+    "legacy_on_unavailable",
+    "abstain_on_unavailable",
+    "soft_affordance_on_unavailable"
+  ]);
 
   function installSrsProfileMethods(SettingsManager) {
     if (!SettingsManager || !SettingsManager.prototype) {
@@ -29,6 +35,15 @@
         srsBootstrapTopN: bootstrapTopN,
         srsInitialActiveCount: initialActiveCount
       };
+    };
+
+    SettingsManager.prototype._normalizeSrsSemanticFallbackPolicy = function _normalizeSrsSemanticFallbackPolicy(rawPolicy) {
+      const normalized = String(rawPolicy || DEFAULT_SEMANTIC_FALLBACK_POLICY).trim()
+        || DEFAULT_SEMANTIC_FALLBACK_POLICY;
+      if (SEMANTIC_FALLBACK_POLICIES.has(normalized)) {
+        return normalized;
+      }
+      return DEFAULT_SEMANTIC_FALLBACK_POLICY;
     };
 
     SettingsManager.prototype.getSrsProfile = function getSrsProfile(items, pairKey, options) {
@@ -65,6 +80,12 @@
           ? rawProfile.srsSoundEnabled === true
           : (this.defaults.srsSoundEnabled !== false),
         srsHighlightColor: rawProfile.srsHighlightColor || this.defaults.srsHighlightColor,
+        srsSemanticAdmissionEnabled: rawProfile.srsSemanticAdmissionEnabled !== undefined
+          ? rawProfile.srsSemanticAdmissionEnabled === true
+          : (this.defaults.srsSemanticAdmissionEnabled === true),
+        srsSemanticAdmissionFallbackPolicy: this._normalizeSrsSemanticFallbackPolicy(
+          rawProfile.srsSemanticAdmissionFallbackPolicy || this.defaults.srsSemanticAdmissionFallbackPolicy
+        ),
         srsFeedbackSrsEnabled: rawProfile.srsFeedbackSrsEnabled !== undefined
           ? rawProfile.srsFeedbackSrsEnabled === true
           : (this.defaults.srsFeedbackSrsEnabled !== false),
@@ -133,6 +154,10 @@
         srsInitialActiveCount: runtimeProfile.srsInitialActiveCount || this.defaults.srsInitialActiveCount,
         srsSoundEnabled: runtimeProfile.srsSoundEnabled !== false,
         srsHighlightColor: runtimeProfile.srsHighlightColor || this.defaults.srsHighlightColor,
+        srsSemanticAdmissionEnabled: runtimeProfile.srsSemanticAdmissionEnabled === true,
+        srsSemanticAdmissionFallbackPolicy: this._normalizeSrsSemanticFallbackPolicy(
+          runtimeProfile.srsSemanticAdmissionFallbackPolicy || this.defaults.srsSemanticAdmissionFallbackPolicy
+        ),
         srsFeedbackSrsEnabled: runtimeProfile.srsFeedbackSrsEnabled !== false,
         srsFeedbackRulesEnabled: runtimeProfile.srsFeedbackRulesEnabled === true,
         srsExposureLoggingEnabled: runtimeProfile.srsExposureLoggingEnabled !== false,

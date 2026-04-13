@@ -119,6 +119,24 @@
   "label_srs_highlight_color": {
     "message": "SRS highlight color"
   },
+  "toggle_srs_semantic_admission": {
+    "message": "Enable semantic admission (experimental)"
+  },
+  "hint_srs_semantic_admission": {
+    "message": "Filters eligible SRS replacements with helper-side sentence veto. Fallback policy decides what happens when semantic data or helper service is unavailable."
+  },
+  "label_srs_semantic_fallback_policy": {
+    "message": "Semantic fallback policy"
+  },
+  "option_srs_semantic_fallback_legacy": {
+    "message": "Keep legacy replacement"
+  },
+  "option_srs_semantic_fallback_abstain": {
+    "message": "Abstain"
+  },
+  "option_srs_semantic_fallback_soft": {
+    "message": "Soft affordance (reserved)"
+  },
   "toggle_srs_feedback_srs": {
     "message": "Enable feedback for SRS words"
   },

@@ -773,8 +773,8 @@ Use this file when:
 ## Semantic Routing Runtime Admission Layer
 
 - Status: `implemented`, `default-off`, `verified`
-- Last documented checkpoint: `2026-04-13` landed Phase 4 runtime wiring on top of the earlier Phase 3 helper service and explicitly documented the current shipped E2E/default behavior: the browser extension now has a dedicated semantic-gate runtime module that filters deterministic trie matches before span creation, calls helper-side `semantic_admit_batch` for eligible SRS matches, persists semantic inventory/runtime counts into diagnostics, and keeps the whole path behind a default-off setting gate plus explicit fallback policy
-- Last verified: `2026-04-13` targeted extension JS syntax checks, extension-structure tests, targeted runtime-policy/helper/native-host tests, the existing sentence-veto support regression tests, and helper/doc/state checks on the new runtime path
+- Last documented checkpoint: `2026-04-13` landed Phase 4 runtime wiring on top of the earlier Phase 3 helper service, then closed the browser-side rollout gap with explicit extension-options controls plus an `en-es` publish checklist: the browser extension now has a dedicated semantic-gate runtime module that filters deterministic trie matches before span creation, calls helper-side `semantic_admit_batch` for eligible SRS matches, persists semantic inventory/runtime counts into diagnostics, and keeps the whole path behind a default-off setting gate plus explicit fallback policy
+- Last verified: `2026-04-13` targeted extension JS syntax checks, extension-structure tests, targeted runtime-policy/helper/native-host tests, the existing sentence-veto support regression tests, and helper/doc/state checks on the new runtime path and options wiring
 - Default behavior:
   - No semantic-routing admission layer is active in the browser runtime by default because `srsSemanticAdmissionEnabled` now defaults to `false`.
   - Current default runtime replacement behavior is still driven by rule emission plus existing SRS gating, not by sentence-level sense competition.
@@ -789,6 +789,10 @@ Use this file when:
     - only SRS-origin rules that already carry `metadata.semantic_admission` are eligible
     - `srsSemanticAdmissionFallbackPolicy` defaults to `legacy_on_unavailable`, so missing readiness/package/service does not change default replacement behavior
     - the schema still reserves `soft_affordance` as a future optional non-replace outcome, but current DOM behavior only acts on `replace` and otherwise keeps the original text
+  - The browser extension options page now exposes per-profile semantic-admission controls:
+    - `srsSemanticAdmissionEnabled`
+    - `srsSemanticAdmissionFallbackPolicy`
+    - pilot rollout no longer requires direct storage edits
   - Current implemented E2E is now explicit:
     - offline helper artifacts stay local
     - extension loads ruleset plus semantic inventory from helper/cache

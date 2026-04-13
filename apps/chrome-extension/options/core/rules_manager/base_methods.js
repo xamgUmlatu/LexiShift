@@ -169,6 +169,8 @@
       "srsInitialActiveCount",
       "srsSoundEnabled",
       "srsHighlightColor",
+      "srsSemanticAdmissionEnabled",
+      "srsSemanticAdmissionFallbackPolicy",
       "srsFeedbackSrsEnabled",
       "srsFeedbackRulesEnabled",
       "srsExposureLoggingEnabled",

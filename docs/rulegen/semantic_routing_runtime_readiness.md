@@ -23,6 +23,7 @@ Sequencing note:
 
 - this doc explains the readiness boundary and research posture
 - `docs/rulegen/semantic_routing_implementation_roadmap.md` now carries the concrete implementation ladder for publishing `en-es` first without forking the LP architecture
+- `docs/rulegen/semantic_routing_en_es_publish_checklist.md` now carries the controlled launch runbook for the first browser-extension `en-es` rollout
 
 ## Purpose
 

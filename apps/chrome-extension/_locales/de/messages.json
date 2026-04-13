@@ -119,6 +119,24 @@
   "label_srs_highlight_color": {
     "message": "SRS-Hervorhebungsfarbe"
   },
+  "toggle_srs_semantic_admission": {
+    "message": "Semantische Zulassung aktivieren (experimentell)"
+  },
+  "hint_srs_semantic_admission": {
+    "message": "Filtert geeignete SRS-Ersetzungen mit einem satzbasierten Veto auf der Hilfsdienst-Seite. Die Fallback-Richtlinie bestimmt, was passiert, wenn semantische Daten oder der Hilfsdienst nicht verfügbar sind."
+  },
+  "label_srs_semantic_fallback_policy": {
+    "message": "Semantische Fallback-Richtlinie"
+  },
+  "option_srs_semantic_fallback_legacy": {
+    "message": "Bisheriges Ersetzen beibehalten"
+  },
+  "option_srs_semantic_fallback_abstain": {
+    "message": "Nicht ersetzen"
+  },
+  "option_srs_semantic_fallback_soft": {
+    "message": "Weiche Andeutung (reserviert)"
+  },
   "toggle_srs_feedback_srs": {
     "message": "Feedback für SRS-Wörter aktivieren"
   },

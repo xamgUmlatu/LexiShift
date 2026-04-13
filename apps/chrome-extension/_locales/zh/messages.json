@@ -119,6 +119,24 @@
   "label_srs_highlight_color": {
     "message": "SRS 高亮颜色"
   },
+  "toggle_srs_semantic_admission": {
+    "message": "启用语义准入（实验性）"
+  },
+  "hint_srs_semantic_admission": {
+    "message": "用助手端的句子级 veto 过滤可候选的 SRS 替换。若语义数据或助手服务不可用，则由回退策略决定行为。"
+  },
+  "label_srs_semantic_fallback_policy": {
+    "message": "语义回退策略"
+  },
+  "option_srs_semantic_fallback_legacy": {
+    "message": "保持旧版替换行为"
+  },
+  "option_srs_semantic_fallback_abstain": {
+    "message": "弃权"
+  },
+  "option_srs_semantic_fallback_soft": {
+    "message": "软提示（预留）"
+  },
   "toggle_srs_feedback_srs": {
     "message": "对 SRS 词启用反馈"
   },

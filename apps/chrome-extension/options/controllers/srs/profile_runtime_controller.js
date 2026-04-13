@@ -1,5 +1,11 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
+  const DEFAULT_SEMANTIC_FALLBACK_POLICY = "legacy_on_unavailable";
+  const SEMANTIC_FALLBACK_POLICIES = new Set([
+    "legacy_on_unavailable",
+    "abstain_on_unavailable",
+    "soft_affordance_on_unavailable"
+  ]);
 
   function createController(options) {
     const opts = options && typeof options === "object" ? options : {};
@@ -52,6 +58,8 @@
     const srsSoundInput = elements.srsSoundInput || null;
     const srsHighlightInput = elements.srsHighlightInput || null;
     const srsHighlightTextInput = elements.srsHighlightTextInput || null;
+    const srsSemanticAdmissionEnabledInput = elements.srsSemanticAdmissionEnabledInput || null;
+    const srsSemanticAdmissionFallbackPolicyInput = elements.srsSemanticAdmissionFallbackPolicyInput || null;
     const srsFeedbackSrsInput = elements.srsFeedbackSrsInput || null;
     const srsFeedbackRulesInput = elements.srsFeedbackRulesInput || null;
     const srsExposureLoggingInput = elements.srsExposureLoggingInput || null;
@@ -127,6 +135,18 @@
       const srsHighlightColor = srsHighlightInput
         ? (srsHighlightInput.value || settingsManager.defaults.srsHighlightColor || "#2F74D0")
         : (settingsManager.defaults.srsHighlightColor || "#2F74D0");
+      const srsSemanticAdmissionEnabled = srsSemanticAdmissionEnabledInput
+        ? srsSemanticAdmissionEnabledInput.checked
+        : (settingsManager.defaults.srsSemanticAdmissionEnabled === true);
+      const rawSemanticFallbackPolicy = srsSemanticAdmissionFallbackPolicyInput
+        ? String(srsSemanticAdmissionFallbackPolicyInput.value || "").trim()
+        : "";
+      const srsSemanticAdmissionFallbackPolicy = SEMANTIC_FALLBACK_POLICIES.has(rawSemanticFallbackPolicy)
+        ? rawSemanticFallbackPolicy
+        : String(
+            settingsManager.defaults.srsSemanticAdmissionFallbackPolicy
+              || DEFAULT_SEMANTIC_FALLBACK_POLICY
+          ).trim() || DEFAULT_SEMANTIC_FALLBACK_POLICY;
       const srsFeedbackSrsEnabled = srsFeedbackSrsInput ? srsFeedbackSrsInput.checked : true;
       const srsFeedbackRulesEnabled = srsFeedbackRulesInput ? srsFeedbackRulesInput.checked : false;
       const srsExposureLoggingEnabled = srsExposureLoggingInput
@@ -147,6 +167,8 @@
         srsInitialActiveCount: sizing.srsInitialActiveCount,
         srsSoundEnabled,
         srsHighlightColor,
+        srsSemanticAdmissionEnabled,
+        srsSemanticAdmissionFallbackPolicy,
         srsFeedbackSrsEnabled,
         srsFeedbackRulesEnabled,
         srsExposureLoggingEnabled
@@ -165,6 +187,9 @@
       }
       if (srsHighlightTextInput) {
         srsHighlightTextInput.value = srsHighlightColor;
+      }
+      if (srsSemanticAdmissionFallbackPolicyInput) {
+        srsSemanticAdmissionFallbackPolicyInput.value = srsSemanticAdmissionFallbackPolicy;
       }
 
       const updateResult = await settingsManager.updateSrsProfile(pairKey, profile, {
@@ -196,6 +221,8 @@
         srsInitialActiveCount: sizing.srsInitialActiveCount,
         srsSoundEnabled,
         srsHighlightColor,
+        srsSemanticAdmissionEnabled,
+        srsSemanticAdmissionFallbackPolicy,
         srsFeedbackSrsEnabled,
         srsFeedbackRulesEnabled,
         srsExposureLoggingEnabled

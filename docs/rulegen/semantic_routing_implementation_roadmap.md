@@ -13,6 +13,8 @@ Related planning docs:
 - `docs/rulegen/semantic_routing_generalization_evaluation_plan.md`
 - `docs/rulegen/semantic_shadow_testing_architecture.md`
 - `docs/rulegen/semantic_shadow_source_intake_plan.md`
+Related runbooks:
+- `docs/rulegen/semantic_routing_en_es_publish_checklist.md`
 Verification:
 - `core/lexishift_core/rulegen/semantic_publication.py`
 - `core/lexishift_core/helper/rulegen.py`
@@ -206,7 +208,7 @@ Still missing:
 
 - phrase sets in the default published sidecar
 - chat/plugin runtime integration
-- user-facing settings/UX for semantic-admission rollout
+- broader rollout UX outside the extension options page
 - a distinct rendered affordance for non-replace semantic outcomes
 - any future cloud transport or remote artifact-serving choice
 

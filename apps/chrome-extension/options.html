@@ -110,6 +110,21 @@
             <input id="srs-highlight-color-text" type="text" class="color-text" />
           </div>
           <label class="toggle">
+            <input id="srs-semantic-admission-enabled" type="checkbox" />
+            <span data-i18n="toggle_srs_semantic_admission">Enable semantic admission (experimental)</span>
+          </label>
+          <p class="hint" data-i18n="hint_srs_semantic_admission">
+            Filters eligible SRS replacements with helper-side sentence veto. Fallback policy decides what happens when semantic data or helper service is unavailable.
+          </p>
+          <div class="field-row">
+            <label for="srs-semantic-admission-fallback-policy" data-i18n="label_srs_semantic_fallback_policy">Semantic fallback policy</label>
+            <select id="srs-semantic-admission-fallback-policy">
+              <option value="legacy_on_unavailable" data-i18n="option_srs_semantic_fallback_legacy">Keep legacy replacement</option>
+              <option value="abstain_on_unavailable" data-i18n="option_srs_semantic_fallback_abstain">Abstain</option>
+              <option value="soft_affordance_on_unavailable" data-i18n="option_srs_semantic_fallback_soft">Soft affordance (reserved)</option>
+            </select>
+          </div>
+          <label class="toggle">
             <input id="srs-feedback-srs-enabled" type="checkbox" />
             <span data-i18n="toggle_srs_feedback_srs">Enable feedback for SRS words</span>
           </label>

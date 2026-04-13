@@ -119,6 +119,24 @@
   "label_srs_highlight_color": {
     "message": "SRSハイライト色"
   },
+  "toggle_srs_semantic_admission": {
+    "message": "意味アドミッションを有効化（実験的）"
+  },
+  "hint_srs_semantic_admission": {
+    "message": "対象になるSRS置換を、ヘルパー側の文ベース veto で絞り込みます。意味データやヘルパーが利用できない場合は、フォールバック方針で動作を決めます。"
+  },
+  "label_srs_semantic_fallback_policy": {
+    "message": "意味フォールバック方針"
+  },
+  "option_srs_semantic_fallback_legacy": {
+    "message": "従来どおり置換する"
+  },
+  "option_srs_semantic_fallback_abstain": {
+    "message": "見送る"
+  },
+  "option_srs_semantic_fallback_soft": {
+    "message": "ソフト表示（予約済み）"
+  },
   "toggle_srs_feedback_srs": {
     "message": "SRS単語へのフィードバックを有効化"
   },

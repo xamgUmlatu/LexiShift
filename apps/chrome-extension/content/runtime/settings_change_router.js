@@ -54,6 +54,8 @@
       "srsProfileId",
       "srsMaxActive",
       "srsRulesetUpdatedAt",
+      "srsSemanticAdmissionEnabled",
+      "srsSemanticAdmissionFallbackPolicy",
       "targetDisplayScript"
     ];
     const highlightKeys = [

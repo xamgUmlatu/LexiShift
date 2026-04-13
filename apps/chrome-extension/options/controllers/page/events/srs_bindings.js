@@ -32,6 +32,8 @@
     const srsSoundInput = elements.srsSoundInput || null;
     const srsHighlightInput = elements.srsHighlightInput || null;
     const srsHighlightTextInput = elements.srsHighlightTextInput || null;
+    const srsSemanticAdmissionEnabledInput = elements.srsSemanticAdmissionEnabledInput || null;
+    const srsSemanticAdmissionFallbackPolicyInput = elements.srsSemanticAdmissionFallbackPolicyInput || null;
     const srsFeedbackSrsInput = elements.srsFeedbackSrsInput || null;
     const srsFeedbackRulesInput = elements.srsFeedbackRulesInput || null;
     const srsExposureLoggingInput = elements.srsExposureLoggingInput || null;
@@ -83,6 +85,12 @@
           saveSrsSettings();
         }
       });
+    }
+    if (srsSemanticAdmissionEnabledInput) {
+      srsSemanticAdmissionEnabledInput.addEventListener("change", saveSrsSettings);
+    }
+    if (srsSemanticAdmissionFallbackPolicyInput) {
+      srsSemanticAdmissionFallbackPolicyInput.addEventListener("change", saveSrsSettings);
     }
     if (srsFeedbackSrsInput) {
       srsFeedbackSrsInput.addEventListener("change", saveSrsSettings);
