@@ -8,6 +8,7 @@ Last verified: 2026-04-11 repo-doc review against the current semantic-shadow mi
 Source-of-truth: planning doc only; executable truth still lives in the current semantic-shadow modules and experiment artifacts
 Related inputs:
 - `docs/test_inputs/semantic_shadow_source_registry.json`
+- `docs/rulegen/semantic_routing_data_update_lifecycle.md`
 - `docs/rulegen/semantic_shadow_testing_architecture.md`
 - `docs/rulegen/semantic_routing_runtime_readiness.md`
 

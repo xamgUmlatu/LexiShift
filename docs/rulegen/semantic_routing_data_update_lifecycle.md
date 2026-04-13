@@ -1,0 +1,454 @@
+# Semantic Routing Data Update Lifecycle
+
+Status: active plan
+Role: Planning / operational
+Last updated: 2026-04-13
+Last verified: 2026-04-13 repo-doc review against the semantic-routing data/publication contracts, helper output writer, and implementation roadmap
+Purpose: define the update process for semantic-routing data so LexiShift can add mined, manual, and later LLM-derived evidence without creating awkward runtime coupling, redundant storage, or unsafe publication flow
+Source-of-truth: planning doc only; current implemented truth still lives in helper publication/runtime code and the semantic-routing contracts
+Related docs:
+- `docs/rulegen/semantic_routing_data_contract.md`
+- `docs/rulegen/semantic_routing_publication_contract.md`
+- `docs/rulegen/semantic_routing_implementation_roadmap.md`
+- `docs/rulegen/semantic_shadow_source_intake_plan.md`
+- `docs/rulegen/semantic_routing_en_es_publish_checklist.md`
+
+## Current Scope Assumptions
+
+This proposal is deliberately grounded in the current project reality:
+
+- the product is still unreleased
+- semantic-routing data is still local/helper-first
+- there is no cloud sync requirement yet
+- there is no need yet for background auto-update behavior
+
+That does not remove the need for an update model.
+
+The risk is the opposite:
+
+- if mined data, reviewed data, and later LLM data start landing ad hoc,
+- we will create duplicated artifacts,
+- unclear provenance,
+- and a runtime path that becomes harder to migrate later.
+
+The goal of this document is to prevent that while the system is still small.
+
+## Core Rule
+
+Semantic-routing data updates should always happen in two different layers:
+
+1. source-of-truth data update
+2. runtime artifact publication
+
+Those layers must not be collapsed.
+
+Source-of-truth data is where we ingest:
+
+- mined lexical evidence
+- reviewed corrections
+- synthetic or LLM proposals
+- future example and cue packs
+
+Runtime artifact publication is where we emit only the narrow contract runtime actually consumes:
+
+- `rule.metadata.semantic_admission`
+- ruleset
+- snapshot
+- semantic inventory sidecar
+
+This is the most important discipline in the whole lifecycle.
+
+## Design Rules
+
+### 1. Never edit published runtime artifacts by hand
+
+The files runtime consumes are outputs, not authoring surfaces.
+
+Do not directly patch:
+
+- `srs_ruleset_<pair>.json`
+- `srs_rulegen_snapshot_<pair>.json`
+- `srs_semantic_inventory_<pair>.json`
+
+Those should always be regenerated from upstream source-of-truth data.
+
+### 2. Keep raw evidence append-only
+
+Raw source batches should be treated as append-only records with explicit provenance.
+
+Corrections should happen by:
+
+- adding review decisions
+- adding normalized overrides
+- or publishing a new compiled generation
+
+not by mutating old raw batch content until its origin becomes ambiguous.
+
+### 3. Runtime should only consume compiled generations
+
+LLM output must never go straight to runtime.
+
+The allowed path is:
+
+1. ingest raw/silver rows
+2. normalize and dedupe them into the canonical evidence layer
+3. compile a generation
+4. validate the generation
+5. publish the generation
+6. let helper/runtime consume only the published generation
+
+### 4. Publish the full artifact family atomically
+
+Ruleset, snapshot, and semantic inventory form one publication family.
+
+They should be:
+
+- built from the same generation
+- promoted together
+- rolled back together
+- deleted together on reset
+
+Do not allow mixed generations across those files.
+
+### 5. Add one release identity beyond the existing semantic version axes
+
+The current contracts already separate:
+
+- `schema_version`
+- `selection_policy_version`
+- `decision_policy_id`
+- `fallback_policy`
+
+That is correct and should stay.
+
+The update process still needs one more identity:
+
+- `generation_id`
+
+`generation_id` answers a different question:
+
+- which exact compiled build is live right now?
+
+It should not replace the existing semantic version fields.
+It should sit alongside them.
+
+### 6. Avoid heavy per-profile duplication
+
+Today the local helper materializes artifacts per `pair/profile_id`, which is fine.
+
+If cloud-backed data arrives later, the heavy semantic content should not be duplicated per profile by default.
+
+The recommended future split is:
+
+- pair-global semantic core
+- profile-local publication overlay
+- helper-local materialized runtime files
+
+This preserves the current runtime contract while avoiding cloud-side waste.
+
+### 7. Keep provenance explicit all the way through
+
+Every upstream row should keep enough provenance to answer:
+
+- where it came from
+- whether it was mined, manual, or LLM-generated
+- whether it is reviewed
+- what model/prompt produced it if synthetic
+- what normalization or dedupe step transformed it
+
+If a compiled blocker set improves metrics, we should be able to trace why.
+
+## Proposed Data Layers
+
+The clean update lifecycle has six layers.
+
+### Layer 0. Approval and source registry
+
+Purpose:
+
+- declare which source families are allowed into the offline stack
+
+Current repo anchor:
+
+- `docs/test_inputs/semantic_shadow_source_registry.json`
+
+This layer answers:
+
+- is a source family approved at all?
+- is it intended for coverage, discrimination, cue generation, or silver proposals?
+
+### Layer 1. Raw source batches
+
+Purpose:
+
+- store newly ingested records exactly enough that provenance is preserved
+
+Examples:
+
+- mined dictionary exports
+- reviewed patch rows
+- LLM shadow proposal batches
+- LLM anchor/cue proposal batches
+
+Required fields conceptually:
+
+- `batch_id`
+- `source_family`
+- `pair`
+- `source_type`
+- `ingested_at`
+- `provenance`
+- `review_state`
+
+LLM batches should also carry:
+
+- `model_id`
+- `prompt_version`
+- `temperature`
+- `cost_metadata`
+
+### Layer 2. Normalized canonical evidence
+
+Purpose:
+
+- convert heterogeneous source rows into one stable internal evidence model
+
+This is where we:
+
+- dedupe equivalent senses
+- reconcile trigger spelling variants
+- normalize POS
+- attach stable sense locators where possible
+- tag rows as runtime-publishable or not
+
+This layer should still be richer than runtime.
+It is the build input, not the served package.
+
+### Layer 3. Compiled semantic generation
+
+Purpose:
+
+- build one immutable semantic-routing generation from the canonical evidence layer
+
+Each generation should have:
+
+- `generation_id`
+- build timestamp
+- pair scope
+- input batch references
+- normalization version
+- selection policy version
+- validation summary
+
+The output of this layer is the first thing that should be treated as releasable.
+
+### Layer 4. Publication family
+
+Purpose:
+
+- produce the exact runtime-facing files for one `pair/profile_id`
+
+Current runtime-facing family:
+
+- ruleset
+- snapshot
+- semantic inventory
+
+Today those are written locally through helper publication.
+That should remain the only thing runtime reads.
+
+### Layer 5. Release manifest
+
+Purpose:
+
+- say which compiled generation is active
+
+For the current local-only world, this can stay implicit.
+
+For any future remote or cloud-backed world, make it explicit.
+
+Recommended manifest identity:
+
+- channel name such as `dev`, `pilot`, or `stable`
+- target `generation_id`
+- artifact hashes
+- publication timestamp
+
+### Layer 6. Helper-local materialization
+
+Purpose:
+
+- place the active generation onto the current helper paths runtime already expects
+
+This final materialization step is what keeps runtime simple.
+
+The browser/helper runtime should not care whether the upstream source was:
+
+- mined locally
+- reviewed manually
+- downloaded from cloud
+- or enriched by LLM
+
+It should only care that the local helper paths contain one valid aligned publication family.
+
+## Recommended Identity Model
+
+Keep these identities separate:
+
+- `schema_version`
+  - payload shape
+- `selection_policy_version`
+  - offline blocker-selection logic
+- `decision_policy_id`
+  - runtime semantic decision logic
+- `fallback_policy`
+  - runtime behavior when semantic readiness fails
+- `generation_id`
+  - one exact compiled build
+
+The operational mistake to avoid is using one field to mean all five.
+
+## Proposed Update Flow For The Current Local-Only Project
+
+This is the recommended near-term process while everything is still local.
+
+1. Add or ingest new source batches.
+2. Normalize them into the canonical evidence layer.
+3. Compile a new `generation_id`.
+4. Run schema validation, referential-integrity checks, and benchmark/veto checks.
+5. If the generation passes, materialize the publication family to helper-local files.
+6. Replace the old local files atomically.
+7. Keep the previous generation available as last-known-good rollback.
+
+Even without cloud, this is worth following because it prevents:
+
+- silent mixed-generation files
+- direct edits to local runtime artifacts
+- and loss of provenance once LLM data starts landing
+
+## Proposed Update Flow If Cloud Is Added Later
+
+If cloud-backed delivery arrives, keep the runtime contract unchanged and add only one extra distribution layer.
+
+Recommended flow:
+
+1. Build a new immutable `generation_id`.
+2. Upload immutable artifacts under that generation id.
+3. Publish or update a small channel manifest that points to the generation.
+4. Helper sync reads the manifest.
+5. Helper downloads the full generation and verifies hashes.
+6. Helper materializes the local runtime family on existing helper paths.
+7. Runtime keeps reading the same local files as today.
+
+This avoids transport-specific runtime logic.
+
+## Recommended Future Split To Avoid Redundancy
+
+If cloud distribution is introduced, do not store the heaviest semantic package separately for every profile unless profile semantics truly differ.
+
+Recommended future split:
+
+- pair-global semantic core
+  - triggers
+  - senses
+  - competition sets
+  - phrase sets
+  - heavy provenance/evidence bundles if retained at build time
+- profile-local overlay
+  - ruleset
+  - snapshot
+  - profile-specific readiness or selection toggles if they ever exist
+- helper-local materialized sidecar
+  - current runtime-facing semantic inventory shape
+
+This means:
+
+- cloud storage avoids duplicate pair data across many profiles
+- helper composes what runtime already expects
+- browser/runtime code does not need to change just because storage topology changed
+
+## LLM-Specific Rules
+
+LLM augmentation fits this lifecycle well, but only under strict rules.
+
+### Allowed role
+
+LLM data may help:
+
+- propose missing shadow candidates
+- propose bridge candidates
+- propose anchors or cue drafts
+- produce review packets or silver labels
+
+### Forbidden role
+
+LLM data should not:
+
+- write runtime sidecars directly
+- bypass normalization
+- bypass evaluation
+- silently replace reviewed source-of-truth rows
+
+### Required metadata
+
+Every LLM-derived row should keep:
+
+- `source_type=llm`
+- `model_id`
+- `prompt_version`
+- `batch_id`
+- `review_state`
+- `promotion_state`
+
+This is what lets us later ask whether the gain came from:
+
+- the model itself
+- the prompt
+- the downstream filter
+- or manual review
+
+## Error-Prevention Rules
+
+These rules matter more than convenience.
+
+Always require:
+
+- schema validation for published payloads
+- referential integrity between `semantic_admission` ids and inventory ids
+- one generation id across ruleset/snapshot/inventory
+- explicit deletion of stale aligned artifacts on reset
+- last-known-good rollback pointer
+- source provenance on every upstream batch
+
+Never allow:
+
+- manual edits to published runtime files
+- partial promotion of one file from a new generation
+- live runtime reads from raw source batches
+- LLM data without provenance or review state
+
+## Suggested First Implementation Slices
+
+This proposal does not require immediate cloud work.
+
+The first useful low-risk steps are:
+
+1. introduce `generation_id` in the offline build/publication lifecycle
+2. write a small build manifest for each compiled semantic generation
+3. keep current helper-local publication paths as the only runtime-facing files
+4. add referential-integrity validation as a first-class publication gate
+5. treat LLM augmentation as a new Layer 1 source family, not a runtime shortcut
+
+## Practical Takeaway
+
+The intended operating model is:
+
+- ingest broadly
+- normalize once
+- compile immutably
+- validate aggressively
+- publish narrowly
+- materialize locally
+
+That process is already compatible with the current unreleased local-helper setup.
+It also gives us a clean upgrade path if cloud-hosted semantic packages are introduced later.
