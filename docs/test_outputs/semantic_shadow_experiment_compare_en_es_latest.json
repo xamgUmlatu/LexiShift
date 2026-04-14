@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "pair": "en-es",
-  "generated_at": "2026-04-12T23:55:35Z",
+  "generated_at": "2026-04-14T23:22:17Z",
   "status": "ok",
   "manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_shadow_experiment_matrix_en_es.json",
   "benchmark_dataset": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_cases/en_es.json",

@@ -9,6 +9,7 @@
     "pair",
     "profile_id",
     "generated_at",
+    "generation_id",
     "triggers",
     "senses",
     "competition_sets",
@@ -30,6 +31,10 @@
     "generated_at": {
       "type": "string",
       "format": "date-time"
+    },
+    "generation_id": {
+      "type": "string",
+      "minLength": 1
     },
     "capability": {
       "$ref": "#/definitions/publicationCapability"

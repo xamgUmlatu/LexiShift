@@ -2,8 +2,8 @@
 
 Status: active launch checklist
 Role: Runbook / operational
-Last updated: 2026-04-13
-Last verified: 2026-04-13 repo-doc/runtime-path inspection plus semantic-shadow experiment artifacts
+Last updated: 2026-04-15
+Last verified: 2026-04-15 targeted semantic publication/runtime pytest suite, refreshed semantic-shadow experiment artifacts, isolated local helper publication on `codex-semantic-e2e`, and live helper-side `semantic_admit_batch` probe against published `en-es` artifacts
 Purpose: define the exact checklist for a controlled `en-es` browser-extension launch of semantic runtime veto without hard-coding the architecture to `en-es`
 Source-of-truth: this checklist is the launch runbook; code truth still lives in runtime/helper code, `docs/developer/feature_state_matrix.md`, and generated test artifacts
 Related docs:

@@ -1,7 +1,7 @@
 # en-es Semantic Shadow Experiment Matrix
 
 - Status: `ok`
-- Generated: `2026-04-12T23:55:35Z`
+- Generated: `2026-04-14T23:22:17Z`
 - Manifest: `/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_shadow_experiment_matrix_en_es.json`
 - Data root: `/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift`
 - Forward pack: `/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-es-en.sqlite` (wiktionary)

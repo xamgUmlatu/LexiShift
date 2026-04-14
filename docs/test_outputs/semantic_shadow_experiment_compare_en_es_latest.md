@@ -1,7 +1,7 @@
 # en-es Semantic Shadow Experiment Compare
 
 - Status: `ok`
-- Generated: `2026-04-12T23:55:35Z`
+- Generated: `2026-04-14T23:22:17Z`
 - Generalization split manifest: `/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_generalization_splits_en_es.json`
 - Frontier read: `still_open_meaningful_positive_delta`
 - Meaning: compare the current control row against a candidate row and measure exact row-level fixes, regressions, and slice deltas.
