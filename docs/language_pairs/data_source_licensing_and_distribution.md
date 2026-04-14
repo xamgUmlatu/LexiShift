@@ -1,7 +1,9 @@
 # Data Source Licensing And Distribution Register
 
 Status: working legal/distribution register for all LP data sources.
-Last updated: 2026-02-23
+Role: Planning / WIP
+Purpose: track per-pack licensing evidence, redistribution posture, and recommended distribution mode so product data delivery decisions stay explicit and auditable
+Last updated: 2026-04-15
 
 ## Scope
 
@@ -22,6 +24,29 @@ This is an engineering tracking doc, not legal advice.
   - `docs/language_pairs/language_pack_urls.txt`
 - POS source/pipeline behavior:
   - `docs/language_pairs/pos_source_and_pipeline_reference.md`
+- Hybrid hosted/local future posture:
+  - `docs/language_pairs/hybrid_data_distribution_north_star.md`
+
+## Current vs Future Distribution Posture
+
+Two postures should stay explicit in repo terms.
+
+Current `v1` posture:
+
+- all compile inputs are local
+- all emitted rulegen and semantic artifacts are local
+- no cloud-hosted data path is required
+
+Future north star:
+
+- allow a hosted/open baseline lane where policy permits it
+- allow local/manual-supply augmentation where policy requires it
+- merge those lanes at compile time
+- and compute artifact distribution rights from pack provenance
+
+That future posture is described in:
+
+- `docs/language_pairs/hybrid_data_distribution_north_star.md`
 
 ## Manual-Supply UX (Current State)
 
