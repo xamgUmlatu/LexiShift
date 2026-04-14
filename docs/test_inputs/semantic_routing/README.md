@@ -17,6 +17,12 @@ Files:
   - offline Layer 1 raw LLM intake envelope for shadow, bridge, or cue proposal batches before canonical normalization
 - `semantic_evidence_batch.schema.json`
   - offline Layer 2 normalized evidence lane emitted after raw source batches are deduped into one common semantic-evidence shape
+- `semantic_family_inventory.schema.json`
+  - planning schema for family-level queue memory, triage hypotheses, and additive semantic-generation tracking
+- `semantic_report_event_batch.schema.json`
+  - planning schema for append-only raw semantic user report events attached to concrete runtime rule fires
+- `semantic_local_override_bundle.schema.json`
+  - planning schema for profile-local semantic safety overrides that can suppress bad rules without mutating shared semantic truth
 - `semantic_admit_batch_request.schema.json`
   - planned helper/runtime request contract for batched semantic admission over concrete matched contexts
   - carries pair/profile, explicit offset encoding, fallback policy, optional requested decision policy, and matched rule pointers plus local context text
@@ -40,4 +46,5 @@ See also:
 - `docs/rulegen/semantic_routing_data_contract.md`
 - `docs/rulegen/semantic_routing_publication_contract.md`
 - `docs/rulegen/semantic_routing_runtime_readiness.md`
+- `docs/rulegen/semantic_feedback_promotion_flow.md`
 - `core/lexishift_core/rulegen/semantic_evidence.py`

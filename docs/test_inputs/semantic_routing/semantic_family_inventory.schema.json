@@ -1,0 +1,312 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LexiShift Semantic Family Inventory",
+  "description": "Planning schema for family-level semantic-routing queue state, triage hypotheses, and additive generation tracking.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "inventory_id",
+    "pair",
+    "generated_at",
+    "families"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "integer",
+      "const": 1
+    },
+    "inventory_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "pair": {
+      "type": "string",
+      "pattern": "^[a-z]{2,3}-[a-z]{2,3}$"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source_generation_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "families": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/family"
+      }
+    }
+  },
+  "definitions": {
+    "bucket": {
+      "type": "string",
+      "enum": [
+        "not_applicable",
+        "needs_shadow_data",
+        "needs_cue_data",
+        "needs_algorithm_fix",
+        "needs_phrase_parsing_fix"
+      ]
+    },
+    "queueStatus": {
+      "type": "string",
+      "enum": [
+        "unseen",
+        "queued",
+        "attempted",
+        "review_pending",
+        "resolved",
+        "deferred"
+      ]
+    },
+    "resolvedStatus": {
+      "type": "string",
+      "enum": [
+        "unresolved",
+        "partially_resolved",
+        "resolved",
+        "deferred"
+      ]
+    },
+    "currentStatus": {
+      "type": "string",
+      "enum": [
+        "ready",
+        "unavailable",
+        "not_applicable",
+        "missing",
+        "unknown"
+      ]
+    },
+    "generationKind": {
+      "type": "string",
+      "enum": [
+        "shadow_generation",
+        "bridge_generation",
+        "cue_generation"
+      ]
+    },
+    "recommendedAction": {
+      "type": "string",
+      "enum": [
+        "skip",
+        "review_manually",
+        "generate_shadows",
+        "generate_bridges",
+        "generate_cues",
+        "fix_algorithm",
+        "fix_phrase_parsing",
+        "suppress_locally_only"
+      ]
+    },
+    "runtimeRelevance": {
+      "type": "string",
+      "enum": [
+        "high",
+        "medium",
+        "low",
+        "unknown"
+      ]
+    },
+    "senseHint": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "provider": {
+          "type": "string",
+          "minLength": 1
+        },
+        "locator_kind": {
+          "type": "string",
+          "minLength": 1
+        },
+        "target_key": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sense_label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "canonical_pos": {
+          "type": "string",
+          "minLength": 1
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1
+        },
+        "entry_ord": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sense_ord": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "gloss_ord": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "metadata": {
+          "type": "object"
+        }
+      }
+    },
+    "generationAttempt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "generation_kind",
+        "batch_id",
+        "attempted_at"
+      ],
+      "properties": {
+        "generation_kind": {
+          "$ref": "#/definitions/generationKind"
+        },
+        "batch_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "attempted_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "outcome": {
+          "type": "string",
+          "enum": [
+            "pending",
+            "accepted",
+            "rejected",
+            "superseded"
+          ]
+        }
+      }
+    },
+    "family": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "family_id",
+        "pair",
+        "trigger",
+        "normalized_trigger",
+        "active_target",
+        "current_pointer_status",
+        "current_competition_status",
+        "current_shadow_candidate_count",
+        "current_promoted_shadow_count",
+        "runtime_relevance",
+        "likely_bucket",
+        "bucket_confidence",
+        "queue_status",
+        "resolved_status",
+        "recommended_action"
+      ],
+      "properties": {
+        "family_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "pair": {
+          "type": "string",
+          "pattern": "^[a-z]{2,3}-[a-z]{2,3}$"
+        },
+        "trigger": {
+          "type": "string",
+          "minLength": 1
+        },
+        "normalized_trigger": {
+          "type": "string",
+          "minLength": 1
+        },
+        "active_target": {
+          "type": "string",
+          "minLength": 1
+        },
+        "active_sense_hint": {
+          "$ref": "#/definitions/senseHint"
+        },
+        "trigger_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "active_sense_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "competition_set_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "current_pointer_status": {
+          "$ref": "#/definitions/currentStatus"
+        },
+        "current_competition_status": {
+          "$ref": "#/definitions/currentStatus"
+        },
+        "current_shadow_candidate_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "current_promoted_shadow_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "runtime_relevance": {
+          "$ref": "#/definitions/runtimeRelevance"
+        },
+        "likely_bucket": {
+          "$ref": "#/definitions/bucket"
+        },
+        "bucket_confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "bucket_evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "queue_status": {
+          "$ref": "#/definitions/queueStatus"
+        },
+        "attempted_generation_kinds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/generationKind"
+          }
+        },
+        "generation_attempts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/generationAttempt"
+          }
+        },
+        "last_attempt_batch_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "last_attempted_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "resolved_status": {
+          "$ref": "#/definitions/resolvedStatus"
+        },
+        "recommended_action": {
+          "$ref": "#/definitions/recommendedAction"
+        },
+        "metadata": {
+          "type": "object"
+        }
+      }
+    }
+  }
+}

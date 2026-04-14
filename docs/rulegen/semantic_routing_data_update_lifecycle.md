@@ -2,14 +2,16 @@
 
 Status: active plan
 Role: Planning / operational
-Last updated: 2026-04-13
-Last verified: 2026-04-13 repo-doc review against the semantic-routing data/publication contracts, helper output writer, and implementation roadmap
+Last updated: 2026-04-15
+Last verified: 2026-04-15 repo-doc review against the semantic-routing data/publication contracts, helper output writer, implementation roadmap, family queueing plan, and semantic feedback promotion flow
 Purpose: define the update process for semantic-routing data so LexiShift can add mined, manual, and later LLM-derived evidence without creating awkward runtime coupling, redundant storage, or unsafe publication flow
 Source-of-truth: planning doc only; current implemented truth still lives in helper publication/runtime code and the semantic-routing contracts
 Related docs:
 - `docs/rulegen/semantic_routing_data_contract.md`
 - `docs/rulegen/semantic_routing_publication_contract.md`
 - `docs/rulegen/semantic_routing_implementation_roadmap.md`
+- `docs/rulegen/semantic_llm_generation_queueing_plan.md`
+- `docs/rulegen/semantic_feedback_promotion_flow.md`
 - `docs/rulegen/semantic_shadow_source_intake_plan.md`
 - `docs/rulegen/semantic_routing_en_es_publish_checklist.md`
 
@@ -158,9 +160,66 @@ Every upstream row should keep enough provenance to answer:
 
 If a compiled blocker set improves metrics, we should be able to trace why.
 
+### 8. Keep family-level queue state separate from raw batches
+
+Raw batches are not enough to manage iterative LLM augmentation well.
+
+If the project intends to:
+
+- spend one bounded budget tranche now
+- and potentially add more semantic data later
+
+then the repo also needs a family-level queue memory layer.
+
+That queue memory should answer:
+
+- which semantic families have already been attempted
+- which generation kind was attempted for each family
+- which batch attempted it
+- whether the family still looks unresolved
+- and whether the current likely diagnosis is data-related or non-data-related
+
+Without that layer, later batch waves will drift toward redundant regeneration.
+
+### 9. Treat user feedback as weak evidence, not direct semantic truth
+
+If future user reporting is added for semantic failures, those reports should enter the system as weak evidence.
+
+The safe default is:
+
+- ingest the report as a raw event with provenance
+- keep local safety action as a separate override path
+- but require review-gated promotion before shared semantic truth changes
+
+This applies even when the report is attached to one exact fired rule.
+
+Per-rule event granularity is useful for diagnostics and later clustering.
+It is not enough reason to bypass review.
+
+### 10. Keep local user overrides separate from shared semantic truth
+
+Users may eventually need the ability to locally suppress or remove a bad rule.
+
+That is a valid safety mechanism, but it should not mutate:
+
+- shared source-of-truth evidence
+- compiled semantic generations
+- or published pair-global semantic artifacts
+
+Instead, local suppression should live in a profile-local or helper-local override layer.
+
+That preserves two important properties:
+
+- the user gets immediate protection
+- the shared semantic pipeline stays auditable and reviewable
+
+Current planning anchor:
+
+- `docs/test_inputs/semantic_routing/semantic_local_override_bundle.schema.json`
+
 ## Proposed Data Layers
 
-The clean update lifecycle has six layers.
+The clean update lifecycle has eight layers if the family queue memory step is counted separately.
 
 ### Layer 0. Approval and source registry
 
@@ -177,6 +236,27 @@ This layer answers:
 - is a source family approved at all?
 - is it intended for coverage, discrimination, cue generation, or silver proposals?
 
+### Layer 0.5. Family inventory and queue state
+
+Purpose:
+
+- remember which semantic competition families deserve attention and which have already been attempted
+
+This layer should track:
+
+- family identity
+- likely root-cause bucket
+- queue status
+- prior generation attempts
+- and current recommended action
+
+This is the layer that makes later additive LLM waves practical instead of redundant.
+
+Current planning anchor:
+
+- `docs/rulegen/semantic_llm_generation_queueing_plan.md`
+- `docs/test_inputs/semantic_routing/semantic_family_inventory.schema.json`
+
 ### Layer 1. Raw source batches
 
 Purpose:
@@ -189,6 +269,7 @@ Examples:
 - reviewed patch rows
 - LLM shadow proposal batches
 - LLM anchor/cue proposal batches
+- future user semantic-report event batches
 
 Required fields conceptually:
 
@@ -211,6 +292,8 @@ Current repo anchor for the first LLM lane:
 
 - `docs/test_inputs/semantic_routing/semantic_llm_intake_batch.schema.json`
   - raw batch envelope for offline LLM shadow, bridge, and cue proposals before any canonical normalization
+- `docs/test_inputs/semantic_routing/semantic_report_event_batch.schema.json`
+  - raw event envelope for future semantic user reports before any aggregation or promotion
 
 ### Layer 2. Normalized canonical evidence
 
@@ -370,6 +453,7 @@ Recommended future split:
   - ruleset
   - snapshot
   - profile-specific readiness or selection toggles if they ever exist
+  - future local user suppressions or deny overrides
 - helper-local materialized sidecar
   - current runtime-facing semantic inventory shape
 
@@ -418,6 +502,43 @@ This is what lets us later ask whether the gain came from:
 - the prompt
 - the downstream filter
 - or manual review
+
+## User-Feedback-Specific Rules
+
+Future user feedback also fits this lifecycle, but under a different discipline.
+
+### Allowed role
+
+User feedback may help:
+
+- identify locally unsafe rules
+- prioritize families for manual review
+- prioritize families for later LLM generation
+- reveal recurring topic, phrase, or policy-failure clusters
+
+### Forbidden role
+
+Raw user feedback should not:
+
+- directly rewrite the canonical semantic evidence layer
+- directly publish new blocker sets
+- or silently become a shared global truth source
+
+### Required metadata
+
+Every future semantic report event should keep enough context to answer:
+
+- which exact rule fired
+- which semantic family it belonged to
+- which generation and policy produced it
+- which report type the user chose
+- and whether the resulting action was only local or later promoted
+
+Primary planning anchors:
+
+- `docs/test_inputs/semantic_routing/semantic_report_event_batch.schema.json`
+- `docs/test_inputs/semantic_routing/semantic_local_override_bundle.schema.json`
+- `docs/rulegen/semantic_feedback_promotion_flow.md`
 
 ## Error-Prevention Rules
 

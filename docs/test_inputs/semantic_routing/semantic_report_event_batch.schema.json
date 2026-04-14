@@ -1,0 +1,199 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LexiShift Semantic Report Event Batch",
+  "description": "Planning schema for append-only raw user semantic report events captured from single concrete runtime rule applications.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "batch_id",
+    "pair",
+    "source_type",
+    "source_id",
+    "ingested_at",
+    "events"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "integer",
+      "const": 1
+    },
+    "batch_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "pair": {
+      "type": "string",
+      "pattern": "^[a-z]{2,3}-[a-z]{2,3}$"
+    },
+    "source_type": {
+      "type": "string",
+      "const": "user_feedback"
+    },
+    "source_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ingested_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "events": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/event"
+      }
+    }
+  },
+  "definitions": {
+    "reportType": {
+      "type": "string",
+      "enum": [
+        "bad_replace",
+        "missed_replace",
+        "wrong_phrase_boundary",
+        "not_a_translation",
+        "awkward_but_not_wrong",
+        "other"
+      ]
+    },
+    "surfaceType": {
+      "type": "string",
+      "enum": [
+        "browser_extension",
+        "betterdiscord_plugin",
+        "unknown"
+      ]
+    },
+    "runtimeDecision": {
+      "type": "string",
+      "enum": [
+        "replace",
+        "abstain",
+        "soft_affordance",
+        "unknown"
+      ]
+    },
+    "event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "event_id",
+        "reported_at",
+        "pair",
+        "surface",
+        "reporter_instance_id",
+        "report_type",
+        "runtime_decision"
+      ],
+      "properties": {
+        "event_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reported_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "pair": {
+          "type": "string",
+          "pattern": "^[a-z]{2,3}-[a-z]{2,3}$"
+        },
+        "surface": {
+          "$ref": "#/definitions/surfaceType"
+        },
+        "reporter_instance_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "client_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "profile_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "report_type": {
+          "$ref": "#/definitions/reportType"
+        },
+        "runtime_decision": {
+          "$ref": "#/definitions/runtimeDecision"
+        },
+        "rule_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "family_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "trigger_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sense_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "competition_set_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "phrase_set_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "generation_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "selection_policy_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "decision_policy_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "fallback_policy": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_phrase": {
+          "type": "string",
+          "minLength": 1
+        },
+        "replacement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "normalized_trigger": {
+          "type": "string",
+          "minLength": 1
+        },
+        "context_hash": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Optional future privacy-reviewed hash of local context. Not required for initial reporting."
+        },
+        "domain_hash": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Optional future privacy-reviewed hash of the source domain or coarse source bucket."
+        },
+        "context_excerpt_redacted": {
+          "type": "string",
+          "description": "Optional future redacted context excerpt. Not intended for initial reporting."
+        },
+        "notes": {
+          "type": "string"
+        },
+        "metadata": {
+          "type": "object"
+        }
+      }
+    }
+  }
+}
