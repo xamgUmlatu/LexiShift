@@ -40,6 +40,7 @@ def sample_store_items(
     pair: str,
     sample_count: Optional[int],
     strategy: Optional[str] = None,
+    active_item_ids: Optional[Sequence[str]] = None,
     seed: Optional[int] = None,
     now: Optional[datetime] = None,
 ) -> SrsSamplingResult:
@@ -63,10 +64,13 @@ def sample_store_items(
     elif requested_count != parsed_count:
         notes.append(f"sample_count clamped to {requested_count} (max {MAX_SAMPLE_COUNT}).")
 
+    active_item_id_set = _normalize_active_item_id_filter(active_item_ids)
     candidates = [
         item
         for item in store.items
-        if item.language_pair == normalized_pair and str(item.lemma or "").strip()
+        if item.language_pair == normalized_pair
+        and str(item.lemma or "").strip()
+        and (active_item_id_set is None or item.item_id in active_item_id_set)
     ]
     requested = min(requested_count, len(candidates))
     weights = _build_weights(candidates, now=now, strategy=effective_strategy)
@@ -227,3 +231,11 @@ def _build_weight_sample(
 
 def _clamp_01(value: float) -> float:
     return max(0.0, min(1.0, float(value)))
+
+
+def _normalize_active_item_id_filter(
+    active_item_ids: Optional[Sequence[str]],
+) -> Optional[set[str]]:
+    if active_item_ids is None:
+        return None
+    return {str(item_id).strip() for item_id in active_item_ids if str(item_id).strip()}

@@ -24,7 +24,9 @@ class TestSrsSetPlanner(unittest.TestCase):
         self.assertEqual(plan.execution_mode, "frequency_bootstrap")
         self.assertEqual(plan.strategy_effective, "frequency_bootstrap")
 
-    def test_profile_bootstrap_falls_back_to_frequency(self) -> None:
+    def test_profile_bootstrap_surfaces_diagnostics_but_falls_back_to_frequency(
+        self,
+    ) -> None:
         plan = build_srs_set_plan(
             SrsSetPlanRequest(
                 pair="en-ja",
@@ -36,7 +38,15 @@ class TestSrsSetPlanner(unittest.TestCase):
         self.assertTrue(plan.can_execute)
         self.assertEqual(plan.execution_mode, "frequency_bootstrap")
         self.assertEqual(plan.strategy_effective, "frequency_bootstrap")
+        self.assertIn("difficulty_preferences", plan.requires_profile_fields)
         self.assertTrue(any("falling back" in note.lower() for note in plan.notes))
+        self.assertIn("profile_bootstrap", plan.diagnostics)
+        context = plan.diagnostics["profile_bootstrap"]["context"]
+        self.assertEqual(context["active_signals"], ["interests"])
+        self.assertEqual(
+            context["missing_signals"],
+            ["proficiency", "challenge_preference"],
+        )
 
     def test_adaptive_refresh_is_planner_only_for_now(self) -> None:
         plan = build_srs_set_plan(

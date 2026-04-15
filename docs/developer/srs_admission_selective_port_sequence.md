@@ -132,6 +132,7 @@ Expected files:
 - `core/lexishift_core/srs/admission_features.py`
 - `core/lexishift_core/srs/profile_bootstrap.py`
 - `core/lexishift_core/srs/rebalance.py`
+  Current checkpoint note: defer this to Phase 2 because the upstream rebalance module depends on `inventory.py` / explicit active inventory.
 - any directly required support updates in:
   - `core/lexishift_core/srs/admission_policy.py`
   - `core/lexishift_core/srs/selector.py`
@@ -142,6 +143,7 @@ Tests to port with this phase:
 
 - `core/tests/srs/test_profile_bootstrap.py`
 - `core/tests/srs/test_srs_rebalance.py`
+  Current checkpoint note: defer with the rebalance module for the same inventory dependency reason.
 - `core/tests/dev/test_srs_admission_preference_sanity.py`
 - `core/tests/dev/test_srs_frequency_topic_coverage.py`
 

@@ -111,11 +111,12 @@ Policy decision for SRS scheduling:
   - `initial_active_count`
   - `max_active_items_hint`
   - `trigger: "options_initialize_button"`
-- Current executable fallback remains frequency bootstrap.
+- Planner diagnostics now normalize `profile_context` and expose profile-bootstrap summaries.
+- Current helper execution fallback still remains frequency bootstrap.
 
 ## Planned implementation steps
 
-1. Implement profile-aware candidate weighting for `profile_bootstrap`.
+1. Wire the implemented `profile_bootstrap` core scoring path into helper-side initialization execution.
 2. Implement executable `profile_growth` for controlled admission into `S`.
 3. Add feedback-window aggregation for `adaptive_refresh`.
 4. Add policy registry by pair/domain to route strategy defaults.

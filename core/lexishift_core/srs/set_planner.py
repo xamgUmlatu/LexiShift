@@ -3,6 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Mapping, Sequence
 
+from lexishift_core.srs.profile_bootstrap import summarize_profile_bootstrap_context
 from lexishift_core.srs.set_strategy import (
     OBJECTIVE_BOOTSTRAP,
     STRATEGY_ADAPTIVE_REFRESH,
@@ -51,19 +52,47 @@ def build_srs_set_plan(request: SrsSetPlanRequest) -> SrsSetPlan:
     can_execute = False
     execution_mode = "planner_only"
     effective = requested
+    extra_diagnostics: dict[str, object] = {}
 
     if requested == STRATEGY_FREQUENCY_BOOTSTRAP:
         can_execute = True
         execution_mode = "frequency_bootstrap"
         notes.append("Using frequency bootstrap strategy.")
     elif requested == STRATEGY_PROFILE_BOOTSTRAP:
-        required_fields.extend(("interests", "proficiency", "empirical_trends"))
+        required_fields.extend(("interests", "proficiency", "difficulty_preferences"))
         can_execute = True
         execution_mode = "frequency_bootstrap"
         effective = STRATEGY_FREQUENCY_BOOTSTRAP
+        profile_bootstrap_summary = summarize_profile_bootstrap_context(request.profile_context)
+        extra_diagnostics = {
+            "profile_bootstrap": profile_bootstrap_summary,
+        }
         notes.append(
-            "Profile-aware weighting is scaffolding-only. Falling back to frequency bootstrap."
+            "Profile bootstrap diagnostics are implemented, but helper execution is still "
+            "falling back to frequency bootstrap."
         )
+        active_signals = tuple(
+            profile_bootstrap_summary.get("context", {}).get("active_signals", [])  # type: ignore[union-attr]
+        )
+        missing_signals = tuple(
+            profile_bootstrap_summary.get("context", {}).get("missing_signals", [])  # type: ignore[union-attr]
+        )
+        if not request.profile_context:
+            notes.append(
+                "No profile context was provided; ranking would remain close to neutral frequency order."
+            )
+        elif missing_signals:
+            notes.append(
+                "Profile bootstrap will keep missing signals neutral: "
+                + ", ".join(str(signal) for signal in missing_signals)
+                + "."
+            )
+        if active_signals:
+            notes.append(
+                "Active bootstrap profile signals: "
+                + ", ".join(str(signal) for signal in active_signals)
+                + "."
+            )
     elif requested == STRATEGY_PROFILE_GROWTH:
         required_fields.extend(("interests", "proficiency", "empirical_trends"))
         can_execute = False
@@ -104,6 +133,7 @@ def build_srs_set_plan(request: SrsSetPlanRequest) -> SrsSetPlan:
         "existing_items_for_pair": max(0, int(request.existing_items_for_pair)),
         "profile_keys": sorted(str(key) for key in request.profile_context.keys()),
         "signal_summary_keys": sorted(str(key) for key in request.signal_summary.keys()),
+        **extra_diagnostics,
     }
     return SrsSetPlan(
         pair=pair,
