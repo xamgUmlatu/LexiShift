@@ -42,6 +42,7 @@ node_modules/
 # Ignore the generated build/dist folders from your packaging scripts
 /packaging/output/
 /packaging/build/
+/apps/gui/installers/
 
 # Ignore generated Jekyll/GitHub Pages build artifacts
 docs/_site/
