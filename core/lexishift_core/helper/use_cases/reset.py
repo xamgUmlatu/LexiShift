@@ -5,7 +5,14 @@ from typing import Callable, Optional
 
 from lexishift_core.helper.paths import HelperPaths
 from lexishift_core.helper.status import HelperStatus, load_status, save_status
-from lexishift_core.srs import SrsStore, load_srs_store, save_srs_store
+from lexishift_core.srs import (
+    SrsStore,
+    load_srs_inventory,
+    load_srs_store,
+    remove_pair_inventory,
+    save_srs_inventory,
+    save_srs_store,
+)
 from lexishift_core.srs.time import now_utc
 
 
@@ -26,6 +33,7 @@ def reset_srs_data(
     normalized_profile_id = resolve_profile_id_fn(paths, profile_id=profile_id)
     scoped_pair = str(pair or "").strip() or None
     profile_store_path = paths.srs_store_path_for(normalized_profile_id)
+    profile_inventory_path = paths.srs_inventory_path_for(normalized_profile_id)
     profile_srs_dir = paths.profile_srs_dir(normalized_profile_id)
     profile_status_path = paths.srs_status_path_for(normalized_profile_id)
 
@@ -45,8 +53,24 @@ def reset_srs_data(
 
     removed_snapshots = 0
     removed_rulesets = 0
+    removed_inventory_files = 0
+    removed_inventory_pairs = 0
     removed_semantic_inventories = 0
     removed_publication_manifests = 0
+    if profile_inventory_path.exists():
+        inventory = load_srs_inventory(profile_inventory_path)
+        if scoped_pair:
+            if scoped_pair in dict(inventory.pairs or {}):
+                removed_inventory_pairs = 1
+                updated_inventory = remove_pair_inventory(inventory, scoped_pair)
+                if dict(updated_inventory.pairs or {}):
+                    save_srs_inventory(updated_inventory, profile_inventory_path)
+                elif _remove_file(profile_inventory_path):
+                    removed_inventory_files = 1
+        else:
+            removed_inventory_pairs = len(dict(inventory.pairs or {}))
+            if _remove_file(profile_inventory_path):
+                removed_inventory_files = 1
     if scoped_pair:
         if _remove_file(paths.snapshot_path(scoped_pair, profile_id=normalized_profile_id)):
             removed_snapshots += 1
@@ -95,6 +119,8 @@ def reset_srs_data(
         "remaining_items": remaining_items,
         "removed_snapshots": removed_snapshots,
         "removed_rulesets": removed_rulesets,
+        "removed_inventory_files": removed_inventory_files,
+        "removed_inventory_pairs": removed_inventory_pairs,
         "removed_semantic_inventories": removed_semantic_inventories,
         "removed_publication_manifests": removed_publication_manifests,
     }

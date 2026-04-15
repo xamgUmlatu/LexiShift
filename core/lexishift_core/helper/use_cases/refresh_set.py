@@ -7,7 +7,17 @@ from lexishift_core.helper.lp_capabilities import resolve_pair_capability
 from lexishift_core.helper.paths import HelperPaths
 from lexishift_core.helper.rulegen import RulegenConfig, RulegenOutput
 from lexishift_core.rulegen.tuning import resolve_rulegen_tuning
-from lexishift_core.srs import SrsSettings, SrsStore
+from lexishift_core.srs import (
+    SrsInventory,
+    SrsSettings,
+    SrsStore,
+    load_srs_inventory,
+    merge_active_item_ids,
+    resolve_active_item_ids,
+    save_srs_inventory,
+    save_srs_store,
+    set_active_item_ids,
+)
 from lexishift_core.srs.admission_refresh import (
     AdmissionRefreshPolicy,
     admission_refresh_result_to_dict,
@@ -16,6 +26,8 @@ from lexishift_core.srs.admission_refresh import (
 from lexishift_core.srs.pair_policy import pair_policy_to_dict, resolve_srs_pair_policy
 from lexishift_core.srs.seed import SeedSelectionConfig, SeedWord, seed_to_selector_candidates
 from lexishift_core.srs.signal_queue import load_signal_events
+from lexishift_core.srs.store_ops import build_item_id
+from lexishift_core.srs.time import now_utc
 
 
 def refresh_srs_set(
@@ -78,6 +90,14 @@ def refresh_srs_set(
     )
     settings = ensure_settings_fn(paths, persist_missing=True)
     store = ensure_store_fn(paths, profile_id=profile_id, persist_missing=True)
+    inventory_path = paths.srs_inventory_path_for(profile_id)
+    inventory_exists = inventory_path.exists()
+    inventory = load_srs_inventory(inventory_path) if inventory_exists else SrsInventory()
+    active_item_ids_before, inventory_source = resolve_active_item_ids(
+        store=store,
+        pair=pair,
+        inventory=inventory if inventory_exists else None,
+    )
     before_pair_count = count_items_for_pair_fn(store, pair)
     stopwords_path = resolve_stopwords_path_fn(paths, pair=pair)
     selection = build_seed_candidates_fn(
@@ -107,10 +127,40 @@ def refresh_srs_set(
         events=signal_events,
         policy=refresh_policy,
     )
-    if config.persist_store:
-        from lexishift_core.srs import save_srs_store
-
-        save_srs_store(updated_store, paths.srs_store_path_for(profile_id))
+    inventory_updated_at = None
+    inventory_payload_source = inventory_source
+    inventory_backfilled = False
+    active_item_ids = tuple(active_item_ids_before)
+    if refresh_result.applied:
+        admitted_active_item_ids = tuple(
+            build_item_id(pair, str(lemma).strip())
+            for lemma in refresh_result.selected_lemmas
+            if str(lemma).strip()
+        )
+        active_item_ids = merge_active_item_ids(active_item_ids_before, admitted_active_item_ids)
+        if config.persist_store:
+            save_srs_store(updated_store, paths.srs_store_path_for(profile_id))
+            inventory_updated_at = now_utc().isoformat()
+            inventory = set_active_item_ids(
+                inventory,
+                pair=pair,
+                active_item_ids=active_item_ids,
+                last_refreshed_at=inventory_updated_at,
+            )
+            save_srs_inventory(inventory, inventory_path)
+        inventory_backfilled = inventory_source == "store_fallback"
+        inventory_payload_source = "refreshed"
+    elif config.persist_store and inventory_source == "store_fallback" and active_item_ids_before:
+        inventory_updated_at = now_utc().isoformat()
+        inventory = set_active_item_ids(
+            inventory,
+            pair=pair,
+            active_item_ids=active_item_ids_before,
+            last_refreshed_at=inventory_updated_at,
+        )
+        save_srs_inventory(inventory, inventory_path)
+        inventory_backfilled = True
+        inventory_payload_source = "inventory_backfilled"
 
     after_pair_count = count_items_for_pair_fn(updated_store, pair)
     added_items = max(0, after_pair_count - before_pair_count)
@@ -135,7 +185,11 @@ def refresh_srs_set(
                 allow_multiword_glosses=effective_rulegen_tuning.allow_multiword_glosses,
                 scoring=effective_rulegen_tuning.scoring,
                 reverse_check=effective_rulegen_tuning.reverse_check,
+                enable_exact_gloss_demotions=(
+                    effective_rulegen_tuning.enable_exact_gloss_demotions
+                ),
             ),
+            active_item_ids=active_item_ids,
             initialize_if_empty=False,
             persist_store=False,
         )
@@ -189,6 +243,14 @@ def refresh_srs_set(
         "store_path": str(paths.srs_store_path_for(profile_id)),
         "stopwords_path": str(stopwords_path) if stopwords_path else None,
         "admission_refresh": refresh_payload,
+        "inventory": {
+            "path": str(inventory_path),
+            "exists": bool(inventory_path.exists()),
+            "active_items_for_pair": len(active_item_ids),
+            "source": inventory_payload_source,
+            "backfilled_from_store": inventory_backfilled,
+            "updated_at": inventory_updated_at,
+        },
         "rulegen": published_rulegen,
         "applied": bool(refresh_result.applied),
         "persisted": bool(config.persist_store),

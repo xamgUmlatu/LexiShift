@@ -77,6 +77,15 @@ def _seed_store_and_outputs(root: Path) -> HelperPaths:
         ),
         paths.srs_store_path,
     )
+    save_srs_inventory(
+        SrsInventory(
+            pairs={
+                "en-ja": SrsPairInventory(active_item_ids=("en-ja:alpha",)),
+                "en-en": SrsPairInventory(active_item_ids=("en-en:beta",)),
+            }
+        ),
+        paths.srs_inventory_path_for("default"),
+    )
     paths.snapshot_path("en-ja").write_text("{}", encoding="utf-8")
     paths.snapshot_path("en-en").write_text("{}", encoding="utf-8")
     paths.ruleset_path("en-ja").write_text("{}", encoding="utf-8")
@@ -165,12 +174,20 @@ class TestHelperEngineReset(unittest.TestCase):
             self.assertTrue(paths.ruleset_path("en-en").exists())
             self.assertTrue(paths.semantic_inventory_path("en-en").exists())
             self.assertTrue(paths.publication_manifest_path("en-en").exists())
+            inventory = load_srs_inventory(paths.srs_inventory_path_for("default"))
+            self.assertEqual(tuple(inventory.pairs.keys()), ("en-en",))
+            self.assertEqual(
+                tuple(inventory.pairs["en-en"].active_item_ids),
+                ("en-en:beta",),
+            )
 
             self.assertEqual(result["pair"], "en-ja")
             self.assertEqual(result["removed_items"], 1)
             self.assertEqual(result["remaining_items"], 1)
             self.assertEqual(result["removed_snapshots"], 1)
             self.assertEqual(result["removed_rulesets"], 1)
+            self.assertEqual(result["removed_inventory_files"], 0)
+            self.assertEqual(result["removed_inventory_pairs"], 1)
             self.assertEqual(result["removed_semantic_inventories"], 1)
             self.assertEqual(result["removed_publication_manifests"], 1)
 
@@ -190,12 +207,15 @@ class TestHelperEngineReset(unittest.TestCase):
             self.assertFalse(paths.semantic_inventory_path("en-en").exists())
             self.assertFalse(paths.publication_manifest_path("en-ja").exists())
             self.assertFalse(paths.publication_manifest_path("en-en").exists())
+            self.assertFalse(paths.srs_inventory_path_for("default").exists())
 
             self.assertEqual(result["pair"], "all")
             self.assertEqual(result["removed_items"], 2)
             self.assertEqual(result["remaining_items"], 0)
             self.assertEqual(result["removed_snapshots"], 2)
             self.assertEqual(result["removed_rulesets"], 2)
+            self.assertEqual(result["removed_inventory_files"], 1)
+            self.assertEqual(result["removed_inventory_pairs"], 2)
             self.assertEqual(result["removed_semantic_inventories"], 2)
             self.assertEqual(result["removed_publication_manifests"], 2)
 
@@ -235,6 +255,22 @@ class TestHelperEngineProfileIsolation(unittest.TestCase):
                 ),
                 paths.srs_store_path_for(other_profile),
             )
+            save_srs_inventory(
+                SrsInventory(
+                    pairs={
+                        "en-ja": SrsPairInventory(active_item_ids=("en-ja:alpha",)),
+                    }
+                ),
+                paths.srs_inventory_path_for(default_profile),
+            )
+            save_srs_inventory(
+                SrsInventory(
+                    pairs={
+                        "en-ja": SrsPairInventory(active_item_ids=("en-ja:beta",)),
+                    }
+                ),
+                paths.srs_inventory_path_for(other_profile),
+            )
 
             paths.snapshot_path("en-ja", profile_id=default_profile).write_text(
                 "{}", encoding="utf-8"
@@ -273,6 +309,7 @@ class TestHelperEngineProfileIsolation(unittest.TestCase):
             self.assertTrue(
                 paths.publication_manifest_path("en-ja", profile_id=default_profile).exists()
             )
+            self.assertTrue(paths.srs_inventory_path_for(default_profile).exists())
             self.assertFalse(paths.snapshot_path("en-ja", profile_id=other_profile).exists())
             self.assertFalse(paths.ruleset_path("en-ja", profile_id=other_profile).exists())
             self.assertFalse(
@@ -281,8 +318,11 @@ class TestHelperEngineProfileIsolation(unittest.TestCase):
             self.assertFalse(
                 paths.publication_manifest_path("en-ja", profile_id=other_profile).exists()
             )
+            self.assertFalse(paths.srs_inventory_path_for(other_profile).exists())
             self.assertEqual(result["profile_id"], other_profile)
             self.assertEqual(result["removed_items"], 1)
+            self.assertEqual(result["removed_inventory_files"], 1)
+            self.assertEqual(result["removed_inventory_pairs"], 1)
             self.assertEqual(result["removed_publication_manifests"], 1)
 
 
@@ -521,6 +561,127 @@ class TestHelperEngineRulegenPreview(unittest.TestCase):
             sampling = result["sampling"]
             self.assertEqual(sampling["sample_count_effective"], 2)
             self.assertEqual(sampling["total_items_for_pair"], 3)
+
+    def test_rulegen_uses_inventory_active_ids_when_present(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paths = build_helper_paths(root)
+            jmdict_dir = root / "jmdict"
+            jmdict_dir.mkdir(parents=True, exist_ok=True)
+
+            save_srs_settings(SrsSettings(), paths.srs_settings_path)
+            save_srs_store(
+                SrsStore(
+                    items=(
+                        SrsItem(
+                            item_id="en-ja:alpha",
+                            lemma="alpha",
+                            language_pair="en-ja",
+                            source_type="initial_set",
+                        ),
+                        SrsItem(
+                            item_id="en-ja:beta",
+                            lemma="beta",
+                            language_pair="en-ja",
+                            source_type="initial_set",
+                        ),
+                    ),
+                    version=1,
+                ),
+                paths.srs_store_path,
+            )
+            save_srs_inventory(
+                SrsInventory(
+                    pairs={
+                        "en-ja": SrsPairInventory(active_item_ids=("en-ja:beta",)),
+                    }
+                ),
+                paths.srs_inventory_path_for("default"),
+            )
+
+            with (
+                patch(
+                    "lexishift_core.helper.engine.run_rulegen_for_pair",
+                    return_value=(load_srs_store(paths.srs_store_path), self._stub_output()),
+                ) as run_rulegen,
+                patch("lexishift_core.helper.engine.write_rulegen_outputs"),
+                patch("lexishift_core.helper.engine._update_status"),
+            ):
+                result = run_rulegen_job(
+                    paths,
+                    config=RulegenJobConfig(
+                        pair="en-ja",
+                        jmdict_path=jmdict_dir,
+                        initialize_if_empty=False,
+                        persist_store=False,
+                        persist_outputs=False,
+                        update_status=False,
+                    ),
+                )
+
+            self.assertEqual(
+                tuple(run_rulegen.call_args.kwargs["active_item_ids"]),
+                ("en-ja:beta",),
+            )
+            self.assertEqual(result["inventory"]["source"], "inventory")
+            self.assertEqual(result["inventory"]["active_items_for_pair"], 1)
+
+    def test_rulegen_backfills_inventory_after_bootstrap_publish(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paths = build_helper_paths(root)
+            jmdict_dir = root / "jmdict"
+            jmdict_dir.mkdir(parents=True, exist_ok=True)
+            source_db = root / "freq.sqlite"
+            _create_frequency_db(source_db)
+
+            seeded_store = SrsStore(
+                items=(
+                    SrsItem(
+                        item_id="en-ja:alpha",
+                        lemma="alpha",
+                        language_pair="en-ja",
+                        source_type="initial_set",
+                    ),
+                    SrsItem(
+                        item_id="en-ja:beta",
+                        lemma="beta",
+                        language_pair="en-ja",
+                        source_type="initial_set",
+                    ),
+                ),
+                version=1,
+            )
+
+            with (
+                patch(
+                    "lexishift_core.helper.engine.run_rulegen_for_pair",
+                    return_value=(seeded_store, self._stub_output()),
+                ) as run_rulegen,
+                patch("lexishift_core.helper.engine.write_rulegen_outputs"),
+                patch("lexishift_core.helper.engine._update_status"),
+            ):
+                result = run_rulegen_job(
+                    paths,
+                    config=RulegenJobConfig(
+                        pair="en-ja",
+                        jmdict_path=jmdict_dir,
+                        set_source_db=source_db,
+                        initialize_if_empty=True,
+                        persist_store=False,
+                        persist_outputs=True,
+                        update_status=False,
+                    ),
+                )
+
+            self.assertIsNone(run_rulegen.call_args.kwargs["active_item_ids"])
+            inventory = load_srs_inventory(paths.srs_inventory_path_for("default"))
+            self.assertEqual(
+                tuple(inventory.pairs["en-ja"].active_item_ids),
+                ("en-ja:alpha", "en-ja:beta"),
+            )
+            self.assertEqual(result["inventory"]["source"], "inventory_backfilled")
+            self.assertTrue(result["inventory"]["backfilled_from_store"])
 
     def test_rulegen_uses_pair_tuning_defaults_when_overrides_omitted(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -937,6 +1098,7 @@ class TestHelperEngineRuntimeDiagnostics(unittest.TestCase):
             payload = get_srs_runtime_diagnostics(paths, pair="en-ja")
             self.assertEqual(payload["pair"], "en-ja")
             self.assertFalse(payload["store_exists"])
+            self.assertFalse(payload["inventory_exists"])
             self.assertFalse(payload["ruleset_exists"])
             self.assertFalse(payload["snapshot_exists"])
             self.assertFalse(payload["semantic_inventory_exists"])
@@ -1065,6 +1227,18 @@ class TestHelperEngineRuntimeDiagnostics(unittest.TestCase):
                 ),
                 paths.srs_store_path,
             )
+            save_srs_inventory(
+                SrsInventory(
+                    pairs={
+                        "en-ja": SrsPairInventory(
+                            active_item_ids=("en-ja:alpha", "en-ja:missing"),
+                            last_initialized_at="2026-04-09T00:00:00Z",
+                            last_refreshed_at="2026-04-10T00:00:00Z",
+                        )
+                    }
+                ),
+                paths.srs_inventory_path_for("default"),
+            )
             paths.ruleset_path("en-ja").write_text(
                 (
                     '{"rules":['
@@ -1110,6 +1284,12 @@ class TestHelperEngineRuntimeDiagnostics(unittest.TestCase):
             self.assertEqual(payload["store_items_for_pair"], 1)
             self.assertEqual(payload["store_items_with_word_package_total"], 1)
             self.assertEqual(payload["store_items_with_word_package_for_pair"], 1)
+            self.assertTrue(payload["inventory_exists"])
+            self.assertEqual(payload["inventory_active_items_for_pair"], 1)
+            self.assertEqual(payload["inventory_source"], "inventory")
+            self.assertEqual(payload["inventory_last_initialized_at"], "2026-04-09T00:00:00Z")
+            self.assertEqual(payload["inventory_last_refreshed_at"], "2026-04-10T00:00:00Z")
+            self.assertEqual(payload["inventory_store_missing_item_ids_count"], 1)
             self.assertEqual(payload["ruleset_rules_count"], 2)
             self.assertEqual(payload["ruleset_rules_with_script_forms"], 1)
             self.assertEqual(payload["ruleset_rules_with_word_package"], 1)
@@ -1209,7 +1389,12 @@ class TestHelperEngineInitializeSrsSet(unittest.TestCase):
                 )
 
             persisted = load_srs_store(paths.srs_store_path)
+            inventory = load_srs_inventory(paths.srs_inventory_path_for("default"))
             self.assertEqual(len(persisted.items), 3)
+            self.assertEqual(
+                tuple(inventory.pairs["en-ja"].active_item_ids),
+                ("en-ja:alpha",),
+            )
             self.assertEqual(result["pair"], "en-ja")
             self.assertEqual(result["added_items"], 1)
             self.assertEqual(result["total_items_for_pair"], 2)
@@ -1287,8 +1472,13 @@ class TestHelperEngineInitializeSrsSet(unittest.TestCase):
                 )
 
             persisted = load_srs_store(paths.srs_store_path)
+            inventory = load_srs_inventory(paths.srs_inventory_path_for("default"))
             self.assertEqual(
                 len([item for item in persisted.items if item.language_pair == "en-ja"]), 1
+            )
+            self.assertEqual(
+                tuple(inventory.pairs["en-ja"].active_item_ids),
+                ("en-ja:gamma",),
             )
             self.assertEqual(result["added_items"], 1)
             self.assertEqual(result["total_items_for_pair"], 1)
@@ -1552,8 +1742,13 @@ class TestHelperEngineRefreshSrsSet(unittest.TestCase):
                 )
 
             persisted = load_srs_store(paths.srs_store_path)
+            inventory = load_srs_inventory(paths.srs_inventory_path_for("default"))
             by_pair = [item for item in persisted.items if item.language_pair == "en-ja"]
             self.assertEqual(len(by_pair), 4)
+            self.assertEqual(
+                tuple(inventory.pairs["en-ja"].active_item_ids),
+                ("en-ja:alpha", "en-ja:beta", "en-ja:gamma", "en-ja:delta"),
+            )
             self.assertTrue(result["applied"])
             self.assertEqual(result["added_items"], 3)
             self.assertEqual(result["admission_refresh"]["reason_code"], "normal")
@@ -1656,8 +1851,13 @@ class TestHelperEngineRefreshSrsSet(unittest.TestCase):
                 )
 
             persisted = load_srs_store(paths.srs_store_path)
+            inventory = load_srs_inventory(paths.srs_inventory_path_for("default"))
             lemmas = {item.lemma for item in persisted.items if item.language_pair == "en-ja"}
             self.assertEqual(lemmas, {"alpha", "beta"})
+            self.assertEqual(
+                tuple(inventory.pairs["en-ja"].active_item_ids),
+                ("en-ja:alpha", "en-ja:beta"),
+            )
             self.assertTrue(result["applied"])
             self.assertEqual(result["added_items"], 1)
             self.assertEqual(result["allowed_pos"], ["noun"])
@@ -1848,8 +2048,13 @@ class TestHelperEngineFeedbackCycle(unittest.TestCase):
                 )
 
             stored_after = load_srs_store(paths.srs_store_path)
+            inventory = load_srs_inventory(paths.srs_inventory_path_for("default"))
             by_pair = [item for item in stored_after.items if item.language_pair == "en-ja"]
             self.assertEqual(len(by_pair), 1)
+            self.assertEqual(
+                tuple(inventory.pairs["en-ja"].active_item_ids),
+                ("en-ja:alpha",),
+            )
             self.assertFalse(result["applied"])
             self.assertEqual(result["added_items"], 0)
             self.assertEqual(result["admission_refresh"]["reason_code"], "retention_low")
@@ -1984,8 +2189,13 @@ class TestHelperEngineFeedbackCycle(unittest.TestCase):
                 )
 
             persisted = load_srs_store(paths.srs_store_path)
+            inventory = load_srs_inventory(paths.srs_inventory_path_for("default"))
             by_pair = [item for item in persisted.items if item.language_pair == "en-ja"]
             self.assertEqual(len(by_pair), 3)
+            self.assertEqual(
+                tuple(inventory.pairs["en-ja"].active_item_ids),
+                ("en-ja:alpha", "en-ja:beta", "en-ja:gamma"),
+            )
             self.assertTrue(result["applied"])
             self.assertEqual(result["added_items"], 2)
             self.assertEqual(result["admission_refresh"]["reason_code"], "normal")
@@ -2007,6 +2217,10 @@ class TestHelperEngineFeedbackCycle(unittest.TestCase):
             self.assertEqual(
                 rulegen_config.reverse_check.enabled,
                 rulegen_defaults.reverse_check.enabled,
+            )
+            self.assertEqual(
+                tuple(run_rulegen_patch.call_args.kwargs["active_item_ids"]),
+                ("en-ja:alpha", "en-ja:beta", "en-ja:gamma"),
             )
 
             rulegen_payload = result.get("rulegen")

@@ -12,11 +12,23 @@ from lexishift_core.helper.rulegen import (
     SetInitializationReport,
 )
 from lexishift_core.rulegen.tuning import resolve_rulegen_tuning
-from lexishift_core.srs import SrsSettings, SrsStore, save_srs_store
+from lexishift_core.srs import (
+    SrsInventory,
+    SrsSettings,
+    SrsStore,
+    load_srs_inventory,
+    merge_active_item_ids,
+    resolve_active_item_ids,
+    save_srs_inventory,
+    save_srs_store,
+    set_active_item_ids,
+)
 from lexishift_core.srs.pair_policy import pair_policy_to_dict, resolve_srs_pair_policy
 from lexishift_core.srs.set_policy import resolve_set_sizing_policy
 from lexishift_core.srs.signal_queue import summarize_signal_events
 from lexishift_core.srs.source import SOURCE_INITIAL_SET
+from lexishift_core.srs.store_ops import build_item_id
+from lexishift_core.srs.time import now_utc
 
 
 def initialize_srs_set(
@@ -83,6 +95,14 @@ def initialize_srs_set(
     )
     settings = ensure_settings_fn(paths, persist_missing=True)
     store = ensure_store_fn(paths, profile_id=profile_id, persist_missing=True)
+    inventory_path = paths.srs_inventory_path_for(profile_id)
+    inventory_exists = inventory_path.exists()
+    inventory = load_srs_inventory(inventory_path) if inventory_exists else SrsInventory()
+    existing_active_item_ids, inventory_source = resolve_active_item_ids(
+        store=store,
+        pair=pair,
+        inventory=inventory if inventory_exists else None,
+    )
     before_pair_count = count_items_for_pair_fn(store, pair)
     sizing_policy = resolve_set_sizing_policy(
         bootstrap_top_n=(
@@ -115,7 +135,7 @@ def initialize_srs_set(
 
     can_execute = bool(plan_payload.get("can_execute"))
     execution_mode = str(plan_payload.get("execution_mode", "planner_only"))
-    if not can_execute or execution_mode != "frequency_bootstrap":
+    if not can_execute or execution_mode not in {"frequency_bootstrap", "profile_bootstrap"}:
         return {
             "pair": pair,
             "profile_id": profile_id,
@@ -150,9 +170,29 @@ def initialize_srs_set(
             language_pair=pair,
             stopwords_path=stopwords_path,
             require_jmdict=capability.requires_jmdict_for_seed,
+            strategy=str(config.strategy or "frequency_bootstrap"),
+            profile_context=config.profile_context,
         ),
     )
     save_srs_store(updated_store, paths.srs_store_path_for(profile_id))
+    initial_active_item_ids = tuple(
+        build_item_id(pair, str(lemma).strip())
+        for lemma in getattr(init_report, "initial_active_preview", ()) or ()
+        if str(lemma).strip()
+    )
+    active_item_ids = (
+        initial_active_item_ids
+        if config.replace_pair
+        else merge_active_item_ids(existing_active_item_ids, initial_active_item_ids)
+    )
+    inventory_updated_at = now_utc().isoformat()
+    updated_inventory = set_active_item_ids(
+        inventory,
+        pair=pair,
+        active_item_ids=active_item_ids,
+        last_initialized_at=inventory_updated_at,
+    )
+    save_srs_inventory(updated_inventory, inventory_path)
 
     effective_rulegen_tuning = resolve_rulegen_tuning(pair)
     _updated_store, rulegen_output = run_rulegen_for_pair_fn(
@@ -173,7 +213,9 @@ def initialize_srs_set(
             allow_multiword_glosses=effective_rulegen_tuning.allow_multiword_glosses,
             scoring=effective_rulegen_tuning.scoring,
             reverse_check=effective_rulegen_tuning.reverse_check,
+            enable_exact_gloss_demotions=(effective_rulegen_tuning.enable_exact_gloss_demotions),
         ),
+        active_item_ids=active_item_ids,
         initialize_if_empty=False,
         persist_store=False,
     )
@@ -224,6 +266,27 @@ def initialize_srs_set(
             "initial_active_weight_preview": list(
                 getattr(init_report, "initial_active_weight_preview", ()) or ()
             ),
+            "selection_strategy": str(
+                getattr(init_report, "selection_strategy", None) or config.strategy
+            ),
+            "selection_policy": getattr(init_report, "selection_policy", None),
+            "selection_seed": getattr(init_report, "selection_seed", None),
+            "selector_version": getattr(init_report, "selector_version", None),
+            "profile_bootstrap_diagnostics": dict(
+                getattr(init_report, "profile_bootstrap_diagnostics", {}) or {}
+            ),
+        },
+        "inventory": {
+            "path": str(inventory_path),
+            "exists": True,
+            "active_items_for_pair": len(active_item_ids),
+            "source": "initialized",
+            "backfilled_from_store": bool(
+                not config.replace_pair
+                and inventory_source == "store_fallback"
+                and bool(existing_active_item_ids)
+            ),
+            "updated_at": inventory_updated_at,
         },
         "rulegen": {
             "published": True,

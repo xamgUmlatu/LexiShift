@@ -11,7 +11,7 @@ from lexishift_core.helper.pair_resources import (
 )
 from lexishift_core.helper.paths import HelperPaths
 from lexishift_core.helper.status import load_status
-from lexishift_core.srs import load_srs_store
+from lexishift_core.srs import load_srs_inventory, load_srs_store, resolve_active_item_ids
 from lexishift_core.srs.pair_policy import pair_policy_to_dict, resolve_srs_pair_policy
 
 
@@ -77,6 +77,7 @@ def get_srs_runtime_diagnostics(
     publication_manifest_path = paths.publication_manifest_path(
         normalized_pair, profile_id=normalized_profile_id
     )
+    inventory_path = paths.srs_inventory_path_for(normalized_profile_id)
     status_path = paths.srs_status_path_for(normalized_profile_id)
     translation_dict_path_text = (
         str(resolved_translation_dict_path) if resolved_translation_dict_path else None
@@ -154,6 +155,15 @@ def get_srs_runtime_diagnostics(
         "store_items_with_word_package_total": 0,
         "store_items_with_word_package_for_pair": 0,
         "store_error": None,
+        "inventory_path": str(inventory_path),
+        "inventory_exists": inventory_path.exists(),
+        "inventory_active_items_for_pair": 0,
+        "inventory_source": None,
+        "inventory_last_initialized_at": None,
+        "inventory_last_refreshed_at": None,
+        "inventory_last_rebalanced_at": None,
+        "inventory_store_missing_item_ids_count": 0,
+        "inventory_error": None,
         "ruleset_path": str(ruleset_path),
         "ruleset_exists": ruleset_path.exists(),
         "ruleset_rules_count": 0,
@@ -188,6 +198,7 @@ def get_srs_runtime_diagnostics(
         "publication_manifest_errors": [],
         "status": load_status(status_path).__dict__,
     }
+    store = None
     if diagnostics["store_exists"]:
         try:
             store = load_srs_store(store_path)
@@ -202,6 +213,45 @@ def get_srs_runtime_diagnostics(
             )
         except Exception as exc:  # noqa: BLE001
             diagnostics["store_error"] = str(exc)
+    inventory = None
+    if diagnostics["inventory_exists"]:
+        try:
+            inventory = load_srs_inventory(inventory_path)
+            pair_inventory = dict(inventory.pairs or {}).get(normalized_pair)
+            if pair_inventory is not None:
+                diagnostics["inventory_last_initialized_at"] = pair_inventory.last_initialized_at
+                diagnostics["inventory_last_refreshed_at"] = pair_inventory.last_refreshed_at
+                diagnostics["inventory_last_rebalanced_at"] = pair_inventory.last_rebalanced_at
+        except Exception as exc:  # noqa: BLE001
+            diagnostics["inventory_error"] = str(exc)
+            inventory = None
+    if diagnostics["store_error"] is None and store is not None:
+        try:
+            active_item_ids, inventory_source = resolve_active_item_ids(
+                store=store,
+                pair=normalized_pair,
+                inventory=inventory if diagnostics["inventory_exists"] else None,
+            )
+            diagnostics["inventory_active_items_for_pair"] = len(active_item_ids)
+            diagnostics["inventory_source"] = inventory_source
+            if inventory is not None and normalized_pair in dict(inventory.pairs or {}):
+                raw_active_item_ids = tuple(
+                    dict(inventory.pairs)[normalized_pair].active_item_ids or ()
+                )
+                available_item_ids = {
+                    item.item_id
+                    for item in store.items
+                    if item.language_pair == normalized_pair and str(item.item_id or "").strip()
+                }
+                diagnostics["inventory_store_missing_item_ids_count"] = len(
+                    [
+                        item_id
+                        for item_id in raw_active_item_ids
+                        if str(item_id).strip() and item_id not in available_item_ids
+                    ]
+                )
+        except Exception as exc:  # noqa: BLE001
+            diagnostics["inventory_error"] = str(exc)
     if diagnostics["ruleset_exists"]:
         try:
             ruleset_payload = json.loads(ruleset_path.read_text(encoding="utf-8"))
