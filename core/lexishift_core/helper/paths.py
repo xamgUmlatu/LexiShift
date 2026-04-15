@@ -110,6 +110,9 @@ class HelperPaths:
     def srs_signal_queue_path_for(self, profile_id: str | None = None) -> Path:
         return self.profile_srs_dir(profile_id) / "srs_signal_queue.json"
 
+    def srs_inventory_path_for(self, profile_id: str | None = None) -> Path:
+        return self.profile_srs_dir(profile_id) / "srs_inventory.json"
+
     def snapshot_path(self, pair: str, profile_id: str | None = None) -> Path:
         safe_pair = pair.replace("/", "-").replace(":", "-")
         return self.profile_srs_dir(profile_id) / f"srs_rulegen_snapshot_{safe_pair}.json"
