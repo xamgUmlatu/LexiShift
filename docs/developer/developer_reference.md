@@ -2,8 +2,8 @@
 
 Status: Active handbook
 Role: Canonical current
-Last updated: 2026-03-21
-Last verified: 2026-03-21 developer-doc routing review + script inventory check
+Last updated: 2026-04-16
+Last verified: 2026-04-16 developer routing audit + script inventory spot-check
 Purpose: developer-facing repository map and current source-of-truth routing for implementation work
 Source-of-truth: developer reference guide; command details defer to `local_setup.md` and `build_and_release.md`, and runtime claims verify in source code and `feature_state_matrix.md`.
 
@@ -125,6 +125,8 @@ Specialty runbooks, policies, and ledgers live in:
 - `documentation_governance.md`
 - `feature_state_matrix.md`
 - `project_health_gate_structure.md`
+- `project_integrity_stabilization_runbook.md`
+- `project_integrity_stabilization_backlog.md`
 - `ai_workflow.md`
 
 ## 6. Runtime Development Loops
@@ -188,7 +190,7 @@ Primary touchpoints:
 
 Reference docs:
 - `../architecture/native_messaging_design.md`
-- `../architecture/native_messaging_checklist.md`
+- `../architecture/native_messaging_checklist.md` (planning/execution tracker, not current behavior authority)
 - `../architecture/srs_lp_architecture.md`
 
 ## 8. Build And Release

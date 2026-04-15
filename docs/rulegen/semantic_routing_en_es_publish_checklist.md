@@ -2,8 +2,8 @@
 
 Status: active launch checklist
 Role: Runbook / operational
-Last updated: 2026-04-15
-Last verified: 2026-04-15 targeted semantic publication/runtime pytest suite, refreshed semantic-shadow experiment artifacts, isolated local helper publication on `codex-semantic-e2e`, and live helper-side `semantic_admit_batch` probe against published `en-es` artifacts
+Last updated: 2026-04-16
+Last verified: 2026-04-16 targeted semantic publication/runtime pytest suite plus repo-doc audit of the current emitted-sibling publication boundary and helper/runtime seam
 Purpose: define the exact checklist for a controlled `en-es` browser-extension launch of semantic runtime veto without hard-coding the architecture to `en-es`
 Source-of-truth: this checklist is the launch runbook; code truth still lives in runtime/helper code, `docs/developer/feature_state_matrix.md`, and generated test artifacts
 Related docs:
@@ -20,6 +20,7 @@ This checklist is for the first controlled `en-es` launch shape only:
 - rule origin: SRS-origin rules only
 - semantic gate state: opt-in, default-off
 - artifact transport: local helper files plus extension cache fallback
+- published `status=ready` rows: only the current `emitted_rule_siblings` PoC when real sibling senses co-occur in the same emitted batch
 - runtime action: `replace` or keep original text
 
 Not in scope for this checklist:
@@ -28,6 +29,7 @@ Not in scope for this checklist:
 - BetterDiscord/chat runtime integration
 - default-on rollout
 - multi-LP rollout policy
+- broad shadow-mined blocker publication
 - phrase-set publication
 - `soft_affordance` rendering
 
@@ -36,12 +38,17 @@ Not in scope for this checklist:
 When semantic admission is enabled today, the runtime path is:
 
 1. helper publication writes SRS rules plus semantic inventory sidecar for a pair/profile
-2. extension loads rules and semantic inventory from helper, with extension cache as fallback
-3. extension finds normal trie matches first
-4. only SRS matches that already carry `rule.metadata.semantic_admission` are eligible for semantic admission
-5. extension batches eligible matches to helper `semantic_admit_batch`
-6. helper decision policy returns `replace`, `abstain`, or the reserved `soft_affordance`
-7. extension renders only `replace`; all other outcomes keep the original source text
+2. current `en-es` `status=ready` coverage comes only from emitted-sibling competition sets when real sibling senses appear in the same emitted result batch
+3. extension loads rules and semantic inventory from helper, with extension cache as fallback
+4. extension finds normal trie matches first
+5. only SRS matches that already carry `rule.metadata.semantic_admission` are semantically eligible
+6. only `status=ready` matches are batched to helper `semantic_admit_batch`
+7. non-ready matches stay on the configured fallback-policy path instead of calling helper semantic scoring
+8. helper decision policy returns `replace`, `abstain`, or the reserved `soft_affordance`
+9. extension renders only `replace`; all other outcomes keep the original source text
+
+This checklist therefore validates a real helper/runtime gate on a narrow published ready subset.
+It does not claim that broad shadow-mined blocker discovery is solved.
 
 ## Recommended Pilot Posture
 
@@ -63,6 +70,7 @@ Before enabling the pilot for any profile:
 
 - the helper can publish an `en-es` ruleset containing nonzero `metadata.semantic_admission` coverage
 - the helper can publish an `en-es` semantic inventory sidecar for the same profile
+- the helper can publish a nonzero emitted-sibling `status=ready` subset for the pilot profile, or the launch owner explicitly accepts that the pilot is only exercising fallback behavior
 - the extension can reach the helper/native-host on the target machine
 - the active policy id and sidecar schema version are frozen for the pilot batch
 

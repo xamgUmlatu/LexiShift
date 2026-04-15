@@ -1,11 +1,11 @@
 # Semantic Routing Runtime Readiness
 
-Status: planning slice
-Role: Planning / WIP
-Last updated: 2026-04-13
-Last verified: 2026-04-13 repo-doc/runtime-contract review plus rule-payload provenance inspection, first `en-es` shadow inventory artifact, first triage pass over promotion quality, named promotion-policy comparison, active-trigger matching refinement for bundled forward glosses, first support-score sweep for shadow promotion, first trigger-support sweep for source-only seed filtering, first embedding-bridge sweep over source-derived target cards, first frequency-similarity sweep, first representative-pruning sweep, the expanded fixed-shadow sentence-level runtime-veto `v2` sweep, first explicit sentence-transformer model shortlist, and roadmap-linking review
-Purpose: define the implementation boundary for a future semantic-routing admission layer so work stays focused on the missing end-to-end pieces rather than early optimization
-Source-of-truth: planning doc only; runtime truth still lives in code, `docs/developer/feature_state_matrix.md`, and future implementation evidence
+Status: active mixed readiness
+Role: Mixed
+Last updated: 2026-04-16
+Last verified: 2026-04-16 runtime-contract audit across extension/helper runtime seams plus targeted runtime-policy and helper entrypoint tests
+Purpose: describe the current shipped semantic-routing runtime seam and the remaining readiness boundary so rollout work stays grounded in executable behavior instead of research-only optimism
+Source-of-truth: mixed as-is + readiness boundary; current runtime truth still lives in code, tests, and `docs/developer/feature_state_matrix.md`
 Verification:
 - `README.md`
 - `docs/getting-started/index.md`
@@ -14,10 +14,16 @@ Verification:
 - `docs/rulegen/rule_generation_technical.md`
 - `docs/rulegen/semantic_routing_data_contract.md`
 - `docs/rulegen/semantic_routing_publication_contract.md`
-- `core/lexishift_core/rulegen/generation.py`
-- `core/lexishift_core/persistence/storage.py`
-- `core/tests/rulegen/test_rulegen_generation.py`
-- `core/tests/rulegen/test_rulegen_en_es_kaikki_provenance.py`
+- `apps/chrome-extension/shared/settings/settings_defaults.js`
+- `apps/chrome-extension/shared/helper/helper_client.js`
+- `apps/chrome-extension/content/runtime/rules/helper_rules_runtime.js`
+- `apps/chrome-extension/content/runtime/rules/active_rules_runtime.js`
+- `apps/chrome-extension/content/runtime/semantic/semantic_gate_runtime.js`
+- `apps/chrome-extension/content/processing/replacements.js`
+- `apps/chrome-extension/content/runtime/diagnostics/apply_diagnostics_reporter.js`
+- `core/tests/rulegen/test_semantic_routing_runtime_policy.py`
+- `core/tests/helper/test_helper_engine.py`
+- `core/tests/dev/test_helper_translation_dict_entrypoints.py`
 
 Sequencing note:
 
@@ -47,6 +53,62 @@ The governing product preference is:
 - harmful replacement is not.
 
 This asymmetry should shape both the research program and the eventual runtime policy.
+
+## How To Read This Doc
+
+- Treat `Current Shipped Runtime Seam` and `Current Emitted-Rule Provenance Reality` as the current runtime contract.
+- Treat `Current Sentence-Level Runtime Harness` and the research-result sections as evidence and experimentation surfaces, not shipped runtime truth.
+- Treat `What Is Still Missing For True End-To-End Automatic Semantic Routing`, `Implementation Ladder`, and `Minimum Runtime Contract` as the remaining readiness boundary.
+
+## Current Shipped Runtime Seam
+
+Today the browser-extension runtime already has a narrow semantic-admission gate, but it is intentionally default-off.
+
+Current shipped behavior:
+
+1. semantic admission is disabled by default through settings:
+   - `srsSemanticAdmissionEnabled: false`
+   - `srsSemanticAdmissionFallbackPolicy: legacy_on_unavailable`
+2. the runtime gate only activates when both:
+   - `srsEnabled === true`
+   - `srsSemanticAdmissionEnabled === true`
+3. only SRS-origin rules are eligible for semantic gating
+4. even within SRS-origin rules, a match is only eligible when the rule already carries `metadata.semantic_admission`
+5. non-ready matches do not call helper scoring:
+   - they resolve locally through the configured fallback policy
+   - current supported fallback policies are:
+     - `legacy_on_unavailable`
+     - `abstain_on_unavailable`
+     - `soft_affordance_on_unavailable`
+6. ready matches are grouped by `pair` + `profile_id`
+7. before helper scoring, the extension runtime resolves semantic inventory through:
+   - helper first
+   - helper-cache fallback second
+8. the runtime only calls helper `semantic_admit_batch` when:
+   - the match status is `ready`
+   - semantic inventory resolved successfully
+   - helper semantic-admission transport is available
+9. if inventory, service, or response data is unavailable, the runtime falls back locally using the configured fallback policy
+10. only `decision=replace` survives into DOM apply today
+11. `abstain` and the currently reserved `soft_affordance` outcome both keep the original text in the shipped DOM path
+
+Current operational boundaries:
+
+- this runtime path is implemented for the browser extension, not the BetterDiscord/plugin runtime
+- helper artifacts remain local; there is no cloud transport in the shipped runtime path
+- active-rules runtime and apply diagnostics already record:
+  - whether semantic admission is enabled
+  - which fallback policy is active
+  - whether semantic inventory resolved
+  - whether inventory came from helper or helper-cache
+  - aggregate eligible / ready / replace / abstain counts
+
+What the shipped gate is not:
+
+- not a broad shadow-mined semantic runtime
+- not a default-on feature
+- not a rendered soft-affordance UX yet
+- not proof that automatic blocker discovery is rollout-ready
 
 ## What Current Strong Prototype Results Actually Mean
 
@@ -296,7 +358,7 @@ Interpretation:
 | Context transformation | automatic | none | masking, context windows, raw vs masked sentence views |
 | Sense representation | mostly automatic | optional handwritten cue bundles | reverse sense text, gloss bundles, qualifiers, anchor construction, source-derived merged text views |
 | Cue augmentation | mixed | handwritten hints and future authored cue bundles | Kaikki-derived cues and raw-example-derived cues |
-| Serving policy | missing | no production policy yet | benchmark-side policy experiments only |
+| Serving policy | partial | default-off shipped gate, fallback-policy handling, and helper runtime policy are already present; broad rollout-ready policy and soft-affordance UX are not | helper-side runtime policy, fallback-policy mapping, and benchmark-side policy experiments |
 
 ### Manual today
 
@@ -558,7 +620,29 @@ This should be an intentional product policy, not an accidental side effect of a
 
 ### 6. Runtime observability
 
-Before rollout, LexiShift needs diagnostics that can answer:
+Current runtime observability is partial, not absent.
+
+Already present today:
+
+- active-rules runtime reports whether semantic admission is enabled
+- the options-page `SRS runtime diagnostics` action is already a three-way join:
+  - helper source-of-truth payload for ruleset/snapshot/semantic-inventory/publication-manifest state
+  - extension-cache payload for cached ruleset/snapshot/semantic-inventory presence and counts
+  - current tab/runtime last state for live semantic gate behavior
+- apply/runtime last-state diagnostics record fallback policy, inventory source/error, and aggregate eligible / ready / replace / abstain counts
+- that current tab/runtime state is persisted through `chrome.storage.local` under `srsRuntimeLastState`
+- per-replacement detail payloads can already carry semantic decision fields such as:
+  - `decision`
+  - `decision_source`
+  - `reason_codes`
+  - `sense_id`
+  - `competition_set_id`
+  - `score_margin`
+  - `active_score`
+  - `top_shadow_score`
+  - `phrase_preempted`
+
+Before any broader rollout, LexiShift still needs diagnostics that can answer:
 
 - why a replacement applied,
 - why it abstained,
@@ -566,7 +650,7 @@ Before rollout, LexiShift needs diagnostics that can answer:
 - whether phrase preemption fired,
 - which provenance row and cue view were used.
 
-Without that, runtime trust and debugging will be poor even if benchmark numbers look promising.
+Without that deeper per-decision observability, runtime trust and debugging will still be poor even if benchmark numbers look promising.
 
 ### 7. Broader benchmark confidence
 

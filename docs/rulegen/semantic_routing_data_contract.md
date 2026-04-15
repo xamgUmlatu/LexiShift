@@ -1,11 +1,11 @@
 # Semantic Routing Data Contract
 
-Status: planning slice
-Role: Planning / WIP
-Last updated: 2026-04-13
-Last verified: 2026-04-13 code-path inspection across rulegen emission, helper publication, ruleset serialization, extension runtime consumption, and roadmap-linking review
-Purpose: define the best long-term data-flow shape for semantic routing so LP support stays symmetric and runtime integration does not depend on benchmark-only candidate metadata
-Source-of-truth: planning doc only; current implemented truth still lives in code, `docs/reference/schema.md`, and `docs/developer/feature_state_matrix.md`
+Status: active mixed contract
+Role: Mixed
+Last updated: 2026-04-16
+Last verified: 2026-04-16 code-path inspection plus targeted semantic-publication and adapter-pointer tests
+Purpose: describe the current semantic-routing data layers and the remaining target contract so LP support stays symmetric without confusing shipped pointer seams for full runtime-readiness
+Source-of-truth: mixed as-is + target contract; current implemented truth still lives in code, tests, `docs/reference/schema.md`, and `docs/developer/feature_state_matrix.md`
 Planning schemas:
 - `docs/test_inputs/semantic_routing/semantic_admission.schema.json`
 - `docs/test_inputs/semantic_routing/semantic_inventory.schema.json`
@@ -17,14 +17,16 @@ Related planning doc:
 - `docs/rulegen/semantic_routing_publication_contract.md`
 - `docs/rulegen/semantic_routing_implementation_roadmap.md`
 Verification:
-- `core/lexishift_core/rulegen/generation.py`
 - `core/lexishift_core/persistence/storage.py`
 - `core/lexishift_core/helper/rulegen_outputs.py`
+- `core/lexishift_core/rulegen/semantic_publication.py`
 - `core/lexishift_core/rulegen/pairs/en_es.py`
 - `core/lexishift_core/rulegen/pairs/en_de.py`
 - `apps/chrome-extension/content/runtime/rules/active_rules_runtime.js`
 - `apps/chrome-extension/content/processing/replacements.js`
 - `apps/chrome-extension/content/runtime/diagnostics/apply_diagnostics_reporter.js`
+- `core/tests/rulegen/test_rulegen_adapters.py`
+- `core/tests/rulegen/test_semantic_publication.py`
 - `docs/reference/schema.md`
 
 ## Goal
@@ -38,6 +40,12 @@ The design target is:
 - avoid shoving heavy benchmark/debug provenance into every emitted rule,
 - and make the future runtime admission layer possible without re-deriving core sense identity from scratch on every page apply.
 
+## How To Read This Doc
+
+- Treat `Current End-To-End Data Flow`, `Current Data Layers`, and `Current LP Pointer Strength` as the current data contract.
+- Treat `Recommended Future Contract` as the target shape that later work should continue converging toward.
+- Treat this doc as a data-layer map, not as proof that semantic runtime readiness is solved.
+
 ## Current End-To-End Data Flow
 
 Today the main flow is:
@@ -46,9 +54,10 @@ Today the main flow is:
 2. Rulegen pair adapters build `RuleCandidate` objects.
 3. Pair adapters may attach rich candidate metadata.
 4. Pair publication helpers annotate results with `metadata.semantic_admission` when semantic-routing publication is enabled.
-5. Ruleset JSON is written by helper publication.
+5. Helper publication writes ruleset JSON, snapshot JSON, and an optional semantic inventory sidecar.
 6. Extension loads rules, gates by SRS, builds trie, and applies replacements.
-7. DOM spans keep a compact dataset payload for UI and feedback.
+7. Runtime semantic admission, when enabled, resolves inventory and decision records from helper/helper-cache without expanding the ruleset into full provenance payloads.
+8. DOM spans keep a compact dataset payload for UI and feedback.
 
 ## Current Data Layers
 
@@ -92,6 +101,12 @@ It does not currently preserve rich candidate provenance such as:
 - `gloss_provenance`
 - raw dictionary record views
 
+What is true today is narrower but real:
+
+- emitted rules can now carry a stable active pointer through `metadata.semantic_admission`
+- that pointer is LP-symmetric at the top level (`schema_version`, `status`, `trigger_id`, `sense_id`, `competition_set_id`, optional `phrase_set_id`)
+- pointer strength still differs by pair, and most LPs still emit `status=unavailable`
+
 ### 3. Snapshot output
 
 The helper snapshot is a compact lemma -> source preview.
@@ -123,17 +138,38 @@ Span datasets currently carry compact UI fields such as:
 
 This is intentionally compact and should stay compact.
 
+## Current LP Pointer Strength
+
+Current emitted-rule pointer strength by active rulegen LP:
+
+| LP / pair | Current emitted pointer strength | Current competition publication state |
+|---|---|---|
+| `en-es` | strongest current active pointer; uses `sense_provenance` first with `freedict_gloss` fallback | narrow `status=ready` PoC for emitted siblings in the same batch; broader shadow publication still not default |
+| `en-de` | same general pointer strategy as `en-es`: `sense_provenance` first with `freedict_gloss` fallback | currently stays `status=unavailable` because shadow promotion is not solved |
+| `en-ja` | stable `jmdict_entry`-backed active pointer derived from target forms | currently stays `status=unavailable` |
+| `de-en` | stable `freedict_gloss`-backed active pointer from deterministic gloss order | currently stays `status=unavailable` |
+| `es-en` | stable `freedict_gloss`-backed active pointer from deterministic gloss order | currently stays `status=unavailable` |
+
+So the current answer to "does runtime get no semantic identity at all?" is now:
+
+- no
+
+The current answer to "does runtime get a fully ready competition/shadow contract by default?" is still:
+
+- also no
+
 ## Critical Current Gap
 
-The repo currently loses semantic identity between:
+The repo no longer drops semantic identity completely between candidate generation and emitted runtime rules.
 
-- candidate generation
-- and emitted runtime rules
+What it still does not carry by default is the full runtime-ready competition contract.
 
 That means:
-- some LPs can reason about sense identity during benchmark/ranking,
-- and the repo now has a shared emitted-rule pointer shape,
-- but runtime still does not receive a fully ready competition/shadow contract.
+
+- some LPs can reason about rich sense identity during benchmark/ranking,
+- all current rulegen LPs can now emit a shared active-pointer block in `metadata.semantic_admission`,
+- helper publication can now emit a semantic inventory sidecar that resolves those ids,
+- but runtime still does not receive a fully ready competition/shadow contract by default.
 
 This is why semantic routing is still only partially implemented as a runtime publication seam rather than a real admission layer.
 
@@ -196,11 +232,11 @@ That avoids a short-term architecture where `en-es` gets a bespoke runtime contr
 
 ### Layer B. Semantic Inventory Sidecar
 
-Heavy semantic data should live outside the ruleset in a new published sidecar.
+Heavy semantic data now lives outside the ruleset in a published sidecar, and later work should keep converging on that shape instead of pushing more provenance into the ruleset itself.
 
-Recommended artifact:
+Current artifact:
 - per pair/profile semantic inventory JSON written alongside ruleset + snapshot
-- future helper-path naming target: `srs/profiles/<profile_id>/srs_semantic_inventory_<pair>.json`
+- current helper path: `srs/profiles/<profile_id>/srs_semantic_inventory_<pair>.json`
 
 Recommended responsibilities:
 - define triggers

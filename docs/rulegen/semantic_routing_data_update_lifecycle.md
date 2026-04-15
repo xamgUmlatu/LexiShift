@@ -2,8 +2,8 @@
 
 Status: active plan
 Role: Planning / operational
-Last updated: 2026-04-15
-Last verified: 2026-04-15 repo-doc review against the semantic-routing data/publication contracts, helper output writer, implementation roadmap, family queueing plan, and semantic feedback promotion flow
+Last updated: 2026-04-16
+Last verified: 2026-04-16 repo-doc routing review against the semantic-routing contracts, implementation roadmap, and launch/research document split
 Purpose: define the update process for semantic-routing data so LexiShift can add mined, manual, and later LLM-derived evidence without creating awkward runtime coupling, redundant storage, or unsafe publication flow
 Source-of-truth: planning doc only; current implemented truth still lives in helper publication/runtime code and the semantic-routing contracts
 Related docs:
@@ -14,6 +14,12 @@ Related docs:
 - `docs/rulegen/semantic_feedback_promotion_flow.md`
 - `docs/rulegen/semantic_shadow_source_intake_plan.md`
 - `docs/rulegen/semantic_routing_en_es_publish_checklist.md`
+
+Routing note:
+
+- this document does not redefine the current helper publication/runtime contract
+- it also does not replace the first-launch `en-es` runbook
+- use it when the question is how mined, reviewed, manual, or later LLM-derived semantic data should be stored, promoted, and republished over time
 
 ## Current Scope Assumptions
 

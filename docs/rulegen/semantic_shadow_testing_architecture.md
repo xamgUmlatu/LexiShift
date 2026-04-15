@@ -3,9 +3,15 @@
 Status: active workflow
 Role: Runbook / operational
 Purpose: keep semantic-shadow research testing repeatable, sweepable, and comparable as the workstream continues
-Last updated: 2026-04-11
-Last verified: 2026-04-11 targeted semantic-shadow/runtime-scoring tests plus Campaign C matrix run, experiment-row compare, explicit forward-pack override replay against a rebuilt Kaikki forward artifact, canonical en-es rulegen audit, the expanded sentence-level runtime-veto `v2` sweep, and a first explicit sentence-transformer model shortlist check
+Last updated: 2026-04-16
+Last verified: 2026-04-16 repo-doc routing review against the current semantic-routing contracts, launch checklist, and generalization plan
 Source-of-truth: current semantic-shadow testing workflow; implementation truth lives in the scripts and core scoring modules referenced below
+
+Routing note:
+
+- use `docs/rulegen/semantic_routing_publication_contract.md` and `docs/rulegen/semantic_routing_runtime_readiness.md` for current shipped contract truth
+- use `docs/rulegen/semantic_routing_en_es_publish_checklist.md` for launch/runbook steps
+- use this document for research harness structure, experiment lanes, and evidence interpretation only
 
 ## Why this exists
 

@@ -2,8 +2,8 @@
 
 Status: active stabilization runbook
 Role: Runbook / operational
-Last updated: 2026-04-15
-Last verified: 2026-04-15 clean-tree routing and checkpoint review
+Last updated: 2026-04-16
+Last verified: 2026-04-16 per-slice playbook addition + doc-reference check
 Source-of-truth: stabilization instructions only; code/tests/artifacts still decide runtime truth.
 Verification: start from a clean worktree, keep seam-specific validation attached to each checkpoint, and run `python3 scripts/dev/check_doc_references.py` before handoff.
 
@@ -195,6 +195,140 @@ Required actions:
 2. keep known contradictions explicit until fully resolved.
 3. ensure routing docs point to the current canonical surfaces.
 4. checkpoint cleanly with intentional commit messages.
+
+## Per-Slice Execution Playbook
+
+Use this checklist for every backlog item.
+The goal is to force deliberate, bounded work instead of assumption-driven cleanup.
+
+### Step 1: Reconfirm the slice
+
+Before reading broadly, write down:
+
+1. the backlog item id and title,
+2. the exact seam being touched,
+3. what is explicitly out of scope for this pass,
+4. the intended pass type:
+   - doc-truth pass
+   - integrity refactor
+   - contract fix
+   - verification-only pass
+
+If the proposed pass touches more than one seam, split it before editing.
+
+### Step 2: Build a bounded re-onboarding packet
+
+Read only the minimum context needed to recover current truth for that seam:
+
+1. the backlog item itself,
+2. the relevant routing/current-status docs,
+3. the matching `feature_state_matrix.md` entry,
+4. one to three owning code modules,
+5. one to three owning tests or harnesses,
+6. recent commit history for the touched files when local drift matters.
+
+Default rules:
+
+- do not reread an entire subsystem if the slice can be grounded from a smaller packet
+- do not import planning docs unless the slice truly depends on a planned boundary
+
+### Step 3: Write the pre-edit truth table
+
+Before changing files, explicitly answer:
+
+1. what the docs currently claim,
+2. what the code currently does,
+3. what evidence actually verifies that behavior,
+4. where docs and code disagree,
+5. which claims are still planning-only and must not be promoted
+
+If current truth cannot be recovered with reasonable confidence, stop and narrow the slice or gather more evidence before editing.
+
+### Step 4: Classify the risk before touching code
+
+Mark the slice as one of:
+
+1. docs-only
+2. contract clarification
+3. behavior-preserving structural refactor
+4. behavior-changing seam fix
+
+Then decide the validation bundle up front.
+
+Escalation rules:
+
+- if the slice crosses into rulegen scoring, candidate filtering, POS behavior, or LP tuning, it must use the full AGENTS rulegen loop
+- if the slice crosses into SRS scheduling, admission refresh, publication, or runtime SRS serving, it must include the SRS harness
+- if the slice touches helper/native-host/extension semantic runtime behavior, it must include the semantic/runtime seam tests
+
+### Step 5: Make the smallest coherent change
+
+During editing:
+
+1. change one seam at a time,
+2. keep docs, code, and tests tightly coupled to the same claim set,
+3. prefer narrowing claims over inventing future-facing wording,
+4. do not mix opportunistic cleanup from adjacent areas into the same commit,
+5. do not touch baselines or policy thresholds unless that is the explicit slice goal
+
+### Step 6: Verify deliberately
+
+Always run:
+
+```bash
+python3 scripts/dev/check_doc_references.py
+git diff --check
+```
+
+Then run the seam-specific validation chosen in Step 4.
+
+Verification discipline:
+
+1. do not stop at "command exited 0"; inspect whether the artifact or test actually covers the seam
+2. if branch-wide `check:changed` fails because of known unrelated debt, say so explicitly and separate that from slice-local validation
+3. if the existing tests do not cover the touched seam well enough, add a targeted test or leave the seam unresolved
+
+### Step 7: Update state only when warranted
+
+Update `docs/developer/feature_state_matrix.md` only when one of these actually changed:
+
+1. implementation status,
+2. default-on status,
+3. verification evidence,
+4. an explicit known contradiction
+
+Do not churn the state ledger for a local wording cleanup that leaves status and evidence unchanged.
+
+### Step 8: Leave a checkpoint note
+
+Every pass should end with a short handoff note that records:
+
+1. slice id and seam,
+2. files changed,
+3. current truth established,
+4. validations run,
+5. unresolved contradictions,
+6. recommended next slice
+
+### Stop-And-Split Triggers
+
+Stop and split the work into a smaller pass if any of these become true:
+
+1. the slice now needs more than three primary code modules,
+2. the slice now needs both doc reconciliation and behavior change across different seams,
+3. validation needs jump from local tests to a major harness because the seam boundary was mis-scoped,
+4. the contradiction reaches across semantic routing, SRS admission, and data-source normalization at the same time,
+5. you cannot explain the current behavior in a short truth table before editing
+
+### Review Questions Before Commit
+
+Before concluding a pass, ask:
+
+1. did I verify current truth from code/tests rather than trusting a doc,
+2. did I keep planned behavior clearly separate from implemented behavior,
+3. did I run the narrowest honest validation bundle,
+4. did I avoid unrelated cleanup,
+5. is the next contributor now less likely to make a false assumption here
 
 ## Stop Conditions
 

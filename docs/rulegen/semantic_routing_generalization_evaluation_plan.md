@@ -2,10 +2,16 @@
 
 Status: active planning
 Role: production-stabilization plan
-Purpose: define the evaluation workstream required to move semantic veto from a narrow `en-es` runtime slice to a production-trustworthy, more general blocker system
-Last updated: 2026-04-13
-Last verified: 2026-04-13 current runtime wiring checkpoint, current semantic-shadow testing architecture, current sentence-veto harnesses, current lower-bound veto proxy, and current feature-state/runtime-roadmap docs
+Purpose: define the evaluation workstream required to move semantic veto from the narrow `en-es` emitted-sibling runtime slice to a production-trustworthy, more general blocker system
+Last updated: 2026-04-16
+Last verified: 2026-04-16 current runtime/publication contract review plus the targeted semantic publication/runtime seam tests and current generalization evidence docs
 Source-of-truth: this plan is the canonical next-step document for semantic-veto generalization; implementation truth still lives in code, test scripts, and `docs/developer/feature_state_matrix.md`
+
+Routing note:
+
+- use `docs/rulegen/semantic_routing_publication_contract.md` and `docs/rulegen/semantic_routing_runtime_readiness.md` for current shipped contract truth
+- use `docs/rulegen/semantic_routing_en_es_publish_checklist.md` for the first-launch operational runbook
+- use this document only when the question is how to move beyond the current emitted-sibling PoC and prove broader blocker-generation quality
 
 ## Short answer
 
@@ -31,10 +37,11 @@ The repo now has:
 - helper-side `semantic_admit_batch`,
 - a named production decision policy,
 - runtime diagnostics,
+- a narrow published `en-es` emitted-sibling `status=ready` subset,
 - a fixed-shadow sentence-level veto harness,
 - and multiple shadow-mining / promotion evaluation lanes.
 
-What it does not yet have is proof that the automatically published competition set is good enough for broad production use.
+What it does not yet have is proof that automatically mined competition sets beyond that emitted-sibling PoC are good enough for broad production use.
 
 That is the key distinction:
 

@@ -2,7 +2,7 @@
 
 Status: active ledger
 Role: Canonical current
-Last updated: 2026-04-11
+Last updated: 2026-04-16
 Source-of-truth: cross-cutting state ledger; runtime truth still lives in code, tests, and dated evidence artifacts.
 
 Purpose:
@@ -774,7 +774,7 @@ Use this file when:
 
 - Status: `implemented`, `default-off`, `verified`
 - Last documented checkpoint: `2026-04-14` kept the runtime contract stable but hardened the helper publication layer: semantic publication now stamps a shared `generation_id` into snapshot and semantic inventory, writes a local publication manifest for each pair/profile artifact family, validates ready-pointer referential integrity before writing, exposes manifest state in diagnostics, and clears the manifest on pair/profile reset
-- Last verified: `2026-04-14` targeted helper publication/diagnostics/reset tests, Python compile checks, the synthetic SRS quality harness, and state/doc checks on the generation-aligned publication layer
+- Last verified: `2026-04-16` targeted semantic publication/runtime seam tests plus state/doc checks confirmed the current diagnostics split between helper source-of-truth, extension cache, and last-reported browser runtime state
 - Default behavior:
   - No semantic-routing admission layer is active in the browser runtime by default because `srsSemanticAdmissionEnabled` now defaults to `false`.
   - Current default runtime replacement behavior is still driven by rule emission plus existing SRS gating, not by sentence-level sense competition.
@@ -784,7 +784,8 @@ Use this file when:
     - helper publication now also writes a generation-aligned publication manifest for the ruleset/snapshot/semantic-inventory family
     - helper/native-host can now serve that semantic inventory as a first-class artifact
     - extension helper cache/runtime can now persist and resolve semantic inventory in parallel with ruleset/snapshot
-    - runtime diagnostics can inspect pointer coverage, sidecar coverage, and current publication generation id
+    - helper source-of-truth diagnostics can inspect pointer coverage, sidecar coverage, publication generation ids, and manifest family state
+    - extension options/runtime diagnostics can surface best-effort cache counts plus live semantic gate enablement, helper vs helper-cache source/error, and aggregate decision counts
     - helper/native-host can now also answer `semantic_admit_batch` using a named shared policy registry, and the extension runtime can call that service when semantic admission is enabled
   - The shipped runtime gate is still intentionally conservative:
     - only SRS-origin rules that already carry `metadata.semantic_admission` are eligible
@@ -1138,3 +1139,5 @@ These are not accidental wording issues. Keep them explicit until code and docs 
 2. SRS docs define due-aware serving, but current end-to-end publish/gate behavior is not yet verified as due-aware.
 3. Docs mention runtime confidence filtering, but extension-side helper-rule confidence gating is not yet verified in code.
 4. Planner docs describe multiple strategies, but executable behavior is still dominated by frequency bootstrap.
+5. SRS profile/schema docs still describe a broader profile-context shape, but the current extension settings path rebuilds signals from a fixed `v1` allowlist (`interests`, `objectives`, `proficiency`, `difficultyPreferences`, `empiricalTrends`, `sourcePreferences`) rather than preserving arbitrary unknown signal keys.
+6. SRS profile/schema docs still show nested `constraints` / `sizing` under `profile_context`, but helper execution currently treats top-level request sizing fields (`set_top_n`, `bootstrap_top_n`, `initial_active_count`, `max_active_items_hint`) as authoritative and uses the nested fields only as descriptive mirrors.

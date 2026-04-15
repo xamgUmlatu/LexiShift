@@ -2,8 +2,8 @@
 
 Status: planning slice
 Role: Planning / WIP
-Last updated: 2026-04-13
-Last verified: 2026-04-13 repo-doc/runtime-contract review across semantic-routing planning docs, helper publication, native-host request handling, extension runtime seams, and current sentence-veto artifacts
+Last updated: 2026-04-16
+Last verified: 2026-04-16 repo-doc/runtime-contract review against the current publication/runtime contracts plus targeted semantic publication/runtime tests
 Purpose: sequence the work required to turn semantic-routing publication scaffolding plus research harnesses into a real runtime admission layer, while keeping the architecture LP-symmetric and transport-agnostic
 Source-of-truth: planning doc only; current implemented truth still lives in code, `docs/developer/feature_state_matrix.md`, and the linked planning docs
 Related planning docs:
@@ -26,6 +26,28 @@ Verification:
 - `apps/chrome-extension/content/processing/replacements.js`
 - `apps/chrome-extension/content/runtime/dom_scan/text_node_processor.js`
 - `apps/chrome-extension/content/runtime/rules/active_rules_runtime.js`
+
+## Document map
+
+Use the semantic-routing docs in this order:
+
+1. `docs/rulegen/semantic_routing_publication_contract.md`
+   - current emitted-rule pointer, sidecar, manifest, and helper diagnostics contract
+2. `docs/rulegen/semantic_routing_runtime_readiness.md`
+   - current shipped browser-runtime seam and the remaining readiness boundary
+3. `docs/rulegen/semantic_routing_en_es_publish_checklist.md`
+   - operational runbook for the first controlled `en-es` launch only
+4. this roadmap
+   - near-term implementation ladder from the current emitted-sibling PoC to a broader launchable system
+5. `docs/rulegen/semantic_routing_generalization_evaluation_plan.md`
+   - post-PoC evidence plan for proving blocker generation beyond the emitted-sibling slice
+6. `docs/rulegen/semantic_shadow_testing_architecture.md`
+   - research harness architecture and experiment workflow, not the current launch contract
+7. `docs/rulegen/semantic_routing_data_update_lifecycle.md`
+   - future data-promotion/update lifecycle once broader semantic evidence starts landing
+
+Do not mix those roles.
+Current contract truth, launch steps, and research evidence should not be reconstructed by averaging multiple docs together.
 
 ## Goal
 
@@ -197,6 +219,7 @@ Already in place:
 
 - `semantic_admission` pointer scaffolding on emitted rules
 - semantic inventory sidecar publication path
+- `en-es` can currently publish a narrow emitted-sibling `status=ready` subset when real sibling senses are present in the same emitted batch
 - helper diagnostics for semantic inventory presence and counts
 - helper API for semantic inventory fetch and semantic admission
 - extension runtime consumption of semantic inventory and helper-side semantic admission
@@ -207,6 +230,7 @@ Already in place:
 
 Still missing:
 
+- broad shadow-mined blocker publication that is strong enough to replace the emitted-sibling PoC as the launchable ready subset
 - phrase sets in the default published sidecar
 - chat/plugin runtime integration
 - broader rollout UX outside the extension options page
@@ -391,6 +415,11 @@ Acceptance:
 Objective:
 
 - ship a narrow but real semantic-routing feature without pretending the whole cross-LP problem is solved
+
+Current first-launch boundary:
+
+- the launchable published `ready` subset is the current `en-es` emitted-sibling PoC
+- broader shadow-mined blocker publication remains on the evaluation/generalization track until it earns stronger evidence
 
 Recommended rollout:
 

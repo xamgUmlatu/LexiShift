@@ -2,8 +2,8 @@
 
 Status: active docs routing
 Role: Canonical current
-Last updated: 2026-04-04
-Last verified: 2026-04-04 docs-routing review
+Last updated: 2026-04-16
+Last verified: 2026-04-16 docs-routing audit
 Purpose: route contributors to the current documentation surfaces before planning, archive, or generated evidence
 Source-of-truth: routing guide only; defer implementation truth to source code, `developer/feature_state_matrix.md`, and linked domain docs.
 
@@ -24,7 +24,7 @@ If you need to understand how the extension works end-to-end, read in this order
 2. `architecture/extension_system_map.md`
 3. `architecture/chrome_extension_technical.md`
 4. `architecture/options_controllers_architecture.md`
-5. `architecture/popup_modules_pattern.md`
+5. `architecture/popup_modules_pattern.md` only for popup details, and only after noting that it is a mixed current + target doc
 
 If you need SRS/core behavior next:
 
@@ -45,6 +45,7 @@ Use these first when you need current behavior, current runbooks, or current sou
 - AI-assisted quality loop (rulegen/POS): `developer/ai_workflow.md`
 - GenAI workflow architecture: `developer/genai_workflow_architecture.md`
 - Project health gate structure: `developer/project_health_gate_structure.md`
+- Project integrity stabilization runbook: `developer/project_integrity_stabilization_runbook.md`
 - Architecture status index: `architecture/README.md`
 - Script map: `../scripts/README.md`
 
@@ -53,6 +54,7 @@ Use these first when you need current behavior, current runbooks, or current sou
 Treat these as planning/history surfaces unless their own metadata says otherwise:
 
 - Documentation grooming handoff: `developer/documentation_grooming_workstream.md`
+- Project integrity stabilization backlog: `developer/project_integrity_stabilization_backlog.md`
 - Project health remediation workstream: `developer/project_health_remediation_workstream.md`
 - Windows GUI parity workstream: `developer/windows_gui_parity_workstream.md`
 - GUI app fix workstream: `gui/gui_app_fix_workstream.md`
@@ -81,7 +83,7 @@ Treat these as planning/history surfaces unless their own metadata says otherwis
 - Extension architecture: `architecture/chrome_extension_technical.md`
 - Extension system map: `architecture/extension_system_map.md`
 - Options architecture: `architecture/options_controllers_architecture.md`
-- Popup module architecture: `architecture/popup_modules_pattern.md`
+- Popup module architecture (mixed current + target): `architecture/popup_modules_pattern.md`
 - Diagram status tracker + files: `architecture/diagrams/README.md`
 - SRS roadmap: `srs/srs_roadmap.md`
 - Rulegen technical design: `rulegen/rule_generation_technical.md`
