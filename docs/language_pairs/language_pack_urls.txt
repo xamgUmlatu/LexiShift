@@ -198,6 +198,19 @@ layout: SQLite compatibility artifact generated from Kaikki JSONL
 parse_hint: Keep `lang_code == "es"` records from the English-edition dump and emit `word` -> `senses[].glosses` into the normalized `entries` table
 notes: first production candidate to replace `freedict-es-en` for `en-es` rulegen
 
+pack_id: wiktionary-ja-en
+name: Wiktionary (JA->EN, Kaikki-derived SQLite)
+type: translation
+languages: ja -> en
+size: 2.4 GB download -> pair-specific SQLite artifact
+url: https://kaikki.org/dictionary/raw-wiktextract-data.jsonl.gz
+wayback_url: https://web.archive.org/web/*/https://kaikki.org/dictionary/raw-wiktextract-data.jsonl.gz
+filename: raw-wiktextract-data-ja-en.jsonl.gz
+unzipped_name: wiktionary-ja-en.sqlite
+layout: SQLite compatibility artifact generated from Kaikki JSONL
+parse_hint: Keep `lang_code == "ja"` records from the English-edition dump and emit `word` -> `senses[].glosses` into the normalized `entries` table
+notes: development-only alternative dictionary for explicit `en-ja` rulegen experiments; default seed/runtime path still uses `JMdict_e`
+
 pack_id: wiktionary-en-es
 name: Wiktionary (EN->ES, Kaikki-derived SQLite)
 type: translation

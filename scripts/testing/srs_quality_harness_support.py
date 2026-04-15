@@ -79,6 +79,20 @@ def _write_freedict_de_en(path: Path, *, targets: list[str], sources: list[str])
     path.write_text(payload, encoding="utf-8")
 
 
+def _write_placeholder_sqlite(path: Path) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    conn = sqlite3.connect(path)
+    try:
+        conn.execute("CREATE TABLE IF NOT EXISTS meta (key TEXT, value TEXT)")
+        conn.execute(
+            "INSERT INTO meta (key, value) VALUES (?, ?)",
+            ("source", "synthetic_srs_quality_harness"),
+        )
+        conn.commit()
+    finally:
+        conn.close()
+
+
 def _load_ruleset_payload(path: Path) -> dict[str, Any]:
     payload = json.loads(path.read_text(encoding="utf-8"))
     if not isinstance(payload, dict):
@@ -186,6 +200,7 @@ def build_pair_resources(paths: HelperPaths, *, pair: str) -> None:
             pos="名詞-普通名詞-一般",
         )
         _write_jmdict(paths.language_packs_dir / "JMdict_e", targets=targets, sources=sources)
+        _write_placeholder_sqlite(paths.language_packs_dir / "wiktionary-ja-en.sqlite")
         return
     if pair == "en-de":
         targets = _build_tokens("de", 70)

@@ -1,0 +1,288 @@
+{
+  "added_items": 30,
+  "applied": true,
+  "bootstrap_diagnostics": {
+    "admission_weight_profile": {
+      "adjective": 0.85,
+      "adverb": 0.55,
+      "noun": 1.0,
+      "other": 0.4,
+      "verb": 0.7
+    },
+    "admitted_count": 30,
+    "initial_active_preview": [
+      "事",
+      "物",
+      "時",
+      "人",
+      "為",
+      "だ",
+      "た",
+      "無い",
+      "為る",
+      "日本",
+      "中",
+      "自分",
+      "様",
+      "所",
+      "方",
+      "場合",
+      "今",
+      "前",
+      "問題",
+      "必要",
+      "居る",
+      "ます",
+      "良い",
+      "後",
+      "有る",
+      "会",
+      "子供",
+      "日",
+      "気",
+      "関係"
+    ],
+    "initial_active_weight_preview": [
+      {
+        "admission_weight": 0.821879,
+        "base_weight": 0.821879,
+        "lemma": "事",
+        "pos": "名詞-普通名詞-一般",
+        "pos_bucket": "noun",
+        "pos_weight": 1.0
+      },
+      {
+        "admission_weight": 0.730464,
+        "base_weight": 0.730464,
+        "lemma": "物",
+        "pos": "名詞-普通名詞-サ変可能",
+        "pos_bucket": "noun",
+        "pos_weight": 1.0
+      },
+      {
+        "admission_weight": 0.680997,
+        "base_weight": 0.680997,
+        "lemma": "時",
+        "pos": "名詞-普通名詞-副詞可能",
+        "pos_bucket": "noun",
+        "pos_weight": 1.0
+      },
+      {
+        "admission_weight": 0.678015,
+        "base_weight": 0.678015,
+        "lemma": "人",
+        "pos": "名詞-普通名詞-一般",
+        "pos_bucket": "noun",
+        "pos_weight": 1.0
+      },
+      {
+        "admission_weight": 0.675555,
+        "base_weight": 0.675555,
+        "lemma": "為",
+        "pos": "名詞-普通名詞-副詞可能",
+        "pos_bucket": "noun",
+        "pos_weight": 1.0
+      },
+      {
+        "admission_weight": 0.669366,
+        "base_weight": 0.956237,
+        "lemma": "だ",
+        "pos": "助動詞",
+        "pos_bucket": "verb",
+        "pos_weight": 0.7
+      },
+      {
+        "admission_weight": 0.663329,
+        "base_weight": 0.947613,
+        "lemma": "た",
+        "pos": "助動詞",
+        "pos_bucket": "verb",
+        "pos_weight": 0.7
+      },
+      {
+        "admission_weight": 0.660765,
+        "base_weight": 0.777371,
+        "lemma": "無い",
+        "pos": "形容詞-非自立可能",
+        "pos_bucket": "adjective",
+        "pos_weight": 0.85
+      },
+      {
+        "admission_weight": 0.655863,
+        "base_weight": 0.936948,
+        "lemma": "為る",
+        "pos": "動詞-非自立可能",
+        "pos_bucket": "verb",
+        "pos_weight": 0.7
+      },
+      {
+        "admission_weight": 0.654279,
+        "base_weight": 0.654279,
+        "lemma": "日本",
+        "pos": "名詞-固有名詞-地名-国",
+        "pos_bucket": "noun",
+        "pos_weight": 1.0
+      },
+      {
+        "admission_weight": 0.650554,
+        "base_weight": 0.650554,
+        "lemma": "中",
+        "pos": "名詞-普通名詞-副詞可能",
+        "pos_bucket": "noun",
+        "pos_weight": 1.0
+      },
+      {
+        "admission_weight": 0.646029,
+        "base_weight": 0.646029,
+        "lemma": "自分",
+        "pos": "名詞-普通名詞-一般",
+        "pos_bucket": "noun",
+        "pos_weight": 1.0
+      },
+      {
+        "admission_weight": 0.644625,
+        "base_weight": 0.758383,
+        "lemma": "様",
+        "pos": "形状詞-助動詞語幹",
+        "pos_bucket": "adjective",
+        "pos_weight": 0.85
+      },
+      {
+        "admission_weight": 0.64346,
+        "base_weight": 0.64346,
+        "lemma": "所",
+        "pos": "名詞-普通名詞-副詞可能",
+        "pos_bucket": "noun",
+        "pos_weight": 1.0
+      },
+      {
+        "admission_weight": 0.633073,
+        "base_weight": 0.633073,
+        "lemma": "方",
+        "pos": "名詞-普通名詞-一般",
+        "pos_bucket": "noun",
+        "pos_weight": 1.0
+      },
+      {
+        "admission_weight": 0.632821,
+        "base_weight": 0.632821,
+        "lemma": "場合",
+        "pos": "名詞-普通名詞-副詞可能",
+        "pos_bucket": "noun",
+        "pos_weight": 1.0
+      },
+      {
+        "admission_weight": 0.631659,
+        "base_weight": 0.631659,
+        "lemma": "今",
+        "pos": "名詞-普通名詞-副詞可能",
+        "pos_bucket": "noun",
+        "pos_weight": 1.0
+      },
+      {
+        "admission_weight": 0.615845,
+        "base_weight": 0.615845,
+        "lemma": "前",
+        "pos": "名詞-普通名詞-副詞可能",
+        "pos_bucket": "noun",
+        "pos_weight": 1.0
+      },
+      {
+        "admission_weight": 0.605209,
+        "base_weight": 0.605209,
+        "lemma": "問題",
+        "pos": "名詞-普通名詞-一般",
+        "pos_bucket": "noun",
+        "pos_weight": 1.0
+      },
+      {
+        "admission_weight": 0.604072,
+        "base_weight": 0.604072,
+        "lemma": "必要",
+        "pos": "名詞-普通名詞-形状詞可能",
+        "pos_bucket": "noun",
+        "pos_weight": 1.0
+      }
+    ],
+    "inserted_count": 30,
+    "selected_count": 196,
+    "selected_preview": [
+      "事",
+      "物",
+      "時",
+      "人",
+      "為",
+      "だ",
+      "た",
+      "無い",
+      "為る",
+      "日本"
+    ],
+    "selected_unique_count": 181,
+    "updated_count": 0
+  },
+  "bootstrap_top_n": 200,
+  "initial_active_count": 30,
+  "max_active_items_hint": null,
+  "pair": "en-ja",
+  "pair_policy": {
+    "bootstrap_top_n_default": 800,
+    "feedback_window_size_default": 100,
+    "initial_active_count_default": 40,
+    "max_new_items_per_day_default": null,
+    "notes": [],
+    "pair": "en-ja",
+    "refresh_top_n_default": 2000
+  },
+  "plan": {
+    "can_execute": true,
+    "diagnostics": {
+      "bootstrap_top_n": 200,
+      "existing_items_for_pair": 0,
+      "initial_active_count": 30,
+      "max_active_items_hint": 0,
+      "pair": "en-ja",
+      "profile_keys": [],
+      "replace_pair": true,
+      "set_top_n": 200,
+      "signal_summary_keys": [
+        "event_count",
+        "event_types",
+        "last_event_at",
+        "pair",
+        "unique_lemmas"
+      ],
+      "trigger": "cli"
+    },
+    "execution_mode": "frequency_bootstrap",
+    "notes": [
+      "Using frequency bootstrap strategy."
+    ],
+    "objective": "bootstrap",
+    "pair": "en-ja",
+    "requires_profile_fields": [],
+    "strategy_effective": "frequency_bootstrap",
+    "strategy_requested": "frequency_bootstrap"
+  },
+  "profile_id": "harvest_20260408",
+  "replace_pair": true,
+  "rulegen": {
+    "published": true,
+    "rules": 28,
+    "ruleset_path": "D:\\projects\\LexiShift\\docs\\test_outputs\\experiments\\en_ja_admission_harvest_root_20260408\\srs\\profiles\\harvest_20260408\\srs_ruleset_en-ja.json",
+    "snapshot_path": "D:\\projects\\LexiShift\\docs\\test_outputs\\experiments\\en_ja_admission_harvest_root_20260408\\srs\\profiles\\harvest_20260408\\srs_rulegen_snapshot_en-ja.json",
+    "targets": 30
+  },
+  "set_top_n": 200,
+  "signal_summary": {
+    "event_count": 0,
+    "event_types": {},
+    "last_event_at": null,
+    "pair": "en-ja",
+    "unique_lemmas": 0
+  },
+  "source_type": "initial_set",
+  "stopwords_path": null,
+  "store_path": "D:\\projects\\LexiShift\\docs\\test_outputs\\experiments\\en_ja_admission_harvest_root_20260408\\srs\\profiles\\harvest_20260408\\srs_store.json",
+  "total_items_for_pair": 30
+}

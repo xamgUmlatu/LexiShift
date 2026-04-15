@@ -16,6 +16,7 @@ if CORE_ROOT.exists():
 from lexishift_core.frequency.sqlite import (  # noqa: E402
     ParseConfig,
     PosInventoryConfig,
+    TopicEnrichmentConfig,
     convert_frequency_to_sqlite,
 )
 
@@ -27,6 +28,12 @@ def main() -> None:
     parser.add_argument("--table", default="frequency", help="Table name")
     parser.add_argument("--overwrite", action="store_true", help="Overwrite output if exists")
     parser.add_argument("--index-column", default="lemma", help="Column name to index")
+    parser.add_argument(
+        "--topic-source-sqlite",
+        type=Path,
+        default=None,
+        help="Optional companion SQLite with sense_glosses.topics_json for topic enrichment.",
+    )
     args = parser.parse_args()
 
     config = ParseConfig(
@@ -46,6 +53,14 @@ def main() -> None:
             source_kind="frequency",
             source_profile="bccwj",
             pos_columns=("pos",),
+        ),
+        topic_enrichment=(
+            TopicEnrichmentConfig(
+                source_sqlite_path=args.topic_source_sqlite,
+                source_provider=args.topic_source_sqlite.stem,
+            )
+            if args.topic_source_sqlite
+            else None
         ),
     )
     print(json.dumps(metadata, indent=2, sort_keys=True))

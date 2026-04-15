@@ -3,8 +3,8 @@
 Status: active architecture guide
 Role: high-level workflow / black-box contract
 Purpose: Describe the end-to-end rulegen test pipeline as broad stages, canonical artifacts, and skip conditions, separate from the lower-level optimization details.
-Last updated: 2026-03-28
-Last verified: 2026-03-28
+Last updated: 2026-03-29
+Last verified: 2026-03-29
 Source-of-truth: this doc defines the broad workflow contract; executable truth still lives in the benchmark, render, gate, and triage scripts plus `AGENTS.md`.
 
 ## Why This Exists
@@ -26,7 +26,7 @@ The benchmark/test stack is being built to support two related outcomes:
 2. later analyze which named settings or profiles work best for runtime-computable trait groups of targets, so rulegen can choose better settings for a specific word at runtime
 
 The first goal is active now.
-The second goal is planned later and must remain downstream of the same benchmark substrate, not a separate ad hoc workflow.
+The second goal is now active as an offline analysis direction, but it must remain downstream of the same benchmark substrate, not a separate ad hoc workflow.
 
 ## Canonical Full Audit
 
@@ -193,7 +193,7 @@ Skip conditions:
 - can be skipped for pure perf work
 - keep when any failure/review analysis is needed
 
-### 8. Later Trait/Profile Analysis
+### 8. Trait/Profile Analysis
 
 Inputs:
 
@@ -207,8 +207,9 @@ Outputs:
 
 Notes:
 
-- this stage is planned later
+- this stage is now active offline for `en-es`
 - it must reuse the same benchmark substrate rather than inventing a separate tuning workflow
+- runtime routing is still later; current work is benchmark-side trait emission plus frozen profile-bank comparison
 - see `docs/rulegen/trait_conditioned_rulegen_profiles.md`
 
 ## Canonical Artifacts

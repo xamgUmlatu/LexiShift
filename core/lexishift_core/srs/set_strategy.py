@@ -9,6 +9,7 @@ STRATEGY_UNKNOWN = "unknown"
 OBJECTIVE_BOOTSTRAP = "bootstrap"
 OBJECTIVE_GROWTH = "growth"
 OBJECTIVE_REFRESH = "refresh"
+OBJECTIVE_REBALANCE = "rebalance"
 OBJECTIVE_UNKNOWN = "unknown"
 
 KNOWN_SET_STRATEGIES: frozenset[str] = frozenset(
@@ -25,6 +26,7 @@ KNOWN_SET_OBJECTIVES: frozenset[str] = frozenset(
         OBJECTIVE_BOOTSTRAP,
         OBJECTIVE_GROWTH,
         OBJECTIVE_REFRESH,
+        OBJECTIVE_REBALANCE,
     }
 )
 

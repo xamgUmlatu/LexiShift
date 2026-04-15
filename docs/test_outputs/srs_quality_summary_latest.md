@@ -8,8 +8,8 @@
 ## Bootstrap Scenarios
 
 ### en-ja
-- Store/Due/Published targets: 48/48/48
-- Ruleset unique targets: 48
+- Store/Due/Published targets: 48/48/0
+- Ruleset unique targets: 0
 - Runtime artifacts: store=yes ruleset=yes snapshot=yes
 
 ### en-de

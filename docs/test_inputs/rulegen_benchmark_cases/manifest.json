@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "aggregate_path": "docs/test_inputs/rulegen_benchmark_cases.json",
+  "aggregate_metadata": {
+    "version": 2,
+    "name": "LexiShift Rulegen Benchmark Cases",
+    "description": "Expanded labeled benchmark for iterative pair-level tuning across EN-ES, ES-EN, EN-DE, and EN-JA.",
+    "breadth": "v2-expanded-aggressive"
+  },
+  "pair_order": [
+    "en-es",
+    "es-en",
+    "en-de",
+    "en-ja"
+  ],
+  "pairs": {
+    "en-es": {
+      "file": "en_es.json",
+      "case_count": 100
+    },
+    "es-en": {
+      "file": "es_en.json",
+      "case_count": 16
+    },
+    "en-de": {
+      "file": "en_de.json",
+      "case_count": 16
+    },
+    "en-ja": {
+      "file": "en_ja.json",
+      "case_count": 161,
+      "breadth": "v2-expanded-discriminative-core-plus-tranche6-ranking"
+    }
+  }
+}

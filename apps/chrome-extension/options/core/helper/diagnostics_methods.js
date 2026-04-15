@@ -1,5 +1,15 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
+  const RULEGEN_PREVIEW_TIMEOUT_MS = 60000;
+  const LOG_PREFIX = "[LexiShift][Options][Diagnostics]";
+
+  function debugLog(message, details = {}) {
+    try {
+      console.log(`${LOG_PREFIX} ${message}`, details);
+    } catch (_error) {
+      // Logging is best-effort.
+    }
+  }
 
   function installHelperDiagnosticsMethods(proto) {
     if (!proto || typeof proto !== "object") {
@@ -92,6 +102,10 @@
       if (!client) throw new Error(this.i18n.t("status_helper_missing", null, "Helper unavailable."));
       const opts = options && typeof options === "object" ? options : {};
       const profileId = this.normalizeProfileId(opts.profileId);
+      debugLog("rulegen preview started", {
+        pair,
+        profile_id: profileId
+      });
 
       const startedAt = Date.now();
       const rulegenResponse = await client.triggerRulegen({
@@ -104,9 +118,17 @@
         update_status: false,
         debug: true,
         debug_sample_size: 10
-      }, 15000);
+      }, RULEGEN_PREVIEW_TIMEOUT_MS);
 
       if (!rulegenResponse || rulegenResponse.ok === false) {
+        debugLog("rulegen preview failed", {
+          pair,
+          profile_id: profileId,
+          duration_ms: Date.now() - startedAt,
+          error: rulegenResponse && rulegenResponse.error && rulegenResponse.error.message
+            ? rulegenResponse.error.message
+            : "Rule preview failed."
+        });
         throw new Error(
           rulegenResponse && rulegenResponse.error && rulegenResponse.error.message
             ? rulegenResponse.error.message
@@ -124,6 +146,14 @@
       }
 
       if (!snapshot) throw new Error(this.i18n.t("status_srs_rulegen_failed", null, "Rule preview failed."));
+      debugLog("rulegen preview finished", {
+        pair,
+        profile_id: profileId,
+        duration_ms: Date.now() - startedAt,
+        targets: snapshot && snapshot.stats && Number.isFinite(Number(snapshot.stats.target_count))
+          ? Number(snapshot.stats.target_count)
+          : 0
+      });
       return { rulegenData, snapshot, duration };
     };
 
@@ -141,6 +171,13 @@
       const normalizedCount = Number.isFinite(requestedCount)
         ? Math.max(1, Math.min(requestedCount, 200))
         : 5;
+      debugLog("sampled rulegen preview started", {
+        pair,
+        profile_id: profileId,
+        sample_count: normalizedCount,
+        strategy,
+        seed
+      });
 
       const startedAt = Date.now();
       const rulegenResponse = await client.triggerRulegen({
@@ -156,9 +193,19 @@
         sample_count: normalizedCount,
         sample_strategy: strategy,
         sample_seed: seed
-      }, 15000);
+      }, RULEGEN_PREVIEW_TIMEOUT_MS);
 
       if (!rulegenResponse || rulegenResponse.ok === false) {
+        debugLog("sampled rulegen preview failed", {
+          pair,
+          profile_id: profileId,
+          sample_count: normalizedCount,
+          strategy,
+          duration_ms: Date.now() - startedAt,
+          error: rulegenResponse && rulegenResponse.error && rulegenResponse.error.message
+            ? rulegenResponse.error.message
+            : "Rule preview failed."
+        });
         throw new Error(
           rulegenResponse && rulegenResponse.error && rulegenResponse.error.message
             ? rulegenResponse.error.message
@@ -176,6 +223,16 @@
       }
 
       if (!snapshot) throw new Error(this.i18n.t("status_srs_rulegen_failed", null, "Rule preview failed."));
+      debugLog("sampled rulegen preview finished", {
+        pair,
+        profile_id: profileId,
+        sample_count: normalizedCount,
+        strategy,
+        duration_ms: Date.now() - startedAt,
+        targets: snapshot && snapshot.stats && Number.isFinite(Number(snapshot.stats.target_count))
+          ? Number(snapshot.stats.target_count)
+          : 0
+      });
       return { rulegenData, snapshot, duration };
     };
   }

@@ -86,7 +86,7 @@ Current harness coverage:
 ## Failure-to-case promotion
 
 For each FAIL/REVIEW triage item:
-- either update benchmark cases in `docs/test_inputs/rulegen_benchmark_cases.json`,
+- either update the touched pair-local benchmark file in `docs/test_inputs/rulegen_benchmark_cases/` and refresh the compatibility aggregate with `python3 scripts/testing/rulegen_benchmark_case_sync.py merge`,
 - or document why it remains unresolved.
 
 ## Meta workflow and state tracking

@@ -76,6 +76,48 @@
       return response.data || {};
     };
 
+    proto.previewSrsAdmission = async function previewSrsAdmission(pair, setTopN, options) {
+      const client = this.getClient();
+      if (!client) throw new Error(this.i18n.t("status_helper_missing", null, "Helper unavailable."));
+      const sizing = this.normalizeSrsSizing(setTopN, options);
+      const opts = options && typeof options === "object" ? options : {};
+      const profileId = this.normalizeProfileId(opts.profileId);
+      const strategy = typeof opts.strategy === "string" && opts.strategy ? opts.strategy : "profile_bootstrap";
+      const objective = typeof opts.objective === "string" && opts.objective ? opts.objective : "bootstrap";
+      const trigger = typeof opts.trigger === "string" && opts.trigger ? opts.trigger : "options_admission_preview_button";
+      const previewCount = Number.parseInt(opts.previewCount, 10);
+      const previewSamplingMode = typeof opts.previewSamplingMode === "string" && opts.previewSamplingMode
+        ? opts.previewSamplingMode
+        : undefined;
+      const previewSeed = Number.parseInt(opts.previewSeed, 10);
+      const profileContext = opts.profileContext && typeof opts.profileContext === "object"
+        ? opts.profileContext
+        : {};
+      const response = await client.previewSrsAdmission({
+        pair,
+        profile_id: profileId,
+        strategy,
+        objective,
+        set_top_n: sizing.bootstrapTopN,
+        bootstrap_top_n: sizing.bootstrapTopN,
+        initial_active_count: sizing.initialActiveCount,
+        max_active_items_hint: sizing.maxActiveItemsHint,
+        preview_count: Number.isFinite(previewCount) ? Math.max(1, Math.min(previewCount, 20)) : 5,
+        preview_sampling_mode: previewSamplingMode,
+        preview_seed: Number.isFinite(previewSeed) ? previewSeed : undefined,
+        trigger,
+        profile_context: profileContext
+      }, 30000);
+      if (!response || response.ok === false) {
+        throw new Error(
+          response && response.error && response.error.message
+            ? response.error.message
+            : this.i18n.t("status_srs_admission_preview_failed", null, "Admission preview failed.")
+        );
+      }
+      return response.data || {};
+    };
+
     proto.refreshSrsSet = async function refreshSrsSet(pair, options) {
       const client = this.getClient();
       if (!client) throw new Error(this.i18n.t("status_helper_missing", null, "Helper unavailable."));
@@ -109,6 +151,64 @@
           response && response.error && response.error.message
             ? response.error.message
             : this.i18n.t("status_srs_set_init_failed", null, "SRS refresh failed.")
+        );
+      }
+      return response.data || {};
+    };
+
+    proto.planSrsRebalance = async function planSrsRebalance(pair, options) {
+      const client = this.getClient();
+      if (!client) throw new Error(this.i18n.t("status_helper_missing", null, "Helper unavailable."));
+      const opts = options && typeof options === "object" ? options : {};
+      const profileId = this.normalizeProfileId(opts.profileId);
+      const response = await client.planSrsRebalance({
+        pair,
+        profile_id: profileId,
+        strategy: typeof opts.strategy === "string" && opts.strategy ? opts.strategy : "profile_growth",
+        objective: typeof opts.objective === "string" && opts.objective ? opts.objective : "rebalance",
+        set_top_n: Number.parseInt(opts.setTopN, 10) || 800,
+        max_active_items: Number.isFinite(Number(opts.maxActiveItems))
+          ? Number(opts.maxActiveItems)
+          : undefined,
+        profile_context: opts.profileContext && typeof opts.profileContext === "object"
+          ? opts.profileContext
+          : undefined,
+        trigger: typeof opts.trigger === "string" && opts.trigger ? opts.trigger : "options_rebalance_preview_button"
+      }, 30000);
+      if (!response || response.ok === false) {
+        throw new Error(
+          response && response.error && response.error.message
+            ? response.error.message
+            : this.i18n.t("status_srs_rebalance_preview_failed", null, "SRS rebalance preview failed.")
+        );
+      }
+      return response.data || {};
+    };
+
+    proto.applySrsRebalance = async function applySrsRebalance(pair, options) {
+      const client = this.getClient();
+      if (!client) throw new Error(this.i18n.t("status_helper_missing", null, "Helper unavailable."));
+      const opts = options && typeof options === "object" ? options : {};
+      const profileId = this.normalizeProfileId(opts.profileId);
+      const response = await client.applySrsRebalance({
+        pair,
+        profile_id: profileId,
+        strategy: typeof opts.strategy === "string" && opts.strategy ? opts.strategy : "profile_growth",
+        objective: typeof opts.objective === "string" && opts.objective ? opts.objective : "rebalance",
+        set_top_n: Number.parseInt(opts.setTopN, 10) || 800,
+        max_active_items: Number.isFinite(Number(opts.maxActiveItems))
+          ? Number(opts.maxActiveItems)
+          : undefined,
+        profile_context: opts.profileContext && typeof opts.profileContext === "object"
+          ? opts.profileContext
+          : undefined,
+        trigger: typeof opts.trigger === "string" && opts.trigger ? opts.trigger : "options_rebalance_apply_button"
+      }, 30000);
+      if (!response || response.ok === false) {
+        throw new Error(
+          response && response.error && response.error.message
+            ? response.error.message
+            : this.i18n.t("status_srs_rebalance_apply_failed", null, "SRS rebalance apply failed.")
         );
       }
       return response.data || {};

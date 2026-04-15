@@ -1,0 +1,2119 @@
+{
+  "config": {
+    "max_definitions": 1,
+    "max_rules_per_target": 1,
+    "confidence_threshold": 0.0,
+    "include_variants": true,
+    "pos_scoring_enabled": true,
+    "pos_exact_match_bonus": 1.0,
+    "pos_compatible_match_bonus": 0.5,
+    "score_weight_pos_match": 0.0,
+    "reverse_check": {
+      "enabled": false,
+      "match_bonus": 0.2,
+      "near_bonus": 0.1,
+      "near_rank_max": 2,
+      "far_hit_penalty": 0.0,
+      "miss_penalty": 0.2,
+      "exact_hit_ambiguity_threshold": 0,
+      "exact_hit_ambiguity_penalty": 0.0,
+      "exact_hit_specificity_bonus": 0.0
+    },
+    "kaikki_policy_late_sense_penalty": 0.0
+  },
+  "paths": {
+    "data_root": "C:\\Users\\kuuko\\AppData\\Roaming\\LexiShift\\LexiShift",
+    "profile_id": "default",
+    "srs_store": "C:\\Users\\kuuko\\AppData\\Roaming\\LexiShift\\LexiShift\\srs\\profiles\\default\\srs_store.json",
+    "translation_dict_en_es": "C:\\Users\\kuuko\\AppData\\Roaming\\LexiShift\\LexiShift\\language_packs\\wiktionary-es-en.sqlite",
+    "translation_dict_es_en_reverse": "C:\\Users\\kuuko\\AppData\\Roaming\\LexiShift\\LexiShift\\language_packs\\wiktionary-en-es.sqlite",
+    "freedict_es_en": "C:\\Users\\kuuko\\AppData\\Roaming\\LexiShift\\LexiShift\\language_packs\\wiktionary-es-en.sqlite",
+    "freedict_en_es_reverse": "C:\\Users\\kuuko\\AppData\\Roaming\\LexiShift\\LexiShift\\language_packs\\wiktionary-en-es.sqlite",
+    "jmdict": "C:\\Users\\kuuko\\AppData\\Roaming\\LexiShift\\LexiShift\\language_packs\\wiktionary-ja-en.sqlite"
+  },
+  "notes": [
+    "Using reading override for '事業' -> 'じぎょう'.",
+    "Using reading override for '全て' -> 'すべて'.",
+    "Using reading override for '国' -> 'くに'.",
+    "Using reading override for '場合' -> 'ばあい'.",
+    "Using reading override for '気' -> 'き'.",
+    "Using reading override for '県' -> 'けん'.",
+    "Using reading override for '話' -> 'はなし'."
+  ],
+  "warnings": [],
+  "pairs": {
+    "en-es": {
+      "hora": {
+        "uncapped": [
+          {
+            "target": "hora",
+            "source_phrase": "hour",
+            "confidence": 0.6799999999999999,
+            "rank_score": 1.0,
+            "bucket_key": "sense:2254:0",
+            "sort_key": [
+              -1.0,
+              -0.6799999999999999,
+              "hour"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 5,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 1,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": {
+              "mode": "shadow",
+              "configured_risk_families": [
+                "math_geometry",
+                "government_law",
+                "hunting_fishing_tools",
+                "register_region",
+                "abbreviation_ellipsis_formof"
+              ],
+              "families": [],
+              "risky_families": [],
+              "same_canonical_competition": true,
+              "competitor_count": 4,
+              "cleaner_competitor_count": 3,
+              "cleaner_earlier_competitor_count": 0,
+              "clean_competition_present": true,
+              "clean_earlier_competition_present": false,
+              "would_demote": false,
+              "live_demotion_applied": false,
+              "reasons": [
+                "clean_competition_present"
+              ]
+            }
+          },
+          {
+            "target": "hora",
+            "source_phrase": "time",
+            "confidence": 0.62,
+            "rank_score": 0.5,
+            "bucket_key": "sense:2254:1",
+            "sort_key": [
+              -0.5,
+              -0.62,
+              "time"
+            ],
+            "gloss_index": 1,
+            "gloss_total": 5,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 1,
+            "reverse_check_total": 25,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": {
+              "mode": "shadow",
+              "configured_risk_families": [
+                "math_geometry",
+                "government_law",
+                "hunting_fishing_tools",
+                "register_region",
+                "abbreviation_ellipsis_formof"
+              ],
+              "families": [],
+              "risky_families": [],
+              "same_canonical_competition": true,
+              "competitor_count": 4,
+              "cleaner_competitor_count": 3,
+              "cleaner_earlier_competitor_count": 1,
+              "clean_competition_present": true,
+              "clean_earlier_competition_present": true,
+              "would_demote": false,
+              "live_demotion_applied": false,
+              "reasons": [
+                "clean_competition_present",
+                "clean_earlier_competition_present"
+              ]
+            }
+          },
+          {
+            "target": "hora",
+            "source_phrase": "period",
+            "confidence": 0.58,
+            "rank_score": 0.25,
+            "bucket_key": "sense:2254:3",
+            "sort_key": [
+              -0.25,
+              -0.58,
+              "period"
+            ],
+            "gloss_index": 3,
+            "gloss_total": 5,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 3,
+            "reverse_check_total": 6,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": {
+              "mode": "shadow",
+              "configured_risk_families": [
+                "math_geometry",
+                "government_law",
+                "hunting_fishing_tools",
+                "register_region",
+                "abbreviation_ellipsis_formof"
+              ],
+              "families": [],
+              "risky_families": [],
+              "same_canonical_competition": true,
+              "competitor_count": 4,
+              "cleaner_competitor_count": 3,
+              "cleaner_earlier_competitor_count": 3,
+              "clean_competition_present": true,
+              "clean_earlier_competition_present": true,
+              "would_demote": false,
+              "live_demotion_applied": false,
+              "reasons": [
+                "clean_competition_present",
+                "clean_earlier_competition_present"
+              ]
+            }
+          },
+          {
+            "target": "hora",
+            "source_phrase": "appointment",
+            "confidence": 0.58,
+            "rank_score": 0.09,
+            "bucket_key": "sense:2254:4",
+            "sort_key": [
+              -0.09,
+              -0.58,
+              "appointment"
+            ],
+            "gloss_index": 4,
+            "gloss_total": 5,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 6,
+            "semantic_demotion": 0.55,
+            "semantic_demotion_reason": "kaikki_register_or_region",
+            "kaikki_policy_shadow": {
+              "mode": "shadow",
+              "configured_risk_families": [
+                "math_geometry",
+                "government_law",
+                "hunting_fishing_tools",
+                "register_region",
+                "abbreviation_ellipsis_formof"
+              ],
+              "families": [
+                "register_region"
+              ],
+              "risky_families": [
+                "register_region"
+              ],
+              "same_canonical_competition": true,
+              "competitor_count": 4,
+              "cleaner_competitor_count": 4,
+              "cleaner_earlier_competitor_count": 4,
+              "clean_competition_present": true,
+              "clean_earlier_competition_present": true,
+              "would_demote": true,
+              "live_demotion_applied": false,
+              "risk_family_sources": {
+                "register_region": [
+                  "sense_tag:spain",
+                  "sense_tag:colloquial"
+                ]
+              },
+              "reasons": [
+                "risk_family:register_region",
+                "clean_competition_present",
+                "clean_earlier_competition_present"
+              ]
+            }
+          }
+        ],
+        "capped": [
+          {
+            "target": "hora",
+            "source_phrase": "hour",
+            "confidence": 0.6799999999999999,
+            "rank_score": 1.0,
+            "bucket_key": "sense:2254:0",
+            "sort_key": [
+              -1.0,
+              -0.6799999999999999,
+              "hour"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 5,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 1,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": {
+              "mode": "shadow",
+              "configured_risk_families": [
+                "math_geometry",
+                "government_law",
+                "hunting_fishing_tools",
+                "register_region",
+                "abbreviation_ellipsis_formof"
+              ],
+              "families": [],
+              "risky_families": [],
+              "same_canonical_competition": true,
+              "competitor_count": 4,
+              "cleaner_competitor_count": 3,
+              "cleaner_earlier_competitor_count": 0,
+              "clean_competition_present": true,
+              "clean_earlier_competition_present": false,
+              "would_demote": false,
+              "live_demotion_applied": false,
+              "reasons": [
+                "clean_competition_present"
+              ]
+            }
+          }
+        ]
+      },
+      "trabajo": {
+        "uncapped": [
+          {
+            "target": "trabajo",
+            "source_phrase": "work",
+            "confidence": 0.6799999999999999,
+            "rank_score": 1.0,
+            "bucket_key": "sense:1843:0",
+            "sort_key": [
+              -1.0,
+              -0.6799999999999999,
+              "work"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 2,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 31,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": {
+              "mode": "shadow",
+              "configured_risk_families": [
+                "math_geometry",
+                "government_law",
+                "hunting_fishing_tools",
+                "register_region",
+                "abbreviation_ellipsis_formof"
+              ],
+              "families": [],
+              "risky_families": [],
+              "same_canonical_competition": true,
+              "competitor_count": 1,
+              "cleaner_competitor_count": 1,
+              "cleaner_earlier_competitor_count": 0,
+              "clean_competition_present": true,
+              "clean_earlier_competition_present": false,
+              "would_demote": false,
+              "live_demotion_applied": false,
+              "reasons": [
+                "clean_competition_present"
+              ]
+            }
+          },
+          {
+            "target": "trabajo",
+            "source_phrase": "job",
+            "confidence": 0.62,
+            "rank_score": 0.5,
+            "bucket_key": "sense:1843:0",
+            "sort_key": [
+              -0.5,
+              -0.62,
+              "job"
+            ],
+            "gloss_index": 1,
+            "gloss_total": 2,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 1,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": {
+              "mode": "shadow",
+              "configured_risk_families": [
+                "math_geometry",
+                "government_law",
+                "hunting_fishing_tools",
+                "register_region",
+                "abbreviation_ellipsis_formof"
+              ],
+              "families": [],
+              "risky_families": [],
+              "same_canonical_competition": true,
+              "competitor_count": 1,
+              "cleaner_competitor_count": 1,
+              "cleaner_earlier_competitor_count": 1,
+              "clean_competition_present": true,
+              "clean_earlier_competition_present": true,
+              "would_demote": false,
+              "live_demotion_applied": false,
+              "reasons": [
+                "clean_competition_present",
+                "clean_earlier_competition_present"
+              ]
+            }
+          }
+        ],
+        "capped": [
+          {
+            "target": "trabajo",
+            "source_phrase": "work",
+            "confidence": 0.6799999999999999,
+            "rank_score": 1.0,
+            "bucket_key": "sense:1843:0",
+            "sort_key": [
+              -1.0,
+              -0.6799999999999999,
+              "work"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 2,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 0,
+            "reverse_check_total": 31,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": {
+              "mode": "shadow",
+              "configured_risk_families": [
+                "math_geometry",
+                "government_law",
+                "hunting_fishing_tools",
+                "register_region",
+                "abbreviation_ellipsis_formof"
+              ],
+              "families": [],
+              "risky_families": [],
+              "same_canonical_competition": true,
+              "competitor_count": 1,
+              "cleaner_competitor_count": 1,
+              "cleaner_earlier_competitor_count": 0,
+              "clean_competition_present": true,
+              "clean_earlier_competition_present": false,
+              "would_demote": false,
+              "live_demotion_applied": false,
+              "reasons": [
+                "clean_competition_present"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "en-ja": {
+      "場合": {
+        "uncapped": [
+          {
+            "target": "場合",
+            "source_phrase": "when",
+            "confidence": 0.0,
+            "rank_score": 0.5,
+            "bucket_key": "gloss:1",
+            "sort_key": [
+              -0.5,
+              -0.0,
+              "when"
+            ],
+            "gloss_index": 1,
+            "gloss_total": 6,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "場合",
+            "source_phrase": "case",
+            "confidence": 0.0,
+            "rank_score": 0.3333333333333333,
+            "bucket_key": "gloss:2",
+            "sort_key": [
+              -0.3333333333333333,
+              -0.0,
+              "case"
+            ],
+            "gloss_index": 2,
+            "gloss_total": 6,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "場合",
+            "source_phrase": "occasion",
+            "confidence": 0.0,
+            "rank_score": 0.25,
+            "bucket_key": "gloss:3",
+            "sort_key": [
+              -0.25,
+              -0.0,
+              "occasion"
+            ],
+            "gloss_index": 3,
+            "gloss_total": 6,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "場合",
+            "source_phrase": "occasions",
+            "confidence": 0.0,
+            "rank_score": 0.25,
+            "bucket_key": "gloss:3",
+            "sort_key": [
+              -0.25,
+              -0.0,
+              "occasions"
+            ],
+            "gloss_index": 3,
+            "gloss_total": 6,
+            "variant": "inflected",
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "場合",
+            "source_phrase": "circumstances",
+            "confidence": 0.0,
+            "rank_score": 0.2,
+            "bucket_key": "gloss:4",
+            "sort_key": [
+              -0.2,
+              -0.0,
+              "circumstances"
+            ],
+            "gloss_index": 4,
+            "gloss_total": 6,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "場合",
+            "source_phrase": "situation",
+            "confidence": 0.0,
+            "rank_score": 0.16666666666666666,
+            "bucket_key": "gloss:5",
+            "sort_key": [
+              -0.16666666666666666,
+              -0.0,
+              "situation"
+            ],
+            "gloss_index": 5,
+            "gloss_total": 6,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          }
+        ],
+        "capped": [
+          {
+            "target": "場合",
+            "source_phrase": "when",
+            "confidence": 0.0,
+            "rank_score": 0.5,
+            "bucket_key": "gloss:1",
+            "sort_key": [
+              -0.5,
+              -0.0,
+              "when"
+            ],
+            "gloss_index": 1,
+            "gloss_total": 6,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          }
+        ]
+      },
+      "事業": {
+        "uncapped": [
+          {
+            "target": "事業",
+            "source_phrase": "project",
+            "confidence": 0.0,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -1.0,
+              -0.0,
+              "project"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 4,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "事業",
+            "source_phrase": "work",
+            "confidence": 0.0,
+            "rank_score": 0.5,
+            "bucket_key": "gloss:1",
+            "sort_key": [
+              -0.5,
+              -0.0,
+              "work"
+            ],
+            "gloss_index": 1,
+            "gloss_total": 4,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "事業",
+            "source_phrase": "enterprise",
+            "confidence": 0.0,
+            "rank_score": 0.3333333333333333,
+            "bucket_key": "gloss:2",
+            "sort_key": [
+              -0.3333333333333333,
+              -0.0,
+              "enterprise"
+            ],
+            "gloss_index": 2,
+            "gloss_total": 4,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "事業",
+            "source_phrase": "business",
+            "confidence": 0.0,
+            "rank_score": 0.25,
+            "bucket_key": "gloss:3",
+            "sort_key": [
+              -0.25,
+              -0.0,
+              "business"
+            ],
+            "gloss_index": 3,
+            "gloss_total": 4,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          }
+        ],
+        "capped": [
+          {
+            "target": "事業",
+            "source_phrase": "project",
+            "confidence": 0.0,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -1.0,
+              -0.0,
+              "project"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 4,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          }
+        ]
+      },
+      "国": {
+        "uncapped": [
+          {
+            "target": "国",
+            "source_phrase": "land",
+            "confidence": 0.0,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -1.0,
+              -0.0,
+              "land"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 15,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "国",
+            "source_phrase": "region",
+            "confidence": 0.0,
+            "rank_score": 0.25,
+            "bucket_key": "gloss:3",
+            "sort_key": [
+              -0.25,
+              -0.0,
+              "region"
+            ],
+            "gloss_index": 3,
+            "gloss_total": 15,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "国",
+            "source_phrase": "state",
+            "confidence": 0.0,
+            "rank_score": 0.16666666666666666,
+            "bucket_key": "gloss:5",
+            "sort_key": [
+              -0.16666666666666666,
+              -0.0,
+              "state"
+            ],
+            "gloss_index": 5,
+            "gloss_total": 15,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "国",
+            "source_phrase": "crown",
+            "confidence": 0.0,
+            "rank_score": 0.125,
+            "bucket_key": "gloss:7",
+            "sort_key": [
+              -0.125,
+              -0.0,
+              "crown"
+            ],
+            "gloss_index": 7,
+            "gloss_total": 15,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "国",
+            "source_phrase": "birthplace",
+            "confidence": 0.0,
+            "rank_score": 0.07692307692307693,
+            "bucket_key": "gloss:12",
+            "sort_key": [
+              -0.07692307692307693,
+              -0.0,
+              "birthplace"
+            ],
+            "gloss_index": 12,
+            "gloss_total": 15,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "国",
+            "source_phrase": "home",
+            "confidence": 0.0,
+            "rank_score": 0.06666666666666667,
+            "bucket_key": "gloss:14",
+            "sort_key": [
+              -0.06666666666666667,
+              -0.0,
+              "home"
+            ],
+            "gloss_index": 14,
+            "gloss_total": 15,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          }
+        ],
+        "capped": [
+          {
+            "target": "国",
+            "source_phrase": "land",
+            "confidence": 0.0,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -1.0,
+              -0.0,
+              "land"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 15,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          }
+        ]
+      },
+      "気": {
+        "uncapped": [
+          {
+            "target": "気",
+            "source_phrase": "gas",
+            "confidence": 0.0,
+            "rank_score": 0.5,
+            "bucket_key": "gloss:1",
+            "sort_key": [
+              -0.5,
+              -0.0,
+              "gas"
+            ],
+            "gloss_index": 1,
+            "gloss_total": 16,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "気",
+            "source_phrase": "breath",
+            "confidence": 0.0,
+            "rank_score": 0.30000000000000004,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -0.30000000000000004,
+              -0.0,
+              "breath"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 16,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": 0.7,
+            "semantic_demotion_reason": "structural_character",
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "気",
+            "source_phrase": "spirit",
+            "confidence": 0.0,
+            "rank_score": 0.25,
+            "bucket_key": "gloss:3",
+            "sort_key": [
+              -0.25,
+              -0.0,
+              "spirit"
+            ],
+            "gloss_index": 3,
+            "gloss_total": 16,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "気",
+            "source_phrase": "feeling",
+            "confidence": 0.0,
+            "rank_score": 0.2,
+            "bucket_key": "gloss:4",
+            "sort_key": [
+              -0.2,
+              -0.0,
+              "feeling"
+            ],
+            "gloss_index": 4,
+            "gloss_total": 16,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "気",
+            "source_phrase": "mood",
+            "confidence": 0.0,
+            "rank_score": 0.16666666666666666,
+            "bucket_key": "gloss:5",
+            "sort_key": [
+              -0.16666666666666666,
+              -0.0,
+              "mood"
+            ],
+            "gloss_index": 5,
+            "gloss_total": 16,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "気",
+            "source_phrase": "atmosphere",
+            "confidence": 0.0,
+            "rank_score": 0.1,
+            "bucket_key": "gloss:2",
+            "sort_key": [
+              -0.1,
+              -0.0,
+              "atmosphere"
+            ],
+            "gloss_index": 2,
+            "gloss_total": 16,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": 0.7,
+            "semantic_demotion_reason": "structural_character",
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "気",
+            "source_phrase": "inclination",
+            "confidence": 0.0,
+            "rank_score": 0.08333333333333333,
+            "bucket_key": "gloss:11",
+            "sort_key": [
+              -0.08333333333333333,
+              -0.0,
+              "inclination"
+            ],
+            "gloss_index": 11,
+            "gloss_total": 16,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "気",
+            "source_phrase": "inclinations",
+            "confidence": 0.0,
+            "rank_score": 0.08333333333333333,
+            "bucket_key": "gloss:11",
+            "sort_key": [
+              -0.08333333333333333,
+              -0.0,
+              "inclinations"
+            ],
+            "gloss_index": 11,
+            "gloss_total": 16,
+            "variant": "inflected",
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "気",
+            "source_phrase": "urge",
+            "confidence": 0.0,
+            "rank_score": 0.07142857142857142,
+            "bucket_key": "gloss:13",
+            "sort_key": [
+              -0.07142857142857142,
+              -0.0,
+              "urge"
+            ],
+            "gloss_index": 13,
+            "gloss_total": 16,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "気",
+            "source_phrase": "sense",
+            "confidence": 0.0,
+            "rank_score": 0.06666666666666667,
+            "bucket_key": "gloss:14",
+            "sort_key": [
+              -0.06666666666666667,
+              -0.0,
+              "sense"
+            ],
+            "gloss_index": 14,
+            "gloss_total": 16,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "気",
+            "source_phrase": "air",
+            "confidence": 0.0,
+            "rank_score": 0.0625,
+            "bucket_key": "gloss:15",
+            "sort_key": [
+              -0.0625,
+              -0.0,
+              "air"
+            ],
+            "gloss_index": 15,
+            "gloss_total": 16,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "気",
+            "source_phrase": "condition",
+            "confidence": 0.0,
+            "rank_score": 0.042857142857142864,
+            "bucket_key": "gloss:6",
+            "sort_key": [
+              -0.042857142857142864,
+              -0.0,
+              "condition"
+            ],
+            "gloss_index": 6,
+            "gloss_total": 16,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": 0.7,
+            "semantic_demotion_reason": "structural_character",
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "気",
+            "source_phrase": "sign",
+            "confidence": 0.0,
+            "rank_score": 0.037500000000000006,
+            "bucket_key": "gloss:7",
+            "sort_key": [
+              -0.037500000000000006,
+              -0.0,
+              "sign"
+            ],
+            "gloss_index": 7,
+            "gloss_total": 16,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": 0.7,
+            "semantic_demotion_reason": "structural_character",
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "気",
+            "source_phrase": "state",
+            "confidence": 0.0,
+            "rank_score": 0.03333333333333334,
+            "bucket_key": "gloss:8",
+            "sort_key": [
+              -0.03333333333333334,
+              -0.0,
+              "state"
+            ],
+            "gloss_index": 8,
+            "gloss_total": 16,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": 0.7,
+            "semantic_demotion_reason": "structural_character",
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "気",
+            "source_phrase": "disease",
+            "confidence": 0.0,
+            "rank_score": 0.02727272727272728,
+            "bucket_key": "gloss:10",
+            "sort_key": [
+              -0.02727272727272728,
+              -0.0,
+              "disease"
+            ],
+            "gloss_index": 10,
+            "gloss_total": 16,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": 0.7,
+            "semantic_demotion_reason": "structural_character",
+            "kaikki_policy_shadow": null
+          }
+        ],
+        "capped": [
+          {
+            "target": "気",
+            "source_phrase": "gas",
+            "confidence": 0.0,
+            "rank_score": 0.5,
+            "bucket_key": "gloss:1",
+            "sort_key": [
+              -0.5,
+              -0.0,
+              "gas"
+            ],
+            "gloss_index": 1,
+            "gloss_total": 16,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          }
+        ]
+      },
+      "話": {
+        "uncapped": [
+          {
+            "target": "話",
+            "source_phrase": "talking",
+            "confidence": 0.0,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -1.0,
+              -0.0,
+              "talking"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 16,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "話",
+            "source_phrase": "talkings",
+            "confidence": 0.0,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -1.0,
+              -0.0,
+              "talkings"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 16,
+            "variant": "inflected",
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "話",
+            "source_phrase": "speaking",
+            "confidence": 0.0,
+            "rank_score": 0.5,
+            "bucket_key": "gloss:1",
+            "sort_key": [
+              -0.5,
+              -0.0,
+              "speaking"
+            ],
+            "gloss_index": 1,
+            "gloss_total": 16,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "話",
+            "source_phrase": "speech",
+            "confidence": 0.0,
+            "rank_score": 0.3333333333333333,
+            "bucket_key": "gloss:2",
+            "sort_key": [
+              -0.3333333333333333,
+              -0.0,
+              "speech"
+            ],
+            "gloss_index": 2,
+            "gloss_total": 16,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "話",
+            "source_phrase": "conversation",
+            "confidence": 0.0,
+            "rank_score": 0.25,
+            "bucket_key": "gloss:3",
+            "sort_key": [
+              -0.25,
+              -0.0,
+              "conversation"
+            ],
+            "gloss_index": 3,
+            "gloss_total": 16,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "話",
+            "source_phrase": "stories",
+            "confidence": 0.0,
+            "rank_score": 0.2,
+            "bucket_key": "gloss:4",
+            "sort_key": [
+              -0.2,
+              -0.0,
+              "stories"
+            ],
+            "gloss_index": 4,
+            "gloss_total": 16,
+            "variant": "inflected",
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "話",
+            "source_phrase": "story",
+            "confidence": 0.0,
+            "rank_score": 0.2,
+            "bucket_key": "gloss:4",
+            "sort_key": [
+              -0.2,
+              -0.0,
+              "story"
+            ],
+            "gloss_index": 4,
+            "gloss_total": 16,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "話",
+            "source_phrase": "tale",
+            "confidence": 0.0,
+            "rank_score": 0.16666666666666666,
+            "bucket_key": "gloss:5",
+            "sort_key": [
+              -0.16666666666666666,
+              -0.0,
+              "tale"
+            ],
+            "gloss_index": 5,
+            "gloss_total": 16,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "話",
+            "source_phrase": "tales",
+            "confidence": 0.0,
+            "rank_score": 0.16666666666666666,
+            "bucket_key": "gloss:5",
+            "sort_key": [
+              -0.16666666666666666,
+              -0.0,
+              "tales"
+            ],
+            "gloss_index": 5,
+            "gloss_total": 16,
+            "variant": "inflected",
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "話",
+            "source_phrase": "narrative",
+            "confidence": 0.0,
+            "rank_score": 0.14285714285714285,
+            "bucket_key": "gloss:6",
+            "sort_key": [
+              -0.14285714285714285,
+              -0.0,
+              "narrative"
+            ],
+            "gloss_index": 6,
+            "gloss_total": 16,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "話",
+            "source_phrase": "narratives",
+            "confidence": 0.0,
+            "rank_score": 0.14285714285714285,
+            "bucket_key": "gloss:6",
+            "sort_key": [
+              -0.14285714285714285,
+              -0.0,
+              "narratives"
+            ],
+            "gloss_index": 6,
+            "gloss_total": 16,
+            "variant": "inflected",
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "話",
+            "source_phrase": "topic",
+            "confidence": 0.0,
+            "rank_score": 0.125,
+            "bucket_key": "gloss:7",
+            "sort_key": [
+              -0.125,
+              -0.0,
+              "topic"
+            ],
+            "gloss_index": 7,
+            "gloss_total": 16,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "話",
+            "source_phrase": "subject",
+            "confidence": 0.0,
+            "rank_score": 0.1111111111111111,
+            "bucket_key": "gloss:8",
+            "sort_key": [
+              -0.1111111111111111,
+              -0.0,
+              "subject"
+            ],
+            "gloss_index": 8,
+            "gloss_total": 16,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "話",
+            "source_phrase": "rumorses",
+            "confidence": 0.0,
+            "rank_score": 0.09090909090909091,
+            "bucket_key": "gloss:10",
+            "sort_key": [
+              -0.09090909090909091,
+              -0.0,
+              "rumorses"
+            ],
+            "gloss_index": 10,
+            "gloss_total": 16,
+            "variant": "inflected",
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "話",
+            "source_phrase": "rumours",
+            "confidence": 0.0,
+            "rank_score": 0.08333333333333333,
+            "bucket_key": "gloss:11",
+            "sort_key": [
+              -0.08333333333333333,
+              -0.0,
+              "rumours"
+            ],
+            "gloss_index": 11,
+            "gloss_total": 16,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "話",
+            "source_phrase": "rumourses",
+            "confidence": 0.0,
+            "rank_score": 0.08333333333333333,
+            "bucket_key": "gloss:11",
+            "sort_key": [
+              -0.08333333333333333,
+              -0.0,
+              "rumourses"
+            ],
+            "gloss_index": 11,
+            "gloss_total": 16,
+            "variant": "inflected",
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "話",
+            "source_phrase": "negotiation",
+            "confidence": 0.0,
+            "rank_score": 0.07692307692307693,
+            "bucket_key": "gloss:12",
+            "sort_key": [
+              -0.07692307692307693,
+              -0.0,
+              "negotiation"
+            ],
+            "gloss_index": 12,
+            "gloss_total": 16,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "話",
+            "source_phrase": "consultation",
+            "confidence": 0.0,
+            "rank_score": 0.07142857142857142,
+            "bucket_key": "gloss:13",
+            "sort_key": [
+              -0.07142857142857142,
+              -0.0,
+              "consultation"
+            ],
+            "gloss_index": 13,
+            "gloss_total": 16,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "話",
+            "source_phrase": "discussion",
+            "confidence": 0.0,
+            "rank_score": 0.06666666666666667,
+            "bucket_key": "gloss:14",
+            "sort_key": [
+              -0.06666666666666667,
+              -0.0,
+              "discussion"
+            ],
+            "gloss_index": 14,
+            "gloss_total": 16,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "話",
+            "source_phrase": "lecture",
+            "confidence": 0.0,
+            "rank_score": 0.0625,
+            "bucket_key": "gloss:15",
+            "sort_key": [
+              -0.0625,
+              -0.0,
+              "lecture"
+            ],
+            "gloss_index": 15,
+            "gloss_total": 16,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          }
+        ],
+        "capped": [
+          {
+            "target": "話",
+            "source_phrase": "talking",
+            "confidence": 0.0,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -1.0,
+              -0.0,
+              "talking"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 16,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          }
+        ]
+      },
+      "全て": {
+        "uncapped": [
+          {
+            "target": "全て",
+            "source_phrase": "entirelies",
+            "confidence": 0.0,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -1.0,
+              -0.0,
+              "entirelies"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 7,
+            "variant": "inflected",
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "全て",
+            "source_phrase": "entirely",
+            "confidence": 0.0,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -1.0,
+              -0.0,
+              "entirely"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 7,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "全て",
+            "source_phrase": "completelies",
+            "confidence": 0.0,
+            "rank_score": 0.5,
+            "bucket_key": "gloss:1",
+            "sort_key": [
+              -0.5,
+              -0.0,
+              "completelies"
+            ],
+            "gloss_index": 1,
+            "gloss_total": 7,
+            "variant": "inflected",
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "全て",
+            "source_phrase": "completely",
+            "confidence": 0.0,
+            "rank_score": 0.5,
+            "bucket_key": "gloss:1",
+            "sort_key": [
+              -0.5,
+              -0.0,
+              "completely"
+            ],
+            "gloss_index": 1,
+            "gloss_total": 7,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "全て",
+            "source_phrase": "all",
+            "confidence": 0.0,
+            "rank_score": 0.3333333333333333,
+            "bucket_key": "gloss:2",
+            "sort_key": [
+              -0.3333333333333333,
+              -0.0,
+              "all"
+            ],
+            "gloss_index": 2,
+            "gloss_total": 7,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "全て",
+            "source_phrase": "approximatelies",
+            "confidence": 0.0,
+            "rank_score": 0.2,
+            "bucket_key": "gloss:4",
+            "sort_key": [
+              -0.2,
+              -0.0,
+              "approximatelies"
+            ],
+            "gloss_index": 4,
+            "gloss_total": 7,
+            "variant": "inflected",
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "全て",
+            "source_phrase": "approximately",
+            "confidence": 0.0,
+            "rank_score": 0.2,
+            "bucket_key": "gloss:4",
+            "sort_key": [
+              -0.2,
+              -0.0,
+              "approximately"
+            ],
+            "gloss_index": 4,
+            "gloss_total": 7,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "全て",
+            "source_phrase": "everything",
+            "confidence": 0.0,
+            "rank_score": 0.14285714285714285,
+            "bucket_key": "gloss:6",
+            "sort_key": [
+              -0.14285714285714285,
+              -0.0,
+              "everything"
+            ],
+            "gloss_index": 6,
+            "gloss_total": 7,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          }
+        ],
+        "capped": [
+          {
+            "target": "全て",
+            "source_phrase": "entirelies",
+            "confidence": 0.0,
+            "rank_score": 1.0,
+            "bucket_key": "gloss:0",
+            "sort_key": [
+              -1.0,
+              -0.0,
+              "entirelies"
+            ],
+            "gloss_index": 0,
+            "gloss_total": 7,
+            "variant": "inflected",
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          }
+        ]
+      },
+      "県": {
+        "uncapped": [
+          {
+            "target": "県",
+            "source_phrase": "etc",
+            "confidence": 0.0,
+            "rank_score": 0.2,
+            "bucket_key": "gloss:4",
+            "sort_key": [
+              -0.2,
+              -0.0,
+              "etc"
+            ],
+            "gloss_index": 4,
+            "gloss_total": 5,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          },
+          {
+            "target": "県",
+            "source_phrase": "etcs",
+            "confidence": 0.0,
+            "rank_score": 0.2,
+            "bucket_key": "gloss:4",
+            "sort_key": [
+              -0.2,
+              -0.0,
+              "etcs"
+            ],
+            "gloss_index": 4,
+            "gloss_total": 5,
+            "variant": "inflected",
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          }
+        ],
+        "capped": [
+          {
+            "target": "県",
+            "source_phrase": "etc",
+            "confidence": 0.0,
+            "rank_score": 0.2,
+            "bucket_key": "gloss:4",
+            "sort_key": [
+              -0.2,
+              -0.0,
+              "etc"
+            ],
+            "gloss_index": 4,
+            "gloss_total": 5,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": null,
+            "reverse_check_hit": null,
+            "reverse_check_rank": null,
+            "reverse_check_total": null,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": null
+          }
+        ]
+      }
+    }
+  }
+}

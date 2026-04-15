@@ -116,6 +116,30 @@
   "hint_srs_initial_active_count": {
     "message": "从引导列表中首批设为非零/活跃的词数。"
   },
+  "section_srs_admission_preferences": {
+    "message": "准入偏好"
+  },
+  "hint_srs_admission_preferences": {
+    "message": "这些值会对当前所选配置和语言对的 bootstrap 准入排序进行重排。"
+  },
+  "label_srs_topic_interests": {
+    "message": "兴趣主题"
+  },
+  "hint_srs_topic_interests": {
+    "message": "用逗号分隔的标签。当前会直接使用精确标签匹配。"
+  },
+  "label_srs_proficiency_estimate": {
+    "message": "熟练度估计 (%)"
+  },
+  "hint_srs_proficiency_estimate": {
+    "message": "0 到 100。留空则保持熟练度信号中性。"
+  },
+  "label_srs_challenge_target": {
+    "message": "挑战目标 (%)"
+  },
+  "hint_srs_challenge_target": {
+    "message": "0 到 100。留空则保持挑战偏好中性。"
+  },
   "label_srs_highlight_color": {
     "message": "SRS 高亮颜色"
   },
@@ -182,11 +206,20 @@
   "button_srs_initialize": {
     "message": "为该语言对初始化 S"
   },
+  "button_srs_rebalance_preview": {
+    "message": "预览按当前偏好重平衡"
+  },
+  "button_srs_rebalance_apply": {
+    "message": "应用重平衡…"
+  },
   "button_srs_refresh_set": {
     "message": "刷新 S 并发布规则"
   },
   "button_srs_runtime_diagnostics": {
     "message": "SRS 运行时诊断"
+  },
+  "button_srs_admission_preview": {
+    "message": "生成准入词样本（5）…"
   },
   "button_srs_rulegen_preview": {
     "message": "生成规则（调试）…"
@@ -203,6 +236,12 @@
   "confirm_srs_reset_2": {
     "message": "确定要删除此语言对的全部学习历史并重新开始吗？"
   },
+  "confirm_srs_rebalance_title": {
+    "message": "要根据当前偏好重平衡 $1 的活跃 SRS 集合吗？"
+  },
+  "confirm_srs_rebalance_body_counts": {
+    "message": "$1 个受保护单词将保持活跃，$2 个低投入单词将离开活跃集合，$3 个单词将被激活。复习历史将被保留。"
+  },
   "status_srs_sampling": {
     "message": "正在抽样…"
   },
@@ -212,6 +251,21 @@
   "status_srs_rulegen_running": {
     "message": "正在生成规则…"
   },
+  "status_srs_admission_preview_running": {
+    "message": "正在生成准入词样本（$1）…"
+  },
+  "status_srs_admission_preview_header": {
+    "message": "准入样本：在 $3 的 $2 个引导词中显示 $1 个。"
+  },
+  "status_srs_admission_preview_plan_only": {
+    "message": "所选策略当前仅支持规划，因此无法预览。"
+  },
+  "status_srs_admission_preview_empty": {
+    "message": "$1 当前没有可用的准入样本。"
+  },
+  "status_srs_admission_preview_failed": {
+    "message": "准入预览失败。"
+  },
   "status_srs_rulegen_sampled_running": {
     "message": "正在运行采样规则生成（$1）…"
   },
@@ -220,6 +274,39 @@
   },
   "status_srs_set_init_running": {
     "message": "正在初始化 S…"
+  },
+  "status_srs_rebalance_preview_running": {
+    "message": "正在准备 $1 的重平衡预览…"
+  },
+  "status_srs_rebalance_apply_running": {
+    "message": "正在准备 $1 的重平衡应用…"
+  },
+  "status_srs_rebalance_preview_header": {
+    "message": "$1 的重平衡预览：保留 $2，停放 $3，激活 $4。"
+  },
+  "status_srs_rebalance_apply_result": {
+    "message": "已为 $1 应用重平衡：保留 $2，停放 $3，激活 $4。"
+  },
+  "status_srs_rebalance_ready": {
+    "message": "$1 的重平衡预览已准备好。"
+  },
+  "status_srs_rebalance_blocked": {
+    "message": "$1 的重平衡尚未准备好。"
+  },
+  "status_srs_rebalance_applied": {
+    "message": "已为 $1 应用重平衡。"
+  },
+  "status_srs_rebalance_noop": {
+    "message": "$1 的重平衡不需要更改活跃集合。"
+  },
+  "status_srs_rebalance_cancelled": {
+    "message": "已取消 $1 的重平衡。"
+  },
+  "status_srs_rebalance_preview_failed": {
+    "message": "SRS 重平衡预览失败。"
+  },
+  "status_srs_rebalance_apply_failed": {
+    "message": "SRS 重平衡应用失败。"
   },
   "status_srs_refresh_running": {
     "message": "正在刷新 S 并发布规则…"
@@ -265,6 +352,9 @@
   },
   "status_srs_rulegen_empty": {
     "message": "当前活跃词没有对应规则。"
+  },
+  "status_srs_rulegen_other_pairs_only": {
+    "message": "此配置档已有 SRS 条目，但没有 $1 的条目。请先为该语言对初始化 S，或切换回已经有条目的语言对。"
   },
   "status_srs_sample_failed": {
     "message": "SRS 抽样失败。"

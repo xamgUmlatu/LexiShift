@@ -28,6 +28,7 @@ def validate_dataset_contract(
     dataset_payload: Mapping[str, object],
     policy_payload: Mapping[str, object],
     findings: list[QualityFinding],
+    benchmark_pairs: set[str] | None = None,
 ) -> None:
     contract = policy_payload.get("dataset_contract")
     if not isinstance(contract, Mapping):
@@ -130,6 +131,8 @@ def validate_dataset_contract(
         deficits: list[str] = []
         for pair, minimum in min_cases_per_pair.items():
             pair_key = str(pair).strip().lower()
+            if benchmark_pairs and pair_key not in benchmark_pairs:
+                continue
             required = as_int(minimum)
             actual = int(case_count_by_pair.get(pair_key, 0))
             if actual < required:
@@ -155,6 +158,8 @@ def validate_dataset_contract(
         deficits: list[str] = []
         for pair, minimum in min_hard_cases_per_pair.items():
             pair_key = str(pair).strip().lower()
+            if benchmark_pairs and pair_key not in benchmark_pairs:
+                continue
             required = as_int(minimum)
             actual = int(hard_count_by_pair.get(pair_key, 0))
             if actual < required:
@@ -181,6 +186,7 @@ def validate_benchmark_pairs(
     benchmark_payload: Mapping[str, object],
     policy_payload: Mapping[str, object],
     findings: list[QualityFinding],
+    advisory_required_pairs: bool = False,
 ) -> None:
     pairs_payload = benchmark_payload.get("pairs")
     if not isinstance(pairs_payload, Mapping):
@@ -203,9 +209,13 @@ def validate_benchmark_pairs(
     if missing_required:
         record(
             findings,
-            level="FAIL",
+            level=("WARN" if advisory_required_pairs else "FAIL"),
             code="BENCHMARK_REQUIRED_PAIRS_MISSING",
-            message="Required benchmark pairs are missing from benchmark artifact.",
+            message=(
+                "Required benchmark pairs are missing from benchmark artifact."
+                if not advisory_required_pairs
+                else "Required benchmark pairs are missing from benchmark artifact (advisory mode)."
+            ),
             details=", ".join(sorted(missing_required)),
         )
     else:

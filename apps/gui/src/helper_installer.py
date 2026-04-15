@@ -556,13 +556,51 @@ def manifest_path(browser: str = "chrome") -> Optional[Path]:
     return base / f"{NATIVE_HOST_NAME}.json"
 
 
-def build_manifest(*, host_path: Path, extension_id: str) -> dict:
+def _origin_for_extension_id(extension_id: str) -> str:
+    return f"chrome-extension://{extension_id}/"
+
+
+def _normalize_extension_ids(extension_ids: Sequence[str]) -> list[str]:
+    normalized: list[str] = []
+    seen: set[str] = set()
+    for raw_extension_id in extension_ids:
+        extension_id = str(raw_extension_id).strip()
+        if not extension_id or extension_id in seen:
+            continue
+        seen.add(extension_id)
+        normalized.append(extension_id)
+    return normalized
+
+
+def _manifest_allowed_extension_ids(manifest: Optional[Path]) -> list[str]:
+    if not manifest or not manifest.exists():
+        return []
+    try:
+        data = json.loads(manifest.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return []
+    extension_ids: list[str] = []
+    for raw_origin in data.get("allowed_origins") or []:
+        origin = str(raw_origin).strip()
+        if (
+            origin.startswith("chrome-extension://")
+            and origin.endswith("/")
+            and len(origin) > len("chrome-extension:///")
+        ):
+            extension_ids.append(origin[len("chrome-extension://") : -1])
+    return _normalize_extension_ids(extension_ids)
+
+
+def build_manifest(*, host_path: Path, extension_ids: Sequence[str]) -> dict:
+    normalized_extension_ids = _normalize_extension_ids(extension_ids)
     return {
         "name": NATIVE_HOST_NAME,
         "description": "LexiShift local helper for rule generation and SRS syncing.",
         "path": str(host_path),
         "type": "stdio",
-        "allowed_origins": [f"chrome-extension://{extension_id}/"],
+        "allowed_origins": [
+            _origin_for_extension_id(extension_id) for extension_id in normalized_extension_ids
+        ],
     }
 
 
@@ -588,7 +626,7 @@ def is_helper_installed(extension_id: Optional[str] = None, *, browser: str = "c
         log_helper_install("[Helper] is_helper_installed: failed to read manifest.")
         return False
     allowed = data.get("allowed_origins") or []
-    has_origin = f"chrome-extension://{extension_id}/" in allowed
+    has_origin = _origin_for_extension_id(extension_id) in allowed
     host_path = Path(str(data.get("path", "")))
     log_helper_install(
         f"[Helper] is_helper_installed: origin={has_origin} host={host_path} "
@@ -640,7 +678,10 @@ def install_helper(
     except OSError:
         pass
     manifest.parent.mkdir(parents=True, exist_ok=True)
-    payload = build_manifest(host_path=stable_path, extension_id=extension_id.strip())
+    payload = build_manifest(
+        host_path=stable_path,
+        extension_ids=[*_manifest_allowed_extension_ids(manifest), extension_id.strip()],
+    )
     manifest.write_text(json.dumps(payload, indent=2, sort_keys=True), encoding="utf-8")
     if sys.platform.startswith("win") and not _write_windows_native_messaging_registry(
         browser, manifest

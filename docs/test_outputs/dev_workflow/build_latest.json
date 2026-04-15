@@ -1,149 +1,112 @@
 {
   "version": 1,
-  "generated_at_utc": "2026-03-12T03:52:17.484749+00:00",
+  "generated_at_utc": "2026-04-11T01:52:55.930022+00:00",
   "overall_exit_code": 0,
-  "skip_bd": false,
+  "skip_bd": true,
   "skip_gui": false,
   "ci_safe": false,
-  "platform": "Darwin",
-  "platform_release": "25.3.0",
-  "python_executable": "/Users/takeyayuki/.pyenv/versions/3.10.16/bin/python3",
+  "platform": "Windows",
+  "platform_release": "11",
+  "python_executable": "D:\\projects\\LexiShift\\.venv\\Scripts\\python.exe",
   "host_supports_gui_build_validate": true,
   "skipped_commands": [],
   "commands": [
     {
-      "label": "betterdiscord_build",
-      "command": [
-        "node",
-        "/Users/takeyayuki/Documents/projects/LexiShift/apps/betterdiscord-plugin/build_plugin.js"
-      ],
-      "exit_code": 0,
-      "stdout_tail": [
-        "Built /Users/takeyayuki/Documents/projects/LexiShift/apps/betterdiscord-plugin/LexiShift.plugin.js"
-      ],
-      "artifacts": [
-        {
-          "label": "betterdiscord_bundle",
-          "path": "/Users/takeyayuki/Documents/projects/LexiShift/apps/betterdiscord-plugin/LexiShift.plugin.js",
-          "kind": "file",
-          "exists": true,
-          "size_bytes": 58377
-        }
-      ]
-    },
-    {
       "label": "gui_build_validate",
       "command": [
-        "/Users/takeyayuki/.pyenv/versions/3.10.16/bin/python3",
-        "/Users/takeyayuki/Documents/projects/LexiShift/scripts/build/gui_app.py",
-        "--validate",
-        "--no-clean"
+        "D:\\projects\\LexiShift\\.venv\\Scripts\\python.exe",
+        "D:\\projects\\LexiShift\\scripts\\build\\gui_app.py",
+        "--no-clean",
+        "--validate"
       ],
       "exit_code": 0,
       "stdout_tail": [
-        "[validate] OK: /Users/takeyayuki/Documents/projects/LexiShift/apps/gui/dist/LexiShift.app",
-        "[validate] OK: /Users/takeyayuki/Documents/projects/LexiShift/apps/gui/dist/LexiShift Helper.app",
-        "[validate] OK: /Users/takeyayuki/Documents/projects/LexiShift/apps/gui/dist",
-        "Platform: Darwin 25.3.0",
-        "Python: /Users/takeyayuki/.pyenv/versions/3.10.16/bin/python3",
-        "Spec: /Users/takeyayuki/Documents/projects/LexiShift/apps/gui/packaging/pyinstaller.spec",
-        "Dist: /Users/takeyayuki/Documents/projects/LexiShift/apps/gui/dist",
-        "Work: /Users/takeyayuki/Documents/projects/LexiShift/apps/gui/build",
+        "[validate] OK: D:\\projects\\LexiShift\\apps\\gui\\dist\\LexiShift\\LexiShift.exe",
+        "[validate] OK: D:\\projects\\LexiShift\\apps\\gui\\dist\\LexiShiftHelper\\LexiShiftHelper.exe",
+        "[validate] OK: D:\\projects\\LexiShift\\apps\\gui\\dist\\LexiShiftNativeHost\\lexishift_native_host.exe",
+        "[validate] OK: D:\\projects\\LexiShift\\apps\\gui\\dist",
+        "Platform: Windows 11",
+        "Python: D:\\projects\\LexiShift\\.venv\\Scripts\\python.exe",
+        "Spec: D:\\projects\\LexiShift\\apps\\gui\\packaging\\pyinstaller.spec",
+        "Dist: D:\\projects\\LexiShift\\apps\\gui\\dist",
+        "Work: D:\\projects\\LexiShift\\apps\\gui\\build",
         "Build Mode: ONEDIR",
         "Cleaning dist/work directories...",
-        "Running: /Users/takeyayuki/.pyenv/versions/3.10.16/bin/python3 -m PyInstaller --noconfirm --distpath /Users/takeyayuki/Documents/projects/LexiShift/apps/gui/dist --workpath /Users/takeyayuki/Documents/projects/LexiShift/apps/gui/build /Users/takeyayuki/Documents/projects/LexiShift/apps/gui/packaging/pyinstaller.spec"
+        "Running: D:\\projects\\LexiShift\\.venv\\Scripts\\python.exe -m PyInstaller --noconfirm --distpath D:\\projects\\LexiShift\\apps\\gui\\dist --workpath D:\\projects\\LexiShift\\apps\\gui\\build D:\\projects\\LexiShift\\apps\\gui\\packaging\\pyinstaller.spec",
+        "Removed duplicate root exe: D:\\projects\\LexiShift\\apps\\gui\\dist\\LexiShift.exe",
+        "Removed duplicate root exe: D:\\projects\\LexiShift\\apps\\gui\\dist\\LexiShiftHelper.exe",
+        "Removed duplicate root exe: D:\\projects\\LexiShift\\apps\\gui\\dist\\lexishift_native_host.exe"
       ],
       "stderr_tail": [
-        "25438 INFO: Building EXE from EXE-01.toc completed successfully.",
-        "25445 INFO: checking COLLECT",
-        "25445 INFO: Building COLLECT because COLLECT-00.toc is non existent",
-        "25445 INFO: Building COLLECT COLLECT-00.toc",
-        "26613 INFO: Building COLLECT COLLECT-00.toc completed successfully.",
-        "26624 INFO: checking BUNDLE",
-        "26624 INFO: Building BUNDLE because BUNDLE-00.toc is non existent",
-        "26624 INFO: Building BUNDLE BUNDLE-00.toc",
-        "27719 INFO: Signing the BUNDLE...",
-        "27972 INFO: Building BUNDLE BUNDLE-00.toc completed successfully.",
-        "27982 INFO: checking COLLECT",
-        "27982 INFO: Building COLLECT because COLLECT-01.toc is non existent",
-        "27982 INFO: Building COLLECT COLLECT-01.toc",
-        "29014 INFO: Building COLLECT COLLECT-01.toc completed successfully.",
-        "29020 INFO: checking BUNDLE",
-        "29020 INFO: Building BUNDLE because BUNDLE-01.toc is non existent",
-        "29020 INFO: Building BUNDLE BUNDLE-01.toc",
-        "30092 INFO: Signing the BUNDLE...",
-        "30216 INFO: Building BUNDLE BUNDLE-01.toc completed successfully.",
-        "30220 INFO: Build complete! The results are available in: /Users/takeyayuki/Documents/projects/LexiShift/apps/gui/dist"
+        "707390 INFO: Copying icon to EXE",
+        "707391 INFO: Copying version information to EXE",
+        "707393 INFO: Copying 0 resources to EXE",
+        "707393 INFO: Embedding manifest in EXE",
+        "707394 INFO: Appending PKG archive to EXE",
+        "707403 INFO: Fixing EXE headers",
+        "707517 INFO: Building EXE from EXE-02.toc completed successfully.",
+        "707534 INFO: checking COLLECT",
+        "707534 INFO: Building COLLECT because COLLECT-00.toc is non existent",
+        "707534 INFO: Building COLLECT COLLECT-00.toc",
+        "712658 INFO: Building COLLECT COLLECT-00.toc completed successfully.",
+        "712730 INFO: checking COLLECT",
+        "712730 INFO: Building COLLECT because COLLECT-01.toc is non existent",
+        "712730 INFO: Building COLLECT COLLECT-01.toc",
+        "717503 INFO: Building COLLECT COLLECT-01.toc completed successfully.",
+        "717546 INFO: checking COLLECT",
+        "717546 INFO: Building COLLECT because COLLECT-02.toc is non existent",
+        "717547 INFO: Building COLLECT COLLECT-02.toc",
+        "717620 INFO: Building COLLECT COLLECT-02.toc completed successfully.",
+        "717622 INFO: Build complete! The results are available in: D:\\projects\\LexiShift\\apps\\gui\\dist"
       ],
       "artifacts": [
         {
-          "label": "gui_main_app_bundle",
-          "path": "/Users/takeyayuki/Documents/projects/LexiShift/apps/gui/dist/LexiShift.app",
-          "kind": "directory",
-          "exists": true,
-          "entry_count": 1
-        },
-        {
-          "label": "gui_helper_app_bundle",
-          "path": "/Users/takeyayuki/Documents/projects/LexiShift/apps/gui/dist/LexiShift Helper.app",
-          "kind": "directory",
-          "exists": true,
-          "entry_count": 1
-        },
-        {
-          "label": "gui_main_info_plist",
-          "path": "/Users/takeyayuki/Documents/projects/LexiShift/apps/gui/dist/LexiShift.app/Contents/Info.plist",
+          "label": "gui_main_windows_exe",
+          "path": "D:\\projects\\LexiShift\\apps\\gui\\dist\\LexiShift\\LexiShift.exe",
           "kind": "file",
           "exists": true,
-          "size_bytes": 1032
+          "size_bytes": 2823296506
         },
         {
-          "label": "gui_helper_info_plist",
-          "path": "/Users/takeyayuki/Documents/projects/LexiShift/apps/gui/dist/LexiShift Helper.app/Contents/Info.plist",
+          "label": "gui_helper_windows_exe",
+          "path": "D:\\projects\\LexiShift\\apps\\gui\\dist\\LexiShiftHelper\\LexiShiftHelper.exe",
           "kind": "file",
           "exists": true,
-          "size_bytes": 1090
+          "size_bytes": 2822259190
+        },
+        {
+          "label": "gui_native_host_windows_exe",
+          "path": "D:\\projects\\LexiShift\\apps\\gui\\dist\\LexiShiftNativeHost\\lexishift_native_host.exe",
+          "kind": "file",
+          "exists": true,
+          "size_bytes": 22294825
         }
       ]
     }
   ],
   "artifacts": [
     {
-      "label": "betterdiscord_bundle",
-      "path": "/Users/takeyayuki/Documents/projects/LexiShift/apps/betterdiscord-plugin/LexiShift.plugin.js",
+      "label": "gui_main_windows_exe",
+      "path": "D:\\projects\\LexiShift\\apps\\gui\\dist\\LexiShift\\LexiShift.exe",
       "kind": "file",
       "exists": true,
-      "size_bytes": 58377
+      "size_bytes": 2823296506
     },
     {
-      "label": "gui_main_app_bundle",
-      "path": "/Users/takeyayuki/Documents/projects/LexiShift/apps/gui/dist/LexiShift.app",
-      "kind": "directory",
-      "exists": true,
-      "entry_count": 1
-    },
-    {
-      "label": "gui_helper_app_bundle",
-      "path": "/Users/takeyayuki/Documents/projects/LexiShift/apps/gui/dist/LexiShift Helper.app",
-      "kind": "directory",
-      "exists": true,
-      "entry_count": 1
-    },
-    {
-      "label": "gui_main_info_plist",
-      "path": "/Users/takeyayuki/Documents/projects/LexiShift/apps/gui/dist/LexiShift.app/Contents/Info.plist",
+      "label": "gui_helper_windows_exe",
+      "path": "D:\\projects\\LexiShift\\apps\\gui\\dist\\LexiShiftHelper\\LexiShiftHelper.exe",
       "kind": "file",
       "exists": true,
-      "size_bytes": 1032
+      "size_bytes": 2822259190
     },
     {
-      "label": "gui_helper_info_plist",
-      "path": "/Users/takeyayuki/Documents/projects/LexiShift/apps/gui/dist/LexiShift Helper.app/Contents/Info.plist",
+      "label": "gui_native_host_windows_exe",
+      "path": "D:\\projects\\LexiShift\\apps\\gui\\dist\\LexiShiftNativeHost\\lexishift_native_host.exe",
       "kind": "file",
       "exists": true,
-      "size_bytes": 1090
+      "size_bytes": 22294825
     }
   ],
-  "expected_artifact_count": 5,
-  "verified_artifact_count": 5
+  "expected_artifact_count": 3,
+  "verified_artifact_count": 3
 }

@@ -67,7 +67,13 @@ class MainWindowBulkRulesMixin:
             pack_ids.add("jp-wordnet-sqlite")
         elif language_packs.get("jp-wordnet"):
             pack_ids.add("jp-wordnet")
-        for pack_id in ("jmdict-ja-en", "freedict-de-en", "freedict-en-de", "cc-cedict-zh-en"):
+        for pack_id in (
+            "wiktionary-ja-en",
+            "jmdict-ja-en",
+            "freedict-de-en",
+            "freedict-en-de",
+            "cc-cedict-zh-en",
+        ):
             if language_packs.get(pack_id):
                 pack_ids.add(pack_id)
         return pack_ids
@@ -103,6 +109,7 @@ class MainWindowBulkRulesMixin:
         odenet_path = language_packs.get("odenet-de") if language_packs else None
         jp_wordnet_path = language_packs.get("jp-wordnet") if language_packs else None
         jp_wordnet_sqlite_path = language_packs.get("jp-wordnet-sqlite") if language_packs else None
+        wiktionary_ja_en_path = language_packs.get("wiktionary-ja-en") if language_packs else None
         jmdict_path = language_packs.get("jmdict-ja-en") if language_packs else None
         freedict_de_en_path = language_packs.get("freedict-de-en") if language_packs else None
         freedict_en_de_path = language_packs.get("freedict-en-de") if language_packs else None
@@ -126,10 +133,16 @@ class MainWindowBulkRulesMixin:
             use_odenet = "odenet-de" in pack_ids
             use_jp_wordnet = "jp-wordnet" in pack_ids
             use_jp_wordnet_sqlite = "jp-wordnet-sqlite" in pack_ids
+            use_wiktionary_ja_en = "wiktionary-ja-en" in pack_ids
             use_jmdict = "jmdict-ja-en" in pack_ids
             use_freedict_de_en = "freedict-de-en" in pack_ids
             use_freedict_en_de = "freedict-en-de" in pack_ids
             use_cc_cedict = "cc-cedict-zh-en" in pack_ids
+            japanese_translation_dict_path = None
+            if use_wiktionary_ja_en and wiktionary_ja_en_path:
+                japanese_translation_dict_path = wiktionary_ja_en_path
+            elif use_jmdict and jmdict_path:
+                japanese_translation_dict_path = jmdict_path
 
             if not any(
                 [
@@ -139,6 +152,7 @@ class MainWindowBulkRulesMixin:
                     use_odenet and odenet_path,
                     use_jp_wordnet and jp_wordnet_path,
                     use_jp_wordnet_sqlite and jp_wordnet_sqlite_path,
+                    use_wiktionary_ja_en and wiktionary_ja_en_path,
                     use_jmdict and jmdict_path,
                     use_freedict_de_en and freedict_de_en_path,
                     use_freedict_en_de and freedict_en_de_path,
@@ -164,6 +178,12 @@ class MainWindowBulkRulesMixin:
                 and not Path(jp_wordnet_sqlite_path).exists()
             ):
                 missing_sources.append(t("sources.jp_wordnet_sqlite_file"))
+            if (
+                use_wiktionary_ja_en
+                and wiktionary_ja_en_path
+                and not Path(wiktionary_ja_en_path).exists()
+            ):
+                missing_sources.append(t("sources.wiktionary_ja_en_file"))
             if use_jmdict and jmdict_path and not Path(jmdict_path).exists():
                 missing_sources.append(t("sources.jmdict_file"))
             if (
@@ -201,6 +221,7 @@ class MainWindowBulkRulesMixin:
                 "odenet-de": t("packs.odenet"),
                 "jp-wordnet": t("packs.jp_wordnet"),
                 "jp-wordnet-sqlite": t("packs.jp_wordnet_sqlite"),
+                "wiktionary-ja-en": t("packs.wiktionary_ja_en"),
                 "jmdict-ja-en": t("packs.jmdict"),
                 "freedict-de-en": t("packs.freedict_de_en"),
                 "freedict-en-de": t("packs.freedict_en_de"),
@@ -235,7 +256,9 @@ class MainWindowBulkRulesMixin:
                     if use_jp_wordnet_sqlite and jp_wordnet_sqlite_path
                     else None
                 ),
-                jmdict_path=Path(jmdict_path) if use_jmdict and jmdict_path else None,
+                jmdict_path=(
+                    Path(japanese_translation_dict_path) if japanese_translation_dict_path else None
+                ),
                 freedict_de_en_path=(
                     Path(freedict_de_en_path)
                     if use_freedict_de_en and freedict_de_en_path
@@ -355,6 +378,7 @@ class MainWindowBulkRulesMixin:
             "odenet-de": "odenet",
             "jp-wordnet": "jp_wordnet",
             "jp-wordnet-sqlite": "jp_wordnet",
+            "wiktionary-ja-en": "jmdict",
             "jmdict-ja-en": "jmdict",
             "cc-cedict-zh-en": "cc_cedict",
             "freedict-de-en": "freedict_de_en",
@@ -367,6 +391,7 @@ class MainWindowBulkRulesMixin:
             "odenet-de": language_packs.get("odenet-de"),
             "jp-wordnet": language_packs.get("jp-wordnet"),
             "jp-wordnet-sqlite": language_packs.get("jp-wordnet-sqlite"),
+            "wiktionary-ja-en": language_packs.get("wiktionary-ja-en"),
             "jmdict-ja-en": language_packs.get("jmdict-ja-en"),
             "cc-cedict-zh-en": language_packs.get("cc-cedict-zh-en"),
             "freedict-de-en": language_packs.get("freedict-de-en"),
@@ -379,6 +404,7 @@ class MainWindowBulkRulesMixin:
             "odenet-de": t("packs.odenet"),
             "jp-wordnet": t("packs.jp_wordnet"),
             "jp-wordnet-sqlite": t("packs.jp_wordnet_sqlite"),
+            "wiktionary-ja-en": t("packs.wiktionary_ja_en"),
             "jmdict-ja-en": t("packs.jmdict"),
             "cc-cedict-zh-en": t("packs.cc_cedict"),
             "freedict-de-en": t("packs.freedict_de_en"),
@@ -458,7 +484,7 @@ class MainWindowBulkRulesMixin:
             return "en-de"
         if pack_id == "freedict-en-de":
             return "de-en"
-        if pack_id == "jmdict-ja-en":
+        if pack_id in {"wiktionary-ja-en", "jmdict-ja-en"}:
             return "en-ja"
         if pack_id == "cc-cedict-zh-en":
             return "en-zh"

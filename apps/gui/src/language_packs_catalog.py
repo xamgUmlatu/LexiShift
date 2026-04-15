@@ -1,9 +1,14 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from pathlib import Path
 
 from i18n import t
-from lexishift_core.frequency.sqlite import ParseConfig, PosInventoryConfig
+from lexishift_core.frequency.sqlite import (
+    ParseConfig,
+    PosInventoryConfig,
+    TopicEnrichmentConfig,
+)
 
 
 def _frequency_pos_inventory_config(pack_id: str) -> PosInventoryConfig | None:
@@ -29,6 +34,31 @@ def _frequency_pos_inventory_config(pack_id: str) -> PosInventoryConfig | None:
             source_profile="compact-latin",
             pos_columns=("pos",),
         )
+    return None
+
+
+def _frequency_topic_enrichment_config(
+    pack_id: str,
+    *,
+    language_packs_dir: Path,
+) -> TopicEnrichmentConfig | None:
+    normalized = str(pack_id or "").strip().lower()
+    if normalized == "freq-ja-bccwj":
+        source_path = Path(language_packs_dir) / "wiktionary-ja-en.sqlite"
+        if source_path.exists():
+            return TopicEnrichmentConfig(
+                source_sqlite_path=source_path,
+                source_provider="wiktionary-ja-en",
+            )
+        return None
+    if normalized == "freq-es-cde":
+        source_path = Path(language_packs_dir) / "wiktionary-es-en.sqlite"
+        if source_path.exists():
+            return TopicEnrichmentConfig(
+                source_sqlite_path=source_path,
+                source_provider="wiktionary-es-en",
+            )
+        return None
     return None
 
 
@@ -192,6 +222,21 @@ LANGUAGE_PACKS = [
         name_key="packs.jmdict",
         language_key="languages.japanese_english",
         source_key="providers.edrdg",
+    ),
+    LanguagePackInfo(
+        pack_id="wiktionary-ja-en",
+        name="Wiktionary (JA→EN)",
+        language="Japanese → English",
+        source="Kaikki",
+        size="2.4 GB",
+        url="https://kaikki.org/dictionary/raw-wiktextract-data.jsonl.gz",
+        wayback_url="https://web.archive.org/web/*/https://kaikki.org/dictionary/raw-wiktextract-data.jsonl.gz",
+        filename="raw-wiktextract-data-ja-en.jsonl.gz",
+        local_kind="file",
+        sqlite_filename="wiktionary-ja-en.sqlite",
+        build_mode="kaikki_glosses_to_sqlite",
+        source_lang_code="ja",
+        gloss_language="en",
     ),
     LanguagePackInfo(
         pack_id="freedict-de-en",

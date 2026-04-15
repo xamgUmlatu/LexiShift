@@ -16,11 +16,21 @@ from lexishift_core.lexicon.word_package import (
 from lexishift_core.replacement.core import VocabRule
 from lexishift_core.helper.lp_capabilities import default_freedict_reverse_path
 from lexishift_core.helper.paths import HelperPaths
-from lexishift_core.rulegen.adapters import RulegenAdapterRequest, run_rules_with_adapter
 from lexishift_core.rulegen.generation import RuleScoringConfig
 from lexishift_core.rulegen.ranking import ReverseCheckScoringConfig
+from lexishift_core.srs.profile_bootstrap import score_seed_words_for_profile
 from lexishift_core.srs import SrsItem, SrsSettings, SrsStore, save_srs_store
 from lexishift_core.srs.admission_policy import resolve_default_pos_weights
+from lexishift_core.srs.selector import (
+    SELECTION_POLICY_TOP_N,
+    SELECTION_POLICY_WEIGHTED_WITHOUT_REPLACEMENT,
+    SelectorCandidate,
+    SelectorConfig,
+    SelectorWeights,
+    select_candidates,
+    select_scored_candidates,
+)
+from lexishift_core.srs.set_strategy import STRATEGY_FREQUENCY_BOOTSTRAP, STRATEGY_PROFILE_BOOTSTRAP
 from lexishift_core.srs.source import SOURCE_INITIAL_SET
 from lexishift_core.srs.store_ops import build_item_id, upsert_item
 from lexishift_core.scoring.weighting import GlossDecay
@@ -51,6 +61,10 @@ class SetInitializationConfig:
     language_pair: str = "en-ja"
     stopwords_path: Optional[Path] = None
     require_jmdict: bool = True
+    strategy: str = STRATEGY_FREQUENCY_BOOTSTRAP
+    profile_context: Optional[Mapping[str, object]] = None
+    selection_seed: Optional[int] = None
+    selection_policy_override: Optional[str] = None
 
 
 @dataclass(frozen=True)
@@ -64,6 +78,11 @@ class SetInitializationReport:
     initial_active_preview: Sequence[str]
     admission_weight_profile: Mapping[str, float]
     initial_active_weight_preview: Sequence[Mapping[str, object]]
+    selection_strategy: str = STRATEGY_FREQUENCY_BOOTSTRAP
+    selection_policy: str = SELECTION_POLICY_WEIGHTED_WITHOUT_REPLACEMENT
+    selection_seed: Optional[int] = None
+    selector_version: Optional[str] = None
+    profile_bootstrap_diagnostics: Mapping[str, object] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)
@@ -94,8 +113,40 @@ def build_seed_candidates(*args, **kwargs):
     return seed_module.build_seed_candidates(*args, **kwargs)
 
 
-def load_targets_from_store(store: SrsStore, *, pair: str) -> list[str]:
-    return [item.lemma for item in store.items if item.language_pair == pair and item.lemma]
+def _rulegen_adapter_request_cls():
+    from lexishift_core.rulegen.adapters import RulegenAdapterRequest
+
+    return RulegenAdapterRequest
+
+
+def run_rules_with_adapter(request):
+    from lexishift_core.rulegen.adapters import run_rules_with_adapter as _run_rules_with_adapter
+
+    return _run_rules_with_adapter(request)
+
+
+def load_targets_from_store(
+    store: SrsStore,
+    *,
+    pair: str,
+    active_item_ids: Optional[Sequence[str]] = None,
+) -> list[str]:
+    active_item_id_list = _normalize_item_id_sequence(active_item_ids)
+    if active_item_id_list is None:
+        return [item.lemma for item in store.items if item.language_pair == pair and item.lemma]
+
+    items_by_id = {
+        item.item_id: item for item in store.items if item.language_pair == pair and item.lemma
+    }
+    targets: list[str] = []
+    seen_lemmas: set[str] = set()
+    for item_id in active_item_id_list:
+        item = items_by_id.get(item_id)
+        if item is None or item.lemma in seen_lemmas:
+            continue
+        seen_lemmas.add(item.lemma)
+        targets.append(item.lemma)
+    return targets
 
 
 def load_target_word_packages_from_store(
@@ -103,11 +154,15 @@ def load_target_word_packages_from_store(
     *,
     pair: str,
     targets: Optional[Sequence[str]] = None,
+    active_item_ids: Optional[Sequence[str]] = None,
 ) -> dict[str, Mapping[str, object]]:
     target_set = {str(target).strip() for target in targets or [] if str(target).strip()}
+    active_item_id_set = _normalize_item_id_filter(active_item_ids)
     packages: dict[str, Mapping[str, object]] = {}
     for item in store.items:
         if item.language_pair != pair or not item.lemma:
+            continue
+        if active_item_id_set is not None and item.item_id not in active_item_id_set:
             continue
         if target_set and item.lemma not in target_set:
             continue
@@ -151,22 +206,78 @@ def initialize_store_from_frequency_list_with_report(
         frequency_db=config.frequency_db,
         config=selection_config,
     )
-    seen_ids: set[str] = set()
-    unique_selected_words = []
-    for selected in selected_words:
-        item_id = build_item_id(selected.language_pair, selected.lemma)
-        if item_id in seen_ids:
-            continue
-        seen_ids.add(item_id)
-        unique_selected_words.append(selected)
-
     initial_active_count = max(0, int(config.initial_active_count))
-    admitted_words = unique_selected_words[:initial_active_count]
+    selection_seed = _normalize_optional_int(config.selection_seed)
+    selection_policy = _resolve_selection_policy_override(config.selection_policy_override)
+    selection_strategy = STRATEGY_FREQUENCY_BOOTSTRAP
+    selector_version = None
+    profile_bootstrap_diagnostics: Mapping[str, object] = {}
+    if config.strategy == STRATEGY_PROFILE_BOOTSTRAP:
+        scored_entries, profile_bootstrap_diagnostics = score_seed_words_for_profile(
+            selected_words,
+            profile_context=config.profile_context,
+            preview_limit=len(selected_words),
+        )
+        selection_strategy = STRATEGY_PROFILE_BOOTSTRAP
+        selector_version = str(profile_bootstrap_diagnostics.get("selector_version") or "").strip()
+        selection_policy = _resolve_selection_policy_override(
+            selection_policy
+            if config.selection_policy_override
+            else profile_bootstrap_diagnostics.get("selection_policy")
+        )
+        profile_bootstrap_diagnostics = {
+            **dict(profile_bootstrap_diagnostics),
+            "selection_policy": selection_policy,
+        }
+        unique_scored_entries = _dedupe_profile_bootstrap_entries(scored_entries)
+        selected_candidates = select_scored_candidates(
+            [entry.scored_candidate for entry in unique_scored_entries],
+            config=_build_profile_bootstrap_selector_config(
+                selection_policy=selection_policy,
+                selection_count=initial_active_count,
+            ),
+            selection_count=initial_active_count,
+            seed=selection_seed,
+        )
+        unique_entry_by_lemma = {
+            entry.seed.lemma: entry
+            for entry in unique_scored_entries
+            if str(entry.seed.lemma).strip()
+        }
+        admitted_words = [
+            unique_entry_by_lemma[lemma]
+            for lemma in (entry.candidate.lemma for entry in selected_candidates)
+            if lemma in unique_entry_by_lemma
+        ]
+        unique_selected_words = [entry.seed for entry in unique_scored_entries]
+        admitted_seed_words = [entry.seed for entry in admitted_words]
+    else:
+        unique_selected_words = _dedupe_seed_words(selected_words)
+        selected_candidates = select_candidates(
+            _seed_to_bootstrap_selector_candidates(unique_selected_words),
+            config=_build_frequency_bootstrap_selector_config(
+                selection_policy=selection_policy,
+                selection_count=initial_active_count,
+            ),
+            selection_count=initial_active_count,
+            seed=selection_seed,
+        )
+        seed_by_lemma = {
+            str(seed.lemma).strip(): seed
+            for seed in unique_selected_words
+            if str(seed.lemma).strip()
+        }
+        admitted_seed_words = [
+            seed_by_lemma[entry.candidate.lemma]
+            for entry in selected_candidates
+            if entry.candidate.lemma in seed_by_lemma
+        ]
+
     existing_by_id = {item.item_id: item for item in store.items}
     inserted_count = 0
     updated_count = 0
     updated = store
-    for selected in admitted_words:
+    for selected in admitted_seed_words:
         item_id = build_item_id(selected.language_pair, selected.lemma)
         selected_word_package = _resolve_selected_word_package(selected)
         existing_item = existing_by_id.get(item_id)
@@ -193,20 +304,26 @@ def initialize_store_from_frequency_list_with_report(
         updated = upsert_item(updated, item)
     selected_preview = tuple(selected.lemma for selected in unique_selected_words[:10])
     initial_active_preview = tuple(
-        selected.lemma for selected in admitted_words[:initial_active_count]
+        selected.lemma for selected in admitted_seed_words[:initial_active_count]
     )
     report = SetInitializationReport(
         selected_count=len(selected_words),
         selected_unique_count=len(unique_selected_words),
-        admitted_count=len(admitted_words),
+        admitted_count=len(admitted_seed_words),
         inserted_count=inserted_count,
         updated_count=updated_count,
         selected_preview=selected_preview,
         initial_active_preview=initial_active_preview,
         admission_weight_profile=resolved_pos_weights.to_dict(),
         initial_active_weight_preview=tuple(
-            _build_weight_preview_entry(selected) for selected in admitted_words[:20]
+            _build_weight_preview_entry(selected)
+            for selected in admitted_seed_words[:initial_active_count]
         ),
+        selection_strategy=selection_strategy,
+        selection_policy=selection_policy,
+        selection_seed=selection_seed,
+        selector_version=selector_version or None,
+        profile_bootstrap_diagnostics=dict(profile_bootstrap_diagnostics),
     )
     return updated, report
 
@@ -215,11 +332,12 @@ def run_en_ja_rulegen(
     *,
     targets: Iterable[str],
     word_packages_by_target: Optional[Mapping[str, Mapping[str, object]]] = None,
-    jmdict_path: Path,
+    translation_dict_path: Path,
     config: RulegenConfig,
 ) -> Sequence[VocabRule]:
+    rulegen_adapter_request_cls = _rulegen_adapter_request_cls()
     return run_rules_with_adapter(
-        RulegenAdapterRequest(
+        rulegen_adapter_request_cls(
             pair="en-ja",
             targets=tuple(str(target).strip() for target in targets if str(target).strip()),
             language_pair=config.language_pair,
@@ -231,7 +349,7 @@ def run_en_ja_rulegen(
             allow_multiword_glosses=config.allow_multiword_glosses,
             scoring=config.scoring,
             gloss_decay=config.gloss_decay,
-            jmdict_path=jmdict_path,
+            translation_dict_path=translation_dict_path,
             word_packages_by_target=word_packages_by_target,
         )
     )
@@ -276,6 +394,131 @@ def _build_weight_preview_entry(selected: object) -> Mapping[str, object]:
     }
 
 
+def _normalize_item_id_filter(
+    active_item_ids: Optional[Sequence[str]],
+) -> Optional[set[str]]:
+    normalized = _normalize_item_id_sequence(active_item_ids)
+    if normalized is None:
+        return None
+    return set(normalized)
+
+
+def _normalize_item_id_sequence(
+    active_item_ids: Optional[Sequence[str]],
+) -> Optional[tuple[str, ...]]:
+    if active_item_ids is None:
+        return None
+    normalized: list[str] = []
+    seen: set[str] = set()
+    for item_id in active_item_ids:
+        candidate = str(item_id).strip()
+        if not candidate or candidate in seen:
+            continue
+        seen.add(candidate)
+        normalized.append(candidate)
+    return tuple(normalized)
+
+
+def _dedupe_seed_words(selected_words: Sequence[object]) -> list[object]:
+    seen_ids: set[str] = set()
+    unique_selected_words: list[object] = []
+    for selected in selected_words:
+        item_id = build_item_id(selected.language_pair, selected.lemma)
+        if item_id in seen_ids:
+            continue
+        seen_ids.add(item_id)
+        unique_selected_words.append(selected)
+    return unique_selected_words
+
+
+def _dedupe_profile_bootstrap_entries(scored_entries: Sequence[object]) -> list[object]:
+    seen_ids: set[str] = set()
+    unique_entries: list[object] = []
+    for entry in scored_entries:
+        seed = getattr(entry, "seed", None)
+        if seed is None:
+            continue
+        item_id = build_item_id(seed.language_pair, seed.lemma)
+        if item_id in seen_ids:
+            continue
+        seen_ids.add(item_id)
+        unique_entries.append(entry)
+    return unique_entries
+
+
+def _seed_to_bootstrap_selector_candidates(seeds: Sequence[object]) -> list[SelectorCandidate]:
+    candidates: list[SelectorCandidate] = []
+    for seed in seeds:
+        admission_weight = (
+            _safe_optional_float(getattr(seed, "admission_weight", None))
+            or _safe_optional_float(getattr(seed, "base_weight", None))
+            or 1.0
+        )
+        candidates.append(
+            SelectorCandidate(
+                lemma=str(getattr(seed, "lemma", "") or "").strip(),
+                language_pair=str(getattr(seed, "language_pair", "") or "").strip(),
+                base_freq=admission_weight,
+                confidence=0.0,
+                pos=str(getattr(seed, "pos_bucket", "") or "").strip() or None,
+                metadata={
+                    "base_weight": _safe_optional_float(getattr(seed, "base_weight", None)),
+                    "admission_weight": admission_weight,
+                    "pos_bucket": str(getattr(seed, "pos_bucket", "") or "").strip() or None,
+                },
+            )
+        )
+    return candidates
+
+
+def _build_frequency_bootstrap_selector_config(
+    *,
+    selection_policy: str,
+    selection_count: int,
+) -> SelectorConfig:
+    return SelectorConfig(
+        weights=SelectorWeights(
+            base_freq=1.0,
+            topic_bias=0.0,
+            scarcity_bonus=0.0,
+            user_pref=0.0,
+            confidence=0.0,
+            difficulty_target=0.0,
+        ),
+        selection_policy=selection_policy,
+        top_n=max(0, int(selection_count)),
+    )
+
+
+def _build_profile_bootstrap_selector_config(
+    *,
+    selection_policy: str,
+    selection_count: int,
+) -> SelectorConfig:
+    return SelectorConfig(
+        selection_policy=selection_policy,
+        top_n=max(0, int(selection_count)),
+    )
+
+
+def _resolve_selection_policy_override(value: object) -> str:
+    normalized = str(value or "").strip().lower()
+    if normalized == SELECTION_POLICY_TOP_N:
+        return SELECTION_POLICY_TOP_N
+    return SELECTION_POLICY_WEIGHTED_WITHOUT_REPLACEMENT
+
+
+def _normalize_optional_int(value: object) -> Optional[int]:
+    if value is None:
+        return None
+    if isinstance(value, int):
+        return value
+    try:
+        return int(str(value).strip())
+    except (TypeError, ValueError):
+        return None
+
+
 def run_rulegen_for_pair(
     *,
     paths: HelperPaths,
@@ -284,10 +527,12 @@ def run_rulegen_for_pair(
     store: SrsStore,
     settings: Optional[SrsSettings],
     jmdict_path: Optional[Path] = None,
+    translation_dict_path: Optional[Path] = None,
     freedict_de_en_path: Optional[Path] = None,
     set_init_config: Optional[SetInitializationConfig] = None,
     rulegen_config: Optional[RulegenConfig] = None,
     targets_override: Optional[Sequence[str]] = None,
+    active_item_ids: Optional[Sequence[str]] = None,
     initialize_if_empty: bool = True,
     persist_store: bool = True,
 ) -> tuple[SrsStore, RulegenOutput]:
@@ -296,17 +541,25 @@ def run_rulegen_for_pair(
     if targets_override is not None:
         targets = [str(target).strip() for target in targets_override if str(target).strip()]
     else:
-        targets = load_targets_from_store(updated_store, pair=pair)
+        targets = load_targets_from_store(updated_store, pair=pair, active_item_ids=active_item_ids)
     if targets_override is None and not targets and initialize_if_empty and set_init_config:
         updated_store = initialize_store_from_frequency_list(
             store,
             config=set_init_config,
         )
-        targets = load_targets_from_store(updated_store, pair=pair)
+        targets = load_targets_from_store(
+            updated_store,
+            pair=pair,
+            active_item_ids=active_item_ids,
+        )
     target_word_packages = load_target_word_packages_from_store(
         updated_store,
         pair=pair,
         targets=targets,
+        active_item_ids=active_item_ids,
+    )
+    resolved_translation_dict_path = (
+        translation_dict_path if translation_dict_path is not None else freedict_de_en_path
     )
     resolved_reverse_freedict_path = default_freedict_reverse_path(
         pair,
@@ -314,8 +567,9 @@ def run_rulegen_for_pair(
     )
     if resolved_reverse_freedict_path is not None and not resolved_reverse_freedict_path.exists():
         resolved_reverse_freedict_path = None
+    rulegen_adapter_request_cls = _rulegen_adapter_request_cls()
     rules = run_rules_with_adapter(
-        RulegenAdapterRequest(
+        rulegen_adapter_request_cls(
             pair=pair,
             targets=targets,
             language_pair=rulegen_config.language_pair,
@@ -329,7 +583,8 @@ def run_rulegen_for_pair(
             reverse_check=rulegen_config.reverse_check,
             gloss_decay=rulegen_config.gloss_decay,
             jmdict_path=jmdict_path,
-            freedict_de_en_path=freedict_de_en_path,
+            translation_dict_path=resolved_translation_dict_path,
+            freedict_de_en_path=resolved_translation_dict_path,
             freedict_reverse_path=resolved_reverse_freedict_path,
             word_packages_by_target=target_word_packages or None,
         )

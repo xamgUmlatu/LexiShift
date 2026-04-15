@@ -10,6 +10,10 @@ from a candidate pool. The algorithm must be:
 
 This document is a **living spec** and will evolve as we tune the model.
 
+Related design:
+- `docs/developer/language_difficulty_and_proficiency_model.md`
+- `docs/srs/srs_onboarding_and_placement_schema.md`
+
 ---
 
 ## High-level flow
@@ -28,6 +32,7 @@ Each candidate should support the following fields (not all required initially):
 - `language_pair` (e.g., `en-en`, `de-en`)
 - `base_freq` (normalized 0–1)
 - `topic_bias` (0–1)
+- `scarcity_bonus` (0–1, optional bounded bonus for sparse-but-real topical support)
 - `user_pref` (0–1)
 - `confidence` (0–1)
 - `difficulty_target` (0–1)
@@ -42,6 +47,27 @@ Signals are **normalized to 0–1** before scoring.
 The selector should derive them at runtime from underlying data sources
 (frequency lists, user streams, dictionary consensus, embeddings, etc).
 The fixed test dataset is only for offline validation.
+
+## Difficulty notes
+
+`difficulty_target` is a planner/selector feature, not a universal source-of-truth difficulty number.
+
+It should remain decomposable into distinct concepts such as:
+
+- user proficiency estimate
+- target challenge center/spread
+- optional target vocabulary label
+- lexical/commonness-based difficulty cues
+- observed SRS difficulty once the learner has history
+
+It should **not** collapse:
+
+- lexical ambiguity for rulegen
+- learner proficiency
+- curriculum band choice
+- observed item difficulty
+
+into one opaque scalar without retaining the underlying components somewhere in the planner or diagnostics.
 
 ---
 
@@ -66,6 +92,7 @@ score(Wi) = SUM( weight_k * signal_k ) * penalties
 These weights are **defaults**; they should be tunable.
 - `base_freq`: **0.55**
 - `topic_bias`: **0.15**
+- `scarcity_bonus`: **0.05**
 - `user_pref`: **0.10**
 - `confidence`: **0.10**
 - `difficulty_target`: **0.10**
@@ -94,17 +121,38 @@ Derived from:
 ### 3) user_pref
 User personalization (manual preference sliders, known goals).
 
-### 4) confidence
+### 4) scarcity_bonus
+Optional bounded boost for sparse-but-real topic support.
+Derived from:
+- active-topic support on the current neutral frontier
+- a bounded multiplier only when the topic has enough labeled support to calibrate safely
+
+Important:
+
+- this is not the same thing as `topic_bias`
+- it should not be implemented as hidden inflation of the user’s saved topic weight
+- current intended use is a profile-bootstrap PoC lane for sparse-but-real topics
+
+### 5) confidence
 Confidence in the word's correctness / usefulness.
 Derived from:
 - dictionary consensus
 - embedding similarity (optional)
 
-### 5) difficulty_target
-How well the word matches the user’s target difficulty band.
+### 6) difficulty_target
+How well the word matches the user’s target challenge region.
 Derived from:
-- user level
-- SRS stability/difficulty metrics
+- user proficiency estimate
+- target challenge center/spread
+- optional target vocabulary label
+- lexical/commonness-based difficulty cues
+- SRS stability/difficulty metrics when local history exists
+
+Practical rule:
+
+- before item history exists, this signal should still be able to operate from proficiency plus vocabulary-band intent
+- after history exists, observed SRS difficulty can refine it
+- this signal should stay explainable in terms of those subcomponents
 
 ---
 
@@ -114,7 +162,7 @@ We can support multiple selection policies:
 2) **Weighted random** (probability proportional to score)
 3) **Hybrid** (take top-K + sample rest)
 
-Initial MVP: **Top-N** for clarity.
+Current admission default: **weighted without replacement** over the scored frontier, with a deterministic `top_n` mode retained for debug preview and controlled tests.
 
 ---
 

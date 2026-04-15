@@ -53,6 +53,16 @@ DEFAULT_STOPWORDS_DE = (
     "unter",
 )
 
+DEFAULT_STOPWORDS_JA = (
+    "だ",
+    "です",
+    "ます",
+    "た",
+    "ない",
+    "れる",
+    "られる",
+)
+
 
 def _sanitize_profile_id(value: str) -> str:
     raw = str(value or "").strip()
@@ -110,6 +120,9 @@ class HelperPaths:
     def srs_signal_queue_path_for(self, profile_id: str | None = None) -> Path:
         return self.profile_srs_dir(profile_id) / "srs_signal_queue.json"
 
+    def srs_inventory_path_for(self, profile_id: str | None = None) -> Path:
+        return self.profile_srs_dir(profile_id) / "srs_inventory.json"
+
     def snapshot_path(self, pair: str, profile_id: str | None = None) -> Path:
         safe_pair = pair.replace("/", "-").replace(":", "-")
         return self.profile_srs_dir(profile_id) / f"srs_rulegen_snapshot_{safe_pair}.json"
@@ -144,7 +157,13 @@ def build_helper_paths(root: Path | None = None) -> HelperPaths:
 def _ensure_default_stopwords(srs_dir: Path) -> None:
     stopwords_dir = srs_dir / "stopwords"
     stopwords_dir.mkdir(parents=True, exist_ok=True)
-    de_path = stopwords_dir / "stopwords-de.json"
-    if not de_path.exists():
-        payload = json.dumps(list(DEFAULT_STOPWORDS_DE), ensure_ascii=False, indent=2)
-        de_path.write_text(payload + "\n", encoding="utf-8")
+    defaults = (
+        ("stopwords-de.json", DEFAULT_STOPWORDS_DE),
+        ("stopwords-ja.json", DEFAULT_STOPWORDS_JA),
+    )
+    for filename, values in defaults:
+        path = stopwords_dir / filename
+        if path.exists():
+            continue
+        payload = json.dumps(list(values), ensure_ascii=False, indent=2)
+        path.write_text(payload + "\n", encoding="utf-8")

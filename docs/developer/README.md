@@ -25,6 +25,7 @@ Use these first when you need current behavior or current operating commands:
 
 - Developer handbook (primary reference): `developer_reference.md`
 - Local setup and day-to-day loops: `local_setup.md`
+- Local workstation inventory and remote access notes: `local_machine_reference.md`
 - Build/release packaging flows: `build_and_release.md`
 - AI-assisted rulegen/POS quality loop: `ai_workflow.md`
 - GenAI workflow architecture and harness policy: `genai_workflow_architecture.md`
@@ -43,6 +44,7 @@ Treat these as planning/history surfaces unless their own metadata says otherwis
 - Documentation grooming queue: `documentation_grooming_workstream.md`
 - Project health remediation workstream: `project_health_remediation_workstream.md`
 - Rulegen benchmark optimization plan: `rulegen_benchmark_optimization_plan.md`
+- Cross-cutting difficulty/proficiency model: `language_difficulty_and_proficiency_model.md`
 - Windows GUI parity workstream: `windows_gui_parity_workstream.md`
 
 ## Core Code Areas

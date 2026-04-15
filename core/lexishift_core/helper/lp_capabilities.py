@@ -13,6 +13,7 @@ class PairCapability:
     srs_selectable: bool = False
     requires_jmdict_for_seed: bool = False
     requires_jmdict_for_rulegen: bool = False
+    requires_translation_dictionary_for_rulegen: bool = False
     requires_freedict_de_en_for_rulegen: bool = False
 
 
@@ -23,7 +24,7 @@ _PAIR_CAPABILITIES: dict[str, PairCapability] = {
         default_frequency_db="freq-ja-bccwj.sqlite",
         srs_selectable=True,
         requires_jmdict_for_seed=True,
-        requires_jmdict_for_rulegen=True,
+        requires_translation_dictionary_for_rulegen=True,
     ),
     "ja-ja": PairCapability(
         pair="ja-ja",
@@ -45,6 +46,7 @@ _PAIR_CAPABILITIES: dict[str, PairCapability] = {
         rulegen_mode="en_de",
         default_frequency_db="freq-de-default.sqlite",
         srs_selectable=True,
+        requires_translation_dictionary_for_rulegen=True,
         requires_freedict_de_en_for_rulegen=True,
     ),
     "en-es": PairCapability(
@@ -52,6 +54,7 @@ _PAIR_CAPABILITIES: dict[str, PairCapability] = {
         rulegen_mode="en_es",
         default_frequency_db="freq-es-cde.sqlite",
         srs_selectable=True,
+        requires_translation_dictionary_for_rulegen=True,
         requires_freedict_de_en_for_rulegen=True,
     ),
     "es-en": PairCapability(
@@ -59,6 +62,7 @@ _PAIR_CAPABILITIES: dict[str, PairCapability] = {
         rulegen_mode="es_en",
         default_frequency_db="freq-en-coca.sqlite",
         srs_selectable=True,
+        requires_translation_dictionary_for_rulegen=True,
         requires_freedict_de_en_for_rulegen=True,
     ),
     "es-es": PairCapability(
@@ -132,13 +136,13 @@ def default_jmdict_path(
     return language_packs_dir / "JMdict_e"
 
 
-def default_freedict_de_en_path(
+def _resolve_default_translation_dictionary_path(
     pair: str,
     *,
     language_packs_dir: Path,
 ) -> Optional[Path]:
     capability = resolve_pair_capability(pair)
-    if not capability.requires_freedict_de_en_for_rulegen:
+    if not capability.requires_translation_dictionary_for_rulegen:
         return None
     filenames = _default_translation_dictionary_filenames_for_pair(capability.pair)
     for filename in filenames:
@@ -157,7 +161,18 @@ def default_translation_dictionary_path(
     *,
     language_packs_dir: Path,
 ) -> Optional[Path]:
-    return default_freedict_de_en_path(pair, language_packs_dir=language_packs_dir)
+    return _resolve_default_translation_dictionary_path(
+        pair,
+        language_packs_dir=language_packs_dir,
+    )
+
+
+def default_freedict_de_en_path(
+    pair: str,
+    *,
+    language_packs_dir: Path,
+) -> Optional[Path]:
+    return default_translation_dictionary_path(pair, language_packs_dir=language_packs_dir)
 
 
 def default_freedict_reverse_path(
@@ -166,9 +181,11 @@ def default_freedict_reverse_path(
     language_packs_dir: Path,
 ) -> Optional[Path]:
     capability = resolve_pair_capability(pair)
-    if not capability.requires_freedict_de_en_for_rulegen:
+    if not capability.requires_translation_dictionary_for_rulegen:
         return None
     filenames = _default_reverse_translation_filenames_for_pair(capability.pair)
+    if not filenames:
+        return None
     for filename in filenames:
         direct_candidate = language_packs_dir / filename
         if direct_candidate.exists():
@@ -188,15 +205,9 @@ def default_reverse_translation_dictionary_path(
     return default_freedict_reverse_path(pair, language_packs_dir=language_packs_dir)
 
 
-def _reverse_pair_key(pair: str) -> str:
-    normalized = normalize_pair_key(pair)
-    left, sep, right = normalized.partition("-")
-    if not sep or not left or not right:
-        return ""
-    return f"{right}-{left}"
-
-
 def _default_translation_dictionary_filenames_for_pair(pair: str) -> tuple[str, ...]:
+    if pair == "en-ja":
+        return ("wiktionary-ja-en.sqlite", "JMdict_e")
     if pair == "en-es":
         return (
             "wiktionary-es-en.sqlite",
@@ -224,10 +235,7 @@ def _default_reverse_translation_filenames_for_pair(pair: str) -> tuple[str, ...
             "freedict-es-en.sqlite",
             "spa-eng.sqlite",
         )
-    reverse_pair = _reverse_pair_key(pair)
-    if not reverse_pair:
-        return ()
-    return _default_translation_dictionary_filenames_for_pair(reverse_pair)
+    return ()
 
 
 def pair_requirements(pair: str) -> dict[str, object]:
@@ -245,7 +253,7 @@ def pair_requirements(pair: str) -> dict[str, object]:
         "requires_jmdict_for_seed": capability.requires_jmdict_for_seed,
         "requires_jmdict_for_rulegen": capability.requires_jmdict_for_rulegen,
         "requires_translation_dictionary_for_rulegen": (
-            capability.requires_freedict_de_en_for_rulegen
+            capability.requires_translation_dictionary_for_rulegen
         ),
         "requires_freedict_de_en_for_rulegen": capability.requires_freedict_de_en_for_rulegen,
     }

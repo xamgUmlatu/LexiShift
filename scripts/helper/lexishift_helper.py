@@ -14,6 +14,7 @@ from lexishift_core.helper.engine import (
     get_srs_runtime_diagnostics,
     RulegenJobConfig,
     SrsRefreshJobConfig,
+    SetAdmissionPreviewJobConfig,
     SetInitializationJobConfig,
     SetPlanningJobConfig,
     apply_exposure,
@@ -21,6 +22,7 @@ from lexishift_core.helper.engine import (
     initialize_srs_set,
     load_snapshot,
     plan_srs_set,
+    preview_srs_admission,
     refresh_srs_set,
     reset_srs_data,
     run_rulegen_job,
@@ -29,9 +31,9 @@ from lexishift_core.helper.profiles import get_profile_rulesets_snapshot, get_pr
 from lexishift_core.helper.paths import build_helper_paths
 from lexishift_core.helper.status import load_status
 from lexishift_core.helper.lp_capabilities import (
-    default_freedict_de_en_path,
     default_frequency_db_path,
     default_jmdict_path,
+    default_translation_dictionary_path,
 )
 
 
@@ -56,6 +58,7 @@ def _resolve_pair_resource_paths(
     *,
     pair: str,
     jmdict_arg: Optional[str],
+    translation_dict_arg: Optional[str],
     freedict_de_en_arg: Optional[str],
     set_source_db_arg: Optional[str],
 ) -> tuple[Optional[Path], Optional[Path], Optional[Path]]:
@@ -67,12 +70,16 @@ def _resolve_pair_resource_paths(
             language_packs_dir=paths.language_packs_dir,
         )
     )
-    freedict_de_en_path = (
-        Path(freedict_de_en_arg)
-        if freedict_de_en_arg
-        else default_freedict_de_en_path(
-            pair,
-            language_packs_dir=paths.language_packs_dir,
+    translation_dict_path = (
+        Path(translation_dict_arg)
+        if translation_dict_arg
+        else (
+            Path(freedict_de_en_arg)
+            if freedict_de_en_arg
+            else default_translation_dictionary_path(
+                pair,
+                language_packs_dir=paths.language_packs_dir,
+            )
         )
     )
     set_source_db = (
@@ -83,7 +90,7 @@ def _resolve_pair_resource_paths(
             frequency_packs_dir=paths.frequency_packs_dir,
         )
     )
-    return jmdict_path, freedict_de_en_path, set_source_db
+    return jmdict_path, translation_dict_path, set_source_db
 
 
 def cmd_status(args: argparse.Namespace) -> int:
@@ -125,10 +132,15 @@ def cmd_srs_diagnostics(args: argparse.Namespace) -> int:
 
 def cmd_run_rulegen(args: argparse.Namespace) -> int:
     paths = build_helper_paths()
-    jmdict_path, freedict_de_en_path, set_source_db = _resolve_pair_resource_paths(
+    jmdict_path, translation_dict_path, set_source_db = _resolve_pair_resource_paths(
         paths,
         pair=args.pair,
         jmdict_arg=args.jmdict,
+        translation_dict_arg=(
+            args.translation_dict
+            if args.translation_dict
+            else (args.jmdict if str(args.pair or "").strip().lower() == "en-ja" else None)
+        ),
         freedict_de_en_arg=args.freedict_de_en,
         set_source_db_arg=args.set_source_db,
     )
@@ -163,7 +175,7 @@ def cmd_run_rulegen(args: argparse.Namespace) -> int:
             config=RulegenJobConfig(
                 pair=args.pair,
                 jmdict_path=jmdict_path,
-                freedict_de_en_path=freedict_de_en_path,
+                translation_dict_path=translation_dict_path,
                 profile_id=args.profile_id or "default",
                 set_source_db=set_source_db,
                 set_top_n=args.set_top_n,
@@ -208,10 +220,11 @@ def cmd_run_rulegen(args: argparse.Namespace) -> int:
 
 def cmd_init_srs_set(args: argparse.Namespace) -> int:
     paths = build_helper_paths()
-    jmdict_path, freedict_de_en_path, set_source_db = _resolve_pair_resource_paths(
+    jmdict_path, translation_dict_path, set_source_db = _resolve_pair_resource_paths(
         paths,
         pair=args.pair,
         jmdict_arg=args.jmdict,
+        translation_dict_arg=args.translation_dict,
         freedict_de_en_arg=args.freedict_de_en,
         set_source_db_arg=args.set_source_db,
     )
@@ -223,7 +236,7 @@ def cmd_init_srs_set(args: argparse.Namespace) -> int:
             config=SetInitializationJobConfig(
                 pair=args.pair,
                 jmdict_path=jmdict_path,
-                freedict_de_en_path=freedict_de_en_path,
+                translation_dict_path=translation_dict_path,
                 set_source_db=set_source_db,
                 profile_id=args.profile_id or "default",
                 set_top_n=args.set_top_n,
@@ -271,12 +284,50 @@ def cmd_plan_srs_set(args: argparse.Namespace) -> int:
         return 1
 
 
-def cmd_refresh_srs_set(args: argparse.Namespace) -> int:
+def cmd_preview_srs_admission(args: argparse.Namespace) -> int:
     paths = build_helper_paths()
-    jmdict_path, freedict_de_en_path, set_source_db = _resolve_pair_resource_paths(
+    jmdict_path, _translation_dict_path, set_source_db = _resolve_pair_resource_paths(
         paths,
         pair=args.pair,
         jmdict_arg=args.jmdict,
+        translation_dict_arg=None,
+        freedict_de_en_arg=None,
+        set_source_db_arg=args.set_source_db,
+    )
+    try:
+        profile_context = _load_optional_json(args.profile_context_json)
+        payload = preview_srs_admission(
+            paths,
+            config=SetAdmissionPreviewJobConfig(
+                pair=args.pair,
+                jmdict_path=jmdict_path,
+                set_source_db=set_source_db,
+                profile_id=args.profile_id or "default",
+                strategy=args.strategy,
+                objective=args.objective,
+                set_top_n=args.set_top_n,
+                bootstrap_top_n=args.bootstrap_top_n,
+                initial_active_count=args.initial_active_count,
+                max_active_items_hint=args.max_active_items_hint,
+                preview_count=args.preview_count,
+                profile_context=profile_context,
+                trigger=args.trigger,
+            ),
+        )
+        _print_json(payload)
+        return 0
+    except Exception as exc:  # noqa: BLE001
+        print(str(exc), file=sys.stderr)
+        return 1
+
+
+def cmd_refresh_srs_set(args: argparse.Namespace) -> int:
+    paths = build_helper_paths()
+    jmdict_path, translation_dict_path, set_source_db = _resolve_pair_resource_paths(
+        paths,
+        pair=args.pair,
+        jmdict_arg=args.jmdict,
+        translation_dict_arg=args.translation_dict,
         freedict_de_en_arg=args.freedict_de_en,
         set_source_db_arg=args.set_source_db,
     )
@@ -286,7 +337,7 @@ def cmd_refresh_srs_set(args: argparse.Namespace) -> int:
             config=SrsRefreshJobConfig(
                 pair=args.pair,
                 jmdict_path=jmdict_path,
-                freedict_de_en_path=freedict_de_en_path,
+                translation_dict_path=translation_dict_path,
                 set_source_db=set_source_db,
                 profile_id=args.profile_id or "default",
                 set_top_n=args.set_top_n,
@@ -374,7 +425,14 @@ def build_parser() -> argparse.ArgumentParser:
     run = sub.add_parser("run_rulegen", help="Run rulegen for a language pair")
     run.add_argument("--pair", default="en-ja")
     run.add_argument("--profile-id", help="Profile id (default: default)")
-    run.add_argument("--jmdict", help="Path to JMdict_e folder")
+    run.add_argument(
+        "--jmdict",
+        help="Path to JMdict_e folder or legacy en-ja translation-dictionary override.",
+    )
+    run.add_argument(
+        "--translation-dict",
+        help="Path to translation dictionary for rulegen/runtime (for example wiktionary-ja-en.sqlite).",
+    )
     run.add_argument("--freedict-de-en", help="Path to FreeDict DE->EN TEI file (deu-eng.tei)")
     run.add_argument("--set-source-db", help="Path to frequency SQLite for initializing S")
     run.add_argument(
@@ -550,7 +608,11 @@ def build_parser() -> argparse.ArgumentParser:
     init_s = sub.add_parser("init_srs_set", help="Initialize S for a language pair")
     init_s.add_argument("--pair", default="en-ja")
     init_s.add_argument("--profile-id", help="Profile id (default: default)")
-    init_s.add_argument("--jmdict", help="Path to JMdict_e folder")
+    init_s.add_argument("--jmdict", help="Path to JMdict_e folder used for seed/bootstrap.")
+    init_s.add_argument(
+        "--translation-dict",
+        help="Optional translation dictionary override for the follow-up rulegen publish step.",
+    )
     init_s.add_argument("--freedict-de-en", help="Path to FreeDict DE->EN TEI file (deu-eng.tei)")
     init_s.add_argument("--set-source-db", help="Path to frequency SQLite used to initialize S")
     init_s.add_argument(
@@ -608,10 +670,53 @@ def build_parser() -> argparse.ArgumentParser:
     plan_s.add_argument("--profile-context-json", help="JSON object with profile context signals")
     plan_s.set_defaults(func=cmd_plan_srs_set)
 
+    preview_s = sub.add_parser(
+        "preview_srs_admission",
+        help="Preview profile-aware bootstrap admissions without mutating store",
+    )
+    preview_s.add_argument("--pair", default="en-ja")
+    preview_s.add_argument("--profile-id", help="Profile id (default: default)")
+    preview_s.add_argument("--jmdict", help="Path to JMdict_e folder used for seed/bootstrap.")
+    preview_s.add_argument(
+        "--set-source-db", help="Path to frequency SQLite used for candidate pool"
+    )
+    preview_s.add_argument(
+        "--set-top-n",
+        type=int,
+        help="Bootstrap top-N cap (defaults from pair policy when omitted).",
+    )
+    preview_s.add_argument(
+        "--bootstrap-top-n",
+        type=int,
+        help="Explicit bootstrap size for S (preferred over --set-top-n).",
+    )
+    preview_s.add_argument(
+        "--initial-active-count", type=int, help="Initial active subset size within bootstrap S."
+    )
+    preview_s.add_argument(
+        "--max-active-items-hint", type=int, help="Hint for active workload cap during planning."
+    )
+    preview_s.add_argument(
+        "--preview-count",
+        type=int,
+        help="How many admitted words to include in the sample output.",
+    )
+    preview_s.add_argument("--strategy", default="profile_bootstrap")
+    preview_s.add_argument("--objective", default="bootstrap")
+    preview_s.add_argument("--trigger", default="cli")
+    preview_s.add_argument(
+        "--profile-context-json", help="JSON object with profile context signals"
+    )
+    preview_s.set_defaults(func=cmd_preview_srs_admission)
+
     refresh_s = sub.add_parser("refresh_srs_set", help="Apply feedback-driven admission refresh")
     refresh_s.add_argument("--pair", default="en-ja")
     refresh_s.add_argument("--profile-id", help="Profile id (default: default)")
-    refresh_s.add_argument("--jmdict", help="Path to JMdict_e folder")
+    refresh_s.add_argument("--jmdict", help="Path to JMdict_e folder used for seed/bootstrap.")
+    refresh_s.add_argument(
+        "--translation-dict",
+        help="Optional translation dictionary override for the follow-up rulegen publish step.",
+    )
     refresh_s.add_argument(
         "--freedict-de-en", help="Path to FreeDict DE->EN TEI file (deu-eng.tei)"
     )

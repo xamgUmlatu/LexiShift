@@ -34,7 +34,11 @@
       });
     }
 
-    async function preflightSrsPairResources(pair, profileId, actionLabel) {
+    async function preflightSrsPairResources(pair, profileId, actionLabel, options) {
+      const preflightOptions = options && typeof options === "object" ? options : {};
+      const setPreflightOutputText = typeof preflightOptions.setOutputText === "function"
+        ? preflightOptions.setOutputText
+        : setOutputText;
       if (!helperManager || typeof helperManager.getSrsRuntimeDiagnostics !== "function") {
         return true;
       }
@@ -45,7 +49,22 @@
       if (!helperData) {
         return true;
       }
-      const missingInputs = Array.isArray(helperData.missing_inputs) ? helperData.missing_inputs : [];
+      const ignoredMissingInputTypes = Array.isArray(preflightOptions.ignoredMissingInputTypes)
+        ? new Set(
+            preflightOptions.ignoredMissingInputTypes
+              .map((value) => String(value || "").trim())
+              .filter((value) => value)
+          )
+        : null;
+      const missingInputs = Array.isArray(helperData.missing_inputs)
+        ? helperData.missing_inputs.filter((entry) => {
+            if (!ignoredMissingInputTypes || !ignoredMissingInputTypes.size) {
+              return true;
+            }
+            const type = entry && entry.type ? String(entry.type).trim() : "";
+            return !ignoredMissingInputTypes.has(type);
+          })
+        : [];
       if (!missingInputs.length) {
         return true;
       }
@@ -53,9 +72,12 @@
         actionLabel,
         pair,
         profileId,
-        helperData
+        helperData: {
+          ...helperData,
+          missing_inputs: missingInputs
+        }
       });
-      setOutputText(lines.join("\n"));
+      setPreflightOutputText(lines.join("\n"));
       setStatus(
         `Missing resources for ${pair}. Add the required files and try again.`,
         colors.ERROR

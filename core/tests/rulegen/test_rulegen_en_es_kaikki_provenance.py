@@ -14,7 +14,11 @@ from lexishift_core.rulegen.kaikki_views import build_kaikki_record_views  # noq
 from lexishift_core.rulegen.pairs.en_es import (  # noqa: E402
     EnEsKaikkiPolicyConfig,
     EnEsRulegenConfig,
+    _should_suppress_fragment_reverse_miss,
     generate_en_es_results,
+)
+from lexishift_core.rulegen.pairs.en_es_support import (  # noqa: E402
+    _expand_en_es_gloss_variants,
 )
 
 
@@ -24,9 +28,9 @@ class TestKaikkiRecordViews(unittest.TestCase):
             {
                 "entry_tags": ["Demonstrative", "Common"],
                 "entry_categories": ["Spanish Determiners"],
-                "sense_tags": ["Mexico", "informal"],
+                "sense_tags": ["Mexico", "informal", "vulgar"],
                 "sense_topics": ["Government", "Communication"],
-                "sense_categories": ["es:Government"],
+                "sense_categories": ["es:Government", "Spanish vulgarities"],
                 "translation_tags": ["Latin-America"],
                 "entry_pos_title": "Determiner",
                 "translation_sense_text": "greeting",
@@ -52,10 +56,12 @@ class TestKaikkiRecordViews(unittest.TestCase):
             ("presentar",),
         )
         self.assertIn("sense_tag:informal", views["combined_prefixed_markers"])
+        self.assertIn("sense_tag:vulgar", views["combined_prefixed_markers"])
         self.assertEqual(
             views["family_fields"]["government_law"],
             ("sense_topic:government", "sense_category:es:government"),
         )
+        self.assertIn("sense_tag:vulgar", views["family_fields"]["register_region"])
         self.assertIn("register_region", views["combined_families"])
         self.assertIn("abbreviation_ellipsis_formof", views["combined_families"])
 
@@ -294,6 +300,21 @@ class TestRulegenEnEsKaikkiProvenance(unittest.TestCase):
         self.assertEqual(account_shadow["risky_families"], ())
         self.assertFalse(bool(account_shadow["would_demote"]))
 
+    def test_build_kaikki_record_views_exposes_new_domain_families(self) -> None:
+        views = build_kaikki_record_views(
+            {
+                "sense_topics": ["Music", "Chemistry", "Mechanics"],
+                "sense_categories": ["es:Biology", "es:Computing"],
+            }
+        )
+
+        combined = views.get("combined_families", ())
+        self.assertIn("music", combined)
+        self.assertIn("chemistry", combined)
+        self.assertIn("mechanics_tools", combined)
+        self.assertIn("biology", combined)
+        self.assertIn("computing", combined)
+
     def test_live_kaikki_policy_demotion_uses_shadow_result(self) -> None:
         results = generate_en_es_results(
             ["cuenta"],
@@ -342,6 +363,194 @@ class TestRulegenEnEsKaikkiProvenance(unittest.TestCase):
         self.assertEqual(
             shadow["live_demotion_reasons"],
             ("kaikki_policy:math_geometry",),
+        )
+
+    def test_live_kaikki_policy_demotion_respects_family_override_values(self) -> None:
+        results = generate_en_es_results(
+            ["batería"],
+            config=EnEsRulegenConfig(
+                freedict_es_en_path=Path("/tmp/unused"),
+                gloss_records_by_target={
+                    "batería": [
+                        FreedictGlossRecord(
+                            translation="drummer",
+                            pos_raw="noun",
+                            metadata={
+                                "sense_topics": ["music"],
+                            },
+                        ),
+                        FreedictGlossRecord(
+                            translation="battery",
+                            pos_raw="noun",
+                            metadata={},
+                        ),
+                    ]
+                },
+                include_variants=False,
+                max_definitions_per_target=None,
+                source_dict_id="wiktionary_es_en",
+                dictionary_pos_source_profile="wiktionary",
+                kaikki_policy=EnEsKaikkiPolicyConfig(
+                    enable_shadow_metadata=True,
+                    enable_live_demotion=True,
+                    risk_families=("music",),
+                    risk_family_demotions=(("music", 0.47),),
+                ),
+            ),
+        )
+
+        by_source = {
+            result.candidate.source_phrase: result.candidate.metadata for result in results
+        }
+        drummer_metadata = by_source["drummer"]
+        self.assertAlmostEqual(drummer_metadata["semantic_demotion"], 0.47, places=6)
+        self.assertEqual(
+            drummer_metadata["semantic_demotion_reason"],
+            "kaikki_policy:music",
+        )
+        shadow = drummer_metadata["kaikki_policy_shadow"]
+        self.assertTrue(bool(shadow["live_demotion_applied"]))
+        self.assertAlmostEqual(shadow["live_demotion_value"], 0.47, places=6)
+        self.assertEqual(shadow["live_demotion_reasons"], ("kaikki_policy:music",))
+
+    def test_long_nominal_gloss_recovers_bare_head_candidate(self) -> None:
+        results = generate_en_es_results(
+            ["batería"],
+            config=EnEsRulegenConfig(
+                freedict_es_en_path=Path("/tmp/unused"),
+                gloss_records_by_target={
+                    "batería": [
+                        FreedictGlossRecord(
+                            translation="large and rechargeable battery",
+                            pos_raw="noun",
+                            metadata={
+                                "entry_ord": 0,
+                                "sense_ord": 0,
+                                "gloss_ord": 0,
+                            },
+                        ),
+                        FreedictGlossRecord(
+                            translation="drum kit, drum set",
+                            pos_raw="noun",
+                            metadata={
+                                "entry_ord": 0,
+                                "sense_ord": 1,
+                                "gloss_ord": 0,
+                                "sense_topics": ["music"],
+                            },
+                        ),
+                    ]
+                },
+                include_variants=False,
+                max_definitions_per_target=None,
+                source_dict_id="wiktionary_es_en",
+                dictionary_pos_source_profile="wiktionary",
+            ),
+        )
+
+        by_source = {
+            result.candidate.source_phrase: result.candidate.metadata for result in results
+        }
+        self.assertIn("battery", by_source)
+        gloss_provenance = by_source["battery"]["gloss_provenance"]
+        self.assertEqual(
+            gloss_provenance["fragment_source_text"],
+            "large and rechargeable battery",
+        )
+        self.assertEqual(gloss_provenance["fragment_strategy"], "nominal_head")
+        self.assertIn(
+            "extract_nominal_head",
+            gloss_provenance["normalization_operations"],
+        )
+
+    def test_short_nominal_compounds_do_not_collapse_to_generic_tail(self) -> None:
+        variants = _expand_en_es_gloss_variants("drum kit", pos_raw="noun")
+        emitted = {text for text, _metadata in variants}
+        self.assertIn("drum kit", emitted)
+        self.assertNotIn("kit", emitted)
+
+    def test_comma_separated_noun_lists_do_not_emit_nominal_head_tail(self) -> None:
+        variants = _expand_en_es_gloss_variants(
+            "sight, scene, picture, spectacle, image (an event that leaves an impact)",
+            pos_raw="noun",
+        )
+        emitted = {text for text, _metadata in variants}
+        self.assertIn("sight, scene, picture, spectacle, image", emitted)
+        self.assertNotIn("image", emitted)
+
+    def test_explanatory_noun_gloss_emits_leading_alias(self) -> None:
+        variants = _expand_en_es_gloss_variants(
+            "picture, painting or other work of art, especially one in a frame",
+            pos_raw="noun",
+        )
+        metadata_by_text = {text: metadata for text, metadata in variants}
+        self.assertIn(
+            "picture, painting or other work of art, especially one in a frame", metadata_by_text
+        )
+        self.assertIn("picture", metadata_by_text)
+        self.assertEqual(
+            metadata_by_text["picture"]["gloss_fragment_strategy"],
+            "leading_alias",
+        )
+        self.assertIn(
+            "extract_leading_alias",
+            metadata_by_text["picture"]["gloss_fragment_operations"],
+        )
+
+    def test_cuadro_art_gloss_surfaces_picture_candidate(self) -> None:
+        results = generate_en_es_results(
+            ["cuadro"],
+            config=EnEsRulegenConfig(
+                freedict_es_en_path=Path("/tmp/unused"),
+                gloss_records_by_target={
+                    "cuadro": [
+                        FreedictGlossRecord(
+                            translation="square (a polygon with four straight sides of equal length and four right angles)",
+                            pos_raw="noun",
+                            metadata={"entry_ord": 0, "sense_ord": 0, "gloss_ord": 0},
+                        ),
+                        FreedictGlossRecord(
+                            translation="rectangle (any quadrilateral having opposing sides parallel and four right angles)",
+                            pos_raw="noun",
+                            metadata={"entry_ord": 0, "sense_ord": 1, "gloss_ord": 0},
+                        ),
+                        FreedictGlossRecord(
+                            translation="picture, painting or other work of art, especially one in a frame",
+                            pos_raw="noun",
+                            metadata={"entry_ord": 0, "sense_ord": 2, "gloss_ord": 0},
+                        ),
+                    ]
+                },
+                include_variants=False,
+                max_definitions_per_target=None,
+                source_dict_id="wiktionary_es_en",
+                dictionary_pos_source_profile="wiktionary",
+            ),
+        )
+
+        metadata_by_source = {
+            result.candidate.source_phrase: result.candidate.metadata for result in results
+        }
+        self.assertIn("picture", metadata_by_source)
+        self.assertEqual(
+            metadata_by_source["picture"]["gloss_provenance"]["fragment_strategy"],
+            "leading_alias",
+        )
+        self.assertFalse(bool(metadata_by_source["picture"]["reverse_check_supported"]))
+        self.assertFalse(bool(metadata_by_source["picture"]["reverse_check_hit"]))
+
+    def test_only_heuristic_fragment_strategies_suppress_reverse_miss(self) -> None:
+        self.assertFalse(
+            _should_suppress_fragment_reverse_miss(
+                gloss_provenance={"fragment_strategy": "top_level_comma"},
+                reverse_rank=None,
+            )
+        )
+        self.assertTrue(
+            _should_suppress_fragment_reverse_miss(
+                gloss_provenance={"fragment_strategy": "leading_alias"},
+                reverse_rank=None,
+            )
         )
 
     def test_provenance_penalty_demotes_late_sense_with_clean_earlier_competition(self) -> None:

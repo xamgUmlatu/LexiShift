@@ -1,0 +1,554 @@
+{
+  "benchmark_json": "docs\\test_outputs\\experiments\\rulegen_en_ja_recall_frontier_single_20260408.json",
+  "pairs_processed": 1,
+  "failing_or_review_count": 16,
+  "items": [
+    {
+      "pair": "en-ja",
+      "case_id": "en-ja:本",
+      "target": "本",
+      "status": "FAIL",
+      "reasons": [
+        "top1_is_forbidden",
+        "forbidden_candidate_present",
+        "expected_candidate_missing_from_top3"
+      ],
+      "top1_source": "jeans",
+      "top3_sources": [
+        "jeans",
+        "pens"
+      ],
+      "expected_matches": [],
+      "forbidden_matches": [
+        "jeans"
+      ],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "high",
+        "notes": [
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
+          "Observed top1 source: jeans",
+          "Observed top3 sources: jeans, pens"
+        ],
+        "candidate_forbidden_top1": [
+          "jeans"
+        ],
+        "candidate_expected_any": [
+          "jeans",
+          "pens"
+        ]
+      }
+    },
+    {
+      "pair": "en-ja",
+      "case_id": "en-ja:犬",
+      "target": "犬",
+      "status": "FAIL",
+      "reasons": [
+        "top1_is_forbidden",
+        "forbidden_candidate_present"
+      ],
+      "top1_source": "radical",
+      "top3_sources": [
+        "radical",
+        "dog"
+      ],
+      "expected_matches": [
+        "dog"
+      ],
+      "forbidden_matches": [
+        "radical"
+      ],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "high",
+        "notes": [
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
+          "Observed top1 source: radical",
+          "Observed top3 sources: radical, dog"
+        ],
+        "candidate_forbidden_top1": [
+          "radical"
+        ],
+        "candidate_expected_any": [
+          "radical",
+          "dog"
+        ]
+      }
+    },
+    {
+      "pair": "en-ja",
+      "case_id": "en-ja:駅",
+      "target": "駅",
+      "status": "FAIL",
+      "reasons": [
+        "forbidden_candidate_present"
+      ],
+      "top1_source": "station",
+      "top3_sources": [
+        "station",
+        "food"
+      ],
+      "expected_matches": [
+        "station"
+      ],
+      "forbidden_matches": [
+        "food"
+      ],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "high",
+        "notes": [
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
+          "Observed top1 source: station",
+          "Observed top3 sources: station, food"
+        ],
+        "candidate_forbidden_top1": [
+          "station"
+        ],
+        "candidate_expected_any": [
+          "station",
+          "food"
+        ]
+      }
+    },
+    {
+      "pair": "en-ja",
+      "case_id": "en-ja:色",
+      "target": "色",
+      "status": "FAIL",
+      "reasons": [
+        "forbidden_candidate_present"
+      ],
+      "top1_source": "color",
+      "top3_sources": [
+        "color",
+        "mood"
+      ],
+      "expected_matches": [
+        "color"
+      ],
+      "forbidden_matches": [
+        "mood"
+      ],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "high",
+        "notes": [
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
+          "Observed top1 source: color",
+          "Observed top3 sources: color, mood"
+        ],
+        "candidate_forbidden_top1": [
+          "color"
+        ],
+        "candidate_expected_any": [
+          "color",
+          "mood"
+        ]
+      }
+    },
+    {
+      "pair": "en-ja",
+      "case_id": "en-ja:赤",
+      "target": "赤",
+      "status": "FAIL",
+      "reasons": [
+        "forbidden_candidate_present"
+      ],
+      "top1_source": "red",
+      "top3_sources": [
+        "red",
+        "communism"
+      ],
+      "expected_matches": [
+        "red"
+      ],
+      "forbidden_matches": [
+        "communism"
+      ],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "high",
+        "notes": [
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
+          "Observed top1 source: red",
+          "Observed top3 sources: red, communism"
+        ],
+        "candidate_forbidden_top1": [
+          "red"
+        ],
+        "candidate_expected_any": [
+          "red",
+          "communism"
+        ]
+      }
+    },
+    {
+      "pair": "en-ja",
+      "case_id": "en-ja:青",
+      "target": "青",
+      "status": "FAIL",
+      "reasons": [
+        "forbidden_candidate_present"
+      ],
+      "top1_source": "blue",
+      "top3_sources": [
+        "blue",
+        "black"
+      ],
+      "expected_matches": [
+        "blue"
+      ],
+      "forbidden_matches": [
+        "black"
+      ],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "high",
+        "notes": [
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
+          "Observed top1 source: blue",
+          "Observed top3 sources: blue, black"
+        ],
+        "candidate_forbidden_top1": [
+          "blue"
+        ],
+        "candidate_expected_any": [
+          "blue",
+          "black"
+        ]
+      }
+    },
+    {
+      "pair": "en-ja",
+      "case_id": "en-ja:黒",
+      "target": "黒",
+      "status": "FAIL",
+      "reasons": [
+        "forbidden_candidate_present"
+      ],
+      "top1_source": "black",
+      "top3_sources": [
+        "black",
+        "stone"
+      ],
+      "expected_matches": [
+        "black"
+      ],
+      "forbidden_matches": [
+        "stone"
+      ],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "high",
+        "notes": [
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
+          "Observed top1 source: black",
+          "Observed top3 sources: black, stone"
+        ],
+        "candidate_forbidden_top1": [
+          "black"
+        ],
+        "candidate_expected_any": [
+          "black",
+          "stone"
+        ]
+      }
+    },
+    {
+      "pair": "en-ja",
+      "case_id": "en-ja:明日",
+      "target": "明日",
+      "status": "FAIL",
+      "reasons": [
+        "forbidden_candidate_present"
+      ],
+      "top1_source": "tomorrow",
+      "top3_sources": [
+        "tomorrow",
+        "name"
+      ],
+      "expected_matches": [
+        "tomorrow"
+      ],
+      "forbidden_matches": [
+        "name"
+      ],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "high",
+        "notes": [
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
+          "Observed top1 source: tomorrow",
+          "Observed top3 sources: tomorrow, name"
+        ],
+        "candidate_forbidden_top1": [
+          "tomorrow"
+        ],
+        "candidate_expected_any": [
+          "tomorrow",
+          "name"
+        ]
+      }
+    },
+    {
+      "pair": "en-ja",
+      "case_id": "en-ja:雪",
+      "target": "雪",
+      "status": "FAIL",
+      "reasons": [
+        "forbidden_candidate_present",
+        "expected_candidate_missing_from_top3"
+      ],
+      "top1_source": "hair",
+      "top3_sources": [
+        "hair",
+        "ice"
+      ],
+      "expected_matches": [],
+      "forbidden_matches": [
+        "hair",
+        "ice"
+      ],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "high",
+        "notes": [
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
+          "Observed top1 source: hair",
+          "Observed top3 sources: hair, ice"
+        ],
+        "candidate_forbidden_top1": [
+          "hair"
+        ],
+        "candidate_expected_any": [
+          "hair",
+          "ice"
+        ]
+      }
+    },
+    {
+      "pair": "en-ja",
+      "case_id": "en-ja:音",
+      "target": "音",
+      "status": "FAIL",
+      "reasons": [
+        "forbidden_candidate_present"
+      ],
+      "top1_source": "sound",
+      "top3_sources": [
+        "sound",
+        "rumor"
+      ],
+      "expected_matches": [
+        "sound"
+      ],
+      "forbidden_matches": [
+        "rumor"
+      ],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "high",
+        "notes": [
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
+          "Observed top1 source: sound",
+          "Observed top3 sources: sound, rumor"
+        ],
+        "candidate_forbidden_top1": [
+          "sound"
+        ],
+        "candidate_expected_any": [
+          "sound",
+          "rumor"
+        ]
+      }
+    },
+    {
+      "pair": "en-ja",
+      "case_id": "en-ja:声",
+      "target": "声",
+      "status": "FAIL",
+      "reasons": [
+        "forbidden_candidate_present"
+      ],
+      "top1_source": "voice",
+      "top3_sources": [
+        "voice",
+        "accent"
+      ],
+      "expected_matches": [
+        "voice"
+      ],
+      "forbidden_matches": [
+        "accent"
+      ],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "high",
+        "notes": [
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
+          "Observed top1 source: voice",
+          "Observed top3 sources: voice, accent"
+        ],
+        "candidate_forbidden_top1": [
+          "voice"
+        ],
+        "candidate_expected_any": [
+          "voice",
+          "accent"
+        ]
+      }
+    },
+    {
+      "pair": "en-ja",
+      "case_id": "en-ja:食べる",
+      "target": "食べる",
+      "status": "FAIL",
+      "reasons": [
+        "forbidden_candidate_present"
+      ],
+      "top1_source": "eat",
+      "top3_sources": [
+        "eat",
+        "drink"
+      ],
+      "expected_matches": [
+        "eat"
+      ],
+      "forbidden_matches": [
+        "drink"
+      ],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "high",
+        "notes": [
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
+          "Observed top1 source: eat",
+          "Observed top3 sources: eat, drink"
+        ],
+        "candidate_forbidden_top1": [
+          "eat"
+        ],
+        "candidate_expected_any": [
+          "eat",
+          "drink"
+        ]
+      }
+    },
+    {
+      "pair": "en-ja",
+      "case_id": "en-ja:飲む",
+      "target": "飲む",
+      "status": "FAIL",
+      "reasons": [
+        "expected_candidate_missing_from_top3",
+        "no_rules_emitted"
+      ],
+      "top1_source": null,
+      "top3_sources": [],
+      "expected_matches": [],
+      "forbidden_matches": [],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "high",
+        "notes": [
+          "Review case labels and pair tuning; this case violates hard quality expectations."
+        ]
+      }
+    },
+    {
+      "pair": "en-ja",
+      "case_id": "en-ja:買う",
+      "target": "買う",
+      "status": "FAIL",
+      "reasons": [
+        "forbidden_candidate_present"
+      ],
+      "top1_source": "buy",
+      "top3_sources": [
+        "buy",
+        "value"
+      ],
+      "expected_matches": [
+        "buy"
+      ],
+      "forbidden_matches": [
+        "value"
+      ],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "high",
+        "notes": [
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
+          "Observed top1 source: buy",
+          "Observed top3 sources: buy, value"
+        ],
+        "candidate_forbidden_top1": [
+          "buy"
+        ],
+        "candidate_expected_any": [
+          "buy",
+          "value"
+        ]
+      }
+    },
+    {
+      "pair": "en-ja",
+      "case_id": "en-ja:売る",
+      "target": "売る",
+      "status": "FAIL",
+      "reasons": [
+        "forbidden_candidate_present",
+        "expected_candidate_missing_from_top3"
+      ],
+      "top1_source": "betray",
+      "top3_sources": [
+        "betray",
+        "agitate"
+      ],
+      "expected_matches": [],
+      "forbidden_matches": [
+        "betray",
+        "agitate"
+      ],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "high",
+        "notes": [
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
+          "Observed top1 source: betray",
+          "Observed top3 sources: betray, agitate"
+        ],
+        "candidate_forbidden_top1": [
+          "betray"
+        ],
+        "candidate_expected_any": [
+          "betray",
+          "agitate"
+        ]
+      }
+    },
+    {
+      "pair": "en-ja",
+      "case_id": "en-ja:分かる",
+      "target": "分かる",
+      "status": "FAIL",
+      "reasons": [
+        "expected_candidate_missing_from_top3",
+        "no_rules_emitted"
+      ],
+      "top1_source": null,
+      "top3_sources": [],
+      "expected_matches": [],
+      "forbidden_matches": [],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "high",
+        "notes": [
+          "Review case labels and pair tuning; this case violates hard quality expectations."
+        ]
+      }
+    }
+  ]
+}

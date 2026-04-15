@@ -116,6 +116,30 @@
   "hint_srs_initial_active_count": {
     "message": "Anzahl der anfänglich nicht-null/aktiven Wörter aus der Bootstrap-Liste."
   },
+  "section_srs_admission_preferences": {
+    "message": "Admission-Präferenzen"
+  },
+  "hint_srs_admission_preferences": {
+    "message": "Diese Werte ordnen die Bootstrap-Aufnahme für das ausgewählte Profil und Sprachpaar um."
+  },
+  "label_srs_topic_interests": {
+    "message": "Themeninteressen"
+  },
+  "hint_srs_topic_interests": {
+    "message": "Kommagetrennte Tags. Aktuell werden direkte Tag-Treffer unmittelbar verwendet."
+  },
+  "label_srs_proficiency_estimate": {
+    "message": "Kompetenzschätzung (%)"
+  },
+  "hint_srs_proficiency_estimate": {
+    "message": "0 bis 100. Leer lassen, um das Kompetenzsignal neutral zu halten."
+  },
+  "label_srs_challenge_target": {
+    "message": "Zielschwierigkeit (%)"
+  },
+  "hint_srs_challenge_target": {
+    "message": "0 bis 100. Leer lassen, um die Challenge-Präferenz neutral zu halten."
+  },
   "label_srs_highlight_color": {
     "message": "SRS-Hervorhebungsfarbe"
   },
@@ -182,11 +206,20 @@
   "button_srs_initialize": {
     "message": "S für dieses Paar initialisieren"
   },
+  "button_srs_rebalance_preview": {
+    "message": "Rebalance-Vorschau mit aktuellen Präferenzen"
+  },
+  "button_srs_rebalance_apply": {
+    "message": "Rebalance anwenden…"
+  },
   "button_srs_refresh_set": {
     "message": "S aktualisieren + Regeln veröffentlichen"
   },
   "button_srs_runtime_diagnostics": {
     "message": "SRS-Laufzeitdiagnose"
+  },
+  "button_srs_admission_preview": {
+    "message": "Beispiel zugelassener Wörter erzeugen (5)…"
   },
   "button_srs_rulegen_preview": {
     "message": "Regeln generieren (Debug)…"
@@ -203,6 +236,12 @@
   "confirm_srs_reset_2": {
     "message": "Lernverlauf für dieses Paar wirklich löschen und neu beginnen?"
   },
+  "confirm_srs_rebalance_title": {
+    "message": "Aktives SRS-Set für $1 mit den aktuellen Präferenzen neu ausbalancieren?"
+  },
+  "confirm_srs_rebalance_body_counts": {
+    "message": "$1 geschützte Wörter bleiben aktiv, $2 Wörter mit geringer Bindung verlassen das aktive Set und $3 Wörter werden aktiviert. Der Wiederholungsverlauf bleibt erhalten."
+  },
   "status_srs_sampling": {
     "message": "Stichprobe läuft…"
   },
@@ -212,6 +251,21 @@
   "status_srs_rulegen_running": {
     "message": "Regeln werden generiert…"
   },
+  "status_srs_admission_preview_running": {
+    "message": "Beispiel zugelassener Wörter wird erzeugt ($1)…"
+  },
+  "status_srs_admission_preview_header": {
+    "message": "Zulassungsbeispiel: $1 angezeigt / $2 Bootstrap-Wörter für $3."
+  },
+  "status_srs_admission_preview_plan_only": {
+    "message": "Vorschau nicht verfügbar, weil die gewählte Strategie nur Planungsmodus ist."
+  },
+  "status_srs_admission_preview_empty": {
+    "message": "Für $1 ist kein Zulassungsbeispiel verfügbar."
+  },
+  "status_srs_admission_preview_failed": {
+    "message": "Zulassungsvorschau fehlgeschlagen."
+  },
   "status_srs_rulegen_sampled_running": {
     "message": "Stichproben-Regelgen läuft ($1)…"
   },
@@ -220,6 +274,39 @@
   },
   "status_srs_set_init_running": {
     "message": "S wird initialisiert…"
+  },
+  "status_srs_rebalance_preview_running": {
+    "message": "Rebalance-Vorschau für $1 wird vorbereitet…"
+  },
+  "status_srs_rebalance_apply_running": {
+    "message": "Rebalance-Anwendung für $1 wird vorbereitet…"
+  },
+  "status_srs_rebalance_preview_header": {
+    "message": "Rebalance-Vorschau für $1: behalten $2, parken $3, aktivieren $4."
+  },
+  "status_srs_rebalance_apply_result": {
+    "message": "Rebalance für $1 angewendet: behalten $2, parken $3, aktivieren $4."
+  },
+  "status_srs_rebalance_ready": {
+    "message": "Rebalance-Vorschau für $1 ist bereit."
+  },
+  "status_srs_rebalance_blocked": {
+    "message": "Rebalance ist für $1 noch nicht bereit."
+  },
+  "status_srs_rebalance_applied": {
+    "message": "Rebalance für $1 angewendet."
+  },
+  "status_srs_rebalance_noop": {
+    "message": "Für $1 waren keine Änderungen am aktiven Set nötig."
+  },
+  "status_srs_rebalance_cancelled": {
+    "message": "Rebalance für $1 abgebrochen."
+  },
+  "status_srs_rebalance_preview_failed": {
+    "message": "SRS-Rebalance-Vorschau fehlgeschlagen."
+  },
+  "status_srs_rebalance_apply_failed": {
+    "message": "SRS-Rebalance-Anwendung fehlgeschlagen."
   },
   "status_srs_refresh_running": {
     "message": "S wird aktualisiert und Regeln werden veröffentlicht…"
@@ -265,6 +352,9 @@
   },
   "status_srs_rulegen_empty": {
     "message": "Keine Regeln für die aktuellen Wörter gefunden."
+  },
+  "status_srs_rulegen_other_pairs_only": {
+    "message": "Dieses Profil hat SRS-Einträge, aber keine für $1. Initialisiere S für dieses Paar oder wechsle zu einem Paar, das bereits Einträge hat."
   },
   "status_srs_sample_failed": {
     "message": "SRS-Stichprobe fehlgeschlagen."

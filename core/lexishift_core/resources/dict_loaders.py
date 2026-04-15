@@ -515,6 +515,7 @@ def _load_auxiliary_sqlite_gloss_records_ordered(
             {"em.pos_title" if has_entry_meta else "NULL"} AS entry_pos_title,
             {"em.tags_json" if has_entry_meta else "NULL"} AS entry_tags_json,
             {"em.categories_json" if has_entry_meta else "NULL"} AS entry_categories_json,
+            {"em.forms_json" if has_entry_meta else "NULL"} AS entry_forms_json,
             {"tm.sense_text" if has_translation_meta else "NULL"} AS translation_sense_text,
             {"tm.english_text" if has_translation_meta else "NULL"} AS translation_english_text,
             {"tm.note_text" if has_translation_meta else "NULL"} AS translation_note_text,
@@ -546,6 +547,7 @@ def _load_auxiliary_sqlite_gloss_records_ordered(
                 entry_pos_title,
                 entry_tags_json,
                 entry_categories_json,
+                entry_forms_json,
                 translation_sense_text,
                 translation_english_text,
                 translation_note_text,
@@ -569,6 +571,7 @@ def _load_auxiliary_sqlite_gloss_records_ordered(
                 entry_pos_title=entry_pos_title,
                 entry_tags_json=entry_tags_json,
                 entry_categories_json=entry_categories_json,
+                entry_forms_json=entry_forms_json,
                 translation_sense_text=translation_sense_text,
                 translation_english_text=translation_english_text,
                 translation_note_text=translation_note_text,
@@ -659,6 +662,7 @@ def _build_auxiliary_gloss_metadata(
     entry_pos_title: object,
     entry_tags_json: object,
     entry_categories_json: object,
+    entry_forms_json: object,
     translation_sense_text: object,
     translation_english_text: object,
     translation_note_text: object,
@@ -676,6 +680,7 @@ def _build_auxiliary_gloss_metadata(
     _set_text_metadata(metadata, "translation_roman_text", translation_roman_text)
     _set_json_metadata(metadata, "entry_tags", entry_tags_json)
     _set_json_metadata(metadata, "entry_categories", entry_categories_json)
+    _set_json_metadata(metadata, "entry_forms", entry_forms_json)
     _set_json_metadata(metadata, "sense_raw_glosses", raw_glosses_json)
     _set_json_metadata(metadata, "sense_tags", sense_tags_json)
     _set_json_metadata(metadata, "sense_topics", sense_topics_json)
@@ -888,6 +893,120 @@ def load_translation_headwords(path: Path) -> tuple[str, ...]:
             str(value or "").strip() for value in payload if str(value or "").strip()
         ),
     )
+
+
+def load_translation_headword_alias_index(path: Path) -> dict[str, tuple[str, ...]]:
+    return load_or_compute_path_json_value(
+        path,
+        namespace="translation_pack_metadata",
+        key={"kind": "headword_alias_index"},
+        compute=lambda: _build_translation_headword_alias_index(path),
+        serialize=lambda mapping: {
+            str(alias or "").strip().lower(): [
+                str(headword or "").strip() for headword in headwords if str(headword or "").strip()
+            ]
+            for alias, headwords in mapping.items()
+            if str(alias or "").strip()
+        },
+        deserialize=lambda payload: {
+            str(alias or "").strip().lower(): tuple(
+                str(headword or "").strip() for headword in headwords if str(headword or "").strip()
+            )
+            for alias, headwords in payload.items()
+            if str(alias or "").strip()
+        },
+    )
+
+
+def _build_translation_headword_alias_index(path: Path) -> dict[str, tuple[str, ...]]:
+    if not _is_sqlite_file(path):
+        return {}
+    try:
+        conn = sqlite3.connect(path)
+        try:
+            return _load_auxiliary_sqlite_headword_alias_index(conn)
+        finally:
+            conn.close()
+    except sqlite3.Error:
+        return {}
+
+
+def _load_auxiliary_sqlite_headword_alias_index(
+    conn: sqlite3.Connection,
+) -> dict[str, tuple[str, ...]]:
+    aliases_by_headword: dict[str, list[str]] = {}
+    if _sqlite_has_table(conn, "entry_meta"):
+        cursor = conn.execute(
+            """
+            SELECT headword, forms_json
+            FROM entry_meta
+            ORDER BY headword_lc, headword
+            """
+        )
+        try:
+            for headword, forms_json in cursor:
+                headword_text = str(headword or "").strip()
+                if not headword_text:
+                    continue
+                for alias in _extract_translation_headword_alias_texts(
+                    headword=headword_text,
+                    forms_json=forms_json,
+                ):
+                    bucket = aliases_by_headword.setdefault(alias, [])
+                    if headword_text not in bucket:
+                        bucket.append(headword_text)
+        finally:
+            cursor.close()
+    return {alias: tuple(headwords) for alias, headwords in sorted(aliases_by_headword.items())}
+
+
+def _extract_translation_headword_alias_texts(
+    *,
+    headword: str,
+    forms_json: object,
+) -> tuple[str, ...]:
+    aliases: list[str] = []
+    seen: set[str] = set()
+
+    def add(value: object) -> None:
+        text = str(value or "").strip()
+        if not text:
+            return
+        lowered = text.lower()
+        if lowered in seen:
+            return
+        seen.add(lowered)
+        aliases.append(lowered)
+
+    if contains_kana(headword) or _is_ascii_translation_alias_text(headword):
+        add(headword)
+        if contains_kana(headword):
+            add(kana_to_romaji(headword))
+
+    parsed_forms = _parse_json_column(forms_json)
+    if not isinstance(parsed_forms, Sequence) or isinstance(parsed_forms, (str, bytes)):
+        return tuple(aliases)
+    for form in parsed_forms:
+        if not isinstance(form, Mapping):
+            continue
+        form_text = str(form.get("form") or "").strip()
+        if form_text and (contains_kana(form_text) or _is_ascii_translation_alias_text(form_text)):
+            add(form_text)
+            if contains_kana(form_text):
+                add(kana_to_romaji(form_text))
+        roman_text = str(form.get("roman") or "").strip()
+        if _is_ascii_translation_alias_text(roman_text):
+            add(roman_text)
+    return tuple(aliases)
+
+
+def _is_ascii_translation_alias_text(value: object) -> bool:
+    text = str(value or "").strip()
+    if not text:
+        return False
+    if not all(ord(char) < 128 for char in text):
+        return False
+    return any("a" <= char.lower() <= "z" for char in text)
 
 
 def _is_sqlite_file(path: Path) -> bool:

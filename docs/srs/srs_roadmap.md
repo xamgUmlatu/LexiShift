@@ -3,6 +3,11 @@
 Related design:
 - `docs/srs/srs_hybrid_model_technical.md`
 - `docs/architecture/srs_lp_architecture.md`
+- `docs/developer/language_difficulty_and_proficiency_model.md`
+- `docs/developer/srs_admission_runtime_veto_handoff.md`
+- `docs/srs/srs_onboarding_and_placement_schema.md`
+- `docs/srs/srs_preference_update_and_rebalance_policy.md`
+- `docs/srs/srs_preference_signal_admission_v1_contract.md`
 
 ## Goal
 Ship a non-destructive SRS layer where:
@@ -94,9 +99,12 @@ Status key:
 - `[x]` Planner scaffold (`srs_plan_set` + extended `srs_initialize`).
 - `[x]` Centralized sizing policy (`bootstrap_top_n`, `initial_active_count`, clamps, diagnostics notes).
 - `[~]` Profile-aware weighting in `profile_bootstrap`.
+- `[x]` Concrete `v1` preference-signal admission contract plus synthetic sanity harness for neutral vs topic-biased reranking.
 - `[x]` POS-aware admission biasing/filtering (explicit default order: noun > adjective > verb > adverb > other).
 - `[x]` Helper-side stopword filtering for bootstrap candidates (strict JSON-array format).
 - `[x]` Initial active subset admission in bootstrap (`initial_active_count`) now mutates persisted `S`.
+- `[x]` Explicit pair-local active inventory manifest (`srs_inventory.json`) for publication/sampling/runtime diagnostics without deleting retained learning records.
+- `[ ]` Non-destructive pair-local rebalance of active inventory to current preferences, with protected-item retention.
 - `[ ]` Executable `profile_growth` policy.
 - `[ ]` Pair-configurable admission coefficients and denylist controls (helper source of truth).
 
@@ -122,7 +130,9 @@ Status key:
 - `[x]` Profile-scoped options UI prefs (`uiPrefs`) with explicit Apply publish path (`backgroundAssetId`, `backgroundEnabled`, `backgroundOpacity`, `backgroundBackdropColor`).
 - `[x]` Native messaging `profile_id` wiring for SRS commands (`get_ruleset/get_snapshot/srs_diagnostics/record_feedback/srs_initialize/srs_refresh/srs_reset`).
 - `[x]` Helper SRS files moved to profile-scoped directory structure under `srs/profiles/<profile_id>/`.
-- `[ ]` Profile editor UX (interests/proficiency/objectives/constraints).
+- `[~]` Profile editor UX.
+  - shipped: pair-scoped editing for `interests`, `proficiency.estimated_value`, and `difficulty_preferences.target_challenge_center`
+  - not yet shipped: objectives, constraints, target vocabulary band, onboarding placement flow
 - `[ ]` Pair-specific planner policy registry.
 
 ### Workstream E — Rulegen and S integration
@@ -130,6 +140,7 @@ Status key:
 - `[x]` Helper initialize action exposed in options.
 - `[x]` Ensure debug rulegen scopes to current helper-managed `S` only.
 - `[x]` Add sampled rulegen debug path (helper-side probabilistic sampling from current `S`).
+- `[x]` Add admitted-word sample preview in options (planner-only helper path using current profile context before mutating `S`).
 - `[~]` Unified diagnostics surface for plan + snapshot + ruleset.
 - `[x]` Initialization diagnostics now include admission profile + weighted preview of admitted items.
 - `[x]` Production publish path: `srs_initialize` now runs rulegen once and persists runtime ruleset/snapshot.
@@ -150,6 +161,8 @@ Status key:
 
 ### Workstream G — End-to-End validation and calibration
 - `[~]` Define deterministic SRS E2E scenario set (bootstrap -> sampled rulegen -> feedback -> resample).
+- `[x]` Add initial frequency-pack topic-metadata coverage audit for preference-aware admission.
+- `[x]` Wire upstream frequency-pack topic enrichment from companion Kaikki/Wiktionary SQLite sources for `freq-ja-bccwj` and `freq-es-cde` when those local language-pack databases exist.
 - `[x]` Add helper integration tests for full feedback loop affecting serving priority.
 - `[x]` Add deterministic helper test: feedback updates schedule fields and can trigger `retention_low` admission pause.
 - `[x]` Add assertion checks for "no schedule mutation from exposure-only events".
@@ -197,11 +210,27 @@ Definition of done for `en-de` parity:
 4. Keep frequency bootstrap as executable baseline.
 
 ### Phase 2 (admission quality)
-1. Implement profile-aware scoring for bootstrap/growth admission.
-2. Make `initial_active_count` executable in active/frontier serving policy.
-3. Add planner diagnostics for why each item entered `S`.
-4. Add policy knobs for per-pair new-item pace.
-5. Make POS/stopword admission policy pair-configurable without code edits.
+1. Extend and keep current live seed-topic metadata coverage reporting for supported frequency sources.
+2. Tune explicit-interest scoring for bootstrap/growth admission using the `v1` contract and sanity report.
+   Current PoC checkpoint:
+   - bounded `scarcity_bonus` is now an acceptable provisional lane for sparse-but-real topic support
+   - keep it documented as provisional until pair coverage and coefficients are reviewed
+   - current `en-es` Monte Carlo review confirms the probabilistic scorer/selector path is architecturally correct, but the resulting lift is still modest and should be treated as a tuning TODO rather than a merge blocker
+   TODO:
+   - tune eligibility thresholds (`min_count`, `min_mass`)
+   - tune target support mass / max extra boost
+   - harden against noisy topical domains before calling it final
+3. Run the semantic-generalization bake-off before any embedding-backed admission signal:
+   - symbolic-only baseline,
+   - alias/topic-expansion control,
+   - static-embedding fallback,
+   - multilingual text-embedding fallback.
+4. Define a bounded lexical-trend admission lane for exact implicit mined words.
+5. Keep register/style preferences such as `slang` out of the topic lane and plan them as a future separate axis.
+6. Make `initial_active_count` executable in active/frontier serving policy.
+7. Add planner diagnostics for why each item entered `S`.
+8. Add policy knobs for per-pair new-item pace.
+9. Make POS/stopword admission policy pair-configurable without code edits.
 
 ### Phase 3 (adaptive refresh)
 1. Aggregate feedback trends in bounded windows.
@@ -213,6 +242,10 @@ Definition of done for `en-de` parity:
 2. Implement profile-signal normalization and pair-level admission bias persistence.
 3. Validate that profile adjustments affect admission (`weight 1`) but not due scheduler math (`weight 2`).
 4. Add operator-facing diagnostics for admission drift and refresh decisions.
+5. Later add explicit onboarding/placement inputs for:
+   - user proficiency estimate
+   - target vocabulary band
+   - confidence in that estimate
 
 ---
 

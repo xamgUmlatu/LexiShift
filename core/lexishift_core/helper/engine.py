@@ -5,7 +5,13 @@ import json
 from pathlib import Path
 from typing import Mapping, Optional, Sequence
 
+from lexishift_core.frequency.sqlite_store import (
+    validate_frequency_sqlite_db as _validate_frequency_sqlite_db,
+)
 from lexishift_core.helper.paths import HelperPaths
+from lexishift_core.helper.lp_capabilities import (
+    resolve_pair_capability as _resolve_pair_capability,
+)
 from lexishift_core.helper.pair_resources import (
     resolve_pair_resources as _resolve_pair_resources,
     resolve_stopwords_path as _resolve_stopwords_path,
@@ -19,8 +25,18 @@ from lexishift_core.helper.status import HelperStatus, load_status, save_status
 from lexishift_core.helper.use_cases.initialize_set import (
     initialize_srs_set as _initialize_srs_set_use_case,
 )
+from lexishift_core.helper.use_cases.admission_preview import (
+    preview_srs_admission as _preview_srs_admission_use_case,
+)
+from lexishift_core.helper.use_cases.reset import (
+    reset_srs_data as _reset_srs_data_use_case,
+)
 from lexishift_core.helper.use_cases.refresh_set import (
     refresh_srs_set as _refresh_srs_set_use_case,
+)
+from lexishift_core.helper.use_cases.rebalance_set import (
+    apply_srs_rebalance as _apply_srs_rebalance_use_case,
+    plan_srs_rebalance as _plan_srs_rebalance_use_case,
 )
 from lexishift_core.helper.use_cases.set_planning import (
     build_set_plan_payload as _build_set_plan_payload,
@@ -40,50 +56,26 @@ from lexishift_core.srs import (
     save_srs_store,
 )
 from lexishift_core.srs.pair_policy import resolve_srs_pair_policy
+from lexishift_core.srs.seed import build_seed_candidates as _build_seed_candidates_use_case
 from lexishift_core.srs.set_strategy import (
     OBJECTIVE_BOOTSTRAP,
+    OBJECTIVE_REBALANCE,
     STRATEGY_FREQUENCY_BOOTSTRAP,
+    STRATEGY_PROFILE_GROWTH,
 )
 from lexishift_core.srs.source import SOURCE_EXTENSION
 from lexishift_core.srs.time import now_utc
 
 
 def build_seed_candidates(*args, **kwargs):
-    seed_module = __import__(
-        "lexishift_core.srs.seed",
-        fromlist=["build_seed_candidates"],
-    )
-    return seed_module.build_seed_candidates(*args, **kwargs)
-
-
-def _get_srs_runtime_diagnostics_use_case(*args, **kwargs):
-    diagnostics_module = __import__(
-        "lexishift_core.helper.use_cases.runtime_diagnostics",
-        fromlist=["get_srs_runtime_diagnostics"],
-    )
-    return diagnostics_module.get_srs_runtime_diagnostics(*args, **kwargs)
-
-
-def _run_rulegen_job_use_case(*args, **kwargs):
-    rulegen_job_module = __import__(
-        "lexishift_core.helper.use_cases.rulegen_job",
-        fromlist=["run_rulegen_job"],
-    )
-    return rulegen_job_module.run_rulegen_job(*args, **kwargs)
-
-
-def _reset_srs_data_use_case(*args, **kwargs):
-    reset_module = __import__(
-        "lexishift_core.helper.use_cases.reset",
-        fromlist=["reset_srs_data"],
-    )
-    return reset_module.reset_srs_data(*args, **kwargs)
+    return _build_seed_candidates_use_case(*args, **kwargs)
 
 
 @dataclass(frozen=True)
 class RulegenJobConfig:
     pair: str
     jmdict_path: Optional[Path] = None
+    translation_dict_path: Optional[Path] = None
     freedict_de_en_path: Optional[Path] = None
     profile_id: str = "default"
     set_source_db: Optional[Path] = None
@@ -129,6 +121,7 @@ class RulegenJobConfig:
 class SetInitializationJobConfig:
     pair: str
     jmdict_path: Optional[Path] = None
+    translation_dict_path: Optional[Path] = None
     freedict_de_en_path: Optional[Path] = None
     set_source_db: Optional[Path] = None
     profile_id: str = "default"
@@ -140,6 +133,7 @@ class SetInitializationJobConfig:
     strategy: str = STRATEGY_FREQUENCY_BOOTSTRAP
     objective: str = OBJECTIVE_BOOTSTRAP
     profile_context: Optional[Mapping[str, object]] = None
+    selection_seed: Optional[int] = None
     trigger: str = "manual"
 
 
@@ -159,9 +153,29 @@ class SetPlanningJobConfig:
 
 
 @dataclass(frozen=True)
+class SetAdmissionPreviewJobConfig:
+    pair: str
+    jmdict_path: Optional[Path] = None
+    set_source_db: Optional[Path] = None
+    profile_id: str = "default"
+    strategy: str = STRATEGY_FREQUENCY_BOOTSTRAP
+    objective: str = OBJECTIVE_BOOTSTRAP
+    set_top_n: Optional[int] = None
+    bootstrap_top_n: Optional[int] = None
+    initial_active_count: Optional[int] = None
+    max_active_items_hint: Optional[int] = None
+    preview_count: Optional[int] = None
+    preview_sampling_mode: Optional[str] = None
+    preview_seed: Optional[int] = None
+    profile_context: Optional[Mapping[str, object]] = None
+    trigger: str = "manual"
+
+
+@dataclass(frozen=True)
 class SrsRefreshJobConfig:
     pair: str
     jmdict_path: Optional[Path] = None
+    translation_dict_path: Optional[Path] = None
     freedict_de_en_path: Optional[Path] = None
     set_source_db: Optional[Path] = None
     profile_id: str = "default"
@@ -170,9 +184,26 @@ class SrsRefreshJobConfig:
     max_active_items: Optional[int] = None
     max_new_items: Optional[int] = None
     allowed_pos: Optional[Sequence[str]] = None
+    selection_seed: Optional[int] = None
     persist_store: bool = True
     trigger: str = "manual"
     profile_context: Optional[Mapping[str, object]] = None
+
+
+@dataclass(frozen=True)
+class SrsRebalanceJobConfig:
+    pair: str
+    jmdict_path: Optional[Path] = None
+    translation_dict_path: Optional[Path] = None
+    freedict_de_en_path: Optional[Path] = None
+    set_source_db: Optional[Path] = None
+    profile_id: str = "default"
+    strategy: str = STRATEGY_PROFILE_GROWTH
+    objective: str = OBJECTIVE_REBALANCE
+    set_top_n: Optional[int] = None
+    max_active_items: Optional[int] = None
+    profile_context: Optional[Mapping[str, object]] = None
+    trigger: str = "manual"
 
 
 def _ensure_settings(paths: HelperPaths, *, persist_missing: bool = True) -> SrsSettings:
@@ -255,6 +286,10 @@ def get_srs_runtime_diagnostics(
     pair: str,
     profile_id: str = "default",
 ) -> dict:
+    from lexishift_core.helper.use_cases.runtime_diagnostics import (
+        get_srs_runtime_diagnostics as _get_srs_runtime_diagnostics_use_case,
+    )
+
     return _get_srs_runtime_diagnostics_use_case(
         paths,
         pair=pair,
@@ -289,33 +324,27 @@ def _ensure_pair_requirements(
     *,
     pair: str,
     jmdict_path: Optional[Path],
-    freedict_de_en_path: Optional[Path],
+    translation_dict_path: Optional[Path],
     require_frequency_db: bool,
     set_source_db: Optional[Path],
     check_seed_resources: bool = False,
     check_rulegen_resources: bool = False,
 ) -> None:
-    lp_capabilities = __import__(
-        "lexishift_core.helper.lp_capabilities",
-        fromlist=["resolve_pair_capability"],
-    )
-    capability = lp_capabilities.resolve_pair_capability(pair)
-    requires_jmdict = (check_seed_resources and capability.requires_jmdict_for_seed) or (
-        check_rulegen_resources and capability.requires_jmdict_for_rulegen
-    )
+    capability = _resolve_pair_capability(pair)
+    requires_jmdict = check_seed_resources and capability.requires_jmdict_for_seed
     if requires_jmdict:
         if jmdict_path is None:
             raise ValueError(f"Missing JMDict path for pair '{pair}'.")
         if not jmdict_path.exists():
             raise FileNotFoundError(jmdict_path)
-    requires_freedict_de_en = (
-        check_rulegen_resources and capability.requires_freedict_de_en_for_rulegen
+    requires_translation_dict = (
+        check_rulegen_resources and capability.requires_translation_dictionary_for_rulegen
     )
-    if requires_freedict_de_en:
-        if freedict_de_en_path is None:
-            raise ValueError(f"Missing FreeDict DE->EN path for pair '{pair}'.")
-        if not freedict_de_en_path.exists():
-            raise FileNotFoundError(freedict_de_en_path)
+    if requires_translation_dict:
+        if translation_dict_path is None:
+            raise ValueError(f"Missing translation dictionary path for pair '{pair}'.")
+        if not translation_dict_path.exists():
+            raise FileNotFoundError(translation_dict_path)
     if require_frequency_db:
         if set_source_db is None:
             raise ValueError(f"Missing frequency source DB for pair '{pair}'.")
@@ -327,11 +356,7 @@ def _ensure_pair_requirements(
         and (require_frequency_db or check_seed_resources)
     )
     if should_validate_frequency_db:
-        sqlite_store = __import__(
-            "lexishift_core.frequency.sqlite_store",
-            fromlist=["validate_frequency_sqlite_db"],
-        )
-        sqlite_store.validate_frequency_sqlite_db(set_source_db, table="frequency")
+        _validate_frequency_sqlite_db(set_source_db, table="frequency")
 
 
 def run_rulegen_job(
@@ -339,6 +364,10 @@ def run_rulegen_job(
     *,
     config: RulegenJobConfig,
 ) -> dict:
+    from lexishift_core.helper.use_cases.rulegen_job import (
+        run_rulegen_job as _run_rulegen_job_use_case,
+    )
+
     return _run_rulegen_job_use_case(
         paths,
         config=config,
@@ -368,6 +397,27 @@ def plan_srs_set(
         resolve_pair_set_top_n_fn=_resolve_pair_set_top_n,
         resolve_pair_initial_active_count_fn=_resolve_pair_initial_active_count,
         resolve_stopwords_path_fn=_resolve_stopwords_path,
+    )
+
+
+def preview_srs_admission(
+    paths: HelperPaths,
+    *,
+    config: SetAdmissionPreviewJobConfig,
+) -> dict:
+    return _preview_srs_admission_use_case(
+        paths,
+        config=config,
+        resolve_profile_id_fn=_resolve_profile_id,
+        ensure_store_fn=_ensure_store,
+        resolve_pair_set_top_n_fn=_resolve_pair_set_top_n,
+        resolve_pair_initial_active_count_fn=_resolve_pair_initial_active_count,
+        resolve_pair_resources_fn=_resolve_pair_resources,
+        ensure_pair_requirements_fn=_ensure_pair_requirements,
+        count_items_for_pair_fn=_count_items_for_pair,
+        build_set_plan_payload_fn=_build_set_plan_payload,
+        resolve_stopwords_path_fn=_resolve_stopwords_path,
+        initialize_store_from_frequency_list_with_report_fn=initialize_store_from_frequency_list_with_report,
     )
 
 
@@ -412,6 +462,51 @@ def refresh_srs_set(
         ensure_settings_fn=_ensure_settings,
         ensure_store_fn=_ensure_store,
         count_items_for_pair_fn=_count_items_for_pair,
+        resolve_stopwords_path_fn=_resolve_stopwords_path,
+        build_seed_candidates_fn=build_seed_candidates,
+        run_rulegen_for_pair_fn=run_rulegen_for_pair,
+        write_rulegen_outputs_fn=write_rulegen_outputs,
+        update_status_fn=_update_status,
+    )
+
+
+def plan_srs_rebalance(
+    paths: HelperPaths,
+    *,
+    config: SrsRebalanceJobConfig,
+) -> dict:
+    return _plan_srs_rebalance_use_case(
+        paths,
+        config=config,
+        resolve_pair_set_top_n_fn=_resolve_pair_set_top_n,
+        resolve_pair_resources_fn=_resolve_pair_resources,
+        ensure_pair_requirements_fn=_ensure_pair_requirements,
+        resolve_profile_id_fn=_resolve_profile_id,
+        ensure_settings_fn=_ensure_settings,
+        ensure_store_fn=_ensure_store,
+        count_items_for_pair_fn=_count_items_for_pair,
+        build_set_plan_payload_fn=_build_set_plan_payload,
+        resolve_stopwords_path_fn=_resolve_stopwords_path,
+        build_seed_candidates_fn=build_seed_candidates,
+    )
+
+
+def apply_srs_rebalance(
+    paths: HelperPaths,
+    *,
+    config: SrsRebalanceJobConfig,
+) -> dict:
+    return _apply_srs_rebalance_use_case(
+        paths,
+        config=config,
+        resolve_pair_set_top_n_fn=_resolve_pair_set_top_n,
+        resolve_pair_resources_fn=_resolve_pair_resources,
+        ensure_pair_requirements_fn=_ensure_pair_requirements,
+        resolve_profile_id_fn=_resolve_profile_id,
+        ensure_settings_fn=_ensure_settings,
+        ensure_store_fn=_ensure_store,
+        count_items_for_pair_fn=_count_items_for_pair,
+        build_set_plan_payload_fn=_build_set_plan_payload,
         resolve_stopwords_path_fn=_resolve_stopwords_path,
         build_seed_candidates_fn=build_seed_candidates,
         run_rulegen_for_pair_fn=run_rulegen_for_pair,

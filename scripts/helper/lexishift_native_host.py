@@ -26,35 +26,84 @@ def _inject_core_path() -> None:
 
 _inject_core_path()
 
-from lexishift_core.helper.engine import (
-    get_srs_runtime_diagnostics,
-    RulegenJobConfig,
-    SrsRefreshJobConfig,
-    SetInitializationJobConfig,
-    SetPlanningJobConfig,
-    apply_exposure,
-    apply_feedback,
-    initialize_srs_set,
-    load_ruleset,
-    load_snapshot,
-    plan_srs_set,
-    refresh_srs_set,
-    reset_srs_data,
-    run_rulegen_job,
-)
-from lexishift_core.helper.profiles import get_profile_rulesets_snapshot, get_profiles_snapshot
 from lexishift_core.helper.os import open_path
 from lexishift_core.helper.paths import build_helper_paths
 from lexishift_core.helper.status import load_status
 from lexishift_core.helper.lp_capabilities import (
-    default_freedict_de_en_path,
     default_frequency_db_path,
     default_jmdict_path,
+    default_translation_dictionary_path,
 )
 
 
 PROTOCOL_VERSION = 1
 HELPER_VERSION = "0.1.0"
+_ENGINE_EXPORTS: Optional[dict[str, Any]] = None
+_PROFILE_EXPORTS: Optional[dict[str, Any]] = None
+
+
+def _load_engine_exports() -> dict[str, Any]:
+    global _ENGINE_EXPORTS
+    if _ENGINE_EXPORTS is None:
+        from lexishift_core.helper.engine import (
+            apply_srs_rebalance,
+            get_srs_runtime_diagnostics,
+            RulegenJobConfig,
+            SrsRebalanceJobConfig,
+            SetAdmissionPreviewJobConfig,
+            SrsRefreshJobConfig,
+            SetInitializationJobConfig,
+            SetPlanningJobConfig,
+            apply_exposure,
+            apply_feedback,
+            initialize_srs_set,
+            load_ruleset,
+            load_snapshot,
+            plan_srs_rebalance,
+            plan_srs_set,
+            preview_srs_admission,
+            refresh_srs_set,
+            reset_srs_data,
+            run_rulegen_job,
+        )
+
+        _ENGINE_EXPORTS = {
+            "apply_srs_rebalance": apply_srs_rebalance,
+            "get_srs_runtime_diagnostics": get_srs_runtime_diagnostics,
+            "RulegenJobConfig": RulegenJobConfig,
+            "SrsRebalanceJobConfig": SrsRebalanceJobConfig,
+            "SetAdmissionPreviewJobConfig": SetAdmissionPreviewJobConfig,
+            "SrsRefreshJobConfig": SrsRefreshJobConfig,
+            "SetInitializationJobConfig": SetInitializationJobConfig,
+            "SetPlanningJobConfig": SetPlanningJobConfig,
+            "apply_exposure": apply_exposure,
+            "apply_feedback": apply_feedback,
+            "initialize_srs_set": initialize_srs_set,
+            "load_ruleset": load_ruleset,
+            "load_snapshot": load_snapshot,
+            "plan_srs_rebalance": plan_srs_rebalance,
+            "plan_srs_set": plan_srs_set,
+            "preview_srs_admission": preview_srs_admission,
+            "refresh_srs_set": refresh_srs_set,
+            "reset_srs_data": reset_srs_data,
+            "run_rulegen_job": run_rulegen_job,
+        }
+    return _ENGINE_EXPORTS
+
+
+def _load_profile_exports() -> dict[str, Any]:
+    global _PROFILE_EXPORTS
+    if _PROFILE_EXPORTS is None:
+        from lexishift_core.helper.profiles import (
+            get_profile_rulesets_snapshot,
+            get_profiles_snapshot,
+        )
+
+        _PROFILE_EXPORTS = {
+            "get_profile_rulesets_snapshot": get_profile_rulesets_snapshot,
+            "get_profiles_snapshot": get_profiles_snapshot,
+        }
+    return _PROFILE_EXPORTS
 
 
 def _read_message() -> Optional[dict]:
@@ -157,9 +206,11 @@ def _resolve_pair_resource_paths(
     jmdict_path = _optional_path(payload, "jmdict_path")
     if jmdict_path is None:
         jmdict_path = default_jmdict_path(pair, language_packs_dir=paths.language_packs_dir)
-    freedict_de_en_path = _optional_path(payload, "freedict_de_en_path")
-    if freedict_de_en_path is None:
-        freedict_de_en_path = default_freedict_de_en_path(
+    translation_dict_path = _optional_path(payload, "translation_dict_path")
+    if translation_dict_path is None:
+        translation_dict_path = _optional_path(payload, "freedict_de_en_path")
+    if translation_dict_path is None:
+        translation_dict_path = default_translation_dictionary_path(
             pair,
             language_packs_dir=paths.language_packs_dir,
         )
@@ -169,7 +220,7 @@ def _resolve_pair_resource_paths(
             pair,
             frequency_packs_dir=paths.frequency_packs_dir,
         )
-    return jmdict_path, freedict_de_en_path, set_source_db
+    return jmdict_path, translation_dict_path, set_source_db
 
 
 def _validate_request(request: Dict[str, Any]) -> tuple[str, str, dict]:
@@ -189,10 +240,10 @@ def _validate_request(request: Dict[str, Any]) -> tuple[str, str, dict]:
 
 
 def _handle_request(msg_type: str, payload: dict) -> dict:
-    paths = build_helper_paths()
     profile_id = _optional_profile_id(payload)
     if msg_type == "hello":
         return {"helper_version": HELPER_VERSION, "protocol_version": PROTOCOL_VERSION}
+    paths = build_helper_paths()
     if msg_type == "status":
         resolved_profile_id = paths.normalize_profile_id(profile_id or "default")
         status = load_status(paths.srs_status_path_for(resolved_profile_id))
@@ -201,14 +252,22 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
         return payload
     if msg_type == "get_snapshot":
         pair = str(payload.get("pair", "en-ja"))
+        load_snapshot = _load_engine_exports()["load_snapshot"]
         return load_snapshot(paths, pair=pair, profile_id=profile_id or "default")
     if msg_type == "get_ruleset":
         pair = str(payload.get("pair", "en-ja"))
+        load_ruleset = _load_engine_exports()["load_ruleset"]
         return load_ruleset(paths, pair=pair, profile_id=profile_id or "default")
     if msg_type == "srs_diagnostics":
         pair = str(payload.get("pair", "en-ja"))
-        return get_srs_runtime_diagnostics(paths, pair=pair, profile_id=profile_id or "default")
+        get_srs_runtime_diagnostics = _load_engine_exports()["get_srs_runtime_diagnostics"]
+        return get_srs_runtime_diagnostics(
+            paths,
+            pair=pair,
+            profile_id=profile_id or "default",
+        )
     if msg_type == "record_feedback":
+        apply_feedback = _load_engine_exports()["apply_feedback"]
         apply_feedback(
             paths,
             pair=str(payload.get("pair", "")),
@@ -219,6 +278,7 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
         )
         return {"ok": True}
     if msg_type == "record_exposure":
+        apply_exposure = _load_engine_exports()["apply_exposure"]
         apply_exposure(
             paths,
             pair=str(payload.get("pair", "")),
@@ -229,15 +289,23 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
         return {"ok": True}
     if msg_type == "trigger_rulegen":
         pair = str(payload.get("pair", "en-ja")).strip() or "en-ja"
-        jmdict_path, freedict_de_en_path, set_source_db = _resolve_pair_resource_paths(
+        payload_for_rulegen = dict(payload)
+        if (
+            str(pair).lower() == "en-ja"
+            and not payload_for_rulegen.get("translation_dict_path")
+            and payload_for_rulegen.get("jmdict_path")
+        ):
+            payload_for_rulegen["translation_dict_path"] = payload_for_rulegen["jmdict_path"]
+        jmdict_path, translation_dict_path, set_source_db = _resolve_pair_resource_paths(
             paths,
             pair=pair,
-            payload=payload,
+            payload=payload_for_rulegen,
         )
-        config = RulegenJobConfig(
+        rulegen_job_config_cls = _load_engine_exports()["RulegenJobConfig"]
+        config = rulegen_job_config_cls(
             pair=pair,
             jmdict_path=jmdict_path,
-            freedict_de_en_path=freedict_de_en_path,
+            translation_dict_path=translation_dict_path,
             profile_id=profile_id or "default",
             set_source_db=set_source_db,
             set_top_n=_optional_int(payload, "set_top_n"),
@@ -274,22 +342,25 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
             sample_strategy=str(payload.get("sample_strategy", "")).strip() or None,
             sample_seed=_optional_int(payload, "sample_seed"),
         )
+        run_rulegen_job = _load_engine_exports()["run_rulegen_job"]
         return run_rulegen_job(paths, config=config)
     if msg_type == "srs_initialize":
         pair = str(payload.get("pair", "en-ja")).strip() or "en-ja"
-        jmdict_path, freedict_de_en_path, set_source_db = _resolve_pair_resource_paths(
+        jmdict_path, translation_dict_path, set_source_db = _resolve_pair_resource_paths(
             paths,
             pair=pair,
             payload=payload,
         )
         set_top_n = _optional_int(payload, "set_top_n")
         bootstrap_top_n = _optional_int(payload, "bootstrap_top_n")
+        set_initialization_job_config_cls = _load_engine_exports()["SetInitializationJobConfig"]
+        initialize_srs_set = _load_engine_exports()["initialize_srs_set"]
         return initialize_srs_set(
             paths,
-            config=SetInitializationJobConfig(
+            config=set_initialization_job_config_cls(
                 pair=pair,
                 jmdict_path=jmdict_path,
-                freedict_de_en_path=freedict_de_en_path,
+                translation_dict_path=translation_dict_path,
                 set_source_db=set_source_db,
                 profile_id=profile_id or "default",
                 set_top_n=set_top_n,
@@ -309,9 +380,11 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
         pair = str(payload.get("pair", "en-ja"))
         set_top_n = _optional_int(payload, "set_top_n")
         bootstrap_top_n = _optional_int(payload, "bootstrap_top_n")
+        set_planning_job_config_cls = _load_engine_exports()["SetPlanningJobConfig"]
+        plan_srs_set = _load_engine_exports()["plan_srs_set"]
         return plan_srs_set(
             paths,
-            config=SetPlanningJobConfig(
+            config=set_planning_job_config_cls(
                 pair=pair,
                 profile_id=profile_id or "default",
                 strategy=str(payload.get("strategy", "frequency_bootstrap")),
@@ -327,21 +400,58 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
                 trigger=str(payload.get("trigger", "manual")),
             ),
         )
+    if msg_type == "srs_preview_admission":
+        pair = str(payload.get("pair", "en-ja")).strip() or "en-ja"
+        jmdict_path, _translation_dict_path, set_source_db = _resolve_pair_resource_paths(
+            paths,
+            pair=pair,
+            payload=payload,
+        )
+        set_top_n = _optional_int(payload, "set_top_n")
+        bootstrap_top_n = _optional_int(payload, "bootstrap_top_n")
+        set_admission_preview_job_config_cls = _load_engine_exports()[
+            "SetAdmissionPreviewJobConfig"
+        ]
+        preview_srs_admission = _load_engine_exports()["preview_srs_admission"]
+        return preview_srs_admission(
+            paths,
+            config=set_admission_preview_job_config_cls(
+                pair=pair,
+                jmdict_path=jmdict_path,
+                set_source_db=set_source_db,
+                profile_id=profile_id or "default",
+                strategy=str(payload.get("strategy", "frequency_bootstrap")),
+                objective=str(payload.get("objective", "bootstrap")),
+                set_top_n=set_top_n,
+                bootstrap_top_n=bootstrap_top_n,
+                initial_active_count=_optional_int(payload, "initial_active_count"),
+                max_active_items_hint=_optional_int(payload, "max_active_items_hint"),
+                preview_count=_optional_int(payload, "preview_count"),
+                preview_sampling_mode=str(payload.get("preview_sampling_mode", "")).strip() or None,
+                preview_seed=_optional_int(payload, "preview_seed"),
+                profile_context=payload.get("profile_context")
+                if isinstance(payload.get("profile_context"), dict)
+                else None,
+                trigger=str(payload.get("trigger", "manual")),
+            ),
+        )
     if msg_type == "srs_refresh":
         pair = str(payload.get("pair", "en-ja")).strip() or "en-ja"
-        jmdict_path, freedict_de_en_path, set_source_db = _resolve_pair_resource_paths(
+        jmdict_path, translation_dict_path, set_source_db = _resolve_pair_resource_paths(
             paths,
             pair=pair,
             payload=payload,
         )
         set_top_n = _optional_int(payload, "set_top_n")
         feedback_window_size = _optional_int(payload, "feedback_window_size")
+        srs_refresh_job_config_cls = _load_engine_exports()["SrsRefreshJobConfig"]
+        refresh_srs_set = _load_engine_exports()["refresh_srs_set"]
         return refresh_srs_set(
             paths,
-            config=SrsRefreshJobConfig(
+            config=srs_refresh_job_config_cls(
                 pair=pair,
                 jmdict_path=jmdict_path,
-                freedict_de_en_path=freedict_de_en_path,
+                translation_dict_path=translation_dict_path,
                 set_source_db=set_source_db,
                 profile_id=profile_id or "default",
                 set_top_n=set_top_n,
@@ -356,15 +466,72 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
                 else None,
             ),
         )
+    if msg_type == "srs_rebalance_plan":
+        pair = str(payload.get("pair", "en-ja")).strip() or "en-ja"
+        jmdict_path, translation_dict_path, set_source_db = _resolve_pair_resource_paths(
+            paths,
+            pair=pair,
+            payload=payload,
+        )
+        srs_rebalance_job_config_cls = _load_engine_exports()["SrsRebalanceJobConfig"]
+        plan_srs_rebalance = _load_engine_exports()["plan_srs_rebalance"]
+        return plan_srs_rebalance(
+            paths,
+            config=srs_rebalance_job_config_cls(
+                pair=pair,
+                jmdict_path=jmdict_path,
+                translation_dict_path=translation_dict_path,
+                set_source_db=set_source_db,
+                profile_id=profile_id or "default",
+                strategy=str(payload.get("strategy", "profile_growth")),
+                objective=str(payload.get("objective", "rebalance")),
+                set_top_n=_optional_int(payload, "set_top_n"),
+                max_active_items=_optional_int(payload, "max_active_items"),
+                profile_context=payload.get("profile_context")
+                if isinstance(payload.get("profile_context"), dict)
+                else None,
+                trigger=str(payload.get("trigger", "manual")),
+            ),
+        )
+    if msg_type == "srs_rebalance_apply":
+        pair = str(payload.get("pair", "en-ja")).strip() or "en-ja"
+        jmdict_path, translation_dict_path, set_source_db = _resolve_pair_resource_paths(
+            paths,
+            pair=pair,
+            payload=payload,
+        )
+        srs_rebalance_job_config_cls = _load_engine_exports()["SrsRebalanceJobConfig"]
+        apply_srs_rebalance = _load_engine_exports()["apply_srs_rebalance"]
+        return apply_srs_rebalance(
+            paths,
+            config=srs_rebalance_job_config_cls(
+                pair=pair,
+                jmdict_path=jmdict_path,
+                translation_dict_path=translation_dict_path,
+                set_source_db=set_source_db,
+                profile_id=profile_id or "default",
+                strategy=str(payload.get("strategy", "profile_growth")),
+                objective=str(payload.get("objective", "rebalance")),
+                set_top_n=_optional_int(payload, "set_top_n"),
+                max_active_items=_optional_int(payload, "max_active_items"),
+                profile_context=payload.get("profile_context")
+                if isinstance(payload.get("profile_context"), dict)
+                else None,
+                trigger=str(payload.get("trigger", "manual")),
+            ),
+        )
     if msg_type == "srs_reset":
         pair = str(payload.get("pair", "")).strip() or None
+        reset_srs_data = _load_engine_exports()["reset_srs_data"]
         return reset_srs_data(paths, pair=pair, profile_id=profile_id or "default")
     if msg_type == "open_data_dir":
         open_path(paths.data_root)
         return {"opened": str(paths.data_root)}
     if msg_type == "profiles_get":
+        get_profiles_snapshot = _load_profile_exports()["get_profiles_snapshot"]
         return get_profiles_snapshot(paths)
     if msg_type == "profile_rulesets_get":
+        get_profile_rulesets_snapshot = _load_profile_exports()["get_profile_rulesets_snapshot"]
         return get_profile_rulesets_snapshot(paths, profile_id=profile_id)
     raise ValueError(f"Unknown command: {msg_type}")
 

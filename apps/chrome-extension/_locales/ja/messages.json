@@ -116,6 +116,30 @@
   "hint_srs_initial_active_count": {
     "message": "ブートストラップ候補から最初に非ゼロ/アクティブ化する語数です。"
   },
+  "section_srs_admission_preferences": {
+    "message": "admission 選好"
+  },
+  "hint_srs_admission_preferences": {
+    "message": "選択中のプロフィールと言語ペアに対して、ブートストラップ admission の並び替えに使います。"
+  },
+  "label_srs_topic_interests": {
+    "message": "興味トピック"
+  },
+  "hint_srs_topic_interests": {
+    "message": "カンマ区切りのタグです。現状はタグの完全一致をそのまま使います。"
+  },
+  "label_srs_proficiency_estimate": {
+    "message": "習熟度推定 (%)"
+  },
+  "hint_srs_proficiency_estimate": {
+    "message": "0 から 100。空欄にすると習熟度シグナルを中立に保ちます。"
+  },
+  "label_srs_challenge_target": {
+    "message": "挑戦目標 (%)"
+  },
+  "hint_srs_challenge_target": {
+    "message": "0 から 100。空欄にすると挑戦選好を中立に保ちます。"
+  },
   "label_srs_highlight_color": {
     "message": "SRSハイライト色"
   },
@@ -182,11 +206,20 @@
   "button_srs_initialize": {
     "message": "このペアのSを初期化"
   },
+  "button_srs_rebalance_preview": {
+    "message": "現在の選好でリバランスをプレビュー"
+  },
+  "button_srs_rebalance_apply": {
+    "message": "リバランスを適用…"
+  },
   "button_srs_refresh_set": {
     "message": "Sを更新してルールを反映"
   },
   "button_srs_runtime_diagnostics": {
     "message": "SRS実行時診断"
+  },
+  "button_srs_admission_preview": {
+    "message": "追加候補の単語サンプルを生成（5）…"
   },
   "button_srs_rulegen_preview": {
     "message": "ルール生成（デバッグ）…"
@@ -203,6 +236,12 @@
   "confirm_srs_reset_2": {
     "message": "このペアの学習履歴を本当に削除して最初からやり直しますか？"
   },
+  "confirm_srs_rebalance_title": {
+    "message": "$1 のアクティブSRSセットを現在の選好でリバランスしますか？"
+  },
+  "confirm_srs_rebalance_body_counts": {
+    "message": "$1語の保護済み単語は残り、$2語の低コミット単語はアクティブ集合から外れ、$3語が新たにアクティブ化されます。復習履歴は保持されます。"
+  },
   "status_srs_sampling": {
     "message": "サンプリング中…"
   },
@@ -212,6 +251,21 @@
   "status_srs_rulegen_running": {
     "message": "ルール生成中…"
   },
+  "status_srs_admission_preview_running": {
+    "message": "追加候補の単語サンプルを生成中（$1）…"
+  },
+  "status_srs_admission_preview_header": {
+    "message": "追加候補サンプル: $3 のブートストラップ語 $2件中 $1件を表示"
+  },
+  "status_srs_admission_preview_plan_only": {
+    "message": "選択された戦略はまだプランナー専用のため、プレビューできません。"
+  },
+  "status_srs_admission_preview_empty": {
+    "message": "$1 の追加候補サンプルはありません。"
+  },
+  "status_srs_admission_preview_failed": {
+    "message": "追加候補プレビューに失敗しました。"
+  },
   "status_srs_rulegen_sampled_running": {
     "message": "サンプルルール生成中（$1）…"
   },
@@ -220,6 +274,39 @@
   },
   "status_srs_set_init_running": {
     "message": "Sを初期化中…"
+  },
+  "status_srs_rebalance_preview_running": {
+    "message": "$1 のリバランスプレビューを準備中…"
+  },
+  "status_srs_rebalance_apply_running": {
+    "message": "$1 のリバランス適用を準備中…"
+  },
+  "status_srs_rebalance_preview_header": {
+    "message": "$1 のリバランスプレビュー: 維持 $2, 保留 $3, 有効化 $4。"
+  },
+  "status_srs_rebalance_apply_result": {
+    "message": "$1 のリバランスを適用しました: 維持 $2, 保留 $3, 有効化 $4。"
+  },
+  "status_srs_rebalance_ready": {
+    "message": "$1 のリバランスプレビューを作成しました。"
+  },
+  "status_srs_rebalance_blocked": {
+    "message": "$1 のリバランスはまだ実行できません。"
+  },
+  "status_srs_rebalance_applied": {
+    "message": "$1 のリバランスを適用しました。"
+  },
+  "status_srs_rebalance_noop": {
+    "message": "$1 のリバランスではアクティブ集合の変更はありませんでした。"
+  },
+  "status_srs_rebalance_cancelled": {
+    "message": "$1 のリバランスをキャンセルしました。"
+  },
+  "status_srs_rebalance_preview_failed": {
+    "message": "SRSリバランスのプレビューに失敗しました。"
+  },
+  "status_srs_rebalance_apply_failed": {
+    "message": "SRSリバランスの適用に失敗しました。"
   },
   "status_srs_refresh_running": {
     "message": "Sを更新してルールを反映中…"
@@ -265,6 +352,9 @@
   },
   "status_srs_rulegen_empty": {
     "message": "現在の単語に対応するルールがありません。"
+  },
+  "status_srs_rulegen_other_pairs_only": {
+    "message": "このプロファイルにはSRS項目がありますが、$1 の項目はありません。このペアのSを初期化するか、すでに項目があるペアに戻してください。"
   },
   "status_srs_sample_failed": {
     "message": "SRSサンプルに失敗しました。"

@@ -157,6 +157,15 @@ common_pathex = [
     os.path.join(repo_root, "core"),
     repo_root,
 ]
+HOST_OPTIONAL_EXCLUDES = [
+    # The native host must stay responsive for hello/status/profile requests.
+    # en-es treats torch acceleration as optional, so keep the host bundle lean.
+    "torch",
+    "torchaudio",
+    "torchvision",
+    "tensorboard",
+    "tensorflow",
+]
 
 main_datas = [
     (os.path.join(repo_root, "apps", "gui", "resources"), "resources"),
@@ -256,7 +265,7 @@ if sys.platform == "win32":
         hiddenimports=["lexishift_core"],
         hookspath=[],
         runtime_hooks=[],
-        excludes=[],
+        excludes=HOST_OPTIONAL_EXCLUDES,
         win_no_prefer_redirects=False,
         win_private_assemblies=False,
         cipher=block_cipher,

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 import sys
 import tempfile
@@ -105,6 +106,46 @@ class TestHelperInstallerNativeMessaging(unittest.TestCase):
             registry_key = helper_installer.WINDOWS_NATIVE_MESSAGING_REGISTRY_KEYS["chrome"]
             self.assertEqual(fake_winreg.values[registry_key], str(result.manifest_path))
 
+    def test_install_helper_preserves_existing_allowed_origins(self) -> None:
+        fake_winreg = _FakeWinreg()
+        with tempfile.TemporaryDirectory() as tmpdir:
+            data_root = Path(tmpdir) / "data"
+            host_dir = Path(tmpdir) / "LexiShiftNativeHost"
+            host_exe = host_dir / "lexishift_native_host.exe"
+            dependency = host_dir / "python310.dll"
+            manifest = data_root / "native_messaging" / "chrome" / "com.lexishift.helper.json"
+            host_dir.mkdir(parents=True, exist_ok=True)
+            manifest.parent.mkdir(parents=True, exist_ok=True)
+            host_exe.write_bytes(b"host")
+            dependency.write_bytes(b"dll")
+            manifest.write_text(
+                json.dumps(
+                    {
+                        "allowed_origins": ["chrome-extension://oldoldoldoldoldoldoldoldoldoldol/"],
+                        "path": str(host_exe),
+                    },
+                    indent=2,
+                ),
+                encoding="utf-8",
+            )
+
+            with (
+                mock.patch.object(helper_installer.sys, "platform", "win32"),
+                mock.patch.dict(sys.modules, {"winreg": fake_winreg}),
+                mock.patch.object(helper_installer, "_helper_data_root", return_value=data_root),
+            ):
+                result = helper_installer.install_helper(
+                    extension_id="abcdefghijklmnopabcdefghijklmnop",
+                    browser="chrome",
+                    host_path=host_exe,
+                )
+
+            self.assertTrue(result.installed)
+            assert result.manifest_path is not None
+            manifest_payload = result.manifest_path.read_text(encoding="utf-8")
+            self.assertIn("chrome-extension://oldoldoldoldoldoldoldoldoldoldol/", manifest_payload)
+            self.assertIn("chrome-extension://abcdefghijklmnopabcdefghijklmnop/", manifest_payload)
+
     def test_is_helper_installed_reads_windows_registry_manifest(self) -> None:
         fake_winreg = _FakeWinreg()
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -115,11 +156,12 @@ class TestHelperInstallerNativeMessaging(unittest.TestCase):
             manifest.parent.mkdir(parents=True, exist_ok=True)
             host.write_bytes(b"host")
             manifest.write_text(
-                (
-                    "{\n"
-                    '  "allowed_origins": ["chrome-extension://abcdefghijklmnopabcdefghijklmnop/"],\n'
-                    f'  "path": "{host}"\n'
-                    "}\n"
+                json.dumps(
+                    {
+                        "allowed_origins": ["chrome-extension://abcdefghijklmnopabcdefghijklmnop/"],
+                        "path": str(host),
+                    },
+                    indent=2,
                 ),
                 encoding="utf-8",
             )

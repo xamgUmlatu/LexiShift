@@ -5,9 +5,9 @@ from typing import Optional
 
 from lexishift_core.lexicon.word_package import resolve_language_tag_from_pair
 from lexishift_core.helper.lp_capabilities import (
-    default_freedict_de_en_path,
     default_frequency_db_path,
     default_jmdict_path,
+    default_translation_dictionary_path,
     resolve_pair_capability,
 )
 from lexishift_core.helper.paths import HelperPaths
@@ -38,7 +38,7 @@ def resolve_pair_resources(
     *,
     pair: str,
     jmdict_path: Optional[Path],
-    freedict_de_en_path: Optional[Path],
+    translation_dict_path: Optional[Path],
     set_source_db: Optional[Path],
 ) -> tuple[Optional[Path], Optional[Path], Optional[Path]]:
     capability = resolve_pair_capability(pair)
@@ -47,10 +47,10 @@ def resolve_pair_resources(
         if jmdict_path is not None
         else default_jmdict_path(capability.pair, language_packs_dir=paths.language_packs_dir)
     )
-    resolved_freedict_de_en = (
-        Path(freedict_de_en_path)
-        if freedict_de_en_path is not None
-        else default_freedict_de_en_path(
+    resolved_translation_dict = (
+        Path(translation_dict_path)
+        if translation_dict_path is not None
+        else default_translation_dictionary_path(
             capability.pair,
             language_packs_dir=paths.language_packs_dir,
         )
@@ -62,4 +62,4 @@ def resolve_pair_resources(
             capability.pair, frequency_packs_dir=paths.frequency_packs_dir
         )
     )
-    return resolved_jmdict, resolved_freedict_de_en, resolved_frequency_db
+    return resolved_jmdict, resolved_translation_dict, resolved_frequency_db

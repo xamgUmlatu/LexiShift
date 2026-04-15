@@ -1,0 +1,1201 @@
+{
+  "name": "en-ja admission harvest review tranche",
+  "source_profile": "harvest80_20260408",
+  "source_store_path": "D:\\projects\\LexiShift\\docs\\test_outputs\\experiments\\en_ja_admission_harvest_root_20260408\\srs\\profiles\\harvest80_20260408\\srs_store.json",
+  "source_ruleset_path": "D:\\projects\\LexiShift\\docs\\test_outputs\\experiments\\en_ja_admission_harvest_root_20260408\\srs\\profiles\\harvest80_20260408\\srs_ruleset_en-ja.json",
+  "generated_at_utc": "2026-04-08T00:55:41Z",
+  "selection_goal": "reviewable 20-30 admitted content words from real en-ja bootstrap, biased toward new benchmark coverage",
+  "selected_count": 24,
+  "selected_pos_counts": {
+    "verb": 8,
+    "adjective": 4,
+    "noun": 12
+  },
+  "review_pool_count": 45,
+  "rejected_count": 35,
+  "selected": [
+    {
+      "target": "居る",
+      "target_reading": "いる",
+      "pos": "verb",
+      "core_rank": 13.0,
+      "pmw": 10717.4938487,
+      "script_forms": {
+        "kana": "いる",
+        "kanji": "居る",
+        "romaji": "iru"
+      },
+      "source_phrase": "exist",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.6021917418148282,
+      "status": "review_pool",
+      "selection_reason": "quota_verb"
+    },
+    {
+      "target": "有る",
+      "target_reading": "ある",
+      "pos": "verb",
+      "core_rank": 15.0,
+      "pmw": 9147.0971856,
+      "script_forms": {
+        "kana": "ある",
+        "kanji": "有る",
+        "romaji": "aru"
+      },
+      "source_phrase": "exist",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.591911042258045,
+      "status": "review_pool",
+      "selection_reason": "quota_verb"
+    },
+    {
+      "target": "言う",
+      "target_reading": "いう",
+      "pos": "verb",
+      "core_rank": 19.0,
+      "pmw": 7677.3673429,
+      "script_forms": {
+        "kana": "いう",
+        "kanji": "言う",
+        "romaji": "iu"
+      },
+      "source_phrase": "say",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.5805457027306028,
+      "status": "review_pool",
+      "selection_reason": "quota_verb"
+    },
+    {
+      "target": "成る",
+      "target_reading": "なる",
+      "pos": "verb",
+      "core_rank": 23.0,
+      "pmw": 5391.7401378,
+      "script_forms": {
+        "kana": "なる",
+        "kanji": "成る",
+        "romaji": "naru"
+      },
+      "source_phrase": "become",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.5576154517438812,
+      "status": "review_pool",
+      "selection_reason": "quota_verb"
+    },
+    {
+      "target": "無い",
+      "target_reading": "ない",
+      "pos": "adjective",
+      "core_rank": 29.0,
+      "pmw": 4381.8409597,
+      "script_forms": {
+        "kana": "ない",
+        "kanji": "無い",
+        "romaji": "nai"
+      },
+      "source_phrase": "nonexistent",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.6607649992311683,
+      "status": "review_pool",
+      "selection_reason": "quota_adjective"
+    },
+    {
+      "target": "良い",
+      "target_reading": "よい",
+      "pos": "adjective",
+      "core_rank": 58.0,
+      "pmw": 1902.2023799,
+      "script_forms": {
+        "kana": "よい",
+        "kanji": "良い",
+        "romaji": "yoi"
+      },
+      "source_phrase": "good",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.5950341144847129,
+      "status": "review_pool",
+      "selection_reason": "quota_adjective"
+    },
+    {
+      "target": "居る",
+      "target_reading": "いる",
+      "pos": "verb",
+      "core_rank": 13.0,
+      "pmw": 10717.4938487,
+      "script_forms": {
+        "kana": "いる",
+        "kanji": "居る",
+        "romaji": "iru"
+      },
+      "source_phrase": "exist",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.6021917418148282,
+      "status": "review_pool",
+      "selection_reason": "frequency_first_uncovered"
+    },
+    {
+      "target": "有る",
+      "target_reading": "ある",
+      "pos": "verb",
+      "core_rank": 15.0,
+      "pmw": 9147.0971856,
+      "script_forms": {
+        "kana": "ある",
+        "kanji": "有る",
+        "romaji": "aru"
+      },
+      "source_phrase": "exist",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.591911042258045,
+      "status": "review_pool",
+      "selection_reason": "frequency_first_uncovered"
+    },
+    {
+      "target": "事",
+      "target_reading": "こと",
+      "pos": "noun",
+      "core_rank": 18.0,
+      "pmw": 7082.8012463,
+      "script_forms": {
+        "kana": "こと",
+        "kanji": "事",
+        "romaji": "koto"
+      },
+      "source_phrase": "thing",
+      "rule_confidence": 0.48,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.8218793528251745,
+      "status": "review_pool",
+      "selection_reason": "frequency_first_uncovered"
+    },
+    {
+      "target": "言う",
+      "target_reading": "いう",
+      "pos": "verb",
+      "core_rank": 19.0,
+      "pmw": 7677.3673429,
+      "script_forms": {
+        "kana": "いう",
+        "kanji": "言う",
+        "romaji": "iu"
+      },
+      "source_phrase": "say",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.5805457027306028,
+      "status": "review_pool",
+      "selection_reason": "frequency_first_uncovered"
+    },
+    {
+      "target": "成る",
+      "target_reading": "なる",
+      "pos": "verb",
+      "core_rank": 23.0,
+      "pmw": 5391.7401378,
+      "script_forms": {
+        "kana": "なる",
+        "kanji": "成る",
+        "romaji": "naru"
+      },
+      "source_phrase": "become",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.5576154517438812,
+      "status": "review_pool",
+      "selection_reason": "frequency_first_uncovered"
+    },
+    {
+      "target": "無い",
+      "target_reading": "ない",
+      "pos": "adjective",
+      "core_rank": 29.0,
+      "pmw": 4381.8409597,
+      "script_forms": {
+        "kana": "ない",
+        "kanji": "無い",
+        "romaji": "nai"
+      },
+      "source_phrase": "nonexistent",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.6607649992311683,
+      "status": "review_pool",
+      "selection_reason": "frequency_first_uncovered"
+    },
+    {
+      "target": "物",
+      "target_reading": "もの",
+      "pos": "noun",
+      "core_rank": 52.0,
+      "pmw": 2641.4836028,
+      "script_forms": {
+        "kana": "もの",
+        "kanji": "物",
+        "romaji": "mono"
+      },
+      "source_phrase": "thing",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.7304640736394665,
+      "status": "review_pool",
+      "selection_reason": "frequency_first_uncovered"
+    },
+    {
+      "target": "良い",
+      "target_reading": "よい",
+      "pos": "adjective",
+      "core_rank": 58.0,
+      "pmw": 1902.2023799,
+      "script_forms": {
+        "kana": "よい",
+        "kanji": "良い",
+        "romaji": "yoi"
+      },
+      "source_phrase": "good",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.5950341144847129,
+      "status": "review_pool",
+      "selection_reason": "frequency_first_uncovered"
+    },
+    {
+      "target": "自分",
+      "target_reading": "じぶん",
+      "pos": "noun",
+      "core_rank": 99.0,
+      "pmw": 1061.8146183,
+      "script_forms": {
+        "kana": "じぶん",
+        "kanji": "自分",
+        "romaji": "jibun"
+      },
+      "source_phrase": "oneself",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.6460287964104307,
+      "status": "review_pool",
+      "selection_reason": "frequency_first_uncovered"
+    },
+    {
+      "target": "情報",
+      "target_reading": "じょうほう",
+      "pos": "noun",
+      "core_rank": 102.0,
+      "pmw": 376.4944819,
+      "script_forms": {
+        "kana": "じょうほう",
+        "kanji": "情報",
+        "romaji": "jouhou"
+      },
+      "source_phrase": "information",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.5500683382259959,
+      "status": "review_pool",
+      "selection_reason": "frequency_first_uncovered"
+    },
+    {
+      "target": "今",
+      "target_reading": "いま",
+      "pos": "noun",
+      "core_rank": 106.0,
+      "pmw": 909.2036803,
+      "script_forms": {
+        "kana": "いま",
+        "kanji": "今",
+        "romaji": "ima"
+      },
+      "source_phrase": "now",
+      "rule_confidence": 0.48,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.6316588710604686,
+      "status": "review_pool",
+      "selection_reason": "frequency_first_uncovered"
+    },
+    {
+      "target": "事業",
+      "target_reading": "じぎょう",
+      "pos": "noun",
+      "core_rank": 107.0,
+      "pmw": 444.6508232,
+      "script_forms": {
+        "kana": "じぎょう",
+        "kanji": "事業",
+        "romaji": "jigyou"
+      },
+      "source_phrase": "project",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.565455439347611,
+      "status": "review_pool",
+      "selection_reason": "frequency_first_uncovered"
+    },
+    {
+      "target": "問題",
+      "target_reading": "もんだい",
+      "pos": "noun",
+      "core_rank": 114.0,
+      "pmw": 683.2744903,
+      "script_forms": {
+        "kana": "もんだい",
+        "kanji": "問題",
+        "romaji": "mondai"
+      },
+      "source_phrase": "question",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.605209370633664,
+      "status": "review_pool",
+      "selection_reason": "frequency_first_uncovered"
+    },
+    {
+      "target": "前",
+      "target_reading": "まえ",
+      "pos": "noun",
+      "core_rank": 116.0,
+      "pmw": 766.4577275,
+      "script_forms": {
+        "kana": "まえ",
+        "kanji": "前",
+        "romaji": "mae"
+      },
+      "source_phrase": "front",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.6158448452366446,
+      "status": "review_pool",
+      "selection_reason": "frequency_first_uncovered"
+    },
+    {
+      "target": "関係",
+      "target_reading": "かんけい",
+      "pos": "noun",
+      "core_rank": 119.0,
+      "pmw": 550.5655863,
+      "script_forms": {
+        "kana": "かんけい",
+        "kanji": "関係",
+        "romaji": "kankei"
+      },
+      "source_phrase": "relationship",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.5852223939230526,
+      "status": "review_pool",
+      "selection_reason": "frequency_first_uncovered"
+    },
+    {
+      "target": "企業",
+      "target_reading": "きぎょう",
+      "pos": "noun",
+      "core_rank": 131.0,
+      "pmw": 350.4555095,
+      "script_forms": {
+        "kana": "きぎょう",
+        "kanji": "企業",
+        "romaji": "kigyou"
+      },
+      "source_phrase": "enterprise",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.5434424740285475,
+      "status": "review_pool",
+      "selection_reason": "frequency_first_uncovered"
+    },
+    {
+      "target": "子供",
+      "target_reading": "こども",
+      "pos": "noun",
+      "core_rank": 132.0,
+      "pmw": 568.4793287,
+      "script_forms": {
+        "kana": "こども",
+        "kanji": "子供",
+        "romaji": "kodomo"
+      },
+      "source_phrase": "child",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.588185395497172,
+      "status": "review_pool",
+      "selection_reason": "frequency_first_uncovered"
+    },
+    {
+      "target": "地域",
+      "target_reading": "ちいき",
+      "pos": "noun",
+      "core_rank": 133.0,
+      "pmw": 379.037201,
+      "script_forms": {
+        "kana": "ちいき",
+        "kanji": "地域",
+        "romaji": "chiiki"
+      },
+      "source_phrase": "area",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.5506906826695885,
+      "status": "review_pool",
+      "selection_reason": "frequency_first_uncovered"
+    }
+  ],
+  "rejected_summary": {
+    "duplicate_benchmark_case": 15,
+    "manual_exclude": 19,
+    "no_rule": 1
+  },
+  "review_pool_preview": [
+    {
+      "target": "居る",
+      "target_reading": "いる",
+      "pos": "verb",
+      "core_rank": 13.0,
+      "pmw": 10717.4938487,
+      "script_forms": {
+        "kana": "いる",
+        "kanji": "居る",
+        "romaji": "iru"
+      },
+      "source_phrase": "exist",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.6021917418148282,
+      "status": "review_pool"
+    },
+    {
+      "target": "有る",
+      "target_reading": "ある",
+      "pos": "verb",
+      "core_rank": 15.0,
+      "pmw": 9147.0971856,
+      "script_forms": {
+        "kana": "ある",
+        "kanji": "有る",
+        "romaji": "aru"
+      },
+      "source_phrase": "exist",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.591911042258045,
+      "status": "review_pool"
+    },
+    {
+      "target": "事",
+      "target_reading": "こと",
+      "pos": "noun",
+      "core_rank": 18.0,
+      "pmw": 7082.8012463,
+      "script_forms": {
+        "kana": "こと",
+        "kanji": "事",
+        "romaji": "koto"
+      },
+      "source_phrase": "thing",
+      "rule_confidence": 0.48,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.8218793528251745,
+      "status": "review_pool"
+    },
+    {
+      "target": "言う",
+      "target_reading": "いう",
+      "pos": "verb",
+      "core_rank": 19.0,
+      "pmw": 7677.3673429,
+      "script_forms": {
+        "kana": "いう",
+        "kanji": "言う",
+        "romaji": "iu"
+      },
+      "source_phrase": "say",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.5805457027306028,
+      "status": "review_pool"
+    },
+    {
+      "target": "成る",
+      "target_reading": "なる",
+      "pos": "verb",
+      "core_rank": 23.0,
+      "pmw": 5391.7401378,
+      "script_forms": {
+        "kana": "なる",
+        "kanji": "成る",
+        "romaji": "naru"
+      },
+      "source_phrase": "become",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.5576154517438812,
+      "status": "review_pool"
+    },
+    {
+      "target": "無い",
+      "target_reading": "ない",
+      "pos": "adjective",
+      "core_rank": 29.0,
+      "pmw": 4381.8409597,
+      "script_forms": {
+        "kana": "ない",
+        "kanji": "無い",
+        "romaji": "nai"
+      },
+      "source_phrase": "nonexistent",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.6607649992311683,
+      "status": "review_pool"
+    },
+    {
+      "target": "物",
+      "target_reading": "もの",
+      "pos": "noun",
+      "core_rank": 52.0,
+      "pmw": 2641.4836028,
+      "script_forms": {
+        "kana": "もの",
+        "kanji": "物",
+        "romaji": "mono"
+      },
+      "source_phrase": "thing",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.7304640736394665,
+      "status": "review_pool"
+    },
+    {
+      "target": "良い",
+      "target_reading": "よい",
+      "pos": "adjective",
+      "core_rank": 58.0,
+      "pmw": 1902.2023799,
+      "script_forms": {
+        "kana": "よい",
+        "kanji": "良い",
+        "romaji": "yoi"
+      },
+      "source_phrase": "good",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.5950341144847129,
+      "status": "review_pool"
+    },
+    {
+      "target": "自分",
+      "target_reading": "じぶん",
+      "pos": "noun",
+      "core_rank": 99.0,
+      "pmw": 1061.8146183,
+      "script_forms": {
+        "kana": "じぶん",
+        "kanji": "自分",
+        "romaji": "jibun"
+      },
+      "source_phrase": "oneself",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.6460287964104307,
+      "status": "review_pool"
+    },
+    {
+      "target": "情報",
+      "target_reading": "じょうほう",
+      "pos": "noun",
+      "core_rank": 102.0,
+      "pmw": 376.4944819,
+      "script_forms": {
+        "kana": "じょうほう",
+        "kanji": "情報",
+        "romaji": "jouhou"
+      },
+      "source_phrase": "information",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.5500683382259959,
+      "status": "review_pool"
+    },
+    {
+      "target": "今",
+      "target_reading": "いま",
+      "pos": "noun",
+      "core_rank": 106.0,
+      "pmw": 909.2036803,
+      "script_forms": {
+        "kana": "いま",
+        "kanji": "今",
+        "romaji": "ima"
+      },
+      "source_phrase": "now",
+      "rule_confidence": 0.48,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.6316588710604686,
+      "status": "review_pool"
+    },
+    {
+      "target": "事業",
+      "target_reading": "じぎょう",
+      "pos": "noun",
+      "core_rank": 107.0,
+      "pmw": 444.6508232,
+      "script_forms": {
+        "kana": "じぎょう",
+        "kanji": "事業",
+        "romaji": "jigyou"
+      },
+      "source_phrase": "project",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.565455439347611,
+      "status": "review_pool"
+    },
+    {
+      "target": "問題",
+      "target_reading": "もんだい",
+      "pos": "noun",
+      "core_rank": 114.0,
+      "pmw": 683.2744903,
+      "script_forms": {
+        "kana": "もんだい",
+        "kanji": "問題",
+        "romaji": "mondai"
+      },
+      "source_phrase": "question",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.605209370633664,
+      "status": "review_pool"
+    },
+    {
+      "target": "前",
+      "target_reading": "まえ",
+      "pos": "noun",
+      "core_rank": 116.0,
+      "pmw": 766.4577275,
+      "script_forms": {
+        "kana": "まえ",
+        "kanji": "前",
+        "romaji": "mae"
+      },
+      "source_phrase": "front",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.6158448452366446,
+      "status": "review_pool"
+    },
+    {
+      "target": "関係",
+      "target_reading": "かんけい",
+      "pos": "noun",
+      "core_rank": 119.0,
+      "pmw": 550.5655863,
+      "script_forms": {
+        "kana": "かんけい",
+        "kanji": "関係",
+        "romaji": "kankei"
+      },
+      "source_phrase": "relationship",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.5852223939230526,
+      "status": "review_pool"
+    },
+    {
+      "target": "企業",
+      "target_reading": "きぎょう",
+      "pos": "noun",
+      "core_rank": 131.0,
+      "pmw": 350.4555095,
+      "script_forms": {
+        "kana": "きぎょう",
+        "kanji": "企業",
+        "romaji": "kigyou"
+      },
+      "source_phrase": "enterprise",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.5434424740285475,
+      "status": "review_pool"
+    },
+    {
+      "target": "子供",
+      "target_reading": "こども",
+      "pos": "noun",
+      "core_rank": 132.0,
+      "pmw": 568.4793287,
+      "script_forms": {
+        "kana": "こども",
+        "kanji": "子供",
+        "romaji": "kodomo"
+      },
+      "source_phrase": "child",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.588185395497172,
+      "status": "review_pool"
+    },
+    {
+      "target": "地域",
+      "target_reading": "ちいき",
+      "pos": "noun",
+      "core_rank": 133.0,
+      "pmw": 379.037201,
+      "script_forms": {
+        "kana": "ちいき",
+        "kanji": "地域",
+        "romaji": "chiiki"
+      },
+      "source_phrase": "area",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.5506906826695885,
+      "status": "review_pool"
+    },
+    {
+      "target": "場合",
+      "target_reading": "ばあい",
+      "pos": "noun",
+      "core_rank": 145.0,
+      "pmw": 920.6841524,
+      "script_forms": {
+        "kana": "ばあい",
+        "kanji": "場合",
+        "romaji": "baai"
+      },
+      "source_phrase": "when",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.6328208497325173,
+      "status": "review_pool"
+    },
+    {
+      "target": "社会",
+      "target_reading": "しゃかい",
+      "pos": "noun",
+      "core_rank": 146.0,
+      "pmw": 468.194872,
+      "script_forms": {
+        "kana": "しゃかい",
+        "kanji": "社会",
+        "romaji": "shakai"
+      },
+      "source_phrase": "society",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.5702281027884331,
+      "status": "review_pool"
+    },
+    {
+      "target": "研究",
+      "target_reading": "けんきゅう",
+      "pos": "noun",
+      "core_rank": 151.0,
+      "pmw": 381.1306426,
+      "script_forms": {
+        "kana": "けんきゅう",
+        "kanji": "研究",
+        "romaji": "kenkyuu"
+      },
+      "source_phrase": "study",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.5511999466053389,
+      "status": "review_pool"
+    },
+    {
+      "target": "利用",
+      "target_reading": "りよう",
+      "pos": "noun",
+      "core_rank": 153.0,
+      "pmw": 337.9522143,
+      "script_forms": {
+        "kana": "りよう",
+        "kanji": "利用",
+        "romaji": "riyou"
+      },
+      "source_phrase": "use",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.5400843407329008,
+      "status": "review_pool"
+    },
+    {
+      "target": "経済",
+      "target_reading": "けいざい",
+      "pos": "noun",
+      "core_rank": 164.0,
+      "pmw": 317.8494394,
+      "script_forms": {
+        "kana": "けいざい",
+        "kanji": "経済",
+        "romaji": "keizai"
+      },
+      "source_phrase": "economics",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.5344163659727569,
+      "status": "review_pool"
+    },
+    {
+      "target": "国",
+      "target_reading": "くに",
+      "pos": "noun",
+      "core_rank": 180.0,
+      "pmw": 366.141983,
+      "script_forms": {
+        "kana": "くに",
+        "kanji": "国",
+        "romaji": "kuni"
+      },
+      "source_phrase": "land",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.547490471397289,
+      "status": "review_pool"
+    },
+    {
+      "target": "会社",
+      "target_reading": "かいしゃ",
+      "pos": "noun",
+      "core_rank": 182.0,
+      "pmw": 393.5192286,
+      "script_forms": {
+        "kana": "かいしゃ",
+        "kanji": "会社",
+        "romaji": "kaisha"
+      },
+      "source_phrase": "company",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.5541577200511106,
+      "status": "review_pool"
+    },
+    {
+      "target": "日",
+      "target_reading": "ひ",
+      "pos": "noun",
+      "core_rank": 182.0,
+      "pmw": 565.8792551,
+      "script_forms": {
+        "kana": "ひ",
+        "kanji": "日",
+        "romaji": "hi"
+      },
+      "source_phrase": "sun",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.587761164298381,
+      "status": "review_pool"
+    },
+    {
+      "target": "生活",
+      "target_reading": "せいかつ",
+      "pos": "noun",
+      "core_rank": 186.0,
+      "pmw": 403.0592045,
+      "script_forms": {
+        "kana": "せいかつ",
+        "kanji": "生活",
+        "romaji": "seikatsu"
+      },
+      "source_phrase": "life",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.5563727620378929,
+      "status": "review_pool"
+    },
+    {
+      "target": "後",
+      "target_reading": "あと",
+      "pos": "noun",
+      "core_rank": 197.0,
+      "pmw": 611.5812842,
+      "script_forms": {
+        "kana": "あと",
+        "kanji": "後",
+        "romaji": "ato"
+      },
+      "source_phrase": "back",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.5949490500222238,
+      "status": "review_pool"
+    },
+    {
+      "target": "気",
+      "target_reading": "き",
+      "pos": "noun",
+      "core_rank": 200.0,
+      "pmw": 558.6334617,
+      "script_forms": {
+        "kana": "き",
+        "kanji": "気",
+        "romaji": "ki"
+      },
+      "source_phrase": "gas",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.586568584526126,
+      "status": "review_pool"
+    },
+    {
+      "target": "女性",
+      "target_reading": "じょせい",
+      "pos": "noun",
+      "core_rank": 213.0,
+      "pmw": 315.4118703,
+      "script_forms": {
+        "kana": "じょせい",
+        "kanji": "女性",
+        "romaji": "josei"
+      },
+      "source_phrase": "woman",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.5337049259991024,
+      "status": "review_pool"
+    },
+    {
+      "target": "目",
+      "target_reading": "め",
+      "pos": "noun",
+      "core_rank": 213.0,
+      "pmw": 523.6567363,
+      "script_forms": {
+        "kana": "め",
+        "kanji": "目",
+        "romaji": "me"
+      },
+      "source_phrase": "eye",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.5805856269733687,
+      "status": "review_pool"
+    },
+    {
+      "target": "内",
+      "target_reading": "うち",
+      "pos": "noun",
+      "core_rank": 223.0,
+      "pmw": 431.8320779,
+      "script_forms": {
+        "kana": "うち",
+        "kanji": "内",
+        "romaji": "uchi"
+      },
+      "source_phrase": "inside",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.5627497705456832,
+      "status": "review_pool"
+    },
+    {
+      "target": "話",
+      "target_reading": "はなし",
+      "pos": "noun",
+      "core_rank": 228.0,
+      "pmw": 466.8374807,
+      "script_forms": {
+        "kana": "はなし",
+        "kanji": "話",
+        "romaji": "hanashi"
+      },
+      "source_phrase": "talking",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.5699595174011257,
+      "status": "review_pool"
+    },
+    {
+      "target": "法",
+      "target_reading": "ほう",
+      "pos": "noun",
+      "core_rank": 234.0,
+      "pmw": 402.906259,
+      "script_forms": {
+        "kana": "ほう",
+        "kanji": "法",
+        "romaji": "hou"
+      },
+      "source_phrase": "method",
+      "rule_confidence": 0.48,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.5563376645920108,
+      "status": "review_pool"
+    },
+    {
+      "target": "現在",
+      "target_reading": "げんざい",
+      "pos": "noun",
+      "core_rank": 236.0,
+      "pmw": 325.0665554,
+      "script_forms": {
+        "kana": "げんざい",
+        "kanji": "現在",
+        "romaji": "genzai"
+      },
+      "source_phrase": "present",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.5364913285549888,
+      "status": "review_pool"
+    },
+    {
+      "target": "時代",
+      "target_reading": "じだい",
+      "pos": "noun",
+      "core_rank": 248.0,
+      "pmw": 337.9808916,
+      "script_forms": {
+        "kana": "じだい",
+        "kanji": "時代",
+        "romaji": "jidai"
+      },
+      "source_phrase": "age",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.5400921837474166,
+      "status": "review_pool"
+    },
+    {
+      "target": "皆",
+      "target_reading": "みな",
+      "pos": "noun",
+      "core_rank": 251.0,
+      "pmw": 429.4423044,
+      "script_forms": {
+        "kana": "みな",
+        "kanji": "皆",
+        "romaji": "mina"
+      },
+      "source_phrase": "all",
+      "rule_confidence": 0.48,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.562236506788822,
+      "status": "review_pool"
+    },
+    {
+      "target": "人間",
+      "target_reading": "にんげん",
+      "pos": "noun",
+      "core_rank": 278.0,
+      "pmw": 407.3799151,
+      "script_forms": {
+        "kana": "にんげん",
+        "kanji": "人間",
+        "romaji": "ningen"
+      },
+      "source_phrase": "human",
+      "rule_confidence": 0.58,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.5573588145582283,
+      "status": "review_pool"
+    },
+    {
+      "target": "侭",
+      "target_reading": "まま",
+      "pos": "noun",
+      "core_rank": 282.0,
+      "pmw": 372.9862944,
+      "script_forms": {
+        "kana": "まま",
+        "kanji": "侭",
+        "romaji": "mama"
+      },
+      "source_phrase": "surname",
+      "rule_confidence": 0.48,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.5492027732439719,
+      "status": "review_pool"
+    },
+    {
+      "target": "全て",
+      "target_reading": "すべて",
+      "pos": "noun",
+      "core_rank": 310.0,
+      "pmw": 326.5099786,
+      "script_forms": {
+        "kana": "すべて",
+        "kanji": "全て",
+        "romaji": "subete"
+      },
+      "source_phrase": "entirely",
+      "rule_confidence": 0.48,
+      "exact_in_benchmark": false,
+      "surface_in_benchmark": false,
+      "item_confidence": 0.5369008055788373,
+      "status": "review_pool"
+    }
+  ]
+}

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import importlib.util
 import os
 import sqlite3
 import sys
@@ -8,10 +9,19 @@ import unittest
 from pathlib import Path
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
-if PROJECT_ROOT not in sys.path:
-    sys.path.insert(0, PROJECT_ROOT)
+SQLITE_STORE_MODULE_PATH = Path(PROJECT_ROOT) / "lexishift_core" / "frequency" / "sqlite_store.py"
+SQLITE_STORE_SPEC = importlib.util.spec_from_file_location(
+    "lexishift_frequency_sqlite_store",
+    SQLITE_STORE_MODULE_PATH,
+)
+if SQLITE_STORE_SPEC is None or SQLITE_STORE_SPEC.loader is None:
+    raise RuntimeError(f"Unable to load frequency sqlite store module: {SQLITE_STORE_MODULE_PATH}")
+SQLITE_STORE_MODULE = importlib.util.module_from_spec(SQLITE_STORE_SPEC)
+sys.modules[SQLITE_STORE_SPEC.name] = SQLITE_STORE_MODULE
+SQLITE_STORE_SPEC.loader.exec_module(SQLITE_STORE_MODULE)
 
-from lexishift_core.frequency.sqlite_store import SqliteFrequencyConfig, SqliteFrequencyStore  # noqa: E402
+SqliteFrequencyConfig = SQLITE_STORE_MODULE.SqliteFrequencyConfig  # type: ignore[attr-defined]
+SqliteFrequencyStore = SQLITE_STORE_MODULE.SqliteFrequencyStore  # type: ignore[attr-defined]
 
 
 class TestSqliteFrequencyStore(unittest.TestCase):

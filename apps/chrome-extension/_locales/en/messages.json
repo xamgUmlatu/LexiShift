@@ -116,6 +116,30 @@
   "hint_srs_initial_active_count": {
     "message": "Initial non-zero/active words selected from the bootstrap list."
   },
+  "section_srs_admission_preferences": {
+    "message": "Admission preferences"
+  },
+  "hint_srs_admission_preferences": {
+    "message": "These values rerank bootstrap admission for the selected profile and pair."
+  },
+  "label_srs_topic_interests": {
+    "message": "Topic interests"
+  },
+  "hint_srs_topic_interests": {
+    "message": "Comma-separated tags. Exact tag matches are used directly today."
+  },
+  "label_srs_proficiency_estimate": {
+    "message": "Proficiency estimate (%)"
+  },
+  "hint_srs_proficiency_estimate": {
+    "message": "0 to 100. Leave blank to keep proficiency neutral."
+  },
+  "label_srs_challenge_target": {
+    "message": "Challenge target (%)"
+  },
+  "hint_srs_challenge_target": {
+    "message": "0 to 100. Leave blank to keep challenge preference neutral."
+  },
   "label_srs_highlight_color": {
     "message": "SRS highlight color"
   },
@@ -182,11 +206,20 @@
   "button_srs_initialize": {
     "message": "Initialize S for this pair"
   },
+  "button_srs_rebalance_preview": {
+    "message": "Preview rebalance to current preferences"
+  },
+  "button_srs_rebalance_apply": {
+    "message": "Apply rebalance…"
+  },
   "button_srs_refresh_set": {
     "message": "Refresh S + publish rules"
   },
   "button_srs_runtime_diagnostics": {
     "message": "SRS runtime diagnostics"
+  },
+  "button_srs_admission_preview": {
+    "message": "Generate admitted words sample (5)…"
   },
   "button_srs_rulegen_preview": {
     "message": "Run rulegen (debug)…"
@@ -203,6 +236,12 @@
   "confirm_srs_reset_2": {
     "message": "Really delete all learning history and start over for this pair?"
   },
+  "confirm_srs_rebalance_title": {
+    "message": "Rebalance the active SRS set for $1 using current preferences?"
+  },
+  "confirm_srs_rebalance_body_counts": {
+    "message": "$1 protected words will stay active, $2 low-commitment words will leave the active set, and $3 words will be activated. Review history will be preserved."
+  },
   "status_srs_sampling": {
     "message": "Sampling…"
   },
@@ -212,6 +251,21 @@
   "status_srs_rulegen_running": {
     "message": "Running rulegen…"
   },
+  "status_srs_admission_preview_running": {
+    "message": "Generating admitted words sample ($1)…"
+  },
+  "status_srs_admission_preview_header": {
+    "message": "Admission sample: $1 shown / $2 bootstrap words for $3."
+  },
+  "status_srs_admission_preview_plan_only": {
+    "message": "Preview unavailable because the selected strategy is planner-only."
+  },
+  "status_srs_admission_preview_empty": {
+    "message": "No admission sample is available for $1."
+  },
+  "status_srs_admission_preview_failed": {
+    "message": "Admission preview failed."
+  },
   "status_srs_rulegen_sampled_running": {
     "message": "Running sampled rulegen ($1)…"
   },
@@ -220,6 +274,39 @@
   },
   "status_srs_set_init_running": {
     "message": "Initializing S…"
+  },
+  "status_srs_rebalance_preview_running": {
+    "message": "Preparing rebalance preview for $1…"
+  },
+  "status_srs_rebalance_apply_running": {
+    "message": "Preparing rebalance apply for $1…"
+  },
+  "status_srs_rebalance_preview_header": {
+    "message": "Rebalance preview for $1: keep $2, park $3, activate $4."
+  },
+  "status_srs_rebalance_apply_result": {
+    "message": "Rebalance applied for $1: keep $2, park $3, activate $4."
+  },
+  "status_srs_rebalance_ready": {
+    "message": "Rebalance preview ready for $1."
+  },
+  "status_srs_rebalance_blocked": {
+    "message": "Rebalance is not ready for $1."
+  },
+  "status_srs_rebalance_applied": {
+    "message": "Rebalance applied for $1."
+  },
+  "status_srs_rebalance_noop": {
+    "message": "Rebalance for $1 required no active-set changes."
+  },
+  "status_srs_rebalance_cancelled": {
+    "message": "Rebalance cancelled for $1."
+  },
+  "status_srs_rebalance_preview_failed": {
+    "message": "SRS rebalance preview failed."
+  },
+  "status_srs_rebalance_apply_failed": {
+    "message": "SRS rebalance apply failed."
   },
   "status_srs_refresh_running": {
     "message": "Refreshing S and publishing rules…"
@@ -265,6 +352,9 @@
   },
   "status_srs_rulegen_empty": {
     "message": "No rules found for current active words."
+  },
+  "status_srs_rulegen_other_pairs_only": {
+    "message": "This profile has SRS items, but none for $1. Initialize S for this pair or switch back to a pair that already has items."
   },
   "status_srs_sample_failed": {
     "message": "SRS sample failed."

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-03-21T02:48:05.854221+00:00",
+  "generated_at": "2026-04-15T01:15:59.507996+00:00",
   "fail_on_warn": false,
   "supported_pairs": [
     "en-ja",
@@ -37,8 +37,8 @@
         "replace_pair": true,
         "added_items": 40,
         "total_items_for_pair": 40,
-        "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp0rmuu9nf/srs/profiles/default/srs_store.json",
-        "stopwords_path": null,
+        "store_path": "C:\\Users\\kuuko\\AppData\\Local\\Temp\\tmpst1lf439\\srs\\profiles\\default\\srs_store.json",
+        "stopwords_path": "C:\\Users\\kuuko\\AppData\\Local\\Temp\\tmpst1lf439\\srs\\stopwords\\stopwords-ja.json",
         "bootstrap_diagnostics": {
           "selected_count": 70,
           "selected_unique_count": 70,
@@ -67,38 +67,42 @@
             "jaaag",
             "jaaah",
             "jaaai",
-            "jaaaj",
-            "jaaak",
-            "jaaal",
-            "jaaam",
             "jaaan",
             "jaaao",
             "jaaap",
             "jaaaq",
             "jaaar",
-            "jaaas",
-            "jaaat",
             "jaaau",
-            "jaaav",
             "jaaaw",
-            "jaaax",
             "jaaay",
             "jaaaz",
             "jaaba",
-            "jaabb",
             "jaabc",
-            "jaabd",
             "jaabe",
-            "jaabf",
             "jaabg",
             "jaabh",
-            "jaabi",
-            "jaabj",
             "jaabk",
             "jaabl",
             "jaabm",
-            "jaabn"
+            "jaabn",
+            "jaabq",
+            "jaabr",
+            "jaabs",
+            "jaabt",
+            "jaabv",
+            "jaabw",
+            "jaacc",
+            "jaace",
+            "jaach",
+            "jaaci",
+            "jaacj",
+            "jaacn",
+            "jaacp"
           ],
+          "selection_strategy": "frequency_bootstrap",
+          "selection_policy": "weighted_without_replacement",
+          "selection_seed": null,
+          "selector_version": null,
           "admission_weight_profile": {
             "noun": 1.0,
             "adjective": 0.85,
@@ -180,38 +184,6 @@
               "admission_weight": 0.971955
             },
             {
-              "lemma": "jaaaj",
-              "pos": "名詞-普通名詞-一般",
-              "pos_bucket": "noun",
-              "base_weight": 0.968202,
-              "pos_weight": 1.0,
-              "admission_weight": 0.968202
-            },
-            {
-              "lemma": "jaaak",
-              "pos": "名詞-普通名詞-一般",
-              "pos_bucket": "noun",
-              "base_weight": 0.964387,
-              "pos_weight": 1.0,
-              "admission_weight": 0.964387
-            },
-            {
-              "lemma": "jaaal",
-              "pos": "名詞-普通名詞-一般",
-              "pos_bucket": "noun",
-              "base_weight": 0.96051,
-              "pos_weight": 1.0,
-              "admission_weight": 0.96051
-            },
-            {
-              "lemma": "jaaam",
-              "pos": "名詞-普通名詞-一般",
-              "pos_bucket": "noun",
-              "base_weight": 0.956567,
-              "pos_weight": 1.0,
-              "admission_weight": 0.956567
-            },
-            {
               "lemma": "jaaan",
               "pos": "名詞-普通名詞-一般",
               "pos_bucket": "noun",
@@ -252,29 +224,228 @@
               "admission_weight": 0.935793
             },
             {
-              "lemma": "jaaas",
+              "lemma": "jaaau",
               "pos": "名詞-普通名詞-一般",
               "pos_bucket": "noun",
-              "base_weight": 0.931407,
+              "base_weight": 0.922384,
               "pos_weight": 1.0,
-              "admission_weight": 0.931407
+              "admission_weight": 0.922384
             },
             {
-              "lemma": "jaaat",
+              "lemma": "jaaaw",
               "pos": "名詞-普通名詞-一般",
               "pos_bucket": "noun",
-              "base_weight": 0.926939,
+              "base_weight": 0.912998,
               "pos_weight": 1.0,
-              "admission_weight": 0.926939
+              "admission_weight": 0.912998
+            },
+            {
+              "lemma": "jaaay",
+              "pos": "名詞-普通名詞-一般",
+              "pos_bucket": "noun",
+              "base_weight": 0.903222,
+              "pos_weight": 1.0,
+              "admission_weight": 0.903222
+            },
+            {
+              "lemma": "jaaaz",
+              "pos": "名詞-普通名詞-一般",
+              "pos_bucket": "noun",
+              "base_weight": 0.898177,
+              "pos_weight": 1.0,
+              "admission_weight": 0.898177
+            },
+            {
+              "lemma": "jaaba",
+              "pos": "名詞-普通名詞-一般",
+              "pos_bucket": "noun",
+              "base_weight": 0.893021,
+              "pos_weight": 1.0,
+              "admission_weight": 0.893021
+            },
+            {
+              "lemma": "jaabc",
+              "pos": "名詞-普通名詞-一般",
+              "pos_bucket": "noun",
+              "base_weight": 0.882356,
+              "pos_weight": 1.0,
+              "admission_weight": 0.882356
+            },
+            {
+              "lemma": "jaabe",
+              "pos": "名詞-普通名詞-一般",
+              "pos_bucket": "noun",
+              "base_weight": 0.871182,
+              "pos_weight": 1.0,
+              "admission_weight": 0.871182
+            },
+            {
+              "lemma": "jaabg",
+              "pos": "名詞-普通名詞-一般",
+              "pos_bucket": "noun",
+              "base_weight": 0.85945,
+              "pos_weight": 1.0,
+              "admission_weight": 0.85945
+            },
+            {
+              "lemma": "jaabh",
+              "pos": "名詞-普通名詞-一般",
+              "pos_bucket": "noun",
+              "base_weight": 0.853357,
+              "pos_weight": 1.0,
+              "admission_weight": 0.853357
+            },
+            {
+              "lemma": "jaabk",
+              "pos": "名詞-普通名詞-一般",
+              "pos_bucket": "noun",
+              "base_weight": 0.834064,
+              "pos_weight": 1.0,
+              "admission_weight": 0.834064
+            },
+            {
+              "lemma": "jaabl",
+              "pos": "名詞-普通名詞-一般",
+              "pos_bucket": "noun",
+              "base_weight": 0.827264,
+              "pos_weight": 1.0,
+              "admission_weight": 0.827264
+            },
+            {
+              "lemma": "jaabm",
+              "pos": "名詞-普通名詞-一般",
+              "pos_bucket": "noun",
+              "base_weight": 0.82026,
+              "pos_weight": 1.0,
+              "admission_weight": 0.82026
+            },
+            {
+              "lemma": "jaabn",
+              "pos": "名詞-普通名詞-一般",
+              "pos_bucket": "noun",
+              "base_weight": 0.813042,
+              "pos_weight": 1.0,
+              "admission_weight": 0.813042
+            },
+            {
+              "lemma": "jaabq",
+              "pos": "名詞-普通名詞-一般",
+              "pos_bucket": "noun",
+              "base_weight": 0.789948,
+              "pos_weight": 1.0,
+              "admission_weight": 0.789948
+            },
+            {
+              "lemma": "jaabr",
+              "pos": "名詞-普通名詞-一般",
+              "pos_bucket": "noun",
+              "base_weight": 0.781716,
+              "pos_weight": 1.0,
+              "admission_weight": 0.781716
+            },
+            {
+              "lemma": "jaabs",
+              "pos": "名詞-普通名詞-一般",
+              "pos_bucket": "noun",
+              "base_weight": 0.773184,
+              "pos_weight": 1.0,
+              "admission_weight": 0.773184
+            },
+            {
+              "lemma": "jaabt",
+              "pos": "名詞-普通名詞-一般",
+              "pos_bucket": "noun",
+              "base_weight": 0.764331,
+              "pos_weight": 1.0,
+              "admission_weight": 0.764331
+            },
+            {
+              "lemma": "jaabv",
+              "pos": "名詞-普通名詞-一般",
+              "pos_bucket": "noun",
+              "base_weight": 0.745553,
+              "pos_weight": 1.0,
+              "admission_weight": 0.745553
+            },
+            {
+              "lemma": "jaabw",
+              "pos": "名詞-普通名詞-一般",
+              "pos_bucket": "noun",
+              "base_weight": 0.735569,
+              "pos_weight": 1.0,
+              "admission_weight": 0.735569
+            },
+            {
+              "lemma": "jaacc",
+              "pos": "名詞-普通名詞-一般",
+              "pos_bucket": "noun",
+              "base_weight": 0.664655,
+              "pos_weight": 1.0,
+              "admission_weight": 0.664655
+            },
+            {
+              "lemma": "jaace",
+              "pos": "名詞-普通名詞-一般",
+              "pos_bucket": "noun",
+              "base_weight": 0.635293,
+              "pos_weight": 1.0,
+              "admission_weight": 0.635293
+            },
+            {
+              "lemma": "jaach",
+              "pos": "名詞-普通名詞-一般",
+              "pos_bucket": "noun",
+              "base_weight": 0.582945,
+              "pos_weight": 1.0,
+              "admission_weight": 0.582945
+            },
+            {
+              "lemma": "jaaci",
+              "pos": "名詞-普通名詞-一般",
+              "pos_bucket": "noun",
+              "base_weight": 0.562532,
+              "pos_weight": 1.0,
+              "admission_weight": 0.562532
+            },
+            {
+              "lemma": "jaacj",
+              "pos": "名詞-普通名詞-一般",
+              "pos_bucket": "noun",
+              "base_weight": 0.540173,
+              "pos_weight": 1.0,
+              "admission_weight": 0.540173
+            },
+            {
+              "lemma": "jaacn",
+              "pos": "名詞-普通名詞-一般",
+              "pos_bucket": "noun",
+              "base_weight": 0.420336,
+              "pos_weight": 1.0,
+              "admission_weight": 0.420336
+            },
+            {
+              "lemma": "jaacp",
+              "pos": "名詞-普通名詞-一般",
+              "pos_bucket": "noun",
+              "base_weight": 0.325217,
+              "pos_weight": 1.0,
+              "admission_weight": 0.325217
             }
-          ]
+          ],
+          "profile_bootstrap": {}
         },
         "rulegen": {
           "published": true,
           "targets": 40,
-          "rules": 40,
-          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp0rmuu9nf/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
-          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp0rmuu9nf/srs/profiles/default/srs_ruleset_en-ja.json"
+          "rules": 0,
+          "snapshot_path": "C:\\Users\\kuuko\\AppData\\Local\\Temp\\tmpst1lf439\\srs\\profiles\\default\\srs_rulegen_snapshot_en-ja.json",
+          "ruleset_path": "C:\\Users\\kuuko\\AppData\\Local\\Temp\\tmpst1lf439\\srs\\profiles\\default\\srs_ruleset_en-ja.json"
+        },
+        "inventory": {
+          "path": "C:\\Users\\kuuko\\AppData\\Local\\Temp\\tmpst1lf439\\srs\\profiles\\default\\srs_inventory.json",
+          "exists": true,
+          "active_items_for_pair": 40,
+          "updated_at": "2026-04-15T01:15:58.433863+00:00"
         },
         "applied": true,
         "plan": {
@@ -334,8 +505,14 @@
         "max_new_items_per_day": 8,
         "added_items": 8,
         "total_items_for_pair": 48,
-        "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp0rmuu9nf/srs/profiles/default/srs_store.json",
-        "stopwords_path": null,
+        "store_path": "C:\\Users\\kuuko\\AppData\\Local\\Temp\\tmpst1lf439\\srs\\profiles\\default\\srs_store.json",
+        "stopwords_path": "C:\\Users\\kuuko\\AppData\\Local\\Temp\\tmpst1lf439\\srs\\stopwords\\stopwords-ja.json",
+        "inventory": {
+          "path": "C:\\Users\\kuuko\\AppData\\Local\\Temp\\tmpst1lf439\\srs\\profiles\\default\\srs_inventory.json",
+          "exists": true,
+          "active_items_for_pair": 48,
+          "updated_at": "2026-04-15T01:15:59.415270+00:00"
+        },
         "admission_refresh": {
           "pair": "en-ja",
           "max_active_items": 100,
@@ -364,14 +541,14 @@
           "candidate_pool_size": 70,
           "admitted_count": 8,
           "selected_lemmas": [
-            "jaabo",
-            "jaabp",
-            "jaabq",
-            "jaabr",
-            "jaabs",
-            "jaabt",
-            "jaabu",
-            "jaabv"
+            "jaaaj",
+            "jaaak",
+            "jaaal",
+            "jaabi",
+            "jaabj",
+            "jaabx",
+            "jaaca",
+            "jaacg"
           ],
           "diagnostics": {
             "filtered_by_pos": 0,
@@ -380,7 +557,9 @@
             },
             "unknown_pos_seen": 0,
             "allowed_pos": [],
-            "candidate_pool_effective": 70
+            "candidate_pool_effective": 70,
+            "selection_policy": "weighted_without_replacement",
+            "selection_seed": null
           },
           "applied": true,
           "weight_terms": {
@@ -391,9 +570,9 @@
         "rulegen": {
           "published": true,
           "targets": 48,
-          "rules": 48,
-          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp0rmuu9nf/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
-          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp0rmuu9nf/srs/profiles/default/srs_ruleset_en-ja.json"
+          "rules": 0,
+          "snapshot_path": "C:\\Users\\kuuko\\AppData\\Local\\Temp\\tmpst1lf439\\srs\\profiles\\default\\srs_rulegen_snapshot_en-ja.json",
+          "ruleset_path": "C:\\Users\\kuuko\\AppData\\Local\\Temp\\tmpst1lf439\\srs\\profiles\\default\\srs_ruleset_en-ja.json"
         },
         "applied": true,
         "persisted": true,
@@ -404,12 +583,13 @@
         "profile_id": "default",
         "requirements": {
           "pair": "en-ja",
-          "rulegen_mode": "ja_en",
+          "rulegen_mode": "en_ja",
           "supports_rulegen": true,
           "srs_selectable": true,
           "default_frequency_db": "freq-ja-bccwj.sqlite",
           "requires_jmdict_for_seed": true,
-          "requires_jmdict_for_rulegen": true,
+          "requires_jmdict_for_rulegen": false,
+          "requires_translation_dictionary_for_rulegen": true,
           "requires_freedict_de_en_for_rulegen": false
         },
         "pair_policy": {
@@ -421,46 +601,53 @@
           "max_new_items_per_day_default": null,
           "notes": []
         },
-        "jmdict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp0rmuu9nf/language_packs/JMdict_e",
+        "jmdict_path": "C:\\Users\\kuuko\\AppData\\Local\\Temp\\tmpst1lf439\\language_packs\\JMdict_e",
         "jmdict_exists": true,
+        "translation_dict_path": "C:\\Users\\kuuko\\AppData\\Local\\Temp\\tmpst1lf439\\language_packs\\wiktionary-ja-en.sqlite",
+        "translation_dict_exists": true,
         "freedict_de_en_path": null,
         "freedict_de_en_exists": false,
-        "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp0rmuu9nf/frequency_packs/freq-ja-bccwj.sqlite",
+        "set_source_db": "C:\\Users\\kuuko\\AppData\\Local\\Temp\\tmpst1lf439\\frequency_packs\\freq-ja-bccwj.sqlite",
         "set_source_db_exists": true,
-        "stopwords_path": null,
-        "stopwords_exists": false,
+        "stopwords_path": "C:\\Users\\kuuko\\AppData\\Local\\Temp\\tmpst1lf439\\srs\\stopwords\\stopwords-ja.json",
+        "stopwords_exists": true,
         "missing_inputs": [],
-        "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp0rmuu9nf/srs/profiles/default/srs_store.json",
+        "store_path": "C:\\Users\\kuuko\\AppData\\Local\\Temp\\tmpst1lf439\\srs\\profiles\\default\\srs_store.json",
         "store_exists": true,
         "store_items_total": 48,
         "store_items_for_pair": 48,
         "store_items_with_word_package_total": 48,
         "store_items_with_word_package_for_pair": 48,
         "store_error": null,
-        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp0rmuu9nf/srs/profiles/default/srs_ruleset_en-ja.json",
+        "inventory_path": "C:\\Users\\kuuko\\AppData\\Local\\Temp\\tmpst1lf439\\srs\\profiles\\default\\srs_inventory.json",
+        "inventory_exists": true,
+        "inventory_active_items_for_pair": 48,
+        "inventory_source": "inventory",
+        "inventory_error": null,
+        "ruleset_path": "C:\\Users\\kuuko\\AppData\\Local\\Temp\\tmpst1lf439\\srs\\profiles\\default\\srs_ruleset_en-ja.json",
         "ruleset_exists": true,
-        "ruleset_rules_count": 48,
-        "ruleset_rules_with_script_forms": 48,
-        "ruleset_rules_with_word_package": 48,
+        "ruleset_rules_count": 0,
+        "ruleset_rules_with_script_forms": 0,
+        "ruleset_rules_with_word_package": 0,
         "ruleset_error": null,
-        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp0rmuu9nf/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+        "snapshot_path": "C:\\Users\\kuuko\\AppData\\Local\\Temp\\tmpst1lf439\\srs\\profiles\\default\\srs_rulegen_snapshot_en-ja.json",
         "snapshot_exists": true,
-        "snapshot_target_count": 48,
+        "snapshot_target_count": 0,
         "snapshot_error": null,
         "status": {
           "version": 1,
           "helper_version": "0.1.0",
-          "last_run_at": "2026-03-21T02:48:05.792476+00:00",
+          "last_run_at": "2026-04-15T01:15:59.418294+00:00",
           "last_error": null,
           "last_pair": "en-ja",
-          "last_rule_count": 48,
+          "last_rule_count": 0,
           "last_target_count": 48
         }
       },
       "store_items_for_pair": 48,
       "due_count": 48,
-      "ruleset_unique_targets": 48,
-      "snapshot_target_count": 48,
+      "ruleset_unique_targets": 0,
+      "snapshot_target_count": 0,
       "findings": [
         {
           "level": "PASS",
@@ -481,7 +668,7 @@
           "code": "SRS_RUNTIME_ARTIFACTS_PRESENT",
           "pair": "en-ja",
           "message": "Store, ruleset, and snapshot artifacts are present.",
-          "details": "store_items_for_pair=48 ruleset_rules_count=48 snapshot_target_count=48"
+          "details": "store_items_for_pair=48 ruleset_rules_count=0 snapshot_target_count=0"
         },
         {
           "level": "PASS",
@@ -502,7 +689,7 @@
           "code": "SRS_PUBLICATION_COUNTS_BOUNDED",
           "pair": "en-ja",
           "message": "Published targets do not exceed admitted store items.",
-          "details": "store_items_for_pair=48 ruleset_unique_targets=48 snapshot_target_count=48"
+          "details": "store_items_for_pair=48 ruleset_unique_targets=0 snapshot_target_count=0"
         }
       ]
     },
@@ -528,8 +715,8 @@
         "replace_pair": true,
         "added_items": 40,
         "total_items_for_pair": 40,
-        "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp5u3h42xm/srs/profiles/default/srs_store.json",
-        "stopwords_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp5u3h42xm/srs/stopwords/stopwords-de.json",
+        "store_path": "C:\\Users\\kuuko\\AppData\\Local\\Temp\\tmpnauqrlrs\\srs\\profiles\\default\\srs_store.json",
+        "stopwords_path": "C:\\Users\\kuuko\\AppData\\Local\\Temp\\tmpnauqrlrs\\srs\\stopwords\\stopwords-de.json",
         "bootstrap_diagnostics": {
           "selected_count": 70,
           "selected_unique_count": 70,
@@ -553,43 +740,47 @@
             "deaab",
             "deaac",
             "deaad",
-            "deaae",
             "deaaf",
             "deaag",
             "deaah",
-            "deaai",
             "deaaj",
             "deaak",
             "deaal",
-            "deaam",
             "deaan",
-            "deaao",
             "deaap",
             "deaaq",
-            "deaar",
             "deaas",
-            "deaat",
-            "deaau",
             "deaav",
-            "deaaw",
             "deaax",
             "deaay",
-            "deaaz",
             "deaba",
             "deabb",
             "deabc",
-            "deabd",
             "deabe",
-            "deabf",
-            "deabg",
             "deabh",
-            "deabi",
             "deabj",
-            "deabk",
-            "deabl",
             "deabm",
-            "deabn"
+            "deabn",
+            "deabo",
+            "deabp",
+            "deabq",
+            "deabr",
+            "deabt",
+            "deabu",
+            "deabw",
+            "deabx",
+            "deabz",
+            "deacd",
+            "deace",
+            "deack",
+            "deacl",
+            "deacm",
+            "deaco"
           ],
+          "selection_strategy": "frequency_bootstrap",
+          "selection_policy": "weighted_without_replacement",
+          "selection_seed": null,
+          "selector_version": null,
           "admission_weight_profile": {
             "noun": 1.0,
             "adjective": 0.85,
@@ -631,14 +822,6 @@
               "admission_weight": 0.989872
             },
             {
-              "lemma": "deaae",
-              "pos": "SUB:NOM:SIN:NEU",
-              "pos_bucket": "noun",
-              "base_weight": 0.986397,
-              "pos_weight": 1.0,
-              "admission_weight": 0.986397
-            },
-            {
               "lemma": "deaaf",
               "pos": "SUB:NOM:SIN:NEU",
               "pos_bucket": "noun",
@@ -661,14 +844,6 @@
               "base_weight": 0.97565,
               "pos_weight": 1.0,
               "admission_weight": 0.97565
-            },
-            {
-              "lemma": "deaai",
-              "pos": "SUB:NOM:SIN:NEU",
-              "pos_bucket": "noun",
-              "base_weight": 0.971955,
-              "pos_weight": 1.0,
-              "admission_weight": 0.971955
             },
             {
               "lemma": "deaaj",
@@ -695,28 +870,12 @@
               "admission_weight": 0.96051
             },
             {
-              "lemma": "deaam",
-              "pos": "SUB:NOM:SIN:NEU",
-              "pos_bucket": "noun",
-              "base_weight": 0.956567,
-              "pos_weight": 1.0,
-              "admission_weight": 0.956567
-            },
-            {
               "lemma": "deaan",
               "pos": "SUB:NOM:SIN:NEU",
               "pos_bucket": "noun",
               "base_weight": 0.952556,
               "pos_weight": 1.0,
               "admission_weight": 0.952556
-            },
-            {
-              "lemma": "deaao",
-              "pos": "SUB:NOM:SIN:NEU",
-              "pos_bucket": "noun",
-              "base_weight": 0.948476,
-              "pos_weight": 1.0,
-              "admission_weight": 0.948476
             },
             {
               "lemma": "deaap",
@@ -735,14 +894,6 @@
               "admission_weight": 0.940097
             },
             {
-              "lemma": "deaar",
-              "pos": "SUB:NOM:SIN:NEU",
-              "pos_bucket": "noun",
-              "base_weight": 0.935793,
-              "pos_weight": 1.0,
-              "admission_weight": 0.935793
-            },
-            {
               "lemma": "deaas",
               "pos": "SUB:NOM:SIN:NEU",
               "pos_bucket": "noun",
@@ -751,21 +902,228 @@
               "admission_weight": 0.931407
             },
             {
-              "lemma": "deaat",
+              "lemma": "deaav",
               "pos": "SUB:NOM:SIN:NEU",
               "pos_bucket": "noun",
-              "base_weight": 0.926939,
+              "base_weight": 0.917738,
               "pos_weight": 1.0,
-              "admission_weight": 0.926939
+              "admission_weight": 0.917738
+            },
+            {
+              "lemma": "deaax",
+              "pos": "SUB:NOM:SIN:NEU",
+              "pos_bucket": "noun",
+              "base_weight": 0.908161,
+              "pos_weight": 1.0,
+              "admission_weight": 0.908161
+            },
+            {
+              "lemma": "deaay",
+              "pos": "SUB:NOM:SIN:NEU",
+              "pos_bucket": "noun",
+              "base_weight": 0.903222,
+              "pos_weight": 1.0,
+              "admission_weight": 0.903222
+            },
+            {
+              "lemma": "deaba",
+              "pos": "SUB:NOM:SIN:NEU",
+              "pos_bucket": "noun",
+              "base_weight": 0.893021,
+              "pos_weight": 1.0,
+              "admission_weight": 0.893021
+            },
+            {
+              "lemma": "deabb",
+              "pos": "SUB:NOM:SIN:NEU",
+              "pos_bucket": "noun",
+              "base_weight": 0.887749,
+              "pos_weight": 1.0,
+              "admission_weight": 0.887749
+            },
+            {
+              "lemma": "deabc",
+              "pos": "SUB:NOM:SIN:NEU",
+              "pos_bucket": "noun",
+              "base_weight": 0.882356,
+              "pos_weight": 1.0,
+              "admission_weight": 0.882356
+            },
+            {
+              "lemma": "deabe",
+              "pos": "SUB:NOM:SIN:NEU",
+              "pos_bucket": "noun",
+              "base_weight": 0.871182,
+              "pos_weight": 1.0,
+              "admission_weight": 0.871182
+            },
+            {
+              "lemma": "deabh",
+              "pos": "SUB:NOM:SIN:NEU",
+              "pos_bucket": "noun",
+              "base_weight": 0.853357,
+              "pos_weight": 1.0,
+              "admission_weight": 0.853357
+            },
+            {
+              "lemma": "deabj",
+              "pos": "SUB:NOM:SIN:NEU",
+              "pos_bucket": "noun",
+              "base_weight": 0.840673,
+              "pos_weight": 1.0,
+              "admission_weight": 0.840673
+            },
+            {
+              "lemma": "deabm",
+              "pos": "SUB:NOM:SIN:NEU",
+              "pos_bucket": "noun",
+              "base_weight": 0.82026,
+              "pos_weight": 1.0,
+              "admission_weight": 0.82026
+            },
+            {
+              "lemma": "deabn",
+              "pos": "SUB:NOM:SIN:NEU",
+              "pos_bucket": "noun",
+              "base_weight": 0.813042,
+              "pos_weight": 1.0,
+              "admission_weight": 0.813042
+            },
+            {
+              "lemma": "deabo",
+              "pos": "SUB:NOM:SIN:NEU",
+              "pos_bucket": "noun",
+              "base_weight": 0.805594,
+              "pos_weight": 1.0,
+              "admission_weight": 0.805594
+            },
+            {
+              "lemma": "deabp",
+              "pos": "SUB:NOM:SIN:NEU",
+              "pos_bucket": "noun",
+              "base_weight": 0.797901,
+              "pos_weight": 1.0,
+              "admission_weight": 0.797901
+            },
+            {
+              "lemma": "deabq",
+              "pos": "SUB:NOM:SIN:NEU",
+              "pos_bucket": "noun",
+              "base_weight": 0.789948,
+              "pos_weight": 1.0,
+              "admission_weight": 0.789948
+            },
+            {
+              "lemma": "deabr",
+              "pos": "SUB:NOM:SIN:NEU",
+              "pos_bucket": "noun",
+              "base_weight": 0.781716,
+              "pos_weight": 1.0,
+              "admission_weight": 0.781716
+            },
+            {
+              "lemma": "deabt",
+              "pos": "SUB:NOM:SIN:NEU",
+              "pos_bucket": "noun",
+              "base_weight": 0.764331,
+              "pos_weight": 1.0,
+              "admission_weight": 0.764331
+            },
+            {
+              "lemma": "deabu",
+              "pos": "SUB:NOM:SIN:NEU",
+              "pos_bucket": "noun",
+              "base_weight": 0.75513,
+              "pos_weight": 1.0,
+              "admission_weight": 0.75513
+            },
+            {
+              "lemma": "deabw",
+              "pos": "SUB:NOM:SIN:NEU",
+              "pos_bucket": "noun",
+              "base_weight": 0.735569,
+              "pos_weight": 1.0,
+              "admission_weight": 0.735569
+            },
+            {
+              "lemma": "deabx",
+              "pos": "SUB:NOM:SIN:NEU",
+              "pos_bucket": "noun",
+              "base_weight": 0.725141,
+              "pos_weight": 1.0,
+              "admission_weight": 0.725141
+            },
+            {
+              "lemma": "deabz",
+              "pos": "SUB:NOM:SIN:NEU",
+              "pos_bucket": "noun",
+              "base_weight": 0.702781,
+              "pos_weight": 1.0,
+              "admission_weight": 0.702781
+            },
+            {
+              "lemma": "deacd",
+              "pos": "SUB:NOM:SIN:NEU",
+              "pos_bucket": "noun",
+              "base_weight": 0.650433,
+              "pos_weight": 1.0,
+              "admission_weight": 0.650433
+            },
+            {
+              "lemma": "deace",
+              "pos": "SUB:NOM:SIN:NEU",
+              "pos_bucket": "noun",
+              "base_weight": 0.635293,
+              "pos_weight": 1.0,
+              "admission_weight": 0.635293
+            },
+            {
+              "lemma": "deack",
+              "pos": "SUB:NOM:SIN:NEU",
+              "pos_bucket": "noun",
+              "base_weight": 0.515456,
+              "pos_weight": 1.0,
+              "admission_weight": 0.515456
+            },
+            {
+              "lemma": "deacl",
+              "pos": "SUB:NOM:SIN:NEU",
+              "pos_bucket": "noun",
+              "base_weight": 0.487825,
+              "pos_weight": 1.0,
+              "admission_weight": 0.487825
+            },
+            {
+              "lemma": "deacm",
+              "pos": "SUB:NOM:SIN:NEU",
+              "pos_bucket": "noun",
+              "base_weight": 0.456499,
+              "pos_weight": 1.0,
+              "admission_weight": 0.456499
+            },
+            {
+              "lemma": "deaco",
+              "pos": "SUB:NOM:SIN:NEU",
+              "pos_bucket": "noun",
+              "base_weight": 0.377565,
+              "pos_weight": 1.0,
+              "admission_weight": 0.377565
             }
-          ]
+          ],
+          "profile_bootstrap": {}
         },
         "rulegen": {
           "published": true,
           "targets": 40,
           "rules": 40,
-          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp5u3h42xm/srs/profiles/default/srs_rulegen_snapshot_en-de.json",
-          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp5u3h42xm/srs/profiles/default/srs_ruleset_en-de.json"
+          "snapshot_path": "C:\\Users\\kuuko\\AppData\\Local\\Temp\\tmpnauqrlrs\\srs\\profiles\\default\\srs_rulegen_snapshot_en-de.json",
+          "ruleset_path": "C:\\Users\\kuuko\\AppData\\Local\\Temp\\tmpnauqrlrs\\srs\\profiles\\default\\srs_ruleset_en-de.json"
+        },
+        "inventory": {
+          "path": "C:\\Users\\kuuko\\AppData\\Local\\Temp\\tmpnauqrlrs\\srs\\profiles\\default\\srs_inventory.json",
+          "exists": true,
+          "active_items_for_pair": 40,
+          "updated_at": "2026-04-15T01:15:59.439884+00:00"
         },
         "applied": true,
         "plan": {
@@ -825,8 +1183,14 @@
         "max_new_items_per_day": 8,
         "added_items": 8,
         "total_items_for_pair": 48,
-        "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp5u3h42xm/srs/profiles/default/srs_store.json",
-        "stopwords_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp5u3h42xm/srs/stopwords/stopwords-de.json",
+        "store_path": "C:\\Users\\kuuko\\AppData\\Local\\Temp\\tmpnauqrlrs\\srs\\profiles\\default\\srs_store.json",
+        "stopwords_path": "C:\\Users\\kuuko\\AppData\\Local\\Temp\\tmpnauqrlrs\\srs\\stopwords\\stopwords-de.json",
+        "inventory": {
+          "path": "C:\\Users\\kuuko\\AppData\\Local\\Temp\\tmpnauqrlrs\\srs\\profiles\\default\\srs_inventory.json",
+          "exists": true,
+          "active_items_for_pair": 48,
+          "updated_at": "2026-04-15T01:15:59.451122+00:00"
+        },
         "admission_refresh": {
           "pair": "en-de",
           "max_active_items": 100,
@@ -855,14 +1219,14 @@
           "candidate_pool_size": 70,
           "admitted_count": 8,
           "selected_lemmas": [
-            "deabo",
-            "deabp",
-            "deabq",
-            "deabr",
+            "deaae",
+            "deaai",
+            "deaao",
+            "deabd",
+            "deabk",
             "deabs",
-            "deabt",
-            "deabu",
-            "deabv"
+            "deabv",
+            "deaci"
           ],
           "diagnostics": {
             "filtered_by_pos": 0,
@@ -871,7 +1235,9 @@
             },
             "unknown_pos_seen": 0,
             "allowed_pos": [],
-            "candidate_pool_effective": 70
+            "candidate_pool_effective": 70,
+            "selection_policy": "weighted_without_replacement",
+            "selection_seed": null
           },
           "applied": true,
           "weight_terms": {
@@ -883,8 +1249,8 @@
           "published": true,
           "targets": 48,
           "rules": 48,
-          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp5u3h42xm/srs/profiles/default/srs_rulegen_snapshot_en-de.json",
-          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp5u3h42xm/srs/profiles/default/srs_ruleset_en-de.json"
+          "snapshot_path": "C:\\Users\\kuuko\\AppData\\Local\\Temp\\tmpnauqrlrs\\srs\\profiles\\default\\srs_rulegen_snapshot_en-de.json",
+          "ruleset_path": "C:\\Users\\kuuko\\AppData\\Local\\Temp\\tmpnauqrlrs\\srs\\profiles\\default\\srs_ruleset_en-de.json"
         },
         "applied": true,
         "persisted": true,
@@ -901,6 +1267,7 @@
           "default_frequency_db": "freq-de-default.sqlite",
           "requires_jmdict_for_seed": false,
           "requires_jmdict_for_rulegen": false,
+          "requires_translation_dictionary_for_rulegen": true,
           "requires_freedict_de_en_for_rulegen": true
         },
         "pair_policy": {
@@ -914,34 +1281,41 @@
         },
         "jmdict_path": null,
         "jmdict_exists": false,
-        "freedict_de_en_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp5u3h42xm/language_packs/deu-eng.tei",
+        "translation_dict_path": "C:\\Users\\kuuko\\AppData\\Local\\Temp\\tmpnauqrlrs\\language_packs\\deu-eng.tei",
+        "translation_dict_exists": true,
+        "freedict_de_en_path": "C:\\Users\\kuuko\\AppData\\Local\\Temp\\tmpnauqrlrs\\language_packs\\deu-eng.tei",
         "freedict_de_en_exists": true,
-        "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp5u3h42xm/frequency_packs/freq-de-default.sqlite",
+        "set_source_db": "C:\\Users\\kuuko\\AppData\\Local\\Temp\\tmpnauqrlrs\\frequency_packs\\freq-de-default.sqlite",
         "set_source_db_exists": true,
-        "stopwords_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp5u3h42xm/srs/stopwords/stopwords-de.json",
+        "stopwords_path": "C:\\Users\\kuuko\\AppData\\Local\\Temp\\tmpnauqrlrs\\srs\\stopwords\\stopwords-de.json",
         "stopwords_exists": true,
         "missing_inputs": [],
-        "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp5u3h42xm/srs/profiles/default/srs_store.json",
+        "store_path": "C:\\Users\\kuuko\\AppData\\Local\\Temp\\tmpnauqrlrs\\srs\\profiles\\default\\srs_store.json",
         "store_exists": true,
         "store_items_total": 48,
         "store_items_for_pair": 48,
         "store_items_with_word_package_total": 48,
         "store_items_with_word_package_for_pair": 48,
         "store_error": null,
-        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp5u3h42xm/srs/profiles/default/srs_ruleset_en-de.json",
+        "inventory_path": "C:\\Users\\kuuko\\AppData\\Local\\Temp\\tmpnauqrlrs\\srs\\profiles\\default\\srs_inventory.json",
+        "inventory_exists": true,
+        "inventory_active_items_for_pair": 48,
+        "inventory_source": "inventory",
+        "inventory_error": null,
+        "ruleset_path": "C:\\Users\\kuuko\\AppData\\Local\\Temp\\tmpnauqrlrs\\srs\\profiles\\default\\srs_ruleset_en-de.json",
         "ruleset_exists": true,
         "ruleset_rules_count": 48,
         "ruleset_rules_with_script_forms": 48,
         "ruleset_rules_with_word_package": 48,
         "ruleset_error": null,
-        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp5u3h42xm/srs/profiles/default/srs_rulegen_snapshot_en-de.json",
+        "snapshot_path": "C:\\Users\\kuuko\\AppData\\Local\\Temp\\tmpnauqrlrs\\srs\\profiles\\default\\srs_rulegen_snapshot_en-de.json",
         "snapshot_exists": true,
         "snapshot_target_count": 48,
         "snapshot_error": null,
         "status": {
           "version": 1,
           "helper_version": "0.1.0",
-          "last_run_at": "2026-03-21T02:48:05.824311+00:00",
+          "last_run_at": "2026-04-15T01:15:59.460161+00:00",
           "last_error": null,
           "last_pair": "en-de",
           "last_rule_count": 48,
@@ -1089,7 +1463,7 @@
       "code": "SRS_RUNTIME_ARTIFACTS_PRESENT",
       "pair": "en-ja",
       "message": "Store, ruleset, and snapshot artifacts are present.",
-      "details": "store_items_for_pair=48 ruleset_rules_count=48 snapshot_target_count=48"
+      "details": "store_items_for_pair=48 ruleset_rules_count=0 snapshot_target_count=0"
     },
     {
       "level": "PASS",
@@ -1110,7 +1484,7 @@
       "code": "SRS_PUBLICATION_COUNTS_BOUNDED",
       "pair": "en-ja",
       "message": "Published targets do not exceed admitted store items.",
-      "details": "store_items_for_pair=48 ruleset_unique_targets=48 snapshot_target_count=48"
+      "details": "store_items_for_pair=48 ruleset_unique_targets=0 snapshot_target_count=0"
     },
     {
       "level": "PASS",

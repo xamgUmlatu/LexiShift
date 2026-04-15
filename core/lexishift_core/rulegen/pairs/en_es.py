@@ -64,6 +64,7 @@ from lexishift_core.rulegen.pairs.en_es_support import (
     normalize_reverse_token as _normalize_reverse_token,
     normalize_reverse_token_with_pos as _normalize_reverse_token_with_pos,
     resolve_kaikki_policy_live_demotion as _resolve_kaikki_policy_live_demotion,
+    resolve_kaikki_policy_live_suppression as _resolve_kaikki_policy_live_suppression,
     resolve_kaikki_provenance_competition_demotion as _resolve_kaikki_provenance_competition_demotion,
     resolve_kaikki_register_demotion as _resolve_kaikki_register_demotion,
     should_demote_shadowed_adverb as _should_demote_shadowed_adverb,
@@ -105,6 +106,26 @@ _FUNCTION_WORD_CANONICALS = frozenset(
         CANONICAL_POS_PRONOUN,
         CANONICAL_POS_ADPOSITION,
         CANONICAL_POS_CONJUNCTION,
+    }
+)
+_EN_ES_PHRASAL_VERB_PARTICLES = frozenset(
+    {
+        "about",
+        "across",
+        "along",
+        "apart",
+        "around",
+        "away",
+        "back",
+        "down",
+        "forth",
+        "in",
+        "off",
+        "on",
+        "out",
+        "over",
+        "through",
+        "up",
     }
 )
 _DEFAULT_STOPWORDS_FROZEN = frozenset(DEFAULT_STOPWORDS)
@@ -189,6 +210,103 @@ def _candidate_allows_function_word_phrase(candidate: RuleCandidate) -> bool:
     return _extract_dictionary_pos_canonical(candidate) in _FUNCTION_WORD_CANONICALS
 
 
+def _candidate_gloss_fragment_strategy(candidate: RuleCandidate) -> str:
+    metadata = candidate.metadata if isinstance(candidate.metadata, Mapping) else {}
+    gloss_provenance = metadata.get("gloss_provenance")
+    if not isinstance(gloss_provenance, Mapping):
+        return ""
+    return str(gloss_provenance.get("fragment_strategy") or "").strip().lower()
+
+
+def _candidate_allows_attested_phrasal_phrase(candidate: RuleCandidate) -> bool:
+    metadata = candidate.metadata if isinstance(candidate.metadata, Mapping) else {}
+    if _extract_dictionary_pos_canonical(candidate) != "verb":
+        return False
+    phrase = str(candidate.source_phrase or "").strip().lower()
+    if not _looks_like_attested_phrasal_verb_phrase(phrase):
+        return False
+    if not bool(metadata.get("reverse_check_hit")):
+        return False
+    reverse_rank = _normalize_non_negative_optional_int(metadata.get("reverse_check_rank"))
+    if reverse_rank != 0:
+        return False
+    occurrence_count = _normalize_non_negative_optional_int(
+        metadata.get("gloss_variant_occurrence_count")
+    )
+    return (occurrence_count or 1) >= 2
+
+
+def _candidate_allows_attested_nominal_phrase(candidate: RuleCandidate) -> bool:
+    metadata = candidate.metadata if isinstance(candidate.metadata, Mapping) else {}
+    if _extract_dictionary_pos_canonical(candidate) != CANONICAL_POS_NOUN:
+        return False
+    if _candidate_gloss_fragment_strategy(candidate) != "top_level_comma":
+        return False
+    phrase = str(candidate.source_phrase or "").strip().lower()
+    if not _looks_like_attested_nominal_compound_phrase(phrase):
+        return False
+    if not bool(metadata.get("reverse_check_hit")):
+        return False
+    reverse_rank = _normalize_non_negative_optional_int(metadata.get("reverse_check_rank"))
+    return reverse_rank is not None and reverse_rank <= 1
+
+
+def _looks_like_attested_phrasal_verb_phrase(phrase: str) -> bool:
+    tokens = [token for token in str(phrase or "").strip().lower().split(" ") if token]
+    if len(tokens) != 2:
+        return False
+    head, particle = tokens
+    if not re.fullmatch(r"[a-z][a-z-]*", head):
+        return False
+    return particle in _EN_ES_PHRASAL_VERB_PARTICLES
+
+
+def _looks_like_attested_nominal_compound_phrase(phrase: str) -> bool:
+    tokens = [token for token in str(phrase or "").strip().lower().split(" ") if token]
+    if len(tokens) != 2:
+        return False
+    return all(re.fullmatch(r"[a-z][a-z-]*", token) for token in tokens)
+
+
+def _apply_attested_nominal_phrase_competition_overlay(
+    candidates: Sequence[RuleCandidate],
+) -> tuple[RuleCandidate, ...]:
+    qualifying_prefixes: set[str] = set()
+    for candidate in candidates:
+        if not _candidate_allows_attested_nominal_phrase(candidate):
+            continue
+        tokens = [
+            token
+            for token in str(candidate.source_phrase or "").strip().lower().split(" ")
+            if token
+        ]
+        if len(tokens) == 2:
+            qualifying_prefixes.add(tokens[0])
+    if not qualifying_prefixes:
+        return tuple(candidates)
+
+    updated_candidates: list[RuleCandidate] = []
+    for candidate in candidates:
+        metadata = candidate.metadata if isinstance(candidate.metadata, Mapping) else {}
+        phrase = str(candidate.source_phrase or "").strip().lower()
+        if (
+            phrase in qualifying_prefixes
+            and " " not in phrase
+            and _extract_dictionary_pos_canonical(candidate) == "adjective"
+            and _candidate_gloss_fragment_strategy(candidate) == "identity"
+        ):
+            updated_metadata = dict(metadata)
+            _apply_semantic_demotion(
+                updated_metadata,
+                demotion=0.95,
+                reason="attested_nominal_phrase_prefix_competition",
+            )
+            updated_candidates.append(replace(candidate, metadata=updated_metadata))
+            continue
+        updated_candidates.append(candidate)
+    return tuple(updated_candidates)
+
+
 @dataclass(frozen=True)
 class EnEsGlossShapeFilter:
     allow_hyphen: bool = True
@@ -200,7 +318,12 @@ class EnEsGlossShapeFilter:
             return False
         if not self.allow_hyphen and "-" in phrase:
             return False
-        if self.allow_multiword_glosses or _candidate_allows_function_word_phrase(candidate):
+        if (
+            self.allow_multiword_glosses
+            or _candidate_allows_function_word_phrase(candidate)
+            or _candidate_allows_attested_phrasal_phrase(candidate)
+            or _candidate_allows_attested_nominal_phrase(candidate)
+        ):
             return bool(_EN_ES_MULTIWORD_RE.fullmatch(phrase))
         return bool(_EN_ES_SINGLE_WORD_RE.fullmatch(phrase))
 
@@ -226,6 +349,15 @@ class ShadowedInterjectionFilter:
 
 
 @dataclass(frozen=True)
+class KaikkiPolicySuppressionFilter:
+    metadata_key: str = "kaikki_policy_suppressed"
+
+    def accept(self, candidate: RuleCandidate) -> bool:
+        metadata = candidate.metadata if isinstance(candidate.metadata, Mapping) else {}
+        return not bool(metadata.get(self.metadata_key))
+
+
+@dataclass(frozen=True)
 class EnEsKaikkiPolicyConfig:
     enable_shadow_metadata: bool = True
     enable_live_demotion: bool = False
@@ -237,6 +369,20 @@ class EnEsKaikkiPolicyConfig:
         "register_region",
         "abbreviation_ellipsis_formof",
     )
+    risk_family_demotions: tuple[tuple[str, float], ...] = ()
+
+    def risk_family_demotions_map(self) -> dict[str, float]:
+        normalized: dict[str, float] = {}
+        for raw_name, raw_value in self.risk_family_demotions:
+            name = str(raw_name).strip()
+            if not name:
+                continue
+            try:
+                value = max(0.0, float(raw_value))
+            except (TypeError, ValueError):
+                continue
+            normalized[name] = value
+        return normalized
 
 
 @dataclass(frozen=True)
@@ -366,6 +512,7 @@ class EnEsCompiledCandidateFact:
     reverse_check_hit: bool
     reverse_check_rank: Optional[int]
     reverse_check_total: int
+    gloss_variant_occurrence_count: int
     source_phrase_token_count: int
     source_phrase_is_ascii: bool
     source_phrase_is_phrase: bool
@@ -376,6 +523,7 @@ class EnEsCompiledCandidateFact:
     semantic_demotion_base: float
     semantic_demotion_reason: Optional[str]
     interjection_shadowed: bool
+    gloss_fragment_strategy: str
     has_word_package: bool
     has_gloss_provenance: bool
     has_sense_provenance: bool
@@ -403,6 +551,7 @@ class EnEsCompiledCandidateTable:
     source_pos_canonicals: tuple[str, ...] = ()
     target_pos_canonicals: tuple[str, ...] = ()
     dictionary_pos_canonicals: tuple[str, ...] = ()
+    gloss_fragment_strategies: tuple[str, ...] = ()
     phrase_flags: tuple[bool, ...] = ()
     variant_flags: tuple[bool, ...] = ()
     interjection_shadowed_flags: tuple[bool, ...] = ()
@@ -410,6 +559,7 @@ class EnEsCompiledCandidateTable:
     reverse_check_hit_flags: tuple[bool, ...] = ()
     reverse_check_rank_values: tuple[int, ...] = ()
     reverse_check_total_values: tuple[int, ...] = ()
+    gloss_variant_occurrence_counts: tuple[int, ...] = ()
     current_sense_positions: tuple[int, ...] = ()
     family_marker_id_rows: tuple[tuple[int, ...], ...] = ()
     candidate_row_id_by_candidate_id: Mapping[int, int] = field(default_factory=dict)
@@ -458,6 +608,7 @@ class EnEsCompiledCandidateFilterTable:
     shadowed_interjection_flags: tuple[bool, ...] = ()
     stopword_flags: tuple[bool, ...] = ()
     inflection_artifact_flags: tuple[bool, ...] = ()
+    kaikki_policy_suppressed_flags: tuple[bool, ...] = ()
     accepted_flags: tuple[bool, ...] = ()
     selected_row_signature: tuple[object, ...] = ()
     accepted_candidate_row_ids_by_target_id: Mapping[int, tuple[int, ...]] = field(
@@ -1926,6 +2077,14 @@ def _build_compiled_score_table_cache_key(
                 for name in config.kaikki_policy.risk_families
                 if str(name).strip()
             ),
+            tuple(
+                (
+                    str(name).strip(),
+                    max(0.0, float(value)),
+                )
+                for name, value in config.kaikki_policy.risk_family_demotions
+                if str(name).strip()
+            ),
         ),
     )
 
@@ -1972,11 +2131,22 @@ def _build_compiled_candidate_filter_table_for_table(
     shadowed_interjection_flags: list[bool] = []
     stopword_flags: list[bool] = []
     inflection_artifact_flags: list[bool] = []
+    kaikki_policy_suppressed_flags: list[bool] = []
     accepted_flags: list[bool] = []
     accepted_candidate_row_ids_by_target_id: dict[int, list[int]] = {}
     accepted_candidate_row_id_groups_by_target_id: dict[int, dict[str, list[int]]] = {}
     accepted_candidate_row_group_order_by_target_id: dict[int, list[str]] = {}
     definition_group_id_by_key: dict[tuple[str, object], int] = {}
+    shadow_by_target_id: dict[int, tuple[Mapping[str, object], ...]] = {}
+    if config.kaikki_policy.enable_shadow_metadata:
+        for context in compiled_resources.compiled_targets_by_target.values():
+            shadow_by_target_id[int(context.target_id)] = tuple(
+                _build_kaikki_policy_shadow_by_index(
+                    dictionary_record_views_by_index=context.dictionary_record_views_by_index,
+                    canonical_inventory=context.canonical_inventory,
+                    risk_families=config.kaikki_policy.risk_families,
+                )
+            )
     for row_id, candidate_id in enumerate(candidate_table.candidate_ids):
         normalized_phrase = candidate_table.normalized_source_phrases[row_id]
         normalized_source_phrases.append(normalized_phrase)
@@ -2000,12 +2170,30 @@ def _build_compiled_candidate_filter_table_for_table(
         allows_function_word_phrase = (
             candidate_table.dictionary_pos_canonicals[row_id] in _FUNCTION_WORD_CANONICALS
         )
+        allows_attested_phrasal_phrase = _compiled_attested_phrasal_phrase_accepts(
+            normalized_phrase,
+            dictionary_pos_canonical=candidate_table.dictionary_pos_canonicals[row_id],
+            reverse_check_hit=bool(candidate_table.reverse_check_hit_flags[row_id]),
+            reverse_check_rank=int(candidate_table.reverse_check_rank_values[row_id]),
+            gloss_variant_occurrence_count=int(
+                candidate_table.gloss_variant_occurrence_counts[row_id]
+            ),
+        )
+        allows_attested_nominal_phrase = _compiled_attested_nominal_phrase_accepts(
+            normalized_phrase,
+            dictionary_pos_canonical=candidate_table.dictionary_pos_canonicals[row_id],
+            gloss_fragment_strategy=candidate_table.gloss_fragment_strategies[row_id],
+            reverse_check_hit=bool(candidate_table.reverse_check_hit_flags[row_id]),
+            reverse_check_rank=int(candidate_table.reverse_check_rank_values[row_id]),
+        )
         non_empty_ok = _compiled_non_empty_accepts(normalized_phrase)
         gloss_shape_ok = _compiled_gloss_shape_accepts(
             normalized_phrase,
             allow_hyphen=config.allow_hyphen,
             allow_multiword_glosses=config.allow_multiword_glosses,
             allows_function_word_phrase=allows_function_word_phrase,
+            allows_attested_phrasal_phrase=allows_attested_phrasal_phrase,
+            allows_attested_nominal_phrase=allows_attested_nominal_phrase,
         )
         length_ok = (
             _compiled_length_accepts(
@@ -2040,6 +2228,15 @@ def _build_compiled_candidate_filter_table_for_table(
             if config.enable_inflection_filter
             else True
         )
+        target_id = int(candidate_table.target_ids[row_id])
+        local_index = int(candidate_table.local_candidate_indices[row_id])
+        policy_suppressed = False
+        if config.kaikki_policy.enable_live_demotion:
+            target_shadows = shadow_by_target_id.get(target_id)
+            if target_shadows is not None and 0 <= local_index < len(target_shadows):
+                policy_suppressed, _ = _resolve_kaikki_policy_live_suppression(
+                    target_shadows[local_index]
+                )
         accepted = (
             non_empty_ok
             and gloss_shape_ok
@@ -2048,6 +2245,7 @@ def _build_compiled_candidate_filter_table_for_table(
             and shadow_ok
             and stopword_ok
             and inflection_ok
+            and not policy_suppressed
         )
         non_empty_flags.append(non_empty_ok)
         gloss_shape_flags.append(gloss_shape_ok)
@@ -2056,9 +2254,9 @@ def _build_compiled_candidate_filter_table_for_table(
         shadowed_interjection_flags.append(shadow_ok)
         stopword_flags.append(stopword_ok)
         inflection_artifact_flags.append(inflection_ok)
+        kaikki_policy_suppressed_flags.append(policy_suppressed)
         accepted_flags.append(accepted)
         if accepted:
-            target_id = int(candidate_table.target_ids[row_id])
             accepted_candidate_row_ids_by_target_id.setdefault(target_id, []).append(row_id)
             group_key = str(normalized_phrase or "").strip().lower()
             groups_by_key = accepted_candidate_row_id_groups_by_target_id.setdefault(
@@ -2083,6 +2281,7 @@ def _build_compiled_candidate_filter_table_for_table(
         shadowed_interjection_flags=tuple(shadowed_interjection_flags),
         stopword_flags=tuple(stopword_flags),
         inflection_artifact_flags=tuple(inflection_artifact_flags),
+        kaikki_policy_suppressed_flags=tuple(kaikki_policy_suppressed_flags),
         accepted_flags=tuple(accepted_flags),
         accepted_candidate_row_ids_by_target_id={
             key: tuple(value)
@@ -2134,6 +2333,13 @@ def _build_compiled_filter_table_cache_key(
             ),
             bool(config.enable_inflection_filter),
             tuple(str(suffix) for suffix in config.inflection_suffixes),
+            bool(config.kaikki_policy.enable_shadow_metadata),
+            bool(config.kaikki_policy.enable_live_demotion),
+            tuple(
+                str(name).strip()
+                for name in config.kaikki_policy.risk_families
+                if str(name).strip()
+            ),
         ),
     )
 
@@ -2244,7 +2450,8 @@ def _build_compiled_overlay_demotion_rows(
                         bool(risky_family_name_rows[row_id]) and clean_competition_present
                     ),
                     "risky_families": risky_family_name_rows[row_id],
-                }
+                },
+                family_demotions=config.kaikki_policy.risk_family_demotions_map(),
             )
             effective_demotion = max(effective_demotion, float(live_demotion))
         provenance_demotion, _ = _resolve_kaikki_provenance_competition_demotion(
@@ -2282,6 +2489,14 @@ def _resolve_compiled_overlay_demotion_rows(
             tuple(
                 str(name).strip()
                 for name in config.kaikki_policy.risk_families
+                if str(name).strip()
+            ),
+            tuple(
+                (
+                    str(name).strip(),
+                    max(0.0, float(value)),
+                )
+                for name, value in config.kaikki_policy.risk_family_demotions
                 if str(name).strip()
             ),
         ),
@@ -2520,15 +2735,56 @@ def _compiled_gloss_shape_accepts(
     allow_hyphen: bool,
     allow_multiword_glosses: bool,
     allows_function_word_phrase: bool,
+    allows_attested_phrasal_phrase: bool,
+    allows_attested_nominal_phrase: bool,
 ) -> bool:
     phrase = str(source_phrase or "").strip().lower()
     if not phrase:
         return False
     if not allow_hyphen and "-" in phrase:
         return False
-    if allow_multiword_glosses or allows_function_word_phrase:
+    if (
+        allow_multiword_glosses
+        or allows_function_word_phrase
+        or allows_attested_phrasal_phrase
+        or allows_attested_nominal_phrase
+    ):
         return bool(_EN_ES_MULTIWORD_RE.fullmatch(phrase))
     return bool(_EN_ES_SINGLE_WORD_RE.fullmatch(phrase))
+
+
+def _compiled_attested_phrasal_phrase_accepts(
+    source_phrase: str,
+    *,
+    dictionary_pos_canonical: str,
+    reverse_check_hit: bool,
+    reverse_check_rank: int,
+    gloss_variant_occurrence_count: int,
+) -> bool:
+    if str(dictionary_pos_canonical or "").strip().lower() != "verb":
+        return False
+    if not reverse_check_hit or int(reverse_check_rank) != 0:
+        return False
+    if int(gloss_variant_occurrence_count) < 2:
+        return False
+    return _looks_like_attested_phrasal_verb_phrase(source_phrase)
+
+
+def _compiled_attested_nominal_phrase_accepts(
+    source_phrase: str,
+    *,
+    dictionary_pos_canonical: str,
+    gloss_fragment_strategy: str,
+    reverse_check_hit: bool,
+    reverse_check_rank: int,
+) -> bool:
+    if str(dictionary_pos_canonical or "").strip().lower() != CANONICAL_POS_NOUN:
+        return False
+    if str(gloss_fragment_strategy or "").strip().lower() != "top_level_comma":
+        return False
+    if not reverse_check_hit or int(reverse_check_rank) > 1:
+        return False
+    return _looks_like_attested_nominal_compound_phrase(source_phrase)
 
 
 def _compiled_length_accepts(
@@ -2642,7 +2898,7 @@ def _build_static_candidate_inventory(
                 metadata=metadata,
             )
         )
-    return tuple(candidates)
+    return _apply_attested_nominal_phrase_competition_overlay(candidates)
 
 
 def _build_static_candidate_metadata(
@@ -2674,6 +2930,11 @@ def _build_static_candidate_metadata(
     if entry.metadata:
         raw_record = dict(entry.metadata)
         metadata["dictionary_record"] = raw_record
+        gloss_variant_occurrence_count = _normalize_non_negative_optional_int(
+            raw_record.get("gloss_variant_occurrence_count")
+        )
+        if gloss_variant_occurrence_count is not None:
+            metadata["gloss_variant_occurrence_count"] = gloss_variant_occurrence_count
     if dictionary_record_views:
         metadata["dictionary_record_views"] = dict(dictionary_record_views)
     kaikkei_family_names = _extract_kaikki_family_names(dictionary_record_views)
@@ -2699,9 +2960,15 @@ def _build_static_candidate_metadata(
         if target_reverse_norm and target_reverse_norm in reverse_targets
         else None
     )
+    reverse_check_supported = reverse_lookup is not None
+    if _should_suppress_fragment_reverse_miss(
+        gloss_provenance=gloss_provenance,
+        reverse_rank=reverse_rank,
+    ):
+        reverse_check_supported = False
     metadata.update(
         {
-            "reverse_check_supported": reverse_lookup is not None,
+            "reverse_check_supported": reverse_check_supported,
             "reverse_check_hit": reverse_rank is not None,
             "reverse_check_rank": reverse_rank,
             "reverse_check_total": len(reverse_targets),
@@ -2749,6 +3016,19 @@ def _build_static_candidate_metadata(
         )
     )
     return metadata
+
+
+def _should_suppress_fragment_reverse_miss(
+    *,
+    gloss_provenance: Optional[Mapping[str, object]],
+    reverse_rank: Optional[int],
+) -> bool:
+    if reverse_rank is not None:
+        return False
+    if not isinstance(gloss_provenance, Mapping):
+        return False
+    fragment_strategy = str(gloss_provenance.get("fragment_strategy") or "").strip().lower()
+    return fragment_strategy in {"leading_alias", "nominal_head"}
 
 
 def _extract_kaikki_family_names(dictionary_record_views: Mapping[str, object]) -> tuple[str, ...]:
@@ -2859,6 +3139,10 @@ def _build_compiled_candidate_fact(
     family_names = _normalize_family_names(metadata.get("kaikki_family_names"))
     phrase = str(candidate.source_phrase or "").strip()
     semantic_demotion_reason = str(metadata.get("semantic_demotion_reason") or "").strip() or None
+    gloss_provenance = metadata.get("gloss_provenance")
+    gloss_fragment_strategy = ""
+    if isinstance(gloss_provenance, Mapping):
+        gloss_fragment_strategy = str(gloss_provenance.get("fragment_strategy") or "").strip()
     return EnEsCompiledCandidateFact(
         candidate_id=int(candidate_id),
         target_id=int(target_id),
@@ -2878,6 +3162,10 @@ def _build_compiled_candidate_fact(
         reverse_check_rank=_normalize_non_negative_optional_int(metadata.get("reverse_check_rank")),
         reverse_check_total=int(
             _normalize_non_negative_optional_int(metadata.get("reverse_check_total")) or 0
+        ),
+        gloss_variant_occurrence_count=int(
+            _normalize_non_negative_optional_int(metadata.get("gloss_variant_occurrence_count"))
+            or 1
         ),
         source_phrase_token_count=len(phrase.split()) if phrase else 0,
         source_phrase_is_ascii=bool(phrase) and all(ord(ch) < 128 for ch in phrase),
@@ -2903,6 +3191,7 @@ def _build_compiled_candidate_fact(
         ),
         semantic_demotion_reason=semantic_demotion_reason,
         interjection_shadowed=_normalize_optional_bool(metadata.get("interjection_shadowed")),
+        gloss_fragment_strategy=gloss_fragment_strategy,
         has_word_package=isinstance(metadata.get("word_package"), Mapping),
         has_gloss_provenance=isinstance(metadata.get("gloss_provenance"), Mapping),
         has_sense_provenance=isinstance(metadata.get("sense_provenance"), Mapping),
@@ -2945,6 +3234,7 @@ def _build_compiled_candidate_table(
     source_pos_canonicals: list[str] = []
     target_pos_canonicals: list[str] = []
     dictionary_pos_canonicals: list[str] = []
+    gloss_fragment_strategies: list[str] = []
     phrase_flags: list[bool] = []
     variant_flags: list[bool] = []
     interjection_shadowed_flags: list[bool] = []
@@ -2952,6 +3242,7 @@ def _build_compiled_candidate_table(
     reverse_check_hit_flags: list[bool] = []
     reverse_check_rank_values: list[int] = []
     reverse_check_total_values: list[int] = []
+    gloss_variant_occurrence_counts: list[int] = []
     current_sense_positions: list[int] = []
     family_marker_id_rows: list[tuple[int, ...]] = []
     candidate_row_id_by_candidate_id: dict[int, int] = {}
@@ -2975,6 +3266,7 @@ def _build_compiled_candidate_table(
         source_pos_canonicals.append(str(fact.source_pos_canonical))
         target_pos_canonicals.append(str(fact.target_pos_canonical))
         dictionary_pos_canonicals.append(str(fact.dictionary_pos_canonical))
+        gloss_fragment_strategies.append(str(fact.gloss_fragment_strategy))
         phrase_flags.append(bool(fact.source_phrase_is_phrase))
         variant_flags.append(bool(fact.is_variant))
         interjection_shadowed_flags.append(bool(fact.interjection_shadowed))
@@ -2984,6 +3276,7 @@ def _build_compiled_candidate_table(
             int(fact.reverse_check_rank) if fact.reverse_check_rank is not None else -1
         )
         reverse_check_total_values.append(int(fact.reverse_check_total))
+        gloss_variant_occurrence_counts.append(int(fact.gloss_variant_occurrence_count))
         current_sense_positions.append(int(fact.current_sense_position))
         family_marker_id_rows.append(tuple(int(value) for value in fact.family_marker_ids))
 
@@ -3025,6 +3318,7 @@ def _build_compiled_candidate_table(
         source_pos_canonicals=tuple(source_pos_canonicals),
         target_pos_canonicals=tuple(target_pos_canonicals),
         dictionary_pos_canonicals=tuple(dictionary_pos_canonicals),
+        gloss_fragment_strategies=tuple(gloss_fragment_strategies),
         phrase_flags=tuple(phrase_flags),
         variant_flags=tuple(variant_flags),
         interjection_shadowed_flags=tuple(interjection_shadowed_flags),
@@ -3032,6 +3326,7 @@ def _build_compiled_candidate_table(
         reverse_check_hit_flags=tuple(reverse_check_hit_flags),
         reverse_check_rank_values=tuple(reverse_check_rank_values),
         reverse_check_total_values=tuple(reverse_check_total_values),
+        gloss_variant_occurrence_counts=tuple(gloss_variant_occurrence_counts),
         current_sense_positions=tuple(current_sense_positions),
         family_marker_id_rows=tuple(family_marker_id_rows),
         candidate_row_id_by_candidate_id=dict(candidate_row_id_by_candidate_id),
@@ -3118,7 +3413,16 @@ def _apply_kaikki_policy_overlay(
 ) -> None:
     shadow_metadata = dict(shadow)
     if kaikki_policy.enable_live_demotion:
-        demotion, reasons = _resolve_kaikki_policy_live_demotion(shadow_metadata)
+        suppress, suppression_reasons = _resolve_kaikki_policy_live_suppression(shadow_metadata)
+        if suppress:
+            metadata["kaikki_policy_suppressed"] = True
+            shadow_metadata["live_suppression_applied"] = True
+            if suppression_reasons:
+                shadow_metadata["live_suppression_reasons"] = suppression_reasons
+        demotion, reasons = _resolve_kaikki_policy_live_demotion(
+            shadow_metadata,
+            family_demotions=kaikki_policy.risk_family_demotions_map(),
+        )
         if demotion > 0.0:
             _apply_semantic_demotion(
                 metadata,
@@ -4067,6 +4371,7 @@ def _build_filters(
     if config.enable_possessive_filter:
         filters.append(PossessiveFilter())
     filters.append(ShadowedInterjectionFilter())
+    filters.append(KaikkiPolicySuppressionFilter())
     if config.enable_stopword_filter:
         stopwords = config.stopwords or DEFAULT_STOPWORDS
         filters.append(EnEsStopwordFilter(stopwords=stopwords))

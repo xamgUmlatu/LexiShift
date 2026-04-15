@@ -1,0 +1,180 @@
+{
+  "generated_at": "2026-04-08T00:52:11Z",
+  "pair": "en-ja",
+  "stats": {
+    "rule_count": 28,
+    "source_count": 28,
+    "target_count": 28
+  },
+  "targets": [
+    {
+      "lemma": "\u305f",
+      "sources": [
+        "confirmation"
+      ]
+    },
+    {
+      "lemma": "\u3060",
+      "sources": [
+        "na-adjectives"
+      ]
+    },
+    {
+      "lemma": "\u4e2d",
+      "sources": [
+        "middle"
+      ]
+    },
+    {
+      "lemma": "\u4e8b",
+      "sources": [
+        "thing"
+      ]
+    },
+    {
+      "lemma": "\u4eba",
+      "sources": [
+        "person"
+      ]
+    },
+    {
+      "lemma": "\u4eca",
+      "sources": [
+        "now"
+      ]
+    },
+    {
+      "lemma": "\u4f1a",
+      "sources": [
+        "meeting"
+      ]
+    },
+    {
+      "lemma": "\u524d",
+      "sources": [
+        "front"
+      ]
+    },
+    {
+      "lemma": "\u554f\u984c",
+      "sources": [
+        "question"
+      ]
+    },
+    {
+      "lemma": "\u5834\u5408",
+      "sources": [
+        "when"
+      ]
+    },
+    {
+      "lemma": "\u5b50\u4f9b",
+      "sources": [
+        "child"
+      ]
+    },
+    {
+      "lemma": "\u5c45\u308b",
+      "sources": [
+        "exist"
+      ]
+    },
+    {
+      "lemma": "\u5f8c",
+      "sources": [
+        "back"
+      ]
+    },
+    {
+      "lemma": "\u5fc5\u8981",
+      "sources": [
+        "needed"
+      ]
+    },
+    {
+      "lemma": "\u6240",
+      "sources": [
+        "place"
+      ]
+    },
+    {
+      "lemma": "\u65b9",
+      "sources": [
+        "way"
+      ]
+    },
+    {
+      "lemma": "\u65e5",
+      "sources": [
+        "sun"
+      ]
+    },
+    {
+      "lemma": "\u6642",
+      "sources": [
+        "time"
+      ]
+    },
+    {
+      "lemma": "\u6709\u308b",
+      "sources": [
+        "exist"
+      ]
+    },
+    {
+      "lemma": "\u69d8",
+      "sources": [
+        "form"
+      ]
+    },
+    {
+      "lemma": "\u6c17",
+      "sources": [
+        "gas"
+      ]
+    },
+    {
+      "lemma": "\u70ba",
+      "sources": [
+        "perform"
+      ]
+    },
+    {
+      "lemma": "\u70ba\u308b",
+      "sources": [
+        "render"
+      ]
+    },
+    {
+      "lemma": "\u7121\u3044",
+      "sources": [
+        "nonexistent"
+      ]
+    },
+    {
+      "lemma": "\u7269",
+      "sources": [
+        "thing"
+      ]
+    },
+    {
+      "lemma": "\u81ea\u5206",
+      "sources": [
+        "oneself"
+      ]
+    },
+    {
+      "lemma": "\u826f\u3044",
+      "sources": [
+        "good"
+      ]
+    },
+    {
+      "lemma": "\u95a2\u4fc2",
+      "sources": [
+        "relationship"
+      ]
+    }
+  ],
+  "version": 1
+}

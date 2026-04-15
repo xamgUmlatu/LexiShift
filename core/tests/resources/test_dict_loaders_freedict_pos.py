@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import os
 import sqlite3
 import sys
@@ -18,6 +19,7 @@ from lexishift_core.resources.dict_loaders import (  # noqa: E402
     load_freedict_sqlite_gloss_records_ordered,
     load_freedict_tei_gloss_records_ordered,
     load_translation_gloss_base_forms,
+    load_translation_headword_alias_index,
     load_translation_headwords,
 )
 
@@ -195,6 +197,99 @@ class TestFreedictPosLoaders(unittest.TestCase):
         self.assertIn("Haus", records)
         self.assertNotIn("Baum", records)
 
+    def test_auxiliary_sqlite_loader_hydrates_entry_forms_metadata(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "wiktionary-ja-en.sqlite"
+            conn = sqlite3.connect(path)
+            try:
+                conn.execute(
+                    "CREATE TABLE entry_meta ("
+                    "entry_ord INTEGER, "
+                    "headword TEXT, "
+                    "headword_lc TEXT, "
+                    "lang TEXT, "
+                    "lang_code TEXT, "
+                    "pos TEXT, "
+                    "pos_title TEXT, "
+                    "categories_json TEXT, "
+                    "forms_json TEXT, "
+                    "sounds_json TEXT, "
+                    "synonyms_json TEXT, "
+                    "tags_json TEXT, "
+                    "etymology_text TEXT"
+                    ")"
+                )
+                conn.execute(
+                    "CREATE TABLE sense_glosses ("
+                    "entry_ord INTEGER, "
+                    "sense_ord INTEGER, "
+                    "gloss_ord INTEGER, "
+                    "headword TEXT, "
+                    "headword_lc TEXT, "
+                    "translation TEXT, "
+                    "translation_lc TEXT, "
+                    "pos TEXT, "
+                    "raw_glosses_json TEXT, "
+                    "tags_json TEXT, "
+                    "topics_json TEXT, "
+                    "categories_json TEXT, "
+                    "form_of_json TEXT, "
+                    "alt_of_json TEXT"
+                    ")"
+                )
+                conn.execute(
+                    "INSERT INTO entry_meta ("
+                    "entry_ord, headword, headword_lc, lang, lang_code, pos, pos_title, "
+                    "categories_json, forms_json, sounds_json, synonyms_json, tags_json, etymology_text"
+                    ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                    (
+                        1,
+                        "家",
+                        "家",
+                        "Japanese",
+                        "ja",
+                        "noun",
+                        "noun",
+                        None,
+                        '[{"form":"家","ruby":["[\\"家\\", \\"いえ\\"]"],"tags":["canonical"]}]',
+                        None,
+                        None,
+                        None,
+                        None,
+                    ),
+                )
+                conn.execute(
+                    "INSERT INTO sense_glosses ("
+                    "entry_ord, sense_ord, gloss_ord, headword, headword_lc, translation, translation_lc, "
+                    "pos, raw_glosses_json, tags_json, topics_json, categories_json, form_of_json, alt_of_json"
+                    ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                    (
+                        1,
+                        0,
+                        0,
+                        "家",
+                        "家",
+                        "a house",
+                        "a house",
+                        "noun",
+                        None,
+                        None,
+                        None,
+                        None,
+                        None,
+                        None,
+                    ),
+                )
+                conn.commit()
+            finally:
+                conn.close()
+            records = load_freedict_sqlite_gloss_records_ordered(path)
+        self.assertEqual([entry.translation for entry in records["家"]], ["a house"])
+        self.assertEqual(
+            records["家"][0].metadata["entry_forms"],
+            [{"form": "家", "ruby": ['["家", "いえ"]'], "tags": ["canonical"]}],
+        )
+
     def test_sqlite_base_form_loader_collects_sanitized_glosses(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "deu-eng.sqlite"
@@ -308,6 +403,51 @@ class TestFreedictPosLoaders(unittest.TestCase):
                 second = load_translation_headwords(path)
         self.assertEqual(first, ("To Remove",))
         self.assertEqual(second, ("To Remove",))
+
+    def test_translation_headword_alias_index_maps_kana_and_romaji_forms(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "wiktionary-ja-en.sqlite"
+            conn = sqlite3.connect(path)
+            try:
+                conn.execute(
+                    "CREATE TABLE entry_meta ("
+                    "entry_ord INTEGER, "
+                    "headword TEXT, "
+                    "headword_lc TEXT, "
+                    "forms_json TEXT"
+                    ")"
+                )
+                conn.execute(
+                    "INSERT INTO entry_meta (entry_ord, headword, headword_lc, forms_json) "
+                    "VALUES (?, ?, ?, ?)",
+                    (
+                        1,
+                        "未だ",
+                        "未だ",
+                        json.dumps(
+                            [
+                                {"form": "未だ", "tags": ["canonical"]},
+                                {"form": "mada", "tags": ["romanization"]},
+                                {"form": "まだで", "tags": ["inflection"]},
+                            ],
+                            ensure_ascii=False,
+                        ),
+                    ),
+                )
+                conn.commit()
+            finally:
+                conn.close()
+
+            first = load_translation_headword_alias_index(path)
+            with patch(
+                "lexishift_core.resources.dict_loaders._build_translation_headword_alias_index",
+                side_effect=AssertionError("translation headword alias cache should be warm"),
+            ):
+                second = load_translation_headword_alias_index(path)
+
+        self.assertEqual(first["mada"], ("未だ",))
+        self.assertEqual(first["まだで"], ("未だ",))
+        self.assertEqual(second["mada"], ("未だ",))
 
 
 if __name__ == "__main__":

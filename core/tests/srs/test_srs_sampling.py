@@ -81,6 +81,19 @@ class TestSrsSampling(unittest.TestCase):
         self.assertEqual(result.strategy_effective, SAMPLE_STRATEGY_UNIFORM)
         self.assertEqual(result.sample_count_effective, 2)
 
+    def test_sampling_can_be_scoped_to_active_inventory_ids(self) -> None:
+        result = sample_store_items(
+            _store_for_sampling(),
+            pair="en-ja",
+            sample_count=5,
+            strategy=SAMPLE_STRATEGY_UNIFORM,
+            active_item_ids=("en-ja:beta", "en-ja:gamma"),
+            seed=2,
+        )
+        self.assertEqual(result.total_items_for_pair, 2)
+        self.assertEqual(result.sample_count_effective, 2)
+        self.assertEqual(set(result.sampled_lemmas), {"beta", "gamma"})
+
     def test_invalid_strategy_and_count_fallback(self) -> None:
         result = sample_store_items(
             _store_for_sampling(),

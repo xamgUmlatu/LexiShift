@@ -582,6 +582,11 @@ header p {
   width: 130px;
 }
 
+.field-row input#srs-topic-interests {
+  width: min(360px, 100%);
+  font-family: inherit;
+}
+
 .field-row input[type="number"] {
   width: 110px;
   padding: 6px 8px;

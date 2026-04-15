@@ -1,0 +1,940 @@
+{
+  "config": {
+    "max_definitions": 3,
+    "max_rules_per_target": null,
+    "confidence_threshold": 0.0,
+    "include_variants": true,
+    "pos_scoring_enabled": true,
+    "pos_exact_match_bonus": 1.0,
+    "pos_compatible_match_bonus": 0.5,
+    "score_weight_pos_match": 0.1,
+    "reverse_check": {
+      "enabled": true,
+      "match_bonus": 0.2,
+      "near_bonus": 0.1,
+      "near_rank_max": 2,
+      "far_hit_penalty": 0.0,
+      "miss_penalty": 0.2,
+      "exact_hit_ambiguity_threshold": 0,
+      "exact_hit_ambiguity_penalty": 0.0,
+      "exact_hit_specificity_bonus": 0.0
+    },
+    "kaikki_policy_late_sense_penalty": 0.0
+  },
+  "paths": {
+    "data_root": "C:\\Users\\kuuko\\AppData\\Roaming\\LexiShift\\LexiShift",
+    "profile_id": "default",
+    "srs_store": "C:\\Users\\kuuko\\AppData\\Roaming\\LexiShift\\LexiShift\\srs\\profiles\\default\\srs_store.json",
+    "translation_dict_en_es": "C:\\Users\\kuuko\\AppData\\Roaming\\LexiShift\\LexiShift\\language_packs\\wiktionary-es-en.sqlite",
+    "translation_dict_es_en_reverse": "C:\\Users\\kuuko\\AppData\\Roaming\\LexiShift\\LexiShift\\language_packs\\wiktionary-en-es.sqlite",
+    "freedict_es_en": "C:\\Users\\kuuko\\AppData\\Roaming\\LexiShift\\LexiShift\\language_packs\\wiktionary-es-en.sqlite",
+    "freedict_en_es_reverse": "C:\\Users\\kuuko\\AppData\\Roaming\\LexiShift\\LexiShift\\language_packs\\wiktionary-en-es.sqlite",
+    "jmdict": null
+  },
+  "notes": [],
+  "warnings": [],
+  "pairs": {
+    "en-es": {
+      "sacar": {
+        "uncapped": [
+          {
+            "target": "sacar",
+            "source_phrase": "withdraw",
+            "confidence": 0.58,
+            "rank_score": 0.24285714285714285,
+            "bucket_key": "sense:2624:7",
+            "sort_key": [
+              -0.24285714285714285,
+              -0.58,
+              "withdraw"
+            ],
+            "gloss_index": 6,
+            "gloss_total": 33,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 1,
+            "reverse_check_total": 6,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": {
+              "mode": "shadow",
+              "configured_risk_families": [
+                "math_geometry",
+                "government_law",
+                "hunting_fishing_tools",
+                "register_region",
+                "abbreviation_ellipsis_formof"
+              ],
+              "families": [],
+              "risky_families": [],
+              "same_canonical_competition": true,
+              "competitor_count": 32,
+              "cleaner_competitor_count": 32,
+              "cleaner_earlier_competitor_count": 6,
+              "clean_competition_present": true,
+              "clean_earlier_competition_present": true,
+              "would_demote": false,
+              "live_demotion_applied": false,
+              "reasons": [
+                "clean_competition_present",
+                "clean_earlier_competition_present"
+              ]
+            }
+          },
+          {
+            "target": "sacar",
+            "source_phrase": "draw",
+            "confidence": 0.58,
+            "rank_score": 0.047619047619047616,
+            "bucket_key": "sense:2624:16",
+            "sort_key": [
+              -0.047619047619047616,
+              -0.58,
+              "draw"
+            ],
+            "gloss_index": 20,
+            "gloss_total": 33,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 5,
+            "reverse_check_total": 13,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": {
+              "mode": "shadow",
+              "configured_risk_families": [
+                "math_geometry",
+                "government_law",
+                "hunting_fishing_tools",
+                "register_region",
+                "abbreviation_ellipsis_formof"
+              ],
+              "families": [],
+              "risky_families": [],
+              "same_canonical_competition": true,
+              "competitor_count": 32,
+              "cleaner_competitor_count": 32,
+              "cleaner_earlier_competitor_count": 20,
+              "clean_competition_present": true,
+              "clean_earlier_competition_present": true,
+              "would_demote": false,
+              "live_demotion_applied": false,
+              "reasons": [
+                "clean_competition_present",
+                "clean_earlier_competition_present"
+              ]
+            }
+          },
+          {
+            "target": "sacar",
+            "source_phrase": "scoop",
+            "confidence": 0.58,
+            "rank_score": 0.037037037037037035,
+            "bucket_key": "sense:2624:22",
+            "sort_key": [
+              -0.037037037037037035,
+              -0.58,
+              "scoop"
+            ],
+            "gloss_index": 26,
+            "gloss_total": 33,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 12,
+            "reverse_check_total": 14,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": {
+              "mode": "shadow",
+              "configured_risk_families": [
+                "math_geometry",
+                "government_law",
+                "hunting_fishing_tools",
+                "register_region",
+                "abbreviation_ellipsis_formof"
+              ],
+              "families": [],
+              "risky_families": [],
+              "same_canonical_competition": true,
+              "competitor_count": 32,
+              "cleaner_competitor_count": 32,
+              "cleaner_earlier_competitor_count": 26,
+              "clean_competition_present": true,
+              "clean_earlier_competition_present": true,
+              "would_demote": false,
+              "live_demotion_applied": false,
+              "reasons": [
+                "clean_competition_present",
+                "clean_earlier_competition_present"
+              ]
+            }
+          },
+          {
+            "target": "sacar",
+            "source_phrase": "derive",
+            "confidence": 0.58,
+            "rank_score": 0.0,
+            "bucket_key": "sense:2624:14",
+            "sort_key": [
+              -0.0,
+              -0.58,
+              "derive"
+            ],
+            "gloss_index": 18,
+            "gloss_total": 33,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 1,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": {
+              "mode": "shadow",
+              "configured_risk_families": [
+                "math_geometry",
+                "government_law",
+                "hunting_fishing_tools",
+                "register_region",
+                "abbreviation_ellipsis_formof"
+              ],
+              "families": [],
+              "risky_families": [],
+              "same_canonical_competition": true,
+              "competitor_count": 32,
+              "cleaner_competitor_count": 32,
+              "cleaner_earlier_competitor_count": 18,
+              "clean_competition_present": true,
+              "clean_earlier_competition_present": true,
+              "would_demote": false,
+              "live_demotion_applied": false,
+              "reasons": [
+                "clean_competition_present",
+                "clean_earlier_competition_present"
+              ]
+            }
+          },
+          {
+            "target": "sacar",
+            "source_phrase": "eject",
+            "confidence": 0.58,
+            "rank_score": 0.0,
+            "bucket_key": "sense:2624:9",
+            "sort_key": [
+              -0.0,
+              -0.58,
+              "eject"
+            ],
+            "gloss_index": 10,
+            "gloss_total": 33,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 3,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": {
+              "mode": "shadow",
+              "configured_risk_families": [
+                "math_geometry",
+                "government_law",
+                "hunting_fishing_tools",
+                "register_region",
+                "abbreviation_ellipsis_formof"
+              ],
+              "families": [],
+              "risky_families": [],
+              "same_canonical_competition": true,
+              "competitor_count": 32,
+              "cleaner_competitor_count": 32,
+              "cleaner_earlier_competitor_count": 10,
+              "clean_competition_present": true,
+              "clean_earlier_competition_present": true,
+              "would_demote": false,
+              "live_demotion_applied": false,
+              "reasons": [
+                "clean_competition_present",
+                "clean_earlier_competition_present"
+              ]
+            }
+          },
+          {
+            "target": "sacar",
+            "source_phrase": "expel",
+            "confidence": 0.58,
+            "rank_score": 0.0,
+            "bucket_key": "sense:2624:9",
+            "sort_key": [
+              -0.0,
+              -0.58,
+              "expel"
+            ],
+            "gloss_index": 9,
+            "gloss_total": 33,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 2,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": {
+              "mode": "shadow",
+              "configured_risk_families": [
+                "math_geometry",
+                "government_law",
+                "hunting_fishing_tools",
+                "register_region",
+                "abbreviation_ellipsis_formof"
+              ],
+              "families": [],
+              "risky_families": [],
+              "same_canonical_competition": true,
+              "competitor_count": 32,
+              "cleaner_competitor_count": 32,
+              "cleaner_earlier_competitor_count": 9,
+              "clean_competition_present": true,
+              "clean_earlier_competition_present": true,
+              "would_demote": false,
+              "live_demotion_applied": false,
+              "reasons": [
+                "clean_competition_present",
+                "clean_earlier_competition_present"
+              ]
+            }
+          },
+          {
+            "target": "sacar",
+            "source_phrase": "get",
+            "confidence": 0.58,
+            "rank_score": 0.0,
+            "bucket_key": "sense:2624:14",
+            "sort_key": [
+              -0.0,
+              -0.58,
+              "get"
+            ],
+            "gloss_index": 15,
+            "gloss_total": 33,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 25,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": {
+              "mode": "shadow",
+              "configured_risk_families": [
+                "math_geometry",
+                "government_law",
+                "hunting_fishing_tools",
+                "register_region",
+                "abbreviation_ellipsis_formof"
+              ],
+              "families": [],
+              "risky_families": [],
+              "same_canonical_competition": true,
+              "competitor_count": 32,
+              "cleaner_competitor_count": 32,
+              "cleaner_earlier_competitor_count": 15,
+              "clean_competition_present": true,
+              "clean_earlier_competition_present": true,
+              "would_demote": false,
+              "live_demotion_applied": false,
+              "reasons": [
+                "clean_competition_present",
+                "clean_earlier_competition_present"
+              ]
+            }
+          },
+          {
+            "target": "sacar",
+            "source_phrase": "lift",
+            "confidence": 0.58,
+            "rank_score": 0.0,
+            "bucket_key": "sense:2624:15",
+            "sort_key": [
+              -0.0,
+              -0.58,
+              "lift"
+            ],
+            "gloss_index": 19,
+            "gloss_total": 33,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 9,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": {
+              "mode": "shadow",
+              "configured_risk_families": [
+                "math_geometry",
+                "government_law",
+                "hunting_fishing_tools",
+                "register_region",
+                "abbreviation_ellipsis_formof"
+              ],
+              "families": [],
+              "risky_families": [],
+              "same_canonical_competition": true,
+              "competitor_count": 32,
+              "cleaner_competitor_count": 32,
+              "cleaner_earlier_competitor_count": 19,
+              "clean_competition_present": true,
+              "clean_earlier_competition_present": true,
+              "would_demote": false,
+              "live_demotion_applied": false,
+              "reasons": [
+                "clean_competition_present",
+                "clean_earlier_competition_present"
+              ]
+            }
+          },
+          {
+            "target": "sacar",
+            "source_phrase": "make",
+            "confidence": 0.58,
+            "rank_score": 0.0,
+            "bucket_key": "sense:2624:14",
+            "sort_key": [
+              -0.0,
+              -0.58,
+              "make"
+            ],
+            "gloss_index": 16,
+            "gloss_total": 33,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 16,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": {
+              "mode": "shadow",
+              "configured_risk_families": [
+                "math_geometry",
+                "government_law",
+                "hunting_fishing_tools",
+                "register_region",
+                "abbreviation_ellipsis_formof"
+              ],
+              "families": [],
+              "risky_families": [],
+              "same_canonical_competition": true,
+              "competitor_count": 32,
+              "cleaner_competitor_count": 32,
+              "cleaner_earlier_competitor_count": 16,
+              "clean_competition_present": true,
+              "clean_earlier_competition_present": true,
+              "would_demote": false,
+              "live_demotion_applied": false,
+              "reasons": [
+                "clean_competition_present",
+                "clean_earlier_competition_present"
+              ]
+            }
+          },
+          {
+            "target": "sacar",
+            "source_phrase": "obtain",
+            "confidence": 0.58,
+            "rank_score": 0.0,
+            "bucket_key": "sense:2624:25",
+            "sort_key": [
+              -0.0,
+              -0.58,
+              "obtain"
+            ],
+            "gloss_index": 29,
+            "gloss_total": 33,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 2,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": {
+              "mode": "shadow",
+              "configured_risk_families": [
+                "math_geometry",
+                "government_law",
+                "hunting_fishing_tools",
+                "register_region",
+                "abbreviation_ellipsis_formof"
+              ],
+              "families": [],
+              "risky_families": [],
+              "same_canonical_competition": true,
+              "competitor_count": 32,
+              "cleaner_competitor_count": 32,
+              "cleaner_earlier_competitor_count": 29,
+              "clean_competition_present": true,
+              "clean_earlier_competition_present": true,
+              "would_demote": false,
+              "live_demotion_applied": false,
+              "reasons": [
+                "clean_competition_present",
+                "clean_earlier_competition_present"
+              ]
+            }
+          },
+          {
+            "target": "sacar",
+            "source_phrase": "receive",
+            "confidence": 0.58,
+            "rank_score": 0.0,
+            "bucket_key": "sense:2624:14",
+            "sort_key": [
+              -0.0,
+              -0.58,
+              "receive"
+            ],
+            "gloss_index": 17,
+            "gloss_total": 33,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 1,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": {
+              "mode": "shadow",
+              "configured_risk_families": [
+                "math_geometry",
+                "government_law",
+                "hunting_fishing_tools",
+                "register_region",
+                "abbreviation_ellipsis_formof"
+              ],
+              "families": [],
+              "risky_families": [],
+              "same_canonical_competition": true,
+              "competitor_count": 32,
+              "cleaner_competitor_count": 32,
+              "cleaner_earlier_competitor_count": 17,
+              "clean_competition_present": true,
+              "clean_earlier_competition_present": true,
+              "would_demote": false,
+              "live_demotion_applied": false,
+              "reasons": [
+                "clean_competition_present",
+                "clean_earlier_competition_present"
+              ]
+            }
+          },
+          {
+            "target": "sacar",
+            "source_phrase": "remove",
+            "confidence": 0.58,
+            "rank_score": 0.0,
+            "bucket_key": "sense:2624:19",
+            "sort_key": [
+              -0.0,
+              -0.58,
+              "remove"
+            ],
+            "gloss_index": 24,
+            "gloss_total": 33,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 3,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": {
+              "mode": "shadow",
+              "configured_risk_families": [
+                "math_geometry",
+                "government_law",
+                "hunting_fishing_tools",
+                "register_region",
+                "abbreviation_ellipsis_formof"
+              ],
+              "families": [],
+              "risky_families": [],
+              "same_canonical_competition": true,
+              "competitor_count": 32,
+              "cleaner_competitor_count": 32,
+              "cleaner_earlier_competitor_count": 24,
+              "clean_competition_present": true,
+              "clean_earlier_competition_present": true,
+              "would_demote": false,
+              "live_demotion_applied": false,
+              "reasons": [
+                "clean_competition_present",
+                "clean_earlier_competition_present"
+              ]
+            }
+          },
+          {
+            "target": "sacar",
+            "source_phrase": "serve",
+            "confidence": 0.58,
+            "rank_score": 0.0,
+            "bucket_key": "sense:2624:23",
+            "sort_key": [
+              -0.0,
+              -0.58,
+              "serve"
+            ],
+            "gloss_index": 27,
+            "gloss_total": 33,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 6,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": {
+              "mode": "shadow",
+              "configured_risk_families": [
+                "math_geometry",
+                "government_law",
+                "hunting_fishing_tools",
+                "register_region",
+                "abbreviation_ellipsis_formof"
+              ],
+              "families": [],
+              "risky_families": [],
+              "same_canonical_competition": true,
+              "competitor_count": 32,
+              "cleaner_competitor_count": 32,
+              "cleaner_earlier_competitor_count": 27,
+              "clean_competition_present": true,
+              "clean_earlier_competition_present": true,
+              "would_demote": false,
+              "live_demotion_applied": false,
+              "reasons": [
+                "clean_competition_present",
+                "clean_earlier_competition_present"
+              ]
+            }
+          },
+          {
+            "target": "sacar",
+            "source_phrase": "take",
+            "confidence": 0.58,
+            "rank_score": 0.0,
+            "bucket_key": "sense:2624:6",
+            "sort_key": [
+              -0.0,
+              -0.58,
+              "take"
+            ],
+            "gloss_index": 5,
+            "gloss_total": 33,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 14,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": {
+              "mode": "shadow",
+              "configured_risk_families": [
+                "math_geometry",
+                "government_law",
+                "hunting_fishing_tools",
+                "register_region",
+                "abbreviation_ellipsis_formof"
+              ],
+              "families": [],
+              "risky_families": [],
+              "same_canonical_competition": true,
+              "competitor_count": 32,
+              "cleaner_competitor_count": 32,
+              "cleaner_earlier_competitor_count": 5,
+              "clean_competition_present": true,
+              "clean_earlier_competition_present": true,
+              "would_demote": false,
+              "live_demotion_applied": false,
+              "reasons": [
+                "clean_competition_present",
+                "clean_earlier_competition_present"
+              ]
+            }
+          },
+          {
+            "target": "sacar",
+            "source_phrase": "unsheathe",
+            "confidence": 0.58,
+            "rank_score": 0.0,
+            "bucket_key": "sense:2624:16",
+            "sort_key": [
+              -0.0,
+              -0.58,
+              "unsheathe"
+            ],
+            "gloss_index": 22,
+            "gloss_total": 33,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 1,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": {
+              "mode": "shadow",
+              "configured_risk_families": [
+                "math_geometry",
+                "government_law",
+                "hunting_fishing_tools",
+                "register_region",
+                "abbreviation_ellipsis_formof"
+              ],
+              "families": [],
+              "risky_families": [],
+              "same_canonical_competition": true,
+              "competitor_count": 32,
+              "cleaner_competitor_count": 32,
+              "cleaner_earlier_competitor_count": 22,
+              "clean_competition_present": true,
+              "clean_earlier_competition_present": true,
+              "would_demote": false,
+              "live_demotion_applied": false,
+              "reasons": [
+                "clean_competition_present",
+                "clean_earlier_competition_present"
+              ]
+            }
+          },
+          {
+            "target": "sacar",
+            "source_phrase": "win",
+            "confidence": 0.58,
+            "rank_score": 0.0,
+            "bucket_key": "sense:2624:25",
+            "sort_key": [
+              -0.0,
+              -0.58,
+              "win"
+            ],
+            "gloss_index": 30,
+            "gloss_total": 33,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 5,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": {
+              "mode": "shadow",
+              "configured_risk_families": [
+                "math_geometry",
+                "government_law",
+                "hunting_fishing_tools",
+                "register_region",
+                "abbreviation_ellipsis_formof"
+              ],
+              "families": [],
+              "risky_families": [],
+              "same_canonical_competition": true,
+              "competitor_count": 32,
+              "cleaner_competitor_count": 32,
+              "cleaner_earlier_competitor_count": 30,
+              "clean_competition_present": true,
+              "clean_earlier_competition_present": true,
+              "would_demote": false,
+              "live_demotion_applied": false,
+              "reasons": [
+                "clean_competition_present",
+                "clean_earlier_competition_present"
+              ]
+            }
+          }
+        ],
+        "capped": [
+          {
+            "target": "sacar",
+            "source_phrase": "withdraw",
+            "confidence": 0.58,
+            "rank_score": 0.24285714285714285,
+            "bucket_key": "sense:2624:7",
+            "sort_key": [
+              -0.24285714285714285,
+              -0.58,
+              "withdraw"
+            ],
+            "gloss_index": 6,
+            "gloss_total": 33,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 1,
+            "reverse_check_total": 6,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": {
+              "mode": "shadow",
+              "configured_risk_families": [
+                "math_geometry",
+                "government_law",
+                "hunting_fishing_tools",
+                "register_region",
+                "abbreviation_ellipsis_formof"
+              ],
+              "families": [],
+              "risky_families": [],
+              "same_canonical_competition": true,
+              "competitor_count": 32,
+              "cleaner_competitor_count": 32,
+              "cleaner_earlier_competitor_count": 6,
+              "clean_competition_present": true,
+              "clean_earlier_competition_present": true,
+              "would_demote": false,
+              "live_demotion_applied": false,
+              "reasons": [
+                "clean_competition_present",
+                "clean_earlier_competition_present"
+              ]
+            }
+          },
+          {
+            "target": "sacar",
+            "source_phrase": "draw",
+            "confidence": 0.58,
+            "rank_score": 0.047619047619047616,
+            "bucket_key": "sense:2624:16",
+            "sort_key": [
+              -0.047619047619047616,
+              -0.58,
+              "draw"
+            ],
+            "gloss_index": 20,
+            "gloss_total": 33,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": true,
+            "reverse_check_rank": 5,
+            "reverse_check_total": 13,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": {
+              "mode": "shadow",
+              "configured_risk_families": [
+                "math_geometry",
+                "government_law",
+                "hunting_fishing_tools",
+                "register_region",
+                "abbreviation_ellipsis_formof"
+              ],
+              "families": [],
+              "risky_families": [],
+              "same_canonical_competition": true,
+              "competitor_count": 32,
+              "cleaner_competitor_count": 32,
+              "cleaner_earlier_competitor_count": 20,
+              "clean_competition_present": true,
+              "clean_earlier_competition_present": true,
+              "would_demote": false,
+              "live_demotion_applied": false,
+              "reasons": [
+                "clean_competition_present",
+                "clean_earlier_competition_present"
+              ]
+            }
+          },
+          {
+            "target": "sacar",
+            "source_phrase": "unsheathe",
+            "confidence": 0.58,
+            "rank_score": 0.0,
+            "bucket_key": "sense:2624:16",
+            "sort_key": [
+              -0.0,
+              -0.58,
+              "unsheathe"
+            ],
+            "gloss_index": 22,
+            "gloss_total": 33,
+            "variant": null,
+            "source_form": null,
+            "target_surface": null,
+            "reverse_check_supported": true,
+            "reverse_check_hit": false,
+            "reverse_check_rank": null,
+            "reverse_check_total": 1,
+            "semantic_demotion": null,
+            "semantic_demotion_reason": null,
+            "kaikki_policy_shadow": {
+              "mode": "shadow",
+              "configured_risk_families": [
+                "math_geometry",
+                "government_law",
+                "hunting_fishing_tools",
+                "register_region",
+                "abbreviation_ellipsis_formof"
+              ],
+              "families": [],
+              "risky_families": [],
+              "same_canonical_competition": true,
+              "competitor_count": 32,
+              "cleaner_competitor_count": 32,
+              "cleaner_earlier_competitor_count": 22,
+              "clean_competition_present": true,
+              "clean_earlier_competition_present": true,
+              "would_demote": false,
+              "live_demotion_applied": false,
+              "reasons": [
+                "clean_competition_present",
+                "clean_earlier_competition_present"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "en-ja": {}
+  }
+}

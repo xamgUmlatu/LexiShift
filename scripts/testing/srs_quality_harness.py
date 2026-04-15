@@ -309,6 +309,9 @@ def _run_feedback_cycle_scenario() -> dict[str, Any]:
     with _temp_paths() as paths:
         jmdict_dir = Path(paths.data_root) / "jmdict"
         jmdict_dir.mkdir(parents=True, exist_ok=True)
+        translation_dict_path = paths.language_packs_dir / "wiktionary-ja-en.sqlite"
+        translation_dict_path.parent.mkdir(parents=True, exist_ok=True)
+        translation_dict_path.write_bytes(b"SQLite format 3\x00")
         source_db = _create_frequency_db(Path(paths.data_root) / "freq.sqlite")
         save_srs_settings(
             SrsSettings(max_active_items=8, max_new_items_per_day=2),

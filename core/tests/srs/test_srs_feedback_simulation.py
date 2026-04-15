@@ -152,6 +152,7 @@ class TestSrsFeedbackSimulation(unittest.TestCase):
                         pair=pair,
                         profile_id=profile_id,
                         jmdict_path=jmdict_dir,
+                        translation_dict_path=jmdict_dir,
                         set_source_db=source_db,
                         set_top_n=2000,
                         feedback_window_size=8,

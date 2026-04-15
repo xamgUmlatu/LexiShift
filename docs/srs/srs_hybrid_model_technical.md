@@ -1,5 +1,9 @@
 # SRS Hybrid Model Technical Spec (Feedback-Driven)
 
+Related design:
+- `docs/developer/language_difficulty_and_proficiency_model.md`
+- `docs/srs/srs_onboarding_and_placement_schema.md`
+
 ## Purpose
 Define a concrete architecture for set `S` as "the user's current study inventory," while keeping room for future profile-driven growth.
 
@@ -190,6 +194,11 @@ Planned profile-driven strategies:
 - `profile_bootstrap`
 - `profile_growth`
 - `adaptive_refresh` (feedback aggregation based)
+
+Important distinction:
+- profile-driven growth may use user proficiency and target vocabulary-band intent
+- that is separate from the item's later observed SRS difficulty
+- and separate from lexical/rulegen difficulty used in translation/rule generation
 
 ---
 

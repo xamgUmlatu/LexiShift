@@ -1,0 +1,63 @@
+{
+  "version": 2,
+  "pair": "en-ja",
+  "name": "LexiShift Rulegen Benchmark Edge Cases (en-ja)",
+  "description": "Rare-reading and edge-case benchmark items for en-ja that are useful for development but intentionally excluded from the canonical en-ja benchmark lane.",
+  "source_aggregate": "docs/test_inputs/rulegen_benchmark_cases.json",
+  "breadth": "v1-rare-reading-edge",
+  "case_count": 2,
+  "cases": [
+    {
+      "case_id": "en-ja:大家:たいか",
+      "pair": "en-ja",
+      "target": "大家",
+      "tier": "hard",
+      "target_reading": "たいか",
+      "expected_any": [
+        "expert",
+        "master",
+        "authority"
+      ],
+      "expected_top1_any": [
+        "expert",
+        "master"
+      ],
+      "forbidden_top1": [
+        "landlord",
+        "landlady"
+      ],
+      "forbidden_any": [
+        "landlord",
+        "landlady",
+        "owner"
+      ],
+      "notes": "Rare scholarly/expert reading of 大家; excluded from canonical benchmark because おおや is the standard reading in ordinary usage."
+    },
+    {
+      "case_id": "en-ja:大人:たいじん",
+      "pair": "en-ja",
+      "target": "大人",
+      "tier": "hard",
+      "target_reading": "たいじん",
+      "expected_any": [
+        "leader",
+        "elder",
+        "dignitary"
+      ],
+      "expected_top1_any": [
+        "leader",
+        "elder"
+      ],
+      "forbidden_top1": [
+        "adult",
+        "grown-up"
+      ],
+      "forbidden_any": [
+        "adult",
+        "grown-up",
+        "mature"
+      ],
+      "notes": "Rare dignitary/elder reading of 大人; excluded from canonical benchmark because おとな is the standard reading in ordinary usage."
+    }
+  ]
+}

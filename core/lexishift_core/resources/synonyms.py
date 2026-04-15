@@ -8,7 +8,10 @@ from typing import Iterable, Mapping, Optional, Sequence
 from xml.etree import ElementTree
 
 from lexishift_core.resources.db_handlers import load_synonyms_from_db
-from lexishift_core.resources.dict_loaders import load_jmdict_glosses
+from lexishift_core.resources.dict_loaders import (
+    load_jmdict_glosses,
+    load_translation_gloss_records_ordered,
+)
 from lexishift_core.resources.synonyms_embeddings import EmbeddingIndex
 
 
@@ -379,6 +382,21 @@ def _load_freedict_tei(path: Path, *, target_lang: str) -> dict[str, set[str]]:
 
 
 def _load_jmdict(path: Path) -> dict[str, set[str]]:
+    if not path.exists():
+        return {}
+    normalized_name = path.name.lower()
+    if "wiktionary" in normalized_name or "kaikki" in normalized_name:
+        records_by_headword = load_translation_gloss_records_ordered(path, target_lang="en")
+        mapping: dict[str, set[str]] = {}
+        for headword, records in records_by_headword.items():
+            if not records:
+                continue
+            bucket = mapping.setdefault(headword, set())
+            for record in records:
+                translation = str(record.translation or "").strip()
+                if translation:
+                    bucket.add(translation)
+        return mapping
     return load_jmdict_glosses(path)
 
 

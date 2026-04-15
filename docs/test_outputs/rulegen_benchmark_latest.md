@@ -1,10 +1,18 @@
 # Rulegen Benchmark Sweep
 
-Generated: 2026-02-26T21:55:22.077880+00:00
+Generated: 2026-04-08T00:02:37.777435+00:00
 
-## en-es
+## en-ja
 
 | Rank | Objective | Top1 | Top3 | ForbidTop1 | ForbidAny | AvgRules | Config |
 |---:|---:|---:|---:|---:|---:|---:|---|
-| 1 | 132.250 | 93.75% | 100.00% | 6.25% | 6.25% | 1.50 | `md=3 mr=none thr=0.000 var=off pos=on w_pos=0.100` |
-| 2 | 131.500 | 93.75% | 93.75% | 6.25% | 6.25% | 1.00 | `md=3 mr=1 thr=0.000 var=off pos=on w_pos=0.100` |
+| 1 | 146.000 | 95.00% | 95.00% | 0.00% | 0.00% | 1.00 | `md=1 mr=1 thr=0.000 sd=1.00 var=on pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=none kprov=off` |
+| 2 | 146.000 | 95.00% | 95.00% | 0.00% | 0.00% | 1.00 | `md=1 mr=1 thr=0.000 sd=1.00 var=on pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=none kprov=off` |
+| 3 | 146.000 | 95.00% | 95.00% | 0.00% | 0.00% | 1.00 | `md=1 mr=1 thr=0.000 sd=1.00 var=on pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=none kprov=off` |
+| 4 | 146.000 | 95.00% | 95.00% | 0.00% | 0.00% | 1.00 | `md=1 mr=1 thr=0.000 sd=1.00 var=on pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=none kprov=off` |
+| 5 | 146.000 | 95.00% | 95.00% | 0.00% | 0.00% | 1.00 | `md=1 mr=1 thr=0.000 sd=1.00 var=off pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=none kprov=off` |
+| 6 | 146.000 | 95.00% | 95.00% | 0.00% | 0.00% | 1.00 | `md=1 mr=1 thr=0.000 sd=1.00 var=off pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=none kprov=off` |
+| 7 | 146.000 | 95.00% | 95.00% | 0.00% | 0.00% | 1.00 | `md=1 mr=1 thr=0.000 sd=1.00 var=off pos=off rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=none kprov=off` |
+| 8 | 146.000 | 95.00% | 95.00% | 0.00% | 0.00% | 1.00 | `md=1 mr=1 thr=0.000 sd=1.00 var=off pos=off rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=none kprov=off` |
+| 9 | 146.000 | 95.00% | 95.00% | 0.00% | 0.00% | 1.00 | `md=1 mr=1 thr=0.050 sd=1.00 var=on pos=on rev=off xamb=off xspec=off w_pos=0.000 kdem=off kfam=none kprov=off` |
+| 10 | 146.000 | 95.00% | 95.00% | 0.00% | 0.00% | 1.00 | `md=1 mr=1 thr=0.050 sd=1.00 var=on pos=on rev=off xamb=off xspec=off w_pos=0.100 kdem=off kfam=none kprov=off` |

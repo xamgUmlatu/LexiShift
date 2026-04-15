@@ -2,7 +2,7 @@
 
 Status: active ledger
 Role: Canonical current
-Last updated: 2026-03-28
+Last updated: 2026-04-15
 Source-of-truth: cross-cutting state ledger; runtime truth still lives in code, tests, and dated evidence artifacts.
 
 Purpose:
@@ -32,17 +32,19 @@ Use this file when:
 ## Rulegen Benchmark / Gate / Triage Loop
 
 - Status: `implemented`, `default-on`, `verified`
-- Last documented checkpoint: `2026-02-24`
-- Last verified: `2026-03-28` local benchmark/gate/triage refresh + pipeline contract doc sync
+- Last documented checkpoint: `2026-04-08`
+- Last verified: `2026-04-08` pair-local dataset split tooling tests + `en-ja` preset audit on the pair-local dataset path
 - Default behavior:
   - Required for rulegen scoring, candidate filtering, POS normalization, and LP tuning changes.
   - Canonical loop remains benchmark -> quality gate -> triage.
+  - Pair-local benchmark datasets under `docs/test_inputs/rulegen_benchmark_cases/` are now the development edit surface for tuned pairs, while `docs/test_inputs/rulegen_benchmark_cases.json` remains the compatibility aggregate consumed by default CLI flows that do not opt into a pair-local dataset path.
   - Latest rulegen artifacts now have human-facing Markdown summaries for benchmark, gate, and triage surfaces.
 - Evidence:
   - `AGENTS.md`
   - `docs/developer/ai_workflow.md`
   - `docs/developer/rulegen_test_pipeline.md`
   - `scripts/testing/rulegen_benchmark.py`
+  - `scripts/testing/rulegen_benchmark_case_sync.py`
   - `scripts/testing/rulegen_benchmark_bundle.py`
   - `scripts/testing/rulegen_benchmark_presets.py`
   - `scripts/testing/rulegen_benchmark_summary.py`
@@ -65,15 +67,20 @@ Use this file when:
 ## Rulegen Benchmark Optimization Architecture
 
 - Status: `implemented`, `verified`; `default-on` = `no`
-- Last documented checkpoint: `2026-03-28` the compiled `en-es` sweep path now includes `numpy` config-matrix score projection, a guarded optional `torch` CUDA score backend, compact selected-row preparation, backend-neutral preload caches, and a separate black-box pipeline contract doc for the full benchmark/render/gate/triage loop
-- Last verified: `2026-03-28` focused unit coverage, latest warm-cache canonical `en-es` sweep smoke, guarded `torch`/CUDA equivalence smoke, and pipeline/state sync
+- Last documented checkpoint: `2026-03-29` seventh `en-es` benchmark-expansion tranche (`100` cases), canonical refresh, and frozen profile-bank refresh on the `100`-case suite
+- Last verified: `2026-03-29` canonical `en-es` benchmark/gate/triage refresh on the `100`-case suite, targeted benchmark test rerun, frozen profile-bank rerun, and pipeline/state/doc sync
 - Default behavior:
   - Active direction remains a non-throwaway benchmark acceleration program that keeps the current canonical preset methodology while moving the implementation toward a `compile -> sweep -> materialize` architecture, a backend-neutral pair-resource contract, and later trait-aware profile analysis on top of the same benchmark substrate.
   - Already landed slices include timing/profiling instrumentation, pair-context caching, compute/materialization split, compiled `en-es` candidate/case/result tables, deferred case-payload materialization, a direct compiled non-variant `en-es` sweep path that can bypass adapter-generated `VocabRule`s, a compiled benchmark-only variant-row path so the canonical `var=on` half of the `en-es` matrix no longer has to use the live adapter loop, narrower overlay-demotion caching so score-table rebuilds do not recompute Kaikki policy rows for every score-weight-only config change, a backend-neutral persistent path-cache layer for translation-pack metadata plus benchmark resource checksums, and the Phase 5 serial-sweep preparation path that now prebuilds compiled `en-es` requests/configs/filter tables/score tables/compact selected-row tables before the remaining per-run case evaluation loop. The compiled score path now also uses `numpy` arrays plus an explicit config-matrix projection for batch score/ranking computation, offers a guarded local `torch` CUDA score backend behind `LEXISHIFT_RULEGEN_SCORE_BACKEND`, replaces string source-phrase tie-breakers with stable numeric phrase-order ids, and reuses equivalent selected-row tables across distinct configs by compiled row-selection signatures: accepted row groups, target-ranked row order, reverse-hygiene signals, and threshold pass/fail rows, rather than intermediate score-table object identity or raw confidence payloads.
+  - The `en-es` benchmark surface now also exposes a wider Kaikki family/category control plane without changing canonical defaults: normalized family sets include `art_media`, `communication_network`, `computing`, `mechanics_tools`, `music`, `biology`, and `chemistry`, and non-default per-family demotion maps can now be swept explicitly through `--kaikki-policy-risk-family-demotion-sets` / `en_es_stage_a_family_followup_v2`.
   - Current architecture now also explicitly treats database-specific logic as a resource-layer concern: the benchmark workstream is moving toward backend-neutral translation-pack record/loader contracts, with FreeDict/Kaikki compatibility loaders as one current implementation rather than the architectural model.
-  - Latest warm-cache canonical `en-es` benchmark smoke on this PC stays exact at objective `129.474` with total wall clock about `0.50s`; `preload_translation_gloss_records` is about `0.223s`, compiled sweep-input preparation is about `0.174s`, and the remaining per-config `run_config` loop is about `0.012s` total across the 144-config serial sweep.
+  - Latest canonical `en-es` benchmark now lands at objective `131.180` with `Top1 89.00%`, `Top3 100.00%`, `ForbidAny 0.00%`, and `AvgRulesPerTarget 2.97`; the current actionable set is `11` review items with no hard fails.
+  - The benchmark suite now spans `100` `en-es` cases. The seventh tranche (`banda`, `registro`, `patrón`, `trazo`, `tráfico`, `mando`) added three canonical passes plus three new review cases, which widened the ranking-pressure surface without introducing forbidden-side regressions.
   - A guarded local `torch`/CUDA score-backend smoke is also benchmark-equivalent on this PC, but it is slower on the real current sweep shape at about `0.71s` wall clock with `prepare_compiled_sweep_inputs` about `0.328s`, so GPU remains an explicit opt-in rather than default-on.
-  - The latest artifact-resolved best run is now a `var=on` tied winner, but the canonical best objective still has `12` equivalent tied winners including the earlier `var=off` lane; this is currently a stable tie-order detail, not a quality change.
+  - The latest artifact-resolved best run is now a `var=on` tied winner, and the canonical best objective still has `12` equivalent tied winners including the earlier `var=off` lane; this is currently a stable tie-order detail, not a quality change.
+  - The current targeted extraction follow-up also adds a narrow noun-head recovery step for long noun-like gloss phrases, which fixed the `batería` hard fail on the canonical `64`-case benchmark surface without broadening general multiword admission; a later narrow nominal-compound follow-up now does the same kind of focused recovery for `móvil` on the `88`-case suite.
+  - A second narrow follow-up now suppresses reverse-miss penalties only for heuristic `leading_alias` and `nominal_head` fragments when they do not already have a direct reverse hit; this lifts `cuadro` from hard FAIL to REVIEW on the canonical surface without changing ordinary comma-fragment behavior.
+  - A third narrow follow-up now admits only recurrent exact reverse-attested two-word phrasal-verb candidates, which fixes `sacar` on the canonical surface with top3 `take out, withdraw, draw` without enabling broad multiword verb admission.
   - Later slices are still expected to be:
     - fuller compiled benchmark IR generalization across pairs/packs
     - vectorized CPU backend
@@ -176,6 +183,62 @@ Use this file when:
   - The reverse Kaikki source decision is documented, the EN->ES converter exists, and the first reverse-enabled Kaikki/Kaikki lane improved `en-es` top1 to `81.25%`, but the remaining failure classes still need review before promoting the same artifact to the general `es-en` forward path.
   - Synonym extraction from Kaikki metadata is still deferred.
   - Bulk-rules GUI selection is not yet wired to use the new Kaikki pack id.
+
+## Kaikki `en-ja` Rulegen Dictionary Flow
+
+- Status: `implemented`, `verified`; `default-on` = `yes` for helper/runtime rulegen when `wiktionary-ja-en.sqlite` is installed, `no` for seed/bootstrap
+- Last documented checkpoint: `2026-04-08` `en-ja` benchmark-suite expansion from a `143`-case core lane to a `161`-case core lane with a more discriminative ranking tranche centered on common but polysemous admissions such as `場合`, `国`, `気`, `話`, `全て`, `県`, `別`, and `他`
+- Last verified: `2026-04-08` targeted adapter and benchmark dataset tests plus a local Kaikki-derived `wiktionary-ja-en.sqlite` benchmark/gate/triage refresh over the `161`-case core pair-local suite (`Top1 100.00%`, `Top3 100.00%`, `ForbidAny 0.00%`, triage `0`, pair-local quality floor pass, canonical `96`-config wall clock about `26s`). The canonical matrix still warns for low sensitivity (`56 / 96` configs tied on the top metric vector), but the broader supported-surface sweep is materially healthier than the older small-suite state: `168 / 864` configs are perfect and top-objective share is about `19.4%`, so the pair is clean on the current suite without yet being fully weight-constrained.
+- Default behavior:
+  - App language-pack catalog now includes a pair-specific `wiktionary-ja-en` pack sourced from the English-edition Kaikki raw dump.
+  - Download flow now supports `download + convert + auto-link` for this pack, producing `wiktionary-ja-en.sqlite`.
+  - `en-ja` helper/runtime rulegen now resolves a generic translation-dictionary slot and prefers `wiktionary-ja-en.sqlite` when present, with `JMdict_e` as fallback.
+  - Bulk-rules GUI selection now exposes and prefers `wiktionary-ja-en` ahead of `jmdict-ja-en` for `en-ja` dictionary-backed generation.
+  - Current Kaikki `en-ja` candidate handling now keeps reading-compatible Japanese-script variants, falls back from kanji targets to kana-backed Kaikki headwords when the pair word package provides the reading, joins split ruby segments into full readings for same-surface homographs, strips article/annotation noise from gloss phrases, splits safe comma / semicolon / `or` gloss lists, suppresses structural POS noise such as counter / character side-senses when lexical noun or verb senses exist, recovers a narrow set of safe single-word noun / verb heads from phrase glosses including phrase heads such as `presence of people -> presence`, `spicy hot -> spicy`, and qualifier/admin heads like `country in general -> country` or long prefecture descriptions -> `prefecture`, suppresses bad English expansion noise such as `ifs`, `entirelies`, and `etcs`, and applies narrow family-level competition demotions when event-noun, business, geopolitical, mental-state, communication-noun, totality-noun, occupational-title, spatial-noun, or method-suffix gloss families compete with misleading side meanings on the same target.
+  - Default seed/bootstrap behavior remains JMDict-based; `JMdict_e` is still required for empty-store JA bootstrap/filtering.
+  - The benchmark/audit path now preloads `en-ja` Kaikki translation gloss records once per sweep, isolates duplicate-surface reading cases during preloaded evaluation, supplements kana/romaji alias headwords only for truly missing targets such as `まだ -> 未だ`, and caches the derived reading/alias indices once per sweep so the canonical `96`-config matrix is back in the ~`20s` range instead of multi-minute regressions.
+  - The current pair-local dataset is now split into a `161`-case core canonical lane plus a `2`-case rare-reading edge file. The core lane now includes both admission-derived common vocabulary and a newer discriminative ranking tranche with explicit forbidden-side-sense coverage for polysemous common targets; the edge file keeps intentionally recondite readings such as `大家:たいか` and `大人:たいじん` out of the default benchmark path.
+  - The benchmark runner now isolates duplicate-surface `en-ja` cases by reading during preloaded sweeps, so same-surface pairs such as `空(から)` / `空(そら)` and `生(せい)` / `生(なま)` no longer collapse into one cached benchmark target.
+  - Real helper bootstrap review now has a pair of local `en-ja` harvest artifacts from `80`-item installed-resource admission passes: the first pre-hardening review exposed high-frequency grammar items such as `ます`, `です`, `だ`, and `た`, plus orthographically bad standalone targets such as `為る` and `侭`; the follow-up post-hardening review confirms that the current JA bootstrap now blocks those auxiliaries/copulas, blocks `侭`, and normalizes `為る` to admitted surface `する`.
+  - Default helper bootstrap roots now seed a narrow `stopwords-ja.json` asset alongside the older German asset, and JA bootstrap selection now layers three reviewed policies ahead of admission/publication:
+    - exact JA stopword filtering for clear grammar-only spillover such as `ます`, `です`, `だ`, `た`, `ない`, `れる`, and `られる`
+    - a tiny reviewed JA lexical exclusion list for bad standalone targets that are not clean stopword cases, currently `侭` / `まま`
+    - a tiny reviewed JA orthographic normalization map for bad default source surfaces, currently `為る -> する`, preserving the original source surface in metadata and avoiding any broad kana-preference rule for ordinary kanji vocabulary
+  - Tracked follow-up:
+    - keep the current JA bootstrap hardening intentionally narrow until additional candidates are reviewed; the next explicit review bucket includes broader orthographic or ultra-abstract surfaces such as bare `為` and `訳`
+    - if a trustworthy external compiled/preferred-orthography source for Japanese becomes available, evaluate it as a candidate replacement or supplement for the current tiny reviewed surface-normalization map rather than expanding toward a broad kana-preference heuristic
+- Evidence:
+  - `docs/language_pairs/language_pack_urls.txt`
+  - `docs/language_pairs/lp_data_inventory_matrix.md`
+  - `docs/language_pairs/lp_resource_requirements.md`
+  - `docs/language_pairs/data_source_licensing_and_distribution.md`
+  - `apps/gui/src/language_packs_catalog.py`
+  - `apps/gui/src/language_packs.py`
+  - `core/lexishift_core/rulegen/adapters.py`
+  - `core/lexishift_core/rulegen/pairs/en_ja.py`
+  - `scripts/data/convert_kaikki_glosses_to_sqlite.py`
+  - `scripts/data/convert_kaikki_ja_en_to_sqlite.py`
+  - `core/tests/dev/test_gui_import_contract.py`
+  - `core/tests/pos/test_pos_normalization.py`
+  - `core/tests/resources/test_dict_loaders_freedict_pos.py`
+  - `core/tests/rulegen/test_rulegen_adapters.py`
+  - `docs/test_outputs/rulegen_benchmark_en_ja_latest.json`
+  - `docs/test_outputs/rulegen_quality_gate_en_ja_latest.json`
+  - `docs/test_outputs/rulegen_benchmark_triage_en_ja_latest.json`
+  - `docs/test_outputs/experiments/en_ja_admission_harvest_review_20260408.json`
+  - `docs/test_outputs/experiments/en_ja_admission_harvest_review_20260408.md`
+  - `docs/test_outputs/experiments/en_ja_admission_harvest_postpolicy_review_20260408.json`
+  - `docs/test_outputs/srs_quality_latest.json`
+  - `docs/test_outputs/srs_quality_summary_latest.md`
+  - `core/tests/srs/test_srs_seed.py`
+  - `core/tests/helper/test_helper_engine.py`
+- Known gaps:
+  - Seed/bootstrap still depends on `JMdict_e`; this is intentionally a mixed JMDict-seed plus Kaikki-rulegen rollout rather than a full source replacement.
+  - Single-pair `en-ja` audits now downgrade missing required-pair coverage to advisory warnings, but the shared hard-gated policy set still only requires `en-es`.
+  - The `en-ja` benchmark path is now fast enough for canonical sweeps through one-time preload, but it still uses the generic live adapter path rather than a compiled pair backend.
+  - The current Kaikki `en-ja` ranking lift depends on narrow pair-specific gloss heuristics rather than a generalized multilingual Kaikki policy layer.
+  - The canonical `121`-case core suite is clean again, but the broader `864`-config supported-surface sweep is still underconstrained: `168 / 864` configs are perfect, `semantic_demotion_scale=1.0` remains mandatory, and the weight space still needs more benchmark expansion to sharpen ordinary knob selection.
+  - JA bootstrap hardening is intentionally narrow rather than comprehensive. It now blocks the reviewed auxiliary/copula and lexical-noise cases above, but broader grammar-heavy or ultra-abstract targets such as bare `為` and `訳` can still appear in admission reviews and will need separate policy decisions if we want to tighten the bootstrap frontier further.
 
 ## SRS Journey E2E Harness
 
@@ -427,11 +490,11 @@ Use this file when:
 - Known gaps:
   - Only `en-es` and `es-en` are wired; `en-de` and `en-ja` have no reverse-check implementation.
   - No committed `es-en` benchmark/gate/triage artifact yet proves rollout maturity.
-  - The canonical benchmark loop now sweeps both `rev=off` and `rev=on`, but `en-es` still remains red on top-1 accuracy and average-rule volume even after the repaired verb reverse normalization restored the best `rev=on` lane.
-  - The current `en-es` reverse-enabled best run lifts `top3` to `98.25%`, but `top1` is still capped at `91.23%`; remaining work is now more about lexical choice than reverse plumbing.
+  - The canonical benchmark loop now sweeps both `rev=off` and `rev=on`, but `en-es` still remains red on top-1 accuracy and average-rule volume even after the latest extraction and phrase-policy follow-ups kept the best `rev=on` lane at the top.
+  - The current `en-es` reverse-enabled best run now reaches `Top1 92.19%`, `Top3 100.00%`, and `ForbidAny 0.00%`; remaining work is now about lexical preference and ranking rather than reverse plumbing or slang leakage.
   - The new exact-hit ambiguity penalty and exact-hit specificity bonus are both implemented and harness-exposed, but neither beat the existing best lane yet; current `cuadro` behavior is still more sensitive to miss/far-penalty tradeoffs and score clamping than to these exact-hit refinements alone.
-  - `cuadro` still exposes a non-separable failure class for reverse evidence alone, and `sacar` still needs phrase-policy work when the benchmark is judged on top-1 quality rather than only top-3 recall.
-  - Current rollout is scoring-only, not strict candidate blocking.
+  - `cuadro` still exposes a non-separable failure class for reverse evidence alone, but the earlier `sacar` phrase-policy gap is now covered by a narrow recurrent exact reverse-attested phrasal-verb rule, and the `acabar` / `coger` vulgar-leakage issue is now covered by a narrow clean-competition suppression rule for explicit vulgar senses.
+  - Current rollout is no longer scoring-only: it now includes a narrow strict candidate-blocking rule for explicit vulgar usage when clean competition exists, while broader blocking remains off.
 
 ## Kaikki Provenance / Competition Scoring
 
@@ -467,21 +530,46 @@ Use this file when:
   - `core/tests/dev/test_rulegen_benchmark.py`
 - Known gaps:
   - only the smallest provenance signal is live so far; richer provenance/competition features are still pending
-  - the current signal is now selected together with live Kaikki demotion, but it still does not solve `cuadro` or the new slang-side failures
+  - the current signal is now selected together with live Kaikki demotion, but it still does not solve `cuadro` or the remaining lexical-preference review cases
   - `en-de`, `en-ja`, and `es-en` do not yet have analogous provenance-scoring work
-  - per-family Kaikki demotion strengths, gloss-decay shape exposure, and lexical short-phrase policy are still the next nearby sweep candidates
+  - per-family Kaikki demotion strengths remain available, but the next nearby targeted rulegen candidate is lexical-preference / ranking work for `cuadro`, `red`, `derecho`, `cuenta`, and `señal`, not another short-phrase or slang-policy change
 
 ## Trait-Conditioned Rulegen Profiles
 
-- Status: `planned`; runtime routing not implemented or verified
-- Last documented checkpoint: `2026-03-26`
-- Last verified: `2026-03-26` planning review against current benchmark and Kaikki architecture
+- Status: `scaffolded`; runtime routing not implemented or verified
+- Last documented checkpoint: `2026-03-29` frozen profile-bank rerun on the `88`-case `en-es` suite after the fifth dataset-expansion tranche
+- Last verified: `2026-03-29` canonical `en-es` benchmark refresh plus frozen profile-bank analysis on the `88`-case suite
 - Default behavior:
   - No runtime profile routing exists yet.
   - Current rulegen still uses one selected configuration per run rather than choosing profiles from runtime-computable target traits.
   - The intended future direction is to route among a small bank of named profiles using a shared feature extractor and benchmark-backed trait analysis.
+  - Benchmark case payloads now emit a hardened analysis-only `trait_summary` seam in the latest `en-es` artifacts.
+  - The current payload is explicitly split into:
+    - `router_input`
+    - `result_shape`
+    - `benchmark_only`
+  - Current concrete offline profile candidates now exist on `en-es`:
+    - canonical recall-oriented baseline
+    - admission-tight precision profile
+    - combined balanced profile
+    - family-followup high-objective profile
+  - Current evidence says those profiles materially change precision/recall shape and rule volume, but they still do not change the remaining review-boundary winners consistently enough to justify runtime routing.
+  - The first frozen profile-bank comparison on the `71`-case suite found no top-1 winner differences, the rerun on the `77`-case suite found the first split, the `83`-case rerun kept that same pattern, and the current `94`-case rerun now finds:
+    - `1` top-1 winner difference across the current four-profile bank
+    - `0` cases with top-3 coverage differences
+    - the current top-1-sensitive case is `móvil`, where canonical keeps `mobile phone` while the tighter profiles regress to bare `mobile`
+  - The first post-`móvil` trait-region aggregation on top of that frozen bank found:
+    - `admission-tight` and `family-followup` now tie as the best objective profiles across most regions
+    - canonical still carries the only extra top-1 win because of `móvil`
+    - those region-level wins therefore still mostly affect rule volume / breadth rather than broader top-1 identity changes
 - Evidence:
   - `docs/rulegen/trait_conditioned_rulegen_profiles.md`
+  - `docs/developer/rulegen_en_es_broad_sweep_runbook.md`
+  - `docs/test_outputs/experiments/rulegen_en_es_profile_bank_analysis_20260329_100cases.json`
+  - `docs/test_outputs/experiments/rulegen_en_es_profile_bank_comparison_20260329_100cases.md`
+  - `docs/test_outputs/experiments/rulegen_en_es_dataset_expansion_tranche5_20260329.md`
+  - `docs/test_outputs/experiments/rulegen_en_es_post_vulgarfix_frontier_summary_20260328.md`
+  - `docs/test_outputs/rulegen_benchmark_en_es_latest.json`
   - `docs/rulegen/rule_generation_technical.md`
   - `docs/language_pairs/kaikki_en_es_integration_plan.md`
   - `scripts/testing/rulegen_benchmark.py`
@@ -491,10 +579,14 @@ Use this file when:
   - `core/lexishift_core/rulegen/kaikki_views.py`
   - `core/lexishift_core/rulegen/ranking.py`
 - Known gaps:
-  - There is no shared runtime trait extractor yet.
-  - Benchmark artifacts do not yet emit per-case feature vectors.
+  - There is no runtime router yet; the new trait extractor contract is still only consumed by benchmark artifacts.
+  - The current `trait_summary` payload is ready for offline profile-bank comparison, but not yet used by a live runtime decision path.
   - No profile bank or interpretable router is implemented.
-  - Current dataset size is still better suited to coarse directional experiments than fine-grained routed-policy learning.
+  - The benchmark suite is broader now, but the next required step is still broader suite/profile evidence plus targeted lexical work rather than shipping any routing behavior.
+  - The next recommended sequence is:
+    - keep the `88`-case suite as the active profile-analysis baseline
+    - aggregate frozen-bank results by `router_input` trait regions and inspect the `trama` split plus the new `navegador` top-3 sensitivity
+    - only then revisit another suite-expansion tranche, embeddings, or other larger new signal families in the profile-analysis loop
   - Learner-stage-aware routing is only conceptual at this point and must stay separate from lexical trait inference.
 
 ## POS Normalization
@@ -520,20 +612,83 @@ Use this file when:
 
 - Status:
   - `frequency_bootstrap`: `implemented`, `default-on`, `verified`
-  - `profile_bootstrap`: `scaffolded`
-  - `profile_growth`: `scaffolded`
+  - `profile_bootstrap`: `implemented`, `default-on`, `verified`
+  - `profile_growth`: `implemented`, `verified`
   - `adaptive_refresh`: `scaffolded`
-- Last documented checkpoint: `2026-02-23`
-- Last verified: `2026-03-11` code inspection
+- Last documented checkpoint: `2026-04-15`
+- Last verified: `2026-04-15` targeted profile-bootstrap/helper/audit tests, synthetic SRS quality harness, refreshed preference-sanity artifact, and refreshed live frontier topic coverage audit
 - Default behavior:
-  - Executable behavior remains frequency bootstrap.
-  - Profile-aware strategies still fall back to planning-only or frequency-bootstrap execution.
+  - Plain `frequency_bootstrap` remains the neutral executable baseline.
+  - `profile_bootstrap` is now executable and default-on for the extension/options initialize flow that already requests it.
+  - Current `profile_bootstrap` behavior keeps seed generation and hard pair-local gating neutral, normalizes raw planner context into explicit topic weights plus effective canonical topic-family matching weights, resolves `proficiency_estimate`, `challenge_target`, and `challenge_spread`, then reranks the admitted pool using those signals.
+  - GUI frequency-pack builds now enrich `freq-ja-bccwj` and `freq-es-cde` with companion Kaikki/Wiktionary topic metadata when the matching local language-pack SQLite exists, storing the resulting topic hints in `frequency.sense_topics` for downstream admission matching.
+  - Topic-affinity matching now expands conservative canonical topic families in the scorer and diagnostics, so source tags such as `pets`, `board-games`, `business`, and `streaming` can contribute to user-facing interests such as `animals`, `games`, `finance`, and `livestream` without replacing the neutral coverage baseline.
+  - Topic-affinity now also applies a bounded topic-specificity dampener so mixed-domain/polysemous candidates keep some lift but no longer score like clean topical hits. Current diagnostics expose the effective specificity factor plus support-count and hint-count fields.
+  - `profile_bootstrap` now also reports active-topic neutral-frontier support diagnostics for the current profile, including per-topic candidate count, support mass, example lemmas, and whether the topic currently has enough labeled support to justify scarcity calibration.
+  - `profile_bootstrap_v3` now adds a bounded PoC `scarcity_bonus` scorer lane for sparse-but-real topical support. The bonus is gated by active-topic frontier support, remains secondary to the neutral coverage floor, and is explicitly documented as provisional tuning rather than final policy.
+  - Bootstrap and refresh admission now use an explicit weighted-without-replacement selector over the scored frontier rather than a deterministic top-`N` cutoff. The scorer remains deterministic; the admission selector is the stochastic layer.
+  - Options now also expose a non-mutating admission preview path that runs the same planner/bootstrap logic, keeps deterministic rerank diagnostics, and reuses the same weighted selector as live bootstrap before any `S` mutation or rulegen publish occurs.
+  - Options now expose first-step editable admission signals for the selected profile/pair: `interests`, `proficiency.estimated_value`, and `difficulty_preferences.target_challenge_center`.
+  - Those option values are stored under `srsProfiles.<profile_id>.srsSignalsByPair.<pair>` and blank values are pruned rather than persisted as empty placeholder objects.
+  - Bootstrap diagnostics now expose the selection strategy, selector version, normalized context summary, policy summary, canonical topic-family matching sources, and per-item rerank explanations for the admitted preview.
+  - Pair-local active inventory membership is now persisted separately in `srs_inventory.json`, and sampled rulegen/runtime publication read that manifest when present instead of implicitly treating every pair item in `srs_store.json` as active inventory.
+  - `profile_growth` is now executable for the manual `objective="rebalance"` path only. It preserves protected learned items, can park low-commitment active items without deleting their history, can reactivate retained items, can admit new seed items when needed, and republishes pair-local rulegen from the resulting active inventory.
+  - Options now expose preview-first manual rebalance controls for the selected pair: `Preview rebalance to current preferences` and `Apply rebalance…`.
 - Evidence:
   - `docs/srs/srs_set_planning_technical.md`
+  - `docs/srs/srs_profile_schema.md`
+  - `docs/srs/srs_preference_update_and_rebalance_policy.md`
+  - `docs/srs/srs_preference_signal_admission_design.md`
+  - `docs/srs/srs_preference_signal_admission_v1_contract.md`
   - `core/lexishift_core/srs/set_planner.py`
+  - `core/lexishift_core/srs/profile_bootstrap.py`
+  - `core/lexishift_core/srs/selector.py`
+  - `core/lexishift_core/frequency/sqlite.py`
+  - `core/lexishift_core/srs/inventory.py`
+  - `core/lexishift_core/srs/rebalance.py`
+  - `core/lexishift_core/helper/rulegen.py`
+  - `core/lexishift_core/helper/use_cases/admission_preview.py`
   - `core/lexishift_core/helper/use_cases/initialize_set.py`
+  - `core/lexishift_core/helper/use_cases/rebalance_set.py`
+  - `core/lexishift_core/helper/use_cases/refresh_set.py`
+  - `core/lexishift_core/helper/use_cases/runtime_diagnostics.py`
+  - `scripts/helper/lexishift_native_host.py`
+  - `scripts/helper/lexishift_helper.py`
+  - `scripts/data/enrich_frequency_topics_from_sqlite.py`
+  - `scripts/testing/srs_admission_preference_sanity.py`
+  - `scripts/testing/srs_frequency_topic_coverage.py`
+  - `apps/chrome-extension/options.html`
+  - `apps/chrome-extension/options/controllers/srs/actions/admission_preview_workflow.js`
+  - `apps/chrome-extension/options/controllers/srs/actions/formatters.js`
+  - `apps/chrome-extension/options/controllers/srs/actions/admission_preview_formatter.js`
+  - `apps/chrome-extension/options/controllers/srs/actions/workflows.js`
+  - `apps/chrome-extension/options/core/settings/signals_methods.js`
+  - `apps/chrome-extension/options/core/settings/srs_profile_methods.js`
+  - `apps/chrome-extension/options/core/helper/srs_set_methods.js`
+  - `apps/gui/src/language_packs.py`
+  - `apps/gui/src/language_packs_catalog.py`
+  - `core/tests/srs/test_srs_inventory.py`
+  - `core/tests/srs/test_profile_bootstrap.py`
+  - `core/tests/srs/test_selector.py`
+  - `core/tests/srs/test_srs_rebalance.py`
+  - `core/tests/srs/test_srs_set_planner.py`
+  - `core/tests/frequency/test_frequency_sqlite_converter.py`
+  - `core/tests/dev/test_gui_import_contract.py`
+  - `core/tests/helper/test_helper_rulegen.py`
+  - `core/tests/helper/test_helper_engine.py`
+  - `core/tests/dev/test_srs_admission_preference_sanity.py`
+  - `core/tests/dev/test_srs_frequency_topic_coverage.py`
+  - `docs/test_outputs/srs_admission_preference_sanity_latest.json`
+  - `docs/test_outputs/srs_admission_interest_review_en_es_latest.md`
+  - `docs/test_outputs/srs_admission_interest_review_en_es_metrics_latest.md`
+  - `docs/test_outputs/srs_frequency_topic_coverage_latest.json`
+  - `docs/test_outputs/srs_quality_latest.json`
 - Known gaps:
-  - Planner diagnostics are ahead of executable strategy diversity.
+  - `profile_growth` is only implemented for manual `objective="rebalance"`; continuous growth admission is still not executable.
+  - Rebalance is intentionally manual and pair-local; there is still no automatic inventory mutation on every preference edit.
+  - Topic-affinity lift is now backed by Kaikki-derived frequency-pack topic enrichment for local `ja` and `es` packs when companion SQLite sources exist, and the live audit now reports canonical topic coverage inside the top bootstrap frontier. Current `en-es` Monte Carlo review confirms the architecture and stochastic selector are working, but the final admission lift is still modest: `sports`, `music`, and `games` move in the right direction, `finance` is still noisy, and `animals` is still too sparse. Coefficient tuning remains explicit follow-up work rather than a blocker for the current merge checkpoint; `freq-en-coca` and broader classifier-derived topic coverage remain the main gaps.
+  - Current challenge/proficiency fitting still uses a coarse bootstrap difficulty proxy derived from neutral admission weight, not a richer curriculum model.
+  - Rebalance currently uses the same normalized preference signals as `profile_bootstrap`; feedback-window aggregation and empirical trend routing remain future work under `adaptive_refresh`.
   - Pair policy defaults are currently near-identical across active pairs.
 
 ## Due-Aware SRS Serving
@@ -594,4 +749,3 @@ These are not accidental wording issues. Keep them explicit until code and docs 
 1. Reverse-check is implemented but not yet default-on.
 2. SRS docs define due-aware serving, but current end-to-end publish/gate behavior is not yet verified as due-aware.
 3. Docs mention runtime confidence filtering, but extension-side helper-rule confidence gating is not yet verified in code.
-4. Planner docs describe multiple strategies, but executable behavior is still dominated by frequency bootstrap.

@@ -2,6 +2,7 @@
 
 Related design:
 - `docs/srs/srs_hybrid_model_technical.md`
+- `docs/developer/language_difficulty_and_proficiency_model.md`
 
 This schema document separates what is implemented now from planned extensibility fields.
 
@@ -158,6 +159,14 @@ Rationale:
 - Keep admission policy state in helper storage (source of truth), not extension-local.
 - Keep profile knobs pair-scoped and versioned for safe evolution.
 - Keep per-item scheduling state independent from profile knobs once item is in normal review flow.
+
+Difficulty note:
+- `proficiency_bias` and `difficulty_bias` should not become a catch-all bucket.
+- Future profile admission state should keep separate room for:
+  - user proficiency signals
+  - target vocabulary-band intent
+  - lexical/commonness-based admission bias
+  - observed item difficulty after exposure
 
 ---
 

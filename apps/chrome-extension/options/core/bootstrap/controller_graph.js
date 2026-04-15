@@ -133,19 +133,6 @@
       elements: graphElements.profileRulesets
     });
 
-    const srsActionsController = requireControllerFactory("optionsSrsActions")({
-      settingsManager,
-      helperManager,
-      t,
-      setStatus: uiBridge.setStatus,
-      resolvePair: languagePrefsAdapter.resolvePairFromInputs,
-      syncSelectedProfile: (items, options) => srsProfileSelectorController.syncSelected(items, options),
-      log: logOptions,
-      confirm: (message) => globalThis.confirm(message),
-      colors: ui.COLORS,
-      elements: graphElements.srsActions
-    });
-
     const rulesShareController = requireControllerFactory("optionsRulesShare")({
       rulesManager,
       t,
@@ -198,6 +185,22 @@
       log: logOptions,
       colors: ui.COLORS,
       elements: graphElements.srsProfileRuntime
+    });
+
+    const srsActionsController = requireControllerFactory("optionsSrsActions")({
+      settingsManager,
+      helperManager,
+      t,
+      setStatus: uiBridge.setStatus,
+      resolvePair: languagePrefsAdapter.resolvePairFromInputs,
+      syncSelectedProfile: (items, options) => srsProfileSelectorController.syncSelected(items, options),
+      resolveEffectiveSrsPlanningState: (items, pairKey, options) => (
+        srsProfileRuntimeController.resolveEffectiveSrsPlanningState(items, pairKey, options)
+      ),
+      log: logOptions,
+      confirm: (message) => globalThis.confirm(message),
+      colors: ui.COLORS,
+      elements: graphElements.srsActions
     });
 
     const displayReplacementController = requireControllerFactory("optionsDisplayReplacement")({
@@ -254,6 +257,7 @@
       saveLanguageSettings: controllerAdapters.saveLanguageSettings,
       saveSrsProfileId: controllerAdapters.saveSrsProfileId,
       refreshSrsProfiles: controllerAdapters.refreshSrsProfiles,
+      resolveEffectiveSrsPlanningState: controllerAdapters.resolveEffectiveSrsPlanningState,
       applyTargetLanguagePrefsLocalization: controllerAdapters.applyTargetLanguagePrefsLocalization,
       renderSrsProfileStatus: controllerAdapters.renderSrsProfileStatus,
       renderProfileBackgroundStatus: controllerAdapters.renderProfileBackgroundStatus,

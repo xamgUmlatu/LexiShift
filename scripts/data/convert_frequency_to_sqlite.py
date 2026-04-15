@@ -16,6 +16,7 @@ if CORE_ROOT.exists():
 from lexishift_core.frequency.sqlite import (  # noqa: E402
     ParseConfig,
     PosInventoryConfig,
+    TopicEnrichmentConfig,
     convert_frequency_to_sqlite,
 )
 
@@ -63,6 +64,17 @@ def main() -> None:
         default=[],
         help="POS column name to inventory (repeatable; default: pos,wtype when POS inventory is enabled)",
     )
+    parser.add_argument(
+        "--topic-source-sqlite",
+        type=Path,
+        default=None,
+        help="Optional companion SQLite with sense_glosses.topics_json to enrich the frequency pack.",
+    )
+    parser.add_argument(
+        "--topic-source-provider",
+        default="",
+        help="Optional provider label for topic enrichment metadata.",
+    )
     args = parser.parse_args()
 
     config = ParseConfig(
@@ -79,6 +91,12 @@ def main() -> None:
             source_kind=str(args.pos_kind or "frequency"),
             pos_columns=pos_columns,
         )
+    topic_enrichment: TopicEnrichmentConfig | None = None
+    if args.topic_source_sqlite:
+        topic_enrichment = TopicEnrichmentConfig(
+            source_sqlite_path=args.topic_source_sqlite,
+            source_provider=str(args.topic_source_provider or args.topic_source_sqlite.stem),
+        )
 
     metadata = convert_frequency_to_sqlite(
         args.input,
@@ -88,6 +106,7 @@ def main() -> None:
         config=config,
         index_column=args.index_column,
         pos_inventory=pos_inventory,
+        topic_enrichment=topic_enrichment,
     )
     print(json.dumps(metadata, indent=2, sort_keys=True))
 

@@ -1,0 +1,185 @@
+{
+  "benchmark_json": "docs\\test_outputs\\experiments\\rulegen_en_es_stage_a_combined_frontier_v1_71cases_20260329.json",
+  "pairs_processed": 1,
+  "failing_or_review_count": 5,
+  "items": [
+    {
+      "pair": "en-es",
+      "case_id": "en-es:derecho",
+      "target": "derecho",
+      "status": "REVIEW",
+      "reasons": [
+        "top1_not_in_expected_set"
+      ],
+      "top1_source": "straight",
+      "top3_sources": [
+        "straight",
+        "right",
+        "right-hand"
+      ],
+      "expected_matches": [
+        "straight",
+        "right"
+      ],
+      "forbidden_matches": [],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "medium",
+        "notes": [
+          "Review expected_top1_any labels or scoring weights for this case.",
+          "Observed top1 source: straight",
+          "Observed top3 sources: straight, right, right-hand"
+        ],
+        "candidate_forbidden_top1": [
+          "straight"
+        ],
+        "candidate_expected_any": [
+          "straight",
+          "right",
+          "right-hand"
+        ]
+      }
+    },
+    {
+      "pair": "en-es",
+      "case_id": "en-es:cuadro",
+      "target": "cuadro",
+      "status": "REVIEW",
+      "reasons": [
+        "top1_not_in_expected_set"
+      ],
+      "top1_source": "square",
+      "top3_sources": [
+        "square",
+        "picture"
+      ],
+      "expected_matches": [
+        "picture"
+      ],
+      "forbidden_matches": [],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "medium",
+        "notes": [
+          "Review expected_top1_any labels or scoring weights for this case.",
+          "Observed top1 source: square",
+          "Observed top3 sources: square, picture"
+        ],
+        "candidate_forbidden_top1": [
+          "square"
+        ],
+        "candidate_expected_any": [
+          "square",
+          "picture"
+        ]
+      }
+    },
+    {
+      "pair": "en-es",
+      "case_id": "en-es:cuenta",
+      "target": "cuenta",
+      "status": "REVIEW",
+      "reasons": [
+        "top1_not_in_expected_set"
+      ],
+      "top1_source": "count",
+      "top3_sources": [
+        "count",
+        "tally",
+        "account"
+      ],
+      "expected_matches": [
+        "account"
+      ],
+      "forbidden_matches": [],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "medium",
+        "notes": [
+          "Review expected_top1_any labels or scoring weights for this case.",
+          "Observed top1 source: count",
+          "Observed top3 sources: count, tally, account"
+        ],
+        "candidate_forbidden_top1": [
+          "count"
+        ],
+        "candidate_expected_any": [
+          "count",
+          "tally",
+          "account"
+        ]
+      }
+    },
+    {
+      "pair": "en-es",
+      "case_id": "en-es:red",
+      "target": "red",
+      "status": "REVIEW",
+      "reasons": [
+        "top1_not_in_expected_set"
+      ],
+      "top1_source": "web",
+      "top3_sources": [
+        "web",
+        "net",
+        "mesh"
+      ],
+      "expected_matches": [
+        "net"
+      ],
+      "forbidden_matches": [],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "medium",
+        "notes": [
+          "Review expected_top1_any labels or scoring weights for this case.",
+          "Observed top1 source: web",
+          "Observed top3 sources: web, net, mesh"
+        ],
+        "candidate_forbidden_top1": [
+          "web"
+        ],
+        "candidate_expected_any": [
+          "web",
+          "net",
+          "mesh"
+        ]
+      }
+    },
+    {
+      "pair": "en-es",
+      "case_id": "en-es:señal",
+      "target": "señal",
+      "status": "REVIEW",
+      "reasons": [
+        "top1_not_in_expected_set"
+      ],
+      "top1_source": "sign",
+      "top3_sources": [
+        "sign",
+        "signal"
+      ],
+      "expected_matches": [
+        "sign",
+        "signal"
+      ],
+      "forbidden_matches": [],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "medium",
+        "notes": [
+          "Review expected_top1_any labels or scoring weights for this case.",
+          "Observed top1 source: sign",
+          "Observed top3 sources: sign, signal"
+        ],
+        "candidate_forbidden_top1": [
+          "sign"
+        ],
+        "candidate_expected_any": [
+          "sign",
+          "signal"
+        ]
+      }
+    }
+  ]
+}

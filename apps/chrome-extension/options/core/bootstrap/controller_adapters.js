@@ -121,6 +121,16 @@
       return srsProfileRuntimeController.refreshSrsProfiles();
     }
 
+    function resolveEffectiveSrsPlanningState(items, pairKey, options) {
+      if (
+        !srsProfileRuntimeController
+        || typeof srsProfileRuntimeController.resolveEffectiveSrsPlanningState !== "function"
+      ) {
+        return null;
+      }
+      return srsProfileRuntimeController.resolveEffectiveSrsPlanningState(items, pairKey, options);
+    }
+
     return {
       renderSrsProfileStatus,
       renderProfileBackgroundStatus,
@@ -135,7 +145,8 @@
       saveSrsSettings,
       saveLanguageSettings,
       saveSrsProfileId,
-      refreshSrsProfiles
+      refreshSrsProfiles,
+      resolveEffectiveSrsPlanningState
     };
   }
 

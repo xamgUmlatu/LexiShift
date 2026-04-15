@@ -34,11 +34,14 @@ class UIManager {
       "profile-card-theme-transparency", "profile-card-theme-transparency-value",
       "profile-card-theme-reset",
       "srs-bootstrap-top-n", "srs-initial-active-count",
+      "srs-topic-interests", "srs-proficiency-estimate", "srs-challenge-target",
       "srs-sound-enabled", "srs-highlight-color", "srs-highlight-color-text",
       "srs-feedback-srs-enabled", "srs-feedback-rules-enabled",
       "srs-exposure-logging-enabled",
       "srs-initialize-set", "srs-refresh-set", "srs-runtime-diagnostics",
+      "srs-admission-preview", "srs-admission-preview-output",
       "srs-rulegen-sampled-preview",
+      "srs-rulegen-sampled-output",
       "srs-rulegen-output", "srs-reset", "helper-status",
       "helper-last-sync", "debug-helper-test",
       "debug-helper-test-output", "debug-open-data-dir",
@@ -119,7 +122,7 @@ class UIManager {
     if (this.dom.helperLastSync) this.dom.helperLastSync.textContent = this.formatTimestamp(lastSync);
   }
 
-  updateSrsInputs(profile) {
+  updateSrsInputs(profile, signals) {
     if (this.dom.srsMaxActive) {
       this.dom.srsMaxActive.value = String(profile.srsMaxActive);
     }
@@ -146,6 +149,29 @@ class UIManager {
     }
     if (this.dom.srsExposureLoggingEnabled) {
       this.dom.srsExposureLoggingEnabled.checked = profile.srsExposureLoggingEnabled;
+    }
+    const srsSignals = signals && typeof signals === "object" ? signals : {};
+    const interests = Array.isArray(srsSignals.interests) ? srsSignals.interests : [];
+    const proficiency = srsSignals.proficiency && typeof srsSignals.proficiency === "object"
+      ? srsSignals.proficiency
+      : {};
+    const difficultyPreferences = srsSignals.difficultyPreferences && typeof srsSignals.difficultyPreferences === "object"
+      ? srsSignals.difficultyPreferences
+      : {};
+    if (this.dom.srsTopicInterests) {
+      this.dom.srsTopicInterests.value = interests.join(", ");
+    }
+    if (this.dom.srsProficiencyEstimate) {
+      const proficiencyEstimate = Number.isFinite(Number(proficiency.estimated_value))
+        ? Math.round(Math.min(1, Math.max(0, Number(proficiency.estimated_value))) * 100)
+        : null;
+      this.dom.srsProficiencyEstimate.value = proficiencyEstimate === null ? "" : String(proficiencyEstimate);
+    }
+    if (this.dom.srsChallengeTarget) {
+      const challengeTarget = Number.isFinite(Number(difficultyPreferences.target_challenge_center))
+        ? Math.round(Math.min(1, Math.max(0, Number(difficultyPreferences.target_challenge_center))) * 100)
+        : null;
+      this.dom.srsChallengeTarget.value = challengeTarget === null ? "" : String(challengeTarget);
     }
   }
 

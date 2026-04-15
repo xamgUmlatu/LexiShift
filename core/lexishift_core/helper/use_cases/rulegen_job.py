@@ -14,7 +14,12 @@ from lexishift_core.rulegen.tuning import (
     rulegen_pair_tuning_to_dict,
     rulegen_tuning_overrides_to_dict,
 )
-from lexishift_core.srs import SrsSettings, SrsStore
+from lexishift_core.srs import (
+    SrsSettings,
+    SrsStore,
+    load_srs_inventory,
+    resolve_active_item_ids,
+)
 from lexishift_core.srs.pair_policy import pair_policy_to_dict, resolve_srs_pair_policy
 from lexishift_core.srs.sampling import (
     SrsSamplingResult,
@@ -45,12 +50,16 @@ def run_rulegen_job(
         requested_top_n=config.set_top_n,
         purpose="refresh",
     )
-    resolved_jmdict_path, resolved_freedict_de_en_path, resolved_set_source_db = (
+    resolved_jmdict_path, resolved_translation_dict_path, resolved_set_source_db = (
         resolve_pair_resources_fn(
             paths,
             pair=pair,
             jmdict_path=config.jmdict_path,
-            freedict_de_en_path=config.freedict_de_en_path,
+            translation_dict_path=(
+                config.translation_dict_path
+                if config.translation_dict_path is not None
+                else config.freedict_de_en_path
+            ),
             set_source_db=config.set_source_db,
         )
     )
@@ -62,7 +71,7 @@ def run_rulegen_job(
     ensure_pair_requirements_fn(
         pair=pair,
         jmdict_path=resolved_jmdict_path,
-        freedict_de_en_path=resolved_freedict_de_en_path,
+        translation_dict_path=resolved_translation_dict_path,
         require_frequency_db=False,
         set_source_db=resolved_set_source_db,
         check_seed_resources=should_seed_from_frequency,
@@ -71,6 +80,14 @@ def run_rulegen_job(
     profile_id = resolve_profile_id_fn(paths, profile_id=config.profile_id)
     settings = ensure_settings_fn(paths, persist_missing=config.persist_store)
     store = ensure_store_fn(paths, profile_id=profile_id, persist_missing=config.persist_store)
+    inventory_path = paths.srs_inventory_path_for(profile_id)
+    inventory = load_srs_inventory(inventory_path) if inventory_path.exists() else None
+    active_item_ids, inventory_source = resolve_active_item_ids(
+        store=store,
+        pair=pair,
+        inventory=inventory,
+    )
+    active_item_ids_arg = active_item_ids if inventory_source == "inventory" else None
     diagnostics: dict[str, object] | None = None
     sampling_result: SrsSamplingResult | None = None
     set_init_config: SetInitializationConfig | None = None
@@ -134,6 +151,7 @@ def run_rulegen_job(
             pair=pair,
             sample_count=config.sample_count,
             strategy=config.sample_strategy,
+            active_item_ids=active_item_ids_arg,
             seed=config.sample_seed,
         )
         targets_override = list(sampling_result.sampled_lemmas)
@@ -209,16 +227,20 @@ def run_rulegen_job(
             "jmdict_path": str(resolved_jmdict_path) if resolved_jmdict_path else None,
             "jmdict_exists": bool(resolved_jmdict_path and resolved_jmdict_path.exists()),
             "translation_dict_path": (
-                str(resolved_freedict_de_en_path) if resolved_freedict_de_en_path else None
+                str(resolved_translation_dict_path) if resolved_translation_dict_path else None
             ),
             "translation_dict_exists": bool(
-                resolved_freedict_de_en_path and resolved_freedict_de_en_path.exists()
+                resolved_translation_dict_path and resolved_translation_dict_path.exists()
             ),
             "freedict_de_en_path": (
-                str(resolved_freedict_de_en_path) if resolved_freedict_de_en_path else None
+                str(resolved_translation_dict_path)
+                if capability.requires_freedict_de_en_for_rulegen and resolved_translation_dict_path
+                else None
             ),
             "freedict_de_en_exists": bool(
-                resolved_freedict_de_en_path and resolved_freedict_de_en_path.exists()
+                capability.requires_freedict_de_en_for_rulegen
+                and resolved_translation_dict_path
+                and resolved_translation_dict_path.exists()
             ),
             "set_source_db": str(resolved_set_source_db) if resolved_set_source_db else None,
             "set_source_db_exists": bool(
@@ -233,6 +255,10 @@ def run_rulegen_job(
             "store_items_for_pair": len(
                 [item for item in store.items if item.language_pair == pair]
             ),
+            "inventory_path": str(inventory_path),
+            "inventory_exists": bool(inventory_path.exists()),
+            "inventory_active_items_for_pair": len(active_item_ids),
+            "inventory_source": inventory_source,
             "store_sample": [item.lemma for item in store.items if item.language_pair == pair][
                 : max(1, int(config.debug_sample_size))
             ],
@@ -246,10 +272,11 @@ def run_rulegen_job(
         store=store,
         settings=settings,
         jmdict_path=resolved_jmdict_path,
-        freedict_de_en_path=resolved_freedict_de_en_path,
+        translation_dict_path=resolved_translation_dict_path,
         set_init_config=set_init_config,
         rulegen_config=rulegen_config,
         targets_override=targets_override,
+        active_item_ids=active_item_ids_arg,
         initialize_if_empty=config.initialize_if_empty,
         persist_store=config.persist_store,
     )
@@ -286,6 +313,12 @@ def run_rulegen_job(
         ),
         "store_persisted": config.persist_store,
         "outputs_persisted": config.persist_outputs,
+        "inventory": {
+            "path": str(inventory_path),
+            "exists": bool(inventory_path.exists()),
+            "active_items_for_pair": len(active_item_ids),
+            "source": inventory_source,
+        },
     }
     if diagnostics is not None:
         response["diagnostics"] = diagnostics

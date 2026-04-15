@@ -31,6 +31,7 @@ If you need SRS/core behavior next:
 1. `architecture/srs_lp_architecture.md`
 2. `srs/srs_schema.md`
 3. `srs/srs_set_planning_technical.md`
+4. `srs/srs_onboarding_and_placement_schema.md`
 
 ## Current Routing And References
 
@@ -45,6 +46,7 @@ Use these first when you need current behavior, current runbooks, or current sou
 - AI-assisted quality loop (rulegen/POS): `developer/ai_workflow.md`
 - GenAI workflow architecture: `developer/genai_workflow_architecture.md`
 - Project health gate structure: `developer/project_health_gate_structure.md`
+- Cross-cutting difficulty/proficiency model: `developer/language_difficulty_and_proficiency_model.md`
 - Architecture status index: `architecture/README.md`
 - Script map: `../scripts/README.md`
 
@@ -84,6 +86,8 @@ Treat these as planning/history surfaces unless their own metadata says otherwis
 - Popup module architecture: `architecture/popup_modules_pattern.md`
 - Diagram status tracker + files: `architecture/diagrams/README.md`
 - SRS roadmap: `srs/srs_roadmap.md`
+- SRS onboarding/placement schema: `srs/srs_onboarding_and_placement_schema.md`
+- Cross-cutting difficulty/proficiency model: `developer/language_difficulty_and_proficiency_model.md`
 - Rulegen technical design: `rulegen/rule_generation_technical.md`
 - Rulegen congruity implementation plan (top-3 + scoring): `rulegen/rulegen_congruity_implementation_plan.md`
 - POS normalization workstream (SRS + rulegen + LP onboarding): `rulegen/pos_normalization_workstream.md`
@@ -112,5 +116,5 @@ Use this order when resuming work:
 - Controller composition truth: `apps/chrome-extension/options/core/bootstrap/controller_graph.js`.
 - Storage defaults truth: `apps/chrome-extension/shared/settings/settings_defaults.js`.
 - Use `developer/documentation_governance.md` before broad doc cleanup or archive work.
-- Treat `test_outputs/`, `docs/_site/`, and `docs/.jekyll-cache/` as generated evidence/build outputs, not default planning entrypoints.
+- Treat `test_outputs/` and generated Jekyll build/cache outputs under `docs/` as evidence/build outputs, not default planning entrypoints.
 - This `docs/` folder should describe behavior, not replace source-level truth.

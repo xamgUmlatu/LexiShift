@@ -211,7 +211,7 @@ Next steps (current workstream focus)
    - Pack size (SQLite): ~50 MB.
 
 ### Current plan (JA target, EN source)
-We are locking in a **JMDict‑filtered core set** for initial S bootstrap:
+The shipped baseline still uses a **JMDict-filtered core set** for initial S bootstrap:
 
 1) **Selection (initial S):** use `core_rank` from BCCWJ SUW.
 2) **Filter:** intersect top‑N by `core_rank` with **JMDict lemmas** (to avoid junk).
@@ -220,6 +220,30 @@ We are locking in a **JMDict‑filtered core set** for initial S bootstrap:
 5) **Confidence decay:** the first gloss gets 100% of base weight; secondary glosses decay (e.g. 70%/50%).
 
 > **Note:** confidence scoring is WIP and will evolve. This is a baseline model.
+
+Current `en-ja` implementation status:
+- default seed/bootstrap behavior remains JMDict-based
+- default helper/runtime rulegen resolution now prefers `wiktionary-ja-en.sqlite` when present, with `JMdict_e` as fallback
+- single-pair `en-ja` audits now use advisory required-pair handling, so missing `en-es` coverage is reported as a warning rather than a false red gate
+- local `en-ja` benchmark evidence was clean on the earlier `53`-case pair-local suite; the newer discriminative expansion is now split into a `161`-case core lane plus a `2`-case rare-reading edge file, and the benchmark runner now isolates duplicate-surface reading cases so `空` / `生` no longer leak across preloaded sweeps
+- the current `en_ja` adapter lift comes from pair-specific reading-aware handling plus generalized English-output cleanup: kana fallback for kanji targets, split-ruby reading recomposition for same-surface homographs, stricter same-reading / structural-noise suppression, narrow safe head recovery from phrase glosses including `presence of people -> presence`, `spicy hot -> spicy`, and qualifier/admin heads such as `country in general -> country` and long prefecture descriptions -> `prefecture`, plus family-level competition demotions for event-noun, business, geopolitical, mental-state, communication-noun, totality-noun, spatial, and method-suffix collisions
+- the current core canonical `en-ja` suite is now `Top1 100.00%`, `Top3 100.00%`, `ForbidAny 0.00%`, triage `0` on the `161`-case core lane
+- the canonical `en_ja_canonical_matrix` preset includes `md=1` and evaluates `96` configs; on the current `161`-case core lane it finishes in about `26s` on this PC
+- the canonical matrix still has a wide tied top vector (`56 / 96` configs), but the broader supported-surface sweep is materially more informative than the older small-suite state: the lean `md=1 / mr=1 / sd=1.0` profile still wins, top-objective share is about `19.4%`, and `168 / 864` configs are still perfect, so ordinary weight space is cleaner but not yet tightly constrained
+- this is still a pair-specific `en-ja` policy layer rather than a generalized multilingual Kaikki ranking system
+- JA bootstrap hardening is now implemented in a narrow reviewed form:
+  - helper roots now seed a default `stopwords-ja.json` asset, and bootstrap selection uses it to block clear grammar-only spillover such as `ます`, `です`, `だ`, `た`, `ない`, `れる`, and `られる`
+  - bootstrap selection also applies a tiny reviewed lexical exclusion list for bad standalone targets outside the clean stopword bucket, currently `侭` / `まま`
+  - bootstrap selection now applies a tiny reviewed orthographic normalization map, currently `為る -> する`, preserving the original source surface in metadata and avoiding any broad kana-preference rule for ordinary kanji vocabulary
+  - local post-hardening installed-resource review confirms that `ます`, `です`, `だ`, `た`, `侭`, and `為る` no longer survive unchanged into the admitted `en-ja` frontier; the normalized admitted surface is `する`
+  - this hardening is intentionally narrow. It does not yet attempt broader cleanup of every grammar-heavy or ultra-abstract JA bootstrap candidate, so items such as bare `為` can still appear until separately reviewed
+  - this remaining cleanup is explicitly tracked: continue reviewing broader surfaces such as bare `為` and `訳`, and if a trustworthy external compiled/preferred-orthography source becomes available, evaluate it as a possible replacement or supplement for the tiny reviewed normalization map instead of broadening toward a general kana-preference rule
+
+Current rollout state:
+- keep JMDict as the seed/bootstrap filter source for now
+- keep helper/runtime rulegen on the generic translation-dictionary slot with `wiktionary-ja-en.sqlite` preferred and `JMdict_e` as fallback
+- keep the current benchmark-side preload optimization explicit as a generic live-adapter speedup, not as a compiled `en-ja` backend
+- continue treating installed-resource verification as the remaining promotion evidence for any future seed/bootstrap source change
 
 ### Diagram (planned algorithm)
 See `docs/rulegen/weight_selection_diagram.mmd` for the S bootstrap + rulegen flow.
@@ -231,10 +255,11 @@ See `docs/rulegen/weight_selection_diagram.mmd` for the S bootstrap + rulegen fl
 - All-in-one runner (writes output files): `scripts/testing/run_en_ja_tests.py`
 - Human review sampler: `scripts/testing/en_ja_sample_review.py`
 - Pair-level benchmark sweep + leaderboard: `scripts/testing/rulegen_benchmark.py`
-  - Dataset: `docs/test_inputs/rulegen_benchmark_cases.json`
+  - Pair-local development datasets: `docs/test_inputs/rulegen_benchmark_cases/<pair>.json`
+  - Compatibility aggregate dataset: `docs/test_inputs/rulegen_benchmark_cases.json`
   - Outputs ranked JSON/Markdown reports for iterative tuning across pairs.
 2) **Rulegen harness for JA→EN**
-   - Why: generate a concrete ruleset JSON from a target set S and JMDict.
+   - Why: generate a concrete ruleset JSON from a target set S and the currently selected `en-ja` translation dictionary source.
    - Needed from you: preferred output path + any S test list you want to use.
    - Output: CLI/script that writes rules with `confidence`, `source_type`, `language_pair`.
 3) **Pair config registry**
@@ -245,7 +270,8 @@ See `docs/rulegen/weight_selection_diagram.mmd` for the S bootstrap + rulegen fl
 Implementation status
 - Core pipeline skeleton lives in `core/lexishift_core/rulegen/generation.py`.
 - `RuleMetadata` now supports `source_type`, `confidence`, and `morphology` fields and is serialized in datasets.
-- JA→EN generator scaffold (JMDict) lives in `core/lexishift_core/rulegen/pairs/en_ja.py`.
+- JA→EN generator scaffold lives in `core/lexishift_core/rulegen/pairs/en_ja.py`.
+- The same pair module can now consume either `JMdict_e` XML or a Kaikki-derived compatibility SQLite override such as `wiktionary-ja-en.sqlite`.
 - EN→DE, EN→ES, and ES→EN generators live in `core/lexishift_core/rulegen/pairs/en_de.py`, `core/lexishift_core/rulegen/pairs/en_es.py`, and `core/lexishift_core/rulegen/pairs/es_en.py`.
 - Paired inflection expansion utilities live in `core/lexishift_core/rulegen/utils.py` (`PairedInflectionVariantExpander`).
 - Frequency lexicon loader lives in `core/lexishift_core/frequency/core.py` (generic).

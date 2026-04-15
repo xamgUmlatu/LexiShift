@@ -40,6 +40,7 @@ class TestHelperRulegenInitialization(unittest.TestCase):
                     top_n=800,
                     initial_active_count=2,
                     language_pair="en-ja",
+                    selection_policy_override="top_n",
                 ),
             )
 
@@ -67,6 +68,7 @@ class TestHelperRulegenInitialization(unittest.TestCase):
                     top_n=800,
                     initial_active_count=3,
                     language_pair="en-ja",
+                    selection_policy_override="top_n",
                 ),
             )
 
@@ -102,6 +104,7 @@ class TestHelperRulegenInitialization(unittest.TestCase):
                     top_n=800,
                     initial_active_count=2,
                     language_pair="en-ja",
+                    selection_policy_override="top_n",
                 ),
             )
 
@@ -150,6 +153,7 @@ class TestHelperRulegenInitialization(unittest.TestCase):
                     top_n=800,
                     initial_active_count=2,
                     language_pair="en-ja",
+                    selection_policy_override="top_n",
                 ),
             )
 
@@ -190,6 +194,7 @@ class TestHelperRulegenInitialization(unittest.TestCase):
                     top_n=800,
                     initial_active_count=2,
                     language_pair="en-ja",
+                    selection_policy_override="top_n",
                 ),
             )
 
@@ -199,6 +204,157 @@ class TestHelperRulegenInitialization(unittest.TestCase):
         self.assertIn("noun", report.admission_weight_profile)
         self.assertIn("verb", report.admission_weight_profile)
         self.assertEqual(report.initial_active_weight_preview[0]["lemma"], "alpha")
+
+    def test_profile_bootstrap_reranks_by_challenge_fit(self) -> None:
+        selected = [
+            SimpleNamespace(
+                lemma="alpha",
+                language_pair="en-ja",
+                base_weight=0.75,
+                pos="名詞-普通名詞-一般",
+                pos_bucket="noun",
+                pos_weight=1.0,
+                admission_weight=0.75,
+            ),
+            SimpleNamespace(
+                lemma="beta",
+                language_pair="en-ja",
+                base_weight=0.70,
+                pos="名詞-普通名詞-一般",
+                pos_bucket="noun",
+                pos_weight=1.0,
+                admission_weight=0.70,
+            ),
+            SimpleNamespace(
+                lemma="gamma",
+                language_pair="en-ja",
+                base_weight=0.60,
+                pos="名詞-普通名詞-一般",
+                pos_bucket="noun",
+                pos_weight=1.0,
+                admission_weight=0.60,
+            ),
+        ]
+        with patch("lexishift_core.helper.rulegen.build_seed_candidates", return_value=selected):
+            store, report = initialize_store_from_frequency_list_with_report(
+                SrsStore(),
+                config=SetInitializationConfig(
+                    frequency_db=Path("/tmp/freq.sqlite"),
+                    jmdict_path=Path("/tmp/JMdict_e"),
+                    top_n=800,
+                    initial_active_count=1,
+                    language_pair="en-ja",
+                    strategy="profile_bootstrap",
+                    selection_policy_override="top_n",
+                    profile_context={
+                        "proficiency": {"self_reported_level": 0.35},
+                        "difficulty_preferences": {
+                            "target_challenge_center": 0.35,
+                            "target_challenge_spread": 0.07,
+                        },
+                    },
+                ),
+            )
+
+        self.assertEqual([item.lemma for item in store.items], ["beta"])
+        self.assertEqual(report.initial_active_preview, ("beta",))
+        self.assertEqual(report.selection_strategy, "profile_bootstrap")
+        self.assertEqual(report.selector_version, "profile_bootstrap_v3")
+        preview = report.profile_bootstrap_diagnostics["ranking_preview"][0]
+        self.assertEqual(preview["lemma"], "beta")
+        self.assertGreater(preview["rank_delta"], 0)
+        self.assertIn("challenge_fit", preview["explanation"].lower())
+        self.assertEqual(
+            report.profile_bootstrap_diagnostics["profile_context"]["signal_sources"][
+                "challenge_preference"
+            ],
+            "difficulty_preferences.target_challenge_center",
+        )
+
+    def test_profile_bootstrap_uses_topic_affinity_when_candidate_topics_exist(self) -> None:
+        selected = [
+            SimpleNamespace(
+                lemma="alpha",
+                language_pair="en-ja",
+                base_weight=0.72,
+                pos="名詞-普通名詞-一般",
+                pos_bucket="noun",
+                pos_weight=1.0,
+                admission_weight=0.72,
+                metadata={"sense_topics": ["animals"]},
+            ),
+            SimpleNamespace(
+                lemma="beta",
+                language_pair="en-ja",
+                base_weight=0.78,
+                pos="名詞-普通名詞-一般",
+                pos_bucket="noun",
+                pos_weight=1.0,
+                admission_weight=0.78,
+                metadata={"sense_topics": ["science"]},
+            ),
+        ]
+        with patch("lexishift_core.helper.rulegen.build_seed_candidates", return_value=selected):
+            store, report = initialize_store_from_frequency_list_with_report(
+                SrsStore(),
+                config=SetInitializationConfig(
+                    frequency_db=Path("/tmp/freq.sqlite"),
+                    jmdict_path=Path("/tmp/JMdict_e"),
+                    top_n=800,
+                    initial_active_count=1,
+                    language_pair="en-ja",
+                    strategy="profile_bootstrap",
+                    selection_policy_override="top_n",
+                    profile_context={"interests": ["animals"]},
+                ),
+            )
+
+        self.assertEqual([item.lemma for item in store.items], ["alpha"])
+        preview = report.profile_bootstrap_diagnostics["ranking_preview"][0]
+        self.assertEqual(preview["lemma"], "alpha")
+        self.assertAlmostEqual(preview["signals"]["topic_affinity"] or 0.0, 1.0, places=6)
+        self.assertIn("topic_affinity", preview["explanation"].lower())
+        self.assertEqual(preview["signals"]["topic_affinity_source"], "topic_hint:animals")
+
+    def test_frequency_bootstrap_uses_weighted_selector_for_live_admission(self) -> None:
+        selected = [
+            SimpleNamespace(
+                lemma="alpha",
+                language_pair="en-ja",
+                admission_weight=0.9,
+                pos_bucket="noun",
+            ),
+            SimpleNamespace(
+                lemma="beta",
+                language_pair="en-ja",
+                admission_weight=0.6,
+                pos_bucket="noun",
+            ),
+            SimpleNamespace(
+                lemma="gamma",
+                language_pair="en-ja",
+                admission_weight=0.2,
+                pos_bucket="noun",
+            ),
+        ]
+
+        with patch("lexishift_core.helper.rulegen.build_seed_candidates", return_value=selected):
+            store, report = initialize_store_from_frequency_list_with_report(
+                SrsStore(),
+                config=SetInitializationConfig(
+                    frequency_db=Path("/tmp/freq.sqlite"),
+                    jmdict_path=Path("/tmp/JMdict_e"),
+                    top_n=800,
+                    initial_active_count=2,
+                    language_pair="en-ja",
+                    selection_seed=1,
+                ),
+            )
+
+        self.assertEqual(report.selection_policy, "weighted_without_replacement")
+        self.assertEqual(report.selection_seed, 1)
+        self.assertEqual([item.lemma for item in store.items], ["alpha", "gamma"])
+        self.assertEqual(report.initial_active_preview, ("alpha", "gamma"))
 
     def test_initialization_persists_selected_word_package(self) -> None:
         selected = [
@@ -229,6 +385,7 @@ class TestHelperRulegenInitialization(unittest.TestCase):
                     top_n=800,
                     initial_active_count=1,
                     language_pair="en-ja",
+                    selection_policy_override="top_n",
                 ),
             )
 

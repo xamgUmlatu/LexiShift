@@ -146,12 +146,14 @@ class TestSrsLpE2E(unittest.TestCase):
 
             diagnostics = get_srs_runtime_diagnostics(paths, pair=pair)
             self.assertTrue(diagnostics["store_exists"])
+            self.assertTrue(diagnostics["inventory_exists"])
             self.assertTrue(diagnostics["ruleset_exists"])
             self.assertTrue(diagnostics["snapshot_exists"])
             self.assertEqual(diagnostics["missing_inputs"], [])
             self.assertIn("pair_policy", diagnostics)
             self.assertEqual(diagnostics["pair_policy"]["pair"], pair)
             self.assertGreater(int(diagnostics["store_items_for_pair"]), 0)
+            self.assertGreater(int(diagnostics["inventory_active_items_for_pair"]), 0)
             self.assertGreater(int(diagnostics["ruleset_rules_count"]), 0)
             self.assertGreater(int(diagnostics["snapshot_target_count"]), 0)
 

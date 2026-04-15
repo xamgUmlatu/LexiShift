@@ -15,6 +15,7 @@ from lexishift_core.srs.selector import (
     SelectorConfig,
     filter_candidates,
     rank_candidates,
+    select_scored_candidates,
 )
 from lexishift_core.srs.store_ops import build_item_id, upsert_item
 
@@ -25,6 +26,7 @@ class SrsGrowthConfig:
     coverage_scalar: Optional[float] = None
     max_new_items: Optional[int] = None
     allowed_pos: Optional[set[str]] = None
+    selection_seed: Optional[int] = None
     initial_stability: float = 1.0
     initial_difficulty: float = 0.5
     default_source_type: str = SOURCE_FREQUENCY_LIST
@@ -111,7 +113,15 @@ def plan_srs_growth(
         add_count = min(add_count, max(0, int(max_new)))
     add_count = min(add_count, len(scored))
 
-    selected = [entry.candidate for entry in scored[:add_count]]
+    selected = [
+        entry.candidate
+        for entry in select_scored_candidates(
+            scored,
+            config=config.selector_config,
+            selection_count=add_count,
+            seed=config.selection_seed,
+        )
+    ]
     return SrsGrowthPlan(
         allowed_pairs=pairs,
         coverage_ratio=coverage_ratio,

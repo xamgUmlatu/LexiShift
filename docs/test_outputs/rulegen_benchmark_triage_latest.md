@@ -2,18 +2,21 @@
 
 - benchmark_json: `docs\test_outputs\rulegen_benchmark_en_es_latest.json`
 - pairs_processed: 1
-- failing_or_review_count: 8
+- failing_or_review_count: 11
 
 | Pair | Case | Target | Status | Reasons | Top1 | Top3 |
 |---|---|---|---|---|---|---|
 | en-es | `en-es:derecho` | derecho | REVIEW | top1_not_in_expected_set | straight | straight, right, upright |
-| en-es | `en-es:cuadro` | cuadro | FAIL | expected_candidate_missing_from_top3 | square | square, frame, rectangle |
+| en-es | `en-es:cuadro` | cuadro | REVIEW | top1_not_in_expected_set | square | square, picture, frame |
 | en-es | `en-es:cuenta` | cuenta | REVIEW | top1_not_in_expected_set | count | count, account, bead |
 | en-es | `en-es:red` | red | REVIEW | top1_not_in_expected_set | web | web, net, network |
-| en-es | `en-es:sacar` | sacar | REVIEW | top1_not_in_expected_set | withdraw | withdraw, draw, unsheathe |
-| en-es | `en-es:acabar` | acabar | FAIL | forbidden_candidate_present | finish | finish, cum, exhaust |
-| en-es | `en-es:coger` | coger | FAIL | forbidden_candidate_present | take | take, fuck, catch |
-| en-es | `en-es:batería` | batería | FAIL | top1_is_forbidden, expected_candidate_missing_from_top3 | drummer | drummer, set |
+| en-es | `en-es:señal` | señal | REVIEW | top1_not_in_expected_set | sign | sign, signal |
+| en-es | `en-es:archivo` | archivo | REVIEW | top1_not_in_expected_set | archive | archive, file |
+| en-es | `en-es:trama` | trama | REVIEW | top1_not_in_expected_set | weave | weave, plot, grid |
+| en-es | `en-es:navegador` | navegador | REVIEW | top1_not_in_expected_set | navigating | navigating, navigator, browser |
+| en-es | `en-es:registro` | registro | REVIEW | top1_not_in_expected_set | registration | registration, register, entry |
+| en-es | `en-es:patrón` | patrón | REVIEW | top1_not_in_expected_set | patron | patron, boss, pattern |
+| en-es | `en-es:mando` | mando | REVIEW | top1_not_in_expected_set | command | command, gamepad, controller |
 
 ## Suggested Case Patches
 
@@ -42,19 +45,19 @@
 ```json
 {
   "action": "review_labels",
-  "priority": "high",
+  "priority": "medium",
   "notes": [
-    "Review case labels and pair tuning; this case violates hard quality expectations.",
+    "Review expected_top1_any labels or scoring weights for this case.",
     "Observed top1 source: square",
-    "Observed top3 sources: square, frame, rectangle"
+    "Observed top3 sources: square, picture, frame"
   ],
   "candidate_forbidden_top1": [
     "square"
   ],
   "candidate_expected_any": [
     "square",
-    "frame",
-    "rectangle"
+    "picture",
+    "frame"
   ]
 }
 ```
@@ -101,85 +104,147 @@
 }
 ```
 
-### en-es / en-es:sacar
+### en-es / en-es:señal
 ```json
 {
   "action": "review_labels",
   "priority": "medium",
   "notes": [
     "Review expected_top1_any labels or scoring weights for this case.",
-    "Observed top1 source: withdraw",
-    "Observed top3 sources: withdraw, draw, unsheathe"
+    "Observed top1 source: sign",
+    "Observed top3 sources: sign, signal"
   ],
   "candidate_forbidden_top1": [
-    "withdraw"
+    "sign"
   ],
   "candidate_expected_any": [
-    "withdraw",
-    "draw",
-    "unsheathe"
+    "sign",
+    "signal"
   ]
 }
 ```
 
-### en-es / en-es:acabar
+### en-es / en-es:archivo
 ```json
 {
   "action": "review_labels",
-  "priority": "high",
+  "priority": "medium",
   "notes": [
-    "Review case labels and pair tuning; this case violates hard quality expectations.",
-    "Observed top1 source: finish",
-    "Observed top3 sources: finish, cum, exhaust"
+    "Review expected_top1_any labels or scoring weights for this case.",
+    "Observed top1 source: archive",
+    "Observed top3 sources: archive, file"
   ],
   "candidate_forbidden_top1": [
-    "finish"
+    "archive"
   ],
   "candidate_expected_any": [
-    "finish",
-    "cum",
-    "exhaust"
+    "archive",
+    "file"
   ]
 }
 ```
 
-### en-es / en-es:coger
+### en-es / en-es:trama
 ```json
 {
   "action": "review_labels",
-  "priority": "high",
+  "priority": "medium",
   "notes": [
-    "Review case labels and pair tuning; this case violates hard quality expectations.",
-    "Observed top1 source: take",
-    "Observed top3 sources: take, fuck, catch"
+    "Review expected_top1_any labels or scoring weights for this case.",
+    "Observed top1 source: weave",
+    "Observed top3 sources: weave, plot, grid"
   ],
   "candidate_forbidden_top1": [
-    "take"
+    "weave"
   ],
   "candidate_expected_any": [
-    "take",
-    "fuck",
-    "catch"
+    "weave",
+    "plot",
+    "grid"
   ]
 }
 ```
 
-### en-es / en-es:batería
+### en-es / en-es:navegador
 ```json
 {
   "action": "review_labels",
-  "priority": "high",
+  "priority": "medium",
   "notes": [
-    "Review case labels and pair tuning; this case violates hard quality expectations.",
-    "Observed top1 source: drummer",
-    "Observed top3 sources: drummer, set"
+    "Review expected_top1_any labels or scoring weights for this case.",
+    "Observed top1 source: navigating",
+    "Observed top3 sources: navigating, navigator, browser"
   ],
   "candidate_forbidden_top1": [
-    "drummer"
+    "navigating"
   ],
   "candidate_expected_any": [
-    "drummer",
-    "set"
+    "navigating",
+    "navigator",
+    "browser"
+  ]
+}
+```
+
+### en-es / en-es:registro
+```json
+{
+  "action": "review_labels",
+  "priority": "medium",
+  "notes": [
+    "Review expected_top1_any labels or scoring weights for this case.",
+    "Observed top1 source: registration",
+    "Observed top3 sources: registration, register, entry"
+  ],
+  "candidate_forbidden_top1": [
+    "registration"
+  ],
+  "candidate_expected_any": [
+    "registration",
+    "register",
+    "entry"
+  ]
+}
+```
+
+### en-es / en-es:patrón
+```json
+{
+  "action": "review_labels",
+  "priority": "medium",
+  "notes": [
+    "Review expected_top1_any labels or scoring weights for this case.",
+    "Observed top1 source: patron",
+    "Observed top3 sources: patron, boss, pattern"
+  ],
+  "candidate_forbidden_top1": [
+    "patron"
+  ],
+  "candidate_expected_any": [
+    "patron",
+    "boss",
+    "pattern"
+  ]
+}
+```
+
+### en-es / en-es:mando
+```json
+{
+  "action": "review_labels",
+  "priority": "medium",
+  "notes": [
+    "Review expected_top1_any labels or scoring weights for this case.",
+    "Observed top1 source: command",
+    "Observed top3 sources: command, gamepad, controller"
+  ],
+  "candidate_forbidden_top1": [
+    "command"
+  ],
+  "candidate_expected_any": [
+    "command",
+    "gamepad",
+    "controller"
   ]
 }
 ```

@@ -1,42 +1,42 @@
 {
-  "benchmark_json": "docs\\test_outputs\\rulegen_benchmark_en_es_latest.json",
-  "policy_json": "docs\\test_inputs\\rulegen_quality_policy.json",
-  "baseline_json": "docs\\test_outputs\\baselines\\rulegen_quality_baseline.json",
+  "benchmark_json": "D:\\projects\\LexiShift\\docs\\test_outputs\\rulegen_benchmark_en_es_en_ja_latest.json",
+  "policy_json": "D:\\projects\\LexiShift\\docs\\test_inputs\\rulegen_quality_policy.json",
+  "baseline_json": "D:\\projects\\LexiShift\\docs\\test_outputs\\baselines\\rulegen_quality_baseline.json",
   "dataset_json": null,
-  "pos_probe_json": "docs\\test_outputs\\phase6_pos_inventory\\phase6_pos_probe_2026-02-23_final.json",
-  "pos_inventory_json": "docs\\test_outputs\\phase6_pos_inventory\\phase6_pos_inventory_2026-02-23_final.json",
+  "pos_probe_json": "D:\\projects\\LexiShift\\docs\\test_outputs\\phase6_pos_inventory\\phase6_pos_probe_2026-02-23_final.json",
+  "pos_inventory_json": "D:\\projects\\LexiShift\\docs\\test_outputs\\phase6_pos_inventory\\phase6_pos_inventory_2026-02-23_final.json",
   "strict_saturation": false,
   "fail_on_warn": false,
   "summary": {
     "pass_count": 13,
-    "warn_count": 5,
-    "fail_count": 2,
-    "status": "FAIL",
-    "should_fail": true
+    "warn_count": 8,
+    "fail_count": 0,
+    "status": "WARN",
+    "should_fail": false
   },
   "findings": [
     {
-      "level": "PASS",
-      "code": "BENCHMARK_REQUIRED_PAIRS_PRESENT",
-      "message": "Required benchmark pairs are present in benchmark artifact.",
-      "details": null
+      "level": "WARN",
+      "code": "BENCHMARK_REQUIRED_PAIRS_MISSING",
+      "message": "Required benchmark pairs are missing from benchmark artifact (advisory mode).",
+      "details": "en-es"
     },
     {
       "level": "WARN",
       "code": "BENCHMARK_RECOMMENDED_PAIRS_MISSING",
       "message": "Recommended benchmark pairs are missing (not yet gated).",
-      "details": "en-de, en-ja, es-en"
-    },
-    {
-      "level": "FAIL",
-      "code": "QUALITY_FLOOR_BREACH",
-      "message": "Quality floor failed for pair 'en-es'.",
-      "details": "top1_accuracy=0.9062 below min_top1_accuracy=0.9500\navg_rules_per_target=3.0312 above max_avg_rules_per_target=3.0000"
+      "details": "en-de, es-en"
     },
     {
       "level": "WARN",
       "code": "QUALITY_FLOOR_PAIR_MISSING",
-      "message": "No benchmark summary for pair 'en-ja'; skipping its quality floor checks.",
+      "message": "No benchmark summary for pair 'en-es'; skipping its quality floor checks.",
+      "details": null
+    },
+    {
+      "level": "PASS",
+      "code": "QUALITY_FLOOR_OK",
+      "message": "Quality floor satisfied for pair 'en-ja'.",
       "details": null
     },
     {
@@ -52,16 +52,22 @@
       "details": null
     },
     {
-      "level": "FAIL",
-      "code": "DELTA_BUDGET_BREACH",
-      "message": "Delta budgets failed for pair 'en-es'.",
-      "details": "top1_accuracy drop=0.0938 exceeds budget=0.0000\ntop3_recall drop=0.0312 exceeds budget=0.0000\nforbidden_top1_rate increase=0.0156 exceeds budget=0.0000\nforbidden_any_rate increase=0.0312 exceeds budget=0.0000\navg_rules_per_target increase=2.0312 exceeds budget=0.5000"
+      "level": "WARN",
+      "code": "DELTA_PAIR_MISSING",
+      "message": "Pair 'en-es' exists in baseline but not current benchmark.",
+      "details": null
+    },
+    {
+      "level": "WARN",
+      "code": "DELTA_NO_PAIRS_CHECKED",
+      "message": "No overlapping pairs between baseline and current benchmark for delta checks.",
+      "details": null
     },
     {
       "level": "WARN",
       "code": "SATURATION_TOP_VECTOR_WARN",
-      "message": "Pair 'en-es' top metric vector share=0.500 indicates low sensitivity (warn threshold>=0.500).",
-      "details": "run_count=144 unique_vectors=5 top_count=72"
+      "message": "Pair 'en-ja' top metric vector share=0.583 indicates low sensitivity (warn threshold>=0.500).",
+      "details": "run_count=96 unique_vectors=6 top_count=56"
     },
     {
       "level": "PASS",

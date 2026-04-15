@@ -26,6 +26,7 @@ from language_packs_catalog import (
     LANGUAGE_PACKS,
     LanguagePackInfo,
     _frequency_pos_inventory_config,
+    _frequency_topic_enrichment_config,
 )
 
 __all__ = [
@@ -362,6 +363,10 @@ class FrequencyPackDownloadThread(QThread):
         os.makedirs(os.path.dirname(self._sqlite_path), exist_ok=True)
         try:
             pos_inventory = _frequency_pos_inventory_config(self._pack_id)
+            topic_enrichment = _frequency_topic_enrichment_config(
+                self._pack_id,
+                language_packs_dir=self._language_packs_dir(),
+            )
             metadata = convert_frequency_to_sqlite(
                 Path(source_path),
                 Path(self._sqlite_path),
@@ -369,6 +374,7 @@ class FrequencyPackDownloadThread(QThread):
                 config=self._pack.parse_config,
                 index_column=self._pack.index_column,
                 pos_inventory=pos_inventory,
+                topic_enrichment=topic_enrichment,
             )
             if pos_inventory is not None:
                 _log_download(
@@ -376,6 +382,13 @@ class FrequencyPackDownloadThread(QThread):
                     f" rows_with_pos={int(metadata.get('rows_with_pos', 0))}"
                     f" rows_without_pos={int(metadata.get('rows_without_pos', 0))}"
                     f" unknown_pos_inventory_size={int(metadata.get('unknown_pos_inventory_size', 0))}"
+                )
+            if topic_enrichment is not None:
+                _log_download(
+                    f"[{self._pack_id}] topic_enrichment"
+                    f" source={metadata.get('topic_enrichment_source_provider')}"
+                    f" matched_lemmas={int(metadata.get('topic_enrichment_matched_lemma_count', 0))}"
+                    f" rows_with_topics={int(metadata.get('topic_enrichment_rows_with_topics', 0))}"
                 )
         finally:
             for path in cleanup_paths:

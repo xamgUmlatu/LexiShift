@@ -1,0 +1,22 @@
+{
+  "coverage_scalar": 0.35,
+  "enabled": true,
+  "feedback_scale": "again_hard_good_easy",
+  "max_active_items": 40,
+  "max_new_items_per_day": 8,
+  "scheduler": {
+    "algorithm": "fsrs",
+    "desired_retention": 0.9,
+    "enable_fuzzing": false,
+    "learning_steps_minutes": [
+      1,
+      10
+    ],
+    "maximum_interval_days": 36500,
+    "parameters": null,
+    "relearning_steps_minutes": [
+      10
+    ]
+  },
+  "version": 2
+}

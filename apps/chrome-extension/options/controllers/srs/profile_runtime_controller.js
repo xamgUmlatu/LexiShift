@@ -1,5 +1,9 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
+  const createPlanningStateResolver = root.optionsSrsPlanningState
+    && typeof root.optionsSrsPlanningState.createResolver === "function"
+    ? root.optionsSrsPlanningState.createResolver
+    : null;
 
   function createController(options) {
     const opts = options && typeof options === "object" ? options : {};
@@ -49,6 +53,9 @@
     const srsMaxActiveInput = elements.srsMaxActiveInput || null;
     const srsBootstrapTopNInput = elements.srsBootstrapTopNInput || null;
     const srsInitialActiveCountInput = elements.srsInitialActiveCountInput || null;
+    const srsTopicInterestsInput = elements.srsTopicInterestsInput || null;
+    const srsProficiencyEstimateInput = elements.srsProficiencyEstimateInput || null;
+    const srsChallengeTargetInput = elements.srsChallengeTargetInput || null;
     const srsSoundInput = elements.srsSoundInput || null;
     const srsHighlightInput = elements.srsHighlightInput || null;
     const srsHighlightTextInput = elements.srsHighlightTextInput || null;
@@ -70,15 +77,64 @@
         : (settingsManager.defaults.targetLanguage || "en");
     }
 
+    function parseInterestList(rawValue) {
+      const seen = new Set();
+      return String(rawValue || "")
+        .split(",")
+        .map((entry) => entry.trim())
+        .filter((entry) => {
+          if (!entry || seen.has(entry)) {
+            return false;
+          }
+          seen.add(entry);
+          return true;
+        });
+    }
+
+    function parseOptionalPercent(rawValue) {
+      const trimmed = String(rawValue || "").trim();
+      if (!trimmed) {
+        return null;
+      }
+      const parsed = Number.parseFloat(trimmed);
+      if (!Number.isFinite(parsed)) {
+        return null;
+      }
+      return Math.min(100, Math.max(0, parsed)) / 100;
+    }
+
+    function formatOptionalPercentValue(normalizedValue) {
+      if (!Number.isFinite(Number(normalizedValue))) {
+        return "";
+      }
+      return String(Math.round(Math.min(1, Math.max(0, Number(normalizedValue))) * 100));
+    }
+    const resolveEffectiveSrsPlanningState = createPlanningStateResolver
+      ? createPlanningStateResolver({
+          settingsManager,
+          parseInterestList,
+          parseOptionalPercent,
+          srsMaxActiveInput,
+          srsBootstrapTopNInput,
+          srsInitialActiveCountInput,
+          srsTopicInterestsInput,
+          srsProficiencyEstimateInput,
+          srsChallengeTargetInput
+        })
+      : (() => null);
+
     async function loadSrsProfileForPair(items, pairKey, options) {
       const synced = await syncSelectedProfile(items, options);
       const profile = settingsManager.getSrsProfile(synced.items, pairKey, {
         profileId: synced.profileId
       });
+      const signals = settingsManager.getSrsProfileSignals(synced.items, pairKey, {
+        profileId: synced.profileId
+      });
       const uiPrefs = settingsManager.getProfileUiPrefs(synced.items, {
         profileId: synced.profileId
       });
-      ui.updateSrsInputs(profile);
+      ui.updateSrsInputs(profile, signals);
       ui.updateProfileBackgroundInputs(uiPrefs);
       await syncProfileBackgroundForPrefs(uiPrefs);
       if (srsEnabledInput) {
@@ -105,9 +161,10 @@
       log("Loaded SRS profile settings.", {
         pair: pairKey,
         profileId: synced.profileId,
+        signals,
         profileUiPrefs: uiPrefs
       });
-      return { profile, uiPrefs, profileId: synced.profileId, items: synced.items };
+      return { profile, signals, uiPrefs, profileId: synced.profileId, items: synced.items };
     }
 
     async function saveSrsSettings() {
@@ -119,6 +176,11 @@
       const items = await settingsManager.load();
       const syncedProfileState = await syncSelectedProfile(items);
       const selectedProfileId = syncedProfileState.profileId;
+      const existingSignals = settingsManager.getSrsProfileSignals(
+        syncedProfileState.items,
+        pairKey,
+        { profileId: selectedProfileId }
+      );
       const maxActiveRaw = parseInt(srsMaxActiveInput.value, 10);
       const srsMaxActive = Number.isFinite(maxActiveRaw)
         ? Math.max(1, maxActiveRaw)
@@ -160,6 +222,22 @@
       if (srsInitialActiveCountInput) {
         srsInitialActiveCountInput.value = String(sizing.srsInitialActiveCount);
       }
+      const interests = parseInterestList(srsTopicInterestsInput ? srsTopicInterestsInput.value : "");
+      const proficiencyEstimate = parseOptionalPercent(
+        srsProficiencyEstimateInput ? srsProficiencyEstimateInput.value : ""
+      );
+      const challengeTarget = parseOptionalPercent(
+        srsChallengeTargetInput ? srsChallengeTargetInput.value : ""
+      );
+      if (srsTopicInterestsInput) {
+        srsTopicInterestsInput.value = interests.join(", ");
+      }
+      if (srsProficiencyEstimateInput) {
+        srsProficiencyEstimateInput.value = formatOptionalPercentValue(proficiencyEstimate);
+      }
+      if (srsChallengeTargetInput) {
+        srsChallengeTargetInput.value = formatOptionalPercentValue(challengeTarget);
+      }
       if (srsHighlightInput) {
         srsHighlightInput.value = srsHighlightColor;
       }
@@ -183,6 +261,31 @@
       }, {
         profileId: selectedProfileId
       });
+      const nextProficiency = existingSignals.proficiency && typeof existingSignals.proficiency === "object"
+        ? { ...existingSignals.proficiency }
+        : {};
+      const nextDifficultyPreferences = (
+        existingSignals.difficultyPreferences && typeof existingSignals.difficultyPreferences === "object"
+      )
+        ? { ...existingSignals.difficultyPreferences }
+        : {};
+      if (proficiencyEstimate === null) {
+        delete nextProficiency.estimated_value;
+      } else {
+        nextProficiency.estimated_value = Number(proficiencyEstimate.toFixed(2));
+      }
+      if (challengeTarget === null) {
+        delete nextDifficultyPreferences.target_challenge_center;
+      } else {
+        nextDifficultyPreferences.target_challenge_center = Number(challengeTarget.toFixed(2));
+      }
+      await settingsManager.updateSrsProfileSignals(pairKey, {
+        interests,
+        proficiency: nextProficiency,
+        difficultyPreferences: nextDifficultyPreferences
+      }, {
+        profileId: selectedProfileId
+      });
 
       setStatus(translate("status_srs_saved", null, "SRS settings saved."), colors.SUCCESS);
       log("SRS settings saved.", {
@@ -194,6 +297,9 @@
         srsMaxActive,
         srsBootstrapTopN: sizing.srsBootstrapTopN,
         srsInitialActiveCount: sizing.srsInitialActiveCount,
+        interests,
+        proficiencyEstimate,
+        challengeTarget,
         srsSoundEnabled,
         srsHighlightColor,
         srsFeedbackSrsEnabled,
@@ -286,7 +392,8 @@
       saveSrsSettings,
       saveLanguageSettings,
       saveSrsProfileId,
-      refreshSrsProfiles
+      refreshSrsProfiles,
+      resolveEffectiveSrsPlanningState
     };
   }
 

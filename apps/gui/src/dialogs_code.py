@@ -30,7 +30,13 @@ MONO_PACK_IDS = (
     "jp-wordnet",
     "jp-wordnet-sqlite",
 )
-XLANG_PACK_IDS = ("jmdict-ja-en", "freedict-de-en", "freedict-en-de", "cc-cedict-zh-en")
+XLANG_PACK_IDS = (
+    "wiktionary-ja-en",
+    "jmdict-ja-en",
+    "freedict-de-en",
+    "freedict-en-de",
+    "cc-cedict-zh-en",
+)
 
 
 class CodeDialog(QDialog):

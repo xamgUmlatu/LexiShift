@@ -3,8 +3,8 @@
 Status: active experiment runbook
 Role: practical sweep execution guide
 Purpose: Define the staged `en-es` broad-sweep order, named presets, and artifact/output discipline for the first large PC-side sweep pass.
-Last updated: 2026-03-28
-Last verified: 2026-03-28
+Last updated: 2026-03-29
+Last verified: 2026-03-29
 
 ## Scope
 
@@ -15,7 +15,7 @@ It assumes:
 - current benchmark dataset: `docs/test_inputs/rulegen_benchmark_cases.json`
 - current canonical resource family: Kaikki forward + Kaikki reverse
 - current benchmark engine: compiled `en-es` sweep path with warm-path caching and numeric `numpy` score projection
-- current expanded benchmark case count: `64`
+- current expanded benchmark case count: `100`
 
 It does **not** redefine the canonical latest benchmark contract.
 It defines experiment-stage runs that should write to experiment-specific artifact paths.
@@ -30,11 +30,11 @@ Goal:
 
 Expected current canonical metrics:
 
-- objective `126.188`
-- `Top1 90.62%`
-- `Top3 96.88%`
-- `ForbidTop1 1.56%`
-- `ForbidAny 3.12%`
+- objective `131.180`
+- `Top1 89.00%`
+- `Top3 100.00%`
+- `ForbidTop1 0.00%`
+- `ForbidAny 0.00%`
 
 Preset:
 
@@ -100,6 +100,20 @@ Goal:
 Preset:
 
 - `en_es_stage_a_family_followup_v1`
+- `en_es_stage_a_family_followup_v2`
+
+Current scope of the expanded family surface:
+
+- risk-family sets now support additional normalized families beyond the older `mg+gl+hft+rr+aef` bundle:
+  - `art_media`
+  - `communication_network`
+  - `computing`
+  - `mechanics_tools`
+  - `music`
+  - `biology`
+  - `chemistry`
+- sweep configs can now also carry explicit per-family demotion overrides through `--kaikki-policy-risk-family-demotion-sets`
+- the current verified family-expansion smoke is `en_es_stage_a_family_followup_v2`, which runs `90` configs on the `64`-case dataset and keeps the same current top1/top3 surface while exposing the new `kfd=` config-label segment for non-default family-demotion maps
 
 ### Stage A7: Admission Frontier Deepening
 
@@ -219,6 +233,12 @@ Do not expand the first broad sweep to include:
 - broad lexical multiword-admission policy changes
 
 Those remain later questions.
+The current next-step order is:
+
+1. use the now-landed `trait_summary` benchmark payload seam as the first offline profile-analysis substrate
+2. harden that seam toward a shared runtime/benchmark trait contract
+3. compare a small frozen profile bank on the expanded suite
+4. only then revisit another suite-expansion tranche, embeddings, or other larger new signal families
 
 ## Current 2026-03-28 Frontier Findings
 
@@ -233,52 +253,160 @@ The added 2026-03-28 batch is:
 - `batería`
 - `llevar`
 
-On the current canonical latest run:
+A second dataset-expansion tranche on `2026-03-29` added:
+
+- `carta`
+- `radio`
+- `cadena`
+- `nota`
+- `sección`
+- `seña`
+- `perfil`
+
+On the current canonical latest run after the targeted `batería` extraction fix, the narrower heuristic-fragment reverse-miss follow-up, and the narrow recurrent exact reverse-attested phrasal-verb follow-up:
 
 - `6` of those `7` new cases pass
-- the new hard fail is `batería`
-- the older `acabar` and `coger` forbidden-side failures remain on the default canonical surface
+- `batería` now passes with top1 `battery`
+- `señal` is still a review case because current top-1 remains `sign` while the benchmark now prefers `signal`
+- `cuadro` now recovers `picture` into top3 on the default canonical surface
+- `sacar` now passes on the default canonical surface with top3 `take out, withdraw, draw`
+- a fourth narrow follow-up now suppresses explicit vulgar senses when clean competition exists, which clears `acabar` and `coger` from the actionable set
 
-Current canonical `64`-case baseline:
+Current canonical `88`-case baseline:
 
-- objective `126.188`
-- `Top1 90.62%`
-- `Top3 96.88%`
-- `ForbidTop1 1.56%`
-- `ForbidAny 3.12%`
-- exact-tie count `12`
+- objective `133.455`
+- `Top1 90.91%`
+- `Top3 100.00%`
+- `ForbidTop1 0.00%`
+- `ForbidAny 0.00%`
+- `AvgRules 2.91`
+- actionable triage count `8`
 - config `md=3 mr=none thr=0.000 sd=1.00 var=on pos=on rev=on xamb=off xspec=off w_pos=0.100 kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10`
 
-Focused reruns on the expanded `64`-case set now show a stricter tradeoff than the earlier `57`-case frontier:
+All seven newly added `2026-03-29` tranche-2 cases currently pass on the canonical latest config:
+
+- `carta` -> `letter, map, menu`
+- `radio` -> `radio, radius, radium`
+- `cadena` -> `chain`
+- `nota` -> `note, mark, memo`
+- `sección` -> `section, department`
+- `seña` -> `sign, gesture, indication`
+- `perfil` -> `profile`
+
+A third dataset-expansion tranche on `2026-03-29` added:
+
+- `archivo`
+- `puerto`
+- `ratón`
+- `tecla`
+- `trama`
+- `margen`
+
+Current canonical outcomes for those new cases are:
+
+- `archivo` -> `archive, file`
+- `puerto` -> `port, harbour`
+- `ratón` -> `mouse, hangover`
+- `tecla` -> `key, trigger, button`
+- `trama` -> `weft, plot, weave`
+- `margen` -> `margin, leeway, edge`
+
+Interpretation:
+
+- the new tranche is doing useful work rather than only widening easy passes
+- `archivo` and `trama` are now review cases on the canonical latest config
+- the other four additions pass on canonical
+- the suite is now broad enough to expose the first profile-sensitive top-1 split in the frozen bank
+
+A fourth dataset-expansion tranche on `2026-03-29` added:
+
+- `carpeta`
+- `directorio`
+- `navegador`
+- `celda`
+- `pestaña`
+- `puente`
+
+Current canonical outcomes for those new cases are:
+
+- `carpeta` -> `folder, cloth, desk`
+- `directorio` -> `directory, directive`
+- `navegador` -> `navigating, navigator, browser`
+- `celda` -> `cell`
+- `pestaña` -> `eyelash, flange, tab`
+- `puente` -> `bridge, denture`
+
+Interpretation:
+
+- five of the six additions currently pass on the canonical latest config
+- `navegador` is a new review case, which is useful because it exposes adjective-vs-noun competition inside a computing-marked region
+- this tranche widened the review set without creating any new forbidden-side failures
+
+A fifth dataset-expansion tranche on `2026-03-29` added:
+
+- `móvil`
+- `servidor`
+- `ventana`
+- `hilo`
+- `portal`
+
+Current canonical outcomes for those new cases are:
+
+- `móvil` -> `mobile phone, mobile, motive`
+- `servidor` -> `server`
+- `ventana` -> `window, nostril`
+- `hilo` -> `thread, linen, crosshair`
+- `portal` -> `portal, porch`
+
+Interpretation:
+
+- all five additions now pass on the canonical latest config after the narrow nominal-compound follow-up
+- `móvil` is still the most useful new pressure point:
+  - canonical now keeps `mobile phone` top1
+  - tighter profiles still regress to bare `mobile`
+- this tranche therefore still adds useful pressure around computing / interface nouns, but it no longer contributes a canonical hard fail
+
+The canonical latest benchmark artifact now emits a hardened analysis-only `trait_summary` payload per case.
+Current `trait_summary` is split into:
+
+- `router_input`
+  - target token/length hints
+  - compiled `en-es` candidate-table counts for phrase, variant, reverse-hit, late-sense, POS, and family-marker pressure
+- `result_shape`
+  - selected-source shape
+  - variant / multiword shape
+- `benchmark_only`
+  - expected/forbidden label counts and match counts
+
+Focused reruns on the expanded `64`-case set after the `batería` extraction fix and the later narrow vulgar-suppression follow-up now show a clearer split between scalar and practical frontiers:
 
 - `en_es_stage_a_admission_frontier_v2`
-  - best objective `136.281`
-  - exact-tie count `14`
+  - best objective `141.594`
   - best config `md=1 mr=2 thr=0.000 sd=0.50 var=on pos=on rev=on xamb=off xspec=off w_pos=0.100 kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10`
-  - `Top1 90.62%`
-  - `Top3 92.19%`
-  - `ForbidTop1 1.56%`
+  - `Top1 92.19%`
+  - `Top3 95.31%`
+  - `ForbidTop1 0.00%`
   - `ForbidAny 0.00%`
   - `AvgRules 1.30`
-  - experiment triage count `6`
+  - experiment triage count `5`
   - interpretation:
-    - fixes the lingering `acabar` / `coger` forbidden-side leakage
-    - but trims recall too hard for `cuadro`, `cuenta`, `red`, and `sacar`
+    - strongest objective-maximizing scalar winner on the currently exposed surface
+    - still trims recall meaningfully compared with the broader profiles
+    - is best treated as the current precision profile, not the one universal runtime answer
 
 - `en_es_stage_a_combined_frontier_v1`
-  - best objective `133.844`
-  - exact-tie count `12`
+  - best objective `139.250`
   - best config `md=2 mr=3 thr=0.000 sd=0.75 var=on pos=on rev=on xamb=off xspec=off w_pos=0.100 kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10`
-  - `Top1 90.62%`
-  - `Top3 96.88%`
-  - `ForbidTop1 1.56%`
+  - `Top1 92.19%`
+  - `Top3 100.00%`
+  - `ForbidTop1 0.00%`
   - `ForbidAny 0.00%`
-  - `AvgRules 2.17`
-  - experiment triage count `6`
+  - `AvgRules 2.16`
+  - experiment triage count `5`
   - interpretation:
     - preserves the broader top-3 surface
     - still removes `forbidden_any`
-    - but does not beat the stricter admission objective
+    - is the clearest current balanced profile candidate
 
 - `en_es_stage_a_reverse_frontier_v2`
   - best objective `127.438`
@@ -287,20 +415,83 @@ Focused reruns on the expanded `64`-case set now show a stricter tradeoff than t
 - `en_es_stage_a_family_followup_v1`
   - best objective `126.188`
   - existing exposed family-set variants remain effectively flat on the expanded dataset
+- `en_es_stage_a_family_followup_v2`
+  - now exists specifically to widen the normalized family/control surface without perturbing the scalar/admission baseline
+  - full run on `2026-03-28` after the `batería` fix and later vulgar-suppression follow-up: objective `141.219`, `90` configs, triage count `5`
+  - best config `md=2 mr=2 thr=0.000 sd=0.50 var=on pos=on rev=on xamb=off xspec=off w_pos=0.100 kdem=on kfam=mg+gl+hft+rr+aef kprov=off`
+  - `Top3 100.00%`
+  - best run still stayed on the default family-demotion map, though non-default `kfd=...` maps remain benchmark-visible
+  - interpretation:
+    - the expanded family knobs are now implemented and benchmark-visible
+    - this tranche says the family surface is still secondary to the admission/combined frontier
+    - but it is now a credible high-objective profile candidate rather than only scaffolding
 
 Important direct-source finding for `batería`:
 
 - the Kaikki forward pack does contain a battery sense
 - current stored translations include `large and rechargeable battery`, `drum kit, drum set`, `set (collection of things)`, and `drummer`
-- current benchmark failure is therefore not a raw-source absence
-- the immediate issue is that the current rulegen path is not surfacing a useful bare `battery` candidate from the longer source phrase
+- the original benchmark failure was therefore not a raw-source absence
+- the immediate issue was that the rulegen path was not surfacing a useful bare `battery` candidate from the longer source phrase
+- the current narrow nominal-head recovery heuristic now fixes that case without broadening general multiword admission
+
+Important direct-behavior follow-up for `cuadro`:
+
+- the remaining art-side `picture` candidate was present after the earlier leading-alias extraction work, but it was still being penalized as a reverse miss even though it was only a heuristic gloss fragment, not a directly attested standalone dictionary headword
+- the current canonical extraction baseline now suppresses reverse-miss penalties only for heuristic `leading_alias` and `nominal_head` fragments when they do not already have a direct reverse hit
+- that narrower follow-up keeps ordinary comma-fragment behavior unchanged while lifting `cuadro` from hard fail to review by surfacing `square, picture, frame`
 
 Current follow-up order:
 
-1. keep the `64`-case expanded benchmark as the new baseline
-2. expose a few more normalized family/category controls beyond the current `mg+gl+hft+rr+aef` set
-3. rerun focused family/category and winner-neighborhood sweeps on the expanded set
-4. if the plateau holds, move into targeted rulegen work for `batería`, `cuadro`, and `sacar`
+1. keep the current expanded benchmark suite as the new baseline
+2. keep the narrow `batería` head-recovery heuristic as the new extraction baseline
+3. keep the narrow recurrent exact reverse-attested phrasal-verb rule as the new `sacar` baseline
+4. keep the narrow vulgar-suppression rule as the new baseline for explicit vulgar leakage
+5. preserve the expanded family/category sweep surface for future pair work, but do not treat it as the main remaining lever on `en-es`
+6. use the new `100`-case suite as the current working baseline for profile analysis
+7. use the current `trait_summary` contract to compare the frozen current profile bank:
+   - canonical
+   - admission-tight
+   - combined-balanced
+   - family-followup
+8. aggregate the frozen-profile results by `router_input` trait regions rather than only by whole-profile metrics
+9. only after that, revisit another suite-expansion tranche, embeddings, or other new signal families
+10. keep targeted lexical-preference / ranking work for `cuadro`, `derecho`, `cuenta`, `red`, and `señal` on deck once the broader suite/profile evidence is in place
+
+Current profile-bank interpretation:
+
+- the current frontier is no longer just “one winner”
+- the most useful current named profiles are:
+  - canonical recall-oriented baseline
+  - admission-tight precision profile
+  - combined balanced profile
+  - family-followup high-objective profile
+- current evidence says those profiles mainly change:
+  - rule volume
+  - top-3 breadth
+  - objective tradeoffs
+- the first frozen profile-bank comparison on the `71`-case suite found no top-1 winner differences, the rerun on the `77`-case suite showed the first real top-1 separation, the `83`-case rerun kept that same pattern, the `94`-case rerun kept it, and the current `100`-case rerun now shows:
+  - `1` top-1 winner difference across:
+    - canonical
+    - admission-tight
+    - combined-balanced
+    - family-followup
+  - `0` cases with top-3 coverage differences
+  - the current top-1-sensitive case is:
+    - `móvil`
+      - canonical: `mobile phone`
+      - tighter profiles: `mobile`
+- the latest trait-region aggregation on top of that frozen bank is now explicit in:
+  - `docs/test_outputs/experiments/rulegen_en_es_profile_bank_analysis_20260329_100cases.json`
+  - `docs/test_outputs/experiments/rulegen_en_es_profile_bank_comparison_20260329_100cases.md`
+- current trait-region read:
+  - `admission-tight` and `family-followup` now tie as the best objective profiles in most regions
+  - canonical is now the only profile with the extra top-1 win on `móvil`
+- current interpretation:
+  - the frozen bank still mainly changes rule volume and objective tradeoffs
+  - `móvil` is now concrete evidence that profile choice can flip top-1 on the broader suite
+  - the seventh expansion tranche added `registro`, `patrón`, and `mando` as new canonical review cases without creating any new top-1-sensitive split beyond `móvil`
+  - runtime routing is still premature, but it is no longer purely hypothetical
+- offline profile analysis is therefore justified now, but runtime profile routing is still premature
 
 Current Stage B verified resource-lane conclusion on this PC:
 

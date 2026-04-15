@@ -1,0 +1,155 @@
+{
+  "total_recorded_seconds": 0.6317289000289747,
+  "phases": {
+    "build_resource_payload": {
+      "total_seconds": 0.0005937000023550354,
+      "count": 1,
+      "avg_seconds": 0.0005937000023550354
+    },
+    "build_sweep_configs": {
+      "total_seconds": 0.00028899999597342685,
+      "count": 1,
+      "avg_seconds": 0.00028899999597342685
+    },
+    "build_word_packages": {
+      "total_seconds": 5.100000271340832e-05,
+      "count": 1,
+      "avg_seconds": 5.100000271340832e-05
+    },
+    "compile_pair_context": {
+      "total_seconds": 0.08746960000280524,
+      "count": 1,
+      "avg_seconds": 0.08746960000280524
+    },
+    "evaluate_cases": {
+      "total_seconds": 0.008146999942255206,
+      "count": 90,
+      "avg_seconds": 9.052222158061341e-05
+    },
+    "group_rules": {
+      "total_seconds": 0.0,
+      "count": 90,
+      "avg_seconds": 0.0
+    },
+    "load_dataset": {
+      "total_seconds": 0.0008323000001837499,
+      "count": 1,
+      "avg_seconds": 0.0008323000001837499
+    },
+    "load_store": {
+      "total_seconds": 0.0004894000012427568,
+      "count": 1,
+      "avg_seconds": 0.0004894000012427568
+    },
+    "preload_translation_gloss_records": {
+      "total_seconds": 0.24674680000316584,
+      "count": 1,
+      "avg_seconds": 0.24674680000316584
+    },
+    "prepare_compiled_sweep_inputs": {
+      "total_seconds": 0.2770325999954366,
+      "count": 1,
+      "avg_seconds": 0.2770325999954366
+    },
+    "rehydrate_best_run_case_results": {
+      "total_seconds": 0.0002782000010483898,
+      "count": 1,
+      "avg_seconds": 0.0002782000010483898
+    },
+    "render_html": {
+      "total_seconds": 0.002174699999159202,
+      "count": 1,
+      "avg_seconds": 0.002174699999159202
+    },
+    "render_markdown": {
+      "total_seconds": 4.27999984822236e-05,
+      "count": 1,
+      "avg_seconds": 4.27999984822236e-05
+    },
+    "resolve_resources": {
+      "total_seconds": 4.6799999836366624e-05,
+      "count": 1,
+      "avg_seconds": 4.6799999836366624e-05
+    },
+    "run_config": {
+      "total_seconds": 0.006757300056051463,
+      "count": 90,
+      "avg_seconds": 7.508111173390515e-05
+    },
+    "sort_pair_runs": {
+      "total_seconds": 2.830000448739156e-05,
+      "count": 1,
+      "avg_seconds": 2.830000448739156e-05
+    },
+    "summarize_run": {
+      "total_seconds": 0.0007494000237784348,
+      "count": 90,
+      "avg_seconds": 8.326666930871499e-06
+    }
+  },
+  "pairs": {
+    "en-es": {
+      "build_resource_payload": {
+        "total_seconds": 0.0005937000023550354,
+        "count": 1,
+        "avg_seconds": 0.0005937000023550354
+      },
+      "build_word_packages": {
+        "total_seconds": 5.100000271340832e-05,
+        "count": 1,
+        "avg_seconds": 5.100000271340832e-05
+      },
+      "compile_pair_context": {
+        "total_seconds": 0.08746960000280524,
+        "count": 1,
+        "avg_seconds": 0.08746960000280524
+      },
+      "evaluate_cases": {
+        "total_seconds": 0.008146999942255206,
+        "count": 90,
+        "avg_seconds": 9.052222158061341e-05
+      },
+      "group_rules": {
+        "total_seconds": 0.0,
+        "count": 90,
+        "avg_seconds": 0.0
+      },
+      "preload_translation_gloss_records": {
+        "total_seconds": 0.24674680000316584,
+        "count": 1,
+        "avg_seconds": 0.24674680000316584
+      },
+      "prepare_compiled_sweep_inputs": {
+        "total_seconds": 0.2770325999954366,
+        "count": 1,
+        "avg_seconds": 0.2770325999954366
+      },
+      "rehydrate_best_run_case_results": {
+        "total_seconds": 0.0002782000010483898,
+        "count": 1,
+        "avg_seconds": 0.0002782000010483898
+      },
+      "resolve_resources": {
+        "total_seconds": 4.6799999836366624e-05,
+        "count": 1,
+        "avg_seconds": 4.6799999836366624e-05
+      },
+      "run_config": {
+        "total_seconds": 0.006757300056051463,
+        "count": 90,
+        "avg_seconds": 7.508111173390515e-05
+      },
+      "sort_pair_runs": {
+        "total_seconds": 2.830000448739156e-05,
+        "count": 1,
+        "avg_seconds": 2.830000448739156e-05
+      },
+      "summarize_run": {
+        "total_seconds": 0.0007494000237784348,
+        "count": 90,
+        "avg_seconds": 8.326666930871499e-06
+      }
+    }
+  },
+  "wall_clock_seconds": 0.6351388999974006
+}

@@ -134,8 +134,8 @@ Archive rule for future grooming:
 Treat these as non-authoritative outputs unless explicitly referenced as evidence:
 
 1. `docs/test_outputs/`
-2. `docs/_site/`
-3. `docs/.jekyll-cache/`
+2. generated Jekyll site output under `docs/`
+3. generated Jekyll cache output under `docs/`
 
 They may be operationally useful, but they should not become the default planning path.
 

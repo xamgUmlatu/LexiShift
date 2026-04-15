@@ -35,14 +35,18 @@ from rulegen_benchmark import (  # noqa: E402
     _build_pair_resources_payload,
     _build_pair_report_payload,
     _summarize_compiled_case_results,
+    _attach_case_trait_summary,
     _build_word_package_snapshot,
     _build_pair_compiled_rulegen_context,
+    _build_pair_benchmark_context,
     _build_reverse_preload_headwords,
     _expand_reverse_preload_headwords,
     _format_exact_hit_ambiguity_label,
     _format_exact_hit_specificity_label,
+    _format_kaikki_policy_family_demotion_label,
     _format_kaikki_provenance_label,
     _format_kaikki_policy_family_label,
+    _parse_family_demotion_set_specs,
     _load_pair_runs_from_report_payload,
     _load_render_inputs_from_report_payload,
     _load_frozen_word_package_snapshots,
@@ -60,6 +64,7 @@ from rulegen_benchmark_presets import (  # noqa: E402
     load_benchmark_presets,
 )
 from lexishift_core.replacement.core import RuleMetadata, VocabRule  # noqa: E402
+from lexishift_core.lexicon.word_package import build_word_package  # noqa: E402
 from lexishift_core.resources.dict_loaders import FreedictGlossRecord  # noqa: E402
 from lexishift_core.rulegen.pairs.en_es import (  # noqa: E402
     EnEsCompiledBenchmarkEvaluationTables,
@@ -76,6 +81,7 @@ from lexishift_core.rulegen.benchmarking import (  # noqa: E402
     evaluate_benchmark_case,
     summarize_benchmark_results,
 )
+from lexishift_core.srs import SrsStore  # noqa: E402
 
 
 class _FakePaths:
@@ -140,17 +146,228 @@ class TestRulegenBenchmark(unittest.TestCase):
             forward.write_text("forward", encoding="utf-8")
             reverse.write_text("reverse", encoding="utf-8")
 
-            jmdict_path, freedict_path, reverse_path = _resolve_pair_resources_for_benchmark(
-                paths=_FakePaths(language_packs_dir),
-                pair="en-es",
-                jmdict_override=None,
-                freedict_override=forward,
-                freedict_reverse_override=None,
+            jmdict_path, translation_dict_path, reverse_path = (
+                _resolve_pair_resources_for_benchmark(
+                    paths=_FakePaths(language_packs_dir),
+                    pair="en-es",
+                    jmdict_override=None,
+                    translation_dict_override=forward,
+                    reverse_translation_dict_override=None,
+                )
             )
 
             self.assertIsNone(jmdict_path)
-            self.assertEqual(freedict_path, forward)
+            self.assertEqual(translation_dict_path, forward)
             self.assertEqual(reverse_path, reverse)
+
+    def test_resolve_pair_resources_treats_jmdict_override_as_legacy_en_ja_translation_dict(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            language_packs_dir = Path(tmp)
+            jmdict = language_packs_dir / "JMdict_e"
+            jmdict.write_text("<JMdict/>", encoding="utf-8")
+
+            jmdict_path, translation_dict_path, reverse_path = (
+                _resolve_pair_resources_for_benchmark(
+                    paths=_FakePaths(language_packs_dir),
+                    pair="en-ja",
+                    jmdict_override=jmdict,
+                    translation_dict_override=None,
+                    reverse_translation_dict_override=None,
+                )
+            )
+
+        self.assertEqual(jmdict_path, jmdict)
+        self.assertEqual(translation_dict_path, jmdict)
+        self.assertIsNone(reverse_path)
+
+    def test_resolve_pair_resources_allows_missing_default_jmdict_when_en_ja_uses_kaikki(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            language_packs_dir = Path(tmp)
+            kaikki = language_packs_dir / "wiktionary-ja-en.sqlite"
+            kaikki.write_text("sqlite", encoding="utf-8")
+
+            jmdict_path, translation_dict_path, reverse_path = (
+                _resolve_pair_resources_for_benchmark(
+                    paths=_FakePaths(language_packs_dir),
+                    pair="en-ja",
+                    jmdict_override=None,
+                    translation_dict_override=None,
+                    reverse_translation_dict_override=None,
+                )
+            )
+
+        self.assertEqual(translation_dict_path, kaikki)
+        self.assertEqual(jmdict_path, language_packs_dir / "JMdict_e")
+        self.assertIsNone(reverse_path)
+
+    def test_build_pair_benchmark_context_uses_translation_dict_override_keywords(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paths = _FakePaths(root)
+            translation_dict = root / "wiktionary-ja-en.sqlite"
+            reverse_dict = root / "reverse.sqlite"
+            translation_dict.write_text("forward", encoding="utf-8")
+            reverse_dict.write_text("reverse", encoding="utf-8")
+
+            def _fake_resolver(
+                *,
+                paths,
+                pair,
+                jmdict_override,
+                translation_dict_override,
+                reverse_translation_dict_override,
+            ):
+                self.assertEqual(pair, "en-ja")
+                self.assertEqual(jmdict_override, None)
+                self.assertEqual(translation_dict_override, translation_dict)
+                self.assertEqual(reverse_translation_dict_override, reverse_dict)
+                return None, translation_dict, reverse_dict
+
+            cases = (
+                RulegenBenchmarkCase(
+                    case_id="en-ja:hon:0",
+                    pair="en-ja",
+                    target="本",
+                    expected_any=("book",),
+                ),
+            )
+            with (
+                patch(
+                    "rulegen_benchmark._resolve_pair_resources_for_benchmark",
+                    side_effect=_fake_resolver,
+                ),
+                patch(
+                    "rulegen_benchmark._build_pair_resources_payload",
+                    return_value={},
+                ),
+                patch(
+                    "rulegen_benchmark._build_store_word_packages",
+                    return_value={},
+                ),
+                patch(
+                    "rulegen_benchmark._apply_case_word_package_overrides",
+                ),
+                patch(
+                    "rulegen_benchmark._build_word_package_snapshot",
+                    return_value={"本": None},
+                ),
+                patch(
+                    "rulegen_benchmark._preload_pair_gloss_records",
+                    return_value=(None, None),
+                ),
+                patch(
+                    "rulegen_benchmark.load_translation_gloss_base_forms",
+                ) as load_base_forms,
+                patch(
+                    "rulegen_benchmark._build_pair_compiled_rulegen_context",
+                    return_value=None,
+                ),
+                patch(
+                    "rulegen_benchmark._build_compiled_case_refs",
+                    return_value=(),
+                ),
+                patch(
+                    "rulegen_benchmark._build_compiled_case_table",
+                    return_value=None,
+                ),
+            ):
+                context = _build_pair_benchmark_context(
+                    paths=paths,
+                    store=SrsStore(),
+                    pair="en-ja",
+                    cases=cases,
+                    jmdict_override=None,
+                    translation_dict_override=translation_dict,
+                    reverse_translation_dict_override=reverse_dict,
+                    frozen_word_package_snapshots={},
+                    timing=None,
+                )
+
+        load_base_forms.assert_not_called()
+        self.assertEqual(context.translation_dict_path, translation_dict)
+        self.assertEqual(context.reverse_translation_dict_path, reverse_dict)
+
+    def test_preload_pair_gloss_records_uses_forward_en_target_lang_for_en_ja(self) -> None:
+        with patch(
+            "rulegen_benchmark._load_translation_gloss_records",
+            side_effect=[{"本": []}, None],
+        ) as load_records:
+            records_by_target, reverse_records_by_source = _preload_pair_gloss_records(
+                pair="en-ja",
+                translation_dict_path=Path("/tmp/wiktionary-ja-en.sqlite"),
+                reverse_translation_dict_path=None,
+                targets=("本",),
+                word_packages_by_target={},
+            )
+
+        self.assertEqual(records_by_target, {"本": []})
+        self.assertIsNone(reverse_records_by_source)
+        self.assertEqual(load_records.call_args_list[0].kwargs["target_lang"], "en")
+        self.assertEqual(load_records.call_args_list[0].kwargs["headwords"], ("本",))
+
+    def test_preload_pair_gloss_records_includes_en_ja_kana_headword_aliases(self) -> None:
+        with patch(
+            "rulegen_benchmark._load_translation_gloss_records",
+            side_effect=[{"飲む": []}, None],
+        ) as load_records:
+            _preload_pair_gloss_records(
+                pair="en-ja",
+                translation_dict_path=Path("/tmp/wiktionary-ja-en.sqlite"),
+                reverse_translation_dict_path=None,
+                targets=("飲む",),
+                word_packages_by_target={
+                    "飲む": {
+                        "version": 1,
+                        "language_tag": "ja",
+                        "surface": "飲む",
+                        "reading": "のむ",
+                        "script_forms": {"kanji": "飲む", "kana": "のむ", "romaji": "nomu"},
+                        "source": {"provider": "rulegen_benchmark"},
+                    }
+                },
+            )
+
+        self.assertEqual(load_records.call_args_list[0].kwargs["target_lang"], "en")
+        self.assertEqual(load_records.call_args_list[0].kwargs["headwords"], ("飲む", "のむ"))
+
+    def test_preload_pair_gloss_records_expands_en_ja_alias_headwords(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "wiktionary-ja-en.sqlite"
+            path.write_bytes(b"SQLite format 3\x00")
+            with (
+                patch(
+                    "rulegen_benchmark.load_translation_headword_alias_index",
+                    return_value={"mada": ("未だ",)},
+                ),
+                patch(
+                    "rulegen_benchmark._load_translation_gloss_records",
+                    side_effect=[{}, {"未だ": []}, None],
+                ) as load_records,
+            ):
+                _preload_pair_gloss_records(
+                    pair="en-ja",
+                    translation_dict_path=path,
+                    reverse_translation_dict_path=None,
+                    targets=("まだ",),
+                    word_packages_by_target={
+                        "まだ": {
+                            "version": 1,
+                            "language_tag": "ja",
+                            "surface": "まだ",
+                            "reading": "まだ",
+                            "script_forms": {"kana": "まだ", "romaji": "mada"},
+                            "source": {"provider": "rulegen_benchmark"},
+                        }
+                    },
+                )
+
+        self.assertEqual(load_records.call_args_list[0].kwargs["target_lang"], "en")
+        self.assertEqual(load_records.call_args_list[0].kwargs["headwords"], ("まだ",))
+        self.assertEqual(load_records.call_args_list[1].kwargs["headwords"], ("未だ",))
 
     def test_parse_family_set_specs_supports_multiple_sets(self) -> None:
         parsed = _parse_family_set_specs(
@@ -169,10 +386,38 @@ class TestRulegenBenchmark(unittest.TestCase):
 
     def test_format_kaikki_policy_family_label_uses_short_codes(self) -> None:
         label = _format_kaikki_policy_family_label(
-            ("math_geometry", "government_law", "register_region")
+            (
+                "math_geometry",
+                "government_law",
+                "register_region",
+                "communication_network",
+                "music",
+            )
         )
 
-        self.assertEqual(label, "mg+gl+rr")
+        self.assertEqual(label, "mg+gl+rr+cn+mus")
+
+    def test_parse_family_demotion_set_specs_supports_multiple_sets(self) -> None:
+        parsed = _parse_family_demotion_set_specs(
+            "none;communication_network:0.35+music:0.40;chemistry:0.25,biology:0.20",
+            name="kaikki-policy-risk-family-demotion-sets",
+        )
+
+        self.assertEqual(
+            parsed,
+            [
+                (),
+                (("communication_network", 0.35), ("music", 0.40)),
+                (("chemistry", 0.25), ("biology", 0.20)),
+            ],
+        )
+
+    def test_format_kaikki_policy_family_demotion_label_uses_short_codes(self) -> None:
+        label = _format_kaikki_policy_family_demotion_label(
+            (("communication_network", 0.35), ("music", 0.40), ("chemistry", 0.25))
+        )
+
+        self.assertEqual(label, "cn:0.35+mus:0.40+chem:0.25")
 
     def test_format_exact_hit_ambiguity_label_uses_threshold_and_penalty(self) -> None:
         config = SweepConfig(
@@ -1187,9 +1432,23 @@ class TestRulegenBenchmark(unittest.TestCase):
             rules_by_target={"casa": rules},
             compiled_case_table=case_table,
         )
+        context = PairBenchmarkContext(
+            pair="en-es",
+            cases=(case,),
+            targets=("casa",),
+            jmdict_path=None,
+            translation_dict_path=None,
+            reverse_translation_dict_path=None,
+            resources={},
+            word_package_snapshot={},
+            word_packages_by_target={},
+            compiled_case_refs=refs,
+            compiled_case_table=case_table,
+        )
 
         compiled_result = _evaluate_benchmark_case_compiled(
             case=case,
+            context=context,
             case_row_id=0,
             compiled_case_table=case_table,
             compiled_rule_table=compiled_rule_table,
@@ -1447,7 +1706,28 @@ class TestRulegenBenchmark(unittest.TestCase):
             rules=rules,
         )
 
-        self.assertEqual(case_payloads, tuple(result.to_dict() for result in case_results))
+        self.assertEqual(
+            case_payloads,
+            tuple(
+                _attach_case_trait_summary(
+                    payload=result.to_dict(),
+                    case=case,
+                    context=context,
+                    case_row_id=index,
+                )
+                for index, (case, result) in enumerate(zip(context.cases, case_results))
+            ),
+        )
+        self.assertIn("trait_summary", case_payloads[0])
+        self.assertEqual(
+            case_payloads[0]["trait_summary"]["result_shape"]["selected_source_count"],
+            2,
+        )
+        self.assertFalse(case_payloads[0]["trait_summary"]["result_shape"]["top1_multiword"])
+        self.assertEqual(
+            case_payloads[0]["trait_summary"]["benchmark_only"]["expected_any_count"],
+            1,
+        )
         self.assertEqual(payload_table, result_table)
 
     def test_evaluate_case_payloads_with_table_can_skip_payload_materialization(self) -> None:
@@ -1698,6 +1978,141 @@ class TestRulegenBenchmark(unittest.TestCase):
 
         self.assertEqual(evaluation.run.case_results[0]["top1_source"], "house")
         self.assertTrue(evaluation.run.case_results[0]["top1_correct"])
+
+    def test_evaluate_sweep_run_isolates_en_ja_duplicate_surface_readings(self) -> None:
+        cases = (
+            RulegenBenchmarkCase(
+                case_id="en-ja:空:から",
+                pair="en-ja",
+                target="空",
+                target_reading="から",
+                expected_any=("emptiness",),
+                forbidden_any=("sky",),
+            ),
+            RulegenBenchmarkCase(
+                case_id="en-ja:空:そら",
+                pair="en-ja",
+                target="空",
+                target_reading="そら",
+                expected_any=("sky",),
+                forbidden_any=("emptiness",),
+            ),
+            RulegenBenchmarkCase(
+                case_id="en-ja:山:やま",
+                pair="en-ja",
+                target="山",
+                target_reading="やま",
+                expected_any=("mountain",),
+            ),
+        )
+        case_refs = tuple(
+            CompiledBenchmarkCaseRef(
+                case_row_id=index,
+                case_id=case.case_id,
+                target=case.target,
+                target_id=None,
+                candidate_row_ids=(),
+            )
+            for index, case in enumerate(cases)
+        )
+        context = PairBenchmarkContext(
+            pair="en-ja",
+            cases=cases,
+            targets=("山", "空"),
+            jmdict_path=None,
+            translation_dict_path=Path("/tmp/wiktionary-ja-en.sqlite"),
+            reverse_translation_dict_path=None,
+            resources={},
+            word_package_snapshot={},
+            word_packages_by_target={
+                "空": build_word_package(
+                    language_pair="en-ja",
+                    surface="空",
+                    reading="そら",
+                    source_provider="test",
+                ),
+                "山": build_word_package(
+                    language_pair="en-ja",
+                    surface="山",
+                    reading="やま",
+                    source_provider="test",
+                ),
+            },
+            compiled_case_refs=case_refs,
+            compiled_case_table=_build_compiled_case_table(
+                cases=cases,
+                compiled_case_refs=case_refs,
+            ),
+        )
+        config = SweepConfig(
+            max_definitions_per_target=2,
+            max_rules_per_target=1,
+            confidence_threshold=0.0,
+            semantic_demotion_scale=1.0,
+            include_variants=True,
+            pos_scoring_enabled=True,
+            pos_exact_match_bonus=1.0,
+            pos_compatible_match_bonus=0.5,
+            score_weight_dict_priority=0.6,
+            score_weight_frequency_weight=0.2,
+            score_weight_pos_match=0.0,
+            score_weight_variant_penalty=0.1,
+            score_weight_phrase_penalty=0.1,
+            score_weight_embedding=0.2,
+            reverse_check_enabled=False,
+            reverse_check_match_bonus=0.2,
+            reverse_check_near_bonus=0.1,
+            reverse_check_near_rank_max=2,
+            reverse_check_far_hit_penalty=0.0,
+            reverse_check_miss_penalty=0.2,
+            reverse_check_exact_hit_ambiguity_threshold=0,
+            reverse_check_exact_hit_ambiguity_penalty=0.0,
+            kaikki_policy_live_demotion=False,
+            kaikki_policy_risk_families=(),
+        )
+
+        def _fake_run_rules(request):
+            targets = tuple(request.targets)
+            if "空" in targets and len(targets) != 1:
+                raise AssertionError("duplicate-surface en-ja targets must be isolated per reading")
+            if targets == ("山",):
+                return (
+                    VocabRule(
+                        source_phrase="mountain",
+                        replacement="山",
+                        metadata=RuleMetadata(confidence=0.8),
+                    ),
+                )
+            if targets != ("空",):
+                raise AssertionError(f"Unexpected benchmark request targets: {targets}")
+            word_packages = request.word_packages_by_target or {}
+            reading = str(word_packages.get("空", {}).get("reading") or "")
+            source_phrase = "emptiness" if reading == "から" else "sky"
+            return (
+                VocabRule(
+                    source_phrase=source_phrase,
+                    replacement="空",
+                    metadata=RuleMetadata(confidence=0.9),
+                ),
+            )
+
+        with patch(
+            "rulegen_benchmark.run_rules_with_adapter", side_effect=_fake_run_rules
+        ) as mock_run:
+            evaluation = _evaluate_sweep_run(
+                context=context,
+                config=config,
+                run_index=0,
+                objective_weights=RulegenBenchmarkObjectiveWeights(),
+            )
+
+        self.assertEqual(mock_run.call_count, 3)
+        payloads = {payload["case_id"]: payload for payload in evaluation.run.case_results}
+        self.assertEqual(payloads["en-ja:空:から"]["top1_source"], "emptiness")
+        self.assertEqual(payloads["en-ja:空:そら"]["top1_source"], "sky")
+        self.assertEqual(payloads["en-ja:山:やま"]["top1_source"], "mountain")
+        self.assertAlmostEqual(evaluation.run.summary.top1_accuracy, 1.0, places=6)
+        self.assertAlmostEqual(evaluation.run.summary.top3_recall, 1.0, places=6)
         self.assertAlmostEqual(evaluation.run.summary.top1_accuracy, 1.0, places=6)
 
     def test_evaluate_sweep_run_can_bypass_en_es_adapter_with_compiled_variant_rows(
@@ -2134,6 +2549,7 @@ class TestRulegenBenchmark(unittest.TestCase):
         self.assertIn("en_es_stage_a_reverse_weight_matrix_v1", presets)
         self.assertIn("en_es_stage_a_exact_hit_matrix_v1", presets)
         self.assertIn("en_es_stage_a_family_followup_v1", presets)
+        self.assertIn("en_es_stage_a_family_followup_v2", presets)
         self.assertIn("en_es_stage_a_admission_frontier_v2", presets)
         self.assertIn("en_es_stage_a_reverse_frontier_v2", presets)
         self.assertIn("en_es_stage_a_combined_frontier_v1", presets)

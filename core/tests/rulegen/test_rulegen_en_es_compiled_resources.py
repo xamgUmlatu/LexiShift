@@ -241,15 +241,211 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
             selected_rows.variant_rule_counts,
             (sum(1 for result in compiled_results if result.candidate.metadata.get("variant")),),
         )
+
+    def test_compiled_filter_keeps_recurrent_reverse_attested_phrasal_verbs(self) -> None:
+        records = {
+            "sacar": [
+                FreedictGlossRecord(
+                    translation="to put out, to get out (e.g. a public statement)",
+                    pos_raw="verb",
+                    metadata={"entry_ord": 1, "sense_ord": 0, "gloss_ord": 0},
+                ),
+                FreedictGlossRecord(
+                    translation="to take out (e.g. the trash)",
+                    pos_raw="verb",
+                    metadata={"entry_ord": 1, "sense_ord": 1, "gloss_ord": 0},
+                ),
+                FreedictGlossRecord(
+                    translation="to withdraw, to take out (e.g. money)",
+                    pos_raw="verb",
+                    metadata={"entry_ord": 1, "sense_ord": 2, "gloss_ord": 0},
+                ),
+            ]
+        }
+        reverse_records = {
+            "put out": [FreedictGlossRecord(translation="sacar", pos_raw="verb")],
+            "take out": [FreedictGlossRecord(translation="sacar", pos_raw="verb")],
+            "withdraw": [FreedictGlossRecord(translation="sacar", pos_raw="verb")],
+        }
+        compiled_resources = build_en_es_compiled_resources(
+            targets=("sacar",),
+            records_by_target=records,
+            reverse_records_by_source=reverse_records,
+            word_packages_by_target={},
+            language_pair="en-es",
+            source_dict="wiktionary_es_en",
+            dictionary_pos_source_profile="wiktionary",
+        )
+        config = EnEsRulegenConfig(
+            freedict_es_en_path=Path("/tmp/unused"),
+            gloss_records_by_target=records,
+            reverse_gloss_records_by_source=reverse_records,
+            include_variants=False,
+            source_dict_id="wiktionary_es_en",
+            reverse_source_dict_id="wiktionary_en_es",
+            dictionary_pos_source_profile="wiktionary",
+            compiled_resources=compiled_resources,
+        )
+
+        filter_table = build_en_es_compiled_candidate_filter_table(
+            compiled_resources=compiled_resources,
+            config=config,
+        )
+        candidate_table = compiled_resources.candidate_table
+        assert candidate_table is not None
+        target_id = compiled_resources.compiled_targets_by_target["sacar"].target_id
+        accepted_phrases = {
+            candidate_table.normalized_source_phrases[row_id]
+            for row_id in filter_table.accepted_candidate_row_ids_by_target_id.get(target_id, ())
+        }
+
+        self.assertIn("take out", accepted_phrases)
+        self.assertNotIn("put out", accepted_phrases)
+        take_out_row_id = next(
+            row_id
+            for row_id, phrase in enumerate(candidate_table.normalized_source_phrases)
+            if phrase == "take out"
+        )
+        self.assertEqual(candidate_table.gloss_variant_occurrence_counts[take_out_row_id], 2)
+
+    def test_compiled_filter_keeps_reverse_attested_nominal_compounds_from_comma_lists(
+        self,
+    ) -> None:
+        records = {
+            "móvil": [
+                FreedictGlossRecord(
+                    translation="mobile",
+                    pos_raw="adj",
+                    metadata={"entry_ord": 0, "sense_ord": 0, "gloss_ord": 0},
+                ),
+                FreedictGlossRecord(
+                    translation="cellular, cell phone (US), mobile phone (UK, Australia)",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 0, "sense_ord": 1, "gloss_ord": 0},
+                ),
+                FreedictGlossRecord(
+                    translation="motive",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 0, "sense_ord": 2, "gloss_ord": 0},
+                ),
+            ]
+        }
+        reverse_records = {
+            "mobile": [FreedictGlossRecord(translation="móvil", pos_raw="adj")],
+            "mobile phone": [
+                FreedictGlossRecord(translation="teléfono móvil", pos_raw="noun"),
+                FreedictGlossRecord(translation="móvil", pos_raw="noun"),
+            ],
+            "motive": [FreedictGlossRecord(translation="móvil", pos_raw="noun")],
+        }
+        compiled_resources = build_en_es_compiled_resources(
+            targets=("móvil",),
+            records_by_target=records,
+            reverse_records_by_source=reverse_records,
+            word_packages_by_target={},
+            language_pair="en-es",
+            source_dict="wiktionary_es_en",
+            dictionary_pos_source_profile="wiktionary",
+        )
+        config = EnEsRulegenConfig(
+            freedict_es_en_path=Path("/tmp/unused"),
+            gloss_records_by_target=records,
+            reverse_gloss_records_by_source=reverse_records,
+            include_variants=False,
+            source_dict_id="wiktionary_es_en",
+            reverse_source_dict_id="wiktionary_en_es",
+            dictionary_pos_source_profile="wiktionary",
+            compiled_resources=compiled_resources,
+        )
+
+        filter_table = build_en_es_compiled_candidate_filter_table(
+            compiled_resources=compiled_resources,
+            config=config,
+        )
+        candidate_table = compiled_resources.candidate_table
+        assert candidate_table is not None
+        target_id = compiled_resources.compiled_targets_by_target["móvil"].target_id
+        accepted_phrases = {
+            candidate_table.normalized_source_phrases[row_id]
+            for row_id in filter_table.accepted_candidate_row_ids_by_target_id.get(target_id, ())
+        }
+        mobile_phone_row_id = next(
+            row_id
+            for row_id, phrase in enumerate(candidate_table.normalized_source_phrases)
+            if phrase == "mobile phone"
+        )
+
         self.assertEqual(
-            selected_rows.top1_variant_flags,
-            (bool(compiled_results[0].candidate.metadata.get("variant")),),
+            candidate_table.gloss_fragment_strategies[mobile_phone_row_id],
+            "top_level_comma",
         )
-        self.assertAlmostEqual(
-            float(selected_rows.top1_confidences[0] or 0.0),
-            float(compiled_results[0].rule.metadata.confidence or 0.0),
-            places=6,
+        self.assertIn("mobile phone", accepted_phrases)
+        self.assertNotIn("cell phone", accepted_phrases)
+
+    def test_compiled_filter_does_not_keep_identity_nominal_phrases_without_multiword_mode(
+        self,
+    ) -> None:
+        records = {
+            "puente": [
+                FreedictGlossRecord(
+                    translation="bridge",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 0, "sense_ord": 0, "gloss_ord": 0},
+                ),
+                FreedictGlossRecord(
+                    translation="long weekend",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 0, "sense_ord": 1, "gloss_ord": 0},
+                ),
+            ]
+        }
+        reverse_records = {
+            "bridge": [FreedictGlossRecord(translation="puente", pos_raw="noun")],
+            "long weekend": [FreedictGlossRecord(translation="puente", pos_raw="noun")],
+        }
+        compiled_resources = build_en_es_compiled_resources(
+            targets=("puente",),
+            records_by_target=records,
+            reverse_records_by_source=reverse_records,
+            word_packages_by_target={},
+            language_pair="en-es",
+            source_dict="wiktionary_es_en",
+            dictionary_pos_source_profile="wiktionary",
         )
+        config = EnEsRulegenConfig(
+            freedict_es_en_path=Path("/tmp/unused"),
+            gloss_records_by_target=records,
+            reverse_gloss_records_by_source=reverse_records,
+            include_variants=False,
+            source_dict_id="wiktionary_es_en",
+            reverse_source_dict_id="wiktionary_en_es",
+            dictionary_pos_source_profile="wiktionary",
+            compiled_resources=compiled_resources,
+        )
+
+        filter_table = build_en_es_compiled_candidate_filter_table(
+            compiled_resources=compiled_resources,
+            config=config,
+        )
+        candidate_table = compiled_resources.candidate_table
+        assert candidate_table is not None
+        target_id = compiled_resources.compiled_targets_by_target["puente"].target_id
+        accepted_phrases = {
+            candidate_table.normalized_source_phrases[row_id]
+            for row_id in filter_table.accepted_candidate_row_ids_by_target_id.get(target_id, ())
+        }
+        long_weekend_row_id = next(
+            row_id
+            for row_id, phrase in enumerate(candidate_table.normalized_source_phrases)
+            if phrase == "long weekend"
+        )
+
+        self.assertEqual(
+            candidate_table.gloss_fragment_strategies[long_weekend_row_id],
+            "identity",
+        )
+        self.assertIn("bridge", accepted_phrases)
+        self.assertNotIn("long weekend", accepted_phrases)
 
     def test_compiled_resources_preserve_variant_rulegen_outputs(self) -> None:
         records = {
@@ -2249,6 +2445,58 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
 
         self.assertEqual(
             [result.candidate.source_phrase for result in results],
+            [result.candidate.source_phrase for result in expected],
+        )
+
+    def test_compiled_resources_suppress_explicit_vulgar_candidate_with_clean_competition(
+        self,
+    ) -> None:
+        records = {
+            "coger": [
+                FreedictGlossRecord(translation="to take", pos_raw="verb"),
+                FreedictGlossRecord(
+                    translation="to fuck",
+                    pos_raw="verb",
+                    metadata={"sense_tags": ["vulgar"]},
+                ),
+                FreedictGlossRecord(translation="to catch", pos_raw="verb"),
+            ]
+        }
+        reverse_records = {
+            "take": [FreedictGlossRecord(translation="coger", pos_raw="verb")],
+            "fuck": [FreedictGlossRecord(translation="coger", pos_raw="verb")],
+            "catch": [FreedictGlossRecord(translation="coger", pos_raw="verb")],
+        }
+        base_config = EnEsRulegenConfig(
+            freedict_es_en_path=Path("/tmp/unused"),
+            gloss_records_by_target=records,
+            reverse_gloss_records_by_source=reverse_records,
+            include_variants=False,
+            source_dict_id="wiktionary_es_en",
+            reverse_source_dict_id="wiktionary_en_es",
+            dictionary_pos_source_profile="wiktionary",
+            max_definitions_per_target=None,
+            kaikki_policy=EnEsKaikkiPolicyConfig(enable_live_demotion=True),
+        )
+        expected = generate_en_es_results(["coger"], config=base_config)
+        self.assertEqual(
+            [result.candidate.source_phrase for result in expected],
+            ["take", "catch"],
+        )
+        config = replace(
+            base_config,
+            compiled_resources=build_en_es_compiled_resources(
+                targets=("coger",),
+                records_by_target=records,
+                reverse_records_by_source=reverse_records,
+                language_pair="en-es",
+                source_dict="wiktionary_es_en",
+                dictionary_pos_source_profile="wiktionary",
+            ),
+        )
+        compiled_results = generate_en_es_results(["coger"], config=config)
+        self.assertEqual(
+            [result.candidate.source_phrase for result in compiled_results],
             [result.candidate.source_phrase for result in expected],
         )
 

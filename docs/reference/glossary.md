@@ -54,6 +54,10 @@ This glossary defines the major concepts, data objects, and workflows used acros
 - **Admission weight (weight 1)**: Score used to decide whether a candidate from `U` should enter `S` (or re-enter during growth).
 - **Admission bias**: Additional multiplier/additive factor applied to admission weight (for POS, profile interests, proficiency, etc.).
 - **POS bucket**: Coarse part-of-speech class (`noun`, `adjective`, `verb`, `adverb`, `other`) used by admission bias policy.
+- **Lexical difficulty**: Difficulty caused by the word itself under a given pair/resource setup, such as polysemy, phrase pressure, slang leakage, reverse ambiguity, or dense competing senses.
+- **User proficiency**: A property of the learner or profile rather than the word, such as self-reported level, placement result, or known-lemma coverage.
+- **Target vocabulary band**: The intended curricular difficulty region for onboarding or growth, such as beginner, intermediate, or advanced/core-technical. This is not the same as lexical difficulty or observed SRS difficulty.
+- **Observed SRS difficulty**: Item-specific demonstrated difficulty after exposure, such as low retention, repeated again/hard feedback, or low stability.
 - **Serving priority (weight 2)**: Runtime serving score inside `S`, primarily derived from due-time and SRS state (`next_due`, `stability`, `difficulty`).
 - **Effective serving probability**: The normalized chance a word is shown from currently eligible items; this is derived from serving priority and policy caps, not used for admission.
 - **Gloss decay**: A penalty applied to secondary dictionary glosses (e.g., 100% / 70% / 50%).

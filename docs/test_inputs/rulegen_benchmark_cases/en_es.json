@@ -1,0 +1,1828 @@
+{
+  "version": 2,
+  "pair": "en-es",
+  "name": "LexiShift Rulegen Benchmark Cases (en-es)",
+  "description": "Pair-local development benchmark cases for en-es. Refresh the compatibility aggregate with `python scripts/testing/rulegen_benchmark_case_sync.py merge` after edits.",
+  "source_aggregate": "docs/test_inputs/rulegen_benchmark_cases.json",
+  "breadth": "v2-expanded-aggressive",
+  "case_count": 100,
+  "cases": [
+    {
+      "case_id": "en-es:hora",
+      "pair": "en-es",
+      "target": "hora",
+      "tier": "hard",
+      "expected_any": [
+        "hour",
+        "time"
+      ],
+      "expected_top1_any": [
+        "hour"
+      ],
+      "forbidden_top1": [
+        "times"
+      ],
+      "forbidden_any": [
+        "times"
+      ],
+      "notes": "Avoid unstable plural/context mapping as top-1."
+    },
+    {
+      "case_id": "en-es:trabajo",
+      "pair": "en-es",
+      "target": "trabajo",
+      "tier": "smoke",
+      "expected_any": [
+        "work",
+        "job",
+        "labor"
+      ],
+      "expected_top1_any": [
+        "work",
+        "job"
+      ],
+      "forbidden_top1": [
+        "toil"
+      ],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-es:casa",
+      "pair": "en-es",
+      "target": "casa",
+      "tier": "smoke",
+      "expected_any": [
+        "house",
+        "home"
+      ],
+      "expected_top1_any": [
+        "house",
+        "home"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-es:agua",
+      "pair": "en-es",
+      "target": "agua",
+      "tier": "smoke",
+      "expected_any": [
+        "water"
+      ],
+      "expected_top1_any": [
+        "water"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-es:libro",
+      "pair": "en-es",
+      "target": "libro",
+      "tier": "smoke",
+      "expected_any": [
+        "book"
+      ],
+      "expected_top1_any": [
+        "book"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-es:mundo",
+      "pair": "en-es",
+      "target": "mundo",
+      "tier": "smoke",
+      "expected_any": [
+        "world"
+      ],
+      "expected_top1_any": [
+        "world"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-es:vida",
+      "pair": "en-es",
+      "target": "vida",
+      "tier": "smoke",
+      "expected_any": [
+        "life"
+      ],
+      "expected_top1_any": [
+        "life"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-es:ciudad",
+      "pair": "en-es",
+      "target": "ciudad",
+      "tier": "smoke",
+      "expected_any": [
+        "city",
+        "town"
+      ],
+      "expected_top1_any": [
+        "city",
+        "town"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-es:familia",
+      "pair": "en-es",
+      "target": "familia",
+      "tier": "smoke",
+      "expected_any": [
+        "family"
+      ],
+      "expected_top1_any": [
+        "family"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-es:amigo",
+      "pair": "en-es",
+      "target": "amigo",
+      "tier": "smoke",
+      "expected_any": [
+        "friend"
+      ],
+      "expected_top1_any": [
+        "friend"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-es:madre",
+      "pair": "en-es",
+      "target": "madre",
+      "tier": "smoke",
+      "expected_any": [
+        "mother",
+        "mom"
+      ],
+      "expected_top1_any": [
+        "mother",
+        "mom"
+      ],
+      "forbidden_top1": [
+        "bed",
+        "watercourse"
+      ],
+      "forbidden_any": [
+        "bed",
+        "watercourse"
+      ],
+      "notes": "Reverse-check red anchor: avoid rare FreeDict senses outranking mother/mom."
+    },
+    {
+      "case_id": "en-es:padre",
+      "pair": "en-es",
+      "target": "padre",
+      "tier": "smoke",
+      "expected_any": [
+        "father",
+        "dad"
+      ],
+      "expected_top1_any": [
+        "father",
+        "dad"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-es:amor",
+      "pair": "en-es",
+      "target": "amor",
+      "tier": "smoke",
+      "expected_any": [
+        "love",
+        "affection"
+      ],
+      "expected_top1_any": [
+        "love",
+        "affection"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-es:dinero",
+      "pair": "en-es",
+      "target": "dinero",
+      "tier": "smoke",
+      "expected_any": [
+        "money"
+      ],
+      "expected_top1_any": [
+        "money"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-es:escuela",
+      "pair": "en-es",
+      "target": "escuela",
+      "tier": "smoke",
+      "expected_any": [
+        "school"
+      ],
+      "expected_top1_any": [
+        "school"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-es:camino",
+      "pair": "en-es",
+      "target": "camino",
+      "tier": "smoke",
+      "expected_any": [
+        "road",
+        "way",
+        "path"
+      ],
+      "expected_top1_any": [
+        "road",
+        "way",
+        "path"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-es:banco",
+      "pair": "en-es",
+      "target": "banco",
+      "tier": "smoke",
+      "expected_any": [
+        "bank",
+        "bench"
+      ],
+      "expected_top1_any": [
+        "bank",
+        "bench"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Reverse-check Green: stable polysemy anchor; both common noun senses are acceptable without context."
+    },
+    {
+      "case_id": "en-es:capital",
+      "pair": "en-es",
+      "target": "capital",
+      "tier": "smoke",
+      "expected_any": [
+        "capital",
+        "metropolis"
+      ],
+      "expected_top1_any": [
+        "capital"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Reverse-check Green: current output is stable; keep city-related readings from regressing."
+    },
+    {
+      "case_id": "en-es:luz",
+      "pair": "en-es",
+      "target": "luz",
+      "tier": "smoke",
+      "expected_any": [
+        "light"
+      ],
+      "expected_top1_any": [
+        "light"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Reverse-check Green: one-to-one anchor used to detect collateral regressions."
+    },
+    {
+      "case_id": "en-es:fondo",
+      "pair": "en-es",
+      "target": "fondo",
+      "tier": "smoke",
+      "expected_any": [
+        "background",
+        "bottom",
+        "fund"
+      ],
+      "expected_top1_any": [
+        "background",
+        "bottom",
+        "fund"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Reverse-check Gray: advisory ambiguous case; multiple common noun senses are acceptable."
+    },
+    {
+      "case_id": "en-es:medio",
+      "pair": "en-es",
+      "target": "medio",
+      "tier": "smoke",
+      "expected_any": [
+        "half",
+        "medium",
+        "means",
+        "middle"
+      ],
+      "expected_top1_any": [
+        "half",
+        "medium",
+        "means",
+        "middle"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Reverse-check Gray: advisory ambiguity case; use it to watch ranking shifts without hard-blocking a single sense."
+    },
+    {
+      "case_id": "en-es:planta",
+      "pair": "en-es",
+      "target": "planta",
+      "tier": "hard",
+      "expected_any": [
+        "plant",
+        "floor"
+      ],
+      "expected_top1_any": [
+        "plant",
+        "floor"
+      ],
+      "forbidden_top1": [
+        "sole"
+      ],
+      "forbidden_any": [],
+      "notes": "Reverse-check Red: sole is a rare sense and should not outrank the common plant/floor readings."
+    },
+    {
+      "case_id": "en-es:derecho",
+      "pair": "en-es",
+      "target": "derecho",
+      "tier": "hard",
+      "expected_any": [
+        "right",
+        "law",
+        "straight"
+      ],
+      "expected_top1_any": [
+        "right",
+        "law"
+      ],
+      "forbidden_top1": [
+        "claim",
+        "presumption",
+        "pretence"
+      ],
+      "forbidden_any": [
+        "claim",
+        "presumption",
+        "pretence"
+      ],
+      "notes": "Reverse-check Red: current top outputs drift into low-value legal glosses instead of the dominant right/law readings."
+    },
+    {
+      "case_id": "en-es:cuadro",
+      "pair": "en-es",
+      "target": "cuadro",
+      "tier": "hard",
+      "expected_any": [
+        "picture",
+        "painting",
+        "chart",
+        "table"
+      ],
+      "expected_top1_any": [
+        "picture",
+        "painting",
+        "chart",
+        "table"
+      ],
+      "forbidden_top1": [
+        "bed"
+      ],
+      "forbidden_any": [
+        "bed"
+      ],
+      "notes": "Reverse-check Red: picture/chart senses are acceptable; bed should not survive as a product-facing candidate."
+    },
+    {
+      "case_id": "en-es:orden",
+      "pair": "en-es",
+      "target": "orden",
+      "tier": "hard",
+      "expected_any": [
+        "order",
+        "command",
+        "arrangement"
+      ],
+      "expected_top1_any": [
+        "order",
+        "command"
+      ],
+      "forbidden_top1": [
+        "warrant",
+        "writ"
+      ],
+      "forbidden_any": [
+        "writ"
+      ],
+      "notes": "Common organizational noun; keep default order/command readings ahead of legal-document drift."
+    },
+    {
+      "case_id": "en-es:punto",
+      "pair": "en-es",
+      "target": "punto",
+      "tier": "hard",
+      "expected_any": [
+        "point",
+        "dot",
+        "period"
+      ],
+      "expected_top1_any": [
+        "point",
+        "dot"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Frequent punctuation/location polysemy anchor; preserve common point/dot readings."
+    },
+    {
+      "case_id": "en-es:cuenta",
+      "pair": "en-es",
+      "target": "cuenta",
+      "tier": "hard",
+      "expected_any": [
+        "account",
+        "bill",
+        "invoice"
+      ],
+      "expected_top1_any": [
+        "account",
+        "bill"
+      ],
+      "forbidden_top1": [
+        "calculation"
+      ],
+      "forbidden_any": [],
+      "notes": "Common finance/count polysemy; prefer account/bill as the default noun reading."
+    },
+    {
+      "case_id": "en-es:cargo",
+      "pair": "en-es",
+      "target": "cargo",
+      "tier": "hard",
+      "expected_any": [
+        "charge",
+        "position",
+        "post",
+        "office",
+        "function",
+        "job"
+      ],
+      "expected_top1_any": [
+        "charge",
+        "position",
+        "post",
+        "office",
+        "function"
+      ],
+      "forbidden_top1": [
+        "accusal",
+        "accusation",
+        "complaint",
+        "indictment"
+      ],
+      "forbidden_any": [
+        "accusal",
+        "accusation",
+        "complaint",
+        "indictment"
+      ],
+      "notes": "High-value red case: avoid rare accusation senses outranking role/charge senses."
+    },
+    {
+      "case_id": "en-es:firma",
+      "pair": "en-es",
+      "target": "firma",
+      "tier": "hard",
+      "expected_any": [
+        "company",
+        "signature",
+        "firm"
+      ],
+      "expected_top1_any": [
+        "company",
+        "signature",
+        "firm"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Product-relevant business polysemy anchor covering company/signature."
+    },
+    {
+      "case_id": "en-es:campo",
+      "pair": "en-es",
+      "target": "campo",
+      "tier": "hard",
+      "expected_any": [
+        "field",
+        "countryside",
+        "country"
+      ],
+      "expected_top1_any": [
+        "field",
+        "countryside",
+        "country"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Common location/domain polysemy anchor for field vs countryside country readings."
+    },
+    {
+      "case_id": "en-es:plaza",
+      "pair": "en-es",
+      "target": "plaza",
+      "tier": "smoke",
+      "expected_any": [
+        "plaza",
+        "square"
+      ],
+      "expected_top1_any": [
+        "plaza",
+        "square"
+      ],
+      "forbidden_top1": [
+        "publicsquare"
+      ],
+      "forbidden_any": [
+        "publicsquare"
+      ],
+      "notes": "Green control with a frequent public-space reading and an obviously poor concatenated candidate."
+    },
+    {
+      "case_id": "en-es:masa",
+      "pair": "en-es",
+      "target": "masa",
+      "tier": "hard",
+      "expected_any": [
+        "mass",
+        "dough",
+        "paste"
+      ],
+      "expected_top1_any": [
+        "mass",
+        "dough"
+      ],
+      "forbidden_top1": [
+        "lump"
+      ],
+      "forbidden_any": [
+        "lump"
+      ],
+      "notes": "High-value red case: reverse-check should demote lump and surface mass/dough."
+    },
+    {
+      "case_id": "en-es:red",
+      "pair": "en-es",
+      "target": "red",
+      "tier": "smoke",
+      "expected_any": [
+        "net",
+        "network"
+      ],
+      "expected_top1_any": [
+        "net",
+        "network"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Stable two-sense control for network/net without overconstraining order."
+    },
+    {
+      "case_id": "en-es:lengua",
+      "pair": "en-es",
+      "target": "lengua",
+      "tier": "hard",
+      "expected_any": [
+        "tongue",
+        "language"
+      ],
+      "expected_top1_any": [
+        "tongue",
+        "language"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Frequent body-part vs language polysemy anchor."
+    },
+    {
+      "case_id": "en-es:cura",
+      "pair": "en-es",
+      "target": "cura",
+      "tier": "hard",
+      "expected_any": [
+        "priest",
+        "treatment",
+        "cure",
+        "healing"
+      ],
+      "expected_top1_any": [
+        "priest",
+        "treatment",
+        "cure"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Common clergy vs cure polysemy; useful for observing reverse-driven rescue without hard-forcing one sense."
+    },
+    {
+      "case_id": "en-es:caso",
+      "pair": "en-es",
+      "target": "caso",
+      "tier": "hard",
+      "expected_any": [
+        "case",
+        "matter",
+        "instance"
+      ],
+      "expected_top1_any": [
+        "case",
+        "matter"
+      ],
+      "forbidden_top1": [
+        "affair"
+      ],
+      "forbidden_any": [],
+      "notes": "High-frequency default-noun case; affair is too broad as the bare-lemma top-1."
+    },
+    {
+      "case_id": "en-es:parte",
+      "pair": "en-es",
+      "target": "parte",
+      "tier": "hard",
+      "expected_any": [
+        "part",
+        "piece",
+        "share"
+      ],
+      "expected_top1_any": [
+        "part",
+        "piece",
+        "share"
+      ],
+      "forbidden_top1": [
+        "parthian"
+      ],
+      "forbidden_any": [
+        "parthian"
+      ],
+      "notes": "Control for absurd false-friend leakage; part-family readings should dominate."
+    },
+    {
+      "case_id": "en-es:vista",
+      "pair": "en-es",
+      "target": "vista",
+      "tier": "hard",
+      "expected_any": [
+        "sight",
+        "view"
+      ],
+      "expected_top1_any": [
+        "sight",
+        "view"
+      ],
+      "forbidden_top1": [
+        "appearance",
+        "aspect",
+        "look"
+      ],
+      "forbidden_any": [],
+      "notes": "High-value red case: reverse-check should move sight/view above abstract appearance glosses."
+    },
+    {
+      "case_id": "en-es:movimiento",
+      "pair": "en-es",
+      "target": "movimiento",
+      "tier": "smoke",
+      "expected_any": [
+        "movement",
+        "motion"
+      ],
+      "expected_top1_any": [
+        "movement",
+        "motion"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Coverage probe from the installed-resource SRS journey; FreeDict misses this common lemma."
+    },
+    {
+      "case_id": "en-es:área",
+      "pair": "en-es",
+      "target": "área",
+      "tier": "smoke",
+      "expected_any": [
+        "area"
+      ],
+      "expected_top1_any": [
+        "area"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Coverage probe from the installed-resource SRS journey common-word gap list."
+    },
+    {
+      "case_id": "en-es:estilo",
+      "pair": "en-es",
+      "target": "estilo",
+      "tier": "smoke",
+      "expected_any": [
+        "style"
+      ],
+      "expected_top1_any": [
+        "style"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Coverage probe from the installed-resource SRS journey common-word gap list."
+    },
+    {
+      "case_id": "en-es:presentar",
+      "pair": "en-es",
+      "target": "presentar",
+      "tier": "smoke",
+      "expected_any": [
+        "present",
+        "introduce",
+        "submit"
+      ],
+      "expected_top1_any": [
+        "present",
+        "introduce"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Coverage probe for a common high-value verb missing from the FreeDict source."
+    },
+    {
+      "case_id": "en-es:crear",
+      "pair": "en-es",
+      "target": "crear",
+      "tier": "smoke",
+      "expected_any": [
+        "create",
+        "make"
+      ],
+      "expected_top1_any": [
+        "create"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Coverage probe from the installed-resource SRS journey common-word gap list."
+    },
+    {
+      "case_id": "en-es:ocurrir",
+      "pair": "en-es",
+      "target": "ocurrir",
+      "tier": "smoke",
+      "expected_any": [
+        "occur",
+        "happen"
+      ],
+      "expected_top1_any": [
+        "occur",
+        "happen"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Coverage probe from the installed-resource SRS journey common-word gap list."
+    },
+    {
+      "case_id": "en-es:sacar",
+      "pair": "en-es",
+      "target": "sacar",
+      "tier": "smoke",
+      "expected_any": [
+        "take out",
+        "remove",
+        "draw"
+      ],
+      "expected_top1_any": [
+        "take out",
+        "remove"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Coverage probe for a common high-polysemy verb currently absent in FreeDict."
+    },
+    {
+      "case_id": "en-es:ese",
+      "pair": "en-es",
+      "target": "ese",
+      "tier": "smoke",
+      "expected_any": [
+        "that"
+      ],
+      "expected_top1_any": [
+        "that"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Coverage probe for a common determiner/pronoun missing from the FreeDict source."
+    },
+    {
+      "case_id": "en-es:hasta",
+      "pair": "en-es",
+      "target": "hasta",
+      "tier": "smoke",
+      "expected_any": [
+        "until",
+        "up to"
+      ],
+      "expected_top1_any": [
+        "until",
+        "up to"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Coverage probe for a common function word missing from the FreeDict source."
+    },
+    {
+      "case_id": "en-es:según",
+      "pair": "en-es",
+      "target": "según",
+      "tier": "smoke",
+      "expected_any": [
+        "according to"
+      ],
+      "expected_top1_any": [
+        "according to"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Coverage probe for a common function word missing from the FreeDict source."
+    },
+    {
+      "case_id": "en-es:marco",
+      "pair": "en-es",
+      "target": "marco",
+      "tier": "hard",
+      "expected_any": [
+        "frame",
+        "framework"
+      ],
+      "expected_top1_any": [
+        "frame"
+      ],
+      "forbidden_top1": [
+        "mark"
+      ],
+      "forbidden_any": [],
+      "notes": "Cuadro-family sibling around frame/framework competition; keep mark-like leakage out of bare-lemma top-1."
+    },
+    {
+      "case_id": "en-es:tabla",
+      "pair": "en-es",
+      "target": "tabla",
+      "tier": "hard",
+      "expected_any": [
+        "board",
+        "table",
+        "plank"
+      ],
+      "expected_top1_any": [
+        "board",
+        "table"
+      ],
+      "forbidden_top1": [
+        "slab"
+      ],
+      "forbidden_any": [],
+      "notes": "Cuadro-family sibling covering board/table/plank competition without forcing a single dominant noun sense."
+    },
+    {
+      "case_id": "en-es:malla",
+      "pair": "en-es",
+      "target": "malla",
+      "tier": "hard",
+      "expected_any": [
+        "mesh",
+        "net"
+      ],
+      "expected_top1_any": [
+        "mesh",
+        "net"
+      ],
+      "forbidden_top1": [
+        "leggings"
+      ],
+      "forbidden_any": [],
+      "notes": "Red-family physical-net sibling; protect mesh/net readings from clothing-noise drift."
+    },
+    {
+      "case_id": "en-es:quitar",
+      "pair": "en-es",
+      "target": "quitar",
+      "tier": "smoke",
+      "expected_any": [
+        "remove",
+        "take off",
+        "take away"
+      ],
+      "expected_top1_any": [
+        "remove",
+        "take off"
+      ],
+      "forbidden_top1": [
+        "quit"
+      ],
+      "forbidden_any": [],
+      "notes": "Phrase-sensitive common removal verb; single-word remove is acceptable now, but false-friend quit should stay out of top-1."
+    },
+    {
+      "case_id": "en-es:meter",
+      "pair": "en-es",
+      "target": "meter",
+      "tier": "smoke",
+      "expected_any": [
+        "insert",
+        "put in",
+        "stick in"
+      ],
+      "expected_top1_any": [
+        "insert",
+        "put in"
+      ],
+      "forbidden_top1": [
+        "stuff",
+        "cram"
+      ],
+      "forbidden_any": [],
+      "notes": "Phrase-sensitive common verb sibling to sacar; allow precise insert/put in while blocking low-value stuffing senses as defaults."
+    },
+    {
+      "case_id": "en-es:salir",
+      "pair": "en-es",
+      "target": "salir",
+      "tier": "smoke",
+      "expected_any": [
+        "leave",
+        "go out",
+        "come out",
+        "exit"
+      ],
+      "expected_top1_any": [
+        "leave",
+        "go out",
+        "come out"
+      ],
+      "forbidden_top1": [
+        "quit"
+      ],
+      "forbidden_any": [],
+      "notes": "High-frequency phrase-sensitive motion verb; keep leave/go out/come out ahead of quit-like false-friend drift."
+    },
+    {
+      "case_id": "en-es:subir",
+      "pair": "en-es",
+      "target": "subir",
+      "tier": "smoke",
+      "expected_any": [
+        "climb",
+        "go up",
+        "rise",
+        "increase"
+      ],
+      "expected_top1_any": [
+        "climb",
+        "go up",
+        "rise"
+      ],
+      "forbidden_top1": [
+        "upload"
+      ],
+      "forbidden_any": [],
+      "notes": "Phrase-sensitive common verb with clear technical drift risk; upload is a real sense but should not dominate the bare lemma."
+    },
+    {
+      "case_id": "en-es:acabar",
+      "pair": "en-es",
+      "target": "acabar",
+      "tier": "hard",
+      "expected_any": [
+        "finish",
+        "end"
+      ],
+      "expected_top1_any": [
+        "finish",
+        "end"
+      ],
+      "forbidden_top1": [
+        "cum",
+        "orgasm"
+      ],
+      "forbidden_any": [
+        "cum",
+        "orgasm"
+      ],
+      "notes": "High-frequency verb with an undesirable sexual-slang side sense; keep finish/end and suppress the slang candidate family."
+    },
+    {
+      "case_id": "en-es:coger",
+      "pair": "en-es",
+      "target": "coger",
+      "tier": "hard",
+      "expected_any": [
+        "take",
+        "catch",
+        "grab"
+      ],
+      "expected_top1_any": [
+        "take",
+        "catch"
+      ],
+      "forbidden_top1": [
+        "fuck",
+        "bang"
+      ],
+      "forbidden_any": [
+        "fuck",
+        "bang"
+      ],
+      "notes": "Common verb with strong regional/slang leakage; take/catch should survive while sexual slang senses stay out of the candidate set."
+    },
+    {
+      "case_id": "en-es:canal",
+      "pair": "en-es",
+      "target": "canal",
+      "tier": "hard",
+      "expected_any": [
+        "canal",
+        "channel"
+      ],
+      "expected_top1_any": [
+        "canal",
+        "channel"
+      ],
+      "forbidden_top1": [
+        "cleavage"
+      ],
+      "forbidden_any": [],
+      "notes": "Technical/domain competition case around waterway/channel senses; keep anatomical cleavage noise from dominating the bare lemma."
+    },
+    {
+      "case_id": "en-es:clave",
+      "pair": "en-es",
+      "target": "clave",
+      "tier": "hard",
+      "expected_any": [
+        "key",
+        "password"
+      ],
+      "expected_top1_any": [
+        "key"
+      ],
+      "forbidden_top1": [
+        "clef"
+      ],
+      "forbidden_any": [],
+      "notes": "Cross-domain competition case spanning everyday, authentication, and music-adjacent readings; key/password should outrank clef-like drift for the bare lemma."
+    },
+    {
+      "case_id": "en-es:gato",
+      "pair": "en-es",
+      "target": "gato",
+      "tier": "hard",
+      "expected_any": [
+        "cat"
+      ],
+      "expected_top1_any": [
+        "cat"
+      ],
+      "forbidden_top1": [
+        "tic-tac-toe",
+        "c-clamp"
+      ],
+      "forbidden_any": [],
+      "notes": "Everyday-vs-tool/game competition case; cat should lead while game/tool side senses stay out of bare-lemma top-1."
+    },
+    {
+      "case_id": "en-es:masa",
+      "pair": "en-es",
+      "target": "masa",
+      "tier": "hard",
+      "expected_any": [
+        "mass",
+        "dough"
+      ],
+      "expected_top1_any": [
+        "mass",
+        "dough"
+      ],
+      "forbidden_top1": [
+        "drove"
+      ],
+      "forbidden_any": [],
+      "notes": "Broad-vs-domain competition case spanning physics and food readings; allow mass/dough while blocking drove-like noise from top-1."
+    },
+    {
+      "case_id": "en-es:señal",
+      "pair": "en-es",
+      "target": "señal",
+      "tier": "smoke",
+      "expected_any": [
+        "signal",
+        "sign"
+      ],
+      "expected_top1_any": [
+        "signal"
+      ],
+      "forbidden_top1": [
+        "landmark",
+        "reminder"
+      ],
+      "forbidden_any": [],
+      "notes": "Review-boundary noun balancing signal/sign against weaker reminder/landmark drift; signal should be the preferred top-1."
+    },
+    {
+      "case_id": "en-es:batería",
+      "pair": "en-es",
+      "target": "batería",
+      "tier": "hard",
+      "expected_any": [
+        "battery",
+        "drum kit"
+      ],
+      "expected_top1_any": [
+        "battery"
+      ],
+      "forbidden_top1": [
+        "drummer",
+        "set"
+      ],
+      "forbidden_any": [],
+      "notes": "Everyday electrical noun with music-side competition; battery should dominate the bare lemma while drummer/set stay out of top-1."
+    },
+    {
+      "case_id": "en-es:llevar",
+      "pair": "en-es",
+      "target": "llevar",
+      "tier": "smoke",
+      "expected_any": [
+        "take",
+        "carry",
+        "bring",
+        "wear"
+      ],
+      "expected_top1_any": [
+        "take",
+        "carry"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Phrase-sensitive common verb with broad lexical coverage; take/carry should lead without overpenalizing rarer but real senses like bear."
+    },
+    {
+      "case_id": "en-es:carta",
+      "pair": "en-es",
+      "target": "carta",
+      "tier": "hard",
+      "expected_any": [
+        "letter",
+        "menu",
+        "playing card"
+      ],
+      "expected_top1_any": [
+        "letter"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Broad everyday noun spanning document, restaurant, and card readings; letter should be the preferred bare-lemma top-1 without forbidding the other common senses."
+    },
+    {
+      "case_id": "en-es:radio",
+      "pair": "en-es",
+      "target": "radio",
+      "tier": "hard",
+      "expected_any": [
+        "radio",
+        "radius"
+      ],
+      "expected_top1_any": [
+        "radio"
+      ],
+      "forbidden_top1": [
+        "radium"
+      ],
+      "forbidden_any": [],
+      "notes": "Communication-vs-geometry competition case; the everyday device sense should outrank rarer technical drift like radium."
+    },
+    {
+      "case_id": "en-es:cadena",
+      "pair": "en-es",
+      "target": "cadena",
+      "tier": "hard",
+      "expected_any": [
+        "chain",
+        "network",
+        "channel"
+      ],
+      "expected_top1_any": [
+        "chain"
+      ],
+      "forbidden_top1": [
+        "string"
+      ],
+      "forbidden_any": [],
+      "notes": "Physical-vs-media/computing competition case; chain should lead while string-like technical drift stays out of bare-lemma top-1."
+    },
+    {
+      "case_id": "en-es:nota",
+      "pair": "en-es",
+      "target": "nota",
+      "tier": "smoke",
+      "expected_any": [
+        "note",
+        "mark"
+      ],
+      "expected_top1_any": [
+        "note"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Everyday ranking-boundary noun balancing note against academic-score drift; note should be the preferred top-1."
+    },
+    {
+      "case_id": "en-es:sección",
+      "pair": "en-es",
+      "target": "sección",
+      "tier": "smoke",
+      "expected_any": [
+        "section",
+        "department",
+        "part"
+      ],
+      "expected_top1_any": [
+        "section"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Structured noun with light organization-vs-part competition; section should lead while department and part remain acceptable alternates."
+    },
+    {
+      "case_id": "en-es:seña",
+      "pair": "en-es",
+      "target": "seña",
+      "tier": "smoke",
+      "expected_any": [
+        "sign",
+        "gesture"
+      ],
+      "expected_top1_any": [
+        "sign"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Signal-family sibling with gesture competition; sign should be the preferred bare-lemma top-1."
+    },
+    {
+      "case_id": "en-es:perfil",
+      "pair": "en-es",
+      "target": "perfil",
+      "tier": "smoke",
+      "expected_any": [
+        "profile",
+        "side view"
+      ],
+      "expected_top1_any": [
+        "profile"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Modern noun balancing general profile against geometric side-view readings; profile should dominate the bare lemma."
+    },
+    {
+      "case_id": "en-es:archivo",
+      "pair": "en-es",
+      "target": "archivo",
+      "tier": "hard",
+      "expected_any": [
+        "file",
+        "archive"
+      ],
+      "expected_top1_any": [
+        "file"
+      ],
+      "forbidden_top1": [
+        "filing cabinet"
+      ],
+      "forbidden_any": [],
+      "notes": "Computing-vs-recordkeeping noun where the modern file sense should outrank archive and cabinet-style drift for the bare lemma."
+    },
+    {
+      "case_id": "en-es:puerto",
+      "pair": "en-es",
+      "target": "puerto",
+      "tier": "hard",
+      "expected_any": [
+        "port",
+        "harbor",
+        "harbour"
+      ],
+      "expected_top1_any": [
+        "port"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Communication-network sibling case where the shared port reading should stay strong without excluding the everyday harbour sense."
+    },
+    {
+      "case_id": "en-es:ratón",
+      "pair": "en-es",
+      "target": "ratón",
+      "tier": "hard",
+      "expected_any": [
+        "mouse"
+      ],
+      "expected_top1_any": [
+        "mouse"
+      ],
+      "forbidden_top1": [
+        "hangover"
+      ],
+      "forbidden_any": [],
+      "notes": "Animal-vs-computing convergence case where both major senses collapse to mouse; only the unrelated hangover sense should stay out of top-1."
+    },
+    {
+      "case_id": "en-es:tecla",
+      "pair": "en-es",
+      "target": "tecla",
+      "tier": "smoke",
+      "expected_any": [
+        "key",
+        "button"
+      ],
+      "expected_top1_any": [
+        "key"
+      ],
+      "forbidden_top1": [
+        "trigger"
+      ],
+      "forbidden_any": [],
+      "notes": "Interface-and-instrument noun where key should lead while button remains acceptable and trigger-style topic drift stays out of top-1."
+    },
+    {
+      "case_id": "en-es:trama",
+      "pair": "en-es",
+      "target": "trama",
+      "tier": "hard",
+      "expected_any": [
+        "plot",
+        "weave",
+        "grid"
+      ],
+      "expected_top1_any": [
+        "plot"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Art-media vs structure noun balancing story-plot against weave and grid readings; plot should be the preferred bare-lemma top-1."
+    },
+    {
+      "case_id": "en-es:margen",
+      "pair": "en-es",
+      "target": "margen",
+      "tier": "smoke",
+      "expected_any": [
+        "margin",
+        "edge"
+      ],
+      "expected_top1_any": [
+        "margin"
+      ],
+      "forbidden_top1": [
+        "river bank"
+      ],
+      "forbidden_any": [],
+      "notes": "Layout-vs-geography noun where margin should lead, edge remains acceptable, and river-bank drift should stay out of top-1."
+    },
+    {
+      "case_id": "en-es:carpeta",
+      "pair": "en-es",
+      "target": "carpeta",
+      "tier": "hard",
+      "expected_any": [
+        "folder",
+        "directory"
+      ],
+      "expected_top1_any": [
+        "folder"
+      ],
+      "forbidden_top1": [
+        "carpet",
+        "hotel reception desk"
+      ],
+      "forbidden_any": [],
+      "notes": "Computing-vs-physical-container noun where folder should lead, directory remains acceptable, and carpet-style drift should stay out of top-1."
+    },
+    {
+      "case_id": "en-es:directorio",
+      "pair": "en-es",
+      "target": "directorio",
+      "tier": "smoke",
+      "expected_any": [
+        "directory"
+      ],
+      "expected_top1_any": [
+        "directory"
+      ],
+      "forbidden_top1": [
+        "directive"
+      ],
+      "forbidden_any": [],
+      "notes": "Computing-and-reference noun where directory should dominate the bare lemma and directive-style drift should stay out of top-1."
+    },
+    {
+      "case_id": "en-es:navegador",
+      "pair": "en-es",
+      "target": "navegador",
+      "tier": "hard",
+      "expected_any": [
+        "browser",
+        "navigator"
+      ],
+      "expected_top1_any": [
+        "browser"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Modern computing-vs-agent noun where browser should be the preferred bare-lemma top-1 while navigator remains an allowed alternate."
+    },
+    {
+      "case_id": "en-es:celda",
+      "pair": "en-es",
+      "target": "celda",
+      "tier": "hard",
+      "expected_any": [
+        "cell",
+        "prison cell"
+      ],
+      "expected_top1_any": [
+        "cell"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "General-vs-institutional noun where cell should be preferred while prison cell remains acceptable for the bare lemma."
+    },
+    {
+      "case_id": "en-es:pestaña",
+      "pair": "en-es",
+      "target": "pestaña",
+      "tier": "hard",
+      "expected_any": [
+        "eyelash",
+        "tab"
+      ],
+      "expected_top1_any": [
+        "eyelash"
+      ],
+      "forbidden_top1": [
+        "flange"
+      ],
+      "forbidden_any": [],
+      "notes": "Body-part-vs-interface noun where eyelash should remain the preferred bare-lemma top-1 while tab stays acceptable as the computing-side alternate."
+    },
+    {
+      "case_id": "en-es:puente",
+      "pair": "en-es",
+      "target": "puente",
+      "tier": "smoke",
+      "expected_any": [
+        "bridge"
+      ],
+      "expected_top1_any": [
+        "bridge"
+      ],
+      "forbidden_top1": [
+        "long weekend"
+      ],
+      "forbidden_any": [],
+      "notes": "Infrastructure-vs-idiom noun where bridge should dominate the bare lemma and long-weekend drift should stay out of top-1."
+    },
+    {
+      "case_id": "en-es:móvil",
+      "pair": "en-es",
+      "target": "móvil",
+      "tier": "hard",
+      "expected_any": [
+        "cell phone",
+        "mobile phone"
+      ],
+      "expected_top1_any": [
+        "cell phone",
+        "mobile phone"
+      ],
+      "forbidden_top1": [
+        "motive"
+      ],
+      "forbidden_any": [],
+      "notes": "Modern everyday noun where the phone reading should dominate the bare lemma rather than adjective-like mobile drift."
+    },
+    {
+      "case_id": "en-es:servidor",
+      "pair": "en-es",
+      "target": "servidor",
+      "tier": "smoke",
+      "expected_any": [
+        "server"
+      ],
+      "expected_top1_any": [
+        "server"
+      ],
+      "forbidden_top1": [
+        "urinal"
+      ],
+      "forbidden_any": [],
+      "notes": "Computing noun where server should clearly dominate the bare lemma and urinal-style drift should stay out of top-1."
+    },
+    {
+      "case_id": "en-es:ventana",
+      "pair": "en-es",
+      "target": "ventana",
+      "tier": "smoke",
+      "expected_any": [
+        "window"
+      ],
+      "expected_top1_any": [
+        "window"
+      ],
+      "forbidden_top1": [
+        "nostril"
+      ],
+      "forbidden_any": [],
+      "notes": "Everyday-and-computing noun where window should dominate the bare lemma and nostril drift should stay out of top-1."
+    },
+    {
+      "case_id": "en-es:hilo",
+      "pair": "en-es",
+      "target": "hilo",
+      "tier": "smoke",
+      "expected_any": [
+        "thread",
+        "string"
+      ],
+      "expected_top1_any": [
+        "thread"
+      ],
+      "forbidden_top1": [
+        "crosshair",
+        "reticule"
+      ],
+      "forbidden_any": [],
+      "notes": "Thread-family noun where thread should lead while string remains acceptable and target-like optical drift stays out of top-1."
+    },
+    {
+      "case_id": "en-es:portal",
+      "pair": "en-es",
+      "target": "portal",
+      "tier": "smoke",
+      "expected_any": [
+        "portal"
+      ],
+      "expected_top1_any": [
+        "portal"
+      ],
+      "forbidden_top1": [
+        "porch"
+      ],
+      "forbidden_any": [],
+      "notes": "Modern shared-form noun where portal should stay preferred for the bare lemma and porch should stay out of top-1."
+    },
+    {
+      "case_id": "en-es:enlace",
+      "pair": "en-es",
+      "target": "enlace",
+      "tier": "hard",
+      "expected_any": [
+        "link",
+        "bond"
+      ],
+      "expected_top1_any": [
+        "link"
+      ],
+      "forbidden_top1": [
+        "marriage"
+      ],
+      "forbidden_any": [],
+      "notes": "Computing-and-relationship noun where link should lead while bond remains acceptable and marriage-style drift should stay out of top-1."
+    },
+    {
+      "case_id": "en-es:pantalla",
+      "pair": "en-es",
+      "target": "pantalla",
+      "tier": "hard",
+      "expected_any": [
+        "screen"
+      ],
+      "expected_top1_any": [
+        "screen"
+      ],
+      "forbidden_top1": [
+        "lampshade"
+      ],
+      "forbidden_any": [],
+      "notes": "Everyday-and-interface noun where screen should dominate the bare lemma and lampshade drift should stay out of top-1."
+    },
+    {
+      "case_id": "en-es:sitio",
+      "pair": "en-es",
+      "target": "sitio",
+      "tier": "hard",
+      "expected_any": [
+        "site",
+        "place"
+      ],
+      "expected_top1_any": [
+        "site"
+      ],
+      "forbidden_top1": [
+        "siege"
+      ],
+      "forbidden_any": [],
+      "notes": "Modern location noun where site should be the preferred bare-lemma top-1 while place remains acceptable and siege stays out of top-1."
+    },
+    {
+      "case_id": "en-es:aplicación",
+      "pair": "en-es",
+      "target": "aplicación",
+      "tier": "smoke",
+      "expected_any": [
+        "application"
+      ],
+      "expected_top1_any": [
+        "application"
+      ],
+      "forbidden_top1": [
+        "use"
+      ],
+      "forbidden_any": [],
+      "notes": "Computing-and-general noun where application should dominate the bare lemma and use should stay out of top-1."
+    },
+    {
+      "case_id": "en-es:mensaje",
+      "pair": "en-es",
+      "target": "mensaje",
+      "tier": "smoke",
+      "expected_any": [
+        "message"
+      ],
+      "expected_top1_any": [
+        "message"
+      ],
+      "forbidden_top1": [
+        "speech"
+      ],
+      "forbidden_any": [],
+      "notes": "Communication noun where message should clearly dominate the bare lemma and speech drift should stay out of top-1."
+    },
+    {
+      "case_id": "en-es:nodo",
+      "pair": "en-es",
+      "target": "nodo",
+      "tier": "smoke",
+      "expected_any": [
+        "node"
+      ],
+      "expected_top1_any": [
+        "node"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Network-and-structure noun where node should clearly dominate the bare lemma."
+    },
+    {
+      "case_id": "en-es:banda",
+      "pair": "en-es",
+      "target": "banda",
+      "tier": "hard",
+      "expected_any": [
+        "band",
+        "gang",
+        "sash"
+      ],
+      "expected_top1_any": [
+        "band"
+      ],
+      "forbidden_top1": [
+        "bend"
+      ],
+      "forbidden_any": [],
+      "notes": "Social-group-vs-object noun where band should be the preferred bare-lemma top-1 while gang and sash remain acceptable alternates."
+    },
+    {
+      "case_id": "en-es:registro",
+      "pair": "en-es",
+      "target": "registro",
+      "tier": "hard",
+      "expected_any": [
+        "record",
+        "register",
+        "log",
+        "registration"
+      ],
+      "expected_top1_any": [
+        "record",
+        "register"
+      ],
+      "forbidden_top1": [
+        "search"
+      ],
+      "forbidden_any": [],
+      "notes": "Recordkeeping-and-computing noun where record or register should lead while log and registration remain acceptable and search drift stays out of top-1."
+    },
+    {
+      "case_id": "en-es:patrón",
+      "pair": "en-es",
+      "target": "patrón",
+      "tier": "hard",
+      "expected_any": [
+        "pattern",
+        "boss",
+        "master"
+      ],
+      "expected_top1_any": [
+        "pattern"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Abstract-vs-person noun where pattern should be the preferred bare-lemma top-1 while boss and master remain acceptable alternates."
+    },
+    {
+      "case_id": "en-es:trazo",
+      "pair": "en-es",
+      "target": "trazo",
+      "tier": "smoke",
+      "expected_any": [
+        "line",
+        "stroke",
+        "outline"
+      ],
+      "expected_top1_any": [
+        "line"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Drawing-and-structure noun where line should lead while stroke and outline remain acceptable alternates."
+    },
+    {
+      "case_id": "en-es:tráfico",
+      "pair": "en-es",
+      "target": "tráfico",
+      "tier": "smoke",
+      "expected_any": [
+        "traffic"
+      ],
+      "expected_top1_any": [
+        "traffic"
+      ],
+      "forbidden_top1": [
+        "smuggle"
+      ],
+      "forbidden_any": [],
+      "notes": "Movement-and-transport noun where traffic should dominate the bare lemma and smuggle should stay out of top-1."
+    },
+    {
+      "case_id": "en-es:mando",
+      "pair": "en-es",
+      "target": "mando",
+      "tier": "hard",
+      "expected_any": [
+        "controller",
+        "gamepad",
+        "command"
+      ],
+      "expected_top1_any": [
+        "controller"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Modern device-vs-abstract noun where controller should be the preferred bare-lemma top-1 while gamepad and command remain acceptable alternates."
+    }
+  ]
+}

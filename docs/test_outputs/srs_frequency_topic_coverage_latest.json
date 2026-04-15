@@ -1,0 +1,465 @@
+{
+  "generated_at": "2026-04-14T22:58:37.291690+00:00",
+  "topic_columns_requested": [
+    "sense_topics",
+    "topics",
+    "topic",
+    "profile_topics"
+  ],
+  "frontier_limit": 800,
+  "audits": [
+    {
+      "db_path": "C:\\Users\\kuuko\\AppData\\Roaming\\LexiShift\\LexiShift\\frequency_packs\\freq-en-coca.sqlite",
+      "exists": true,
+      "table_name": "frequency",
+      "row_count": 6100,
+      "available_columns": [
+        "rank",
+        "lemma",
+        "pos",
+        "freq",
+        "permil",
+        "pct_caps",
+        "pct_allc",
+        "range",
+        "disp",
+        "blog",
+        "web",
+        "tvm",
+        "spok",
+        "fic",
+        "mag",
+        "news",
+        "acad",
+        "blogpm",
+        "webpm",
+        "tvmpm",
+        "spokpm",
+        "ficpm",
+        "magpm",
+        "newspm",
+        "acadpm"
+      ],
+      "topic_columns_requested": [
+        "sense_topics",
+        "topics",
+        "topic",
+        "profile_topics"
+      ],
+      "topic_columns_present": [],
+      "topic_columns_missing": [
+        "sense_topics",
+        "topics",
+        "topic",
+        "profile_topics"
+      ],
+      "any_topic_rows": 0,
+      "topic_columns": {},
+      "frontier": {
+        "limit_requested": 800,
+        "row_count": 0,
+        "resolved_rank_column": "rank",
+        "resolved_topic_columns": [],
+        "rows_with_raw_topics": 0,
+        "rows_with_canonical_topics": 0,
+        "raw_topic_coverage_ratio": 0.0,
+        "canonical_topic_coverage_ratio": 0.0,
+        "top_raw_topics": [],
+        "top_canonical_topics": []
+      }
+    },
+    {
+      "db_path": "C:\\Users\\kuuko\\AppData\\Roaming\\LexiShift\\LexiShift\\frequency_packs\\freq-es-cde.sqlite",
+      "exists": true,
+      "table_name": "frequency",
+      "row_count": 2000,
+      "available_columns": [
+        "id",
+        "freq",
+        "lemma",
+        "pos",
+        "sense_topics"
+      ],
+      "topic_columns_requested": [
+        "sense_topics",
+        "topics",
+        "topic",
+        "profile_topics"
+      ],
+      "topic_columns_present": [
+        "sense_topics"
+      ],
+      "topic_columns_missing": [
+        "topics",
+        "topic",
+        "profile_topics"
+      ],
+      "any_topic_rows": 239,
+      "topic_columns": {
+        "sense_topics": {
+          "nonempty_rows": 239,
+          "nonempty_ratio": 0.1195,
+          "sample_values": [
+            "[\"mathematics\", \"sciences\"]",
+            "[\"business\", \"electrical-engineering\", \"electricity\", \"electromagnetism\", \"electronics\", \"energy\", \"engineering\", \"natural-sciences\", \"physical-sciences\", \"physics\"]",
+            "[\"entertainment\", \"lifestyle\", \"music\", \"government\", \"military\", \"politics\", \"war\", \"nautical\", \"transport\"]",
+            "[\"education\"]",
+            "[\"law\", \"government\"]"
+          ]
+        }
+      },
+      "frontier": {
+        "limit_requested": 800,
+        "row_count": 800,
+        "resolved_rank_column": "id",
+        "resolved_topic_columns": [
+          "sense_topics"
+        ],
+        "rows_with_raw_topics": 126,
+        "rows_with_canonical_topics": 126,
+        "raw_topic_coverage_ratio": 0.1575,
+        "canonical_topic_coverage_ratio": 0.1575,
+        "top_raw_topics": [
+          {
+            "topic": "lifestyle",
+            "count": 42
+          },
+          {
+            "topic": "sciences",
+            "count": 40
+          },
+          {
+            "topic": "natural_sciences",
+            "count": 30
+          },
+          {
+            "topic": "hobbies",
+            "count": 27
+          },
+          {
+            "topic": "sports",
+            "count": 23
+          },
+          {
+            "topic": "medicine",
+            "count": 18
+          },
+          {
+            "topic": "physical_sciences",
+            "count": 16
+          },
+          {
+            "topic": "mathematics",
+            "count": 15
+          },
+          {
+            "topic": "entertainment",
+            "count": 14
+          },
+          {
+            "topic": "anatomy",
+            "count": 14
+          }
+        ],
+        "top_canonical_topics": [
+          {
+            "topic": "lifestyle",
+            "count": 42
+          },
+          {
+            "topic": "sciences",
+            "count": 40
+          },
+          {
+            "topic": "natural_sciences",
+            "count": 30
+          },
+          {
+            "topic": "hobbies",
+            "count": 27
+          },
+          {
+            "topic": "sports",
+            "count": 23
+          },
+          {
+            "topic": "medicine",
+            "count": 18
+          },
+          {
+            "topic": "physical_sciences",
+            "count": 16
+          },
+          {
+            "topic": "mathematics",
+            "count": 15
+          },
+          {
+            "topic": "entertainment",
+            "count": 14
+          },
+          {
+            "topic": "anatomy",
+            "count": 14
+          }
+        ]
+      }
+    },
+    {
+      "db_path": "C:\\Users\\kuuko\\AppData\\Roaming\\LexiShift\\LexiShift\\frequency_packs\\freq-ja-bccwj.sqlite",
+      "exists": true,
+      "table_name": "frequency",
+      "row_count": 185136,
+      "available_columns": [
+        "rank",
+        "lform",
+        "lemma",
+        "pos",
+        "sublemma",
+        "wtype",
+        "frequency",
+        "pmw",
+        "pb_rank",
+        "pb_frequency",
+        "pb_pmw",
+        "pm_rank",
+        "pm_frequency",
+        "pm_pmw",
+        "pn_rank",
+        "pn_frequency",
+        "pn_pmw",
+        "lb_rank",
+        "lb_frequency",
+        "lb_pmw",
+        "ow_rank",
+        "ow_frequency",
+        "ow_pmw",
+        "ot_rank",
+        "ot_frequency",
+        "ot_pmw",
+        "op_rank",
+        "op_frequency",
+        "op_pmw",
+        "ob_rank",
+        "ob_frequency",
+        "ob_pmw",
+        "oc_rank",
+        "oc_frequency",
+        "oc_pmw",
+        "oy_rank",
+        "oy_frequency",
+        "oy_pmw",
+        "ov_rank",
+        "ov_frequency",
+        "ov_pmw",
+        "ol_rank",
+        "ol_frequency",
+        "ol_pmw",
+        "om_rank",
+        "om_frequency",
+        "om_pmw",
+        "pb_fixed_rank",
+        "pb_fixed_frequency",
+        "pb_fixed_pmw",
+        "pb_variable_rank",
+        "pb_variable_frequency",
+        "pb_variable_pmw",
+        "pm_fixed_rank",
+        "pm_fixed_frequency",
+        "pm_fixed_pmw",
+        "pm_variable_rank",
+        "pm_variable_frequency",
+        "pm_variable_pmw",
+        "pn_fixed_rank",
+        "pn_fixed_frequency",
+        "pn_fixed_pmw",
+        "pn_variable_rank",
+        "pn_variable_frequency",
+        "pn_variable_pmw",
+        "lb_fixed_rank",
+        "lb_fixed_frequency",
+        "lb_fixed_pmw",
+        "lb_variable_rank",
+        "lb_variable_frequency",
+        "lb_variable_pmw",
+        "ow_fixed_rank",
+        "ow_fixed_frequency",
+        "ow_fixed_pmw",
+        "ow_variable_rank",
+        "ow_variable_frequency",
+        "ow_variable_pmw",
+        "core_rank",
+        "core_frequency",
+        "core_pmw",
+        "sense_topics"
+      ],
+      "topic_columns_requested": [
+        "sense_topics",
+        "topics",
+        "topic",
+        "profile_topics"
+      ],
+      "topic_columns_present": [
+        "sense_topics"
+      ],
+      "topic_columns_missing": [
+        "topics",
+        "topic",
+        "profile_topics"
+      ],
+      "any_topic_rows": 5294,
+      "topic_columns": {
+        "sense_topics": {
+          "nonempty_rows": 5294,
+          "nonempty_ratio": 0.028595,
+          "sample_values": [
+            "[\"card-games\", \"games\", \"board-games\", \"mahjong\"]",
+            "[\"board-games\", \"games\", \"mahjong\"]",
+            "[\"law\"]",
+            "[\"archery\", \"government\", \"hobbies\", \"lifestyle\", \"martial-arts\", \"military\", \"politics\", \"sports\", \"war\"]",
+            "[\"astronomy\", \"natural-sciences\", \"human-sciences\", \"mysticism\", \"philosophy\", \"sciences\", \"tarot\"]"
+          ]
+        }
+      },
+      "frontier": {
+        "limit_requested": 800,
+        "row_count": 800,
+        "resolved_rank_column": "core_rank",
+        "resolved_topic_columns": [
+          "sense_topics"
+        ],
+        "rows_with_raw_topics": 101,
+        "rows_with_canonical_topics": 101,
+        "raw_topic_coverage_ratio": 0.12625,
+        "canonical_topic_coverage_ratio": 0.12625,
+        "top_raw_topics": [
+          {
+            "topic": "sciences",
+            "count": 37
+          },
+          {
+            "topic": "lifestyle",
+            "count": 32
+          },
+          {
+            "topic": "mathematics",
+            "count": 21
+          },
+          {
+            "topic": "natural_sciences",
+            "count": 20
+          },
+          {
+            "topic": "human_sciences",
+            "count": 18
+          },
+          {
+            "topic": "games",
+            "count": 17
+          },
+          {
+            "topic": "religion",
+            "count": 15
+          },
+          {
+            "topic": "hobbies",
+            "count": 13
+          },
+          {
+            "topic": "buddhism",
+            "count": 13
+          },
+          {
+            "topic": "board_games",
+            "count": 11
+          }
+        ],
+        "top_canonical_topics": [
+          {
+            "topic": "sciences",
+            "count": 37
+          },
+          {
+            "topic": "lifestyle",
+            "count": 32
+          },
+          {
+            "topic": "mathematics",
+            "count": 21
+          },
+          {
+            "topic": "natural_sciences",
+            "count": 20
+          },
+          {
+            "topic": "human_sciences",
+            "count": 18
+          },
+          {
+            "topic": "games",
+            "count": 17
+          },
+          {
+            "topic": "religion",
+            "count": 15
+          },
+          {
+            "topic": "hobbies",
+            "count": 13
+          },
+          {
+            "topic": "buddhism",
+            "count": 13
+          },
+          {
+            "topic": "board_games",
+            "count": 11
+          }
+        ]
+      }
+    }
+  ],
+  "findings": [
+    {
+      "level": "WARN",
+      "code": "TOPIC_COLUMNS_ABSENT",
+      "db_path": "C:\\Users\\kuuko\\AppData\\Roaming\\LexiShift\\LexiShift\\frequency_packs\\freq-en-coca.sqlite",
+      "message": "No requested topic columns are present, so profile-topic matching would rely on lexical exact-match fallback only.",
+      "details": "sense_topics, topics, topic, profile_topics"
+    },
+    {
+      "level": "PASS",
+      "code": "TOPIC_COLUMNS_PRESENT",
+      "db_path": "C:\\Users\\kuuko\\AppData\\Roaming\\LexiShift\\LexiShift\\frequency_packs\\freq-es-cde.sqlite",
+      "message": "Topic columns are present with non-empty rows.",
+      "details": "sense_topics"
+    },
+    {
+      "level": "PASS",
+      "code": "FRONTIER_TOPICS_PRESENT",
+      "db_path": "C:\\Users\\kuuko\\AppData\\Roaming\\LexiShift\\LexiShift\\frequency_packs\\freq-es-cde.sqlite",
+      "message": "Bootstrap frontier contains candidates with canonical topic metadata.",
+      "details": "rows=800, canonical_rows=126"
+    },
+    {
+      "level": "PASS",
+      "code": "TOPIC_COLUMNS_PRESENT",
+      "db_path": "C:\\Users\\kuuko\\AppData\\Roaming\\LexiShift\\LexiShift\\frequency_packs\\freq-ja-bccwj.sqlite",
+      "message": "Topic columns are present with non-empty rows.",
+      "details": "sense_topics"
+    },
+    {
+      "level": "PASS",
+      "code": "FRONTIER_TOPICS_PRESENT",
+      "db_path": "C:\\Users\\kuuko\\AppData\\Roaming\\LexiShift\\LexiShift\\frequency_packs\\freq-ja-bccwj.sqlite",
+      "message": "Bootstrap frontier contains candidates with canonical topic metadata.",
+      "details": "rows=800, canonical_rows=101"
+    }
+  ],
+  "summary": {
+    "status": "WARN",
+    "pass_count": 4,
+    "warn_count": 1,
+    "fail_count": 0
+  }
+}

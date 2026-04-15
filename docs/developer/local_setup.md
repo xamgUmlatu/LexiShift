@@ -288,4 +288,5 @@ Notes:
 
 - Architecture status + map: `../architecture/README.md`
 - Full docs map: `../README.md`
+- Local workstation inventory and remote-access notes: `local_machine_reference.md`
 - Script categories and common entry points: `../../scripts/README.md`

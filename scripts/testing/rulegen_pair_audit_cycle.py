@@ -7,6 +7,7 @@ from pathlib import Path
 import shlex
 import subprocess
 import sys
+from typing import Sequence
 
 from rulegen_reverse_profiles import REVERSE_CHECK_PROFILES
 
@@ -30,6 +31,26 @@ def _run_command(command: list[str]) -> int:
 
 def _load_json(path: Path) -> dict[str, object]:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _advisory_required_pairs_mode(*, pairs: Sequence[str], policy_json: Path) -> bool:
+    normalized_pairs = [
+        str(item or "").strip().lower() for item in pairs if str(item or "").strip()
+    ]
+    if len(normalized_pairs) != 1:
+        return False
+    pair = normalized_pairs[0]
+    try:
+        policy_payload = _load_json(policy_json)
+    except Exception:  # noqa: BLE001
+        return False
+    required = policy_payload.get("required_benchmark_pairs")
+    required_pairs = (
+        {str(item).strip().lower() for item in required if str(item).strip()}
+        if isinstance(required, list)
+        else set()
+    )
+    return pair not in required_pairs
 
 
 def _resolve_repo_path(path: Path) -> Path:
@@ -88,6 +109,9 @@ def _summarize_triage(path: Path) -> None:
 def _build_cycle_commands(
     *,
     pairs: list[str],
+    benchmark_preset: str | None = None,
+    jmdict: Path | None,
+    translation_dict: Path | None,
     max_definitions_values: str,
     max_rules_values: str,
     confidence_threshold_values: str,
@@ -113,46 +137,87 @@ def _build_cycle_commands(
     baseline_json: Path,
     pos_probe_json: Path,
     pos_inventory_json: Path,
+    advisory_required_pairs: bool = False,
 ) -> tuple[list[str], list[str], list[str], list[str]]:
     benchmark_cmd = [
         sys.executable,
         str(PROJECT_ROOT / "scripts" / "testing" / "rulegen_benchmark.py"),
-        "--pairs",
-        ",".join(pairs),
-        "--max-definitions-values",
-        str(max_definitions_values),
-        "--max-rules-values",
-        str(max_rules_values),
-        "--confidence-threshold-values",
-        str(confidence_threshold_values),
-        "--semantic-demotion-scale-values",
-        str(semantic_demotion_scale_values),
-        "--include-variants-values",
-        str(include_variants_values),
-        "--pos-scoring-values",
-        str(pos_scoring_values),
-        "--score-weight-pos-values",
-        str(score_weight_pos_values),
-        "--reverse-check-enabled-values",
-        str(reverse_enabled_values),
-        "--reverse-check-match-bonus-values",
-        str(reverse_match_bonus_values),
-        "--reverse-check-near-bonus-values",
-        str(reverse_near_bonus_values),
-        "--reverse-check-near-rank-max-values",
-        str(reverse_near_rank_max_values),
-        "--reverse-check-far-hit-penalty-values",
-        str(reverse_far_hit_penalty_values),
-        "--reverse-check-miss-penalty-values",
-        str(reverse_miss_penalty_values),
-        "--max-configurations",
-        str(int(max_configurations)),
-        "--top-runs",
-        str(int(top_runs)),
-        "--compute-only",
-        "--json-output",
-        str(benchmark_json),
     ]
+    if benchmark_preset:
+        benchmark_cmd.extend(
+            [
+                "--preset",
+                str(benchmark_preset),
+            ]
+        )
+    if jmdict is not None:
+        benchmark_cmd.extend(
+            [
+                "--jmdict",
+                str(jmdict),
+            ]
+        )
+    if translation_dict is not None:
+        benchmark_cmd.extend(
+            [
+                "--translation-dict-en-ja",
+                str(translation_dict),
+            ]
+        )
+    if benchmark_preset:
+        benchmark_cmd.extend(
+            [
+                "--pairs",
+                ",".join(pairs),
+                "--max-configurations",
+                str(int(max_configurations)),
+                "--top-runs",
+                str(int(top_runs)),
+                "--compute-only",
+                "--json-output",
+                str(benchmark_json),
+            ]
+        )
+    else:
+        benchmark_cmd.extend(
+            [
+                "--pairs",
+                ",".join(pairs),
+                "--max-definitions-values",
+                str(max_definitions_values),
+                "--max-rules-values",
+                str(max_rules_values),
+                "--confidence-threshold-values",
+                str(confidence_threshold_values),
+                "--semantic-demotion-scale-values",
+                str(semantic_demotion_scale_values),
+                "--include-variants-values",
+                str(include_variants_values),
+                "--pos-scoring-values",
+                str(pos_scoring_values),
+                "--score-weight-pos-values",
+                str(score_weight_pos_values),
+                "--reverse-check-enabled-values",
+                str(reverse_enabled_values),
+                "--reverse-check-match-bonus-values",
+                str(reverse_match_bonus_values),
+                "--reverse-check-near-bonus-values",
+                str(reverse_near_bonus_values),
+                "--reverse-check-near-rank-max-values",
+                str(reverse_near_rank_max_values),
+                "--reverse-check-far-hit-penalty-values",
+                str(reverse_far_hit_penalty_values),
+                "--reverse-check-miss-penalty-values",
+                str(reverse_miss_penalty_values),
+                "--max-configurations",
+                str(int(max_configurations)),
+                "--top-runs",
+                str(int(top_runs)),
+                "--compute-only",
+                "--json-output",
+                str(benchmark_json),
+            ]
+        )
     render_cmd = [
         sys.executable,
         str(PROJECT_ROOT / "scripts" / "testing" / "rulegen_benchmark.py"),
@@ -181,6 +246,8 @@ def _build_cycle_commands(
         "--json-out",
         str(quality_gate_json),
     ]
+    if advisory_required_pairs:
+        gate_cmd.append("--advisory-required-pairs")
     triage_cmd = [
         sys.executable,
         str(PROJECT_ROOT / "scripts" / "testing" / "rulegen_benchmark_triage.py"),
@@ -205,6 +272,24 @@ def main() -> None:
         "--pairs",
         default="en-es,en-ja",
         help="Comma-separated language pairs (default: en-es,en-ja).",
+    )
+    parser.add_argument(
+        "--benchmark-preset",
+        help=(
+            "Optional named benchmark preset to forward to rulegen_benchmark.py. "
+            "When set, the preset controls the sweep surface and the wrapper only "
+            "passes pair scoping plus report-output arguments."
+        ),
+    )
+    parser.add_argument(
+        "--jmdict",
+        type=Path,
+        help="Optional JMdict override path to forward to rulegen_benchmark.py.",
+    )
+    parser.add_argument(
+        "--translation-dict",
+        type=Path,
+        help="Optional translation dictionary override to forward to rulegen_benchmark.py.",
     )
     parser.add_argument(
         "--max-definitions-values",
@@ -404,6 +489,19 @@ def main() -> None:
 
     benchmark_cmd, render_cmd, gate_cmd, triage_cmd = _build_cycle_commands(
         pairs=pairs,
+        benchmark_preset=(
+            str(args.benchmark_preset).strip() if args.benchmark_preset is not None else None
+        ),
+        jmdict=args.jmdict,
+        translation_dict=(
+            args.translation_dict
+            if args.translation_dict is not None
+            else (
+                args.jmdict
+                if len(pairs) == 1 and pairs[0] == "en-ja" and args.jmdict is not None
+                else None
+            )
+        ),
         max_definitions_values=str(args.max_definitions_values),
         max_rules_values=str(args.max_rules_values),
         confidence_threshold_values=str(args.confidence_threshold_values),
@@ -429,6 +527,10 @@ def main() -> None:
         baseline_json=args.baseline_json,
         pos_probe_json=args.pos_probe_json,
         pos_inventory_json=args.pos_inventory_json,
+        advisory_required_pairs=_advisory_required_pairs_mode(
+            pairs=pairs,
+            policy_json=args.policy_json,
+        ),
     )
 
     benchmark_rc = _run_command(benchmark_cmd)

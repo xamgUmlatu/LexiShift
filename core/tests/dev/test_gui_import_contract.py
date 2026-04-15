@@ -4,6 +4,7 @@ import importlib
 import os
 from pathlib import Path
 import sys
+import tempfile
 import unittest
 
 os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
@@ -34,6 +35,47 @@ class TestGuiImportContract(unittest.TestCase):
         module = importlib.import_module("settings_language_packs")
 
         self.assertTrue(hasattr(module, "LanguagePackPanel"))
+
+    def test_language_pack_catalog_includes_ja_kaikki_pack(self) -> None:
+        language_packs_catalog = importlib.import_module("language_packs_catalog")
+
+        packs = {pack.pack_id: pack for pack in language_packs_catalog.LANGUAGE_PACKS}
+        pack = packs.get("wiktionary-ja-en")
+
+        self.assertIsNotNone(pack)
+        self.assertEqual(pack.sqlite_filename, "wiktionary-ja-en.sqlite")
+        self.assertEqual(pack.build_mode, "kaikki_glosses_to_sqlite")
+        self.assertEqual(pack.source_lang_code, "ja")
+        self.assertEqual(pack.gloss_language, "en")
+
+    def test_frequency_topic_enrichment_config_uses_companion_sqlite_when_present(self) -> None:
+        language_packs_catalog = importlib.import_module("language_packs_catalog")
+
+        with tempfile.TemporaryDirectory() as tmp:
+            language_packs_dir = Path(tmp)
+            (language_packs_dir / "wiktionary-ja-en.sqlite").write_text("", encoding="utf-8")
+            (language_packs_dir / "wiktionary-es-en.sqlite").write_text("", encoding="utf-8")
+
+            ja_config = language_packs_catalog._frequency_topic_enrichment_config(  # type: ignore[attr-defined]
+                "freq-ja-bccwj",
+                language_packs_dir=language_packs_dir,
+            )
+            es_config = language_packs_catalog._frequency_topic_enrichment_config(  # type: ignore[attr-defined]
+                "freq-es-cde",
+                language_packs_dir=language_packs_dir,
+            )
+            en_config = language_packs_catalog._frequency_topic_enrichment_config(  # type: ignore[attr-defined]
+                "freq-en-coca",
+                language_packs_dir=language_packs_dir,
+            )
+
+        self.assertIsNotNone(ja_config)
+        self.assertEqual(ja_config.source_provider, "wiktionary-ja-en")
+        self.assertEqual(ja_config.source_sqlite_path.name, "wiktionary-ja-en.sqlite")
+        self.assertIsNotNone(es_config)
+        self.assertEqual(es_config.source_provider, "wiktionary-es-en")
+        self.assertEqual(es_config.source_sqlite_path.name, "wiktionary-es-en.sqlite")
+        self.assertIsNone(en_config)
 
 
 if __name__ == "__main__":

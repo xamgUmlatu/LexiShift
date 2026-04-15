@@ -11,8 +11,13 @@ if PROJECT_ROOT not in sys.path:
 
 from lexishift_core.resources.dict_loaders import FreedictGlossRecord  # noqa: E402
 from lexishift_core.rulegen.pairs.en_es import (  # noqa: E402
+    EnEsKaikkiPolicyConfig,
     EnEsRulegenConfig,
     generate_en_es_results,
+)
+from lexishift_core.rulegen.pairs.en_es_support import (  # noqa: E402
+    resolve_kaikki_policy_live_suppression,
+    resolve_kaikki_register_demotion,
 )
 from lexishift_core.rulegen.ranking import ReverseCheckScoringConfig  # noqa: E402
 
@@ -26,6 +31,7 @@ class TestRulegenEnEsKaikkiPolicy(unittest.TestCase):
         reverse_records: dict[str, list[FreedictGlossRecord]] | None = None,
         max_definitions_per_target: int | None = 3,
         allow_multiword_glosses: bool = False,
+        kaikki_policy: EnEsKaikkiPolicyConfig | None = None,
     ):
         return generate_en_es_results(
             [target],
@@ -40,6 +46,7 @@ class TestRulegenEnEsKaikkiPolicy(unittest.TestCase):
                 max_definitions_per_target=max_definitions_per_target,
                 allow_multiword_glosses=allow_multiword_glosses,
                 reverse_check=ReverseCheckScoringConfig(enabled=True),
+                kaikki_policy=kaikki_policy or EnEsKaikkiPolicyConfig(),
             ),
         )
 
@@ -79,6 +86,74 @@ class TestRulegenEnEsKaikkiPolicy(unittest.TestCase):
         self.assertEqual(metadata.get("dictionary_pos_canonical"), "determiner")
         self.assertTrue(bool(metadata.get("reverse_check_hit")))
         self.assertEqual(metadata.get("reverse_check_rank"), 0)
+
+    def test_kaikki_register_demotion_treats_vulgar_as_register_marker(self) -> None:
+        self.assertEqual(
+            resolve_kaikki_register_demotion({"sense_tags": ["Latin-America", "vulgar"]}),
+            0.55,
+        )
+        self.assertEqual(
+            resolve_kaikki_register_demotion({"sense_tags": ["vulgar"]}),
+            0.40,
+        )
+
+    def test_kaikki_register_demotion_ignores_unrelated_form_tags(self) -> None:
+        self.assertEqual(
+            resolve_kaikki_register_demotion(
+                {
+                    "forms": [
+                        {
+                            "form": "acabas",
+                            "tags": ["informal", "present", "second-person", "singular"],
+                        }
+                    ]
+                }
+            ),
+            0.0,
+        )
+
+    def test_kaikki_live_suppression_detects_explicit_vulgar_usage(self) -> None:
+        suppress, reasons = resolve_kaikki_policy_live_suppression(
+            {
+                "clean_competition_present": True,
+                "clean_earlier_competition_present": True,
+                "risk_family_sources": {
+                    "register_region": ("sense_tag:vulgar",),
+                },
+            }
+        )
+
+        self.assertTrue(suppress)
+        self.assertIn("kaikki_policy_suppress:sense_tag:vulgar", reasons)
+        self.assertIn("kaikki_policy_suppress:clean_earlier_competition", reasons)
+
+    def test_kaikki_live_policy_suppresses_explicit_vulgar_candidate_when_clean_competition_exists(
+        self,
+    ) -> None:
+        results = self._generate(
+            "coger",
+            [
+                FreedictGlossRecord(translation="to take", pos_raw="verb"),
+                FreedictGlossRecord(
+                    translation="to fuck",
+                    pos_raw="verb",
+                    metadata={"sense_tags": ["vulgar"]},
+                ),
+                FreedictGlossRecord(translation="to catch", pos_raw="verb"),
+            ],
+            reverse_records={
+                "take": [FreedictGlossRecord(translation="coger", pos_raw="verb")],
+                "fuck": [FreedictGlossRecord(translation="coger", pos_raw="verb")],
+                "catch": [FreedictGlossRecord(translation="coger", pos_raw="verb")],
+            },
+            max_definitions_per_target=None,
+            kaikki_policy=EnEsKaikkiPolicyConfig(enable_live_demotion=True),
+        )
+
+        phrases = [result.candidate.source_phrase for result in results]
+        self.assertIn("take", phrases)
+        self.assertIn("catch", phrases)
+        self.assertNotIn("fuck", phrases)
 
     def test_kaikki_function_word_phrase_survives_multiword_filter(self) -> None:
         results = self._generate(
@@ -187,6 +262,115 @@ class TestRulegenEnEsKaikkiPolicy(unittest.TestCase):
         self.assertEqual(by_source["take out"].get("reverse_check_source_norm"), "take out")
         self.assertTrue(bool(by_source["remove"].get("reverse_check_hit")))
         self.assertEqual(by_source["remove"].get("reverse_check_source_norm"), "remove")
+
+    def test_kaikki_keeps_recurrent_reverse_attested_phrasal_verbs_without_global_multiword_mode(
+        self,
+    ) -> None:
+        results = self._generate(
+            "sacar",
+            [
+                FreedictGlossRecord(
+                    translation="to put out, to get out (e.g. a public statement)",
+                    pos_raw="verb",
+                    metadata={"entry_ord": 1, "sense_ord": 0, "gloss_ord": 0},
+                ),
+                FreedictGlossRecord(
+                    translation="to take out (e.g. the trash)",
+                    pos_raw="verb",
+                    metadata={"entry_ord": 1, "sense_ord": 1, "gloss_ord": 0},
+                ),
+                FreedictGlossRecord(
+                    translation="to withdraw, to take out (e.g. money)",
+                    pos_raw="verb",
+                    metadata={"entry_ord": 1, "sense_ord": 2, "gloss_ord": 0},
+                ),
+            ],
+            reverse_records={
+                "put out": [FreedictGlossRecord(translation="sacar", pos_raw="verb")],
+                "take out": [FreedictGlossRecord(translation="sacar", pos_raw="verb")],
+                "withdraw": [FreedictGlossRecord(translation="sacar", pos_raw="verb")],
+            },
+            max_definitions_per_target=None,
+        )
+
+        by_source = {
+            result.candidate.source_phrase: result.candidate.metadata for result in results
+        }
+        self.assertIn("take out", by_source)
+        self.assertNotIn("put out", by_source)
+        self.assertEqual(by_source["take out"].get("gloss_variant_occurrence_count"), 2)
+        self.assertTrue(bool(by_source["take out"].get("reverse_check_hit")))
+        self.assertEqual(by_source["take out"].get("reverse_check_rank"), 0)
+
+    def test_kaikki_keeps_reverse_attested_nominal_compounds_from_comma_lists(self) -> None:
+        results = self._generate(
+            "móvil",
+            [
+                FreedictGlossRecord(
+                    translation="mobile",
+                    pos_raw="adj",
+                    metadata={"entry_ord": 0, "sense_ord": 0, "gloss_ord": 0},
+                ),
+                FreedictGlossRecord(
+                    translation="cellular, cell phone (US), mobile phone (UK, Australia)",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 0, "sense_ord": 1, "gloss_ord": 0},
+                ),
+                FreedictGlossRecord(
+                    translation="motive",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 0, "sense_ord": 2, "gloss_ord": 0},
+                ),
+            ],
+            reverse_records={
+                "mobile": [FreedictGlossRecord(translation="móvil", pos_raw="adj")],
+                "mobile phone": [
+                    FreedictGlossRecord(translation="teléfono móvil", pos_raw="noun"),
+                    FreedictGlossRecord(translation="móvil", pos_raw="noun"),
+                ],
+                "motive": [FreedictGlossRecord(translation="móvil", pos_raw="noun")],
+            },
+            max_definitions_per_target=None,
+        )
+
+        by_source = {
+            result.candidate.source_phrase: result.candidate.metadata for result in results
+        }
+        phrases = list(by_source)
+        self.assertIn("mobile phone", phrases)
+        self.assertEqual(
+            by_source["mobile"].get("semantic_demotion_reason"),
+            "attested_nominal_phrase_prefix_competition",
+        )
+        self.assertNotIn("cell phone", phrases)
+
+    def test_kaikki_does_not_keep_identity_nominal_phrases_without_global_multiword_mode(
+        self,
+    ) -> None:
+        results = self._generate(
+            "puente",
+            [
+                FreedictGlossRecord(
+                    translation="bridge",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 0, "sense_ord": 0, "gloss_ord": 0},
+                ),
+                FreedictGlossRecord(
+                    translation="long weekend",
+                    pos_raw="noun",
+                    metadata={"entry_ord": 0, "sense_ord": 1, "gloss_ord": 0},
+                ),
+            ],
+            reverse_records={
+                "bridge": [FreedictGlossRecord(translation="puente", pos_raw="noun")],
+                "long weekend": [FreedictGlossRecord(translation="puente", pos_raw="noun")],
+            },
+            max_definitions_per_target=None,
+        )
+
+        phrases = [result.candidate.source_phrase for result in results]
+        self.assertIn("bridge", phrases)
+        self.assertNotIn("long weekend", phrases)
 
     def test_kaikki_recovers_general_verb_candidates_before_domain_specific_presentar(self) -> None:
         results = self._generate(

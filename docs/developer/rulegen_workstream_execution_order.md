@@ -3,8 +3,8 @@
 Status: active plan
 Role: Planning / WIP
 Purpose: Record the explicit recommended order of work for the current rulegen quality workstream, with emphasis on `en-es` Kaikki quality, benchmark methodology, portability, and later adaptive profile work.
-Last updated: 2026-03-26
-Last verified: 2026-03-26
+Last updated: 2026-03-29
+Last verified: 2026-03-29
 Source-of-truth: planning doc only; current executable truth still lives in code, tests, benchmark artifacts, and `docs/developer/feature_state_matrix.md`.
 
 ## Scope
@@ -23,19 +23,22 @@ Current focus:
 - Kaikki-backed `en-es` rulegen quality
 - benchmark methodology and reproducibility
 - controlled extension of scoring/filtering architecture
+- broader benchmark-suite growth and frozen profile-bank analysis
 - later trait-conditioned routing work
 
 ## Current Starting Point
 
 Current canonical `en-es` benchmark:
 
-- `Top1`: `91.23%`
-- `Top3`: `98.25%`
+- `Top1`: `89.00%`
+- `Top3`: `100.00%`
 - `ForbidTop1`: `0.00%`
-- `ForbidAny`: `3.51%`
-- `AvgRules`: `2.98`
+- `ForbidAny`: `0.00%`
+- `AvgRules`: `2.97`
 - best config:
-  - `md=3 mr=none thr=0.000 sd=1.00 var=off pos=on rev=on xamb=off xspec=off w_pos=0.100 kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10`
+  - `md=3 mr=none thr=0.000 sd=1.00 var=on pos=on rev=on xamb=off xspec=off w_pos=0.100 kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10`
+- current case count:
+- `100`
 
 Current remaining triage targets:
 
@@ -43,9 +46,13 @@ Current remaining triage targets:
 - `cuadro`
 - `cuenta`
 - `red`
-- `sacar`
-- `acabar`
-- `coger`
+- `señal`
+- `archivo`
+- `trama`
+- `navegador`
+- `registro`
+- `patrón`
+- `mando`
 
 Current infrastructure already in place:
 
@@ -55,8 +62,8 @@ Current infrastructure already in place:
 - portable benchmark bundle export/replay
 - Kaikki provenance and marker-family scaffolding
 - reverse ambiguity signal
-- first Kaikki live-demotion scaffolding
-- trait-conditioned profile feature now documented as a planned later phase
+- widened Kaikki live-demotion scaffold with extra normalized families and per-family demotion maps
+- hardened benchmark-side `trait_summary` seam and frozen profile-bank analysis tooling
 
 ## Ordering Principles
 
@@ -68,6 +75,7 @@ These are the rules for sequencing the work:
 4. expand dataset before trusting fine-grained optimization
 5. keep benchmark methodology stable while exploratory sweeps happen elsewhere
 6. separate lexical traits from learner-stage/context decisions
+7. prefer post-hoc group discovery over rigid hand-tag systems
 
 ## Phase 0: Freeze And Reproduce
 
@@ -108,7 +116,7 @@ Status:
 
 Goal:
 
-- reduce the remaining `en-es` misses before broader global tuning dominates the workstream
+- reduce the remaining real lexical / ranking misses while the broader suite and profile-analysis loop continue
 
 ### Phase 1A. `cuadro`
 
@@ -118,7 +126,7 @@ Priority:
 
 Reason:
 
-- it is the only clearly hard remaining miss in the canonical lane
+- it remains the clearest persistent lexical-competition miss in the canonical lane
 
 Current problem:
 
@@ -138,32 +146,37 @@ What not to do first:
 - do not assume reverse ambiguity penalty alone will solve it
 - do not treat it as a benchmark-label issue
 
-### Phase 1B. `sacar`
+### Phase 1B. `móvil`
+
+Status:
+
+- resolved on the current canonical surface
 
 Priority:
 
-- high, but after `cuadro`
+- regression guard only
 
 Reason:
 
-- it is more of a phrase-policy gap than a general ranking failure
+- the fifth suite-expansion tranche exposed a real adjective-vs-phone-noun miss, and the later narrow nominal-compound follow-up now fixes it on canonical
 
 Current problem:
 
-- good short phrasal-verb candidates are not admitted cleanly enough
-- current best top1 like `withdraw` is narrow and pedagogically suboptimal
+- canonical now keeps `mobile phone` top1
+- tighter frozen profiles still regress to bare `mobile`
 
 Likely needed:
 
-- targeted short lexical phrase admission
-- probably 2-word phrasal-verb handling
-- likely paired with reverse support and phrase penalties
+- keep the narrow reverse-attested nominal-compound recovery in place
+- keep the adjective-vs-noun competition overlay narrow and benchmark-guarded
+- later consider whether source-frequency or phrase-policy signals help similar cases
 
 What not to do first:
 
-- do not simply turn on global multiword admission
+- do not broaden general multiword admission because of this one case
+- do not assume embeddings alone would have solved candidate recovery here
 
-### Phase 1C. `cuenta`, `red`, `derecho`
+### Phase 1C. `cuenta`, `red`, `derecho`, `señal`, `archivo`, `trama`, `navegador`, `registro`, `patrón`, `mando`
 
 Priority:
 
@@ -171,24 +184,40 @@ Priority:
 
 Reason:
 
-- these are closer to ranking/preference/review questions than structural pipeline failures
+- these are now the main review-boundary / ranking-pressure set on the broader suite
 
 Likely needed:
 
 - benchmark-label review where warranted
 - mild ranking adjustments
-- maybe stronger lexical competition or domain-family handling
+- stronger lexical competition or domain-family handling where justified
+- continued suite growth in the same trait regions before hard policy conclusions
 
 What not to do first:
 
-- do not overfit the whole system around these cases before `cuadro` and phrase policy are improved
+- do not overfit the whole system around these cases before `cuadro` and the newer profile-sensitive `móvil` behavior are better understood
+
+### Phase 1D. Earlier `sacar` / `acabar` / `coger` failure classes
+
+Status:
+
+- no longer the immediate frontier
+
+Current state:
+
+- `sacar` is now covered on the canonical surface by a narrow recurrent exact reverse-attested phrasal-verb rule
+- `acabar` and `coger` are now covered by the narrow explicit-vulgar clean-competition suppression rule
+
+Operational implication:
+
+- keep those fixes stable
+- do not reopen them with broad policy churn unless the broader suite surfaces a real regression
 
 ## Phase 2: Expand The Benchmark Dataset
 
 Status:
 
-- not optional
-- should happen before trusting large parameter spaces
+- active and still not optional
 
 Goal:
 
@@ -207,21 +236,24 @@ Add cases for:
 - review-boundary cases:
   - cases where multiple top1s may be pedagogically acceptable
 
-Why this phase is before the broad sweep:
+Current state:
 
-- current dataset is strong enough for directional experiments
-- current dataset is still too small/coarse for confident high-dimensional tuning
-- first focused expansion batch is now in:
-  - `marco`
-  - `tabla`
-  - `malla`
-  - `quitar`
-  - `meter`
-  - `salir`
-- second focused red-case batch is now in:
-  - `subir`
-  - `acabar`
-  - `coger`
+- the benchmark has now expanded through seven focused `en-es` tranches to `100` cases
+- recent additions have continued to surface real new pressure rather than only easy passes:
+  - `navegador` widened the review-only ranking set
+  - `móvil` is now a profile-sensitive top-1 split rather than a canonical hard fail
+  - `registro`, `patrón`, and `mando` are now new canonical review cases
+- the suite is now broad enough to justify serious frozen profile-bank analysis, but still not broad enough to stop expanding entirely
+
+Current practical rule:
+
+- expand deliberately in the regions that are already separating profile averages or exposing real lexical misses:
+  - dense multi-bucket nouns
+  - communication/network competition
+  - computing/interface nouns
+  - adjective-vs-noun ambiguities
+  - abstract-vs-person and abstract-vs-device noun competition
+  - ranking/preference boundaries
 
 ## Phase 2.5: Low-Hanging Signal Exposure
 
@@ -519,11 +551,12 @@ Current status:
 
 Status:
 
-- do only after the global baseline and missing-signal work are in better shape
+- active offline-analysis phase
 
 Goal:
 
 - move from one global optimum toward data-driven profile selection by runtime-computable traits
+- do so without collapsing lexical difficulty, user proficiency, and later SRS difficulty into one overloaded signal
 
 This phase should include:
 
@@ -531,15 +564,33 @@ This phase should include:
 2. per-case trait emission in benchmark artifacts
 3. small named profile bank
 4. offline analysis of which profiles win by feature region
+5. early post-hoc group discovery using interpretable methods such as:
+   - shallow policy trees
+   - outcome-space clustering plus a simple explainer
 
 This phase should not yet include:
 
 - live runtime routing
 - arbitrary per-word weight selection
+- rigid hand-authored learner-stage tags as the routing source of truth
 
-Why this is later:
+Current state:
 
-- otherwise we risk building adaptive logic on top of a still-underpowered signal set
+- shared trait extraction and benchmark-side trait emission are now real
+- a small frozen profile bank exists:
+  - canonical
+  - admission-tight
+  - combined-balanced
+  - family-followup
+- current profile evidence on the `88`-case suite:
+  - `1` top-1 split case: `trama`
+  - `4` top-3 diff cases: `cuadro`, `cuenta`, `navegador`, `red`
+  - `66` rule-count diff cases
+- interpretation:
+  - profile choice is now clearly changing breadth and objective
+  - it is only barely changing top-1 identity
+  - runtime routing is still premature
+  - future routing should therefore be learned from broader evidence, not from manual tags alone
 
 ## Phase 7: Runtime Profile Routing
 
@@ -562,6 +613,12 @@ This phase must keep separate:
 
 - lexical traits
 - learner-stage/context settings
+- user-facing vocabulary-band difficulty
+- observed SRS difficulty
+
+That later vocabulary-band / proficiency work is shared with SRS onboarding and is described in:
+
+- `docs/developer/language_difficulty_and_proficiency_model.md`
 
 ## Explicitly Deferred Work
 
@@ -588,10 +645,10 @@ These are real ideas, but they are not on the immediate critical path.
 These distinctions matter:
 
 - `cuadro` is an algorithmic miss
-- `sacar` is mostly a phrase-policy gap
-- `derecho`, `cuenta`, and `red` are closer to ranking/preference questions
+- `móvil` was a lexical extraction / noun-sense-preference miss and is now the first concrete profile-sensitive top-1 split on the broader suite
+- `derecho`, `cuenta`, `red`, `señal`, `archivo`, `trama`, and `navegador` are closer to ranking/preference questions
 - embeddings weight is exposed, but embeddings are not meaningfully active for `en-es`
-- Kaikki demotion is scaffolded, but the best current run still keeps it off
+- Kaikki demotion is scaffolded and the best current canonical run keeps it on
 - reverse ambiguity is real and implemented, but it is not the main next unlock by itself
 
 ## Recommended Concrete Order
@@ -599,17 +656,13 @@ These distinctions matter:
 If we follow one explicit path, it should be:
 
 1. finish `cuadro`
-2. design and test narrow lexical phrase admission for `sacar`
-3. expand the benchmark dataset around polysemy and short phrases
-4. run the broad PC sweep on frozen bundle inputs
-5. review sweep winners and expose the next most valuable hidden knobs
-6. implement multi-source agreement
-7. decide whether embeddings are worth wiring next
-8. build the shared trait extractor
-9. emit per-case trait vectors
-10. define a small profile bank
-11. do offline trait-conditioned profile analysis
-12. only then consider runtime profile routing
+2. keep expanding the benchmark dataset in the regions already exposing real pressure
+3. keep rerunning the frozen profile bank on the broader suite and aggregating by trait region
+4. review whether another exposed-knob tranche is justified by those results
+5. implement multi-source agreement
+6. decide whether embeddings are worth wiring next
+7. continue offline trait-conditioned profile analysis on the stronger signal set
+8. only then consider runtime profile routing
 
 ## Operational Rule
 

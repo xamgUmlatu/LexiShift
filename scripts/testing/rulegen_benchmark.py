@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import argparse
 from concurrent.futures import ProcessPoolExecutor, as_completed
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from datetime import datetime, timezone
 import hashlib
 import itertools
@@ -25,14 +25,17 @@ from lexishift_core.helper.pair_resources import resolve_pair_resources  # noqa:
 from lexishift_core.helper.paths import build_helper_paths  # noqa: E402
 from lexishift_core.lexicon.word_package import (  # noqa: E402
     build_word_package,
+    normalize_reading,
     normalize_word_package,
 )
 from lexishift_core.resources.dict_loaders import (  # noqa: E402
     TranslationGlossRecord,
     load_translation_gloss_base_forms,
+    load_translation_headword_alias_index,
     load_translation_gloss_records_ordered,
     load_translation_headwords,
 )
+from lexishift_core.resources.japanese_script import kana_to_romaji  # noqa: E402
 from lexishift_core.resources.path_cache import load_or_compute_path_json_value  # noqa: E402
 from lexishift_core.replacement.core import VocabRule  # noqa: E402
 from lexishift_core.rulegen.adapters import (  # noqa: E402
@@ -57,6 +60,10 @@ from lexishift_core.rulegen.generation import (  # noqa: E402
     RuleScoreWeights,
     RuleScoringConfig,
 )
+from lexishift_core.rulegen.pairs.en_ja import (  # noqa: E402
+    _build_translation_gloss_alias_index,
+    _build_translation_gloss_reading_index,
+)
 from lexishift_core.rulegen.pairs.en_es import (  # noqa: E402
     EnEsCompiledBenchmarkEvaluationTables,
     EnEsCompiledResources,
@@ -70,6 +77,11 @@ from lexishift_core.rulegen.pairs.en_es_support import (  # noqa: E402
     normalize_reverse_token_with_pos,
 )
 from lexishift_core.rulegen.ranking import ReverseCheckScoringConfig  # noqa: E402
+from lexishift_core.rulegen.traits import (  # noqa: E402
+    build_family_name_by_marker_id,
+    build_rulegen_result_shape_trait_summary,
+    build_rulegen_router_trait_summary,
+)
 from lexishift_core.rulegen.utils import (  # noqa: E402
     BasicStringNormalizer,
     LeadingEnglishInfinitiveNormalizer,
@@ -114,6 +126,7 @@ class SweepConfig:
     reverse_check_exact_hit_ambiguity_penalty: float
     kaikki_policy_live_demotion: bool
     kaikki_policy_risk_families: tuple[str, ...]
+    kaikki_policy_risk_family_demotions: tuple[tuple[str, float], ...] = ()
     reverse_check_exact_hit_specificity_bonus: float = 0.0
     kaikki_policy_late_sense_penalty: float = 0.0
 
@@ -147,6 +160,10 @@ class SweepConfig:
             ),
             "kaikki_policy_live_demotion": self.kaikki_policy_live_demotion,
             "kaikki_policy_risk_families": list(self.kaikki_policy_risk_families),
+            "kaikki_policy_risk_family_demotions": [
+                {"family": family, "demotion": demotion}
+                for family, demotion in self.kaikki_policy_risk_family_demotions
+            ],
             "reverse_check_exact_hit_specificity_bonus": (
                 self.reverse_check_exact_hit_specificity_bonus
             ),
@@ -170,6 +187,7 @@ class SweepConfig:
             f"w_pos={self.score_weight_pos_match:.3f} "
             f"kdem={'on' if self.kaikki_policy_live_demotion else 'off'} "
             f"kfam={_format_kaikki_policy_family_label(self.kaikki_policy_risk_families)} "
+            f"{_format_kaikki_policy_family_demotion_segment(self)}"
             f"kprov={_format_kaikki_provenance_label(self)}"
         )
 
@@ -294,6 +312,8 @@ class PairBenchmarkContext:
     word_package_snapshot: Mapping[str, object]
     word_packages_by_target: Mapping[str, Mapping[str, object]]
     gloss_records_by_target: Optional[Mapping[str, Sequence[TranslationGlossRecord]]] = None
+    gloss_records_by_reading: Optional[Mapping[str, Sequence[TranslationGlossRecord]]] = None
+    gloss_records_by_alias: Optional[Mapping[str, Sequence[TranslationGlossRecord]]] = None
     reverse_gloss_records_by_source: Optional[Mapping[str, Sequence[TranslationGlossRecord]]] = None
     compiled_pair_context: Optional[object] = None
     compiled_case_refs: Sequence[CompiledBenchmarkCaseRef] = field(default_factory=tuple)
@@ -439,6 +459,9 @@ def _config_from_payload(payload: Mapping[str, object]) -> SweepConfig:
         )
     else:
         normalized_families = ()
+    normalized_family_demotions = _normalize_kaikki_policy_family_demotions(
+        payload.get("kaikki_policy_risk_family_demotions")
+    )
     return SweepConfig(
         max_definitions_per_target=(
             int(payload["max_definitions_per_target"])
@@ -476,6 +499,7 @@ def _config_from_payload(payload: Mapping[str, object]) -> SweepConfig:
         ),
         kaikki_policy_live_demotion=bool(payload.get("kaikki_policy_live_demotion", False)),
         kaikki_policy_risk_families=normalized_families,
+        kaikki_policy_risk_family_demotions=normalized_family_demotions,
         reverse_check_exact_hit_specificity_bonus=float(
             payload.get("reverse_check_exact_hit_specificity_bonus") or 0.0
         ),
@@ -656,22 +680,121 @@ def _parse_family_set_specs(text: str, *, name: str) -> list[tuple[str, ...]]:
     return parsed
 
 
+def _normalize_kaikki_policy_family_demotions(
+    raw_specs: object,
+) -> tuple[tuple[str, float], ...]:
+    if raw_specs is None:
+        return ()
+    iterable: list[tuple[object, object]] = []
+    if isinstance(raw_specs, Mapping):
+        iterable.extend(raw_specs.items())
+    elif isinstance(raw_specs, Sequence) and not isinstance(raw_specs, (str, bytes)):
+        for item in raw_specs:
+            if isinstance(item, Mapping):
+                iterable.append((item.get("family"), item.get("demotion")))
+            elif (
+                isinstance(item, Sequence) and not isinstance(item, (str, bytes)) and len(item) >= 2
+            ):
+                iterable.append((item[0], item[1]))
+    else:
+        return ()
+    normalized: dict[str, float] = {}
+    for raw_family, raw_demotion in iterable:
+        family = str(raw_family or "").strip()
+        if not family:
+            continue
+        try:
+            demotion = max(0.0, float(raw_demotion))
+        except (TypeError, ValueError):
+            continue
+        normalized[family] = demotion
+    return tuple(normalized.items())
+
+
+def _parse_family_demotion_set_specs(
+    text: str,
+    *,
+    name: str,
+) -> list[tuple[tuple[str, float], ...]]:
+    raw_specs = [item.strip() for item in str(text or "").split(";") if item.strip()]
+    if not raw_specs:
+        raise ValueError(f"{name}: expected at least one family demotion set.")
+    parsed: list[tuple[tuple[str, float], ...]] = []
+    for spec in raw_specs:
+        lowered = spec.lower()
+        if lowered in {"none", "off", "null"}:
+            parsed.append(())
+            continue
+        normalized: dict[str, float] = {}
+        for token in spec.replace("+", ",").split(","):
+            item = token.strip()
+            if not item:
+                continue
+            family_text, separator, value_text = item.partition(":")
+            family = family_text.strip()
+            if not separator or not family or not value_text.strip():
+                raise ValueError(f"{name}: invalid family demotion '{item}'.")
+            try:
+                demotion = max(0.0, float(value_text.strip()))
+            except ValueError as exc:
+                raise ValueError(f"{name}: invalid family demotion '{item}'.") from exc
+            normalized[family] = demotion
+        if not normalized:
+            raise ValueError(f"{name}: invalid demotion set '{spec}'.")
+        parsed.append(tuple(normalized.items()))
+    return parsed
+
+
+_KAIKKI_POLICY_FAMILY_ABBREVIATIONS = {
+    "math_geometry": "mg",
+    "government_law": "gl",
+    "hunting_fishing_tools": "hft",
+    "register_region": "rr",
+    "abbreviation_ellipsis_formof": "aef",
+    "art_media": "am",
+    "computing": "cmp",
+    "communication_network": "cn",
+    "mechanics_tools": "mt",
+    "music": "mus",
+    "biology": "bio",
+    "chemistry": "chem",
+}
+
+
 def _format_kaikki_policy_family_label(families: Sequence[str]) -> str:
     if not families:
         return "none"
-    abbreviations = {
-        "math_geometry": "mg",
-        "government_law": "gl",
-        "hunting_fishing_tools": "hft",
-        "register_region": "rr",
-        "abbreviation_ellipsis_formof": "aef",
-    }
     tokens = [
-        abbreviations.get(str(family).strip(), str(family).strip())
+        _KAIKKI_POLICY_FAMILY_ABBREVIATIONS.get(str(family).strip(), str(family).strip())
         for family in families
         if str(family).strip()
     ]
     return "+".join(tokens) if tokens else "none"
+
+
+def _format_kaikki_policy_family_demotion_label(
+    family_demotions: Sequence[tuple[str, float]],
+) -> str:
+    if not family_demotions:
+        return "none"
+    tokens = []
+    for family, demotion in family_demotions:
+        family_text = str(family).strip()
+        if not family_text:
+            continue
+        tokens.append(
+            f"{_KAIKKI_POLICY_FAMILY_ABBREVIATIONS.get(family_text, family_text)}:{float(demotion):.2f}"
+        )
+    return "+".join(tokens) if tokens else "none"
+
+
+def _format_kaikki_policy_family_demotion_segment(config: SweepConfig) -> str:
+    if not config.kaikki_policy_risk_family_demotions:
+        return ""
+    return (
+        "kfd="
+        f"{_format_kaikki_policy_family_demotion_label(config.kaikki_policy_risk_family_demotions)} "
+    )
 
 
 def _format_exact_hit_ambiguity_label(config: SweepConfig) -> str:
@@ -832,43 +955,51 @@ def _resolve_pair_resources_for_benchmark(
     paths,
     pair: str,
     jmdict_override: Optional[Path],
-    freedict_override: Optional[Path],
-    freedict_reverse_override: Optional[Path],
+    translation_dict_override: Optional[Path],
+    reverse_translation_dict_override: Optional[Path],
 ) -> tuple[Optional[Path], Optional[Path], Optional[Path]]:
-    jmdict_path, freedict_path, _ = resolve_pair_resources(
+    translation_override_for_pair = translation_dict_override
+    if translation_override_for_pair is None and pair == "en-ja":
+        translation_override_for_pair = jmdict_override
+    jmdict_path, translation_dict_path, _ = resolve_pair_resources(
         paths,
         pair=pair,
         jmdict_path=jmdict_override,
-        freedict_de_en_path=freedict_override,
+        translation_dict_path=translation_override_for_pair,
         set_source_db=None,
     )
-    reverse_freedict_path = freedict_reverse_override
-    if reverse_freedict_path is None:
-        reverse_freedict_path = default_freedict_reverse_path(
+    reverse_translation_dict_path = reverse_translation_dict_override
+    if reverse_translation_dict_path is None:
+        reverse_translation_dict_path = default_freedict_reverse_path(
             pair,
             language_packs_dir=paths.language_packs_dir,
         )
+    benchmark_uses_jmdict = (
+        jmdict_path is not None
+        and translation_dict_path is not None
+        and jmdict_path == translation_dict_path
+    )
+    if benchmark_uses_jmdict and not jmdict_path.exists():
+        raise FileNotFoundError(f"JMDict path not found for pair {pair}: {jmdict_path}")
     capability = resolve_pair_capability(pair)
-    if capability.requires_jmdict_for_rulegen:
-        if jmdict_path is None or not jmdict_path.exists():
-            raise FileNotFoundError(f"JMDict path not found for pair {pair}: {jmdict_path}")
-    if capability.requires_freedict_de_en_for_rulegen:
-        if freedict_path is None or not freedict_path.exists():
+    if capability.requires_translation_dictionary_for_rulegen:
+        if translation_dict_path is None or not translation_dict_path.exists():
             raise FileNotFoundError(
-                f"Translation dictionary path not found for pair {pair}: {freedict_path}"
+                f"Translation dictionary path not found for pair {pair}: {translation_dict_path}"
             )
-    if pair in {"en-es", "es-en"} and reverse_freedict_path is not None:
-        if not reverse_freedict_path.exists():
+    if pair in {"en-es", "es-en"} and reverse_translation_dict_path is not None:
+        if not reverse_translation_dict_path.exists():
             raise FileNotFoundError(
                 f"Reverse translation dictionary path not found for pair {pair}: "
-                f"{reverse_freedict_path}"
+                f"{reverse_translation_dict_path}"
             )
-    return jmdict_path, freedict_path, reverse_freedict_path
+    return jmdict_path, translation_dict_path, reverse_translation_dict_path
 
 
 def _translation_target_lang_for_pair(pair: str) -> Optional[str]:
     normalized = str(pair or "").strip().lower()
     return {
+        "en-ja": "en",
         "en-de": "en",
         "en-es": "en",
         "es-en": "es",
@@ -906,15 +1037,38 @@ def _preload_pair_gloss_records(
     translation_dict_path: Optional[Path],
     reverse_translation_dict_path: Optional[Path],
     targets: Sequence[str] = (),
+    word_packages_by_target: Mapping[str, Mapping[str, object]] = {},
 ) -> tuple[
     Optional[dict[str, list[TranslationGlossRecord]]],
     Optional[dict[str, list[TranslationGlossRecord]]],
 ]:
+    forward_headwords = _build_forward_preload_headwords(
+        pair=pair,
+        targets=targets,
+        word_packages_by_target=word_packages_by_target,
+    )
     forward_records = _load_translation_gloss_records(
         translation_dict_path,
         target_lang=_translation_target_lang_for_pair(pair),
-        headwords=targets,
+        headwords=forward_headwords,
     )
+    supplemental_headwords = _build_missing_en_ja_forward_preload_headwords(
+        pair=pair,
+        translation_dict_path=translation_dict_path,
+        targets=targets,
+        word_packages_by_target=word_packages_by_target,
+        forward_records=forward_records,
+    )
+    if supplemental_headwords:
+        supplemental_records = _load_translation_gloss_records(
+            translation_dict_path,
+            target_lang=_translation_target_lang_for_pair(pair),
+            headwords=supplemental_headwords,
+        )
+        forward_records = _merge_translation_gloss_record_mappings(
+            forward_records,
+            supplemental_records,
+        )
     reverse_headwords = _build_reverse_preload_headwords(
         pair=pair,
         forward_records_by_target=forward_records,
@@ -932,6 +1086,148 @@ def _preload_pair_gloss_records(
             headwords=reverse_headwords,
         ),
     )
+
+
+def _build_forward_preload_headwords(
+    *,
+    pair: str,
+    targets: Sequence[str],
+    word_packages_by_target: Mapping[str, Mapping[str, object]],
+) -> tuple[str, ...]:
+    headwords: list[str] = []
+    seen: set[str] = set()
+    for target in targets:
+        text = str(target or "").strip()
+        if text and text not in seen:
+            headwords.append(text)
+            seen.add(text)
+    if str(pair or "").strip().lower() != "en-ja":
+        return tuple(headwords)
+    for target in targets:
+        package = normalize_word_package(word_packages_by_target.get(target))
+        if not isinstance(package, Mapping):
+            continue
+        reading = str(package.get("reading") or "").strip()
+        if reading and reading not in seen:
+            headwords.append(reading)
+            seen.add(reading)
+        script_forms = package.get("script_forms")
+        if isinstance(script_forms, Mapping):
+            kana = str(script_forms.get("kana") or "").strip()
+            if kana and kana not in seen:
+                headwords.append(kana)
+                seen.add(kana)
+    return tuple(headwords)
+
+
+def _build_missing_en_ja_forward_preload_headwords(
+    *,
+    pair: str,
+    translation_dict_path: Optional[Path],
+    targets: Sequence[str],
+    word_packages_by_target: Mapping[str, Mapping[str, object]],
+    forward_records: Optional[Mapping[str, Sequence[TranslationGlossRecord]]],
+) -> tuple[str, ...]:
+    if str(pair or "").strip().lower() != "en-ja":
+        return ()
+    if translation_dict_path is None or not translation_dict_path.exists():
+        return ()
+    alias_index = load_translation_headword_alias_index(translation_dict_path)
+    if not alias_index:
+        return ()
+
+    supplemental: list[str] = []
+    seen: set[str] = set()
+    for target in targets:
+        package = normalize_word_package(word_packages_by_target.get(target))
+        if _has_en_ja_forward_preload_records_for_target(
+            target=target,
+            target_word_package=package,
+            forward_records=forward_records,
+        ):
+            continue
+        for alias_key in _iter_en_ja_forward_preload_alias_lookup_keys(
+            target=target,
+            target_word_package=package,
+        ):
+            for headword in alias_index.get(alias_key, ()):
+                normalized = str(headword or "").strip().lower()
+                if not normalized or normalized in seen:
+                    continue
+                seen.add(normalized)
+                supplemental.append(str(headword).strip())
+    return tuple(supplemental)
+
+
+def _iter_en_ja_forward_preload_alias_lookup_keys(
+    *,
+    target: str,
+    target_word_package: Optional[Mapping[str, object]],
+) -> tuple[str, ...]:
+    keys: list[str] = []
+    seen: set[str] = set()
+
+    def add(value: object) -> None:
+        text = str(value or "").strip()
+        if not text:
+            return
+        lowered = text.lower()
+        if lowered in seen:
+            return
+        seen.add(lowered)
+        keys.append(lowered)
+
+    add(target)
+    if not isinstance(target_word_package, Mapping):
+        return tuple(keys)
+    reading = normalize_reading(target_word_package.get("reading"), language_tag="ja")
+    if reading:
+        add(reading)
+        add(kana_to_romaji(reading))
+    script_forms = target_word_package.get("script_forms")
+    if isinstance(script_forms, Mapping):
+        add(script_forms.get("kana"))
+        add(script_forms.get("romaji"))
+    return tuple(keys)
+
+
+def _has_en_ja_forward_preload_records_for_target(
+    *,
+    target: str,
+    target_word_package: Optional[Mapping[str, object]],
+    forward_records: Optional[Mapping[str, Sequence[TranslationGlossRecord]]],
+) -> bool:
+    if not forward_records:
+        return False
+    if forward_records.get(target):
+        return True
+    if not isinstance(target_word_package, Mapping):
+        return False
+    reading = normalize_reading(target_word_package.get("reading"), language_tag="ja")
+    if reading and forward_records.get(reading):
+        return True
+    script_forms = target_word_package.get("script_forms")
+    if isinstance(script_forms, Mapping):
+        kana = normalize_reading(script_forms.get("kana"), language_tag="ja")
+        if kana and forward_records.get(kana):
+            return True
+    return False
+
+
+def _merge_translation_gloss_record_mappings(
+    primary: Optional[Mapping[str, Sequence[TranslationGlossRecord]]],
+    secondary: Optional[Mapping[str, Sequence[TranslationGlossRecord]]],
+) -> Optional[dict[str, list[TranslationGlossRecord]]]:
+    if primary is None and secondary is None:
+        return None
+    merged: dict[str, list[TranslationGlossRecord]] = {}
+    for mapping in (primary, secondary):
+        if not mapping:
+            continue
+        for headword, entries in mapping.items():
+            bucket = merged.setdefault(str(headword), [])
+            bucket.extend(entries)
+    return merged
 
 
 def _build_reverse_preload_headwords(
@@ -1144,8 +1440,8 @@ def _build_pair_benchmark_context(
             paths=paths,
             pair=pair,
             jmdict_override=jmdict_override,
-            freedict_override=translation_dict_override,
-            freedict_reverse_override=reverse_translation_dict_override,
+            translation_dict_override=translation_dict_override,
+            reverse_translation_dict_override=reverse_translation_dict_override,
         )
     )
     if timing is not None:
@@ -1187,7 +1483,9 @@ def _build_pair_benchmark_context(
         translation_dict_path=translation_dict_path,
         reverse_translation_dict_path=reverse_translation_dict_path,
         targets=targets,
+        word_packages_by_target=word_packages,
     )
+    normalized_pair = str(pair or "").strip().lower()
     gloss_base_forms = (
         tuple(
             sorted(
@@ -1197,11 +1495,21 @@ def _build_pair_benchmark_context(
                 )
             )
         )
-        if translation_dict_path is not None and _translation_target_lang_for_pair(pair) is not None
+        if (
+            normalized_pair == "en-es"
+            and translation_dict_path is not None
+            and _translation_target_lang_for_pair(pair) is not None
+        )
         else None
     )
     if timing is not None:
         timing.add("preload_translation_gloss_records", perf_counter() - started, pair=pair)
+
+    gloss_records_by_reading = None
+    gloss_records_by_alias = None
+    if normalized_pair == "en-ja" and gloss_records_by_target is not None:
+        gloss_records_by_reading = _build_translation_gloss_reading_index(gloss_records_by_target)
+        gloss_records_by_alias = _build_translation_gloss_alias_index(gloss_records_by_target)
 
     started = perf_counter()
     compiled_pair_context = _build_pair_compiled_rulegen_context(
@@ -1237,6 +1545,8 @@ def _build_pair_benchmark_context(
         word_package_snapshot=word_package_snapshot,
         word_packages_by_target=word_packages,
         gloss_records_by_target=gloss_records_by_target,
+        gloss_records_by_reading=gloss_records_by_reading,
+        gloss_records_by_alias=gloss_records_by_alias,
         reverse_gloss_records_by_source=reverse_gloss_records_by_source,
         compiled_pair_context=compiled_pair_context,
         compiled_case_refs=compiled_case_refs,
@@ -1392,6 +1702,94 @@ def _encode_phrase_id_row(
     return tuple(
         int(phrase_ids_by_phrase[phrase]) for phrase in phrases if phrase in phrase_ids_by_phrase
     )
+
+
+def _build_case_trait_summary(
+    *,
+    case: RulegenBenchmarkCase,
+    context: PairBenchmarkContext,
+    case_row_id: int,
+    payload: Mapping[str, object],
+) -> dict[str, object]:
+    expected_any = _normalize_case_phrase_list(case.expected_any)
+    expected_top1 = (
+        _normalize_case_phrase_list(case.expected_top1_any)
+        if case.expected_top1_any
+        else expected_any
+    )
+    forbidden_top1 = _normalize_case_phrase_list(case.forbidden_top1)
+    forbidden_any = _normalize_case_phrase_list(case.forbidden_any)
+    expected_matches = tuple(
+        str(source).strip()
+        for source in payload.get("expected_matches", ())
+        if str(source or "").strip()
+    )
+    forbidden_matches = tuple(
+        str(source).strip()
+        for source in payload.get("forbidden_matches", ())
+        if str(source or "").strip()
+    )
+    benchmark_only: dict[str, object] = {
+        "expected_any_count": len(expected_any),
+        "expected_top1_count": len(expected_top1),
+        "forbidden_top1_count": len(forbidden_top1),
+        "forbidden_any_count": len(forbidden_any),
+        "expected_match_count": len(expected_matches),
+        "forbidden_match_count": len(forbidden_matches),
+    }
+
+    compiled_case_table = context.compiled_case_table
+    compiled_pair_context = context.compiled_pair_context
+    candidate_table = getattr(compiled_pair_context, "candidate_table", None)
+    candidate_row_ids: tuple[int, ...] = ()
+    if (
+        compiled_case_table is not None
+        and candidate_table is not None
+        and 0 <= case_row_id < len(compiled_case_table.candidate_row_id_rows)
+    ):
+        candidate_row_ids = tuple(
+            int(row_id)
+            for row_id in compiled_case_table.candidate_row_id_rows[case_row_id]
+            if isinstance(row_id, int)
+        )
+
+    family_name_by_marker_id = build_family_name_by_marker_id(
+        getattr(compiled_pair_context, "family_marker_ids_by_name", {})
+    )
+    router_traits = build_rulegen_router_trait_summary(
+        target=case.target,
+        candidate_table=candidate_table,
+        candidate_row_ids=candidate_row_ids,
+        family_name_by_marker_id=family_name_by_marker_id,
+    )
+    result_shape = build_rulegen_result_shape_trait_summary(
+        all_sources=tuple(payload.get("all_sources", ())),
+        top1_source=payload.get("top1_source"),
+        variant_rule_count=int(payload.get("variant_rule_count") or 0),
+        top1_is_variant=bool(payload.get("top1_is_variant")),
+    )
+    return {
+        "router_input": router_traits.to_dict(),
+        "result_shape": result_shape.to_dict(),
+        "benchmark_only": benchmark_only,
+    }
+
+
+def _attach_case_trait_summary(
+    *,
+    payload: Mapping[str, object],
+    case: RulegenBenchmarkCase,
+    context: PairBenchmarkContext,
+    case_row_id: int,
+) -> dict[str, object]:
+    enriched = dict(payload)
+    enriched["trait_summary"] = _build_case_trait_summary(
+        case=case,
+        context=context,
+        case_row_id=case_row_id,
+        payload=enriched,
+    )
+    return enriched
 
 
 def _resolve_rule_candidate_row_id(
@@ -1647,12 +2045,14 @@ def _build_compiled_rule_table_from_en_es_selected_rows(
 def _evaluate_benchmark_case_compiled(
     *,
     case: RulegenBenchmarkCase,
+    context: PairBenchmarkContext,
     case_row_id: int,
     compiled_case_table: CompiledBenchmarkCaseTable,
     compiled_rule_table: CompiledBenchmarkRuleTable,
 ) -> RulegenBenchmarkCaseResult:
     result, _ = _evaluate_benchmark_case_compiled_row(
         case=case,
+        context=context,
         case_row_id=case_row_id,
         compiled_case_table=compiled_case_table,
         compiled_rule_table=compiled_rule_table,
@@ -1663,6 +2063,7 @@ def _evaluate_benchmark_case_compiled(
 def _evaluate_benchmark_case_compiled_payload_row(
     *,
     case: RulegenBenchmarkCase,
+    context: PairBenchmarkContext,
     case_row_id: int,
     compiled_case_table: CompiledBenchmarkCaseTable,
     compiled_rule_table: CompiledBenchmarkRuleTable,
@@ -1733,6 +2134,12 @@ def _evaluate_benchmark_case_compiled_payload_row(
             "expected_matches": list(expected_matches),
             "forbidden_matches": list(forbidden_matches),
         }
+        payload = _attach_case_trait_summary(
+            payload=payload,
+            case=case,
+            context=context,
+            case_row_id=case_row_id,
+        )
     else:
         payload = None
 
@@ -1754,6 +2161,7 @@ def _evaluate_benchmark_case_compiled_payload_row(
 def _evaluate_benchmark_case_compiled_row(
     *,
     case: RulegenBenchmarkCase,
+    context: PairBenchmarkContext,
     case_row_id: int,
     compiled_case_table: CompiledBenchmarkCaseTable,
     compiled_rule_table: CompiledBenchmarkRuleTable,
@@ -1762,6 +2170,7 @@ def _evaluate_benchmark_case_compiled_row(
 ]:
     payload, case_row = _evaluate_benchmark_case_compiled_payload_row(
         case=case,
+        context=context,
         case_row_id=case_row_id,
         compiled_case_table=compiled_case_table,
         compiled_rule_table=compiled_rule_table,
@@ -1872,6 +2281,7 @@ def _evaluate_case_results_with_table(
     for index, case in enumerate(context.cases):
         case_result, case_row = _evaluate_benchmark_case_compiled_row(
             case=case,
+            context=context,
             case_row_id=index,
             compiled_case_table=compiled_case_table,
             compiled_rule_table=compiled_rule_table,
@@ -1901,7 +2311,19 @@ def _evaluate_case_payloads_with_table(
             compiled_rule_table=compiled_rule_table,
         )
         return (
-            tuple(result.to_dict() for result in case_results) if include_payloads else (),
+            (
+                tuple(
+                    _attach_case_trait_summary(
+                        payload=result.to_dict(),
+                        case=case,
+                        context=context,
+                        case_row_id=index,
+                    )
+                    for index, (case, result) in enumerate(zip(context.cases, case_results))
+                )
+                if include_payloads
+                else ()
+            ),
             case_result_table,
         )
     if compiled_rule_table is None and rules is not None:
@@ -1921,6 +2343,7 @@ def _evaluate_case_payloads_with_table(
     for index, case in enumerate(context.cases):
         case_payload, case_row = _evaluate_benchmark_case_compiled_payload_row(
             case=case,
+            context=context,
             case_row_id=index,
             compiled_case_table=compiled_case_table,
             compiled_rule_table=compiled_rule_table,
@@ -2069,6 +2492,115 @@ def _group_rules_by_target(rules: Sequence[VocabRule]) -> dict[str, list[VocabRu
     return by_target
 
 
+def _collect_en_ja_duplicate_surface_targets(
+    cases: Sequence[RulegenBenchmarkCase],
+) -> tuple[str, ...]:
+    readings_by_target: dict[str, set[str]] = {}
+    for case in cases:
+        target = str(case.target or "").strip()
+        if not target:
+            continue
+        reading = str(case.target_reading or "").strip()
+        readings_by_target.setdefault(target, set()).add(reading)
+    duplicate_targets = sorted(
+        target for target, readings in readings_by_target.items() if len(readings) > 1
+    )
+    return tuple(duplicate_targets)
+
+
+def _build_case_scoped_word_packages(
+    *,
+    pair: str,
+    case: RulegenBenchmarkCase,
+    fallback_word_packages_by_target: Mapping[str, Mapping[str, object]],
+) -> Mapping[str, Mapping[str, object]]:
+    existing = normalize_word_package(fallback_word_packages_by_target.get(case.target))
+    reading = str(case.target_reading or "").strip()
+    if reading:
+        package = build_word_package(
+            language_pair=pair,
+            surface=case.target,
+            reading=reading,
+            source_provider="rulegen_benchmark",
+            script_forms=existing.get("script_forms") if isinstance(existing, Mapping) else None,
+        )
+        if package is not None:
+            return {case.target: package}
+    if isinstance(existing, Mapping):
+        return {case.target: existing}
+    return {}
+
+
+def _subset_word_packages_by_target(
+    word_packages_by_target: Mapping[str, Mapping[str, object]],
+    *,
+    targets: Sequence[str],
+) -> dict[str, Mapping[str, object]]:
+    target_set = {str(target or "").strip() for target in targets if str(target or "").strip()}
+    return {
+        target: package
+        for target, package in word_packages_by_target.items()
+        if target in target_set and isinstance(package, Mapping)
+    }
+
+
+def _evaluate_en_ja_duplicate_surface_case_payloads(
+    *,
+    context: PairBenchmarkContext,
+    request: RulegenAdapterRequest,
+    materialize_case_results: bool,
+) -> tuple[tuple[RulegenBenchmarkCaseResult, ...], tuple[dict[str, object], ...]]:
+    duplicate_targets = set(_collect_en_ja_duplicate_surface_targets(context.cases))
+    if not duplicate_targets:
+        raise ValueError("Expected duplicate-surface en-ja cases for isolated evaluation.")
+
+    batch_cases = [case for case in context.cases if case.target not in duplicate_targets]
+    batch_rules_by_target: dict[str, list[VocabRule]] = {}
+    if batch_cases:
+        batch_targets = tuple(dict.fromkeys(str(case.target or "").strip() for case in batch_cases))
+        batch_request = replace(
+            request,
+            targets=batch_targets,
+            word_packages_by_target=_subset_word_packages_by_target(
+                context.word_packages_by_target,
+                targets=batch_targets,
+            ),
+        )
+        batch_rules_by_target = _group_rules_by_target(run_rules_with_adapter(batch_request))
+
+    case_results: list[RulegenBenchmarkCaseResult] = []
+    case_payloads: list[dict[str, object]] = []
+    for index, case in enumerate(context.cases):
+        if case.target in duplicate_targets:
+            isolated_request = replace(
+                request,
+                targets=(case.target,),
+                word_packages_by_target=_build_case_scoped_word_packages(
+                    pair=context.pair,
+                    case=case,
+                    fallback_word_packages_by_target=context.word_packages_by_target,
+                ),
+            )
+            rules = tuple(run_rules_with_adapter(isolated_request))
+            case_result = evaluate_benchmark_case(case, rules)
+        else:
+            case_result = evaluate_benchmark_case(
+                case,
+                tuple(batch_rules_by_target.get(case.target, ())),
+            )
+        case_results.append(case_result)
+        if materialize_case_results:
+            case_payloads.append(
+                _attach_case_trait_summary(
+                    payload=case_result.to_dict(),
+                    case=case,
+                    context=context,
+                    case_row_id=index,
+                )
+            )
+    return tuple(case_results), tuple(case_payloads)
+
+
 def _build_sweep_configs(args: argparse.Namespace) -> list[SweepConfig]:
     max_definitions_values = _parse_csv_optional_ints(
         args.max_definitions_values,
@@ -2171,6 +2703,10 @@ def _build_sweep_configs(args: argparse.Namespace) -> list[SweepConfig]:
         args.kaikki_policy_risk_family_sets,
         name="kaikki-policy-risk-family-sets",
     )
+    kaikki_policy_risk_family_demotion_sets = _parse_family_demotion_set_specs(
+        args.kaikki_policy_risk_family_demotion_sets,
+        name="kaikki-policy-risk-family-demotion-sets",
+    )
     kaikki_policy_late_sense_penalty_values = _parse_csv_floats(
         args.kaikki_policy_late_sense_penalty_values,
         name="kaikki-policy-late-sense-penalty-values",
@@ -2202,6 +2738,7 @@ def _build_sweep_configs(args: argparse.Namespace) -> list[SweepConfig]:
         reverse_check_exact_hit_ambiguity_penalty_values,
         kaikki_policy_live_demotion_values,
         kaikki_policy_risk_family_sets,
+        kaikki_policy_risk_family_demotion_sets,
         reverse_check_exact_hit_specificity_bonus_values,
         kaikki_policy_late_sense_penalty_values,
     ):
@@ -2231,8 +2768,9 @@ def _build_sweep_configs(args: argparse.Namespace) -> list[SweepConfig]:
                 reverse_check_exact_hit_ambiguity_penalty=float(combo[21]),
                 kaikki_policy_live_demotion=bool(combo[22]),
                 kaikki_policy_risk_families=tuple(combo[23]),
-                reverse_check_exact_hit_specificity_bonus=float(combo[24]),
-                kaikki_policy_late_sense_penalty=float(combo[25]),
+                kaikki_policy_risk_family_demotions=tuple(combo[24]),
+                reverse_check_exact_hit_specificity_bonus=float(combo[25]),
+                kaikki_policy_late_sense_penalty=float(combo[26]),
             )
         )
     return configs
@@ -2267,14 +2805,18 @@ def _build_rulegen_adapter_request(
         scoring=config.scoring(),
         reverse_check=config.reverse_check(),
         jmdict_path=context.jmdict_path,
+        translation_dict_path=context.translation_dict_path,
         freedict_de_en_path=context.translation_dict_path,
         freedict_reverse_path=context.reverse_translation_dict_path,
         gloss_records_by_target=context.gloss_records_by_target,
+        gloss_records_by_reading=context.gloss_records_by_reading,
+        gloss_records_by_alias=context.gloss_records_by_alias,
         reverse_gloss_records_by_source=context.reverse_gloss_records_by_source,
         compiled_pair_context=context.compiled_pair_context,
         word_packages_by_target=context.word_packages_by_target,
         kaikki_policy_live_demotion=config.kaikki_policy_live_demotion,
         kaikki_policy_risk_families=config.kaikki_policy_risk_families,
+        kaikki_policy_risk_family_demotions=config.kaikki_policy_risk_family_demotions,
         kaikki_policy_late_sense_penalty=config.kaikki_policy_late_sense_penalty,
     )
 
@@ -2351,9 +2893,22 @@ def _evaluate_sweep_run(
         if prepared_inputs is not None
         else _build_rulegen_adapter_request(context=context, config=config)
     )
+    duplicate_surface_targets = (
+        set(_collect_en_ja_duplicate_surface_targets(context.cases))
+        if context.pair == "en-ja"
+        else set()
+    )
 
     started = perf_counter()
-    if _can_evaluate_sweep_run_from_en_es_compiled_rows(context=context, config=config):
+    if duplicate_surface_targets:
+        case_results, case_result_payloads = _evaluate_en_ja_duplicate_surface_case_payloads(
+            context=context,
+            request=request,
+            materialize_case_results=materialize_case_results,
+        )
+        compiled_case_result_table = None
+        phase_timings["group_rules"] = 0.0
+    elif _can_evaluate_sweep_run_from_en_es_compiled_rows(context=context, config=config):
         compiled_case_table = context.compiled_case_table
         assert compiled_case_table is not None
         en_es_config = (
@@ -2390,7 +2945,9 @@ def _evaluate_sweep_run(
     phase_timings["run_config"] = perf_counter() - started
 
     started = perf_counter()
-    if context.compiled_case_table is not None:
+    if duplicate_surface_targets:
+        pass
+    elif context.compiled_case_table is not None:
         phase_timings["group_rules"] = 0.0
         case_result_payloads, compiled_case_result_table = _evaluate_case_payloads_with_table(
             context=context,
@@ -2718,7 +3275,16 @@ def _build_parser() -> argparse.ArgumentParser:
             "the benchmark uses it instead of the live SRS store for that pair."
         ),
     )
-    parser.add_argument("--jmdict", type=Path, help="Optional JMdict override path.")
+    parser.add_argument(
+        "--jmdict",
+        type=Path,
+        help="Optional JMdict override path or legacy en-ja translation-dictionary override.",
+    )
+    parser.add_argument(
+        "--translation-dict-en-ja",
+        type=Path,
+        help="Optional en-ja translation dictionary override (for example wiktionary-ja-en.sqlite).",
+    )
     parser.add_argument(
         "--translation-dict-en-de",
         "--freedict-en-de",
@@ -2776,6 +3342,10 @@ def _build_parser() -> argparse.ArgumentParser:
             "math_geometry+government_law+hunting_fishing_tools+"
             "register_region+abbreviation_ellipsis_formof"
         ),
+    )
+    parser.add_argument(
+        "--kaikki-policy-risk-family-demotion-sets",
+        default="none",
     )
     parser.add_argument(
         "--kaikki-policy-late-sense-penalty-values",
@@ -2952,6 +3522,7 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
     )
 
     translation_dict_overrides: dict[str, Optional[Path]] = {
+        "en-ja": args.translation_dict_en_ja,
         "en-de": args.translation_dict_en_de,
         "en-es": args.translation_dict_en_es,
         "es-en": args.translation_dict_es_en,

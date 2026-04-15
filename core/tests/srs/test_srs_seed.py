@@ -120,6 +120,25 @@ def _build_freq_db_with_pmw_and_freq(path: Path) -> None:
     conn.close()
 
 
+def _build_freq_db_with_surface_normalization_cases(path: Path) -> None:
+    conn = sqlite3.connect(path)
+    conn.execute(
+        "CREATE TABLE frequency ("
+        "lemma TEXT, core_rank REAL, pmw REAL, pos TEXT, lform TEXT, wtype TEXT)"
+    )
+    conn.executemany(
+        "INSERT INTO frequency (lemma, core_rank, pmw, pos, lform, wtype)"
+        " VALUES (?, ?, ?, ?, ?, ?)",
+        [
+            ("為る", 1.0, 1000.0, "動詞-非自立可能", "スル", "和"),
+            ("侭", 2.0, 900.0, "名詞-普通名詞-副詞可能", "ママ", "和"),
+            ("猫", 3.0, 800.0, "名詞-普通名詞-一般", "ネコ", "和"),
+        ],
+    )
+    conn.commit()
+    conn.close()
+
+
 class TestSrsSeedStopwords(unittest.TestCase):
     def test_stopwords_json_list_filters_lemmas(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -335,6 +354,59 @@ class TestSrsSeedStopwords(unittest.TestCase):
             self.assertTrue(selected)
             self.assertEqual(str(selected[0].metadata["pmw_column"]).lower(), "pmw")
             self.assertAlmostEqual(float(selected[0].pmw or 0.0), 900.0)
+
+    def test_seed_excludes_lexicalized_japanese_bootstrap_noise(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            db_path = root / "freq.sqlite"
+            _build_freq_db_with_surface_normalization_cases(db_path)
+
+            selected = build_seed_candidates(
+                frequency_db=db_path,
+                config=SeedSelectionConfig(
+                    language_pair="en-ja",
+                    top_n=5,
+                    require_jmdict=False,
+                ),
+            )
+
+            lemmas = [item.lemma for item in selected]
+            self.assertEqual(set(lemmas), {"する", "猫"})
+            self.assertNotIn("侭", lemmas)
+
+    def test_seed_normalizes_reviewed_japanese_surface_forms(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            db_path = root / "freq.sqlite"
+            _build_freq_db_with_surface_normalization_cases(db_path)
+
+            selected = build_seed_candidates(
+                frequency_db=db_path,
+                config=SeedSelectionConfig(
+                    language_pair="en-ja",
+                    top_n=2,
+                    require_jmdict=False,
+                ),
+            )
+
+            first = selected[0]
+            self.assertEqual(first.lemma, "する")
+            self.assertEqual(first.word_package["surface"], "する")
+            self.assertEqual(first.word_package["reading"], "する")
+            self.assertEqual(first.word_package["script_forms"]["kanji"], "為る")
+            self.assertEqual(first.word_package["script_forms"]["kana"], "する")
+            self.assertEqual(first.metadata["source_surface_original"], "為る")
+            self.assertEqual(first.metadata["surface_normalized_from"], "為る")
+            self.assertEqual(
+                first.metadata["surface_normalization_rule"],
+                "ja_manual_bootstrap_surface_map:為る->する",
+            )
+
+            selector_candidates = seed_to_selector_candidates(selected)
+            selector = selector_candidates[0]
+            self.assertEqual(selector.lemma, "する")
+            self.assertEqual(selector.metadata["source_surface_original"], "為る")
+            self.assertEqual(selector.metadata["word_package"]["surface"], "する")
 
 
 if __name__ == "__main__":

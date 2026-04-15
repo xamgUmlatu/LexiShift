@@ -51,6 +51,7 @@ class AdmissionRefreshPolicy:
     max_active_items_override: Optional[int] = None
     max_new_items_override: Optional[int] = None
     allowed_pos: Optional[set[str]] = None
+    selection_seed: Optional[int] = None
     selector_config: SelectorConfig = field(
         default_factory=lambda: SelectorConfig(
             weights=SelectorWeights(
@@ -90,6 +91,8 @@ class AdmissionRefreshDiagnostics:
     unknown_pos_seen: int = 0
     allowed_pos: Sequence[str] = field(default_factory=tuple)
     candidate_pool_effective: int = 0
+    selection_policy: str = "weighted_without_replacement"
+    selection_seed: Optional[int] = None
 
 
 @dataclass(frozen=True)
@@ -258,6 +261,10 @@ def apply_admission_refresh(
             unknown_pos_seen=unknown_pos_seen,
             allowed_pos=tuple(sorted(allowed_pos)),
             candidate_pool_effective=len(effective_candidates),
+            selection_policy=str(
+                policy.selector_config.selection_policy or "weighted_without_replacement"
+            ),
+            selection_seed=policy.selection_seed,
         )
         return store, AdmissionRefreshResult(
             decision=decision,
@@ -273,6 +280,7 @@ def apply_admission_refresh(
         coverage_scalar=1.0,
         max_new_items=decision.admission_budget,
         allowed_pos=allowed_pos or None,
+        selection_seed=policy.selection_seed,
         initial_stability=policy.initial_stability,
         initial_difficulty=policy.initial_difficulty,
         default_source_type=policy.default_source_type,
@@ -293,6 +301,10 @@ def apply_admission_refresh(
         unknown_pos_seen=unknown_pos_seen,
         allowed_pos=tuple(sorted(allowed_pos)),
         candidate_pool_effective=len(effective_candidates),
+        selection_policy=str(
+            policy.selector_config.selection_policy or "weighted_without_replacement"
+        ),
+        selection_seed=policy.selection_seed,
     )
     return updated_store, AdmissionRefreshResult(
         decision=decision,
@@ -345,6 +357,10 @@ def admission_refresh_result_to_dict(result: AdmissionRefreshResult) -> dict[str
             "unknown_pos_seen": int(result.diagnostics.unknown_pos_seen),
             "allowed_pos": list(result.diagnostics.allowed_pos),
             "candidate_pool_effective": int(result.diagnostics.candidate_pool_effective),
+            "selection_policy": str(
+                result.diagnostics.selection_policy or "weighted_without_replacement"
+            ),
+            "selection_seed": result.diagnostics.selection_seed,
         },
         "applied": result.applied,
     }

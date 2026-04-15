@@ -79,6 +79,44 @@ class TestLpCapabilities(unittest.TestCase):
             )
         self.assertEqual(alias, legacy)
 
+    def test_en_ja_default_dictionary_prefers_kaikki_sqlite_filename(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            language_packs_dir = Path(tmp)
+            resolved = default_translation_dictionary_path(
+                "en-ja",
+                language_packs_dir=language_packs_dir,
+            )
+        self.assertIsNotNone(resolved)
+        self.assertTrue(str(resolved).endswith("wiktionary-ja-en.sqlite"))
+
+    def test_en_ja_default_dictionary_falls_back_to_existing_jmdict_when_kaikki_missing(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            language_packs_dir = Path(tmp)
+            target = language_packs_dir / "JMdict_e"
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_text("<JMdict/>", encoding="utf-8")
+            resolved = default_translation_dictionary_path(
+                "en-ja",
+                language_packs_dir=language_packs_dir,
+            )
+        self.assertEqual(resolved, target)
+
+    def test_en_ja_default_dictionary_prefers_kaikki_when_both_sources_exist(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            language_packs_dir = Path(tmp)
+            jmdict_target = language_packs_dir / "JMdict_e"
+            kaikki_target = language_packs_dir / "wiktionary-ja-en.sqlite"
+            jmdict_target.parent.mkdir(parents=True, exist_ok=True)
+            jmdict_target.write_text("<JMdict/>", encoding="utf-8")
+            kaikki_target.write_bytes(b"SQLite format 3\x00")
+            resolved = default_translation_dictionary_path(
+                "en-ja",
+                language_packs_dir=language_packs_dir,
+            )
+        self.assertEqual(resolved, kaikki_target)
+
     def test_en_es_reverse_dictionary_prefers_kaikki_sqlite_filename(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             language_packs_dir = Path(tmp)

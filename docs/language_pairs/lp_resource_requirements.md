@@ -63,7 +63,7 @@ Legend:
 
 | LP | Rulegen type | Dictionary source(s) | Frequency DB for SRS init/refresh | Stopwords | Required by current code | Logical E2E requirement |
 | --- | --- | --- | --- | --- | --- | --- |
-| `en-ja` | Cross-lingual translation | `jmdict-ja-en` (`JMdict_e`) | `freq-ja-bccwj.sqlite` | `stopwords-ja.json` (optional) | `JMdict_e`: Hard for seed + rulegen. Frequency DB: Hard. | Same as code. Implemented baseline path. |
+| `en-ja` | Cross-lingual translation | `jmdict-ja-en` (`JMdict_e`) seed/baseline source; `wiktionary-ja-en.sqlite` preferred helper/runtime rulegen source when present | `freq-ja-bccwj.sqlite` | `stopwords-ja.json` (optional) | `JMdict_e`: Hard for seed/bootstrap. `wiktionary-ja-en.sqlite`: Preferred helper/runtime translation dictionary when present; `JMdict_e` fallback if absent. Frequency DB: Hard. | Same as code. Implemented mixed rollout: JMDict seed/bootstrap plus Kaikki-preferred helper/runtime rulegen; current Kaikki `en-ja` quality depends on pair-specific reading-aware gloss normalization rather than a generalized Kaikki rulegen layer, and the newer discriminative `71`-case benchmark suite now exposes unresolved reading-sensitive gaps that were not visible on the older `53`-case suite. |
 | `de-en` | Cross-lingual translation | `freedict-en-de` (`eng-deu.tei`) for EN targets, DE sources | `freq-en-coca.sqlite` (current default) | `stopwords-en.json` (optional) | Frequency DB: Hard. No dictionary hard-check today. Rulegen adapter missing. | Needs `de-en` adapter + FreeDict TEI wiring for publishable rules. |
 | `en-de` | Cross-lingual translation | `freedict-de-en` (`deu-eng.tei`) for DE targets, EN sources | `freq-de-default.sqlite` fallback path (placeholder, not bundled) | `stopwords-de.json` (optional, currently missing) | Frequency DB: Hard (will fail if missing). FreeDict DE->EN TEI: Hard for rulegen/publish. | Adapter implemented; still needs real German frequency DB for practical initialize/refresh. |
 | `en-es` | Cross-lingual translation | `freedict-es-en` (`spa-eng.tei`) for ES targets, EN sources | `freq-es-cde.sqlite` | `stopwords-es.json` (optional, currently missing) | Frequency DB: Hard. FreeDict ES->EN TEI/SQLite: Hard for rulegen/publish. | Adapter implemented and wired, but current FreeDict ES->EN coverage is not adequate as the sole production SRS publication source; installed-resource journey still shows admitted/due words such as `movimiento` with no publishable rule. |
@@ -96,7 +96,7 @@ Both files are TEI dictionaries; they support opposite directional rulegen needs
 
 - Hard blocker for several LPs: missing real target-language frequency DB (DE, ZH).
 - Hard blocker for several LPs publish path: missing rulegen adapters (`de-en`, `es-es`, `en-en`, `de-de`, `ja-ja`, `en-zh`).
-- Current dictionary hard requirements in code: `en-ja` (JMDict) and FreeDict-backed pairs (`en-de`, `en-es`, `es-en`).
+- Current dictionary hard requirements in code: `en-ja` seed flows remain JMDict-based while helper/runtime rulegen now uses a generic translation-dictionary slot and prefers Kaikki when installed, and FreeDict-backed pairs (`en-de`, `en-es`, `es-en`) still require their direction-specific translation dictionaries.
 - Important adequacy distinction:
   - `en-es` currently has a wired bilingual source (`freedict-es-en`), but that source is not coverage-adequate for production SRS publication on its own.
   - The current failure mode is not just ranking noise; some normal admitted lemmas have no usable ES->EN headword coverage in the installed FreeDict inventory.
@@ -104,6 +104,8 @@ Both files are TEI dictionaries; they support opposite directional rulegen needs
 - Current replacement direction:
   - The active replacement plan for `en-es` is a Kaikki/Wiktionary-backed compatibility SQLite generated from Spanish entries in the English-edition Kaikki dump.
   - The active reverse-check replacement plan is a separate Kaikki/Wiktionary compatibility SQLite generated from English entries in the same English-edition dump.
+  - `en-ja` now also has a Kaikki/Wiktionary compatibility SQLite path (`wiktionary-ja-en.sqlite`) that helper/runtime rulegen prefers when present, while seed initialize/refresh remains JMDict-based.
+  - Current `en-ja` Kaikki quality is benchmark-clean on the current `161`-case core lane plus a separate `2`-case rare-reading edge file: `Top1 100.00%`, `Top3 100.00%`, `ForbidAny 0.00%`, triage `0` on the core lane. The lift still comes from pair-specific reading-aware gloss-fragment handling and generalized family-level English-output cleanup in the `en-ja` adapter, not from a shared multilingual Kaikki methodology yet. The broader supported sweep still prefers the lean `md=1 / mr=1 / sd=1.0` family, but `168 / 864` configs are perfect and the canonical matrix still has a wide tied frontier, so the next useful work is more discriminative benchmark expansion rather than ordinary knob churn.
   - See `docs/language_pairs/kaikki_en_es_integration_plan.md`.
 
 ## 6) German Frequency DB Build (Current Recommendation)

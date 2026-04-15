@@ -1,0 +1,312 @@
+{
+  "generated_at": "2026-04-08T01:35:36Z",
+  "pair": "en-ja",
+  "stats": {
+    "rule_count": 79,
+    "source_count": 79,
+    "target_count": 79
+  },
+  "targets": [
+    {
+      "lemma": "\u3059\u308b",
+      "sources": [
+        "render"
+      ]
+    },
+    {
+      "lemma": "\u4e00\u4eba",
+      "sources": [
+        "singleness"
+      ]
+    },
+    {
+      "lemma": "\u4e0a",
+      "sources": [
+        "above"
+      ]
+    },
+    {
+      "lemma": "\u4e16\u754c",
+      "sources": [
+        "world"
+      ]
+    },
+    {
+      "lemma": "\u4e2d",
+      "sources": [
+        "middle"
+      ]
+    },
+    {
+      "lemma": "\u4e8b",
+      "sources": [
+        "thing"
+      ]
+    },
+    {
+      "lemma": "\u4e8b\u696d",
+      "sources": [
+        "project"
+      ]
+    },
+    {
+      "lemma": "\u4e8c\u4eba",
+      "sources": [
+        "couple"
+      ]
+    },
+    {
+      "lemma": "\u4eba",
+      "sources": [
+        "person"
+      ]
+    },
+    {
+      "lemma": "\u4eba\u9593",
+      "sources": [
+        "human"
+      ]
+    },
+    {
+      "lemma": "\u4eca",
+      "sources": [
+        "now"
+      ]
+    },
+    {
+      "lemma": "\u4eca\u65e5",
+      "sources": [
+        "today"
+      ]
+    },
+    {
+      "lemma": "\u4ed5\u4e8b",
+      "sources": [
+        "job"
+      ]
+    },
+    {
+      "lemma": "\u4ed6",
+      "sources": [
+        "another"
+      ]
+    },
+    {
+      "lemma": "\u4ee5\u4e0a",
+      "sources": [
+        "aforementioned"
+      ]
+    },
+    {
+      "lemma": "\u4f01\u696d",
+      "sources": [
+        "enterprise"
+      ]
+    },
+    {
+      "lemma": "\u4f1a",
+      "sources": [
+        "meeting"
+      ]
+    },
+    {
+      "lemma": "\u4f1a\u793e",
+      "sources": [
+        "company"
+      ]
+    },
+    {
+      "lemma": "\u5148",
+      "sources": [
+        "before"
+      ]
+    },
+    {
+      "lemma": "\u5168\u3066",
+      "sources": [
+        "entirely"
+      ]
+    },
+    {
+      "lemma": "\u5171",
+      "sources": [
+        "both"
+      ]
+    },
+    {
+      "lemma": "\u5185",
+      "sources": [
+        "inside"
+      ]
+    },
+    {
+      "lemma": "\u5225",
+      "sources": [
+        "different"
+      ]
+    },
+    {
+      "lemma": "\u5229\u7528",
+      "sources": [
+        "use"
+      ]
+    },
+    {
+      "lemma": "\u524d",
+      "sources": [
+        "front"
+      ]
+    },
+    {
+      "lemma": "\u554f\u984c",
+      "sources": [
+        "question"
+      ]
+    },
+    {
+      "lemma": "\u56f3",
+      "sources": [
+        "diagram"
+      ]
+    },
+    {
+      "lemma": "\u56fd",
+      "sources": [
+        "land"
+      ]
+    },
+    {
+      "lemma": "\u5730\u57df",
+      "sources": [
+        "area"
+      ]
+    },
+    {
+      "lemma": "\u5834\u5408",
+      "sources": [
+        "when"
+      ]
+    },
+    {
+      "lemma": "\u58f0",
+      "sources": [
+        "voice"
+      ]
+    },
+    {
+      "lemma": "\u5973\u6027",
+      "sources": [
+        "woman"
+      ]
+    },
+    {
+      "lemma": "\u59d4\u54e1",
+      "sources": [
+        "committee"
+      ]
+    },
+    {
+      "lemma": "\u5b50\u4f9b",
+      "sources": [
+        "child"
+      ]
+    },
+    {
+      "lemma": "\u5b66\u6821",
+      "sources": [
+        "school"
+      ]
+    },
+    {
+      "lemma": "\u5bb6",
+      "sources": [
+        "house"
+      ]
+    },
+    {
+      "lemma": "\u5c45\u308b",
+      "sources": [
+        "exist"
+      ]
+    },
+    {
+      "lemma": "\u5e02",
+      "sources": [
+        "city"
+      ]
+    },
+    {
+      "lemma": "\u5e74\u5ea6",
+      "sources": [
+        "year"
+      ]
+    },
+    {
+      "lemma": "\u5f8c",
+      "sources": [
+        "back"
+      ]
+    },
+    {
+      "lemma": "\u5fc3",
+      "sources": [
+        "heart"
+      ]
+    },
+    {
+      "lemma": "\u5fc5\u8981",
+      "sources": [
+        "needed"
+      ]
+    },
+    {
+      "lemma": "\u60c5\u5831",
+      "sources": [
+        "information"
+      ]
+    },
+    {
+      "lemma": "\u6210\u308b",
+      "sources": [
+        "become"
+      ]
+    },
+    {
+      "lemma": "\u6240",
+      "sources": [
+        "place"
+      ]
+    },
+    {
+      "lemma": "\u65b9",
+      "sources": [
+        "way"
+      ]
+    },
+    {
+      "lemma": "\u65e5",
+      "sources": [
+        "sun"
+      ]
+    },
+    {
+      "lemma": "\u6642",
+      "sources": [
+        "time"
+      ]
+    },
+    {
+      "lemma": "\u6642\u4ee3",
+      "sources": [
+        "age"
+      ]
+    },
+    {
+      "lemma": "\u6709\u308b",
+      "sources": [
+        "exist"
+      ]
+    }
+  ],
+  "version": 1
+}

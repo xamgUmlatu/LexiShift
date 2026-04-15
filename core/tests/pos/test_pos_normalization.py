@@ -38,6 +38,10 @@ class TestPosNormalization(unittest.TestCase):
             "wiktionary",
         )
         self.assertEqual(
+            resolve_pos_source_profile(source_provider="wiktionary-ja-en"),
+            "wiktionary",
+        )
+        self.assertEqual(
             resolve_pos_source_profile(language_pair="en-en", source_kind="frequency"),
             "compact-latin",
         )

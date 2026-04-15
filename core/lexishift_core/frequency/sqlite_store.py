@@ -39,16 +39,24 @@ def validate_frequency_sqlite_db(path: Path, *, table: str = "frequency") -> Non
     if not header.startswith(b"SQLite format 3"):
         raise ValueError(f"Invalid SQLite frequency DB file: {candidate}")
     uri = f"{candidate.resolve().as_uri()}?mode=ro"
+    conn = None
+    cursor = None
     try:
-        with sqlite3.connect(uri, uri=True) as conn:
-            row = conn.execute(
-                "SELECT 1 FROM sqlite_master WHERE type='table' AND lower(name)=lower(?) LIMIT 1;",
-                (table,),
-            ).fetchone()
-            if row is None:
-                raise ValueError(f"Missing table '{table}' in frequency DB: {candidate}")
+        conn = sqlite3.connect(uri, uri=True)
+        cursor = conn.execute(
+            "SELECT 1 FROM sqlite_master WHERE type='table' AND lower(name)=lower(?) LIMIT 1;",
+            (table,),
+        )
+        row = cursor.fetchone()
+        if row is None:
+            raise ValueError(f"Missing table '{table}' in frequency DB: {candidate}")
     except sqlite3.Error as exc:
         raise ValueError(f"Failed to open frequency DB '{candidate}': {exc}") from exc
+    finally:
+        if cursor is not None:
+            cursor.close()
+        if conn is not None:
+            conn.close()
 
 
 class SqliteFrequencyStore:
@@ -63,6 +71,20 @@ class SqliteFrequencyStore:
 
     def close(self) -> None:
         self._conn.close()
+
+    def _fetchone(self, query: str, params: tuple[object, ...] = ()) -> sqlite3.Row | None:
+        cursor = self._conn.execute(query, params)
+        try:
+            return cursor.fetchone()
+        finally:
+            cursor.close()
+
+    def _fetchall(self, query: str, params: tuple[object, ...] = ()) -> list[sqlite3.Row]:
+        cursor = self._conn.execute(query, params)
+        try:
+            return cursor.fetchall()
+        finally:
+            cursor.close()
 
     def __enter__(self) -> "SqliteFrequencyStore":
         return self
@@ -82,13 +104,13 @@ class SqliteFrequencyStore:
         if resolved_column in self._max_cache:
             return self._max_cache[resolved_column]
         query = f"SELECT MAX({resolved_column}) as value FROM {self._config.table};"
-        row = self._conn.execute(query).fetchone()
+        row = self._fetchone(query)
         value = float(row["value"]) if row and row["value"] is not None else None
         self._max_cache[resolved_column] = value
         return value
 
     def column_names(self) -> list[str]:
-        rows = self._conn.execute(f"PRAGMA table_info({self._config.table});").fetchall()
+        rows = self._fetchall(f"PRAGMA table_info({self._config.table});")
         return [row[1] for row in rows if len(row) > 1]
 
     def get_value(self, lemma: str, column: str) -> Optional[float]:
@@ -110,7 +132,7 @@ class SqliteFrequencyStore:
             f"SELECT {resolved_value_column} as value FROM {self._config.table} "
             f"WHERE {resolved_lemma_column} = ? LIMIT 1;"
         )
-        row = self._conn.execute(query, (lemma,)).fetchone()
+        row = self._fetchone(query, (lemma,))
         value = float(row["value"]) if row and row["value"] is not None else None
         self._cache[key] = value
         return value
@@ -164,7 +186,8 @@ class SqliteFrequencyStore:
             order_terms.append(f"{resolved_pmw_column} DESC")
         order_sql = f" ORDER BY {', '.join(order_terms)}" if order_terms else ""
         query = f"SELECT {col_sql} FROM {self._config.table}{order_sql} LIMIT ?;"
-        for row in self._conn.execute(query, (limit,)):
+        rows = self._fetchall(query, (limit,))
+        for row in rows:
             yield row
 
     def resolve_column(

@@ -23,7 +23,7 @@ _FUNCTION_WORD_CANONICALS = frozenset(
     }
 )
 _FUNCTION_LIKE_CANONICALS = frozenset({*_FUNCTION_WORD_CANONICALS, CANONICAL_POS_ADVERB})
-_REGISTER_MARKERS = ("informal", "colloquial", "slang")
+_REGISTER_MARKERS = ("informal", "colloquial", "slang", "vulgar")
 _REGION_MARKERS = (
     "mexico",
     "spain",
@@ -36,17 +36,91 @@ _REGION_MARKERS = (
     "uruguay",
     "venezuela",
 )
+_REGISTER_CATEGORY_MARKERS = (
+    "spanish informal terms",
+    "spanish vulgarities",
+)
+_EXPLICIT_VULGAR_USAGE_MARKERS = (
+    "entry_tag:vulgar",
+    "sense_tag:vulgar",
+    "translation_tag:vulgar",
+    "sense_category:spanish vulgarities",
+)
+_REGION_CATEGORY_MARKERS = (
+    "latin american spanish",
+    "peninsular spanish",
+)
 _GRAMMATICAL_POS_HINTS = ("det", "pron", "prep", "conj", "adp", "adposition", "preposition")
 _VERB_POS_HINTS = ("verb", "auxiliary", "v")
 _EN_ES_MAX_SPLIT_PARTS = 8
 _EN_ES_MAX_ALIAS_WORDS = 4
 _EN_ES_ARTICLE_PREFIXES = ("a ", "an ", "the ")
 _EN_ES_INLINE_ANNOTATION_RE = re.compile(r"\s*(?:\([^)]*\)|\[[^\]]*\]|\{[^}]*\})")
+_EN_ES_NOMINAL_HEAD_MAX_WORDS = 6
+_EN_ES_NOMINAL_HEAD_CONNECTORS = frozenset({"and", "or"})
+_EN_ES_NOMINAL_HEAD_ARTICLES = frozenset({"a", "an", "the"})
+_EN_ES_LEADING_ALIAS_MARKERS = (
+    "or other",
+    "especially",
+    "such as",
+    "for example",
+    "for instance",
+    "one in",
+)
+_EN_ES_NOMINAL_HEAD_BLOCKERS = frozenset(
+    {
+        "of",
+        "for",
+        "from",
+        "with",
+        "without",
+        "by",
+        "in",
+        "into",
+        "on",
+        "onto",
+        "at",
+        "to",
+        "than",
+        "that",
+        "which",
+        "whose",
+        "while",
+        "when",
+        "where",
+    }
+)
+_EN_ES_NOMINAL_HEAD_GENERIC_TAILS = frozenset(
+    {
+        "set",
+        "kind",
+        "sort",
+        "type",
+        "thing",
+        "one",
+        "ones",
+        "someone",
+        "somebody",
+        "person",
+        "people",
+        "collection",
+        "group",
+        "piece",
+        "part",
+    }
+)
 _KAIKKI_POLICY_BASE_DEMOTIONS: Mapping[str, float] = {
     "math_geometry": 0.30,
     "government_law": 0.35,
     "hunting_fishing_tools": 0.30,
     "register_region": 0.35,
+    "art_media": 0.25,
+    "computing": 0.30,
+    "communication_network": 0.30,
+    "mechanics_tools": 0.30,
+    "music": 0.30,
+    "biology": 0.25,
+    "chemistry": 0.25,
     "abbreviation_ellipsis_formof": 0.55,
 }
 
@@ -359,22 +433,61 @@ def build_kaikki_policy_shadow_by_index(
 
 def resolve_kaikki_policy_live_demotion(
     shadow: Mapping[str, object],
+    *,
+    family_demotions: Optional[Mapping[str, float]] = None,
 ) -> tuple[float, tuple[str, ...]]:
     if not bool(shadow.get("would_demote")):
         return 0.0, ()
     risky_families = shadow.get("risky_families")
     if not isinstance(risky_families, Sequence) or isinstance(risky_families, (str, bytes)):
         return 0.0, ()
+    resolved_family_demotions = dict(_KAIKKI_POLICY_BASE_DEMOTIONS)
+    if isinstance(family_demotions, Mapping):
+        for raw_family, raw_value in family_demotions.items():
+            family = str(raw_family).strip()
+            if not family:
+                continue
+            try:
+                value = max(0.0, float(raw_value))
+            except (TypeError, ValueError):
+                continue
+            resolved_family_demotions[family] = value
     matched_families = [
         str(family).strip()
         for family in risky_families
-        if str(family).strip() in _KAIKKI_POLICY_BASE_DEMOTIONS
+        if str(family).strip() in resolved_family_demotions
     ]
     if not matched_families:
         return 0.0, ()
-    demotion = max(_KAIKKI_POLICY_BASE_DEMOTIONS[family] for family in matched_families)
+    demotion = max(resolved_family_demotions[family] for family in matched_families)
     reasons = tuple(f"kaikki_policy:{family}" for family in matched_families)
     return demotion, reasons
+
+
+def resolve_kaikki_policy_live_suppression(
+    shadow: Mapping[str, object],
+) -> tuple[bool, tuple[str, ...]]:
+    if not bool(shadow.get("clean_competition_present")):
+        return False, ()
+    risk_family_sources = shadow.get("risk_family_sources")
+    if not isinstance(risk_family_sources, Mapping):
+        return False, ()
+    register_sources = risk_family_sources.get("register_region")
+    if not isinstance(register_sources, Sequence) or isinstance(register_sources, (str, bytes)):
+        return False, ()
+    matched_sources = tuple(
+        marker
+        for marker in register_sources
+        if str(marker).strip() in _EXPLICIT_VULGAR_USAGE_MARKERS
+    )
+    if not matched_sources:
+        return False, ()
+    reasons = [f"kaikki_policy_suppress:{marker}" for marker in matched_sources]
+    if bool(shadow.get("clean_earlier_competition_present")):
+        reasons.append("kaikki_policy_suppress:clean_earlier_competition")
+    else:
+        reasons.append("kaikki_policy_suppress:clean_competition")
+    return True, tuple(reasons)
 
 
 def resolve_kaikki_provenance_competition_demotion(
@@ -421,6 +534,7 @@ def collect_sanitized_gloss_records(
             if variant_metadata:
                 metadata.update(variant_metadata)
             if existing_index is None:
+                metadata.setdefault("gloss_variant_occurrence_count", 1)
                 cleaned.append(
                     FreedictGlossRecord(
                         translation=sanitized,
@@ -430,12 +544,18 @@ def collect_sanitized_gloss_records(
                 )
                 seen[sanitized] = len(cleaned) - 1
                 continue
-            if not cleaned[existing_index].pos_raw and normalized_pos:
-                cleaned[existing_index] = FreedictGlossRecord(
-                    translation=sanitized,
-                    pos_raw=normalized_pos,
-                    metadata=cleaned[existing_index].metadata,
-                )
+            existing_record = cleaned[existing_index]
+            existing_metadata = dict(existing_record.metadata)
+            existing_count = metadata_int_value(existing_metadata, "gloss_variant_occurrence_count")
+            existing_metadata["gloss_variant_occurrence_count"] = (
+                int(existing_count) if existing_count is not None else 1
+            ) + 1
+            resolved_pos = existing_record.pos_raw or normalized_pos
+            cleaned[existing_index] = FreedictGlossRecord(
+                translation=sanitized,
+                pos_raw=resolved_pos,
+                metadata=existing_metadata,
+            )
     return cleaned
 
 
@@ -478,11 +598,9 @@ def should_demote_shadowed_adverb(
 
 
 def resolve_kaikki_register_demotion(metadata: Mapping[str, object]) -> float:
-    markers = _collect_lowered_metadata_markers(metadata)
-    if not markers:
+    register_hit, region_hit = _resolve_kaikki_register_hits(metadata)
+    if not register_hit and not region_hit:
         return 0.0
-    register_hit = any(any(token in marker for token in _REGISTER_MARKERS) for marker in markers)
-    region_hit = any(any(token in marker for token in _REGION_MARKERS) for marker in markers)
     if register_hit and region_hit:
         return 0.55
     if register_hit:
@@ -630,6 +748,30 @@ def _expand_en_es_gloss_variants(
             metadata["gloss_fragment_parenthetical_stripped"] = True
         variants.append((normalized_text, metadata))
         seen.add(normalized_text)
+        head_variant = _recover_en_es_nominal_head_variant(normalized_text, pos_raw=pos_raw)
+        if head_variant:
+            head_text, head_operations = head_variant
+            if head_text and head_text not in seen:
+                head_metadata = dict(metadata)
+                head_metadata["gloss_fragment_strategy"] = "nominal_head"
+                head_metadata["gloss_fragment_emitted_text"] = head_text
+                merged_operations = tuple(dict.fromkeys((*operations, *head_operations)))
+                if merged_operations:
+                    head_metadata["gloss_fragment_operations"] = merged_operations
+                variants.append((head_text, head_metadata))
+                seen.add(head_text)
+        alias_variant = _recover_en_es_leading_alias_variant(normalized_text, pos_raw=pos_raw)
+        if alias_variant:
+            alias_text, alias_operations = alias_variant
+            if alias_text and alias_text not in seen:
+                alias_metadata = dict(metadata)
+                alias_metadata["gloss_fragment_strategy"] = "leading_alias"
+                alias_metadata["gloss_fragment_emitted_text"] = alias_text
+                merged_operations = tuple(dict.fromkeys((*operations, *alias_operations)))
+                if merged_operations:
+                    alias_metadata["gloss_fragment_operations"] = merged_operations
+                variants.append((alias_text, alias_metadata))
+                seen.add(alias_text)
     if variants:
         return variants
     normalized_text, normalization_operations = _normalize_en_es_gloss_fragment(sanitized)
@@ -647,7 +789,30 @@ def _expand_en_es_gloss_variants(
         fallback_metadata["gloss_fragment_operations"] = normalization_operations
     if "strip_inline_annotation" in normalization_operations:
         fallback_metadata["gloss_fragment_parenthetical_stripped"] = True
-    return [(normalized_text, fallback_metadata)]
+    variants = [(normalized_text, fallback_metadata)]
+    head_variant = _recover_en_es_nominal_head_variant(normalized_text, pos_raw=pos_raw)
+    if head_variant:
+        head_text, head_operations = head_variant
+        if head_text and head_text != normalized_text:
+            head_metadata = dict(fallback_metadata)
+            head_metadata["gloss_fragment_strategy"] = "nominal_head"
+            head_metadata["gloss_fragment_emitted_text"] = head_text
+            merged_operations = tuple(dict.fromkeys((*normalization_operations, *head_operations)))
+            if merged_operations:
+                head_metadata["gloss_fragment_operations"] = merged_operations
+            variants.append((head_text, head_metadata))
+    alias_variant = _recover_en_es_leading_alias_variant(normalized_text, pos_raw=pos_raw)
+    if alias_variant:
+        alias_text, alias_operations = alias_variant
+        if alias_text and alias_text != normalized_text:
+            alias_metadata = dict(fallback_metadata)
+            alias_metadata["gloss_fragment_strategy"] = "leading_alias"
+            alias_metadata["gloss_fragment_emitted_text"] = alias_text
+            merged_operations = tuple(dict.fromkeys((*normalization_operations, *alias_operations)))
+            if merged_operations:
+                alias_metadata["gloss_fragment_operations"] = merged_operations
+            variants.append((alias_text, alias_metadata))
+    return variants
 
 
 def _split_en_es_gloss_fragments(text: str, *, pos_raw: str) -> list[dict[str, object]]:
@@ -717,6 +882,90 @@ def _normalize_en_es_gloss_fragment(text: str) -> tuple[str, tuple[str, ...]]:
     if sanitized:
         return sanitized, tuple(dict.fromkeys(operations))
     return "", tuple(dict.fromkeys(operations))
+
+
+def _recover_en_es_nominal_head_variant(
+    text: str,
+    *,
+    pos_raw: str,
+) -> tuple[str, tuple[str, ...]] | None:
+    lowered_pos = str(pos_raw or "").strip().lower()
+    if not lowered_pos:
+        return None
+    if _raw_pos_looks_verbal(lowered_pos):
+        return None
+    if any(marker in lowered_pos for marker in _GRAMMATICAL_POS_HINTS):
+        return None
+    normalized = sanitize_dictionary_gloss(text)
+    if not normalized:
+        return None
+    if any(separator in normalized for separator in (",", ";", "/")):
+        return None
+    words = [token for token in normalized.lower().split(" ") if token]
+    if len(words) < 3 or len(words) > _EN_ES_NOMINAL_HEAD_MAX_WORDS:
+        return None
+    if any(any(character.isdigit() for character in token) for token in words):
+        return None
+    if any(token in _EN_ES_NOMINAL_HEAD_BLOCKERS for token in words[:-1]):
+        return None
+    if any(
+        not re.fullmatch(r"[a-z][a-z-]*", token)
+        and token not in _EN_ES_NOMINAL_HEAD_CONNECTORS
+        and token not in _EN_ES_NOMINAL_HEAD_ARTICLES
+        for token in words
+    ):
+        return None
+    head = words[-1]
+    if head in _EN_ES_NOMINAL_HEAD_CONNECTORS or head in _EN_ES_NOMINAL_HEAD_GENERIC_TAILS:
+        return None
+    prefix_words = [
+        token
+        for token in words[:-1]
+        if token not in _EN_ES_NOMINAL_HEAD_CONNECTORS and token not in _EN_ES_NOMINAL_HEAD_ARTICLES
+    ]
+    if len(prefix_words) < 2 and not any(
+        token in _EN_ES_NOMINAL_HEAD_CONNECTORS for token in words[:-1]
+    ):
+        return None
+    if not re.fullmatch(r"[a-z][a-z-]*", head):
+        return None
+    return head, ("extract_nominal_head",)
+
+
+def _recover_en_es_leading_alias_variant(
+    text: str,
+    *,
+    pos_raw: str,
+) -> tuple[str, tuple[str, ...]] | None:
+    lowered_pos = str(pos_raw or "").strip().lower()
+    if not lowered_pos:
+        return None
+    if _raw_pos_looks_verbal(lowered_pos):
+        return None
+    if any(marker in lowered_pos for marker in _GRAMMATICAL_POS_HINTS):
+        return None
+    normalized = sanitize_dictionary_gloss(text)
+    if not normalized or "," not in normalized:
+        return None
+    parts = _split_top_level_fragments(normalized, separator=",")
+    if len(parts) < 2 or len(parts) > _EN_ES_MAX_SPLIT_PARTS:
+        return None
+    first = _normalize_en_es_gloss_fragment(parts[0])[0]
+    if not first or _word_count(first) > 2:
+        return None
+    lowered_first = first.lower()
+    if lowered_first.startswith(_EN_ES_ARTICLE_PREFIXES):
+        return None
+    trailing_parts = [_normalize_en_es_gloss_fragment(part)[0] for part in parts[1:]]
+    trailing_parts = [part for part in trailing_parts if part]
+    if not trailing_parts:
+        return None
+    trailing_text = " ".join(trailing_parts).lower()
+    if not any(marker in trailing_text for marker in _EN_ES_LEADING_ALIAS_MARKERS):
+        return None
+    if not any(_word_count(part) > _EN_ES_MAX_ALIAS_WORDS for part in trailing_parts):
+        return None
+    return first, ("extract_leading_alias",)
 
 
 def _strip_inline_gloss_annotations(text: str) -> str:
@@ -816,6 +1065,76 @@ def _collect_lowered_metadata_markers(value: object) -> tuple[str, ...]:
     markers: list[str] = []
     _visit_marker_values(value, markers)
     return tuple(markers)
+
+
+def _resolve_kaikki_register_hits(metadata: Mapping[str, object]) -> tuple[bool, bool]:
+    register_hit = False
+    region_hit = False
+    views = metadata.get("dictionary_record_views")
+    if isinstance(views, Mapping):
+        nested_views = views.get("kaikki")
+        normalized_views = nested_views if isinstance(nested_views, Mapping) else views
+        combined_prefixed_markers = normalized_views.get("combined_prefixed_markers")
+        combined_markers = _collect_lowered_metadata_markers(combined_prefixed_markers)
+        if combined_markers:
+            register_hit, region_hit = _scan_prefixed_register_markers(combined_markers)
+            if register_hit or region_hit:
+                return register_hit, region_hit
+    raw_record = metadata.get("dictionary_record")
+    if isinstance(raw_record, Mapping):
+        record_register_hit, record_region_hit = _scan_raw_register_markers(raw_record)
+        register_hit = register_hit or record_register_hit
+        region_hit = region_hit or record_region_hit
+    metadata_register_hit, metadata_region_hit = _scan_raw_register_markers(metadata)
+    register_hit = register_hit or metadata_register_hit
+    region_hit = region_hit or metadata_region_hit
+    return register_hit, region_hit
+
+
+def _scan_prefixed_register_markers(markers: Sequence[str]) -> tuple[bool, bool]:
+    register_hit = False
+    region_hit = False
+    for marker in markers:
+        text = str(marker or "").strip().lower()
+        if not text or ":" not in text:
+            continue
+        prefix, raw_value = text.split(":", 1)
+        value = raw_value.strip()
+        if prefix in {"entry_tag", "sense_tag", "translation_tag"}:
+            if any(token in value for token in _REGISTER_MARKERS):
+                register_hit = True
+            if any(token in value for token in _REGION_MARKERS):
+                region_hit = True
+        elif prefix in {"entry_category", "sense_category"}:
+            if value in _REGISTER_CATEGORY_MARKERS:
+                register_hit = True
+            if value in _REGION_CATEGORY_MARKERS:
+                region_hit = True
+    return register_hit, region_hit
+
+
+def _scan_raw_register_markers(metadata: Mapping[str, object]) -> tuple[bool, bool]:
+    register_hit = False
+    region_hit = False
+    tag_keys = ("entry_tags", "sense_tags", "translation_tags")
+    category_keys = ("entry_categories", "sense_categories")
+    for key in tag_keys:
+        if key not in metadata:
+            continue
+        markers = _collect_lowered_metadata_markers(metadata.get(key))
+        if any(any(token in marker for token in _REGISTER_MARKERS) for marker in markers):
+            register_hit = True
+        if any(any(token in marker for token in _REGION_MARKERS) for marker in markers):
+            region_hit = True
+    for key in category_keys:
+        if key not in metadata:
+            continue
+        markers = _collect_lowered_metadata_markers(metadata.get(key))
+        if any(marker in _REGISTER_CATEGORY_MARKERS for marker in markers):
+            register_hit = True
+        if any(marker in _REGION_CATEGORY_MARKERS for marker in markers):
+            region_hit = True
+    return register_hit, region_hit
 
 
 def _raw_pos_looks_verbal(value: object) -> bool:

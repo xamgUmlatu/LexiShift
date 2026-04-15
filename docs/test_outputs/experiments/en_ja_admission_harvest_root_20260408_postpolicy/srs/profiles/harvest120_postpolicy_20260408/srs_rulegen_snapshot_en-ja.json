@@ -1,0 +1,312 @@
+{
+  "generated_at": "2026-04-08T02:13:11Z",
+  "pair": "en-ja",
+  "stats": {
+    "rule_count": 117,
+    "source_count": 117,
+    "target_count": 117
+  },
+  "targets": [
+    {
+      "lemma": "\u3059\u308b",
+      "sources": [
+        "render"
+      ]
+    },
+    {
+      "lemma": "\u30a2\u30e1\u30ea\u30ab",
+      "sources": [
+        "america"
+      ]
+    },
+    {
+      "lemma": "\u4e00\u4eba",
+      "sources": [
+        "singleness"
+      ]
+    },
+    {
+      "lemma": "\u4e00\u822c",
+      "sources": [
+        "general"
+      ]
+    },
+    {
+      "lemma": "\u4e0a",
+      "sources": [
+        "above"
+      ]
+    },
+    {
+      "lemma": "\u4e16\u754c",
+      "sources": [
+        "world"
+      ]
+    },
+    {
+      "lemma": "\u4e2d",
+      "sources": [
+        "middle"
+      ]
+    },
+    {
+      "lemma": "\u4e8b",
+      "sources": [
+        "thing"
+      ]
+    },
+    {
+      "lemma": "\u4e8b\u696d",
+      "sources": [
+        "project"
+      ]
+    },
+    {
+      "lemma": "\u4e8c\u4eba",
+      "sources": [
+        "couple"
+      ]
+    },
+    {
+      "lemma": "\u4eba",
+      "sources": [
+        "person"
+      ]
+    },
+    {
+      "lemma": "\u4eba\u9593",
+      "sources": [
+        "human"
+      ]
+    },
+    {
+      "lemma": "\u4eca",
+      "sources": [
+        "now"
+      ]
+    },
+    {
+      "lemma": "\u4eca\u65e5",
+      "sources": [
+        "today"
+      ]
+    },
+    {
+      "lemma": "\u4ed5\u4e8b",
+      "sources": [
+        "job"
+      ]
+    },
+    {
+      "lemma": "\u4ed6",
+      "sources": [
+        "another"
+      ]
+    },
+    {
+      "lemma": "\u4ee5\u4e0a",
+      "sources": [
+        "aforementioned"
+      ]
+    },
+    {
+      "lemma": "\u4f01\u696d",
+      "sources": [
+        "enterprise"
+      ]
+    },
+    {
+      "lemma": "\u4f1a",
+      "sources": [
+        "meeting"
+      ]
+    },
+    {
+      "lemma": "\u4f1a\u793e",
+      "sources": [
+        "company"
+      ]
+    },
+    {
+      "lemma": "\u4f53",
+      "sources": [
+        "body"
+      ]
+    },
+    {
+      "lemma": "\u4f7f\u7528",
+      "sources": [
+        "use"
+      ]
+    },
+    {
+      "lemma": "\u4fdd\u967a",
+      "sources": [
+        "insurance"
+      ]
+    },
+    {
+      "lemma": "\u5148",
+      "sources": [
+        "before"
+      ]
+    },
+    {
+      "lemma": "\u5168\u3066",
+      "sources": [
+        "entirely"
+      ]
+    },
+    {
+      "lemma": "\u5171",
+      "sources": [
+        "both"
+      ]
+    },
+    {
+      "lemma": "\u5185",
+      "sources": [
+        "inside"
+      ]
+    },
+    {
+      "lemma": "\u5185\u5bb9",
+      "sources": [
+        "content"
+      ]
+    },
+    {
+      "lemma": "\u5199\u771f",
+      "sources": [
+        "photograph"
+      ]
+    },
+    {
+      "lemma": "\u5225",
+      "sources": [
+        "different"
+      ]
+    },
+    {
+      "lemma": "\u5229\u7528",
+      "sources": [
+        "use"
+      ]
+    },
+    {
+      "lemma": "\u5236\u5ea6",
+      "sources": [
+        "system"
+      ]
+    },
+    {
+      "lemma": "\u524d",
+      "sources": [
+        "front"
+      ]
+    },
+    {
+      "lemma": "\u52b4\u50cd",
+      "sources": [
+        "labor"
+      ]
+    },
+    {
+      "lemma": "\u554f\u984c",
+      "sources": [
+        "question"
+      ]
+    },
+    {
+      "lemma": "\u56f3",
+      "sources": [
+        "diagram"
+      ]
+    },
+    {
+      "lemma": "\u56fd",
+      "sources": [
+        "land"
+      ]
+    },
+    {
+      "lemma": "\u5730",
+      "sources": [
+        "earth"
+      ]
+    },
+    {
+      "lemma": "\u5730\u57df",
+      "sources": [
+        "area"
+      ]
+    },
+    {
+      "lemma": "\u57fa\u672c",
+      "sources": [
+        "basis"
+      ]
+    },
+    {
+      "lemma": "\u5834\u5408",
+      "sources": [
+        "when"
+      ]
+    },
+    {
+      "lemma": "\u5834\u6240",
+      "sources": [
+        "place"
+      ]
+    },
+    {
+      "lemma": "\u58f0",
+      "sources": [
+        "voice"
+      ]
+    },
+    {
+      "lemma": "\u5927\u5b66",
+      "sources": [
+        "university"
+      ]
+    },
+    {
+      "lemma": "\u5973",
+      "sources": [
+        "woman"
+      ]
+    },
+    {
+      "lemma": "\u5973\u6027",
+      "sources": [
+        "woman"
+      ]
+    },
+    {
+      "lemma": "\u59d4\u54e1",
+      "sources": [
+        "committee"
+      ]
+    },
+    {
+      "lemma": "\u5b50",
+      "sources": [
+        "child"
+      ]
+    },
+    {
+      "lemma": "\u5b50\u4f9b",
+      "sources": [
+        "child"
+      ]
+    },
+    {
+      "lemma": "\u5b58\u5728",
+      "sources": [
+        "existence"
+      ]
+    }
+  ],
+  "version": 1
+}

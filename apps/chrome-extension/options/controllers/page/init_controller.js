@@ -49,6 +49,8 @@
     const maxReplacementsPerLemmaPageInput = elements.maxReplacementsPerLemmaPageInput || null;
     const debugEnabledInput = elements.debugEnabledInput || null;
     const debugFocusInput = elements.debugFocusInput || null;
+    const srsAdmissionPreviewOutput = elements.srsAdmissionPreviewOutput || null;
+    const srsRulegenSampledOutput = elements.srsRulegenSampledOutput || null;
     const srsRulegenOutput = elements.srsRulegenOutput || null;
     const debugHelperTestOutput = elements.debugHelperTestOutput || null;
     const debugOpenDataDirOutput = elements.debugOpenDataDirOutput || null;
@@ -93,6 +95,12 @@
       const pairKey = applyLanguagePrefsToInputs(languagePrefs);
       await settingsManager.publishProfileLanguagePrefs(languagePrefs, { profileId: selectedProfileId });
       await loadSrsProfileForPair(items, pairKey);
+      if (srsAdmissionPreviewOutput) {
+        srsAdmissionPreviewOutput.textContent = "";
+      }
+      if (srsRulegenSampledOutput) {
+        srsRulegenSampledOutput.textContent = "";
+      }
       if (srsRulegenOutput) {
         srsRulegenOutput.textContent = "";
       }

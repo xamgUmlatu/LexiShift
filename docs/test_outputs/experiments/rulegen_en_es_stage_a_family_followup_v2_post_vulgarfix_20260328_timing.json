@@ -1,0 +1,145 @@
+{
+  "total_recorded_seconds": 0.7468094000214478,
+  "phases": {
+    "build_resource_payload": {
+      "total_seconds": 0.000825399998575449,
+      "count": 1,
+      "avg_seconds": 0.000825399998575449
+    },
+    "build_sweep_configs": {
+      "total_seconds": 0.0003802999999606982,
+      "count": 1,
+      "avg_seconds": 0.0003802999999606982
+    },
+    "build_word_packages": {
+      "total_seconds": 5.830000009154901e-05,
+      "count": 1,
+      "avg_seconds": 5.830000009154901e-05
+    },
+    "compile_pair_context": {
+      "total_seconds": 0.09095330000127433,
+      "count": 1,
+      "avg_seconds": 0.09095330000127433
+    },
+    "evaluate_cases": {
+      "total_seconds": 0.008635500002128538,
+      "count": 90,
+      "avg_seconds": 9.595000002365042e-05
+    },
+    "group_rules": {
+      "total_seconds": 0.0,
+      "count": 90,
+      "avg_seconds": 0.0
+    },
+    "load_dataset": {
+      "total_seconds": 0.0009787000017240644,
+      "count": 1,
+      "avg_seconds": 0.0009787000017240644
+    },
+    "load_store": {
+      "total_seconds": 0.0005281999983708374,
+      "count": 1,
+      "avg_seconds": 0.0005281999983708374
+    },
+    "preload_translation_gloss_records": {
+      "total_seconds": 0.27596189999894705,
+      "count": 1,
+      "avg_seconds": 0.27596189999894705
+    },
+    "prepare_compiled_sweep_inputs": {
+      "total_seconds": 0.3601446000029682,
+      "count": 1,
+      "avg_seconds": 0.3601446000029682
+    },
+    "rehydrate_best_run_case_results": {
+      "total_seconds": 0.00033009999606292695,
+      "count": 1,
+      "avg_seconds": 0.00033009999606292695
+    },
+    "resolve_resources": {
+      "total_seconds": 5.0199996621813625e-05,
+      "count": 1,
+      "avg_seconds": 5.0199996621813625e-05
+    },
+    "run_config": {
+      "total_seconds": 0.007095600005413871,
+      "count": 90,
+      "avg_seconds": 7.884000006015412e-05
+    },
+    "sort_pair_runs": {
+      "total_seconds": 3.640000068116933e-05,
+      "count": 1,
+      "avg_seconds": 3.640000068116933e-05
+    },
+    "summarize_run": {
+      "total_seconds": 0.0008309000186272897,
+      "count": 90,
+      "avg_seconds": 9.232222429192107e-06
+    }
+  },
+  "pairs": {
+    "en-es": {
+      "build_resource_payload": {
+        "total_seconds": 0.000825399998575449,
+        "count": 1,
+        "avg_seconds": 0.000825399998575449
+      },
+      "build_word_packages": {
+        "total_seconds": 5.830000009154901e-05,
+        "count": 1,
+        "avg_seconds": 5.830000009154901e-05
+      },
+      "compile_pair_context": {
+        "total_seconds": 0.09095330000127433,
+        "count": 1,
+        "avg_seconds": 0.09095330000127433
+      },
+      "evaluate_cases": {
+        "total_seconds": 0.008635500002128538,
+        "count": 90,
+        "avg_seconds": 9.595000002365042e-05
+      },
+      "group_rules": {
+        "total_seconds": 0.0,
+        "count": 90,
+        "avg_seconds": 0.0
+      },
+      "preload_translation_gloss_records": {
+        "total_seconds": 0.27596189999894705,
+        "count": 1,
+        "avg_seconds": 0.27596189999894705
+      },
+      "prepare_compiled_sweep_inputs": {
+        "total_seconds": 0.3601446000029682,
+        "count": 1,
+        "avg_seconds": 0.3601446000029682
+      },
+      "rehydrate_best_run_case_results": {
+        "total_seconds": 0.00033009999606292695,
+        "count": 1,
+        "avg_seconds": 0.00033009999606292695
+      },
+      "resolve_resources": {
+        "total_seconds": 5.0199996621813625e-05,
+        "count": 1,
+        "avg_seconds": 5.0199996621813625e-05
+      },
+      "run_config": {
+        "total_seconds": 0.007095600005413871,
+        "count": 90,
+        "avg_seconds": 7.884000006015412e-05
+      },
+      "sort_pair_runs": {
+        "total_seconds": 3.640000068116933e-05,
+        "count": 1,
+        "avg_seconds": 3.640000068116933e-05
+      },
+      "summarize_run": {
+        "total_seconds": 0.0008309000186272897,
+        "count": 90,
+        "avg_seconds": 9.232222429192107e-06
+      }
+    }
+  },
+  "wall_clock_seconds": 0.7506165000013425
+}

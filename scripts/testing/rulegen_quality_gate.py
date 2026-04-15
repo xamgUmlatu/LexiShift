@@ -108,6 +108,14 @@ def parse_args() -> argparse.Namespace:
         help="Return non-zero if any WARN findings are present.",
     )
     parser.add_argument(
+        "--advisory-required-pairs",
+        action="store_true",
+        help=(
+            "Downgrade missing required benchmark-pair coverage from FAIL to WARN. "
+            "Use for advisory single-pair audits without changing the shared policy."
+        ),
+    )
+    parser.add_argument(
         "--json-out",
         type=Path,
         help="Optional path to write machine-readable gate report JSON.",
@@ -242,6 +250,7 @@ def main() -> None:
             benchmark_payload=benchmark_payload,
             policy_payload=policy_payload,
             findings=findings,
+            advisory_required_pairs=bool(args.advisory_required_pairs),
         )
         validate_quality_floors(
             benchmark_payload=benchmark_payload,
@@ -262,10 +271,18 @@ def main() -> None:
         )
 
     if dataset_payload is not None and policy_payload is not None:
+        benchmark_pairs: set[str] | None = None
+        if benchmark_payload is not None:
+            raw_pairs = benchmark_payload.get("pairs")
+            if isinstance(raw_pairs, Mapping):
+                benchmark_pairs = {
+                    str(pair).strip().lower() for pair in raw_pairs.keys() if str(pair).strip()
+                }
         validate_dataset_contract(
             dataset_payload=dataset_payload,
             policy_payload=policy_payload,
             findings=findings,
+            benchmark_pairs=benchmark_pairs,
         )
 
     if policy_payload is not None:

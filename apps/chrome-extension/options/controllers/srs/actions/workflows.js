@@ -1,66 +1,136 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
+  const createResolvePlanningState = root.optionsSrsActionPlanningState && typeof root.optionsSrsActionPlanningState.createResolvePlanningState === "function"
+    ? root.optionsSrsActionPlanningState.createResolvePlanningState : null;
+  const createAdmissionPreviewWorkflow = root.optionsSrsAdmissionPreviewWorkflow && typeof root.optionsSrsAdmissionPreviewWorkflow.createAdmissionPreviewWorkflow === "function"
+    ? root.optionsSrsAdmissionPreviewWorkflow.createAdmissionPreviewWorkflow : null;
+  const secondaryWorkflows = root.optionsSrsSecondaryWorkflows && typeof root.optionsSrsSecondaryWorkflows === "object"
+    ? root.optionsSrsSecondaryWorkflows : null;
 
   function createWorkflows(options) {
     const opts = options && typeof options === "object" ? options : {};
-    const settingsManager = opts.settingsManager && typeof opts.settingsManager === "object"
-      ? opts.settingsManager
-      : null;
-    const helperManager = opts.helperManager && typeof opts.helperManager === "object"
-      ? opts.helperManager
-      : null;
+    const settingsManager = opts.settingsManager && typeof opts.settingsManager === "object" ? opts.settingsManager : null;
+    const helperManager = opts.helperManager && typeof opts.helperManager === "object" ? opts.helperManager : null;
     const translate = root.optionsTranslateResolver.resolveTranslate(opts.translate);
     const setStatus = typeof opts.setStatus === "function" ? opts.setStatus : (() => {});
     const resolvePair = typeof opts.resolvePair === "function" ? opts.resolvePair : (() => "en-en");
     const syncSelectedProfile = typeof opts.syncSelectedProfile === "function"
-      ? opts.syncSelectedProfile
-      : ((items) => Promise.resolve({
-          items,
-          profileId: "default"
-        }));
+      ? opts.syncSelectedProfile : ((items) => Promise.resolve({ items, profileId: "default" }));
+    const resolveEffectiveSrsPlanningState = typeof opts.resolveEffectiveSrsPlanningState === "function" ? opts.resolveEffectiveSrsPlanningState : null;
     const confirmFn = typeof opts.confirmFn === "function" ? opts.confirmFn : (message) => globalThis.confirm(message);
     const log = typeof opts.log === "function" ? opts.log : (() => {});
     const colors = opts.colors && typeof opts.colors === "object"
-      ? opts.colors
-      : {
-          SUCCESS: "#3c5a2a",
-          ERROR: "#b42318",
-          DEFAULT: "#6c675f"
-        };
+      ? opts.colors : { SUCCESS: "#3c5a2a", ERROR: "#b42318", DEFAULT: "#6c675f" };
     const output = opts.output || null;
+    const admissionPreviewButton = opts.admissionPreviewButton || null;
     const initializeButton = opts.initializeButton || null;
+    const rebalancePreviewButton = opts.rebalancePreviewButton || null;
+    const rebalanceApplyButton = opts.rebalanceApplyButton || null;
     const refreshButton = opts.refreshButton || null;
     const diagnosticsButton = opts.diagnosticsButton || null;
     const sampledButton = opts.sampledButton || null;
     const resetButton = opts.resetButton || null;
     const setOutputText = typeof opts.setOutputText === "function" ? opts.setOutputText : (() => {});
-    const markRulesetUpdatedNow = typeof opts.markRulesetUpdatedNow === "function"
-      ? opts.markRulesetUpdatedNow
-      : (() => Promise.resolve());
-    const preflightSrsPairResources = typeof opts.preflightSrsPairResources === "function"
-      ? opts.preflightSrsPairResources
-      : ((_pair, _profileId, _actionLabel) => Promise.resolve(true));
-    const buildInitializeResultOutput = typeof opts.buildInitializeResultOutput === "function"
-      ? opts.buildInitializeResultOutput
-      : (_options) => "";
-    const buildRefreshResultOutput = typeof opts.buildRefreshResultOutput === "function"
-      ? opts.buildRefreshResultOutput
-      : (_options) => "";
-    const buildRuntimeDiagnosticsOutput = typeof opts.buildRuntimeDiagnosticsOutput === "function"
-      ? opts.buildRuntimeDiagnosticsOutput
-      : (_options) => "";
-    const buildSampledRulegenSamplingLines = typeof opts.buildSampledRulegenSamplingLines === "function"
-      ? opts.buildSampledRulegenSamplingLines
-      : (_options) => [];
-    const buildSampledRulegenHeader = typeof opts.buildSampledRulegenHeader === "function"
-      ? opts.buildSampledRulegenHeader
-      : (_options) => "";
-    const buildSampledRulegenEmptyOutput = typeof opts.buildSampledRulegenEmptyOutput === "function"
-      ? opts.buildSampledRulegenEmptyOutput
-      : (_options) => "";
-    const buildSampledRulegenTargetsOutput = typeof opts.buildSampledRulegenTargetsOutput === "function"
-      ? opts.buildSampledRulegenTargetsOutput
-      : (_options) => "";
+    const setAdmissionPreviewOutputText = typeof opts.setAdmissionPreviewOutputText === "function" ? opts.setAdmissionPreviewOutputText : setOutputText;
+    const setSampledOutputText = typeof opts.setSampledOutputText === "function" ? opts.setSampledOutputText : setOutputText;
+    const markRulesetUpdatedNow = typeof opts.markRulesetUpdatedNow === "function" ? opts.markRulesetUpdatedNow : (() => Promise.resolve());
+    const preflightSrsPairResources = typeof opts.preflightSrsPairResources === "function" ? opts.preflightSrsPairResources : ((_pair, _profileId, _actionLabel) => Promise.resolve(true));
+    const buildInitializeResultOutput = typeof opts.buildInitializeResultOutput === "function" ? opts.buildInitializeResultOutput : (_options) => "";
+    const buildRebalanceResultOutput = typeof opts.buildRebalanceResultOutput === "function" ? opts.buildRebalanceResultOutput : (_options) => "";
+    const buildRefreshResultOutput = typeof opts.buildRefreshResultOutput === "function" ? opts.buildRefreshResultOutput : (_options) => "";
+    const buildRuntimeDiagnosticsOutput = typeof opts.buildRuntimeDiagnosticsOutput === "function" ? opts.buildRuntimeDiagnosticsOutput : (_options) => "";
+    const buildAdmissionPreviewOutput = typeof opts.buildAdmissionPreviewOutput === "function" ? opts.buildAdmissionPreviewOutput : (_options) => "";
+    const buildSampledRulegenSamplingLines = typeof opts.buildSampledRulegenSamplingLines === "function" ? opts.buildSampledRulegenSamplingLines : (_options) => [];
+    const buildSampledRulegenHeader = typeof opts.buildSampledRulegenHeader === "function" ? opts.buildSampledRulegenHeader : (_options) => "";
+    const buildSampledRulegenEmptyOutput = typeof opts.buildSampledRulegenEmptyOutput === "function" ? opts.buildSampledRulegenEmptyOutput : (_options) => "";
+    const buildSampledRulegenTargetsOutput = typeof opts.buildSampledRulegenTargetsOutput === "function" ? opts.buildSampledRulegenTargetsOutput : (_options) => "";
+
+    const resolvePlanningState = createResolvePlanningState
+      ? createResolvePlanningState({
+          settingsManager,
+          resolveEffectiveSrsPlanningState
+        })
+      : (() => null);
+    const previewAdmission = createAdmissionPreviewWorkflow
+      ? createAdmissionPreviewWorkflow({
+          settingsManager,
+          helperManager,
+          translate,
+          resolvePair,
+          syncSelectedProfile,
+          resolvePlanningState,
+          preflightSrsPairResources,
+          buildAdmissionPreviewOutput,
+          admissionPreviewButton,
+          setAdmissionPreviewOutputText,
+          log
+        })
+      : (async () => {});
+    const runRuntimeDiagnostics = secondaryWorkflows
+      && typeof secondaryWorkflows.createRuntimeDiagnosticsWorkflow === "function"
+      ? secondaryWorkflows.createRuntimeDiagnosticsWorkflow({
+          settingsManager,
+          helperManager,
+          translate,
+          resolvePair,
+          diagnosticsButton,
+          setOutputText,
+          setStatus,
+          buildRuntimeDiagnosticsOutput,
+          colors,
+          log
+        })
+      : (async () => {});
+    const refreshSetNow = secondaryWorkflows
+      && typeof secondaryWorkflows.createRefreshSetWorkflow === "function"
+      ? secondaryWorkflows.createRefreshSetWorkflow({
+          settingsManager,
+          helperManager,
+          translate,
+          resolvePair,
+          syncSelectedProfile,
+          resolvePlanningState,
+          preflightSrsPairResources,
+          refreshButton,
+          setOutputText,
+          setStatus,
+          buildRefreshResultOutput,
+          markRulesetUpdatedNow,
+          colors,
+          log
+        })
+      : (async () => {});
+    const previewSampledRulegen = secondaryWorkflows
+      && typeof secondaryWorkflows.createSampledRulegenWorkflow === "function"
+      ? secondaryWorkflows.createSampledRulegenWorkflow({
+          settingsManager,
+          helperManager,
+          translate,
+          resolvePair,
+          sampledButton,
+          setSampledOutputText,
+          buildSampledRulegenHeader,
+          buildSampledRulegenSamplingLines,
+          buildSampledRulegenEmptyOutput,
+          buildSampledRulegenTargetsOutput,
+          log
+        })
+      : (async () => {});
+    const resetSrsData = secondaryWorkflows
+      && typeof secondaryWorkflows.createResetSrsDataWorkflow === "function"
+      ? secondaryWorkflows.createResetSrsDataWorkflow({
+          settingsManager,
+          helperManager,
+          translate,
+          resolvePair,
+          confirmFn,
+          resetButton,
+          setStatus,
+          setOutputText,
+          colors,
+          log
+        })
+      : (async () => {});
 
     async function initializeSet() {
       if (!initializeButton || !output) {
@@ -81,15 +151,11 @@
         if (!canProceed) {
           return;
         }
-        const profile = settingsManager.getSrsProfile(synced.items, srsPair, {
-          profileId: synced.profileId
-        });
-        const bootstrapTopN = Number(profile.srsBootstrapTopN || settingsManager.defaults.srsBootstrapTopN || 800);
-        const initialActiveCount = Number(profile.srsInitialActiveCount || settingsManager.defaults.srsInitialActiveCount || 40);
-        const maxActiveItemsHint = Number(profile.srsMaxActive || settingsManager.defaults.srsMaxActive || 20);
-        const profileContext = settingsManager.buildSrsPlanContext(synced.items, srsPair, {
-          profileId: synced.profileId
-        });
+        const planningState = resolvePlanningState(synced.items, srsPair, synced.profileId);
+        const bootstrapTopN = Number(planningState.profile.srsBootstrapTopN || settingsManager.defaults.srsBootstrapTopN || 800);
+        const initialActiveCount = Number(planningState.profile.srsInitialActiveCount || settingsManager.defaults.srsInitialActiveCount || 40);
+        const maxActiveItemsHint = Number(planningState.profile.srsMaxActive || settingsManager.defaults.srsMaxActive || 20);
+        const profileContext = planningState.profileContext;
         const planOptions = {
           profileId: synced.profileId,
           strategy: "profile_bootstrap",
@@ -147,7 +213,8 @@
           applied,
           plan,
           bootstrapDiagnostics,
-          profileContext
+          profileContext,
+          requestProfileContextMeta: planningState.contextMeta
         });
       } catch (err) {
         const msg = err && err.message ? err.message : translate("status_srs_set_init_failed", null, "S initialization failed.");
@@ -159,16 +226,16 @@
       }
     }
 
-    async function refreshSetNow() {
-      if (!refreshButton || !output) {
+    async function previewRebalance() {
+      if (!rebalancePreviewButton || !output) {
         return;
       }
       const srsPair = resolvePair();
-      refreshButton.disabled = true;
+      rebalancePreviewButton.disabled = true;
       setOutputText(translate(
-        "status_srs_refresh_running",
-        null,
-        "Refreshing S and publishing rules…"
+        "status_srs_rebalance_preview_running",
+        [srsPair],
+        `Preparing rebalance preview for ${srsPair}…`
       ));
 
       try {
@@ -177,213 +244,175 @@
         const canProceed = await preflightSrsPairResources(
           srsPair,
           synced.profileId,
-          "S refresh"
+          "S rebalance preview",
+          {
+            ignoredMissingInputTypes: ["translation_dict_path", "freedict_de_en_path"]
+          }
         );
         if (!canProceed) {
           return;
         }
-        const profile = settingsManager.getSrsProfile(synced.items, srsPair, {
-          profileId: synced.profileId
-        });
-        const profileContext = settingsManager.buildSrsPlanContext(synced.items, srsPair, {
-          profileId: synced.profileId
-        });
-        const result = await helperManager.refreshSrsSet(srsPair, {
+        const planningState = resolvePlanningState(synced.items, srsPair, synced.profileId);
+        const profileContext = planningState.profileContext;
+        const result = await helperManager.planSrsRebalance(srsPair, {
           profileId: synced.profileId,
-          setTopN: profile.srsBootstrapTopN || settingsManager.defaults.srsBootstrapTopN || 800,
-          maxActiveItems: profile.srsMaxActive || settingsManager.defaults.srsMaxActive || 40,
-          trigger: "options_refresh_set_button",
+          strategy: "profile_growth",
+          objective: "rebalance",
+          setTopN: planningState.profile.srsBootstrapTopN || settingsManager.defaults.srsBootstrapTopN || 800,
+          maxActiveItems: planningState.profile.srsMaxActive || settingsManager.defaults.srsMaxActive || 40,
+          trigger: "options_rebalance_preview_button",
           profileContext
         });
-        const added = Number(result.added_items || 0);
-        const applied = result.applied === true;
-        const admission = result.admission_refresh && typeof result.admission_refresh === "object"
-          ? result.admission_refresh
-          : {};
-        const publishedRulegen = result.rulegen && typeof result.rulegen === "object"
-          ? result.rulegen
-          : null;
-        setOutputText(buildRefreshResultOutput({
+        setOutputText(buildRebalanceResultOutput({
           translate,
-          applied,
-          added,
           srsPair,
+          profileId: result.profile_id || synced.profileId,
+          payload: result,
+          mode: "preview"
+        }));
+        setStatus(
+          result.plan && result.plan.can_execute === true
+            ? translate("status_srs_rebalance_ready", [srsPair], `Rebalance preview ready for ${srsPair}.`)
+            : translate("status_srs_rebalance_blocked", [srsPair], `Rebalance is not ready for ${srsPair}.`),
+          result.plan && result.plan.can_execute === true ? colors.SUCCESS : colors.DEFAULT
+        );
+        log("SRS rebalance preview", {
+          pair: srsPair,
           result,
-          admission,
-          publishedRulegen
-        }));
-        if (publishedRulegen && publishedRulegen.published !== false) {
-          await markRulesetUpdatedNow();
-        }
-        setStatus(
-          applied
-            ? translate("status_srs_refresh_success", [srsPair, added], `S refreshed for ${srsPair}: +${added} admitted.`)
-            : translate("status_srs_refresh_noop", [srsPair], `S refresh for ${srsPair}: no new admissions.`),
-          applied ? colors.SUCCESS : colors.DEFAULT
-        );
-        log("SRS set refreshed", { pair: srsPair, result });
-      } catch (err) {
-        const msg = err && err.message ? err.message : translate("status_srs_refresh_failed", null, "S refresh failed.");
-        setOutputText(msg);
-        setStatus(msg, colors.ERROR);
-        log("SRS set refresh failed.", err);
-      } finally {
-        refreshButton.disabled = false;
-      }
-    }
-
-    async function runRuntimeDiagnostics() {
-      if (!diagnosticsButton || !output) {
-        return;
-      }
-      const srsPair = resolvePair();
-      diagnosticsButton.disabled = true;
-      setOutputText(translate(
-        "status_srs_diagnostics_running",
-        null,
-        "Collecting SRS runtime diagnostics…"
-      ));
-      try {
-        const items = await settingsManager.load();
-        const selectedProfileId = settingsManager.getSelectedSrsProfileId(items);
-        const diagnostics = await helperManager.getSrsRuntimeDiagnostics(srsPair, {
-          profileId: selectedProfileId
+          profileContext,
+          requestProfileContextMeta: planningState.contextMeta
         });
-        setOutputText(buildRuntimeDiagnosticsOutput({
-          translate,
-          srsPair,
-          selectedProfileId,
-          diagnostics
-        }));
-        setStatus(
-          translate("status_srs_diagnostics_ready", null, "SRS runtime diagnostics updated."),
-          colors.SUCCESS
-        );
-        log("SRS runtime diagnostics", diagnostics);
       } catch (err) {
         const msg = err && err.message
           ? err.message
-          : translate("status_srs_diagnostics_failed", null, "Failed to collect SRS diagnostics.");
+          : translate("status_srs_rebalance_preview_failed", null, "SRS rebalance preview failed.");
         setOutputText(msg);
         setStatus(msg, colors.ERROR);
-        log("SRS runtime diagnostics failed.", err);
+        log("SRS rebalance preview failed.", err);
       } finally {
-        diagnosticsButton.disabled = false;
+        rebalancePreviewButton.disabled = false;
       }
     }
 
-    async function previewSampledRulegen() {
-      if (!sampledButton || !output) {
+    async function applyRebalance() {
+      if (!rebalanceApplyButton || !output) {
         return;
       }
       const srsPair = resolvePair();
-      const sampleCount = 5;
-      sampledButton.disabled = true;
+      rebalanceApplyButton.disabled = true;
       setOutputText(translate(
-        "status_srs_rulegen_sampled_running",
-        [sampleCount],
-        `Running sampled rulegen (${sampleCount})…`
+        "status_srs_rebalance_apply_running",
+        [srsPair],
+        `Preparing rebalance apply for ${srsPair}…`
       ));
 
       try {
         const items = await settingsManager.load();
-        const profileId = settingsManager.getSelectedSrsProfileId(items);
-        const { rulegenData, snapshot, duration } = await helperManager.runSampledRulegenPreview(
+        const synced = await syncSelectedProfile(items);
+        const canProceed = await preflightSrsPairResources(
           srsPair,
-          sampleCount,
-          { strategy: "weighted_priority", profileId }
+          synced.profileId,
+          "S rebalance apply"
         );
-        const sampling = rulegenData.sampling && typeof rulegenData.sampling === "object"
-          ? rulegenData.sampling
-          : {};
-        const sampledLemmas = Array.isArray(sampling.sampled_lemmas) ? sampling.sampled_lemmas : [];
-        const sampledCount = Number(sampling.sample_count_effective || sampledLemmas.length || 0);
-        const rulegenTargets = Number(rulegenData.targets || 0);
-        const rulegenRules = Number(rulegenData.rules || 0);
-        const targets = snapshot && Array.isArray(snapshot.targets) ? snapshot.targets : [];
-        const header = buildSampledRulegenHeader({
+        if (!canProceed) {
+          return;
+        }
+        const planningState = resolvePlanningState(synced.items, srsPair, synced.profileId);
+        const profileContext = planningState.profileContext;
+        const requestOptions = {
+          profileId: synced.profileId,
+          strategy: "profile_growth",
+          objective: "rebalance",
+          setTopN: planningState.profile.srsBootstrapTopN || settingsManager.defaults.srsBootstrapTopN || 800,
+          maxActiveItems: planningState.profile.srsMaxActive || settingsManager.defaults.srsMaxActive || 40,
+          profileContext
+        };
+        const previewResult = await helperManager.planSrsRebalance(srsPair, {
+          ...requestOptions,
+          trigger: "options_rebalance_apply_preview"
+        });
+        setOutputText(buildRebalanceResultOutput({
           translate,
-          sampledCount,
-          rulegenTargets,
-          rulegenRules,
-          duration
-        });
-        const samplingLines = buildSampledRulegenSamplingLines({
-          sampling,
-          sampledLemmas,
-          sampleCount,
-          sampledCount
-        });
-        if (!targets.length) {
-          setOutputText(buildSampledRulegenEmptyOutput({
-            translate,
-            header,
-            samplingLines,
-            diagnostics: rulegenData.diagnostics || {},
-            srsPair
-          }));
-        } else {
-          setOutputText(buildSampledRulegenTargetsOutput({
-            translate,
-            header,
-            samplingLines,
-            targets
-          }));
+          srsPair,
+          profileId: previewResult.profile_id || synced.profileId,
+          payload: previewResult,
+          mode: "preview"
+        }));
+        if (!previewResult.plan || previewResult.plan.can_execute !== true) {
+          setStatus(
+            translate("status_srs_rebalance_blocked", [srsPair], `Rebalance is not ready for ${srsPair}.`),
+            colors.DEFAULT
+          );
+          return;
         }
-        log("SRS sampled rulegen preview (helper)", {
+        const summary = previewResult.summary && typeof previewResult.summary === "object"
+          ? previewResult.summary
+          : {};
+        const keepCount = Number(summary.proposed_keep_count || 0);
+        const parkCount = Number(summary.proposed_park_count || 0);
+        const activateCount = Number(summary.proposed_activate_count || 0);
+        const confirmMessage = [
+          translate(
+            "confirm_srs_rebalance_title",
+            [srsPair],
+            `Rebalance the active SRS set for ${srsPair} using current preferences?`
+          ),
+          translate(
+            "confirm_srs_rebalance_body_counts",
+            [keepCount, parkCount, activateCount],
+            `${keepCount} protected words will stay active, ${parkCount} low-commitment words will leave the active set, and ${activateCount} words will be activated. Review history will be preserved.`
+          )
+        ].join("\n\n");
+        if (!confirmFn(confirmMessage)) {
+          setStatus(
+            translate("status_srs_rebalance_cancelled", [srsPair], `Rebalance cancelled for ${srsPair}.`),
+            colors.DEFAULT
+          );
+          return;
+        }
+        const result = await helperManager.applySrsRebalance(srsPair, {
+          ...requestOptions,
+          trigger: "options_rebalance_apply_button"
+        });
+        setOutputText(buildRebalanceResultOutput({
+          translate,
+          srsPair,
+          profileId: result.profile_id || synced.profileId,
+          payload: result,
+          mode: "apply"
+        }));
+        if (result.applied && result.rulegen && result.rulegen.published !== false) {
+          await markRulesetUpdatedNow();
+        }
+        setStatus(
+          result.applied
+            ? translate("status_srs_rebalance_applied", [srsPair], `Rebalance applied for ${srsPair}.`)
+            : translate("status_srs_rebalance_noop", [srsPair], `Rebalance for ${srsPair} required no active-set changes.`),
+          result.applied ? colors.SUCCESS : colors.DEFAULT
+        );
+        log("SRS rebalance apply", {
           pair: srsPair,
-          profileId,
-          sampledCount,
-          sampledLemmas,
-          targets: targets.length,
-          diagnostics: rulegenData.diagnostics || null
+          result,
+          profileContext,
+          requestProfileContextMeta: planningState.contextMeta
         });
       } catch (err) {
-        const msg = err && err.message ? err.message : translate("status_srs_rulegen_failed", null, "Rule preview failed.");
+        const msg = err && err.message
+          ? err.message
+          : translate("status_srs_rebalance_apply_failed", null, "SRS rebalance apply failed.");
         setOutputText(msg);
-        log("SRS sampled rulegen preview failed.", err);
-      } finally {
-        sampledButton.disabled = false;
-      }
-    }
-
-    async function resetSrsData() {
-      if (!resetButton) {
-        return;
-      }
-      if (!confirmFn(translate("confirm_srs_reset_1", null, "Are you sure you want to reset all SRS progress for this language pair? This cannot be undone."))) {
-        return;
-      }
-      if (!confirmFn(translate("confirm_srs_reset_2", null, "Really delete all learning history and start over for this pair?"))) {
-        return;
-      }
-
-      const srsPair = resolvePair();
-      const items = await settingsManager.load();
-      const profileId = settingsManager.getSelectedSrsProfileId(items);
-      log(`[Reset] User confirmed reset for pair: ${srsPair} (profile=${profileId})`);
-      resetButton.disabled = true;
-      setStatus(translate("status_srs_resetting", null, "Resetting SRS data…"), colors.DEFAULT);
-
-      try {
-        await helperManager.resetSrs(srsPair, { profileId });
-        log("[Reset] Helper returned success.");
-        setStatus(translate("status_srs_reset_success", null, "SRS data reset successfully."), colors.SUCCESS);
-        setOutputText("");
-      } catch (err) {
-        log("[Reset] Failed:", err);
-        let msg = err && err.message ? err.message : translate("status_srs_reset_failed", null, "SRS reset failed.");
-        if (msg.includes("Unknown command")) {
-          msg = translate("status_srs_reset_outdated", null, "Helper outdated: command not found. Restart helper?");
-        }
         setStatus(msg, colors.ERROR);
+        log("SRS rebalance apply failed.", err);
       } finally {
-        resetButton.disabled = false;
+        rebalanceApplyButton.disabled = false;
       }
     }
 
     return {
+      previewAdmission,
       initializeSet,
+      previewRebalance,
+      applyRebalance,
       refreshSetNow,
       runRuntimeDiagnostics,
       previewSampledRulegen,

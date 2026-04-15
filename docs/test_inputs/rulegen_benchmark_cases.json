@@ -1090,7 +1090,6 @@
       "tier": "hard",
       "expected_any": [
         "key",
-        "code",
         "password"
       ],
       "expected_top1_any": [
@@ -1100,7 +1099,7 @@
         "clef"
       ],
       "forbidden_any": [],
-      "notes": "Cross-domain competition case spanning everyday, computing, and music-adjacent readings; key/code should outrank clef-like drift for the bare lemma."
+      "notes": "Cross-domain competition case spanning everyday, authentication, and music-adjacent readings; key/password should outrank clef-like drift for the bare lemma."
     },
     {
       "case_id": "en-es:gato",
@@ -1108,8 +1107,7 @@
       "target": "gato",
       "tier": "hard",
       "expected_any": [
-        "cat",
-        "jack"
+        "cat"
       ],
       "expected_top1_any": [
         "cat"
@@ -1150,15 +1148,14 @@
         "sign"
       ],
       "expected_top1_any": [
-        "signal",
-        "sign"
+        "signal"
       ],
       "forbidden_top1": [
         "landmark",
         "reminder"
       ],
       "forbidden_any": [],
-      "notes": "Review-boundary noun balancing signal/sign against weaker reminder/landmark drift."
+      "notes": "Review-boundary noun balancing signal/sign against weaker reminder/landmark drift; signal should be the preferred top-1."
     },
     {
       "case_id": "en-es:batería",
@@ -1194,11 +1191,635 @@
         "take",
         "carry"
       ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Phrase-sensitive common verb with broad lexical coverage; take/carry should lead without overpenalizing rarer but real senses like bear."
+    },
+    {
+      "case_id": "en-es:carta",
+      "pair": "en-es",
+      "target": "carta",
+      "tier": "hard",
+      "expected_any": [
+        "letter",
+        "menu",
+        "playing card"
+      ],
+      "expected_top1_any": [
+        "letter"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Broad everyday noun spanning document, restaurant, and card readings; letter should be the preferred bare-lemma top-1 without forbidding the other common senses."
+    },
+    {
+      "case_id": "en-es:radio",
+      "pair": "en-es",
+      "target": "radio",
+      "tier": "hard",
+      "expected_any": [
+        "radio",
+        "radius"
+      ],
+      "expected_top1_any": [
+        "radio"
+      ],
       "forbidden_top1": [
-        "bear"
+        "radium"
       ],
       "forbidden_any": [],
-      "notes": "Phrase-sensitive common verb with broad lexical coverage; take/carry should lead while bear-like drift stays out of top-1."
+      "notes": "Communication-vs-geometry competition case; the everyday device sense should outrank rarer technical drift like radium."
+    },
+    {
+      "case_id": "en-es:cadena",
+      "pair": "en-es",
+      "target": "cadena",
+      "tier": "hard",
+      "expected_any": [
+        "chain",
+        "network",
+        "channel"
+      ],
+      "expected_top1_any": [
+        "chain"
+      ],
+      "forbidden_top1": [
+        "string"
+      ],
+      "forbidden_any": [],
+      "notes": "Physical-vs-media/computing competition case; chain should lead while string-like technical drift stays out of bare-lemma top-1."
+    },
+    {
+      "case_id": "en-es:nota",
+      "pair": "en-es",
+      "target": "nota",
+      "tier": "smoke",
+      "expected_any": [
+        "note",
+        "mark"
+      ],
+      "expected_top1_any": [
+        "note"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Everyday ranking-boundary noun balancing note against academic-score drift; note should be the preferred top-1."
+    },
+    {
+      "case_id": "en-es:sección",
+      "pair": "en-es",
+      "target": "sección",
+      "tier": "smoke",
+      "expected_any": [
+        "section",
+        "department",
+        "part"
+      ],
+      "expected_top1_any": [
+        "section"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Structured noun with light organization-vs-part competition; section should lead while department and part remain acceptable alternates."
+    },
+    {
+      "case_id": "en-es:seña",
+      "pair": "en-es",
+      "target": "seña",
+      "tier": "smoke",
+      "expected_any": [
+        "sign",
+        "gesture"
+      ],
+      "expected_top1_any": [
+        "sign"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Signal-family sibling with gesture competition; sign should be the preferred bare-lemma top-1."
+    },
+    {
+      "case_id": "en-es:perfil",
+      "pair": "en-es",
+      "target": "perfil",
+      "tier": "smoke",
+      "expected_any": [
+        "profile",
+        "side view"
+      ],
+      "expected_top1_any": [
+        "profile"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Modern noun balancing general profile against geometric side-view readings; profile should dominate the bare lemma."
+    },
+    {
+      "case_id": "en-es:archivo",
+      "pair": "en-es",
+      "target": "archivo",
+      "tier": "hard",
+      "expected_any": [
+        "file",
+        "archive"
+      ],
+      "expected_top1_any": [
+        "file"
+      ],
+      "forbidden_top1": [
+        "filing cabinet"
+      ],
+      "forbidden_any": [],
+      "notes": "Computing-vs-recordkeeping noun where the modern file sense should outrank archive and cabinet-style drift for the bare lemma."
+    },
+    {
+      "case_id": "en-es:puerto",
+      "pair": "en-es",
+      "target": "puerto",
+      "tier": "hard",
+      "expected_any": [
+        "port",
+        "harbor",
+        "harbour"
+      ],
+      "expected_top1_any": [
+        "port"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Communication-network sibling case where the shared port reading should stay strong without excluding the everyday harbour sense."
+    },
+    {
+      "case_id": "en-es:ratón",
+      "pair": "en-es",
+      "target": "ratón",
+      "tier": "hard",
+      "expected_any": [
+        "mouse"
+      ],
+      "expected_top1_any": [
+        "mouse"
+      ],
+      "forbidden_top1": [
+        "hangover"
+      ],
+      "forbidden_any": [],
+      "notes": "Animal-vs-computing convergence case where both major senses collapse to mouse; only the unrelated hangover sense should stay out of top-1."
+    },
+    {
+      "case_id": "en-es:tecla",
+      "pair": "en-es",
+      "target": "tecla",
+      "tier": "smoke",
+      "expected_any": [
+        "key",
+        "button"
+      ],
+      "expected_top1_any": [
+        "key"
+      ],
+      "forbidden_top1": [
+        "trigger"
+      ],
+      "forbidden_any": [],
+      "notes": "Interface-and-instrument noun where key should lead while button remains acceptable and trigger-style topic drift stays out of top-1."
+    },
+    {
+      "case_id": "en-es:trama",
+      "pair": "en-es",
+      "target": "trama",
+      "tier": "hard",
+      "expected_any": [
+        "plot",
+        "weave",
+        "grid"
+      ],
+      "expected_top1_any": [
+        "plot"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Art-media vs structure noun balancing story-plot against weave and grid readings; plot should be the preferred bare-lemma top-1."
+    },
+    {
+      "case_id": "en-es:margen",
+      "pair": "en-es",
+      "target": "margen",
+      "tier": "smoke",
+      "expected_any": [
+        "margin",
+        "edge"
+      ],
+      "expected_top1_any": [
+        "margin"
+      ],
+      "forbidden_top1": [
+        "river bank"
+      ],
+      "forbidden_any": [],
+      "notes": "Layout-vs-geography noun where margin should lead, edge remains acceptable, and river-bank drift should stay out of top-1."
+    },
+    {
+      "case_id": "en-es:carpeta",
+      "pair": "en-es",
+      "target": "carpeta",
+      "tier": "hard",
+      "expected_any": [
+        "folder",
+        "directory"
+      ],
+      "expected_top1_any": [
+        "folder"
+      ],
+      "forbidden_top1": [
+        "carpet",
+        "hotel reception desk"
+      ],
+      "forbidden_any": [],
+      "notes": "Computing-vs-physical-container noun where folder should lead, directory remains acceptable, and carpet-style drift should stay out of top-1."
+    },
+    {
+      "case_id": "en-es:directorio",
+      "pair": "en-es",
+      "target": "directorio",
+      "tier": "smoke",
+      "expected_any": [
+        "directory"
+      ],
+      "expected_top1_any": [
+        "directory"
+      ],
+      "forbidden_top1": [
+        "directive"
+      ],
+      "forbidden_any": [],
+      "notes": "Computing-and-reference noun where directory should dominate the bare lemma and directive-style drift should stay out of top-1."
+    },
+    {
+      "case_id": "en-es:navegador",
+      "pair": "en-es",
+      "target": "navegador",
+      "tier": "hard",
+      "expected_any": [
+        "browser",
+        "navigator"
+      ],
+      "expected_top1_any": [
+        "browser"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Modern computing-vs-agent noun where browser should be the preferred bare-lemma top-1 while navigator remains an allowed alternate."
+    },
+    {
+      "case_id": "en-es:celda",
+      "pair": "en-es",
+      "target": "celda",
+      "tier": "hard",
+      "expected_any": [
+        "cell",
+        "prison cell"
+      ],
+      "expected_top1_any": [
+        "cell"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "General-vs-institutional noun where cell should be preferred while prison cell remains acceptable for the bare lemma."
+    },
+    {
+      "case_id": "en-es:pestaña",
+      "pair": "en-es",
+      "target": "pestaña",
+      "tier": "hard",
+      "expected_any": [
+        "eyelash",
+        "tab"
+      ],
+      "expected_top1_any": [
+        "eyelash"
+      ],
+      "forbidden_top1": [
+        "flange"
+      ],
+      "forbidden_any": [],
+      "notes": "Body-part-vs-interface noun where eyelash should remain the preferred bare-lemma top-1 while tab stays acceptable as the computing-side alternate."
+    },
+    {
+      "case_id": "en-es:puente",
+      "pair": "en-es",
+      "target": "puente",
+      "tier": "smoke",
+      "expected_any": [
+        "bridge"
+      ],
+      "expected_top1_any": [
+        "bridge"
+      ],
+      "forbidden_top1": [
+        "long weekend"
+      ],
+      "forbidden_any": [],
+      "notes": "Infrastructure-vs-idiom noun where bridge should dominate the bare lemma and long-weekend drift should stay out of top-1."
+    },
+    {
+      "case_id": "en-es:móvil",
+      "pair": "en-es",
+      "target": "móvil",
+      "tier": "hard",
+      "expected_any": [
+        "cell phone",
+        "mobile phone"
+      ],
+      "expected_top1_any": [
+        "cell phone",
+        "mobile phone"
+      ],
+      "forbidden_top1": [
+        "motive"
+      ],
+      "forbidden_any": [],
+      "notes": "Modern everyday noun where the phone reading should dominate the bare lemma rather than adjective-like mobile drift."
+    },
+    {
+      "case_id": "en-es:servidor",
+      "pair": "en-es",
+      "target": "servidor",
+      "tier": "smoke",
+      "expected_any": [
+        "server"
+      ],
+      "expected_top1_any": [
+        "server"
+      ],
+      "forbidden_top1": [
+        "urinal"
+      ],
+      "forbidden_any": [],
+      "notes": "Computing noun where server should clearly dominate the bare lemma and urinal-style drift should stay out of top-1."
+    },
+    {
+      "case_id": "en-es:ventana",
+      "pair": "en-es",
+      "target": "ventana",
+      "tier": "smoke",
+      "expected_any": [
+        "window"
+      ],
+      "expected_top1_any": [
+        "window"
+      ],
+      "forbidden_top1": [
+        "nostril"
+      ],
+      "forbidden_any": [],
+      "notes": "Everyday-and-computing noun where window should dominate the bare lemma and nostril drift should stay out of top-1."
+    },
+    {
+      "case_id": "en-es:hilo",
+      "pair": "en-es",
+      "target": "hilo",
+      "tier": "smoke",
+      "expected_any": [
+        "thread",
+        "string"
+      ],
+      "expected_top1_any": [
+        "thread"
+      ],
+      "forbidden_top1": [
+        "crosshair",
+        "reticule"
+      ],
+      "forbidden_any": [],
+      "notes": "Thread-family noun where thread should lead while string remains acceptable and target-like optical drift stays out of top-1."
+    },
+    {
+      "case_id": "en-es:portal",
+      "pair": "en-es",
+      "target": "portal",
+      "tier": "smoke",
+      "expected_any": [
+        "portal"
+      ],
+      "expected_top1_any": [
+        "portal"
+      ],
+      "forbidden_top1": [
+        "porch"
+      ],
+      "forbidden_any": [],
+      "notes": "Modern shared-form noun where portal should stay preferred for the bare lemma and porch should stay out of top-1."
+    },
+    {
+      "case_id": "en-es:enlace",
+      "pair": "en-es",
+      "target": "enlace",
+      "tier": "hard",
+      "expected_any": [
+        "link",
+        "bond"
+      ],
+      "expected_top1_any": [
+        "link"
+      ],
+      "forbidden_top1": [
+        "marriage"
+      ],
+      "forbidden_any": [],
+      "notes": "Computing-and-relationship noun where link should lead while bond remains acceptable and marriage-style drift should stay out of top-1."
+    },
+    {
+      "case_id": "en-es:pantalla",
+      "pair": "en-es",
+      "target": "pantalla",
+      "tier": "hard",
+      "expected_any": [
+        "screen"
+      ],
+      "expected_top1_any": [
+        "screen"
+      ],
+      "forbidden_top1": [
+        "lampshade"
+      ],
+      "forbidden_any": [],
+      "notes": "Everyday-and-interface noun where screen should dominate the bare lemma and lampshade drift should stay out of top-1."
+    },
+    {
+      "case_id": "en-es:sitio",
+      "pair": "en-es",
+      "target": "sitio",
+      "tier": "hard",
+      "expected_any": [
+        "site",
+        "place"
+      ],
+      "expected_top1_any": [
+        "site"
+      ],
+      "forbidden_top1": [
+        "siege"
+      ],
+      "forbidden_any": [],
+      "notes": "Modern location noun where site should be the preferred bare-lemma top-1 while place remains acceptable and siege stays out of top-1."
+    },
+    {
+      "case_id": "en-es:aplicación",
+      "pair": "en-es",
+      "target": "aplicación",
+      "tier": "smoke",
+      "expected_any": [
+        "application"
+      ],
+      "expected_top1_any": [
+        "application"
+      ],
+      "forbidden_top1": [
+        "use"
+      ],
+      "forbidden_any": [],
+      "notes": "Computing-and-general noun where application should dominate the bare lemma and use should stay out of top-1."
+    },
+    {
+      "case_id": "en-es:mensaje",
+      "pair": "en-es",
+      "target": "mensaje",
+      "tier": "smoke",
+      "expected_any": [
+        "message"
+      ],
+      "expected_top1_any": [
+        "message"
+      ],
+      "forbidden_top1": [
+        "speech"
+      ],
+      "forbidden_any": [],
+      "notes": "Communication noun where message should clearly dominate the bare lemma and speech drift should stay out of top-1."
+    },
+    {
+      "case_id": "en-es:nodo",
+      "pair": "en-es",
+      "target": "nodo",
+      "tier": "smoke",
+      "expected_any": [
+        "node"
+      ],
+      "expected_top1_any": [
+        "node"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Network-and-structure noun where node should clearly dominate the bare lemma."
+    },
+    {
+      "case_id": "en-es:banda",
+      "pair": "en-es",
+      "target": "banda",
+      "tier": "hard",
+      "expected_any": [
+        "band",
+        "gang",
+        "sash"
+      ],
+      "expected_top1_any": [
+        "band"
+      ],
+      "forbidden_top1": [
+        "bend"
+      ],
+      "forbidden_any": [],
+      "notes": "Social-group-vs-object noun where band should be the preferred bare-lemma top-1 while gang and sash remain acceptable alternates."
+    },
+    {
+      "case_id": "en-es:registro",
+      "pair": "en-es",
+      "target": "registro",
+      "tier": "hard",
+      "expected_any": [
+        "record",
+        "register",
+        "log",
+        "registration"
+      ],
+      "expected_top1_any": [
+        "record",
+        "register"
+      ],
+      "forbidden_top1": [
+        "search"
+      ],
+      "forbidden_any": [],
+      "notes": "Recordkeeping-and-computing noun where record or register should lead while log and registration remain acceptable and search drift stays out of top-1."
+    },
+    {
+      "case_id": "en-es:patrón",
+      "pair": "en-es",
+      "target": "patrón",
+      "tier": "hard",
+      "expected_any": [
+        "pattern",
+        "boss",
+        "master"
+      ],
+      "expected_top1_any": [
+        "pattern"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Abstract-vs-person noun where pattern should be the preferred bare-lemma top-1 while boss and master remain acceptable alternates."
+    },
+    {
+      "case_id": "en-es:trazo",
+      "pair": "en-es",
+      "target": "trazo",
+      "tier": "smoke",
+      "expected_any": [
+        "line",
+        "stroke",
+        "outline"
+      ],
+      "expected_top1_any": [
+        "line"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Drawing-and-structure noun where line should lead while stroke and outline remain acceptable alternates."
+    },
+    {
+      "case_id": "en-es:tráfico",
+      "pair": "en-es",
+      "target": "tráfico",
+      "tier": "smoke",
+      "expected_any": [
+        "traffic"
+      ],
+      "expected_top1_any": [
+        "traffic"
+      ],
+      "forbidden_top1": [
+        "smuggle"
+      ],
+      "forbidden_any": [],
+      "notes": "Movement-and-transport noun where traffic should dominate the bare lemma and smuggle should stay out of top-1."
+    },
+    {
+      "case_id": "en-es:mando",
+      "pair": "en-es",
+      "target": "mando",
+      "tier": "hard",
+      "expected_any": [
+        "controller",
+        "gamepad",
+        "command"
+      ],
+      "expected_top1_any": [
+        "controller"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Modern device-vs-abstract noun where controller should be the preferred bare-lemma top-1 while gamepad and command remain acceptable alternates."
     },
     {
       "case_id": "es-en:house",
@@ -1988,6 +2609,2823 @@
         "mom"
       ],
       "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:本",
+      "pair": "en-ja",
+      "target": "本",
+      "tier": "hard",
+      "target_reading": "ほん",
+      "expected_any": [
+        "book",
+        "volume"
+      ],
+      "expected_top1_any": [
+        "book"
+      ],
+      "forbidden_top1": [
+        "jeans",
+        "films",
+        "wrestling"
+      ],
+      "forbidden_any": [
+        "jeans",
+        "films",
+        "wrestling",
+        "judo"
+      ],
+      "notes": "Reading ほん should prefer book or volume over classifier and media-noise glosses."
+    },
+    {
+      "case_id": "en-ja:犬",
+      "pair": "en-ja",
+      "target": "犬",
+      "tier": "hard",
+      "target_reading": "いぬ",
+      "expected_any": [
+        "dog",
+        "canine"
+      ],
+      "expected_top1_any": [
+        "dog"
+      ],
+      "forbidden_top1": [
+        "radical"
+      ],
+      "forbidden_any": [
+        "radical",
+        "servant",
+        "spy"
+      ],
+      "notes": "Primary animal sense should outrank radical and spy side senses."
+    },
+    {
+      "case_id": "en-ja:駅",
+      "pair": "en-ja",
+      "target": "駅",
+      "tier": "hard",
+      "target_reading": "えき",
+      "expected_any": [
+        "station"
+      ],
+      "expected_top1_any": [
+        "station"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [
+        "food",
+        "lodging"
+      ],
+      "notes": "Learner-facing output should keep station and drop lodging or food side senses."
+    },
+    {
+      "case_id": "en-ja:色",
+      "pair": "en-ja",
+      "target": "色",
+      "tier": "hard",
+      "target_reading": "いろ",
+      "expected_any": [
+        "color",
+        "colour"
+      ],
+      "expected_top1_any": [
+        "color",
+        "colour"
+      ],
+      "forbidden_top1": [
+        "mood",
+        "appearance"
+      ],
+      "forbidden_any": [
+        "mood",
+        "appearance",
+        "love",
+        "lover",
+        "prostitute",
+        "sauce"
+      ],
+      "notes": "Everyday bare-lemma reading should prefer color over mood and erotic side senses."
+    },
+    {
+      "case_id": "en-ja:赤",
+      "pair": "en-ja",
+      "target": "赤",
+      "tier": "hard",
+      "target_reading": "あか",
+      "expected_any": [
+        "red"
+      ],
+      "expected_top1_any": [
+        "red"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [
+        "communism",
+        "socialism",
+        "communist"
+      ],
+      "notes": "Color reading should not surface political side senses in the learner-facing rule set."
+    },
+    {
+      "case_id": "en-ja:青",
+      "pair": "en-ja",
+      "target": "青",
+      "tier": "hard",
+      "target_reading": "あお",
+      "expected_any": [
+        "blue"
+      ],
+      "expected_top1_any": [
+        "blue"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [
+        "black",
+        "horse",
+        "also"
+      ],
+      "notes": "Color reading should stay on blue rather than black, horse, or parser-noise glosses."
+    },
+    {
+      "case_id": "en-ja:白",
+      "pair": "en-ja",
+      "target": "白",
+      "tier": "hard",
+      "target_reading": "しろ",
+      "expected_any": [
+        "white"
+      ],
+      "expected_top1_any": [
+        "white"
+      ],
+      "forbidden_top1": [
+        "innocence"
+      ],
+      "forbidden_any": [
+        "stone"
+      ],
+      "notes": "Color reading should prefer white over abstract innocence glosses."
+    },
+    {
+      "case_id": "en-ja:黒",
+      "pair": "en-ja",
+      "target": "黒",
+      "tier": "hard",
+      "target_reading": "くろ",
+      "expected_any": [
+        "black"
+      ],
+      "expected_top1_any": [
+        "black"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [
+        "stone",
+        "guilt"
+      ],
+      "notes": "Color reading should prefer black over guilt and stone side senses."
+    },
+    {
+      "case_id": "en-ja:今日",
+      "pair": "en-ja",
+      "target": "今日",
+      "tier": "smoke",
+      "target_reading": "きょう",
+      "expected_any": [
+        "today"
+      ],
+      "expected_top1_any": [
+        "today"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [
+        "name"
+      ]
+    },
+    {
+      "case_id": "en-ja:昨日",
+      "pair": "en-ja",
+      "target": "昨日",
+      "tier": "smoke",
+      "target_reading": "きのう",
+      "expected_any": [
+        "yesterday"
+      ],
+      "expected_top1_any": [
+        "yesterday"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:明日",
+      "pair": "en-ja",
+      "target": "明日",
+      "tier": "hard",
+      "target_reading": "あした",
+      "expected_any": [
+        "tomorrow"
+      ],
+      "expected_top1_any": [
+        "tomorrow"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [
+        "name"
+      ],
+      "notes": "Temporal reading should prefer tomorrow over name noise."
+    },
+    {
+      "case_id": "en-ja:朝",
+      "pair": "en-ja",
+      "target": "朝",
+      "tier": "smoke",
+      "target_reading": "あさ",
+      "expected_any": [
+        "morning"
+      ],
+      "expected_top1_any": [
+        "morning"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:夜",
+      "pair": "en-ja",
+      "target": "夜",
+      "tier": "hard",
+      "target_reading": "よる",
+      "expected_any": [
+        "night",
+        "evening"
+      ],
+      "expected_top1_any": [
+        "night",
+        "evening"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [
+        "name"
+      ],
+      "notes": "Temporal reading should not emit person-name noise."
+    },
+    {
+      "case_id": "en-ja:空",
+      "pair": "en-ja",
+      "target": "空",
+      "tier": "hard",
+      "target_reading": "そら",
+      "expected_any": [
+        "sky"
+      ],
+      "expected_top1_any": [
+        "sky"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [
+        "heart"
+      ],
+      "notes": "Sky reading should stay literal rather than drifting into metaphorical glosses."
+    },
+    {
+      "case_id": "en-ja:海",
+      "pair": "en-ja",
+      "target": "海",
+      "tier": "hard",
+      "target_reading": "うみ",
+      "expected_any": [
+        "sea",
+        "ocean"
+      ],
+      "expected_top1_any": [
+        "sea",
+        "ocean"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [
+        "gathered"
+      ],
+      "notes": "Bare noun should prefer sea or ocean and drop participial noise."
+    },
+    {
+      "case_id": "en-ja:雨",
+      "pair": "en-ja",
+      "target": "雨",
+      "tier": "hard",
+      "target_reading": "あめ",
+      "expected_any": [
+        "rain",
+        "rainfall"
+      ],
+      "expected_top1_any": [
+        "rain",
+        "rainfall"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [
+        "weather"
+      ],
+      "notes": "Weather noun should prefer rain or rainfall over generic weather."
+    },
+    {
+      "case_id": "en-ja:雪",
+      "pair": "en-ja",
+      "target": "雪",
+      "tier": "hard",
+      "target_reading": "ゆき",
+      "expected_any": [
+        "snow"
+      ],
+      "expected_top1_any": [
+        "snow"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [
+        "hair",
+        "ice",
+        "turnip"
+      ],
+      "notes": "Common weather noun should not collapse into hair or vegetable noise."
+    },
+    {
+      "case_id": "en-ja:風",
+      "pair": "en-ja",
+      "target": "風",
+      "tier": "hard",
+      "target_reading": "かぜ",
+      "expected_any": [
+        "wind",
+        "breeze"
+      ],
+      "expected_top1_any": [
+        "wind",
+        "breeze"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [
+        "style"
+      ],
+      "notes": "Wind reading should not prioritize style or manner side senses."
+    },
+    {
+      "case_id": "en-ja:音",
+      "pair": "en-ja",
+      "target": "音",
+      "tier": "hard",
+      "target_reading": "おと",
+      "expected_any": [
+        "sound",
+        "noise"
+      ],
+      "expected_top1_any": [
+        "sound",
+        "noise"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [
+        "rumor",
+        "fame"
+      ],
+      "notes": "Sound reading should not surface rumor or fame ahead of literal audio senses."
+    },
+    {
+      "case_id": "en-ja:声",
+      "pair": "en-ja",
+      "target": "声",
+      "tier": "hard",
+      "target_reading": "こえ",
+      "expected_any": [
+        "voice"
+      ],
+      "expected_top1_any": [
+        "voice"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [
+        "accent",
+        "feedback"
+      ],
+      "notes": "Voice reading should not drift into accent or feedback side senses."
+    },
+    {
+      "case_id": "en-ja:大きい",
+      "pair": "en-ja",
+      "target": "大きい",
+      "tier": "smoke",
+      "target_reading": "おおきい",
+      "expected_any": [
+        "big",
+        "large",
+        "broad"
+      ],
+      "expected_top1_any": [
+        "big",
+        "large"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [
+        "important",
+        "crucial",
+        "loud"
+      ]
+    },
+    {
+      "case_id": "en-ja:小さい",
+      "pair": "en-ja",
+      "target": "小さい",
+      "tier": "smoke",
+      "target_reading": "ちいさい",
+      "expected_any": [
+        "small",
+        "little",
+        "tiny"
+      ],
+      "expected_top1_any": [
+        "small",
+        "little"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [
+        "young",
+        "quiet"
+      ]
+    },
+    {
+      "case_id": "en-ja:新しい",
+      "pair": "en-ja",
+      "target": "新しい",
+      "tier": "smoke",
+      "target_reading": "あたらしい",
+      "expected_any": [
+        "new",
+        "fresh",
+        "novel"
+      ],
+      "expected_top1_any": [
+        "new",
+        "fresh"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:安い",
+      "pair": "en-ja",
+      "target": "安い",
+      "tier": "smoke",
+      "target_reading": "やすい",
+      "expected_any": [
+        "cheap",
+        "inexpensive"
+      ],
+      "expected_top1_any": [
+        "cheap",
+        "inexpensive"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:食べる",
+      "pair": "en-ja",
+      "target": "食べる",
+      "tier": "hard",
+      "target_reading": "たべる",
+      "expected_any": [
+        "eat"
+      ],
+      "expected_top1_any": [
+        "eat"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [
+        "drink"
+      ],
+      "notes": "Base verb should not borrow drink from neighboring senses."
+    },
+    {
+      "case_id": "en-ja:飲む",
+      "pair": "en-ja",
+      "target": "飲む",
+      "tier": "hard",
+      "target_reading": "のむ",
+      "expected_any": [
+        "drink"
+      ],
+      "expected_top1_any": [
+        "drink"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Common verb should emit drink on the Kaikki-backed path."
+    },
+    {
+      "case_id": "en-ja:行く",
+      "pair": "en-ja",
+      "target": "行く",
+      "tier": "hard",
+      "target_reading": "いく",
+      "expected_any": [
+        "go",
+        "depart",
+        "leave"
+      ],
+      "expected_top1_any": [
+        "go"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [
+        "come",
+        "cum"
+      ],
+      "notes": "Motion verb should prefer go and suppress come or cum noise."
+    },
+    {
+      "case_id": "en-ja:見る",
+      "pair": "en-ja",
+      "target": "見る",
+      "tier": "hard",
+      "target_reading": "みる",
+      "expected_any": [
+        "see",
+        "watch",
+        "observe"
+      ],
+      "expected_top1_any": [
+        "see",
+        "watch"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [
+        "movie"
+      ],
+      "notes": "Perception verb should keep literal senses and avoid nominal movie spillover."
+    },
+    {
+      "case_id": "en-ja:買う",
+      "pair": "en-ja",
+      "target": "買う",
+      "tier": "hard",
+      "target_reading": "かう",
+      "expected_any": [
+        "buy",
+        "purchase"
+      ],
+      "expected_top1_any": [
+        "buy",
+        "purchase"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [
+        "value",
+        "appreciate",
+        "recognise"
+      ],
+      "notes": "Base commerce verb should prefer buy over appreciate or value."
+    },
+    {
+      "case_id": "en-ja:売る",
+      "pair": "en-ja",
+      "target": "売る",
+      "tier": "hard",
+      "target_reading": "うる",
+      "expected_any": [
+        "sell"
+      ],
+      "expected_top1_any": [
+        "sell"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [
+        "betray",
+        "agitate",
+        "incite"
+      ],
+      "notes": "Base commerce verb should emit sell, not betray or agitation side senses."
+    },
+    {
+      "case_id": "en-ja:分かる",
+      "pair": "en-ja",
+      "target": "分かる",
+      "tier": "hard",
+      "target_reading": "わかる",
+      "expected_any": [
+        "understand",
+        "know"
+      ],
+      "expected_top1_any": [
+        "understand",
+        "know"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "High-frequency verb should emit understand or know on the Kaikki-backed path."
+    },
+    {
+      "case_id": "en-ja:場所",
+      "pair": "en-ja",
+      "target": "場所",
+      "tier": "smoke",
+      "target_reading": "ばしょ",
+      "expected_any": [
+        "place",
+        "location",
+        "site"
+      ],
+      "expected_top1_any": [
+        "place",
+        "location"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [
+        "tournament"
+      ]
+    },
+    {
+      "case_id": "en-ja:所",
+      "pair": "en-ja",
+      "target": "所",
+      "tier": "hard",
+      "target_reading": "ところ",
+      "expected_any": [
+        "place",
+        "site",
+        "scene"
+      ],
+      "expected_top1_any": [
+        "place",
+        "site",
+        "scene"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [
+        "just",
+        "upon"
+      ],
+      "notes": "Place reading should suppress adverb and particle-like noise."
+    },
+    {
+      "case_id": "en-ja:電車",
+      "pair": "en-ja",
+      "target": "電車",
+      "tier": "smoke",
+      "target_reading": "でんしゃ",
+      "expected_any": [
+        "train"
+      ],
+      "expected_top1_any": [
+        "train"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:名前",
+      "pair": "en-ja",
+      "target": "名前",
+      "tier": "smoke",
+      "target_reading": "なまえ",
+      "expected_any": [
+        "name"
+      ],
+      "expected_top1_any": [
+        "name"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:人",
+      "pair": "en-ja",
+      "target": "人",
+      "tier": "smoke",
+      "target_reading": "ひと",
+      "expected_any": [
+        "person",
+        "human",
+        "individual"
+      ],
+      "expected_top1_any": [
+        "person",
+        "human"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:革:かわ",
+      "pair": "en-ja",
+      "target": "革",
+      "tier": "hard",
+      "target_reading": "かわ",
+      "expected_any": [
+        "leather"
+      ],
+      "expected_top1_any": [
+        "leather"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [
+        "revolution",
+        "reform"
+      ]
+    },
+    {
+      "case_id": "en-ja:角:かど",
+      "pair": "en-ja",
+      "target": "角",
+      "tier": "hard",
+      "target_reading": "かど",
+      "expected_any": [
+        "corner",
+        "edge",
+        "street corner"
+      ],
+      "expected_top1_any": [
+        "corner",
+        "edge"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [
+        "surname",
+        "horn",
+        "angle"
+      ]
+    },
+    {
+      "case_id": "en-ja:空:から",
+      "pair": "en-ja",
+      "target": "空",
+      "tier": "hard",
+      "target_reading": "から",
+      "expected_any": [
+        "emptiness",
+        "empty",
+        "vacant",
+        "hollow"
+      ],
+      "expected_top1_any": [
+        "emptiness",
+        "empty"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [
+        "sky",
+        "weather",
+        "tree"
+      ]
+    },
+    {
+      "case_id": "en-ja:空:そら",
+      "pair": "en-ja",
+      "target": "空",
+      "tier": "hard",
+      "target_reading": "そら",
+      "expected_any": [
+        "sky",
+        "skies",
+        "weather"
+      ],
+      "expected_top1_any": [
+        "sky",
+        "skies",
+        "weather"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [
+        "tree",
+        "fake",
+        "emptiness"
+      ]
+    },
+    {
+      "case_id": "en-ja:大家:おおや",
+      "pair": "en-ja",
+      "target": "大家",
+      "tier": "hard",
+      "target_reading": "おおや",
+      "expected_any": [
+        "landlord",
+        "landlady"
+      ],
+      "expected_top1_any": [
+        "landlord",
+        "landlady"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [
+        "expert",
+        "rich family"
+      ]
+    },
+    {
+      "case_id": "en-ja:大人:おとな",
+      "pair": "en-ja",
+      "target": "大人",
+      "tier": "hard",
+      "target_reading": "おとな",
+      "expected_any": [
+        "adult",
+        "grown-up",
+        "mature"
+      ],
+      "expected_top1_any": [
+        "adult",
+        "grown-up"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [
+        "leader",
+        "elder",
+        "community"
+      ]
+    },
+    {
+      "case_id": "en-ja:上手:じょうず",
+      "pair": "en-ja",
+      "target": "上手",
+      "tier": "hard",
+      "target_reading": "じょうず",
+      "expected_any": [
+        "skillful",
+        "dexterous",
+        "skill",
+        "dexterity"
+      ],
+      "expected_top1_any": [
+        "skillful",
+        "dexterous"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [
+        "dexterouses",
+        "flattery"
+      ]
+    },
+    {
+      "case_id": "en-ja:上手:うわて",
+      "pair": "en-ja",
+      "target": "上手",
+      "tier": "hard",
+      "target_reading": "うわて",
+      "expected_any": [
+        "superior",
+        "better",
+        "upper hand"
+      ],
+      "expected_top1_any": [
+        "superior",
+        "better"
+      ],
+      "forbidden_top1": [
+        "skillful",
+        "dexterous"
+      ],
+      "forbidden_any": [
+        "skillful",
+        "dexterous"
+      ]
+    },
+    {
+      "case_id": "en-ja:上:うえ",
+      "pair": "en-ja",
+      "target": "上",
+      "tier": "hard",
+      "target_reading": "うえ",
+      "expected_any": [
+        "above",
+        "top",
+        "surface"
+      ],
+      "expected_top1_any": [
+        "above",
+        "top"
+      ],
+      "forbidden_top1": [
+        "earlier"
+      ],
+      "forbidden_any": [
+        "earlier",
+        "surname",
+        "aboves"
+      ]
+    },
+    {
+      "case_id": "en-ja:中:なか",
+      "pair": "en-ja",
+      "target": "中",
+      "tier": "hard",
+      "target_reading": "なか",
+      "expected_any": [
+        "middle",
+        "center",
+        "inside",
+        "among"
+      ],
+      "expected_top1_any": [
+        "middle",
+        "center",
+        "inside"
+      ],
+      "forbidden_top1": [
+        "average"
+      ],
+      "forbidden_any": [
+        "average",
+        "second volume",
+        "averages"
+      ]
+    },
+    {
+      "case_id": "en-ja:明日:みょうにち",
+      "pair": "en-ja",
+      "target": "明日",
+      "tier": "hard",
+      "target_reading": "みょうにち",
+      "expected_any": [
+        "tomorrow"
+      ],
+      "expected_top1_any": [
+        "tomorrow"
+      ],
+      "forbidden_top1": [
+        "surname"
+      ],
+      "forbidden_any": [
+        "surname"
+      ]
+    },
+    {
+      "case_id": "en-ja:生:なま",
+      "pair": "en-ja",
+      "target": "生",
+      "tier": "hard",
+      "target_reading": "なま",
+      "expected_any": [
+        "raw",
+        "fresh",
+        "live"
+      ],
+      "expected_top1_any": [
+        "raw",
+        "fresh",
+        "live"
+      ],
+      "forbidden_top1": [
+        "raws"
+      ],
+      "forbidden_any": [
+        "raws"
+      ]
+    },
+    {
+      "case_id": "en-ja:生:せい",
+      "pair": "en-ja",
+      "target": "生",
+      "tier": "hard",
+      "target_reading": "せい",
+      "expected_any": [
+        "life",
+        "living"
+      ],
+      "expected_top1_any": [
+        "life",
+        "living"
+      ],
+      "forbidden_top1": [
+        "student"
+      ],
+      "forbidden_any": [
+        "student"
+      ]
+    },
+    {
+      "case_id": "en-ja:人気:にんき",
+      "pair": "en-ja",
+      "target": "人気",
+      "tier": "hard",
+      "target_reading": "にんき",
+      "expected_any": [
+        "popularity"
+      ],
+      "expected_top1_any": [
+        "popularity"
+      ],
+      "forbidden_top1": [
+        "popularities"
+      ],
+      "forbidden_any": [
+        "popularities"
+      ]
+    },
+    {
+      "case_id": "en-ja:首:くび",
+      "pair": "en-ja",
+      "target": "首",
+      "tier": "hard",
+      "target_reading": "くび",
+      "expected_any": [
+        "neck"
+      ],
+      "expected_top1_any": [
+        "neck"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [
+        "dismissal"
+      ]
+    },
+    {
+      "case_id": "en-ja:方:ほう",
+      "pair": "en-ja",
+      "target": "方",
+      "tier": "hard",
+      "target_reading": "ほう",
+      "expected_any": [
+        "direction",
+        "way",
+        "side"
+      ],
+      "expected_top1_any": [
+        "direction",
+        "way",
+        "side"
+      ],
+      "forbidden_top1": [
+        "ways"
+      ],
+      "forbidden_any": [
+        "ways"
+      ]
+    },
+    {
+      "case_id": "en-ja:人気:ひとけ",
+      "pair": "en-ja",
+      "target": "人気",
+      "tier": "hard",
+      "target_reading": "ひとけ",
+      "expected_any": [
+        "presence"
+      ],
+      "expected_top1_any": [
+        "presence"
+      ],
+      "forbidden_top1": [
+        "popularity",
+        "popular"
+      ],
+      "forbidden_any": [
+        "popularity",
+        "popular",
+        "famous"
+      ]
+    },
+    {
+      "case_id": "en-ja:下手:へた",
+      "pair": "en-ja",
+      "target": "下手",
+      "tier": "hard",
+      "target_reading": "へた",
+      "expected_any": [
+        "unskilled",
+        "bad",
+        "poor",
+        "incompetent"
+      ],
+      "expected_top1_any": [
+        "unskilled",
+        "bad",
+        "poor"
+      ],
+      "forbidden_top1": [
+        "superficial",
+        "halfhearted",
+        "half-assed"
+      ],
+      "forbidden_any": [
+        "superficial",
+        "halfhearted",
+        "half-assed",
+        "careless"
+      ]
+    },
+    {
+      "case_id": "en-ja:外:そと",
+      "pair": "en-ja",
+      "target": "外",
+      "tier": "hard",
+      "target_reading": "そと",
+      "expected_any": [
+        "outside",
+        "external"
+      ],
+      "expected_top1_any": [
+        "outside"
+      ],
+      "forbidden_top1": [
+        "toilet",
+        "foreign"
+      ],
+      "forbidden_any": [
+        "toilet"
+      ]
+    },
+    {
+      "case_id": "en-ja:足:あし",
+      "pair": "en-ja",
+      "target": "足",
+      "tier": "hard",
+      "target_reading": "あし",
+      "expected_any": [
+        "foot",
+        "leg"
+      ],
+      "expected_top1_any": [
+        "foot",
+        "leg"
+      ],
+      "forbidden_top1": [
+        "enough",
+        "sufficient"
+      ],
+      "forbidden_any": [
+        "enough",
+        "sufficient",
+        "satisfy",
+        "fulfill"
+      ]
+    },
+    {
+      "case_id": "en-ja:耳:みみ",
+      "pair": "en-ja",
+      "target": "耳",
+      "tier": "hard",
+      "target_reading": "みみ",
+      "expected_any": [
+        "ear"
+      ],
+      "expected_top1_any": [
+        "ear"
+      ],
+      "forbidden_top1": [
+        "crust",
+        "selvedge"
+      ],
+      "forbidden_any": [
+        "crust",
+        "selvedge"
+      ]
+    },
+    {
+      "case_id": "en-ja:辛い:からい",
+      "pair": "en-ja",
+      "target": "辛い",
+      "tier": "hard",
+      "target_reading": "からい",
+      "expected_any": [
+        "spicy",
+        "hot",
+        "spicy hot"
+      ],
+      "expected_top1_any": [
+        "spicy",
+        "hot"
+      ],
+      "forbidden_top1": [
+        "salty",
+        "bitter"
+      ],
+      "forbidden_any": [
+        "salty",
+        "bitter"
+      ]
+    },
+    {
+      "case_id": "en-ja:辛い:つらい",
+      "pair": "en-ja",
+      "target": "辛い",
+      "tier": "hard",
+      "target_reading": "つらい",
+      "expected_any": [
+        "painful"
+      ],
+      "expected_top1_any": [
+        "painful"
+      ],
+      "forbidden_top1": [
+        "salty",
+        "bitter"
+      ],
+      "forbidden_any": [
+        "salty",
+        "bitter"
+      ]
+    },
+    {
+      "case_id": "en-ja:十分:じゅうぶん",
+      "pair": "en-ja",
+      "target": "十分",
+      "tier": "hard",
+      "target_reading": "じゅうぶん",
+      "expected_any": [
+        "enough",
+        "plenty",
+        "sufficient"
+      ],
+      "expected_top1_any": [
+        "enough",
+        "plenty",
+        "sufficient"
+      ],
+      "forbidden_top1": [
+        "minutes",
+        "minute"
+      ],
+      "forbidden_any": [
+        "minutes",
+        "minute"
+      ]
+    },
+    {
+      "case_id": "en-ja:分:ぶん",
+      "pair": "en-ja",
+      "target": "分",
+      "tier": "hard",
+      "target_reading": "ぶん",
+      "expected_any": [
+        "part",
+        "portion",
+        "share"
+      ],
+      "expected_top1_any": [
+        "part",
+        "portion",
+        "share"
+      ],
+      "forbidden_top1": [
+        "minute",
+        "minutes"
+      ],
+      "forbidden_any": [
+        "minute",
+        "minutes"
+      ]
+    },
+    {
+      "case_id": "en-ja:分:ふん",
+      "pair": "en-ja",
+      "target": "分",
+      "tier": "hard",
+      "target_reading": "ふん",
+      "expected_any": [
+        "minute",
+        "minutes"
+      ],
+      "expected_top1_any": [
+        "minute",
+        "minutes"
+      ],
+      "forbidden_top1": [
+        "part",
+        "portion",
+        "share"
+      ],
+      "forbidden_any": [
+        "part",
+        "portion",
+        "share"
+      ]
+    },
+    {
+      "case_id": "en-ja:方:かた",
+      "pair": "en-ja",
+      "target": "方",
+      "tier": "hard",
+      "target_reading": "かた",
+      "expected_any": [
+        "person",
+        "way",
+        "method"
+      ],
+      "expected_top1_any": [
+        "person",
+        "way"
+      ],
+      "forbidden_top1": [
+        "direction",
+        "square"
+      ],
+      "forbidden_any": [
+        "direction",
+        "square",
+        "alternative"
+      ]
+    },
+    {
+      "case_id": "en-ja:花:はな",
+      "pair": "en-ja",
+      "target": "花",
+      "tier": "hard",
+      "target_reading": "はな",
+      "expected_any": [
+        "flower"
+      ],
+      "expected_top1_any": [
+        "flower"
+      ],
+      "forbidden_top1": [
+        "beauty",
+        "essence"
+      ],
+      "forbidden_any": [
+        "beauty",
+        "essence"
+      ]
+    },
+    {
+      "case_id": "en-ja:高い:たかい",
+      "pair": "en-ja",
+      "target": "高い",
+      "tier": "hard",
+      "target_reading": "たかい",
+      "expected_any": [
+        "high",
+        "tall",
+        "expensive"
+      ],
+      "expected_top1_any": [
+        "high",
+        "tall",
+        "expensive"
+      ],
+      "forbidden_top1": [
+        "low",
+        "short",
+        "cheap"
+      ],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:速い:はやい",
+      "pair": "en-ja",
+      "target": "速い",
+      "tier": "hard",
+      "target_reading": "はやい",
+      "expected_any": [
+        "fast",
+        "quick"
+      ],
+      "expected_top1_any": [
+        "fast",
+        "quick"
+      ],
+      "forbidden_top1": [
+        "early"
+      ],
+      "forbidden_any": [
+        "early"
+      ]
+    },
+    {
+      "case_id": "en-ja:静か:しずか",
+      "pair": "en-ja",
+      "target": "静か",
+      "tier": "hard",
+      "target_reading": "しずか",
+      "expected_any": [
+        "quiet",
+        "calm",
+        "peaceful"
+      ],
+      "expected_top1_any": [
+        "quiet",
+        "calm"
+      ],
+      "forbidden_top1": [
+        "inaudible"
+      ],
+      "forbidden_any": [
+        "inaudible"
+      ]
+    },
+    {
+      "case_id": "en-ja:すぐ:すぐ",
+      "pair": "en-ja",
+      "target": "すぐ",
+      "tier": "hard",
+      "target_reading": "すぐ",
+      "expected_any": [
+        "soon",
+        "immediately",
+        "right away"
+      ],
+      "expected_top1_any": [
+        "soon",
+        "immediately"
+      ],
+      "forbidden_top1": [
+        "straight"
+      ],
+      "forbidden_any": [
+        "straight"
+      ]
+    },
+    {
+      "case_id": "en-ja:まだ:まだ",
+      "pair": "en-ja",
+      "target": "まだ",
+      "tier": "hard",
+      "target_reading": "まだ",
+      "expected_any": [
+        "still",
+        "yet"
+      ],
+      "expected_top1_any": [
+        "still",
+        "yet"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:できる:できる",
+      "pair": "en-ja",
+      "target": "できる",
+      "tier": "hard",
+      "target_reading": "できる",
+      "expected_any": [
+        "can",
+        "able"
+      ],
+      "expected_top1_any": [
+        "can",
+        "able"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:結構:けっこう",
+      "pair": "en-ja",
+      "target": "結構",
+      "tier": "hard",
+      "target_reading": "けっこう",
+      "expected_any": [
+        "enough",
+        "fine",
+        "okay"
+      ],
+      "expected_top1_any": [
+        "enough",
+        "fine",
+        "okay"
+      ],
+      "forbidden_top1": [
+        "assembly"
+      ],
+      "forbidden_any": [
+        "assembly"
+      ]
+    },
+    {
+      "case_id": "en-ja:多い:おおい",
+      "pair": "en-ja",
+      "target": "多い",
+      "tier": "hard",
+      "target_reading": "おおい",
+      "expected_any": [
+        "many",
+        "numerous"
+      ],
+      "expected_top1_any": [
+        "many",
+        "numerous"
+      ],
+      "forbidden_top1": [
+        "ahoy"
+      ],
+      "forbidden_any": [
+        "ahoy"
+      ]
+    },
+    {
+      "case_id": "en-ja:一日:いちにち",
+      "pair": "en-ja",
+      "target": "一日",
+      "tier": "hard",
+      "target_reading": "いちにち",
+      "expected_any": [
+        "day",
+        "one day",
+        "all day"
+      ],
+      "expected_top1_any": [
+        "day",
+        "one day",
+        "all day"
+      ],
+      "forbidden_top1": [
+        "daytime"
+      ],
+      "forbidden_any": [
+        "daytime"
+      ]
+    },
+    {
+      "case_id": "en-ja:少ない:すくない",
+      "pair": "en-ja",
+      "target": "少ない",
+      "tier": "smoke",
+      "target_reading": "すくない",
+      "expected_any": [
+        "few",
+        "little"
+      ],
+      "expected_top1_any": [
+        "few",
+        "little"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:必ず:かならず",
+      "pair": "en-ja",
+      "target": "必ず",
+      "tier": "smoke",
+      "target_reading": "かならず",
+      "expected_any": [
+        "surely",
+        "certainly",
+        "always",
+        "without fail"
+      ],
+      "expected_top1_any": [
+        "surely",
+        "certainly",
+        "always"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:大丈夫:だいじょうぶ",
+      "pair": "en-ja",
+      "target": "大丈夫",
+      "tier": "smoke",
+      "target_reading": "だいじょうぶ",
+      "expected_any": [
+        "okay",
+        "all right",
+        "fine"
+      ],
+      "expected_top1_any": [
+        "okay",
+        "fine"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:簡単:かんたん",
+      "pair": "en-ja",
+      "target": "簡単",
+      "tier": "smoke",
+      "target_reading": "かんたん",
+      "expected_any": [
+        "easy",
+        "simple"
+      ],
+      "expected_top1_any": [
+        "easy",
+        "simple"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:楽しい:たのしい",
+      "pair": "en-ja",
+      "target": "楽しい",
+      "tier": "smoke",
+      "target_reading": "たのしい",
+      "expected_any": [
+        "fun",
+        "enjoyable",
+        "pleasant"
+      ],
+      "expected_top1_any": [
+        "fun",
+        "enjoyable",
+        "pleasant"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:急ぐ:いそぐ",
+      "pair": "en-ja",
+      "target": "急ぐ",
+      "tier": "smoke",
+      "target_reading": "いそぐ",
+      "expected_any": [
+        "hurry",
+        "rush"
+      ],
+      "expected_top1_any": [
+        "hurry",
+        "rush"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:置く:おく",
+      "pair": "en-ja",
+      "target": "置く",
+      "tier": "smoke",
+      "target_reading": "おく",
+      "expected_any": [
+        "put",
+        "place"
+      ],
+      "expected_top1_any": [
+        "put",
+        "place"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:開く:ひらく",
+      "pair": "en-ja",
+      "target": "開く",
+      "tier": "smoke",
+      "target_reading": "ひらく",
+      "expected_any": [
+        "open"
+      ],
+      "expected_top1_any": [
+        "open"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:閉じる:とじる",
+      "pair": "en-ja",
+      "target": "閉じる",
+      "tier": "smoke",
+      "target_reading": "とじる",
+      "expected_any": [
+        "close",
+        "shut"
+      ],
+      "expected_top1_any": [
+        "close",
+        "shut"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:始める:はじめる",
+      "pair": "en-ja",
+      "target": "始める",
+      "tier": "smoke",
+      "target_reading": "はじめる",
+      "expected_any": [
+        "begin",
+        "start"
+      ],
+      "expected_top1_any": [
+        "begin",
+        "start"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:終わる:おわる",
+      "pair": "en-ja",
+      "target": "終わる",
+      "tier": "smoke",
+      "target_reading": "おわる",
+      "expected_any": [
+        "end",
+        "finish"
+      ],
+      "expected_top1_any": [
+        "end",
+        "finish"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:近い",
+      "pair": "en-ja",
+      "target": "近い",
+      "tier": "smoke",
+      "target_reading": "ちかい",
+      "expected_any": [
+        "near",
+        "close"
+      ],
+      "expected_top1_any": [
+        "near",
+        "close"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:遠い",
+      "pair": "en-ja",
+      "target": "遠い",
+      "tier": "smoke",
+      "target_reading": "とおい",
+      "expected_any": [
+        "far",
+        "distant"
+      ],
+      "expected_top1_any": [
+        "far",
+        "distant"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:長い",
+      "pair": "en-ja",
+      "target": "長い",
+      "tier": "smoke",
+      "target_reading": "ながい",
+      "expected_any": [
+        "long"
+      ],
+      "expected_top1_any": [
+        "long"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:短い",
+      "pair": "en-ja",
+      "target": "短い",
+      "tier": "smoke",
+      "target_reading": "みじかい",
+      "expected_any": [
+        "short"
+      ],
+      "expected_top1_any": [
+        "short"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:強い",
+      "pair": "en-ja",
+      "target": "強い",
+      "tier": "smoke",
+      "target_reading": "つよい",
+      "expected_any": [
+        "strong"
+      ],
+      "expected_top1_any": [
+        "strong"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:弱い",
+      "pair": "en-ja",
+      "target": "弱い",
+      "tier": "smoke",
+      "target_reading": "よわい",
+      "expected_any": [
+        "weak"
+      ],
+      "expected_top1_any": [
+        "weak"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:便利",
+      "pair": "en-ja",
+      "target": "便利",
+      "tier": "hard",
+      "target_reading": "べんり",
+      "expected_any": [
+        "convenient",
+        "handy",
+        "useful"
+      ],
+      "expected_top1_any": [
+        "convenient",
+        "handy",
+        "useful"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:有名",
+      "pair": "en-ja",
+      "target": "有名",
+      "tier": "smoke",
+      "target_reading": "ゆうめい",
+      "expected_any": [
+        "famous",
+        "well-known"
+      ],
+      "expected_top1_any": [
+        "famous",
+        "well-known"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:必要",
+      "pair": "en-ja",
+      "target": "必要",
+      "tier": "hard",
+      "target_reading": "ひつよう",
+      "expected_any": [
+        "necessary",
+        "needed",
+        "need"
+      ],
+      "expected_top1_any": [
+        "necessary",
+        "needed"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:特別",
+      "pair": "en-ja",
+      "target": "特別",
+      "tier": "smoke",
+      "target_reading": "とくべつ",
+      "expected_any": [
+        "special",
+        "particular"
+      ],
+      "expected_top1_any": [
+        "special",
+        "particular"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:たぶん",
+      "pair": "en-ja",
+      "target": "たぶん",
+      "tier": "hard",
+      "target_reading": "たぶん",
+      "expected_any": [
+        "probably",
+        "perhaps",
+        "maybe"
+      ],
+      "expected_top1_any": [
+        "probably",
+        "perhaps",
+        "maybe"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:いつも",
+      "pair": "en-ja",
+      "target": "いつも",
+      "tier": "hard",
+      "target_reading": "いつも",
+      "expected_any": [
+        "always",
+        "usually"
+      ],
+      "expected_top1_any": [
+        "always",
+        "usually"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:とても",
+      "pair": "en-ja",
+      "target": "とても",
+      "tier": "hard",
+      "target_reading": "とても",
+      "expected_any": [
+        "very",
+        "greatly"
+      ],
+      "expected_top1_any": [
+        "very",
+        "greatly"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:ゆっくり",
+      "pair": "en-ja",
+      "target": "ゆっくり",
+      "tier": "hard",
+      "target_reading": "ゆっくり",
+      "expected_any": [
+        "slowly",
+        "leisurely"
+      ],
+      "expected_top1_any": [
+        "slowly",
+        "leisurely"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:思う",
+      "pair": "en-ja",
+      "target": "思う",
+      "tier": "smoke",
+      "target_reading": "おもう",
+      "expected_any": [
+        "think",
+        "believe",
+        "feel"
+      ],
+      "expected_top1_any": [
+        "think",
+        "believe"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:知る",
+      "pair": "en-ja",
+      "target": "知る",
+      "tier": "smoke",
+      "target_reading": "しる",
+      "expected_any": [
+        "know",
+        "learn"
+      ],
+      "expected_top1_any": [
+        "know"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:使う",
+      "pair": "en-ja",
+      "target": "使う",
+      "tier": "smoke",
+      "target_reading": "つかう",
+      "expected_any": [
+        "use"
+      ],
+      "expected_top1_any": [
+        "use"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:持つ",
+      "pair": "en-ja",
+      "target": "持つ",
+      "tier": "hard",
+      "target_reading": "もつ",
+      "expected_any": [
+        "have",
+        "hold",
+        "possess"
+      ],
+      "expected_top1_any": [
+        "have",
+        "hold",
+        "possess"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:作る",
+      "pair": "en-ja",
+      "target": "作る",
+      "tier": "smoke",
+      "target_reading": "つくる",
+      "expected_any": [
+        "make",
+        "create"
+      ],
+      "expected_top1_any": [
+        "make",
+        "create"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:待つ",
+      "pair": "en-ja",
+      "target": "待つ",
+      "tier": "hard",
+      "target_reading": "まつ",
+      "expected_any": [
+        "wait",
+        "await"
+      ],
+      "expected_top1_any": [
+        "wait",
+        "await"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:言う",
+      "pair": "en-ja",
+      "target": "言う",
+      "tier": "smoke",
+      "target_reading": "いう",
+      "expected_any": [
+        "say",
+        "utter",
+        "call"
+      ],
+      "expected_top1_any": [
+        "say"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:成る",
+      "pair": "en-ja",
+      "target": "成る",
+      "tier": "hard",
+      "target_reading": "なる",
+      "expected_any": [
+        "become",
+        "get"
+      ],
+      "expected_top1_any": [
+        "become"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:良い",
+      "pair": "en-ja",
+      "target": "良い",
+      "tier": "hard",
+      "target_reading": "よい",
+      "expected_any": [
+        "good",
+        "fine",
+        "nice",
+        "excellent"
+      ],
+      "expected_top1_any": [
+        "good",
+        "fine",
+        "nice",
+        "excellent"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:事",
+      "pair": "en-ja",
+      "target": "事",
+      "tier": "hard",
+      "target_reading": "こと",
+      "expected_any": [
+        "thing",
+        "matter",
+        "event",
+        "affair"
+      ],
+      "expected_top1_any": [
+        "thing",
+        "matter"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:物",
+      "pair": "en-ja",
+      "target": "物",
+      "tier": "hard",
+      "target_reading": "もの",
+      "expected_any": [
+        "thing",
+        "object",
+        "stuff",
+        "article"
+      ],
+      "expected_top1_any": [
+        "thing",
+        "object"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:自分",
+      "pair": "en-ja",
+      "target": "自分",
+      "tier": "hard",
+      "target_reading": "じぶん",
+      "expected_any": [
+        "oneself",
+        "myself",
+        "yourself"
+      ],
+      "expected_top1_any": [
+        "oneself",
+        "myself",
+        "yourself"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:情報",
+      "pair": "en-ja",
+      "target": "情報",
+      "tier": "smoke",
+      "target_reading": "じょうほう",
+      "expected_any": [
+        "information"
+      ],
+      "expected_top1_any": [
+        "information"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:今",
+      "pair": "en-ja",
+      "target": "今",
+      "tier": "smoke",
+      "target_reading": "いま",
+      "expected_any": [
+        "now"
+      ],
+      "expected_top1_any": [
+        "now"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:問題",
+      "pair": "en-ja",
+      "target": "問題",
+      "tier": "hard",
+      "target_reading": "もんだい",
+      "expected_any": [
+        "problem",
+        "question",
+        "issue"
+      ],
+      "expected_top1_any": [
+        "problem",
+        "question",
+        "issue"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:関係",
+      "pair": "en-ja",
+      "target": "関係",
+      "tier": "hard",
+      "target_reading": "かんけい",
+      "expected_any": [
+        "relation",
+        "relationship",
+        "connection"
+      ],
+      "expected_top1_any": [
+        "relation",
+        "relationship",
+        "connection"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:子供",
+      "pair": "en-ja",
+      "target": "子供",
+      "tier": "smoke",
+      "target_reading": "こども",
+      "expected_any": [
+        "child"
+      ],
+      "expected_top1_any": [
+        "child"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:地域",
+      "pair": "en-ja",
+      "target": "地域",
+      "tier": "smoke",
+      "target_reading": "ちいき",
+      "expected_any": [
+        "area",
+        "region",
+        "district"
+      ],
+      "expected_top1_any": [
+        "area",
+        "region"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:社会",
+      "pair": "en-ja",
+      "target": "社会",
+      "tier": "smoke",
+      "target_reading": "しゃかい",
+      "expected_any": [
+        "society",
+        "community"
+      ],
+      "expected_top1_any": [
+        "society",
+        "community"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:研究",
+      "pair": "en-ja",
+      "target": "研究",
+      "tier": "smoke",
+      "target_reading": "けんきゅう",
+      "expected_any": [
+        "research",
+        "study"
+      ],
+      "expected_top1_any": [
+        "research",
+        "study"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:企業",
+      "pair": "en-ja",
+      "target": "企業",
+      "tier": "hard",
+      "target_reading": "きぎょう",
+      "expected_any": [
+        "enterprise",
+        "company",
+        "business",
+        "corporation"
+      ],
+      "expected_top1_any": [
+        "enterprise",
+        "company",
+        "business"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:会社",
+      "pair": "en-ja",
+      "target": "会社",
+      "tier": "smoke",
+      "target_reading": "かいしゃ",
+      "expected_any": [
+        "company",
+        "firm",
+        "corporation"
+      ],
+      "expected_top1_any": [
+        "company",
+        "firm",
+        "corporation"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:生活",
+      "pair": "en-ja",
+      "target": "生活",
+      "tier": "hard",
+      "target_reading": "せいかつ",
+      "expected_any": [
+        "life",
+        "living",
+        "livelihood"
+      ],
+      "expected_top1_any": [
+        "life",
+        "living"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:女性",
+      "pair": "en-ja",
+      "target": "女性",
+      "tier": "smoke",
+      "target_reading": "じょせい",
+      "expected_any": [
+        "woman",
+        "female"
+      ],
+      "expected_top1_any": [
+        "woman",
+        "female"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:目",
+      "pair": "en-ja",
+      "target": "目",
+      "tier": "hard",
+      "target_reading": "め",
+      "expected_any": [
+        "eye"
+      ],
+      "expected_top1_any": [
+        "eye"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:顔",
+      "pair": "en-ja",
+      "target": "顔",
+      "tier": "hard",
+      "target_reading": "かお",
+      "expected_any": [
+        "face",
+        "visage"
+      ],
+      "expected_top1_any": [
+        "face",
+        "visage"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:男",
+      "pair": "en-ja",
+      "target": "男",
+      "tier": "smoke",
+      "target_reading": "おとこ",
+      "expected_any": [
+        "man",
+        "male"
+      ],
+      "expected_top1_any": [
+        "man",
+        "male"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:人間",
+      "pair": "en-ja",
+      "target": "人間",
+      "tier": "hard",
+      "target_reading": "にんげん",
+      "expected_any": [
+        "human",
+        "person",
+        "humankind"
+      ],
+      "expected_top1_any": [
+        "human",
+        "person"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:場合",
+      "pair": "en-ja",
+      "target": "場合",
+      "tier": "hard",
+      "target_reading": "ばあい",
+      "expected_any": [
+        "case",
+        "situation",
+        "instance",
+        "occasion"
+      ],
+      "expected_top1_any": [
+        "case",
+        "situation",
+        "instance"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:事業",
+      "pair": "en-ja",
+      "target": "事業",
+      "tier": "hard",
+      "target_reading": "じぎょう",
+      "expected_any": [
+        "business",
+        "enterprise",
+        "venture",
+        "project"
+      ],
+      "expected_top1_any": [
+        "business",
+        "enterprise",
+        "venture"
+      ],
+      "forbidden_top1": [
+        "service",
+        "work"
+      ],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:利用",
+      "pair": "en-ja",
+      "target": "利用",
+      "tier": "hard",
+      "target_reading": "りよう",
+      "expected_any": [
+        "use",
+        "utilization",
+        "utilisation"
+      ],
+      "expected_top1_any": [
+        "use",
+        "utilization",
+        "utilisation"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:経済",
+      "pair": "en-ja",
+      "target": "経済",
+      "tier": "hard",
+      "target_reading": "けいざい",
+      "expected_any": [
+        "economy",
+        "economics"
+      ],
+      "expected_top1_any": [
+        "economy",
+        "economics"
+      ],
+      "forbidden_top1": [
+        "thrift"
+      ],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:国",
+      "pair": "en-ja",
+      "target": "国",
+      "tier": "hard",
+      "target_reading": "くに",
+      "expected_any": [
+        "country",
+        "nation",
+        "state"
+      ],
+      "expected_top1_any": [
+        "country",
+        "nation"
+      ],
+      "forbidden_top1": [
+        "earth",
+        "home"
+      ],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:気",
+      "pair": "en-ja",
+      "target": "気",
+      "tier": "hard",
+      "target_reading": "き",
+      "expected_any": [
+        "spirit",
+        "mind",
+        "heart",
+        "mood"
+      ],
+      "expected_top1_any": [
+        "spirit",
+        "mind",
+        "heart",
+        "mood"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [
+        "qi",
+        "chi",
+        "ki"
+      ]
+    },
+    {
+      "case_id": "en-ja:話",
+      "pair": "en-ja",
+      "target": "話",
+      "tier": "hard",
+      "target_reading": "はなし",
+      "expected_any": [
+        "talk",
+        "conversation",
+        "story",
+        "speech"
+      ],
+      "expected_top1_any": [
+        "talk",
+        "conversation",
+        "story",
+        "speech"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [
+        "rumor",
+        "hearsay"
+      ]
+    },
+    {
+      "case_id": "en-ja:法",
+      "pair": "en-ja",
+      "target": "法",
+      "tier": "hard",
+      "target_reading": "ほう",
+      "expected_any": [
+        "law",
+        "method",
+        "principle"
+      ],
+      "expected_top1_any": [
+        "law",
+        "method",
+        "principle"
+      ],
+      "forbidden_top1": [
+        "dharma",
+        "mood"
+      ],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:現在",
+      "pair": "en-ja",
+      "target": "現在",
+      "tier": "hard",
+      "target_reading": "げんざい",
+      "expected_any": [
+        "present",
+        "now",
+        "current"
+      ],
+      "expected_top1_any": [
+        "present",
+        "now",
+        "current"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:時代",
+      "pair": "en-ja",
+      "target": "時代",
+      "tier": "hard",
+      "target_reading": "じだい",
+      "expected_any": [
+        "era",
+        "age",
+        "period",
+        "epoch"
+      ],
+      "expected_top1_any": [
+        "era",
+        "age",
+        "period",
+        "epoch"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [
+        "antique",
+        "antiquity"
+      ]
+    },
+    {
+      "case_id": "en-ja:皆",
+      "pair": "en-ja",
+      "target": "皆",
+      "tier": "smoke",
+      "target_reading": "みな",
+      "expected_any": [
+        "everyone",
+        "everybody",
+        "all"
+      ],
+      "expected_top1_any": [
+        "everyone",
+        "everybody",
+        "all"
+      ],
+      "forbidden_top1": [
+        "everything"
+      ],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:全て",
+      "pair": "en-ja",
+      "target": "全て",
+      "tier": "hard",
+      "target_reading": "すべて",
+      "expected_any": [
+        "everything",
+        "all"
+      ],
+      "expected_top1_any": [
+        "everything",
+        "all"
+      ],
+      "forbidden_top1": [
+        "entirely",
+        "completely"
+      ],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:間",
+      "pair": "en-ja",
+      "target": "間",
+      "tier": "hard",
+      "target_reading": "あいだ",
+      "expected_any": [
+        "interval",
+        "space",
+        "between",
+        "gap"
+      ],
+      "expected_top1_any": [
+        "interval",
+        "space",
+        "between",
+        "gap"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [
+        "average",
+        "halfway"
+      ]
+    },
+    {
+      "case_id": "en-ja:本当",
+      "pair": "en-ja",
+      "target": "本当",
+      "tier": "hard",
+      "target_reading": "ほんとう",
+      "expected_any": [
+        "truth",
+        "real",
+        "true",
+        "reality"
+      ],
+      "expected_top1_any": [
+        "truth",
+        "real",
+        "true",
+        "reality"
+      ],
+      "forbidden_top1": [
+        "official",
+        "natural"
+      ],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:県",
+      "pair": "en-ja",
+      "target": "県",
+      "tier": "smoke",
+      "target_reading": "けん",
+      "expected_any": [
+        "prefecture"
+      ],
+      "expected_top1_any": [
+        "prefecture"
+      ],
+      "forbidden_top1": [
+        "county"
+      ],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:市",
+      "pair": "en-ja",
+      "target": "市",
+      "tier": "smoke",
+      "target_reading": "し",
+      "expected_any": [
+        "city"
+      ],
+      "expected_top1_any": [
+        "city"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:別",
+      "pair": "en-ja",
+      "target": "別",
+      "tier": "hard",
+      "target_reading": "べつ",
+      "expected_any": [
+        "different",
+        "separate",
+        "another"
+      ],
+      "expected_top1_any": [
+        "different",
+        "separate",
+        "another"
+      ],
+      "forbidden_top1": [
+        "distinction",
+        "discrimination"
+      ],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:他",
+      "pair": "en-ja",
+      "target": "他",
+      "tier": "hard",
+      "target_reading": "ほか",
+      "expected_any": [
+        "other",
+        "another"
+      ],
+      "expected_top1_any": [
+        "other",
+        "another"
+      ],
+      "forbidden_top1": [
+        "outside",
+        "beyond",
+        "except"
+      ],
       "forbidden_any": []
     }
   ]

@@ -3,8 +3,8 @@
 Status: active implementation plan
 Role: planning / architecture
 Purpose: Define the non-throwaway optimization plan for the rulegen benchmark stack, with immediate focus on the canonical `en-es` sweep while steering toward a long-term compiled benchmark architecture that can later support vectorized CPU and optional GPU execution, broad pack/pair-global maxima search, and later trait-conditioned runtime profile selection.
-Last updated: 2026-03-28
-Last verified: 2026-03-28
+Last updated: 2026-03-29
+Last verified: 2026-03-29
 Source-of-truth: planning doc only; executable truth still lives in code, tests, presets, and dated benchmark artifacts.
 
 ## Scope
@@ -40,13 +40,13 @@ Current methodology constraint:
 
 Current canonical `en-es` benchmark state:
 
-- current reported case count: `64`
+- current reported case count: `100`
 - current reported run count: `144`
-- current best objective: `126.188`
+- current best objective: `131.180`
 - current artifact-resolved best config:
   - `md=3 mr=none thr=0.000 sd=1.00 var=on pos=on rev=on xamb=off xspec=off w_pos=0.100 kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10`
 - current tied-winner note:
-  - the latest artifact has `12` exact objective ties at `126.188`
+  - the latest artifact has `15` unique metric vectors across `144` runs, with the top vector still shared across a broad plateau
   - the default canonical surface still has a meaningful plateau, even after the benchmark dataset expansion
 
 Current canonical preset dimensions:
@@ -95,18 +95,37 @@ Current implementation shape:
   - a first guarded `torch` CUDA score-projection backend now exists behind `LEXISHIFT_RULEGEN_SCORE_BACKEND=torch|auto`, but it is still optional and local-machine-specific rather than part of the repo-wide default contract
   - current local GPU evidence says that guarded `torch` path is semantically correct but slower than the default `numpy` path on the real current canonical `en-es` sweep shape, so GPU remains an opt-in backend rather than the default execution mode
 
-Latest measured canonical `en-es` smoke on this PC with warm path caches:
+Latest verified canonical `en-es` checkpoint on this PC:
 
-- benchmark result still exact at objective `126.188` on the current expanded `64`-case dataset
-- wall clock: about `0.50s`
-- `build_resource_payload`: about `0.001s`
-- `preload_translation_gloss_records`: about `0.223s`
-- `prepare_compiled_sweep_inputs`: about `0.174s`
-- `run_config`: about `0.012s` total across `144` configs, or about `0.00009s` average per config
+- benchmark result now lands at objective `131.180` on the current expanded `100`-case dataset after the narrow `batería` extraction fix, the heuristic-fragment reverse-miss follow-up, the recurrent exact reverse-attested phrasal-verb follow-up for `sacar`, the narrow vulgar-suppression follow-up for `acabar` / `coger`, a fifth benchmark-expansion tranche focused on additional computing / interface nouns, a narrow nominal-compound follow-up for `móvil`, a sixth benchmark-expansion tranche focused on additional computing/network nouns, and a seventh tranche focused on broader multi-bucket nouns
+- current canonical semantic surface:
+  - `Top1 89.00%`
+  - `Top3 100.00%`
+  - `ForbidTop1 0.00%`
+  - `ForbidAny 0.00%`
+  - `AvgRulesPerTarget 2.97`
+- current canonical triage is now:
+  - `derecho`
+  - `cuadro`
+  - `cuenta`
+  - `red`
+  - `señal`
+  - `archivo`
+  - `trama`
+  - `navegador`
+  - `registro`
+  - `patrón`
+  - `mando`
+- latest measured warm-cache timing checkpoint for the same compiled benchmark path remained in the same fast local class:
+  - wall clock: about `0.61s`
+  - `build_resource_payload`: about `0.001s`
+  - `preload_translation_gloss_records`: about `0.263s`
+  - `prepare_compiled_sweep_inputs`: about `0.214s`
+  - `run_config`: about `0.016s` total across `144` configs, or about `0.00011s` average per config
 
 Latest guarded local `torch` smoke on this PC:
 
-- benchmark result still exact at objective `129.474`
+- the last guarded local CUDA smoke remained benchmark-equivalent for its checkpoint and was still slower than the default `numpy` path
 - wall clock: about `0.71s`
 - `prepare_compiled_sweep_inputs`: about `0.328s`
 - current conclusion:
@@ -188,7 +207,7 @@ Latest follow-up checkpoint on this PC (`2026-03-28`, later tranche on the older
 - installed-resource `en-es` helper diagnostics now report no missing inputs, and a no-persist helper `run_rulegen` smoke succeeds locally with `117` rules over `40` targets
 - the older helper `status.last_error` is now best interpreted as stale historical state, not a current `en-es` resource blocker
 
-Latest dataset-expansion checkpoint on this PC (`2026-03-28`, current `64`-case dataset):
+Latest dataset-expansion and post-vulgarfix checkpoint on this PC (`2026-03-28`, current `64`-case dataset):
 
 - the benchmark dataset has now been expanded from `57` to `64` `en-es` cases with:
   - `canal`
@@ -199,42 +218,146 @@ Latest dataset-expansion checkpoint on this PC (`2026-03-28`, current `64`-case 
   - `batería`
   - `llevar`
 - new canonical latest state:
-  - objective `126.188`
-  - `Top1 90.62%`
-  - `Top3 96.88%`
-  - `ForbidTop1 1.56%`
-  - `ForbidAny 3.12%`
-  - `AvgRulesPerTarget 3.03`
-  - exact-tie count `12`
+- objective `134.094`
+- `Top1 92.19%`
+- `Top3 100.00%`
+- `ForbidTop1 0.00%`
+  - `ForbidAny 0.00%`
+  - `AvgRulesPerTarget 3.02`
 - interpretation:
   - `6` of the `7` new cases pass under the canonical latest config
-  - `batería` is the only new hard fail in the added batch
-  - the existing `acabar` and `coger` forbidden-side failures remain on the canonical surface
+  - `señal` is now a review case after tightening the preferred top-1 from `signal/sign` to `signal`
+  - `batería` is now fixed on the canonical latest config
+  - a second narrow follow-up now lifts `cuadro` from hard fail to review by surfacing `picture` in top3 on the canonical surface
+  - a third narrow follow-up now fixes `sacar` on the canonical surface by admitting only recurrent exact reverse-attested two-word phrasal-verb candidates, surfacing `take out, withdraw, draw` without broad multiword admission
+  - a fourth narrow follow-up now suppresses explicit vulgar senses when clean competition exists, clearing the `acabar` / `coger` forbidden-side failures without changing the broader family-demotion surface
+  - canonical triage is now down to `5` review-only items: `derecho`, `cuadro`, `cuenta`, `red`, and `señal`
 - focused reruns on the expanded dataset now show a different frontier than the older `57`-case sweep:
   - `en_es_stage_a_admission_frontier_v2`
-    - objective `136.281`
-    - exact-tie count `14`
+    - objective `141.594`
     - best config `md=1 mr=2 thr=0.000 sd=0.50 var=on pos=on rev=on xamb=off xspec=off w_pos=0.100 kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10`
-    - `Top1 90.62%`
-    - `Top3 92.19%`
+    - `Top1 92.19%`
+    - `Top3 95.31%`
+    - `ForbidTop1 0.00%`
     - `ForbidAny 0.00%`
     - `AvgRulesPerTarget 1.30`
-    - experiment triage count `6`
+    - experiment triage count `5`
   - `en_es_stage_a_combined_frontier_v1`
-    - objective `133.844`
-    - exact-tie count `12`
+    - objective `139.250`
     - best config `md=2 mr=3 thr=0.000 sd=0.75 var=on pos=on rev=on xamb=off xspec=off w_pos=0.100 kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10`
-    - `Top1 90.62%`
-    - `Top3 96.88%`
+    - `Top1 92.19%`
+    - `Top3 100.00%`
+    - `ForbidTop1 0.00%`
     - `ForbidAny 0.00%`
-    - `AvgRulesPerTarget 2.17`
-    - experiment triage count `6`
+    - `AvgRulesPerTarget 2.16`
+    - experiment triage count `5`
   - `en_es_stage_a_reverse_frontier_v2` is no longer competitive on the expanded set
-  - the currently exposed family-set follow-up remains effectively flat on the expanded set
+  - the currently exposed family-set follow-up is still secondary, but it now runs on a stronger post-fix baseline:
+    - objective `141.219`
+    - `Top1 92.19%`
+    - `Top3 100.00%`
+    - `ForbidTop1 0.00%`
+    - `ForbidAny 0.00%`
+    - `AvgRulesPerTarget 1.83`
+    - experiment triage count `5`
+  - the widened family/category scaffold is now implemented and verified:
+    - normalized families now also include `art_media`, `communication_network`, `computing`, `mechanics_tools`, `music`, `biology`, and `chemistry`
+    - benchmark sweeps can now carry explicit per-family demotion override maps through `--kaikki-policy-risk-family-demotion-sets`
+    - the new preset `en_es_stage_a_family_followup_v2` is verified end-to-end on the expanded dataset
+    - full-run result for that preset is now objective `138.719`; the best run still sits on the default family-demotion map, which is useful signal rather than a failure
 - important direct-source finding:
   - the Kaikki forward source does contain a battery-side translation for `batería` (`large and rechargeable battery`)
-  - the new `batería` benchmark failure is therefore not a raw data-source absence
-  - the immediate miss is that the rulegen path is not surfacing a usable bare `battery` candidate from the longer source phrase, so category demotion alone will not solve it
+  - the original `batería` benchmark failure was therefore not a raw data-source absence
+  - a narrow nominal-head recovery step in the gloss-variant expander now surfaces a usable bare `battery` candidate from the longer source phrase
+  - this fixed `batería` on the canonical surface and materially improved every focused frontier rerun without requiring a broader multiword-admission policy
+  - a second narrow canonical follow-up now suppresses reverse-miss penalties only for heuristic `leading_alias` and `nominal_head` fragments when they do not already have a direct reverse hit
+  - this keeps ordinary comma-fragment behavior unchanged while lifting `cuadro` from FAIL to REVIEW and raising canonical `Top3` to `100.00%`
+  - a third narrow canonical follow-up now admits only recurrent exact reverse-attested two-word phrasal-verb candidates and threads target-local gloss recurrence counts through both live and compiled filter paths
+  - this fixes `sacar` on the canonical surface without enabling a generic multiword verb policy, raising canonical `Top1` to `92.19%`
+  - a fourth narrow canonical follow-up now adds a clean-competition suppression rule for explicit vulgar senses in both live and compiled selection paths
+  - this removes the lingering `acabar` / `coger` forbidden-any failures, lifting canonical objective to `134.094` and driving `ForbidAny` to `0.00%`
+- current profile-bank interpretation from the post-vulgarfix reruns:
+  - four concrete candidate profiles now exist on the current `64`-case surface:
+    - canonical recall-oriented baseline
+    - admission-tight precision profile
+    - combined balanced profile
+    - family-followup high-objective profile
+  - those profiles now differ clearly on:
+    - rule volume
+    - top-3 breadth
+    - objective tradeoffs
+  - they do **not** yet flip the remaining stubborn top-1 review winners:
+    - `derecho`
+    - `cuadro`
+    - `cuenta`
+    - `red`
+    - `señal`
+  - current conclusion:
+    - enough evidence now exists to start offline profile/trait analysis
+    - not enough evidence exists yet to justify runtime profile routing
+    - the next broad learning step should be benchmark expansion and trait/profile reporting, not immediate embedding-led scoring
+
+Latest fifth suite-expansion checkpoint on this PC (`2026-03-29`, current `88`-case dataset):
+
+- the benchmark dataset has now been expanded again with:
+  - `móvil`
+  - `servidor`
+  - `ventana`
+  - `hilo`
+  - `portal`
+- current canonical latest state on the `88`-case set:
+  - objective `133.455`
+  - `Top1 90.91%`
+  - `Top3 100.00%`
+  - `ForbidTop1 0.00%`
+  - `ForbidAny 0.00%`
+  - `AvgRulesPerTarget 2.91`
+- current triage is now:
+  - `derecho`
+  - `cuadro`
+  - `cuenta`
+  - `red`
+  - `señal`
+  - `archivo`
+  - `trama`
+  - `navegador`
+- current new-case outcomes:
+  - `móvil` -> `mobile phone, mobile, motive`
+  - `servidor` -> `server`
+  - `ventana` -> `window, nostril`
+  - `hilo` -> `thread, linen, crosshair`
+  - `portal` -> `portal, porch`
+- interpretation:
+  - all five additions now pass on canonical after the narrow nominal-compound follow-up
+  - `móvil` is still useful because it exposes a real profile-sensitive adjective-vs-phone-noun competition:
+    - canonical now keeps `mobile phone` top1
+    - tighter profiles still fall back to bare `mobile`
+  - the next best move therefore remains profile/trait analysis and additional suite growth rather than another blind scalar sweep or immediate embeddings
+- the first hardened benchmark-side trait/profile instrumentation slice is now landed:
+  - benchmark `case_results` payloads now emit a `trait_summary` object for each case in the latest `en-es` artifact
+  - current emitted traits are split into:
+    - `router_input`
+    - `result_shape`
+    - `benchmark_only`
+  - this is still an analysis seam, not a routing implementation:
+    - no runtime profile router exists yet
+    - the new trait split is being used first for offline profile-bank comparison
+- the first frozen profile-bank comparison on the `71`-case suite found no top-1 winner differences, the rerun on the `77`-case suite showed the first top-1 split, the `83`-case rerun kept that same pattern, and the current post-`móvil` `88`-case rerun now shows:
+ - the first frozen profile-bank comparison on the `71`-case suite found no top-1 winner differences, the rerun on the `77`-case suite showed the first top-1 split, the `83`-case rerun kept that same pattern, and the current `94`-case rerun now shows:
+  - `1` top-1 winner difference across:
+    - canonical
+    - admission-tight
+    - combined-balanced
+    - family-followup
+  - `0` cases with top-3 coverage differences
+  - the current top-1-sensitive case is `móvil`:
+    - canonical: `mobile phone`
+    - tighter profiles: `mobile`
+  - the current bank still changes rule volume and recall breadth more than top-1 winners overall, but it is no longer top-1-invariant
+- the first trait-region aggregation on top of that frozen bank is now complete:
+  - `admission-tight` and `family-followup` now tie as the best objective profiles across most trait regions
+  - canonical still carries the only extra top-1 win because of `móvil`
+  - those region-level wins are still mostly about rule volume and objective, not broad top-1 separation
 
 ## Hard Requirements
 
@@ -973,16 +1096,26 @@ The benchmark optimization program is complete when all of the following are tru
 
 ## Immediate Next Slice
 
-The next implementation slice should be:
+The next planning and implementation slice should be:
 
-1. move batched score projection one layer deeper into denser config/feature matrices rather than per-config Python objects
-2. batch case-summary reduction over the compiled row tables, now that selected-row tables can already be prepared sweep-wide
-3. emit or preserve the compact per-case/per-candidate signals needed for later trait-region winner analysis, so the same compiled benchmark substrate can later answer more than just one global-best config
-4. keep the backend-neutral resource contract explicit so the same sweep substrate can later support multiple packs per pair and non-SQLite sources
-5. only after the compiled CPU path is table-driven end to end, decide whether turning the local `torch` install into an active tensor backend is justified
+1. harden the first benchmark-side trait/profile seam into a shared extractor direction:
+   - review the current `trait_summary` fields for false benchmark-only assumptions
+   - move toward a runtime/benchmark-shared trait contract instead of a benchmark-only helper
+   - preserve explicit profile identity for the main current profile bank
+2. freeze a small current profile bank for analysis rather than immediately widening every knob again:
+   - canonical
+   - admission-tight
+   - combined-balanced
+   - family-followup
+3. compare those frozen profiles across the expanded suite and record which trait regions prefer which profile shapes
+4. only after the expanded-suite trait/profile loop exists, decide whether another suite-expansion tranche, embeddings, or other new signal families are the right next scoring addition
+5. keep the backend-neutral resource contract explicit so the same sweep substrate can later support multiple packs per pair and non-SQLite sources
 
 Why this is the right next slice:
 
-- the current warm-cache serial sweep is already exact and fast, so the remaining worthwhile work is architectural rather than cache churn
-- the landed batch-preparation slices already moved score-table projection and selected-row selection into sweep-level preparation, and they now use compact selected-row payloads, numeric phrase-order tie-breakers, `numpy` score projection, and selected-row reuse keyed by compiled row-selection signatures instead of string sort payloads, raw confidence payloads, or score-table object identity, so the next gains come from denser config/feature matrices and batched result reduction rather than more per-config caches
-- it keeps CPU and future GPU work on the same compiled benchmark IR instead of creating a separate optimization path
+- the current warm-cache serial sweep is already exact and fast enough that benchmark runtime is no longer the main blocker
+- the second suite-expansion tranche now increased breadth without creating new actionable failures, which is strong evidence that the benchmark has reached a useful near-term size for trait/profile analysis
+- the first trait-summary seam is now already producing real per-case analysis payloads, so the next highest-ROI work is to harden and use that seam rather than keep talking about it abstractly
+- the post-vulgarfix frontier reruns already showed meaningful profile differences in precision/recall shape and rule volume, which is enough to justify offline profile analysis
+- those same reruns also show that the remaining review winners are stable across the current profile bank, which is a strong signal to measure traits first rather than prematurely shipping runtime routing
+- it keeps future embeddings or GPU-backed signal work on top of a stronger evaluation substrate instead of adding a larger scoring family before the benchmark is broad enough to judge it well
