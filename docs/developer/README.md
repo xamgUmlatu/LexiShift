@@ -2,8 +2,8 @@
 
 Status: active developer hub
 Role: Canonical current
-Last updated: 2026-04-04
-Last verified: 2026-04-04 developer-doc routing review
+Last updated: 2026-04-15
+Last verified: 2026-04-15 developer-doc routing review
 Source-of-truth: developer routing guide; defer runtime truth to source code, `feature_state_matrix.md`, and linked subsystem docs.
 
 Purpose:
@@ -29,6 +29,7 @@ Use these first when you need current behavior or current operating commands:
 - AI-assisted rulegen/POS quality loop: `ai_workflow.md`
 - GenAI workflow architecture and harness policy: `genai_workflow_architecture.md`
 - Project health gate structure: `project_health_gate_structure.md`
+- Project integrity stabilization runbook: `project_integrity_stabilization_runbook.md`
 - Documentation governance + archive policy: `documentation_governance.md`
 - Feature state ledger: `feature_state_matrix.md`
 - Repo safety commands: `npm --prefix scripts run check` and `npm --prefix scripts run build`
@@ -50,6 +51,7 @@ Treat these as planning/history surfaces unless their own metadata says otherwis
 - `de-en` proof-LP roadmap: `../language_pairs/de_en_workstream_roadmap.md`
 - `en-de` advisory quality roadmap: `../language_pairs/en_de_workstream_roadmap.md`
 - Project health remediation workstream: `project_health_remediation_workstream.md`
+- Project integrity stabilization runbook: `project_integrity_stabilization_runbook.md`
 - Rulegen benchmark optimization plan: `rulegen_benchmark_optimization_plan.md`
 - Windows GUI parity workstream: `windows_gui_parity_workstream.md`
 
