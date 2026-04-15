@@ -6,6 +6,7 @@ from typing import Mapping, Sequence
 from lexishift_core.srs.profile_bootstrap import summarize_profile_bootstrap_context
 from lexishift_core.srs.set_strategy import (
     OBJECTIVE_BOOTSTRAP,
+    OBJECTIVE_REBALANCE,
     STRATEGY_ADAPTIVE_REFRESH,
     STRATEGY_FREQUENCY_BOOTSTRAP,
     STRATEGY_PROFILE_BOOTSTRAP,
@@ -95,11 +96,19 @@ def build_srs_set_plan(request: SrsSetPlanRequest) -> SrsSetPlan:
             )
     elif requested == STRATEGY_PROFILE_GROWTH:
         required_fields.extend(("interests", "proficiency", "empirical_trends"))
-        can_execute = False
-        execution_mode = "planner_only"
-        notes.append(
-            "Profile growth strategy is planned but not implemented. Planner returns requirements only."
-        )
+        if objective == OBJECTIVE_REBALANCE:
+            can_execute = True
+            execution_mode = "rebalance_preview"
+            notes.append(
+                "Profile growth rebalance reranks retained and seed candidates against the "
+                "current active inventory."
+            )
+        else:
+            can_execute = False
+            execution_mode = "planner_only"
+            notes.append(
+                "Profile growth strategy is planned but not implemented. Planner returns requirements only."
+            )
     elif requested == STRATEGY_ADAPTIVE_REFRESH:
         required_fields.extend(("feedback_signals", "exposure_signals"))
         can_execute = False

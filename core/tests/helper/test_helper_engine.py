@@ -15,12 +15,17 @@ if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
 from lexishift_core.helper.engine import (  # noqa: E402
+    apply_srs_rebalance,
     apply_exposure,
     apply_feedback,
     get_srs_runtime_diagnostics,
     load_semantic_inventory,
+    plan_srs_rebalance,
+    preview_srs_admission,
     RulegenJobConfig,
+    SrsRebalanceJobConfig,
     SrsRefreshJobConfig,
+    SetAdmissionPreviewJobConfig,
     SetInitializationJobConfig,
     SetPlanningJobConfig,
     initialize_srs_set,
@@ -34,11 +39,15 @@ from lexishift_core.helper.installed_packs import write_installed_pack_manifest 
 from lexishift_core.helper.paths import HelperPaths, build_helper_paths  # noqa: E402
 from lexishift_core.srs.signal_queue import SrsSignalEvent, load_signal_events, save_signal_events  # noqa: E402
 from lexishift_core.srs import (
+    SrsInventory,
     SrsHistoryEntry,
     SrsItem,
+    SrsPairInventory,
     SrsSettings,
     SrsStore,
+    load_srs_inventory,
     load_srs_store,
+    save_srs_inventory,
     save_srs_settings,
     save_srs_store,
 )  # noqa: E402
@@ -79,13 +88,47 @@ def _seed_store_and_outputs(root: Path) -> HelperPaths:
     return paths
 
 
-def _create_frequency_db(path: Path) -> Path:
+def _create_frequency_db(
+    path: Path,
+    *,
+    rows: tuple[tuple[object, ...], ...] | None = None,
+) -> Path:
     conn = sqlite3.connect(path)
     try:
-        conn.execute("CREATE TABLE frequency (lemma TEXT, core_rank REAL, pmw REAL)")
         conn.execute(
-            "INSERT INTO frequency (lemma, core_rank, pmw) VALUES (?, ?, ?)",
-            ("alpha", 1.0, 100.0),
+            """
+            CREATE TABLE frequency (
+                lemma TEXT,
+                core_rank REAL,
+                pmw REAL,
+                pos TEXT,
+                lform TEXT,
+                wtype TEXT,
+                sublemma TEXT,
+                sense_topics TEXT,
+                topics TEXT,
+                topic TEXT,
+                profile_topics TEXT
+            )
+            """
+        )
+        conn.executemany(
+            """
+            INSERT INTO frequency (
+                lemma,
+                core_rank,
+                pmw,
+                pos,
+                lform,
+                wtype,
+                sublemma,
+                sense_topics,
+                topics,
+                topic,
+                profile_topics
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            rows or (("alpha", 1.0, 100.0, "n", None, None, None, None, None, None, None),),
         )
         conn.commit()
     finally:
@@ -1973,6 +2016,481 @@ class TestHelperEngineFeedbackCycle(unittest.TestCase):
             self.assertEqual(rulegen_payload.get("rules"), 2)
             self.assertTrue(Path(rulegen_payload.get("snapshot_path")).exists())
             self.assertTrue(Path(rulegen_payload.get("ruleset_path")).exists())
+            self.assertTrue(Path(rulegen_payload.get("semantic_inventory_path")).exists())
+
+
+class TestHelperEnginePreviewSrsAdmission(unittest.TestCase):
+    def test_preview_returns_profile_bootstrap_payload_without_mutating_store(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paths = build_helper_paths(root)
+            jmdict_dir = root / "jmdict"
+            jmdict_dir.mkdir(parents=True, exist_ok=True)
+            source_db = root / "freq.sqlite"
+            _create_frequency_db(source_db)
+
+            preview_report = SimpleNamespace(
+                selected_count=3,
+                selected_unique_count=3,
+                admitted_count=2,
+                inserted_count=2,
+                updated_count=0,
+                selected_preview=("alpha", "beta", "gamma"),
+                initial_active_preview=("beta", "alpha"),
+                admission_weight_profile={"noun": 1.0},
+                initial_active_weight_preview=(
+                    {"lemma": "beta", "admission_weight": 0.82, "pos_bucket": "noun"},
+                    {"lemma": "alpha", "admission_weight": 0.75, "pos_bucket": "noun"},
+                ),
+                selection_strategy="profile_bootstrap",
+                selection_policy="top_n",
+                selector_version="profile_bootstrap_v3",
+                profile_bootstrap_diagnostics={
+                    "profile_context": {
+                        "active_signals": ["proficiency", "challenge_preference"],
+                    },
+                    "ranking_preview": [
+                        {
+                            "lemma": "beta",
+                            "reranked_rank": 1,
+                            "base_rank": 2,
+                            "rank_delta": 1,
+                            "profile_score": 0.82,
+                            "explanation": "Boosted by challenge_fit.",
+                        },
+                        {
+                            "lemma": "alpha",
+                            "reranked_rank": 2,
+                            "base_rank": 1,
+                            "rank_delta": -1,
+                            "profile_score": 0.75,
+                            "explanation": (
+                                "Demoted relative to the neutral frequency order because "
+                                "competing items matched the profile better."
+                            ),
+                        },
+                    ],
+                },
+            )
+
+            with patch(
+                "lexishift_core.helper.engine.initialize_store_from_frequency_list_with_report",
+                return_value=(SrsStore(items=tuple(), version=1), preview_report),
+            ):
+                payload = preview_srs_admission(
+                    paths,
+                    config=SetAdmissionPreviewJobConfig(
+                        pair="en-ja",
+                        jmdict_path=jmdict_dir,
+                        set_source_db=source_db,
+                        strategy="profile_bootstrap",
+                        preview_count=2,
+                        profile_context={
+                            "proficiency": {"self_reported_level": 0.35},
+                            "difficulty_preferences": {"target_challenge_center": 0.58},
+                        },
+                    ),
+                )
+
+            self.assertEqual(payload["pair"], "en-ja")
+            self.assertEqual(payload["plan"]["strategy_effective"], "frequency_bootstrap")
+            preview = payload["preview"]
+            self.assertEqual(preview["selection_strategy"], "profile_bootstrap")
+            self.assertEqual(preview["selector_version"], "profile_bootstrap_v3")
+            self.assertEqual(preview["sample_count_requested"], 2)
+            self.assertEqual(preview["sample_count_effective"], 2)
+            self.assertEqual(preview["initial_active_preview"], ["beta", "alpha"])
+            self.assertEqual(preview["admitted_words"][0]["lemma"], "beta")
+            self.assertEqual(
+                preview["admitted_words"][0]["explanation"],
+                "Boosted by challenge_fit.",
+            )
+            self.assertEqual(
+                preview["profile_bootstrap"]["profile_context"]["active_signals"],
+                ["proficiency", "challenge_preference"],
+            )
+
+    def test_preview_can_return_weighted_sample_from_planned_active_pool(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paths = build_helper_paths(root)
+            jmdict_dir = root / "jmdict"
+            jmdict_dir.mkdir(parents=True, exist_ok=True)
+            source_db = root / "freq.sqlite"
+            _create_frequency_db(source_db)
+
+            preview_report = SimpleNamespace(
+                selected_count=3,
+                selected_unique_count=3,
+                admitted_count=3,
+                inserted_count=3,
+                updated_count=0,
+                selected_preview=("alpha", "beta", "gamma"),
+                initial_active_preview=("alpha", "gamma", "beta"),
+                admission_weight_profile={"noun": 1.0},
+                initial_active_weight_preview=(
+                    {"lemma": "alpha", "admission_weight": 0.8, "pos_bucket": "noun"},
+                    {"lemma": "beta", "admission_weight": 0.6, "pos_bucket": "noun"},
+                    {"lemma": "gamma", "admission_weight": 0.2, "pos_bucket": "noun"},
+                ),
+                selection_strategy="profile_bootstrap",
+                selection_policy="weighted_without_replacement",
+                selector_version="profile_bootstrap_v3",
+                profile_bootstrap_diagnostics={
+                    "profile_context": {"active_signals": ["interests"]},
+                    "ranking_preview": [
+                        {
+                            "lemma": "alpha",
+                            "reranked_rank": 1,
+                            "base_rank": 1,
+                            "rank_delta": 0,
+                            "profile_score": 0.9,
+                            "explanation": (
+                                "Kept near frequency order; strongest profile signal was "
+                                "topic_affinity."
+                            ),
+                        },
+                        {
+                            "lemma": "beta",
+                            "reranked_rank": 2,
+                            "base_rank": 2,
+                            "rank_delta": 0,
+                            "profile_score": 0.5,
+                            "explanation": (
+                                "Kept near frequency order; strongest profile signal was "
+                                "topic_affinity."
+                            ),
+                        },
+                        {
+                            "lemma": "gamma",
+                            "reranked_rank": 3,
+                            "base_rank": 3,
+                            "rank_delta": 0,
+                            "profile_score": 0.1,
+                            "explanation": (
+                                "Kept near frequency order; strongest profile signal was "
+                                "topic_affinity."
+                            ),
+                        },
+                    ],
+                },
+            )
+
+            with patch(
+                "lexishift_core.helper.engine.initialize_store_from_frequency_list_with_report",
+                return_value=(SrsStore(items=tuple(), version=1), preview_report),
+            ):
+                payload = preview_srs_admission(
+                    paths,
+                    config=SetAdmissionPreviewJobConfig(
+                        pair="en-ja",
+                        jmdict_path=jmdict_dir,
+                        set_source_db=source_db,
+                        strategy="profile_bootstrap",
+                        preview_count=2,
+                        preview_sampling_mode="weighted_without_replacement",
+                        preview_seed=1,
+                        profile_context={"interests": ["animals"]},
+                    ),
+                )
+
+            preview = payload["preview"]
+            self.assertEqual(preview["sampling_mode"], "weighted_without_replacement")
+            self.assertEqual(preview["sampling_pool_count"], 3)
+            self.assertEqual(preview["sample_count_effective"], 2)
+            self.assertEqual(
+                [entry["lemma"] for entry in preview["admitted_words"]],
+                ["alpha", "gamma"],
+            )
+
+    def test_preview_returns_plan_only_for_non_executable_strategy(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paths = build_helper_paths(root)
+            source_db = root / "freq.sqlite"
+            _create_frequency_db(source_db)
+
+            payload = preview_srs_admission(
+                paths,
+                config=SetAdmissionPreviewJobConfig(
+                    pair="en-de",
+                    set_source_db=source_db,
+                    strategy="profile_growth",
+                    preview_count=3,
+                    profile_context={"interests": ["animals"]},
+                ),
+            )
+
+            self.assertEqual(payload["pair"], "en-de")
+            self.assertFalse(payload["plan"]["can_execute"])
+            self.assertEqual(payload["plan"]["execution_mode"], "planner_only")
+            self.assertEqual(payload["preview"]["sample_count_requested"], 3)
+            self.assertEqual(payload["preview"]["sample_count_effective"], 0)
+            self.assertEqual(payload["preview"]["admitted_words"], [])
+
+    def test_preview_executes_real_profile_bootstrap_with_seed_topic_columns(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paths = build_helper_paths(root)
+            source_db = root / "freq.sqlite"
+            _create_frequency_db(
+                source_db,
+                rows=(
+                    ("alpha", 1.0, 100.0, "n", None, None, None, None, None, None, None),
+                    ("beta", 2.0, 98.0, "n", None, None, None, None, "animals", None, None),
+                    ("gamma", 3.0, 50.0, "n", None, None, None, None, None, None, None),
+                ),
+            )
+
+            payload = preview_srs_admission(
+                paths,
+                config=SetAdmissionPreviewJobConfig(
+                    pair="en-en",
+                    set_source_db=source_db,
+                    strategy="profile_bootstrap",
+                    preview_count=2,
+                    initial_active_count=2,
+                    profile_context={"interests": ["animals"]},
+                ),
+            )
+
+            self.assertEqual(payload["pair"], "en-en")
+            self.assertTrue(payload["plan"]["can_execute"])
+            self.assertEqual(payload["plan"]["strategy_effective"], "frequency_bootstrap")
+            preview = payload["preview"]
+            self.assertEqual(preview["selection_strategy"], "profile_bootstrap")
+            self.assertEqual(preview["sample_count_effective"], 2)
+            self.assertEqual(preview["admitted_words"][0]["lemma"], "beta")
+            self.assertEqual(preview["admitted_words"][0]["rank_delta"], 1)
+            self.assertEqual(
+                preview["admitted_words"][0]["signals"]["topic_affinity_source"],
+                "topic_hint:animals",
+            )
+            self.assertEqual(
+                preview["admitted_words"][0]["explanation"],
+                "Boosted by topic_affinity, while remaining supported by coverage_gain.",
+            )
+            self.assertEqual(
+                preview["profile_bootstrap"]["profile_context"]["active_signals"],
+                ["interests"],
+            )
+            self.assertEqual(
+                preview["profile_bootstrap"]["profile_context"]["explicit_topic_weights"],
+                {"animals": 1.0},
+            )
+            self.assertEqual(
+                preview["profile_bootstrap"]["active_topic_support"]["topics"][0]["topic"],
+                "animals",
+            )
+            self.assertEqual(
+                preview["profile_bootstrap"]["active_topic_support"]["topics"][0][
+                    "candidate_count"
+                ],
+                1,
+            )
+            self.assertFalse(
+                preview["profile_bootstrap"]["active_topic_support"]["topics"][0][
+                    "eligible_for_scarcity_calibration"
+                ]
+            )
+
+
+class TestHelperEngineRebalanceSrsSet(unittest.TestCase):
+    def _stub_rulegen_output(self) -> SimpleNamespace:
+        return SimpleNamespace(
+            rules=(),
+            snapshot={
+                "version": 1,
+                "pair": "en-ja",
+                "targets": [],
+                "stats": {"target_count": 0, "rule_count": 0, "source_count": 0},
+            },
+            target_count=0,
+            semantic_inventory={
+                "schema_version": 1,
+                "pair": "en-ja",
+                "profile_id": "default",
+                "generated_at": "2026-04-10T00:00:00Z",
+                "triggers": {},
+                "senses": {},
+                "competition_sets": {},
+                "phrase_sets": {},
+            },
+        )
+
+    def _rebalance_candidates(self) -> list[SimpleNamespace]:
+        return [
+            SimpleNamespace(
+                lemma="beta",
+                language_pair="en-ja",
+                pos_bucket="noun",
+                base_weight=0.55,
+                admission_weight=0.55,
+                metadata={},
+            ),
+            SimpleNamespace(
+                lemma="gamma",
+                language_pair="en-ja",
+                pos_bucket="noun",
+                base_weight=0.52,
+                admission_weight=0.52,
+                metadata={},
+            ),
+            SimpleNamespace(
+                lemma="delta",
+                language_pair="en-ja",
+                pos_bucket="noun",
+                base_weight=0.5,
+                admission_weight=0.5,
+                metadata={"topics": ["animals"]},
+            ),
+            SimpleNamespace(
+                lemma="epsilon",
+                language_pair="en-ja",
+                pos_bucket="noun",
+                base_weight=0.49,
+                admission_weight=0.49,
+                metadata={"topics": ["animals"]},
+            ),
+        ]
+
+    def test_rebalance_plan_and_apply_are_inventory_aware(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paths = build_helper_paths(root)
+            jmdict_dir = root / "jmdict"
+            jmdict_dir.mkdir(parents=True, exist_ok=True)
+            source_db = root / "freq.sqlite"
+            _create_frequency_db(source_db)
+
+            save_srs_settings(SrsSettings(max_active_items=10), paths.srs_settings_path)
+            save_srs_store(
+                SrsStore(
+                    items=(
+                        SrsItem(
+                            item_id="en-ja:alpha",
+                            lemma="alpha",
+                            language_pair="en-ja",
+                            source_type="initial_set",
+                            history=(
+                                SrsHistoryEntry(ts="2026-04-01T00:00:00Z", rating="good"),
+                                SrsHistoryEntry(ts="2026-04-02T00:00:00Z", rating="good"),
+                                SrsHistoryEntry(ts="2026-04-03T00:00:00Z", rating="good"),
+                                SrsHistoryEntry(ts="2026-04-04T00:00:00Z", rating="good"),
+                            ),
+                        ),
+                        SrsItem(
+                            item_id="en-ja:beta",
+                            lemma="beta",
+                            language_pair="en-ja",
+                            source_type="initial_set",
+                            confidence=0.55,
+                            history=(SrsHistoryEntry(ts="2026-04-05T00:00:00Z", rating="good"),),
+                        ),
+                        SrsItem(
+                            item_id="en-ja:gamma",
+                            lemma="gamma",
+                            language_pair="en-ja",
+                            source_type="initial_set",
+                            confidence=0.52,
+                        ),
+                        SrsItem(
+                            item_id="en-ja:delta",
+                            lemma="delta",
+                            language_pair="en-ja",
+                            source_type="frequency_list",
+                            confidence=0.5,
+                        ),
+                    ),
+                    version=1,
+                ),
+                paths.srs_store_path,
+            )
+            save_srs_inventory(
+                SrsInventory(
+                    pairs={
+                        "en-ja": SrsPairInventory(
+                            active_item_ids=("en-ja:alpha", "en-ja:beta", "en-ja:gamma")
+                        )
+                    }
+                ),
+                paths.srs_inventory_path_for("default"),
+            )
+
+            with patch(
+                "lexishift_core.helper.engine.build_seed_candidates",
+                return_value=self._rebalance_candidates(),
+            ):
+                preview = plan_srs_rebalance(
+                    paths,
+                    config=SrsRebalanceJobConfig(
+                        pair="en-ja",
+                        jmdict_path=jmdict_dir,
+                        set_source_db=source_db,
+                        max_active_items=10,
+                        profile_context={"interests": ["animals"]},
+                    ),
+                )
+
+            self.assertTrue(preview["plan"]["can_execute"])
+            self.assertNotIn("_rebalance_plan", preview)
+            self.assertEqual(preview["summary"]["protected_count"], 1)
+            self.assertEqual(preview["summary"]["proposed_park_count"], 2)
+            self.assertEqual(preview["summary"]["proposed_activate_count"], 2)
+            self.assertEqual(
+                [entry["lemma"] for entry in preview["proposed_activations"]],
+                ["delta", "epsilon"],
+            )
+
+            with (
+                patch(
+                    "lexishift_core.helper.engine.build_seed_candidates",
+                    return_value=self._rebalance_candidates(),
+                ),
+                patch(
+                    "lexishift_core.helper.engine.run_rulegen_for_pair",
+                    return_value=(
+                        load_srs_store(paths.srs_store_path),
+                        self._stub_rulegen_output(),
+                    ),
+                ) as run_rulegen_patch,
+            ):
+                result = apply_srs_rebalance(
+                    paths,
+                    config=SrsRebalanceJobConfig(
+                        pair="en-ja",
+                        jmdict_path=jmdict_dir,
+                        translation_dict_path=jmdict_dir,
+                        set_source_db=source_db,
+                        max_active_items=10,
+                        profile_context={"interests": ["animals"]},
+                    ),
+                )
+
+            self.assertTrue(result["applied"])
+            self.assertEqual(result["inserted_items"], 1)
+            persisted = load_srs_store(paths.srs_store_path)
+            inventory = load_srs_inventory(paths.srs_inventory_path_for("default"))
+            by_pair = {
+                item.lemma: item for item in persisted.items if item.language_pair == "en-ja"
+            }
+            self.assertEqual(set(by_pair.keys()), {"alpha", "beta", "gamma", "delta", "epsilon"})
+            self.assertEqual(len(by_pair["beta"].history), 1)
+            self.assertEqual(
+                tuple(inventory.pairs["en-ja"].active_item_ids),
+                ("en-ja:alpha", "en-ja:delta", "en-ja:epsilon"),
+            )
+            self.assertIsNotNone(inventory.pairs["en-ja"].last_rebalanced_at)
+            self.assertEqual(
+                tuple(run_rulegen_patch.call_args.kwargs["active_item_ids"]),
+                ("en-ja:alpha", "en-ja:delta", "en-ja:epsilon"),
+            )
+            rulegen_payload = result.get("rulegen")
+            self.assertIsNotNone(rulegen_payload)
+            self.assertTrue(rulegen_payload.get("published"))
+            self.assertTrue(Path(rulegen_payload.get("snapshot_path")).exists())
+            self.assertTrue(Path(rulegen_payload.get("ruleset_path")).exists())
+            self.assertTrue(Path(rulegen_payload.get("publication_manifest_path")).exists())
             self.assertTrue(Path(rulegen_payload.get("semantic_inventory_path")).exists())
 
 

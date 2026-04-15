@@ -34,6 +34,7 @@ from lexishift_core.helper.lp_capabilities import (
     default_jmdict_path,
     default_translation_dictionary_path,
 )
+from srs_admission_cli_support import register_srs_preview_and_rebalance_commands
 
 
 def _print_json(payload: object) -> None:
@@ -691,6 +692,12 @@ def build_parser() -> argparse.ArgumentParser:
     )
     refresh_s.add_argument("--trigger", default="cli")
     refresh_s.set_defaults(func=cmd_refresh_srs_set)
+    register_srs_preview_and_rebalance_commands(
+        sub,
+        print_json_fn=_print_json,
+        load_optional_json_fn=_load_optional_json,
+        resolve_pair_resource_paths_fn=_resolve_pair_resource_paths,
+    )
 
     feedback = sub.add_parser("record_feedback", help="Record SRS feedback")
     feedback.add_argument("--pair", required=True)

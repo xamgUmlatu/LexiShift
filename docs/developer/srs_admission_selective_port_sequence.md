@@ -1,6 +1,6 @@
 # SRS Admission Selective Port Sequence
 
-Status: active plan
+Status: phase 3 implemented; phase 4 pending
 Role: execution runbook
 Last updated: 2026-04-15
 Purpose: define the exact sequence for porting the admission/preferences workstream from `codex/srs-admission-checkpoint` onto `codex/veto-data-sources-exp` without regressing the current semantic publication/runtime contract
@@ -132,7 +132,7 @@ Expected files:
 - `core/lexishift_core/srs/admission_features.py`
 - `core/lexishift_core/srs/profile_bootstrap.py`
 - `core/lexishift_core/srs/rebalance.py`
-  Current checkpoint note: defer this to Phase 2 because the upstream rebalance module depends on `inventory.py` / explicit active inventory.
+  Current checkpoint note: landed in Phase 3 alongside the preview/rebalance helper surface because the upstream module depends on explicit active inventory.
 - any directly required support updates in:
   - `core/lexishift_core/srs/admission_policy.py`
   - `core/lexishift_core/srs/selector.py`
@@ -143,7 +143,7 @@ Tests to port with this phase:
 
 - `core/tests/srs/test_profile_bootstrap.py`
 - `core/tests/srs/test_srs_rebalance.py`
-  Current checkpoint note: defer with the rebalance module for the same inventory dependency reason.
+  Current checkpoint note: landed in Phase 3 with the rebalance module for the same inventory dependency reason.
 - `core/tests/dev/test_srs_admission_preference_sanity.py`
 - `core/tests/dev/test_srs_frequency_topic_coverage.py`
 
@@ -247,12 +247,17 @@ Validation gate:
 Checkpoint:
 
 - commit after helper can expose preview/rebalance while semantic helper APIs remain intact
+- Current phase result on `2026-04-15`:
+  - helper engine now exposes admission preview, rebalance preview, and rebalance apply
+  - CLI now exposes `preview_srs_admission`, `plan_srs_rebalance`, and `apply_srs_rebalance`
+  - rebalance now updates explicit active inventory and republishes the current semantic artifact family
+  - initialize/refresh/runtime diagnostics still remain on the separate Phase 4 reconciliation track
 
 ## Phase 4: Reconcile Inventory-Aware Admission Mutation With Current Semantic Publication
 
 Goal:
 
-- make initialize/refresh/rebalance use explicit active inventory
+- make initialize/refresh plus runtime-facing diagnostics use explicit active inventory consistently
 - keep current semantic publication family intact
 
 Port mode:
@@ -288,9 +293,7 @@ Required integrated behavior:
 
 ### Rebalance
 
-- rebalance mutates explicit active inventory
-- rebalance-triggered publication still writes the full current semantic artifact family
-- rebalance must not fall back to an older ruleset+snapshot-only publication path
+- already landed in Phase 3; preserve that behavior while reconciling the remaining flows
 
 ### Reset
 

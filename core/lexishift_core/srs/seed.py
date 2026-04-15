@@ -8,7 +8,9 @@ from typing import Optional, Sequence
 from lexishift_core.lexicon.word_package import build_word_package
 from lexishift_core.pos.normalization import normalize_pos
 from lexishift_core.resources.dict_loaders import load_jmdict_lemmas
+from lexishift_core.resources.japanese_script import contains_kanji
 from lexishift_core.frequency.sqlite_store import SqliteFrequencyConfig, SqliteFrequencyStore
+from lexishift_core.srs.admission_features import normalize_topic_string_list
 from lexishift_core.srs.admission_policy import (
     AdmissionPosWeights,
     compute_admission_weight,
@@ -57,6 +59,24 @@ class SeedSelectionConfig:
     stopwords_path: Optional[Path] = None
     stopwords: Optional[set[str]] = None
     source_label: Optional[str] = None
+    topic_columns: Sequence[str] = (
+        "sense_topics",
+        "topics",
+        "topic",
+        "profile_topics",
+    )
+
+
+_JA_BOOTSTRAP_LEXICAL_EXCLUSIONS = frozenset(
+    {
+        "侭",
+        "まま",
+    }
+)
+
+_JA_BOOTSTRAP_ORTHOGRAPHIC_NORMALIZATION = {
+    "為る": "する",
+}
 
 
 def build_seed_candidates(
@@ -109,6 +129,16 @@ def build_seed_candidates(
             config.sublemma_column,
             available_columns=available_columns,
         )
+        resolved_topic_columns = tuple(
+            dict.fromkeys(
+                column
+                for column in (
+                    store.resolve_column(topic_column, available_columns=available_columns)
+                    for topic_column in config.topic_columns
+                )
+                if column
+            )
+        )
         include_pos = bool(resolved_pos_column)
         include_lform = bool(resolved_lform_column)
         include_wtype = bool(resolved_wtype_column)
@@ -120,6 +150,7 @@ def build_seed_candidates(
                 resolved_lform_column,
                 resolved_wtype_column,
                 resolved_sublemma_column,
+                *resolved_topic_columns,
             )
             if column
         ]
@@ -189,11 +220,34 @@ def build_seed_candidates(
                 and row[resolved_sublemma_column] is not None
                 else None
             )
+            if _should_exclude_bootstrap_lemma(
+                language_pair=config.language_pair,
+                lemma=lemma,
+            ):
+                continue
+            normalized_lemma, script_forms_override, bootstrap_metadata = (
+                _apply_bootstrap_surface_policy(
+                    language_pair=config.language_pair,
+                    lemma=lemma,
+                )
+            )
+            topic_metadata = _extract_seed_topic_metadata(
+                row,
+                topic_columns=resolved_topic_columns,
+            )
+            if stopwords and normalized_lemma in stopwords:
+                continue
+            if _should_exclude_bootstrap_lemma(
+                language_pair=config.language_pair,
+                lemma=normalized_lemma,
+            ):
+                continue
             word_package = build_word_package(
                 language_pair=config.language_pair,
-                surface=lemma,
-                reading=raw_lform or lemma,
+                surface=normalized_lemma,
+                reading=raw_lform or normalized_lemma,
                 source_provider=source_label,
+                script_forms=script_forms_override,
                 pos=raw_pos,
                 pos_raw=raw_pos,
                 pos_canonical=normalized_pos.canonical,
@@ -212,6 +266,7 @@ def build_seed_candidates(
                     "lform_column": resolved_lform_column if include_lform else None,
                     "wtype_column": resolved_wtype_column if include_wtype else None,
                     "sublemma_column": resolved_sublemma_column if include_sublemma else None,
+                    **bootstrap_metadata,
                 },
             )
             base_weight = config.pmw_weighting.normalize(pmw, max_value=max_pmw)
@@ -227,7 +282,7 @@ def build_seed_candidates(
             )
             results.append(
                 SeedWord(
-                    lemma=lemma,
+                    lemma=normalized_lemma,
                     language_pair=config.language_pair,
                     word_package=word_package,
                     core_rank=core_rank,
@@ -253,6 +308,8 @@ def build_seed_candidates(
                         "pos_bucket": pos_bucket,
                         "pos_weight": pos_weight,
                         "admission_weight": admission_weight,
+                        **bootstrap_metadata,
+                        **topic_metadata,
                     },
                     pos_raw=raw_pos,
                     pos_canonical=normalized_pos.canonical,
@@ -320,6 +377,22 @@ def _safe_float(value) -> Optional[float]:
         return None
 
 
+def _extract_seed_topic_metadata(
+    row,
+    *,
+    topic_columns: Sequence[str],
+) -> dict[str, list[str]]:
+    row_columns = row.keys()
+    topic_metadata: dict[str, list[str]] = {}
+    for column in topic_columns:
+        if column not in row_columns:
+            continue
+        normalized_topics = normalize_topic_string_list(row[column])
+        if normalized_topics:
+            topic_metadata[column] = normalized_topics
+    return topic_metadata
+
+
 def _resolve_stopwords(config: SeedSelectionConfig) -> set[str]:
     if config.stopwords is not None:
         return {str(item).strip() for item in config.stopwords if str(item).strip()}
@@ -363,3 +436,47 @@ def _resolve_source_label(*, config: SeedSelectionConfig, frequency_db: Path) ->
     if stem:
         return stem
     return "frequency"
+
+
+def _target_language_from_pair(pair: str) -> str:
+    normalized = str(pair or "").strip().lower()
+    _source, separator, target = normalized.partition("-")
+    if not separator:
+        return ""
+    return target.strip()
+
+
+def _should_exclude_bootstrap_lemma(*, language_pair: str, lemma: str) -> bool:
+    if _target_language_from_pair(language_pair) != "ja":
+        return False
+    return str(lemma or "").strip() in _JA_BOOTSTRAP_LEXICAL_EXCLUSIONS
+
+
+def _apply_bootstrap_surface_policy(
+    *,
+    language_pair: str,
+    lemma: str,
+) -> tuple[str, Optional[dict[str, str]], dict[str, object]]:
+    if _target_language_from_pair(language_pair) != "ja":
+        return lemma, None, {}
+    source_surface = str(lemma or "").strip()
+    normalized_surface = _JA_BOOTSTRAP_ORTHOGRAPHIC_NORMALIZATION.get(
+        source_surface,
+        source_surface,
+    )
+    if normalized_surface == source_surface:
+        return normalized_surface, None, {}
+    script_forms: Optional[dict[str, str]] = None
+    if contains_kanji(source_surface):
+        script_forms = {"kanji": source_surface}
+    return (
+        normalized_surface,
+        script_forms,
+        {
+            "source_surface_original": source_surface,
+            "surface_normalized_from": source_surface,
+            "surface_normalization_rule": (
+                f"ja_manual_bootstrap_surface_map:{source_surface}->{normalized_surface}"
+            ),
+        },
+    )

@@ -60,6 +60,21 @@ class TestSrsSetPlanner(unittest.TestCase):
         self.assertEqual(plan.execution_mode, "planner_only")
         self.assertIn("feedback_signals", plan.requires_profile_fields)
 
+    def test_profile_growth_rebalance_is_executable(self) -> None:
+        plan = build_srs_set_plan(
+            SrsSetPlanRequest(
+                pair="en-ja",
+                strategy="profile_growth",
+                objective="rebalance",
+                profile_context={"interests": ["animals"]},
+            )
+        )
+        self.assertTrue(plan.can_execute)
+        self.assertEqual(plan.execution_mode, "rebalance_preview")
+        self.assertEqual(plan.strategy_effective, "profile_growth")
+        self.assertEqual(plan.objective, "rebalance")
+        self.assertIn("empirical_trends", plan.requires_profile_fields)
+
 
 if __name__ == "__main__":
     unittest.main()

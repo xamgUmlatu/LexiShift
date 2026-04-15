@@ -19,8 +19,15 @@ from lexishift_core.helper.status import HelperStatus, load_status, save_status
 from lexishift_core.helper.use_cases.initialize_set import (
     initialize_srs_set as _initialize_srs_set_use_case,
 )
+from lexishift_core.helper.use_cases.admission_preview import (
+    preview_srs_admission as _preview_srs_admission_use_case,
+)
 from lexishift_core.helper.use_cases.refresh_set import (
     refresh_srs_set as _refresh_srs_set_use_case,
+)
+from lexishift_core.helper.use_cases.rebalance_set import (
+    apply_srs_rebalance as _apply_srs_rebalance_use_case,
+    plan_srs_rebalance as _plan_srs_rebalance_use_case,
 )
 from lexishift_core.helper.use_cases.set_planning import (
     build_set_plan_payload as _build_set_plan_payload,
@@ -42,7 +49,9 @@ from lexishift_core.srs import (
 from lexishift_core.srs.pair_policy import resolve_srs_pair_policy
 from lexishift_core.srs.set_strategy import (
     OBJECTIVE_BOOTSTRAP,
+    OBJECTIVE_REBALANCE,
     STRATEGY_FREQUENCY_BOOTSTRAP,
+    STRATEGY_PROFILE_GROWTH,
 )
 from lexishift_core.srs.source import SOURCE_EXTENSION
 from lexishift_core.srs.time import now_utc
@@ -168,6 +177,25 @@ class SetPlanningJobConfig:
 
 
 @dataclass(frozen=True)
+class SetAdmissionPreviewJobConfig:
+    pair: str
+    jmdict_path: Optional[Path] = None
+    set_source_db: Optional[Path] = None
+    profile_id: str = "default"
+    strategy: str = STRATEGY_FREQUENCY_BOOTSTRAP
+    objective: str = OBJECTIVE_BOOTSTRAP
+    set_top_n: Optional[int] = None
+    bootstrap_top_n: Optional[int] = None
+    initial_active_count: Optional[int] = None
+    max_active_items_hint: Optional[int] = None
+    preview_count: Optional[int] = None
+    preview_sampling_mode: Optional[str] = None
+    preview_seed: Optional[int] = None
+    profile_context: Optional[Mapping[str, object]] = None
+    trigger: str = "manual"
+
+
+@dataclass(frozen=True)
 class SrsRefreshJobConfig:
     pair: str
     jmdict_path: Optional[Path] = None
@@ -182,6 +210,21 @@ class SrsRefreshJobConfig:
     persist_store: bool = True
     trigger: str = "manual"
     profile_context: Optional[Mapping[str, object]] = None
+
+
+@dataclass(frozen=True)
+class SrsRebalanceJobConfig:
+    pair: str
+    jmdict_path: Optional[Path] = None
+    translation_dict_path: Optional[Path] = None
+    set_source_db: Optional[Path] = None
+    profile_id: str = "default"
+    strategy: str = STRATEGY_PROFILE_GROWTH
+    objective: str = OBJECTIVE_REBALANCE
+    set_top_n: Optional[int] = None
+    max_active_items: Optional[int] = None
+    profile_context: Optional[Mapping[str, object]] = None
+    trigger: str = "manual"
 
 
 def _ensure_settings(paths: HelperPaths, *, persist_missing: bool = True) -> SrsSettings:
@@ -395,6 +438,27 @@ def plan_srs_set(
     )
 
 
+def preview_srs_admission(
+    paths: HelperPaths,
+    *,
+    config: SetAdmissionPreviewJobConfig,
+) -> dict:
+    return _preview_srs_admission_use_case(
+        paths,
+        config=config,
+        resolve_profile_id_fn=_resolve_profile_id,
+        ensure_store_fn=_ensure_store,
+        resolve_pair_set_top_n_fn=_resolve_pair_set_top_n,
+        resolve_pair_initial_active_count_fn=_resolve_pair_initial_active_count,
+        resolve_pair_resources_fn=_resolve_pair_resources,
+        ensure_pair_requirements_fn=_ensure_pair_requirements,
+        count_items_for_pair_fn=_count_items_for_pair,
+        build_set_plan_payload_fn=_build_set_plan_payload,
+        resolve_stopwords_path_fn=_resolve_stopwords_path,
+        initialize_store_from_frequency_list_with_report_fn=initialize_store_from_frequency_list_with_report,
+    )
+
+
 def initialize_srs_set(
     paths: HelperPaths,
     *,
@@ -420,6 +484,27 @@ def initialize_srs_set(
     )
 
 
+def plan_srs_rebalance(
+    paths: HelperPaths,
+    *,
+    config: SrsRebalanceJobConfig,
+) -> dict:
+    return _plan_srs_rebalance_use_case(
+        paths,
+        config=config,
+        resolve_pair_set_top_n_fn=_resolve_pair_set_top_n,
+        resolve_pair_resources_fn=_resolve_pair_resources,
+        ensure_pair_requirements_fn=_ensure_pair_requirements,
+        resolve_profile_id_fn=_resolve_profile_id,
+        ensure_settings_fn=_ensure_settings,
+        ensure_store_fn=_ensure_store,
+        count_items_for_pair_fn=_count_items_for_pair,
+        build_set_plan_payload_fn=_build_set_plan_payload,
+        resolve_stopwords_path_fn=_resolve_stopwords_path,
+        build_seed_candidates_fn=build_seed_candidates,
+    )
+
+
 def refresh_srs_set(
     paths: HelperPaths,
     *,
@@ -436,6 +521,30 @@ def refresh_srs_set(
         ensure_settings_fn=_ensure_settings,
         ensure_store_fn=_ensure_store,
         count_items_for_pair_fn=_count_items_for_pair,
+        resolve_stopwords_path_fn=_resolve_stopwords_path,
+        build_seed_candidates_fn=build_seed_candidates,
+        run_rulegen_for_pair_fn=run_rulegen_for_pair,
+        write_rulegen_outputs_fn=write_rulegen_outputs,
+        update_status_fn=_update_status,
+    )
+
+
+def apply_srs_rebalance(
+    paths: HelperPaths,
+    *,
+    config: SrsRebalanceJobConfig,
+) -> dict:
+    return _apply_srs_rebalance_use_case(
+        paths,
+        config=config,
+        resolve_pair_set_top_n_fn=_resolve_pair_set_top_n,
+        resolve_pair_resources_fn=_resolve_pair_resources,
+        ensure_pair_requirements_fn=_ensure_pair_requirements,
+        resolve_profile_id_fn=_resolve_profile_id,
+        ensure_settings_fn=_ensure_settings,
+        ensure_store_fn=_ensure_store,
+        count_items_for_pair_fn=_count_items_for_pair,
+        build_set_plan_payload_fn=_build_set_plan_payload,
         resolve_stopwords_path_fn=_resolve_stopwords_path,
         build_seed_candidates_fn=build_seed_candidates,
         run_rulegen_for_pair_fn=run_rulegen_for_pair,
