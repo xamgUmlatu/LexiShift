@@ -34,11 +34,14 @@ class UIManager {
       "profile-card-theme-transparency", "profile-card-theme-transparency-value",
       "profile-card-theme-reset",
       "srs-bootstrap-top-n", "srs-initial-active-count",
+      "srs-topic-interests", "srs-proficiency-estimate", "srs-challenge-target",
       "srs-sound-enabled", "srs-highlight-color", "srs-highlight-color-text",
       "srs-semantic-admission-enabled", "srs-semantic-admission-fallback-policy",
       "srs-feedback-srs-enabled", "srs-feedback-rules-enabled",
       "srs-exposure-logging-enabled",
-      "srs-initialize-set", "srs-refresh-set", "srs-runtime-diagnostics",
+      "srs-admission-preview", "srs-admission-preview-output",
+      "srs-initialize-set", "srs-rebalance-preview", "srs-rebalance-apply",
+      "srs-refresh-set", "srs-runtime-diagnostics",
       "srs-rulegen-sampled-preview",
       "srs-rulegen-output", "srs-reset", "helper-status",
       "helper-last-sync", "debug-helper-test",
@@ -120,7 +123,17 @@ class UIManager {
     if (this.dom.helperLastSync) this.dom.helperLastSync.textContent = this.formatTimestamp(lastSync);
   }
 
-  updateSrsInputs(profile) {
+  updateSrsInputs(profile, signals) {
+    const signalState = signals && typeof signals === "object" ? signals : {};
+    const interests = Array.isArray(signalState.interests) ? signalState.interests : [];
+    const proficiencyEstimate = signalState.proficiency
+      && Number.isFinite(Number(signalState.proficiency.estimated_value))
+      ? Math.round(Math.min(1, Math.max(0, Number(signalState.proficiency.estimated_value))) * 100)
+      : "";
+    const challengeTarget = signalState.difficultyPreferences
+      && Number.isFinite(Number(signalState.difficultyPreferences.target_challenge_center))
+      ? Math.round(Math.min(1, Math.max(0, Number(signalState.difficultyPreferences.target_challenge_center))) * 100)
+      : "";
     if (this.dom.srsMaxActive) {
       this.dom.srsMaxActive.value = String(profile.srsMaxActive);
     }
@@ -129,6 +142,15 @@ class UIManager {
     }
     if (this.dom.srsInitialActiveCount) {
       this.dom.srsInitialActiveCount.value = String(profile.srsInitialActiveCount);
+    }
+    if (this.dom.srsTopicInterests) {
+      this.dom.srsTopicInterests.value = interests.join(", ");
+    }
+    if (this.dom.srsProficiencyEstimate) {
+      this.dom.srsProficiencyEstimate.value = proficiencyEstimate === "" ? "" : String(proficiencyEstimate);
+    }
+    if (this.dom.srsChallengeTarget) {
+      this.dom.srsChallengeTarget.value = challengeTarget === "" ? "" : String(challengeTarget);
     }
     if (this.dom.srsSoundEnabled) {
       this.dom.srsSoundEnabled.checked = profile.srsSoundEnabled;

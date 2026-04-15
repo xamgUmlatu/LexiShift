@@ -1,5 +1,17 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
+  const createResolvePlanningState = root.optionsSrsActionPlanningState
+    && typeof root.optionsSrsActionPlanningState.createResolvePlanningState === "function"
+    ? root.optionsSrsActionPlanningState.createResolvePlanningState
+    : null;
+  const createAdmissionPreviewWorkflow = root.optionsSrsAdmissionPreviewWorkflow
+    && typeof root.optionsSrsAdmissionPreviewWorkflow.createAdmissionPreviewWorkflow === "function"
+    ? root.optionsSrsAdmissionPreviewWorkflow.createAdmissionPreviewWorkflow
+    : null;
+  const createRebalanceWorkflows = root.optionsSrsRebalanceWorkflow
+    && typeof root.optionsSrsRebalanceWorkflow.createRebalanceWorkflows === "function"
+    ? root.optionsSrsRebalanceWorkflow.createRebalanceWorkflows
+    : null;
 
   function createWorkflows(options) {
     const opts = options && typeof options === "object" ? options : {};
@@ -18,6 +30,9 @@
           items,
           profileId: "default"
         }));
+    const resolveEffectiveSrsPlanningState = typeof opts.resolveEffectiveSrsPlanningState === "function"
+      ? opts.resolveEffectiveSrsPlanningState
+      : null;
     const confirmFn = typeof opts.confirmFn === "function" ? opts.confirmFn : (message) => globalThis.confirm(message);
     const log = typeof opts.log === "function" ? opts.log : (() => {});
     const colors = opts.colors && typeof opts.colors === "object"
@@ -28,12 +43,21 @@
           DEFAULT: "#6c675f"
         };
     const output = opts.output || null;
+    const admissionPreviewButton = opts.admissionPreviewButton || null;
     const initializeButton = opts.initializeButton || null;
+    const rebalancePreviewButton = opts.rebalancePreviewButton || null;
+    const rebalanceApplyButton = opts.rebalanceApplyButton || null;
     const refreshButton = opts.refreshButton || null;
     const diagnosticsButton = opts.diagnosticsButton || null;
     const sampledButton = opts.sampledButton || null;
     const resetButton = opts.resetButton || null;
     const setOutputText = typeof opts.setOutputText === "function" ? opts.setOutputText : (() => {});
+    const setAdmissionPreviewOutputText = typeof opts.setAdmissionPreviewOutputText === "function"
+      ? opts.setAdmissionPreviewOutputText
+      : setOutputText;
+    const setSampledOutputText = typeof opts.setSampledOutputText === "function"
+      ? opts.setSampledOutputText
+      : setOutputText;
     const markRulesetUpdatedNow = typeof opts.markRulesetUpdatedNow === "function"
       ? opts.markRulesetUpdatedNow
       : (() => Promise.resolve());
@@ -43,11 +67,17 @@
     const buildInitializeResultOutput = typeof opts.buildInitializeResultOutput === "function"
       ? opts.buildInitializeResultOutput
       : (_options) => "";
+    const buildRebalanceResultOutput = typeof opts.buildRebalanceResultOutput === "function"
+      ? opts.buildRebalanceResultOutput
+      : (_options) => "";
     const buildRefreshResultOutput = typeof opts.buildRefreshResultOutput === "function"
       ? opts.buildRefreshResultOutput
       : (_options) => "";
     const buildRuntimeDiagnosticsOutput = typeof opts.buildRuntimeDiagnosticsOutput === "function"
       ? opts.buildRuntimeDiagnosticsOutput
+      : (_options) => "";
+    const buildAdmissionPreviewOutput = typeof opts.buildAdmissionPreviewOutput === "function"
+      ? opts.buildAdmissionPreviewOutput
       : (_options) => "";
     const buildSampledRulegenSamplingLines = typeof opts.buildSampledRulegenSamplingLines === "function"
       ? opts.buildSampledRulegenSamplingLines
@@ -61,6 +91,67 @@
     const buildSampledRulegenTargetsOutput = typeof opts.buildSampledRulegenTargetsOutput === "function"
       ? opts.buildSampledRulegenTargetsOutput
       : (_options) => "";
+
+    const resolvePlanningState = createResolvePlanningState
+      ? createResolvePlanningState({
+          settingsManager,
+          resolveEffectiveSrsPlanningState
+        })
+      : ((items, pairKey, profileId) => {
+          const profile = settingsManager.getSrsProfile(items, pairKey, { profileId });
+          return {
+            profileId: profile.profileId || profileId || "default",
+            profile,
+            signals: settingsManager.getSrsProfileSignals(items, pairKey, {
+              profileId: profile.profileId || profileId
+            }),
+            profileContext: settingsManager.buildSrsPlanContext(items, pairKey, {
+              profileId: profile.profileId || profileId
+            }),
+            contextMeta: {
+              source: "saved_profile",
+              pendingOverrides: []
+            }
+          };
+        });
+    const previewAdmission = createAdmissionPreviewWorkflow
+      ? createAdmissionPreviewWorkflow({
+          settingsManager,
+          helperManager,
+          translate,
+          resolvePair,
+          syncSelectedProfile,
+          resolvePlanningState,
+          preflightSrsPairResources,
+          buildAdmissionPreviewOutput,
+          admissionPreviewButton,
+          setAdmissionPreviewOutputText,
+          log
+        })
+      : (async () => {});
+    const rebalanceWorkflows = createRebalanceWorkflows
+      ? createRebalanceWorkflows({
+          settingsManager,
+          helperManager,
+          translate,
+          resolvePair,
+          syncSelectedProfile,
+          resolvePlanningState,
+          preflightSrsPairResources,
+          buildRebalanceResultOutput,
+          rebalancePreviewButton,
+          rebalanceApplyButton,
+          setOutputText,
+          setStatus,
+          confirmFn,
+          markRulesetUpdatedNow,
+          log,
+          colors
+        })
+      : {
+          previewRebalance: async () => {},
+          applyRebalance: async () => {}
+        };
 
     async function initializeSet() {
       if (!initializeButton || !output) {
@@ -81,15 +172,17 @@
         if (!canProceed) {
           return;
         }
-        const profile = settingsManager.getSrsProfile(synced.items, srsPair, {
-          profileId: synced.profileId
-        });
-        const bootstrapTopN = Number(profile.srsBootstrapTopN || settingsManager.defaults.srsBootstrapTopN || 800);
-        const initialActiveCount = Number(profile.srsInitialActiveCount || settingsManager.defaults.srsInitialActiveCount || 40);
-        const maxActiveItemsHint = Number(profile.srsMaxActive || settingsManager.defaults.srsMaxActive || 20);
-        const profileContext = settingsManager.buildSrsPlanContext(synced.items, srsPair, {
-          profileId: synced.profileId
-        });
+        const planningState = resolvePlanningState(synced.items, srsPair, synced.profileId);
+        const bootstrapTopN = Number(
+          planningState.profile.srsBootstrapTopN || settingsManager.defaults.srsBootstrapTopN || 800
+        );
+        const initialActiveCount = Number(
+          planningState.profile.srsInitialActiveCount || settingsManager.defaults.srsInitialActiveCount || 40
+        );
+        const maxActiveItemsHint = Number(
+          planningState.profile.srsMaxActive || settingsManager.defaults.srsMaxActive || 20
+        );
+        const profileContext = planningState.profileContext;
         const planOptions = {
           profileId: synced.profileId,
           strategy: "profile_bootstrap",
@@ -147,7 +240,8 @@
           applied,
           plan,
           bootstrapDiagnostics,
-          profileContext
+          profileContext,
+          requestProfileContextMeta: planningState.contextMeta
         });
       } catch (err) {
         const msg = err && err.message ? err.message : translate("status_srs_set_init_failed", null, "S initialization failed.");
@@ -182,16 +276,12 @@
         if (!canProceed) {
           return;
         }
-        const profile = settingsManager.getSrsProfile(synced.items, srsPair, {
-          profileId: synced.profileId
-        });
-        const profileContext = settingsManager.buildSrsPlanContext(synced.items, srsPair, {
-          profileId: synced.profileId
-        });
+        const planningState = resolvePlanningState(synced.items, srsPair, synced.profileId);
+        const profileContext = planningState.profileContext;
         const result = await helperManager.refreshSrsSet(srsPair, {
           profileId: synced.profileId,
-          setTopN: profile.srsBootstrapTopN || settingsManager.defaults.srsBootstrapTopN || 800,
-          maxActiveItems: profile.srsMaxActive || settingsManager.defaults.srsMaxActive || 40,
+          setTopN: planningState.profile.srsBootstrapTopN || settingsManager.defaults.srsBootstrapTopN || 800,
+          maxActiveItems: planningState.profile.srsMaxActive || settingsManager.defaults.srsMaxActive || 40,
           trigger: "options_refresh_set_button",
           profileContext
         });
@@ -221,7 +311,11 @@
             : translate("status_srs_refresh_noop", [srsPair], `S refresh for ${srsPair}: no new admissions.`),
           applied ? colors.SUCCESS : colors.DEFAULT
         );
-        log("SRS set refreshed", { pair: srsPair, result });
+        log("SRS set refreshed", {
+          pair: srsPair,
+          result,
+          requestProfileContextMeta: planningState.contextMeta
+        });
       } catch (err) {
         const msg = err && err.message ? err.message : translate("status_srs_refresh_failed", null, "S refresh failed.");
         setOutputText(msg);
@@ -279,7 +373,7 @@
       const srsPair = resolvePair();
       const sampleCount = 5;
       sampledButton.disabled = true;
-      setOutputText(translate(
+      setSampledOutputText(translate(
         "status_srs_rulegen_sampled_running",
         [sampleCount],
         `Running sampled rulegen (${sampleCount})…`
@@ -315,7 +409,7 @@
           sampledCount
         });
         if (!targets.length) {
-          setOutputText(buildSampledRulegenEmptyOutput({
+          setSampledOutputText(buildSampledRulegenEmptyOutput({
             translate,
             header,
             samplingLines,
@@ -323,7 +417,7 @@
             srsPair
           }));
         } else {
-          setOutputText(buildSampledRulegenTargetsOutput({
+          setSampledOutputText(buildSampledRulegenTargetsOutput({
             translate,
             header,
             samplingLines,
@@ -340,7 +434,7 @@
         });
       } catch (err) {
         const msg = err && err.message ? err.message : translate("status_srs_rulegen_failed", null, "Rule preview failed.");
-        setOutputText(msg);
+        setSampledOutputText(msg);
         log("SRS sampled rulegen preview failed.", err);
       } finally {
         sampledButton.disabled = false;
@@ -383,7 +477,10 @@
     }
 
     return {
+      previewAdmission,
       initializeSet,
+      previewRebalance: rebalanceWorkflows.previewRebalance,
+      applyRebalance: rebalanceWorkflows.applyRebalance,
       refreshSetNow,
       runRuntimeDiagnostics,
       previewSampledRulegen,

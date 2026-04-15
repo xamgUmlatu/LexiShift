@@ -34,7 +34,16 @@
       });
     }
 
-    async function preflightSrsPairResources(pair, profileId, actionLabel) {
+    async function preflightSrsPairResources(pair, profileId, actionLabel, options) {
+      const runtimeOptions = options && typeof options === "object" ? options : {};
+      const ignoredMissingInputTypes = new Set(
+        Array.isArray(runtimeOptions.ignoredMissingInputTypes)
+          ? runtimeOptions.ignoredMissingInputTypes.map((value) => String(value || "").trim()).filter(Boolean)
+          : []
+      );
+      const setOutputTextOverride = typeof runtimeOptions.setOutputText === "function"
+        ? runtimeOptions.setOutputText
+        : setOutputText;
       if (!helperManager || typeof helperManager.getSrsRuntimeDiagnostics !== "function") {
         return true;
       }
@@ -45,17 +54,26 @@
       if (!helperData) {
         return true;
       }
-      const missingInputs = Array.isArray(helperData.missing_inputs) ? helperData.missing_inputs : [];
+      const missingInputs = Array.isArray(helperData.missing_inputs)
+        ? helperData.missing_inputs.filter((entry) => {
+            const type = entry && entry.type ? String(entry.type).trim() : "";
+            return !ignoredMissingInputTypes.has(type);
+          })
+        : [];
       if (!missingInputs.length) {
         return true;
       }
+      const helperDataForOutput = {
+        ...helperData,
+        missing_inputs: missingInputs
+      };
       const lines = buildPreflightBlockedLines({
         actionLabel,
         pair,
         profileId,
-        helperData
+        helperData: helperDataForOutput
       });
-      setOutputText(lines.join("\n"));
+      setOutputTextOverride(lines.join("\n"));
       setStatus(
         `Missing resources for ${pair}. Add the required files and try again.`,
         colors.ERROR
@@ -63,7 +81,7 @@
       log("SRS preflight failed due to missing resources", {
         pair,
         profileId,
-        helper: helperData
+        helper: helperDataForOutput
       });
       return false;
     }

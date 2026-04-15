@@ -1,6 +1,6 @@
 # SRS Admission Selective Port Sequence
 
-Status: phase 3 implemented; phase 4 pending
+Status: phases 1-5 implemented; phase 6 pending
 Role: execution runbook
 Last updated: 2026-04-15
 Purpose: define the exact sequence for porting the admission/preferences workstream from `codex/srs-admission-checkpoint` onto `codex/veto-data-sources-exp` without regressing the current semantic publication/runtime contract
@@ -344,9 +344,13 @@ Expected files:
 - `apps/chrome-extension/options/core/settings/srs_profile_methods.js`
 - `apps/chrome-extension/options/controllers/srs/planning_state.js`
 - `apps/chrome-extension/options/controllers/srs/profile_runtime_controller.js`
-- `apps/chrome-extension/options/controllers/srs/actions/admission_preview_workflow.js`
+- `apps/chrome-extension/options/controllers/srs/actions/planning_state_resolver.js`
 - `apps/chrome-extension/options/controllers/srs/actions/admission_preview_formatter.js`
-- `apps/chrome-extension/options/controllers/srs/actions/secondary_workflows.js`
+- `apps/chrome-extension/options/controllers/srs/actions/admission_preview_workflow.js`
+- `apps/chrome-extension/options/controllers/srs/actions/rebalance_formatter.js`
+- `apps/chrome-extension/options/controllers/srs/actions/rebalance_workflow.js`
+- `apps/chrome-extension/options/controllers/srs/actions_controller.js`
+- `apps/chrome-extension/options/controllers/srs/actions/formatters.js`
 - `apps/chrome-extension/options/controllers/srs/actions/workflows.js`
 - related UI/controller glue files
 
@@ -371,6 +375,12 @@ Validation gate:
 Checkpoint:
 
 - commit after the options flow can drive preview/rebalance without breaking existing semantic controls
+- Current phase result on `2026-04-15`:
+  - options UI now exposes admission-preference fields for topic interests, proficiency estimate, and challenge target
+  - unsaved form overrides are normalized into a shared planning-state resolver before initialize/preview/rebalance/refresh helper calls
+  - extension helper transport and native host now expose admission preview plus rebalance preview/apply
+  - semantic admission toggle/fallback policy and runtime diagnostics remain on the current semantic base path
+  - validation passed via `node --check` on touched extension JS, `python3 -m pytest core/tests/helper/test_helper_engine.py core/tests/architecture/test_extension_structure.py core/tests/dev/test_helper_translation_dict_entrypoints.py -q`, and `python3 scripts/testing/srs_quality_harness.py --json-out docs/test_outputs/srs_quality_latest.json`
 
 ## Phase 6: Clean The Contract Mismatches
 

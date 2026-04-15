@@ -79,8 +79,20 @@
       return this.send("srs_plan_set", payload, timeoutMs);
     }
 
+    previewSrsAdmission(payload, timeoutMs) {
+      return this.send("srs_preview_admission", payload, timeoutMs);
+    }
+
     refreshSrsSet(payload, timeoutMs) {
       return this.send("srs_refresh", payload, timeoutMs);
+    }
+
+    planSrsRebalance(payload, timeoutMs) {
+      return this.send("srs_rebalance_plan", payload, timeoutMs);
+    }
+
+    applySrsRebalance(payload, timeoutMs) {
+      return this.send("srs_rebalance_apply", payload, timeoutMs);
     }
 
     resetSrs(payload) {

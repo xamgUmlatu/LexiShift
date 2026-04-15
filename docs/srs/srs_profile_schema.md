@@ -46,6 +46,9 @@ Profile context is not the same as SRS progress:
     "self_reported_level": 0.35,
     "known_lemmas": ["猫", "犬"]
   },
+  "difficulty_preferences": {
+    "target_challenge_center": 0.55
+  },
   "empirical_trends": {
     "recent_feedback": {
       "again_rate": 0.22,
@@ -61,8 +64,9 @@ Profile context is not the same as SRS progress:
     "prefer_curated": true
   },
   "constraints": {
-    "max_active_items": 40,
-    "max_new_items_per_day": 8,
+    "max_active_items": 40
+  },
+  "sizing": {
     "bootstrap_top_n": 800,
     "initial_active_count": 40
   }
@@ -71,9 +75,16 @@ Profile context is not the same as SRS progress:
 
 Notes:
 - Planner should tolerate missing optional keys.
-- Unknown keys should be preserved where possible.
+- Current extension storage/planning plumbing is a fixed `v1` allowlist, not full unknown-key passthrough.
+- The executable signal allowlist is:
+  - `interests`
+  - `objectives`
+  - `proficiency`
+  - `difficultyPreferences`
+  - `empiricalTrends`
+  - `sourcePreferences`
 - Invalid critical values should produce diagnostics/notes before hard failure.
-- Sizing fields are normalized by helper policy (`srs/set_policy.py`) with explicit clamps/defaults.
+- Helper request sizing is still authoritative at the top-level helper request fields; nested `constraints` / `sizing` in `profile_context` are normalized mirrors used to keep planner context cohesive.
 
 ## Extension-local scaffold
 
@@ -112,6 +123,7 @@ Example:
           "interests": ["animals", "science"],
           "objectives": ["jlpt_n4"],
           "proficiency": {"self_reported_level": 0.35},
+          "difficultyPreferences": {"target_challenge_center": 0.55},
           "empiricalTrends": {"topic_bias": {"animals": 0.4}},
           "sourcePreferences": {"prefer_frequency_list": true}
         }
@@ -131,6 +143,7 @@ Notes:
 - Language-pair SRS settings are nested under the selected profile.
 - Active LP (`sourceLanguage`, `targetLanguage`, `srsPair`) is also stored per selected profile in `languagePrefs`.
 - Target-language display preferences are stored per profile in `languagePrefs.targetScriptPrefs` (for example Japanese script preference).
+- Current options UI directly edits `interests`, `proficiency.estimated_value`, and `difficultyPreferences.target_challenge_center`; other signal families remain data-ready but not yet first-class UI controls.
 - Profile UI preferences are also stored per selected profile in `uiPrefs` and are independent from helper scheduling data.
 - Runtime mirrors for background UI (`profileBackground*`) are published from `uiPrefs` only when user clicks Apply in options.
 - Switching language pair should never reset selected profile.

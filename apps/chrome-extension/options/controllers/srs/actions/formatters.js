@@ -1,5 +1,13 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
+  const admissionPreviewFormatter = root.optionsSrsAdmissionPreviewFormatter
+    && typeof root.optionsSrsAdmissionPreviewFormatter.buildAdmissionPreviewOutput === "function"
+    ? root.optionsSrsAdmissionPreviewFormatter.buildAdmissionPreviewOutput
+    : null;
+  const rebalanceFormatter = root.optionsSrsRebalanceFormatter
+    && typeof root.optionsSrsRebalanceFormatter.buildRebalanceResultOutput === "function"
+    ? root.optionsSrsRebalanceFormatter.buildRebalanceResultOutput
+    : null;
 
   function formatMissingResourceList(missingInputs) {
     const missing = Array.isArray(missingInputs) ? missingInputs : [];
@@ -308,6 +316,14 @@
     ].filter(Boolean).join("\n");
   }
 
+  function buildAdmissionPreviewOutput(options) {
+    return admissionPreviewFormatter ? admissionPreviewFormatter(options) : "";
+  }
+
+  function buildRebalanceResultOutput(options) {
+    return rebalanceFormatter ? rebalanceFormatter(options) : "";
+  }
+
   function buildSampledRulegenSamplingLines(options) {
     const opts = options && typeof options === "object" ? options : {};
     const sampling = opts.sampling && typeof opts.sampling === "object" ? opts.sampling : {};
@@ -404,8 +420,10 @@
     formatPairPolicySummary,
     buildPreflightBlockedLines,
     buildInitializeResultOutput,
+    buildRebalanceResultOutput,
     buildRefreshResultOutput,
     buildRuntimeDiagnosticsOutput,
+    buildAdmissionPreviewOutput,
     buildSampledRulegenSamplingLines,
     buildSampledRulegenHeader,
     buildSampledRulegenEmptyOutput,

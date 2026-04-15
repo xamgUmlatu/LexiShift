@@ -167,6 +167,33 @@
       return updates;
     };
 
+    SettingsManager.prototype.composeSrsPlanContext = function composeSrsPlanContext(pairKey, profile, signals, options) {
+      const opts = options && typeof options === "object" ? options : {};
+      const runtimeProfile = this._isObject(profile) ? profile : {};
+      const normalizedSignals = this._normalizeSignals(signals);
+      const resolvedPair = this._normalizePairKey(pairKey);
+      const profileId = this.normalizeSrsProfileId(
+        opts.profileId !== undefined ? opts.profileId : runtimeProfile.profileId
+      );
+      return {
+        pair: resolvedPair,
+        profile_id: profileId || this.DEFAULT_PROFILE_ID,
+        interests: normalizedSignals.interests,
+        objectives: normalizedSignals.objectives,
+        proficiency: normalizedSignals.proficiency,
+        difficulty_preferences: normalizedSignals.difficultyPreferences,
+        empirical_trends: normalizedSignals.empiricalTrends,
+        source_preferences: normalizedSignals.sourcePreferences,
+        constraints: {
+          max_active_items: runtimeProfile.srsMaxActive
+        },
+        sizing: {
+          bootstrap_top_n: runtimeProfile.srsBootstrapTopN,
+          initial_active_count: runtimeProfile.srsInitialActiveCount
+        }
+      };
+    };
+
     SettingsManager.prototype.buildSrsPlanContext = function buildSrsPlanContext(items, pairKey, options) {
       const opts = options && typeof options === "object" ? options : {};
       const profile = this.getSrsProfile(items, pairKey, {
@@ -175,22 +202,9 @@
       const signals = this.getSrsProfileSignals(items, pairKey, {
         profileId: profile.profileId
       });
-      return {
-        pair: this._normalizePairKey(pairKey),
-        profile_id: profile.profileId || this.DEFAULT_PROFILE_ID,
-        interests: signals.interests,
-        objectives: signals.objectives,
-        proficiency: signals.proficiency,
-        empirical_trends: signals.empiricalTrends,
-        source_preferences: signals.sourcePreferences,
-        constraints: {
-          max_active_items: profile.srsMaxActive
-        },
-        sizing: {
-          bootstrap_top_n: profile.srsBootstrapTopN,
-          initial_active_count: profile.srsInitialActiveCount
-        }
-      };
+      return this.composeSrsPlanContext(pairKey, profile, signals, {
+        profileId: profile.profileId
+      });
     };
   }
 

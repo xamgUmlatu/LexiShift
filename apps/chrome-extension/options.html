@@ -104,6 +104,31 @@
           <p class="hint" data-i18n="hint_srs_initial_active_count">
             Initial non-zero/active words selected from the bootstrap list.
           </p>
+          <h3 data-i18n="section_srs_admission_preferences">Admission preferences</h3>
+          <p class="hint" data-i18n="hint_srs_admission_preferences">
+            These values rerank bootstrap admission for the selected profile and pair.
+          </p>
+          <div class="field-row">
+            <label for="srs-topic-interests" data-i18n="label_srs_topic_interests">Topic interests</label>
+            <input id="srs-topic-interests" type="text" />
+          </div>
+          <p class="hint" data-i18n="hint_srs_topic_interests">
+            Comma-separated tags. Exact tag matches are used directly today.
+          </p>
+          <div class="field-row">
+            <label for="srs-proficiency-estimate" data-i18n="label_srs_proficiency_estimate">Proficiency estimate (%)</label>
+            <input id="srs-proficiency-estimate" type="number" min="0" max="100" step="1" />
+          </div>
+          <p class="hint" data-i18n="hint_srs_proficiency_estimate">
+            0 to 100. Leave blank to keep proficiency neutral.
+          </p>
+          <div class="field-row">
+            <label for="srs-challenge-target" data-i18n="label_srs_challenge_target">Challenge target (%)</label>
+            <input id="srs-challenge-target" type="number" min="0" max="100" step="1" />
+          </div>
+          <p class="hint" data-i18n="hint_srs_challenge_target">
+            0 to 100. Leave blank to keep challenge preference neutral.
+          </p>
           <div class="field-row">
             <label for="srs-highlight-color" data-i18n="label_srs_highlight_color">SRS highlight color</label>
             <input id="srs-highlight-color" type="color" />
@@ -149,7 +174,15 @@
             </div>
           </div>
           <div class="actions">
+            <button id="srs-admission-preview" data-i18n="button_srs_admission_preview">Generate admitted words sample (5)…</button>
+          </div>
+          <div id="srs-admission-preview-output" class="srs-preview" role="status"></div>
+          <div class="actions">
             <button id="srs-initialize-set" data-i18n="button_srs_initialize">Initialize S for this pair</button>
+          </div>
+          <div class="actions">
+            <button id="srs-rebalance-preview" data-i18n="button_srs_rebalance_preview">Preview rebalance to current preferences</button>
+            <button id="srs-rebalance-apply" data-i18n="button_srs_rebalance_apply">Apply rebalance…</button>
           </div>
           <div class="actions">
             <button id="srs-refresh-set" data-i18n="button_srs_refresh_set">Refresh S + publish rules</button>
@@ -683,6 +716,12 @@
     <script src="options/controllers/profile/background/controller_context.js"></script>
     <script src="options/controllers/profile/background_controller.js"></script>
     <script src="options/controllers/srs/profile_selector_controller.js"></script>
+    <script src="options/controllers/srs/planning_state.js"></script>
+    <script src="options/controllers/srs/actions/planning_state_resolver.js"></script>
+    <script src="options/controllers/srs/actions/admission_preview_formatter.js"></script>
+    <script src="options/controllers/srs/actions/admission_preview_workflow.js"></script>
+    <script src="options/controllers/srs/actions/rebalance_formatter.js"></script>
+    <script src="options/controllers/srs/actions/rebalance_workflow.js"></script>
     <script src="options/controllers/srs/actions/formatters.js"></script>
     <script src="options/controllers/srs/actions/shared.js"></script>
     <script src="options/controllers/srs/actions/workflows.js"></script>

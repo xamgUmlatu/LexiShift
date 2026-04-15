@@ -29,7 +29,12 @@
         };
     const elements = opts.elements && typeof opts.elements === "object" ? opts.elements : {};
     const output = elements.output || null;
+    const admissionPreviewOutput = elements.admissionPreviewOutput || null;
+    const sampledOutput = elements.sampledOutput || null;
+    const admissionPreviewButton = elements.admissionPreviewButton || null;
     const initializeButton = elements.initializeButton || null;
+    const rebalancePreviewButton = elements.rebalancePreviewButton || null;
+    const rebalanceApplyButton = elements.rebalanceApplyButton || null;
     const refreshButton = elements.refreshButton || null;
     const diagnosticsButton = elements.diagnosticsButton || null;
     const sampledButton = elements.sampledButton || null;
@@ -44,11 +49,17 @@
     const buildInitializeResultOutput = typeof formatterHelpers.buildInitializeResultOutput === "function"
       ? formatterHelpers.buildInitializeResultOutput
       : (_options) => "";
+    const buildRebalanceResultOutput = typeof formatterHelpers.buildRebalanceResultOutput === "function"
+      ? formatterHelpers.buildRebalanceResultOutput
+      : (_options) => "";
     const buildRefreshResultOutput = typeof formatterHelpers.buildRefreshResultOutput === "function"
       ? formatterHelpers.buildRefreshResultOutput
       : (_options) => "";
     const buildRuntimeDiagnosticsOutput = typeof formatterHelpers.buildRuntimeDiagnosticsOutput === "function"
       ? formatterHelpers.buildRuntimeDiagnosticsOutput
+      : (_options) => "";
+    const buildAdmissionPreviewOutput = typeof formatterHelpers.buildAdmissionPreviewOutput === "function"
+      ? formatterHelpers.buildAdmissionPreviewOutput
       : (_options) => "";
     const buildSampledRulegenSamplingLines = typeof formatterHelpers.buildSampledRulegenSamplingLines === "function"
       ? formatterHelpers.buildSampledRulegenSamplingLines
@@ -98,24 +109,49 @@
           log,
           colors,
           output,
+          admissionPreviewOutput,
+          sampledOutput,
+          admissionPreviewButton,
           initializeButton,
+          rebalancePreviewButton,
+          rebalanceApplyButton,
           refreshButton,
           diagnosticsButton,
           sampledButton,
           resetButton,
           setOutputText: shared.setOutputText,
+          setAdmissionPreviewOutputText: (text) => {
+            if (admissionPreviewOutput) {
+              admissionPreviewOutput.textContent = text;
+              return;
+            }
+            shared.setOutputText(text);
+          },
+          setSampledOutputText: (text) => {
+            if (sampledOutput) {
+              sampledOutput.textContent = text;
+              return;
+            }
+            shared.setOutputText(text);
+          },
+          resolveEffectiveSrsPlanningState: opts.resolveEffectiveSrsPlanningState,
           markRulesetUpdatedNow: shared.markRulesetUpdatedNow,
           preflightSrsPairResources: shared.preflightSrsPairResources,
           buildInitializeResultOutput,
+          buildRebalanceResultOutput,
           buildRefreshResultOutput,
           buildRuntimeDiagnosticsOutput,
+          buildAdmissionPreviewOutput,
           buildSampledRulegenSamplingLines,
           buildSampledRulegenHeader,
           buildSampledRulegenEmptyOutput,
           buildSampledRulegenTargetsOutput
         })
       : {
+          previewAdmission: async () => {},
           initializeSet: async () => {},
+          previewRebalance: async () => {},
+          applyRebalance: async () => {},
           refreshSetNow: async () => {},
           runRuntimeDiagnostics: async () => {},
           previewSampledRulegen: async () => {},
@@ -123,7 +159,10 @@
         };
 
     return {
+      previewAdmission: workflows.previewAdmission,
       initializeSet: workflows.initializeSet,
+      previewRebalance: workflows.previewRebalance,
+      applyRebalance: workflows.applyRebalance,
       refreshSetNow: workflows.refreshSetNow,
       runRuntimeDiagnostics: workflows.runRuntimeDiagnostics,
       previewSampledRulegen: workflows.previewSampledRulegen,

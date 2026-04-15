@@ -29,6 +29,9 @@
     const srsMaxActiveInput = elements.srsMaxActiveInput || null;
     const srsBootstrapTopNInput = elements.srsBootstrapTopNInput || null;
     const srsInitialActiveCountInput = elements.srsInitialActiveCountInput || null;
+    const srsTopicInterestsInput = elements.srsTopicInterestsInput || null;
+    const srsProficiencyEstimateInput = elements.srsProficiencyEstimateInput || null;
+    const srsChallengeTargetInput = elements.srsChallengeTargetInput || null;
     const srsSoundInput = elements.srsSoundInput || null;
     const srsHighlightInput = elements.srsHighlightInput || null;
     const srsHighlightTextInput = elements.srsHighlightTextInput || null;
@@ -37,11 +40,16 @@
     const srsFeedbackSrsInput = elements.srsFeedbackSrsInput || null;
     const srsFeedbackRulesInput = elements.srsFeedbackRulesInput || null;
     const srsExposureLoggingInput = elements.srsExposureLoggingInput || null;
+    const srsAdmissionPreviewButton = elements.srsAdmissionPreviewButton || null;
     const srsInitializeSetButton = elements.srsInitializeSetButton || null;
+    const srsRebalancePreviewButton = elements.srsRebalancePreviewButton || null;
+    const srsRebalanceApplyButton = elements.srsRebalanceApplyButton || null;
     const srsRefreshSetButton = elements.srsRefreshSetButton || null;
     const srsRuntimeDiagnosticsButton = elements.srsRuntimeDiagnosticsButton || null;
     const srsRulegenSampledButton = elements.srsRulegenSampledButton || null;
     const srsResetButton = elements.srsResetButton || null;
+    const srsAdmissionPreviewOutput = elements.srsAdmissionPreviewOutput || null;
+    const srsRulegenSampledOutput = elements.srsRulegenSampledOutput || null;
     const debugHelperTestButton = elements.debugHelperTestButton || null;
     const debugOpenDataDirButton = elements.debugOpenDataDirButton || null;
     const srsRulegenOutput = elements.srsRulegenOutput || null;
@@ -65,6 +73,15 @@
     }
     if (srsInitialActiveCountInput) {
       srsInitialActiveCountInput.addEventListener("change", saveSrsSettings);
+    }
+    if (srsTopicInterestsInput) {
+      srsTopicInterestsInput.addEventListener("change", saveSrsSettings);
+    }
+    if (srsProficiencyEstimateInput) {
+      srsProficiencyEstimateInput.addEventListener("change", saveSrsSettings);
+    }
+    if (srsChallengeTargetInput) {
+      srsChallengeTargetInput.addEventListener("change", saveSrsSettings);
     }
     if (srsSoundInput) {
       srsSoundInput.addEventListener("change", saveSrsSettings);
@@ -105,6 +122,37 @@
       fallbackMessage: () => translate("status_srs_set_init_failed", null, "S initialization failed."),
       logMessage: "SRS set init failed."
     });
+    bindAsyncListener(srsAdmissionPreviewButton, "click", () => srsActionsController.previewAdmission(), {
+      fallbackMessage: () => translate("status_srs_admission_preview_failed", null, "Admission preview failed."),
+      logMessage: "SRS admission preview failed.",
+      onError: (message) => {
+        if (srsAdmissionPreviewOutput) {
+          srsAdmissionPreviewOutput.textContent = message;
+          return;
+        }
+        if (srsRulegenOutput) {
+          srsRulegenOutput.textContent = message;
+        }
+      }
+    });
+    bindAsyncListener(srsRebalancePreviewButton, "click", () => srsActionsController.previewRebalance(), {
+      fallbackMessage: () => translate("status_srs_rebalance_preview_failed", null, "SRS rebalance preview failed."),
+      logMessage: "SRS rebalance preview failed.",
+      onError: (message) => {
+        if (srsRulegenOutput) {
+          srsRulegenOutput.textContent = message;
+        }
+      }
+    });
+    bindAsyncListener(srsRebalanceApplyButton, "click", () => srsActionsController.applyRebalance(), {
+      fallbackMessage: () => translate("status_srs_rebalance_apply_failed", null, "SRS rebalance apply failed."),
+      logMessage: "SRS rebalance apply failed.",
+      onError: (message) => {
+        if (srsRulegenOutput) {
+          srsRulegenOutput.textContent = message;
+        }
+      }
+    });
     bindAsyncListener(srsRefreshSetButton, "click", () => srsActionsController.refreshSetNow(), {
       fallbackMessage: () => translate("status_srs_refresh_failed", null, "S refresh failed."),
       logMessage: "SRS set refresh failed."
@@ -117,6 +165,10 @@
       fallbackMessage: () => translate("status_srs_rulegen_failed", null, "Rule preview failed."),
       logMessage: "SRS sampled rulegen preview failed.",
       onError: (message) => {
+        if (srsRulegenSampledOutput) {
+          srsRulegenSampledOutput.textContent = message;
+          return;
+        }
         if (srsRulegenOutput) {
           srsRulegenOutput.textContent = message;
         }

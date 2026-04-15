@@ -27,18 +27,23 @@ def _inject_core_path() -> None:
 _inject_core_path()
 
 from lexishift_core.helper.engine import (
+    SetAdmissionPreviewJobConfig,
     get_srs_runtime_diagnostics,
     RulegenJobConfig,
+    SrsRebalanceJobConfig,
     SrsRefreshJobConfig,
     SetInitializationJobConfig,
     SetPlanningJobConfig,
+    apply_srs_rebalance,
     apply_exposure,
     apply_feedback,
     initialize_srs_set,
     load_semantic_inventory,
     load_ruleset,
     load_snapshot,
+    plan_srs_rebalance,
     plan_srs_set,
+    preview_srs_admission,
     refresh_srs_set,
     reset_srs_data,
     run_rulegen_job,
@@ -334,6 +339,37 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
                 trigger=str(payload.get("trigger", "manual")),
             ),
         )
+    if msg_type == "srs_preview_admission":
+        pair = str(payload.get("pair", "en-ja")).strip() or "en-ja"
+        jmdict_path, _translation_dict_path, set_source_db = _resolve_pair_resource_paths(
+            paths,
+            pair=pair,
+            payload=payload,
+        )
+        set_top_n = _optional_int(payload, "set_top_n")
+        bootstrap_top_n = _optional_int(payload, "bootstrap_top_n")
+        return preview_srs_admission(
+            paths,
+            config=SetAdmissionPreviewJobConfig(
+                pair=pair,
+                jmdict_path=jmdict_path,
+                set_source_db=set_source_db,
+                profile_id=profile_id or "default",
+                strategy=str(payload.get("strategy", "frequency_bootstrap")),
+                objective=str(payload.get("objective", "bootstrap")),
+                set_top_n=set_top_n,
+                bootstrap_top_n=bootstrap_top_n,
+                initial_active_count=_optional_int(payload, "initial_active_count"),
+                max_active_items_hint=_optional_int(payload, "max_active_items_hint"),
+                preview_count=_optional_int(payload, "preview_count"),
+                preview_sampling_mode=str(payload.get("preview_sampling_mode", "")).strip() or None,
+                preview_seed=_optional_int(payload, "preview_seed"),
+                profile_context=payload.get("profile_context")
+                if isinstance(payload.get("profile_context"), dict)
+                else None,
+                trigger=str(payload.get("trigger", "manual")),
+            ),
+        )
     if msg_type == "srs_refresh":
         pair = str(payload.get("pair", "en-ja")).strip() or "en-ja"
         jmdict_path, translation_dict_path, set_source_db = _resolve_pair_resource_paths(
@@ -361,6 +397,56 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
                 profile_context=payload.get("profile_context")
                 if isinstance(payload.get("profile_context"), dict)
                 else None,
+            ),
+        )
+    if msg_type == "srs_rebalance_plan":
+        pair = str(payload.get("pair", "en-ja")).strip() or "en-ja"
+        jmdict_path, translation_dict_path, set_source_db = _resolve_pair_resource_paths(
+            paths,
+            pair=pair,
+            payload=payload,
+        )
+        return plan_srs_rebalance(
+            paths,
+            config=SrsRebalanceJobConfig(
+                pair=pair,
+                jmdict_path=jmdict_path,
+                translation_dict_path=translation_dict_path,
+                set_source_db=set_source_db,
+                profile_id=profile_id or "default",
+                strategy=str(payload.get("strategy", "profile_growth")),
+                objective=str(payload.get("objective", "rebalance")),
+                set_top_n=_optional_int(payload, "set_top_n"),
+                max_active_items=_optional_int(payload, "max_active_items"),
+                profile_context=payload.get("profile_context")
+                if isinstance(payload.get("profile_context"), dict)
+                else None,
+                trigger=str(payload.get("trigger", "manual")),
+            ),
+        )
+    if msg_type == "srs_rebalance_apply":
+        pair = str(payload.get("pair", "en-ja")).strip() or "en-ja"
+        jmdict_path, translation_dict_path, set_source_db = _resolve_pair_resource_paths(
+            paths,
+            pair=pair,
+            payload=payload,
+        )
+        return apply_srs_rebalance(
+            paths,
+            config=SrsRebalanceJobConfig(
+                pair=pair,
+                jmdict_path=jmdict_path,
+                translation_dict_path=translation_dict_path,
+                set_source_db=set_source_db,
+                profile_id=profile_id or "default",
+                strategy=str(payload.get("strategy", "profile_growth")),
+                objective=str(payload.get("objective", "rebalance")),
+                set_top_n=_optional_int(payload, "set_top_n"),
+                max_active_items=_optional_int(payload, "max_active_items"),
+                profile_context=payload.get("profile_context")
+                if isinstance(payload.get("profile_context"), dict)
+                else None,
+                trigger=str(payload.get("trigger", "manual")),
             ),
         )
     if msg_type == "srs_reset":
