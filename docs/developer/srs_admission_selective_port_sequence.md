@@ -2,7 +2,7 @@
 
 Status: phases 1-5 implemented; phase 6 pending
 Role: execution runbook
-Last updated: 2026-04-15
+Last updated: 2026-04-18
 Purpose: define the exact sequence for porting the admission/preferences workstream from `codex/srs-admission-checkpoint` onto `codex/veto-data-sources-exp` without regressing the current semantic publication/runtime contract
 Related docs:
 - `docs/developer/srs_admission_merge_seam_map.md`
@@ -116,6 +116,28 @@ Validation gate:
 Checkpoint:
 
 - no code change unless baseline notes need refresh
+- Current refresh result on `2026-04-18`:
+  - the protected semantic base files remain unchanged:
+    - `core/lexishift_core/helper/rulegen_outputs.py`
+    - `core/lexishift_core/helper/use_cases/semantic_admission.py`
+    - `docs/rulegen/semantic_routing_*`
+    - `docs/test_inputs/semantic_routing/*`
+  - the minimum semantic baseline suite remains the same Phase 0 gate:
+    - `core/tests/rulegen/test_semantic_publication.py`
+    - `core/tests/rulegen/test_semantic_routing_runtime_policy.py`
+    - `core/tests/helper/test_rulegen_outputs.py`
+    - `core/tests/architecture/test_extension_structure.py`
+    - `core/tests/dev/test_helper_translation_dict_entrypoints.py`
+  - the protected semantic contract to preserve before further admission work is:
+    - helper publication writes one family of ruleset + snapshot + optional semantic inventory + publication manifest
+    - publication family artifacts stay aligned by shared `generation_id`
+    - helper/native-host continues to expose `semantic_admit_batch`
+    - browser semantic runtime remains opt-in/default-off and only ready SRS-origin matches reach helper semantic admission
+  - refreshed validation on `2026-04-18` reran green:
+    - `python3 -m pytest core/tests/rulegen/test_semantic_publication.py core/tests/rulegen/test_semantic_routing_runtime_policy.py core/tests/helper/test_rulegen_outputs.py core/tests/architecture/test_extension_structure.py core/tests/dev/test_helper_translation_dict_entrypoints.py -q`
+    - `27 passed`
+    - `python3 scripts/dev/check_doc_references.py`
+  - adjacent Wave C findings about due-aware serving and helper-rule confidence gating are intentionally out of scope for the semantic freeze; later admission slices must not blur those SRS/runtime caveats into semantic-contract edits
 
 ## Phase 1: Port Pure Admission Core
 
