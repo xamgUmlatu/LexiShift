@@ -2,7 +2,7 @@
 
 Purpose
 - Define a generalized, language‑pair aware pipeline for precomputing replacement rules from a target set S.
-- Attach a confidence score to each rule so downstream UI can filter by a user‑controlled threshold.
+- Attach a confidence score to each rule so generation-time thresholds and downstream tooling can inspect or prune outputs.
 - Keep the pipeline modular so pair‑specific logic can be plugged in without rewriting the core flow.
 - Set planning architecture details live in `docs/srs/srs_set_planning_technical.md`.
 
@@ -125,10 +125,10 @@ Embeddings‑based scoring (optional)
 - Recommended: apply as a multiplicative or additive adjustment with a clamp.
 - If embeddings are missing/disabled for a pair, skip this step entirely.
 
-Filtering at runtime
-- Extension/app reads the precomputed ruleset and filters:
-  - `confidence >= user_threshold`.
-- Threshold slider should be pair‑aware (same slider can apply to a selected pair).
+Current filtering contract
+- Rule generation applies `confidence_threshold` before emitting rules.
+- The current extension helper-rules path does not apply an additional live confidence filter before SRS gating.
+- A pair-aware runtime confidence slider/filter remains planned rather than verified current behavior.
 
 Data requirements (by pair)
 - **Monolingual (EN/DE/ES/JP)**
@@ -152,7 +152,7 @@ Storage & versioning
 
 Planned UX implications
 - Users select dictionaries per language pair.
-- Users adjust confidence threshold (slider).
+- Planned: users adjust confidence threshold (slider).
 - Embeddings are an optional download; if enabled, they improve scoring.
 
 Open questions

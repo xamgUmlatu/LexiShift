@@ -254,7 +254,7 @@ Update `feature_state_matrix.md` when:
 Examples that should stay explicit:
 - reverse-check implemented but not default-on,
 - due-aware SRS serving documented but not end-to-end verified,
-- extension-side helper-rule confidence gating documented but not code-verified.
+- extension-side helper-rule confidence gating documented, but the live helper-rule runtime still has no post-emission confidence gate.
 
 ## Future extension path
 

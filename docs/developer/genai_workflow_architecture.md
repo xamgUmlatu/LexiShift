@@ -269,7 +269,7 @@ These are active mismatches, not wording accidents:
 
 1. Reverse-check is implemented and tunable, but not yet default-on.
 2. SRS docs define due-aware serving, but current helper publication and runtime gating are not yet verified as due-aware end to end.
-3. Rulegen docs describe runtime confidence filtering, but extension-side helper-rule confidence gating is not yet verified in code.
+3. Rulegen docs describe runtime confidence filtering, but the live helper-rule runtime still has no post-emission confidence gate.
 4. SRS planner docs describe multiple strategies, but executable behavior is still dominated by `frequency_bootstrap`.
 
 These items should remain visible in `feature_state_matrix.md` until code, docs, and artifacts converge.

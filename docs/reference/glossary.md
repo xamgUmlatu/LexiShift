@@ -57,7 +57,7 @@ This glossary defines the major concepts, data objects, and workflows used acros
 - **Serving priority (weight 2)**: Runtime serving score inside `S`, primarily derived from due-time and SRS state (`next_due`, `stability`, `difficulty`).
 - **Effective serving probability**: The normalized chance a word is shown from currently eligible items; this is derived from serving priority and policy caps, not used for admission.
 - **Gloss decay**: A penalty applied to secondary dictionary glosses (e.g., 100% / 70% / 50%).
-- **Confidence**: A 0..1 value attached to rules to support filtering and threshold sliders.
+- **Confidence**: A 0..1 value attached to rules for scoring, diagnostics, and generation-time thresholding; the current live helper-rule runtime does not apply a separate confidence gate after emission.
 - **Target surface**: Inflected display form in `metadata.morphology.target_surface` (for example, `horas`) while canonical replacement lemma stays unchanged (for example, `hora`).
 
 ## Language Pairs
@@ -101,7 +101,7 @@ This glossary defines the major concepts, data objects, and workflows used acros
 
 - **Replacement highlight**: Visual cue for replaced words (coloring or style).
 - **Feedback popup**: Right‑click UI to rate word difficulty (SRS feedback).
-- **Confidence slider**: UI to enable/disable rules based on confidence threshold.
+- **Confidence slider**: Planned UI to enable/disable rules based on confidence threshold.
 - **Language pack manager**: GUI table for downloading or linking dictionaries.
 - **Embedding manager**: GUI table for downloading or linking embeddings.
 

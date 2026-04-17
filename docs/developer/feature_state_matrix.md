@@ -2,7 +2,7 @@
 
 Status: active ledger
 Role: Canonical current
-Last updated: 2026-04-16
+Last updated: 2026-04-18
 Source-of-truth: cross-cutting state ledger; runtime truth still lives in code, tests, and dated evidence artifacts.
 
 Purpose:
@@ -1109,19 +1109,25 @@ Use this file when:
 
 ## Extension-Side Confidence Gating For Helper Rules
 
-- Status: `planned` / `unverified`
-- Last documented checkpoint: `2026-02-27` rulegen docs review
-- Last verified: `2026-03-11` code inspection
+- Status: `planned`; live helper-rule runtime gating not implemented
+- Last documented checkpoint: `2026-04-18` confidence-gating packet and current-truth doc correction
+- Last verified: `2026-04-18` targeted runtime contract test plus code-path audit
 - Default behavior:
-  - Docs describe confidence-based runtime filtering.
-  - Extension runtime path inspected on `2026-03-11` did not confirm a live helper-rule confidence filter.
+  - Helper rulegen supports generation-time `confidence_threshold` filtering before rules are emitted.
+  - Current extension helper-rule runtime path does not inspect `rule.confidence` or apply a live helper-rule confidence threshold before SRS gating.
+  - Extension selector utilities can still use item confidence for scoring in other contexts; that is not the helper-rule activation gate.
 - Evidence:
+  - `docs/developer/project_integrity_sp2_confidence_gating_packet.md`
   - `docs/rulegen/rule_generation_technical.md`
   - `docs/reference/glossary.md`
+  - `core/lexishift_core/rulegen/generation.py`
+  - `core/lexishift_core/helper/use_cases/rulegen_job.py`
   - `apps/chrome-extension/content/runtime/rules/active_rules_runtime.js`
   - `apps/chrome-extension/shared/srs/srs_gate.js`
+  - `apps/chrome-extension/shared/srs/srs_selector.js`
+  - `core/tests/dev/test_extension_helper_rule_confidence_contract.py`
 - Known gaps:
-  - Treat this as unresolved until a code path is identified and tested.
+  - Treat runtime confidence gating as unresolved until a real settings surface, runtime code path, and tests exist for helper-published rules.
   - Do not mark confidence gating as shipped based on docs alone.
 
 ## GenAI Workflow Architecture
@@ -1147,7 +1153,7 @@ These are not accidental wording issues. Keep them explicit until code and docs 
 
 1. Reverse-check is implemented but not yet default-on.
 2. SRS docs define due-aware serving, but current end-to-end publish/gate behavior still uses the broader admitted inventory rather than a due-only runtime surface.
-3. Docs mention runtime confidence filtering, but extension-side helper-rule confidence gating is not yet verified in code.
+3. Docs mention runtime confidence filtering, but the live helper-rule runtime still has no confidence gate after emission.
 4. Planner docs describe multiple strategies, but executable behavior is still dominated by frequency bootstrap.
 5. SRS profile/schema docs still describe a broader profile-context shape, but the current extension settings path rebuilds signals from a fixed `v1` allowlist (`interests`, `objectives`, `proficiency`, `difficultyPreferences`, `empiricalTrends`, `sourcePreferences`) rather than preserving arbitrary unknown signal keys.
 6. SRS profile/schema docs still show nested `constraints` / `sizing` under `profile_context`, but helper execution currently treats top-level request sizing fields (`set_top_n`, `bootstrap_top_n`, `initial_active_count`, `max_active_items_hint`) as authoritative and uses the nested fields only as descriptive mirrors.
