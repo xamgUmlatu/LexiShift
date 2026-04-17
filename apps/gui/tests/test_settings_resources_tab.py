@@ -59,3 +59,62 @@ def test_language_pack_tab_describes_installed_vs_manual_contract() -> None:
     labels = language_tab.findChildren(type(panel.language_pack_status))
 
     assert any(label.text() == t("language_packs.language_description") for label in labels)
+
+
+def test_resources_tab_intro_describes_installed_vs_manual_contract() -> None:
+    _app()
+    set_locale("en")
+    dialog = SettingsDialog(app_settings=AppSettings(), dataset_settings=None)
+    resources_tab = dialog._tabs.widget(1)
+    labels = resources_tab.findChildren(type(dialog.language_pack_panel.language_pack_status))
+    description = t("language_packs.resources_description").lower()
+
+    assert "installed" in description
+    assert "manual" in description
+    assert "import" in description
+    assert any(label.text() == t("language_packs.resources_description") for label in labels)
+
+
+def test_frequency_and_embedding_tabs_describe_manual_paths_as_compatibility_only() -> None:
+    _app()
+    set_locale("en")
+    dialog = SettingsDialog(app_settings=AppSettings(), dataset_settings=None)
+    panel = dialog.language_pack_panel
+
+    frequency_text = t("language_packs.frequency_description").lower()
+    embeddings_help = t("language_packs.embeddings_help").lower()
+    embeddings_text = t("language_packs.embeddings_description").lower()
+    cross_help = t("language_packs.cross_embeddings_help").lower()
+    cross_text = t("language_packs.cross_embeddings_description").lower()
+
+    assert "default" in frequency_text
+    assert "manual" in frequency_text
+    assert "compatibility" in frequency_text
+    assert "default" in embeddings_help
+    assert "manual" in embeddings_help
+    assert "import" in embeddings_help
+    assert "installed" in embeddings_text
+    assert "manual" in embeddings_text
+    assert "default" in cross_help
+    assert "manual" in cross_help
+    assert "import" in cross_help
+    assert "installed" in cross_text
+    assert "manual" in cross_text
+
+    frequency_tab = panel._resource_tabs.widget(1)
+    embedding_tab = panel._resource_tabs.widget(2)
+    cross_embedding_tab = panel._resource_tabs.widget(3)
+    label_type = type(panel.language_pack_status)
+
+    assert any(
+        label.text() == t("language_packs.frequency_description")
+        for label in frequency_tab.findChildren(label_type)
+    )
+    assert any(
+        label.text() == t("language_packs.embeddings_description")
+        for label in embedding_tab.findChildren(label_type)
+    )
+    assert any(
+        label.text() == t("language_packs.cross_embeddings_description")
+        for label in cross_embedding_tab.findChildren(label_type)
+    )

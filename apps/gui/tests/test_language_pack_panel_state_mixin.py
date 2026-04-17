@@ -13,6 +13,7 @@ from settings_language_packs_support import (
     LANGUAGE_RESOURCE_ORIGIN_MANUAL,
     LanguageResourceBinding,
 )
+from settings_language_packs import LanguagePackPanel
 from settings_language_packs_panel_state_mixin import LanguagePackPanelStateMixin
 
 
@@ -158,6 +159,115 @@ def test_embedding_pair_paths_omits_managed_pair_artifacts() -> None:
         resolved = LanguagePackPanelStateMixin.embedding_pair_paths(dummy)
 
     assert resolved == {"en-es": [str(manual)]}
+
+
+def test_seed_embedding_paths_promotes_managed_entries_to_pair_pack_ids() -> None:
+    class _DummyPanel(LanguagePackPanelStateMixin):
+        pass
+
+    with TemporaryDirectory() as temp_dir:
+        root = Path(temp_dir)
+        managed = root / "embedding_packs" / "embed-xling-es" / "main.sqlite"
+        managed.parent.mkdir(parents=True, exist_ok=True)
+        managed.write_bytes(b"SQLite format 3\x00")
+        manual_pack = root / "external.sqlite"
+        manual_pair = root / "pair-manual.sqlite"
+        manual_pack.write_bytes(b"SQLite format 3\x00")
+        manual_pair.write_bytes(b"SQLite format 3\x00")
+        dummy = _DummyPanel()
+        dummy._embedding_pack_info = {
+            "embed-xling-es": SimpleNamespace(pack_id="embed-xling-es", pair_key="en-es"),
+            "embed-manual": SimpleNamespace(pack_id="embed-manual", pair_key="en-es"),
+        }
+        dummy._resolve_downloaded_path = lambda pack, embeddings=False: (
+            str(managed)
+            if embeddings and getattr(pack, "pack_id", "") == "embed-xling-es"
+            else None
+        )
+        dummy._is_app_data_path = lambda path, embeddings=False: embeddings and os.path.commonpath(
+            [str(root / "embedding_packs"), os.path.abspath(path)]
+        ) == str(root / "embedding_packs")
+
+        settings = SynonymSourceSettings(
+            embedding_pack_paths={
+                "embed-xling-es": str(managed),
+                "embed-manual": str(manual_pack),
+            },
+            embedding_pair_paths={
+                "en-es": [str(managed), str(manual_pair)],
+            },
+        )
+
+        dummy._seed_embedding_pack_paths(settings)
+
+    assert dummy._embedding_pack_paths == {"embed-manual": str(manual_pack)}
+    assert dummy._embedding_pair_pack_ids == {"en-es": ["embed-xling-es"]}
+    assert dummy._embedding_pair_paths == {"en-es": [str(manual_pair)]}
+    assert dummy._embedding_pair_enabled == {"en-es": True}
+
+
+def test_auto_link_downloaded_embeddings_skips_managed_pack_paths() -> None:
+    class _DummyPanel(LanguagePackPanelStateMixin):
+        pass
+
+    with TemporaryDirectory() as temp_dir:
+        root = Path(temp_dir)
+        managed = root / "embedding_packs" / "embed-xling-es" / "main.sqlite"
+        managed.parent.mkdir(parents=True, exist_ok=True)
+        managed.write_bytes(b"SQLite format 3\x00")
+        dummy = _DummyPanel()
+        dummy._embedding_pack_info = {
+            "embed-xling-es": SimpleNamespace(pack_id="embed-xling-es", pair_key="en-es"),
+        }
+        dummy._embedding_pack_paths = {}
+        dummy._resolve_downloaded_path = lambda pack, embeddings=False: (
+            str(managed)
+            if embeddings and getattr(pack, "pack_id", "") == "embed-xling-es"
+            else None
+        )
+        dummy._is_app_data_path = lambda path, embeddings=False: embeddings and os.path.commonpath(
+            [str(root / "embedding_packs"), os.path.abspath(path)]
+        ) == str(root / "embedding_packs")
+
+        LanguagePackPanel._auto_link_downloaded_embeddings(dummy)
+
+    assert dummy._embedding_pack_paths == {}
+
+
+def test_activate_embedding_pack_keeps_managed_path_out_of_manual_map() -> None:
+    class _DummyPanel(LanguagePackPanelStateMixin):
+        pass
+
+    with TemporaryDirectory() as temp_dir:
+        root = Path(temp_dir)
+        managed = root / "embedding_packs" / "embed-xling-es" / "main.sqlite"
+        managed.parent.mkdir(parents=True, exist_ok=True)
+        managed.write_bytes(b"SQLite format 3\x00")
+        dummy = _DummyPanel()
+        dummy._embedding_pack_info = {
+            "embed-xling-es": SimpleNamespace(pack_id="embed-xling-es", pair_key="en-es"),
+        }
+        dummy._embedding_pack_paths = {}
+        dummy._embedding_pair_pack_ids = {}
+        dummy._embedding_pair_enabled = {}
+        dummy._resolve_downloaded_path = lambda pack, embeddings=False: (
+            str(managed)
+            if embeddings and getattr(pack, "pack_id", "") == "embed-xling-es"
+            else None
+        )
+        dummy._embedding_sqlite_path = lambda path: path
+        dummy._is_sqlite_db = lambda path: True
+        dummy._is_app_data_path = lambda path, embeddings=False: embeddings and os.path.commonpath(
+            [str(root / "embedding_packs"), os.path.abspath(path)]
+        ) == str(root / "embedding_packs")
+        dummy._refresh_embedding_pack_table = lambda: None
+        dummy._refresh_cross_embedding_pack_table = lambda: None
+
+        LanguagePackPanel._activate_embedding_pack(dummy, "embed-xling-es")
+
+    assert dummy._embedding_pack_paths == {}
+    assert dummy._embedding_pair_pack_ids == {"en-es": ["embed-xling-es"]}
+    assert dummy._embedding_pair_enabled == {"en-es": True}
 
 
 def test_seed_language_and_frequency_paths_keep_managed_ids_separate() -> None:

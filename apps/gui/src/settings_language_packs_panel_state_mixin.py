@@ -275,9 +275,7 @@ class LanguagePackPanelStateMixin:
                 self._frequency_pack_paths.pop(pack_id, None)
 
     def _seed_embedding_pack_paths(self, synonym_settings: SynonymSourceSettings) -> None:
-        self._embedding_pack_paths = dict(
-            getattr(synonym_settings, "embedding_pack_paths", {}) or {}
-        )
+        self._embedding_pack_paths = {}
         self._embedding_pair_pack_ids = {
             key: list(value)
             for key, value in dict(
@@ -285,16 +283,47 @@ class LanguagePackPanelStateMixin:
             ).items()
             if isinstance(value, (list, tuple))
         }
-        self._embedding_pair_paths = {
-            key: list(value)
-            for key, value in dict(
-                getattr(synonym_settings, "embedding_pair_paths", {}) or {}
-            ).items()
-            if isinstance(value, (list, tuple))
-        }
         self._embedding_pair_enabled = dict(
             getattr(synonym_settings, "embedding_pair_enabled", {}) or {}
         )
+        for pack_id, path in dict(
+            getattr(synonym_settings, "embedding_pack_paths", {}) or {}
+        ).items():
+            pack_key = str(pack_id or "").strip()
+            path_text = str(path or "").strip()
+            if not pack_key or not path_text:
+                continue
+            if self._embedding_pack_pair_key(pack_key) and self._is_installed_embedding_pack_entry(
+                pack_key, path_text
+            ):
+                self._ensure_embedding_pair_pack_id(pack_key)
+                continue
+            self._embedding_pack_paths[pack_key] = path_text
+        self._embedding_pair_paths = {}
+        for pair_key, values in dict(
+            getattr(synonym_settings, "embedding_pair_paths", {}) or {}
+        ).items():
+            normalized_pair_key = str(pair_key or "").strip()
+            if not normalized_pair_key or not isinstance(values, (list, tuple)):
+                continue
+            kept_paths: list[str] = []
+            for raw_path in values:
+                path_text = str(raw_path or "").strip()
+                if not path_text:
+                    continue
+                managed_pack_id = self._managed_embedding_pack_id_for_path(path_text)
+                if (
+                    managed_pack_id
+                    and self._embedding_pack_pair_key(managed_pack_id) == normalized_pair_key
+                ):
+                    self._ensure_embedding_pair_pack_id(
+                        managed_pack_id,
+                        pair_key=normalized_pair_key,
+                    )
+                    continue
+                kept_paths.append(path_text)
+            if kept_paths:
+                self._embedding_pair_paths[normalized_pair_key] = kept_paths
 
     def _is_pack_id_first_translation_pack(self, pack: object) -> bool:
         build_mode = str(getattr(pack, "build_mode", "") or "").strip().lower()
@@ -405,3 +434,41 @@ class LanguagePackPanelStateMixin:
         if not resolved:
             return False
         return path_text == resolved
+
+    def _embedding_pack_pair_key(self, pack_id: str) -> str | None:
+        pack = self._embedding_pack_info.get(pack_id)
+        pair_key = str(getattr(pack, "pair_key", "") or "").strip()
+        return pair_key or None
+
+    def _ensure_embedding_pair_pack_id(
+        self,
+        pack_id: str,
+        *,
+        pair_key: str | None = None,
+    ) -> None:
+        normalized_pack_id = str(pack_id or "").strip()
+        normalized_pair_key = str(
+            pair_key or self._embedding_pack_pair_key(normalized_pack_id) or ""
+        ).strip()
+        if not normalized_pack_id or not normalized_pair_key:
+            return
+        pack_ids = [
+            value
+            for value in self._embedding_pair_pack_ids.get(normalized_pair_key, [])
+            if str(value or "").strip()
+        ]
+        if normalized_pack_id not in pack_ids:
+            pack_ids.append(normalized_pack_id)
+        self._embedding_pair_pack_ids[normalized_pair_key] = pack_ids
+        self._embedding_pair_enabled.setdefault(normalized_pair_key, True)
+
+    def _managed_embedding_pack_id_for_path(self, path: str) -> str | None:
+        path_text = str(path or "").strip()
+        if not path_text:
+            return None
+        for pack_id in sorted(self._embedding_pack_info):
+            if not self._embedding_pack_pair_key(pack_id):
+                continue
+            if self._is_installed_embedding_pack_entry(pack_id, path_text):
+                return pack_id
+        return None
