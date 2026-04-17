@@ -366,6 +366,19 @@ Current initialize-only audit on `2026-04-18`:
   - publication manifest
   - shared `generation_id`
 
+Current refresh-only audit on `2026-04-18`:
+
+- `refresh_set.py` still merges newly admitted ids into the pair-local active inventory and stamps `last_refreshed_at`
+- refresh still forwards explicit `active_item_ids` into the follow-up rulegen call and republishes the current semantic family only when admission is applied
+- low-retention and other non-applied refresh outcomes still remain explicit no-op results rather than masquerading as publication success
+- direct `2026-04-18` validation reran green:
+  - `python3 -m pytest core/tests/helper/test_helper_engine.py -k "test_refresh_adds_new_items_when_feedback_and_capacity_allow or test_refresh_respects_allowed_pos_filter or test_refresh_pauses_admission_for_low_retention or test_refresh_uses_pair_policy_defaults or test_feedback_updates_schedule_and_blocks_low_retention_admission or test_good_feedback_allows_admission_and_publishes_rulegen_outputs" core/tests/srs/test_srs_feedback_simulation.py -q`
+  - `9 passed`
+  - `python3 scripts/testing/srs_quality_harness.py --json-out docs/test_outputs/srs_quality_latest.json`
+  - `pass=15 warn=1 fail=0`
+  - known warning remains the due-aware publication caveat, not a refresh failure
+  - one local `en-es` tempdir smoke using synthetic `freq-es-cde.sqlite`, explicit forward `spa-eng.tei`, default reverse `eng-spa.tei`, and a smaller initialized active set completed with `refresh_applied=True`, `refresh_added_items=2`, `refresh_rules=12`, and emitted publication-manifest plus semantic-inventory paths
+
 ### Rebalance
 
 - already landed in Phase 3; preserve that behavior while reconciling the remaining flows
@@ -374,6 +387,15 @@ Current initialize-only audit on `2026-04-18`:
 
 - reset clears pair-local inventory as well as the existing pair/profile state
 - semantic publication artifacts should be cleared consistently with current branch behavior
+
+Current reset-only audit on `2026-04-18`:
+
+- `reset.py` still removes pair/profile-scoped inventory membership, snapshots, rulesets, semantic inventory files, and publication manifests without crossing profile boundaries
+- when the updated inventory becomes empty, the inventory file itself is removed instead of being left behind as an empty placeholder
+- direct `2026-04-18` validation reran green:
+  - `python3 -m pytest core/tests/helper/test_helper_engine.py -k "test_reset_pair_removes_only_that_pair or test_reset_all_removes_all_pairs or test_reset_pair_scopes_to_profile" -q`
+  - covered inside the broader D6 targeted helper run (`9 passed`)
+  - the local `en-es` tempdir smoke then completed with `reset_removed_inventory_pairs=1`, `reset_removed_semantic_inventories=1`, and `reset_removed_publication_manifests=1`, with both semantic inventory and publication manifest absent afterward
 
 ### Diagnostics
 
