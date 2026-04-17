@@ -52,6 +52,8 @@ Treat these as planning/history surfaces unless their own metadata says otherwis
 - `en-de` advisory quality roadmap: `../language_pairs/en_de_workstream_roadmap.md`
 - Project health remediation workstream: `project_health_remediation_workstream.md`
 - Project integrity stabilization backlog: `project_integrity_stabilization_backlog.md`
+- Project integrity secondary pass plan: `project_integrity_secondary_pass_plan.md`
+- Project integrity secondary pass notes: `project_integrity_secondary_pass_notes.md`
 - Rulegen benchmark optimization plan: `rulegen_benchmark_optimization_plan.md`
 - Windows GUI parity workstream: `windows_gui_parity_workstream.md`
 
