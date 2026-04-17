@@ -366,6 +366,27 @@ class LanguagePackPanel(
         self._refresh_embedding_pack_table()
         self._refresh_cross_embedding_pack_table()
 
+    def _clear_embedding_pack_entry(self, pack_id: str, *, local_path: str | None = None) -> None:
+        self._embedding_pack_paths.pop(pack_id, None)
+        pack = self._embedding_pack_info.get(pack_id)
+        pair_key = str(getattr(pack, "pair_key", "") or "").strip()
+        if not pair_key:
+            return
+        pack_ids = [value for value in self._embedding_pair_pack_ids.get(pair_key, []) if value]
+        pack_ids = [value for value in pack_ids if value != pack_id]
+        if pack_ids:
+            self._embedding_pair_pack_ids[pair_key] = pack_ids
+        else:
+            self._embedding_pair_pack_ids.pop(pair_key, None)
+        if local_path:
+            paths = [
+                path for path in self._embedding_pair_paths.get(pair_key, []) if path != local_path
+            ]
+            if paths:
+                self._embedding_pair_paths[pair_key] = paths
+            else:
+                self._embedding_pair_paths.pop(pair_key, None)
+
     def _delete_language_pack(self, pack_id: str) -> None:
         pack = self._language_pack_info.get(pack_id)
         row = self._language_pack_rows.get(pack_id)
@@ -528,7 +549,7 @@ class LanguagePackPanel(
                 t("language_packs.title"),
                 t("language_packs.no_local_files", name=pack.display_name()),
             )
-            self._embedding_pack_paths.pop(pack_id, None)
+            self._clear_embedding_pack_entry(pack_id, local_path=local_path)
             self._refresh_embedding_pack_table()
             self._refresh_cross_embedding_pack_table()
             return
@@ -545,25 +566,7 @@ class LanguagePackPanel(
         )
         if reply != QMessageBox.Yes:
             return
-        self._embedding_pack_paths.pop(pack_id, None)
-        if pack.pair_key:
-            pair_key = pack.pair_key
-            pack_ids = [value for value in self._embedding_pair_pack_ids.get(pair_key, []) if value]
-            pack_ids = [value for value in pack_ids if value != pack_id]
-            if pack_ids:
-                self._embedding_pair_pack_ids[pair_key] = pack_ids
-            else:
-                self._embedding_pair_pack_ids.pop(pair_key, None)
-            if local_path:
-                paths = [
-                    path
-                    for path in self._embedding_pair_paths.get(pair_key, [])
-                    if path != local_path
-                ]
-                if paths:
-                    self._embedding_pair_paths[pair_key] = paths
-                else:
-                    self._embedding_pair_paths.pop(pair_key, None)
+        self._clear_embedding_pack_entry(pack_id, local_path=local_path)
         for path in delete_paths:
             self._remove_path(path)
         self._set_status_message(t("language_packs.removed", name=pack.display_name()))
