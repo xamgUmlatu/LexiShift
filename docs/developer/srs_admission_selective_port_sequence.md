@@ -303,6 +303,17 @@ Checkpoint:
   - CLI now exposes `preview_srs_admission`, `plan_srs_rebalance`, and `apply_srs_rebalance`
   - rebalance now updates explicit active inventory and republishes the current semantic artifact family
   - initialize/refresh/runtime diagnostics still remain on the separate Phase 4 reconciliation track
+- Current audit result on `2026-04-18`:
+  - helper engine wrappers for preview/rebalance remain thin dispatch over dedicated use cases rather than replacing semantic helper surfaces wholesale
+  - helper CLI command registration still exposes `preview_srs_admission`, `plan_srs_rebalance`, and `apply_srs_rebalance` through the shared `srs_admission_cli_support.py` module
+  - native host request routing still exposes `srs_preview_admission`, `srs_rebalance_plan`, and `srs_rebalance_apply` while preserving the separate `semantic_admit_batch` seam
+  - the current D4 verification surface now includes explicit CLI-help and native-host routing coverage in addition to helper-engine behavior tests
+  - direct `2026-04-18` validation reran green:
+    - `python3 -m pytest core/tests/helper/test_helper_engine.py::TestHelperEnginePreviewSrsAdmission core/tests/helper/test_helper_engine.py::TestHelperEngineRebalanceSrsSet core/tests/dev/test_helper_translation_dict_entrypoints.py core/tests/dev/test_srs_planner_strategy_contract.py -q`
+    - `15 passed`
+    - semantic Phase 0 baseline rerun:
+      - `python3 -m pytest core/tests/rulegen/test_semantic_publication.py core/tests/rulegen/test_semantic_routing_runtime_policy.py core/tests/helper/test_rulegen_outputs.py core/tests/architecture/test_extension_structure.py core/tests/dev/test_helper_translation_dict_entrypoints.py -q`
+      - `27 passed`
 
 ## Phase 4: Reconcile Inventory-Aware Admission Mutation With Current Semantic Publication
 
