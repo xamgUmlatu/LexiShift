@@ -143,6 +143,62 @@ def test_resolve_frequency_pack_for_pair_prefers_manifest_backed_default_app_dat
     assert resolved.pack_id == "freq-en-coca"
 
 
+def test_resolve_frequency_pack_for_pair_prefers_managed_artifact_over_same_key_path() -> None:
+    with TemporaryDirectory() as temp_dir:
+        root = Path(temp_dir)
+        pack_root = root / "frequency_packs" / "freq-en-coca"
+        artifact = pack_root / "main.sqlite"
+        artifact.parent.mkdir(parents=True, exist_ok=True)
+        artifact.write_text("placeholder", encoding="utf-8")
+        stale = root / "manual.sqlite"
+        stale.write_text("placeholder", encoding="utf-8")
+        write_installed_pack_manifest(
+            root / "frequency_packs",
+            pack_id="freq-en-coca",
+            pack_kind="frequency",
+            provider="wordfrequency",
+            local_kind="file",
+            build_mode="convert_archive",
+            artifact_path=artifact,
+            sqlite_filename="main.sqlite",
+        )
+        dummy = SimpleNamespace()
+
+        with patch("main_srs_mixin._app_data_dir", return_value=root):
+            resolved = MainWindow._resolve_frequency_pack_for_pair(
+                dummy,
+                "es-en",
+                frequency_pack_paths={"freq-en-coca": str(stale)},
+                managed_frequency_pack_ids=("freq-en-coca",),
+            )
+
+    assert resolved is not None
+    assert resolved.path.resolve(strict=False) == artifact.resolve(strict=False)
+    assert resolved.pack_id == "freq-en-coca"
+
+
+def test_resolve_frequency_pack_for_pair_falls_back_to_configured_path_when_managed_artifact_missing() -> (
+    None
+):
+    with TemporaryDirectory() as temp_dir:
+        root = Path(temp_dir)
+        manual = root / "manual.sqlite"
+        manual.write_text("placeholder", encoding="utf-8")
+        dummy = SimpleNamespace()
+
+        with patch("main_srs_mixin._app_data_dir", return_value=root):
+            resolved = MainWindow._resolve_frequency_pack_for_pair(
+                dummy,
+                "es-en",
+                frequency_pack_paths={"freq-en-coca": str(manual)},
+                managed_frequency_pack_ids=("freq-en-coca",),
+            )
+
+    assert resolved is not None
+    assert resolved.path.resolve(strict=False) == manual.resolve(strict=False)
+    assert resolved.pack_id == "manual"
+
+
 def test_build_synonym_resource_settings_from_panel_preserves_non_ui_fields() -> None:
     base = SynonymSourceSettings(last_selected_pack_ids=("freedict-en-es",))
     panel = _build_resource_panel(
