@@ -333,3 +333,55 @@ def test_seed_language_and_frequency_paths_keep_managed_ids_separate() -> None:
     )
     assert dummy._managed_frequency_pack_ids == {"freq-en-coca"}
     assert dummy._frequency_pack_paths == {"freq-manual": "/tmp/freq-manual.sqlite"}
+
+
+def test_seed_language_pack_paths_promotes_legacy_secondary_fields_into_bindings() -> None:
+    class _DummyPanel(LanguagePackPanelStateMixin):
+        pass
+
+    dummy = _DummyPanel()
+    settings = SynonymSourceSettings(
+        wordnet_dir="/tmp/wordnet-legacy",
+        moby_path="/tmp/moby-legacy.txt",
+    )
+
+    dummy._seed_language_pack_paths(settings)
+
+    assert dummy._managed_language_pack_ids == set()
+    assert dummy._language_pack_paths == {
+        "wordnet-en": "/tmp/wordnet-legacy",
+        "moby-en": "/tmp/moby-legacy.txt",
+    }
+    assert (
+        dummy.language_resource_bindings()["wordnet-en"].origin == LANGUAGE_RESOURCE_ORIGIN_MANUAL
+    )
+    assert dummy.language_resource_bindings()["wordnet-en"].effective_path == "/tmp/wordnet-legacy"
+    assert dummy.language_resource_bindings()["moby-en"].origin == LANGUAGE_RESOURCE_ORIGIN_MANUAL
+    assert dummy.language_resource_bindings()["moby-en"].effective_path == "/tmp/moby-legacy.txt"
+
+
+def test_seed_language_pack_paths_prefers_binding_map_over_legacy_secondary_fields() -> None:
+    class _DummyPanel(LanguagePackPanelStateMixin):
+        pass
+
+    dummy = _DummyPanel()
+    dummy._is_app_data_path = lambda path, embeddings=False: False
+    dummy._language_pack_info = {}
+    settings = SynonymSourceSettings(
+        language_pack_paths={
+            "wordnet-en": "/tmp/wordnet-binding",
+            "moby-en": "/tmp/moby-binding.txt",
+        },
+        wordnet_dir="/tmp/wordnet-legacy",
+        moby_path="/tmp/moby-legacy.txt",
+    )
+
+    dummy._seed_language_pack_paths(settings)
+
+    assert dummy._managed_language_pack_ids == set()
+    assert dummy._language_pack_paths == {
+        "wordnet-en": "/tmp/wordnet-binding",
+        "moby-en": "/tmp/moby-binding.txt",
+    }
+    assert dummy.language_resource_bindings()["wordnet-en"].effective_path == "/tmp/wordnet-binding"
+    assert dummy.language_resource_bindings()["moby-en"].effective_path == "/tmp/moby-binding.txt"

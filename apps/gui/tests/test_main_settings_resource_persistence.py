@@ -191,3 +191,37 @@ def test_build_synonym_resource_settings_from_panel_prefers_language_bindings() 
     assert resolved.managed_language_pack_ids == ("freedict-en-es",)
     assert resolved.language_pack_paths == {"wordnet-en": "/tmp/wordnet"}
     assert resolved.wordnet_dir == "/tmp/wordnet"
+
+
+def test_build_synonym_resource_settings_from_panel_preserves_secondary_bindings() -> None:
+    panel = SimpleNamespace(
+        language_resource_bindings=lambda: {
+            "wordnet-en": LanguageResourceBinding(
+                pack_id="wordnet-en",
+                family=LANGUAGE_RESOURCE_FAMILY_SECONDARY,
+                origin=LANGUAGE_RESOURCE_ORIGIN_MANUAL,
+                effective_path="/tmp/wordnet",
+            ),
+            "moby-en": LanguageResourceBinding(
+                pack_id="moby-en",
+                family=LANGUAGE_RESOURCE_FAMILY_SECONDARY,
+                origin=LANGUAGE_RESOURCE_ORIGIN_MANUAL,
+                effective_path="/tmp/moby.txt",
+            ),
+        },
+        managed_frequency_pack_ids=lambda: [],
+        frequency_paths=lambda: {},
+        embedding_paths=lambda: {},
+        embedding_pair_pack_ids=lambda: {},
+        embedding_pair_paths=lambda: {},
+        embedding_pair_enabled=lambda: {},
+    )
+
+    resolved = build_synonym_resource_settings_from_panel(panel)
+
+    assert resolved.language_pack_paths == {
+        "wordnet-en": "/tmp/wordnet",
+        "moby-en": "/tmp/moby.txt",
+    }
+    assert resolved.wordnet_dir == "/tmp/wordnet"
+    assert resolved.moby_path == "/tmp/moby.txt"
