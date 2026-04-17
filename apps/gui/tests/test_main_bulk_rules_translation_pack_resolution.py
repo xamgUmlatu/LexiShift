@@ -128,3 +128,38 @@ def test_configured_language_pack_paths_include_managed_translation_pack_ids() -
 
     assert resolved["freedict-en-es"] == str(artifact)
     assert resolved["wordnet-en"] == "/tmp/wordnet"
+
+
+def test_configured_language_pack_paths_prefer_managed_artifact_over_same_key_manual_entry() -> (
+    None
+):
+    with TemporaryDirectory() as temp_dir:
+        root = Path(temp_dir)
+        pack_root = root / "language_packs" / "freedict-en-es"
+        pack_root.mkdir(parents=True, exist_ok=True)
+        artifact = pack_root / "main.sqlite"
+        artifact.write_text("placeholder", encoding="utf-8")
+        stale = root / "manual.sqlite"
+        stale.write_text("placeholder", encoding="utf-8")
+        write_installed_pack_manifest(
+            root / "language_packs",
+            pack_id="freedict-en-es",
+            pack_kind="language",
+            provider="freedict",
+            local_kind="dir",
+            build_mode="freedict_tei_to_sqlite",
+            artifact_path=artifact,
+            sqlite_filename="main.sqlite",
+        )
+        settings = SynonymSourceSettings(
+            managed_language_pack_ids=("freedict-en-es",),
+            language_pack_paths={"freedict-en-es": str(stale)},
+        )
+
+        resolved = resolve_configured_language_pack_paths(
+            language_packs_dir=root / "language_packs",
+            settings_language_pack_paths=settings.language_pack_paths,
+            managed_language_pack_ids=settings.managed_language_pack_ids,
+        )
+
+    assert resolved["freedict-en-es"] == str(artifact)

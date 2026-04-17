@@ -119,3 +119,49 @@ class TestTranslationPacks(unittest.TestCase):
 
         self.assertEqual(resolved["freedict-en-es"], str(artifact))
         self.assertEqual(resolved["wordnet-en"], "/tmp/wordnet")
+
+    def test_resolve_configured_language_pack_paths_prefers_managed_artifact_over_same_key_path(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            base_dir = Path(tmp)
+            pack_root = base_dir / "freedict-en-es"
+            pack_root.mkdir(parents=True, exist_ok=True)
+            artifact = pack_root / "main.sqlite"
+            artifact.write_bytes(b"SQLite format 3\x00")
+            stale = base_dir / "stale.sqlite"
+            stale.write_bytes(b"SQLite format 3\x00")
+            write_installed_pack_manifest(
+                base_dir,
+                pack_id="freedict-en-es",
+                pack_kind="language",
+                provider="freedict",
+                local_kind="file",
+                build_mode="freedict_tei_to_sqlite",
+                artifact_path=artifact,
+                sqlite_filename="main.sqlite",
+            )
+
+            resolved = resolve_configured_language_pack_paths(
+                language_packs_dir=base_dir,
+                settings_language_pack_paths={"freedict-en-es": str(stale)},
+                managed_language_pack_ids=("freedict-en-es",),
+            )
+
+        self.assertEqual(resolved["freedict-en-es"], str(artifact))
+
+    def test_resolve_configured_language_pack_paths_keeps_configured_path_when_managed_artifact_missing(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            base_dir = Path(tmp)
+            configured = base_dir / "manual.sqlite"
+            configured.write_bytes(b"SQLite format 3\x00")
+
+            resolved = resolve_configured_language_pack_paths(
+                language_packs_dir=base_dir,
+                settings_language_pack_paths={"freedict-en-es": str(configured)},
+                managed_language_pack_ids=("freedict-en-es",),
+            )
+
+        self.assertEqual(resolved["freedict-en-es"], str(configured))

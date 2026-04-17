@@ -77,7 +77,7 @@ def resolve_configured_language_pack_paths(
     }
     for pack_id in tuple(managed_language_pack_ids or ()):
         pack_key = str(pack_id or "").strip()
-        if not pack_key or pack_key in configured:
+        if not pack_key:
             continue
         resolved = resolve_installed_pack_artifact(language_packs_dir, pack_key)
         if resolved is not None and resolved.is_file():
