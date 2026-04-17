@@ -224,7 +224,7 @@ Required behavior after this phase:
 
 - helper paths expose `srs_inventory_path_for(profile_id)`
 - code can load/save explicit pair-local active inventory
-- no publication flow uses inventory yet unless explicitly wired in later phases
+- additive consumers may read or backfill active inventory, but broader initialize/refresh/reset/runtime reconciliation still belongs to later phases
 
 Manual rules:
 
@@ -240,6 +240,22 @@ Validation gate:
 Checkpoint:
 
 - commit after inventory persistence exists and does not affect semantic publication
+- Current audit result on `2026-04-18`:
+  - `core/lexishift_core/srs/inventory.py` remains a pair-local persistence seam with explicit `active_item_ids` plus `last_initialized_at` / `last_refreshed_at` / `last_rebalanced_at`
+  - `HelperPaths.srs_inventory_path_for(profile_id)` remains additive and profile-scoped at `srs/profiles/<profile_id>/srs_inventory.json`
+  - inventory resolution stays intentionally forgiving:
+    - if no pair entry exists, active ids fall back to the store
+    - if stored item ids are stale, missing ids are dropped during resolution rather than breaking publication/runtime flows
+  - first-layer consumers are now explicitly part of the seam boundary:
+    - `run_rulegen_job` can pass inventory-derived `active_item_ids` to rulegen and can backfill the inventory from store-derived membership
+    - runtime diagnostics can distinguish `inventory` from `store_fallback` state and report stale inventory ids missing from the store
+  - this means the inventory seam is now real without becoming a hard semantic-publication rewrite by itself; later phases still own the broader initialize/refresh/reset/runtime reconciliation work
+  - direct `2026-04-18` validation reran green:
+    - `python3 -m pytest core/tests/srs/test_srs_inventory.py core/tests/helper/test_helper_profiles.py core/tests/helper/test_helper_engine.py -k "rulegen_uses_inventory_active_ids_when_present or rulegen_backfills_inventory_after_bootstrap_publish or runtime_diagnostics_with_existing_files or runtime_diagnostics_reports_store_fallback_inventory_with_publication_state or reset_pair_scopes_to_profile" -q`
+    - `5 passed`
+    - semantic Phase 0 baseline rerun:
+      - `python3 -m pytest core/tests/rulegen/test_semantic_publication.py core/tests/rulegen/test_semantic_routing_runtime_policy.py core/tests/helper/test_rulegen_outputs.py core/tests/architecture/test_extension_structure.py core/tests/dev/test_helper_translation_dict_entrypoints.py -q`
+      - `27 passed`
 
 ## Phase 3: Add Helper API Surface For Admission Preview / Rebalance
 
