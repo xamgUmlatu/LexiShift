@@ -1057,20 +1057,24 @@ Use this file when:
 - Status:
   - `frequency_bootstrap`: `implemented`, `default-on`, `verified`
   - `profile_bootstrap`: `implemented`, `verified`; `default-on` = `no`
-  - `profile_growth`: `scaffolded`
+  - `profile_growth`: `implemented` (rebalance preview/apply lane), `verified`; `default-on` = `no`
   - `adaptive_refresh`: `scaffolded`
-- Last documented checkpoint: `2026-04-15`
-- Last verified: `2026-04-15` targeted profile-bootstrap unit/dev coverage plus SRS quality harness
+- Last documented checkpoint: `2026-04-18` planner-strategy truth pass confirmed bootstrap fallback plus executable rebalance-only `profile_growth`
+- Last verified: `2026-04-18` targeted planner/helper strategy contract tests plus state/doc inspection
 - Default behavior:
-  - Default executable behavior remains frequency bootstrap.
-  - `profile_bootstrap` now has implemented normalization, scoring, diagnostics, and standalone/dev harness coverage, but helper initialization still falls back to frequency bootstrap until later wiring.
-  - `profile_growth` and `adaptive_refresh` still fall back to planning-only behavior.
+  - Default bootstrap execution remains frequency bootstrap.
+  - `profile_bootstrap` now has implemented normalization, scoring, diagnostics, and standalone/dev harness coverage, but helper initialization/admission preview still fall back to frequency bootstrap execution until later wiring.
+  - `profile_growth` is executable for the dedicated rebalance preview/apply lane, but not yet as a general growth-admission strategy for adding new items into `S`.
+  - `adaptive_refresh` still falls back to planning-only behavior.
 - Evidence:
   - `docs/srs/srs_set_planning_technical.md`
   - `core/lexishift_core/srs/admission_features.py`
   - `core/lexishift_core/srs/profile_bootstrap.py`
   - `core/lexishift_core/srs/set_planner.py`
+  - `core/lexishift_core/helper/use_cases/rebalance_set.py`
   - `core/tests/srs/test_profile_bootstrap.py`
+  - `core/tests/srs/test_srs_set_planner.py`
+  - `core/tests/dev/test_srs_planner_strategy_contract.py`
   - `core/tests/dev/test_srs_admission_preference_sanity.py`
   - `core/tests/dev/test_srs_frequency_topic_coverage.py`
   - `scripts/testing/srs_admission_preference_sanity.py`
@@ -1078,6 +1082,7 @@ Use this file when:
   - `core/lexishift_core/helper/use_cases/initialize_set.py`
 - Known gaps:
   - Planner/core diagnostics are ahead of helper execution wiring for `profile_bootstrap`.
+  - `profile_growth` execution is currently limited to rebalance preview/apply; broader growth admission remains planned.
   - Pair policy defaults are currently near-identical across active pairs.
 
 ## Due-Aware SRS Serving

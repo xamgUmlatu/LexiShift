@@ -166,7 +166,7 @@ This keeps profile modeling decoupled from mutation details.
 
 - `frequency_bootstrap`: executable baseline.
 - `profile_bootstrap`: planner-supported, currently fallback execution.
-- `profile_growth`: planner-only.
+- `profile_growth`: executable for dedicated rebalance preview/apply, but not yet for general growth admission.
 - `adaptive_refresh`: planner-only, feedback-aggregation dependent.
 
 Objectives:

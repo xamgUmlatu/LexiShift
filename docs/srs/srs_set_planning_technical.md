@@ -39,8 +39,8 @@ Define how set `S` is planned and mutated:
   - Behavior: planner accepts profile context, currently executes as frequency bootstrap.
 
 - `profile_growth`
-  - Status: planner-only.
-  - Behavior: returns requirements/notes; no mutation yet.
+  - Status: rebalance-only executable lane.
+  - Behavior: dedicated rebalance preview/apply keep `profile_growth` as the effective strategy, but broader growth admission remains unimplemented.
 
 - `adaptive_refresh`
   - Status: planner-only.
@@ -112,12 +112,12 @@ Policy decision for SRS scheduling:
   - `max_active_items_hint`
   - `trigger: "options_initialize_button"`
 - Planner diagnostics now normalize `profile_context` and expose profile-bootstrap summaries.
-- Current helper execution fallback still remains frequency bootstrap.
+- Current helper execution still resolves that path to `strategy_effective="frequency_bootstrap"` / `execution_mode="frequency_bootstrap"`.
 
 ## Planned implementation steps
 
 1. Wire the implemented `profile_bootstrap` core scoring path into helper-side initialization execution.
-2. Implement executable `profile_growth` for controlled admission into `S`.
+2. Implement executable `profile_growth` for controlled admission into `S`, beyond the current rebalance-only lane.
 3. Add feedback-window aggregation for `adaptive_refresh`.
 4. Add policy registry by pair/domain to route strategy defaults.
 5. Add UI surfaces to edit profile signals and inspect planner diagnostics.
