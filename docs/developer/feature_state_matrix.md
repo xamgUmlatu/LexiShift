@@ -1088,16 +1088,21 @@ Use this file when:
 ## Due-Aware SRS Serving
 
 - Status: `planned`; end-to-end implementation not verified
-- Last documented checkpoint: `2026-02-23`
-- Last verified: `2026-03-11` code inspection
+- Last documented checkpoint: `2026-04-16` due-aware serving audit
+- Last verified: `2026-04-16` code-path audit + synthetic harness artifact review
 - Default behavior:
-  - Docs define due-set-driven serving.
-  - Current helper publication and extension gate behavior appear to operate on admitted `S` items rather than a separately published due subset.
+  - Scheduler code builds a due queue from `next_due`.
+  - Current helper publication paths publish the active/admitted inventory for the pair, not a separately materialized due subset.
+  - Current extension SRS gate accepts the published helper SRS ruleset as active; it does not derive a runtime due-only subset.
 - Evidence:
   - `docs/srs/srs_hybrid_model_technical.md`
   - `core/lexishift_core/srs/scheduler.py`
+  - `core/lexishift_core/helper/use_cases/initialize_set.py`
+  - `core/lexishift_core/helper/use_cases/refresh_set.py`
   - `core/lexishift_core/helper/rulegen.py`
   - `apps/chrome-extension/shared/srs/srs_gate.js`
+  - `scripts/testing/srs_quality_harness.py`
+  - `docs/test_outputs/srs_quality_latest.json`
 - Known gaps:
   - No explicit due-state artifact or due-aware helper ruleset publish path is currently tracked here.
   - This item should remain `planned` until helper publication and runtime gating are verified against due-state behavior.
@@ -1141,7 +1146,7 @@ Use this file when:
 These are not accidental wording issues. Keep them explicit until code and docs converge.
 
 1. Reverse-check is implemented but not yet default-on.
-2. SRS docs define due-aware serving, but current end-to-end publish/gate behavior is not yet verified as due-aware.
+2. SRS docs define due-aware serving, but current end-to-end publish/gate behavior still uses the broader admitted inventory rather than a due-only runtime surface.
 3. Docs mention runtime confidence filtering, but extension-side helper-rule confidence gating is not yet verified in code.
 4. Planner docs describe multiple strategies, but executable behavior is still dominated by frequency bootstrap.
 5. SRS profile/schema docs still describe a broader profile-context shape, but the current extension settings path rebuilds signals from a fixed `v1` allowlist (`interests`, `objectives`, `proficiency`, `difficultyPreferences`, `empiricalTrends`, `sourcePreferences`) rather than preserving arbitrary unknown signal keys.
