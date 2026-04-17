@@ -3,7 +3,7 @@
 Status: active planning
 Role: Planning / WIP
 Last updated: 2026-04-17
-Last verified: 2026-04-17 planning draft aligned to the stabilization runbook, backlog, and current branch context
+Last verified: 2026-04-17 planning draft strengthened with risk scoring, traceability, and manual scenario guidance
 Purpose: define the invariant-driven follow-on review that comes after the first structural stabilization pass so correctness risks are checked deliberately, one seam at a time
 Source-of-truth: planning doc only; executable truth still lives in code, tests, `feature_state_matrix.md`, and the evidence artifacts generated during each slice
 Related docs:
@@ -54,15 +54,55 @@ A secondary-pass slice is done only when all of the following are true:
 
 1. The seam is explicitly bounded.
 2. The surrounding-area packet is written down before editing.
-3. The invariants and scenario matrix are explicit.
-4. The smallest honest validation bundle has been run.
+3. The slice risk score and claim-to-evidence map are explicit.
+4. The invariants and scenario matrix are explicit.
 5. Findings are classified as:
    - fixed now,
    - verified-as-expected,
    - logged in `project_integrity_secondary_pass_notes.md`,
    - or promoted to `feature_state_matrix.md` / backlog / seam docs.
-6. The resulting checkpoint is narrow enough to explain in one short handoff.
-7. No interesting side finding is left only in chat history.
+6. The smallest honest validation bundle has been run.
+7. The resulting checkpoint is narrow enough to explain in one short handoff.
+8. No interesting side finding is left only in chat history.
+
+## Lightweight Review Controls
+
+These controls are intentionally small.
+They add rigor without turning every slice into heavy process.
+
+### Risk scoring
+
+Before starting a slice, score it on three dimensions:
+
+- likelihood: how likely the seam is to hide a real defect
+- blast radius: how broadly the defect would affect behavior if present
+- observability: how hard the defect would be to notice without a deliberate review
+
+Use `low`, `medium`, or `high` for each.
+
+Interpretation:
+
+- `very high` priority: high blast radius plus hard observability, or three clearly elevated dimensions
+- `high` priority: any two dimensions elevated
+- `medium` priority: one elevated dimension or narrower/localized impact
+- `low` priority: bounded, well-exercised seam with easy detection
+
+The score is for sequencing and review depth, not for hiding low-risk work forever.
+
+### Claim-to-evidence traceability
+
+For every slice, write a compact map before editing:
+
+| Claim | Owning code/tests | Evidence surface | Current status |
+|---|---|---|---|
+| What we think is true | Which module or test is supposed to prove it | Harness/test/artifact/doc | verified / uncertain / contradicted |
+
+This helps prevent "verified" from meaning only "someone once wrote it in a doc."
+
+### Finding taxonomy
+
+Every finding should carry a category as well as a disposition.
+Use the categories from `project_integrity_secondary_pass_notes.md` so repeated patterns are visible across slices.
 
 ## Per-Move Playbook
 
@@ -84,6 +124,7 @@ Write down:
 - the exact seam,
 - the main executable contract,
 - what is explicitly out of scope,
+- the slice risk score,
 - and the validation floor for this slice.
 
 If the research reveals multiple seams, split the work before editing.
@@ -98,6 +139,17 @@ Summarize the seam in plain language:
 - and which layers must agree.
 
 If code and docs disagree, assume code/tests are the stronger signal until evidence says otherwise.
+
+### 2b. Claim-to-evidence map
+
+List the main present-tense claims that matter for this slice and attach each one to:
+
+- the owning module or API,
+- the nearest tests or harness,
+- the evidence artifact if one exists,
+- and the current confidence level.
+
+If a claim has no credible evidence surface, that gap is itself part of the review result.
 
 ### 3. Invariant list
 
@@ -118,6 +170,12 @@ Build a small scenario table before editing:
 - stale or partially-migrated path,
 - repeated action / idempotency path,
 - and undo/reset/recovery path.
+
+When the seam is persistence-heavy, also ask whether a round-trip or property-style test should exist, for example:
+
+- serialize -> deserialize -> serialize remains stable
+- save -> reload -> consume preserves the same identity
+- reset -> rerun does not retain stale derived state
 
 The goal is to catch subtle correctness bugs that file-size cleanup would never reveal.
 
@@ -150,9 +208,25 @@ Classify every interesting finding:
 - carry forward in `project_integrity_secondary_pass_notes.md`,
 - or promote immediately to `feature_state_matrix.md` if it changes a current truth claim.
 
+Also assign one taxonomy tag:
+
+- `contract mismatch`
+- `persistence drift`
+- `lifecycle bug`
+- `negative-path gap`
+- `docs/state drift`
+- `false-green evidence`
+- `tooling noise`
+
 ### 8. Checkpoint
 
 Leave a narrow checkpoint when the slice is coherent.
+Before committing, re-read the contract sketch and answer explicitly:
+
+- did this slice change behavior,
+- clarify existing behavior,
+- or only improve evidence and structure?
+
 If the slice uncovered another seam, start a new backlog item or notes-ledger entry instead of silently carrying extra scope forward.
 
 ## No-Go Rules
@@ -162,6 +236,18 @@ If the slice uncovered another seam, start a new backlog item or notes-ledger en
 3. Do not promote planning text into current truth without code/tests/evidence.
 4. Do not fix out-of-scope observations in the same slice unless they block the seam under review.
 5. Do not close a slice while a meaningful side finding exists only in conversation history.
+
+## Periodic Synthesis Checkpoints
+
+After every two or three completed slices, stop and do a short synthesis pass:
+
+1. re-read the notes ledger
+2. look for repeated taxonomy patterns
+3. re-rank the remaining queue using the risk scores
+4. decide whether any recurring manual scenario should become an automated test
+5. update the plan order only if the new evidence justifies it
+
+This keeps the plan responsive without turning it into a moving target every hour.
 
 ## Secondary-Pass Perspectives
 
@@ -219,15 +305,15 @@ Questions:
 The queue below is the recommended order after the structural-health pass.
 Each track should still be split into narrow checkpoint slices during execution.
 
-| Track | Focus | Why it is next | Validation floor | Related backlog ids |
-|---|---|---|---|---|
-| `SP1` | Resource settings and round-trip correctness | Recent work touched settings/resource seams, and round-trip drift here can poison later passes. | `V0`, `V1`, targeted GUI/settings tests | `E1`, `E2`, `E3`, `E4`, `F15`, `F16` |
-| `SP2` | SRS profile, admission, publication, and runtime correctness | This seam is stateful, cross-layer, and already has a known due-aware warning that needs a deliberate answer. | `V0`, `V1`, `V3`, targeted SRS tests | `C1`, `C3`, `C4`, `D2`-`D8` |
-| `SP3` | Semantic publication and runtime contract correctness | Semantic publication/runtime claims span docs, helper outputs, diagnostics, and runtime fallback behavior. | `V0`, `V2`, targeted semantic/helper tests | `B1`-`B5` |
-| `SP4` | Rulegen artifact and source-selection correctness | Structural splits reduced pressure, but source resolution and artifact identity still need correctness review. | `V0`, `V4`, targeted rulegen tests | `E1`, `B3`, `F12`, `F13` |
-| `SP5` | Extension/controller workflow correctness | Controller ordering, module loading, share/import, and runtime scan behavior need explicit post-refactor verification. | `V0`, `V1`, targeted extension/controller tests | `C2`, `D8`, `F14` |
-| `SP6` | Documentation, state-ledger, and backlog reconciliation | After seam reviews, current-truth docs and backlog snapshots need to reflect what was actually learned. | `V0`, `V1`, `check:state` when needed | `A2`, `A3`, `A4`, `B6` |
-| `SP7` | Evidence and tooling reliability | We should tighten the signal quality of the harnesses and repo-safety output before calling the broader cleanup "trustworthy". | `V0`, `V1`, targeted tooling checks | `G1`-`G4` |
+| Track | Focus | Risk | Why it is next | Validation floor | Related backlog ids |
+|---|---|---|---|---|---|
+| `SP1` | Resource settings and round-trip correctness | `very high` | Recent work touched settings/resource seams, and round-trip drift here can poison later passes. | `V0`, `V1`, targeted GUI/settings tests | `E1`, `E2`, `E3`, `E4`, `F15`, `F16` |
+| `SP2` | SRS profile, admission, publication, and runtime correctness | `very high` | This seam is stateful, cross-layer, and already has a known due-aware warning that needs a deliberate answer. | `V0`, `V1`, `V3`, targeted SRS tests | `C1`, `C3`, `C4`, `D2`-`D8` |
+| `SP3` | Semantic publication and runtime contract correctness | `high` | Semantic publication/runtime claims span docs, helper outputs, diagnostics, and runtime fallback behavior. | `V0`, `V2`, targeted semantic/helper tests | `B1`-`B5` |
+| `SP4` | Rulegen artifact and source-selection correctness | `high` | Structural splits reduced pressure, but source resolution and artifact identity still need correctness review. | `V0`, `V4`, targeted rulegen tests | `E1`, `B3`, `F12`, `F13` |
+| `SP5` | Extension/controller workflow correctness | `high` | Controller ordering, module loading, share/import, and runtime scan behavior need explicit post-refactor verification. | `V0`, `V1`, targeted extension/controller tests | `C2`, `D8`, `F14` |
+| `SP6` | Documentation, state-ledger, and backlog reconciliation | `medium` | After seam reviews, current-truth docs and backlog snapshots need to reflect what was actually learned. | `V0`, `V1`, `check:state` when needed | `A2`, `A3`, `A4`, `B6` |
+| `SP7` | Evidence and tooling reliability | `medium-high` | We should tighten the signal quality of the harnesses and repo-safety output before calling the broader cleanup "trustworthy". | `V0`, `V1`, targeted tooling checks | `G1`-`G4` |
 
 ## Track Detail
 
@@ -250,6 +336,14 @@ Core invariants:
 - mixed managed/manual state remains distinguishable after reload
 - remove/unlink actions do not leave orphaned UI or stale config state
 
+Manual scenario checklist:
+
+1. save managed translation/frequency/embedding pack selections, restart the settings surface, and confirm ids survive without path drift
+2. save a mixed managed/manual configuration, reload it, and confirm the two modes remain distinguishable
+3. unlink or delete an installed pack, reload, and confirm stale UI state and stale config fields are gone
+4. run a serialize -> deserialize -> serialize comparison for the touched settings objects where practical
+5. verify the consuming helper/runtime path resolves the same resource identity that the UI persisted
+
 ### `SP2`: SRS Profile, Admission, Publication, And Runtime Correctness
 
 Primary question:
@@ -269,6 +363,14 @@ Core invariants:
 - preview paths do not mutate live state unless explicitly meant to
 - refresh/reset mutate only the artifacts they own
 - published, admitted, due, and served sets have explainable relationships
+
+Manual scenario checklist:
+
+1. edit profile settings, save, reload, and confirm the persisted schema matches the supported allowlist and sizing authority
+2. run preview/rebalance paths and confirm they do not mutate live state before an explicit apply step
+3. execute initialize -> refresh -> reset on the same pair/profile and inspect diagnostics after each stage
+4. compare admitted, published, due, and served counts in a scenario that exercises the known due-aware warning
+5. repeat a pause/resume or rerun flow and confirm state transitions stay explainable rather than accumulating stale inventory
 
 ### `SP3`: Semantic Publication And Runtime Contract Correctness
 
