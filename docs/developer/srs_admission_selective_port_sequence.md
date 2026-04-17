@@ -345,6 +345,19 @@ Required integrated behavior:
 - rulegen/publication runs against the active inventory
 - `write_rulegen_outputs(...)` still receives `semantic_inventory=getattr(rulegen_output, "semantic_inventory", None)`
 
+Current initialize-only audit on `2026-04-18`:
+
+- `initialize_set.py` still persists pair-local active inventory before publication and stamps `last_initialized_at`
+- non-replace initialization still merges newly initialized active ids with already resolved active inventory, while `replace_pair=True` rebaselines the pair-local active set
+- initialize still forwards explicit `active_item_ids` into the follow-up rulegen call and still routes publication through the current semantic family
+- direct `2026-04-18` validation reran green:
+  - `python3 -m pytest core/tests/helper/test_helper_engine.py::TestHelperEngineInitializeSrsSet core/tests/srs/test_srs_lp_e2e.py::TestSrsLpE2E::test_en_ja_e2e_initialize_and_refresh_publish_outputs core/tests/srs/test_srs_lp_e2e.py::TestSrsLpE2E::test_en_de_e2e_initialize_and_refresh_publish_outputs -q`
+  - `6 passed`
+  - `python3 scripts/testing/srs_quality_harness.py --json-out docs/test_outputs/srs_quality_latest.json`
+  - `pass=15 warn=1 fail=0`
+  - known warning remains the due-aware publication caveat, not an initialize failure
+  - one local `en-es` tempdir smoke using synthetic `freq-es-cde.sqlite`, explicit forward `spa-eng.tei`, and default reverse `eng-spa.tei` completed with `applied=True`, `targets=40`, `rules=40`, and emitted semantic inventory plus publication manifest paths
+
 ### Refresh
 
 - refresh updates explicit active inventory when new words enter `S`
