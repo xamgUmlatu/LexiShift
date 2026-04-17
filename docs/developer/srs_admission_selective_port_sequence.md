@@ -189,6 +189,19 @@ Validation gate:
 Checkpoint:
 
 - commit after the core admission math/tests pass
+- Current audit result on `2026-04-18`:
+  - `admission_features.py` and `profile_bootstrap.py` remain additive admission-core modules; no helper semantic publication files need to move for this phase
+  - profile-context normalization, candidate-trait extraction, signal-pack scoring, and standalone/dev harness coverage remain verified
+  - direct `2026-04-18` validation reran green:
+    - `python3 -m pytest core/tests/srs/test_profile_bootstrap.py core/tests/dev/test_srs_admission_preference_sanity.py core/tests/dev/test_srs_frequency_topic_coverage.py core/tests/srs/test_srs_set_planner.py core/tests/helper/test_helper_engine.py -k "profile_bootstrap or srs_admission_preference_sanity or srs_frequency_topic_coverage or preview_returns_profile_bootstrap_payload_without_mutating_store or preview_executes_real_profile_bootstrap_with_seed_topic_columns or test_plan_srs_set_surfaces_profile_bootstrap_diagnostics" -q`
+    - `18 passed`
+    - `python3 scripts/testing/srs_admission_preference_sanity.py`
+    - `{"status": "PASS", "pass_count": 6, "warn_count": 0, "fail_count": 0}`
+    - synthetic topic-column audit via `python3 scripts/testing/srs_frequency_topic_coverage.py --db <synthetic_db> --frontier-limit 2`
+    - `{"status": "PASS", "pass_count": 2, "warn_count": 0, "fail_count": 0}`
+  - helper initialization still treats `profile_bootstrap` as diagnostics plus planning context and falls back to `frequency_bootstrap` for executable bootstrap
+  - `rebalance.py` remains intentionally outside the pure-core checkpoint because it depends on the later explicit-inventory seam
+  - structural follow-up is still warranted for `profile_bootstrap.py` as a large module, but that remains a later health pass rather than a Phase 1 contract change
 
 ## Phase 2: Port Explicit Active Inventory
 
