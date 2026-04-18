@@ -10,6 +10,7 @@ os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 from PySide6.QtWidgets import QApplication
 
 from i18n import set_locale
+from language_packs import PackTransportOverride
 from settings_language_packs import LanguagePackPanel
 from settings_language_packs_support import (
     LANGUAGE_RESOURCE_FAMILY_SECONDARY,
@@ -134,6 +135,25 @@ def test_frequency_pack_table_marks_managed_artifact_as_installed() -> None:
         row = panel._frequency_pack_rows["freq-en-coca"]
         assert row.status_item.text() == "Installed"
         assert row.status_item.toolTip() == str(managed)
+
+
+def test_frequency_pack_table_marks_manifest_disabled_source_as_disabled() -> None:
+    _app()
+    set_locale("en")
+    panel = LanguagePackPanel(
+        pack_source_overrides={
+            "freq-en-coca": PackTransportOverride(
+                disabled=True,
+                disabled_reason="Temporarily unavailable",
+            )
+        }
+    )
+
+    row = panel._frequency_pack_rows["freq-en-coca"]
+    assert row.status_item.text() == "Disabled"
+    assert row.status_item.toolTip() == "Temporarily unavailable"
+    assert not row.download_button.isEnabled()
+    assert row.download_button.toolTip() == "Temporarily unavailable"
 
 
 def test_embedding_pack_table_distinguishes_active_manual_and_installed() -> None:

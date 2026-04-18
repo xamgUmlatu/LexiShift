@@ -43,6 +43,8 @@ def _snapshot(*, fetched_at: datetime, ttl_hours: int = 24) -> PackSourceManifes
                 url="https://example.com/freedict-eng-spa.tar.xz",
                 filename="freedict-eng-spa.tar.xz",
                 expected_content_type="application/x-xz",
+                disabled=True,
+                disabled_reason="Upstream source temporarily disabled.",
             )
         },
     )
@@ -66,6 +68,11 @@ def test_resolve_pack_source_manifest_uses_fresh_cache_without_fetch() -> None:
     assert resolved is not None
     assert resolved.overrides["freedict-en-es"].filename == "freedict-eng-spa.tar.xz"
     assert resolved.overrides["freedict-en-es"].expected_content_type == "application/x-xz"
+    assert resolved.overrides["freedict-en-es"].disabled is True
+    assert (
+        resolved.overrides["freedict-en-es"].disabled_reason
+        == "Upstream source temporarily disabled."
+    )
 
 
 def test_resolve_pack_source_manifest_fetches_and_writes_cache_when_missing() -> None:

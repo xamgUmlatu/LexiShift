@@ -18,10 +18,33 @@ from settings_language_packs_support import (
     EmbeddingPackRow,
     FrequencyPackRow,
     LanguagePackRow,
+    is_pack_download_disabled,
+    pack_download_disabled_tooltip,
 )
 
 
 class LanguagePackPanelTableMixin:
+    def _refresh_download_button_state(
+        self,
+        *,
+        pack,
+        download_button: QPushButton,
+        download_exists: bool,
+        resolved_path: str | None,
+    ) -> None:
+        if download_exists or resolved_path:
+            download_button.setText(t("buttons.redownload"))
+        else:
+            download_button.setText(t("buttons.download"))
+        if is_pack_download_disabled(getattr(self, "_pack_source_overrides", {}), pack.pack_id):
+            download_button.setEnabled(False)
+            download_button.setToolTip(
+                pack_download_disabled_tooltip(getattr(self, "_pack_source_overrides", {}), pack)
+            )
+            return
+        download_button.setEnabled(True)
+        download_button.setToolTip("")
+
     def _language_pack_status_key(self, pack_id: str, path: str) -> str:
         if self._is_installed_language_pack_entry(pack_id, path):
             return "language_packs.status.installed"
@@ -78,15 +101,26 @@ class LanguagePackPanelTableMixin:
                     row.status_item.setText(t("language_packs.status.invalid"))
                     self._set_status_item_tone(row.status_item, "error")
                     row.status_item.setToolTip(message)
+            elif is_pack_download_disabled(getattr(self, "_pack_source_overrides", {}), pack_id):
+                row.status_item.setText(t("rules_table.disabled"))
+                self._set_status_item_tone(row.status_item, "error")
+                row.status_item.setToolTip(
+                    pack_download_disabled_tooltip(
+                        getattr(self, "_pack_source_overrides", {}),
+                        pack,
+                    )
+                )
             else:
                 row.status_item.setText(t("language_packs.status.available"))
                 self._set_status_item_tone(row.status_item, "muted")
             download_exists = dest_path and os.path.exists(dest_path)
             row.delete_button.setEnabled(bool(local_path or resolved_path or download_exists))
-            if download_exists or resolved_path:
-                row.download_button.setText(t("buttons.redownload"))
-            else:
-                row.download_button.setText(t("buttons.download"))
+            self._refresh_download_button_state(
+                pack=pack,
+                download_button=row.download_button,
+                download_exists=bool(download_exists),
+                resolved_path=resolved_path,
+            )
 
     def _refresh_frequency_pack_table(self) -> None:
         for pack_id, row in self._frequency_pack_rows.items():
@@ -123,15 +157,26 @@ class LanguagePackPanelTableMixin:
                     row.status_item.setText(t("language_packs.status.invalid"))
                     self._set_status_item_tone(row.status_item, "error")
                     row.status_item.setToolTip(message)
+            elif is_pack_download_disabled(getattr(self, "_pack_source_overrides", {}), pack_id):
+                row.status_item.setText(t("rules_table.disabled"))
+                self._set_status_item_tone(row.status_item, "error")
+                row.status_item.setToolTip(
+                    pack_download_disabled_tooltip(
+                        getattr(self, "_pack_source_overrides", {}),
+                        pack,
+                    )
+                )
             else:
                 row.status_item.setText(t("language_packs.status.available"))
                 self._set_status_item_tone(row.status_item, "muted")
             download_exists = archive_path and os.path.exists(archive_path)
             row.delete_button.setEnabled(bool(local_path or sqlite_path or download_exists))
-            if download_exists or sqlite_path:
-                row.download_button.setText(t("buttons.redownload"))
-            else:
-                row.download_button.setText(t("buttons.download"))
+            self._refresh_download_button_state(
+                pack=pack,
+                download_button=row.download_button,
+                download_exists=bool(download_exists),
+                resolved_path=sqlite_path,
+            )
 
     def _refresh_embedding_pack_table(self) -> None:
         self._refresh_embedding_rows(self._embedding_pack_rows)
@@ -188,15 +233,26 @@ class LanguagePackPanelTableMixin:
                 row.status_item.setText(t("language_packs.status.installed"))
                 self._set_status_item_tone(row.status_item, "success")
                 row.status_item.setToolTip(resolved_path)
+            elif is_pack_download_disabled(getattr(self, "_pack_source_overrides", {}), pack_id):
+                row.status_item.setText(t("rules_table.disabled"))
+                self._set_status_item_tone(row.status_item, "error")
+                row.status_item.setToolTip(
+                    pack_download_disabled_tooltip(
+                        getattr(self, "_pack_source_overrides", {}),
+                        pack,
+                    )
+                )
             else:
                 row.status_item.setText(t("language_packs.status.available"))
                 self._set_status_item_tone(row.status_item, "muted")
             download_exists = dest_path and os.path.exists(dest_path)
             row.delete_button.setEnabled(bool(local_path or resolved_path or download_exists))
-            if download_exists or resolved_path:
-                row.download_button.setText(t("buttons.redownload"))
-            else:
-                row.download_button.setText(t("buttons.download"))
+            self._refresh_download_button_state(
+                pack=pack,
+                download_button=row.download_button,
+                download_exists=bool(download_exists),
+                resolved_path=resolved_path,
+            )
 
     def _embedding_row_for(self, pack_id: str) -> Optional[EmbeddingPackRow]:
         return self._embedding_pack_rows.get(pack_id) or self._cross_embedding_pack_rows.get(

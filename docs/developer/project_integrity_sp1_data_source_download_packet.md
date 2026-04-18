@@ -216,6 +216,7 @@ Current default outputs:
 Current scope note:
 
 - the implemented audit validates the current manifest schema, probes effective primary plus archive URLs, and enforces `expected_content_type` when provided
+- the settings panel now respects manifest `disabled` / `disabled_reason` by blocking app-managed downloads while keeping local/manual paths available
 - checksum enforcement can layer on later if `sha256` becomes a first-class manifest input
 
 ## Bite-Sized Implementation Order

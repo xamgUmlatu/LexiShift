@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+from unittest.mock import patch
 
 os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 
@@ -56,12 +57,13 @@ def test_build_pack_catalogs_applies_transport_override_only_to_target_pack() ->
     assert untouched is _language_pack("freedict-en-de")
 
 
-def test_build_pack_catalogs_ignores_blank_and_unknown_override_fields() -> None:
+def test_build_pack_catalogs_keeps_metadata_only_override_from_mutating_pack_fields() -> None:
     snapshot = build_pack_catalogs(
         source_overrides={
             "freq-en-coca": {
                 "url": "   ",
-                "disabled_reason": "ignored in this slice",
+                "disabled": True,
+                "disabled_reason": "Temporarily unavailable",
             }
         }
     )
@@ -89,3 +91,22 @@ def test_language_pack_panel_accepts_pack_source_overrides() -> None:
     assert pack.filename == "lemmas_60k_override.txt"
     assert pack.url == "https://example.com/lemmas_60k_override.txt"
     assert archive_path.endswith("lemmas_60k_override.txt")
+
+
+def test_frequency_pack_download_is_blocked_when_manifest_disables_source() -> None:
+    _app()
+    panel = LanguagePackPanel(
+        pack_source_overrides={
+            "freq-en-coca": PackTransportOverride(
+                disabled=True,
+                disabled_reason="Temporarily unavailable",
+            )
+        }
+    )
+
+    with patch("settings_language_packs.FrequencyPackDownloadThread") as thread_cls:
+        panel._download_frequency_pack("freq-en-coca")
+
+    thread_cls.assert_not_called()
+    assert panel.language_pack_status.text() == "Temporarily unavailable"
+    assert panel.language_pack_status.toolTip() == "Temporarily unavailable"

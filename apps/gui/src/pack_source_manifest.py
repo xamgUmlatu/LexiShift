@@ -241,12 +241,22 @@ def pack_source_manifest_snapshot_from_payload(
                 raw_entry.get("expected_content_type"),
                 field_name="expected_content_type",
             ),
+            disabled=bool(
+                _coerce_optional_manifest_bool(raw_entry.get("disabled"), field_name="disabled")
+                or False
+            ),
+            disabled_reason=_coerce_optional_manifest_string(
+                raw_entry.get("disabled_reason"),
+                field_name="disabled_reason",
+            ),
         )
         if (
             override.url is None
             and override.wayback_url is None
             and override.filename is None
             and override.expected_content_type is None
+            and not override.disabled
+            and override.disabled_reason is None
         ):
             continue
         overrides[pack_id] = override
@@ -268,6 +278,14 @@ def _coerce_optional_manifest_string(raw: object, *, field_name: str) -> str | N
     return normalized or None
 
 
+def _coerce_optional_manifest_bool(raw: object, *, field_name: str) -> bool | None:
+    if raw is None:
+        return None
+    if isinstance(raw, bool):
+        return raw
+    raise PackSourceManifestValidationError(f"{field_name} must be a boolean when present.")
+
+
 def _coerce_positive_int(raw: object, *, field_name: str) -> int:
     try:
         value = int(raw)
@@ -280,8 +298,8 @@ def _coerce_positive_int(raw: object, *, field_name: str) -> int:
     return value
 
 
-def _pack_transport_override_to_dict(override: PackTransportOverride) -> dict[str, str]:
-    payload: dict[str, str] = {}
+def _pack_transport_override_to_dict(override: PackTransportOverride) -> dict[str, object]:
+    payload: dict[str, object] = {}
     if override.url is not None:
         payload["url"] = override.url
     if override.wayback_url is not None:
@@ -290,6 +308,10 @@ def _pack_transport_override_to_dict(override: PackTransportOverride) -> dict[st
         payload["filename"] = override.filename
     if override.expected_content_type is not None:
         payload["expected_content_type"] = override.expected_content_type
+    if override.disabled:
+        payload["disabled"] = True
+    if override.disabled_reason is not None:
+        payload["disabled_reason"] = override.disabled_reason
     return payload
 
 

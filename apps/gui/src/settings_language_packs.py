@@ -41,7 +41,9 @@ from settings_language_packs_support import (
     embedding_pack_dir as _embedding_pack_dir,
     frequency_pack_dir as _frequency_pack_dir,
     has_frequency_table as _has_frequency_table,
+    is_pack_download_disabled,
     language_pack_dir as _language_pack_dir,
+    pack_download_disabled_tooltip,
 )
 from theme_manager import resolve_current_theme
 
@@ -213,12 +215,21 @@ class LanguagePackPanel(
             return
         self._pack_source_overrides = dict(overrides)
         self._set_pack_source_overrides(self._pack_source_overrides)
+        self._refresh_language_pack_table()
+        self._refresh_frequency_pack_table()
+        self._refresh_embedding_pack_table()
+        self._refresh_cross_embedding_pack_table()
 
     def _download_language_pack(self, pack_id: str) -> None:
         self._refresh_pack_source_overrides_for_download()
         pack = self._language_pack_info.get(pack_id)
         row = self._language_pack_rows.get(pack_id)
         if not pack or not row:
+            return
+        if is_pack_download_disabled(self._pack_source_overrides, pack_id):
+            message = pack_download_disabled_tooltip(self._pack_source_overrides, pack)
+            self._refresh_language_pack_table()
+            self._set_status_message(message, tone="error", tooltip=message)
             return
         dest_path = self._download_archive_path(pack)
         row.status_item.setText(t("language_packs.status.downloading"))
@@ -241,6 +252,11 @@ class LanguagePackPanel(
         row = self._frequency_pack_rows.get(pack_id)
         if not pack or not row:
             return
+        if is_pack_download_disabled(self._pack_source_overrides, pack_id):
+            message = pack_download_disabled_tooltip(self._pack_source_overrides, pack)
+            self._refresh_frequency_pack_table()
+            self._set_status_message(message, tone="error", tooltip=message)
+            return
         archive_path = self._frequency_archive_path(pack)
         sqlite_path = self._frequency_sqlite_path(pack)
         row.status_item.setText(t("language_packs.status.downloading"))
@@ -262,6 +278,14 @@ class LanguagePackPanel(
         pack = self._embedding_pack_info.get(pack_id)
         row = self._embedding_row_for(pack_id)
         if not pack or not row:
+            return
+        if is_pack_download_disabled(self._pack_source_overrides, pack_id):
+            message = pack_download_disabled_tooltip(self._pack_source_overrides, pack)
+            if pack_id in self._cross_embedding_pack_rows:
+                self._refresh_cross_embedding_pack_table()
+            else:
+                self._refresh_embedding_pack_table()
+            self._set_status_message(message, tone="error", tooltip=message)
             return
         dest_path = self._download_archive_path(pack, embeddings=True)
         row.status_item.setText(t("language_packs.status.downloading"))

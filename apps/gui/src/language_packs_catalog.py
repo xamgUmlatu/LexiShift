@@ -101,6 +101,8 @@ class PackTransportOverride:
     wayback_url: str | None = None
     filename: str | None = None
     expected_content_type: str | None = None
+    disabled: bool = False
+    disabled_reason: str | None = None
 
 
 LANGUAGE_PACKS = [
@@ -550,6 +552,20 @@ def _normalized_transport_value(raw: object) -> str | None:
     return normalized or None
 
 
+def _normalized_transport_flag(raw: object) -> bool:
+    if isinstance(raw, bool):
+        return raw
+    if isinstance(raw, int):
+        return raw == 1
+    if isinstance(raw, str):
+        normalized = raw.strip().lower()
+        if normalized in {"1", "true", "yes", "on"}:
+            return True
+        if normalized in {"", "0", "false", "no", "off"}:
+            return False
+    return False
+
+
 def _coerce_transport_override(
     raw: PackTransportOverride | Mapping[str, object],
 ) -> PackTransportOverride:
@@ -560,6 +576,8 @@ def _coerce_transport_override(
         wayback_url=_normalized_transport_value(raw.get("wayback_url")),
         filename=_normalized_transport_value(raw.get("filename")),
         expected_content_type=_normalized_transport_value(raw.get("expected_content_type")),
+        disabled=_normalized_transport_flag(raw.get("disabled")),
+        disabled_reason=_normalized_transport_value(raw.get("disabled_reason")),
     )
 
 
@@ -579,6 +597,8 @@ def _normalize_transport_overrides(
             and override.wayback_url is None
             and override.filename is None
             and override.expected_content_type is None
+            and not override.disabled
+            and override.disabled_reason is None
         ):
             continue
         normalized[pack_id] = override

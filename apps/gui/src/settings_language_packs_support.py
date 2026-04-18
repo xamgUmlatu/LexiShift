@@ -10,6 +10,8 @@ from typing import Mapping, Optional
 from PySide6.QtCore import QStandardPaths, QThread, Signal
 from PySide6.QtWidgets import QPushButton, QTableWidgetItem
 
+from i18n import t
+
 
 @dataclass
 class LanguagePackRow:
@@ -48,6 +50,57 @@ class LanguageResourceBinding:
     family: str
     origin: str
     effective_path: Optional[str] = None
+
+
+def pack_source_override_value(
+    overrides: Mapping[str, object] | None,
+    pack_id: str,
+    field_name: str,
+) -> object | None:
+    override = dict(overrides or {}).get(pack_id)
+    if isinstance(override, Mapping):
+        return override.get(field_name)
+    if override is None:
+        return None
+    return getattr(override, field_name, None)
+
+
+def is_pack_download_disabled(
+    overrides: Mapping[str, object] | None,
+    pack_id: str,
+) -> bool:
+    raw = pack_source_override_value(overrides, pack_id, "disabled")
+    if isinstance(raw, bool):
+        return raw
+    if isinstance(raw, int):
+        return raw == 1
+    if isinstance(raw, str):
+        normalized = raw.strip().lower()
+        return normalized in {"1", "true", "yes", "on"}
+    return False
+
+
+def pack_download_disabled_reason(
+    overrides: Mapping[str, object] | None,
+    pack_id: str,
+) -> str | None:
+    if not is_pack_download_disabled(overrides, pack_id):
+        return None
+    raw = pack_source_override_value(overrides, pack_id, "disabled_reason")
+    if raw is None:
+        return None
+    text = str(raw).strip()
+    return text or None
+
+
+def pack_download_disabled_tooltip(
+    overrides: Mapping[str, object] | None,
+    pack,
+) -> str:
+    reason = pack_download_disabled_reason(overrides, pack.pack_id)
+    if reason:
+        return reason
+    return t("language_packs.download_failed_source_unavailable", name=pack.display_name())
 
 
 def split_language_resource_bindings(
