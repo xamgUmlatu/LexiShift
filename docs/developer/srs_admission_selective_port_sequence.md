@@ -403,6 +403,20 @@ Current reset-only audit on `2026-04-18`:
   - inventory state
   - semantic publication state
 
+Current diagnostics-only audit on `2026-04-18`:
+
+- `runtime_diagnostics.py` still reports store/resource status, explicit inventory state, store-fallback inventory state, and semantic publication state in one payload
+- direct diagnostics coverage still exercises missing-resource, existing-files, and store-fallback variants for `en-ja`, `en-de`, and `en-es`
+- LP E2E coverage now also makes publication-manifest existence explicit and asserts manifest/semantic `generation_id` coherence plus zero manifest validation errors
+- direct `2026-04-18` validation reran green:
+  - `python3 -m pytest core/tests/helper/test_helper_engine.py::TestHelperEngineRuntimeDiagnostics::test_runtime_diagnostics_with_missing_files core/tests/helper/test_helper_engine.py::TestHelperEngineRuntimeDiagnostics::test_runtime_diagnostics_reports_missing_en_de_frequency_pack core/tests/helper/test_helper_engine.py::TestHelperEngineRuntimeDiagnostics::test_runtime_diagnostics_reports_missing_en_es_frequency_pack core/tests/helper/test_helper_engine.py::TestHelperEngineRuntimeDiagnostics::test_runtime_diagnostics_reports_missing_en_ja_jmdict core/tests/helper/test_helper_engine.py::TestHelperEngineRuntimeDiagnostics::test_runtime_diagnostics_with_existing_files core/tests/helper/test_helper_engine.py::TestHelperEngineRuntimeDiagnostics::test_runtime_diagnostics_reports_store_fallback_inventory_with_publication_state core/tests/srs/test_srs_lp_e2e.py::TestSrsLpE2E::test_en_ja_e2e_initialize_and_refresh_publish_outputs core/tests/srs/test_srs_lp_e2e.py::TestSrsLpE2E::test_en_de_e2e_initialize_and_refresh_publish_outputs -q`
+  - `8 passed`
+  - `python3 scripts/testing/srs_quality_harness.py --json-out docs/test_outputs/srs_quality_latest.json`
+  - `pass=15 warn=1 fail=0`
+  - `python3 -m pytest core/tests/rulegen/test_semantic_publication.py core/tests/rulegen/test_semantic_routing_runtime_policy.py core/tests/helper/test_rulegen_outputs.py core/tests/architecture/test_extension_structure.py core/tests/dev/test_helper_translation_dict_entrypoints.py -q`
+  - `27 passed`
+  - one local `en-es` tempdir diagnostics smoke completed with `refresh_applied=True`, `refresh_added_items=8`, `refresh_rules=18`, `inventory_source=inventory`, `semantic_inventory_exists=True`, `publication_manifest_exists=True`, and `publication_manifest_family_valid=True`
+
 Manual rules:
 
 - current-branch `rulegen_outputs.py` remains the base file
