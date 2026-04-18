@@ -3,7 +3,7 @@
 Status: active planning
 Role: Planning / WIP
 Last updated: 2026-04-18
-Last verified: 2026-04-18 F14 SRS workflow split checkpoint added
+Last verified: 2026-04-18 F11 dict loader split checkpoint added
 Purpose: define the invariant-driven follow-on review that comes after the first structural stabilization pass so correctness risks are checked deliberately, one seam at a time
 Source-of-truth: planning doc only; executable truth still lives in code, tests, `feature_state_matrix.md`, and the evidence artifacts generated during each slice
 Related docs:
@@ -435,6 +435,35 @@ Net effect:
 - `F14` converts the local maintenance extraction into a stable split instead of a half-connected one
 - the SRS action workflow factory now has direct runtime coverage, not only syntax checks
 - the next structural move can build on a thinner, better-guarded controller seam
+
+## F11 Checkpoint (2026-04-18)
+
+Context:
+
+- completed slice since the previous checkpoint: `F11.1` auxiliary sqlite-support extraction for dictionary loaders
+
+Observed outcome:
+
+1. the local `dict_loaders.py` split is coherent and worth keeping.
+   - auxiliary sqlite schema helpers and the `sense_glosses`-based loader path now live in `dict_sqlite_support.py`.
+   - the top-level module keeps the legacy XML and legacy `entries`-table paths while delegating the auxiliary sqlite branch through the extracted seam.
+2. this slice did not uncover a behavior defect in the loader logic itself.
+   - the main value was reducing pressure in `dict_loaders.py` and adding direct seam-local coverage for the extracted sqlite helper module.
+3. one adjacent consolidation opportunity remains out of scope.
+   - `dict_translation_grouped_loader.py` needed a small compatibility import fix after the helper extraction, but it still carries a near-duplicate auxiliary sqlite query/metadata path, so the broader convergence follow-up was logged instead of being mixed into this preventive split.
+
+Queue decision:
+
+1. keep moving through the structural queue from the currently active hotspot context.
+   - `F11` did not expose a blocker that justifies reopening the resource normalization wave.
+2. leave the grouped-translation loader dedupe for a later bounded pass.
+   - the main hotspot reduction goal here was `dict_loaders.py`, not broad loader-family convergence.
+
+Net effect:
+
+- `F11` turns the auxiliary sqlite path inside `dict_loaders.py` into a named extracted support seam
+- the extracted module now has direct tests, not only indirect coverage through top-level loader calls
+- the remaining loader-family duplication is explicit instead of being silently bundled into this split
 
 ## Secondary-Pass Perspectives
 

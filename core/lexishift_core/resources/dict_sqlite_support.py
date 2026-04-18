@@ -1,26 +1,41 @@
 from __future__ import annotations
 
 import sqlite3
-from typing import Sequence
-
-from lexishift_core.resources.dict_sqlite_support import (
-    sqlite_has_column,
-    sqlite_has_table,
-)
+from typing import Optional, Sequence
 
 
-def load_sqlite_gloss_records_by_translation_ordered(
+def sqlite_has_table(conn: sqlite3.Connection, table_name: str) -> bool:
+    row = conn.execute(
+        "SELECT 1 FROM sqlite_master WHERE type='table' AND name=? LIMIT 1",
+        (table_name,),
+    ).fetchone()
+    return bool(row)
+
+
+def sqlite_has_column(
+    conn: sqlite3.Connection,
+    table_name: str,
+    column_name: str,
+) -> bool:
+    normalized_column = str(column_name or "").strip()
+    if not normalized_column:
+        return False
+    try:
+        rows = conn.execute(f"PRAGMA table_info({table_name})").fetchall()
+    except sqlite3.Error:
+        return False
+    return any(str(row[1] or "").strip() == normalized_column for row in rows if len(row) > 1)
+
+
+def load_auxiliary_sqlite_gloss_records_ordered(
     conn: sqlite3.Connection,
     *,
-    translations: Sequence[str] | None = None,
+    headwords: Optional[Sequence[str]] = None,
+    record_factory,
+    metadata_builder,
 ) -> dict[str, list[object]]:
-    from lexishift_core.resources.dict_loaders import (
-        FreedictGlossRecord,
-    )
-    from lexishift_core.resources.dict_gloss_metadata import build_auxiliary_gloss_metadata
-
     mapping: dict[str, list[object]] = {}
-    headword_index_by_translation: dict[str, dict[str, int]] = {}
+    translation_index_by_headword: dict[str, dict[str, int]] = {}
     has_entry_meta = sqlite_has_table(conn, "entry_meta")
     has_translation_meta = sqlite_has_table(conn, "translation_meta")
     has_examples_json = sqlite_has_column(conn, "sense_glosses", "examples_json")
@@ -35,12 +50,12 @@ def load_sqlite_gloss_records_by_translation_ordered(
     )
     where_clause = ""
     parameters: tuple[object, ...] = ()
-    if translations is not None:
-        if not translations:
+    if headwords is not None:
+        if not headwords:
             return mapping
-        placeholders = ", ".join("?" for _ in translations)
-        where_clause = f"WHERE sg.translation_lc IN ({placeholders})"
-        parameters = tuple(translations)
+        placeholders = ", ".join("?" for _ in headwords)
+        where_clause = f"WHERE sg.headword_lc IN ({placeholders})"
+        parameters = tuple(headwords)
     cursor = conn.execute(
         f"""
         SELECT
@@ -69,7 +84,7 @@ def load_sqlite_gloss_records_by_translation_ordered(
         {entry_meta_join}
         {translation_meta_join}
         {where_clause}
-        ORDER BY sg.translation_lc, sg.headword_lc, sg.entry_ord, sg.sense_ord, sg.gloss_ord, sg.headword
+        ORDER BY sg.headword_lc, sg.entry_ord, sg.sense_ord, sg.gloss_ord, sg.translation, sg.headword
         """,
         parameters,
     )
@@ -102,7 +117,7 @@ def load_sqlite_gloss_records_by_translation_ordered(
             translation_text = str(translation or "").strip()
             if not headword_text or not translation_text:
                 continue
-            metadata = build_auxiliary_gloss_metadata(
+            metadata = metadata_builder(
                 entry_ord=entry_ord,
                 sense_ord=sense_ord,
                 gloss_ord=gloss_ord,
@@ -122,28 +137,71 @@ def load_sqlite_gloss_records_by_translation_ordered(
                 translation_roman_text=translation_roman_text,
                 translation_tags_json=translation_tags_json,
             )
-            bucket = mapping.setdefault(translation_text, [])
-            index_by_headword = headword_index_by_translation.setdefault(translation_text, {})
-            existing_index = index_by_headword.get(headword_text)
+            bucket = mapping.setdefault(headword_text, [])
+            index_by_translation = translation_index_by_headword.setdefault(
+                headword_text,
+                {},
+            )
+            existing_index = index_by_translation.get(translation_text)
             normalized_pos_raw = str(pos_raw or "").strip()
             if existing_index is None:
                 bucket.append(
-                    FreedictGlossRecord(
-                        translation=headword_text,
+                    record_factory(
+                        translation=translation_text,
                         pos_raw=normalized_pos_raw,
                         metadata=metadata,
                     )
                 )
-                index_by_headword[headword_text] = len(bucket) - 1
+                index_by_translation[translation_text] = len(bucket) - 1
                 continue
             existing = bucket[existing_index]
-            if existing.pos_raw or not normalized_pos_raw:
+            if getattr(existing, "pos_raw", "") or not normalized_pos_raw:
                 continue
-            bucket[existing_index] = FreedictGlossRecord(
-                translation=headword_text,
+            bucket[existing_index] = record_factory(
+                translation=translation_text,
                 pos_raw=normalized_pos_raw,
-                metadata=existing.metadata or metadata,
+                metadata=getattr(existing, "metadata", None) or metadata,
             )
     finally:
         cursor.close()
     return mapping
+
+
+def load_auxiliary_sqlite_headwords(conn: sqlite3.Connection) -> tuple[str, ...]:
+    cursor = conn.execute("SELECT headword FROM sense_glosses ORDER BY headword_lc, headword")
+    try:
+        return _collect_sqlite_headwords(cursor)
+    finally:
+        cursor.close()
+
+
+def load_auxiliary_sqlite_gloss_base_forms(conn: sqlite3.Connection, *, sanitize_gloss) -> set[str]:
+    cursor = conn.execute("SELECT translation FROM sense_glosses")
+    try:
+        return _collect_sqlite_gloss_base_forms(cursor, sanitize_gloss=sanitize_gloss)
+    finally:
+        cursor.close()
+
+
+def _collect_sqlite_headwords(cursor: sqlite3.Cursor) -> tuple[str, ...]:
+    ordered: list[str] = []
+    seen: set[str] = set()
+    for (headword,) in cursor:
+        text = str(headword or "").strip()
+        if not text:
+            continue
+        normalized = text.lower()
+        if normalized in seen:
+            continue
+        seen.add(normalized)
+        ordered.append(text)
+    return tuple(ordered)
+
+
+def _collect_sqlite_gloss_base_forms(cursor: sqlite3.Cursor, *, sanitize_gloss) -> set[str]:
+    base_forms: set[str] = set()
+    for (translation,) in cursor:
+        normalized = sanitize_gloss(translation).lower()
+        if normalized:
+            base_forms.add(normalized)
+    return base_forms
