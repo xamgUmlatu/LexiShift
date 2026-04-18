@@ -97,6 +97,7 @@ class TestExtensionStructure(unittest.TestCase):
         ordered_markers = [
             'src="options/controllers/srs/actions/formatters.js"',
             'src="options/controllers/srs/actions/shared.js"',
+            'src="options/controllers/srs/actions/maintenance_workflow.js"',
             'src="options/controllers/srs/actions/workflows.js"',
             'src="options/controllers/srs/actions_controller.js"',
         ]

@@ -15,6 +15,7 @@ ADMISSION_PREVIEW_WORKFLOW_JS = (
 REBALANCE_WORKFLOW_JS = (
     PROJECT_ROOT / "apps/chrome-extension/options/controllers/srs/actions/rebalance_workflow.js"
 )
+WORKFLOWS_JS = PROJECT_ROOT / "apps/chrome-extension/options/controllers/srs/actions/workflows.js"
 
 
 def _run_node(script: str) -> None:
@@ -383,5 +384,100 @@ const workflows = createRebalanceWorkflows({{
   console.error(error);
   process.exit(1);
 }});
+"""
+        _run_node(script)
+
+    def test_workflows_factory_threads_shared_callbacks_into_rebalance_and_maintenance_modules(
+        self,
+    ) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const modulePath = {json.dumps(str(WORKFLOWS_JS))};
+const context = vm.createContext({{ console }});
+context.globalThis = context;
+context.LexiShift = {{
+  optionsTranslateResolver: {{
+    resolveTranslate(translate) {{
+      return typeof translate === "function"
+        ? translate
+        : ((_key, _args, fallback) => fallback);
+    }}
+  }},
+  optionsSrsActionPlanningState: {{
+    createResolvePlanningState() {{
+      return () => ({{
+        profile: {{}},
+        signals: {{}},
+        profileContext: {{}},
+        contextMeta: {{ source: "saved_profile", pendingOverrides: [] }}
+      }});
+    }}
+  }},
+  optionsSrsAdmissionPreviewWorkflow: {{
+    createAdmissionPreviewWorkflow(options) {{
+      globalThis.__previewOptions = options;
+      return async () => {{}};
+    }}
+  }},
+  optionsSrsRebalanceWorkflow: {{
+    createRebalanceWorkflows(options) {{
+      globalThis.__rebalanceOptions = options;
+      return {{
+        previewRebalance: async () => {{}},
+        applyRebalance: async () => {{}}
+      }};
+    }}
+  }},
+  optionsSrsActionMaintenanceWorkflow: {{
+    createMaintenanceWorkflows(options) {{
+      globalThis.__maintenanceOptions = options;
+      return {{
+        initializeSet: async () => {{}},
+        refreshSetNow: async () => {{}},
+        runRuntimeDiagnostics: async () => {{}},
+        previewSampledRulegen: async () => {{}},
+        resetSrsData: async () => {{}}
+      }};
+    }}
+  }}
+}};
+vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
+
+const createWorkflows = context.LexiShift.optionsSrsActionWorkflows.createWorkflows;
+const confirmFn = () => true;
+const markRulesetUpdatedNow = async () => {{}};
+const workflows = createWorkflows({{
+  settingsManager: {{}},
+  helperManager: {{}},
+  translate: null,
+  setStatus: () => {{}},
+  resolvePair: () => "en-ja",
+  syncSelectedProfile: async (items) => ({{ items, profileId: "default" }}),
+  confirmFn,
+  markRulesetUpdatedNow,
+  log: () => {{}},
+  output: {{}},
+  initializeButton: {{}},
+  rebalancePreviewButton: {{}},
+  rebalanceApplyButton: {{}},
+  refreshButton: {{}},
+  diagnosticsButton: {{}},
+  sampledButton: {{}},
+  resetButton: {{}},
+  setOutputText: () => {{}}
+}});
+
+assert.equal(typeof workflows.initializeSet, "function");
+assert.equal(typeof workflows.previewRebalance, "function");
+assert.equal(typeof workflows.resetSrsData, "function");
+assert.equal(globalThis.__rebalanceOptions.confirmFn, confirmFn);
+assert.equal(globalThis.__rebalanceOptions.markRulesetUpdatedNow, markRulesetUpdatedNow);
+assert.equal(globalThis.__maintenanceOptions.confirmFn, confirmFn);
+assert.equal(globalThis.__maintenanceOptions.markRulesetUpdatedNow, markRulesetUpdatedNow);
+assert.equal(globalThis.__maintenanceOptions.initializeButton !== null, true);
+assert.equal(globalThis.__previewOptions.setAdmissionPreviewOutputText !== null, true);
 """
         _run_node(script)

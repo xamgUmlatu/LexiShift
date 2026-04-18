@@ -3,7 +3,7 @@
 Status: active planning
 Role: Planning / WIP
 Last updated: 2026-04-18
-Last verified: 2026-04-18 E4 installed/manual contract checkpoint added
+Last verified: 2026-04-18 F14 SRS workflow split checkpoint added
 Purpose: define the invariant-driven follow-on review that comes after the first structural stabilization pass so correctness risks are checked deliberately, one seam at a time
 Source-of-truth: planning doc only; executable truth still lives in code, tests, `feature_state_matrix.md`, and the evidence artifacts generated during each slice
 Related docs:
@@ -404,6 +404,37 @@ Net effect:
 - `E4` aligned the remaining helper copy with the installed-pack-first contract already present in benchmark and GUI surfaces
 - the managed-vs-manual story is now clearer to both settings users and helper CLI users
 - the remaining holdout is a narrow extension diagnostics wording seam, not a broader settings/runtime correctness problem
+
+## F14 Checkpoint (2026-04-18)
+
+Context:
+
+- completed slice since the previous checkpoint: `F14.1` SRS action maintenance split integration
+
+Observed outcome:
+
+1. the preventive split was already underway locally, but the integration seam still had a live runtime bug.
+   - `workflows.js` delegated maintenance actions into `maintenance_workflow.js`.
+   - the factory still passed `confirmFn` and `markRulesetUpdatedNow` into rebalance workflows before defining them, which could raise a runtime `ReferenceError` even though syntax checks stayed green.
+2. this slice turned the split from a partial extraction into a coherent module boundary.
+   - `workflows.js` now defines and threads the shared callbacks once, then passes them consistently into both rebalance and maintenance workflow factories.
+   - architecture and Node-backed workflow tests now prove the maintenance module is loaded before the top-level workflow factory and that the factory actually wires the shared callbacks through at runtime.
+3. the value here was structural pressure relief plus evidence at the factory seam.
+   - this was not a broad controller rewrite.
+   - the public action API stays the same while the large maintenance action body moves behind a dedicated module.
+
+Queue decision:
+
+1. proceed next with the remaining structural queue based on active pressure and local context.
+   - `F14` was worth pulling forward because the split already existed in-progress and still contained a real runtime hazard.
+2. keep the previously logged extension diagnostics wording holdout separate from this structural slice.
+   - `N-010` remains a copy/contract follow-up, not part of the factory split itself.
+
+Net effect:
+
+- `F14` converts the local maintenance extraction into a stable split instead of a half-connected one
+- the SRS action workflow factory now has direct runtime coverage, not only syntax checks
+- the next structural move can build on a thinner, better-guarded controller seam
 
 ## Secondary-Pass Perspectives
 
