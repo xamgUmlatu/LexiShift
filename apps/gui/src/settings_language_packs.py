@@ -26,6 +26,7 @@ from language_packs import (
     FrequencyPackInfo,
 )
 from i18n import t
+from pack_source_manifest import load_pack_source_overrides
 from settings_language_packs_layout_mixin import LanguagePackPanelLayoutMixin
 from settings_language_packs_path_mixin import LanguagePackPanelPathMixin
 from settings_language_packs_panel_state_mixin import LanguagePackPanelStateMixin
@@ -65,16 +66,13 @@ class LanguagePackPanel(
         self._language_pack_dir = _language_pack_dir()
         self._embedding_pack_dir = _embedding_pack_dir()
         self._frequency_pack_dir = _frequency_pack_dir()
-        catalogs = build_pack_catalogs(source_overrides=pack_source_overrides)
-        self._language_packs = catalogs.language_packs
-        self._frequency_packs = catalogs.frequency_packs
-        self._embedding_packs = catalogs.embedding_packs
-        self._cross_embedding_packs = catalogs.cross_embedding_packs
-        self._language_pack_info = {pack.pack_id: pack for pack in self._language_packs}
-        self._frequency_pack_info = {pack.pack_id: pack for pack in self._frequency_packs}
-        self._embedding_pack_info = {
-            pack.pack_id: pack for pack in (*self._embedding_packs, *self._cross_embedding_packs)
-        }
+        self._uses_dynamic_pack_source_overrides = pack_source_overrides is None
+        self._pack_source_overrides = (
+            load_pack_source_overrides(refresh_remote=False)
+            if self._uses_dynamic_pack_source_overrides
+            else dict(pack_source_overrides or {})
+        )
+        self._set_pack_source_overrides(self._pack_source_overrides)
         self._language_pack_rows: dict[str, LanguagePackRow] = {}
         self._frequency_pack_rows: dict[str, FrequencyPackRow] = {}
         self._embedding_pack_rows: dict[str, EmbeddingPackRow] = {}
@@ -192,7 +190,32 @@ class LanguagePackPanel(
         layout.addWidget(self._resource_tabs)
         layout.addWidget(self.language_pack_status)
 
+    def _set_pack_source_overrides(
+        self,
+        source_overrides: Mapping[str, PackTransportOverride | Mapping[str, object]] | None,
+    ) -> None:
+        catalogs = build_pack_catalogs(source_overrides=source_overrides)
+        self._language_packs = catalogs.language_packs
+        self._frequency_packs = catalogs.frequency_packs
+        self._embedding_packs = catalogs.embedding_packs
+        self._cross_embedding_packs = catalogs.cross_embedding_packs
+        self._language_pack_info = {pack.pack_id: pack for pack in self._language_packs}
+        self._frequency_pack_info = {pack.pack_id: pack for pack in self._frequency_packs}
+        self._embedding_pack_info = {
+            pack.pack_id: pack for pack in (*self._embedding_packs, *self._cross_embedding_packs)
+        }
+
+    def _refresh_pack_source_overrides_for_download(self) -> None:
+        if not self._uses_dynamic_pack_source_overrides:
+            return
+        overrides = load_pack_source_overrides(refresh_remote=True)
+        if overrides == self._pack_source_overrides:
+            return
+        self._pack_source_overrides = dict(overrides)
+        self._set_pack_source_overrides(self._pack_source_overrides)
+
     def _download_language_pack(self, pack_id: str) -> None:
+        self._refresh_pack_source_overrides_for_download()
         pack = self._language_pack_info.get(pack_id)
         row = self._language_pack_rows.get(pack_id)
         if not pack or not row:
@@ -213,6 +236,7 @@ class LanguagePackPanel(
         thread.start()
 
     def _download_frequency_pack(self, pack_id: str) -> None:
+        self._refresh_pack_source_overrides_for_download()
         pack = self._frequency_pack_info.get(pack_id)
         row = self._frequency_pack_rows.get(pack_id)
         if not pack or not row:
@@ -234,6 +258,7 @@ class LanguagePackPanel(
         thread.start()
 
     def _download_embedding_pack(self, pack_id: str) -> None:
+        self._refresh_pack_source_overrides_for_download()
         pack = self._embedding_pack_info.get(pack_id)
         row = self._embedding_row_for(pack_id)
         if not pack or not row:
