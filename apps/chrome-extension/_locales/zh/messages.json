@@ -713,6 +713,12 @@
   "status_srs_saved": {
     "message": "SRS 设置已保存。"
   },
+  "status_srs_save_failed": {
+    "message": "无法保存 SRS 设置。"
+  },
+  "status_srs_save_partial": {
+    "message": "SRS 设置已部分保存。请重新加载页面并检查当前值。"
+  },
   "status_switch_edit_json": {
     "message": "请切换到“编辑 JSON”后再保存。"
   },

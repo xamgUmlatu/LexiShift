@@ -713,6 +713,12 @@
   "status_srs_saved": {
     "message": "SRS-Einstellungen gespeichert."
   },
+  "status_srs_save_failed": {
+    "message": "SRS-Einstellungen konnten nicht gespeichert werden."
+  },
+  "status_srs_save_partial": {
+    "message": "SRS-Einstellungen wurden nur teilweise gespeichert. Laden Sie die Seite neu und prüfen Sie die aktuellen Werte."
+  },
   "status_switch_edit_json": {
     "message": "Zum Speichern auf „JSON bearbeiten“ wechseln."
   },

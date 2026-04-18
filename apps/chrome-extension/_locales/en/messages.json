@@ -725,6 +725,12 @@
   "status_srs_saved": {
     "message": "SRS settings saved."
   },
+  "status_srs_save_failed": {
+    "message": "Failed to save SRS settings."
+  },
+  "status_srs_save_partial": {
+    "message": "SRS settings were partially saved. Reload the page and review the current values."
+  },
   "status_switch_edit_json": {
     "message": "Switch to Edit JSON to save changes."
   },

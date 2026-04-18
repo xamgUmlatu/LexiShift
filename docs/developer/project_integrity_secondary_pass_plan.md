@@ -2,8 +2,8 @@
 
 Status: active planning
 Role: Planning / WIP
-Last updated: 2026-04-18
-Last verified: 2026-04-18 F11 dict loader split checkpoint added
+Last updated: 2026-04-19
+Last verified: 2026-04-19 SP2.6 settings save failure checkpoint added
 Purpose: define the invariant-driven follow-on review that comes after the first structural stabilization pass so correctness risks are checked deliberately, one seam at a time
 Source-of-truth: planning doc only; executable truth still lives in code, tests, `feature_state_matrix.md`, and the evidence artifacts generated during each slice
 Related docs:
@@ -464,6 +464,36 @@ Net effect:
 - `F11` turns the auxiliary sqlite path inside `dict_loaders.py` into a named extracted support seam
 - the extracted module now has direct tests, not only indirect coverage through top-level loader calls
 - the remaining loader-family duplication is explicit instead of being silently bundled into this split
+
+## SP2.6 Checkpoint (2026-04-19)
+
+Context:
+
+- completed slice since the previous checkpoint: `SP2.6` settings save failure visibility
+
+Observed outcome:
+
+1. the current extension SRS settings save path is still intentionally multi-step.
+   - profile persistence, runtime publish, and signal persistence remain separate writes.
+2. the real integrity gap here was failure visibility, not proof that the save order itself was immediately wrong.
+   - settings change inputs were not using the shared async listener wrapper even though the rest of the page already relied on it for async action failures.
+   - late save failures did not explicitly tell the operator that earlier phases might already have committed.
+3. a narrow explicitness fix was sufficient for the current track.
+   - `saveSrsSettings()` now annotates late failures as partial-save errors.
+   - SRS settings field-change bindings now route through `bindAsyncListener`.
+
+Queue decision:
+
+1. resolve `N-005` as current-track work rather than promoting a broader persistence redesign right now.
+   - explicit late-failure messaging is enough for the current narrow save surface.
+2. keep `N-006` separate.
+   - inventory drift observability is still a broader lifecycle/runtime concern, not an extension save-path blocker.
+
+Net effect:
+
+- late SRS settings save failures are now operator-visible and phrased honestly
+- the success path and current save ordering remain unchanged
+- SP2 no longer carries an implicit async-error hole in the extension settings save surface
 
 ## Secondary-Pass Perspectives
 

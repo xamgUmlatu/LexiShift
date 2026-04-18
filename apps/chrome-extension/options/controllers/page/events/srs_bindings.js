@@ -54,9 +54,22 @@
     const debugOpenDataDirButton = elements.debugOpenDataDirButton || null;
     const srsRulegenOutput = elements.srsRulegenOutput || null;
 
-    if (srsEnabledInput) {
-      srsEnabledInput.addEventListener("change", saveSrsSettings);
+    function bindSrsSettingsChange(element, beforeSave) {
+      if (!element) {
+        return;
+      }
+      bindAsyncListener(element, "change", () => {
+        if (typeof beforeSave === "function" && beforeSave() === false) {
+          return Promise.resolve();
+        }
+        return saveSrsSettings();
+      }, {
+        fallbackMessage: () => translate("status_srs_save_failed", null, "Failed to save SRS settings."),
+        logMessage: "SRS settings save failed."
+      });
     }
+
+    bindSrsSettingsChange(srsEnabledInput);
     bindAsyncListener(srsProfileIdInput, "change", () => saveSrsProfileId(), {
       fallbackMessage: () => translate("status_srs_profile_save_failed", null, "Failed to save SRS profile selection."),
       logMessage: "SRS profile id save failed."
@@ -65,59 +78,33 @@
       fallbackMessage: () => translate("status_srs_profile_refresh_failed", null, "Failed to refresh helper profiles."),
       logMessage: "SRS profile refresh failed."
     });
-    if (srsMaxActiveInput) {
-      srsMaxActiveInput.addEventListener("change", saveSrsSettings);
-    }
-    if (srsBootstrapTopNInput) {
-      srsBootstrapTopNInput.addEventListener("change", saveSrsSettings);
-    }
-    if (srsInitialActiveCountInput) {
-      srsInitialActiveCountInput.addEventListener("change", saveSrsSettings);
-    }
-    if (srsTopicInterestsInput) {
-      srsTopicInterestsInput.addEventListener("change", saveSrsSettings);
-    }
-    if (srsProficiencyEstimateInput) {
-      srsProficiencyEstimateInput.addEventListener("change", saveSrsSettings);
-    }
-    if (srsChallengeTargetInput) {
-      srsChallengeTargetInput.addEventListener("change", saveSrsSettings);
-    }
-    if (srsSoundInput) {
-      srsSoundInput.addEventListener("change", saveSrsSettings);
-    }
-    if (srsHighlightInput) {
-      srsHighlightInput.addEventListener("change", () => {
-        if (srsHighlightTextInput) {
-          srsHighlightTextInput.value = srsHighlightInput.value;
-        }
-        saveSrsSettings();
-      });
-    }
-    if (srsHighlightTextInput) {
-      srsHighlightTextInput.addEventListener("change", () => {
-        const value = srsHighlightTextInput.value.trim();
-        if (value) {
-          srsHighlightInput.value = value;
-          saveSrsSettings();
-        }
-      });
-    }
-    if (srsSemanticAdmissionEnabledInput) {
-      srsSemanticAdmissionEnabledInput.addEventListener("change", saveSrsSettings);
-    }
-    if (srsSemanticAdmissionFallbackPolicyInput) {
-      srsSemanticAdmissionFallbackPolicyInput.addEventListener("change", saveSrsSettings);
-    }
-    if (srsFeedbackSrsInput) {
-      srsFeedbackSrsInput.addEventListener("change", saveSrsSettings);
-    }
-    if (srsFeedbackRulesInput) {
-      srsFeedbackRulesInput.addEventListener("change", saveSrsSettings);
-    }
-    if (srsExposureLoggingInput) {
-      srsExposureLoggingInput.addEventListener("change", saveSrsSettings);
-    }
+    bindSrsSettingsChange(srsMaxActiveInput);
+    bindSrsSettingsChange(srsBootstrapTopNInput);
+    bindSrsSettingsChange(srsInitialActiveCountInput);
+    bindSrsSettingsChange(srsTopicInterestsInput);
+    bindSrsSettingsChange(srsProficiencyEstimateInput);
+    bindSrsSettingsChange(srsChallengeTargetInput);
+    bindSrsSettingsChange(srsSoundInput);
+    bindSrsSettingsChange(srsHighlightInput, () => {
+      if (srsHighlightTextInput) {
+        srsHighlightTextInput.value = srsHighlightInput.value;
+      }
+    });
+    bindSrsSettingsChange(srsHighlightTextInput, () => {
+      const value = srsHighlightTextInput.value.trim();
+      if (!value) {
+        return false;
+      }
+      if (srsHighlightInput) {
+        srsHighlightInput.value = value;
+      }
+      return true;
+    });
+    bindSrsSettingsChange(srsSemanticAdmissionEnabledInput);
+    bindSrsSettingsChange(srsSemanticAdmissionFallbackPolicyInput);
+    bindSrsSettingsChange(srsFeedbackSrsInput);
+    bindSrsSettingsChange(srsFeedbackRulesInput);
+    bindSrsSettingsChange(srsExposureLoggingInput);
     bindAsyncListener(srsInitializeSetButton, "click", () => srsActionsController.initializeSet(), {
       fallbackMessage: () => translate("status_srs_set_init_failed", null, "S initialization failed."),
       logMessage: "SRS set init failed."

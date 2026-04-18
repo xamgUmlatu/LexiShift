@@ -713,6 +713,12 @@
   "status_srs_saved": {
     "message": "SRS設定を保存しました。"
   },
+  "status_srs_save_failed": {
+    "message": "SRS設定を保存できませんでした。"
+  },
+  "status_srs_save_partial": {
+    "message": "SRS設定は部分的に保存されました。ページを再読み込みし、現在の値を確認してください。"
+  },
   "status_switch_edit_json": {
     "message": "保存するには「JSONを編集」に切り替えてください。"
   },
