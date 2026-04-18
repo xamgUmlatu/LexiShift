@@ -491,7 +491,16 @@
     "converting_for_optimized_use": "Converting {name} for optimized local use...",
     "downloaded_but_conversion_failed": "{name} downloaded, but optimized conversion failed: {message}",
     "download_completed_but_conversion_failed": "{name} download completed, but conversion failed: {message}",
-    "download_failed": "There was a problem downloading {name}. Error: {error}. Try the Wayback mirror: <a href=\"{link}\">{link}</a>"
+    "download_failed": "There was a problem downloading {name}. Error: {error}. Try the Wayback mirror: <a href=\"{link}\">{link}</a>",
+    "download_failed_offline": "{name} could not reach the source. Check your internet connection and try again.",
+    "download_failed_timeout": "{name} download timed out. Try again in a moment.",
+    "download_failed_not_found": "The source URL for {name} was not found.",
+    "download_failed_blocked": "The source for {name} could not be accessed from this network.",
+    "download_failed_source_unavailable": "The source for {name} is unavailable right now.",
+    "download_failed_write_failure": "{name} could not be saved locally. Check disk space and folder permissions. Error: {error}",
+    "download_failed_processing_failure": "{name} downloaded, but the source data could not be processed. Error: {error}",
+    "download_failed_unknown": "There was a problem downloading {name}. Error: {error}",
+    "download_failed_try_archive": "Try the archive mirror: <a href=\"{link}\">{link}</a>"
   },
   "sources": {
     "wordnet_dir": "WordNet directory",

@@ -489,7 +489,16 @@
     "converting_for_optimized_use": "{name} wird für optimierte lokale Nutzung konvertiert...",
     "downloaded_but_conversion_failed": "{name} wurde heruntergeladen, aber die optimierte Konvertierung ist fehlgeschlagen: {message}",
     "download_completed_but_conversion_failed": "{name} wurde heruntergeladen, aber die Konvertierung ist fehlgeschlagen: {message}",
-    "download_failed": "Beim Herunterladen von {name} ist ein Problem aufgetreten. Fehler: {error}. Versuchen Sie den Wayback-Spiegel: <a href=\"{link}\">{link}</a>"
+    "download_failed": "Beim Herunterladen von {name} ist ein Problem aufgetreten. Fehler: {error}. Versuchen Sie den Wayback-Spiegel: <a href=\"{link}\">{link}</a>",
+    "download_failed_offline": "{name} konnte die Quelle nicht erreichen. Prüfen Sie Ihre Internetverbindung und versuchen Sie es erneut.",
+    "download_failed_timeout": "Der Download von {name} hat zu lange gedauert. Versuchen Sie es gleich noch einmal.",
+    "download_failed_not_found": "Die Quell-URL für {name} wurde nicht gefunden.",
+    "download_failed_blocked": "Die Quelle für {name} konnte über dieses Netzwerk nicht aufgerufen werden.",
+    "download_failed_source_unavailable": "Die Quelle für {name} ist derzeit nicht verfügbar.",
+    "download_failed_write_failure": "{name} konnte lokal nicht gespeichert werden. Prüfen Sie Speicherplatz und Ordnerberechtigungen. Fehler: {error}",
+    "download_failed_processing_failure": "{name} wurde heruntergeladen, aber die Quelldaten konnten nicht verarbeitet werden. Fehler: {error}",
+    "download_failed_unknown": "Beim Herunterladen von {name} ist ein Problem aufgetreten. Fehler: {error}",
+    "download_failed_try_archive": "Versuchen Sie den Archiv-Spiegel: <a href=\"{link}\">{link}</a>"
   },
   "sources": {
     "wordnet_dir": "WordNet-Verzeichnis",

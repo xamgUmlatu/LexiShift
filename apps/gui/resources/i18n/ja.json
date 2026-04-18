@@ -490,7 +490,16 @@
     "converting_for_optimized_use": "{name} をローカル最適化用に変換中...",
     "downloaded_but_conversion_failed": "{name} はダウンロードされましたが、最適化変換に失敗しました: {message}",
     "download_completed_but_conversion_failed": "{name} のダウンロードは完了しましたが、変換に失敗しました: {message}",
-    "download_failed": "「{name}」のダウンロードで問題が発生しました。エラー: {error}。Wayback ミラーを試してください: <a href=\"{link}\">{link}</a>"
+    "download_failed": "「{name}」のダウンロードで問題が発生しました。エラー: {error}。Wayback ミラーを試してください: <a href=\"{link}\">{link}</a>",
+    "download_failed_offline": "{name} は配布元に接続できませんでした。インターネット接続を確認して再試行してください。",
+    "download_failed_timeout": "{name} のダウンロードがタイムアウトしました。少し待ってから再試行してください。",
+    "download_failed_not_found": "{name} の配布元 URL が見つかりませんでした。",
+    "download_failed_blocked": "{name} の配布元には、このネットワークからアクセスできませんでした。",
+    "download_failed_source_unavailable": "{name} の配布元は現在利用できません。",
+    "download_failed_write_failure": "{name} をローカルに保存できませんでした。ディスク容量とフォルダ権限を確認してください。エラー: {error}",
+    "download_failed_processing_failure": "{name} はダウンロードされましたが、ソースデータを処理できませんでした。エラー: {error}",
+    "download_failed_unknown": "「{name}」のダウンロードで問題が発生しました。エラー: {error}",
+    "download_failed_try_archive": "アーカイブミラーを試してください: <a href=\"{link}\">{link}</a>"
   },
   "sources": {
     "wordnet_dir": "WordNet ディレクトリ",

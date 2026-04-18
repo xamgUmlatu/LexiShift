@@ -34,6 +34,7 @@ from language_packs_catalog import (
     _frequency_pos_inventory_config,
     build_pack_catalogs,
 )
+from pack_download_failures import encode_pack_download_failure
 
 __all__ = [
     "CROSS_EMBEDDING_PACKS",
@@ -136,7 +137,9 @@ class LanguagePackDownloadThread(QThread):
                     while True:
                         if self.isInterruptionRequested():
                             self._cleanup_partial(self._dest_path)
-                            self.failed.emit(self._pack_id, "cancelled")
+                            self.failed.emit(
+                                self._pack_id, encode_pack_download_failure("cancelled")
+                            )
                             return
                         chunk = response.read(1024 * 128)
                         if not chunk:
@@ -146,7 +149,7 @@ class LanguagePackDownloadThread(QThread):
                         self.progress.emit(self._pack_id, downloaded, total)
             if self.isInterruptionRequested():
                 self._cleanup_partial(self._dest_path)
-                self.failed.emit(self._pack_id, "cancelled")
+                self.failed.emit(self._pack_id, encode_pack_download_failure("cancelled"))
                 return
             final_path = self._build_local_artifact(self._dest_path)
             if self._write_manifest_on_complete:
@@ -158,7 +161,7 @@ class LanguagePackDownloadThread(QThread):
             sqlite_path = self._pack.sqlite_filename
             if sqlite_path:
                 self._cleanup_partial(str(Path(self._dest_path).with_name(sqlite_path)))
-            self.failed.emit(self._pack_id, str(exc))
+            self.failed.emit(self._pack_id, encode_pack_download_failure(exc))
 
     def _build_local_artifact(self, dest_path: str) -> str:
         if self._pack.build_mode == "freedict_tei_to_sqlite":
@@ -371,7 +374,7 @@ class FrequencyPackDownloadThread(QThread):
                 self._download_archive()
                 if self.isInterruptionRequested():
                     self._cleanup_partial(self._archive_path)
-                    self.failed.emit(self._pack_id, "cancelled")
+                    self.failed.emit(self._pack_id, encode_pack_download_failure("cancelled"))
                     return
                 sqlite_path = self._convert_to_sqlite(self._archive_path)
             self._write_manifest(sqlite_path)
@@ -380,7 +383,7 @@ class FrequencyPackDownloadThread(QThread):
         except Exception as exc:
             _log_download(f"[{self._pack_id}] failed error={exc}")
             self._cleanup_partial(self._sqlite_path)
-            self.failed.emit(self._pack_id, str(exc))
+            self.failed.emit(self._pack_id, encode_pack_download_failure(exc))
 
     def _download_archive(self) -> None:
         request = urllib.request.Request(self._url, headers={"User-Agent": "LexiShift/1.0"})

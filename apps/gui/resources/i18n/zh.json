@@ -489,7 +489,16 @@
     "converting_for_optimized_use": "正在将 {name} 转换为本地优化格式...",
     "downloaded_but_conversion_failed": "{name} 已下载，但优化转换失败：{message}",
     "download_completed_but_conversion_failed": "{name} 下载完成，但转换失败：{message}",
-    "download_failed": "下载 {name} 时出现问题。错误：{error}。请尝试 Wayback 镜像：<a href=\"{link}\">{link}</a>"
+    "download_failed": "下载 {name} 时出现问题。错误：{error}。请尝试 Wayback 镜像：<a href=\"{link}\">{link}</a>",
+    "download_failed_offline": "{name} 无法连接到数据源。请检查网络连接后重试。",
+    "download_failed_timeout": "{name} 下载超时。请稍后再试。",
+    "download_failed_not_found": "未找到 {name} 的源地址。",
+    "download_failed_blocked": "当前网络无法访问 {name} 的数据源。",
+    "download_failed_source_unavailable": "{name} 的数据源当前不可用。",
+    "download_failed_write_failure": "无法将 {name} 保存到本地。请检查磁盘空间和文件夹权限。错误：{error}",
+    "download_failed_processing_failure": "{name} 已下载，但无法处理源数据。错误：{error}",
+    "download_failed_unknown": "下载 {name} 时出现问题。错误：{error}",
+    "download_failed_try_archive": "请尝试归档镜像：<a href=\"{link}\">{link}</a>"
   },
   "sources": {
     "wordnet_dir": "WordNet 目录",

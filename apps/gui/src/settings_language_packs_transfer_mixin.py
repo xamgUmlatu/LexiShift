@@ -10,6 +10,19 @@ from language_packs import (
     download_log_path,
 )
 from lexishift_core.helper.installed_packs import write_installed_pack_manifest
+from pack_download_failures import (
+    PACK_DOWNLOAD_FAILURE_BLOCKED,
+    PACK_DOWNLOAD_FAILURE_CANCELLED,
+    PACK_DOWNLOAD_FAILURE_NOT_FOUND,
+    PACK_DOWNLOAD_FAILURE_OFFLINE,
+    PACK_DOWNLOAD_FAILURE_PROCESSING_FAILED,
+    PACK_DOWNLOAD_FAILURE_SOURCE_UNAVAILABLE,
+    PACK_DOWNLOAD_FAILURE_TIMEOUT,
+    PACK_DOWNLOAD_FAILURE_WRITE_FAILED,
+    PackDownloadFailure,
+    pack_download_failure_supports_archive_mirror,
+    parse_pack_download_failure,
+)
 from settings_language_packs_support import EmbeddingConversionThread
 
 
@@ -48,7 +61,8 @@ class LanguagePackPanelTransferMixin:
             row.status_item.setText(t("language_packs.status.downloading"))
 
     def _set_download_failed_status(self, *, pack, row, message: str) -> None:
-        if message == "cancelled" and self._closing:
+        failure = parse_pack_download_failure(message)
+        if failure.kind == PACK_DOWNLOAD_FAILURE_CANCELLED and self._closing:
             row.status_item.setText(t("language_packs.status.cancelled"))
             self._set_status_item_tone(row.status_item, "muted")
             row.download_button.setEnabled(True)
@@ -58,14 +72,53 @@ class LanguagePackPanelTransferMixin:
         self._set_status_item_tone(row.status_item, "error")
         row.download_button.setEnabled(True)
         row.download_button.setText(t("buttons.retry"))
-        link = pack.wayback_url
         log_path = download_log_path()
-        row.status_item.setToolTip(log_path)
+        tooltip = self._download_failure_tooltip(log_path=log_path, failure=failure)
+        row.status_item.setToolTip(tooltip)
         self._set_status_message(
-            t("language_packs.download_failed", name=pack.display_name(), error=message, link=link),
+            self._download_failure_message(pack=pack, failure=failure),
             tone="error",
-            tooltip=log_path,
+            tooltip=tooltip,
         )
+
+    def _download_failure_message(self, *, pack, failure: PackDownloadFailure) -> str:
+        name = pack.display_name()
+        if failure.kind == PACK_DOWNLOAD_FAILURE_OFFLINE:
+            message = t("language_packs.download_failed_offline", name=name)
+        elif failure.kind == PACK_DOWNLOAD_FAILURE_TIMEOUT:
+            message = t("language_packs.download_failed_timeout", name=name)
+        elif failure.kind == PACK_DOWNLOAD_FAILURE_NOT_FOUND:
+            message = t("language_packs.download_failed_not_found", name=name)
+        elif failure.kind == PACK_DOWNLOAD_FAILURE_BLOCKED:
+            message = t("language_packs.download_failed_blocked", name=name)
+        elif failure.kind == PACK_DOWNLOAD_FAILURE_SOURCE_UNAVAILABLE:
+            message = t("language_packs.download_failed_source_unavailable", name=name)
+        elif failure.kind == PACK_DOWNLOAD_FAILURE_WRITE_FAILED:
+            message = t(
+                "language_packs.download_failed_write_failure",
+                name=name,
+                error=failure.detail,
+            )
+        elif failure.kind == PACK_DOWNLOAD_FAILURE_PROCESSING_FAILED:
+            message = t(
+                "language_packs.download_failed_processing_failure",
+                name=name,
+                error=failure.detail,
+            )
+        else:
+            message = t("language_packs.download_failed_unknown", name=name, error=failure.detail)
+        if pack_download_failure_supports_archive_mirror(failure) and pack.wayback_url:
+            message = (
+                f"{message} "
+                f"{t('language_packs.download_failed_try_archive', link=pack.wayback_url)}"
+            )
+        return message
+
+    def _download_failure_tooltip(self, *, log_path: str, failure: PackDownloadFailure) -> str:
+        detail = str(failure.detail or "").strip()
+        if not detail or failure.kind == PACK_DOWNLOAD_FAILURE_CANCELLED:
+            return log_path
+        return f"{log_path}\n\n{detail}"
 
     def _on_language_pack_failed(self, pack_id: str, message: str) -> None:
         pack = self._language_pack_info.get(pack_id)
