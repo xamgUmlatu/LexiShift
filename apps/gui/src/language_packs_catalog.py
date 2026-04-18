@@ -100,6 +100,7 @@ class PackTransportOverride:
     url: str | None = None
     wayback_url: str | None = None
     filename: str | None = None
+    expected_content_type: str | None = None
 
 
 LANGUAGE_PACKS = [
@@ -558,6 +559,7 @@ def _coerce_transport_override(
         url=_normalized_transport_value(raw.get("url")),
         wayback_url=_normalized_transport_value(raw.get("wayback_url")),
         filename=_normalized_transport_value(raw.get("filename")),
+        expected_content_type=_normalized_transport_value(raw.get("expected_content_type")),
     )
 
 
@@ -572,7 +574,12 @@ def _normalize_transport_overrides(
         if not pack_id or raw_override is None:
             continue
         override = _coerce_transport_override(raw_override)
-        if override.url is None and override.wayback_url is None and override.filename is None:
+        if (
+            override.url is None
+            and override.wayback_url is None
+            and override.filename is None
+            and override.expected_content_type is None
+        ):
             continue
         normalized[pack_id] = override
     return normalized

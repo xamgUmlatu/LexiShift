@@ -237,8 +237,17 @@ def pack_source_manifest_snapshot_from_payload(
                 raw_entry.get("filename"),
                 field_name="filename",
             ),
+            expected_content_type=_coerce_optional_manifest_string(
+                raw_entry.get("expected_content_type"),
+                field_name="expected_content_type",
+            ),
         )
-        if override.url is None and override.wayback_url is None and override.filename is None:
+        if (
+            override.url is None
+            and override.wayback_url is None
+            and override.filename is None
+            and override.expected_content_type is None
+        ):
             continue
         overrides[pack_id] = override
     return PackSourceManifestSnapshot(
@@ -279,6 +288,8 @@ def _pack_transport_override_to_dict(override: PackTransportOverride) -> dict[st
         payload["wayback_url"] = override.wayback_url
     if override.filename is not None:
         payload["filename"] = override.filename
+    if override.expected_content_type is not None:
+        payload["expected_content_type"] = override.expected_content_type
     return payload
 
 

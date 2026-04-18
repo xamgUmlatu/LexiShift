@@ -36,6 +36,10 @@ DEFAULT_MARKDOWN_OUT = (
 DEFAULT_TIMEOUT_SECONDS = 20.0
 DEFAULT_USER_AGENT = "LexiShift/1.0"
 _HEAD_FALLBACK_STATUS_CODES = frozenset({403, 405, 500, 501})
+_CONTENT_TYPE_ALIASES = {
+    "application/x-gzip": "application/gzip",
+    "binary/octet-stream": "application/octet-stream",
+}
 
 
 @dataclass(frozen=True)
@@ -58,8 +62,11 @@ class PackSourceAuditRow:
     source: str
     filename: str
     transport_origin: str
+    expected_content_type: str | None
     primary_probe: UrlProbe
     archive_probe: UrlProbe | None
+    primary_content_type_matches: bool | None
+    archive_content_type_matches: bool | None
 
 
 @dataclass(frozen=True)
@@ -76,6 +83,8 @@ class PackSourceUrlAuditReport:
     archive_ok_count: int
     archive_fail_count: int
     archive_skipped_count: int
+    primary_content_type_mismatch_count: int
+    archive_content_type_mismatch_count: int
     include_archive: bool
     pack_kinds: list[str]
     pack_id_filter: list[str]
@@ -176,7 +185,19 @@ def build_pack_source_url_audit_report(
     archive_ok_count = sum(1 for probe in archive_rows if probe and probe.ok)
     archive_fail_count = sum(1 for probe in archive_rows if probe and not probe.ok)
     archive_skipped_count = len(rows) - len(archive_rows)
-    overall_status = "FAIL" if primary_fail_count else "WARN" if archive_fail_count else "PASS"
+    primary_content_type_mismatch_count = sum(
+        1 for row in rows if row.primary_content_type_matches is False
+    )
+    archive_content_type_mismatch_count = sum(
+        1 for row in rows if row.archive_content_type_matches is False
+    )
+    overall_status = (
+        "FAIL"
+        if primary_fail_count or primary_content_type_mismatch_count
+        else "WARN"
+        if archive_fail_count or archive_content_type_mismatch_count
+        else "PASS"
+    )
 
     pack_kind_values = sorted({row.pack_kind for row in rows})
     pack_id_filter = sorted(
@@ -199,6 +220,8 @@ def build_pack_source_url_audit_report(
         archive_ok_count=archive_ok_count,
         archive_fail_count=archive_fail_count,
         archive_skipped_count=archive_skipped_count,
+        primary_content_type_mismatch_count=primary_content_type_mismatch_count,
+        archive_content_type_mismatch_count=archive_content_type_mismatch_count,
         include_archive=include_archive,
         pack_kinds=pack_kind_values,
         pack_id_filter=pack_id_filter,
@@ -282,6 +305,10 @@ def build_audit_rows(
             if normalized_pack_ids and pack.pack_id not in normalized_pack_ids:
                 continue
             bundled_pack = bundled_by_id[pack.pack_id]
+            override = overrides.get(pack.pack_id)
+            expected_content_type = _normalize_content_type(
+                override.expected_content_type if override is not None else None
+            )
             transport_origin = (
                 "manifest_override"
                 if (
@@ -303,6 +330,14 @@ def build_audit_rows(
                     timeout_seconds=timeout_seconds,
                     opener=opener,
                 )
+            primary_content_type_matches = _content_type_matches(
+                expected_content_type,
+                primary_probe,
+            )
+            archive_content_type_matches = _content_type_matches(
+                expected_content_type,
+                archive_probe,
+            )
             rows.append(
                 PackSourceAuditRow(
                     pack_id=pack.pack_id,
@@ -311,8 +346,11 @@ def build_audit_rows(
                     source=pack.source,
                     filename=pack.filename,
                     transport_origin=transport_origin,
+                    expected_content_type=expected_content_type,
                     primary_probe=primary_probe,
                     archive_probe=archive_probe,
+                    primary_content_type_matches=primary_content_type_matches,
+                    archive_content_type_matches=archive_content_type_matches,
                 )
             )
     rows.sort(key=lambda row: (row.pack_kind, row.pack_id))
@@ -370,6 +408,11 @@ def render_markdown(
             f"fail={report.archive_fail_count} "
             f"skipped={report.archive_skipped_count}"
         ),
+        (
+            "- Content-type mismatches: "
+            f"primary={report.primary_content_type_mismatch_count} "
+            f"archive={report.archive_content_type_mismatch_count}"
+        ),
     ]
     if report.manifest_generated_at:
         lines.append(f"- Manifest generated at: `{report.manifest_generated_at}`")
@@ -385,10 +428,20 @@ def render_markdown(
             findings.append(
                 _format_probe_finding(row, row.primary_probe, severity="FAIL", role="primary")
             )
+        elif row.primary_content_type_matches is False:
+            findings.append(
+                _format_content_type_finding(
+                    row, row.primary_probe, severity="FAIL", role="primary"
+                )
+            )
         archive_probe = row.archive_probe
         if archive_probe is not None and not archive_probe.ok:
             findings.append(
                 _format_probe_finding(row, archive_probe, severity="WARN", role="archive")
+            )
+        elif archive_probe is not None and row.archive_content_type_matches is False:
+            findings.append(
+                _format_content_type_finding(row, archive_probe, severity="WARN", role="archive")
             )
     if findings:
         for index, line in enumerate(findings[: max(1, int(max_findings))], start=1):
@@ -406,8 +459,8 @@ def render_markdown(
             "",
             "## Probe Table",
             "",
-            "| Pack | Kind | Transport | Primary | Archive |",
-            "|---|---|---|---|---|",
+            "| Pack | Kind | Transport | Expected Type | Primary | Archive |",
+            "|---|---|---|---|---|---|",
         ]
     )
     for row in report.rows:
@@ -417,6 +470,7 @@ def render_markdown(
             f"`{row.pack_id}` | "
             f"{row.pack_kind} | "
             f"{row.transport_origin} | "
+            f"{row.expected_content_type or '-'} | "
             f"{_probe_status_label(row.primary_probe)} | "
             f"{archive} |"
         )
@@ -431,6 +485,8 @@ def print_summary(report: PackSourceUrlAuditReport) -> None:
     print(f"packs_checked: {report.pack_count}")
     print(f"primary_failures: {report.primary_fail_count}")
     print(f"archive_failures: {report.archive_fail_count}")
+    print(f"primary_content_type_mismatches: {report.primary_content_type_mismatch_count}")
+    print(f"archive_content_type_mismatches: {report.archive_content_type_mismatch_count}")
 
 
 def _build_request(url: str, *, method: str, range_request: bool = False) -> url_request.Request:
@@ -543,6 +599,20 @@ def _format_probe_finding(
     )
 
 
+def _format_content_type_finding(
+    row: PackSourceAuditRow,
+    probe: UrlProbe,
+    *,
+    severity: str,
+    role: str,
+) -> str:
+    return (
+        f"[{severity}] `{row.pack_id}` ({row.pack_kind}, {role}, {row.transport_origin}) "
+        f"`content_type={probe.content_type or 'missing'}` expected "
+        f"`{row.expected_content_type or 'unspecified'}` -> {probe.url}"
+    )
+
+
 def _probe_status_label(probe: UrlProbe | None) -> str:
     if probe is None:
         return "-"
@@ -551,6 +621,25 @@ def _probe_status_label(probe: UrlProbe | None) -> str:
     if probe.status_code is not None:
         return f"FAIL ({probe.method} {probe.status_code})"
     return f"FAIL ({probe.method})"
+
+
+def _content_type_matches(expected: str | None, probe: UrlProbe | None) -> bool | None:
+    if expected is None or probe is None or not probe.ok:
+        return None
+    actual = _normalize_content_type(probe.content_type)
+    if actual is None:
+        return None
+    return actual == expected
+
+
+def _normalize_content_type(value: str | None) -> str | None:
+    text = str(value or "").strip().lower()
+    if not text:
+        return None
+    normalized = text.split(";", 1)[0].strip()
+    if not normalized:
+        return None
+    return _CONTENT_TYPE_ALIASES.get(normalized, normalized)
 
 
 __all__ = [

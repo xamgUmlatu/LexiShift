@@ -42,6 +42,7 @@ def _snapshot(*, fetched_at: datetime, ttl_hours: int = 24) -> PackSourceManifes
             "freedict-en-es": PackTransportOverride(
                 url="https://example.com/freedict-eng-spa.tar.xz",
                 filename="freedict-eng-spa.tar.xz",
+                expected_content_type="application/x-xz",
             )
         },
     )
@@ -64,6 +65,7 @@ def test_resolve_pack_source_manifest_uses_fresh_cache_without_fetch() -> None:
     fetch_mock.assert_not_called()
     assert resolved is not None
     assert resolved.overrides["freedict-en-es"].filename == "freedict-eng-spa.tar.xz"
+    assert resolved.overrides["freedict-en-es"].expected_content_type == "application/x-xz"
 
 
 def test_resolve_pack_source_manifest_fetches_and_writes_cache_when_missing() -> None:
@@ -78,6 +80,7 @@ def test_resolve_pack_source_manifest_fetches_and_writes_cache_when_missing() ->
                 "freq-en-coca": PackTransportOverride(
                     url="https://example.com/lemmas.txt",
                     filename="lemmas.txt",
+                    expected_content_type="text/plain",
                 )
             },
         )
@@ -105,6 +108,7 @@ def test_resolve_pack_source_manifest_fetches_and_writes_cache_when_missing() ->
     assert resolved.overrides["freq-en-coca"].url == "https://example.com/lemmas.txt"
     assert cached is not None
     assert cached.overrides["freq-en-coca"].filename == "lemmas.txt"
+    assert cached.overrides["freq-en-coca"].expected_content_type == "text/plain"
 
 
 def test_resolve_pack_source_manifest_falls_back_to_stale_cache_when_fetch_fails() -> None:

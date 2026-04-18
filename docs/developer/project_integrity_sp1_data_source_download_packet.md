@@ -215,8 +215,8 @@ Current default outputs:
 
 Current scope note:
 
-- the implemented audit validates the current manifest schema and probes effective primary plus archive URLs
-- checksum/content-type expectation enforcement can layer on later if those fields become first-class manifest inputs
+- the implemented audit validates the current manifest schema, probes effective primary plus archive URLs, and enforces `expected_content_type` when provided
+- checksum enforcement can layer on later if `sha256` becomes a first-class manifest input
 
 ## Bite-Sized Implementation Order
 

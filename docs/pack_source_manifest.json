@@ -2,5 +2,36 @@
   "schema_version": 1,
   "generated_at": "2026-04-19T00:00:00Z",
   "ttl_hours": 24,
-  "packs": {}
+  "packs": {
+    "cc-cedict-zh-en": {
+      "expected_content_type": "application/zip"
+    },
+    "freedict-de-en": {
+      "expected_content_type": "application/x-xz"
+    },
+    "freedict-en-de": {
+      "expected_content_type": "application/x-xz"
+    },
+    "freedict-en-es": {
+      "expected_content_type": "application/x-xz"
+    },
+    "freedict-es-en": {
+      "expected_content_type": "application/x-xz"
+    },
+    "freq-de-default": {
+      "expected_content_type": "application/gzip"
+    },
+    "freq-en-coca": {
+      "expected_content_type": "text/plain"
+    },
+    "freq-es-cde": {
+      "expected_content_type": "text/plain"
+    },
+    "jmdict-ja-en": {
+      "expected_content_type": "application/gzip"
+    },
+    "moby-en": {
+      "expected_content_type": "text/plain"
+    }
+  }
 }
