@@ -3,12 +3,13 @@
 Status: active planning doc with first executable slice
 Role: architecture target / implementation plan
 Purpose: define the final desired architecture for installed language/data packs so rulegen, helper, and benchmark code consume a normalized contract instead of provider-specific raw files.
-Last updated: 2026-04-03
+Last updated: 2026-04-19
 Last verified: 2026-04-03 helper/gui path and manifest slice plus manifest-backed translation pack refs, helper/journey-installed translation-pack seam cleanup, the first frequency pack-ref/runtime-diagnostics seam, the first embedding pack-id activation/runtime-resolution seam, and the internal helper translation-dictionary seam cleanup
 Source-of-truth: planning doc only; executable truth still lives in code, tests, and current pack/build flows.
 
 Execution-order companion:
 - `/Users/takeyayuki/Documents/projects/LexiShift/docs/developer/data_source_normalization_execution_order.md`
+- `/Users/takeyayuki/Documents/projects/LexiShift/docs/developer/project_integrity_sp1_data_source_download_packet.md`
 
 ## Why This Workstream Exists
 
@@ -109,6 +110,13 @@ The pack catalog should remain the source of truth for:
 - expected compiled artifacts
 
 This is an extension of the current catalog, not a replacement for it.
+
+Operational note for the next install-lifecycle slice:
+
+- the bundled pack catalog should keep owning pack identity, provider, pair, and build-shape fields
+- mutable upstream transport fields such as `url`, `wayback_url`, and filename drift can be layered through a small remote source-manifest overlay keyed by `pack_id`
+- that remote overlay should not become a backdoor for changing build modes, required files, or runtime identity without a code change
+- see `/Users/takeyayuki/Documents/projects/LexiShift/docs/developer/project_integrity_sp1_data_source_download_packet.md`
 
 ## 2. Installed Pack Directory
 
