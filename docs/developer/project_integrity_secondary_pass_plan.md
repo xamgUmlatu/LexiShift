@@ -289,6 +289,35 @@ Net effect:
 - stronger bias toward seam-local executable evidence before present-tense checkpoint docs make validation claims
 - proceed next with `E1` translation-pack holdout audit
 
+## E1 Checkpoint (2026-04-18)
+
+Context:
+
+- completed slice since the last synthesis stop: `E1.1` translation-pack tooling holdout audit
+
+Observed outcome:
+
+1. the benchmark/runtime translation-pack seam is behaving better than the remaining developer-facing copy suggested.
+   - benchmark default resolution, helper/runtime pack refs, and benchmark resource payload identity now have direct shared regression coverage for both manifest-backed installs and legacy flat SQLite defaults.
+2. covered synthetic SRS harness defaults are already aligned with the SQLite-first direction.
+   - `en-es` journey fixtures and `en-de` quality-harness translation fixtures remain SQLite-backed rather than TEI-backed.
+3. the main remaining translation-pack holdout is now narrower than the original `E1` risk shape.
+   - benchmark CLI copy was cleaned up in this slice.
+   - probe-side path-shaped copy/output remains a carry-forward item because that file is already mid-split and did not justify mixing a larger refactor into this checkpoint.
+
+Queue decision:
+
+1. proceed next with `E2` frequency-pack holdout audit.
+   - translation-pack runtime correctness did not uncover a deeper bug that would justify reordering the queue.
+2. keep `E4` in place for the remaining installed-vs-manual wording cleanup.
+   - `N-008` now captures the probe-side holdout so it does not get lost.
+
+Net effect:
+
+- `E1` raised the evidence level around translation-pack normalization without broad behavior churn
+- benchmark/help surfaces are closer to the managed-pack contract
+- the next highest-value normalization seam is still frequency-pack follow-through
+
 ## Secondary-Pass Perspectives
 
 Use these perspectives deliberately.

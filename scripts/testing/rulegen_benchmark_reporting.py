@@ -159,9 +159,7 @@ def _config_from_payload(payload: Mapping[str, object]) -> SweepConfig:
         reverse_check_exact_hit_ambiguity_penalty=float(
             payload.get("reverse_check_exact_hit_ambiguity_penalty") or 0.0
         ),
-        kaikki_policy_register_demotion=bool(
-            payload.get("kaikki_policy_register_demotion", False)
-        ),
+        kaikki_policy_register_demotion=bool(payload.get("kaikki_policy_register_demotion", False)),
         kaikki_policy_live_demotion=bool(payload.get("kaikki_policy_live_demotion", False)),
         kaikki_policy_risk_families=normalized_families,
         reverse_check_exact_hit_specificity_bonus=float(
@@ -427,8 +425,8 @@ def _build_parser() -> argparse.ArgumentParser:
         dest="translation_dict_en_de",
         type=Path,
         help=(
-            "Optional translation-dictionary override for en-de pair "
-            "(wiktionary-de-en.sqlite / deu-eng.sqlite)."
+            "Optional manual translation-dictionary override for en-de pair. "
+            "Installed language packs are used by default."
         ),
     )
     parser.add_argument(
@@ -436,21 +434,27 @@ def _build_parser() -> argparse.ArgumentParser:
         dest="translation_dict_en_es",
         type=Path,
         help=(
-            "Optional translation-dictionary override for en-es pair "
-            "(wiktionary-es-en.sqlite / spa-eng.sqlite)."
+            "Optional manual translation-dictionary override for en-es pair. "
+            "Installed language packs are used by default."
         ),
     )
     parser.add_argument(
         "--translation-dict-es-en",
         dest="translation_dict_es_en",
         type=Path,
-        help="Optional translation-dictionary override for es-en pair (eng-spa.sqlite).",
+        help=(
+            "Optional manual translation-dictionary override for es-en pair. "
+            "Installed language packs are used by default."
+        ),
     )
     parser.add_argument(
         "--source-frequency-db-en-de",
         dest="source_frequency_db_en_de",
         type=Path,
-        help="Optional English source-frequency SQLite override for en-de experiments.",
+        help=(
+            "Optional manual English source-frequency SQLite override for en-de experiments. "
+            "Installed frequency packs are used by default."
+        ),
     )
     parser.add_argument("--max-definitions-values", default="3")
     parser.add_argument("--max-rules-values", default="none")
