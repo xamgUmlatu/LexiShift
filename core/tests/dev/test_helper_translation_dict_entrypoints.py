@@ -27,9 +27,46 @@ def _load_module(name: str, path: Path):
 
 
 class TestHelperTranslationDictEntrypoints(unittest.TestCase):
-    def test_helper_cli_uses_generic_translation_dict_flags(self) -> None:
+    def test_helper_cli_translation_dict_help_describes_installed_pack_defaults(self) -> None:
+        commands = (
+            "run_rulegen",
+            "init_srs_set",
+            "refresh_srs_set",
+            "plan_srs_rebalance",
+            "apply_srs_rebalance",
+        )
+
+        for command in commands:
+            with self.subTest(command=command):
+                result = subprocess.run(
+                    [sys.executable, str(HELPER_SCRIPT), command, "--help"],
+                    cwd=REPO_ROOT,
+                    capture_output=True,
+                    text=True,
+                    check=False,
+                )
+
+                self.assertEqual(result.returncode, 0, msg=result.stderr)
+                help_text = result.stdout
+                normalized_help = " ".join(help_text.split())
+                self.assertIn("--translation-dict", help_text)
+                self.assertNotIn("--freedict-de-en", help_text)
+                self.assertIn(
+                    "Installed language packs are used by default.",
+                    normalized_help,
+                )
+                self.assertIn(
+                    "manual translation dictionary override",
+                    normalized_help,
+                )
+                self.assertIn(
+                    "manual compatibility",
+                    normalized_help,
+                )
+
+    def test_helper_cli_exposes_admission_preview_and_rebalance_commands(self) -> None:
         result = subprocess.run(
-            [sys.executable, str(HELPER_SCRIPT), "run_rulegen", "--help"],
+            [sys.executable, str(HELPER_SCRIPT), "--help"],
             cwd=REPO_ROOT,
             capture_output=True,
             text=True,
@@ -38,8 +75,24 @@ class TestHelperTranslationDictEntrypoints(unittest.TestCase):
 
         self.assertEqual(result.returncode, 0, msg=result.stderr)
         help_text = result.stdout
-        self.assertIn("--translation-dict", help_text)
-        self.assertNotIn("--freedict-de-en", help_text)
+        self.assertIn("preview_srs_admission", help_text)
+        self.assertIn("plan_srs_rebalance", help_text)
+        self.assertIn("apply_srs_rebalance", help_text)
+
+    def test_helper_cli_preview_admission_help_lists_profile_preview_flags(self) -> None:
+        result = subprocess.run(
+            [sys.executable, str(HELPER_SCRIPT), "preview_srs_admission", "--help"],
+            cwd=REPO_ROOT,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+
+        self.assertEqual(result.returncode, 0, msg=result.stderr)
+        help_text = result.stdout
+        self.assertIn("--preview-count", help_text)
+        self.assertIn("--preview-sampling-mode", help_text)
+        self.assertIn("--profile-context-json", help_text)
 
     def test_native_host_ignores_legacy_translation_dict_payload_key(self) -> None:
         module = _load_module("lexishift_native_host_test", NATIVE_HOST_SCRIPT)
@@ -90,6 +143,39 @@ class TestHelperTranslationDictEntrypoints(unittest.TestCase):
         self.assertEqual(response["pair"], "en-es")
         self.assertEqual(response["schema_version"], 1)
 
+    def test_native_host_routes_srs_preview_admission(self) -> None:
+        module = _load_module("lexishift_native_host_preview_test", NATIVE_HOST_SCRIPT)
+
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = build_helper_paths(Path(tmp))
+            with (
+                patch.object(module, "build_helper_paths", return_value=paths),
+                patch.object(
+                    module,
+                    "preview_srs_admission",
+                    return_value={"kind": "preview", "pair": "en-ja"},
+                ) as preview,
+            ):
+                response = module._handle_request(
+                    "srs_preview_admission",
+                    {
+                        "pair": "en-ja",
+                        "profile_id": "default",
+                        "strategy": "profile_bootstrap",
+                        "objective": "bootstrap",
+                        "preview_count": 3,
+                        "profile_context": {"interests": ["animals"]},
+                    },
+                )
+
+        self.assertEqual(response["kind"], "preview")
+        config = preview.call_args.kwargs["config"]
+        self.assertEqual(config.pair, "en-ja")
+        self.assertEqual(config.profile_id, "default")
+        self.assertEqual(config.strategy, "profile_bootstrap")
+        self.assertEqual(config.preview_count, 3)
+        self.assertEqual(config.profile_context, {"interests": ["animals"]})
+
     def test_native_host_routes_semantic_admit_batch(self) -> None:
         module = _load_module("lexishift_native_host_semantic_admit_batch_test", NATIVE_HOST_SCRIPT)
 
@@ -124,6 +210,64 @@ class TestHelperTranslationDictEntrypoints(unittest.TestCase):
         self.assertEqual(response["pair"], "en-es")
         self.assertEqual(response["decisions"][0]["decision_source"], "fallback_policy")
         self.assertIn("semantic_inventory_missing", response["decisions"][0]["reason_codes"])
+
+    def test_native_host_routes_srs_rebalance_plan_and_apply(self) -> None:
+        module = _load_module("lexishift_native_host_rebalance_test", NATIVE_HOST_SCRIPT)
+
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = build_helper_paths(Path(tmp))
+            with (
+                patch.object(module, "build_helper_paths", return_value=paths),
+                patch.object(
+                    module,
+                    "plan_srs_rebalance",
+                    return_value={"kind": "plan", "pair": "en-ja"},
+                ) as plan_rebalance,
+                patch.object(
+                    module,
+                    "apply_srs_rebalance",
+                    return_value={"kind": "apply", "pair": "en-ja"},
+                ) as apply_rebalance,
+            ):
+                preview_response = module._handle_request(
+                    "srs_rebalance_plan",
+                    {
+                        "pair": "en-ja",
+                        "profile_id": "default",
+                        "strategy": "profile_growth",
+                        "objective": "rebalance",
+                        "max_active_items": 12,
+                        "profile_context": {"interests": ["animals"]},
+                    },
+                )
+                apply_response = module._handle_request(
+                    "srs_rebalance_apply",
+                    {
+                        "pair": "en-ja",
+                        "profile_id": "default",
+                        "strategy": "profile_growth",
+                        "objective": "rebalance",
+                        "max_active_items": 12,
+                        "profile_context": {"interests": ["animals"]},
+                    },
+                )
+
+        self.assertEqual(preview_response["kind"], "plan")
+        self.assertEqual(apply_response["kind"], "apply")
+
+        preview_config = plan_rebalance.call_args.kwargs["config"]
+        self.assertEqual(preview_config.pair, "en-ja")
+        self.assertEqual(preview_config.profile_id, "default")
+        self.assertEqual(preview_config.strategy, "profile_growth")
+        self.assertEqual(preview_config.max_active_items, 12)
+        self.assertEqual(preview_config.profile_context, {"interests": ["animals"]})
+
+        apply_config = apply_rebalance.call_args.kwargs["config"]
+        self.assertEqual(apply_config.pair, "en-ja")
+        self.assertEqual(apply_config.profile_id, "default")
+        self.assertEqual(apply_config.strategy, "profile_growth")
+        self.assertEqual(apply_config.max_active_items, 12)
+        self.assertEqual(apply_config.profile_context, {"interests": ["animals"]})
 
 
 if __name__ == "__main__":

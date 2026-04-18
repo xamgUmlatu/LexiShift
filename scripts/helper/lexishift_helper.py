@@ -37,6 +37,13 @@ from lexishift_core.helper.lp_capabilities import (
 from srs_admission_cli_support import register_srs_preview_and_rebalance_commands
 
 
+_TRANSLATION_DICT_OVERRIDE_HELP = (
+    "Optional manual translation dictionary override. "
+    "Installed language packs are used by default. "
+    "SQLite is preferred; TEI remains available for manual compatibility."
+)
+
+
 def _print_json(payload: object) -> None:
     print(json.dumps(payload, indent=2, sort_keys=True, ensure_ascii=False))
 
@@ -409,10 +416,7 @@ def build_parser() -> argparse.ArgumentParser:
     run.add_argument("--jmdict", help="Path to JMdict_e folder")
     run.add_argument(
         "--translation-dict",
-        help=(
-            "Path to translation dictionary artifact "
-            "(SQLite preferred; TEI accepted for manual compatibility)."
-        ),
+        help=_TRANSLATION_DICT_OVERRIDE_HELP,
     )
     run.add_argument(
         "--set-source-db",
@@ -597,10 +601,7 @@ def build_parser() -> argparse.ArgumentParser:
     init_s.add_argument("--jmdict", help="Path to JMdict_e folder")
     init_s.add_argument(
         "--translation-dict",
-        help=(
-            "Path to translation dictionary artifact "
-            "(SQLite preferred; TEI accepted for manual compatibility)."
-        ),
+        help=_TRANSLATION_DICT_OVERRIDE_HELP,
     )
     init_s.add_argument(
         "--set-source-db",
@@ -670,10 +671,7 @@ def build_parser() -> argparse.ArgumentParser:
     refresh_s.add_argument("--jmdict", help="Path to JMdict_e folder")
     refresh_s.add_argument(
         "--translation-dict",
-        help=(
-            "Path to translation dictionary artifact "
-            "(SQLite preferred; TEI accepted for manual compatibility)."
-        ),
+        help=_TRANSLATION_DICT_OVERRIDE_HELP,
     )
     refresh_s.add_argument(
         "--set-source-db",

@@ -14,6 +14,13 @@ from lexishift_core.helper.engine import (
 from lexishift_core.helper.paths import build_helper_paths
 
 
+_TRANSLATION_DICT_OVERRIDE_HELP = (
+    "Optional manual translation dictionary override. "
+    "Installed language packs are used by default. "
+    "SQLite is preferred; TEI remains available for manual compatibility."
+)
+
+
 def register_srs_preview_and_rebalance_commands(
     subparsers,
     *,
@@ -190,7 +197,7 @@ def register_srs_preview_and_rebalance_commands(
     rebalance_plan.add_argument("--jmdict", help="Path to JMdict_e folder used for seed/bootstrap.")
     rebalance_plan.add_argument(
         "--translation-dict",
-        help="Optional translation dictionary override for the follow-up rulegen step.",
+        help=_TRANSLATION_DICT_OVERRIDE_HELP,
     )
     rebalance_plan.add_argument(
         "--set-source-db",
@@ -229,7 +236,7 @@ def register_srs_preview_and_rebalance_commands(
     )
     rebalance_apply.add_argument(
         "--translation-dict",
-        help="Optional translation dictionary override for the follow-up rulegen step.",
+        help=_TRANSLATION_DICT_OVERRIDE_HELP,
     )
     rebalance_apply.add_argument(
         "--set-source-db",

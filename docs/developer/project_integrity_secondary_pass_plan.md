@@ -3,7 +3,7 @@
 Status: active planning
 Role: Planning / WIP
 Last updated: 2026-04-18
-Last verified: 2026-04-18 E3 embedding migration/runtime checkpoint added
+Last verified: 2026-04-18 E4 installed/manual contract checkpoint added
 Purpose: define the invariant-driven follow-on review that comes after the first structural stabilization pass so correctness risks are checked deliberately, one seam at a time
 Source-of-truth: planning doc only; executable truth still lives in code, tests, `feature_state_matrix.md`, and the evidence artifacts generated during each slice
 Related docs:
@@ -375,6 +375,35 @@ Net effect:
 - `E3` improved evidence quality at a high-risk join point without changing product behavior
 - the managed embedding settings/runtime split now has a direct save-load-resolve contract test
 - the next normalization follow-through remains wording/contract cleanup rather than another embedding runtime repair
+
+## E4 Checkpoint (2026-04-18)
+
+Context:
+
+- completed slice since the previous checkpoint: `E4.1` installed-vs-manual contract cleanup
+
+Observed outcome:
+
+1. the visible installed-vs-manual contract is now more consistent across helper and settings surfaces.
+   - the GUI/settings workspace was already explicit that installed packs are the default and manual paths are compatibility/import surfaces.
+   - helper translation-dictionary flags now use that same framing instead of presenting the override as only a raw path input.
+2. the main E4 defect was copy drift, not underlying resource-resolution behavior.
+   - benchmark CLI help, frequency override help, settings descriptions, and installed/manual table labels were already aligned.
+   - translation override help in the helper CLI was the notable lagging surface and now matches the managed-first contract.
+3. one narrower diagnostics holdout remains outside this slice.
+   - extension-side SRS action formatters still present raw `set_source_db` lines without the same installed-default framing, so that follow-up was logged instead of being mixed into dirty controller files during E4.
+
+Queue decision:
+
+1. close the normalization follow-through wave here and move next to the queued structural pass.
+   - the E-wave did not uncover a deeper managed-resource correctness bug that justifies staying in this area longer before returning to structural risk reduction.
+2. keep the extension diagnostics wording holdout as a bounded follow-up rather than broadening E4 into a controller refactor.
+
+Net effect:
+
+- `E4` aligned the remaining helper copy with the installed-pack-first contract already present in benchmark and GUI surfaces
+- the managed-vs-manual story is now clearer to both settings users and helper CLI users
+- the remaining holdout is a narrow extension diagnostics wording seam, not a broader settings/runtime correctness problem
 
 ## Secondary-Pass Perspectives
 
