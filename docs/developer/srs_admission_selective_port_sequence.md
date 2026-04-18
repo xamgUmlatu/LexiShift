@@ -491,7 +491,26 @@ Checkpoint:
   - unsaved form overrides are normalized into a shared planning-state resolver before initialize/preview/rebalance/refresh helper calls
   - extension helper transport and native host now expose admission preview plus rebalance preview/apply
   - semantic admission toggle/fallback policy and runtime diagnostics remain on the current semantic base path
-  - validation passed via `node --check` on touched extension JS, `python3 -m pytest core/tests/helper/test_helper_engine.py core/tests/architecture/test_extension_structure.py core/tests/dev/test_helper_translation_dict_entrypoints.py -q`, and `python3 scripts/testing/srs_quality_harness.py --json-out docs/test_outputs/srs_quality_latest.json`
+  - validation passed via `node --check` on touched extension JS and `python3 -m pytest core/tests/dev/test_extension_srs_action_workflows.py core/tests/dev/test_helper_translation_dict_entrypoints.py core/tests/architecture/test_extension_structure.py core/tests/helper/test_helper_engine.py::TestHelperEnginePreviewSrsAdmission core/tests/helper/test_helper_engine.py::TestHelperEngineRebalanceSrsSet core/tests/rulegen/test_semantic_publication.py core/tests/rulegen/test_semantic_routing_runtime_policy.py core/tests/helper/test_rulegen_outputs.py -q`
+- Current extension/UI wiring audit on `2026-04-18`:
+  - `profile_runtime_controller.js` still saves only the UI-owned admission subset while preserving nested sibling keys inside `proficiency` and `difficultyPreferences`
+  - `planning_state.js` still resolves unsaved form overrides into normalized `profile_context` plus explicit pending-override metadata
+  - `admission_preview_workflow.js` and `rebalance_workflow.js` still forward normalized `profile_context` into helper preview/rebalance calls with the expected option triggers
+  - the earlier Node-backed workflow validation claim is now backed by committed in-tree coverage via `core/tests/dev/test_extension_srs_action_workflows.py`, not only by prior chat/history state
+  - direct `2026-04-18` validation reran green:
+    - `node --check apps/chrome-extension/options/controllers/srs/planning_state.js`
+    - `node --check apps/chrome-extension/options/controllers/srs/profile_runtime_controller.js`
+    - `node --check apps/chrome-extension/options/controllers/srs/actions/planning_state_resolver.js`
+    - `node --check apps/chrome-extension/options/controllers/srs/actions/admission_preview_workflow.js`
+    - `node --check apps/chrome-extension/options/controllers/srs/actions/rebalance_workflow.js`
+    - `node --check apps/chrome-extension/options/controllers/srs/actions_controller.js`
+    - `node --check apps/chrome-extension/options/controllers/srs/actions/workflows.js`
+    - `PYTHONPATH=core python3 -m pytest core/tests/dev/test_extension_srs_settings_contract.py core/tests/dev/test_extension_srs_action_workflows.py core/tests/dev/test_helper_translation_dict_entrypoints.py core/tests/architecture/test_extension_structure.py core/tests/rulegen/test_semantic_publication.py core/tests/rulegen/test_semantic_routing_runtime_policy.py core/tests/helper/test_rulegen_outputs.py -q`
+    - `32 passed`
+    - `python3 -m pytest core/tests/helper/test_helper_engine.py::TestHelperEnginePreviewSrsAdmission core/tests/helper/test_helper_engine.py::TestHelperEngineRebalanceSrsSet -q`
+    - `5 passed`
+    - `python3 scripts/testing/srs_admission_preference_sanity.py --json-out docs/test_outputs/srs_admission_preference_sanity_latest.json --markdown-out docs/test_outputs/srs_admission_preference_sanity_latest.md`
+    - `status=PASS`, `pass_count=6`, `warn_count=0`, `fail_count=0`
 
 ## Phase 6: Clean The Contract Mismatches
 
