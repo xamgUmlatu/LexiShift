@@ -132,7 +132,11 @@ def register_srs_preview_and_rebalance_commands(
     preview_s.add_argument("--profile-id", help="Profile id (default: default)")
     preview_s.add_argument("--jmdict", help="Path to JMdict_e folder used for seed/bootstrap.")
     preview_s.add_argument(
-        "--set-source-db", help="Path to frequency SQLite used for candidate pool"
+        "--set-source-db",
+        help=(
+            "Optional manual frequency SQLite override. "
+            "Installed frequency packs are used by default."
+        ),
     )
     preview_s.add_argument(
         "--set-top-n",
@@ -190,7 +194,10 @@ def register_srs_preview_and_rebalance_commands(
     )
     rebalance_plan.add_argument(
         "--set-source-db",
-        help="Path to frequency SQLite used for candidate pool",
+        help=(
+            "Optional manual frequency SQLite override. "
+            "Installed frequency packs are used by default."
+        ),
     )
     rebalance_plan.add_argument(
         "--set-top-n",
@@ -226,7 +233,10 @@ def register_srs_preview_and_rebalance_commands(
     )
     rebalance_apply.add_argument(
         "--set-source-db",
-        help="Path to frequency SQLite used for candidate pool",
+        help=(
+            "Optional manual frequency SQLite override. "
+            "Installed frequency packs are used by default."
+        ),
     )
     rebalance_apply.add_argument(
         "--set-top-n",

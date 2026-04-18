@@ -318,6 +318,35 @@ Net effect:
 - benchmark/help surfaces are closer to the managed-pack contract
 - the next highest-value normalization seam is still frequency-pack follow-through
 
+## E2 Checkpoint (2026-04-18)
+
+Context:
+
+- completed slice since the previous checkpoint: `E2.1` frequency-pack tooling and diagnostics holdout audit
+
+Observed outcome:
+
+1. the frequency-pack runtime seam is already consistent across the helper entrypoints, native host, and runtime diagnostics.
+   - managed manifest-backed installs resolve to the same `main.sqlite` artifacts through helper CLI defaults, native-host defaults, and diagnostics.
+   - legacy flat `freq-*.sqlite` files still act as compatibility fallback when no managed install is present.
+2. the main practical gap in this seam was wording, not resolution behavior.
+   - helper subcommands that accepted `--set-source-db` described it as a raw SQLite path without saying installed frequency packs were the default.
+3. one broader holdout remains outside this bounded slice.
+   - execution-layer helper/native-host APIs still use the path-first `set_source_db` field name, which is acceptable for now but should remain explicit as a compatibility/debug override rather than being mistaken for the managed-pack contract.
+
+Queue decision:
+
+1. proceed next with `E3` embedding-pack settings/runtime split audit.
+   - `E2` did not uncover a deeper frequency correctness defect that justifies reordering the queue.
+2. keep `E4` for the remaining installed-vs-manual contract cleanup across helper/tooling/UI wording.
+   - `N-008` and `N-009` now capture the remaining translation/frequency path-shaped surfaces.
+
+Net effect:
+
+- `E2` raised the evidence level around frequency-pack defaults and diagnostics without broad behavior churn
+- helper/help surfaces are closer to the installed-pack-first contract
+- the next highest-value normalization seam remains embedding follow-through
+
 ## Secondary-Pass Perspectives
 
 Use these perspectives deliberately.

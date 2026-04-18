@@ -414,7 +414,13 @@ def build_parser() -> argparse.ArgumentParser:
             "(SQLite preferred; TEI accepted for manual compatibility)."
         ),
     )
-    run.add_argument("--set-source-db", help="Path to frequency SQLite for initializing S")
+    run.add_argument(
+        "--set-source-db",
+        help=(
+            "Optional manual frequency SQLite override. "
+            "Installed frequency packs are used by default."
+        ),
+    )
     run.add_argument(
         "--set-top-n", type=int, help="Top-N seed cap (defaults from pair policy when omitted)."
     )
@@ -596,7 +602,13 @@ def build_parser() -> argparse.ArgumentParser:
             "(SQLite preferred; TEI accepted for manual compatibility)."
         ),
     )
-    init_s.add_argument("--set-source-db", help="Path to frequency SQLite used to initialize S")
+    init_s.add_argument(
+        "--set-source-db",
+        help=(
+            "Optional manual frequency SQLite override. "
+            "Installed frequency packs are used by default."
+        ),
+    )
     init_s.add_argument(
         "--set-top-n",
         type=int,
@@ -664,7 +676,11 @@ def build_parser() -> argparse.ArgumentParser:
         ),
     )
     refresh_s.add_argument(
-        "--set-source-db", help="Path to frequency SQLite used for candidate pool"
+        "--set-source-db",
+        help=(
+            "Optional manual frequency SQLite override. "
+            "Installed frequency packs are used by default."
+        ),
     )
     refresh_s.add_argument(
         "--set-top-n",
