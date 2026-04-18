@@ -13,12 +13,6 @@ from PySide6.QtWidgets import (
 )
 
 from i18n import t
-from language_packs import (
-    CROSS_EMBEDDING_PACKS,
-    EMBEDDING_PACKS,
-    FREQUENCY_PACKS,
-    LANGUAGE_PACKS,
-)
 from settings_language_packs_support import (
     LANGUAGE_RESOURCE_ORIGIN_MANAGED,
     EmbeddingPackRow,
@@ -211,8 +205,8 @@ class LanguagePackPanelTableMixin:
 
     def _populate_language_packs(self) -> None:
         self._language_pack_rows.clear()
-        self.language_pack_table.setRowCount(len(LANGUAGE_PACKS))
-        for row, pack in enumerate(LANGUAGE_PACKS):
+        self.language_pack_table.setRowCount(len(self._language_packs))
+        for row, pack in enumerate(self._language_packs):
             name_item = QTableWidgetItem(pack.display_name())
             language_item = QTableWidgetItem(pack.display_language())
             source_item = QTableWidgetItem(pack.display_source())
@@ -251,8 +245,8 @@ class LanguagePackPanelTableMixin:
 
     def _populate_frequency_packs(self) -> None:
         self._frequency_pack_rows.clear()
-        self.frequency_pack_table.setRowCount(len(FREQUENCY_PACKS))
-        for row, pack in enumerate(FREQUENCY_PACKS):
+        self.frequency_pack_table.setRowCount(len(self._frequency_packs))
+        for row, pack in enumerate(self._frequency_packs):
             name_item = QTableWidgetItem(pack.display_name())
             language_item = QTableWidgetItem(pack.display_language())
             source_item = QTableWidgetItem(pack.display_source())
@@ -322,8 +316,8 @@ class LanguagePackPanelTableMixin:
         header.setSectionResizeMode(7, QHeaderView.ResizeToContents)
         self.embedding_pack_table.setMinimumHeight(220)
 
-        self.embedding_pack_table.setRowCount(len(EMBEDDING_PACKS))
-        for row, pack in enumerate(EMBEDDING_PACKS):
+        self.embedding_pack_table.setRowCount(len(self._embedding_packs))
+        for row, pack in enumerate(self._embedding_packs):
             name_item = QTableWidgetItem(pack.display_name())
             language_item = QTableWidgetItem(pack.display_language())
             status_item = QTableWidgetItem(t("language_packs.status.available"))
@@ -397,8 +391,8 @@ class LanguagePackPanelTableMixin:
         header.setSectionResizeMode(7, QHeaderView.ResizeToContents)
         self.cross_embedding_pack_table.setMinimumHeight(200)
 
-        self.cross_embedding_pack_table.setRowCount(len(CROSS_EMBEDDING_PACKS))
-        for row, pack in enumerate(CROSS_EMBEDDING_PACKS):
+        self.cross_embedding_pack_table.setRowCount(len(self._cross_embedding_packs))
+        for row, pack in enumerate(self._cross_embedding_packs):
             name_item = QTableWidgetItem(pack.display_name())
             language_item = QTableWidgetItem(pack.display_language())
             status_item = QTableWidgetItem("")

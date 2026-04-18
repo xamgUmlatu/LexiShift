@@ -28,6 +28,9 @@ class TestGuiImportContract(unittest.TestCase):
             language_packs.CROSS_EMBEDDING_PACKS,
             language_packs_catalog.CROSS_EMBEDDING_PACKS,
         )
+        self.assertIs(
+            language_packs.build_pack_catalogs, language_packs_catalog.build_pack_catalogs
+        )
 
     def test_settings_language_packs_import_succeeds(self) -> None:
         sys.modules.pop("settings_language_packs", None)

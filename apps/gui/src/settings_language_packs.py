@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+from typing import Mapping
 
 from PySide6.QtWidgets import (
     QAbstractItemView,
@@ -17,14 +18,12 @@ from PySide6.QtWidgets import (
 )
 
 from language_packs import (
+    PackTransportOverride,
+    build_pack_catalogs,
     LanguagePackDownloadThread,
     LanguagePackInfo,
-    LANGUAGE_PACKS,
-    EMBEDDING_PACKS,
-    CROSS_EMBEDDING_PACKS,
     FrequencyPackDownloadThread,
     FrequencyPackInfo,
-    FREQUENCY_PACKS,
 )
 from i18n import t
 from settings_language_packs_layout_mixin import LanguagePackPanelLayoutMixin
@@ -54,16 +53,27 @@ class LanguagePackPanel(
     LanguagePackPanelTransferMixin,
     QWidget,
 ):
-    def __init__(self, parent=None) -> None:
+    def __init__(
+        self,
+        parent=None,
+        *,
+        pack_source_overrides: Mapping[str, PackTransportOverride | Mapping[str, object]]
+        | None = None,
+    ) -> None:
         super().__init__(parent)
         self._theme = dict(resolve_current_theme(screen_id="settings_dialog"))
         self._language_pack_dir = _language_pack_dir()
         self._embedding_pack_dir = _embedding_pack_dir()
         self._frequency_pack_dir = _frequency_pack_dir()
-        self._language_pack_info = {pack.pack_id: pack for pack in LANGUAGE_PACKS}
-        self._frequency_pack_info = {pack.pack_id: pack for pack in FREQUENCY_PACKS}
+        catalogs = build_pack_catalogs(source_overrides=pack_source_overrides)
+        self._language_packs = catalogs.language_packs
+        self._frequency_packs = catalogs.frequency_packs
+        self._embedding_packs = catalogs.embedding_packs
+        self._cross_embedding_packs = catalogs.cross_embedding_packs
+        self._language_pack_info = {pack.pack_id: pack for pack in self._language_packs}
+        self._frequency_pack_info = {pack.pack_id: pack for pack in self._frequency_packs}
         self._embedding_pack_info = {
-            pack.pack_id: pack for pack in (EMBEDDING_PACKS + CROSS_EMBEDDING_PACKS)
+            pack.pack_id: pack for pack in (*self._embedding_packs, *self._cross_embedding_packs)
         }
         self._language_pack_rows: dict[str, LanguagePackRow] = {}
         self._frequency_pack_rows: dict[str, FrequencyPackRow] = {}

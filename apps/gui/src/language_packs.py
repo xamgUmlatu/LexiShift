@@ -29,7 +29,10 @@ from language_packs_catalog import (
     FrequencyPackInfo,
     LANGUAGE_PACKS,
     LanguagePackInfo,
+    PackCatalogSnapshot,
+    PackTransportOverride,
     _frequency_pos_inventory_config,
+    build_pack_catalogs,
 )
 
 __all__ = [
@@ -37,10 +40,13 @@ __all__ = [
     "EMBEDDING_PACKS",
     "FREQUENCY_PACKS",
     "LANGUAGE_PACKS",
+    "PackCatalogSnapshot",
+    "PackTransportOverride",
     "FrequencyPackDownloadThread",
     "FrequencyPackInfo",
     "LanguagePackDownloadThread",
     "LanguagePackInfo",
+    "build_pack_catalogs",
 ]
 
 
