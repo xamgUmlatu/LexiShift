@@ -134,8 +134,8 @@ Use this file when:
 ## Data Source Normalization Architecture
 
 - Status: `implemented`, `verified`; `default-on` = `partial` for manifest-backed translation-pack, frequency-pack, and app-managed embedding-pack installs plus helper default-pack discovery
-- Last documented checkpoint: `2026-04-03` FreeDict app-managed translation packs now build to canonical SQLite, translation pack refs honor managed manifests, helper rulegen debug and installed journey staging both use the normalized translation-pack seam, helper/runtime expose a first frequency pack-ref seam, app-state normalization migrates old managed embedding paths into pack-id-first per-pair activation, the settings UI now makes the installed-vs-manual resource boundary explicit, the settings panel now keeps managed translation/frequency ids separate from manual path maps internally, and the mixed language-pack surface now uses an explicit language-resource binding layer that now also drives the table/delete/autolink seam directly
-- Last verified: `2026-04-03` targeted helper/resource/frequency/synonym/SRS-harness/journey-installed tests plus GUI/core compile verification for FreeDict SQLite conversion, manifest-backed translation resolution, translation-pack ref resolution, helper debug translation-pack diagnostics, journey installed-pack staging, German frequency whitelist discovery, synonym loading through shared translation-pack loaders, SQLite-first synthetic quality/journey harness resources, frequency manifests, frequency pack-ref/runtime-diagnostics reporting, the shared configured frequency-pack resolver now used by GUI SRS growth and the POS probe, app-managed embedding conversion/manifests, embedding pack-id activation/runtime resolution, managed-embedding settings persistence cleanup, embedding path-migration tests, helper/native-host/internal translation-dictionary seam cleanup, settings/state migration tests for managed translation/frequency/embedding pack ids, settings-panel managed/manual state-split coverage for translation/frequency, language-resource binding coverage for the mixed language-pack surface, direct binding-driven language-pack table coverage, `main.sqlite` convergence for managed translation and frequency installs with legacy fallback coverage, settings-table installed/manual status coverage, and an SRS quality harness refresh
+- Last documented checkpoint: `2026-04-16` benchmark resource payloads now carry translation-pack plus source-frequency-pack identity directly, the embedding settings panel now strips managed installed artifacts from seed/auto-link state so managed embedding activation stays under per-pair pack ids instead of being rehydrated back into the manual path map, and the resource workspace plus frequency/embedding copy now explicitly frame manual paths as compatibility/import surfaces
+- Last verified: `2026-04-16` targeted benchmark/helper/gui settings-state tests plus resources-tab copy checks and state/doc checks covering benchmark resource identity metadata, embedding panel seed/auto-link/activation state cleanup, embedding runtime pack-id resolution, and feature-state/doc consistency
 - Default behavior:
   - Target architecture is now explicit:
     - installed packs should resolve by manifest-backed pack identity rather than flat filenames
@@ -158,7 +158,7 @@ Use this file when:
     - GUI frequency-pack downloads now install into stable per-pack roots under `frequency_packs/<pack_id>/`
     - app-managed frequency-pack installs now write `manifest.json`
     - helper default frequency resolution now prefers manifest-backed installed pack artifacts before falling back to legacy flat filenames
-    - helper/runtime now expose a first frequency pack-ref seam so pair-resource resolution and runtime diagnostics can report frequency pack id, provider, and POS source profile instead of only a raw SQLite path
+    - helper/runtime now expose a first frequency pack-ref seam so pair-resource resolution, runtime diagnostics, and benchmark resource payloads can report frequency pack id, provider, and POS source profile instead of only a raw SQLite path
     - GUI SRS growth and the POS normalization probe now share a configured frequency-pack resolver from the helper layer instead of each carrying their own managed-id/manual-path/fallback path logic
     - app-managed translation installs now converge on `language_packs/<pack_id>/main.sqlite`, while panel/runtime resolution still accepts legacy `<pack_id>.sqlite` filenames for older local installs
     - app-managed frequency installs now converge on `frequency_packs/<pack_id>/main.sqlite`, while panel/runtime resolution still accepts legacy `freq-*.sqlite` filenames for older local installs
@@ -167,6 +167,7 @@ Use this file when:
     - successful app-managed embedding conversion now treats SQLite as the canonical installed artifact and cleans up the raw downloaded vector file
     - managed embedding activation can now be persisted by pack id per pair, and the replacement-filter runtime resolves those pack ids back through manifest-backed SQLite artifacts
     - app-state load/update now migrates old saved managed embedding artifact paths into pack-id-first per-pair activation and strips those app-owned paths from the manual embedding maps
+    - the settings panel now strips managed installed embedding artifacts from seed/auto-link state and keeps managed activation under per-pair embedding pack ids instead of rehydrating those artifacts into the manual path map
     - managed translation settings now persist normalized app-owned translation packs by pack id while the saved manual `language_pack_paths` map omits those managed artifact paths
     - managed frequency settings now persist app-owned frequency packs by pack id while the saved manual `frequency_pack_paths` map omits those managed artifact paths
     - app-state load/update now migrates old saved managed translation/frequency artifact paths into that split representation
@@ -177,6 +178,7 @@ Use this file when:
     - the settings panel now omits redundant managed embedding artifact paths from saved settings when those installs are already represented by pack id + manifest-backed resolution
     - settings serialization now writes explicit `language_pack_paths`, `frequency_pack_paths`, and `embedding_pack_paths` keys instead of the older generic `*_packs` path maps
     - the settings UI now labels app-owned resolved resources as installed artifacts and external/manual paths as manual inputs, with embedding activation explicitly distinguishing active installed vs active manual rows
+    - the resource workspace intro plus the frequency and embedding tab copy now explicitly describe installed packs as the default path and manual paths as compatibility/import surfaces
   - Current runtime contract is still transitional rather than final:
     - FreeDict and Kaikki translation packs now expose SQLite as the canonical app-managed runtime artifact, but manual TEI files, older extracted directories, and legacy `<pack_id>.sqlite` filenames remain compatibility inputs during migration
     - normalized translation/frequency settings are now pack-id-first for the mandatory managed families, but secondary language-pack families still keep path-shaped settings until their promotion decision is made
@@ -231,12 +233,12 @@ Use this file when:
   - `core/tests/resources/test_dict_loaders_freedict_pos.py`
   - `core/tests/resources/test_synonyms_translation_packs.py`
 - Known gaps:
-  - Installed-pack resolution is only partially manifest-driven today; generic helper/runtime resolution and GUI auto-link use it for translation and frequency defaults, shared translation pack refs now honor manifests, but broader benchmark/probe consumers still include legacy path assumptions.
-  - FreeDict packs are still effectively runtime-addressed through TEI-compatible paths in some benchmark/tooling flows even though app-managed installs now build to SQLite and the main helper/GUI/harness consumers now prefer SQLite-first paths.
-  - Managed embedding activation no longer needs persisted app-owned artifact paths, but parts of the settings UI still build temporary path maps internally before splitting managed ids back out on save.
+  - Installed-pack resolution is only partially manifest-driven today; generic helper/runtime resolution and GUI auto-link use it for translation and frequency defaults, shared translation/frequency pack refs now honor manifests, and benchmark resource payloads now carry translation and source-frequency pack identity directly, but probe flows still include some legacy path assumptions.
+  - FreeDict packs are still effectively runtime-addressed through TEI-compatible paths in some probe/tooling flows even though app-managed installs now build to SQLite and the main helper/GUI/harness consumers now prefer SQLite-first paths.
+  - Managed embedding activation no longer needs persisted app-owned artifact paths, and the settings panel now strips managed installed artifacts from seed/auto-link state; remaining temporary embedding path handling is mostly limited to in-flight download/conversion/manual-link flows.
   - Manual external embedding files still bypass the managed-pack manifest layout by design during migration.
   - Frequency packs still preserve their legacy `freq-*.sqlite` artifact names as fallback paths during migration.
-  - Translation consumers still include TEI-compatible assumptions in some benchmark/tooling paths, but the shared loader-backed or SQLite-first consumers now include rulegen pairs, helper/runtime diagnostics, the German frequency whitelist, synonym generation, the bulk-rules GUI path, and the synthetic SRS quality/journey harnesses plus installed journey staging.
+  - Translation consumers still include TEI-compatible assumptions in some probe/tooling paths, but the shared loader-backed or SQLite-first consumers now include rulegen pairs, helper/runtime diagnostics, benchmark resource payloads, the German frequency whitelist, synonym generation, the bulk-rules GUI path, and the synthetic SRS quality/journey harnesses plus installed journey staging.
 
 ## `de-en` Baseline Rulegen Enablement
 
@@ -1084,6 +1086,33 @@ Use this file when:
   - Planner/core diagnostics are ahead of helper execution wiring for `profile_bootstrap`.
   - `profile_growth` execution is currently limited to rebalance preview/apply; broader growth admission remains planned.
   - Pair policy defaults are currently near-identical across active pairs.
+  - `core/lexishift_core/srs/profile_bootstrap.py` remains a structural hotspot and should be split in a later health pass rather than folded into admission-contract edits.
+
+## Pair-Local Active Inventory
+
+- Status: `implemented`, `default-on`, `verified`
+- Last documented checkpoint: `2026-04-19` active-inventory observability truth pass
+- Last verified: `2026-04-19` targeted inventory-resolution tests plus current-truth doc sync
+- Default behavior:
+  - Each profile can persist pair-local `active_item_ids` plus `last_initialized_at`, `last_refreshed_at`, and `last_rebalanced_at`.
+  - Inventory resolution is intentionally forgiving rather than fully authoritative:
+    - if the inventory file is missing or the pair has no entry, active ids fall back to store-derived membership
+    - if stored active ids are stale, missing ids are dropped during resolution instead of failing helper/runtime flows
+  - Helper initialize/refresh/rebalance/rulegen flows can backfill inventory metadata from store-derived membership when needed.
+  - Runtime diagnostics surfaces the current inventory view explicitly through `inventory_source`, the timestamp fields, and `inventory_store_missing_item_ids_count`.
+- Evidence:
+  - `docs/developer/srs_admission_selective_port_sequence.md`
+  - `core/lexishift_core/srs/inventory.py`
+  - `core/lexishift_core/helper/use_cases/initialize_set.py`
+  - `core/lexishift_core/helper/use_cases/refresh_set.py`
+  - `core/lexishift_core/helper/use_cases/rebalance_set.py`
+  - `core/lexishift_core/helper/use_cases/rulegen_job.py`
+  - `core/lexishift_core/helper/use_cases/runtime_diagnostics.py`
+  - `core/tests/srs/test_srs_inventory.py`
+  - `core/tests/helper/test_helper_engine.py`
+- Known gaps:
+  - There is still no dedicated drift-repair artifact or hard failure signal for stale inventory state; observability relies on diagnostics plus write-path backfill.
+  - Inventory should not be treated as stricter authority than the store until a stronger repair/reporting model is intentionally added.
 
 ## Due-Aware SRS Serving
 
@@ -1154,6 +1183,3 @@ These are not accidental wording issues. Keep them explicit until code and docs 
 1. Reverse-check is implemented but not yet default-on.
 2. SRS docs define due-aware serving, but current end-to-end publish/gate behavior still uses the broader admitted inventory rather than a due-only runtime surface.
 3. Docs mention runtime confidence filtering, but the live helper-rule runtime still has no confidence gate after emission.
-4. Planner docs describe multiple strategies, but executable behavior is still dominated by frequency bootstrap.
-5. SRS profile/schema docs still describe a broader profile-context shape, but the current extension settings path rebuilds signals from a fixed `v1` allowlist (`interests`, `objectives`, `proficiency`, `difficultyPreferences`, `empiricalTrends`, `sourcePreferences`) rather than preserving arbitrary unknown signal keys.
-6. SRS profile/schema docs still show nested `constraints` / `sizing` under `profile_context`, but helper execution currently treats top-level request sizing fields (`set_top_n`, `bootstrap_top_n`, `initial_active_count`, `max_active_items_hint`) as authoritative and uses the nested fields only as descriptive mirrors.

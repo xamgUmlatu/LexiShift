@@ -3,7 +3,7 @@
 Status: active planning
 Role: Planning / WIP
 Last updated: 2026-04-19
-Last verified: 2026-04-19 SP2.6 settings save failure checkpoint added
+Last verified: 2026-04-19 SP2.7 inventory observability checkpoint added
 Purpose: define the invariant-driven follow-on review that comes after the first structural stabilization pass so correctness risks are checked deliberately, one seam at a time
 Source-of-truth: planning doc only; executable truth still lives in code, tests, `feature_state_matrix.md`, and the evidence artifacts generated during each slice
 Related docs:
@@ -494,6 +494,36 @@ Net effect:
 - late SRS settings save failures are now operator-visible and phrased honestly
 - the success path and current save ordering remain unchanged
 - SP2 no longer carries an implicit async-error hole in the extension settings save surface
+
+## SP2.7 Checkpoint (2026-04-19)
+
+Context:
+
+- completed slice since the previous checkpoint: `SP2.7` active-inventory observability truth
+
+Observed outcome:
+
+1. the code already had a coherent forgiving active-inventory model.
+   - missing pair inventory falls back to store-derived membership.
+   - stale item ids are dropped during resolution instead of breaking helper/runtime flows.
+   - runtime diagnostics already exposed `inventory_source` and stale-id count.
+2. the main gap here was current-truth visibility, not missing implementation.
+   - that behavior was explicit in code, tests, and the D3/D7 packets, but not yet stated cleanly in the canonical ledger/docs.
+3. the right move was promotion, not redesign.
+   - this slice adds one direct resolver assertion for missing-pair fallback.
+   - it promotes the forgiving model into `feature_state_matrix.md` and the SRS practice-layer design doc.
+
+Queue decision:
+
+1. resolve `N-006` as current-track work.
+   - the soft-cache / diagnostics-backed model is now explicit enough for later lifecycle work to build on honestly.
+2. keep any future drift-repair mechanism as a later product decision, not as default scope for SP2.
+
+Net effect:
+
+- SP2 no longer leaves the active-inventory seam under-documented relative to the code
+- later lifecycle or UX work now has a canonical statement that inventory is observable and real, but not a hard authority
+- no mutation/publication behavior changed in this slice
 
 ## Secondary-Pass Perspectives
 

@@ -16,18 +16,19 @@ Provide non-destructive SRS behavior above the ruleset engine:
 - Feedback updates (`again|hard|good|easy`) are wired end-to-end.
 - Options flow can initialize set `S` and run rulegen preview.
 - Set-planning/profile logic is scaffolded.
+- Current helper publication/runtime gating still operate on the active/admitted inventory for `S`; they do not yet enforce a separately published due-only subset end to end.
 
 ## Explicit policy decisions
 - Set `S` means "items currently studied by the user."
 - Passive display/exposure is not a scheduler event.
 - Feedback is the authoritative event source for scheduling.
-- Due-based serving is primary; weighted ranking is secondary (admission/tie-breaks).
+- Due-based serving remains the intended scheduler contract; current helper publication/runtime gating still publish and consume the active inventory more broadly than the due subset.
 
 ## Architecture overview
 ```text
 Ruleset Engine (unchanged)
         ^
-Practice Gate (runtime filter by active/due S items)
+Practice Gate (runtime filter by helper-published SRS rules; due-only gating not yet enforced)
         ^
 Scheduler (feedback-driven)
         ^
@@ -41,6 +42,10 @@ Set Planner (bootstrap/growth/refresh strategy)
 ## 1) SRS Store
 - Persist per-item study state for each pair.
 - Keep sparse inventory; do not persist full corpus probabilities.
+- Pair-local active inventory is currently a forgiving helper-side cache:
+  - if no pair entry exists, helper flows can fall back to store-derived membership
+  - if stored item ids are stale, missing ids are dropped during resolution
+  - runtime diagnostics reports whether the current view came from explicit inventory or `store_fallback`, plus the stale-id count
 
 ## 2) Scheduler
 - Build due queue from `next_due`.
@@ -53,7 +58,8 @@ Set Planner (bootstrap/growth/refresh strategy)
 - Push mastered items to longer intervals and lapsed items to shorter intervals.
 
 ## 3) Practice Gate
-- Only allow replacements for currently active/due items from `S`.
+- Current runtime gate accepts the helper-published SRS ruleset as active.
+- The helper-published ruleset is currently derived from the active/admitted inventory for the pair, not a dedicated due-only artifact.
 - If SRS is disabled, runtime behavior falls back to standard rules.
 
 ## 4) Planner + bootstrap/growth policies

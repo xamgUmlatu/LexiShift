@@ -147,6 +147,7 @@ def resolve_active_item_ids(
     pair: str,
     inventory: Optional[SrsInventory],
 ) -> tuple[tuple[str, ...], str]:
+    """Resolve active ids without treating missing/stale inventory as a hard failure."""
     normalized_pair = str(pair or "").strip()
     if inventory is None or normalized_pair not in dict(inventory.pairs or {}):
         return derive_active_item_ids_from_store(store, pair=normalized_pair), "store_fallback"

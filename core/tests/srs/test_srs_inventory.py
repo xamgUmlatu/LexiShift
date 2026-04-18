@@ -135,6 +135,47 @@ class TestSrsInventory(unittest.TestCase):
         self.assertEqual(active_item_ids, ("en-ja:alpha", "en-ja:beta"))
         self.assertEqual(source, "store_fallback")
 
+    def test_resolve_active_item_ids_falls_back_to_store_when_pair_missing_from_inventory(
+        self,
+    ) -> None:
+        store = SrsStore(
+            items=(
+                SrsItem(
+                    item_id="en-ja:alpha",
+                    lemma="alpha",
+                    language_pair="en-ja",
+                    source_type="initial_set",
+                ),
+                SrsItem(
+                    item_id="en-ja:beta",
+                    lemma="beta",
+                    language_pair="en-ja",
+                    source_type="initial_set",
+                ),
+                SrsItem(
+                    item_id="en-en:other",
+                    lemma="other",
+                    language_pair="en-en",
+                    source_type="initial_set",
+                ),
+            ),
+            version=1,
+        )
+        inventory = SrsInventory(
+            pairs={
+                "en-en": SrsPairInventory(active_item_ids=("en-en:other",)),
+            }
+        )
+
+        active_item_ids, source = resolve_active_item_ids(
+            store=store,
+            pair="en-ja",
+            inventory=inventory,
+        )
+
+        self.assertEqual(active_item_ids, ("en-ja:alpha", "en-ja:beta"))
+        self.assertEqual(source, "store_fallback")
+
     def test_merge_active_item_ids_preserves_order_and_deduplicates(self) -> None:
         merged = merge_active_item_ids(
             ("en-ja:alpha", "en-ja:beta"),
