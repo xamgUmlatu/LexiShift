@@ -249,6 +249,46 @@ After every two or three completed slices, stop and do a short synthesis pass:
 
 This keeps the plan responsive without turning it into a moving target every hour.
 
+## Current Synthesis Checkpoint (2026-04-18)
+
+Context:
+
+- completed slices since the previous synthesis stop: `D7` runtime diagnostics join point and `D8` extension/UI admission wiring
+
+Observed repeated patterns:
+
+1. `false-green evidence` is now a confirmed recurring pattern.
+   - D7 needed explicit LP E2E assertions so publication-manifest existence and generation-family coherence stopped being only implied.
+   - D8 found a Phase 5 validation note already citing a Node-backed workflow test that had not yet been committed into the tree.
+2. cross-layer seams remain most trustworthy when the evidence sits exactly at the join point rather than only in broad harnesses.
+   - examples: runtime diagnostics payload assertions and Node-backed controller/workflow propagation tests.
+3. previously logged negative-path concerns remain real but did not justify reordering the next slice.
+   - partial-save behavior (`N-005`)
+   - forgiving active-inventory drift model (`N-006`)
+
+Queue decision:
+
+1. keep `E1` through `E4` next in order.
+   - D8 closed the immediate extension-side admission wiring audit.
+   - the next highest-value correctness seam is still data-source normalization holdouts across tooling, runtime resolution, and docs.
+2. keep `F14` after the `E` wave unless E1-E4 uncovers a concrete behavior bug that makes the preventive split urgent.
+   - D8 confirmed that the current workflow structure is near-limit and worth splitting later, but not currently incorrect.
+3. keep `N-002` as tooling follow-through rather than promoting it into the execution queue ahead of product seams.
+
+Automation candidates:
+
+1. already promoted during these slices:
+   - explicit LP E2E manifest-family assertions in `D7`
+   - committed Node-backed workflow propagation coverage in `D8`
+2. next likely automation target:
+   - after `E1` maps the translation-pack holdouts, add a small regression bundle that proves benchmark/tooling/runtime surfaces all resolve the same managed-vs-legacy translation-pack contract before docs cite it as current truth.
+
+Net effect:
+
+- no major queue reorder
+- stronger bias toward seam-local executable evidence before present-tense checkpoint docs make validation claims
+- proceed next with `E1` translation-pack holdout audit
+
 ## Secondary-Pass Perspectives
 
 Use these perspectives deliberately.
