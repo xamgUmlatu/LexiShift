@@ -2,8 +2,8 @@
 
 Status: active planning
 Role: Planning / WIP
-Last updated: 2026-04-17
-Last verified: 2026-04-17 planning draft strengthened with risk scoring, traceability, and manual scenario guidance
+Last updated: 2026-04-18
+Last verified: 2026-04-18 E3 embedding migration/runtime checkpoint added
 Purpose: define the invariant-driven follow-on review that comes after the first structural stabilization pass so correctness risks are checked deliberately, one seam at a time
 Source-of-truth: planning doc only; executable truth still lives in code, tests, `feature_state_matrix.md`, and the evidence artifacts generated during each slice
 Related docs:
@@ -346,6 +346,35 @@ Net effect:
 - `E2` raised the evidence level around frequency-pack defaults and diagnostics without broad behavior churn
 - helper/help surfaces are closer to the installed-pack-first contract
 - the next highest-value normalization seam remains embedding follow-through
+
+## E3 Checkpoint (2026-04-18)
+
+Context:
+
+- completed slice since the previous checkpoint: `E3.1` embedding-pack settings/runtime split audit
+
+Observed outcome:
+
+1. the managed embedding split is holding at the migration-to-runtime seam.
+   - legacy saved managed embedding artifact paths still normalize out of the manual maps on load.
+   - the surviving pair-level pack id then resolves back to the installed manifest-backed `main.sqlite` artifact at runtime.
+2. the main gap in this slice was direct cross-layer evidence, not production behavior.
+   - the repo already had separate migration assertions and separate runtime-resolution assertions.
+   - this slice added one stitched contract test so the present-tense documentation claim is backed by an executable save/load/resolve proof instead of inference across multiple tests.
+3. no broader embedding-path cleanup was justified inside this slice.
+   - transient manual/import/download path handling still belongs to later wording and lifecycle work rather than this bounded migration/runtime audit.
+
+Queue decision:
+
+1. proceed next with `E4` installed-vs-manual contract cleanup.
+   - `E3` did not uncover an embedding runtime defect that justifies reordering the queue.
+2. keep broader transient/manual embedding-path surfaces out of this checkpoint unless they become a concrete correctness problem.
+
+Net effect:
+
+- `E3` improved evidence quality at a high-risk join point without changing product behavior
+- the managed embedding settings/runtime split now has a direct save-load-resolve contract test
+- the next normalization follow-through remains wording/contract cleanup rather than another embedding runtime repair
 
 ## Secondary-Pass Perspectives
 
