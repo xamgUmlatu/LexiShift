@@ -202,6 +202,22 @@ Recommended posture:
 - keep it out of the default repo-safety gate because external networks are noisy
 - allow it as an explicit dev/test command and later as an optional scheduled CI health check
 
+Current explicit command:
+
+```bash
+npm --prefix scripts run quality:pack-sources:audit
+```
+
+Current default outputs:
+
+- `docs/test_outputs/pack_source_url_audit/latest.json`
+- `docs/test_outputs/pack_source_url_audit/latest.md`
+
+Current scope note:
+
+- the implemented audit validates the current manifest schema and probes effective primary plus archive URLs
+- checksum/content-type expectation enforcement can layer on later if those fields become first-class manifest inputs
+
 ## Bite-Sized Implementation Order
 
 1. Add a `pack_id`-keyed overlay resolver around the existing bundled catalog objects without changing download behavior yet.

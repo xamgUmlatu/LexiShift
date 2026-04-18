@@ -9,7 +9,6 @@ from typing import Mapping
 import urllib.request
 
 from language_packs_catalog import PackTransportOverride
-from main_paths import _app_data_dir
 
 PACK_SOURCE_MANIFEST_SCHEMA_VERSION = 1
 PACK_SOURCE_MANIFEST_CACHE_VERSION = 1
@@ -43,7 +42,12 @@ def default_pack_source_manifest_url() -> str:
 
 
 def pack_source_manifest_cache_path(*, app_data_dir: Path | None = None) -> Path:
-    base_dir = _app_data_dir() if app_data_dir is None else Path(app_data_dir)
+    if app_data_dir is None:
+        from main_paths import _app_data_dir
+
+        base_dir = _app_data_dir()
+    else:
+        base_dir = Path(app_data_dir)
     base_dir.mkdir(parents=True, exist_ok=True)
     return base_dir / PACK_SOURCE_MANIFEST_CACHE_FILENAME
 
