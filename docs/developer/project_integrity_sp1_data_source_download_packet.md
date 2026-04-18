@@ -219,6 +219,12 @@ Current scope note:
 - the settings panel now respects manifest `disabled` / `disabled_reason` by blocking app-managed downloads while keeping local/manual paths available
 - checksum enforcement can layer on later if `sha256` becomes a first-class manifest input
 
+Current closure decision:
+
+- treat this URL/manifest seam as a small operational escape hatch, not an actively managed subsystem
+- do not add disabled-aware audit semantics, checksum enforcement, scheduled CI checks, mirror routing, or more manifest fields unless real URL churn demonstrates a product need
+- if a development audit fails, manual inspection is the expected first response
+
 ## Bite-Sized Implementation Order
 
 1. Add a `pack_id`-keyed overlay resolver around the existing bundled catalog objects without changing download behavior yet.
