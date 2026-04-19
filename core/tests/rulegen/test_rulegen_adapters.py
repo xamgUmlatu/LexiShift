@@ -493,7 +493,7 @@ class TestRulegenAdapters(unittest.TestCase):
         generate.assert_called_once()
         _, kwargs = generate.call_args
         config = kwargs["config"]
-        self.assertEqual(config.reverse_freedict_en_de_path, Path("/tmp/wiktionary-en-de.sqlite"))
+        self.assertEqual(config.reverse_translation_dict_path, Path("/tmp/wiktionary-en-de.sqlite"))
         self.assertEqual(config.reverse_source_dict_id, "wiktionary_en_de")
         self.assertTrue(config.reverse_check.enabled)
         self.assertAlmostEqual(config.reverse_check.match_bonus, 0.23, places=6)
@@ -566,7 +566,7 @@ class TestRulegenAdapters(unittest.TestCase):
         self.assertIn("home", sources)
         self.assertTrue(all(rule.replacement == "Haus" for rule in rules))
 
-    def test_en_es_requires_freedict_es_en_path(self) -> None:
+    def test_en_es_requires_translation_dict_path(self) -> None:
         with self.assertRaises(ValueError):
             run_rules_with_adapter(
                 RulegenAdapterRequest(
@@ -684,8 +684,8 @@ class TestRulegenAdapters(unittest.TestCase):
                 ),
             )
         )
-        self.assertEqual(config.freedict_es_en_path, Path("/tmp/custom-es-en.sqlite"))
-        self.assertEqual(config.reverse_freedict_en_es_path, Path("/tmp/custom-en-es.sqlite"))
+        self.assertEqual(config.translation_dict_path, Path("/tmp/custom-es-en.sqlite"))
+        self.assertEqual(config.reverse_translation_dict_path, Path("/tmp/custom-en-es.sqlite"))
         self.assertEqual(config.source_dict_id, "wiktionary_es_en")
         self.assertEqual(config.reverse_source_dict_id, "wiktionary_en_es")
         self.assertEqual(config.dictionary_pos_source_profile, "wiktionary")
@@ -2498,7 +2498,7 @@ class TestRulegenAdapters(unittest.TestCase):
         results = generate_en_de_results(
             ["Kind"],
             config=EnDeRulegenConfig(
-                freedict_de_en_path=Path("/tmp/wiktionary-de-en.sqlite"),
+                translation_dict_path=Path("/tmp/wiktionary-de-en.sqlite"),
                 gloss_records_by_target=records,
                 include_variants=False,
                 max_definitions_per_target=None,
@@ -2550,7 +2550,7 @@ class TestRulegenAdapters(unittest.TestCase):
             ]
         }
         base_config = EnDeRulegenConfig(
-            freedict_de_en_path=Path("/tmp/wiktionary-de-en.sqlite"),
+            translation_dict_path=Path("/tmp/wiktionary-de-en.sqlite"),
             gloss_records_by_target=records,
             include_variants=False,
             max_definitions_per_target=None,

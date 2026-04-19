@@ -75,8 +75,8 @@ class TestRulegenReverseCheckMetadata(unittest.TestCase):
             results = generate_en_es_results(
                 ["casa"],
                 config=EnEsRulegenConfig(
-                    freedict_es_en_path=forward_path,
-                    reverse_freedict_en_es_path=reverse_path,
+                    translation_dict_path=forward_path,
+                    reverse_translation_dict_path=reverse_path,
                     include_variants=False,
                 ),
             )
@@ -110,7 +110,7 @@ class TestRulegenReverseCheckMetadata(unittest.TestCase):
             results = generate_en_es_results(
                 ["casa"],
                 config=EnEsRulegenConfig(
-                    freedict_es_en_path=forward_path,
+                    translation_dict_path=forward_path,
                     include_variants=False,
                 ),
             )
@@ -152,8 +152,8 @@ class TestRulegenReverseCheckMetadata(unittest.TestCase):
             results = generate_es_en_results(
                 ["house"],
                 config=EsEnRulegenConfig(
-                    freedict_en_es_path=forward_path,
-                    reverse_freedict_es_en_path=reverse_path,
+                    translation_dict_path=forward_path,
+                    reverse_translation_dict_path=reverse_path,
                 ),
             )
 

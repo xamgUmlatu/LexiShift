@@ -111,12 +111,12 @@ class TestRulegenPosMetadata(unittest.TestCase):
     def test_en_de_rulegen_includes_pos_metadata_and_pos_bonus(self) -> None:
         records = {"Haus": [FreedictGlossRecord(translation="house", pos_raw="noun")]}
         config_without_target_pos = EnDeRulegenConfig(
-            freedict_de_en_path=Path("/tmp/unused"),
+            translation_dict_path=Path("/tmp/unused"),
             gloss_records_by_target=records,
             include_variants=False,
         )
         config_with_target_pos = EnDeRulegenConfig(
-            freedict_de_en_path=Path("/tmp/unused"),
+            translation_dict_path=Path("/tmp/unused"),
             gloss_records_by_target=records,
             include_variants=False,
             word_packages_by_target={
@@ -147,7 +147,7 @@ class TestRulegenPosMetadata(unittest.TestCase):
     def test_en_de_rulegen_can_disable_pos_scoring_signal(self) -> None:
         records = {"Haus": [FreedictGlossRecord(translation="house", pos_raw="noun")]}
         config_pos_enabled = EnDeRulegenConfig(
-            freedict_de_en_path=Path("/tmp/unused"),
+            translation_dict_path=Path("/tmp/unused"),
             gloss_records_by_target=records,
             include_variants=False,
             word_packages_by_target={
@@ -162,7 +162,7 @@ class TestRulegenPosMetadata(unittest.TestCase):
             },
         )
         config_pos_disabled = EnDeRulegenConfig(
-            freedict_de_en_path=Path("/tmp/unused"),
+            translation_dict_path=Path("/tmp/unused"),
             gloss_records_by_target=records,
             include_variants=False,
             word_packages_by_target={

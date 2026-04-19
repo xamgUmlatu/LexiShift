@@ -422,10 +422,10 @@ def main() -> None:
         es_uncapped = generate_en_es_results(
             spanish_targets,
             config=EnEsRulegenConfig(
-                freedict_es_en_path=resolve_required_file(
+                translation_dict_path=resolve_required_file(
                     "Translation dictionary ES->EN", resolved_translation_dict_en_es
                 ),
-                reverse_freedict_en_es_path=resolve_required_file(
+                reverse_translation_dict_path=resolve_required_file(
                     "Reverse translation dictionary EN->ES",
                     resolved_reverse_translation_dict_en_es,
                 ),
@@ -449,11 +449,11 @@ def main() -> None:
         de_uncapped = generate_en_de_results(
             german_targets,
             config=EnDeRulegenConfig(
-                freedict_de_en_path=resolve_required_file(
+                translation_dict_path=resolve_required_file(
                     "Translation dictionary DE->EN",
                     resolved_translation_dict_en_de,
                 ),
-                reverse_freedict_en_de_path=resolved_reverse_translation_dict_en_de,
+                reverse_translation_dict_path=resolved_reverse_translation_dict_en_de,
                 include_variants=include_variants,
                 confidence_threshold=args.confidence_threshold,
                 max_definitions_per_target=None,
@@ -499,10 +499,10 @@ def main() -> None:
         es_capped = generate_en_es_results(
             spanish_targets,
             config=EnEsRulegenConfig(
-                freedict_es_en_path=resolve_required_file(
+                translation_dict_path=resolve_required_file(
                     "Translation dictionary ES->EN", resolved_translation_dict_en_es
                 ),
-                reverse_freedict_en_es_path=resolve_required_file(
+                reverse_translation_dict_path=resolve_required_file(
                     "Reverse translation dictionary EN->ES",
                     resolved_reverse_translation_dict_en_es,
                 ),
@@ -526,11 +526,11 @@ def main() -> None:
         de_capped = generate_en_de_results(
             german_targets,
             config=EnDeRulegenConfig(
-                freedict_de_en_path=resolve_required_file(
+                translation_dict_path=resolve_required_file(
                     "Translation dictionary DE->EN",
                     resolved_translation_dict_en_de,
                 ),
-                reverse_freedict_en_de_path=resolved_reverse_translation_dict_en_de,
+                reverse_translation_dict_path=resolved_reverse_translation_dict_en_de,
                 include_variants=include_variants,
                 confidence_threshold=args.confidence_threshold,
                 max_definitions_per_target=max_definitions,

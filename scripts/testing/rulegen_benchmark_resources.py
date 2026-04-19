@@ -12,32 +12,31 @@ from lexishift_core.helper.lp_capabilities import (
     default_reverse_translation_dictionary_path,
     resolve_pair_capability,
 )
+from lexishift_core.helper.frequency_packs import build_frequency_pack_ref
 from lexishift_core.helper.pair_resources import resolve_pair_resources
-from lexishift_core.lexicon.word_package import build_word_package, normalize_word_package
-from lexishift_core.resources.dict_loaders import (
-    TranslationGlossRecord,
-    load_translation_gloss_base_forms,
-    load_translation_gloss_records_ordered,
-    load_translation_headwords,
+from lexishift_core.helper.translation_packs import (
+    FORWARD_PACK_DIRECTION,
+    REVERSE_PACK_DIRECTION,
+    build_translation_pack_ref,
 )
+from lexishift_core.lexicon.word_package import build_word_package, normalize_word_package
 from lexishift_core.resources.path_cache import load_or_compute_path_json_value
 from lexishift_core.rulegen.benchmarking import RulegenBenchmarkCase
-from lexishift_core.rulegen.generation import RuleCandidate
-from lexishift_core.rulegen.pairs.en_es import build_en_es_compiled_resources
-from lexishift_core.rulegen.pairs.en_es_support import (
-    collect_sanitized_gloss_records,
-    normalize_reverse_token_with_pos,
-)
-from lexishift_core.rulegen.utils import (
-    BasicStringNormalizer,
-    LeadingEnglishInfinitiveNormalizer,
-    PairedInflectionVariantExpander,
-    sanitize_dictionary_gloss,
-)
 from lexishift_core.srs import SrsStore, load_srs_store
 
 from rulegen_benchmark_dataset import load_benchmark_dataset
 from rulegen_benchmark_compiled import _build_compiled_case_refs, _build_compiled_case_table
+from rulegen_benchmark_gloss_resources import (
+    build_en_es_reverse_headword_norm_index as _helper_build_en_es_reverse_headword_norm_index,
+    build_pair_compiled_rulegen_context as _helper_build_pair_compiled_rulegen_context,
+    build_reverse_preload_headwords as _helper_build_reverse_preload_headwords,
+    expand_reverse_preload_headwords as _helper_expand_reverse_preload_headwords,
+    load_gloss_base_forms_for_pair as _helper_load_gloss_base_forms_for_pair,
+    load_translation_gloss_records as _helper_load_translation_gloss_records,
+    preload_pair_gloss_records as _helper_preload_pair_gloss_records,
+    reverse_translation_target_lang_for_pair as _helper_reverse_translation_target_lang_for_pair,
+    translation_target_lang_for_pair as _helper_translation_target_lang_for_pair,
+)
 from rulegen_benchmark_models import BenchmarkTimingCollector, PairBenchmarkContext
 
 
@@ -202,29 +201,29 @@ def _resolve_source_frequency_db_for_benchmark(
 ) -> Optional[Path]:
     if source_frequency_db_override is not None:
         return Path(source_frequency_db_override)
+    source_frequency_pair = _source_frequency_pair_for_benchmark(pair)
+    if not source_frequency_pair:
+        return None
+    return default_frequency_db_path(
+        source_frequency_pair,
+        frequency_packs_dir=paths.frequency_packs_dir,
+    )
+
+
+def _source_frequency_pair_for_benchmark(pair: str) -> Optional[str]:
     normalized = str(pair or "").strip().lower()
     source_lang = normalized.split("-", 1)[0] if "-" in normalized else ""
     if not source_lang:
         return None
-    mono_pair = f"{source_lang}-{source_lang}"
-    return default_frequency_db_path(mono_pair, frequency_packs_dir=paths.frequency_packs_dir)
+    return f"{source_lang}-{source_lang}"
 
 
 def _translation_target_lang_for_pair(pair: str) -> Optional[str]:
-    normalized = str(pair or "").strip().lower()
-    return {
-        "en-de": "en",
-        "en-es": "en",
-        "es-en": "es",
-    }.get(normalized)
+    return _helper_translation_target_lang_for_pair(pair)
 
 
 def _reverse_translation_target_lang_for_pair(pair: str) -> Optional[str]:
-    normalized = str(pair or "").strip().lower()
-    return {
-        "en-es": "es",
-        "es-en": "en",
-    }.get(normalized)
+    return _helper_reverse_translation_target_lang_for_pair(pair)
 
 
 def _load_translation_gloss_records(
@@ -232,12 +231,8 @@ def _load_translation_gloss_records(
     *,
     target_lang: Optional[str],
     headwords: Optional[Sequence[str]] = None,
-) -> Optional[dict[str, list[TranslationGlossRecord]]]:
-    if path is None or target_lang is None:
-        return None
-    if not path.exists():
-        return None
-    return load_translation_gloss_records_ordered(
+) -> Optional[dict[str, list[object]]]:
+    return _helper_load_translation_gloss_records(
         path,
         target_lang=target_lang,
         headwords=headwords,
@@ -250,78 +245,25 @@ def _preload_pair_gloss_records(
     translation_dict_path: Optional[Path],
     reverse_translation_dict_path: Optional[Path],
     targets: Sequence[str] = (),
-) -> tuple[
-    Optional[dict[str, list[TranslationGlossRecord]]],
-    Optional[dict[str, list[TranslationGlossRecord]]],
-]:
-    forward_records = _load_translation_gloss_records(
-        translation_dict_path,
-        target_lang=_translation_target_lang_for_pair(pair),
-        headwords=targets,
-    )
-    reverse_headwords = _build_reverse_preload_headwords(
+) -> tuple[Optional[dict[str, list[object]]], Optional[dict[str, list[object]]]]:
+    return _helper_preload_pair_gloss_records(
         pair=pair,
-        forward_records_by_target=forward_records,
-    )
-    reverse_headwords = _expand_reverse_preload_headwords(
-        pair=pair,
+        translation_dict_path=translation_dict_path,
         reverse_translation_dict_path=reverse_translation_dict_path,
-        reverse_headwords=reverse_headwords,
-    )
-    return (
-        forward_records,
-        _load_translation_gloss_records(
-            reverse_translation_dict_path,
-            target_lang=_reverse_translation_target_lang_for_pair(pair),
-            headwords=reverse_headwords,
-        ),
+        targets=targets,
+        expand_reverse_headwords=_expand_reverse_preload_headwords,
     )
 
 
 def _build_reverse_preload_headwords(
     *,
     pair: str,
-    forward_records_by_target: Optional[Mapping[str, Sequence[TranslationGlossRecord]]],
+    forward_records_by_target: Optional[Mapping[str, Sequence[object]]],
 ) -> Optional[tuple[str, ...]]:
-    normalized_pair = str(pair or "").strip().lower()
-    if normalized_pair != "en-es" or not forward_records_by_target:
-        return None
-    normalizers = (BasicStringNormalizer(), LeadingEnglishInfinitiveNormalizer())
-    expander = PairedInflectionVariantExpander(target_surface_resolver=None)
-    headwords: set[str] = set()
-    for raw_records in forward_records_by_target.values():
-        for record in collect_sanitized_gloss_records(raw_records):
-            raw_translation = str(record.translation or "").strip()
-            if not raw_translation:
-                continue
-            sanitized = sanitize_dictionary_gloss(raw_translation).lower()
-            if sanitized:
-                headwords.add(sanitized)
-            normalized_reverse = normalize_reverse_token_with_pos(
-                raw_translation,
-                pos_raw=record.pos_raw,
-            )
-            if normalized_reverse:
-                headwords.add(normalized_reverse)
-            candidate = RuleCandidate(
-                source_phrase=raw_translation,
-                replacement="",
-                language_pair="en-es",
-                source_dict="benchmark-preload",
-                metadata={},
-            )
-            normalized_candidate = candidate
-            for normalizer in normalizers:
-                normalized_candidate = normalizer.normalize(normalized_candidate)
-            normalized_phrase = str(normalized_candidate.source_phrase or "").strip().lower()
-            if normalized_phrase:
-                headwords.add(normalized_phrase)
-                if all(ord(ch) < 128 for ch in normalized_phrase):
-                    for expanded in expander.expand(normalized_candidate):
-                        expanded_phrase = str(expanded.source_phrase or "").strip().lower()
-                        if expanded_phrase:
-                            headwords.add(expanded_phrase)
-    return tuple(sorted(headwords))
+    return _helper_build_reverse_preload_headwords(
+        pair=pair,
+        forward_records_by_target=forward_records_by_target,
+    )
 
 
 def _expand_reverse_preload_headwords(
@@ -330,52 +272,12 @@ def _expand_reverse_preload_headwords(
     reverse_translation_dict_path: Optional[Path],
     reverse_headwords: Optional[Sequence[str]],
 ) -> Optional[tuple[str, ...]]:
-    normalized_pair = str(pair or "").strip().lower()
-    if normalized_pair != "en-es" or reverse_headwords is None:
-        return tuple(reverse_headwords) if reverse_headwords is not None else None
-    if reverse_translation_dict_path is None or not reverse_translation_dict_path.exists():
-        return tuple(reverse_headwords)
-    wanted = {
-        str(headword or "").strip().lower()
-        for headword in reverse_headwords
-        if str(headword or "").strip()
-    }
-    if not wanted:
-        return ()
-    expanded = set(wanted)
-    normalized_index = _load_en_es_reverse_headword_norm_index(reverse_translation_dict_path)
-    for desired_headword in wanted:
-        expanded.update(normalized_index.get(desired_headword, ()))
-    return tuple(sorted(expanded))
-
-
-def _collect_en_es_reverse_headword_forms(raw_headword: str) -> tuple[str, ...]:
-    normalizers = (BasicStringNormalizer(), LeadingEnglishInfinitiveNormalizer())
-    normalized_forms: list[str] = []
-    seen: set[str] = set()
-
-    def add(text: object) -> None:
-        normalized = str(text or "").strip().lower()
-        if not normalized or normalized in seen:
-            return
-        seen.add(normalized)
-        normalized_forms.append(normalized)
-
-    add(raw_headword)
-    add(sanitize_dictionary_gloss(raw_headword))
-    add(normalize_reverse_token_with_pos(raw_headword))
-    candidate = RuleCandidate(
-        source_phrase=raw_headword,
-        replacement="",
-        language_pair="en-es",
-        source_dict="benchmark-preload",
-        metadata={},
+    return _helper_expand_reverse_preload_headwords(
+        pair=pair,
+        reverse_translation_dict_path=reverse_translation_dict_path,
+        reverse_headwords=reverse_headwords,
+        load_reverse_headword_norm_index=_load_en_es_reverse_headword_norm_index,
     )
-    normalized_candidate = candidate
-    for normalizer in normalizers:
-        normalized_candidate = normalizer.normalize(normalized_candidate)
-    add(normalized_candidate.source_phrase)
-    return tuple(normalized_forms)
 
 
 def _load_en_es_reverse_headword_norm_index(
@@ -413,27 +315,13 @@ def _load_en_es_reverse_headword_norm_index(
 def _build_en_es_reverse_headword_norm_index(
     reverse_translation_dict_path: Path,
 ) -> dict[str, tuple[str, ...]]:
-    raw_headwords_by_normalized: dict[str, list[str]] = {}
-    for raw_headword in load_translation_headwords(reverse_translation_dict_path):
-        raw_text = str(raw_headword or "").strip()
-        if not raw_text:
-            continue
-        raw_lower = raw_text.lower()
-        for normalized in _collect_en_es_reverse_headword_forms(raw_text):
-            bucket = raw_headwords_by_normalized.setdefault(normalized, [])
-            if raw_lower not in bucket:
-                bucket.append(raw_lower)
-    return {
-        normalized: tuple(raw_headwords)
-        for normalized, raw_headwords in sorted(raw_headwords_by_normalized.items())
-    }
+    return _helper_build_en_es_reverse_headword_norm_index(reverse_translation_dict_path)
 
 
 def _path_looks_kaikki(path: Optional[Path]) -> bool:
-    if path is None:
-        return False
-    name = path.name.strip().lower()
-    return "wiktionary" in name or "kaikki" in name
+    from rulegen_benchmark_gloss_resources import path_looks_kaikki as _helper_path_looks_kaikki
+
+    return _helper_path_looks_kaikki(path)
 
 
 def _build_pair_compiled_rulegen_context(
@@ -442,31 +330,20 @@ def _build_pair_compiled_rulegen_context(
     targets: Sequence[str],
     translation_dict_path: Optional[Path],
     reverse_translation_dict_path: Optional[Path],
-    gloss_records_by_target: Optional[Mapping[str, Sequence[TranslationGlossRecord]]],
-    reverse_gloss_records_by_source: Optional[Mapping[str, Sequence[TranslationGlossRecord]]],
+    gloss_records_by_target: Optional[Mapping[str, Sequence[object]]],
+    reverse_gloss_records_by_source: Optional[Mapping[str, Sequence[object]]],
     word_packages_by_target: Mapping[str, Mapping[str, object]],
     gloss_base_forms: Optional[Sequence[str]] = None,
 ) -> Optional[object]:
-    normalized_pair = str(pair or "").strip().lower()
-    if normalized_pair != "en-es":
-        return None
-    if gloss_records_by_target is None:
-        return None
-    source_dict = (
-        "wiktionary_es_en" if _path_looks_kaikki(translation_dict_path) else "freedict_es_en"
-    )
-    dictionary_pos_source_profile = (
-        "wiktionary" if _path_looks_kaikki(translation_dict_path) else "freedict"
-    )
-    return build_en_es_compiled_resources(
+    return _helper_build_pair_compiled_rulegen_context(
+        pair=pair,
         targets=targets,
-        records_by_target=gloss_records_by_target,
-        reverse_records_by_source=reverse_gloss_records_by_source,
+        translation_dict_path=translation_dict_path,
+        reverse_translation_dict_path=reverse_translation_dict_path,
+        gloss_records_by_target=gloss_records_by_target,
+        reverse_gloss_records_by_source=reverse_gloss_records_by_source,
         word_packages_by_target=word_packages_by_target,
-        language_pair=normalized_pair,
-        source_dict=source_dict,
-        dictionary_pos_source_profile=dictionary_pos_source_profile,
-        gloss_base_forms_override=gloss_base_forms,
+        gloss_base_forms=gloss_base_forms,
     )
 
 
@@ -495,20 +372,63 @@ def _compute_file_sha256(path: Optional[Path]) -> Optional[str]:
 
 def _build_pair_resources_payload(
     *,
+    pair: str,
     jmdict_path: Optional[Path],
     translation_dict_path: Optional[Path],
     reverse_translation_dict_path: Optional[Path],
     source_frequency_db_path: Optional[Path] = None,
 ) -> dict[str, object]:
+    translation_pack = build_translation_pack_ref(
+        pair,
+        translation_dict_path,
+        direction=FORWARD_PACK_DIRECTION,
+    )
+    reverse_translation_pack = build_translation_pack_ref(
+        pair,
+        reverse_translation_dict_path,
+        direction=REVERSE_PACK_DIRECTION,
+    )
+    source_frequency_pair = _source_frequency_pair_for_benchmark(pair)
+    source_frequency_pack = build_frequency_pack_ref(
+        source_frequency_pair or pair,
+        source_frequency_db_path,
+    )
     return {
         "jmdict_path": str(jmdict_path) if jmdict_path else None,
         "translation_dict_path": str(translation_dict_path) if translation_dict_path else None,
+        "translation_pack_id": (translation_pack.pack_id if translation_pack is not None else None),
+        "translation_pack_provider": (
+            translation_pack.provider if translation_pack is not None else None
+        ),
+        "translation_pack_pos_source_profile": (
+            translation_pack.pos_source_profile if translation_pack is not None else None
+        ),
         "reverse_translation_dict_path": (
             str(reverse_translation_dict_path) if reverse_translation_dict_path else None
+        ),
+        "reverse_translation_pack_id": (
+            reverse_translation_pack.pack_id if reverse_translation_pack is not None else None
+        ),
+        "reverse_translation_pack_provider": (
+            reverse_translation_pack.provider if reverse_translation_pack is not None else None
+        ),
+        "reverse_translation_pack_pos_source_profile": (
+            reverse_translation_pack.pos_source_profile
+            if reverse_translation_pack is not None
+            else None
         ),
         "source_frequency_db_path": str(source_frequency_db_path)
         if source_frequency_db_path
         else None,
+        "source_frequency_pack_id": (
+            source_frequency_pack.pack_id if source_frequency_pack is not None else None
+        ),
+        "source_frequency_pack_provider": (
+            source_frequency_pack.provider if source_frequency_pack is not None else None
+        ),
+        "source_frequency_pack_pos_source_profile": (
+            source_frequency_pack.pos_source_profile if source_frequency_pack is not None else None
+        ),
         "checksums": {
             "jmdict_sha256": _compute_file_sha256(jmdict_path),
             "translation_dict_sha256": _compute_file_sha256(translation_dict_path),
@@ -552,6 +472,7 @@ def _build_pair_benchmark_context(
 
     started = perf_counter()
     resources = _build_pair_resources_payload(
+        pair=pair,
         jmdict_path=jmdict_path,
         translation_dict_path=translation_dict_path,
         reverse_translation_dict_path=reverse_translation_dict_path,
@@ -588,17 +509,9 @@ def _build_pair_benchmark_context(
         reverse_translation_dict_path=reverse_translation_dict_path,
         targets=targets,
     )
-    gloss_base_forms = (
-        tuple(
-            sorted(
-                load_translation_gloss_base_forms(
-                    translation_dict_path,
-                    target_lang=_translation_target_lang_for_pair(pair) or "",
-                )
-            )
-        )
-        if translation_dict_path is not None and _translation_target_lang_for_pair(pair) is not None
-        else None
+    gloss_base_forms = _helper_load_gloss_base_forms_for_pair(
+        pair=pair,
+        translation_dict_path=translation_dict_path,
     )
     if timing is not None:
         timing.add("preload_translation_gloss_records", perf_counter() - started, pair=pair)

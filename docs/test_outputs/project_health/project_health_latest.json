@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-04-19T03:21:46.918Z",
+  "generated_at_utc": "2026-04-19T03:30:34.754Z",
   "repo_root": "/Users/takeyayuki/Documents/projects/LexiShift",
   "options": {
     "advisory": true,
@@ -14,9 +14,9 @@
     "enforce_all": false
   },
   "summary": {
-    "files_checked": 450,
+    "files_checked": 451,
     "violations": 0,
-    "warnings": 1,
+    "warnings": 0,
     "changed_only": false,
     "changed_file_count": null,
     "baseline_path": "",
@@ -29,33 +29,6 @@
     "advisory": true
   },
   "violations": [],
-  "warnings": [
-    {
-      "file": "core/lexishift_core/rulegen/pairs/en_es_compiled_selection.py",
-      "language": "python",
-      "metrics": {
-        "lines": 882,
-        "imports": 11,
-        "domainBreadth": 1,
-        "functions": 20
-      },
-      "limits": {
-        "maxLines": 900,
-        "maxImports": 24,
-        "maxDomainBreadth": 8,
-        "maxFunctions": 50
-      },
-      "overages": {
-        "lines": 0,
-        "imports": 0,
-        "domainBreadth": 0,
-        "functions": 0
-      },
-      "violation_metrics": [],
-      "warning_metrics": [
-        "lines"
-      ]
-    }
-  ],
+  "warnings": [],
   "baseline_delta": null
 }

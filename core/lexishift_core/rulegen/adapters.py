@@ -159,8 +159,8 @@ def build_en_de_rulegen_config(request: RulegenAdapterRequest) -> EnDeRulegenCon
         else None
     )
     config_kwargs = {
-        "freedict_de_en_path": translation_dict_path,
-        "reverse_freedict_en_de_path": reverse_translation_dict_path,
+        "translation_dict_path": translation_dict_path,
+        "reverse_translation_dict_path": reverse_translation_dict_path,
         "language_pair": request.language_pair,
         "source_dict_id": translation_pack.pack_id,
         "reverse_source_dict_id": reverse_source_dict_id,
@@ -227,7 +227,7 @@ def _run_de_en_results_adapter(request: RulegenAdapterRequest) -> Sequence[RuleG
     if translation_dict_path is None:
         raise ValueError("Missing translation dictionary path for de-en rule generation.")
     config = DeEnRulegenConfig(
-        freedict_en_de_path=translation_dict_path,
+        translation_dict_path=translation_dict_path,
         language_pair=request.language_pair,
         gloss_records_by_target=request.gloss_records_by_target,
         confidence_threshold=request.confidence_threshold,
@@ -271,8 +271,8 @@ def build_en_es_rulegen_config(request: RulegenAdapterRequest) -> EnEsRulegenCon
         else None
     )
     return EnEsRulegenConfig(
-        freedict_es_en_path=translation_dict_path,
-        reverse_freedict_en_es_path=reverse_translation_dict_path,
+        translation_dict_path=translation_dict_path,
+        reverse_translation_dict_path=reverse_translation_dict_path,
         language_pair=request.language_pair,
         gloss_records_by_target=request.gloss_records_by_target,
         reverse_gloss_records_by_source=request.reverse_gloss_records_by_source,
@@ -328,8 +328,8 @@ def _run_es_en_results_adapter(request: RulegenAdapterRequest) -> Sequence[RuleG
     if translation_dict_path is None:
         raise ValueError("Missing translation dictionary path for es-en rule generation.")
     config = EsEnRulegenConfig(
-        freedict_en_es_path=translation_dict_path,
-        reverse_freedict_es_en_path=reverse_translation_dict_path,
+        translation_dict_path=translation_dict_path,
+        reverse_translation_dict_path=reverse_translation_dict_path,
         language_pair=request.language_pair,
         gloss_records_by_target=request.gloss_records_by_target,
         reverse_gloss_records_by_source=request.reverse_gloss_records_by_source,

@@ -60,6 +60,7 @@ from rulegen_benchmark_presets import (  # noqa: E402
     load_benchmark_presets,
 )
 from lexishift_core.replacement.core import RuleMetadata, VocabRule  # noqa: E402
+from lexishift_core.helper.installed_packs import write_installed_pack_manifest  # noqa: E402
 from lexishift_core.resources.dict_loaders import FreedictGlossRecord  # noqa: E402
 from lexishift_core.rulegen.pairs.en_es import (  # noqa: E402
     EnEsCompiledBenchmarkEvaluationTables,
@@ -132,7 +133,7 @@ class TestRulegenBenchmark(unittest.TestCase):
         renderer = _load_html_report_renderer()
         self.assertTrue(callable(renderer))
 
-    def test_resolve_pair_resources_includes_reverse_freedict_for_en_es(self) -> None:
+    def test_resolve_pair_resources_includes_reverse_translation_dict_for_en_es(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             language_packs_dir = Path(tmp)
             forward = language_packs_dir / "spa-eng.tei"
@@ -369,21 +370,119 @@ class TestRulegenBenchmark(unittest.TestCase):
             root = Path(tmp)
             forward = root / "forward.sqlite"
             reverse = root / "reverse.sqlite"
+            source_frequency = root / "freq-en-coca.sqlite"
             forward.write_text("forward", encoding="utf-8")
             reverse.write_text("reverse", encoding="utf-8")
+            source_frequency.write_text("frequency", encoding="utf-8")
 
             payload = _build_pair_resources_payload(
+                pair="en-es",
+                jmdict_path=None,
+                translation_dict_path=forward,
+                reverse_translation_dict_path=reverse,
+                source_frequency_db_path=source_frequency,
+            )
+
+            self.assertEqual(payload["translation_dict_path"], str(forward))
+            self.assertEqual(payload["reverse_translation_dict_path"], str(reverse))
+            self.assertEqual(payload["source_frequency_db_path"], str(source_frequency))
+            self.assertEqual(payload["translation_pack_id"], "translation_es_en")
+            self.assertEqual(payload["translation_pack_provider"], "translation")
+            self.assertEqual(payload["translation_pack_pos_source_profile"], "translation")
+            self.assertEqual(payload["reverse_translation_pack_id"], "translation_en_es")
+            self.assertEqual(payload["reverse_translation_pack_provider"], "translation")
+            self.assertEqual(payload["reverse_translation_pack_pos_source_profile"], "translation")
+            self.assertEqual(payload["source_frequency_pack_id"], "freq-en-coca")
+            self.assertEqual(payload["source_frequency_pack_provider"], "freq-en-coca")
+            self.assertEqual(payload["source_frequency_pack_pos_source_profile"], "compact-latin")
+            checksums = payload["checksums"]
+            self.assertTrue(str(checksums["translation_dict_sha256"]).startswith("sha256:"))
+            self.assertTrue(str(checksums["reverse_translation_dict_sha256"]).startswith("sha256:"))
+            self.assertTrue(str(checksums["source_frequency_db_sha256"]).startswith("sha256:"))
+            self.assertIsNone(checksums["jmdict_sha256"])
+
+    def test_build_pair_resources_payload_prefers_manifest_backed_translation_pack_identity(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            forward_root = root / "wiktionary-es-en"
+            reverse_root = root / "wiktionary-en-es"
+            forward_root.mkdir(parents=True, exist_ok=True)
+            reverse_root.mkdir(parents=True, exist_ok=True)
+            forward = forward_root / "main.sqlite"
+            reverse = reverse_root / "main.sqlite"
+            forward.write_bytes(b"SQLite format 3\x00")
+            reverse.write_bytes(b"SQLite format 3\x00")
+            write_installed_pack_manifest(
+                root,
+                pack_id="wiktionary-es-en",
+                pack_kind="language",
+                provider="wiktionary",
+                local_kind="file",
+                build_mode="kaikki_jsonl_to_sqlite",
+                artifact_path=forward,
+                sqlite_filename="main.sqlite",
+            )
+            write_installed_pack_manifest(
+                root,
+                pack_id="wiktionary-en-es",
+                pack_kind="language",
+                provider="wiktionary",
+                local_kind="file",
+                build_mode="kaikki_jsonl_to_sqlite",
+                artifact_path=reverse,
+                sqlite_filename="main.sqlite",
+            )
+
+            payload = _build_pair_resources_payload(
+                pair="en-es",
                 jmdict_path=None,
                 translation_dict_path=forward,
                 reverse_translation_dict_path=reverse,
             )
 
-            self.assertEqual(payload["translation_dict_path"], str(forward))
-            self.assertEqual(payload["reverse_translation_dict_path"], str(reverse))
-            checksums = payload["checksums"]
-            self.assertTrue(str(checksums["translation_dict_sha256"]).startswith("sha256:"))
-            self.assertTrue(str(checksums["reverse_translation_dict_sha256"]).startswith("sha256:"))
-            self.assertIsNone(checksums["jmdict_sha256"])
+        self.assertEqual(payload["translation_dict_path"], str(forward))
+        self.assertEqual(payload["translation_pack_id"], "wiktionary_es_en")
+        self.assertEqual(payload["translation_pack_provider"], "wiktionary")
+        self.assertEqual(payload["translation_pack_pos_source_profile"], "wiktionary")
+        self.assertEqual(payload["reverse_translation_dict_path"], str(reverse))
+        self.assertEqual(payload["reverse_translation_pack_id"], "wiktionary_en_es")
+        self.assertEqual(payload["reverse_translation_pack_provider"], "wiktionary")
+        self.assertEqual(payload["reverse_translation_pack_pos_source_profile"], "wiktionary")
+
+    def test_build_pair_resources_payload_prefers_manifest_backed_frequency_pack_identity(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            frequency_root = root / "freq-en-coca"
+            frequency_root.mkdir(parents=True, exist_ok=True)
+            source_frequency = frequency_root / "main.sqlite"
+            source_frequency.write_bytes(b"SQLite format 3\x00")
+            write_installed_pack_manifest(
+                root,
+                pack_id="freq-en-coca",
+                pack_kind="frequency",
+                provider="wordfrequency",
+                local_kind="file",
+                build_mode="convert_archive",
+                artifact_path=source_frequency,
+                sqlite_filename="main.sqlite",
+            )
+
+            payload = _build_pair_resources_payload(
+                pair="en-es",
+                jmdict_path=None,
+                translation_dict_path=None,
+                reverse_translation_dict_path=None,
+                source_frequency_db_path=source_frequency,
+            )
+
+        self.assertEqual(payload["source_frequency_db_path"], str(source_frequency))
+        self.assertEqual(payload["source_frequency_pack_id"], "freq-en-coca")
+        self.assertEqual(payload["source_frequency_pack_provider"], "wordfrequency")
+        self.assertEqual(payload["source_frequency_pack_pos_source_profile"], "compact-latin")
 
     def test_build_word_package_snapshot_preserves_missing_targets_as_null(self) -> None:
         snapshot = _build_word_package_snapshot(
@@ -1016,8 +1115,8 @@ class TestRulegenBenchmark(unittest.TestCase):
             dictionary_pos_source_profile="wiktionary",
         )
         config = EnEsRulegenConfig(
-            freedict_es_en_path=Path("/tmp/wiktionary-es-en.sqlite"),
-            reverse_freedict_en_es_path=Path("/tmp/wiktionary-en-es.sqlite"),
+            translation_dict_path=Path("/tmp/wiktionary-es-en.sqlite"),
+            reverse_translation_dict_path=Path("/tmp/wiktionary-en-es.sqlite"),
             gloss_records_by_target=records,
             reverse_gloss_records_by_source=reverse_records,
             word_packages_by_target=word_packages,
@@ -1095,8 +1194,8 @@ class TestRulegenBenchmark(unittest.TestCase):
             dictionary_pos_source_profile="wiktionary",
         )
         config = EnEsRulegenConfig(
-            freedict_es_en_path=Path("/tmp/wiktionary-es-en.sqlite"),
-            reverse_freedict_en_es_path=Path("/tmp/wiktionary-en-es.sqlite"),
+            translation_dict_path=Path("/tmp/wiktionary-es-en.sqlite"),
+            reverse_translation_dict_path=Path("/tmp/wiktionary-en-es.sqlite"),
             gloss_records_by_target=records,
             reverse_gloss_records_by_source=reverse_records,
             word_packages_by_target=word_packages,

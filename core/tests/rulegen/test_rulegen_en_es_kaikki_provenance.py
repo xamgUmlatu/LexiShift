@@ -99,7 +99,7 @@ class TestRulegenEnEsKaikkiProvenance(unittest.TestCase):
         results = generate_en_es_results(
             ["presentar"],
             config=EnEsRulegenConfig(
-                freedict_es_en_path=Path("/tmp/unused"),
+                translation_dict_path=Path("/tmp/unused"),
                 gloss_records_by_target={
                     "presentar": [
                         FreedictGlossRecord(
@@ -205,7 +205,7 @@ class TestRulegenEnEsKaikkiProvenance(unittest.TestCase):
         results = generate_en_es_results(
             ["cuenta"],
             config=EnEsRulegenConfig(
-                freedict_es_en_path=Path("/tmp/unused"),
+                translation_dict_path=Path("/tmp/unused"),
                 gloss_records_by_target={
                     "cuenta": [
                         FreedictGlossRecord(
@@ -262,7 +262,7 @@ class TestRulegenEnEsKaikkiProvenance(unittest.TestCase):
         results = generate_en_es_results(
             ["cuenta"],
             config=EnEsRulegenConfig(
-                freedict_es_en_path=Path("/tmp/unused"),
+                translation_dict_path=Path("/tmp/unused"),
                 gloss_records_by_target={
                     "cuenta": [
                         FreedictGlossRecord(
@@ -319,7 +319,7 @@ class TestRulegenEnEsKaikkiProvenance(unittest.TestCase):
         results = generate_en_es_results(
             ["cuenta"],
             config=EnEsRulegenConfig(
-                freedict_es_en_path=Path("/tmp/unused"),
+                translation_dict_path=Path("/tmp/unused"),
                 gloss_records_by_target={
                     "cuenta": [
                         FreedictGlossRecord(
@@ -369,7 +369,7 @@ class TestRulegenEnEsKaikkiProvenance(unittest.TestCase):
         results = generate_en_es_results(
             ["presentar"],
             config=EnEsRulegenConfig(
-                freedict_es_en_path=Path("/tmp/unused"),
+                translation_dict_path=Path("/tmp/unused"),
                 gloss_records_by_target={
                     "presentar": [
                         FreedictGlossRecord(

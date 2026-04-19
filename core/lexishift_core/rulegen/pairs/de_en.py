@@ -88,7 +88,7 @@ DEFAULT_GERMAN_STOPWORDS = {
 
 @dataclass(frozen=True)
 class DeEnRulegenConfig:
-    freedict_en_de_path: Path
+    translation_dict_path: Path
     gloss_mapping: Optional[Mapping[str, Sequence[str]]] = None
     gloss_records_by_target: Optional[Mapping[str, Sequence[FreedictGlossRecord]]] = None
     word_packages_by_target: Optional[Mapping[str, Mapping[str, object]]] = None
@@ -262,7 +262,7 @@ def _resolve_gloss_records(config: DeEnRulegenConfig) -> dict[str, list[Freedict
     if config.gloss_mapping is not None:
         return _coerce_gloss_records(config.gloss_mapping)
     return load_freedict_gloss_records_ordered(
-        config.freedict_en_de_path,
+        config.translation_dict_path,
         target_lang="de",
     )
 

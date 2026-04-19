@@ -76,7 +76,7 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
             }
         }
         base_config = EnEsRulegenConfig(
-            freedict_es_en_path=Path("/tmp/unused"),
+            translation_dict_path=Path("/tmp/unused"),
             gloss_records_by_target=records,
             reverse_gloss_records_by_source=reverse_records,
             word_packages_by_target=word_packages,
@@ -150,7 +150,7 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
             dictionary_pos_source_profile="wiktionary",
         )
         config = EnEsRulegenConfig(
-            freedict_es_en_path=Path("/tmp/unused"),
+            translation_dict_path=Path("/tmp/unused"),
             gloss_records_by_target=records,
             reverse_gloss_records_by_source=reverse_records,
             word_packages_by_target=word_packages,
@@ -218,7 +218,7 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
             dictionary_pos_source_profile="wiktionary",
         )
         config = EnEsRulegenConfig(
-            freedict_es_en_path=Path("/tmp/unused"),
+            translation_dict_path=Path("/tmp/unused"),
             gloss_records_by_target=records,
             reverse_gloss_records_by_source=reverse_records,
             word_packages_by_target=word_packages,
@@ -276,7 +276,7 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
             }
         }
         base_config = EnEsRulegenConfig(
-            freedict_es_en_path=Path("/tmp/unused"),
+            translation_dict_path=Path("/tmp/unused"),
             gloss_records_by_target=records,
             reverse_gloss_records_by_source=reverse_records,
             word_packages_by_target=word_packages,
@@ -346,7 +346,7 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
             }
         }
         base_config = EnEsRulegenConfig(
-            freedict_es_en_path=Path("/tmp/unused"),
+            translation_dict_path=Path("/tmp/unused"),
             gloss_records_by_target=records,
             word_packages_by_target=word_packages,
             include_variants=False,
@@ -507,7 +507,7 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
             results = generate_en_es_results(
                 ["casa"],
                 config=EnEsRulegenConfig(
-                    freedict_es_en_path=Path("/tmp/unused"),
+                    translation_dict_path=Path("/tmp/unused"),
                     gloss_records_by_target=records,
                     include_variants=False,
                     compiled_resources=compiled_resources,
@@ -547,7 +547,7 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
             }
         }
         config = EnEsRulegenConfig(
-            freedict_es_en_path=Path("/tmp/unused"),
+            translation_dict_path=Path("/tmp/unused"),
             gloss_records_by_target=records,
             reverse_gloss_records_by_source=reverse_records,
             word_packages_by_target=word_packages,
@@ -724,7 +724,7 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
             }
         }
         config = EnEsRulegenConfig(
-            freedict_es_en_path=Path("/tmp/unused"),
+            translation_dict_path=Path("/tmp/unused"),
             gloss_records_by_target=records,
             reverse_gloss_records_by_source=reverse_records,
             word_packages_by_target=word_packages,
@@ -800,7 +800,7 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
             }
         }
         config = EnEsRulegenConfig(
-            freedict_es_en_path=Path("/tmp/unused"),
+            translation_dict_path=Path("/tmp/unused"),
             gloss_records_by_target=records,
             reverse_gloss_records_by_source=reverse_records,
             word_packages_by_target=word_packages,
@@ -910,7 +910,7 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
             }
         }
         base_config = EnEsRulegenConfig(
-            freedict_es_en_path=Path("/tmp/unused"),
+            translation_dict_path=Path("/tmp/unused"),
             gloss_records_by_target=records,
             word_packages_by_target=word_packages,
             include_variants=False,
@@ -1031,7 +1031,7 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
             }
         }
         config = EnEsRulegenConfig(
-            freedict_es_en_path=Path("/tmp/unused"),
+            translation_dict_path=Path("/tmp/unused"),
             gloss_records_by_target=records,
             reverse_gloss_records_by_source=reverse_records,
             word_packages_by_target=word_packages,
@@ -1125,7 +1125,7 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
             dictionary_pos_source_profile="wiktionary",
         )
         base_config = EnEsRulegenConfig(
-            freedict_es_en_path=Path("/tmp/unused"),
+            translation_dict_path=Path("/tmp/unused"),
             gloss_records_by_target=records,
             word_packages_by_target=word_packages,
             include_variants=False,
@@ -1183,7 +1183,7 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
             dictionary_pos_source_profile="wiktionary",
         )
         config = EnEsRulegenConfig(
-            freedict_es_en_path=Path("/tmp/unused"),
+            translation_dict_path=Path("/tmp/unused"),
             gloss_records_by_target=records,
             include_variants=False,
             source_dict_id="wiktionary_es_en",
@@ -1251,7 +1251,7 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
             dictionary_pos_source_profile="wiktionary",
         )
         base_config = EnEsRulegenConfig(
-            freedict_es_en_path=Path("/tmp/unused"),
+            translation_dict_path=Path("/tmp/unused"),
             gloss_records_by_target=records,
             reverse_gloss_records_by_source=reverse_records,
             word_packages_by_target=word_packages,
@@ -1328,7 +1328,7 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
             dictionary_pos_source_profile="wiktionary",
         )
         base_config = EnEsRulegenConfig(
-            freedict_es_en_path=Path("/tmp/unused"),
+            translation_dict_path=Path("/tmp/unused"),
             gloss_records_by_target=records,
             word_packages_by_target=word_packages,
             include_variants=False,
@@ -1402,7 +1402,7 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
             dictionary_pos_source_profile="wiktionary",
         )
         base_config = EnEsRulegenConfig(
-            freedict_es_en_path=Path("/tmp/unused"),
+            translation_dict_path=Path("/tmp/unused"),
             gloss_records_by_target=records,
             reverse_gloss_records_by_source=reverse_records,
             word_packages_by_target=word_packages,
@@ -1497,7 +1497,7 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
             dictionary_pos_source_profile="wiktionary",
         )
         base_config = EnEsRulegenConfig(
-            freedict_es_en_path=Path("/tmp/unused"),
+            translation_dict_path=Path("/tmp/unused"),
             gloss_records_by_target=records,
             reverse_gloss_records_by_source=reverse_records,
             word_packages_by_target=word_packages,
@@ -1597,7 +1597,7 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
             dictionary_pos_source_profile="wiktionary",
         )
         base_config = EnEsRulegenConfig(
-            freedict_es_en_path=Path("/tmp/unused"),
+            translation_dict_path=Path("/tmp/unused"),
             gloss_records_by_target=records,
             reverse_gloss_records_by_source=reverse_records,
             word_packages_by_target=word_packages,
@@ -1676,7 +1676,7 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
             }
         }
         base_config = EnEsRulegenConfig(
-            freedict_es_en_path=Path("/tmp/unused"),
+            translation_dict_path=Path("/tmp/unused"),
             gloss_records_by_target=records,
             word_packages_by_target=word_packages,
             include_variants=False,
@@ -1756,7 +1756,7 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
             }
         }
         base_config = EnEsRulegenConfig(
-            freedict_es_en_path=Path("/tmp/unused"),
+            translation_dict_path=Path("/tmp/unused"),
             gloss_records_by_target=records,
             reverse_gloss_records_by_source=reverse_records,
             word_packages_by_target=word_packages,
@@ -1831,7 +1831,7 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
             }
         }
         base_config = EnEsRulegenConfig(
-            freedict_es_en_path=Path("/tmp/unused"),
+            translation_dict_path=Path("/tmp/unused"),
             gloss_records_by_target=records,
             reverse_gloss_records_by_source=reverse_records,
             word_packages_by_target=word_packages,
@@ -1918,7 +1918,7 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
             }
         }
         base_config = EnEsRulegenConfig(
-            freedict_es_en_path=Path("/tmp/unused"),
+            translation_dict_path=Path("/tmp/unused"),
             gloss_records_by_target=records,
             word_packages_by_target=word_packages,
             include_variants=False,
@@ -1987,7 +1987,7 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
             }
         }
         base_config = EnEsRulegenConfig(
-            freedict_es_en_path=Path("/tmp/unused"),
+            translation_dict_path=Path("/tmp/unused"),
             gloss_records_by_target=records,
             word_packages_by_target=word_packages,
             include_variants=False,
@@ -2054,7 +2054,7 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
             }
         }
         config = EnEsRulegenConfig(
-            freedict_es_en_path=Path("/tmp/unused"),
+            translation_dict_path=Path("/tmp/unused"),
             gloss_records_by_target=records,
             reverse_gloss_records_by_source=reverse_records,
             word_packages_by_target=word_packages,
@@ -2123,7 +2123,7 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
             }
         }
         base_config = EnEsRulegenConfig(
-            freedict_es_en_path=Path("/tmp/unused"),
+            translation_dict_path=Path("/tmp/unused"),
             gloss_records_by_target=records,
             word_packages_by_target=word_packages,
             include_variants=False,
@@ -2208,7 +2208,7 @@ class TestRulegenEnEsCompiledResources(unittest.TestCase):
             }
         }
         base_config = EnEsRulegenConfig(
-            freedict_es_en_path=Path("/tmp/unused"),
+            translation_dict_path=Path("/tmp/unused"),
             gloss_records_by_target=records,
             reverse_gloss_records_by_source=reverse_records,
             word_packages_by_target=word_packages,
