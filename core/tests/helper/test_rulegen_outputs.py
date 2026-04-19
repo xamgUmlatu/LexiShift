@@ -31,7 +31,7 @@ class TestRulegenOutputs(unittest.TestCase):
                     "profile_id": "default",
                     "generated_at": "2026-04-10T00:00:00Z",
                     "capability": {
-                        "pointer_modes": ["sense_provenance", "freedict_gloss"],
+                        "pointer_modes": ["sense_provenance", "translation_gloss"],
                         "default_unavailable_reason_code": "missing_source_sense_locator",
                         "competition_mode": "not_published",
                         "competition_reason_code": "missing_shadow_selection",

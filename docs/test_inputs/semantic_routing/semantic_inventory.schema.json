@@ -99,7 +99,7 @@
             "type": "string",
             "enum": [
               "sense_provenance",
-              "freedict_gloss",
+              "translation_gloss",
               "jmdict_entry",
               "trigger_only"
             ]
@@ -177,7 +177,7 @@
           "enum": [
             "wiktionary_ordinal",
             "jmdict_entry",
-            "freedict_gloss",
+            "translation_gloss",
             "opaque"
           ]
         },
@@ -251,7 +251,7 @@
           "if": {
             "properties": {
               "locator_kind": {
-                "const": "freedict_gloss"
+                "const": "translation_gloss"
               }
             }
           },

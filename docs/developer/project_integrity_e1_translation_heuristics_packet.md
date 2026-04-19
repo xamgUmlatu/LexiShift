@@ -120,4 +120,4 @@ Result:
 - direct legacy root-level filenames remained valid fallback inputs
 - translation-pack metadata no longer defaults unknown manual paths to `freedict`; unsupported manual names now stay generic unless the path or manifest provides a known provider hint
 - compatibility fallback search for default translation dictionaries is now limited to declared pack roots for the pair instead of arbitrary nested directories under `language_packs_dir`
-- one additional provider-shaped holdout was logged for later review: semantic publication capability codes in `lp_capabilities.py` still use `freedict_gloss` wording
+- one additional provider-shaped holdout was logged during this slice and later resolved by `N-015`: semantic publication capability codes/docs now use `translation_gloss` while keeping provider identity explicit in the locator payload

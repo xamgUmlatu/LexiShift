@@ -283,8 +283,8 @@ def _build_locator(
     for mode in locator_modes:
         if mode == "sense_provenance":
             locator = _build_sense_provenance_locator(metadata, provider=provider, target=target)
-        elif mode == "freedict_gloss":
-            locator = _build_freedict_gloss_locator(metadata, provider=provider, target=target)
+        elif mode in {"translation_gloss", "freedict_gloss"}:
+            locator = _build_translation_gloss_locator(metadata, provider=provider, target=target)
         elif mode == "jmdict_entry":
             locator = _build_jmdict_entry_locator(metadata, provider=provider)
         else:
@@ -304,6 +304,7 @@ def _build_sense_provenance_locator(
     if not isinstance(sense_provenance, Mapping):
         return None
     provider_text = str(provider or "").strip() or "unknown"
+    target_key = str(target or "").strip()
     entry_ord = _as_int(sense_provenance.get("entry_ord"))
     sense_ord = _as_int(sense_provenance.get("sense_ord"))
     gloss_ord = _as_int(sense_provenance.get("gloss_ord"))
@@ -317,11 +318,11 @@ def _build_sense_provenance_locator(
         if gloss_ord is not None:
             locator["gloss_ord"] = gloss_ord
         return locator
-    if "freedict" in provider_text and gloss_ord is not None:
+    if gloss_ord is not None and target_key:
         locator = {
             "provider": provider_text,
-            "locator_kind": "freedict_gloss",
-            "target_key": str(target or "").strip(),
+            "locator_kind": "translation_gloss",
+            "target_key": target_key,
             "gloss_ord": gloss_ord,
         }
         if entry_ord is not None:
@@ -332,22 +333,20 @@ def _build_sense_provenance_locator(
     return None
 
 
-def _build_freedict_gloss_locator(
+def _build_translation_gloss_locator(
     metadata: Mapping[str, object],
     *,
     provider: str,
     target: str,
 ) -> dict[str, object] | None:
     provider_text = str(provider or "").strip() or "unknown"
-    if "freedict" not in provider_text:
-        return None
     gloss_index = _as_int(metadata.get("gloss_index"))
     target_key = str(target or "").strip()
     if gloss_index is None or not target_key:
         return None
     return {
         "provider": provider_text,
-        "locator_kind": "freedict_gloss",
+        "locator_kind": "translation_gloss",
         "target_key": target_key,
         "gloss_ord": gloss_index,
     }

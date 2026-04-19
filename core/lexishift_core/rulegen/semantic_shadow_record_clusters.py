@@ -117,10 +117,10 @@ def _build_locator(
         if gloss_ord is not None:
             locator["gloss_ord"] = gloss_ord
         return locator
-    if "freedict" in provider_text and gloss_ord is not None:
+    if gloss_ord is not None:
         return {
             "provider": provider_text,
-            "locator_kind": "freedict_gloss",
+            "locator_kind": "translation_gloss",
             "target_key": target,
             "gloss_ord": gloss_ord,
         }

@@ -60,8 +60,8 @@ _PAIR_CAPABILITIES: dict[str, PairCapability] = {
         srs_selectable=True,
         requires_translation_dictionary_for_rulegen=True,
         semantic_publication=SemanticPublicationCapability(
-            locator_modes=("freedict_gloss",),
-            missing_locator_reason_code="missing_freedict_gloss_locator",
+            locator_modes=("translation_gloss",),
+            missing_locator_reason_code="missing_translation_gloss_locator",
         ),
     ),
     "en-de": PairCapability(
@@ -71,7 +71,7 @@ _PAIR_CAPABILITIES: dict[str, PairCapability] = {
         srs_selectable=True,
         requires_translation_dictionary_for_rulegen=True,
         semantic_publication=SemanticPublicationCapability(
-            locator_modes=("sense_provenance", "freedict_gloss"),
+            locator_modes=("sense_provenance", "translation_gloss"),
             missing_locator_reason_code="missing_source_sense_locator",
         ),
     ),
@@ -82,7 +82,7 @@ _PAIR_CAPABILITIES: dict[str, PairCapability] = {
         srs_selectable=True,
         requires_translation_dictionary_for_rulegen=True,
         semantic_publication=SemanticPublicationCapability(
-            locator_modes=("sense_provenance", "freedict_gloss"),
+            locator_modes=("sense_provenance", "translation_gloss"),
             missing_locator_reason_code="missing_source_sense_locator",
             competition_publication_mode="emitted_rule_siblings",
             competition_selection_policy_version="en_es_emitted_rule_siblings_v1",
@@ -95,8 +95,8 @@ _PAIR_CAPABILITIES: dict[str, PairCapability] = {
         srs_selectable=True,
         requires_translation_dictionary_for_rulegen=True,
         semantic_publication=SemanticPublicationCapability(
-            locator_modes=("freedict_gloss",),
-            missing_locator_reason_code="missing_freedict_gloss_locator",
+            locator_modes=("translation_gloss",),
+            missing_locator_reason_code="missing_translation_gloss_locator",
         ),
     ),
     "es-es": PairCapability(

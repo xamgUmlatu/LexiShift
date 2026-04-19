@@ -365,7 +365,7 @@ Good:
 
 - `en-es` emits a `sense_provenance`-backed pointer
 - `en-es` can publish a limited `emitted_rule_siblings` competition set when real sibling senses are present in the same emitted batch
-- `de-en` emits a `freedict_gloss`-backed pointer
+- `de-en` emits a `translation_gloss`-backed pointer (currently FreeDict-backed)
 - `en-ja` emits a `jmdict_entry`-backed pointer
 
 Bad:

@@ -144,11 +144,11 @@ Current emitted-rule pointer strength by active rulegen LP:
 
 | LP / pair | Current emitted pointer strength | Current competition publication state |
 |---|---|---|
-| `en-es` | strongest current active pointer; uses `sense_provenance` first with `freedict_gloss` fallback | narrow `status=ready` PoC for emitted siblings in the same batch; broader shadow publication still not default |
-| `en-de` | same general pointer strategy as `en-es`: `sense_provenance` first with `freedict_gloss` fallback | currently stays `status=unavailable` because shadow promotion is not solved |
+| `en-es` | strongest current active pointer; uses `sense_provenance` first with `translation_gloss` fallback | narrow `status=ready` PoC for emitted siblings in the same batch; broader shadow publication still not default |
+| `en-de` | same general pointer strategy as `en-es`: `sense_provenance` first with `translation_gloss` fallback | currently stays `status=unavailable` because shadow promotion is not solved |
 | `en-ja` | stable `jmdict_entry`-backed active pointer derived from target forms | currently stays `status=unavailable` |
-| `de-en` | stable `freedict_gloss`-backed active pointer from deterministic gloss order | currently stays `status=unavailable` |
-| `es-en` | stable `freedict_gloss`-backed active pointer from deterministic gloss order | currently stays `status=unavailable` |
+| `de-en` | stable `translation_gloss`-backed active pointer from deterministic gloss order (currently FreeDict-backed) | currently stays `status=unavailable` |
+| `es-en` | stable `translation_gloss`-backed active pointer from deterministic gloss order (currently FreeDict-backed) | currently stays `status=unavailable` |
 
 So the current answer to "does runtime get no semantic identity at all?" is now:
 
@@ -256,7 +256,7 @@ Recommended top-level shape:
   "capability": {
     "pointer_modes": [
       "sense_provenance",
-      "freedict_gloss"
+      "translation_gloss"
     ],
     "default_unavailable_reason_code": "missing_source_sense_locator",
     "competition_mode": "emitted_rule_siblings",
@@ -288,7 +288,7 @@ Example sidecar fragment:
   "capability": {
     "pointer_modes": [
       "sense_provenance",
-      "freedict_gloss"
+      "translation_gloss"
     ],
     "default_unavailable_reason_code": "missing_source_sense_locator",
     "competition_mode": "emitted_rule_siblings",
@@ -603,7 +603,7 @@ Recommended LP capability tiers for this work:
   - can now emit stable `jmdict_entry` locators, but still lacks source-sense provenance and shadow publication
 
 - `tier_c`: `de-en`, `es-en`
-  - can now emit stable `freedict_gloss` locators, but still rely on deterministic gloss slots rather than richer source-sense provenance
+  - can now emit stable `translation_gloss` locators, but still rely on deterministic gloss slots rather than richer source-sense provenance
 
 ## First Concrete Steps
 

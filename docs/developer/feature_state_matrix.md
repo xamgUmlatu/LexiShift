@@ -1009,8 +1009,8 @@ Use this file when:
 - Known gaps:
   - No LP default path emits a fully mined competition/shadow set yet.
   - All current rulegen LPs can now emit stable active-pointer ids in `metadata.semantic_admission`, but pointer strength differs by locator mode:
-    - `en-es` / `en-de`: source-sense provenance first, with FreeDict gloss fallback
-    - `de-en` / `es-en`: deterministic FreeDict gloss-slot locator
+    - `en-es` / `en-de`: source-sense provenance first, with translation-gloss fallback
+    - `de-en` / `es-en`: deterministic translation-gloss locator (currently FreeDict-backed)
     - `en-ja`: deterministic JMDict entry locator
   - `en-es` can now emit `status=ready` in the explicit `emitted_rule_siblings` PoC mode, but that is still narrower than true shadow promotion and should not be read as end-to-end runtime readiness.
   - Helper publication can now generate a semantic inventory sidecar with pair capability summary, and `en-es` can publish ready competition sets in the emitted-sibling PoC, but current default output still does not include mined shadow sets or phrase-preemption inventory.

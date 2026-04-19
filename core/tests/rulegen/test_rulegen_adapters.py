@@ -102,7 +102,7 @@ class TestRulegenAdapters(unittest.TestCase):
         self.assertIn("competition_set_id", metadata.semantic_admission)
         self.assertIn("trigger_id", metadata.semantic_admission)
 
-    def test_de_en_adapter_derives_semantic_admission_from_freedict_gloss_index(self) -> None:
+    def test_de_en_adapter_derives_semantic_admission_from_translation_gloss_index(self) -> None:
         with patch(
             "lexishift_core.rulegen.adapters.generate_de_en_results",
             return_value=[
@@ -202,7 +202,7 @@ class TestRulegenAdapters(unittest.TestCase):
         self.assertIn("competition_set_id", metadata.semantic_admission)
         self.assertIn("trigger_id", metadata.semantic_admission)
 
-    def test_es_en_adapter_derives_semantic_admission_from_freedict_gloss_index(self) -> None:
+    def test_es_en_adapter_derives_semantic_admission_from_translation_gloss_index(self) -> None:
         with patch(
             "lexishift_core.rulegen.adapters.generate_es_en_results",
             return_value=[

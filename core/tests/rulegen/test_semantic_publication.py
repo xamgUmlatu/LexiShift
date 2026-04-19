@@ -132,6 +132,10 @@ class TestSemanticPublication(unittest.TestCase):
             generated_at="2026-04-10T00:00:00Z",
         )
 
+        self.assertEqual(
+            inventory["capability"]["pointer_modes"],
+            ["sense_provenance", "translation_gloss"],
+        )
         self.assertEqual(inventory["capability"]["competition_mode"], "emitted_rule_siblings")
         self.assertEqual(len(inventory["triggers"]), 1)
         self.assertEqual(len(inventory["senses"]), 2)
@@ -178,10 +182,45 @@ class TestSemanticPublication(unittest.TestCase):
             profile_id="default",
             generated_at="2026-04-10T00:00:00Z",
         )
+        self.assertEqual(inventory["capability"]["pointer_modes"], ["translation_gloss"])
+        self.assertEqual(len(inventory["senses"]), 2)
+        for record in inventory["senses"].values():
+            self.assertEqual(record["locator"]["locator_kind"], "translation_gloss")
         self.assertEqual(inventory["capability"]["competition_mode"], "not_published")
         for record in inventory["competition_sets"].values():
             self.assertEqual(record["status"], "unavailable")
             self.assertEqual(record["reason_code"], "missing_shadow_selection")
+
+    def test_de_en_missing_gloss_index_reports_translation_gloss_reason_code(self) -> None:
+        results = annotate_results_with_semantic_admission(
+            (
+                SimpleNamespace(
+                    candidate=RuleCandidate(
+                        source_phrase="Haus",
+                        replacement="house",
+                        language_pair="de-en",
+                        source_dict="freedict_en_de",
+                        metadata={},
+                    ),
+                    rule=VocabRule(
+                        source_phrase="Haus",
+                        replacement="house",
+                        metadata=RuleMetadata(language_pair="de-en"),
+                    ),
+                    confidence=0.9,
+                ),
+            )
+        )
+
+        admission = results[0].rule.metadata.semantic_admission
+        assert isinstance(admission, dict)
+        self.assertEqual(admission["status"], "unavailable")
+        self.assertEqual(
+            admission["reason_code"],
+            "missing_translation_gloss_locator",
+        )
+        self.assertNotIn("sense_id", admission)
+        self.assertNotIn("competition_set_id", admission)
 
 
 if __name__ == "__main__":
