@@ -3,8 +3,8 @@
 Status: active
 Role: Planning / WIP
 Owner: engineering
-Last updated: 2026-04-16
-Last verified: 2026-04-16 `npm --prefix scripts run health:project:report`
+Last updated: 2026-04-19
+Last verified: 2026-04-19 `npm --prefix scripts run health:project:report`
 Purpose: maintain the live project-health state while preserving the completed zero-warning milestone history
 Source-of-truth: remediation workstream + watchlist; current health evidence lives in `../test_outputs/project_health/project_health_latest.json`.
 
@@ -16,7 +16,7 @@ Treat project-health remediation as a first-class architecture project:
 2. Prevent new debt from entering while cleanup is in progress.
 3. Move from advisory checks to strict CI enforcement without freezing delivery.
 
-## Live Snapshot (2026-04-16)
+## Live Snapshot (2026-04-19)
 
 Source command:
 
@@ -28,72 +28,49 @@ Verification artifact: `../test_outputs/project_health/project_health_latest.jso
 
 Live violation profile:
 
-1. Total violations: `4` files (out of `418` scanned)
+1. Total violations: `0` files (out of `449` scanned)
 2. By area:
    - `apps/gui/src`: `0`
    - `apps/chrome-extension`: `0`
-   - `core/lexishift_core`: `3`
-   - `scripts/*`: `1`
+   - `core/lexishift_core`: `0`
+   - `scripts/*`: `0`
 3. By metric:
-   - `lines`: `4`
-   - `functions`: `2`
+   - `lines`: `0`
+   - `functions`: `0`
    - `imports`: `0`
    - `domainBreadth`: `0`
-4. Active violation files:
-   - `core/lexishift_core/rulegen/pairs/en_es.py` (`lines`, `functions`)
-   - `core/lexishift_core/rulegen/pairs/en_de.py` (`lines`)
-   - `core/lexishift_core/rulegen/generation.py` (`lines`, `functions`)
-   - `scripts/testing/rulegen_probe_words.py` (`lines`)
+4. Active violation files: none
 
 Near-limit watchlist (non-blocking):
 
-1. Total warnings: `20`
+1. Total warnings: `2`
 2. By area:
-   - `apps/chrome-extension`: `3`
-   - `apps/gui/src`: `2`
-   - `core/lexishift_core`: `7`
-   - `scripts/*`: `8`
+   - `apps/chrome-extension`: `0`
+   - `apps/gui/src`: `0`
+   - `core/lexishift_core`: `2`
+   - `scripts/*`: `0`
 3. By metric:
-   - `lines`: `17`
-   - `imports`: `4`
+   - `lines`: `2`
+   - `imports`: `0`
 4. Highest-priority watchlist:
-   - `apps/chrome-extension/options/controllers/srs/actions/workflows.js`
-   - `apps/gui/src/dialogs.py`
-   - `apps/gui/src/settings_language_packs.py`
-   - `core/lexishift_core/helper/engine.py`
-   - `core/lexishift_core/helper/rulegen.py`
-   - `core/lexishift_core/resources/dict_loaders.py`
+   - `core/lexishift_core/rulegen/pairs/en_es_compiled_selection.py`
    - `core/lexishift_core/rulegen/pairs/en_es_support.py`
-   - `core/lexishift_core/rulegen/semantic_shadow_evaluation.py`
-   - `core/lexishift_core/rulegen/semantic_shadow_inventory.py`
-   - `core/lexishift_core/srs/profile_bootstrap.py`
 
 Operational note:
 
-1. project health is no longer live-clean; the current queue is concentrated in rulegen core, rulegen/testing support, and a smaller preventive watchlist across extension, GUI, helper, and SRS files
+1. project health is now warning-only in advisory mode; the current live pressure is concentrated in the split `en_es` support/selection modules rather than the earlier monolith violation set
 2. treat the zero-warning result below as an important historical milestone, not the current operating baseline
-3. the live operating baseline is now: prevent new/regressed debt on changed files while paying down the explicit advisory backlog seam by seam
-4. do not respond to this drift by weakening thresholds or baselines; use the stabilization backlog to retire the hotspots intentionally
+3. the live operating baseline is now: prevent new/regressed debt on changed files while paying down the remaining near-limit watchlist intentionally
+4. do not respond to warning reduction by weakening thresholds or baselines; keep the advisory signal sharp and retire the remaining hotspots seam by seam
 
-## Live Operating Queue (2026-04-16)
+## Live Operating Queue (2026-04-19)
 
 1. Keep `npm --prefix scripts run health:project:changed` in the PR loop.
 2. Treat new/regressed warning debt the same way as new/regressed violation debt for changed files.
-3. Prioritize the current advisory violations before broad preventive cleanup:
-   - `core/lexishift_core/rulegen/pairs/en_es.py`
-   - `core/lexishift_core/rulegen/generation.py`
-   - `core/lexishift_core/rulegen/pairs/en_de.py`
-   - `scripts/testing/rulegen_probe_words.py`
-4. Use the stabilization backlog for preventive watchlist work rather than ad hoc cleanup, especially for:
-   - `apps/chrome-extension/options/controllers/srs/actions/workflows.js`
-   - `apps/gui/src/dialogs.py`
-   - `apps/gui/src/settings_language_packs.py`
-   - `core/lexishift_core/helper/engine.py`
-   - `core/lexishift_core/helper/rulegen.py`
-   - `core/lexishift_core/resources/dict_loaders.py`
-   - `core/lexishift_core/rulegen/semantic_shadow_inventory.py`
-   - `core/lexishift_core/rulegen/semantic_shadow_evaluation.py`
-   - `core/lexishift_core/srs/profile_bootstrap.py`
+3. Keep the current near-limit watchlist explicit before starting broader preventive cleanup:
+   - `core/lexishift_core/rulegen/pairs/en_es_compiled_selection.py`
+   - `core/lexishift_core/rulegen/pairs/en_es_support.py`
+4. Use the stabilization backlog for any next preventive structural work rather than reviving the retired pre-split hotspot list.
 5. Re-run `npm --prefix scripts run health:project:report` before release cuts, threshold changes, or large refactors.
 
 ## Historical Milestone Snapshot (2026-02-28)
