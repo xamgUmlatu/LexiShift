@@ -19,12 +19,6 @@ from lexishift_core.helper.status import HelperStatus, load_status, save_status
 from lexishift_core.helper.use_cases.initialize_set import (
     initialize_srs_set as _initialize_srs_set_use_case,
 )
-from lexishift_core.helper.use_cases.admission_preview import (
-    preview_srs_admission as _preview_srs_admission_use_case,
-)
-from lexishift_core.helper.use_cases.refresh_set import (
-    refresh_srs_set as _refresh_srs_set_use_case,
-)
 from lexishift_core.helper.use_cases.rebalance_set import (
     apply_srs_rebalance as _apply_srs_rebalance_use_case,
     plan_srs_rebalance as _plan_srs_rebalance_use_case,
@@ -79,6 +73,22 @@ def _run_rulegen_job_use_case(*args, **kwargs):
         fromlist=["run_rulegen_job"],
     )
     return rulegen_job_module.run_rulegen_job(*args, **kwargs)
+
+
+def _preview_srs_admission_use_case(*args, **kwargs):
+    preview_module = __import__(
+        "lexishift_core.helper.use_cases.admission_preview",
+        fromlist=["preview_srs_admission"],
+    )
+    return preview_module.preview_srs_admission(*args, **kwargs)
+
+
+def _refresh_srs_set_use_case(*args, **kwargs):
+    refresh_module = __import__(
+        "lexishift_core.helper.use_cases.refresh_set",
+        fromlist=["refresh_srs_set"],
+    )
+    return refresh_module.refresh_srs_set(*args, **kwargs)
 
 
 def _semantic_admit_batch_use_case(*args, **kwargs):

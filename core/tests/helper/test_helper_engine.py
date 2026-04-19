@@ -1324,6 +1324,74 @@ class TestHelperEngineRuntimeDiagnostics(unittest.TestCase):
             self.assertTrue(payload["publication_manifest_family_valid"])
             self.assertEqual(payload["publication_manifest_error_count"], 0)
 
+    def test_runtime_diagnostics_reports_store_fallback_inventory_with_publication_state(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = build_helper_paths(Path(tmp))
+            save_srs_store(
+                SrsStore(
+                    items=(
+                        SrsItem(
+                            item_id="en-ja:alpha",
+                            lemma="alpha",
+                            language_pair="en-ja",
+                            source_type="initial_set",
+                        ),
+                    ),
+                    version=1,
+                ),
+                paths.srs_store_path,
+            )
+            paths.ruleset_path("en-ja").write_text(
+                '{"rules":[{"source_phrase":"one","replacement":"一","metadata":{}}]}',
+                encoding="utf-8",
+            )
+            paths.snapshot_path("en-ja").write_text(
+                '{"stats":{"target_count":1,"rule_count":1},"targets":[{"lemma":"一"}],"generation_id":"en-ja:default:fallback-generation"}',
+                encoding="utf-8",
+            )
+            paths.semantic_inventory_path("en-ja").write_text(
+                (
+                    '{"schema_version":1,"pair":"en-ja","profile_id":"default","generated_at":"2026-04-11T00:00:00Z",'
+                    '"generation_id":"en-ja:default:fallback-generation",'
+                    '"capability":{"pointer_modes":["jmdict_entry"],"default_unavailable_reason_code":"missing_jmdict_entry_locator"},'
+                    '"triggers":{},"senses":{},"competition_sets":{},"phrase_sets":{}}'
+                ),
+                encoding="utf-8",
+            )
+            paths.publication_manifest_path("en-ja").write_text(
+                (
+                    '{"schema_version":1,"pair":"en-ja","profile_id":"default","generated_at":"2026-04-11T00:00:00Z",'
+                    '"published_at":"2026-04-11T00:00:01Z","generation_id":"en-ja:default:fallback-generation",'
+                    '"artifacts":{"ruleset":{"path":"rules","exists":true,"sha1":"abc","bytes":1},'
+                    '"snapshot":{"path":"snapshot","exists":true,"sha1":"def","bytes":1},'
+                    '"semantic_inventory":{"path":"inventory","exists":true,"sha1":"ghi","bytes":1}},'
+                    '"validation":{"family_valid":true,"semantic_inventory_included":true,"errors":[]}}'
+                ),
+                encoding="utf-8",
+            )
+
+            payload = get_srs_runtime_diagnostics(paths, pair="en-ja")
+
+            self.assertFalse(payload["inventory_exists"])
+            self.assertEqual(payload["inventory_active_items_for_pair"], 1)
+            self.assertEqual(payload["inventory_source"], "store_fallback")
+            self.assertEqual(payload["inventory_store_missing_item_ids_count"], 0)
+            self.assertIsNone(payload["inventory_last_initialized_at"])
+            self.assertTrue(payload["semantic_inventory_exists"])
+            self.assertEqual(
+                payload["semantic_inventory_generation_id"],
+                "en-ja:default:fallback-generation",
+            )
+            self.assertTrue(payload["publication_manifest_exists"])
+            self.assertEqual(
+                payload["publication_manifest_generation_id"],
+                "en-ja:default:fallback-generation",
+            )
+            self.assertTrue(payload["publication_manifest_family_valid"])
+            self.assertEqual(payload["publication_manifest_error_count"], 0)
+
 
 class TestHelperEngineInitializeSrsSet(unittest.TestCase):
     def test_initialize_set_adds_items_for_pair(self) -> None:
@@ -1558,6 +1626,101 @@ class TestHelperEngineInitializeSrsSet(unittest.TestCase):
             self.assertEqual(result["set_top_n"], 800)
             self.assertEqual(result["initial_active_count"], 40)
             self.assertEqual(result["pair_policy"]["pair"], "en-ja")
+
+    def test_initialize_set_runs_rulegen_against_active_inventory_and_forwards_semantic_inventory(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paths = build_helper_paths(root)
+            jmdict_dir = root / "jmdict"
+            jmdict_dir.mkdir(parents=True, exist_ok=True)
+            source_db = root / "freq.sqlite"
+            _create_frequency_db(source_db)
+
+            updated_store = SrsStore(
+                items=(
+                    SrsItem(
+                        item_id="en-ja:alpha",
+                        lemma="alpha",
+                        language_pair="en-ja",
+                        source_type="initial_set",
+                    ),
+                    SrsItem(
+                        item_id="en-ja:gamma",
+                        lemma="gamma",
+                        language_pair="en-ja",
+                        source_type="initial_set",
+                    ),
+                ),
+                version=1,
+            )
+            semantic_inventory = {
+                "schema_version": 1,
+                "pair": "en-ja",
+                "profile_id": "default",
+                "generated_at": "2026-04-10T00:00:00Z",
+                "triggers": {},
+                "senses": {},
+                "competition_sets": {},
+                "phrase_sets": {},
+            }
+            rulegen_output = SimpleNamespace(
+                rules=tuple(),
+                snapshot={"stats": {"target_count": 2, "rule_count": 0}},
+                target_count=2,
+                semantic_inventory=semantic_inventory,
+            )
+
+            with (
+                patch(
+                    "lexishift_core.helper.engine.initialize_store_from_frequency_list_with_report",
+                    return_value=(
+                        updated_store,
+                        SimpleNamespace(
+                            selected_count=2,
+                            selected_unique_count=2,
+                            admitted_count=2,
+                            inserted_count=2,
+                            updated_count=0,
+                            selected_preview=("alpha", "gamma"),
+                            initial_active_preview=("alpha", "gamma"),
+                        ),
+                    ),
+                ),
+                patch(
+                    "lexishift_core.helper.engine.run_rulegen_for_pair",
+                    return_value=(updated_store, rulegen_output),
+                ) as run_rulegen_patch,
+                patch("lexishift_core.helper.engine.write_rulegen_outputs") as write_outputs_patch,
+            ):
+                result = initialize_srs_set(
+                    paths,
+                    config=SetInitializationJobConfig(
+                        pair="en-ja",
+                        jmdict_path=jmdict_dir,
+                        set_source_db=source_db,
+                        replace_pair=True,
+                    ),
+                )
+
+            self.assertEqual(
+                tuple(run_rulegen_patch.call_args.kwargs["active_item_ids"]),
+                ("en-ja:alpha", "en-ja:gamma"),
+            )
+            self.assertEqual(
+                write_outputs_patch.call_args.kwargs["semantic_inventory"],
+                semantic_inventory,
+            )
+            inventory = load_srs_inventory(paths.srs_inventory_path_for("default"))
+            self.assertEqual(
+                tuple(inventory.pairs["en-ja"].active_item_ids),
+                ("en-ja:alpha", "en-ja:gamma"),
+            )
+            self.assertEqual(result["inventory"]["source"], "initialized")
+            self.assertEqual(result["inventory"]["active_items_for_pair"], 2)
+            self.assertTrue(result["rulegen"]["published"])
+            self.assertTrue(result["rulegen"]["semantic_inventory_path"].endswith("en-ja.json"))
 
 
 class TestHelperEnginePlanSrsSet(unittest.TestCase):
@@ -2232,9 +2395,24 @@ class TestHelperEngineFeedbackCycle(unittest.TestCase):
             self.assertTrue(rulegen_payload.get("published"))
             self.assertEqual(rulegen_payload.get("targets"), 2)
             self.assertEqual(rulegen_payload.get("rules"), 2)
-            self.assertTrue(Path(rulegen_payload.get("snapshot_path")).exists())
-            self.assertTrue(Path(rulegen_payload.get("ruleset_path")).exists())
-            self.assertTrue(Path(rulegen_payload.get("semantic_inventory_path")).exists())
+            snapshot_path = Path(rulegen_payload.get("snapshot_path"))
+            ruleset_path = Path(rulegen_payload.get("ruleset_path"))
+            semantic_inventory_path = Path(rulegen_payload.get("semantic_inventory_path"))
+            publication_manifest_path = Path(rulegen_payload.get("publication_manifest_path"))
+            self.assertTrue(snapshot_path.exists())
+            self.assertTrue(ruleset_path.exists())
+            self.assertTrue(semantic_inventory_path.exists())
+            self.assertTrue(publication_manifest_path.exists())
+            snapshot_payload = json.loads(snapshot_path.read_text(encoding="utf-8"))
+            semantic_inventory_payload = json.loads(
+                semantic_inventory_path.read_text(encoding="utf-8")
+            )
+            manifest_payload = json.loads(publication_manifest_path.read_text(encoding="utf-8"))
+            generation_id = manifest_payload["generation_id"]
+            self.assertEqual(snapshot_payload["generation_id"], generation_id)
+            self.assertEqual(semantic_inventory_payload["generation_id"], generation_id)
+            self.assertTrue(manifest_payload["validation"]["family_valid"])
+            self.assertTrue(manifest_payload["artifacts"]["semantic_inventory"]["exists"])
 
 
 class TestHelperEnginePreviewSrsAdmission(unittest.TestCase):

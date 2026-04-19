@@ -16,16 +16,13 @@ from lexishift_core.lexicon.word_package import (
 from lexishift_core.replacement.core import VocabRule
 from lexishift_core.helper.lp_capabilities import default_reverse_translation_dictionary_path
 from lexishift_core.helper.paths import HelperPaths
-from lexishift_core.helper.translation_packs import (
-    FORWARD_PACK_DIRECTION,
-    REVERSE_PACK_DIRECTION,
-    build_translation_pack_ref,
+from lexishift_core.rulegen.adapters import (
+    RulegenAdapterRequest,
+    run_results_with_adapter,
+    run_rules_with_adapter,
 )
-from lexishift_core.rulegen.adapters import RulegenAdapterRequest, run_rules_with_adapter
-from lexishift_core.rulegen.adapters import run_results_with_adapter
 from lexishift_core.rulegen.generation import RuleScoringConfig
 from lexishift_core.rulegen.ranking import ReverseCheckScoringConfig
-from lexishift_core.rulegen.semantic_publication import build_semantic_inventory_from_results
 from lexishift_core.srs import SrsItem, SrsSettings, SrsStore, save_srs_store
 from lexishift_core.srs.admission_policy import resolve_default_pos_weights
 from lexishift_core.srs.profile_bootstrap import score_seed_words_for_profile
@@ -117,6 +114,24 @@ def _load_seed_module():
     return __import__(
         "lexishift_core.srs.seed",
         fromlist=["SeedSelectionConfig", "build_seed_candidates"],
+    )
+
+
+def _load_semantic_publication_module():
+    return __import__(
+        "lexishift_core.rulegen.semantic_publication",
+        fromlist=["build_semantic_inventory_from_results"],
+    )
+
+
+def _load_translation_packs_module():
+    return __import__(
+        "lexishift_core.helper.translation_packs",
+        fromlist=[
+            "FORWARD_PACK_DIRECTION",
+            "REVERSE_PACK_DIRECTION",
+            "build_translation_pack_ref",
+        ],
     )
 
 
@@ -571,6 +586,7 @@ def run_rulegen_for_pair(
         and not resolved_reverse_translation_dict_path.exists()
     ):
         resolved_reverse_translation_dict_path = None
+    translation_packs_module = _load_translation_packs_module()
     results = run_results_with_adapter(
         RulegenAdapterRequest(
             pair=pair,
@@ -587,16 +603,16 @@ def run_rulegen_for_pair(
             gloss_decay=rulegen_config.gloss_decay,
             enable_exact_gloss_demotions=rulegen_config.enable_exact_gloss_demotions,
             jmdict_path=jmdict_path,
-            translation_pack=build_translation_pack_ref(
+            translation_pack=translation_packs_module.build_translation_pack_ref(
                 pair,
                 translation_dict_path,
-                direction=FORWARD_PACK_DIRECTION,
+                direction=translation_packs_module.FORWARD_PACK_DIRECTION,
             ),
             translation_dict_path=translation_dict_path,
-            reverse_translation_pack=build_translation_pack_ref(
+            reverse_translation_pack=translation_packs_module.build_translation_pack_ref(
                 pair,
                 resolved_reverse_translation_dict_path,
-                direction=REVERSE_PACK_DIRECTION,
+                direction=translation_packs_module.REVERSE_PACK_DIRECTION,
             ),
             reverse_translation_dict_path=resolved_reverse_translation_dict_path,
             word_packages_by_target=target_word_packages or None,
@@ -609,7 +625,8 @@ def run_rulegen_for_pair(
         max_targets=rulegen_config.max_snapshot_targets,
         max_sources=rulegen_config.max_snapshot_sources,
     )
-    semantic_inventory = build_semantic_inventory_from_results(
+    semantic_publication_module = _load_semantic_publication_module()
+    semantic_inventory = semantic_publication_module.build_semantic_inventory_from_results(
         results=results,
         pair=pair,
         profile_id=profile_id,

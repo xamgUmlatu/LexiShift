@@ -265,8 +265,8 @@ class TestHelperRulegenInitialization(unittest.TestCase):
                 version=1,
             )
             with patch(
-                "lexishift_core.helper.rulegen.run_rules_with_adapter", return_value=[]
-            ) as run_rules:
+                "lexishift_core.helper.rulegen.run_results_with_adapter", return_value=[]
+            ) as run_results:
                 run_rulegen_for_pair(
                     paths=paths,
                     pair="en-ja",
@@ -278,8 +278,8 @@ class TestHelperRulegenInitialization(unittest.TestCase):
                     persist_store=False,
                 )
 
-        run_rules.assert_called_once()
-        request = run_rules.call_args.args[0]
+        run_results.assert_called_once()
+        request = run_results.call_args.args[0]
         self.assertIn("所", request.word_packages_by_target)
         self.assertEqual(request.word_packages_by_target["所"]["reading"], "ところ")
         self.assertEqual(request.max_definitions_per_target, 3)
