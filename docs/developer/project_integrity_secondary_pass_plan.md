@@ -249,7 +249,7 @@ After every two or three completed slices, stop and do a short synthesis pass:
 
 This keeps the plan responsive without turning it into a moving target every hour.
 
-## Current Synthesis Checkpoint (2026-04-18)
+## Synthesis Checkpoint (2026-04-18)
 
 Context:
 
@@ -288,6 +288,46 @@ Net effect:
 - no major queue reorder
 - stronger bias toward seam-local executable evidence before present-tense checkpoint docs make validation claims
 - proceed next with `E1` translation-pack holdout audit
+
+## Current Synthesis Checkpoint (2026-04-19)
+
+Context:
+
+- completed slices since the previous synthesis stop: `SP2.6` settings save failure visibility, `SP2.7` active-inventory observability truth, SP7 Ruff-resolution follow-through, A3 project-health workstream refresh, and a narrow G2 packet-wording cleanup
+
+Observed repeated patterns:
+
+1. planning and remediation docs drift faster than expected once structural work starts landing.
+   - the backlog snapshot was still describing the earlier clean-tree / multi-violation world after the recent split-heavy branch state had already changed materially.
+   - the project-health workstream doc was likewise still routing future work through retired monolith hotspots even though the live advisory report was already down to two near-limit `en_es` support modules.
+2. evidence wording needs its own hygiene pass even when product behavior is already correct.
+   - several SP2 packets were still marking doc-sync or inspection-only rows as if they were executable verification.
+   - tightening that wording improved trust in the checkpoints without reopening the underlying SRS behavior slices.
+3. tooling reliability work is worth a narrow checkpoint when it removes misleading noise from the default loop.
+   - the Ruff fallback fix changed local safety output from a fake `.venv/bin/python -m ruff` failure mode to the actual repo style signal on this machine.
+
+Queue decision:
+
+1. keep SP6 and SP7 active, but continue taking them in narrow seams.
+   - these tracks are now producing concrete value, but they still should not sprawl into a mixed "cleanup everything" pass.
+2. do not promote more generic tooling polish ahead of product seams right now.
+   - the worst local repo-safety signal issue (`N-002`) is resolved.
+   - the next SP7 moves should be about evidence freshness and coverage gaps, not more environment polish for its own sake.
+3. keep the remaining backlog/notes reconciliation work explicit.
+   - the backlog snapshot refresh is now locally updated, but it still needs an isolated checkpoint path because that file currently carries overlapping in-flight edits.
+
+Automation candidates:
+
+1. next likely SP7 automation target:
+   - a lightweight evidence-hygiene check that flags packet rows whose evidence surface is doc-sync or inspection-only while the status still reads like executable verification.
+2. keep broader automation work behind concrete repeated need.
+   - the packet-wording cleanup was small enough to handle manually this time.
+
+Net effect:
+
+- SP6 and SP7 now have committed forward progress rather than only planned queue entries
+- current-truth planning surfaces are closer to the live branch state
+- the next clean move should still stay narrow: either isolated backlog/notes reconciliation or the next evidence-freshness seam
 
 ## E1 Checkpoint (2026-04-18)
 
