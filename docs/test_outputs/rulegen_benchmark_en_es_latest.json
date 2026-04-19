@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-11T02:49:31.972648+00:00",
+  "generated_at": "2026-04-19T04:47:48.923921+00:00",
   "dataset_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_cases",
   "dataset_metadata": {
     "version": 1,
@@ -43,8 +43,17 @@
     "en-es": {
       "jmdict_path": null,
       "translation_dict_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-es-en.sqlite",
+      "translation_pack_id": "wiktionary_es_en",
+      "translation_pack_provider": "wiktionary",
+      "translation_pack_pos_source_profile": "wiktionary",
       "reverse_translation_dict_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-en-es.sqlite",
+      "reverse_translation_pack_id": "wiktionary_en_es",
+      "reverse_translation_pack_provider": "wiktionary",
+      "reverse_translation_pack_pos_source_profile": "wiktionary",
       "source_frequency_db_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-en-coca.sqlite",
+      "source_frequency_pack_id": "freq-en-coca",
+      "source_frequency_pack_provider": "freq-en-coca",
+      "source_frequency_pack_pos_source_profile": "compact-latin",
       "checksums": {
         "jmdict_sha256": null,
         "translation_dict_sha256": "sha256:110b4609526772c0d6f80f0fef4f838d30c6936423f1a7b479490b753f197464",
@@ -54,32 +63,32 @@
     }
   },
   "timing": {
-    "total_recorded_seconds": 0.8257596330950037,
+    "total_recorded_seconds": 0.9679688373580575,
     "phases": {
       "build_resource_payload": {
-        "total_seconds": 0.0011679161107167602,
+        "total_seconds": 0.0012080420274287462,
         "count": 1,
-        "avg_seconds": 0.0011679161107167602
+        "avg_seconds": 0.0012080420274287462
       },
       "build_sweep_configs": {
-        "total_seconds": 0.0007824579952284694,
+        "total_seconds": 0.0007876658346503973,
         "count": 1,
-        "avg_seconds": 0.0007824579952284694
+        "avg_seconds": 0.0007876658346503973
       },
       "build_word_packages": {
-        "total_seconds": 0.0001723750028759241,
+        "total_seconds": 0.00017366604879498482,
         "count": 1,
-        "avg_seconds": 0.0001723750028759241
+        "avg_seconds": 0.00017366604879498482
       },
       "compile_pair_context": {
-        "total_seconds": 0.11644962499849498,
+        "total_seconds": 0.11632670788094401,
         "count": 1,
-        "avg_seconds": 0.11644962499849498
+        "avg_seconds": 0.11632670788094401
       },
       "evaluate_cases": {
-        "total_seconds": 0.02286800602450967,
+        "total_seconds": 0.020299709402024746,
         "count": 144,
-        "avg_seconds": 0.00015880559739242826
+        "avg_seconds": 0.0001409702041807274
       },
       "group_rules": {
         "total_seconds": 0.0,
@@ -87,82 +96,82 @@
         "avg_seconds": 0.0
       },
       "load_dataset": {
-        "total_seconds": 0.003672708058729768,
+        "total_seconds": 0.027550249826163054,
         "count": 1,
-        "avg_seconds": 0.003672708058729768
+        "avg_seconds": 0.027550249826163054
       },
       "load_store": {
-        "total_seconds": 0.02670987497549504,
+        "total_seconds": 0.0028724591247737408,
         "count": 1,
-        "avg_seconds": 0.02670987497549504
+        "avg_seconds": 0.0028724591247737408
       },
       "preload_translation_gloss_records": {
-        "total_seconds": 0.34605570905841887,
+        "total_seconds": 0.5147307498846203,
         "count": 1,
-        "avg_seconds": 0.34605570905841887
+        "avg_seconds": 0.5147307498846203
       },
       "prepare_compiled_sweep_inputs": {
-        "total_seconds": 0.2760126660577953,
+        "total_seconds": 0.2543457499705255,
         "count": 1,
-        "avg_seconds": 0.2760126660577953
+        "avg_seconds": 0.2543457499705255
       },
       "rehydrate_best_run_case_results": {
-        "total_seconds": 0.00047337496653199196,
+        "total_seconds": 0.0005844160914421082,
         "count": 1,
-        "avg_seconds": 0.00047337496653199196
+        "avg_seconds": 0.0005844160914421082
       },
       "render_html": {
-        "total_seconds": 0.004037542035803199,
+        "total_seconds": 0.003323958022519946,
         "count": 1,
-        "avg_seconds": 0.004037542035803199
+        "avg_seconds": 0.003323958022519946
       },
       "render_markdown": {
-        "total_seconds": 6.40839571133256e-05,
+        "total_seconds": 5.270796827971935e-05,
         "count": 1,
-        "avg_seconds": 6.40839571133256e-05
+        "avg_seconds": 5.270796827971935e-05
       },
       "resolve_resources": {
-        "total_seconds": 0.00014708295930176973,
+        "total_seconds": 0.0001379160676151514,
         "count": 1,
-        "avg_seconds": 0.00014708295930176973
+        "avg_seconds": 0.0001379160676151514
       },
       "run_config": {
-        "total_seconds": 0.02538183715660125,
+        "total_seconds": 0.023910999530926347,
         "count": 144,
-        "avg_seconds": 0.00017626275803195313
+        "avg_seconds": 0.00016604860785365518
       },
       "sort_pair_runs": {
-        "total_seconds": 5.937495734542608e-05,
+        "total_seconds": 6.204191595315933e-05,
         "count": 1,
-        "avg_seconds": 5.937495734542608e-05
+        "avg_seconds": 6.204191595315933e-05
       },
       "summarize_run": {
-        "total_seconds": 0.001704998780041933,
+        "total_seconds": 0.0016017977613955736,
         "count": 144,
-        "avg_seconds": 1.1840269305846758e-05
+        "avg_seconds": 1.1123595565247038e-05
       }
     },
     "pairs": {
       "en-es": {
         "build_resource_payload": {
-          "total_seconds": 0.0011679161107167602,
+          "total_seconds": 0.0012080420274287462,
           "count": 1,
-          "avg_seconds": 0.0011679161107167602
+          "avg_seconds": 0.0012080420274287462
         },
         "build_word_packages": {
-          "total_seconds": 0.0001723750028759241,
+          "total_seconds": 0.00017366604879498482,
           "count": 1,
-          "avg_seconds": 0.0001723750028759241
+          "avg_seconds": 0.00017366604879498482
         },
         "compile_pair_context": {
-          "total_seconds": 0.11644962499849498,
+          "total_seconds": 0.11632670788094401,
           "count": 1,
-          "avg_seconds": 0.11644962499849498
+          "avg_seconds": 0.11632670788094401
         },
         "evaluate_cases": {
-          "total_seconds": 0.02286800602450967,
+          "total_seconds": 0.020299709402024746,
           "count": 144,
-          "avg_seconds": 0.00015880559739242826
+          "avg_seconds": 0.0001409702041807274
         },
         "group_rules": {
           "total_seconds": 0.0,
@@ -170,43 +179,43 @@
           "avg_seconds": 0.0
         },
         "preload_translation_gloss_records": {
-          "total_seconds": 0.34605570905841887,
+          "total_seconds": 0.5147307498846203,
           "count": 1,
-          "avg_seconds": 0.34605570905841887
+          "avg_seconds": 0.5147307498846203
         },
         "prepare_compiled_sweep_inputs": {
-          "total_seconds": 0.2760126660577953,
+          "total_seconds": 0.2543457499705255,
           "count": 1,
-          "avg_seconds": 0.2760126660577953
+          "avg_seconds": 0.2543457499705255
         },
         "rehydrate_best_run_case_results": {
-          "total_seconds": 0.00047337496653199196,
+          "total_seconds": 0.0005844160914421082,
           "count": 1,
-          "avg_seconds": 0.00047337496653199196
+          "avg_seconds": 0.0005844160914421082
         },
         "resolve_resources": {
-          "total_seconds": 0.00014708295930176973,
+          "total_seconds": 0.0001379160676151514,
           "count": 1,
-          "avg_seconds": 0.00014708295930176973
+          "avg_seconds": 0.0001379160676151514
         },
         "run_config": {
-          "total_seconds": 0.02538183715660125,
+          "total_seconds": 0.023910999530926347,
           "count": 144,
-          "avg_seconds": 0.00017626275803195313
+          "avg_seconds": 0.00016604860785365518
         },
         "sort_pair_runs": {
-          "total_seconds": 5.937495734542608e-05,
+          "total_seconds": 6.204191595315933e-05,
           "count": 1,
-          "avg_seconds": 5.937495734542608e-05
+          "avg_seconds": 6.204191595315933e-05
         },
         "summarize_run": {
-          "total_seconds": 0.001704998780041933,
+          "total_seconds": 0.0016017977613955736,
           "count": 144,
-          "avg_seconds": 1.1840269305846758e-05
+          "avg_seconds": 1.1123595565247038e-05
         }
       }
     },
-    "wall_clock_seconds": 0.8321272499160841
+    "wall_clock_seconds": 0.9756865829695016
   },
   "pairs": {
     "en-es": {
@@ -215,8 +224,17 @@
       "resources": {
         "jmdict_path": null,
         "translation_dict_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-es-en.sqlite",
+        "translation_pack_id": "wiktionary_es_en",
+        "translation_pack_provider": "wiktionary",
+        "translation_pack_pos_source_profile": "wiktionary",
         "reverse_translation_dict_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-en-es.sqlite",
+        "reverse_translation_pack_id": "wiktionary_en_es",
+        "reverse_translation_pack_provider": "wiktionary",
+        "reverse_translation_pack_pos_source_profile": "wiktionary",
         "source_frequency_db_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-en-coca.sqlite",
+        "source_frequency_pack_id": "freq-en-coca",
+        "source_frequency_pack_provider": "freq-en-coca",
+        "source_frequency_pack_pos_source_profile": "compact-latin",
         "checksums": {
           "jmdict_sha256": null,
           "translation_dict_sha256": "sha256:110b4609526772c0d6f80f0fef4f838d30c6936423f1a7b479490b753f197464",

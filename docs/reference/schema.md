@@ -235,7 +235,7 @@ Top-level fields
 - `last_selected_pack_ids` (string array, optional)
 - `embedding_pack_paths` (object map, optional; pack_id -> manual/external compatibility path)
 - `embedding_pair_pack_ids` (object map, optional; pair_key -> array of app-managed embedding pack ids)
-- `embedding_pair_paths` (object map, optional; pair_key -> list of embedding paths)
+- `embedding_pair_paths` (object map, optional; pair_key -> list of manual/external compatibility embedding paths)
 - `embedding_pair_enabled` (object map, optional; pair_key -> bool)
 
 Notes:

@@ -61,6 +61,8 @@ Define how set `S` is planned and mutated:
   - Input: same planning fields + sources (`jmdict_path`, `set_source_db`).
   - Output: plan metadata + mutation result (`applied`, counts).
   - Side effects: updates helper-owned `srs/profiles/<profile_id>/srs_store.json` only when plan is executable.
+  - Current execution note:
+    - `strategy_requested="profile_bootstrap"` still reports `strategy_effective="frequency_bootstrap"` and executes the frequency-bootstrap path while returning profile-bootstrap diagnostics.
 
 ## Sizing policy (implemented)
 

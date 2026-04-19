@@ -27,10 +27,7 @@ These are real issues in the admission branch review and should stay explicit un
 
 ### 1. Unknown-key preservation mismatch
 
-The profile-schema docs currently say:
-
-- planner should tolerate missing optional keys
-- unknown keys should be preserved where possible
+At review time, the profile-schema docs were still easy to read as a broader passthrough contract.
 
 But the actual extension settings path rebuilds the signals object from a fixed allowlist:
 
@@ -46,15 +43,15 @@ So any future signal field outside that allowlist will be dropped before it reac
 Implication:
 
 - the current executable contract is effectively fixed-allowlist, not “preserve unknown keys”
+- the canonical schema doc now reflects that fixed `v1` allowlist, but selective-port work still must not assume arbitrary top-level signal passthrough
 
 Future resolution options:
 
-- narrow the docs to match the current fixed `v1` allowlist
-- or add a real passthrough lane for unknown signal keys
+- add a real passthrough lane for unknown signal keys
 
 ### 2. `constraints` / `sizing` ambiguity
 
-The profile-schema docs currently show `constraints` and sizing-like fields inside the example `profile_context`.
+At review time, the profile-schema docs still made nested `constraints` / `sizing` look more executable than they really were.
 
 But the executable helper path does not consume those nested fields as the authoritative input.
 
@@ -66,12 +63,12 @@ Actual execution shape today:
 
 Implication:
 
-- the current docs overstate how executable the nested `constraints` shape is
+- nested `constraints` / `sizing` should be treated as descriptive mirrors, not the live execution authority
+- the canonical schema doc now reflects that, but selective-port work still must not assume nested fallback sizing is active in helper code
 
 Future resolution options:
 
-- clarify docs so `constraints` / `sizing` are descriptive rather than authoritative
-- or explicitly teach helper to honor nested fallback values from `profile_context`
+- explicitly teach helper to honor nested fallback values from `profile_context`
 
 ## Merge Summary
 

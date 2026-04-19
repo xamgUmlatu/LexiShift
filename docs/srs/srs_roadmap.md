@@ -29,13 +29,22 @@ Ship a non-destructive SRS layer where:
 - Helper profile snapshot API now reads GUI settings at `settings.json` (active profile + profile list) for cross-surface profile selection.
 - Extension storage model is now profile-first (`srsSelectedProfileId` + `srsProfiles.<profile>.srsByPair/srsSignalsByPair`) with no legacy LP-first fallback.
 - Profile-scoped extension UI prefs are now part of the same container (`srsProfiles.<profile>.uiPrefs`) and include staged/apply flow for options background settings.
+- Current first-class admission preference controls in options are still narrow:
+  - topic interests
+  - proficiency estimate
+  - challenge target
+- other signal families can persist in `srsSignalsByPair`, but they are not yet dedicated options controls.
 
 ### Set planning scaffolding
 - `srs/set_strategy.py`: strategy/objective taxonomy.
 - `srs/set_policy.py`: centralized sizing policy/defaults/clamps.
 - `srs/set_planner.py`: plan metadata + diagnostics.
 - `srs_plan_set` helper command: no side effects.
-- `srs_initialize` helper command: mutation via executable strategy.
+- `srs_initialize` helper command: mutation via the current executable baseline strategy.
+- Current execution reality:
+  - `frequency_bootstrap` is the default executable path
+  - `profile_bootstrap` returns diagnostics but still falls back to the frequency-bootstrap execution path
+  - `profile_growth` and `adaptive_refresh` remain non-default future strategies
 - Bootstrap admission policy now applies explicit POS buckets with centralized coefficients (non-magic constants).
 - JP stopword filtering is active from helper-owned `srs/stopwords/stopwords-ja.json` (or sibling fallback path).
 
@@ -54,10 +63,12 @@ Ship a non-destructive SRS layer where:
 - Runtime replacements from helper-generated SRS rules are active in pages (not just debug preview).
 - Local rules continue to work concurrently with SRS rules.
 - Feedback UI path (`1..4`) is wired through extension sync queue to helper feedback endpoint.
+- Current published ruleset still reflects the active/admitted inventory more broadly than a dedicated due-only subset.
 
 ### Remaining to reach full SRS E2E (feedback -> update -> serving)
 - Complete deterministic E2E assertion flow:
   - bootstrap/initialize -> observe replacements -> submit feedback -> verify helper scheduling fields changed -> refresh/admit -> verify serving distribution changed.
+- Publish or gate against an explicit due subset instead of treating the helper-published active inventory as the runtime serving surface.
 - Add automatic refresh policy trigger from aggregated feedback thresholds (today refresh is explicit/manual).
 - Add stronger observability for feedback effects:
   - before/after snapshots of `next_due`, `stability`, `difficulty`, and active item counts.
@@ -83,7 +94,7 @@ Status key:
 
 ### Workstream A — Review scheduler and practice gate
 - `[x]` Core SRS item model + FSRS scheduler update function.
-- `[x]` Runtime gate integration for active/due items.
+- `[~]` Runtime gate integration for helper-published SRS rules (current gate works for admitted inventory; due-aware subset remains unresolved).
 - `[x]` Feedback ingestion from extension popup.
 - `[~]` Formal lifecycle statuses (`new/learning/review/mature/relearn/suspended`).
 - `[ ]` Daily/session budget policy hardening (`max_active`, `max_new_per_day`).
@@ -93,7 +104,7 @@ Status key:
 - `[x]` JMDict-filtered JA bootstrap flow (`en-ja`).
 - `[x]` Planner scaffold (`srs_plan_set` + extended `srs_initialize`).
 - `[x]` Centralized sizing policy (`bootstrap_top_n`, `initial_active_count`, clamps, diagnostics notes).
-- `[~]` Profile-aware weighting in `profile_bootstrap`.
+- `[~]` Profile-aware weighting in `profile_bootstrap` (normalization/scoring/diagnostics landed; helper execution still falls back to frequency bootstrap).
 - `[x]` POS-aware admission biasing/filtering (explicit default order: noun > adjective > verb > adverb > other).
 - `[x]` Helper-side stopword filtering for bootstrap candidates (strict JSON-array format).
 - `[x]` Initial active subset admission in bootstrap (`initial_active_count`) now mutates persisted `S`.

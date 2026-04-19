@@ -46,7 +46,7 @@ For a new pair, reverse-check rollout is complete only when all of these are tru
 ## Still Unimplemented
 
 1. No first-class capability field such as `supports_reverse_check`; support is inferred indirectly from pair modules and helper resource resolution.
-2. `core/lexishift_core/helper/lp_capabilities.py` still uses the misleading field name `requires_freedict_de_en_for_rulegen` for non-DE FreeDict-backed pairs.
+2. Reverse-check support is still inferred indirectly from pair modules and resource resolution; there is no first-class capability field such as `supports_reverse_check`.
 3. No committed `es-en` benchmark/gate/triage artifacts establish rollout maturity.
 4. No pair defaults currently enable reverse-check in `core/lexishift_core/rulegen/tuning.py`.
 5. Phase 1 remains scoring-only:

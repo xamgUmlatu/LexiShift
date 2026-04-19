@@ -3,8 +3,8 @@
 Status: active execution roadmap
 Role: ordered implementation plan
 Purpose: turn the normalization architecture target into an explicit, resumable sequence of remaining work.
-Last updated: 2026-04-03
-Last verified: 2026-04-03 code/doc review after FreeDict SQLite install normalization, German frequency whitelist migration, synonym-loader migration, manifest-backed translation pack refs, helper debug/journey-installed translation-pack seam cleanup, the first frequency pack-ref/runtime-diagnostics seam slice, the first embedding pack-id activation/runtime-resolution slice, the internal helper translation-dictionary seam cleanup, benchmark split cleanup, generic helper alias removal, the synonym translation-pack seam cleanup, and the settings UI installed-vs-manual resource classification pass
+Last updated: 2026-04-16
+Last verified: 2026-04-16 code/doc review after benchmark translation/source-frequency resource-identity cleanup plus embedding settings-panel managed/manual split cleanup
 Source-of-truth: planning/execution guide only; runtime truth still lives in code, tests, and `feature_state_matrix.md`.
 
 ## Compatibility Policy
@@ -131,7 +131,7 @@ Already landed:
 - translation pack refs now honor managed manifests when present instead of relying only on filename/provider inference
 - helper rulegen debug payloads now report translation pack id/provider/source-profile fields through the shared translation-pack seam
 - installed-resource journey staging now preserves manifest-backed translation pack roots instead of flattening them into loose artifact files
-- helper/runtime now expose a first frequency pack-ref seam so diagnostics and pair-resource resolution can report pack identity, provider, and POS source profile instead of only a raw SQLite path
+- helper/runtime now expose a first frequency pack-ref seam so diagnostics, pair-resource resolution, and benchmark resource payloads can report pack identity, provider, and POS source profile instead of only a raw SQLite path
 - managed translation settings now split normalized app-owned translation packs into `managed_language_pack_ids` plus manual `language_pack_paths`, and app-state loading migrates old saved managed artifact paths into that shape
 - managed frequency settings now split app-owned frequency packs into `managed_frequency_pack_ids` plus manual `frequency_pack_paths`, and app-state loading migrates old saved managed artifact paths into that shape
 - the settings dialog plus cancel/save sync path now stop re-saving managed translation/frequency artifact paths when those installs are already represented by pack id
@@ -144,20 +144,23 @@ Already landed:
 - app-managed frequency installs now converge on `frequency_packs/<pack_id>/main.sqlite`, while panel/runtime resolution still accepts legacy `freq-*.sqlite` filenames for older local installs
 - managed embedding activation can now be persisted by pack id per pair while runtime resolves those pack ids back through manifest-backed SQLite artifacts
 - app-state load/update now migrates old saved managed embedding artifact paths into pack-id-first per-pair activation and strips those app-owned paths from the manual embedding maps
+- the settings panel now strips managed installed embedding artifacts from seed/auto-link state and keeps managed activation under per-pair embedding pack ids instead of rehydrating those artifacts back into the manual path map
 - the settings panel now omits redundant managed embedding artifact paths from saved settings when those installs are already represented by pack id + manifest-backed resolution
 - settings serialization now writes explicit `language_pack_paths`, `frequency_pack_paths`, and `embedding_pack_paths` keys instead of the older generic `*_packs` path maps
 - the settings UI now labels app-owned resolved resources as `Installed`, external/manual translation-frequency-embedding paths as `Manual`, and active embedding rows as either `Active (Installed)` or `Active (Manual)` so the managed-vs-import boundary is explicit in normal use
+- the resource workspace, frequency tab, embedding tabs, and manual-link messages now explicitly describe installed packs as the default path and manual paths as compatibility/import surfaces
 - helper CLI/native-host entrypoints and internal helper use cases now prefer generic `translation_dict_path` naming, and runtime/helper diagnostics no longer emit `freedict_de_en_*` as part of the app-managed generic contract
-
 - extension-side SRS action formatters now surface frequency-pack identity/provider/profile plus `frequency_pack_path`, while labeling `set_source_db` as an execution-layer field instead of presenting it alone as the primary managed contract
+- benchmark resource payloads now expose translation-pack and source-frequency-pack id/provider/POS-source metadata alongside paths and checksums, so benchmark artifacts do not need to infer managed resource identity back from filenames alone
+
 Still intentionally transitional:
 
 - some GUI/runtime/benchmark/help-text paths still mention TEI compatibility inputs even though the default managed path is SQLite-first
 - translation packs still preserve legacy `<pack_id>.sqlite` artifact names as fallback paths during migration
 - frequency packs still preserve legacy `freq-*.sqlite` artifact names
-- embeddings still preserve raw/manual path maps for compatibility and manual imports, but managed app-owned embedding paths no longer need to be persisted alongside pack-id activation
+- embeddings still preserve raw/manual path maps for compatibility and manual imports, but managed app-owned embedding paths no longer need to be persisted alongside pack-id activation and the remaining temporary path state is mainly in-flight download/conversion/manual-link handling
 - broad generic manual path selection is now treated as transitional rather than strategic, and should likely be phased out unless a concrete product use case survives
-- benchmark/help-text surfaces still contain some legacy filename/provider heuristics, especially the oversized `rulegen_benchmark.py` hotspot
+- probe/help-text surfaces still contain some legacy filename/provider heuristics, but the pair-local translation rulegen config seam below them now also uses generic `translation_dict_path` / `reverse_translation_dict_path` naming instead of provider-shaped path fields
 
 ## Board-Driven Execution Rule
 
@@ -233,7 +236,7 @@ Goal:
 Concrete work:
 
 1. Normalize generic helper/core names
-   - retire transitional aliases like `requires_freedict_de_en_for_rulegen` where they are only internal
+   - keep the generic helper/core contract on role-based names such as `requires_translation_dictionary_for_rulegen`; provider-shaped names should stay only in truly provider-local modules
    - keep provider-specific naming only in provider-specific modules
 
 2. Narrow translation-pack heuristics
@@ -298,7 +301,7 @@ Concrete work:
      - managed embedding installs already end in manifest-backed SQLite
      - per-pair managed activation can now be persisted by pack id
      - replacement-filter runtime now resolves those pack ids back to manifest-backed SQLite artifacts
-   - remaining work is replacing the remaining direct artifact-path settings/maps for managed embeddings while keeping manual raw-file import compatibility
+   - remaining work is mostly constraining the last transient download/conversion path handling for managed embeddings while keeping manual raw-file import compatibility
 
 2. Separate managed installs from manual imports
    - app-managed embeddings:

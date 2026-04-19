@@ -438,6 +438,13 @@ Validation gate:
 Checkpoint:
 
 - commit only after inventory-aware flows coexist with the current semantic publication family
+- Current audit result on `2026-04-16`:
+  - `initialize_set.py` persists pair-local active inventory before publication and passes those derived `active_item_ids` into the follow-up rulegen call
+  - `refresh_set.py` merges newly admitted ids into the pair-local inventory before publication and still routes publication through `write_rulegen_outputs(...)`, preserving ruleset + snapshot + semantic inventory + manifest generation-family coherence
+  - `reset.py` removes pair/profile-scoped inventory entries plus snapshot, ruleset, semantic inventory, and publication-manifest artifacts without touching unrelated profile data
+  - `runtime_diagnostics.py` now has direct coverage for both explicit-inventory and store-fallback inventory views while reporting semantic inventory and publication-manifest state in the same payload
+  - targeted helper coverage plus LP E2E and the synthetic SRS quality harness continue to show initialize/refresh publication on the current semantic family while reset cleanup and diagnostics stay scoped
+  - due-aware serving remains a separate Wave C caveat; this phase only verifies that initialize/refresh publish the admitted or active inventory consistently with the current semantic family
 
 ## Phase 5: Port Extension Preference UI And Workflows
 
@@ -467,7 +474,11 @@ Expected files:
 
 Required behavior:
 
-- user can edit preference signals
+- user can edit the current first-class admission preference fields:
+  - topic interests
+  - proficiency estimate
+  - challenge target
+- other persisted signal families remain profile-scoped data in `srsSignalsByPair`, but are not yet dedicated options controls
 - preview and rebalance workflows call helper with normalized `profile_context`
 - runtime semantic veto remains downstream and unchanged
 
@@ -486,9 +497,10 @@ Validation gate:
 Checkpoint:
 
 - commit after the options flow can drive preview/rebalance without breaking existing semantic controls
-- Current phase result on `2026-04-15`:
+- Current phase result on `2026-04-16`:
   - options UI now exposes admission-preference fields for topic interests, proficiency estimate, and challenge target
   - unsaved form overrides are normalized into a shared planning-state resolver before initialize/preview/rebalance/refresh helper calls
+  - direct Node-backed controller coverage now exercises `planning_state.js`, `admission_preview_workflow.js`, and `rebalance_workflow.js`, confirming normalized `profile_context` forwarding for preview and rebalance requests
   - extension helper transport and native host now expose admission preview plus rebalance preview/apply
   - semantic admission toggle/fallback policy and runtime diagnostics remain on the current semantic base path
   - validation passed via `node --check` on touched extension JS and `python3 -m pytest core/tests/dev/test_extension_srs_action_workflows.py core/tests/dev/test_helper_translation_dict_entrypoints.py core/tests/architecture/test_extension_structure.py core/tests/helper/test_helper_engine.py::TestHelperEnginePreviewSrsAdmission core/tests/helper/test_helper_engine.py::TestHelperEngineRebalanceSrsSet core/tests/rulegen/test_semantic_publication.py core/tests/rulegen/test_semantic_routing_runtime_policy.py core/tests/helper/test_rulegen_outputs.py -q`
@@ -546,6 +558,13 @@ Validation gate:
 Checkpoint:
 
 - commit once docs and code match
+- Current phase result on `2026-04-16`:
+  - `docs/srs/srs_profile_schema.md` now distinguishes:
+    - fixed-allowlist extension signal storage
+    - normalized helper `profile_context`
+    - top-level authoritative helper sizing fields
+  - the state-ledger mismatch entries for unknown top-level signal passthrough and nested `constraints` / `sizing` authority were removed once docs converged
+  - the selective-port seam note remains explicit that future passthrough or nested-sizing fallback would still require real code changes
 
 ## Phase 7: Docs And State Matrix
 

@@ -48,7 +48,7 @@ Current pair/data observations:
 
 - `en-es` is now the most advanced optimization target and the current benchmark reference lane.
 - The benchmark optimization work has already moved toward a backend-neutral pair-resource contract, but current implementation is still materially pair-heavy in `en-es`.
-- Pair capability and source resolution are still partly expressed in legacy names such as `requires_freedict_de_en_for_rulegen`, even though current `en-es` canonical resources are Kaikki-backed.
+- Pair capability and source resolution still need continued generalization, but the canonical pair-capability dictionary requirement field is now the generic `requires_translation_dictionary_for_rulegen`, not a provider-shaped alias.
 - GUI language-pack endpoints already exist for a wider source set than the currently optimized pair uses:
   - `freedict-de-en`
   - `freedict-en-de`
@@ -124,7 +124,7 @@ Concrete targets:
 
 Examples to clean:
 
-- pair capability booleans like `requires_freedict_de_en_for_rulegen`
+- pair capability booleans that still need to stay role-based and provider-neutral
 - artifact/resource fields that imply one provider family
 - helper naming that leaks old implementation detail into generic code paths
 
