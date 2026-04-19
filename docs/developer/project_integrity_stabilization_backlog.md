@@ -2,8 +2,8 @@
 
 Status: active backlog
 Role: Planning / WIP
-Last updated: 2026-04-16
-Last verified: 2026-04-16 repo-doc review, feature-state review, clean-worktree check, and current project-health report
+Last updated: 2026-04-19
+Last verified: 2026-04-19 branch-head refresh, repo-doc review, diff-hygiene check, and current advisory project-health report
 Purpose: break the stabilization program into small seam-scoped passes that improve trustworthiness without broad mixed cleanup
 Source-of-truth: planning doc only; current truth still lives in code, tests, `feature_state_matrix.md`, and seam-specific evidence artifacts
 Related docs:
@@ -59,34 +59,32 @@ Execution rule:
 - every backlog item must follow the per-slice checklist in `project_integrity_stabilization_runbook.md`
 - do not start a slice until the bounded re-onboarding packet, pre-edit truth table, and validation bundle are explicit
 
-## Current Starting Snapshot (2026-04-16)
+## Current Working Snapshot (2026-04-19)
 
-Verified before drafting this backlog:
+Verified for the current backlog refresh:
 
 - branch: `codex/veto-data-sources-exp`
-- latest local commit: `6ac08aa` (`Add project integrity stabilization runbook`)
-- worktree: clean
+- recent checkpoint commits on this branch:
+  - `1ca04b4` (`Harden workflow Ruff resolution`)
+  - `335f7e8` (`Refresh project health workstream snapshot`)
+  - `0b7bc52` (`Tighten SP2 evidence packet wording`)
+  - `02af414` (`Record SP6 SP7 synthesis checkpoint`)
+- worktree: intentionally dirty; multiple active rulegen/SRS/doc slices and generated evidence outputs remain in progress, so this branch is not a clean restart point
 - canonical doc-reference gate: passing
-- `git diff --check`: clean
+- `git diff --check`: clean on the current working tree
 
-Current structural pressure from `npm --prefix scripts run health:project:report`:
+Current structural pressure from the latest advisory project-health report:
 
-- advisory violations:
-  - `core/lexishift_core/rulegen/pairs/en_es.py` (`4155` lines)
-  - `core/lexishift_core/rulegen/pairs/en_de.py` (`1384` lines)
-  - `core/lexishift_core/rulegen/generation.py` (`1109` lines)
-  - `scripts/testing/rulegen_probe_words.py` (`989` lines)
+- advisory violations: none
 - near-limit watchlist:
-  - `apps/chrome-extension/options/controllers/srs/actions/workflows.js` (`494` lines)
-  - `apps/gui/src/dialogs.py` (`820` lines)
-  - `apps/gui/src/settings_language_packs.py` (`850` lines)
-  - `core/lexishift_core/helper/engine.py` (`22` imports)
-  - `core/lexishift_core/helper/rulegen.py` (`22` imports)
-  - `core/lexishift_core/resources/dict_loaders.py` (`861` lines)
-  - `core/lexishift_core/rulegen/pairs/en_es_support.py` (`840` lines)
-  - `core/lexishift_core/rulegen/semantic_shadow_evaluation.py` (`852` lines)
-  - `core/lexishift_core/rulegen/semantic_shadow_inventory.py` (`853` lines)
-  - `core/lexishift_core/srs/profile_bootstrap.py` (`863` lines)
+  - `core/lexishift_core/rulegen/pairs/en_es_compiled_selection.py` (`882` lines)
+  - `core/lexishift_core/rulegen/pairs/en_es_support.py` (`841` lines)
+
+Recent branch-state implications:
+
+1. The earlier "clean-tree baseline" snapshot is now historical only; use the latest checkpoint commit plus the current dirty-worktree reality when planning the next pass.
+2. Structural-health pressure has shifted away from the earlier large monolith list toward the newer extracted `en_es` support modules, so future hotspot work should follow the split seams rather than the retired pre-split file boundaries.
+3. Generated evidence files are now part of normal ongoing work on this branch, so each pass should explicitly say whether it is reading current artifacts, refreshing them, or leaving them untouched.
 
 Explicit contradictions already logged in current docs:
 
@@ -235,6 +233,10 @@ Any pass that touches rulegen scoring, filtering, POS, or publication logic must
 | F14 | SRS options `workflows.js` preventive split | Split the near-limit SRS workflows controller before it becomes another hotspot. | V0, V1, targeted controller tests | D8 |
 | F15 | GUI dialogs preventive split | Extract distinct dialog/theme or helper flows from `apps/gui/src/dialogs.py` only where the seam is already real. | V0, V1, targeted tests | E4 |
 | F16 | Settings language-packs preventive split | Continue reducing `apps/gui/src/settings_language_packs.py` if new normalization work increases pressure again. | V0, V1, targeted tests | E4 |
+
+Reference for `F1` through `F4`:
+
+- `rulegen_en_es_seam_map.md`
 
 ## Wave G: Evidence And Workflow Integrity
 
