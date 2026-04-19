@@ -13,7 +13,9 @@ from rulegen_quality_gate_validators import (  # noqa: E402
     validate_benchmark_pairs,
     validate_dataset_contract,
     validate_delta_budgets,
+    validate_pos_guardrails,
     validate_quality_floors,
+    validate_saturation,
 )
 
 
@@ -164,6 +166,98 @@ class TestRulegenQualityGateValidators(unittest.TestCase):
                 "DATASET_TIER_VALUES",
                 "DATASET_MIN_CASES",
                 "DATASET_MIN_HARD_CASES",
+            ],
+        )
+        self.assertTrue(all(finding.level == "PASS" for finding in findings))
+
+    def test_validate_saturation_reports_repeated_metric_vectors(self) -> None:
+        findings = []
+        validate_saturation(
+            benchmark_payload={
+                "pairs": {
+                    "en-es": {
+                        "runs": [
+                            {
+                                "summary": {
+                                    "objective_score": 1.0,
+                                    "top1_accuracy": 0.8,
+                                    "top3_recall": 0.9,
+                                    "forbidden_top1_rate": 0.1,
+                                    "forbidden_any_rate": 0.1,
+                                    "avg_rules_per_target": 1.0,
+                                }
+                            },
+                            {
+                                "summary": {
+                                    "objective_score": 1.0,
+                                    "top1_accuracy": 0.8,
+                                    "top3_recall": 0.9,
+                                    "forbidden_top1_rate": 0.1,
+                                    "forbidden_any_rate": 0.1,
+                                    "avg_rules_per_target": 1.0,
+                                }
+                            },
+                        ]
+                    }
+                }
+            },
+            policy_payload={
+                "saturation": {
+                    "warn_if_top_metric_vector_share_gte": 0.75,
+                    "fail_if_top_metric_vector_share_gt": 1.1,
+                    "warn_if_unique_metric_vectors_lt": 2,
+                }
+            },
+            findings=findings,
+            strict_saturation=False,
+        )
+
+        self.assertEqual(
+            [finding.code for finding in findings],
+            [
+                "SATURATION_TOP_VECTOR_WARN",
+                "SATURATION_UNIQUE_VECTOR_WARN",
+            ],
+        )
+        self.assertTrue(all(finding.level == "WARN" for finding in findings))
+
+    def test_validate_pos_guardrails_reports_matching_probe_and_inventory(self) -> None:
+        findings = []
+        validate_pos_guardrails(
+            pos_probe_payload={
+                "pair_reports": {
+                    "en-es": {
+                        "bucket_mismatch_rate": 0.0,
+                    }
+                }
+            },
+            pos_inventory_payload={
+                "rows": [
+                    {
+                        "filename": "freq-es-cde.sqlite",
+                        "unknown_pos_inventory_size": 0,
+                    }
+                ]
+            },
+            baseline_payload={
+                "pos_pair_mismatch_rate": {"en-es": 0.0},
+                "pos_unknown_counts": {"freq-es-cde.sqlite": 0},
+            },
+            policy_payload={
+                "pos_guardrails": {
+                    "max_bucket_mismatch_rate_by_pair": {"en-es": 0.01},
+                    "max_bucket_mismatch_rate_increase": 0.0,
+                    "default_unknown_pos_growth_budget": 0,
+                }
+            },
+            findings=findings,
+        )
+
+        self.assertEqual(
+            [finding.code for finding in findings],
+            [
+                "POS_MISMATCH_RATE_OK",
+                "POS_UNKNOWN_GROWTH_OK",
             ],
         )
         self.assertTrue(all(finding.level == "PASS" for finding in findings))
