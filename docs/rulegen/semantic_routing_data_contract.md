@@ -144,7 +144,7 @@ Current emitted-rule pointer strength by active rulegen LP:
 
 | LP / pair | Current emitted pointer strength | Current competition publication state |
 |---|---|---|
-| `en-es` | strongest current active pointer; uses `sense_provenance` first with `translation_gloss` fallback | narrow `status=ready` PoC for emitted siblings in the same batch; broader shadow publication still not default |
+| `en-es` | strongest current active pointer; uses `sense_provenance` first with `translation_gloss` fallback | narrow batch-local `status=ready` PoC for emitted siblings in the same batch; not broad shadow-mined blocker publication or LP-parity readiness |
 | `en-de` | same general pointer strategy as `en-es`: `sense_provenance` first with `translation_gloss` fallback | currently stays `status=unavailable` because shadow promotion is not solved |
 | `en-ja` | stable `jmdict_entry`-backed active pointer derived from target forms | currently stays `status=unavailable` |
 | `de-en` | stable `translation_gloss`-backed active pointer from deterministic gloss order (currently FreeDict-backed) | currently stays `status=unavailable` |

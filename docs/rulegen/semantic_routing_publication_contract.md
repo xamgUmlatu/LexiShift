@@ -391,12 +391,12 @@ The lowest-risk order remains:
 5. helper publication for the sidecar
 6. helper publication diagnostics plus joined options/runtime visibility for pointer + sidecar coverage
 7. generation-aligned publication manifest plus reset cleanup
-8. narrow `status=ready` rollout for the strongest LPs only
+8. narrow batch-local `status=ready` rollout for emitted siblings in the strongest current LP only
 
 Current checkpoint:
 
 - steps `1` through `7` are now landed
-- step `8` is landed only as a narrow `en-es` emitted-sibling publication PoC, not as broad shadow-mined runtime readiness
+- step `8` is landed only as a narrow `en-es` batch-local emitted-sibling publication PoC, not as broad shadow-mined runtime readiness or LP-parity readiness
 
 ## Current Acceptance Bar
 
@@ -415,4 +415,5 @@ What this does not yet prove:
 
 - broad publishable shadow-mined competition sets
 - phrase-preemption publication
+- LP-parity ready publication beyond the current `en-es` batch-local PoC
 - production-ready semantic scoring defaults

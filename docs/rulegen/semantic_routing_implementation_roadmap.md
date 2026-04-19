@@ -219,7 +219,7 @@ Already in place:
 
 - `semantic_admission` pointer scaffolding on emitted rules
 - semantic inventory sidecar publication path
-- `en-es` can currently publish a narrow emitted-sibling `status=ready` subset when real sibling senses are present in the same emitted batch
+- `en-es` can currently publish a narrow batch-local emitted-sibling `status=ready` subset when real sibling senses are present in the same emitted batch
 - helper diagnostics for semantic inventory presence and counts
 - helper API for semantic inventory fetch and semantic admission
 - extension runtime consumption of semantic inventory and helper-side semantic admission
@@ -418,7 +418,7 @@ Objective:
 
 Current first-launch boundary:
 
-- the launchable published `ready` subset is the current `en-es` emitted-sibling PoC
+- the launchable published `ready` subset is the current `en-es` batch-local emitted-sibling PoC, not broad shadow-mined blocker publication or LP-parity readiness
 - broader shadow-mined blocker publication remains on the evaluation/generalization track until it earns stronger evidence
 
 Recommended rollout:

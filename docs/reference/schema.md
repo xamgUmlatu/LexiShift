@@ -64,7 +64,7 @@ Top-level fields
   - When present, follows the planning contract in `docs/test_inputs/semantic_routing/semantic_admission.schema.json`
   - Current default adapter/helper paths can populate this field
   - All current rulegen LPs can emit `status=unavailable` plus stable ids such as `trigger_id`, `sense_id`, and `competition_set_id`
-  - `en-es` now has a narrow `status=ready` PoC when real sibling senses are present in the same emitted batch (`competition_mode=emitted_rule_siblings`)
+  - `en-es` now has a narrow batch-local `status=ready` PoC when real sibling senses are present in the same emitted batch (`competition_mode=emitted_rule_siblings`); this is not broad shadow-mined runtime readiness
   - No LP uses semantic-routing runtime admission by default yet
 
 Notes:

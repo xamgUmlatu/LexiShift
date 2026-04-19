@@ -20,7 +20,7 @@ This checklist is for the first controlled `en-es` launch shape only:
 - rule origin: SRS-origin rules only
 - semantic gate state: opt-in, default-off
 - artifact transport: local helper files plus extension cache fallback
-- published `status=ready` rows: only the current `emitted_rule_siblings` PoC when real sibling senses co-occur in the same emitted batch
+- published `status=ready` rows: only the current batch-local `emitted_rule_siblings` PoC when real sibling senses co-occur in the same emitted batch
 - runtime action: `replace` or keep original text
 
 Not in scope for this checklist:
@@ -38,7 +38,7 @@ Not in scope for this checklist:
 When semantic admission is enabled today, the runtime path is:
 
 1. helper publication writes SRS rules plus semantic inventory sidecar for a pair/profile
-2. current `en-es` `status=ready` coverage comes only from emitted-sibling competition sets when real sibling senses appear in the same emitted result batch
+2. current `en-es` `status=ready` coverage comes only from batch-local emitted-sibling competition sets when real sibling senses appear in the same emitted result batch
 3. extension loads rules and semantic inventory from helper, with extension cache as fallback
 4. extension finds normal trie matches first
 5. only SRS matches that already carry `rule.metadata.semantic_admission` are semantically eligible
@@ -153,7 +153,7 @@ Artifact rollback:
 
 These limits should stay explicit during launch:
 
-- published `en-es` competition sets are still the current conservative PoC, not a solved fully-general miner
+- published `en-es` competition sets are still the current conservative batch-local emitted-sibling PoC, not a solved fully-general miner or LP-parity-ready blocker inventory
 - phrase-set publication is not populated yet, so phrase preemption does not rely on published phrase inventories
 - `soft_affordance` exists in contracts and policy outputs, but the browser currently treats non-`replace` outcomes as keep-original
 - extension launch readiness does not prove chat/plugin readiness
