@@ -2,8 +2,8 @@
 
 Status: active mixed contract
 Role: Mixed
-Last updated: 2026-04-16
-Last verified: 2026-04-16 code-path inspection plus targeted helper publication/diagnostics/reset tests
+Last updated: 2026-04-19
+Last verified: 2026-04-19 doc-routing review against the current publication/runtime/launch docs plus stable helper publication/reset references
 Purpose: define the current semantic-routing emitted-rule and helper publication contract, while keeping the remaining target shape explicit for later rollout work
 Source-of-truth: mixed as-is + target contract; current implemented truth still lives in code, tests, `docs/reference/schema.md`, and `docs/developer/feature_state_matrix.md`
 Planning schemas:
@@ -43,6 +43,12 @@ This document narrows the problem to:
 Sequencing for landing those pieces now lives in:
 
 - `docs/rulegen/semantic_routing_implementation_roadmap.md`
+
+The first controlled `en-es` launch procedure now lives in:
+
+- `docs/rulegen/semantic_routing_en_es_publish_checklist.md`
+
+Do not use this document as the launch runbook.
 
 ## Current Verified Seam
 

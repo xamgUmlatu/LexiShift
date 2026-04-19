@@ -2,8 +2,8 @@
 
 Status: active mixed readiness
 Role: Mixed
-Last updated: 2026-04-16
-Last verified: 2026-04-16 runtime-contract audit across extension/helper runtime seams plus targeted runtime-policy and helper entrypoint tests
+Last updated: 2026-04-19
+Last verified: 2026-04-19 doc-routing review against the current runtime/roadmap/launch docs plus stable runtime-policy and helper entrypoint references
 Purpose: describe the current shipped semantic-routing runtime seam and the remaining readiness boundary so rollout work stays grounded in executable behavior instead of research-only optimism
 Source-of-truth: mixed as-is + readiness boundary; current runtime truth still lives in code, tests, and `docs/developer/feature_state_matrix.md`
 Verification:
@@ -27,9 +27,10 @@ Verification:
 
 Sequencing note:
 
-- this doc explains the readiness boundary and research posture
-- `docs/rulegen/semantic_routing_implementation_roadmap.md` now carries the concrete implementation ladder for publishing `en-es` first without forking the LP architecture
-- `docs/rulegen/semantic_routing_en_es_publish_checklist.md` now carries the controlled launch runbook for the first browser-extension `en-es` rollout
+- this doc explains the shipped runtime seam, the remaining readiness boundary, and the current research posture
+- `docs/rulegen/semantic_routing_implementation_roadmap.md` owns the near-term implementation order
+- `docs/rulegen/semantic_routing_en_es_publish_checklist.md` owns the first controlled browser-extension `en-es` launch runbook
+- `docs/rulegen/semantic_routing_generalization_evaluation_plan.md` and `docs/rulegen/semantic_shadow_testing_architecture.md` own the broader blocker-generation evaluation and research workflow
 
 ## Purpose
 
@@ -58,7 +59,8 @@ This asymmetry should shape both the research program and the eventual runtime p
 
 - Treat `Current Shipped Runtime Seam` and `Current Emitted-Rule Provenance Reality` as the current runtime contract.
 - Treat `Current Sentence-Level Runtime Harness` and the research-result sections as evidence and experimentation surfaces, not shipped runtime truth.
-- Treat `What Is Still Missing For True End-To-End Automatic Semantic Routing`, `Implementation Ladder`, and `Minimum Runtime Contract` as the remaining readiness boundary.
+- Treat `What Is Still Missing For True End-To-End Automatic Semantic Routing` and `Runtime Readiness Floor` as the remaining readiness boundary.
+- Use the roadmap for implementation sequencing and the checklist for launch operation; this doc should not be used as a step-by-step plan.
 
 ## Current Shipped Runtime Seam
 
@@ -663,23 +665,7 @@ Before a default runtime launch, confidence should come from:
 - mirrored-family hazards,
 - and eventually more than one pair or direction.
 
-## Implementation Ladder
-
-The recommended order is:
-
-1. define the runtime admission contract,
-2. land active-sense provenance in rule outputs,
-3. land shadow-candidate mining and clustering,
-4. land a conservative shadow-promotion policy,
-5. separate phrase preemption from semantic veto,
-6. add runtime observability,
-7. only then optimize cue forms, score composition, and model choice.
-
-The key principle is:
-
-- do not optimize a benchmark-only slice before the runtime admission seam itself is real.
-
-## Minimum Runtime Contract
+## Runtime Readiness Floor
 
 The future runtime semantic gate should be able to answer:
 
@@ -700,119 +686,13 @@ Current planning schemas for that contract now live at:
 - `docs/test_inputs/semantic_routing/semantic_admit_batch_request.schema.json`
 - `docs/test_inputs/semantic_routing/semantic_admit_batch_response.schema.json`
 
-## First Research Steps
+## Planning Ownership
 
-These are the first work items worth doing now.
+Use the rest of the semantic-routing planning stack deliberately:
 
-### Step 1. Inventory current rulegen/runtime provenance
+- use `docs/rulegen/semantic_routing_implementation_roadmap.md` for the near-term phase order and implementation sequencing
+- use `docs/rulegen/semantic_routing_en_es_publish_checklist.md` for the first controlled `en-es` launch posture, validation commands, and per-profile enable steps
+- use `docs/rulegen/semantic_routing_generalization_evaluation_plan.md` for blocker-generation evidence needed beyond the current emitted-sibling PoC
+- use `docs/rulegen/semantic_shadow_testing_architecture.md` and `docs/rulegen/semantic_shadow_source_intake_plan.md` for research harness structure, experiment lanes, and source-intake expansion
 
-Goal:
-
-- determine what sense-level provenance already survives from rulegen to emitted rules and into the browser runtime.
-
-Questions to answer:
-
-- do emitted rules already carry enough metadata to identify the originating sense row?
-- if not, what is the smallest additional provenance payload needed?
-- where does that payload need to be preserved:
-  - helper output,
-  - stored ruleset,
-  - extension runtime?
-
-Output:
-
-- a short provenance gap note plus proposed metadata contract.
-
-### Step 2. Define the semantic-admission payload schema
-
-Goal:
-
-- define the minimal runtime-side structure needed for semantic gating.
-
-Minimum fields likely include:
-
-- source trigger,
-- active target lemma,
-- active sense id / normalized sense text,
-- source pair,
-- candidate provenance id,
-- ranked shadow candidates,
-- phrase-preemption hints,
-- optional cue/source view ids.
-
-Output:
-
-- a schema note or example payload attached to the provenance review.
-
-### Step 3. Productize shadow-candidate mining
-
-Goal:
-
-- turn sibling-sense inventory mining into a repeatable repo-supported tool and policy, not just an exploratory artifact.
-
-Questions to answer:
-
-- how should sibling clusters be defined?
-- which same-POS and cross-POS senses are worth considering?
-- what ranking hints are stable enough to use?
-
-Output:
-
-- a documented candidate miner plus a small launch policy for primary/secondary shadows.
-
-### Step 4. Separate phrase-preemption requirements
-
-Goal:
-
-- define which hazards should be blocked before semantic scoring.
-
-Questions to answer:
-
-- which known bad applies are really phrase problems?
-- what metadata or lexical patterns can signal those cheaply?
-- how should phrase-preemption interact with semantic veto in runtime?
-
-Output:
-
-- a phrase-preemption checklist and a first candidate test set.
-
-### Step 5. Define the abstain-first runtime policy
-
-Goal:
-
-- make the serving asymmetry explicit before implementation drift sets in.
-
-Questions to answer:
-
-- what confidence bar is needed for hard replacement?
-- when should runtime prefer soft annotation to hard replacement?
-- what families deserve stricter admission thresholds?
-
-Output:
-
-- a runtime decision-policy note that can later be wired into extension behavior.
-
-## Out Of Scope For This Slice
-
-These are useful later, but not the first bottlenecks:
-
-- squeezing a few extra benchmark points from better cue wording,
-- large prompt-authored cue libraries,
-- heavier model experimentation,
-- runtime UI polish for already-approved semantic replacements.
-
-Those can matter later.
-They are not the first blockers for safe end-to-end semantic routing.
-
-## Current Recommendation
-
-Treat semantic routing as a future runtime admission layer, not as a current shipped feature.
-
-The immediate program should focus on:
-
-- provenance,
-- shadow selection,
-- phrase preemption,
-- and abstain-first serving policy.
-
-Only after those seams are explicit should the project invest heavily in optimization.
+This document should answer "what is shipped and what still blocks runtime readiness?", not "what exact step do we do next?"

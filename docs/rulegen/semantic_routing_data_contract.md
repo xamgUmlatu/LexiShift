@@ -2,8 +2,8 @@
 
 Status: active mixed contract
 Role: Mixed
-Last updated: 2026-04-16
-Last verified: 2026-04-16 code-path inspection plus targeted semantic-publication and adapter-pointer tests
+Last updated: 2026-04-19
+Last verified: 2026-04-19 doc-routing review against the current publication/runtime/launch docs plus stable schema/test references
 Purpose: describe the current semantic-routing data layers and the remaining target contract so LP support stays symmetric without confusing shipped pointer seams for full runtime-readiness
 Source-of-truth: mixed as-is + target contract; current implemented truth still lives in code, tests, `docs/reference/schema.md`, and `docs/developer/feature_state_matrix.md`
 Planning schemas:
@@ -44,6 +44,7 @@ The design target is:
 
 - Treat `Current End-To-End Data Flow`, `Current Data Layers`, and `Current LP Pointer Strength` as the current data contract.
 - Treat `Recommended Future Contract` as the target shape that later work should continue converging toward.
+- Treat rollout sequencing as owned by `docs/rulegen/semantic_routing_implementation_roadmap.md` and first-launch operation as owned by `docs/rulegen/semantic_routing_en_es_publish_checklist.md`.
 - Treat this doc as a data-layer map, not as proof that semantic runtime readiness is solved.
 
 ## Current End-To-End Data Flow

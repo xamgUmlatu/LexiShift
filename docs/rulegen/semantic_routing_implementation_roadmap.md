@@ -2,8 +2,8 @@
 
 Status: planning slice
 Role: Planning / WIP
-Last updated: 2026-04-16
-Last verified: 2026-04-16 repo-doc/runtime-contract review against the current publication/runtime contracts plus targeted semantic publication/runtime tests
+Last updated: 2026-04-19
+Last verified: 2026-04-19 doc-routing review against the current contract, launch, and research-plan docs plus stable semantic publication/runtime references
 Purpose: sequence the work required to turn semantic-routing publication scaffolding plus research harnesses into a real runtime admission layer, while keeping the architecture LP-symmetric and transport-agnostic
 Source-of-truth: planning doc only; current implemented truth still lives in code, `docs/developer/feature_state_matrix.md`, and the linked planning docs
 Related planning docs:
@@ -190,52 +190,26 @@ The intended final flow is:
 The current runtime seam for this is match-time filtering, not active-rule resolution.
 In repo terms, that means semantic gating belongs downstream of trie matching and upstream of span creation.
 
-## Current E2E Checkpoint
+## Starting Point
 
-As of the current Phase 4 checkpoint, the real implemented browser-extension path is:
+This roadmap assumes the current-truth docs above are read first and intentionally does not restate their full checkpoints.
 
-1. offline helper/rulegen writes:
-   - ruleset
-   - semantic inventory sidecar
-2. extension loads those artifacts from the local helper/native-host path, with local extension cache as fallback
-3. extension scans a text node and finds normal trie/rule matches first
-4. only eligible SRS matches that already carry `metadata.semantic_admission` are batched to helper `semantic_admit_batch`
-5. helper runs the named decision policy against local semantic inventory plus sentence context
-6. runtime replaces only matches whose decision is `replace`
-7. runtime keeps the original text for:
-   - `abstain`
-   - fallback keep-original cases
-   - the currently reserved `soft_affordance` outcome
+Current ownership:
 
-Important current boundaries:
+- `docs/rulegen/semantic_routing_publication_contract.md` owns the current emitted pointer, semantic inventory, manifest, diagnostics, and reset family
+- `docs/rulegen/semantic_routing_runtime_readiness.md` owns the shipped browser-runtime seam and the remaining readiness boundary
+- `docs/developer/feature_state_matrix.md` owns the implemented/default-off/verified status snapshot
+- `docs/rulegen/semantic_routing_en_es_publish_checklist.md` owns the first controlled `en-es` launch procedure and fallback posture
 
-- data is local today, not cloud-served in the runtime path
-- this path is implemented for the browser extension, not yet the chat/plugin surface
-- the whole semantic gate is still default-off
+Planning summary this roadmap builds on:
 
-## Current Baseline
+- `metadata.semantic_admission` pointer scaffolding is real
+- helper publication can write semantic inventory plus a generation-aligned publication manifest
+- browser runtime can load semantic inventory from helper/cache and call `semantic_admit_batch` for ready rows when enabled
+- current `en-es` ready coverage is still only the batch-local emitted-sibling PoC
+- broader shadow-mined blocker publication, phrase publication, and multi-LP rollout remain later tracks
 
-Already in place:
-
-- `semantic_admission` pointer scaffolding on emitted rules
-- semantic inventory sidecar publication path
-- `en-es` can currently publish a narrow batch-local emitted-sibling `status=ready` subset when real sibling senses are present in the same emitted batch
-- helper diagnostics for semantic inventory presence and counts
-- helper API for semantic inventory fetch and semantic admission
-- extension runtime consumption of semantic inventory and helper-side semantic admission
-- a production policy registry plus production fallback policy
-- runtime diagnostics for semantic-admission enablement, inventory state, and decision counts
-- research-only runtime scorer and sweep harnesses
-- a strong current `en-es` sentence-veto prototype frontier
-
-Still missing:
-
-- broad shadow-mined blocker publication that is strong enough to replace the emitted-sibling PoC as the launchable ready subset
-- phrase sets in the default published sidecar
-- chat/plugin runtime integration
-- broader rollout UX outside the extension options page
-- a distinct rendered affordance for non-replace semantic outcomes
-- any future cloud transport or remote artifact-serving choice
+This roadmap therefore focuses on phase order and design rules rather than re-documenting the current contract or launch checklist in full.
 
 ## Roadmap Phases
 
@@ -414,41 +388,21 @@ Acceptance:
 
 Objective:
 
-- ship a narrow but real semantic-routing feature without pretending the whole cross-LP problem is solved
+- turn the current narrow `en-es` path into the first real controlled launch without letting the PoC define the long-term architecture
 
-Current first-launch boundary:
+Operational owner:
 
-- the launchable published `ready` subset is the current `en-es` batch-local emitted-sibling PoC, not broad shadow-mined blocker publication or LP-parity readiness
-- broader shadow-mined blocker publication remains on the evaluation/generalization track until it earns stronger evidence
+- `docs/rulegen/semantic_routing_en_es_publish_checklist.md`
 
-Recommended rollout:
+Phase discipline:
 
-- pair: `en-es`
-- mode: opt-in or default-off initially
-- fallback: `abstain_on_unavailable` for ambiguous semantic-routing paths
-- no raw-corpus dependency in the client
-- package generated offline and consumed locally at runtime
+- use the checklist for fallback posture, validation commands, per-profile enable steps, and explicit launch out-of-scope limits
+- keep the exact published-ready boundary aligned with the current contract docs rather than restating it here
+- keep broader shadow-mined blocker publication and multi-LP rollout on separate tracks even if the first `en-es` pilot succeeds
 
-Required before launch:
+Acceptance:
 
-- production policy id for `en-es`
-- semantic inventory serving path
-- runtime diagnostics
-- phrase/frame guard in production policy
-- parity between harness policy and runtime policy
-
-Recommended launch criteria:
-
-- sentence-veto harness remains strong on the current curated `en-es` set
-- runtime can explain abstains and admissions
-- missing readiness does not silently degrade into opaque behavior
-
-Out of scope for first `en-es` launch:
-
-- solving all ambiguous families automatically
-- cloud transport finalization
-- multi-pair default-on behavior
-- UI polish beyond basic correctness and diagnostics
+- launch-readiness questions can be answered from the checklist plus current-truth contract docs instead of research notes or duplicated roadmap prose
 
 ### Phase 7. Generalize the framework to other LPs
 
