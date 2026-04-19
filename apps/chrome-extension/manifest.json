@@ -43,6 +43,7 @@
         "content/processing/replacements.js",
         "content/runtime/dom_scan/node_filters.js",
         "content/runtime/dom_scan/page_budget_tracker.js",
+        "content/runtime/dom_scan/scan_order.js",
         "content/runtime/dom_scan/scan_counters.js",
         "content/runtime/dom_scan/text_node_processor.js",
         "content/runtime/dom_scan_runtime.js",
