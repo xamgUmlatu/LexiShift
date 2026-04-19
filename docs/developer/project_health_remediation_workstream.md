@@ -28,7 +28,7 @@ Verification artifact: `../test_outputs/project_health/project_health_latest.jso
 
 Live violation profile:
 
-1. Total violations: `0` files (out of `449` scanned)
+1. Total violations: `0` files (out of `450` scanned)
 2. By area:
    - `apps/gui/src`: `0`
    - `apps/chrome-extension`: `0`
@@ -43,22 +43,21 @@ Live violation profile:
 
 Near-limit watchlist (non-blocking):
 
-1. Total warnings: `2`
+1. Total warnings: `1`
 2. By area:
    - `apps/chrome-extension`: `0`
    - `apps/gui/src`: `0`
-   - `core/lexishift_core`: `2`
+   - `core/lexishift_core`: `1`
    - `scripts/*`: `0`
 3. By metric:
-   - `lines`: `2`
+   - `lines`: `1`
    - `imports`: `0`
 4. Highest-priority watchlist:
    - `core/lexishift_core/rulegen/pairs/en_es_compiled_selection.py`
-   - `core/lexishift_core/rulegen/pairs/en_es_support.py`
 
 Operational note:
 
-1. project health is now warning-only in advisory mode; the current live pressure is concentrated in the split `en_es` support/selection modules rather than the earlier monolith violation set
+1. project health is now warning-only in advisory mode; the current live pressure is concentrated in `en_es_compiled_selection.py` after the gloss-processing extraction removed `en_es_support.py` from the watchlist
 2. treat the zero-warning result below as an important historical milestone, not the current operating baseline
 3. the live operating baseline is now: prevent new/regressed debt on changed files while paying down the remaining near-limit watchlist intentionally
 4. do not respond to warning reduction by weakening thresholds or baselines; keep the advisory signal sharp and retire the remaining hotspots seam by seam
@@ -69,9 +68,15 @@ Operational note:
 2. Treat new/regressed warning debt the same way as new/regressed violation debt for changed files.
 3. Keep the current near-limit watchlist explicit before starting broader preventive cleanup:
    - `core/lexishift_core/rulegen/pairs/en_es_compiled_selection.py`
-   - `core/lexishift_core/rulegen/pairs/en_es_support.py`
 4. Use the stabilization backlog for any next preventive structural work rather than reviving the retired pre-split hotspot list.
 5. Re-run `npm --prefix scripts run health:project:report` before release cuts, threshold changes, or large refactors.
+
+Recent reduction checkpoint:
+
+1. 2026-04-19: extracted `en_es` gloss fragment expansion and reverse-lookup helpers into
+   `core/lexishift_core/rulegen/pairs/en_es_gloss_processing.py`, reducing
+   `core/lexishift_core/rulegen/pairs/en_es_support.py` enough to clear its live near-limit warning
+   while preserving the old `en_es_support` import surface as a facade.
 
 ## Historical Milestone Snapshot (2026-02-28)
 
