@@ -149,6 +149,7 @@ Already landed:
 - the settings UI now labels app-owned resolved resources as `Installed`, external/manual translation-frequency-embedding paths as `Manual`, and active embedding rows as either `Active (Installed)` or `Active (Manual)` so the managed-vs-import boundary is explicit in normal use
 - helper CLI/native-host entrypoints and internal helper use cases now prefer generic `translation_dict_path` naming, and runtime/helper diagnostics no longer emit `freedict_de_en_*` as part of the app-managed generic contract
 
+- extension-side SRS action formatters now surface frequency-pack identity/provider/profile plus `frequency_pack_path`, while labeling `set_source_db` as an execution-layer field instead of presenting it alone as the primary managed contract
 Still intentionally transitional:
 
 - some GUI/runtime/benchmark/help-text paths still mention TEI compatibility inputs even though the default managed path is SQLite-first

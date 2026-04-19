@@ -1003,6 +1003,10 @@ class TestHelperEnginePairGeneralization(unittest.TestCase):
             self.assertTrue(
                 payload["translation_pack_path"].endswith("/wiktionary-es-en/main.sqlite")
             )
+            self.assertTrue(payload["set_source_db"].endswith("freq-es-cde.sqlite"))
+            self.assertEqual(payload["frequency_pack_id"], "freq-es-cde")
+            self.assertEqual(payload["frequency_pack_provider"], "freq-es-cde")
+            self.assertEqual(payload["frequency_pos_source_profile"], "freq-es-cde")
             self.assertEqual(payload["reverse_translation_dict_provider"], "wiktionary")
             self.assertEqual(payload["reverse_translation_pack_id"], "wiktionary_en_es")
             self.assertEqual(payload["reverse_translation_pos_source_profile"], "wiktionary")

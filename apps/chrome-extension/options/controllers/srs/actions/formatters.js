@@ -37,7 +37,22 @@
       `initial_active_count_default=${pairPolicy.initial_active_count_default ?? "n/a"}`
     ].join(", ");
   }
-
+  function buildFrequencyResourceLines(resourceData) {
+    const data = resourceData && typeof resourceData === "object" ? resourceData : {};
+    const frequencyPackPath = data.frequency_pack_path || data.set_source_db || "n/a";
+    const setSourceDb = data.set_source_db || "n/a";
+    const frequencyPackExists = data.frequency_pack_exists === true || data.set_source_db_exists === true;
+    const setSourceDbSuffix = setSourceDb !== "n/a" && frequencyPackPath !== "n/a" && setSourceDb === frequencyPackPath
+      ? "; same as frequency_pack_path"
+      : "";
+    return [
+      `- frequency_pack_id: ${data.frequency_pack_id || "n/a"}`,
+      `- frequency_pack_provider: ${data.frequency_pack_provider || "n/a"}`,
+      `- frequency_pos_source_profile: ${data.frequency_pos_source_profile || "n/a"}`,
+      `- frequency_pack_path: ${frequencyPackPath} (exists=${frequencyPackExists === true})`,
+      `- set_source_db (execution field): ${setSourceDb} (exists=${data.set_source_db_exists === true}${setSourceDbSuffix})`
+    ];
+  }
   function buildPreflightBlockedLines(options) {
     const opts = options && typeof options === "object" ? options : {};
     const actionLabel = String(opts.actionLabel || "Action");
@@ -62,7 +77,7 @@
       `- requires_translation_dictionary_for_rulegen: ${requirements.requires_translation_dictionary_for_rulegen === true}`,
       "",
       "Resolved resources:",
-      `- set_source_db: ${helperData.set_source_db || "n/a"} (exists=${helperData.set_source_db_exists === true})`,
+      ...buildFrequencyResourceLines(helperData),
       `- jmdict_path: ${helperData.jmdict_path || "n/a"} (exists=${helperData.jmdict_exists === true})`,
       `- translation_dict_path: ${helperData.translation_dict_path || "n/a"} (exists=${helperData.translation_dict_exists === true})`,
       `- translation_dict_provider: ${helperData.translation_dict_provider || "n/a"}`,
@@ -256,7 +271,7 @@
         ? `- store_items_for_pair: ${helperData.store_items_for_pair ?? "n/a"}`
         : `- unavailable: ${diagnostics.helper_error || "unknown"}`,
       helperData ? `- pair_policy: ${formatPairPolicySummary(pairPolicy)}` : null,
-      helperData ? `- set_source_db: ${helperData.set_source_db || "n/a"} (exists=${helperData.set_source_db_exists === true})` : null,
+      ...(helperData ? buildFrequencyResourceLines(helperData) : []),
       helperData ? `- jmdict_path: ${helperData.jmdict_path || "n/a"} (exists=${helperData.jmdict_exists === true})` : null,
       helperData ? `- translation_dict_path: ${helperData.translation_dict_path || "n/a"} (exists=${helperData.translation_dict_exists === true})` : null,
       helperData ? `- translation_dict_provider: ${helperData.translation_dict_provider || "n/a"}` : null,
@@ -367,7 +382,7 @@
       `- jmdict: ${diag.jmdict_path || "n/a"} (exists=${diag.jmdict_exists})`,
       `- translation_dict: ${diag.translation_dict_path || "n/a"} (exists=${diag.translation_dict_exists})`,
       `- translation_dict_provider: ${diag.translation_dict_provider || "n/a"}`,
-      `- set_source_db: ${diag.set_source_db || "n/a"} (exists=${diag.set_source_db_exists})`,
+      ...buildFrequencyResourceLines(diag),
       `- store_items: ${diag.store_items ?? "n/a"}`,
       `- store_items_for_pair: ${diag.store_items_for_pair ?? "n/a"}`,
       `- store_sample: ${(Array.isArray(diag.store_sample) ? diag.store_sample.join(", ") : "n/a")}`
@@ -418,6 +433,7 @@
   root.optionsSrsActionFormatters = {
     formatMissingResourceList,
     formatPairPolicySummary,
+    buildFrequencyResourceLines,
     buildPreflightBlockedLines,
     buildInitializeResultOutput,
     buildRebalanceResultOutput,

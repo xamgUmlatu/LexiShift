@@ -4,7 +4,10 @@ from pathlib import Path
 from typing import Callable
 
 from lexishift_core.helper.lp_capabilities import pair_requirements, resolve_pair_capability
-from lexishift_core.helper.pair_resources import resolve_pair_translation_packs
+from lexishift_core.helper.pair_resources import (
+    resolve_pair_frequency_pack,
+    resolve_pair_translation_packs,
+)
 from lexishift_core.helper.paths import HelperPaths
 from lexishift_core.helper.rulegen import RulegenConfig, RulegenOutput, SetInitializationConfig
 from lexishift_core.rulegen.tuning import (
@@ -83,6 +86,11 @@ def run_rulegen_job(
         pair=pair,
         translation_dict_path=resolved_translation_dict_path,
         reverse_translation_dict_path=None,
+    )
+    resolved_frequency_pack = resolve_pair_frequency_pack(
+        paths,
+        pair=pair,
+        set_source_db=resolved_set_source_db,
     )
     profile_id = resolve_profile_id_fn(paths, profile_id=config.profile_id)
     settings = ensure_settings_fn(paths, persist_missing=config.persist_store)
@@ -319,6 +327,21 @@ def run_rulegen_job(
             "set_source_db": str(resolved_set_source_db) if resolved_set_source_db else None,
             "set_source_db_exists": bool(
                 resolved_set_source_db and resolved_set_source_db.exists()
+            ),
+            "frequency_pack_path": str(resolved_frequency_pack.path)
+            if resolved_frequency_pack
+            else None,
+            "frequency_pack_exists": bool(
+                resolved_frequency_pack and resolved_frequency_pack.path.exists()
+            ),
+            "frequency_pack_id": resolved_frequency_pack.pack_id
+            if resolved_frequency_pack
+            else None,
+            "frequency_pack_provider": (
+                resolved_frequency_pack.provider if resolved_frequency_pack else None
+            ),
+            "frequency_pos_source_profile": (
+                resolved_frequency_pack.pos_source_profile if resolved_frequency_pack else None
             ),
             "set_initialization_enabled": bool(set_init_config),
             "effective_set_top_n": effective_set_top_n,
