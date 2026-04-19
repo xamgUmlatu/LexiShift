@@ -790,7 +790,8 @@ Use this file when:
     - helper/native-host can now serve that semantic inventory as a first-class artifact
     - extension helper cache/runtime can now persist and resolve semantic inventory in parallel with ruleset/snapshot
     - helper source-of-truth diagnostics can inspect pointer coverage, sidecar coverage, publication generation ids, and manifest family state
-    - extension options/runtime diagnostics can surface best-effort cache counts plus live semantic gate enablement, helper vs helper-cache source/error, and aggregate decision counts
+    - extension options/runtime diagnostics can surface best-effort cache counts plus live semantic gate enablement, helper vs helper-cache source/error, and aggregate replace/abstain decision counts from the shipped runtime path
+    - current persisted runtime diagnostics do not yet retain `soft_affordance` totals or `decision_policy_id`
     - helper/native-host can now also answer `semantic_admit_batch` using a named shared policy registry, and the extension runtime can call that service when semantic admission is enabled
   - The shipped runtime gate is still intentionally conservative:
     - only SRS-origin rules that already carry `metadata.semantic_admission` are eligible
