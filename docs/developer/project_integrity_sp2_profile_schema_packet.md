@@ -81,7 +81,7 @@ The intended current profile-schema contract is:
 | Extension signal normalization keeps a fixed top-level allowlist and drops unknown families. | `signals_methods.js` | `core/tests/dev/test_extension_srs_profile_schema_contract.py` | `verified for this slice` |
 | Helper-facing profile context uses snake_case mirrors of the allowed signal families. | `srs_profile_methods.js`, workflow formatting/tests | `core/tests/dev/test_extension_srs_action_workflows.py` | `verified for this slice` |
 | Top-level helper request sizing remains authoritative even if nested `profile_context.sizing` disagrees. | `helper/base_methods.js`, `helper/srs_set_methods.js`, `srs/set_policy.py` | `core/tests/dev/test_extension_srs_profile_schema_contract.py`, `core/tests/srs/test_srs_set_policy.py` | `verified for this slice` |
-| Current docs should keep unknown-family dropping and top-level sizing authority explicit enough for later SRS slices. | `docs/srs/srs_profile_schema.md` | doc/code inspection plus this slice packet | `verified for this slice` |
+| Current docs should keep unknown-family dropping and top-level sizing authority explicit enough for later SRS slices. | `docs/srs/srs_profile_schema.md` | direct doc sync in this slice | `corrected in this slice` |
 
 ## Invariants
 

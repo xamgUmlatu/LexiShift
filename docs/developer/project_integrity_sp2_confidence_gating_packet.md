@@ -89,7 +89,7 @@ The intended current confidence-gating contract is:
 | Rule generation applies `confidence_threshold` before emitting rules. | `generation.py`, helper rulegen wiring | `core/tests/helper/test_helper_rulegen.py`, `docs/rulegen/rule_generation_technical.md` | `verified for this slice` |
 | Helper rulegen jobs carry the threshold through resolved tuning/config. | `helper/rulegen.py`, `helper/use_cases/rulegen_job.py`, helper engine | `core/tests/helper/test_helper_engine.py`, `core/tests/helper/test_helper_rulegen.py` | `verified for this slice` |
 | Extension helper-rule activation does not inspect confidence once rules are emitted. | `active_rules_runtime.js`, `srs_gate.js` | `core/tests/dev/test_extension_helper_rule_confidence_contract.py` | `verified for this slice` |
-| Extension selector utilities that reference confidence are not proof of helper-rule runtime gating. | `shared/srs/srs_selector.js` | direct code inspection plus this packet/doc correction | `verified for this slice` |
+| Extension selector utilities that reference confidence are not proof of helper-rule runtime gating. | `shared/srs/srs_selector.js` | direct code inspection plus this packet/doc correction | `clarified in this slice` |
 
 ## Invariants
 

@@ -87,7 +87,7 @@ The intended current extension settings contract is:
 | Current options save only edits the small UI-owned signal subset rather than rewriting the entire signal schema. | `profile_runtime_controller.js` | `core/tests/dev/test_extension_srs_settings_contract.py` | `verified for this slice` |
 | The save path preserves nested sibling keys inside `proficiency` and `difficultyPreferences` by cloning stored objects before updating the UI-owned field. | `profile_runtime_controller.js`, `planning_state.js` | `core/tests/dev/test_extension_srs_settings_contract.py`, `core/tests/dev/test_extension_srs_action_workflows.py` | `verified for this slice` |
 | Unmentioned top-level allowed signal families survive a settings save because `updateSrsProfileSignals(...)` merges by top-level family before pruning/saving. | `signals_methods.js` | `core/tests/dev/test_extension_srs_settings_contract.py` | `verified for this slice` |
-| Current docs should describe the broader signal schema as persisted/data-ready rather than implying all fields are directly editable in the current options UI. | `docs/srs/srs_profile_schema.md`, `srs_admission_selective_port_sequence.md` | doc/code inspection plus this slice packet | `verified for this slice` |
+| Current docs should describe the broader signal schema as persisted/data-ready rather than implying all fields are directly editable in the current options UI. | `docs/srs/srs_profile_schema.md`, `srs_admission_selective_port_sequence.md` | direct doc sync in this slice | `corrected in this slice` |
 
 ## Invariants
 

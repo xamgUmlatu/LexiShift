@@ -77,7 +77,7 @@ The intended current SP2.7 inventory contract is:
 | Missing pair inventory falls back to store-derived membership rather than failing resolution. | `resolve_active_item_ids(...)` | `core/tests/srs/test_srs_inventory.py` | `verified for this slice` |
 | Stale stored ids are dropped while keeping the inventory resolution path explicit. | `resolve_active_item_ids(...)`, diagnostics join | `core/tests/srs/test_srs_inventory.py`, `core/tests/helper/test_helper_engine.py` | `verified for this slice` |
 | Runtime diagnostics remains the canonical operator-facing observability surface for inventory vs store-fallback state. | `runtime_diagnostics.py` | `core/tests/helper/test_helper_engine.py` | `verified for this slice` |
-| Canonical docs now describe inventory as a forgiving seam rather than a hard authority. | `feature_state_matrix.md`, `srs_practice_layer_design.md` | direct doc sync in this slice | `verified for this slice` |
+| Canonical docs now describe inventory as a forgiving seam rather than a hard authority. | `feature_state_matrix.md`, `srs_practice_layer_design.md` | direct doc sync in this slice | `corrected in this slice` |
 
 ## Invariants
 
