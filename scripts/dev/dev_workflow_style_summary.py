@@ -17,9 +17,12 @@ def _load_json(path: Path) -> dict[str, Any]:
 
 
 def _render_status(payload: dict[str, Any]) -> str:
+    status = str(payload.get("status") or "").strip()
     lint_exit_code = int(payload.get("lint_exit_code") or 0)
     format_exit_code = int(payload.get("format_exit_code") or 0)
     strict = bool(payload.get("strict"))
+    if status == "unavailable":
+        return "FAIL (ruff unavailable)" if strict else "PASS (ruff unavailable)"
     if lint_exit_code == 0 and format_exit_code == 0:
         return "PASS"
     if strict:
@@ -45,6 +48,12 @@ def render_summary(payload: dict[str, Any], *, title: str = "Repo Style Debt") -
         f"- Lint exit code: {int(payload.get('lint_exit_code') or 0)}",
         f"- Format exit code: {int(payload.get('format_exit_code') or 0)}",
     ]
+    ruff_source = str(payload.get("ruff_source") or "").strip()
+    ruff_detail = str(payload.get("ruff_detail") or "").strip()
+    if ruff_source:
+        lines.append(f"- Ruff source: `{ruff_source}`")
+    if ruff_detail:
+        lines.append(f"- Ruff detail: {ruff_detail}")
     lint_statistics = payload.get("lint_statistics")
     if isinstance(lint_statistics, list) and lint_statistics:
         lines.append("- Top lint counts:")

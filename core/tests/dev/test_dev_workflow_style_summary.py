@@ -47,6 +47,26 @@ class TestDevWorkflowStyleSummary(unittest.TestCase):
         self.assertIn("- Lint exit code: 0", markdown)
         self.assertIn("- Format exit code: 0", markdown)
 
+    def test_render_summary_reports_ruff_unavailable(self) -> None:
+        markdown = render_summary(
+            {
+                "status": "unavailable",
+                "lint_exit_code": 127,
+                "format_exit_code": 127,
+                "strict": False,
+                "lint_statistics": [],
+                "format_summary": "",
+                "ruff_source": "unavailable",
+                "ruff_detail": "Tried /tmp/venv/bin/python -m ruff and ruff on PATH",
+            }
+        )
+        self.assertIn("- Status: PASS (ruff unavailable)", markdown)
+        self.assertIn("- Ruff source: `unavailable`", markdown)
+        self.assertIn(
+            "- Ruff detail: Tried /tmp/venv/bin/python -m ruff and ruff on PATH",
+            markdown,
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

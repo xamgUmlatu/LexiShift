@@ -487,12 +487,13 @@ Use this file when:
 ## Development Workflow Safeties
 
 - Status: `implemented`, `default-on`, `verified`
-- Last documented checkpoint: `2026-03-17` canonical-doc metadata enforcement + changed-scope doc-reference expansion + health warning-delta gating
-- Last verified: `2026-03-21` local `check:state`, `check:report`, `check:summary`, `check:style:report`, `check:style:summary`, and `health:project:report`
+- Last documented checkpoint: `2026-04-19` Ruff fallback resolution + explicit unavailable reporting for workflow style checks
+- Last verified: `2026-04-19` targeted dev-workflow unit tests + wrapper-driven `check:style` report + `check:changed:local`
 - Default behavior:
   - `npm --prefix scripts run check` is the stable non-mutating repo safety command.
   - `npm --prefix scripts run check` now includes the strict Windows parity audit, so parity regressions fail the default local safety gate and pre-push hook.
   - `npm --prefix scripts run check` now includes strict repo-wide Ruff lint/format checks because the repo-wide style baseline is clean.
+  - Workflow Ruff checks now try the selected Python's `-m ruff` entrypoint first and fall back to a `ruff` executable on `PATH`; advisory commands report `unavailable` instead of fake style debt when neither invocation exists, while strict variants still fail.
   - `npm --prefix scripts run check:changed` is the preferred branch-scope workflow command.
   - `npm --prefix scripts run check:changed` now records both total changed files and substantive changed files, and uses the substantive set when inferring heavier quality loops such as rulegen audit; Python uses AST comparison, JSON uses parsed equality, and Markdown/text uses whitespace-normalized comparison.
   - `npm --prefix scripts run check:docs` now validates top metadata (`Status`, `Role`, `Last updated`) plus referenced repo paths for canonical routing/policy docs.
@@ -522,6 +523,7 @@ Use this file when:
   - `scripts/dev/dev_workflow_build.py`
   - `scripts/dev/dev_workflow_style_check.py`
   - `scripts/dev/dev_workflow_style_summary.py`
+  - `scripts/dev/ruff_support.py`
   - `scripts/dev/check_doc_references.py`
   - `scripts/dev/check_project_health.js`
   - `scripts/dev/project_health_rules.js`

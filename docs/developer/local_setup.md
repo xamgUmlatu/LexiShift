@@ -114,6 +114,8 @@ Strict variant for cleanup branches:
 npm --prefix scripts run check:style:strict
 ```
 
+The Ruff workflow scripts try the selected Python's `-m ruff` entrypoint first and then fall back to a standalone `ruff` executable on `PATH`. If neither exists, advisory style commands report `unavailable`, while strict variants still fail so the environment issue does not get mistaken for product debt.
+
 Changed-scope branch command:
 
 ```bash

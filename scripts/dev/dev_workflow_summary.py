@@ -142,6 +142,8 @@ def _render_changed_section(payload: dict[str, Any]) -> list[str]:
     status = "PASS"
     if style_status == "advisory-fail":
         status = "PASS (advisory style debt)"
+    elif style_status == "unavailable":
+        status = "PASS (style check unavailable)"
     project_health = payload.get("project_health")
     project_health_status = "unknown"
     if isinstance(project_health, dict):
@@ -176,6 +178,10 @@ def _render_changed_section(payload: dict[str, Any]) -> list[str]:
             details.append(f"{lint_errors} lint errors")
         if reformats is not None:
             details.append(f"{reformats} files need formatting")
+        if style_status == "unavailable":
+            ruff_detail = str(style.get("ruff_detail") or "").strip()
+            if ruff_detail:
+                details.append(ruff_detail)
         if details:
             style_line += f" ({', '.join(details)})"
         lines.append(style_line)

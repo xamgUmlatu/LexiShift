@@ -104,6 +104,7 @@ def build_commands(*, skip_windows_parity: bool = False) -> list[tuple[str, list
                 "scripts/dev/dev_workflow_summary.py",
                 "scripts/dev/dev_workflow_style_check.py",
                 "scripts/dev/dev_workflow_style_summary.py",
+                "scripts/dev/ruff_support.py",
                 "scripts/dev/check_rulegen_lp_profiles.py",
                 "scripts/dev/check_rulegen_lp_conformance.py",
                 "scripts/dev/scaffold_rulegen_lp.py",
