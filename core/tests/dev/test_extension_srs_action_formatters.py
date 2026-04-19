@@ -107,7 +107,11 @@ const diagnosticsText = formatters.buildRuntimeDiagnosticsOutput({{
     }},
     cache: {{
       ruleset_rules_count: 3,
-      snapshot_target_count: 2
+      snapshot_target_count: 2,
+      snapshot_generation_id: "en-es:default:abc123",
+      semantic_inventory_schema_version: 1,
+      semantic_inventory_generation_id: "en-es:default:abc123",
+      snapshot_semantic_generation_aligned: true
     }},
     runtime_state: {{
       ts: "2026-04-19T05:00:00Z",
@@ -146,6 +150,10 @@ assert.match(
   diagnosticsText,
   /set_source_db \\(execution field\\): .*main\\.sqlite \\(exists=true; same as frequency_pack_path\\)/
 );
+assert.match(diagnosticsText, /cached_snapshot_generation_id: en-es:default:abc123/);
+assert.match(diagnosticsText, /cached_semantic_inventory_schema_version: 1/);
+assert.match(diagnosticsText, /cached_semantic_inventory_generation_id: en-es:default:abc123/);
+assert.match(diagnosticsText, /cached_snapshot_semantic_generation_aligned: true/);
 assert.match(diagnosticsText, /semantic_matches_ready: 4/);
 assert.match(diagnosticsText, /semantic_policy_soft_affordances: 1/);
 assert.match(diagnosticsText, /semantic_fallback_soft_affordances: 1/);

@@ -282,9 +282,13 @@ Current extension-cache diagnostics:
 - `cache.ruleset_rules_count`
 - `cache.snapshot_exists`
 - `cache.snapshot_target_count`
+- `cache.snapshot_generation_id`
 - `cache.semantic_inventory_exists`
+- `cache.semantic_inventory_schema_version`
+- `cache.semantic_inventory_generation_id`
 - `cache.semantic_inventory_competition_set_count`
 - `cache.semantic_inventory_phrase_set_count`
+- `cache.snapshot_semantic_generation_aligned`
 
 Current tab/runtime last-state diagnostics:
 
@@ -306,7 +310,7 @@ Current tab/runtime last-state diagnostics:
 Current join-point limits:
 
 - helper diagnostics are the only shipped surface that can verify `generation_id` alignment and manifest-family validity
-- extension cache currently tracks artifact presence/counts only; it does not persist manifest validation or publication generation ids
+- extension cache can now surface cached snapshot/semantic generation ids plus a simple snapshot-vs-sidecar alignment check, but it still does not persist manifest validation or publication generation ids
 - current tab/runtime last state keeps aggregate semantic counters plus the last resolved decision policy id, not the full per-decision record stream
 
 This gives the repo a current sanity loop:

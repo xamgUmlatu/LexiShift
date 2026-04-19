@@ -13,6 +13,9 @@ REPORTER_JS = (
 RUNTIME_DIAGNOSTICS_JS = (
     PROJECT_ROOT / "apps/chrome-extension/shared/srs/srs_runtime_diagnostics.js"
 )
+DIAGNOSTICS_METHODS_JS = (
+    PROJECT_ROOT / "apps/chrome-extension/options/core/helper/diagnostics_methods.js"
+)
 
 
 def _run_node(script: str) -> None:
@@ -153,6 +156,77 @@ const runtimeDiagnostics = context.LexiShift.srsRuntimeDiagnostics;
   assert.equal(loaded.semantic_policy_soft_affordances, 3);
   assert.equal(loaded.semantic_fallback_soft_affordances, 2);
   assert.equal(loaded.semantic_decision_policy_id, "en_es_sentence_veto_v1");
+}})().catch((error) => {{
+  console.error(error);
+  process.exit(1);
+}});
+"""
+        _run_node(script)
+
+    def test_helper_diagnostics_methods_surface_cache_generation_alignment(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const modulePath = {json.dumps(str(DIAGNOSTICS_METHODS_JS))};
+const context = vm.createContext({{
+  console
+}});
+context.globalThis = context;
+context.LexiShift = {{
+  helperCache: {{
+    async loadRuleset() {{
+      return {{ rules: [{{ replacement: "pelota" }}, {{ replacement: "baile" }}] }};
+    }},
+    async loadSnapshot() {{
+      return {{
+        generation_id: "en-es:default:abc123",
+        stats: {{ target_count: 2 }}
+      }};
+    }},
+    async loadSemanticInventory() {{
+      return {{
+        schema_version: 1,
+        generation_id: "en-es:default:abc123",
+        competition_sets: {{ a: {{}}, b: {{}} }},
+        phrase_sets: {{ p: {{}} }}
+      }};
+    }}
+  }},
+  srsRuntimeDiagnostics: {{
+    async loadLastState() {{
+      return {{ semantic_decision_policy_id: "en_es_sentence_veto_v1" }};
+    }}
+  }}
+}};
+vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
+
+const proto = {{
+  normalizeProfileId(value) {{
+    return String(value || "").trim() || "default";
+  }},
+  getClient() {{
+    return null;
+  }},
+  i18n: {{
+    t(_key, _args, fallback) {{
+      return fallback;
+    }}
+  }}
+}};
+context.LexiShift.installHelperDiagnosticsMethods(proto);
+
+(async () => {{
+  const result = await proto.getSrsRuntimeDiagnostics("en-es", {{ profileId: "default" }});
+  assert.equal(result.cache.ruleset_exists, true);
+  assert.equal(result.cache.ruleset_rules_count, 2);
+  assert.equal(result.cache.snapshot_generation_id, "en-es:default:abc123");
+  assert.equal(result.cache.semantic_inventory_schema_version, 1);
+  assert.equal(result.cache.semantic_inventory_generation_id, "en-es:default:abc123");
+  assert.equal(result.cache.semantic_inventory_competition_set_count, 2);
+  assert.equal(result.cache.semantic_inventory_phrase_set_count, 1);
+  assert.equal(result.cache.snapshot_semantic_generation_aligned, true);
 }})().catch((error) => {{
   console.error(error);
   process.exit(1);

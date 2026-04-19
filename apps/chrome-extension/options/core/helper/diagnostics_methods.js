@@ -20,9 +20,13 @@
           ruleset_rules_count: 0,
           snapshot_exists: false,
           snapshot_target_count: 0,
+          snapshot_generation_id: null,
           semantic_inventory_exists: false,
+          semantic_inventory_schema_version: null,
+          semantic_inventory_generation_id: null,
           semantic_inventory_competition_set_count: 0,
-          semantic_inventory_phrase_set_count: 0
+          semantic_inventory_phrase_set_count: 0,
+          snapshot_semantic_generation_aligned: null
         },
         runtime_state: null
       };
@@ -72,6 +76,9 @@
               : (Array.isArray(cachedSnapshot.targets) ? cachedSnapshot.targets.length : 0);
             result.cache.snapshot_exists = targetCount > 0;
             result.cache.snapshot_target_count = targetCount;
+            result.cache.snapshot_generation_id = cachedSnapshot.generation_id
+              ? String(cachedSnapshot.generation_id)
+              : null;
           }
         } catch (_err) {
           // Cache diagnostics are best-effort.
@@ -88,12 +95,28 @@
               ? cachedInventory.phrase_sets
               : {};
             result.cache.semantic_inventory_exists = true;
+            result.cache.semantic_inventory_schema_version = Number.isFinite(
+              Number(cachedInventory.schema_version)
+            )
+              ? Number(cachedInventory.schema_version)
+              : null;
+            result.cache.semantic_inventory_generation_id = cachedInventory.generation_id
+              ? String(cachedInventory.generation_id)
+              : null;
             result.cache.semantic_inventory_competition_set_count = Object.keys(competitionSets).length;
             result.cache.semantic_inventory_phrase_set_count = Object.keys(phraseSets).length;
           }
         } catch (_err) {
           // Cache diagnostics are best-effort.
         }
+      }
+      if (
+        result.cache.snapshot_generation_id
+        && result.cache.semantic_inventory_generation_id
+      ) {
+        result.cache.snapshot_semantic_generation_aligned = (
+          result.cache.snapshot_generation_id === result.cache.semantic_inventory_generation_id
+        );
       }
 
       const runtimeDiagnostics = globalThis.LexiShift && globalThis.LexiShift.srsRuntimeDiagnostics;

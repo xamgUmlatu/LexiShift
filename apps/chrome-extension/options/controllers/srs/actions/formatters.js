@@ -312,6 +312,10 @@
       "Extension cache:",
       `- cached_ruleset_rules: ${cache.ruleset_rules_count ?? 0}`,
       `- cached_snapshot_targets: ${cache.snapshot_target_count ?? 0}`,
+      `- cached_snapshot_generation_id: ${cache.snapshot_generation_id || "n/a"}`,
+      `- cached_semantic_inventory_schema_version: ${cache.semantic_inventory_schema_version ?? "n/a"}`,
+      `- cached_semantic_inventory_generation_id: ${cache.semantic_inventory_generation_id || "n/a"}`,
+      `- cached_snapshot_semantic_generation_aligned: ${cache.snapshot_semantic_generation_aligned ?? "n/a"}`,
       "",
       "Current tab/runtime (last reported):",
       ...runtimeStateLines
