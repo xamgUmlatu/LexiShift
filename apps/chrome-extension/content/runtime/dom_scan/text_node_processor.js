@@ -85,6 +85,7 @@
       if (!counter || !summary || typeof summary !== "object") {
         return;
       }
+      const nextDecisionPolicyId = String(summary.decisionPolicyId || "").trim();
       counter.semanticEligible += Number(summary.eligible || 0);
       counter.semanticReady += Number(summary.ready || 0);
       counter.semanticPolicyReplaces += Number(summary.policyReplaces || 0);
@@ -93,6 +94,13 @@
       counter.semanticFallbackReplaces += Number(summary.fallbackReplaces || 0);
       counter.semanticFallbackAbstains += Number(summary.fallbackAbstains || 0);
       counter.semanticFallbackSoftAffordances += Number(summary.fallbackSoftAffordances || 0);
+      if (nextDecisionPolicyId) {
+        if (!counter.semanticDecisionPolicyId) {
+          counter.semanticDecisionPolicyId = nextDecisionPolicyId;
+        } else if (counter.semanticDecisionPolicyId !== nextDecisionPolicyId) {
+          counter.semanticDecisionPolicyId = "mixed";
+        }
+      }
     }
 
     async function processTextNode(node, counter) {

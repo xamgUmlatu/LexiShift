@@ -101,7 +101,7 @@ Current operational boundaries:
   - which fallback policy is active
   - whether semantic inventory resolved
   - whether inventory came from helper or helper-cache
-  - aggregate eligible / ready / replace / abstain counts
+  - aggregate eligible / ready / replace / abstain / soft-affordance counts plus the current `decision_policy_id`
 
 What the shipped gate is not:
 

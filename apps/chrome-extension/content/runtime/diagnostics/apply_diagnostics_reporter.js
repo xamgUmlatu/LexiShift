@@ -132,8 +132,11 @@
           ready: Number(scanSummary.semanticReady || 0),
           policyReplaces: Number(scanSummary.semanticPolicyReplaces || 0),
           policyAbstains: Number(scanSummary.semanticPolicyAbstains || 0),
+          policySoftAffordances: Number(scanSummary.semanticPolicySoftAffordances || 0),
           fallbackReplaces: Number(scanSummary.semanticFallbackReplaces || 0),
-          fallbackAbstains: Number(scanSummary.semanticFallbackAbstains || 0)
+          fallbackAbstains: Number(scanSummary.semanticFallbackAbstains || 0),
+          fallbackSoftAffordances: Number(scanSummary.semanticFallbackSoftAffordances || 0),
+          decisionPolicyId: String(scanSummary.semanticDecisionPolicyId || "")
         });
       }
       persistRuntimeState({
@@ -160,8 +163,17 @@
         semantic_matches_ready: scanSummary ? Number(scanSummary.semanticReady || 0) : 0,
         semantic_policy_replaces: scanSummary ? Number(scanSummary.semanticPolicyReplaces || 0) : 0,
         semantic_policy_abstains: scanSummary ? Number(scanSummary.semanticPolicyAbstains || 0) : 0,
+        semantic_policy_soft_affordances: scanSummary
+          ? Number(scanSummary.semanticPolicySoftAffordances || 0)
+          : 0,
         semantic_fallback_replaces: scanSummary ? Number(scanSummary.semanticFallbackReplaces || 0) : 0,
         semantic_fallback_abstains: scanSummary ? Number(scanSummary.semanticFallbackAbstains || 0) : 0,
+        semantic_fallback_soft_affordances: scanSummary
+          ? Number(scanSummary.semanticFallbackSoftAffordances || 0)
+          : 0,
+        semantic_decision_policy_id: scanSummary
+          ? String(scanSummary.semanticDecisionPolicyId || "")
+          : "",
         srs_stats: srsStats || null,
         helper_rules_error: helperRulesError || "",
         page_url: window.location ? window.location.href : "",

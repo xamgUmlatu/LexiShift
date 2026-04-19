@@ -54,12 +54,23 @@
       semantic_policy_abstains: Number.isFinite(Number(state.semantic_policy_abstains))
         ? Number(state.semantic_policy_abstains)
         : 0,
+      semantic_policy_soft_affordances: Number.isFinite(Number(state.semantic_policy_soft_affordances))
+        ? Number(state.semantic_policy_soft_affordances)
+        : 0,
       semantic_fallback_replaces: Number.isFinite(Number(state.semantic_fallback_replaces))
         ? Number(state.semantic_fallback_replaces)
         : 0,
       semantic_fallback_abstains: Number.isFinite(Number(state.semantic_fallback_abstains))
         ? Number(state.semantic_fallback_abstains)
         : 0,
+      semantic_fallback_soft_affordances: Number.isFinite(
+        Number(state.semantic_fallback_soft_affordances)
+      )
+        ? Number(state.semantic_fallback_soft_affordances)
+        : 0,
+      semantic_decision_policy_id: state.semantic_decision_policy_id
+        ? String(state.semantic_decision_policy_id)
+        : "",
       srs_stats: state.srs_stats && typeof state.srs_stats === "object"
         ? state.srs_stats
         : null,

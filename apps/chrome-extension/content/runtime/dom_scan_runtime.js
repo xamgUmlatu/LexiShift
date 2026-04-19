@@ -130,7 +130,8 @@
         semanticPolicySoftAffordances: 0,
         semanticFallbackReplaces: 0,
         semanticFallbackAbstains: 0,
-        semanticFallbackSoftAffordances: 0
+        semanticFallbackSoftAffordances: 0,
+        semanticDecisionPolicyId: ""
       };
     }
 
@@ -269,8 +270,11 @@
             ready: counter.semanticReady,
             policyReplaces: counter.semanticPolicyReplaces,
             policyAbstains: counter.semanticPolicyAbstains,
+            policySoftAffordances: counter.semanticPolicySoftAffordances,
             fallbackReplaces: counter.semanticFallbackReplaces,
-            fallbackAbstains: counter.semanticFallbackAbstains
+            fallbackAbstains: counter.semanticFallbackAbstains,
+            fallbackSoftAffordances: counter.semanticFallbackSoftAffordances,
+            decisionPolicyId: counter.semanticDecisionPolicyId || ""
           });
         }
         if (counter.focusWord) {
@@ -337,8 +341,11 @@
                 ready: counter.semanticReady,
                 policyReplaces: counter.semanticPolicyReplaces,
                 policyAbstains: counter.semanticPolicyAbstains,
+                policySoftAffordances: counter.semanticPolicySoftAffordances,
                 fallbackReplaces: counter.semanticFallbackReplaces,
-                fallbackAbstains: counter.semanticFallbackAbstains
+                fallbackAbstains: counter.semanticFallbackAbstains,
+                fallbackSoftAffordances: counter.semanticFallbackSoftAffordances,
+                decisionPolicyId: counter.semanticDecisionPolicyId || ""
               });
             }
             if (counter.detailTruncated) {

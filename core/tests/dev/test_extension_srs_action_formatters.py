@@ -108,6 +108,33 @@ const diagnosticsText = formatters.buildRuntimeDiagnosticsOutput({{
     cache: {{
       ruleset_rules_count: 3,
       snapshot_target_count: 2
+    }},
+    runtime_state: {{
+      ts: "2026-04-19T05:00:00Z",
+      pair: "en-es",
+      profile_id: "default",
+      srs_enabled: true,
+      rules_source: "helper",
+      rules_local_enabled: 0,
+      rules_srs_enabled: 18,
+      active_rules_total: 18,
+      active_rules_srs: 18,
+      semantic_admission_enabled: true,
+      semantic_fallback_policy: "legacy_on_unavailable",
+      semantic_inventory_loaded: true,
+      semantic_inventory_source: "helper",
+      semantic_matches_eligible: 6,
+      semantic_matches_ready: 4,
+      semantic_policy_replaces: 2,
+      semantic_policy_abstains: 1,
+      semantic_policy_soft_affordances: 1,
+      semantic_fallback_replaces: 0,
+      semantic_fallback_abstains: 1,
+      semantic_fallback_soft_affordances: 1,
+      semantic_decision_policy_id: "en_es_sentence_veto_v1",
+      semantic_inventory_error: "",
+      helper_rules_error: "",
+      frame_type: "top"
     }}
   }}
 }});
@@ -119,6 +146,10 @@ assert.match(
   diagnosticsText,
   /set_source_db \\(execution field\\): .*main\\.sqlite \\(exists=true; same as frequency_pack_path\\)/
 );
+assert.match(diagnosticsText, /semantic_matches_ready: 4/);
+assert.match(diagnosticsText, /semantic_policy_soft_affordances: 1/);
+assert.match(diagnosticsText, /semantic_fallback_soft_affordances: 1/);
+assert.match(diagnosticsText, /semantic_decision_policy_id: en_es_sentence_veto_v1/);
 """
         _run_node(script)
 

@@ -297,14 +297,17 @@ Current tab/runtime last-state diagnostics:
 - `semantic_matches_ready`
 - `semantic_policy_replaces`
 - `semantic_policy_abstains`
+- `semantic_policy_soft_affordances`
 - `semantic_fallback_replaces`
 - `semantic_fallback_abstains`
+- `semantic_fallback_soft_affordances`
+- `semantic_decision_policy_id`
 
 Current join-point limits:
 
 - helper diagnostics are the only shipped surface that can verify `generation_id` alignment and manifest-family validity
 - extension cache currently tracks artifact presence/counts only; it does not persist manifest validation or publication generation ids
-- current tab/runtime last state keeps aggregate semantic counters, not the full per-decision record stream
+- current tab/runtime last state keeps aggregate semantic counters plus the last resolved decision policy id, not the full per-decision record stream
 
 This gives the repo a current sanity loop:
 

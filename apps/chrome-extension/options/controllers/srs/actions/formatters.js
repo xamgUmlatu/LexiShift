@@ -258,6 +258,33 @@
     const cache = diagnostics.cache && typeof diagnostics.cache === "object"
       ? diagnostics.cache
       : {};
+    const runtimeStateLines = [
+      ["ts", runtimeState ? runtimeState.ts || "n/a" : "n/a"],
+      ["pair", runtimeState ? runtimeState.pair || "n/a" : "n/a"],
+      ["profile_id", runtimeState ? runtimeState.profile_id || "n/a" : "n/a"],
+      ["srs_enabled", runtimeState ? runtimeState.srs_enabled === true : "n/a"],
+      ["rules_source", runtimeState ? runtimeState.rules_source || "n/a" : "n/a"],
+      ["rules_local_enabled", runtimeState ? runtimeState.rules_local_enabled ?? "n/a" : "n/a"],
+      ["rules_srs_enabled", runtimeState ? runtimeState.rules_srs_enabled ?? "n/a" : "n/a"],
+      ["active_rules_total", runtimeState ? runtimeState.active_rules_total ?? "n/a" : "n/a"],
+      ["active_rules_srs", runtimeState ? runtimeState.active_rules_srs ?? "n/a" : "n/a"],
+      ["semantic_admission_enabled", runtimeState ? runtimeState.semantic_admission_enabled === true : "n/a"],
+      ["semantic_fallback_policy", runtimeState ? runtimeState.semantic_fallback_policy || "n/a" : "n/a"],
+      ["semantic_inventory_loaded", runtimeState ? runtimeState.semantic_inventory_loaded === true : "n/a"],
+      ["semantic_inventory_source", runtimeState ? runtimeState.semantic_inventory_source || "n/a" : "n/a"],
+      ["semantic_matches_eligible", runtimeState ? runtimeState.semantic_matches_eligible ?? "n/a" : "n/a"],
+      ["semantic_matches_ready", runtimeState ? runtimeState.semantic_matches_ready ?? "n/a" : "n/a"],
+      ["semantic_policy_replaces", runtimeState ? runtimeState.semantic_policy_replaces ?? "n/a" : "n/a"],
+      ["semantic_policy_abstains", runtimeState ? runtimeState.semantic_policy_abstains ?? "n/a" : "n/a"],
+      ["semantic_policy_soft_affordances", runtimeState ? runtimeState.semantic_policy_soft_affordances ?? "n/a" : "n/a"],
+      ["semantic_fallback_replaces", runtimeState ? runtimeState.semantic_fallback_replaces ?? "n/a" : "n/a"],
+      ["semantic_fallback_abstains", runtimeState ? runtimeState.semantic_fallback_abstains ?? "n/a" : "n/a"],
+      ["semantic_fallback_soft_affordances", runtimeState ? runtimeState.semantic_fallback_soft_affordances ?? "n/a" : "n/a"],
+      ["semantic_decision_policy_id", runtimeState ? runtimeState.semantic_decision_policy_id || "none" : "n/a"],
+      ["semantic_inventory_error", runtimeState ? runtimeState.semantic_inventory_error || "none" : "n/a"],
+      ["helper_rules_error", runtimeState ? runtimeState.helper_rules_error || "none" : "n/a"],
+      ["frame_type", runtimeState ? runtimeState.frame_type || "n/a" : "n/a"]
+    ].map(([key, value]) => `- ${key}: ${value}`);
     return [
       translate(
         "status_srs_diagnostics_header",
@@ -287,47 +314,7 @@
       `- cached_snapshot_targets: ${cache.snapshot_target_count ?? 0}`,
       "",
       "Current tab/runtime (last reported):",
-      runtimeState ? `- ts: ${runtimeState.ts || "n/a"}` : "- ts: n/a",
-      runtimeState ? `- pair: ${runtimeState.pair || "n/a"}` : "- pair: n/a",
-      runtimeState ? `- profile_id: ${runtimeState.profile_id || "n/a"}` : "- profile_id: n/a",
-      runtimeState ? `- srs_enabled: ${runtimeState.srs_enabled === true}` : "- srs_enabled: n/a",
-      runtimeState ? `- rules_source: ${runtimeState.rules_source || "n/a"}` : "- rules_source: n/a",
-      runtimeState ? `- rules_local_enabled: ${runtimeState.rules_local_enabled ?? "n/a"}` : "- rules_local_enabled: n/a",
-      runtimeState ? `- rules_srs_enabled: ${runtimeState.rules_srs_enabled ?? "n/a"}` : "- rules_srs_enabled: n/a",
-      runtimeState ? `- active_rules_total: ${runtimeState.active_rules_total ?? "n/a"}` : "- active_rules_total: n/a",
-      runtimeState ? `- active_rules_srs: ${runtimeState.active_rules_srs ?? "n/a"}` : "- active_rules_srs: n/a",
-      runtimeState
-        ? `- semantic_admission_enabled: ${runtimeState.semantic_admission_enabled === true}`
-        : "- semantic_admission_enabled: n/a",
-      runtimeState
-        ? `- semantic_fallback_policy: ${runtimeState.semantic_fallback_policy || "n/a"}`
-        : "- semantic_fallback_policy: n/a",
-      runtimeState
-        ? `- semantic_inventory_loaded: ${runtimeState.semantic_inventory_loaded === true}`
-        : "- semantic_inventory_loaded: n/a",
-      runtimeState
-        ? `- semantic_inventory_source: ${runtimeState.semantic_inventory_source || "n/a"}`
-        : "- semantic_inventory_source: n/a",
-      runtimeState
-        ? `- semantic_matches_eligible: ${runtimeState.semantic_matches_eligible ?? "n/a"}`
-        : "- semantic_matches_eligible: n/a",
-      runtimeState
-        ? `- semantic_policy_replaces: ${runtimeState.semantic_policy_replaces ?? "n/a"}`
-        : "- semantic_policy_replaces: n/a",
-      runtimeState
-        ? `- semantic_policy_abstains: ${runtimeState.semantic_policy_abstains ?? "n/a"}`
-        : "- semantic_policy_abstains: n/a",
-      runtimeState
-        ? `- semantic_fallback_replaces: ${runtimeState.semantic_fallback_replaces ?? "n/a"}`
-        : "- semantic_fallback_replaces: n/a",
-      runtimeState
-        ? `- semantic_fallback_abstains: ${runtimeState.semantic_fallback_abstains ?? "n/a"}`
-        : "- semantic_fallback_abstains: n/a",
-      runtimeState
-        ? `- semantic_inventory_error: ${runtimeState.semantic_inventory_error || "none"}`
-        : "- semantic_inventory_error: n/a",
-      runtimeState ? `- helper_rules_error: ${runtimeState.helper_rules_error || "none"}` : "- helper_rules_error: n/a",
-      runtimeState ? `- frame_type: ${runtimeState.frame_type || "n/a"}` : "- frame_type: n/a"
+      ...runtimeStateLines
     ].filter(Boolean).join("\n");
   }
 
