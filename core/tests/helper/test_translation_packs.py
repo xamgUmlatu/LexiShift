@@ -93,6 +93,30 @@ class TestTranslationPacks(unittest.TestCase):
         self.assertEqual(ref.pack_id, "wiktionary_es_en")
         self.assertEqual(ref.pos_source_profile, "wiktionary")
 
+    def test_builds_wiktionary_pack_ref_from_parent_directory_hint_without_manifest(self) -> None:
+        ref = build_translation_pack_ref(
+            "en-es",
+            Path("/tmp/wiktionary-es-en/main.sqlite"),
+            direction=FORWARD_PACK_DIRECTION,
+        )
+
+        assert ref is not None
+        self.assertEqual(ref.provider, "wiktionary")
+        self.assertEqual(ref.pack_id, "wiktionary_es_en")
+        self.assertEqual(ref.pos_source_profile, "wiktionary")
+
+    def test_builds_generic_pack_ref_for_unknown_manual_path(self) -> None:
+        ref = build_translation_pack_ref(
+            "en-de",
+            Path("/tmp/custom-pack.sqlite"),
+            direction=FORWARD_PACK_DIRECTION,
+        )
+
+        assert ref is not None
+        self.assertEqual(ref.provider, "translation")
+        self.assertEqual(ref.pack_id, "translation_de_en")
+        self.assertEqual(ref.pos_source_profile, "translation")
+
     def test_resolve_configured_language_pack_paths_prefers_managed_pack_id(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             base_dir = Path(tmp)

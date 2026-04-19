@@ -194,15 +194,11 @@ def default_translation_dictionary_path(
         if resolved_pack_artifact is not None:
             return resolved_pack_artifact
     filenames = _default_translation_dictionary_filenames_for_pair(capability.pair)
-    for filename in filenames:
-        direct_candidate = language_packs_dir / filename
-        if direct_candidate.exists():
-            return direct_candidate
-    for filename in filenames:
-        discovered = sorted(language_packs_dir.rglob(filename))
-        if discovered:
-            return discovered[0]
-    return language_packs_dir / filenames[0]
+    return _resolve_translation_fallback_path(
+        language_packs_dir=language_packs_dir,
+        filenames=filenames,
+        pack_ids=_default_translation_pack_ids_for_pair(capability.pair),
+    )
 
 
 def default_reverse_translation_dictionary_path(
@@ -218,15 +214,11 @@ def default_reverse_translation_dictionary_path(
         if resolved_pack_artifact is not None:
             return resolved_pack_artifact
     filenames = _default_reverse_translation_filenames_for_pair(capability.pair)
-    for filename in filenames:
-        direct_candidate = language_packs_dir / filename
-        if direct_candidate.exists():
-            return direct_candidate
-    for filename in filenames:
-        discovered = sorted(language_packs_dir.rglob(filename))
-        if discovered:
-            return discovered[0]
-    return language_packs_dir / filenames[0]
+    return _resolve_translation_fallback_path(
+        language_packs_dir=language_packs_dir,
+        filenames=filenames,
+        pack_ids=_default_reverse_translation_pack_ids_for_pair(capability.pair),
+    )
 
 
 def _reverse_pair_key(pair: str) -> str:
@@ -297,6 +289,29 @@ def _default_reverse_translation_pack_ids_for_pair(pair: str) -> tuple[str, ...]
     if pair == "es-en":
         return ("wiktionary-es-en", "freedict-es-en")
     return ("freedict-en-de",)
+
+
+def _resolve_translation_fallback_path(
+    *,
+    language_packs_dir: Path,
+    filenames: tuple[str, ...],
+    pack_ids: tuple[str, ...],
+) -> Optional[Path]:
+    if not filenames:
+        return None
+    for filename in filenames:
+        direct_candidate = language_packs_dir / filename
+        if direct_candidate.exists():
+            return direct_candidate
+    for pack_id in pack_ids:
+        pack_root = language_packs_dir / pack_id
+        if not pack_root.exists() or not pack_root.is_dir():
+            continue
+        for filename in filenames:
+            discovered = sorted(pack_root.rglob(filename))
+            if discovered:
+                return discovered[0]
+    return language_packs_dir / filenames[0]
 
 
 def pair_requirements(pair: str) -> dict[str, object]:

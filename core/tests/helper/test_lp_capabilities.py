@@ -148,6 +148,35 @@ class TestLpCapabilities(unittest.TestCase):
             )
         self.assertEqual(resolved, artifact)
 
+    def test_de_en_default_dictionary_finds_legacy_file_inside_expected_pack_root(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            language_packs_dir = Path(tmp)
+            pack_root = language_packs_dir / "freedict-en-de"
+            pack_root.mkdir(parents=True, exist_ok=True)
+            artifact = pack_root / "eng-deu.tei"
+            artifact.write_text("<TEI/>", encoding="utf-8")
+
+            resolved = default_translation_dictionary_path(
+                "de-en",
+                language_packs_dir=language_packs_dir,
+            )
+
+        self.assertEqual(resolved, artifact)
+
+    def test_de_en_default_dictionary_ignores_unrelated_nested_legacy_file(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            language_packs_dir = Path(tmp)
+            unrelated = language_packs_dir / "scratch" / "eng-deu.tei"
+            unrelated.parent.mkdir(parents=True, exist_ok=True)
+            unrelated.write_text("<TEI/>", encoding="utf-8")
+
+            resolved = default_translation_dictionary_path(
+                "de-en",
+                language_packs_dir=language_packs_dir,
+            )
+
+        self.assertEqual(resolved, language_packs_dir / "freedict-en-de.sqlite")
+
     def test_de_en_default_reverse_dictionary_uses_german_headword_direction(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             language_packs_dir = Path(tmp)

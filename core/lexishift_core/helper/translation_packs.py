@@ -27,10 +27,35 @@ class TranslationPackRef:
 def infer_translation_pack_provider(path: Path | None) -> str | None:
     if path is None:
         return None
-    name = path.name.strip().lower()
-    if "wiktionary" in name or "kaikki" in name:
-        return "wiktionary"
-    return "freedict"
+    for candidate_text in _provider_hint_texts(path):
+        if "wiktionary" in candidate_text or "kaikki" in candidate_text:
+            return "wiktionary"
+        if any(marker in candidate_text for marker in _FREEDICT_HINTS):
+            return "freedict"
+    return None
+
+
+_FREEDICT_HINTS = (
+    "freedict",
+    "eng-deu",
+    "deu-eng",
+    "eng-spa",
+    "spa-eng",
+)
+
+
+def _provider_hint_texts(path: Path) -> tuple[str, ...]:
+    candidate = Path(path)
+    values: list[str] = []
+    for raw_value in (
+        candidate.name,
+        candidate.stem,
+        candidate.parent.name,
+    ):
+        normalized = str(raw_value or "").strip().lower()
+        if normalized and normalized not in values:
+            values.append(normalized)
+    return tuple(values)
 
 
 def build_translation_pack_ref(
@@ -47,7 +72,7 @@ def build_translation_pack_ref(
     provider = (
         str(manifest.provider).strip().lower()
         if manifest is not None and str(manifest.provider).strip()
-        else infer_translation_pack_provider(candidate) or "freedict"
+        else infer_translation_pack_provider(candidate) or "translation"
     )
     pack_id = build_translation_pack_id(
         normalized_pair,
