@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Callable, Mapping, Optional, Sequence
 
 from lexishift_core.helper.lp_capabilities import resolve_pair_capability
+from lexishift_core.helper.pair_resources import resolve_pair_frequency_pack
 from lexishift_core.helper.paths import HelperPaths
 from lexishift_core.helper.rulegen import RulegenConfig, RulegenOutput
 from lexishift_core.lexicon.word_package import (
@@ -30,6 +31,29 @@ from lexishift_core.srs.signal_queue import summarize_signal_events
 from lexishift_core.srs.source import SOURCE_FREQUENCY_LIST, normalize_source_type
 from lexishift_core.srs.store_ops import upsert_item
 from lexishift_core.srs.time import now_utc
+
+
+def _build_frequency_resource_payload(
+    *,
+    resolved_set_source_db: Path,
+    resolved_frequency_pack,
+) -> dict[str, object]:
+    frequency_pack_path = (
+        resolved_frequency_pack.path if resolved_frequency_pack else resolved_set_source_db
+    )
+    return {
+        "set_source_db": str(resolved_set_source_db),
+        "set_source_db_exists": resolved_set_source_db.exists(),
+        "frequency_pack_path": str(frequency_pack_path) if frequency_pack_path else None,
+        "frequency_pack_exists": bool(frequency_pack_path and frequency_pack_path.exists()),
+        "frequency_pack_id": resolved_frequency_pack.pack_id if resolved_frequency_pack else None,
+        "frequency_pack_provider": (
+            resolved_frequency_pack.provider if resolved_frequency_pack else None
+        ),
+        "frequency_pos_source_profile": (
+            resolved_frequency_pack.pos_source_profile if resolved_frequency_pack else None
+        ),
+    }
 
 
 def plan_srs_rebalance(
@@ -283,6 +307,11 @@ def _prepare_rebalance_context(
     )
     if resolved_set_source_db is None:
         raise ValueError(f"Missing frequency source DB for pair '{pair}'.")
+    resolved_frequency_pack = resolve_pair_frequency_pack(
+        paths,
+        pair=pair,
+        set_source_db=resolved_set_source_db,
+    )
 
     profile_id = resolve_profile_id_fn(
         paths,
@@ -333,6 +362,7 @@ def _prepare_rebalance_context(
         "resolved_jmdict_path": resolved_jmdict_path,
         "resolved_translation_dict_path": resolved_translation_dict_path,
         "resolved_set_source_db": resolved_set_source_db,
+        "resolved_frequency_pack": resolved_frequency_pack,
         "stopwords_path": stopwords_path,
         "signal_summary": signal_summary,
         "plan_payload": plan_payload,
@@ -356,6 +386,7 @@ def _build_rebalance_preview_payload(
     resolved_jmdict_path: Optional[Path],
     resolved_translation_dict_path: Optional[Path],
     resolved_set_source_db: Path,
+    resolved_frequency_pack,
     stopwords_path: Optional[Path],
     signal_summary: Mapping[str, object],
     plan_payload: Mapping[str, object],
@@ -364,6 +395,10 @@ def _build_rebalance_preview_payload(
     build_seed_candidates_fn: Callable[..., list[SeedWord]],
 ) -> dict[str, object]:
     del settings
+    frequency_resource_payload = _build_frequency_resource_payload(
+        resolved_set_source_db=resolved_set_source_db,
+        resolved_frequency_pack=resolved_frequency_pack,
+    )
     payload = {
         "pair": pair,
         "profile_id": profile_id,
@@ -371,7 +406,7 @@ def _build_rebalance_preview_payload(
         "max_active_items": max_active_items,
         "pair_policy": pair_policy_to_dict(resolve_srs_pair_policy(pair)),
         "stopwords_path": str(stopwords_path) if stopwords_path else None,
-        "set_source_db": str(resolved_set_source_db),
+        **frequency_resource_payload,
         "jmdict_path": str(resolved_jmdict_path) if resolved_jmdict_path else None,
         "translation_dict_path": (
             str(resolved_translation_dict_path) if resolved_translation_dict_path else None
@@ -447,7 +482,7 @@ def _build_rebalance_preview_payload(
     payload["set_top_n"] = resolved_set_top_n
     payload["max_active_items"] = max_active_items
     payload["stopwords_path"] = str(stopwords_path) if stopwords_path else None
-    payload["set_source_db"] = str(resolved_set_source_db)
+    payload.update(frequency_resource_payload)
     payload["jmdict_path"] = str(resolved_jmdict_path) if resolved_jmdict_path else None
     payload["translation_dict_path"] = (
         str(resolved_translation_dict_path) if resolved_translation_dict_path else None

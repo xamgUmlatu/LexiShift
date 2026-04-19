@@ -179,6 +179,7 @@ Use this file when:
     - settings serialization now writes explicit `language_pack_paths`, `frequency_pack_paths`, and `embedding_pack_paths` keys instead of the older generic `*_packs` path maps
     - the settings UI now labels app-owned resolved resources as installed artifacts and external/manual paths as manual inputs, with embedding activation explicitly distinguishing active installed vs active manual rows
     - the resource workspace intro plus the frequency and embedding tab copy now explicitly describe installed packs as the default path and manual paths as compatibility/import surfaces
+    - helper CLI/native-host execution entrypoints now accept `frequency_pack_path` as the preferred frequency override field while retaining `set_source_db` as a compatibility alias, and preview/rebalance payloads expose frequency pack path/id/provider/POS-profile fields alongside the legacy execution field
   - Current runtime contract is still transitional rather than final:
     - FreeDict and Kaikki translation packs now expose SQLite as the canonical app-managed runtime artifact, but manual TEI files, older extracted directories, and legacy `<pack_id>.sqlite` filenames remain compatibility inputs during migration
     - normalized translation/frequency settings are now pack-id-first for the mandatory managed families, but secondary language-pack families still keep path-shaped settings until their promotion decision is made

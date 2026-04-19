@@ -4,6 +4,7 @@ from pathlib import Path
 from typing import Callable, Mapping, Sequence
 
 from lexishift_core.helper.lp_capabilities import resolve_pair_capability
+from lexishift_core.helper.pair_resources import resolve_pair_frequency_pack
 from lexishift_core.helper.paths import HelperPaths
 from lexishift_core.helper.rulegen import SetInitializationConfig, SetInitializationReport
 from lexishift_core.srs import SrsStore
@@ -17,6 +18,35 @@ from lexishift_core.srs.signal_queue import summarize_signal_events
 
 PREVIEW_SAMPLING_MODE_RANKED = "ranked"
 PREVIEW_SAMPLING_MODE_WEIGHTED = "weighted_without_replacement"
+
+
+def _build_frequency_resource_payload(
+    paths: HelperPaths,
+    *,
+    pair: str,
+    resolved_set_source_db: Path,
+) -> dict[str, object]:
+    resolved_frequency_pack = resolve_pair_frequency_pack(
+        paths,
+        pair=pair,
+        set_source_db=resolved_set_source_db,
+    )
+    frequency_pack_path = (
+        resolved_frequency_pack.path if resolved_frequency_pack else resolved_set_source_db
+    )
+    return {
+        "set_source_db": str(resolved_set_source_db),
+        "set_source_db_exists": resolved_set_source_db.exists(),
+        "frequency_pack_path": str(frequency_pack_path) if frequency_pack_path else None,
+        "frequency_pack_exists": bool(frequency_pack_path and frequency_pack_path.exists()),
+        "frequency_pack_id": resolved_frequency_pack.pack_id if resolved_frequency_pack else None,
+        "frequency_pack_provider": (
+            resolved_frequency_pack.provider if resolved_frequency_pack else None
+        ),
+        "frequency_pos_source_profile": (
+            resolved_frequency_pack.pos_source_profile if resolved_frequency_pack else None
+        ),
+    }
 
 
 def preview_srs_admission(
@@ -71,6 +101,11 @@ def preview_srs_admission(
     )
     if resolved_set_source_db is None:
         raise ValueError(f"Missing frequency source DB for pair '{pair}'.")
+    frequency_resource_payload = _build_frequency_resource_payload(
+        paths,
+        pair=pair,
+        resolved_set_source_db=resolved_set_source_db,
+    )
 
     profile_id = resolve_profile_id_fn(
         paths,
@@ -141,7 +176,7 @@ def preview_srs_admission(
             "max_active_items_hint": sizing_policy.max_active_items_hint,
             "pair_policy": pair_policy_to_dict(resolve_srs_pair_policy(pair)),
             "stopwords_path": str(stopwords_path) if stopwords_path else None,
-            "set_source_db": str(resolved_set_source_db),
+            **frequency_resource_payload,
             "jmdict_path": str(resolved_jmdict_path) if resolved_jmdict_path else None,
             "existing_items_for_pair": existing_items_for_pair,
             "signal_summary": signal_summary,
@@ -180,7 +215,7 @@ def preview_srs_admission(
         "max_active_items_hint": sizing_policy.max_active_items_hint,
         "pair_policy": pair_policy_to_dict(resolve_srs_pair_policy(pair)),
         "stopwords_path": str(stopwords_path) if stopwords_path else None,
-        "set_source_db": str(resolved_set_source_db),
+        **frequency_resource_payload,
         "jmdict_path": str(resolved_jmdict_path) if resolved_jmdict_path else None,
         "existing_items_for_pair": existing_items_for_pair,
         "signal_summary": signal_summary,

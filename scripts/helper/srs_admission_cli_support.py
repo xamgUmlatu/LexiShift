@@ -20,6 +20,12 @@ _TRANSLATION_DICT_OVERRIDE_HELP = (
     "SQLite is preferred; TEI remains available for manual compatibility."
 )
 
+_FREQUENCY_PACK_OVERRIDE_HELP = (
+    "Optional manual frequency SQLite override. "
+    "Installed frequency packs are used by default. "
+    "Legacy alias: --set-source-db."
+)
+
 
 def register_srs_preview_and_rebalance_commands(
     subparsers,
@@ -139,11 +145,10 @@ def register_srs_preview_and_rebalance_commands(
     preview_s.add_argument("--profile-id", help="Profile id (default: default)")
     preview_s.add_argument("--jmdict", help="Path to JMdict_e folder used for seed/bootstrap.")
     preview_s.add_argument(
+        "--frequency-pack-path",
         "--set-source-db",
-        help=(
-            "Optional manual frequency SQLite override. "
-            "Installed frequency packs are used by default."
-        ),
+        dest="set_source_db",
+        help=_FREQUENCY_PACK_OVERRIDE_HELP,
     )
     preview_s.add_argument(
         "--set-top-n",
@@ -200,11 +205,10 @@ def register_srs_preview_and_rebalance_commands(
         help=_TRANSLATION_DICT_OVERRIDE_HELP,
     )
     rebalance_plan.add_argument(
+        "--frequency-pack-path",
         "--set-source-db",
-        help=(
-            "Optional manual frequency SQLite override. "
-            "Installed frequency packs are used by default."
-        ),
+        dest="set_source_db",
+        help=_FREQUENCY_PACK_OVERRIDE_HELP,
     )
     rebalance_plan.add_argument(
         "--set-top-n",
@@ -239,11 +243,10 @@ def register_srs_preview_and_rebalance_commands(
         help=_TRANSLATION_DICT_OVERRIDE_HELP,
     )
     rebalance_apply.add_argument(
+        "--frequency-pack-path",
         "--set-source-db",
-        help=(
-            "Optional manual frequency SQLite override. "
-            "Installed frequency packs are used by default."
-        ),
+        dest="set_source_db",
+        help=_FREQUENCY_PACK_OVERRIDE_HELP,
     )
     rebalance_apply.add_argument(
         "--set-top-n",

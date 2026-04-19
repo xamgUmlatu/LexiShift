@@ -170,7 +170,9 @@ def _resolve_pair_resource_paths(
             pair,
             language_packs_dir=paths.language_packs_dir,
         )
-    set_source_db = _optional_path(payload, "set_source_db")
+    set_source_db = _optional_path(payload, "frequency_pack_path")
+    if set_source_db is None:
+        set_source_db = _optional_path(payload, "set_source_db")
     if set_source_db is None:
         set_source_db = default_frequency_db_path(
             pair,

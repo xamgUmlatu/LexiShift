@@ -43,6 +43,12 @@ _TRANSLATION_DICT_OVERRIDE_HELP = (
     "SQLite is preferred; TEI remains available for manual compatibility."
 )
 
+_FREQUENCY_PACK_OVERRIDE_HELP = (
+    "Optional manual frequency SQLite override. "
+    "Installed frequency packs are used by default. "
+    "Legacy alias: --set-source-db."
+)
+
 
 def _print_json(payload: object) -> None:
     print(json.dumps(payload, indent=2, sort_keys=True, ensure_ascii=False))
@@ -419,11 +425,10 @@ def build_parser() -> argparse.ArgumentParser:
         help=_TRANSLATION_DICT_OVERRIDE_HELP,
     )
     run.add_argument(
+        "--frequency-pack-path",
         "--set-source-db",
-        help=(
-            "Optional manual frequency SQLite override. "
-            "Installed frequency packs are used by default."
-        ),
+        dest="set_source_db",
+        help=_FREQUENCY_PACK_OVERRIDE_HELP,
     )
     run.add_argument(
         "--set-top-n", type=int, help="Top-N seed cap (defaults from pair policy when omitted)."
@@ -604,11 +609,10 @@ def build_parser() -> argparse.ArgumentParser:
         help=_TRANSLATION_DICT_OVERRIDE_HELP,
     )
     init_s.add_argument(
+        "--frequency-pack-path",
         "--set-source-db",
-        help=(
-            "Optional manual frequency SQLite override. "
-            "Installed frequency packs are used by default."
-        ),
+        dest="set_source_db",
+        help=_FREQUENCY_PACK_OVERRIDE_HELP,
     )
     init_s.add_argument(
         "--set-top-n",
@@ -674,11 +678,10 @@ def build_parser() -> argparse.ArgumentParser:
         help=_TRANSLATION_DICT_OVERRIDE_HELP,
     )
     refresh_s.add_argument(
+        "--frequency-pack-path",
         "--set-source-db",
-        help=(
-            "Optional manual frequency SQLite override. "
-            "Installed frequency packs are used by default."
-        ),
+        dest="set_source_db",
+        help=_FREQUENCY_PACK_OVERRIDE_HELP,
     )
     refresh_s.add_argument(
         "--set-top-n",

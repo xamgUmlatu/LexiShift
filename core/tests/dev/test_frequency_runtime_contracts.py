@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.util
+import sqlite3
 import sys
 import tempfile
 import unittest
@@ -17,7 +18,13 @@ if str(CORE_ROOT) not in sys.path:
 if str(HELPER_DIR) not in sys.path:
     sys.path.insert(0, str(HELPER_DIR))
 
-from lexishift_core.helper.engine import get_srs_runtime_diagnostics  # noqa: E402
+from lexishift_core.helper.engine import (  # noqa: E402
+    SrsRebalanceJobConfig,
+    SetAdmissionPreviewJobConfig,
+    get_srs_runtime_diagnostics,
+    plan_srs_rebalance,
+    preview_srs_admission,
+)
 from lexishift_core.helper.installed_packs import write_installed_pack_manifest  # noqa: E402
 from lexishift_core.helper.paths import build_helper_paths  # noqa: E402
 
@@ -111,6 +118,41 @@ class TestFrequencyRuntimeContracts(unittest.TestCase):
         self.assertEqual(payload["frequency_pos_source_profile"], "compact-latin")
         self.assertEqual(payload["missing_inputs"], [])
 
+    def test_preview_and_rebalance_payloads_expose_frequency_pack_identity(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = build_helper_paths(Path(tmp))
+            artifact = self._write_manifest_backed_frequency_pack(
+                paths.frequency_packs_dir,
+                pack_id="freq-en-coca",
+                provider="wordfrequency",
+            )
+
+            preview_payload = preview_srs_admission(
+                paths,
+                config=SetAdmissionPreviewJobConfig(
+                    pair="en-en",
+                    set_source_db=artifact,
+                    strategy="profile_growth",
+                ),
+            )
+            rebalance_payload = plan_srs_rebalance(
+                paths,
+                config=SrsRebalanceJobConfig(
+                    pair="en-en",
+                    set_source_db=artifact,
+                    max_active_items=10,
+                ),
+            )
+
+        for payload in (preview_payload, rebalance_payload):
+            self.assertEqual(payload["set_source_db"], str(artifact))
+            self.assertTrue(payload["set_source_db_exists"])
+            self.assertEqual(payload["frequency_pack_path"], str(artifact))
+            self.assertTrue(payload["frequency_pack_exists"])
+            self.assertEqual(payload["frequency_pack_id"], "freq-en-coca")
+            self.assertEqual(payload["frequency_pack_provider"], "wordfrequency")
+            self.assertEqual(payload["frequency_pos_source_profile"], "compact-latin")
+
     def _write_manifest_backed_frequency_pack(
         self,
         frequency_packs_dir: Path,
@@ -121,7 +163,7 @@ class TestFrequencyRuntimeContracts(unittest.TestCase):
         pack_root = frequency_packs_dir / pack_id
         pack_root.mkdir(parents=True, exist_ok=True)
         artifact = pack_root / "main.sqlite"
-        artifact.write_bytes(b"SQLite format 3\x00")
+        self._create_frequency_db(artifact)
         write_installed_pack_manifest(
             frequency_packs_dir,
             pack_id=pack_id,
@@ -133,6 +175,49 @@ class TestFrequencyRuntimeContracts(unittest.TestCase):
             sqlite_filename="main.sqlite",
         )
         return artifact
+
+    def _create_frequency_db(self, path: Path) -> Path:
+        conn = sqlite3.connect(path)
+        try:
+            conn.execute(
+                """
+                CREATE TABLE frequency (
+                    lemma TEXT,
+                    core_rank REAL,
+                    pmw REAL,
+                    pos TEXT,
+                    lform TEXT,
+                    wtype TEXT,
+                    sublemma TEXT,
+                    sense_topics TEXT,
+                    topics TEXT,
+                    topic TEXT,
+                    profile_topics TEXT
+                )
+                """
+            )
+            conn.execute(
+                """
+                INSERT INTO frequency (
+                    lemma,
+                    core_rank,
+                    pmw,
+                    pos,
+                    lform,
+                    wtype,
+                    sublemma,
+                    sense_topics,
+                    topics,
+                    topic,
+                    profile_topics
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """,
+                ("alpha", 1.0, 100.0, "n", None, None, None, None, None, None, None),
+            )
+            conn.commit()
+        finally:
+            conn.close()
+        return path
 
 
 if __name__ == "__main__":
