@@ -96,7 +96,13 @@ apps/chrome-extension/options/
       profile_runtime_controller.js
       actions_controller.js
       actions/
+        admission_preview_formatter.js
+        admission_preview_workflow.js
         formatters.js
+        maintenance_workflow.js
+        planning_state_resolver.js
+        rebalance_formatter.js
+        rebalance_workflow.js
         shared.js
         workflows.js
     ui/
@@ -117,7 +123,7 @@ Primary ownership:
 - `srsProfileRuntimeController`
   - profile-scoped SRS settings load/save/publish path.
 - `srsActionsController`
-  - helper-backed SRS actions (initialize/refresh/diagnostics/sample/reset).
+  - helper-backed SRS actions (admission preview, initialize, rebalance preview/apply, refresh, diagnostics, sampled preview, reset).
 - `srsProfileSelectorController`
   - selected-profile selection and helper profile catalog refresh.
 - `profileBackgroundController`

@@ -93,10 +93,16 @@ class TestExtensionStructure(unittest.TestCase):
         self.assertTrue(all(position >= 0 for position in positions))
         self.assertEqual(positions, sorted(positions))
 
-    def test_options_html_loads_srs_action_scripts_before_controller(self) -> None:
+    def test_options_html_loads_full_srs_action_stack_before_controller(self) -> None:
         html_path = EXT_ROOT / "options.html"
         html = html_path.read_text(encoding="utf-8")
         ordered_markers = [
+            'src="options/controllers/srs/planning_state.js"',
+            'src="options/controllers/srs/actions/planning_state_resolver.js"',
+            'src="options/controllers/srs/actions/admission_preview_formatter.js"',
+            'src="options/controllers/srs/actions/admission_preview_workflow.js"',
+            'src="options/controllers/srs/actions/rebalance_formatter.js"',
+            'src="options/controllers/srs/actions/rebalance_workflow.js"',
             'src="options/controllers/srs/actions/formatters.js"',
             'src="options/controllers/srs/actions/shared.js"',
             'src="options/controllers/srs/actions/maintenance_workflow.js"',
