@@ -778,8 +778,8 @@ Use this file when:
 ## Semantic Routing Runtime Admission Layer
 
 - Status: `implemented`, `default-off`, `verified`
-- Last documented checkpoint: `2026-04-19` kept the shipped runtime contract stable but tightened the current-truth boundary: semantic publication/runtime docs now state explicitly that the `en-es` `status=ready` path is a batch-local emitted-sibling PoC, while helper publication, diagnostics, and runtime readiness remain narrower than broad shadow-mined blocker publication or LP-parity readiness
-- Last verified: `2026-04-19` targeted semantic publication/runtime seam tests plus state/doc checks confirmed the current diagnostics split between helper source-of-truth, extension cache, and last-reported browser runtime state, while keeping the `en-es` ready-publication boundary explicit
+- Last documented checkpoint: `2026-04-20` kept the shipped runtime contract stable but tightened the helper-source-of-truth path: semantic diagnostics now recomputes current manifest-family drift from the live ruleset/snapshot/semantic-inventory files instead of trusting only the manifest's stored validation bit
+- Last verified: `2026-04-20` targeted helper diagnostics drift tests plus semantic publication/runtime seam tests and state/doc checks confirmed the helper/cache/runtime diagnostics split while keeping the `en-es` ready-publication boundary explicit
 - Default behavior:
   - No semantic-routing admission layer is active in the browser runtime by default because `srsSemanticAdmissionEnabled` now defaults to `false`.
   - Current default runtime replacement behavior is still driven by rule emission plus existing SRS gating, not by sentence-level sense competition.
@@ -789,7 +789,7 @@ Use this file when:
     - helper publication now also writes a generation-aligned publication manifest for the ruleset/snapshot/semantic-inventory family
     - helper/native-host can now serve that semantic inventory as a first-class artifact
     - extension helper cache/runtime can now persist and resolve semantic inventory in parallel with ruleset/snapshot
-    - helper source-of-truth diagnostics can inspect pointer coverage, sidecar coverage, publication generation ids, and manifest family state
+    - helper source-of-truth diagnostics can inspect pointer coverage, sidecar coverage, publication generation ids, and recomputed manifest-family state from the live helper artifacts
     - extension options/runtime diagnostics can surface best-effort cache counts plus cached snapshot/semantic generation ids and simple alignment, live semantic gate enablement, helper vs helper-cache source/error, aggregate ready/replace/abstain/soft-affordance counts, and the last resolved `decision_policy_id` from the shipped runtime path
     - helper/native-host can now also answer `semantic_admit_batch` using a named shared policy registry, and the extension runtime can call that service when semantic admission is enabled
   - The shipped runtime gate is still intentionally conservative:

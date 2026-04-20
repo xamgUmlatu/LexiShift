@@ -6,6 +6,7 @@ import sqlite3
 import sys
 import tempfile
 import unittest
+from hashlib import sha1
 from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import patch
@@ -143,6 +144,58 @@ def _create_frequency_db(
     finally:
         conn.close()
     return path
+
+
+def _artifact_manifest_entry(path: Path) -> dict[str, object]:
+    payload = path.read_bytes()
+    return {
+        "path": str(path),
+        "exists": True,
+        "sha1": sha1(payload).hexdigest(),
+        "bytes": len(payload),
+    }
+
+
+def _write_publication_manifest_fixture(
+    paths: HelperPaths,
+    *,
+    pair: str,
+    generation_id: str,
+    generated_at: str,
+    profile_id: str = "default",
+    semantic_inventory_included: bool = True,
+) -> None:
+    manifest_payload = {
+        "schema_version": 1,
+        "pair": pair,
+        "profile_id": profile_id,
+        "generated_at": generated_at,
+        "published_at": generated_at,
+        "generation_id": generation_id,
+        "artifacts": {
+            "ruleset": _artifact_manifest_entry(paths.ruleset_path(pair, profile_id=profile_id)),
+            "snapshot": _artifact_manifest_entry(paths.snapshot_path(pair, profile_id=profile_id)),
+            "semantic_inventory": _artifact_manifest_entry(
+                paths.semantic_inventory_path(pair, profile_id=profile_id)
+            )
+            if semantic_inventory_included
+            else {
+                "path": str(paths.semantic_inventory_path(pair, profile_id=profile_id)),
+                "exists": False,
+                "sha1": None,
+                "bytes": 0,
+            },
+        },
+        "validation": {
+            "family_valid": True,
+            "semantic_inventory_included": semantic_inventory_included,
+            "errors": [],
+        },
+    }
+    paths.publication_manifest_path(pair, profile_id=profile_id).write_text(
+        json.dumps(manifest_payload),
+        encoding="utf-8",
+    )
 
 
 class TestHelperPathsDefaults(unittest.TestCase):
@@ -1269,16 +1322,11 @@ class TestHelperEngineRuntimeDiagnostics(unittest.TestCase):
                 ),
                 encoding="utf-8",
             )
-            paths.publication_manifest_path("en-ja").write_text(
-                (
-                    '{"schema_version":1,"pair":"en-ja","profile_id":"default","generated_at":"2026-04-10T00:00:00Z",'
-                    '"published_at":"2026-04-10T00:00:01Z","generation_id":"en-ja:default:test-generation",'
-                    '"artifacts":{"ruleset":{"path":"rules","exists":true,"sha1":"abc","bytes":1},'
-                    '"snapshot":{"path":"snapshot","exists":true,"sha1":"def","bytes":1},'
-                    '"semantic_inventory":{"path":"inventory","exists":true,"sha1":"ghi","bytes":1}},'
-                    '"validation":{"family_valid":true,"semantic_inventory_included":true,"errors":[]}}'
-                ),
-                encoding="utf-8",
+            _write_publication_manifest_fixture(
+                paths,
+                pair="en-ja",
+                generation_id="en-ja:default:test-generation",
+                generated_at="2026-04-10T00:00:00Z",
             )
             payload = get_srs_runtime_diagnostics(paths, pair="en-ja")
             self.assertTrue(payload["store_exists"])
@@ -1324,6 +1372,45 @@ class TestHelperEngineRuntimeDiagnostics(unittest.TestCase):
             self.assertTrue(payload["publication_manifest_family_valid"])
             self.assertEqual(payload["publication_manifest_error_count"], 0)
 
+    def test_runtime_diagnostics_recomputes_publication_family_validity_for_generation_drift(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = build_helper_paths(Path(tmp))
+            paths.ruleset_path("en-ja").write_text(
+                '{"rules":[{"source_phrase":"one","replacement":"一","metadata":{}}]}',
+                encoding="utf-8",
+            )
+            paths.snapshot_path("en-ja").write_text(
+                '{"stats":{"target_count":1,"rule_count":1},"targets":[{"lemma":"一"}],"generation_id":"en-ja:default:gen-a"}',
+                encoding="utf-8",
+            )
+            paths.semantic_inventory_path("en-ja").write_text(
+                (
+                    '{"schema_version":1,"pair":"en-ja","profile_id":"default","generated_at":"2026-04-11T00:00:00Z",'
+                    '"generation_id":"en-ja:default:gen-b",'
+                    '"capability":{"pointer_modes":["jmdict_entry"],"default_unavailable_reason_code":"missing_jmdict_entry_locator"},'
+                    '"triggers":{},"senses":{},"competition_sets":{},"phrase_sets":{}}'
+                ),
+                encoding="utf-8",
+            )
+            _write_publication_manifest_fixture(
+                paths,
+                pair="en-ja",
+                generation_id="en-ja:default:gen-a",
+                generated_at="2026-04-11T00:00:00Z",
+            )
+
+            payload = get_srs_runtime_diagnostics(paths, pair="en-ja")
+
+            self.assertTrue(payload["publication_manifest_exists"])
+            self.assertFalse(payload["publication_manifest_family_valid"])
+            self.assertGreaterEqual(payload["publication_manifest_error_count"], 1)
+            self.assertIn(
+                "semantic_inventory.generation_id 'en-ja:default:gen-b' does not match publication_manifest generation 'en-ja:default:gen-a'",
+                payload["publication_manifest_errors"],
+            )
+
     def test_runtime_diagnostics_reports_store_fallback_inventory_with_publication_state(
         self,
     ) -> None:
@@ -1360,16 +1447,11 @@ class TestHelperEngineRuntimeDiagnostics(unittest.TestCase):
                 ),
                 encoding="utf-8",
             )
-            paths.publication_manifest_path("en-ja").write_text(
-                (
-                    '{"schema_version":1,"pair":"en-ja","profile_id":"default","generated_at":"2026-04-11T00:00:00Z",'
-                    '"published_at":"2026-04-11T00:00:01Z","generation_id":"en-ja:default:fallback-generation",'
-                    '"artifacts":{"ruleset":{"path":"rules","exists":true,"sha1":"abc","bytes":1},'
-                    '"snapshot":{"path":"snapshot","exists":true,"sha1":"def","bytes":1},'
-                    '"semantic_inventory":{"path":"inventory","exists":true,"sha1":"ghi","bytes":1}},'
-                    '"validation":{"family_valid":true,"semantic_inventory_included":true,"errors":[]}}'
-                ),
-                encoding="utf-8",
+            _write_publication_manifest_fixture(
+                paths,
+                pair="en-ja",
+                generation_id="en-ja:default:fallback-generation",
+                generated_at="2026-04-11T00:00:00Z",
             )
 
             payload = get_srs_runtime_diagnostics(paths, pair="en-ja")

@@ -2,8 +2,8 @@
 
 Status: active mixed contract
 Role: Mixed
-Last updated: 2026-04-19
-Last verified: 2026-04-19 doc-routing review against the current publication/runtime/launch docs plus stable helper publication/reset references
+Last updated: 2026-04-20
+Last verified: 2026-04-20 targeted helper diagnostics drift tests plus semantic publication/runtime protection rerun
 Purpose: define the current semantic-routing emitted-rule and helper publication contract, while keeping the remaining target shape explicit for later rollout work
 Source-of-truth: mixed as-is + target contract; current implemented truth still lives in code, tests, `docs/reference/schema.md`, and `docs/developer/feature_state_matrix.md`
 Planning schemas:
@@ -315,7 +315,7 @@ Current tab/runtime last-state diagnostics:
 
 Current join-point limits:
 
-- helper diagnostics are the only shipped surface that can verify `generation_id` alignment and manifest-family validity
+- helper diagnostics are the only shipped surface that can recompute current `generation_id` alignment and manifest-family validity against the live ruleset/snapshot/semantic-inventory files
 - extension cache can now surface cached snapshot/semantic generation ids plus a simple snapshot-vs-sidecar alignment check, but it still does not persist manifest validation or publication generation ids
 - current tab/runtime last state keeps aggregate semantic counters plus the last resolved decision policy id, not the full per-decision record stream
 
@@ -413,7 +413,7 @@ The current implementation now satisfies the first publication-contract bar:
 - helper publication rejects invalid ready-pointer families before writing
 - helper publication now stamps a shared `generation_id` across snapshot, semantic inventory, and manifest
 - reset/delete lifecycle removes stale sidecars and publication manifests
-- helper source-of-truth diagnostics can see pointer coverage, sidecar presence, publication generation ids, and manifest family state
+- helper source-of-truth diagnostics can see pointer coverage, sidecar presence, publication generation ids, and recomputed manifest-family drift state
 - joined options/runtime diagnostics can also surface extension-cache presence plus live semantic gate source/error and aggregate decision counts
 - LPs without full support can still emit the shared pointer shape with `status=unavailable`
 

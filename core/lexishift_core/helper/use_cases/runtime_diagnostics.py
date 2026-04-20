@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import json
+from hashlib import sha1
+from pathlib import Path
 
 from lexishift_core.helper.lp_capabilities import pair_requirements, resolve_pair_capability
 from lexishift_core.helper.pair_resources import (
@@ -13,6 +15,165 @@ from lexishift_core.helper.paths import HelperPaths
 from lexishift_core.helper.status import load_status
 from lexishift_core.srs import load_srs_inventory, load_srs_store, resolve_active_item_ids
 from lexishift_core.srs.pair_policy import pair_policy_to_dict, resolve_srs_pair_policy
+
+
+def _read_artifact_state(path: Path) -> dict[str, object]:
+    if not path.exists() or not path.is_file():
+        return {
+            "exists": False,
+            "bytes": 0,
+            "sha1": None,
+        }
+    payload = path.read_bytes()
+    return {
+        "exists": True,
+        "bytes": len(payload),
+        "sha1": sha1(payload).hexdigest(),
+    }
+
+
+def _append_family_error(errors: list[str], message: str) -> None:
+    rendered = str(message or "").strip()
+    if rendered and rendered not in errors:
+        errors.append(rendered)
+
+
+def _recompute_publication_family_validation(
+    *,
+    diagnostics: dict,
+    manifest_payload: dict,
+    normalized_pair: str,
+    normalized_profile_id: str,
+    ruleset_path: Path,
+    snapshot_path: Path,
+    semantic_inventory_path: Path,
+) -> tuple[bool, list[str]]:
+    errors: list[str] = []
+    manifest_pair = str(manifest_payload.get("pair") or "").strip()
+    if manifest_pair != normalized_pair:
+        _append_family_error(
+            errors,
+            f"publication_manifest.pair {manifest_pair!r} does not match requested pair {normalized_pair!r}",
+        )
+    manifest_profile_id = str(manifest_payload.get("profile_id") or "").strip()
+    if manifest_profile_id != normalized_profile_id:
+        _append_family_error(
+            errors,
+            "publication_manifest.profile_id "
+            f"{manifest_profile_id!r} does not match requested profile {normalized_profile_id!r}",
+        )
+
+    manifest_generation_id = str(manifest_payload.get("generation_id") or "").strip()
+    if not manifest_generation_id:
+        _append_family_error(errors, "publication_manifest.generation_id is required")
+
+    validation_payload = (
+        dict(manifest_payload.get("validation"))
+        if isinstance(manifest_payload.get("validation"), dict)
+        else {}
+    )
+    raw_validation_errors = validation_payload.get("errors")
+    if isinstance(raw_validation_errors, list):
+        for item in raw_validation_errors:
+            _append_family_error(errors, str(item))
+    if validation_payload.get("family_valid") is False and not errors:
+        _append_family_error(errors, "publication_manifest.validation.family_valid is false")
+
+    manifest_artifacts = (
+        dict(manifest_payload.get("artifacts"))
+        if isinstance(manifest_payload.get("artifacts"), dict)
+        else {}
+    )
+    current_artifacts = {
+        "ruleset": _read_artifact_state(ruleset_path),
+        "snapshot": _read_artifact_state(snapshot_path),
+        "semantic_inventory": _read_artifact_state(semantic_inventory_path),
+    }
+    for artifact_name, current_state in current_artifacts.items():
+        manifest_entry = manifest_artifacts.get(artifact_name)
+        if not isinstance(manifest_entry, dict):
+            _append_family_error(
+                errors,
+                f"publication_manifest.artifacts.{artifact_name} is missing or invalid",
+            )
+            continue
+        expected_exists = bool(manifest_entry.get("exists"))
+        if expected_exists != current_state["exists"]:
+            _append_family_error(
+                errors,
+                "publication_manifest.artifacts."
+                f"{artifact_name}.exists={expected_exists} but current file exists={current_state['exists']}",
+            )
+        if expected_exists and current_state["exists"]:
+            expected_sha1 = str(manifest_entry.get("sha1") or "").strip() or None
+            if expected_sha1 and expected_sha1 != current_state["sha1"]:
+                _append_family_error(
+                    errors,
+                    "publication_manifest.artifacts."
+                    f"{artifact_name}.sha1 does not match current file",
+                )
+            expected_bytes = manifest_entry.get("bytes")
+            if isinstance(expected_bytes, int) and expected_bytes != current_state["bytes"]:
+                _append_family_error(
+                    errors,
+                    "publication_manifest.artifacts."
+                    f"{artifact_name}.bytes does not match current file",
+                )
+
+    if diagnostics["ruleset_exists"] and diagnostics["ruleset_error"] is not None:
+        _append_family_error(
+            errors,
+            f"ruleset is unreadable: {diagnostics['ruleset_error']}",
+        )
+    if diagnostics["snapshot_exists"] and diagnostics["snapshot_error"] is not None:
+        _append_family_error(
+            errors,
+            f"snapshot is unreadable: {diagnostics['snapshot_error']}",
+        )
+    if (
+        diagnostics["semantic_inventory_exists"]
+        and diagnostics["semantic_inventory_error"] is not None
+    ):
+        _append_family_error(
+            errors,
+            f"semantic inventory is unreadable: {diagnostics['semantic_inventory_error']}",
+        )
+
+    semantic_inventory_included = validation_payload.get("semantic_inventory_included")
+    if semantic_inventory_included is True and not diagnostics["semantic_inventory_exists"]:
+        _append_family_error(
+            errors,
+            "publication_manifest expects semantic inventory but current file is missing",
+        )
+    if semantic_inventory_included is False and diagnostics["semantic_inventory_exists"]:
+        _append_family_error(
+            errors,
+            "publication_manifest marks semantic inventory absent but current file exists",
+        )
+
+    if manifest_generation_id:
+        snapshot_generation_id = (
+            str(diagnostics.get("snapshot_generation_id") or "").strip() or None
+        )
+        if diagnostics["snapshot_exists"] and snapshot_generation_id != manifest_generation_id:
+            _append_family_error(
+                errors,
+                "snapshot.generation_id "
+                f"{snapshot_generation_id!r} does not match publication_manifest generation {manifest_generation_id!r}",
+            )
+        semantic_inventory_generation_id = (
+            str(diagnostics.get("semantic_inventory_generation_id") or "").strip() or None
+        )
+        if diagnostics["semantic_inventory_exists"] and (
+            semantic_inventory_generation_id != manifest_generation_id
+        ):
+            _append_family_error(
+                errors,
+                "semantic_inventory.generation_id "
+                f"{semantic_inventory_generation_id!r} does not match publication_manifest generation {manifest_generation_id!r}",
+            )
+
+    return len(errors) == 0, errors
 
 
 def get_srs_runtime_diagnostics(
@@ -355,21 +516,20 @@ def get_srs_runtime_diagnostics(
             diagnostics["publication_manifest_generation_id"] = (
                 str(manifest_payload.get("generation_id") or "").strip() or None
             )
-            validation_payload = manifest_payload.get("validation")
-            if isinstance(validation_payload, dict):
-                family_valid = validation_payload.get("family_valid")
-                diagnostics["publication_manifest_family_valid"] = (
-                    bool(family_valid) if family_valid is not None else None
-                )
-                raw_errors = validation_payload.get("errors")
-                if isinstance(raw_errors, list):
-                    diagnostics["publication_manifest_errors"] = [
-                        str(item) for item in raw_errors if str(item).strip()
-                    ]
-                diagnostics["publication_manifest_error_count"] = len(
-                    diagnostics["publication_manifest_errors"]
-                )
+            family_valid, family_errors = _recompute_publication_family_validation(
+                diagnostics=diagnostics,
+                manifest_payload=manifest_payload,
+                normalized_pair=normalized_pair,
+                normalized_profile_id=normalized_profile_id,
+                ruleset_path=ruleset_path,
+                snapshot_path=snapshot_path,
+                semantic_inventory_path=semantic_inventory_path,
+            )
+            diagnostics["publication_manifest_family_valid"] = family_valid
+            diagnostics["publication_manifest_errors"] = family_errors
+            diagnostics["publication_manifest_error_count"] = len(family_errors)
         except Exception as exc:  # noqa: BLE001
+            diagnostics["publication_manifest_family_valid"] = False
             diagnostics["publication_manifest_errors"] = [str(exc)]
             diagnostics["publication_manifest_error_count"] = 1
     return diagnostics
