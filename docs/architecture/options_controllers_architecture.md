@@ -127,6 +127,7 @@ Primary ownership:
 - `shareCenterController`
   - hierarchical Share Center UX and compatibility bridge to legacy share backend.
   - owns target tree rendering, compact selection summary metadata, JSON-file export, and import actions.
+  - current `Full profile` and `Profile settings` exports still forward to the legacy `profile` / `srs` share envelopes; newer selection-target envelopes are `ruleset`, `module_item`, `srs_pair`, `appearance_theme`, and `bundle`.
 - `helperActionsController`
   - helper diagnostics actions.
 - `displayReplacementController`
