@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "LexiShift Semantic Admit Batch Response",
-  "description": "Planning-only schema for future helper-side semantic admission batch responses returned to runtime surfaces.",
+  "description": "Schema reference for helper-side semantic admission batch responses returned to runtime surfaces; the current shipped consumer is the browser extension semantic-admission runtime path.",
   "type": "object",
   "additionalProperties": false,
   "required": [

@@ -2,11 +2,11 @@
 
 Status: active mixed contract
 Role: Mixed
-Last updated: 2026-04-20
-Last verified: 2026-04-20 targeted helper diagnostics drift tests plus semantic publication/runtime protection rerun
+Last updated: 2026-04-21
+Last verified: 2026-04-21 semantic schema-reference reconciliation against the shipped publication seam plus helper diagnostics/runtime protection evidence
 Purpose: define the current semantic-routing emitted-rule and helper publication contract, while keeping the remaining target shape explicit for later rollout work
 Source-of-truth: mixed as-is + target contract; current implemented truth still lives in code, tests, `docs/reference/schema.md`, and `docs/developer/feature_state_matrix.md`
-Planning schemas:
+Current schema references:
 - `docs/test_inputs/semantic_routing/semantic_admission.schema.json`
 - `docs/test_inputs/semantic_routing/semantic_inventory.schema.json`
 Verification:
@@ -19,6 +19,7 @@ Verification:
 - `core/tests/helper/test_rulegen_outputs.py`
 - `core/tests/helper/test_helper_engine.py`
 - `core/tests/rulegen/test_semantic_publication.py`
+- `core/tests/dev/test_helper_translation_dict_entrypoints.py`
 - `docs/reference/schema.md`
 
 ## Purpose

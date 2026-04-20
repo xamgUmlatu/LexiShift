@@ -2,8 +2,8 @@
 
 Status: active mixed readiness
 Role: Mixed
-Last updated: 2026-04-19
-Last verified: 2026-04-19 doc-routing review against the current runtime/roadmap/launch docs plus stable runtime-policy and helper entrypoint references
+Last updated: 2026-04-21
+Last verified: 2026-04-21 semantic schema-reference reconciliation against the shipped runtime seam plus stable runtime-policy and helper entrypoint references
 Purpose: describe the current shipped semantic-routing runtime seam and the remaining readiness boundary so rollout work stays grounded in executable behavior instead of research-only optimism
 Source-of-truth: mixed as-is + readiness boundary; current runtime truth still lives in code, tests, and `docs/developer/feature_state_matrix.md`
 Verification:
@@ -21,6 +21,7 @@ Verification:
 - `apps/chrome-extension/content/runtime/semantic/semantic_gate_runtime.js`
 - `apps/chrome-extension/content/processing/replacements.js`
 - `apps/chrome-extension/content/runtime/diagnostics/apply_diagnostics_reporter.js`
+- `core/tests/dev/test_extension_semantic_gate_runtime_contract.py`
 - `core/tests/rulegen/test_semantic_routing_runtime_policy.py`
 - `core/tests/helper/test_helper_engine.py`
 - `core/tests/dev/test_helper_translation_dict_entrypoints.py`
@@ -681,10 +682,13 @@ The future runtime semantic gate should be able to answer:
 
 That contract should be explicit in rule metadata and runtime diagnostics before any broad default-on rollout.
 
-Current planning schemas for that contract now live at:
+Current schema references for that contract now live at:
 
 - `docs/test_inputs/semantic_routing/semantic_admit_batch_request.schema.json`
 - `docs/test_inputs/semantic_routing/semantic_admit_batch_response.schema.json`
+
+Those schema files now describe the shipped browser-extension/helper batch seam.
+They remain useful as shared references for later runtime surfaces, but they are no longer just placeholders for future implementation.
 
 ## Planning Ownership
 

@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "LexiShift Semantic Admission Pointer",
-  "description": "Planning-only schema for future rule.metadata.semantic_admission payloads.",
+  "description": "Schema reference for current rule.metadata.semantic_admission payloads emitted by semantic publication.",
   "type": "object",
   "additionalProperties": false,
   "required": [

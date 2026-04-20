@@ -1,17 +1,23 @@
-# Semantic Routing Planning Schemas
+# Semantic Routing Schema References
 
-Status: planning plus offline-intake staging
-Role: schema sketch for future semantic-routing integration and offline evidence intake
+Status: mixed current plus offline-intake staging
+Role: schema reference for shipped semantic-routing seams plus planning/research semantic-routing surfaces
 
-These schema files do not describe a shipped runtime contract yet.
-They exist so future implementation can converge on one LP-symmetric data shape instead of inventing pair-specific payloads ad hoc.
+This directory is mixed on purpose.
+
+- Some schema files now describe shipped semantic-routing seams:
+  - emitted rule pointers under `rule.metadata.semantic_admission`
+  - helper-published semantic inventory sidecars
+  - helper/runtime `semantic_admit_batch` request and response payloads used by the browser extension semantic-admission path
+- Other schema files still describe planning or research surfaces, so future implementation can converge on one LP-symmetric data shape instead of inventing pair-specific payloads ad hoc.
 
 Files:
 - `semantic_admission.schema.json`
-  - planned per-rule pointer stored under future `rule.metadata.semantic_admission`
+  - current per-rule pointer contract stored under `rule.metadata.semantic_admission`
+  - broad runtime readiness still depends on LP-specific publication support and launch posture
 - `semantic_inventory.schema.json`
-  - planned sidecar inventory published alongside ruleset/snapshot for semantic routing
-  - intended future helper artifact naming: `srs_semantic_inventory_<pair>.json`
+  - current semantic inventory sidecar contract published alongside ruleset/snapshot for semantic routing
+  - helper artifact naming is `srs_semantic_inventory_<pair>_<profile>.json`
   - includes optional pair capability summary for active-pointer modes and default unavailable reasons
 - `semantic_llm_intake_batch.schema.json`
   - offline Layer 1 raw LLM intake envelope for shadow, bridge, or cue proposal batches before canonical normalization
@@ -24,10 +30,10 @@ Files:
 - `semantic_local_override_bundle.schema.json`
   - planning schema for profile-local semantic safety overrides that can suppress bad rules without mutating shared semantic truth
 - `semantic_admit_batch_request.schema.json`
-  - planned helper/runtime request contract for batched semantic admission over concrete matched contexts
+  - current helper/runtime request contract for batched semantic admission over concrete matched contexts
   - carries pair/profile, explicit offset encoding, fallback policy, optional requested decision policy, and matched rule pointers plus local context text
 - `semantic_admit_batch_response.schema.json`
-  - planned helper/runtime response contract for batched semantic admission decisions
+  - current helper/runtime response contract for batched semantic admission decisions
   - carries the resolved decision policy, actual replace/abstain outcome, reason codes, and compact score summaries for diagnostics
 - `sentence_veto_case.schema.json`
   - research-only benchmark schema for fixed active-vs-shadow sentence-level veto evaluation

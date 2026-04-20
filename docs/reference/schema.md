@@ -60,8 +60,8 @@ Top-level fields
     - `source_profile` (string, optional; normalization profile id)
     - `matched_rule` (string, optional; debug/audit rule id)
 - `word_package` (object, optional; canonical target-word metadata, see `WordPackage`)
-- `semantic_admission` (object, optional; planning-to-implementation semantic-routing pointer)
-  - When present, follows the planning contract in `docs/test_inputs/semantic_routing/semantic_admission.schema.json`
+- `semantic_admission` (object, optional; semantic-routing pointer contract)
+  - When present, follows the current schema reference in `docs/test_inputs/semantic_routing/semantic_admission.schema.json`
   - Current default adapter/helper paths can populate this field
   - All current rulegen LPs can emit `status=unavailable` plus stable ids such as `trigger_id`, `sense_id`, and `competition_set_id`
   - `en-es` now has a narrow batch-local `status=ready` PoC when real sibling senses are present in the same emitted batch (`competition_mode=emitted_rule_siblings`); this is not broad shadow-mined runtime readiness

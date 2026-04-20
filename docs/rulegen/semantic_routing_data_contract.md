@@ -2,18 +2,19 @@
 
 Status: active mixed contract
 Role: Mixed
-Last updated: 2026-04-19
-Last verified: 2026-04-19 doc-routing review against the current publication/runtime/launch docs plus stable schema/test references
+Last updated: 2026-04-21
+Last verified: 2026-04-21 semantic schema-reference reconciliation against the shipped publication/runtime seam plus stable schema/test references
 Purpose: describe the current semantic-routing data layers and the remaining target contract so LP support stays symmetric without confusing shipped pointer seams for full runtime-readiness
 Source-of-truth: mixed as-is + target contract; current implemented truth still lives in code, tests, `docs/reference/schema.md`, and `docs/developer/feature_state_matrix.md`
-Planning schemas:
+Current schema references:
 - `docs/test_inputs/semantic_routing/semantic_admission.schema.json`
 - `docs/test_inputs/semantic_routing/semantic_inventory.schema.json`
-- `docs/test_inputs/semantic_routing/semantic_llm_intake_batch.schema.json`
-- `docs/test_inputs/semantic_routing/semantic_evidence_batch.schema.json`
 - `docs/test_inputs/semantic_routing/semantic_admit_batch_request.schema.json`
 - `docs/test_inputs/semantic_routing/semantic_admit_batch_response.schema.json`
-Related planning doc:
+Remaining planning schemas:
+- `docs/test_inputs/semantic_routing/semantic_llm_intake_batch.schema.json`
+- `docs/test_inputs/semantic_routing/semantic_evidence_batch.schema.json`
+Related docs:
 - `docs/rulegen/semantic_routing_publication_contract.md`
 - `docs/rulegen/semantic_routing_implementation_roadmap.md`
 Verification:
@@ -22,11 +23,18 @@ Verification:
 - `core/lexishift_core/rulegen/semantic_publication.py`
 - `core/lexishift_core/rulegen/pairs/en_es.py`
 - `core/lexishift_core/rulegen/pairs/en_de.py`
+- `core/lexishift_core/rulegen/semantic_routing_runtime_policy.py`
+- `core/lexishift_core/helper/use_cases/semantic_admission.py`
 - `apps/chrome-extension/content/runtime/rules/active_rules_runtime.js`
+- `apps/chrome-extension/content/runtime/semantic/semantic_gate_runtime.js`
 - `apps/chrome-extension/content/processing/replacements.js`
 - `apps/chrome-extension/content/runtime/diagnostics/apply_diagnostics_reporter.js`
 - `core/tests/rulegen/test_rulegen_adapters.py`
 - `core/tests/rulegen/test_semantic_publication.py`
+- `core/tests/rulegen/test_semantic_routing_runtime_policy.py`
+- `core/tests/helper/test_helper_engine.py`
+- `core/tests/dev/test_helper_translation_dict_entrypoints.py`
+- `core/tests/dev/test_extension_semantic_gate_runtime_contract.py`
 - `docs/reference/schema.md`
 
 ## Goal
@@ -191,6 +199,10 @@ That gives us:
 - and good runtime observability.
 
 ## Recommended Future Contract
+
+The sections below are still the shared target shape for LP-symmetric semantic routing, but they are no longer purely aspirational.
+Layer A pointer fields, Layer B semantic inventory sidecars, and the Layer C helper/runtime batch seam are now all implemented in the shipped helper/browser-extension path.
+What remains future-facing is rollout breadth, LP parity, and broader runtime readiness, not invention of a separate payload shape.
 
 ### Layer A. Rule-Level Admission Pointer
 
@@ -378,8 +390,9 @@ Recommended record responsibilities:
 
 Runtime should not discover semantic competitors on its own.
 It should send a compact, concrete request to the helper-side decision engine.
+The browser extension semantic-admission path now uses this helper/runtime seam directly, while still batching only `status=ready` eligible matches and resolving non-ready eligible rows locally through fallback.
 
-Recommended request responsibilities:
+Current request responsibilities:
 
 - identify pair and profile
 - identify offset semantics explicitly
@@ -388,11 +401,11 @@ Recommended request responsibilities:
 - send the matched source phrase and local context text
 - send the already-emitted `semantic_admission` pointer from the matched rule
 
-Planned schema:
+Current schema reference:
 
 - `docs/test_inputs/semantic_routing/semantic_admit_batch_request.schema.json`
 
-Recommended request fragment:
+Current request fragment:
 
 ```json
 {
@@ -423,7 +436,7 @@ Recommended request fragment:
 }
 ```
 
-Recommended response responsibilities:
+Current response responsibilities:
 
 - return the resolved `decision_policy_id`
 - echo the active `fallback_policy`
@@ -442,11 +455,11 @@ Recommended response responsibilities:
   - `score_margin`
   - `reason_codes`
 
-Planned schema:
+Current schema reference:
 
 - `docs/test_inputs/semantic_routing/semantic_admit_batch_response.schema.json`
 
-Recommended response fragment:
+Current response fragment:
 
 ```json
 {

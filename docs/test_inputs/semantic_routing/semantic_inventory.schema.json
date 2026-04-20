@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "LexiShift Semantic Routing Inventory",
-  "description": "Planning-only schema for future sidecar semantic inventory artifacts published alongside rulesets and snapshots.",
+  "description": "Schema reference for current semantic inventory sidecar artifacts published alongside rulesets and snapshots.",
   "type": "object",
   "additionalProperties": false,
   "required": [
