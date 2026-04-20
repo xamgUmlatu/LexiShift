@@ -437,6 +437,23 @@ class TestHelperEngineSemanticInventoryLoad(unittest.TestCase):
             self.assertEqual(response["decisions"][0]["decision_source"], "fallback_policy")
             self.assertIn("semantic_inventory_missing", response["decisions"][0]["reason_codes"])
 
+    def test_semantic_admit_batch_rejects_non_object_match_items(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = build_helper_paths(Path(tmp))
+
+            with self.assertRaisesRegex(
+                ValueError,
+                "semantic_admit_batch requires object-valued `matches` items.",
+            ):
+                semantic_admit_batch(
+                    paths,
+                    payload={
+                        "pair": "en-es",
+                        "profile_id": "default",
+                        "matches": [{}, None],
+                    },
+                )
+
 
 class TestHelperEngineRulegenPreview(unittest.TestCase):
     def _stub_output(self) -> SimpleNamespace:

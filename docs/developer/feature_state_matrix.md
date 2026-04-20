@@ -804,7 +804,8 @@ Use this file when:
     - offline helper artifacts stay local
     - extension loads ruleset plus semantic inventory from helper/cache
     - lexical trie matching happens first
-    - eligible matches are batched to helper `semantic_admit_batch`
+    - eligible matches are counted, but only `status=ready` eligible matches are batched to helper `semantic_admit_batch`
+    - non-ready eligible matches resolve locally through the configured fallback policy
     - runtime replaces only `replace` decisions and keeps the original otherwise
   - `en-es` now has a narrow publication PoC:
     - if real sibling senses for the same trigger are present in the same emitted result batch, `metadata.semantic_admission.status` can be promoted to `ready`

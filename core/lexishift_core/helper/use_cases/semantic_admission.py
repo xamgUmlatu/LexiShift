@@ -26,9 +26,9 @@ def semantic_admit_batch(
         or not raw_matches
     ):
         raise ValueError("semantic_admit_batch requires non-empty `matches`.")
-    matches = [dict(match) for match in raw_matches if isinstance(match, Mapping)]
-    if not matches:
-        raise ValueError("semantic_admit_batch requires at least one object-valued match.")
+    if any(not isinstance(match, Mapping) for match in raw_matches):
+        raise ValueError("semantic_admit_batch requires object-valued `matches` items.")
+    matches = [dict(match) for match in raw_matches]
     inventory_path = paths.semantic_inventory_path(pair, profile_id=profile_id)
     inventory = None
     if inventory_path.exists():
