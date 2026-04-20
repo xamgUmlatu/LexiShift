@@ -69,6 +69,7 @@ class TestExtensionStructure(unittest.TestCase):
             EXT_ROOT / "options" / "core" / "bootstrap" / "translate_resolver.js",
             EXT_ROOT / "options" / "core" / "bootstrap" / "dom_aliases.js",
             EXT_ROOT / "options" / "core" / "bootstrap" / "controller_adapters.js",
+            EXT_ROOT / "options" / "core" / "bootstrap" / "controller_graph_elements.js",
             EXT_ROOT / "options" / "core" / "bootstrap" / "controller_graph.js",
         ]
         missing = [str(path.relative_to(PROJECT_ROOT)) for path in required if not path.exists()]
@@ -84,6 +85,7 @@ class TestExtensionStructure(unittest.TestCase):
             'src="options/core/bootstrap/translate_resolver.js"',
             'src="options/core/bootstrap/dom_aliases.js"',
             'src="options/core/bootstrap/controller_adapters.js"',
+            'src="options/core/bootstrap/controller_graph_elements.js"',
             'src="options/core/bootstrap/controller_graph.js"',
             'src="options.js"',
         ]

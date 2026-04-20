@@ -25,7 +25,10 @@ This document is the source-of-truth map for the options app structure and contr
   - controller factory resolver
   - UI bridge
   - language prefs adapter factory
+  - DOM aliases
+  - translation resolver
   - controller adapters factory.
+  - controller graph elements bootstrap
 4. `createControllerGraph(...)` composes all controllers.
 5. App starts with:
   - `eventWiringController.bind()`
@@ -43,6 +46,7 @@ apps/chrome-extension/options/
       translate_resolver.js
       dom_aliases.js
       controller_adapters.js
+      controller_graph_elements.js
       controller_graph.js
     helper/
       base_methods.js
