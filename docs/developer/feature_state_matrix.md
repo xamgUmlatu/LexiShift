@@ -609,6 +609,30 @@ Use this file when:
   - The parity audit is now a required workflow gate, but it is still not a complete release certification on its own.
   - Current browser coverage is limited to the supported GUI helper environments (`chrome`, `chromium`, `brave`).
 
+## Browser Helper Connection Management
+
+- Status: `implemented`, `default-on`, `verified`
+- Last documented checkpoint: `2026-04-22`
+- Last verified: `2026-04-22` targeted helper installer/browser-connection tests plus doc/code reconciliation
+- Default behavior:
+  - The GUI app now routes helper install/repair through a Browser Connections manager in the app menu and SRS settings instead of the older single environment prompt.
+  - Fixed-ID production browsers keep a one-click connect/repair path.
+  - Unpacked development extensions are added separately by browser plus extension ID, with a per-browser bundled/workspace/custom host mode.
+  - Native-messaging manifests now merge all allowed origins for the same browser into one manifest instead of assuming only one extension ID.
+  - Helper install inspection now distinguishes `Configured`, `Needs repair`, and `Not configured`, including stale bundled-helper copies.
+- Evidence:
+  - `docs/architecture/native_messaging_design.md`
+  - `apps/gui/src/helper_installer.py`
+  - `apps/gui/src/helper_ui.py`
+  - `apps/gui/src/main_menu_mixin.py`
+  - `apps/gui/src/dialogs.py`
+  - `core/tests/dev/test_helper_installer_native_messaging.py`
+  - `core/tests/dev/test_helper_browser_connections.py`
+- Known gaps:
+  - Native messaging still uses one host manifest per browser name, so same-browser prod and unpacked-dev origins still share one host path.
+  - Fixed-ID production rows only work in builds where `apps/gui/resources/helper_extension_ids.json` contains real non-placeholder production IDs.
+  - The desktop app can verify manifest/origin/host freshness, but it still cannot prove that the browser extension is currently installed and active.
+
 ## Feature-State Evidence Audit
 
 - Status: `implemented`, `default-on`, `verified`

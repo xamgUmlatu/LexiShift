@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+import json
 import sys
 import tempfile
 import unittest
@@ -53,6 +54,24 @@ class _FakeWinreg:
 
 
 class TestHelperInstallerNativeMessaging(unittest.TestCase):
+    def test_build_manifest_supports_multiple_allowed_origins(self) -> None:
+        payload = helper_installer.build_manifest(
+            host_path=Path("/tmp/lexishift_native_host.py"),
+            extension_ids=[
+                "abcdefghijklmnopabcdefghijklmnop",
+                "qrstuvwxyzabcdefqrstuvwxyzabcdef",
+                "abcdefghijklmnopabcdefghijklmnop",
+            ],
+        )
+
+        self.assertEqual(
+            payload["allowed_origins"],
+            [
+                "chrome-extension://abcdefghijklmnopabcdefghijklmnop/",
+                "chrome-extension://qrstuvwxyzabcdefqrstuvwxyzabcdef/",
+            ],
+        )
+
     def test_default_host_script_prefers_bundled_windows_host_exe_when_frozen(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:
             root = Path(tmpdir)
@@ -137,6 +156,91 @@ class TestHelperInstallerNativeMessaging(unittest.TestCase):
                 )
 
         self.assertTrue(installed)
+
+    def test_inspect_helper_installation_reports_missing_allowed_origin(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            root = Path(tmpdir)
+            manifest = root / "com.lexishift.helper.json"
+            host = root / "lexishift_native_host.py"
+            host.write_text("print('host')\n", encoding="utf-8")
+            manifest.write_text(
+                json.dumps(
+                    {
+                        "allowed_origins": [
+                            "chrome-extension://abcdefghijklmnopabcdefghijklmnop/",
+                        ],
+                        "path": str(host),
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            with mock.patch.object(helper_installer, "manifest_path", return_value=manifest):
+                status = helper_installer.inspect_helper_installation(
+                    browser="chrome",
+                    expected_extension_ids=[
+                        "abcdefghijklmnopabcdefghijklmnop",
+                        "qrstuvwxyzabcdefqrstuvwxyzabcdef",
+                    ],
+                )
+
+        self.assertEqual(status.state, helper_installer.HELPER_STATE_NEEDS_REPAIR)
+        self.assertEqual(
+            status.missing_extension_ids,
+            ("qrstuvwxyzabcdefqrstuvwxyzabcdef",),
+        )
+
+    def test_inspect_helper_installation_reports_stale_bundled_copy(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            root = Path(tmpdir)
+            data_root = root / "data"
+            bundle_root = root / "bundle"
+            installed_host = data_root / "helper" / "lexishift_native_host.py"
+            installed_core = data_root / "helper" / "lexishift_core"
+            bundled_host = bundle_root / "resources" / "helper" / "lexishift_native_host.py"
+            bundled_core = bundle_root / "resources" / "helper" / "lexishift_core"
+            manifest = root / "com.lexishift.helper.json"
+
+            installed_host.parent.mkdir(parents=True, exist_ok=True)
+            installed_core.mkdir(parents=True, exist_ok=True)
+            bundled_host.parent.mkdir(parents=True, exist_ok=True)
+            bundled_core.mkdir(parents=True, exist_ok=True)
+
+            installed_host.write_text("print('old host')\n", encoding="utf-8")
+            bundled_host.write_text("print('new host')\n", encoding="utf-8")
+            (installed_core / "__init__.py").write_text("old = 1\n", encoding="utf-8")
+            (bundled_core / "__init__.py").write_text("new = 1\n", encoding="utf-8")
+            manifest.write_text(
+                json.dumps(
+                    {
+                        "allowed_origins": [
+                            "chrome-extension://abcdefghijklmnopabcdefghijklmnop/",
+                        ],
+                        "path": str(installed_host),
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            with (
+                mock.patch.object(helper_installer, "_helper_data_root", return_value=data_root),
+                mock.patch.object(helper_installer, "manifest_path", return_value=manifest),
+                mock.patch.object(
+                    helper_installer, "default_host_script", return_value=bundled_host
+                ),
+                mock.patch.object(
+                    helper_installer,
+                    "_is_bundled_path",
+                    side_effect=lambda path: Path(path) == bundled_host,
+                ),
+            ):
+                status = helper_installer.inspect_helper_installation(
+                    browser="chrome",
+                    expected_extension_ids=["abcdefghijklmnopabcdefghijklmnop"],
+                )
+
+        self.assertEqual(status.state, helper_installer.HELPER_STATE_NEEDS_REPAIR)
+        self.assertIn("stale", status.message.lower())
 
 
 if __name__ == "__main__":

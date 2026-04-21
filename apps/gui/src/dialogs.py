@@ -13,7 +13,6 @@ from PySide6.QtWidgets import (
     QHBoxLayout,
     QLabel,
     QLineEdit,
-    QMessageBox,
     QPushButton,
     QPlainTextEdit,
     QSlider,
@@ -40,8 +39,15 @@ from dialogs_settings_appearance_mixin import SettingsDialogAppearanceMixin
 from i18n import t
 from settings_language_packs import LanguagePackPanel
 from settings_language_packs_support import split_language_resource_bindings
-from helper_installer import install_helper, is_helper_installed
-from helper_ui import ensure_helper_autostart, get_helper_environment, prompt_for_helper_environment
+from helper_installer import (
+    HELPER_STATE_CONFIGURED,
+    HELPER_STATE_NEEDS_REPAIR,
+)
+from helper_ui import (
+    helper_connection_overall_state,
+    helper_connection_summary_text,
+    manage_browser_connections,
+)
 from dialogs_theme_utils import _parse_int
 from integrations import open_integration_link
 
@@ -450,9 +456,9 @@ class SettingsDialog(SettingsDialogAppearanceMixin, QDialog):
         self.srs_max_active_edit = QLineEdit()
         self.srs_max_new_edit = QLineEdit()
         self.helper_status_label = QLabel("—")
-        self.install_helper_button = QPushButton(t("settings.helper_install"))
+        self.install_helper_button = QPushButton(t("settings.helper_manage_connections"))
         self.install_helper_button.setIcon(self.style().standardIcon(QStyle.SP_ComputerIcon))
-        self.install_helper_button.clicked.connect(self._install_helper)
+        self.install_helper_button.clicked.connect(self._manage_browser_connections)
 
         srs_pairs = _srs_pair_options()
         self._srs_pair_checks = {}
@@ -483,7 +489,7 @@ class SettingsDialog(SettingsDialogAppearanceMixin, QDialog):
         srs_form.addRow(t("settings.srs_max_new"), self.srs_max_new_edit)
         srs_form.addRow(t("settings.srs_pairs"), srs_pair_panel)
         srs_form.addRow(t("settings.helper_status"), self.helper_status_label)
-        srs_form.addRow(t("settings.helper_install"), self.install_helper_button)
+        srs_form.addRow(t("settings.helper_connections"), self.install_helper_button)
 
         srs_panel = QWidget()
         srs_panel.setLayout(srs_form)
@@ -572,48 +578,18 @@ class SettingsDialog(SettingsDialogAppearanceMixin, QDialog):
             checkbox.setChecked(rule.enabled if rule is not None else False)
 
     def _refresh_helper_status(self) -> None:
-        env, extension_id = get_helper_environment(self._ui_settings)
-        if not env or not extension_id:
-            self.helper_status_label.setText(t("settings.helper_status_unknown"))
-            self.install_helper_button.setText(t("settings.helper_install"))
+        state = helper_connection_overall_state(self._ui_settings)
+        self.helper_status_label.setText(helper_connection_summary_text(self._ui_settings))
+        if state == HELPER_STATE_NEEDS_REPAIR:
+            self.install_helper_button.setText(t("settings.helper_repair_connections"))
             return
-        if is_helper_installed(str(extension_id), browser=env.browser):
-            self.helper_status_label.setText(t("settings.helper_status_installed"))
-            self.install_helper_button.setText(t("settings.helper_reinstall"))
-        else:
-            self.helper_status_label.setText(t("settings.helper_status_missing"))
-            self.install_helper_button.setText(t("settings.helper_install"))
+        if state == HELPER_STATE_CONFIGURED:
+            self.install_helper_button.setText(t("settings.helper_manage_connections"))
+            return
+        self.install_helper_button.setText(t("settings.helper_install"))
 
-    def _install_helper(self) -> None:
-        choice = prompt_for_helper_environment(self, self._ui_settings)
-        if not choice:
-            return
-        env, extension_id, host_path = choice
-        result = install_helper(
-            extension_id=str(extension_id).strip(),
-            browser=env.browser,
-            host_path=host_path,
-        )
-        if result.installed:
-            try:
-                ensure_helper_autostart()
-                QMessageBox.information(
-                    self,
-                    t("dialogs.helper_install.title"),
-                    t("dialogs.helper_install.success", path=str(result.manifest_path or "")),
-                )
-            except Exception as exc:  # noqa: BLE001
-                QMessageBox.warning(
-                    self,
-                    t("dialogs.helper_install.title"),
-                    t("dialogs.helper_install.failed", message=str(exc)),
-                )
-        else:
-            QMessageBox.warning(
-                self,
-                t("dialogs.helper_install.title"),
-                t("dialogs.helper_install.failed", message=str(result.message)),
-            )
+    def _manage_browser_connections(self) -> None:
+        manage_browser_connections(self, self._ui_settings)
         self._refresh_helper_status()
 
     def _collect_srs_settings(self) -> SrsSettings:
