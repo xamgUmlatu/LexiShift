@@ -46,14 +46,8 @@ class TestGuiI18nCatalogs(unittest.TestCase):
     def test_browser_connection_menu_and_settings_keys_exist_in_all_gui_locales(self) -> None:
         required_string_keys = (
             "menu.browser_connections",
-            "menu.install_helper",
-            "menu.manage_browser_connections",
-            "menu.repair_browser_connections",
             "settings.helper_status",
             "settings.helper_connections",
-            "settings.helper_install",
-            "settings.helper_manage_connections",
-            "settings.helper_repair_connections",
             "settings.helper_status_installed",
             "settings.helper_status_needs_repair",
             "settings.helper_status_missing",

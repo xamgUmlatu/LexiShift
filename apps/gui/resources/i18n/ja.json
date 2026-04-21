@@ -62,10 +62,6 @@
     "reveal_in_finder": "Finderで表示",
     "reveal_ruleset_in_finder": "ルールセットをFinderで表示",
     "browser_connections": "接続...",
-    "install_helper": "ブラウザー拡張機能を接続...",
-    "manage_browser_connections": "ブラウザー接続を管理...",
-    "repair_browser_connections": "ブラウザー接続を修復...",
-    "reinstall_helper": "LexiShift ヘルパーを再インストール...",
     "debug": "デバッグ",
     "help": "ヘルプ",
     "open_setup_guide": "セットアップガイドを開く",
@@ -271,7 +267,7 @@
       "missing_host": "選択されたホストモードから有効な Helper ホストパスを解決できません。",
       "shared_host_warning_title": "ブラウザーのホストが Workspace モードに切り替わります",
       "shared_host_warning_message": "{browser} は許可されたすべての拡張機能で 1 つの Native Messaging ホストパスを共有します。続行すると、このブラウザーは開発用接続と本番接続の両方で Workspace host に切り替わります。",
-      "saved": "ブラウザー接続を更新しました。\n\nマニフェスト: {path}"
+      "saved": "ブラウザー接続を更新しました。"
     },
     "manage_profiles": {
       "title": "プロファイル管理",
@@ -366,10 +362,6 @@
     "srs_pairs": "有効な言語ペア",
     "helper_status": "接続ステータス",
     "helper_connections": "ブラウザー接続",
-    "helper_install": "ブラウザー拡張機能を接続...",
-    "helper_manage_connections": "接続を管理...",
-    "helper_repair_connections": "接続を修復...",
-    "helper_reinstall": "ヘルパーを再インストール",
     "helper_status_installed": "設定済み",
     "helper_status_needs_repair": "修復が必要",
     "helper_status_missing": "未設定",

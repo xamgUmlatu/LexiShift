@@ -75,6 +75,14 @@ def test_resources_tab_intro_describes_installed_vs_manual_contract() -> None:
     assert any(label.text() == t("language_packs.resources_description") for label in labels)
 
 
+def test_settings_srs_connections_button_uses_static_hub_label() -> None:
+    _app()
+    set_locale("en")
+    dialog = SettingsDialog(app_settings=AppSettings(), dataset_settings=None)
+
+    assert dialog.install_helper_button.text() == t("menu.browser_connections")
+
+
 def test_frequency_and_embedding_tabs_describe_manual_paths_as_compatibility_only() -> None:
     _app()
     set_locale("en")

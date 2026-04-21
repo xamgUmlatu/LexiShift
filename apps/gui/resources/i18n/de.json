@@ -62,10 +62,6 @@
     "reveal_in_finder": "Im Finder anzeigen",
     "reveal_ruleset_in_finder": "Regelsatz im Finder anzeigen",
     "browser_connections": "Verbindungen...",
-    "install_helper": "Browser-Erweiterungen verbinden...",
-    "manage_browser_connections": "Browser-Verbindungen verwalten...",
-    "repair_browser_connections": "Browser-Verbindungen reparieren...",
-    "reinstall_helper": "LexiShift-Helfer neu installieren...",
     "debug": "Debug",
     "help": "Hilfe",
     "open_setup_guide": "Setup-Anleitung öffnen",
@@ -271,7 +267,7 @@
       "missing_host": "Der ausgewählte Host-Modus ergibt keinen verwendbaren Helper-Host-Pfad.",
       "shared_host_warning_title": "Browser-Host wird auf Workspace-Modus umgestellt",
       "shared_host_warning_message": "{browser} verwendet einen gemeinsamen Native-Messaging-Host-Pfad für alle erlaubten Erweiterungen. Wenn Sie fortfahren, wird dieser Browser für Entwicklungs- und Produktionsverbindungen auf den Workspace-Host umgestellt.",
-      "saved": "Browser-Verbindungen wurden aktualisiert.\n\nManifest: {path}"
+      "saved": "Browser-Verbindungen wurden aktualisiert."
     },
     "manage_profiles": {
       "title": "Profile verwalten",
@@ -366,10 +362,6 @@
     "srs_pairs": "Aktive Sprachpaare",
     "helper_status": "Verbindungsstatus",
     "helper_connections": "Browser-Verbindungen",
-    "helper_install": "Browser-Erweiterungen verbinden...",
-    "helper_manage_connections": "Verbindungen verwalten...",
-    "helper_repair_connections": "Verbindungen reparieren...",
-    "helper_reinstall": "Helfer neu installieren",
     "helper_status_installed": "Konfiguriert",
     "helper_status_needs_repair": "Reparatur erforderlich",
     "helper_status_missing": "Nicht konfiguriert",

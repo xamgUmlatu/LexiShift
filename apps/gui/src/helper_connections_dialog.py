@@ -743,7 +743,7 @@ class BrowserConnectionsDialog(QDialog):
             QMessageBox.information(
                 self,
                 t("dialogs.browser_connections.title"),
-                t("dialogs.browser_connections.saved", path=str(result.manifest_path or "")),
+                t("dialogs.browser_connections.saved"),
             )
         self._rebuild()
 

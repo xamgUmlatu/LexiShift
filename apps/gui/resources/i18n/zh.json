@@ -62,10 +62,6 @@
     "reveal_in_finder": "在 Finder 中显示",
     "reveal_ruleset_in_finder": "在 Finder 中显示规则集",
     "browser_connections": "连接...",
-    "install_helper": "连接浏览器扩展...",
-    "manage_browser_connections": "管理浏览器连接...",
-    "repair_browser_connections": "修复浏览器连接...",
-    "reinstall_helper": "重新安装 LexiShift Helper...",
     "debug": "调试",
     "help": "帮助",
     "open_setup_guide": "打开使用指南",
@@ -271,7 +267,7 @@
       "missing_host": "所选主机模式无法解析到可用的 Helper 主机路径。",
       "shared_host_warning_title": "浏览器主机将切换到工作区模式",
       "shared_host_warning_message": "{browser} 对所有允许的扩展共享同一个原生消息主机路径。继续后，该浏览器的开发连接和生产连接都会切换到 Workspace host。",
-      "saved": "浏览器连接已更新。\n\n清单：{path}"
+      "saved": "浏览器连接已更新。"
     },
     "manage_profiles": {
       "title": "管理配置文件",
@@ -366,10 +362,6 @@
     "srs_pairs": "启用的语言对",
     "helper_status": "连接状态",
     "helper_connections": "浏览器连接",
-    "helper_install": "连接浏览器扩展...",
-    "helper_manage_connections": "管理连接...",
-    "helper_repair_connections": "修复连接...",
-    "helper_reinstall": "重新安装 Helper",
     "helper_status_installed": "已配置",
     "helper_status_needs_repair": "需要修复",
     "helper_status_missing": "未配置",

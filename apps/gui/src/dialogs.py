@@ -39,15 +39,7 @@ from dialogs_settings_appearance_mixin import SettingsDialogAppearanceMixin
 from i18n import t
 from settings_language_packs import LanguagePackPanel
 from settings_language_packs_support import split_language_resource_bindings
-from helper_installer import (
-    HELPER_STATE_CONFIGURED,
-    HELPER_STATE_NEEDS_REPAIR,
-)
-from helper_ui import (
-    helper_connection_overall_state,
-    helper_connection_summary_text,
-    manage_browser_connections,
-)
+from helper_ui import helper_connection_summary_text, manage_browser_connections
 from dialogs_theme_utils import _parse_int
 from integrations import open_integration_link
 
@@ -456,7 +448,7 @@ class SettingsDialog(SettingsDialogAppearanceMixin, QDialog):
         self.srs_max_active_edit = QLineEdit()
         self.srs_max_new_edit = QLineEdit()
         self.helper_status_label = QLabel("—")
-        self.install_helper_button = QPushButton(t("settings.helper_manage_connections"))
+        self.install_helper_button = QPushButton(t("menu.browser_connections"))
         self.install_helper_button.setIcon(self.style().standardIcon(QStyle.SP_ComputerIcon))
         self.install_helper_button.clicked.connect(self._manage_browser_connections)
 
@@ -578,15 +570,8 @@ class SettingsDialog(SettingsDialogAppearanceMixin, QDialog):
             checkbox.setChecked(rule.enabled if rule is not None else False)
 
     def _refresh_helper_status(self) -> None:
-        state = helper_connection_overall_state(self._ui_settings)
         self.helper_status_label.setText(helper_connection_summary_text(self._ui_settings))
-        if state == HELPER_STATE_NEEDS_REPAIR:
-            self.install_helper_button.setText(t("settings.helper_repair_connections"))
-            return
-        if state == HELPER_STATE_CONFIGURED:
-            self.install_helper_button.setText(t("settings.helper_manage_connections"))
-            return
-        self.install_helper_button.setText(t("settings.helper_install"))
+        self.install_helper_button.setText(t("menu.browser_connections"))
 
     def _manage_browser_connections(self) -> None:
         manage_browser_connections(self, self._ui_settings)
