@@ -60,6 +60,7 @@ This asymmetry should shape both the research program and the eventual runtime p
 
 - Treat `Current Shipped Runtime Seam` and `Current Emitted-Rule Provenance Reality` as the current runtime contract.
 - Treat `Current Sentence-Level Runtime Harness` and the research-result sections as evidence and experimentation surfaces, not shipped runtime truth.
+- Treat `docs/rulegen/semantic_shadow_testing_architecture.md` as the authority for detailed artifact filenames and research workflow lanes; this doc should summarize what the current evidence means, not carry the full artifact directory listing in the prose.
 - Treat `What Is Still Missing For True End-To-End Automatic Semantic Routing` and `Runtime Readiness Floor` as the remaining readiness boundary.
 - Use the roadmap for implementation sequencing and the checklist for launch operation; this doc should not be used as a step-by-step plan.
 
@@ -483,53 +484,54 @@ This is partly understood as a mining problem already, but it is not yet integra
 First implemented research seam:
 
 - `scripts/testing/semantic_shadow_inventory_en_es.py` can now mine a research-only `en-es` shadow inventory from reviewed benchmark trigger phrases plus installed forward/reverse translation packs.
-- The latest artifact at `docs/test_outputs/semantic_shadow_inventory_en_es_latest.md` shows broad sibling coverage, which is encouraging.
-- The follow-on triage at `docs/test_outputs/semantic_shadow_inventory_triage_en_es_latest.md` shows why publication is still blocked:
+- detailed current artifact filenames for this seam now live in `docs/rulegen/semantic_shadow_testing_architecture.md`; the bullets below summarize what the current inventory, triage, policy, review, gold-proxy, and veto-proxy outputs mean for readiness
+- the current inventory read shows broad sibling coverage, which is encouraging
+- the current follow-on triage shows why publication is still blocked:
   - zero-signal promotions can be removed,
   - but the remaining top-1 preview is still dominated by `same_pos_as_active` rather than benchmark-aligned competition evidence.
-- The follow-on policy comparison at `docs/test_outputs/semantic_shadow_policy_compare_en_es_latest.md` now makes the algorithm tradeoff explicit:
+- the current policy comparison now makes the algorithm tradeoff explicit:
   - `same_pos_lenient_v1`: broader still after active-trigger matching (`111` promoted triggers) and therefore even noisier as a runtime candidate
   - `benchmark_backed_v1`: cleaner (`19` promoted triggers) but narrow
   - `cross_checked_v1`: narrower still (`11` promoted triggers), and now the practical runtime-shaped starting point
   - `cross_checked_backoff_missing_active_v1`: now converges to the same `11` promoted triggers after active-side trigger matching was improved for bundled forward glosses and benchmark-only shadow rescue was disabled when the active side is completely empty
-- The gap queue at `docs/test_outputs/semantic_shadow_policy_gap_queue_en_es_latest.md` now isolates what the stricter policy still drops:
+- the current gap queue isolates what the stricter policy still drops:
   - `5` rows due to missing active POS or missing active-side support
   - `3` rows due to explicit cross-POS mismatch without reviewed trigger support
 - The most useful concrete fix so far is local and interpretable:
   - active-side trigger matching now uses the existing `en_es_support` gloss-fragment normalization, so bundled forward glosses like `to take, catch, hold, to get, to seize` can supply real active evidence for bare triggers such as `take` and `catch`
   - this was enough to move `coger / catch -> vista` out of the provisional review queue and into the stricter gap queue, which is the right safety direction
-- There is now a single review packet at `docs/test_outputs/semantic_shadow_review_packet_en_es_latest.md`:
+- the current review packet:
   - it combines the current policy snapshot, provisional keep rows, provisional drop rows, and the active-side evidence summary for each row
   - it makes the current practical recommendation explicit: treat `cross_checked_v1` as the provisional `en-es` runtime-shaped policy, keep the six surviving blocker rows, and keep the eight dropped rows out of the blocker set for now
-- There is now a first lower-bound grading surface at `docs/test_outputs/semantic_shadow_gold_proxy_en_es_latest.md`:
+- the current lower-bound grading read:
   - it derives a reviewed-trigger-overlap gold proxy directly from `docs/test_inputs/rulegen_benchmark_cases/en_es.json`
   - it scores the current shadow-promotion policies against that proxy without inventing a second benchmark surface
   - this is not a sentence-level semantic veto benchmark, but it gives immediate candidate precision/recall, trigger-hit, underblocking, and overblocking metrics for automatic shadow promotion
-  - on the latest `en-es` artifact, the strict policies (`cross_checked_v1` and `cross_checked_backoff_missing_active_v1`) tie as the best current lower-bound:
+  - on the current `en-es` lower-bound read, the strict policies (`cross_checked_v1` and `cross_checked_backoff_missing_active_v1`) tie as the best current lower-bound:
     - candidate precision `64.3%`
     - candidate recall `90.0%`
     - gold-trigger hit rate `90.0%`
     - overblocking rate `3.6%`
-  - the same artifact also clarifies the current limiting factor:
+  - the same lower-bound read also clarifies the current limiting factor:
     - a new forward-index supplement now recovers benchmark-known siblings that are missing from the reverse headword rows alone
     - that lifted mined candidate-pool recall from `60.0%` to `90.0%` against the overlap proxy
     - the remaining clear miss is `trabajo / job -> cargo`, which points to a harder semantic-bridge problem rather than a simple reverse-pack coverage gap
-  - the new gap audit at `docs/test_outputs/semantic_shadow_coverage_gap_en_es_latest.md` makes that remaining miss explicit:
+  - the current gap audit makes that remaining miss explicit:
     - remaining gap count: `1`
     - current classification: `semantic_bridge_needed`
     - meaning: the missing shadow is not recoverable from the current reverse pack, the new forward-index supplement, or the current best rulegen source list
     - next research should therefore stay separate from the strict automatic miner and focus on a distinct semantic-bridge lane
-  - the new seed-comparison artifact at `docs/test_outputs/semantic_shadow_seed_compare_en_es_latest.md` makes the current benchmark-coupling boundary explicit:
+  - the current seed-comparison read makes the current benchmark-coupling boundary explicit:
     - `benchmark_reviewed`: `64.3%` candidate precision, `90.0%` candidate recall, `90.0%` gold-trigger hit rate, `3.6%` overblocking
     - `rulegen_top3_sources`: `36.4%` candidate precision, `40.0%` candidate recall, `40.0%` gold-trigger hit rate, `5.1%` overblocking
     - `rulegen_all_sources`: `33.3%` candidate precision, `40.0%` candidate recall, `40.0%` gold-trigger hit rate, `5.8%` overblocking
     - the new source-only augmentation lane improves that meaningfully without adding new manual data:
       - `rulegen_top3_plus_forward_gloss` at the current best swept setting (`forward_seed_max_words=1`): `32.0%` candidate precision, `80.0%` candidate recall, `80.0%` gold-trigger hit rate, `9.4%` overblocking
       - `rulegen_all_plus_forward_gloss` is effectively tied at the same setting
-    - the new sweep artifact at `docs/test_outputs/semantic_shadow_forward_seed_sweep_en_es_latest.md` shows the first useful numeric seed knob:
+    - the current forward-seed sweep shows the first useful numeric seed knob:
       - allowing only single-word forward-gloss-derived triggers is currently the best source-only tradeoff
       - longer phrase allowance (`2+` words) does not improve recall on the current lower-bound proxy, but it does worsen precision and overblocking
-    - the new support-score sweep at `docs/test_outputs/semantic_shadow_support_score_sweep_en_es_latest.md` shows the next cleaner control surface:
+    - the current support-score sweep shows the next cleaner control surface:
       - instead of adding more named promotion policies, keep one explicit support score and sweep only the threshold plus the maximum promoted-shadow count
       - on the current source-only lane, that already improves the tradeoff materially without adding manual data:
         - `rulegen_top3_plus_forward_gloss` / `rulegen_all_plus_forward_gloss` with `min_score=5` and `max_promoted=2` now reach `47.1%` candidate precision, `80.0%` candidate recall, and `5.1%` overblocking
@@ -538,7 +540,7 @@ First implemented research seam:
         - `min_score=3`, `max_promoted=1`: `20.0%` precision / `90.0%` recall / `26.1%` overblocking
         - `min_score=5`, `max_promoted=1`: `100.0%` precision / `80.0%` recall / `0.0%` overblocking
       - interpretation: the support score is now a true numeric control surface for the abstain-vs-coverage tradeoff, not just a re-expression of the older strict policy
-    - the new trigger-support sweep at `docs/test_outputs/semantic_shadow_trigger_support_sweep_en_es_latest.md` shows where the remaining seed noise actually lives:
+    - the current trigger-support sweep shows where the remaining seed noise actually lives:
       - keep the downstream shadow support policy fixed (`shadow min=4`, `max_promoted=2`), and filter only the source-only trigger seeds before mining
       - on `rulegen_top3_plus_forward_gloss`, a modest trigger threshold (`min_trigger_score=3`) does remove some upstream junk, but only relative to the much noisier `shadow min=4` operating point:
         - precision `8.0% -> 13.6%`
@@ -549,7 +551,7 @@ First implemented research seam:
         - recall `80.0% -> 20.0%`
         - inventory coverage `90.0% -> 50.0%`
       - interpretation: trigger scoring is still a coarse upstream cleanup knob, but it is no longer the best current frontier; the stronger path remains higher downstream support thresholds rather than harsher trigger pruning
-    - the new frequency sweep at `docs/test_outputs/semantic_shadow_frequency_sweep_en_es_latest.md` probes a soft target-side Spanish lexical-frequency prior:
+    - the current frequency sweep probes a soft target-side Spanish lexical-frequency prior:
       - the experiment keeps the current best lexical source-only baseline fixed (`rulegen_top3_plus_forward_gloss`, `shadow min=5`, `max_promoted=2`) and only adds a bonus for the most frequent shadow targets within a trigger bucket
       - that bonus does not improve the current best row:
         - baseline stays `47.1%` precision / `80.0%` recall / `5.1%` overblocking
@@ -559,13 +561,13 @@ First implemented research seam:
         - the best source-only setting remains `sim_weight=0.0`
         - positive similarity weights are effectively inert on the current `en-es` gold proxy
       - interpretation: the current ES frequency pack is plausible as metadata, but neither raw target frequency nor active-vs-shadow frequency similarity is yet a useful default pruning signal for semantic shadows; frequency should remain an optional research knob, not a default promotion feature
-    - the new representative-pruning sweep at `docs/test_outputs/semantic_shadow_representative_pruning_sweep_en_es_latest.md` probes a more structural condensation idea:
+    - the current representative-pruning sweep probes a more structural condensation idea:
       - collapse same-POS candidates that share the same normalized `sense_label`, then keep only the highest-scoring representative from each cluster
       - on the current `en-es` reviewed overlap proxy, that also does not improve the best row:
         - the best source-only setting remains pruning `off`, `min_score=5`, `max_promoted=2`
         - enabling `sense_label_pos_v1` leaves precision, recall, and overblocking unchanged on the current sweep grid
       - interpretation: redundant same-sense lexical variants are real in the raw inventory, but they are not the current bottleneck on the reviewed scoring denominator; the support threshold is already filtering most of that noise before representative pruning matters
-    - the new veto-proxy comparison at `docs/test_outputs/semantic_shadow_veto_proxy_compare_en_es_latest.md` adds the first lower-bound curated-vs-auto shadow benchmark:
+    - the current veto-proxy comparison adds the first lower-bound curated-vs-auto shadow benchmark:
       - it is intentionally not the sentence-level cosine veto benchmark
       - instead, each reviewed overlap row becomes a proxy `allow` / `abstain` decision:
         - if the shadow source emits any blockers for an ambiguous overlap row, count `abstain`
