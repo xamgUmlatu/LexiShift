@@ -31,6 +31,11 @@ from helper_connection_models import (
     TARGET_KIND_PROD,
     TARGET_KIND_UNPACKED,
 )
+from helper_connection_inspection import (
+    bundled_freshness_issue as _bundled_freshness_issue,
+    inspect_helper_installation as _inspect_helper_installation,
+    workspace_wrapper_issue as _workspace_wrapper_issue,
+)
 from helper_extension_environments import (
     get_environment,
     load_extension_environments,
@@ -639,71 +644,6 @@ def _bundled_source_host() -> Optional[Path]:
     return None
 
 
-def _bundled_freshness_issue(host_path: Path) -> Optional[str]:
-    source_host = _bundled_source_host()
-    if source_host is None:
-        return None
-    stable_path = stable_bundled_host_path()
-    try:
-        if host_path.resolve() != stable_path.resolve():
-            return None
-    except OSError:
-        if host_path != stable_path:
-            return None
-    source_digest = _hash_file(source_host)
-    installed_digest = _hash_file(host_path)
-    if source_digest and installed_digest and source_digest != installed_digest:
-        return "Bundled host copy is stale."
-    if sys.platform.startswith("win"):
-        return None
-    source_core = _find_core_dir(source_host)
-    installed_core = stable_bundled_core_path()
-    if source_core and installed_core.exists():
-        source_core_digest = _hash_directory(source_core)
-        installed_core_digest = _hash_directory(installed_core)
-        if (
-            source_core_digest
-            and installed_core_digest
-            and source_core_digest != installed_core_digest
-        ):
-            return "Bundled lexishift_core copy is stale."
-    return None
-
-
-def _workspace_wrapper_issue(host_path: Path) -> Optional[str]:
-    workspace = workspace_host_script()
-    if workspace is None:
-        return "Workspace host could not be resolved."
-    wrapper_path = workspace_host_wrapper_path()
-    try:
-        resolved = host_path.resolve()
-    except OSError:
-        resolved = host_path
-    try:
-        if resolved == workspace.resolve():
-            return "Workspace host uses a legacy direct script path. Repair to install the pinned Python wrapper."
-    except OSError:
-        if resolved == workspace:
-            return "Workspace host uses a legacy direct script path. Repair to install the pinned Python wrapper."
-    try:
-        if resolved != wrapper_path.resolve():
-            return None
-    except OSError:
-        if resolved != wrapper_path:
-            return None
-    python_path = _resolve_workspace_python(workspace, validate=False)
-    if python_path is None or not python_path.exists():
-        return "Workspace host wrapper is missing its Python interpreter."
-    expected = _build_workspace_wrapper_script(workspace, python_path)
-    try:
-        actual = host_path.read_text(encoding="utf-8")
-    except OSError:
-        return "Workspace host wrapper could not be read."
-    if actual != expected:
-        return "Workspace host wrapper is stale."
-    return None
-
-
 def build_manifest(*, host_path: Path, extension_ids: Sequence[str]) -> dict:
     allowed_origins = [
         _origin_for_extension_id(extension_id)
@@ -723,70 +663,31 @@ def inspect_helper_installation(
     browser: str = "chrome",
     expected_extension_ids: Sequence[str] = (),
 ) -> HelperInstallStatus:
-    manifest = (
-        _read_windows_native_messaging_manifest(browser)
-        if sys.platform.startswith("win")
-        else manifest_path(browser)
-    )
-    expected_ids = _normalize_extension_ids(expected_extension_ids)
-    if not manifest or not manifest.exists():
-        return HelperInstallStatus(
-            browser=browser,
-            state=HELPER_STATE_NOT_CONFIGURED,
-            manifest_path=manifest,
-            expected_extension_ids=expected_ids,
-            message="Native-messaging manifest is missing.",
-        )
-    try:
-        data = json.loads(manifest.read_text(encoding="utf-8"))
-    except (json.JSONDecodeError, OSError):
-        return HelperInstallStatus(
-            browser=browser,
-            state=HELPER_STATE_NEEDS_REPAIR,
-            manifest_path=manifest,
-            expected_extension_ids=expected_ids,
-            message="Native-messaging manifest could not be read.",
-        )
-    allowed_ids = _normalize_extension_ids(
-        extension_id
-        for extension_id in (
-            _extension_id_from_origin(origin) for origin in (data.get("allowed_origins") or [])
-        )
-        if extension_id
-    )
-    missing_ids = tuple(
-        extension_id for extension_id in expected_ids if extension_id not in allowed_ids
-    )
-    raw_host_path = str(data.get("path", "") or "").strip()
-    host_path = Path(raw_host_path) if raw_host_path else None
-    host_mode = infer_host_mode(host_path)
-    repair_messages: list[str] = []
-    if host_path is None:
-        repair_messages.append("Manifest is missing a host path.")
-    elif not host_path.exists():
-        repair_messages.append(f"Host path is missing: {host_path}")
-    if missing_ids:
-        repair_messages.append("Manifest is missing allowed origins for: " + ", ".join(missing_ids))
-    if host_path is not None and host_path.exists() and host_mode == HOST_MODE_BUNDLED:
-        freshness_issue = _bundled_freshness_issue(host_path)
-        if freshness_issue:
-            repair_messages.append(freshness_issue)
-    if host_path is not None and host_path.exists() and host_mode == HOST_MODE_WORKSPACE:
-        workspace_issue = _workspace_wrapper_issue(host_path)
-        if workspace_issue:
-            repair_messages.append(workspace_issue)
-    state = HELPER_STATE_NEEDS_REPAIR if repair_messages else HELPER_STATE_CONFIGURED
-    message = " ".join(repair_messages) if repair_messages else "Browser connection is configured."
-    return HelperInstallStatus(
+    return _inspect_helper_installation(
         browser=browser,
-        state=state,
-        manifest_path=manifest,
-        host_path=host_path,
-        host_mode=host_mode,
-        allowed_extension_ids=allowed_ids,
-        expected_extension_ids=expected_ids,
-        missing_extension_ids=missing_ids,
-        message=message,
+        expected_extension_ids=expected_extension_ids,
+        read_windows_manifest=_read_windows_native_messaging_manifest,
+        manifest_path=manifest_path,
+        normalize_extension_ids=_normalize_extension_ids,
+        extension_id_from_origin=_extension_id_from_origin,
+        infer_host_mode=infer_host_mode,
+        bundled_freshness_issue=lambda host_path: _bundled_freshness_issue(
+            host_path,
+            bundled_source_host=_bundled_source_host,
+            stable_bundled_host_path=stable_bundled_host_path,
+            hash_file=_hash_file,
+            stable_bundled_core_path=stable_bundled_core_path,
+            find_core_dir=_find_core_dir,
+            hash_directory=_hash_directory,
+            is_windows=sys.platform.startswith("win"),
+        ),
+        workspace_wrapper_issue=lambda host_path: _workspace_wrapper_issue(
+            host_path,
+            workspace_host_script=workspace_host_script,
+            workspace_host_wrapper_path=workspace_host_wrapper_path,
+            resolve_workspace_python=_resolve_workspace_python,
+            build_workspace_wrapper_script=_build_workspace_wrapper_script,
+        ),
     )
 
 

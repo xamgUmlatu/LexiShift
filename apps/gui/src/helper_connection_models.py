@@ -13,6 +13,16 @@ TARGET_KIND_UNPACKED = "unpacked"
 HELPER_STATE_CONFIGURED = "configured"
 HELPER_STATE_NEEDS_REPAIR = "needs_repair"
 HELPER_STATE_NOT_CONFIGURED = "not_configured"
+REPAIR_REASON_MANIFEST_UNREADABLE = "manifest_unreadable"
+REPAIR_REASON_MANIFEST_MISSING_HOST_PATH = "manifest_missing_host_path"
+REPAIR_REASON_HOST_PATH_MISSING = "host_path_missing"
+REPAIR_REASON_ALLOWED_ORIGINS_MISSING = "allowed_origins_missing"
+REPAIR_REASON_BUNDLED_HOST_STALE = "bundled_host_stale"
+REPAIR_REASON_BUNDLED_CORE_STALE = "bundled_core_stale"
+REPAIR_REASON_WORKSPACE_LEGACY_DIRECT_SCRIPT = "workspace_legacy_direct_script"
+REPAIR_REASON_WORKSPACE_PYTHON_MISSING = "workspace_python_missing"
+REPAIR_REASON_WORKSPACE_WRAPPER_UNREADABLE = "workspace_wrapper_unreadable"
+REPAIR_REASON_WORKSPACE_WRAPPER_STALE = "workspace_wrapper_stale"
 
 
 @dataclass(frozen=True)
@@ -51,6 +61,8 @@ class HelperInstallStatus:
     allowed_extension_ids: tuple[str, ...] = ()
     expected_extension_ids: tuple[str, ...] = ()
     missing_extension_ids: tuple[str, ...] = ()
+    unexpected_extension_ids: tuple[str, ...] = ()
+    repair_reasons: tuple[str, ...] = ()
     message: str = ""
 
 

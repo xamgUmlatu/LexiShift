@@ -36,6 +36,7 @@ from helper_installer import (
     TARGET_KIND_UNPACKED,
 )
 from helper_ui import (
+    auto_repair_browser_connections,
     _browser_expected_ids,
     _browser_label,
     _find_browser_config,
@@ -153,6 +154,7 @@ class BrowserConnectionsDialog(QDialog):
         self._show_diagnostics = False
         self.setWindowTitle(t("dialogs.browser_connections.title"))
         self.resize(900, 620)
+        auto_repair_browser_connections(self._ui_settings)
 
         scroll = QScrollArea(self)
         scroll.setWidgetResizable(True)

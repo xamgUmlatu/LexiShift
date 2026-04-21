@@ -15,9 +15,17 @@ from helper_installer import (  # noqa: E402
     BrowserConnectionConfig,
     BrowserConnectionTarget,
     HELPER_STATE_CONFIGURED,
+    HELPER_STATE_NEEDS_REPAIR,
     HELPER_STATE_NOT_CONFIGURED,
     HOST_MODE_WORKSPACE,
+    HOST_MODE_BUNDLED,
+    HOST_MODE_CUSTOM,
     TARGET_KIND_UNPACKED,
+    HelperInstallStatus,
+)
+from helper_connection_models import (  # noqa: E402
+    REPAIR_REASON_ALLOWED_ORIGINS_MISSING,
+    REPAIR_REASON_BUNDLED_HOST_STALE,
 )
 
 
@@ -197,6 +205,120 @@ class TestHelperBrowserConnections(unittest.TestCase):
             ),
         ):
             self.assertIsNone(helper_ui._host_path_for_config(config))
+
+    def test_auto_repair_browser_connections_repairs_safe_saved_state(self) -> None:
+        settings = _FakeSettings()
+        config = BrowserConnectionConfig(
+            browser="chrome",
+            host_mode=HOST_MODE_BUNDLED,
+            targets=(
+                BrowserConnectionTarget(
+                    key="chrome_prod",
+                    label="Chrome (Web Store)",
+                    extension_id="prodprodprodprodprodprodprodprod",
+                    kind="prod",
+                    fixed=True,
+                ),
+            ),
+        )
+        helper_ui.save_browser_connections(settings, [config])
+        status = HelperInstallStatus(
+            browser="chrome",
+            state=HELPER_STATE_NEEDS_REPAIR,
+            repair_reasons=(
+                REPAIR_REASON_BUNDLED_HOST_STALE,
+                REPAIR_REASON_ALLOWED_ORIGINS_MISSING,
+            ),
+        )
+
+        with (
+            mock.patch.object(helper_ui, "inspect_helper_installation", return_value=status),
+            mock.patch.object(
+                helper_ui,
+                "_host_path_for_config",
+                return_value=(config, Path("/tmp/lexishift_native_host.py")),
+            ),
+            mock.patch.object(
+                helper_ui,
+                "install_helper",
+                return_value=type("Result", (), {"installed": True, "message": "ok"})(),
+            ) as install_mock,
+            mock.patch.object(helper_ui, "ensure_helper_autostart") as autostart_mock,
+        ):
+            repaired = helper_ui.auto_repair_browser_connections(settings)
+
+        self.assertTrue(repaired)
+        install_mock.assert_called_once()
+        autostart_mock.assert_called_once()
+
+    def test_auto_repair_browser_connections_skips_custom_and_unexpected_origin_state(self) -> None:
+        settings = _FakeSettings()
+        custom_config = BrowserConnectionConfig(
+            browser="chrome",
+            host_mode=HOST_MODE_CUSTOM,
+            host_override_path="/tmp/custom-host.py",
+            targets=(
+                BrowserConnectionTarget(
+                    key="chrome_unpacked_abcd",
+                    label="Chrome (Unpacked Dev)",
+                    extension_id="abcdabcdabcdabcdabcdabcdabcdabcd",
+                    kind=TARGET_KIND_UNPACKED,
+                    fixed=False,
+                ),
+            ),
+        )
+        bundled_config = BrowserConnectionConfig(
+            browser="brave",
+            host_mode=HOST_MODE_BUNDLED,
+            targets=(
+                BrowserConnectionTarget(
+                    key="brave_prod",
+                    label="Brave (Web Store)",
+                    extension_id="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+                    kind="prod",
+                    fixed=True,
+                ),
+            ),
+        )
+        helper_ui.save_browser_connections(settings, [custom_config, bundled_config])
+        statuses = [
+            HelperInstallStatus(
+                browser="chrome",
+                state=HELPER_STATE_NEEDS_REPAIR,
+                repair_reasons=(REPAIR_REASON_ALLOWED_ORIGINS_MISSING,),
+            ),
+            HelperInstallStatus(
+                browser="brave",
+                state=HELPER_STATE_NEEDS_REPAIR,
+                repair_reasons=(REPAIR_REASON_ALLOWED_ORIGINS_MISSING,),
+                unexpected_extension_ids=("manualmanualmanualmanualmanualmanua",),
+            ),
+        ]
+
+        with (
+            mock.patch.object(helper_ui, "inspect_helper_installation", side_effect=statuses),
+            mock.patch.object(helper_ui, "_host_path_for_config") as resolve_mock,
+            mock.patch.object(helper_ui, "install_helper") as install_mock,
+            mock.patch.object(helper_ui, "ensure_helper_autostart") as autostart_mock,
+        ):
+            repaired = helper_ui.auto_repair_browser_connections(settings)
+
+        self.assertFalse(repaired)
+        resolve_mock.assert_not_called()
+        install_mock.assert_not_called()
+        autostart_mock.assert_not_called()
+
+    def test_auto_install_helper_returns_true_when_auto_repair_succeeds(self) -> None:
+        settings = _FakeSettings()
+
+        with (
+            mock.patch.object(helper_ui, "auto_repair_browser_connections", return_value=True),
+            mock.patch.object(helper_ui, "load_extension_environments") as load_mock,
+        ):
+            installed = helper_ui.auto_install_helper(settings)
+
+        self.assertTrue(installed)
+        load_mock.assert_not_called()
 
 
 if __name__ == "__main__":

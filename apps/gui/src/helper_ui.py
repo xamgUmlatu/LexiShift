@@ -39,6 +39,18 @@ from helper_installer import (
     TARGET_KIND_PROD,
     TARGET_KIND_UNPACKED,
 )
+from helper_connection_models import (
+    REPAIR_REASON_ALLOWED_ORIGINS_MISSING,
+    REPAIR_REASON_BUNDLED_CORE_STALE,
+    REPAIR_REASON_BUNDLED_HOST_STALE,
+    REPAIR_REASON_HOST_PATH_MISSING,
+    REPAIR_REASON_MANIFEST_MISSING_HOST_PATH,
+    REPAIR_REASON_MANIFEST_UNREADABLE,
+    REPAIR_REASON_WORKSPACE_LEGACY_DIRECT_SCRIPT,
+    REPAIR_REASON_WORKSPACE_PYTHON_MISSING,
+    REPAIR_REASON_WORKSPACE_WRAPPER_STALE,
+    REPAIR_REASON_WORKSPACE_WRAPPER_UNREADABLE,
+)
 from helper_logger import log_helper
 from i18n import t
 
@@ -46,6 +58,26 @@ HELPER_EXECUTABLE_NAME = "LexiShiftHelper"
 HELPER_BUNDLE_IDENTIFIER = "com.lexishift.helper.agent"
 MAIN_BUNDLE_IDENTIFIER = "com.lexishift.app"
 BROWSER_CONNECTIONS_KEY = "helper/browser_connections_v1"
+_AUTO_REPAIR_SAFE_REASONS = {
+    HOST_MODE_BUNDLED: {
+        REPAIR_REASON_MANIFEST_UNREADABLE,
+        REPAIR_REASON_MANIFEST_MISSING_HOST_PATH,
+        REPAIR_REASON_HOST_PATH_MISSING,
+        REPAIR_REASON_ALLOWED_ORIGINS_MISSING,
+        REPAIR_REASON_BUNDLED_HOST_STALE,
+        REPAIR_REASON_BUNDLED_CORE_STALE,
+    },
+    HOST_MODE_WORKSPACE: {
+        REPAIR_REASON_MANIFEST_UNREADABLE,
+        REPAIR_REASON_MANIFEST_MISSING_HOST_PATH,
+        REPAIR_REASON_HOST_PATH_MISSING,
+        REPAIR_REASON_ALLOWED_ORIGINS_MISSING,
+        REPAIR_REASON_WORKSPACE_LEGACY_DIRECT_SCRIPT,
+        REPAIR_REASON_WORKSPACE_PYTHON_MISSING,
+        REPAIR_REASON_WORKSPACE_WRAPPER_UNREADABLE,
+        REPAIR_REASON_WORKSPACE_WRAPPER_STALE,
+    },
+}
 
 
 def _prefer_windows_gui_python(executable: str) -> str:
@@ -342,6 +374,68 @@ def _host_path_for_config(
     return None
 
 
+def _is_auto_repair_safe(
+    config: BrowserConnectionConfig,
+    status,
+) -> bool:
+    if status.state != HELPER_STATE_NEEDS_REPAIR:
+        return False
+    if config.host_mode == HOST_MODE_CUSTOM:
+        return False
+    if status.unexpected_extension_ids:
+        return False
+    safe_reasons = _AUTO_REPAIR_SAFE_REASONS.get(config.host_mode, set())
+    if not safe_reasons:
+        return False
+    if not status.repair_reasons:
+        return False
+    return all(reason in safe_reasons for reason in status.repair_reasons)
+
+
+def auto_repair_browser_connections(ui_settings: QSettings) -> bool:
+    configs = load_browser_connections(ui_settings)
+    repaired_any = False
+    for config in configs:
+        status = inspect_helper_installation(
+            browser=config.browser,
+            expected_extension_ids=_browser_expected_ids(config),
+        )
+        if not _is_auto_repair_safe(config, status):
+            continue
+        resolved = _host_path_for_config(config)
+        if resolved is None:
+            continue
+        _, host_path = resolved
+        log_helper_install(
+            f"[Helper] Auto-repairing browser connection for {config.browser}: "
+            f"reasons={status.repair_reasons}"
+        )
+        result = install_helper(
+            extension_ids=[target.extension_id for target in config.targets],
+            browser=config.browser,
+            host_path=host_path,
+        )
+        if not result.installed:
+            log_helper_install(
+                f"[Helper] Auto-repair failed for {config.browser}: {result.message}"
+            )
+            continue
+        remember_target = config.targets[0] if config.targets else None
+        if remember_target is not None:
+            _remember_last_helper_selection(
+                ui_settings,
+                target=remember_target,
+                host_path=host_path,
+            )
+        repaired_any = True
+    if repaired_any:
+        try:
+            ensure_helper_autostart()
+        except Exception as exc:  # noqa: BLE001
+            log_helper_install(f"[Helper] Auto-repair autostart setup failed: {exc}")
+    return repaired_any
+
+
 def helper_connection_overall_state(ui_settings: QSettings) -> str:
     configs = load_browser_connections(ui_settings)
     statuses = [
@@ -496,6 +590,8 @@ def ensure_helper_autostart() -> None:
 
 
 def auto_install_helper(ui_settings: QSettings) -> bool:
+    if auto_repair_browser_connections(ui_settings):
+        return True
     envs, default_key = load_extension_environments()
     if not envs:
         log_helper("[Helper] auto_install_helper: no environments loaded.")

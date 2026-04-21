@@ -612,13 +612,14 @@ Use this file when:
 ## Browser Helper Connection Management
 
 - Status: `implemented`, `default-on`, `verified`
-- Last documented checkpoint: `2026-04-22` browser-connections manager kept the narrowed one-click prod rows and browser+extension-ID unpacked-dev flow, while workspace-host installs switched to a pinned-interpreter wrapper, native-host startup failures began writing deterministic local logs, transport/browser failures gained stable helper-facing error codes, and options-side helper flows localized timeout/browser-blocked cases alongside the earlier helper-missing/host-exited cases
-- Last verified: `2026-04-22` targeted helper installer/browser-connection tests, native-host startup-log coverage, extension helper transport/localization contracts, Windows parity, build smoke, and doc/code reconciliation
+- Last documented checkpoint: `2026-04-22` browser-connections manager kept the narrowed one-click prod rows and browser+extension-ID unpacked-dev flow, while workspace-host installs switched to a pinned-interpreter wrapper, native-host startup failures began writing deterministic local logs, transport/browser failures gained stable helper-facing error codes, options-side helper flows localized timeout/browser-blocked cases alongside the earlier helper-missing/host-exited cases, and saved bundled/workspace connections now auto-repair a narrow set of deterministic stale manifest/host states on startup or when the Connections dialog opens
+- Last verified: `2026-04-22` targeted helper installer/browser-connection tests, auto-repair policy coverage, native-host startup-log coverage, extension helper transport/localization contracts, Windows parity, build smoke, and doc/code reconciliation
 - Default behavior:
   - The GUI app now routes helper install/repair through a Browser Connections manager in the app menu and SRS settings instead of the older single environment prompt.
   - Fixed-ID production browsers keep a one-click connect/repair path.
   - Unpacked development extensions are managed separately through a narrow dialog that captures only browser + unpacked extension ID; the app uses the current workspace helper automatically for that browser.
   - Workspace-host installs now target a generated wrapper script that pins the repo interpreter, so browser launches from Finder/GUI shells do not depend on whichever `python3` happens to be on `PATH`.
+  - Saved bundled/workspace browser connections now auto-repair a narrow set of deterministic stale states on startup and when `Connections...` opens: unreadable manifests, missing host paths, missing expected origins, stale bundled copies, and pre-wrapper/stale workspace-wrapper states.
   - Native-host startup/import failures now append a traceback to `logs/native_host.log` under the LexiShift data root, so browser-side `Native host has exited` failures have a deterministic local log instead of only a transient browser transport error.
   - Native-messaging manifests now merge all allowed origins for the same browser into one manifest instead of assuming only one extension ID.
   - Same-browser prod and unpacked-dev entries still share one host path; the GUI only surfaces that as a targeted warning when an unpacked-dev change would switch a configured browser to the workspace host.
@@ -631,6 +632,7 @@ Use this file when:
   - `apps/gui/src/helper_ui.py`
   - `apps/gui/src/main_menu_mixin.py`
   - `apps/gui/src/dialogs.py`
+  - `apps/gui/src/helper_connections_dialog.py`
   - `scripts/helper/lexishift_native_host.py`
   - `apps/chrome-extension/background.js`
   - `apps/chrome-extension/shared/helper/helper_transport_extension.js`

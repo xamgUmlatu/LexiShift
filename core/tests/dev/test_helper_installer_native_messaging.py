@@ -13,6 +13,12 @@ if str(GUI_SRC) not in sys.path:
     sys.path.insert(0, str(GUI_SRC))
 
 import helper_installer  # noqa: E402
+from helper_connection_models import (  # noqa: E402
+    REPAIR_REASON_ALLOWED_ORIGINS_MISSING,
+    REPAIR_REASON_BUNDLED_HOST_STALE,
+    REPAIR_REASON_MANIFEST_UNREADABLE,
+    REPAIR_REASON_WORKSPACE_LEGACY_DIRECT_SCRIPT,
+)
 
 
 class _FakeRegistryKey:
@@ -189,6 +195,8 @@ class TestHelperInstallerNativeMessaging(unittest.TestCase):
             status.missing_extension_ids,
             ("qrstuvwxyzabcdefqrstuvwxyzabcdef",),
         )
+        self.assertEqual(status.unexpected_extension_ids, ())
+        self.assertEqual(status.repair_reasons, (REPAIR_REASON_ALLOWED_ORIGINS_MISSING,))
 
     def test_inspect_helper_installation_reports_stale_bundled_copy(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -241,6 +249,7 @@ class TestHelperInstallerNativeMessaging(unittest.TestCase):
 
         self.assertEqual(status.state, helper_installer.HELPER_STATE_NEEDS_REPAIR)
         self.assertIn("stale", status.message.lower())
+        self.assertIn(REPAIR_REASON_BUNDLED_HOST_STALE, status.repair_reasons)
 
     def test_install_helper_wraps_workspace_host_with_pinned_python(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -314,6 +323,10 @@ class TestHelperInstallerNativeMessaging(unittest.TestCase):
 
         self.assertEqual(status.state, helper_installer.HELPER_STATE_NEEDS_REPAIR)
         self.assertIn("legacy direct script path", status.message.lower())
+        self.assertEqual(
+            status.repair_reasons,
+            (REPAIR_REASON_WORKSPACE_LEGACY_DIRECT_SCRIPT,),
+        )
 
     def test_inspect_helper_installation_accepts_workspace_wrapper(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -362,6 +375,49 @@ class TestHelperInstallerNativeMessaging(unittest.TestCase):
 
         self.assertEqual(status.state, helper_installer.HELPER_STATE_CONFIGURED)
         self.assertEqual(status.host_mode, helper_installer.HOST_MODE_WORKSPACE)
+
+    def test_inspect_helper_installation_tracks_unexpected_allowed_origins(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            root = Path(tmpdir)
+            manifest = root / "com.lexishift.helper.json"
+            host = root / "lexishift_native_host.py"
+            host.write_text("print('host')\n", encoding="utf-8")
+            manifest.write_text(
+                json.dumps(
+                    {
+                        "allowed_origins": [
+                            "chrome-extension://abcdefghijklmnopabcdefghijklmnop/",
+                            "chrome-extension://manualmanualmanualmanualmanualmanua/",
+                        ],
+                        "path": str(host),
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            with mock.patch.object(helper_installer, "manifest_path", return_value=manifest):
+                status = helper_installer.inspect_helper_installation(
+                    browser="chrome",
+                    expected_extension_ids=["abcdefghijklmnopabcdefghijklmnop"],
+                )
+
+        self.assertEqual(status.state, helper_installer.HELPER_STATE_CONFIGURED)
+        self.assertEqual(
+            status.unexpected_extension_ids,
+            ("manualmanualmanualmanualmanualmanua",),
+        )
+
+    def test_inspect_helper_installation_marks_unreadable_manifest_reason(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            root = Path(tmpdir)
+            manifest = root / "com.lexishift.helper.json"
+            manifest.write_text("{not-json", encoding="utf-8")
+
+            with mock.patch.object(helper_installer, "manifest_path", return_value=manifest):
+                status = helper_installer.inspect_helper_installation(browser="chrome")
+
+        self.assertEqual(status.state, helper_installer.HELPER_STATE_NEEDS_REPAIR)
+        self.assertEqual(status.repair_reasons, (REPAIR_REASON_MANIFEST_UNREADABLE,))
 
 
 if __name__ == "__main__":
