@@ -3,9 +3,11 @@ from __future__ import annotations
 
 import argparse
 from contextlib import contextmanager
+from copy import deepcopy
 from datetime import datetime, timezone
 import json
 from pathlib import Path
+import re
 import sys
 import tempfile
 from typing import Any, Iterator, Mapping, Sequence
@@ -43,6 +45,13 @@ from srs_quality_harness_support import (  # noqa: E402
 
 SUPPORTED_SYNTHETIC_PAIRS = {"en-ja", "en-de"}
 DEFAULT_PAIRS = ("en-ja", "en-de")
+_TEMP_ROOT = Path(tempfile.gettempdir())
+_TEMP_ROOT_RESOLVED = _TEMP_ROOT.resolve(strict=False)
+_TIMESTAMP_RE = re.compile(r"\b\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|\+00:00)\b")
+_GENERATION_ID_RE = re.compile(r"\b([a-z]{2}-[a-z]{2}:[A-Za-z0-9._-]+):[0-9a-f]{8,}\b")
+_TEMP_PATH_RE = re.compile(
+    r"(?:" + re.escape(str(_TEMP_ROOT)) + r"|" + re.escape(str(_TEMP_ROOT_RESOLVED)) + r')/[^"\s,]+'
+)
 
 
 def _count_items_for_pair(paths: HelperPaths, *, pair: str, profile_id: str) -> int:
@@ -75,6 +84,65 @@ def summarize_findings(
         "fail_count": fail_count,
         "should_fail": should_fail,
     }
+
+
+def _normalize_temp_path_for_publication(value: str) -> str:
+    try:
+        path = Path(value)
+    except (OSError, RuntimeError, ValueError):
+        return value
+    relative = None
+    for root in (_TEMP_ROOT, _TEMP_ROOT_RESOLVED):
+        try:
+            relative = path.relative_to(root)
+            break
+        except ValueError:
+            pass
+        try:
+            relative = path.resolve(strict=False).relative_to(root)
+            break
+        except (OSError, RuntimeError, ValueError):
+            pass
+    if relative is None:
+        return value
+    stable_parts = relative.parts[1:] if len(relative.parts) > 1 else ()
+    if not stable_parts:
+        return "<temp_root>"
+    return "/".join(("<temp_root>", *stable_parts))
+
+
+def _normalize_string_for_publication(value: str) -> str:
+    normalized = _TEMP_PATH_RE.sub(
+        lambda match: _normalize_temp_path_for_publication(match.group(0)),
+        value,
+    )
+    normalized = _GENERATION_ID_RE.sub(r"\1:<generated>", normalized)
+    normalized = _TIMESTAMP_RE.sub("<timestamp>", normalized)
+    return normalized
+
+
+def _normalize_for_publication(value: Any) -> Any:
+    if isinstance(value, dict):
+        return {key: _normalize_for_publication(item) for key, item in value.items()}
+    if isinstance(value, list):
+        return [_normalize_for_publication(item) for item in value]
+    if isinstance(value, str):
+        return _normalize_string_for_publication(value)
+    return value
+
+
+def prepare_report_for_publication(report: Mapping[str, Any]) -> dict[str, Any]:
+    published = _normalize_for_publication(deepcopy(dict(report)))
+    if isinstance(published, dict):
+        published["generated_at"] = "<generated_at>"
+        published["artifact_normalization"] = {
+            "mode": "stable_latest_v1",
+            "generated_at": "<generated_at>",
+            "timestamps": "<timestamp>",
+            "temp_root": "<temp_root>",
+            "generation_ids": "<generated>",
+        }
+    return published
 
 
 def _finding(
@@ -611,10 +679,14 @@ def main() -> None:
         include_feedback=not bool(args.no_feedback_scenario),
         fail_on_warn=bool(args.fail_on_warn),
     )
+    published_report = prepare_report_for_publication(report)
     args.json_out.parent.mkdir(parents=True, exist_ok=True)
-    args.json_out.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+    args.json_out.write_text(
+        json.dumps(published_report, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
     print(f"json_out: {args.json_out}")
-    summary = report.get("summary") or {}
+    summary = published_report.get("summary") or {}
     print(
         "summary: "
         f"pass={int(summary.get('pass_count') or 0)} "

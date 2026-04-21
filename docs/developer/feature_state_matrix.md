@@ -373,12 +373,13 @@ Use this file when:
 ## SRS Quality Harness
 
 - Status: `implemented`, `verified`, `default-on` = `yes` for SRS scheduler/admission/publication workflow
-- Last documented checkpoint: `2026-03-21` FSRS scheduler migration and journey artifact refresh
-- Last verified: `2026-03-21` synthetic harness run + summary artifact
+- Last documented checkpoint: `2026-04-21` the published `docs/test_outputs/srs_quality_latest.json` artifact now normalizes rerun-local temp paths, timestamps, and generation-id suffixes via an explicit `artifact_normalization` contract while preserving stable scenario, pack-identity, and summary fields
+- Last verified: `2026-04-21` targeted harness/summary tests plus fresh normalized JSON + Markdown artifact rerender
 - Default behavior:
   - Use the synthetic harness for SRS scheduler, admission refresh, helper publication, set execution, and runtime-serving workflow changes.
   - Review scheduling is now FSRS-based.
   - Current harness covers bootstrap/publication/runtime diagnostics for `en-ja` and `en-de`, plus an `en-ja` feedback-cycle pause/resume scenario.
+  - The committed `latest` JSON artifact is publication-normalized for review stability; raw in-memory harness details remain available before publication.
   - Human-facing summary is available from the JSON artifact.
 - Evidence:
   - `AGENTS.md`
