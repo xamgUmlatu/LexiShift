@@ -69,7 +69,17 @@
       ) {
         return this.i18n.t("status_helper_missing", null, "Helper unavailable.");
       }
-      if (lowerMessage.includes("native host has exited")) {
+      if (code === "timeout" || lowerMessage.includes("timed out")) {
+        return this.i18n.t(
+          "status_helper_timeout",
+          null,
+          "The helper did not respond in time."
+        );
+      }
+      if (
+        code === "native_host_exited"
+        || lowerMessage.includes("native host has exited")
+      ) {
         return this.i18n.t(
           "status_helper_native_host_exited",
           null,
@@ -77,8 +87,17 @@
         );
       }
       if (
-        lowerMessage.includes("error when communicating with the native messaging host")
+        code === "native_forbidden"
         || lowerMessage.includes("access to the specified native messaging host is forbidden")
+      ) {
+        return this.i18n.t(
+          "status_helper_native_messaging_forbidden",
+          null,
+          "The browser blocked access to the helper."
+        );
+      }
+      if (
+        lowerMessage.includes("error when communicating with the native messaging host")
         || code === "native_error"
         || code === "bridge_error"
         || code === "native_exception"
@@ -90,6 +109,28 @@
         );
       }
       return rawMessage || fallback;
+    };
+
+    proto.normalizeHelperThrownErrorMessage = function normalizeHelperThrownErrorMessage(
+      error,
+      fallbackKey = "status_helper_failed",
+      fallbackText = "Helper error."
+    ) {
+      if (error && typeof error === "object") {
+        return this.normalizeHelperErrorMessage(
+          {
+            code: error.code || "",
+            message: error.message || String(error)
+          },
+          fallbackKey,
+          fallbackText
+        );
+      }
+      return this.normalizeHelperErrorMessage(
+        { code: "", message: String(error || "") },
+        fallbackKey,
+        fallbackText
+      );
     };
 
     proto.getStatus = async function getStatus() {
@@ -130,7 +171,11 @@
         this.logger("Helper status failed.", err);
         return {
           ok: false,
-          message: this.i18n.t("status_helper_failed", null, "Helper error."),
+          message: this.normalizeHelperThrownErrorMessage(
+            err,
+            "status_helper_failed",
+            "Helper error."
+          ),
           lastRun: ""
         };
       }
@@ -170,10 +215,12 @@
           ok: false,
           data: null,
           error: {
-            code: "helper_error",
-            message: err && err.message
-              ? err.message
-              : this.i18n.t("status_helper_failed", null, "Helper error.")
+            code: (err && err.code) || "helper_error",
+            message: this.normalizeHelperThrownErrorMessage(
+              err,
+              "status_helper_failed",
+              "Helper error."
+            )
           }
         };
       }
@@ -213,10 +260,12 @@
           ok: false,
           data: null,
           error: {
-            code: "helper_error",
-            message: err && err.message
-              ? err.message
-              : this.i18n.t("status_helper_failed", null, "Helper error.")
+            code: (err && err.code) || "helper_error",
+            message: this.normalizeHelperThrownErrorMessage(
+              err,
+              "status_helper_failed",
+              "Helper error."
+            )
           }
         };
       }
@@ -239,7 +288,11 @@
         return this.i18n.t("status_helper_test_ok", version, version ? `Helper connected (v${version}).` : "Helper connected.");
       } catch (err) {
         this.logger("Helper test failed.", err);
-        const msg = err && err.message ? err.message : this.i18n.t("status_helper_failed", null, "Helper error.");
+        const msg = this.normalizeHelperThrownErrorMessage(
+          err,
+          "status_helper_failed",
+          "Helper error."
+        );
         return this.i18n.t("status_helper_test_failed", msg, `Connection failed: ${msg}`);
       }
     };
@@ -261,7 +314,11 @@
         return this.i18n.t("status_helper_opened", opened, opened ? `Opened: ${opened}` : "Opened.");
       } catch (err) {
         this.logger("Open helper data dir failed.", err);
-        const msg = err && err.message ? err.message : this.i18n.t("status_helper_open_failed", null, "Failed to open folder.");
+        const msg = this.normalizeHelperThrownErrorMessage(
+          err,
+          "status_helper_open_failed",
+          "Failed to open folder."
+        );
         return this.i18n.t("status_helper_open_failed", msg, `Open failed: ${msg}`);
       }
     };

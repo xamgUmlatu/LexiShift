@@ -200,8 +200,14 @@
   "status_helper_native_messaging_failed": {
     "message": "无法与 Helper 通信。"
   },
+  "status_helper_native_messaging_forbidden": {
+    "message": "浏览器阻止了对 Helper 的访问。"
+  },
   "status_helper_native_host_exited": {
     "message": "Helper 意外退出。"
+  },
+  "status_helper_timeout": {
+    "message": "Helper 未能及时响应。"
   },
   "status_helper_missing": {
     "message": "Helper 不可用。"

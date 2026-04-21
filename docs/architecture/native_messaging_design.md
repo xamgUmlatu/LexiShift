@@ -239,6 +239,8 @@ Schema note:
 - Native messaging host exists; install writes one manifest per browser with the allowed origins for every configured extension ID on that browser and registers Windows per-browser native-messaging manifest keys for supported GUI environments.
 - Workspace-host manifests now target the generated wrapper script rather than the raw repo host script, and legacy direct-script workspace manifests are treated as `Needs repair`.
 - Install inspection now treats stale bundled helper copies as `Needs repair` instead of silently accepting any manifest that still points at an older copied host.
+- Native-host startup/import failures now append a traceback to `logs/native_host.log` under the LexiShift data root, so browser-side `Native host has exited` failures have a deterministic local log.
+- Background/bridge transport layers now classify common browser transport failures (`native_unavailable`, `native_host_exited`, `native_forbidden`, `bridge_unavailable`, `timeout`) with stable codes and generic fallback messages instead of depending on raw browser wording alone; options-side helper status/test flows localize those cases.
 - Helper supports set planning (`srs_plan_set`) and explicit set initialization (`srs_initialize`).
 - Helper exposes profile snapshot command (`profiles_get`).
 - Feedback writes to `srs/profiles/<profile_id>/srs_signal_queue.json` for future adaptive set updates.

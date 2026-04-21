@@ -45,9 +45,11 @@
             );
           }
         } catch (err) {
-          result.helper_error = err && err.message
-            ? err.message
-            : this.i18n.t("status_helper_failed", null, "Helper error.");
+          result.helper_error = this.normalizeHelperThrownErrorMessage(
+            err,
+            "status_helper_failed",
+            "Helper error."
+          );
         }
       } else {
         result.helper_error = this.i18n.t("status_helper_missing", null, "Helper unavailable.");

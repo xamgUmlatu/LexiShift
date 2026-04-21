@@ -200,8 +200,14 @@
   "status_helper_native_messaging_failed": {
     "message": "Could not communicate with the helper."
   },
+  "status_helper_native_messaging_forbidden": {
+    "message": "The browser blocked access to the helper."
+  },
   "status_helper_native_host_exited": {
     "message": "The helper exited unexpectedly."
+  },
+  "status_helper_timeout": {
+    "message": "The helper did not respond in time."
   },
   "status_helper_missing": {
     "message": "Helper unavailable."

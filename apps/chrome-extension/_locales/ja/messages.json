@@ -200,8 +200,14 @@
   "status_helper_native_messaging_failed": {
     "message": "ヘルパーと通信できませんでした。"
   },
+  "status_helper_native_messaging_forbidden": {
+    "message": "ブラウザがヘルパーへのアクセスをブロックしました。"
+  },
   "status_helper_native_host_exited": {
     "message": "ヘルパーが予期せず終了しました。"
+  },
+  "status_helper_timeout": {
+    "message": "ヘルパーが時間内に応答しませんでした。"
   },
   "status_helper_missing": {
     "message": "ヘルパーが利用できません。"

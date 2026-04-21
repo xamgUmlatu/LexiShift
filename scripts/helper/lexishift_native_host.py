@@ -1,14 +1,52 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+from datetime import datetime, timezone
 import json
+import os
 from pathlib import Path
 import struct
 import sys
+import traceback
 from typing import Any, Dict, Optional
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
+
+def _platform_data_root() -> Path:
+    home = Path.home()
+    if sys.platform == "darwin":
+        return home / "Library" / "Application Support" / "LexiShift" / "LexiShift"
+    if sys.platform.startswith("win"):
+        base = os.environ.get("APPDATA") or str(home / "AppData" / "Roaming")
+        return Path(base) / "LexiShift" / "LexiShift"
+    return home / ".local" / "share" / "LexiShift" / "LexiShift"
+
+
+def _native_host_log_path() -> Optional[Path]:
+    override = str(os.environ.get("LEXISHIFT_DATA_DIR", "") or "").strip()
+    try:
+        data_root = Path(override).expanduser() if override else _platform_data_root()
+        log_dir = data_root / "logs"
+        log_dir.mkdir(parents=True, exist_ok=True)
+    except OSError:
+        return None
+    return log_dir / "native_host.log"
+
+
+def _log_native_host_failure(stage: str, exc: BaseException) -> None:
+    log_path = _native_host_log_path()
+    if log_path is None:
+        return
+    try:
+        timestamp = datetime.now(timezone.utc).isoformat()
+        with log_path.open("a", encoding="utf-8") as handle:
+            handle.write(f"[{timestamp}] stage={stage}\n")
+            traceback.print_exception(type(exc), exc, exc.__traceback__, file=handle)
+            handle.write("\n")
+    except OSError:
+        return
 
 
 def _inject_core_path() -> None:
@@ -24,40 +62,44 @@ def _inject_core_path() -> None:
             return
 
 
-_inject_core_path()
+try:
+    _inject_core_path()
 
-from lexishift_core.helper.engine import (
-    SetAdmissionPreviewJobConfig,
-    get_srs_runtime_diagnostics,
-    RulegenJobConfig,
-    SrsRebalanceJobConfig,
-    SrsRefreshJobConfig,
-    SetInitializationJobConfig,
-    SetPlanningJobConfig,
-    apply_srs_rebalance,
-    apply_exposure,
-    apply_feedback,
-    initialize_srs_set,
-    load_semantic_inventory,
-    load_ruleset,
-    load_snapshot,
-    plan_srs_rebalance,
-    plan_srs_set,
-    preview_srs_admission,
-    refresh_srs_set,
-    reset_srs_data,
-    run_rulegen_job,
-    semantic_admit_batch,
-)
-from lexishift_core.helper.profiles import get_profile_rulesets_snapshot, get_profiles_snapshot
-from lexishift_core.helper.os import open_path
-from lexishift_core.helper.paths import build_helper_paths
-from lexishift_core.helper.status import load_status
-from lexishift_core.helper.lp_capabilities import (
-    default_frequency_db_path,
-    default_jmdict_path,
-    default_translation_dictionary_path,
-)
+    from lexishift_core.helper.engine import (
+        SetAdmissionPreviewJobConfig,
+        get_srs_runtime_diagnostics,
+        RulegenJobConfig,
+        SrsRebalanceJobConfig,
+        SrsRefreshJobConfig,
+        SetInitializationJobConfig,
+        SetPlanningJobConfig,
+        apply_srs_rebalance,
+        apply_exposure,
+        apply_feedback,
+        initialize_srs_set,
+        load_semantic_inventory,
+        load_ruleset,
+        load_snapshot,
+        plan_srs_rebalance,
+        plan_srs_set,
+        preview_srs_admission,
+        refresh_srs_set,
+        reset_srs_data,
+        run_rulegen_job,
+        semantic_admit_batch,
+    )
+    from lexishift_core.helper.profiles import get_profile_rulesets_snapshot, get_profiles_snapshot
+    from lexishift_core.helper.os import open_path
+    from lexishift_core.helper.paths import build_helper_paths
+    from lexishift_core.helper.status import load_status
+    from lexishift_core.helper.lp_capabilities import (
+        default_frequency_db_path,
+        default_jmdict_path,
+        default_translation_dictionary_path,
+    )
+except Exception as exc:  # noqa: BLE001
+    _log_native_host_failure("startup_import", exc)
+    raise
 
 
 PROTOCOL_VERSION = 1
@@ -480,4 +522,10 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    try:
+        raise SystemExit(main())
+    except SystemExit:
+        raise
+    except Exception as exc:  # noqa: BLE001
+        _log_native_host_failure("startup_runtime", exc)
+        raise
