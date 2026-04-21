@@ -2,7 +2,7 @@
 
 Status: active ledger
 Role: Canonical current
-Last updated: 2026-04-18
+Last updated: 2026-04-21
 Source-of-truth: cross-cutting state ledger; runtime truth still lives in code, tests, and dated evidence artifacts.
 
 Purpose:
@@ -1162,6 +1162,38 @@ Use this file when:
 - Known gaps:
   - Treat runtime confidence gating as unresolved until a real settings surface, runtime code path, and tests exist for helper-published rules.
   - Do not mark confidence gating as shipped based on docs alone.
+
+## Extension Controller / Runtime Workflow Contracts
+
+- Status: `implemented`, `default-on`, `verified`
+- Last documented checkpoint: `2026-04-21` SP5 controller/runtime packets plus current architecture docs now pin the post-split options bootstrap, Share Center forwarding bridge, SRS maintenance workflows, and DOM-scan budget/order seams as explicit current behavior instead of scattered packet-only knowledge
+- Last verified: `2026-04-21` targeted Node-backed extension contract tests, structure checks, and state/doc safety checks
+- Default behavior:
+  - The options app bootstrap remains a hard dependency seam: `options.html` script order matters, `options.js` fails fast when required bootstrap/controller modules are missing, and successful startup still binds events before page init.
+  - Share Center owns the grouped file-export/file-import UX, but it is still a compatibility bridge over the legacy share backend rather than a second share-schema authority.
+  - Current Share Center compatibility mappings stay explicit:
+    - `Full profile` export forwards to legacy `profile`
+    - `Profile settings` export forwards to legacy `srs`
+    - import only triggers a hard reload when the imported scope mutates broader runtime state; ruleset/modules-only imports resync without reload
+  - SRS maintenance workflows forward the active planning/profile context into initialize/refresh/reset helper calls, keep reset double-confirmed, and only mark ruleset freshness when the returned action result actually warrants it.
+  - Content full-scan runtime seeds page-budget state from existing replacement spans, then deterministically redistributes node order by page/profile only when page-level budgets are active.
+- Evidence:
+  - `docs/developer/project_integrity_sp6_feature_state_refresh_packet.md`
+  - `docs/architecture/options_controllers_architecture.md`
+  - `docs/architecture/extension_system_map.md`
+  - `docs/architecture/chrome_extension_technical.md`
+  - `apps/chrome-extension/options.js`
+  - `apps/chrome-extension/options/controllers/rules/share_center/workflows.js`
+  - `apps/chrome-extension/options/controllers/srs/actions/maintenance_workflow.js`
+  - `apps/chrome-extension/content/runtime/dom_scan_runtime.js`
+  - `core/tests/architecture/test_extension_structure.py`
+  - `core/tests/dev/test_extension_options_bootstrap_contract.py`
+  - `core/tests/dev/test_extension_share_center_workflow_contract.py`
+  - `core/tests/dev/test_extension_srs_maintenance_workflow_contract.py`
+  - `core/tests/dev/test_extension_dom_scan_runtime_contract.py`
+- Known gaps:
+  - Share Center labels `Profile settings` and `Full profile` still sit on top of legacy `srs` / `profile` envelopes; if product wants truly narrower exports later, that needs an explicit new schema/version rather than a silent contract change.
+  - This seam is now directly protected at the controller/runtime-contract level, but it is still not the same thing as a full browser E2E proof for storage mutation, native-helper latency, or rendered-page UX.
 
 ## GenAI Workflow Architecture
 
