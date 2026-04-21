@@ -113,13 +113,14 @@ class TestExtensionStructure(unittest.TestCase):
         self.assertTrue(all(position >= 0 for position in positions))
         self.assertEqual(positions, sorted(positions))
 
-    def test_content_ui_popup_modules_are_registered_in_manifest_order(self) -> None:
+    def test_content_runtime_and_ui_modules_are_registered_in_manifest_order(self) -> None:
         manifest_path = EXT_ROOT / "manifest.json"
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
         scripts = manifest["content_scripts"][0]["js"]
         required_order = [
             "content/runtime/dom_scan/node_filters.js",
             "content/runtime/dom_scan/page_budget_tracker.js",
+            "content/runtime/dom_scan/scan_order.js",
             "content/runtime/dom_scan/scan_counters.js",
             "content/runtime/dom_scan/text_node_processor.js",
             "content/runtime/dom_scan_runtime.js",

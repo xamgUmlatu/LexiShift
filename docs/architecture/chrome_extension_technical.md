@@ -88,6 +88,8 @@ Module layout
   - Central node guards for editable fields, excluded tags, and already-replaced LexiShift spans.
 - `apps/chrome-extension/content/runtime/dom_scan/page_budget_tracker.js`
   - Builds and updates page-level replacement budget state (`maxReplacementsPerPage`, per-lemma cap).
+- `apps/chrome-extension/content/runtime/dom_scan/scan_order.js`
+  - Deterministically redistributes full-scan node order by page/profile when page budgets are active.
 - `apps/chrome-extension/content/runtime/dom_scan/scan_counters.js`
   - Constructs scan diagnostics counters for full scans and mutation scans.
 - `apps/chrome-extension/content/runtime/dom_scan/text_node_processor.js`
@@ -167,7 +169,7 @@ Module layout
 Manifest ordering
 - `apps/chrome-extension/manifest.json` loads modules before `content_script.js`.
 - Load order is required to populate `globalThis.LexiShift` with module APIs.
-- `content/runtime/dom_scan/node_filters.js`, `content/runtime/dom_scan/page_budget_tracker.js`, `content/runtime/dom_scan/scan_counters.js`, and `content/runtime/dom_scan/text_node_processor.js` must load before `content/runtime/dom_scan_runtime.js`.
+- `content/runtime/dom_scan/node_filters.js`, `content/runtime/dom_scan/page_budget_tracker.js`, `content/runtime/dom_scan/scan_order.js`, `content/runtime/dom_scan/scan_counters.js`, and `content/runtime/dom_scan/text_node_processor.js` must load before `content/runtime/dom_scan_runtime.js`.
 - `content/runtime/dom_scan_runtime.js`, `content/runtime/rules/helper_rules_runtime.js`, `content/runtime/rules/active_rules_runtime.js`, `content/runtime/diagnostics/apply_diagnostics_reporter.js`, `content/runtime/apply_runtime_actions.js`, `content/runtime/apply_settings_pipeline.js`, `content/runtime/feedback/feedback_runtime_controller.js`, and `content/runtime/settings_change_router.js` must load before `content_script.js`.
 - `content/ui/popup_modules/module_registry.js` and `content/ui/popup_modules/japanese_script_module.js` must load before `content/ui/feedback_popup_controller.js`, which must load before `content/ui/ui.js`.
 - The options page also loads `shared/settings/settings_defaults.js` before `options.js`.
@@ -263,7 +265,8 @@ Replacement pipeline (content script)
 4. Filter rules to those whose `replacement` is in the active lemma set.
 5. Build a trie of word tokens from the filtered rules.
 6. Collect all text nodes using a TreeWalker.
-7. For each node:
+7. If page budgets are active, deterministically reorder the full-scan node list by page/profile seed before processing.
+8. For each node:
    - Skip if empty, whitespace-only, in editable fields, excluded tags, or already replaced.
    - Tokenize and find longest matches via the trie.
    - Optionally filter matches:
@@ -275,7 +278,7 @@ Replacement pipeline (content script)
    - For Japanese targets, replacement display uses selected primary script when rule metadata includes script forms.
    - For morphology-tagged rules, display can use `metadata.morphology.target_surface` while canonical lemma remains `rule.replacement` for gating/feedback keys.
    - Each replacement span is tagged with `data-origin` (`srs` or `ruleset`).
-8. Track processed nodes in a `WeakMap` to avoid repeated replacements.
+9. Track processed nodes in a `WeakMap` to avoid repeated replacements.
 
 SRS gating behavior (extension)
 - The selector uses a fixed test dataset (`shared/srs/srs_selector_test_dataset.json`).
