@@ -2596,6 +2596,7 @@ class TestHelperEnginePreviewSrsAdmission(unittest.TestCase):
             self.assertEqual(preview["sample_count_effective"], 2)
             self.assertEqual(preview["initial_active_preview"], ["beta", "alpha"])
             self.assertEqual(preview["admitted_words"][0]["lemma"], "beta")
+            self.assertNotIn("ranking_preview", preview["profile_bootstrap"])
             self.assertEqual(
                 preview["admitted_words"][0]["explanation"],
                 "Boosted by challenge_fit.",
@@ -2788,6 +2789,75 @@ class TestHelperEnginePreviewSrsAdmission(unittest.TestCase):
                     "eligible_for_scarcity_calibration"
                 ]
             )
+
+    def test_preview_omits_large_ranking_preview_from_helper_payload(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paths = build_helper_paths(root)
+            jmdict_dir = root / "jmdict"
+            jmdict_dir.mkdir(parents=True, exist_ok=True)
+            source_db = root / "freq.sqlite"
+            _create_frequency_db(source_db)
+
+            ranking_preview = [
+                {
+                    "lemma": f"lemma_{index}",
+                    "reranked_rank": index + 1,
+                    "base_rank": index + 1,
+                    "rank_delta": 0,
+                    "profile_score": 0.5,
+                    "explanation": (
+                        "Verbose bootstrap explanation kept intentionally large to exercise "
+                        "native messaging reply trimming."
+                    ),
+                }
+                for index in range(800)
+            ]
+            preview_report = SimpleNamespace(
+                selected_count=800,
+                selected_unique_count=800,
+                admitted_count=5,
+                inserted_count=5,
+                updated_count=0,
+                selected_preview=tuple(entry["lemma"] for entry in ranking_preview[:10]),
+                initial_active_preview=tuple(entry["lemma"] for entry in ranking_preview[:5]),
+                admission_weight_profile={"noun": 1.0},
+                initial_active_weight_preview=tuple(
+                    {
+                        "lemma": entry["lemma"],
+                        "admission_weight": 0.5,
+                        "pos_bucket": "noun",
+                    }
+                    for entry in ranking_preview[:5]
+                ),
+                selection_strategy="profile_bootstrap",
+                selection_policy="top_n",
+                selector_version="profile_bootstrap_v3",
+                profile_bootstrap_diagnostics={
+                    "profile_context": {"active_signals": ["interests"]},
+                    "ranking_preview": ranking_preview,
+                },
+            )
+
+            with patch(
+                "lexishift_core.helper.engine.initialize_store_from_frequency_list_with_report",
+                return_value=(SrsStore(items=tuple(), version=1), preview_report),
+            ):
+                payload = preview_srs_admission(
+                    paths,
+                    config=SetAdmissionPreviewJobConfig(
+                        pair="en-ja",
+                        jmdict_path=jmdict_dir,
+                        set_source_db=source_db,
+                        strategy="profile_bootstrap",
+                        preview_count=5,
+                        profile_context={"interests": ["animals"]},
+                    ),
+                )
+
+            preview = payload["preview"]
+            self.assertNotIn("ranking_preview", preview["profile_bootstrap"])
+            self.assertLess(len(json.dumps(payload).encode("utf-8")), 50_000)
 
 
 class TestHelperEngineRebalanceSrsSet(unittest.TestCase):

@@ -19,8 +19,9 @@
       return this.send("hello");
     }
 
-    getStatus() {
-      return this.send("status");
+    getStatus(profileId) {
+      const payload = profileId ? { profile_id: profileId } : {};
+      return this.send("status", payload);
     }
 
     getSnapshot(pair, profileId) {

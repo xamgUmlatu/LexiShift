@@ -83,7 +83,7 @@
       });
     };
 
-    proto.getStatus = async function getStatus() {
+    proto.getStatus = async function getStatus(profileId) {
       const client = this.getClient();
       if (!client) {
         return {
@@ -93,7 +93,7 @@
         };
       }
       try {
-        const response = await client.getStatus();
+        const response = await client.getStatus(this.normalizeProfileId(profileId));
         if (!response || response.ok === false) {
           const msg = this.normalizeHelperErrorMessage(
             response && response.error,

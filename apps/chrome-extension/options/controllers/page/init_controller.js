@@ -104,7 +104,7 @@
       }
       setHelperStatus("", "");
       if (helperActionsController && typeof helperActionsController.refreshStatus === "function") {
-        await helperActionsController.refreshStatus();
+        await helperActionsController.refreshStatus(selectedProfileId);
       }
       if (languageSelect) {
         languageSelect.value = items.uiLanguage || "system";

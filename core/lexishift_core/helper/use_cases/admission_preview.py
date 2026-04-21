@@ -229,8 +229,8 @@ def _build_preview_payload(
     init_report: SetInitializationReport,
     preview_count_requested: int,
 ) -> dict[str, object]:
-    profile_bootstrap = dict(getattr(init_report, "profile_bootstrap_diagnostics", {}) or {})
-    ranking_preview_raw = profile_bootstrap.get("ranking_preview")
+    raw_profile_bootstrap = dict(getattr(init_report, "profile_bootstrap_diagnostics", {}) or {})
+    ranking_preview_raw = raw_profile_bootstrap.get("ranking_preview")
     ranking_preview = list(ranking_preview_raw) if isinstance(ranking_preview_raw, list) else []
     ranking_by_lemma: dict[str, dict[str, object]] = {}
     for entry in ranking_preview:
@@ -258,6 +258,7 @@ def _build_preview_payload(
         weight_by_lemma=weight_by_lemma,
     )
     sampled_words = list(planned_active_words[:preview_count_requested])
+    profile_bootstrap = _build_helper_preview_profile_bootstrap_payload(raw_profile_bootstrap)
     return {
         "sample_count_requested": preview_count_requested,
         "sample_count_effective": len(sampled_words),
@@ -281,6 +282,14 @@ def _build_preview_payload(
         "admitted_words": sampled_words,
         "profile_bootstrap": profile_bootstrap,
     }
+
+
+def _build_helper_preview_profile_bootstrap_payload(
+    profile_bootstrap_diagnostics: Mapping[str, object],
+) -> dict[str, object]:
+    payload = dict(profile_bootstrap_diagnostics or {})
+    payload.pop("ranking_preview", None)
+    return payload
 
 
 def _build_planned_active_words(
