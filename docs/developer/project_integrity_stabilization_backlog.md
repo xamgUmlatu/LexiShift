@@ -2,8 +2,8 @@
 
 Status: active backlog
 Role: Planning / WIP
-Last updated: 2026-04-19
-Last verified: 2026-04-19 branch-head refresh, repo-doc review, diff-hygiene check, and current advisory project-health report
+Last updated: 2026-04-21
+Last verified: 2026-04-21 post-closure follow-on queue checkpoint plus doc-safety checks
 Purpose: break the stabilization program into small seam-scoped passes that improve trustworthiness without broad mixed cleanup
 Source-of-truth: planning doc only; current truth still lives in code, tests, `feature_state_matrix.md`, and seam-specific evidence artifacts
 Related docs:
@@ -262,6 +262,46 @@ If the goal is to reduce confusion before reducing code size, start here:
 10. D1 `Phase-0 semantic baseline freeze refresh`
 
 If the goal is to start structural cleanup as soon as the contracts are explicit, begin the refactor queue after `B3` and `C3`, starting with `F1` through `F5`.
+
+## Post-Closure Follow-On Queue (2026-04-21)
+
+The core stabilization and secondary-pass closure work is now complete on the current branch.
+
+What remains is not "unfinished cleanup" in the same sense.
+It is a smaller follow-on queue that should be handled selectively rather than reopening the whole program by default.
+
+Recommended posture:
+
+1. keep only one bounded low-hanging follow-on active at a time
+2. explicitly shelve deeper or product-shaping items until they are chosen on purpose
+3. do not restart the full structural queue unless a later branch change makes it necessary again
+
+### Worth Doing Soon
+
+| Priority | Follow-on | Why it is still worth doing | Current recommendation |
+|---|---|---|---|
+| `1` | data-source download lifecycle follow-through | This is the main operability improvement left in the cleanup-adjacent queue: remote-overridable download URLs, explicit failure classification, and a lightweight source-audit workflow. | treat as the only clear low-hanging follow-on if one more bounded cleanup slice is wanted |
+| `2` | due-aware serving decision | This is the highest-value remaining semantic question because the current harness still records a due-aware warning instead of a resolved end-to-end contract. | keep important but shelved unless we intentionally want another deep SRS semantics pass |
+| `3` | project-health baseline decision | This determines whether the repo should return toward zero-warning structural discipline after the recent hotspot reductions. | shelve until more day-to-day work lands or until we are ready to change enforcement expectations |
+
+### Explicitly Shelved For Now
+
+These are valid future programs, but they should not be mistaken for remaining stabilization debt:
+
+- extension confidence gating for helper-published rules
+- narrower Share Center export/import schemas beyond the current compatibility wording
+- broader preventive structural splits (`F12` through `F16`) unless new work in those files makes the split timely
+- any restart of broad semantic/rulegen cleanup without a new concrete seam or regression signal
+
+### Default Resume Order
+
+If follow-on work resumes later, prefer this order:
+
+1. data-source download lifecycle
+2. due-aware serving decision
+3. project-health baseline decision
+
+Everything below that should stay shelved until selected as a deliberate next program.
 
 ## Definition Of Done For This Backlog
 
