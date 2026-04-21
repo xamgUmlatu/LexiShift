@@ -172,6 +172,32 @@ class TestHelperBrowserConnections(unittest.TestCase):
         self.assertEqual(len(updated), 1)
         self.assertEqual(updated[0].targets, (prod_target,))
 
+    def test_host_path_for_config_does_not_open_picker_when_workspace_host_missing(self) -> None:
+        config = BrowserConnectionConfig(
+            browser="chromium",
+            host_mode=HOST_MODE_WORKSPACE,
+            host_override_path=None,
+            targets=(
+                BrowserConnectionTarget(
+                    key="chromium_unpacked_abcd",
+                    label="Chromium (Unpacked Dev)",
+                    extension_id="abcdabcdabcdabcdabcdabcdabcdabcd",
+                    kind=TARGET_KIND_UNPACKED,
+                    fixed=False,
+                ),
+            ),
+        )
+
+        with (
+            mock.patch.object(helper_ui, "resolve_host_path_for_mode", return_value=None),
+            mock.patch.object(
+                helper_ui.QFileDialog,
+                "getOpenFileName",
+                side_effect=AssertionError("unexpected file picker"),
+            ),
+        ):
+            self.assertIsNone(helper_ui._host_path_for_config(config))
+
 
 if __name__ == "__main__":
     unittest.main()

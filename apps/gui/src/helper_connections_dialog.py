@@ -16,6 +16,7 @@ from PySide6.QtWidgets import (
     QMessageBox,
     QPushButton,
     QScrollArea,
+    QToolButton,
     QVBoxLayout,
     QWidget,
 )
@@ -100,6 +101,7 @@ class _UnpackedExtensionDialog(QDialog):
         host_mode: str = HOST_MODE_WORKSPACE,
         host_override_path: str | None = None,
         allow_browser_change: bool = True,
+        show_advanced: bool = False,
     ) -> None:
         super().__init__(parent)
         self.setWindowTitle(title)
@@ -143,17 +145,34 @@ class _UnpackedExtensionDialog(QDialog):
         custom_host_widget.setLayout(custom_host_row)
         self._custom_host_widget = custom_host_widget
 
-        shared_note = QLabel(t("dialogs.browser_connections.host_scope_note"), self)
-        shared_note.setWordWrap(True)
-
         form = QFormLayout()
         form.addRow(t("dialogs.browser_connections.browser_label"), self._browser_combo)
         form.addRow(t("dialogs.browser_connections.extension_id_label"), self._extension_id_edit)
-        form.addRow(t("dialogs.browser_connections.host_mode_label"), self._host_mode_combo)
-        form.addRow(
+
+        shared_note = QLabel(t("dialogs.browser_connections.host_scope_note"), self)
+        shared_note.setWordWrap(True)
+
+        self._advanced_toggle = QToolButton(self)
+        self._advanced_toggle.setCheckable(True)
+        self._advanced_toggle.setChecked(show_advanced)
+        self._advanced_toggle.clicked.connect(self._sync_advanced_state)
+
+        advanced_form = QFormLayout()
+        advanced_form.setContentsMargins(0, 0, 0, 0)
+        advanced_form.addRow(
+            t("dialogs.browser_connections.host_mode_label"), self._host_mode_combo
+        )
+        advanced_form.addRow(
             t("dialogs.browser_connections.custom_host_path_label"),
             self._custom_host_widget,
         )
+
+        self._advanced_panel = QWidget(self)
+        advanced_layout = QVBoxLayout(self._advanced_panel)
+        advanced_layout.setContentsMargins(0, 0, 0, 0)
+        advanced_layout.setSpacing(8)
+        advanced_layout.addLayout(advanced_form)
+        advanced_layout.addWidget(shared_note)
 
         button_box = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel, parent=self)
         button_box.accepted.connect(self._accept)
@@ -161,20 +180,41 @@ class _UnpackedExtensionDialog(QDialog):
 
         layout = QVBoxLayout(self)
         layout.addLayout(form)
-        layout.addWidget(shared_note)
+        layout.addWidget(self._advanced_toggle, 0, Qt.AlignLeft)
+        layout.addWidget(self._advanced_panel)
         layout.addWidget(button_box)
 
         self._sync_custom_host_state()
+        self._sync_advanced_state()
 
     def values(self) -> tuple[str, str, str, str | None]:
         browser = str(self._browser_combo.currentData())
         extension_id = self._extension_id_edit.text().strip()
-        host_mode = str(self._host_mode_combo.currentData())
-        custom_host = self._custom_host_edit.text().strip() or None
+        if self._advanced_toggle.isChecked():
+            host_mode = str(self._host_mode_combo.currentData())
+            custom_host = self._custom_host_edit.text().strip() or None
+        else:
+            host_mode = HOST_MODE_WORKSPACE
+            custom_host = None
         return browser, extension_id, host_mode, custom_host
 
+    def _sync_advanced_state(self) -> None:
+        expanded = self._advanced_toggle.isChecked()
+        self._advanced_panel.setVisible(expanded)
+        self._advanced_toggle.setText(
+            t(
+                "dialogs.browser_connections.hide_advanced"
+                if expanded
+                else "dialogs.browser_connections.show_advanced"
+            )
+        )
+        self._sync_custom_host_state()
+
     def _sync_custom_host_state(self) -> None:
-        is_custom = self._host_mode_combo.currentData() == HOST_MODE_CUSTOM
+        is_custom = (
+            self._advanced_toggle.isChecked()
+            and self._host_mode_combo.currentData() == HOST_MODE_CUSTOM
+        )
         self._custom_host_widget.setEnabled(is_custom)
 
     def _browse_custom_host(self) -> None:
@@ -687,6 +727,9 @@ class BrowserConnectionsDialog(QDialog):
             host_mode=config.host_mode,
             host_override_path=config.host_override_path,
             allow_browser_change=False,
+            show_advanced=(
+                config.host_mode != HOST_MODE_WORKSPACE or bool(config.host_override_path)
+            ),
         )
         if dialog.exec() != QDialog.Accepted:
             return
@@ -716,12 +759,12 @@ class BrowserConnectionsDialog(QDialog):
         *,
         remember_target: BrowserConnectionTarget | None,
     ) -> None:
-        resolved = _host_path_for_config(config, parent=self, allow_prompt=True)
+        resolved = _host_path_for_config(config)
         if resolved is None:
             QMessageBox.warning(
                 self,
                 t("dialogs.browser_connections.title"),
-                t("dialogs.browser_connections.missing_host"),
+                self._missing_host_message(config),
             )
             return
         config, host_path = resolved
@@ -759,3 +802,10 @@ class BrowserConnectionsDialog(QDialog):
                 t("dialogs.browser_connections.saved", path=str(result.manifest_path or "")),
             )
         self._rebuild()
+
+    def _missing_host_message(self, config: BrowserConnectionConfig) -> str:
+        if config.host_mode == HOST_MODE_WORKSPACE:
+            return t("dialogs.browser_connections.missing_workspace_host")
+        if config.host_mode == HOST_MODE_CUSTOM:
+            return t("dialogs.browser_connections.invalid_custom_host")
+        return t("dialogs.browser_connections.missing_host")

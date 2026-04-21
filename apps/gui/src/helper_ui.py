@@ -332,9 +332,6 @@ def _remember_last_helper_selection(
 
 def _host_path_for_config(
     config: BrowserConnectionConfig,
-    *,
-    parent=None,
-    allow_prompt: bool = False,
 ) -> Optional[tuple[BrowserConnectionConfig, Path]]:
     host_path = resolve_host_path_for_mode(
         config.host_mode,
@@ -342,23 +339,7 @@ def _host_path_for_config(
     )
     if host_path is not None and host_path.exists():
         return config, host_path
-    if not allow_prompt or config.host_mode == HOST_MODE_BUNDLED:
-        return None
-    filename, _ = QFileDialog.getOpenFileName(
-        parent,
-        t("dialogs.helper_install.host_title"),
-        str(Path.home()),
-        _host_file_dialog_filter(),
-    )
-    if not filename:
-        return None
-    replacement = BrowserConnectionConfig(
-        browser=config.browser,
-        host_mode=config.host_mode,
-        host_override_path=filename,
-        targets=config.targets,
-    )
-    return replacement, Path(filename)
+    return None
 
 
 def helper_connection_overall_state(ui_settings: QSettings) -> str:

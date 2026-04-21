@@ -8,13 +8,14 @@ os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 
 from PySide6.QtWidgets import QApplication, QFrame, QLabel, QScrollArea
 
-from helper_connections_dialog import BrowserConnectionsDialog
+from helper_connections_dialog import BrowserConnectionsDialog, _UnpackedExtensionDialog
 from helper_connection_models import (
     BrowserConnectionConfig,
     BrowserConnectionTarget,
     ExtensionEnvironment,
     HELPER_STATE_CONFIGURED,
     HELPER_STATE_NEEDS_REPAIR,
+    HOST_MODE_CUSTOM,
     HOST_MODE_WORKSPACE,
     HelperInstallStatus,
     TARGET_KIND_UNPACKED,
@@ -46,6 +47,45 @@ def test_browser_connection_styles_cover_dialog_panels_and_badges() -> None:
     assert 'QFrame[browserConnectionCard="true"]' in styles
     assert 'QLabel[browserConnectionSectionTitle="true"]' in styles
     assert 'QLabel[browserConnectionStatusBadge="true"][statusState="configured"]' in styles
+
+
+def test_unpacked_extension_dialog_defaults_to_simple_workspace_flow() -> None:
+    _app()
+    dialog = _UnpackedExtensionDialog(parent=None, title="Add")
+
+    assert dialog._advanced_toggle.isChecked() is False
+    assert dialog._advanced_panel.isHidden() is True
+
+    dialog._extension_id_edit.setText("abcdabcdabcdabcdabcdabcdabcdabcd")
+    browser, extension_id, host_mode, custom_host = dialog.values()
+
+    assert browser == "chromium"
+    assert extension_id == "abcdabcdabcdabcdabcdabcdabcdabcd"
+    assert host_mode == HOST_MODE_WORKSPACE
+    assert custom_host is None
+
+
+def test_unpacked_extension_dialog_shows_advanced_for_nondefault_host_mode() -> None:
+    _app()
+    dialog = _UnpackedExtensionDialog(
+        parent=None,
+        title="Edit",
+        browser="chrome",
+        extension_id="abcdabcdabcdabcdabcdabcdabcdabcd",
+        host_mode=HOST_MODE_CUSTOM,
+        host_override_path="/tmp/helper.py",
+        allow_browser_change=False,
+        show_advanced=True,
+    )
+
+    assert dialog._advanced_toggle.isChecked() is True
+    assert dialog._advanced_panel.isHidden() is False
+    assert dialog.values() == (
+        "chrome",
+        "abcdabcdabcdabcdabcdabcdabcdabcd",
+        HOST_MODE_CUSTOM,
+        "/tmp/helper.py",
+    )
 
 
 def test_browser_connections_dialog_marks_themeable_frames_and_badges() -> None:
