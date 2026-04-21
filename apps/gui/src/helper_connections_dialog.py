@@ -216,8 +216,10 @@ class BrowserConnectionsDialog(QDialog):
         scroll = QScrollArea(self)
         scroll.setWidgetResizable(True)
         scroll.setFrameShape(QFrame.NoFrame)
+        scroll.setProperty("browserConnectionsScroll", True)
 
         self._content_widget = QWidget(scroll)
+        self._content_widget.setProperty("browserConnectionsCanvas", True)
         self._content_layout = QVBoxLayout(self._content_widget)
         self._content_layout.setContentsMargins(6, 6, 6, 6)
         self._content_layout.setSpacing(16)
@@ -302,11 +304,12 @@ class BrowserConnectionsDialog(QDialog):
         )
         card = QFrame(self)
         card.setFrameShape(QFrame.StyledPanel)
+        card.setProperty("browserConnectionPanel", True)
         layout = QVBoxLayout(card)
         layout.setSpacing(6)
 
         title = QLabel(t("dialogs.browser_connections.overview_title"), card)
-        title.setStyleSheet("font-weight: 600;")
+        title.setProperty("browserConnectionCardTitle", True)
         layout.addWidget(title)
 
         summary = QLabel(
@@ -329,12 +332,13 @@ class BrowserConnectionsDialog(QDialog):
 
     def _section_title_label(self, text: str) -> QLabel:
         label = QLabel(text, self)
-        label.setStyleSheet("font-weight: 600; font-size: 14px;")
+        label.setProperty("browserConnectionSectionTitle", True)
         return label
 
     def _section_panel(self) -> tuple[QFrame, QVBoxLayout]:
         panel = QFrame(self)
         panel.setFrameShape(QFrame.StyledPanel)
+        panel.setProperty("browserConnectionPanel", True)
         layout = QVBoxLayout(panel)
         layout.setContentsMargins(12, 12, 12, 12)
         layout.setSpacing(12)
@@ -529,15 +533,18 @@ class BrowserConnectionsDialog(QDialog):
     ) -> QFrame:
         card = QFrame(self)
         card.setFrameShape(QFrame.StyledPanel)
+        card.setProperty("browserConnectionCard", True)
         card_layout = QVBoxLayout(card)
         card_layout.setSpacing(8)
 
         header = QHBoxLayout()
         title_label = QLabel(title, card)
-        title_label.setStyleSheet("font-weight: 600;")
+        title_label.setProperty("browserConnectionCardTitle", True)
         header.addWidget(title_label, 1)
         badge = QLabel(_status_badge_text(status), card)
         badge.setAlignment(Qt.AlignRight | Qt.AlignVCenter)
+        badge.setProperty("browserConnectionStatusBadge", True)
+        badge.setProperty("statusState", self._status_state(status))
         header.addWidget(badge, 0)
         card_layout.addLayout(header)
 
@@ -595,6 +602,13 @@ class BrowserConnectionsDialog(QDialog):
         if status.state == HELPER_STATE_NEEDS_REPAIR:
             return t("dialogs.browser_connections.status_needs_repair", message=status.message)
         return t("dialogs.browser_connections.status_not_configured")
+
+    def _status_state(self, status: HelperInstallStatus) -> str:
+        if status.state == HELPER_STATE_CONFIGURED:
+            return "configured"
+        if status.state == HELPER_STATE_NEEDS_REPAIR:
+            return "needs_repair"
+        return "not_configured"
 
     def _action_label(self, status: HelperInstallStatus) -> str:
         if status.state == HELPER_STATE_CONFIGURED:

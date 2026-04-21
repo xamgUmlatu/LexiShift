@@ -132,6 +132,66 @@ def _best_text_color(bg_hex: str, *, light: str = "#FFFFFF", dark: str = "#0E1B2
     return light if light_ratio >= dark_ratio else dark
 
 
+def build_browser_connection_styles(theme: dict) -> str:
+    configured_bg = _blend_hex(
+        [theme["accent_soft"], theme["table_bg"]], fallback=theme["accent_soft"]
+    )
+    repair_bg = _blend_hex(
+        [theme["panel_bottom"], theme["accent_soft"]], fallback=theme["panel_bottom"]
+    )
+    missing_bg = _blend_hex(
+        [theme["panel_bottom"], theme["table_bg"]], fallback=theme["panel_bottom"]
+    )
+    return f"""
+QScrollArea[browserConnectionsScroll="true"] {{
+  background: transparent;
+  border: none;
+}}
+QWidget[browserConnectionsCanvas="true"] {{
+  background: transparent;
+}}
+QFrame[browserConnectionPanel="true"] {{
+  border: 2px solid {theme["panel_border"]};
+  border-radius: 12px;
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+    stop:0 {theme["panel_top"]}, stop:1 {theme["panel_bottom"]});
+}}
+QFrame[browserConnectionCard="true"] {{
+  border: 1px solid {theme["panel_border"]};
+  border-radius: 10px;
+  background: {theme["table_bg"]};
+}}
+QLabel[browserConnectionSectionTitle="true"] {{
+  color: {theme["accent"]};
+  font-weight: 700;
+  font-size: 14px;
+  margin-top: 4px;
+}}
+QLabel[browserConnectionCardTitle="true"] {{
+  color: {theme["text"]};
+  font-weight: 700;
+}}
+QLabel[browserConnectionStatusBadge="true"] {{
+  color: {theme["text"]};
+  border: 1px solid {theme["panel_border"]};
+  border-radius: 10px;
+  padding: 3px 9px;
+  font-weight: 600;
+}}
+QLabel[browserConnectionStatusBadge="true"][statusState="configured"] {{
+  background: {configured_bg};
+  border-color: {theme["accent"]};
+}}
+QLabel[browserConnectionStatusBadge="true"][statusState="needs_repair"] {{
+  background: {repair_bg};
+  border-color: {theme["accent"]};
+}}
+QLabel[browserConnectionStatusBadge="true"][statusState="not_configured"] {{
+  background: {missing_bg};
+}}
+"""
+
+
 def build_base_styles(theme: dict) -> str:
     status_error = str(theme.get("status_error") or "#B42318")
     status_error_hover = "#8F1A14"
@@ -403,6 +463,7 @@ QPushButton[variant="danger"]:hover {{
 QSplitter::handle {{
   background: {theme["panel_border"]};
 }}
+{build_browser_connection_styles(theme)}
 """
 
 

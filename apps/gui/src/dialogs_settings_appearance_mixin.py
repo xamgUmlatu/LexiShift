@@ -15,7 +15,7 @@ from PySide6.QtWidgets import (
 from dialogs_theme_utils import _ThemedTabContainer, _coerce_float, _merge_theme
 from i18n import available_locales, t
 from theme_loader import load_user_themes, theme_dir
-from theme_manager import resolve_theme
+from theme_manager import build_browser_connection_styles, resolve_theme
 from theme_registry import BUILTIN_THEMES
 from utils_paths import reveal_path
 
@@ -154,6 +154,7 @@ class SettingsDialogAppearanceMixin:
             "QPushButton#settingsPrimaryButton:hover {"
             f"background: {theme['primary_hover']};"
             "}"
+            f"{build_browser_connection_styles(theme)}"
         )
 
     def _on_theme_changed(self) -> None:
