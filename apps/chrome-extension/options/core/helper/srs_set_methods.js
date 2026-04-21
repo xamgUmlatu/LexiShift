@@ -34,9 +34,11 @@
       }, 30000);
       if (!response || response.ok === false) {
         throw new Error(
-          response && response.error && response.error.message
-            ? response.error.message
-            : this.i18n.t("status_srs_set_init_failed", null, "S initialization failed.")
+          this.normalizeHelperErrorMessage(
+            response && response.error,
+            "status_srs_set_init_failed",
+            "S initialization failed."
+          )
         );
       }
       return response.data || {};
@@ -68,9 +70,11 @@
       }, 15000);
       if (!response || response.ok === false) {
         throw new Error(
-          response && response.error && response.error.message
-            ? response.error.message
-            : this.i18n.t("status_srs_set_init_failed", null, "S planning failed.")
+          this.normalizeHelperErrorMessage(
+            response && response.error,
+            "status_srs_set_init_failed",
+            "S planning failed."
+          )
         );
       }
       return response.data || {};
@@ -110,9 +114,11 @@
       }, 30000);
       if (!response || response.ok === false) {
         throw new Error(
-          response && response.error && response.error.message
-            ? response.error.message
-            : this.i18n.t("status_srs_admission_preview_failed", null, "Admission preview failed.")
+          this.normalizeHelperErrorMessage(
+            response && response.error,
+            "status_srs_admission_preview_failed",
+            "Admission preview failed."
+          )
         );
       }
       return response.data || {};
@@ -148,9 +154,11 @@
       }, 30000);
       if (!response || response.ok === false) {
         throw new Error(
-          response && response.error && response.error.message
-            ? response.error.message
-            : this.i18n.t("status_srs_set_init_failed", null, "SRS refresh failed.")
+          this.normalizeHelperErrorMessage(
+            response && response.error,
+            "status_srs_set_init_failed",
+            "SRS refresh failed."
+          )
         );
       }
       return response.data || {};
@@ -177,9 +185,11 @@
       }, 30000);
       if (!response || response.ok === false) {
         throw new Error(
-          response && response.error && response.error.message
-            ? response.error.message
-            : this.i18n.t("status_srs_rebalance_preview_failed", null, "SRS rebalance preview failed.")
+          this.normalizeHelperErrorMessage(
+            response && response.error,
+            "status_srs_rebalance_preview_failed",
+            "SRS rebalance preview failed."
+          )
         );
       }
       return response.data || {};
@@ -206,9 +216,11 @@
       }, 30000);
       if (!response || response.ok === false) {
         throw new Error(
-          response && response.error && response.error.message
-            ? response.error.message
-            : this.i18n.t("status_srs_rebalance_apply_failed", null, "SRS rebalance apply failed.")
+          this.normalizeHelperErrorMessage(
+            response && response.error,
+            "status_srs_rebalance_apply_failed",
+            "SRS rebalance apply failed."
+          )
         );
       }
       return response.data || {};
@@ -227,9 +239,11 @@
 
       if (!response || response.ok === false) {
         throw new Error(
-          response && response.error && response.error.message
-            ? response.error.message
-            : this.i18n.t("status_srs_reset_failed", null, "SRS reset failed.")
+          this.normalizeHelperErrorMessage(
+            response && response.error,
+            "status_srs_reset_failed",
+            "SRS reset failed."
+          )
         );
       }
 

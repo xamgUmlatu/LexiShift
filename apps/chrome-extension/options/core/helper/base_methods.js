@@ -46,6 +46,52 @@
       return new Client(transport);
     };
 
+    proto.normalizeHelperErrorMessage = function normalizeHelperErrorMessage(
+      error,
+      fallbackKey = "status_helper_failed",
+      fallbackText = "Helper error."
+    ) {
+      const fallback = this.i18n.t(fallbackKey, null, fallbackText);
+      if (!error || typeof error !== "object") {
+        return fallback;
+      }
+      const code = String(error.code || "").trim().toLowerCase();
+      const rawMessage = String(error.message || "").trim();
+      const lowerMessage = rawMessage.toLowerCase();
+
+      if (
+        code === "helper_missing"
+        || code === "transport_missing"
+        || code === "bridge_unavailable"
+        || code === "native_unavailable"
+        || lowerMessage.includes("specified native messaging host not found")
+        || lowerMessage.includes("no such native application")
+      ) {
+        return this.i18n.t("status_helper_missing", null, "Helper unavailable.");
+      }
+      if (lowerMessage.includes("native host has exited")) {
+        return this.i18n.t(
+          "status_helper_native_host_exited",
+          null,
+          "The helper exited unexpectedly."
+        );
+      }
+      if (
+        lowerMessage.includes("error when communicating with the native messaging host")
+        || lowerMessage.includes("access to the specified native messaging host is forbidden")
+        || code === "native_error"
+        || code === "bridge_error"
+        || code === "native_exception"
+      ) {
+        return this.i18n.t(
+          "status_helper_native_messaging_failed",
+          null,
+          "Could not communicate with the helper."
+        );
+      }
+      return rawMessage || fallback;
+    };
+
     proto.getStatus = async function getStatus() {
       const client = this.getClient();
       if (!client) {
@@ -58,9 +104,11 @@
       try {
         const response = await client.getStatus();
         if (!response || response.ok === false) {
-          const msg = response && response.error && response.error.message
-            ? response.error.message
-            : this.i18n.t("status_helper_failed", null, "Helper error.");
+          const msg = this.normalizeHelperErrorMessage(
+            response && response.error,
+            "status_helper_failed",
+            "Helper error."
+          );
           return { ok: false, message: msg, lastRun: "" };
         }
         const data = response.data || {};
@@ -108,8 +156,11 @@
             data: null,
             error: {
               code: (response && response.error && response.error.code) || "helper_error",
-              message: (response && response.error && response.error.message)
-                || this.i18n.t("status_helper_failed", null, "Helper error.")
+              message: this.normalizeHelperErrorMessage(
+                response && response.error,
+                "status_helper_failed",
+                "Helper error."
+              )
             }
           };
         }
@@ -148,8 +199,11 @@
             data: null,
             error: {
               code: (response && response.error && response.error.code) || "helper_error",
-              message: (response && response.error && response.error.message)
-                || this.i18n.t("status_helper_failed", null, "Helper error.")
+              message: this.normalizeHelperErrorMessage(
+                response && response.error,
+                "status_helper_failed",
+                "Helper error."
+              )
             }
           };
         }
@@ -174,9 +228,11 @@
       try {
         const response = await client.hello();
         if (!response || response.ok === false) {
-          const msg = response && response.error && response.error.message
-            ? response.error.message
-            : this.i18n.t("status_helper_failed", null, "Helper error.");
+          const msg = this.normalizeHelperErrorMessage(
+            response && response.error,
+            "status_helper_failed",
+            "Helper error."
+          );
           return this.i18n.t("status_helper_test_failed", msg, `Connection failed: ${msg}`);
         }
         const version = (response.data && response.data.helper_version) || "";
@@ -194,9 +250,11 @@
       try {
         const response = await client.openDataDir();
         if (!response || response.ok === false) {
-          const msg = response && response.error && response.error.message
-            ? response.error.message
-            : this.i18n.t("status_helper_open_failed", null, "Failed to open folder.");
+          const msg = this.normalizeHelperErrorMessage(
+            response && response.error,
+            "status_helper_open_failed",
+            "Failed to open folder."
+          );
           return this.i18n.t("status_helper_open_failed", msg, `Open failed: ${msg}`);
         }
         const opened = response.data && response.data.opened ? response.data.opened : "";

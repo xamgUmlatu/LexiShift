@@ -197,6 +197,12 @@
   "status_helper_failed": {
     "message": "Helper 错误。"
   },
+  "status_helper_native_messaging_failed": {
+    "message": "无法与 Helper 通信。"
+  },
+  "status_helper_native_host_exited": {
+    "message": "Helper 意外退出。"
+  },
   "status_helper_missing": {
     "message": "Helper 不可用。"
   },

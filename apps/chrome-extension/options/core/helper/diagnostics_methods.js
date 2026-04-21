@@ -38,9 +38,11 @@
           if (response && response.ok !== false) {
             result.helper = response.data || null;
           } else {
-            result.helper_error = response && response.error && response.error.message
-              ? response.error.message
-              : this.i18n.t("status_helper_failed", null, "Helper error.");
+            result.helper_error = this.normalizeHelperErrorMessage(
+              response && response.error,
+              "status_helper_failed",
+              "Helper error."
+            );
           }
         } catch (err) {
           result.helper_error = err && err.message
@@ -152,9 +154,11 @@
 
       if (!rulegenResponse || rulegenResponse.ok === false) {
         throw new Error(
-          rulegenResponse && rulegenResponse.error && rulegenResponse.error.message
-            ? rulegenResponse.error.message
-            : this.i18n.t("status_srs_rulegen_failed", null, "Rule preview failed.")
+          this.normalizeHelperErrorMessage(
+            rulegenResponse && rulegenResponse.error,
+            "status_srs_rulegen_failed",
+            "Rule preview failed."
+          )
         );
       }
 
@@ -204,9 +208,11 @@
 
       if (!rulegenResponse || rulegenResponse.ok === false) {
         throw new Error(
-          rulegenResponse && rulegenResponse.error && rulegenResponse.error.message
-            ? rulegenResponse.error.message
-            : this.i18n.t("status_srs_rulegen_failed", null, "Rule preview failed.")
+          this.normalizeHelperErrorMessage(
+            rulegenResponse && rulegenResponse.error,
+            "status_srs_rulegen_failed",
+            "Rule preview failed."
+          )
         );
       }
 
