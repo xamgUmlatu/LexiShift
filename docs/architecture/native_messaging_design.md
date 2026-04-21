@@ -219,7 +219,9 @@ Schema note:
 - **Automatic** install on first launch if a fixed extension ID is available and the bundled helper host exists.
 - App menu (LexiShift) and Settings → SRS now route through a **Browser Connections** manager instead of a single environment prompt.
 - Fixed-ID production browsers keep the simple path: one click per supported browser to connect or repair the native-messaging manifest.
-- Unpacked/dev extensions are managed through a fuller advanced path: add/edit dialogs capture browser, unpacked extension ID, and bundled/workspace/custom host mode for that browser, while the main manager shows manifest path, host path, and reveal/repair actions for each saved entry.
+- Unpacked/dev extensions now keep the narrow path: add/edit dialogs capture only browser + unpacked extension ID, and the app uses the current workspace helper automatically for that browser.
+- Same-browser prod and unpacked-dev entries still share one native-messaging host path; the GUI only surfaces that as a targeted warning when adding/editing an unpacked entry would switch an already-configured browser to the workspace host.
+- Manifest path, host path, and reveal actions remain available only behind an explicit technical-details toggle instead of being the default card surface.
 - Connection status is presented as `Configured`, `Needs repair`, or `Not configured` based on manifest/origin/host-path inspection rather than manifest existence alone.
 - Extension IDs are read from `apps/gui/resources/helper_extension_ids.json` (fixed IDs for prod, plus dev/unpacked entries).
 - Native messaging is still one manifest per browser host name, so all allowed origins in the same browser share one host path.

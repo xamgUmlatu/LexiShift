@@ -7,7 +7,6 @@ from PySide6.QtWidgets import (
     QComboBox,
     QDialog,
     QDialogButtonBox,
-    QFileDialog,
     QFormLayout,
     QFrame,
     QHBoxLayout,
@@ -98,14 +97,11 @@ class _UnpackedExtensionDialog(QDialog):
         title: str,
         browser: str = "chromium",
         extension_id: str = "",
-        host_mode: str = HOST_MODE_WORKSPACE,
-        host_override_path: str | None = None,
         allow_browser_change: bool = True,
-        show_advanced: bool = False,
     ) -> None:
         super().__init__(parent)
         self.setWindowTitle(title)
-        self.resize(540, 220)
+        self.resize(520, 180)
 
         self._browser_combo = QComboBox(self)
         for key, label in _BROWSER_OPTIONS:
@@ -117,62 +113,12 @@ class _UnpackedExtensionDialog(QDialog):
         self._extension_id_edit = QLineEdit(extension_id, self)
         self._extension_id_edit.setPlaceholderText("abcdefghijklmnopqrstuvwxyzabcdef")
 
-        self._host_mode_combo = QComboBox(self)
-        self._host_mode_combo.addItem(
-            t("dialogs.browser_connections.host_mode_workspace"),
-            HOST_MODE_WORKSPACE,
-        )
-        self._host_mode_combo.addItem(
-            t("dialogs.browser_connections.host_mode_bundled"),
-            HOST_MODE_BUNDLED,
-        )
-        self._host_mode_combo.addItem(
-            t("dialogs.browser_connections.host_mode_custom"),
-            HOST_MODE_CUSTOM,
-        )
-        host_mode_index = max(0, self._host_mode_combo.findData(host_mode))
-        self._host_mode_combo.setCurrentIndex(host_mode_index)
-        self._host_mode_combo.currentIndexChanged.connect(self._sync_custom_host_state)
-
-        self._custom_host_edit = QLineEdit(host_override_path or "", self)
-        self._custom_host_browse = QPushButton(t("dialogs.browser_connections.browse"), self)
-        self._custom_host_browse.clicked.connect(self._browse_custom_host)
-        custom_host_row = QHBoxLayout()
-        custom_host_row.setContentsMargins(0, 0, 0, 0)
-        custom_host_row.addWidget(self._custom_host_edit, 1)
-        custom_host_row.addWidget(self._custom_host_browse, 0)
-        custom_host_widget = QWidget(self)
-        custom_host_widget.setLayout(custom_host_row)
-        self._custom_host_widget = custom_host_widget
-
         form = QFormLayout()
         form.addRow(t("dialogs.browser_connections.browser_label"), self._browser_combo)
         form.addRow(t("dialogs.browser_connections.extension_id_label"), self._extension_id_edit)
 
-        shared_note = QLabel(t("dialogs.browser_connections.host_scope_note"), self)
-        shared_note.setWordWrap(True)
-
-        self._advanced_toggle = QToolButton(self)
-        self._advanced_toggle.setCheckable(True)
-        self._advanced_toggle.setChecked(show_advanced)
-        self._advanced_toggle.clicked.connect(self._sync_advanced_state)
-
-        advanced_form = QFormLayout()
-        advanced_form.setContentsMargins(0, 0, 0, 0)
-        advanced_form.addRow(
-            t("dialogs.browser_connections.host_mode_label"), self._host_mode_combo
-        )
-        advanced_form.addRow(
-            t("dialogs.browser_connections.custom_host_path_label"),
-            self._custom_host_widget,
-        )
-
-        self._advanced_panel = QWidget(self)
-        advanced_layout = QVBoxLayout(self._advanced_panel)
-        advanced_layout.setContentsMargins(0, 0, 0, 0)
-        advanced_layout.setSpacing(8)
-        advanced_layout.addLayout(advanced_form)
-        advanced_layout.addWidget(shared_note)
+        note = QLabel(t("dialogs.browser_connections.unpacked_workspace_note"), self)
+        note.setWordWrap(True)
 
         button_box = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel, parent=self)
         button_box.accepted.connect(self._accept)
@@ -180,67 +126,21 @@ class _UnpackedExtensionDialog(QDialog):
 
         layout = QVBoxLayout(self)
         layout.addLayout(form)
-        layout.addWidget(self._advanced_toggle, 0, Qt.AlignLeft)
-        layout.addWidget(self._advanced_panel)
+        layout.addWidget(note)
         layout.addWidget(button_box)
 
-        self._sync_custom_host_state()
-        self._sync_advanced_state()
-
-    def values(self) -> tuple[str, str, str, str | None]:
+    def values(self) -> tuple[str, str]:
         browser = str(self._browser_combo.currentData())
         extension_id = self._extension_id_edit.text().strip()
-        if self._advanced_toggle.isChecked():
-            host_mode = str(self._host_mode_combo.currentData())
-            custom_host = self._custom_host_edit.text().strip() or None
-        else:
-            host_mode = HOST_MODE_WORKSPACE
-            custom_host = None
-        return browser, extension_id, host_mode, custom_host
-
-    def _sync_advanced_state(self) -> None:
-        expanded = self._advanced_toggle.isChecked()
-        self._advanced_panel.setVisible(expanded)
-        self._advanced_toggle.setText(
-            t(
-                "dialogs.browser_connections.hide_advanced"
-                if expanded
-                else "dialogs.browser_connections.show_advanced"
-            )
-        )
-        self._sync_custom_host_state()
-
-    def _sync_custom_host_state(self) -> None:
-        is_custom = (
-            self._advanced_toggle.isChecked()
-            and self._host_mode_combo.currentData() == HOST_MODE_CUSTOM
-        )
-        self._custom_host_widget.setEnabled(is_custom)
-
-    def _browse_custom_host(self) -> None:
-        filename, _ = QFileDialog.getOpenFileName(
-            self,
-            t("dialogs.browser_connections.choose_host_path"),
-            str(Path.home()),
-            t("dialogs.helper_install.host_filter"),
-        )
-        if filename:
-            self._custom_host_edit.setText(filename)
+        return browser, extension_id
 
     def _accept(self) -> None:
-        _browser, extension_id, host_mode, host_override_path = self.values()
+        _browser, extension_id = self.values()
         if not extension_id:
             QMessageBox.warning(
                 self,
                 self.windowTitle(),
                 t("dialogs.browser_connections.invalid_extension_id"),
-            )
-            return
-        if host_mode == HOST_MODE_CUSTOM and not host_override_path:
-            QMessageBox.warning(
-                self,
-                self.windowTitle(),
-                t("dialogs.browser_connections.missing_custom_host"),
             )
             return
         self.accept()
@@ -250,6 +150,7 @@ class BrowserConnectionsDialog(QDialog):
     def __init__(self, parent, ui_settings: QSettings) -> None:
         super().__init__(parent)
         self._ui_settings = ui_settings
+        self._show_diagnostics = False
         self.setWindowTitle(t("dialogs.browser_connections.title"))
         self.resize(900, 620)
 
@@ -296,10 +197,29 @@ class BrowserConnectionsDialog(QDialog):
         intro = QLabel(t("dialogs.browser_connections.intro"), self)
         intro.setWordWrap(True)
         self._content_layout.addWidget(intro)
+        self._content_layout.addWidget(self._build_diagnostics_toggle(), 0, Qt.AlignLeft)
         self._content_layout.addWidget(self._build_overview_card(fixed_rows, unpacked_rows))
         self._content_layout.addWidget(self._build_fixed_section(fixed_rows))
         self._content_layout.addWidget(self._build_unpacked_section(unpacked_rows))
         self._content_layout.addStretch(1)
+
+    def _build_diagnostics_toggle(self) -> QToolButton:
+        button = QToolButton(self)
+        button.setCheckable(True)
+        button.setChecked(self._show_diagnostics)
+        button.setText(
+            t(
+                "dialogs.browser_connections.hide_diagnostics"
+                if self._show_diagnostics
+                else "dialogs.browser_connections.show_diagnostics"
+            )
+        )
+        button.clicked.connect(self._toggle_diagnostics)
+        return button
+
+    def _toggle_diagnostics(self, checked: bool) -> None:
+        self._show_diagnostics = bool(checked)
+        self._rebuild()
 
     def _collect_rows(self) -> tuple[list[tuple], list[tuple]]:
         envs, _ = load_extension_environments()
@@ -364,10 +284,6 @@ class BrowserConnectionsDialog(QDialog):
         )
         summary.setWordWrap(True)
         layout.addWidget(summary)
-
-        host_note = QLabel(t("dialogs.browser_connections.host_scope_note"), card)
-        host_note.setWordWrap(True)
-        layout.addWidget(host_note)
         return card
 
     def _section_title_label(self, text: str) -> QLabel:
@@ -409,42 +325,44 @@ class BrowserConnectionsDialog(QDialog):
         config: BrowserConnectionConfig | None,
         status: HelperInstallStatus,
     ) -> QFrame:
-        detail_rows = [
-            (
-                t("dialogs.browser_connections.extension_id_label"),
-                target.extension_id
-                if target
-                else t("dialogs.browser_connections.fixed_id_missing"),
-            ),
-            (
-                t("dialogs.browser_connections.manifest_label"),
-                _path_text(status.manifest_path),
-            ),
-            (
-                t("dialogs.browser_connections.host_mode_label"),
-                _host_mode_label(
-                    status.host_mode or (config.host_mode if config else HOST_MODE_BUNDLED)
-                ),
-            ),
-            (
-                t("dialogs.browser_connections.host_path_label"),
-                _path_text(status.host_path),
-            ),
-            (
-                t("dialogs.browser_connections.allowed_extension_ids_label"),
-                ", ".join(status.allowed_extension_ids)
-                or t("dialogs.browser_connections.not_available"),
-            ),
-        ]
-        if status.state == HELPER_STATE_NEEDS_REPAIR:
-            detail_rows.append((t("dialogs.browser_connections.issue_label"), status.message))
-        if target is None:
-            detail_rows.append(
+        detail_rows: list[tuple[str, str]] = []
+        if self._show_diagnostics:
+            detail_rows = [
                 (
-                    t("dialogs.browser_connections.issue_label"),
-                    t("dialogs.browser_connections.fixed_id_missing"),
+                    t("dialogs.browser_connections.extension_id_label"),
+                    target.extension_id
+                    if target
+                    else t("dialogs.browser_connections.fixed_id_missing"),
+                ),
+                (
+                    t("dialogs.browser_connections.manifest_label"),
+                    _path_text(status.manifest_path),
+                ),
+                (
+                    t("dialogs.browser_connections.host_mode_label"),
+                    _host_mode_label(
+                        status.host_mode or (config.host_mode if config else HOST_MODE_BUNDLED)
+                    ),
+                ),
+                (
+                    t("dialogs.browser_connections.host_path_label"),
+                    _path_text(status.host_path),
+                ),
+                (
+                    t("dialogs.browser_connections.allowed_extension_ids_label"),
+                    ", ".join(status.allowed_extension_ids)
+                    or t("dialogs.browser_connections.not_available"),
+                ),
+            ]
+            if status.state == HELPER_STATE_NEEDS_REPAIR:
+                detail_rows.append((t("dialogs.browser_connections.issue_label"), status.message))
+            if target is None:
+                detail_rows.append(
+                    (
+                        t("dialogs.browser_connections.issue_label"),
+                        t("dialogs.browser_connections.fixed_id_missing"),
+                    )
                 )
-            )
 
         actions = []
         if target is None:
@@ -463,7 +381,8 @@ class BrowserConnectionsDialog(QDialog):
                     True,
                 )
             )
-        actions.extend(self._reveal_actions(status))
+        if self._show_diagnostics:
+            actions.extend(self._reveal_actions(status))
 
         return self._build_connection_card(
             title=env.label,
@@ -515,30 +434,35 @@ class BrowserConnectionsDialog(QDialog):
                 t("dialogs.browser_connections.extension_id_label"),
                 target.extension_id,
             ),
-            (
-                t("dialogs.browser_connections.host_mode_label"),
-                _host_mode_label(config.host_mode),
-            ),
-            (
-                t("dialogs.browser_connections.shared_manifest_label"),
-                _browser_label(config.browser),
-            ),
-            (
-                t("dialogs.browser_connections.manifest_label"),
-                _path_text(status.manifest_path),
-            ),
-            (
-                t("dialogs.browser_connections.host_path_label"),
-                _path_text(status.host_path),
-            ),
-            (
-                t("dialogs.browser_connections.allowed_extension_ids_label"),
-                ", ".join(status.allowed_extension_ids or _browser_expected_ids(config))
-                or t("dialogs.browser_connections.not_available"),
-            ),
         ]
-        if status.state == HELPER_STATE_NEEDS_REPAIR:
-            detail_rows.append((t("dialogs.browser_connections.issue_label"), status.message))
+        if self._show_diagnostics:
+            detail_rows.extend(
+                [
+                    (
+                        t("dialogs.browser_connections.host_mode_label"),
+                        _host_mode_label(config.host_mode),
+                    ),
+                    (
+                        t("dialogs.browser_connections.shared_manifest_label"),
+                        _browser_label(config.browser),
+                    ),
+                    (
+                        t("dialogs.browser_connections.manifest_label"),
+                        _path_text(status.manifest_path),
+                    ),
+                    (
+                        t("dialogs.browser_connections.host_path_label"),
+                        _path_text(status.host_path),
+                    ),
+                    (
+                        t("dialogs.browser_connections.allowed_extension_ids_label"),
+                        ", ".join(status.allowed_extension_ids or _browser_expected_ids(config))
+                        or t("dialogs.browser_connections.not_available"),
+                    ),
+                ]
+            )
+            if status.state == HELPER_STATE_NEEDS_REPAIR:
+                detail_rows.append((t("dialogs.browser_connections.issue_label"), status.message))
 
         actions = [
             (
@@ -553,8 +477,16 @@ class BrowserConnectionsDialog(QDialog):
                 lambda _checked=False, browser=config.browser: self._repair_browser(browser),
                 True,
             ),
+            (
+                t("buttons.remove"),
+                lambda _checked=False, browser=config.browser, target_key=target.key: (
+                    self._remove_unpacked(browser, target_key)
+                ),
+                True,
+            ),
         ]
-        actions.extend(self._reveal_actions(status))
+        if self._show_diagnostics:
+            actions.extend(self._reveal_actions(status))
 
         return self._build_connection_card(
             title=target.label,
@@ -592,12 +524,13 @@ class BrowserConnectionsDialog(QDialog):
         summary.setWordWrap(True)
         card_layout.addWidget(summary)
 
-        form = QFormLayout()
-        form.setContentsMargins(0, 0, 0, 0)
-        form.setSpacing(6)
-        for label_text, value in detail_rows:
-            form.addRow(f"{label_text}:", _value_label(value, card))
-        card_layout.addLayout(form)
+        if detail_rows:
+            form = QFormLayout()
+            form.setContentsMargins(0, 0, 0, 0)
+            form.setSpacing(6)
+            for label_text, value in detail_rows:
+                form.addRow(f"{label_text}:", _value_label(value, card))
+            card_layout.addLayout(form)
 
         buttons = QHBoxLayout()
         buttons.setSpacing(8)
@@ -637,8 +570,10 @@ class BrowserConnectionsDialog(QDialog):
 
     def _status_summary(self, status: HelperInstallStatus) -> str:
         if status.state == HELPER_STATE_CONFIGURED:
-            host_mode = _host_mode_label(status.host_mode or HOST_MODE_BUNDLED)
-            return t("dialogs.browser_connections.status_configured", host_mode=host_mode)
+            if self._show_diagnostics:
+                host_mode = _host_mode_label(status.host_mode or HOST_MODE_BUNDLED)
+                return t("dialogs.browser_connections.status_configured", host_mode=host_mode)
+            return t("dialogs.browser_connections.status_label_configured")
         if status.state == HELPER_STATE_NEEDS_REPAIR:
             return t("dialogs.browser_connections.status_needs_repair", message=status.message)
         return t("dialogs.browser_connections.status_not_configured")
@@ -699,15 +634,18 @@ class BrowserConnectionsDialog(QDialog):
         )
         if dialog.exec() != QDialog.Accepted:
             return
-        browser, extension_id, host_mode, host_override_path = dialog.values()
+        browser, extension_id = dialog.values()
         target = _unpacked_target(browser, extension_id)
         configs = load_browser_connections(self._ui_settings)
+        existing = _find_browser_config(configs, browser)
+        if not self._confirm_workspace_host_switch(existing):
+            return
         updated = _upsert_browser_target(
             configs,
             browser=browser,
             target=target,
-            host_mode=host_mode,
-            host_override_path=host_override_path,
+            host_mode=HOST_MODE_WORKSPACE,
+            host_override_path=None,
         )
         config = _find_browser_config(updated, browser)
         if config is None:
@@ -724,16 +662,13 @@ class BrowserConnectionsDialog(QDialog):
             title=t("dialogs.browser_connections.edit_unpacked_title"),
             browser=config.browser,
             extension_id=target.extension_id,
-            host_mode=config.host_mode,
-            host_override_path=config.host_override_path,
             allow_browser_change=False,
-            show_advanced=(
-                config.host_mode != HOST_MODE_WORKSPACE or bool(config.host_override_path)
-            ),
         )
         if dialog.exec() != QDialog.Accepted:
             return
-        browser, extension_id, host_mode, host_override_path = dialog.values()
+        browser, extension_id = dialog.values()
+        if not self._confirm_workspace_host_switch(config):
+            return
         updated = _remove_browser_target(
             load_browser_connections(self._ui_settings),
             browser=config.browser,
@@ -744,13 +679,22 @@ class BrowserConnectionsDialog(QDialog):
             updated,
             browser=browser,
             target=replacement_target,
-            host_mode=host_mode,
-            host_override_path=host_override_path,
+            host_mode=HOST_MODE_WORKSPACE,
+            host_override_path=None,
         )
         replacement_config = _find_browser_config(updated, browser)
         if replacement_config is None:
             return
         self._install_config(replacement_config, updated, remember_target=replacement_target)
+
+    def _remove_unpacked(self, browser: str, target_key: str) -> None:
+        updated = _remove_browser_target(
+            load_browser_connections(self._ui_settings),
+            browser=browser,
+            target_key=target_key,
+        )
+        save_browser_connections(self._ui_settings, updated)
+        self._rebuild()
 
     def _install_config(
         self,
@@ -809,3 +753,19 @@ class BrowserConnectionsDialog(QDialog):
         if config.host_mode == HOST_MODE_CUSTOM:
             return t("dialogs.browser_connections.invalid_custom_host")
         return t("dialogs.browser_connections.missing_host")
+
+    def _confirm_workspace_host_switch(
+        self,
+        config: BrowserConnectionConfig | None,
+    ) -> bool:
+        if config is None or config.host_mode == HOST_MODE_WORKSPACE:
+            return True
+        answer = QMessageBox.question(
+            self,
+            t("dialogs.browser_connections.shared_host_warning_title"),
+            t(
+                "dialogs.browser_connections.shared_host_warning_message",
+                browser=_browser_label(config.browser),
+            ),
+        )
+        return answer == QMessageBox.Yes

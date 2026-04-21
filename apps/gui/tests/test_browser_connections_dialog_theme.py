@@ -6,7 +6,15 @@ from unittest.mock import patch
 
 os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 
-from PySide6.QtWidgets import QApplication, QFrame, QLabel, QScrollArea
+from PySide6.QtWidgets import (
+    QApplication,
+    QFrame,
+    QLabel,
+    QMessageBox,
+    QPushButton,
+    QScrollArea,
+    QToolButton,
+)
 
 from helper_connections_dialog import BrowserConnectionsDialog, _UnpackedExtensionDialog
 from helper_connection_models import (
@@ -15,11 +23,12 @@ from helper_connection_models import (
     ExtensionEnvironment,
     HELPER_STATE_CONFIGURED,
     HELPER_STATE_NEEDS_REPAIR,
-    HOST_MODE_CUSTOM,
+    HOST_MODE_BUNDLED,
     HOST_MODE_WORKSPACE,
     HelperInstallStatus,
     TARGET_KIND_UNPACKED,
 )
+from i18n import set_locale
 from theme_manager import build_browser_connection_styles, resolve_theme
 
 
@@ -35,6 +44,7 @@ def _app() -> QApplication:
     app = QApplication.instance()
     if app is None:
         app = QApplication([])
+    set_locale("en")
     return app
 
 
@@ -53,39 +63,97 @@ def test_unpacked_extension_dialog_defaults_to_simple_workspace_flow() -> None:
     _app()
     dialog = _UnpackedExtensionDialog(parent=None, title="Add")
 
-    assert dialog._advanced_toggle.isChecked() is False
-    assert dialog._advanced_panel.isHidden() is True
-
     dialog._extension_id_edit.setText("abcdabcdabcdabcdabcdabcdabcdabcd")
-    browser, extension_id, host_mode, custom_host = dialog.values()
+    browser, extension_id = dialog.values()
 
     assert browser == "chromium"
     assert extension_id == "abcdabcdabcdabcdabcdabcdabcdabcd"
-    assert host_mode == HOST_MODE_WORKSPACE
-    assert custom_host is None
+    note_labels = [
+        label.text()
+        for label in dialog.findChildren(QLabel)
+        if "workspace" in label.text().lower() or "ワークスペース" in label.text()
+    ]
+    assert note_labels
 
 
-def test_unpacked_extension_dialog_shows_advanced_for_nondefault_host_mode() -> None:
+def test_browser_connections_dialog_hides_diagnostics_by_default() -> None:
     _app()
-    dialog = _UnpackedExtensionDialog(
-        parent=None,
-        title="Edit",
-        browser="chrome",
+    unpacked_target = BrowserConnectionTarget(
+        key="chromium_unpacked_abcd",
+        label="Chromium (Unpacked Dev)",
         extension_id="abcdabcdabcdabcdabcdabcdabcdabcd",
-        host_mode=HOST_MODE_CUSTOM,
-        host_override_path="/tmp/helper.py",
-        allow_browser_change=False,
-        show_advanced=True,
+        kind=TARGET_KIND_UNPACKED,
+        fixed=False,
+    )
+    config = BrowserConnectionConfig(
+        browser="chromium",
+        host_mode=HOST_MODE_WORKSPACE,
+        host_override_path=None,
+        targets=(unpacked_target,),
+    )
+    fixed_env = ExtensionEnvironment(
+        key="chrome_prod",
+        label="Chrome (Web Store)",
+        browser="chrome",
+        extension_id="prodprodprodprodprodprodprodprod",
+        fixed=True,
+    )
+    statuses = [
+        HelperInstallStatus(
+            browser="chrome",
+            state=HELPER_STATE_CONFIGURED,
+            manifest_path=Path("/tmp/chrome-manifest.json"),
+            host_path=Path("/tmp/chrome-host.py"),
+            host_mode=HOST_MODE_WORKSPACE,
+            allowed_extension_ids=("prodprodprodprodprodprodprodprod",),
+        ),
+        HelperInstallStatus(
+            browser="chromium",
+            state=HELPER_STATE_NEEDS_REPAIR,
+            manifest_path=Path("/tmp/chromium-manifest.json"),
+            host_path=Path("/tmp/chromium-host.py"),
+            host_mode=HOST_MODE_WORKSPACE,
+            allowed_extension_ids=(unpacked_target.extension_id,),
+            message="host copy is stale",
+        ),
+    ]
+
+    with (
+        patch(
+            "helper_connections_dialog.load_extension_environments", return_value=([fixed_env], "")
+        ),
+        patch("helper_connections_dialog.load_browser_connections", return_value=[config]),
+        patch("helper_connections_dialog.inspect_helper_installation", side_effect=statuses),
+    ):
+        dialog = BrowserConnectionsDialog(None, _FakeSettings())
+
+    assert dialog._show_diagnostics is False
+    toggle_labels = [button.text() for button in dialog.findChildren(QToolButton)]
+    assert "Show technical details" in toggle_labels
+    button_texts = [button.text() for button in dialog.findChildren(QPushButton)]
+    assert "Reveal manifest" not in button_texts
+
+
+def test_browser_connections_dialog_warns_before_switching_browser_to_workspace_host() -> None:
+    _app()
+    with (
+        patch("helper_connections_dialog.load_extension_environments", return_value=([], "")),
+        patch("helper_connections_dialog.load_browser_connections", return_value=[]),
+    ):
+        dialog = BrowserConnectionsDialog(None, _FakeSettings())
+
+    config = BrowserConnectionConfig(
+        browser="chrome",
+        host_mode=HOST_MODE_BUNDLED,
+        host_override_path=None,
+        targets=(),
     )
 
-    assert dialog._advanced_toggle.isChecked() is True
-    assert dialog._advanced_panel.isHidden() is False
-    assert dialog.values() == (
-        "chrome",
-        "abcdabcdabcdabcdabcdabcdabcdabcd",
-        HOST_MODE_CUSTOM,
-        "/tmp/helper.py",
-    )
+    with patch("helper_connections_dialog.QMessageBox.question", return_value=QMessageBox.No):
+        assert dialog._confirm_workspace_host_switch(config) is False
+
+    with patch("helper_connections_dialog.QMessageBox.question", return_value=QMessageBox.Yes):
+        assert dialog._confirm_workspace_host_switch(config) is True
 
 
 def test_browser_connections_dialog_marks_themeable_frames_and_badges() -> None:
