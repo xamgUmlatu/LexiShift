@@ -2,7 +2,7 @@
 
 Status: active packet
 Role: Packet / WIP
-Last updated: 2026-04-19
+Last updated: 2026-04-21
 Last verified: 2026-04-19 doc-reference check, diff hygiene, and staged repo-safety gate
 Purpose: bound the `B6` slice so semantic-routing planning docs have clearer ownership boundaries between current contract truth, near-term sequencing, launch operation, and research evaluation lanes
 Source-of-truth: packet only; executable and canonical truth still lives in the semantic contract docs, `feature_state_matrix.md`, launch runbooks, and research-plan docs
@@ -78,10 +78,10 @@ The intended semantic doc ownership after `B6` is:
 
 | Claim | Owning docs | Evidence surface | Current status |
 |---|---|---|---|
-| Data contract now routes sequencing/launch questions away from itself. | `semantic_routing_data_contract.md` | doc audit in this slice | `verified for this slice` |
-| Publication contract now makes clear that launch operation belongs in the checklist. | `semantic_routing_publication_contract.md` | doc audit in this slice | `verified for this slice` |
-| Runtime-readiness now owns shipped seam + readiness floor, not step-by-step implementation sequencing. | `semantic_routing_runtime_readiness.md` | doc audit in this slice | `verified for this slice` |
-| Roadmap now owns phase order without re-documenting the full current checkpoint or launch runbook. | `semantic_routing_implementation_roadmap.md` | doc audit in this slice | `verified for this slice` |
+| Data contract now routes sequencing/launch questions away from itself. | `semantic_routing_data_contract.md` | doc audit in this slice | `clarified in this slice` |
+| Publication contract now makes clear that launch operation belongs in the checklist. | `semantic_routing_publication_contract.md` | doc audit in this slice | `clarified in this slice` |
+| Runtime-readiness now owns shipped seam + readiness floor, not step-by-step implementation sequencing. | `semantic_routing_runtime_readiness.md` | doc audit in this slice | `clarified in this slice` |
+| Roadmap now owns phase order without re-documenting the full current checkpoint or launch runbook. | `semantic_routing_implementation_roadmap.md` | doc audit in this slice | `clarified in this slice` |
 | A follow-up reminder now exists for broader evidence-path hygiene in semantic research docs. | `project_integrity_secondary_pass_notes.md` | notes ledger update | `captured for later` |
 
 ## Invariants

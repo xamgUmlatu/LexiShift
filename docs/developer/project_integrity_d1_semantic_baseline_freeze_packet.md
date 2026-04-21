@@ -2,7 +2,7 @@
 
 Status: active packet
 Role: Packet / WIP
-Last updated: 2026-04-18
+Last updated: 2026-04-21
 Last verified: 2026-04-18 protected-file audit plus Phase 0 semantic baseline suite refresh
 Purpose: bound the D1 slice around the Phase 0 semantic baseline freeze so later admission-port work can move without accidentally redefining the current semantic publication/runtime base
 Source-of-truth: packet only; executable truth still lives in code, tests, semantic-routing docs/schemas, and the validation run for this slice
@@ -82,7 +82,7 @@ The intended current Phase 0 semantic baseline contract is:
 
 | Claim | Owning code/tests | Evidence surface | Current status |
 |---|---|---|---|
-| Protected semantic base files remain the current branch source of truth for publication/runtime semantics. | `helper/rulegen_outputs.py`, `helper/use_cases/semantic_admission.py`, semantic-routing docs/schemas | protected-file worktree audit plus selective-port docs | `verified for this slice` |
+| Protected semantic base files remain the current branch source of truth for publication/runtime semantics. | `helper/rulegen_outputs.py`, `helper/use_cases/semantic_admission.py`, semantic-routing docs/schemas | protected-file worktree audit plus selective-port docs | `clarified in this slice` |
 | Helper publication still enforces generation-aligned artifact-family validation. | `helper/rulegen_outputs.py` | `core/tests/helper/test_rulegen_outputs.py`, `core/tests/rulegen/test_semantic_publication.py`, publication-contract docs | `verified for this slice` |
 | Helper/native-host still preserves the separate `semantic_admit_batch` seam. | `helper/use_cases/semantic_admission.py`, helper engine/native host routing | `core/tests/dev/test_helper_translation_dict_entrypoints.py`, runtime-readiness docs | `verified for this slice` |
 | Browser semantic runtime base remains structurally present and default-off. | extension runtime structure + readiness docs | `core/tests/architecture/test_extension_structure.py`, `core/tests/rulegen/test_semantic_routing_runtime_policy.py`, `feature_state_matrix.md` | `verified for this slice` |

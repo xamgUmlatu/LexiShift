@@ -2,7 +2,7 @@
 
 Status: active packet
 Role: Packet / WIP
-Last updated: 2026-04-19
+Last updated: 2026-04-21
 Last verified: 2026-04-19 targeted extension semantic-diagnostics contract tests, doc/state checks, and staged repo-safety gate
 Purpose: bound the `B4` semantic diagnostics join-point slice so helper source-of-truth diagnostics, extension cache diagnostics, and last-reported runtime diagnostics stay explicit about what each layer can and cannot prove
 Source-of-truth: packet only; executable truth still lives in extension/helper code, tests, and the semantic publication/runtime contract docs
@@ -75,7 +75,7 @@ The intended current diagnostics split is:
 |---|---|---|---|
 | Runtime last-state diagnostics now retain `soft_affordance` totals and `decision_policy_id`. | `apply_diagnostics_reporter.js`, `srs_runtime_diagnostics.js` | `core/tests/dev/test_extension_srs_runtime_diagnostics_contract.py` | `verified for this slice` |
 | Extension cache diagnostics now surface cached snapshot/semantic generation ids and a simple alignment check. | `diagnostics_methods.js`, formatter output | `core/tests/dev/test_extension_srs_runtime_diagnostics_contract.py`, `core/tests/dev/test_extension_srs_action_formatters.py` | `verified for this slice` |
-| Helper source-of-truth diagnostics remain the only layer that can speak for manifest validity. | semantic publication/docs boundary | code/doc inspection plus contract docs updated in this slice | `verified for this slice` |
+| Helper source-of-truth diagnostics remain the only layer that can speak for manifest validity. | semantic publication/docs boundary | code/doc inspection plus contract docs updated in this slice | `clarified in this slice` |
 | Semantic publication/runtime protections stayed intact while diagnostics observability was widened. | publication/runtime boundary suite | `core/tests/rulegen/test_semantic_publication.py`, `core/tests/rulegen/test_semantic_routing_runtime_policy.py` | `verified for this slice` |
 
 ## Invariants

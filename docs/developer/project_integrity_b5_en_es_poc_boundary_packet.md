@@ -2,7 +2,7 @@
 
 Status: active packet
 Role: Packet / WIP
-Last updated: 2026-04-19
+Last updated: 2026-04-21
 Last verified: 2026-04-19 targeted semantic publication/runtime pytest suite, doc/state checks, and staged repo-safety gate
 Purpose: bound the `B5` slice so the current `en-es` `status=ready` publication is described as a batch-local emitted-sibling PoC rather than broad shadow-mined runtime readiness
 Source-of-truth: packet only; executable truth still lives in semantic publication/runtime code, tests, and the current semantic contract docs
@@ -81,10 +81,10 @@ The intended current boundary is:
 
 | Claim | Owning docs/tests | Evidence surface | Current status |
 |---|---|---|---|
-| Current schema/docs still allow stable semantic-admission pointers across LPs while keeping `status=ready` narrow. | schema + semantic contract docs | doc audit in this slice | `verified for this slice` |
+| Current schema/docs still allow stable semantic-admission pointers across LPs while keeping `status=ready` narrow. | schema + semantic contract docs | doc audit in this slice | `clarified in this slice` |
 | Current `en-es` `status=ready` publication is batch-local emitted-sibling behavior, not broad mined blocker publication. | publication/runtime/checklist docs | doc audit plus publication/runtime suite | `verified for this slice` |
 | Helper/runtime protections still assume limited ready coverage rather than broad shadow readiness. | semantic publication/runtime tests | targeted pytest bundle | `verified for this slice` |
-| Future parity and broader shadow publication remain separate work rather than being silently implied by the PoC. | roadmap + feature-state matrix | doc audit in this slice | `verified for this slice` |
+| Future parity and broader shadow publication remain separate work rather than being silently implied by the PoC. | roadmap + feature-state matrix | doc audit in this slice | `clarified in this slice` |
 
 ## Invariants
 
