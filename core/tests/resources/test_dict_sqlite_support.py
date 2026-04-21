@@ -10,6 +10,7 @@ from lexishift_core.resources.dict_gloss_metadata import build_auxiliary_gloss_m
 from lexishift_core.resources.dict_loaders import FreedictGlossRecord
 from lexishift_core.resources.dict_sqlite_support import (
     load_auxiliary_sqlite_gloss_base_forms,
+    load_auxiliary_sqlite_gloss_records_by_translation_ordered,
     load_auxiliary_sqlite_gloss_records_ordered,
     load_auxiliary_sqlite_headwords,
     sqlite_has_column,
@@ -25,11 +26,7 @@ class TestDictSqliteSupport(unittest.TestCase):
             conn = sqlite3.connect(path)
             try:
                 conn.execute(
-                    "CREATE TABLE sense_glosses ("
-                    "headword TEXT, "
-                    "headword_lc TEXT, "
-                    "translation TEXT"
-                    ")"
+                    "CREATE TABLE sense_glosses (headword TEXT, headword_lc TEXT, translation TEXT)"
                 )
                 conn.executemany(
                     "INSERT INTO sense_glosses (headword, headword_lc, translation) "
@@ -55,7 +52,7 @@ class TestDictSqliteSupport(unittest.TestCase):
             finally:
                 conn.close()
 
-    def test_record_loader_backfills_missing_pos_without_losing_first_metadata(self) -> None:
+    def test_record_loaders_backfill_missing_pos_without_losing_first_metadata(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "spa-eng.sqlite"
             conn = sqlite3.connect(path)
@@ -173,6 +170,12 @@ class TestDictSqliteSupport(unittest.TestCase):
                     record_factory=FreedictGlossRecord,
                     metadata_builder=build_auxiliary_gloss_metadata,
                 )
+                records_by_translation = load_auxiliary_sqlite_gloss_records_by_translation_ordered(
+                    conn,
+                    translations=("office",),
+                    record_factory=FreedictGlossRecord,
+                    metadata_builder=build_auxiliary_gloss_metadata,
+                )
             finally:
                 conn.close()
 
@@ -185,6 +188,21 @@ class TestDictSqliteSupport(unittest.TestCase):
         self.assertEqual(record.metadata["translation_note_text"], "role note")
         self.assertEqual(record.metadata["sense_raw_glosses"], ["professional office"])
         self.assertEqual(record.metadata["sense_examples"], [{"text": "cargo example"}])
+        self.assertEqual(list(records_by_translation.keys()), ["office"])
+        self.assertEqual(len(records_by_translation["office"]), 1)
+        translation_record = records_by_translation["office"][0]
+        self.assertEqual(translation_record.translation, "cargo")
+        self.assertEqual(translation_record.pos_raw, "noun")
+        self.assertEqual(translation_record.metadata["entry_pos_title"], "noun-title")
+        self.assertEqual(translation_record.metadata["translation_note_text"], "role note")
+        self.assertEqual(
+            translation_record.metadata["sense_raw_glosses"],
+            ["professional office"],
+        )
+        self.assertEqual(
+            translation_record.metadata["sense_examples"],
+            [{"text": "cargo example"}],
+        )
 
 
 if __name__ == "__main__":

@@ -1,7 +1,16 @@
 from __future__ import annotations
 
+from dataclasses import dataclass
 import sqlite3
-from typing import Optional, Sequence
+from typing import Iterator, Mapping, Optional, Sequence
+
+
+@dataclass(frozen=True)
+class _AuxiliarySqliteGlossRow:
+    headword: str
+    translation: str
+    pos_raw: str
+    metadata: Mapping[str, object]
 
 
 def sqlite_has_table(conn: sqlite3.Connection, table_name: str) -> bool:
@@ -36,6 +45,102 @@ def load_auxiliary_sqlite_gloss_records_ordered(
 ) -> dict[str, list[object]]:
     mapping: dict[str, list[object]] = {}
     translation_index_by_headword: dict[str, dict[str, int]] = {}
+    if headwords is not None:
+        if not headwords:
+            return mapping
+    for row in _iter_auxiliary_sqlite_gloss_rows_ordered(
+        conn,
+        filter_column="sg.headword_lc",
+        filter_values=headwords,
+        order_by=(
+            "sg.headword_lc, sg.entry_ord, sg.sense_ord, sg.gloss_ord, sg.translation, sg.headword"
+        ),
+        metadata_builder=metadata_builder,
+    ):
+        bucket = mapping.setdefault(row.headword, [])
+        index_by_translation = translation_index_by_headword.setdefault(
+            row.headword,
+            {},
+        )
+        existing_index = index_by_translation.get(row.translation)
+        if existing_index is None:
+            bucket.append(
+                record_factory(
+                    translation=row.translation,
+                    pos_raw=row.pos_raw,
+                    metadata=row.metadata,
+                )
+            )
+            index_by_translation[row.translation] = len(bucket) - 1
+            continue
+        existing = bucket[existing_index]
+        if getattr(existing, "pos_raw", "") or not row.pos_raw:
+            continue
+        bucket[existing_index] = record_factory(
+            translation=row.translation,
+            pos_raw=row.pos_raw,
+            metadata=getattr(existing, "metadata", None) or row.metadata,
+        )
+    return mapping
+
+
+def load_auxiliary_sqlite_gloss_records_by_translation_ordered(
+    conn: sqlite3.Connection,
+    *,
+    translations: Optional[Sequence[str]] = None,
+    record_factory,
+    metadata_builder,
+) -> dict[str, list[object]]:
+    mapping: dict[str, list[object]] = {}
+    headword_index_by_translation: dict[str, dict[str, int]] = {}
+    if translations is not None:
+        if not translations:
+            return mapping
+    for row in _iter_auxiliary_sqlite_gloss_rows_ordered(
+        conn,
+        filter_column="sg.translation_lc",
+        filter_values=translations,
+        order_by=(
+            "sg.translation_lc, sg.headword_lc, sg.entry_ord, "
+            "sg.sense_ord, sg.gloss_ord, sg.headword"
+        ),
+        metadata_builder=metadata_builder,
+    ):
+        bucket = mapping.setdefault(row.translation, [])
+        index_by_headword = headword_index_by_translation.setdefault(
+            row.translation,
+            {},
+        )
+        existing_index = index_by_headword.get(row.headword)
+        if existing_index is None:
+            bucket.append(
+                record_factory(
+                    translation=row.headword,
+                    pos_raw=row.pos_raw,
+                    metadata=row.metadata,
+                )
+            )
+            index_by_headword[row.headword] = len(bucket) - 1
+            continue
+        existing = bucket[existing_index]
+        if getattr(existing, "pos_raw", "") or not row.pos_raw:
+            continue
+        bucket[existing_index] = record_factory(
+            translation=row.headword,
+            pos_raw=row.pos_raw,
+            metadata=getattr(existing, "metadata", None) or row.metadata,
+        )
+    return mapping
+
+
+def _iter_auxiliary_sqlite_gloss_rows_ordered(
+    conn: sqlite3.Connection,
+    *,
+    filter_column: str,
+    filter_values: Optional[Sequence[str]],
+    order_by: str,
+    metadata_builder,
+) -> Iterator[_AuxiliarySqliteGlossRow]:
     has_entry_meta = sqlite_has_table(conn, "entry_meta")
     has_translation_meta = sqlite_has_table(conn, "translation_meta")
     has_examples_json = sqlite_has_column(conn, "sense_glosses", "examples_json")
@@ -50,12 +155,12 @@ def load_auxiliary_sqlite_gloss_records_ordered(
     )
     where_clause = ""
     parameters: tuple[object, ...] = ()
-    if headwords is not None:
-        if not headwords:
-            return mapping
-        placeholders = ", ".join("?" for _ in headwords)
-        where_clause = f"WHERE sg.headword_lc IN ({placeholders})"
-        parameters = tuple(headwords)
+    if filter_values is not None:
+        if not filter_values:
+            return
+        placeholders = ", ".join("?" for _ in filter_values)
+        where_clause = f"WHERE {filter_column} IN ({placeholders})"
+        parameters = tuple(filter_values)
     cursor = conn.execute(
         f"""
         SELECT
@@ -84,7 +189,7 @@ def load_auxiliary_sqlite_gloss_records_ordered(
         {entry_meta_join}
         {translation_meta_join}
         {where_clause}
-        ORDER BY sg.headword_lc, sg.entry_ord, sg.sense_ord, sg.gloss_ord, sg.translation, sg.headword
+        ORDER BY {order_by}
         """,
         parameters,
     )
@@ -117,54 +222,33 @@ def load_auxiliary_sqlite_gloss_records_ordered(
             translation_text = str(translation or "").strip()
             if not headword_text or not translation_text:
                 continue
-            metadata = metadata_builder(
-                entry_ord=entry_ord,
-                sense_ord=sense_ord,
-                gloss_ord=gloss_ord,
-                raw_glosses_json=raw_glosses_json,
-                sense_examples_json=sense_examples_json,
-                sense_tags_json=sense_tags_json,
-                sense_topics_json=sense_topics_json,
-                sense_categories_json=sense_categories_json,
-                form_of_json=form_of_json,
-                alt_of_json=alt_of_json,
-                entry_pos_title=entry_pos_title,
-                entry_tags_json=entry_tags_json,
-                entry_categories_json=entry_categories_json,
-                translation_sense_text=translation_sense_text,
-                translation_english_text=translation_english_text,
-                translation_note_text=translation_note_text,
-                translation_roman_text=translation_roman_text,
-                translation_tags_json=translation_tags_json,
-            )
-            bucket = mapping.setdefault(headword_text, [])
-            index_by_translation = translation_index_by_headword.setdefault(
-                headword_text,
-                {},
-            )
-            existing_index = index_by_translation.get(translation_text)
-            normalized_pos_raw = str(pos_raw or "").strip()
-            if existing_index is None:
-                bucket.append(
-                    record_factory(
-                        translation=translation_text,
-                        pos_raw=normalized_pos_raw,
-                        metadata=metadata,
-                    )
-                )
-                index_by_translation[translation_text] = len(bucket) - 1
-                continue
-            existing = bucket[existing_index]
-            if getattr(existing, "pos_raw", "") or not normalized_pos_raw:
-                continue
-            bucket[existing_index] = record_factory(
+            yield _AuxiliarySqliteGlossRow(
+                headword=headword_text,
                 translation=translation_text,
-                pos_raw=normalized_pos_raw,
-                metadata=getattr(existing, "metadata", None) or metadata,
+                pos_raw=str(pos_raw or "").strip(),
+                metadata=metadata_builder(
+                    entry_ord=entry_ord,
+                    sense_ord=sense_ord,
+                    gloss_ord=gloss_ord,
+                    raw_glosses_json=raw_glosses_json,
+                    sense_examples_json=sense_examples_json,
+                    sense_tags_json=sense_tags_json,
+                    sense_topics_json=sense_topics_json,
+                    sense_categories_json=sense_categories_json,
+                    form_of_json=form_of_json,
+                    alt_of_json=alt_of_json,
+                    entry_pos_title=entry_pos_title,
+                    entry_tags_json=entry_tags_json,
+                    entry_categories_json=entry_categories_json,
+                    translation_sense_text=translation_sense_text,
+                    translation_english_text=translation_english_text,
+                    translation_note_text=translation_note_text,
+                    translation_roman_text=translation_roman_text,
+                    translation_tags_json=translation_tags_json,
+                ),
             )
     finally:
         cursor.close()
-    return mapping
 
 
 def load_auxiliary_sqlite_headwords(conn: sqlite3.Connection) -> tuple[str, ...]:
