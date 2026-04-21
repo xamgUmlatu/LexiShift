@@ -2,7 +2,7 @@
 
 Status: active architecture map
 Role: Canonical current
-Last updated: 2026-03-21
+Last updated: 2026-04-21
 Source-of-truth: as-is extension runtime/file map; verify implementation details in `apps/chrome-extension/manifest.json`, `apps/chrome-extension/options.html`, and the linked source modules.
 
 Purpose:

@@ -2,7 +2,7 @@
 
 Status: active mixed reference
 Role: Mixed
-Last updated: 2026-03-21
+Last updated: 2026-04-21
 Purpose: module-level technical reference for current extension behavior plus known gaps and ongoing areas
 Source-of-truth: mixed as-is + known-gaps reference; verify live runtime behavior in `extension_system_map.md`, `apps/chrome-extension/manifest.json`, `apps/chrome-extension/options/core/bootstrap/controller_graph.js`, and the linked source modules.
 
