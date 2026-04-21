@@ -116,6 +116,30 @@
   "hint_srs_initial_active_count": {
     "message": "Anzahl der anfänglich nicht-null/aktiven Wörter aus der Bootstrap-Liste."
   },
+  "section_srs_admission_preferences": {
+    "message": "Aufnahmepräferenzen"
+  },
+  "hint_srs_admission_preferences": {
+    "message": "Diese Werte gewichten die Bootstrap-Aufnahme für das ausgewählte Profil und Sprachpaar neu."
+  },
+  "label_srs_topic_interests": {
+    "message": "Themeninteressen"
+  },
+  "hint_srs_topic_interests": {
+    "message": "Kommagetrennte Tags. Exakte Tag-Treffer werden derzeit direkt verwendet."
+  },
+  "label_srs_proficiency_estimate": {
+    "message": "Kompetenzeinschätzung (%)"
+  },
+  "hint_srs_proficiency_estimate": {
+    "message": "0 bis 100. Leer lassen, um die Kompetenz neutral zu halten."
+  },
+  "label_srs_challenge_target": {
+    "message": "Zielschwierigkeit (%)"
+  },
+  "hint_srs_challenge_target": {
+    "message": "0 bis 100. Leer lassen, um die Schwierigkeitspräferenz neutral zu halten."
+  },
   "label_srs_highlight_color": {
     "message": "SRS-Hervorhebungsfarbe"
   },
@@ -197,8 +221,17 @@
   "button_srs_sample": {
     "message": "Aktive Wörter testen…"
   },
+  "button_srs_admission_preview": {
+    "message": "Beispiel zugelassener Wörter erzeugen (5)…"
+  },
   "button_srs_initialize": {
     "message": "S für dieses Paar initialisieren"
+  },
+  "button_srs_rebalance_preview": {
+    "message": "Neugewichtung mit aktuellen Präferenzen vorschauen"
+  },
+  "button_srs_rebalance_apply": {
+    "message": "Neugewichtung anwenden…"
   },
   "button_srs_refresh_set": {
     "message": "S aktualisieren + Regeln veröffentlichen"
@@ -662,6 +695,18 @@
   "hint_share_code": {
     "message": "Erzeuge einen kompakten Code zum Teilen der Regeln."
   },
+  "label_share_scope": {
+    "message": "Einbeziehen"
+  },
+  "option_share_scope_rules": {
+    "message": "Manuelle Regeln"
+  },
+  "option_share_scope_srs": {
+    "message": "SRS-Status"
+  },
+  "option_share_scope_profile": {
+    "message": "Gesamte Profildaten"
+  },
   "toggle_share_code_cjk": {
     "message": "Kurzer Code (CJK)"
   },
@@ -898,6 +943,18 @@
   },
   "section_profile": {
     "message": "Profil"
+  },
+  "section_your_setup": {
+    "message": "Dein Setup"
+  },
+  "hint_your_setup": {
+    "message": "Sprach- und Profilkontext für diese Optionsseite."
+  },
+  "section_manual_rules": {
+    "message": "Manuelle Regeln"
+  },
+  "hint_manual_rules": {
+    "message": "Passe das Ersetzungsverhalten an und bearbeite oder importiere das manuelle Regelset."
   },
   "label_profile_id": {
     "message": "Profil"

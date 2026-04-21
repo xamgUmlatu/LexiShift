@@ -116,6 +116,30 @@
   "hint_srs_initial_active_count": {
     "message": "从引导列表中首批设为非零/活跃的词数。"
   },
+  "section_srs_admission_preferences": {
+    "message": "纳入偏好"
+  },
+  "hint_srs_admission_preferences": {
+    "message": "这些值会重新排序所选配置和语言对的初始 S 纳入结果。"
+  },
+  "label_srs_topic_interests": {
+    "message": "主题兴趣"
+  },
+  "hint_srs_topic_interests": {
+    "message": "用逗号分隔的标签。目前会直接使用完全匹配的标签。"
+  },
+  "label_srs_proficiency_estimate": {
+    "message": "熟练度估计 (%)"
+  },
+  "hint_srs_proficiency_estimate": {
+    "message": "0 到 100。留空则保持熟练度中性。"
+  },
+  "label_srs_challenge_target": {
+    "message": "挑战目标 (%)"
+  },
+  "hint_srs_challenge_target": {
+    "message": "0 到 100。留空则保持难度偏好中性。"
+  },
   "label_srs_highlight_color": {
     "message": "SRS 高亮颜色"
   },
@@ -197,8 +221,17 @@
   "button_srs_sample": {
     "message": "抽样活跃词…"
   },
+  "button_srs_admission_preview": {
+    "message": "生成纳入词样本 (5)…"
+  },
   "button_srs_initialize": {
     "message": "为该语言对初始化 S"
+  },
+  "button_srs_rebalance_preview": {
+    "message": "预览按当前偏好重新平衡"
+  },
+  "button_srs_rebalance_apply": {
+    "message": "应用重新平衡…"
   },
   "button_srs_refresh_set": {
     "message": "刷新 S 并发布规则"
@@ -662,6 +695,18 @@
   "hint_share_code": {
     "message": "生成压缩代码以便跨设备共享规则。"
   },
+  "label_share_scope": {
+    "message": "包含内容"
+  },
+  "option_share_scope_rules": {
+    "message": "手动规则"
+  },
+  "option_share_scope_srs": {
+    "message": "SRS 状态"
+  },
+  "option_share_scope_profile": {
+    "message": "完整配置数据"
+  },
   "toggle_share_code_cjk": {
     "message": "短代码（CJK）"
   },
@@ -898,6 +943,18 @@
   },
   "section_profile": {
     "message": "配置"
+  },
+  "section_your_setup": {
+    "message": "当前设置"
+  },
+  "hint_your_setup": {
+    "message": "此选项页面使用的语言与配置上下文。"
+  },
+  "section_manual_rules": {
+    "message": "手动规则"
+  },
+  "hint_manual_rules": {
+    "message": "调整替换行为，并编辑或导入手动规则集。"
   },
   "label_profile_id": {
     "message": "配置"

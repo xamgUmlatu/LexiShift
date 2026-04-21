@@ -15,7 +15,7 @@ class LocalizationService {
         return message;
       }
     }
-    return fallback || key;
+    return fallback !== undefined && fallback !== null ? fallback : key;
   }
 
   formatMessage(message, substitutions) {

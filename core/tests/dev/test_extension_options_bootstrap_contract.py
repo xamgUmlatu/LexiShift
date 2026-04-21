@@ -11,6 +11,9 @@ OPTIONS_JS = PROJECT_ROOT / "apps/chrome-extension/options.js"
 CONTROLLER_GRAPH_JS = (
     PROJECT_ROOT / "apps/chrome-extension/options/core/bootstrap/controller_graph.js"
 )
+LOCALIZATION_SERVICE_JS = (
+    PROJECT_ROOT / "apps/chrome-extension/options/core/localization_service.js"
+)
 
 
 def _run_node(script: str) -> None:
@@ -31,6 +34,68 @@ def _run_node(script: str) -> None:
 
 
 class TestExtensionOptionsBootstrapContract(unittest.TestCase):
+    def test_localization_service_preserves_static_text_when_explicit_empty_fallback_is_requested(
+        self,
+    ) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const modulePath = {json.dumps(str(LOCALIZATION_SERVICE_JS))};
+const heading = {{
+  textContent: "Admission preferences",
+  getAttribute(name) {{
+    return name === "data-i18n" ? "section_srs_admission_preferences" : null;
+  }}
+}};
+const placeholderNode = {{
+  attributes: {{}},
+  getAttribute(name) {{
+    return name === "data-i18n-placeholder" ? "label_srs_topic_interests" : null;
+  }},
+  setAttribute(name, value) {{
+    this.attributes[name] = value;
+  }}
+}};
+const context = vm.createContext({{
+  console,
+  navigator: {{ language: "en-US" }},
+  document: {{
+    title: "Options",
+    querySelectorAll(selector) {{
+      if (selector === "[data-i18n]") {{
+        return [heading];
+      }}
+      if (selector === "[data-i18n-placeholder]") {{
+        return [placeholderNode];
+      }}
+      return [];
+    }}
+  }}
+}});
+context.globalThis = context;
+vm.runInContext(
+  `${{fs.readFileSync(modulePath, "utf8")}}\\nthis.__LocalizationService = LocalizationService;`,
+  context,
+  {{ filename: modulePath }}
+);
+
+const LocalizationService = context.__LocalizationService;
+const i18n = new LocalizationService();
+
+assert.equal(i18n.t("missing_key", null, ""), "");
+assert.equal(i18n.t("missing_key", null, "Fallback"), "Fallback");
+assert.equal(i18n.t("missing_key"), "missing_key");
+
+i18n.apply();
+
+assert.equal(heading.textContent, "Admission preferences");
+assert.deepEqual(placeholderNode.attributes, {{}});
+assert.equal(context.document.title, "Options");
+"""
+        _run_node(script)
+
     def test_options_root_fails_fast_when_controller_graph_module_is_missing(self) -> None:
         script = f"""
 const assert = require("node:assert/strict");

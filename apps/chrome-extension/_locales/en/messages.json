@@ -116,6 +116,30 @@
   "hint_srs_initial_active_count": {
     "message": "Initial non-zero/active words selected from the bootstrap list."
   },
+  "section_srs_admission_preferences": {
+    "message": "Admission preferences"
+  },
+  "hint_srs_admission_preferences": {
+    "message": "These values rerank bootstrap admission for the selected profile and pair."
+  },
+  "label_srs_topic_interests": {
+    "message": "Topic interests"
+  },
+  "hint_srs_topic_interests": {
+    "message": "Comma-separated tags. Exact tag matches are used directly today."
+  },
+  "label_srs_proficiency_estimate": {
+    "message": "Proficiency estimate (%)"
+  },
+  "hint_srs_proficiency_estimate": {
+    "message": "0 to 100. Leave blank to keep proficiency neutral."
+  },
+  "label_srs_challenge_target": {
+    "message": "Challenge target (%)"
+  },
+  "hint_srs_challenge_target": {
+    "message": "0 to 100. Leave blank to keep challenge preference neutral."
+  },
   "label_srs_highlight_color": {
     "message": "SRS highlight color"
   },
@@ -197,8 +221,17 @@
   "button_srs_sample": {
     "message": "Sample active words…"
   },
+  "button_srs_admission_preview": {
+    "message": "Generate admitted words sample (5)…"
+  },
   "button_srs_initialize": {
     "message": "Initialize S for this pair"
+  },
+  "button_srs_rebalance_preview": {
+    "message": "Preview rebalance to current preferences"
+  },
+  "button_srs_rebalance_apply": {
+    "message": "Apply rebalance…"
   },
   "button_srs_refresh_set": {
     "message": "Refresh S + publish rules"

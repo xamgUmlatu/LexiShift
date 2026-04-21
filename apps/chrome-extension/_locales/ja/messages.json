@@ -116,6 +116,30 @@
   "hint_srs_initial_active_count": {
     "message": "ブートストラップ候補から最初に非ゼロ/アクティブ化する語数です。"
   },
+  "section_srs_admission_preferences": {
+    "message": "採用設定"
+  },
+  "hint_srs_admission_preferences": {
+    "message": "これらの値は、選択したプロファイルと言語ペアに対する初期S採用順位を再調整します。"
+  },
+  "label_srs_topic_interests": {
+    "message": "興味トピック"
+  },
+  "hint_srs_topic_interests": {
+    "message": "カンマ区切りのタグ。現在は完全一致したタグをそのまま使います。"
+  },
+  "label_srs_proficiency_estimate": {
+    "message": "習熟度の推定 (%)"
+  },
+  "hint_srs_proficiency_estimate": {
+    "message": "0 から 100。空欄のままだと習熟度は中立のままです。"
+  },
+  "label_srs_challenge_target": {
+    "message": "目標難度 (%)"
+  },
+  "hint_srs_challenge_target": {
+    "message": "0 から 100。空欄のままだと難度設定は中立のままです。"
+  },
   "label_srs_highlight_color": {
     "message": "SRSハイライト色"
   },
@@ -197,8 +221,17 @@
   "button_srs_sample": {
     "message": "アクティブ語をサンプル…"
   },
+  "button_srs_admission_preview": {
+    "message": "採用語サンプルを生成 (5)…"
+  },
   "button_srs_initialize": {
     "message": "このペアのSを初期化"
+  },
+  "button_srs_rebalance_preview": {
+    "message": "現在の設定で再配分をプレビュー"
+  },
+  "button_srs_rebalance_apply": {
+    "message": "再配分を適用…"
   },
   "button_srs_refresh_set": {
     "message": "Sを更新してルールを反映"
@@ -662,6 +695,18 @@
   "hint_share_code": {
     "message": "ルールを共有するための圧縮コードを生成します。"
   },
+  "label_share_scope": {
+    "message": "含める内容"
+  },
+  "option_share_scope_rules": {
+    "message": "手動ルール"
+  },
+  "option_share_scope_srs": {
+    "message": "SRS 状態"
+  },
+  "option_share_scope_profile": {
+    "message": "プロファイル全体のデータ"
+  },
   "toggle_share_code_cjk": {
     "message": "短いコード（CJK）"
   },
@@ -898,6 +943,18 @@
   },
   "section_profile": {
     "message": "プロファイル"
+  },
+  "section_your_setup": {
+    "message": "現在の設定"
+  },
+  "hint_your_setup": {
+    "message": "このオプション画面に適用される言語とプロファイルのコンテキストです。"
+  },
+  "section_manual_rules": {
+    "message": "手動ルール"
+  },
+  "hint_manual_rules": {
+    "message": "置換動作を調整し、手動ルールセットを編集またはインポートします。"
   },
   "label_profile_id": {
     "message": "プロファイル"

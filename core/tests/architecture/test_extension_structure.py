@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import unittest
 from pathlib import Path
 
@@ -112,6 +113,21 @@ class TestExtensionStructure(unittest.TestCase):
         positions = [html.find(marker) for marker in ordered_markers]
         self.assertTrue(all(position >= 0 for position in positions))
         self.assertEqual(positions, sorted(positions))
+
+    def test_options_html_i18n_keys_exist_in_all_locale_catalogs(self) -> None:
+        html_path = EXT_ROOT / "options.html"
+        html = html_path.read_text(encoding="utf-8")
+        keys = sorted(set(re.findall(r'data-i18n(?:-placeholder)?="([^"]+)"', html)))
+
+        missing_by_locale: dict[str, list[str]] = {}
+        for locale_path in sorted((EXT_ROOT / "_locales").glob("*/messages.json")):
+            locale = locale_path.parent.name
+            messages = json.loads(locale_path.read_text(encoding="utf-8"))
+            missing = [key for key in keys if key not in messages]
+            if missing:
+                missing_by_locale[locale] = missing
+
+        self.assertEqual(missing_by_locale, {})
 
     def test_content_runtime_and_ui_modules_are_registered_in_manifest_order(self) -> None:
         manifest_path = EXT_ROOT / "manifest.json"
