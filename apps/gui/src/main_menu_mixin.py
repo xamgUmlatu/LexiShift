@@ -5,11 +5,7 @@ import sys
 from PySide6.QtGui import QAction, QActionGroup
 from PySide6.QtWidgets import QMessageBox, QStyle
 
-from helper_installer import (
-    HELPER_STATE_CONFIGURED,
-    HELPER_STATE_NEEDS_REPAIR,
-)
-from helper_ui import helper_connection_overall_state, manage_browser_connections
+from helper_ui import manage_browser_connections
 from i18n import t
 from main_help import open_setup_guide
 from main_paths import _app_data_dir, _startup_log_paths
@@ -52,7 +48,7 @@ class MainWindowMenuMixin:
         self._edit_metadata_action = QAction(t("menu.edit_metadata"), self)
         self._edit_metadata_action.triggered.connect(self._edit_rule_metadata)
 
-        self._install_helper_action = QAction(t("menu.manage_browser_connections"), self)
+        self._install_helper_action = QAction(t("menu.browser_connections"), self)
         self._install_helper_action.setMenuRole(QAction.ApplicationSpecificRole)
         self._install_helper_action.setIcon(self.style().standardIcon(QStyle.SP_ComputerIcon))
         self._install_helper_action.triggered.connect(self._manage_browser_connections)
@@ -155,14 +151,7 @@ class MainWindowMenuMixin:
         help_menu.addAction(self._open_setup_guide_action)
 
     def _refresh_helper_menu_label(self) -> None:
-        state = helper_connection_overall_state(self._ui_settings)
-        if state == HELPER_STATE_NEEDS_REPAIR:
-            self._install_helper_action.setText(t("menu.repair_browser_connections"))
-            return
-        if state == HELPER_STATE_CONFIGURED:
-            self._install_helper_action.setText(t("menu.manage_browser_connections"))
-            return
-        self._install_helper_action.setText(t("menu.install_helper"))
+        self._install_helper_action.setText(t("menu.browser_connections"))
 
     def _manage_browser_connections(self) -> None:
         manage_browser_connections(self, self._ui_settings)

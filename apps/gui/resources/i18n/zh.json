@@ -61,6 +61,7 @@
     "import_profiles_code": "导入配置文件（代码）...",
     "reveal_in_finder": "在 Finder 中显示",
     "reveal_ruleset_in_finder": "在 Finder 中显示规则集",
+    "browser_connections": "连接...",
     "install_helper": "连接浏览器扩展...",
     "manage_browser_connections": "管理浏览器连接...",
     "repair_browser_connections": "修复浏览器连接...",

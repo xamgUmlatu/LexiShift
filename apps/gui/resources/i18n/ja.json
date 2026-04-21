@@ -61,6 +61,7 @@
     "import_profiles_code": "プロファイルをインポート（コード）...",
     "reveal_in_finder": "Finderで表示",
     "reveal_ruleset_in_finder": "ルールセットをFinderで表示",
+    "browser_connections": "接続...",
     "install_helper": "ブラウザー拡張機能を接続...",
     "manage_browser_connections": "ブラウザー接続を管理...",
     "repair_browser_connections": "ブラウザー接続を修復...",
