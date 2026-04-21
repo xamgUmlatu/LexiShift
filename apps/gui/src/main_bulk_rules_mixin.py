@@ -10,6 +10,7 @@ from dialogs_code import BulkRulesDialog
 from i18n import t
 from lexishift_core.helper.installed_packs import resolve_installed_pack_artifact
 from lexishift_core.helper.translation_packs import resolve_configured_language_pack_paths
+from lexishift_core.persistence.settings import resolve_secondary_language_pack_paths
 from lexishift_core import (
     RuleMetadata,
     SynonymGenerator,
@@ -76,9 +77,10 @@ class MainWindowBulkRulesMixin:
         pack_ids: set[str] = set()
         if not settings:
             return pack_ids
-        if settings.wordnet_dir:
+        secondary_pack_paths = resolve_secondary_language_pack_paths(settings)
+        if secondary_pack_paths.get("wordnet-en"):
             pack_ids.add("wordnet-en")
-        if settings.moby_path:
+        if secondary_pack_paths.get("moby-en"):
             pack_ids.add("moby-en")
         if settings.last_selected_pack_ids:
             return set(settings.last_selected_pack_ids)
@@ -120,6 +122,9 @@ class MainWindowBulkRulesMixin:
                 t("dialogs.synonym_expansion.configure_sources"),
             )
             return []
+        secondary_pack_paths = resolve_secondary_language_pack_paths(settings)
+        wordnet_path = secondary_pack_paths.get("wordnet-en")
+        moby_path = secondary_pack_paths.get("moby-en")
         language_pack_paths = resolve_configured_language_pack_paths(
             language_packs_dir=_app_data_dir() / "language_packs",
             settings_language_pack_paths=settings.language_pack_paths,
@@ -175,8 +180,8 @@ class MainWindowBulkRulesMixin:
 
             if not any(
                 [
-                    use_wordnet and settings.wordnet_dir,
-                    use_moby and settings.moby_path,
+                    use_wordnet and wordnet_path,
+                    use_moby and moby_path,
                     use_openthesaurus and openthesaurus_path,
                     use_odenet and odenet_path,
                     use_jp_wordnet and jp_wordnet_path,
@@ -190,9 +195,9 @@ class MainWindowBulkRulesMixin:
                 continue
 
             missing_sources = []
-            if use_wordnet and settings.wordnet_dir and not Path(settings.wordnet_dir).exists():
+            if use_wordnet and wordnet_path and not Path(wordnet_path).exists():
                 missing_sources.append(t("sources.wordnet_dir"))
-            if use_moby and settings.moby_path and not Path(settings.moby_path).exists():
+            if use_moby and moby_path and not Path(moby_path).exists():
                 missing_sources.append(t("sources.moby_file"))
             if use_openthesaurus and openthesaurus_path and not Path(openthesaurus_path).exists():
                 missing_sources.append(t("sources.openthesaurus_file"))
@@ -257,10 +262,8 @@ class MainWindowBulkRulesMixin:
                 else None
             )
             sources = SynonymSources(
-                wordnet_dir=Path(settings.wordnet_dir)
-                if use_wordnet and settings.wordnet_dir
-                else None,
-                moby_path=Path(settings.moby_path) if use_moby and settings.moby_path else None,
+                wordnet_dir=Path(wordnet_path) if use_wordnet and wordnet_path else None,
+                moby_path=Path(moby_path) if use_moby and moby_path else None,
                 openthesaurus_path=Path(openthesaurus_path)
                 if use_openthesaurus and openthesaurus_path
                 else None,
@@ -385,6 +388,7 @@ class MainWindowBulkRulesMixin:
         if not selected_pack_ids:
             return
         settings = self.state.settings.synonyms or SynonymSourceSettings()
+        secondary_pack_paths = resolve_secondary_language_pack_paths(settings)
         language_pack_paths = resolve_configured_language_pack_paths(
             language_packs_dir=_app_data_dir() / "language_packs",
             settings_language_pack_paths=settings.language_pack_paths,
@@ -403,8 +407,8 @@ class MainWindowBulkRulesMixin:
             "freedict-en-de": "translation_en_de",
         }
         pack_to_path = {
-            "wordnet-en": settings.wordnet_dir,
-            "moby-en": settings.moby_path,
+            "wordnet-en": secondary_pack_paths.get("wordnet-en"),
+            "moby-en": secondary_pack_paths.get("moby-en"),
             "openthesaurus-de": language_pack_paths.get("openthesaurus-de"),
             "odenet-de": language_pack_paths.get("odenet-de"),
             "jp-wordnet": language_pack_paths.get("jp-wordnet"),

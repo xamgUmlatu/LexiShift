@@ -134,8 +134,8 @@ Use this file when:
 ## Data Source Normalization Architecture
 
 - Status: `implemented`, `verified`; `default-on` = `partial` for manifest-backed translation-pack, frequency-pack, and app-managed embedding-pack installs plus helper default-pack discovery
-- Last documented checkpoint: `2026-04-16` benchmark resource payloads now carry translation-pack plus source-frequency-pack identity directly, the embedding settings panel now strips managed installed artifacts from seed/auto-link state so managed embedding activation stays under per-pair pack ids instead of being rehydrated back into the manual path map, and the resource workspace plus frequency/embedding copy now explicitly frame manual paths as compatibility/import surfaces
-- Last verified: `2026-04-16` targeted benchmark/helper/gui settings-state tests plus resources-tab copy checks and state/doc checks covering benchmark resource identity metadata, embedding panel seed/auto-link/activation state cleanup, embedding runtime pack-id resolution, and feature-state/doc consistency
+- Last documented checkpoint: `2026-04-21` the data-source normalization contract now also pins `wordnet-en` / `moby-en` as explicit compatibility exceptions: panel/dialog persistence still mirrors them into `wordnet_dir` / `moby_path`, but downstream bulk-rules consumers now resolve those two packs through the shared binding-map-first effective-path helper instead of direct legacy-field reads
+- Last verified: `2026-04-21` targeted bulk-rules, panel-state, dialog-persistence, and persistence helper tests plus state/doc safety checks
 - Default behavior:
   - Target architecture is now explicit:
     - installed packs should resolve by manifest-backed pack identity rather than flat filenames
@@ -173,6 +173,7 @@ Use this file when:
     - app-state load/update now migrates old saved managed translation/frequency artifact paths into that split representation
     - the settings panel now keeps managed translation/frequency ids in dedicated in-memory sets instead of reconstructing those ids from unified path maps on save
     - the mixed language-pack settings surface now keeps explicit `LanguageResourceBinding` records for managed translation packs plus secondary/manual entries, and dialog persistence can derive managed ids plus manual paths from those bindings
+    - `wordnet-en` and `moby-en` remain explicit compatibility exceptions inside that mixed surface: persisted `wordnet_dir` / `moby_path` are still mirrored for compatibility, but bulk-rules runtime consumers now resolve them from the shared binding-map-first effective-path helper before falling back to those legacy aliases
     - the language-pack table, delete flow, and auto-link path now consume those `LanguageResourceBinding` records directly, and the language-pack tab now explicitly states that app-managed packs are the default while manual selection is a temporary compatibility path
     - bulk-rules translation loading and source-stat reporting now use a shared configured language-pack resolver to rebuild managed translation artifacts from stored pack ids before falling back to manual path maps, while SRS growth rebuilds managed default frequency artifacts from stored pack ids before falling back to manual paths
     - the settings panel now omits redundant managed embedding artifact paths from saved settings when those installs are already represented by pack id + manifest-backed resolution
@@ -182,7 +183,7 @@ Use this file when:
     - helper CLI/native-host execution entrypoints now accept `frequency_pack_path` as the preferred frequency override field while retaining `set_source_db` as a compatibility alias, and preview/rebalance payloads expose frequency pack path/id/provider/POS-profile fields alongside the legacy execution field
   - Current runtime contract is still transitional rather than final:
     - FreeDict and Kaikki translation packs now expose SQLite as the canonical app-managed runtime artifact, but manual TEI files, older extracted directories, and legacy `<pack_id>.sqlite` filenames remain compatibility inputs during migration
-    - normalized translation/frequency settings are now pack-id-first for the mandatory managed families, but secondary language-pack families still keep path-shaped settings until their promotion decision is made
+    - normalized translation/frequency settings are now pack-id-first for the mandatory managed families, while `wordnet-en` / `moby-en` remain explicit compatibility aliases inside the secondary language-pack family until any later promotion decision is made
     - frequency packs already expose SQLite, and new app-managed installs now use `main.sqlite`, but legacy `freq-*.sqlite` names still remain valid fallback paths during migration
     - embedding runtime still accepts raw `.vec/.bin` paths as a compatibility path for manually supplied external files
     - managed embedding settings/runtime are now pack-id-first for app-owned installs, while manual raw/vector and external SQLite paths remain separate compatibility/import inputs
@@ -207,6 +208,7 @@ Use this file when:
   - `apps/gui/src/main_replacement_filter_mixin.py`
   - `apps/gui/src/dialogs.py`
   - `core/lexishift_core/persistence/settings.py`
+  - `apps/gui/src/main_bulk_rules_mixin.py`
   - `core/lexishift_core/resources/freedict_sqlite.py`
   - `core/lexishift_core/resources/synonyms.py`
   - `core/lexishift_core/frequency/de/build_support.py`
@@ -226,6 +228,7 @@ Use this file when:
   - `apps/gui/tests/test_main_settings_resource_persistence.py`
   - `apps/gui/tests/test_main_embedding_pack_resolution.py`
   - `apps/gui/tests/test_language_pack_panel_state_mixin.py`
+  - `apps/gui/tests/test_main_bulk_rules_translation_pack_resolution.py`
   - `apps/gui/tests/test_language_pack_path_mixin.py`
   - `apps/gui/tests/test_state_resource_settings_migration.py`
   - `core/tests/helper/test_embedding_packs.py`
@@ -238,6 +241,7 @@ Use this file when:
   - FreeDict packs are still effectively runtime-addressed through TEI-compatible paths in some probe/tooling flows even though app-managed installs now build to SQLite and the main helper/GUI/harness consumers now prefer SQLite-first paths.
   - Managed embedding activation no longer needs persisted app-owned artifact paths, and the settings panel now strips managed installed artifacts from seed/auto-link state; remaining temporary embedding path handling is mostly limited to in-flight download/conversion/manual-link flows.
   - Manual external embedding files still bypass the managed-pack manifest layout by design during migration.
+  - `wordnet-en` / `moby-en` are still not promoted into the same normalized managed-pack model as translation/frequency/embeddings; they remain explicit compatibility exceptions until the broader secondary lexical family decision is made.
   - Frequency packs still preserve their legacy `freq-*.sqlite` artifact names as fallback paths during migration.
   - Translation consumers still include TEI-compatible assumptions in some probe/tooling paths, but the shared loader-backed or SQLite-first consumers now include rulegen pairs, helper/runtime diagnostics, benchmark resource payloads, the German frequency whitelist, synonym generation, the bulk-rules GUI path, and the synthetic SRS quality/journey harnesses plus installed journey staging.
 

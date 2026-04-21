@@ -13,6 +13,7 @@ from lexishift_core import (  # noqa: E402
     Profile,
     SynonymSourceSettings,
     load_app_settings,
+    resolve_secondary_language_pack_paths,
     save_app_settings,
     settings_to_dict,
 )
@@ -144,6 +145,42 @@ class SettingsTests(unittest.TestCase):
         self.assertNotIn("language_packs", synonyms)
         self.assertNotIn("frequency_packs", synonyms)
         self.assertNotIn("embedding_packs", synonyms)
+
+    def test_resolve_secondary_language_pack_paths_prefers_binding_map_entries(self) -> None:
+        resolved = resolve_secondary_language_pack_paths(
+            SynonymSourceSettings(
+                language_pack_paths={
+                    "wordnet-en": "/tmp/wordnet-binding",
+                    "moby-en": "/tmp/moby-binding.txt",
+                },
+                wordnet_dir="/tmp/wordnet-legacy",
+                moby_path="/tmp/moby-legacy.txt",
+            )
+        )
+
+        self.assertEqual(
+            resolved,
+            {
+                "wordnet-en": "/tmp/wordnet-binding",
+                "moby-en": "/tmp/moby-binding.txt",
+            },
+        )
+
+    def test_resolve_secondary_language_pack_paths_falls_back_to_legacy_fields(self) -> None:
+        resolved = resolve_secondary_language_pack_paths(
+            SynonymSourceSettings(
+                wordnet_dir="/tmp/wordnet-legacy",
+                moby_path="/tmp/moby-legacy.txt",
+            )
+        )
+
+        self.assertEqual(
+            resolved,
+            {
+                "wordnet-en": "/tmp/wordnet-legacy",
+                "moby-en": "/tmp/moby-legacy.txt",
+            },
+        )
 
 
 if __name__ == "__main__":

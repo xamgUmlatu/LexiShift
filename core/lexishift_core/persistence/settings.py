@@ -51,6 +51,12 @@ class SynonymSourceSettings:
     embedding_pair_enabled: Mapping[str, bool] = field(default_factory=dict)
 
 
+_SECONDARY_LANGUAGE_PACK_FIELD_NAMES: dict[str, str] = {
+    "wordnet-en": "wordnet_dir",
+    "moby-en": "moby_path",
+}
+
+
 @dataclass(frozen=True)
 class AppSettings:
     profiles: Sequence[Profile] = field(default_factory=tuple)
@@ -99,6 +105,28 @@ def settings_to_dict(settings: AppSettings) -> dict[str, Any]:
     }
     trimmed = {key: value for key, value in data.items() if value not in (None, [], {})}
     return trimmed
+
+
+def resolve_secondary_language_pack_paths(
+    settings: Optional[SynonymSourceSettings],
+) -> dict[str, str]:
+    if settings is None:
+        return {}
+    configured_paths = {
+        str(pack_id).strip(): str(raw_path).strip()
+        for pack_id, raw_path in dict(settings.language_pack_paths or {}).items()
+        if str(pack_id).strip() in _SECONDARY_LANGUAGE_PACK_FIELD_NAMES and str(raw_path).strip()
+    }
+    resolved: dict[str, str] = {}
+    for pack_id, field_name in _SECONDARY_LANGUAGE_PACK_FIELD_NAMES.items():
+        configured = configured_paths.get(pack_id)
+        if configured:
+            resolved[pack_id] = configured
+            continue
+        legacy_value = str(getattr(settings, field_name, "") or "").strip()
+        if legacy_value:
+            resolved[pack_id] = legacy_value
+    return resolved
 
 
 def _profile_from_dict(data: Mapping[str, Any]) -> Profile:

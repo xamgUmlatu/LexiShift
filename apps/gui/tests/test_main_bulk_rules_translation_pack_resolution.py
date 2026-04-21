@@ -22,6 +22,7 @@ from lexishift_core.helper.translation_packs import (  # noqa: E402
 )
 from lexishift_core import SynonymSourceSettings  # noqa: E402
 from main_bulk_rules_mixin import (  # noqa: E402
+    MainWindowBulkRulesMixin,
     _resolve_translation_pack_path,
 )
 
@@ -163,3 +164,31 @@ def test_configured_language_pack_paths_prefer_managed_artifact_over_same_key_ma
         )
 
     assert resolved["freedict-en-es"] == str(artifact)
+
+
+def test_default_bulk_pack_ids_include_secondary_binding_map_entries_without_legacy_fields() -> (
+    None
+):
+    dummy = type("Dummy", (MainWindowBulkRulesMixin,), {})()
+    dummy.state = type(
+        "State",
+        (),
+        {
+            "settings": type(
+                "Settings",
+                (),
+                {
+                    "synonyms": SynonymSourceSettings(
+                        language_pack_paths={
+                            "wordnet-en": "/tmp/wordnet-binding",
+                            "moby-en": "/tmp/moby-binding.txt",
+                        }
+                    )
+                },
+            )()
+        },
+    )()
+
+    resolved = MainWindowBulkRulesMixin._default_bulk_pack_ids(dummy)
+
+    assert resolved == {"wordnet-en", "moby-en"}
