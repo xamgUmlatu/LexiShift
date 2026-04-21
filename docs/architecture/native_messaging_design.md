@@ -220,6 +220,7 @@ Schema note:
 - App menu (LexiShift) and Settings → SRS now route through a **Browser Connections** manager instead of a single environment prompt.
 - Fixed-ID production browsers keep the simple path: one click per supported browser to connect or repair the native-messaging manifest.
 - Unpacked/dev extensions now keep the narrow path: add/edit dialogs capture only browser + unpacked extension ID, and the app uses the current workspace helper automatically for that browser.
+- Workspace-host installs now write a small native-host wrapper that pins the repo interpreter instead of relying on `/usr/bin/env python3`, so Chrome launches from Finder/GUI shells do not drift onto an incompatible system Python.
 - Same-browser prod and unpacked-dev entries still share one native-messaging host path; the GUI only surfaces that as a targeted warning when adding/editing an unpacked entry would switch an already-configured browser to the workspace host.
 - Manifest path, host path, and reveal actions remain available only behind an explicit technical-details toggle instead of being the default card surface.
 - Connection status is presented as `Configured`, `Needs repair`, or `Not configured` based on manifest/origin/host-path inspection rather than manifest existence alone.
@@ -236,6 +237,7 @@ Schema note:
 ## Live Current Status
 - Helper auto-install runs on launch when a fixed ID is available; manual browser connection management remains available from the App menu and SRS settings.
 - Native messaging host exists; install writes one manifest per browser with the allowed origins for every configured extension ID on that browser and registers Windows per-browser native-messaging manifest keys for supported GUI environments.
+- Workspace-host manifests now target the generated wrapper script rather than the raw repo host script, and legacy direct-script workspace manifests are treated as `Needs repair`.
 - Install inspection now treats stale bundled helper copies as `Needs repair` instead of silently accepting any manifest that still points at an older copied host.
 - Helper supports set planning (`srs_plan_set`) and explicit set initialization (`srs_initialize`).
 - Helper exposes profile snapshot command (`profiles_get`).

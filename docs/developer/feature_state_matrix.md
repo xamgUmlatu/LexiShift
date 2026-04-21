@@ -612,15 +612,16 @@ Use this file when:
 ## Browser Helper Connection Management
 
 - Status: `implemented`, `default-on`, `verified`
-- Last documented checkpoint: `2026-04-22` browser-connections manager narrowed back to one-click prod rows, browser+extension-ID unpacked-dev flow, targeted shared-host warning, and opt-in technical diagnostics
+- Last documented checkpoint: `2026-04-22` browser-connections manager kept the narrowed one-click prod rows and browser+extension-ID unpacked-dev flow, while workspace-host installs switched to a pinned-interpreter wrapper and legacy direct-script manifests became repairable
 - Last verified: `2026-04-22` targeted helper installer/browser-connection tests plus doc/code reconciliation and feature-state sync
 - Default behavior:
   - The GUI app now routes helper install/repair through a Browser Connections manager in the app menu and SRS settings instead of the older single environment prompt.
   - Fixed-ID production browsers keep a one-click connect/repair path.
   - Unpacked development extensions are managed separately through a narrow dialog that captures only browser + unpacked extension ID; the app uses the current workspace helper automatically for that browser.
+  - Workspace-host installs now target a generated wrapper script that pins the repo interpreter, so browser launches from Finder/GUI shells do not depend on whichever `python3` happens to be on `PATH`.
   - Native-messaging manifests now merge all allowed origins for the same browser into one manifest instead of assuming only one extension ID.
   - Same-browser prod and unpacked-dev entries still share one host path; the GUI only surfaces that as a targeted warning when an unpacked-dev change would switch a configured browser to the workspace host.
-  - Helper install inspection now distinguishes `Configured`, `Needs repair`, and `Not configured`, including stale bundled-helper copies.
+  - Helper install inspection now distinguishes `Configured`, `Needs repair`, and `Not configured`, including stale bundled-helper copies and legacy direct-script workspace manifests.
   - Manifest path, host path, and reveal actions are available only through an explicit technical-details toggle rather than the default card surface.
 - Evidence:
   - `docs/architecture/native_messaging_design.md`

@@ -242,6 +242,127 @@ class TestHelperInstallerNativeMessaging(unittest.TestCase):
         self.assertEqual(status.state, helper_installer.HELPER_STATE_NEEDS_REPAIR)
         self.assertIn("stale", status.message.lower())
 
+    def test_install_helper_wraps_workspace_host_with_pinned_python(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            root = Path(tmpdir)
+            data_root = root / "data"
+            manifest = root / "com.lexishift.helper.json"
+            repo_root = root / "repo"
+            host = repo_root / "scripts" / "helper" / "lexishift_native_host.py"
+            interpreter = repo_root / ".venv" / "bin" / "python"
+            host.parent.mkdir(parents=True, exist_ok=True)
+            interpreter.parent.mkdir(parents=True, exist_ok=True)
+            host.write_text("print('host')\n", encoding="utf-8")
+            interpreter.write_text("", encoding="utf-8")
+
+            with (
+                mock.patch.object(helper_installer, "_helper_data_root", return_value=data_root),
+                mock.patch.object(helper_installer, "manifest_path", return_value=manifest),
+                mock.patch.object(helper_installer, "workspace_host_script", return_value=host),
+                mock.patch.object(
+                    helper_installer,
+                    "_resolve_workspace_python",
+                    return_value=interpreter,
+                ),
+            ):
+                result = helper_installer.install_helper(
+                    extension_id="abcdefghijklmnopabcdefghijklmnop",
+                    browser="chrome",
+                    host_path=host,
+                )
+                wrapper_path = helper_installer.workspace_host_wrapper_path()
+
+            self.assertTrue(result.installed)
+            self.assertTrue(wrapper_path.exists())
+            self.assertEqual(
+                wrapper_path.read_text(encoding="utf-8"),
+                helper_installer._build_workspace_wrapper_script(host, interpreter),
+            )
+            payload = json.loads(manifest.read_text(encoding="utf-8"))
+            self.assertEqual(payload["path"], str(wrapper_path))
+
+    def test_inspect_helper_installation_flags_legacy_direct_workspace_script(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            root = Path(tmpdir)
+            data_root = root / "data"
+            manifest = root / "com.lexishift.helper.json"
+            repo_root = root / "repo"
+            host = repo_root / "scripts" / "helper" / "lexishift_native_host.py"
+            host.parent.mkdir(parents=True, exist_ok=True)
+            host.write_text("print('host')\n", encoding="utf-8")
+            manifest.write_text(
+                json.dumps(
+                    {
+                        "allowed_origins": [
+                            "chrome-extension://abcdefghijklmnopabcdefghijklmnop/",
+                        ],
+                        "path": str(host),
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            with (
+                mock.patch.object(helper_installer, "_helper_data_root", return_value=data_root),
+                mock.patch.object(helper_installer, "manifest_path", return_value=manifest),
+                mock.patch.object(helper_installer, "workspace_host_script", return_value=host),
+            ):
+                status = helper_installer.inspect_helper_installation(
+                    browser="chrome",
+                    expected_extension_ids=["abcdefghijklmnopabcdefghijklmnop"],
+                )
+
+        self.assertEqual(status.state, helper_installer.HELPER_STATE_NEEDS_REPAIR)
+        self.assertIn("legacy direct script path", status.message.lower())
+
+    def test_inspect_helper_installation_accepts_workspace_wrapper(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            root = Path(tmpdir)
+            data_root = root / "data"
+            manifest = root / "com.lexishift.helper.json"
+            repo_root = root / "repo"
+            host = repo_root / "scripts" / "helper" / "lexishift_native_host.py"
+            interpreter = repo_root / ".venv" / "bin" / "python"
+            host.parent.mkdir(parents=True, exist_ok=True)
+            interpreter.parent.mkdir(parents=True, exist_ok=True)
+            host.write_text("print('host')\n", encoding="utf-8")
+            interpreter.write_text("", encoding="utf-8")
+
+            with (
+                mock.patch.object(helper_installer, "_helper_data_root", return_value=data_root),
+                mock.patch.object(helper_installer, "manifest_path", return_value=manifest),
+                mock.patch.object(helper_installer, "workspace_host_script", return_value=host),
+                mock.patch.object(
+                    helper_installer,
+                    "_resolve_workspace_python",
+                    return_value=interpreter,
+                ),
+            ):
+                wrapper_path = helper_installer.workspace_host_wrapper_path()
+                wrapper_path.parent.mkdir(parents=True, exist_ok=True)
+                wrapper_path.write_text(
+                    helper_installer._build_workspace_wrapper_script(host, interpreter),
+                    encoding="utf-8",
+                )
+                manifest.write_text(
+                    json.dumps(
+                        {
+                            "allowed_origins": [
+                                "chrome-extension://abcdefghijklmnopabcdefghijklmnop/",
+                            ],
+                            "path": str(wrapper_path),
+                        }
+                    ),
+                    encoding="utf-8",
+                )
+                status = helper_installer.inspect_helper_installation(
+                    browser="chrome",
+                    expected_extension_ids=["abcdefghijklmnopabcdefghijklmnop"],
+                )
+
+        self.assertEqual(status.state, helper_installer.HELPER_STATE_CONFIGURED)
+        self.assertEqual(status.host_mode, helper_installer.HOST_MODE_WORKSPACE)
+
 
 if __name__ == "__main__":
     unittest.main()

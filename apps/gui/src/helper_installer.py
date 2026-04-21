@@ -37,15 +37,18 @@ from helper_extension_environments import (
     resolve_extension_id,
 )
 from helper_native_messaging_support import (
+    build_workspace_wrapper_script as _build_workspace_wrapper_script,
     extension_id_from_origin as _extension_id_from_origin,
     hash_directory as _hash_directory,
     hash_file as _hash_file,
     normalize_extension_ids as _normalize_extension_ids,
     origin_for_extension_id as _origin_for_extension_id,
+    resolve_workspace_python as _resolve_workspace_python,
     resolve_workspace_host_script,
     resolve_host_path_for_mode as _resolve_host_path_for_mode,
     stable_bundled_core_path as _stable_bundled_core_path,
     stable_bundled_host_path as _stable_bundled_host_path,
+    workspace_host_wrapper_path as _workspace_host_wrapper_path,
 )
 from utils_paths import resource_path
 from helper_logger import log_helper
@@ -204,6 +207,10 @@ def stable_bundled_core_path() -> Path:
     return _stable_bundled_core_path(_helper_data_root())
 
 
+def workspace_host_wrapper_path() -> Path:
+    return _workspace_host_wrapper_path(_helper_data_root())
+
+
 def resolve_host_path_for_mode(
     host_mode: str,
     *,
@@ -228,6 +235,35 @@ def _helper_data_root() -> Path:
         root = home / ".local" / "share" / "LexiShift" / "LexiShift"
     root.mkdir(parents=True, exist_ok=True)
     return root
+
+
+def _ensure_workspace_host_wrapper(host_script: Path) -> Optional[Path]:
+    if sys.platform.startswith("win"):
+        return None
+    python_path = _resolve_workspace_python(
+        host_script,
+        validate=True,
+        log=log_helper_install,
+    )
+    if python_path is None:
+        log_helper_install(
+            f"[Helper] Unable to resolve compatible workspace Python for host {host_script}"
+        )
+        return None
+    wrapper_path = workspace_host_wrapper_path()
+    wrapper_path.parent.mkdir(parents=True, exist_ok=True)
+    wrapper_path.write_text(
+        _build_workspace_wrapper_script(host_script, python_path),
+        encoding="utf-8",
+    )
+    try:
+        wrapper_path.chmod(wrapper_path.stat().st_mode | stat.S_IEXEC)
+    except OSError:
+        pass
+    log_helper_install(
+        f"[Helper] Prepared workspace host wrapper: {wrapper_path} python={python_path} host={host_script}"
+    )
+    return wrapper_path
 
 
 def _is_bundled_path(path: Path) -> bool:
@@ -559,6 +595,13 @@ def infer_host_mode(host_path: Optional[Path]) -> Optional[str]:
         resolved = host_path.resolve()
     except OSError:
         resolved = host_path
+    workspace_wrapper = workspace_host_wrapper_path()
+    try:
+        if resolved == workspace_wrapper.resolve():
+            return HOST_MODE_WORKSPACE
+    except OSError:
+        if resolved == workspace_wrapper:
+            return HOST_MODE_WORKSPACE
     workspace = workspace_host_script()
     if workspace is not None:
         try:
@@ -624,6 +667,40 @@ def _bundled_freshness_issue(host_path: Path) -> Optional[str]:
             and source_core_digest != installed_core_digest
         ):
             return "Bundled lexishift_core copy is stale."
+    return None
+
+
+def _workspace_wrapper_issue(host_path: Path) -> Optional[str]:
+    workspace = workspace_host_script()
+    if workspace is None:
+        return "Workspace host could not be resolved."
+    wrapper_path = workspace_host_wrapper_path()
+    try:
+        resolved = host_path.resolve()
+    except OSError:
+        resolved = host_path
+    try:
+        if resolved == workspace.resolve():
+            return "Workspace host uses a legacy direct script path. Repair to install the pinned Python wrapper."
+    except OSError:
+        if resolved == workspace:
+            return "Workspace host uses a legacy direct script path. Repair to install the pinned Python wrapper."
+    try:
+        if resolved != wrapper_path.resolve():
+            return None
+    except OSError:
+        if resolved != wrapper_path:
+            return None
+    python_path = _resolve_workspace_python(workspace, validate=False)
+    if python_path is None or not python_path.exists():
+        return "Workspace host wrapper is missing its Python interpreter."
+    expected = _build_workspace_wrapper_script(workspace, python_path)
+    try:
+        actual = host_path.read_text(encoding="utf-8")
+    except OSError:
+        return "Workspace host wrapper could not be read."
+    if actual != expected:
+        return "Workspace host wrapper is stale."
     return None
 
 
@@ -694,6 +771,10 @@ def inspect_helper_installation(
         freshness_issue = _bundled_freshness_issue(host_path)
         if freshness_issue:
             repair_messages.append(freshness_issue)
+    if host_path is not None and host_path.exists() and host_mode == HOST_MODE_WORKSPACE:
+        workspace_issue = _workspace_wrapper_issue(host_path)
+        if workspace_issue:
+            repair_messages.append(workspace_issue)
     state = HELPER_STATE_NEEDS_REPAIR if repair_messages else HELPER_STATE_CONFIGURED
     message = " ".join(repair_messages) if repair_messages else "Browser connection is configured."
     return HelperInstallStatus(
@@ -741,8 +822,17 @@ def install_helper(
         f"[Helper] install_helper: host_path={host_path} exists={host_path.exists()}"
     )
 
-    # Force copy to stable location and use THAT path for the manifest
-    stable_path = _ensure_stable_helper(host_path)
+    resolved_mode = infer_host_mode(host_path)
+    if resolved_mode == HOST_MODE_WORKSPACE and not sys.platform.startswith("win"):
+        stable_path = _ensure_workspace_host_wrapper(host_path)
+        if stable_path is None:
+            return HelperInstallResult(
+                False,
+                "Workspace host wrapper could not be prepared. Ensure the repo .venv is available.",
+            )
+    else:
+        # Force copy to stable location and use THAT path for the manifest
+        stable_path = _ensure_stable_helper(host_path)
     log_helper_install(
         f"[Helper] install_helper: stable_path={stable_path} exists={stable_path.exists()}"
     )
