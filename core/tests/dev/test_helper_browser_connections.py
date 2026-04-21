@@ -139,6 +139,39 @@ class TestHelperBrowserConnections(unittest.TestCase):
                 HELPER_STATE_NOT_CONFIGURED,
             )
 
+    def test_remove_browser_target_preserves_other_targets(self) -> None:
+        prod_target = BrowserConnectionTarget(
+            key="chrome_prod",
+            label="Chrome (Web Store)",
+            extension_id="prodprodprodprodprodprodprodprod",
+            kind="prod",
+            fixed=True,
+        )
+        unpacked_target = BrowserConnectionTarget(
+            key="chrome_unpacked_abcd",
+            label="Chrome (Unpacked Dev)",
+            extension_id="abcdabcdabcdabcdabcdabcdabcdabcd",
+            kind=TARGET_KIND_UNPACKED,
+            fixed=False,
+        )
+        configs = [
+            BrowserConnectionConfig(
+                browser="chrome",
+                host_mode=HOST_MODE_WORKSPACE,
+                host_override_path="/repo/scripts/helper/lexishift_native_host.py",
+                targets=(prod_target, unpacked_target),
+            )
+        ]
+
+        updated = helper_ui._remove_browser_target(
+            configs,
+            browser="chrome",
+            target_key="chrome_unpacked_abcd",
+        )
+
+        self.assertEqual(len(updated), 1)
+        self.assertEqual(updated[0].targets, (prod_target,))
+
 
 if __name__ == "__main__":
     unittest.main()

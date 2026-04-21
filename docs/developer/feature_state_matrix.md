@@ -612,12 +612,12 @@ Use this file when:
 ## Browser Helper Connection Management
 
 - Status: `implemented`, `default-on`, `verified`
-- Last documented checkpoint: `2026-04-22`
-- Last verified: `2026-04-22` targeted helper installer/browser-connection tests plus doc/code reconciliation
+- Last documented checkpoint: `2026-04-22` fuller browser-connections manager with card-style browser state, add/edit unpacked-extension dialogs, reveal actions, and extension-facing status copy
+- Last verified: `2026-04-22` targeted helper installer/browser-connection tests plus doc/code reconciliation and feature-state sync
 - Default behavior:
   - The GUI app now routes helper install/repair through a Browser Connections manager in the app menu and SRS settings instead of the older single environment prompt.
   - Fixed-ID production browsers keep a one-click connect/repair path.
-  - Unpacked development extensions are added separately by browser plus extension ID, with a per-browser bundled/workspace/custom host mode.
+  - Unpacked development extensions are managed separately through a fuller dialog flow that exposes browser, extension ID, host mode, manifest path, host path, and repair/reveal actions.
   - Native-messaging manifests now merge all allowed origins for the same browser into one manifest instead of assuming only one extension ID.
   - Helper install inspection now distinguishes `Configured`, `Needs repair`, and `Not configured`, including stale bundled-helper copies.
 - Evidence:

@@ -288,6 +288,29 @@ def _upsert_browser_target(
     return _replace_browser_config(configs, replacement)
 
 
+def _remove_browser_target(
+    configs: list[BrowserConnectionConfig],
+    *,
+    browser: str,
+    target_key: str,
+) -> list[BrowserConnectionConfig]:
+    existing = _find_browser_config(configs, browser)
+    if existing is None:
+        return list(configs)
+    remaining_targets = tuple(target for target in existing.targets if target.key != target_key)
+    if not remaining_targets:
+        updated = [config for config in configs if config.browser != browser]
+        updated.sort(key=lambda config: config.browser)
+        return updated
+    replacement = BrowserConnectionConfig(
+        browser=existing.browser,
+        host_mode=existing.host_mode,
+        host_override_path=existing.host_override_path,
+        targets=remaining_targets,
+    )
+    return _replace_browser_config(configs, replacement)
+
+
 def _browser_expected_ids(config: Optional[BrowserConnectionConfig]) -> tuple[str, ...]:
     if config is None:
         return ()
