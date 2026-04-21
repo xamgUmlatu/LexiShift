@@ -70,7 +70,9 @@ Purpose:
   - During rollout, the legacy Share Code card remains visible and unchanged as fallback.
   - Compatibility targets map to existing scopes:
     - `Profile settings` -> `srs`
+      - export modal copy now calls this out as the existing SRS settings format
     - `Full profile` -> `profile`
+      - export modal copy now calls this out as the existing profile share format
   - New share envelope v2 currently adds one payload:
     - `scope: "ruleset"` for individual manual ruleset export/import.
   - Potential future enhancement:

@@ -357,13 +357,13 @@
     "message": "关闭"
   },
   "hint_share_center_export_mode": {
-    "message": "选择导出模式。完整配置档会导出全部数据；自定义选择可挑选具体节点。"
+    "message": "选择导出模式。完整配置档使用现有的配置档分享格式；自定义选择可挑选具体节点。"
   },
   "share_center_mode_full_title": {
     "message": "完整配置档"
   },
   "share_center_mode_full_hint": {
-    "message": "推荐。一键导出完整配置档数据。"
+    "message": "推荐。使用现有的配置档分享格式导出完整配置档数据。"
   },
   "share_center_mode_custom_title": {
     "message": "自定义选择"
@@ -387,7 +387,10 @@
     "message": "配置档设置"
   },
   "share_center_target_profile_settings_hint": {
-    "message": "配置档配置与 SRS 设置。"
+    "message": "使用现有的 SRS 设置格式导出配置档配置与 SRS 设置。"
+  },
+  "share_center_compatibility_note": {
+    "message": "兼容性说明：完整配置档使用现有的配置档分享格式，“配置档设置”目标使用现有的 SRS 设置格式。"
   },
   "share_center_group_rulesets": {
     "message": "规则集"
@@ -498,7 +501,7 @@
     "message": "生成前请选择有效的 SRS 语言对条目。"
   },
   "share_center_hint_ready_full_export": {
-    "message": "已可将完整配置档导出为 JSON 文件。"
+    "message": "已准备好以 JSON 文件导出完整配置档，并使用现有的配置档分享格式。"
   },
   "share_center_hint_ready_selection_export": {
     "message": "已可将所选内容导出为 JSON 文件。"

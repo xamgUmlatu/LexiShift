@@ -357,13 +357,13 @@
     "message": "閉じる"
   },
   "hint_share_center_export_mode": {
-    "message": "エクスポートモードを選択してください。フルプロファイルはすべてを、カスタム選択は特定ノードのみを出力します。"
+    "message": "エクスポートモードを選択してください。フルプロファイルは既存のプロファイル共有形式を使用し、カスタム選択は特定ノードのみを選べます。"
   },
   "share_center_mode_full_title": {
     "message": "フルプロファイル"
   },
   "share_center_mode_full_hint": {
-    "message": "推奨。完全なプロファイルデータを一度にエクスポートします。"
+    "message": "推奨。完全なプロファイルデータを既存のプロファイル共有形式でエクスポートします。"
   },
   "share_center_mode_custom_title": {
     "message": "カスタム選択"
@@ -387,7 +387,10 @@
     "message": "プロファイル設定"
   },
   "share_center_target_profile_settings_hint": {
-    "message": "プロファイル設定とSRS設定。"
+    "message": "プロファイル設定とSRS設定を既存のSRS設定形式でエクスポートします。"
+  },
+  "share_center_compatibility_note": {
+    "message": "互換性メモ: 「フルプロファイル」は既存のプロファイル共有形式を使用し、「プロファイル設定」ターゲットは既存のSRS設定形式を使用します。"
   },
   "share_center_group_rulesets": {
     "message": "ルールセット"
@@ -498,7 +501,7 @@
     "message": "生成前に有効なSRSペア項目を選択してください。"
   },
   "share_center_hint_ready_full_export": {
-    "message": "フルプロファイルをJSONファイルとしてエクスポートできます。"
+    "message": "既存のプロファイル共有形式でフルプロファイルをJSONファイルとしてエクスポートする準備ができました。"
   },
   "share_center_hint_ready_selection_export": {
     "message": "選択内容をJSONファイルとしてエクスポートできます。"

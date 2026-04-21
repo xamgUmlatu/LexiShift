@@ -357,13 +357,13 @@
     "message": "Close"
   },
   "hint_share_center_export_mode": {
-    "message": "Choose export mode. Full profile exports everything; custom selection lets you pick specific nodes."
+    "message": "Choose export mode. Full profile uses the existing profile share format; custom selection lets you pick specific nodes."
   },
   "share_center_mode_full_title": {
     "message": "Full profile"
   },
   "share_center_mode_full_hint": {
-    "message": "Recommended. Export complete profile data in one step."
+    "message": "Recommended. Export complete profile data using the existing profile share format."
   },
   "share_center_mode_custom_title": {
     "message": "Custom selection"
@@ -387,7 +387,10 @@
     "message": "Profile settings"
   },
   "share_center_target_profile_settings_hint": {
-    "message": "Profile configuration and SRS settings."
+    "message": "Profile configuration and SRS settings using the existing SRS settings format."
+  },
+  "share_center_compatibility_note": {
+    "message": "Compatibility note: Full profile uses the existing profile share format, and the Profile settings target uses the existing SRS settings format."
   },
   "share_center_group_rulesets": {
     "message": "Rulesets"
@@ -498,7 +501,7 @@
     "message": "Choose a valid SRS pair entry before generating."
   },
   "share_center_hint_ready_full_export": {
-    "message": "Ready to export full profile as JSON file."
+    "message": "Ready to export full profile as a JSON file using the existing profile share format."
   },
   "share_center_hint_ready_selection_export": {
     "message": "Ready to export selection as JSON file."

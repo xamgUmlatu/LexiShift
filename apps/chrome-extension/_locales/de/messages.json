@@ -357,13 +357,13 @@
     "message": "Schließen"
   },
   "hint_share_center_export_mode": {
-    "message": "Wähle den Exportmodus. Vollständiges Profil exportiert alles; Benutzerdefinierte Auswahl lässt dich bestimmte Knoten wählen."
+    "message": "Wähle den Exportmodus. Vollständiges Profil nutzt das bestehende Profil-Freigabeformat; Benutzerdefinierte Auswahl lässt dich bestimmte Knoten wählen."
   },
   "share_center_mode_full_title": {
     "message": "Vollständiges Profil"
   },
   "share_center_mode_full_hint": {
-    "message": "Empfohlen. Exportiert vollständige Profildaten in einem Schritt."
+    "message": "Empfohlen. Exportiert vollständige Profildaten im bestehenden Profil-Freigabeformat."
   },
   "share_center_mode_custom_title": {
     "message": "Benutzerdefinierte Auswahl"
@@ -387,7 +387,10 @@
     "message": "Profileinstellungen"
   },
   "share_center_target_profile_settings_hint": {
-    "message": "Profilkonfiguration und SRS-Einstellungen."
+    "message": "Profilkonfiguration und SRS-Einstellungen im bestehenden SRS-Einstellungsformat."
+  },
+  "share_center_compatibility_note": {
+    "message": "Kompatibilitätshinweis: Vollständiges Profil nutzt das bestehende Profil-Freigabeformat, und das Ziel „Profileinstellungen“ nutzt das bestehende SRS-Einstellungsformat."
   },
   "share_center_group_rulesets": {
     "message": "Regelsätze"
@@ -498,7 +501,7 @@
     "message": "Wähle vor dem Generieren einen gültigen SRS-Paareintrag."
   },
   "share_center_hint_ready_full_export": {
-    "message": "Bereit, vollständiges Profil als JSON-Datei zu exportieren."
+    "message": "Bereit, vollständiges Profil als JSON-Datei im bestehenden Profil-Freigabeformat zu exportieren."
   },
   "share_center_hint_ready_selection_export": {
     "message": "Bereit, Auswahl als JSON-Datei zu exportieren."

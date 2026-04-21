@@ -1167,14 +1167,15 @@ Use this file when:
 ## Extension Controller / Runtime Workflow Contracts
 
 - Status: `implemented`, `default-on`, `verified`
-- Last documented checkpoint: `2026-04-21` SP5 controller/runtime packets plus current architecture docs now pin the post-split options bootstrap, Share Center forwarding bridge, SRS maintenance workflows, and DOM-scan budget/order seams as explicit current behavior instead of scattered packet-only knowledge
-- Last verified: `2026-04-21` targeted Node-backed extension contract tests, structure checks, and state/doc safety checks
+- Last documented checkpoint: `2026-04-21` SP5/SP6 controller-runtime truth plus the SP7 Share Center compatibility-copy follow-up now keep the post-split options bootstrap, Share Center forwarding bridge, SRS maintenance workflows, and DOM-scan budget/order seams explicit in both architecture docs and operator-facing export copy
+- Last verified: `2026-04-21` targeted Node-backed extension workflow tests, Share Center copy contract checks, structure checks, and state/doc safety checks
 - Default behavior:
   - The options app bootstrap remains a hard dependency seam: `options.html` script order matters, `options.js` fails fast when required bootstrap/controller modules are missing, and successful startup still binds events before page init.
   - Share Center owns the grouped file-export/file-import UX, but it is still a compatibility bridge over the legacy share backend rather than a second share-schema authority.
   - Current Share Center compatibility mappings stay explicit:
     - `Full profile` export forwards to legacy `profile`
     - `Profile settings` export forwards to legacy `srs`
+    - export-modal and target-hint copy now say those are the existing profile / SRS settings formats rather than implying a narrower new schema
     - import only triggers a hard reload when the imported scope mutates broader runtime state; ruleset/modules-only imports resync without reload
   - SRS maintenance workflows forward the active planning/profile context into initialize/refresh/reset helper calls, keep reset double-confirmed, and only mark ruleset freshness when the returned action result actually warrants it.
   - Content full-scan runtime seeds page-budget state from existing replacement spans, then deterministically redistributes node order by page/profile only when page-level budgets are active.
@@ -1190,10 +1191,11 @@ Use this file when:
   - `core/tests/architecture/test_extension_structure.py`
   - `core/tests/dev/test_extension_options_bootstrap_contract.py`
   - `core/tests/dev/test_extension_share_center_workflow_contract.py`
+  - `core/tests/dev/test_extension_share_center_copy_contract.py`
   - `core/tests/dev/test_extension_srs_maintenance_workflow_contract.py`
   - `core/tests/dev/test_extension_dom_scan_runtime_contract.py`
 - Known gaps:
-  - Share Center labels `Profile settings` and `Full profile` still sit on top of legacy `srs` / `profile` envelopes; if product wants truly narrower exports later, that needs an explicit new schema/version rather than a silent contract change.
+  - Share Center copy now states the compatibility formats explicitly, but if product wants truly narrower `Profile settings` or `Full profile` exports later, that still needs an explicit new schema/version rather than a silent contract change.
   - This seam is now directly protected at the controller/runtime-contract level, but it is still not the same thing as a full browser E2E proof for storage mutation, native-helper latency, or rendered-page UX.
 
 ## GenAI Workflow Architecture
