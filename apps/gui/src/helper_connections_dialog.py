@@ -10,7 +10,6 @@ from PySide6.QtWidgets import (
     QFileDialog,
     QFormLayout,
     QFrame,
-    QGroupBox,
     QHBoxLayout,
     QLabel,
     QLineEdit,
@@ -220,8 +219,8 @@ class BrowserConnectionsDialog(QDialog):
 
         self._content_widget = QWidget(scroll)
         self._content_layout = QVBoxLayout(self._content_widget)
-        self._content_layout.setContentsMargins(0, 0, 0, 0)
-        self._content_layout.setSpacing(12)
+        self._content_layout.setContentsMargins(6, 6, 6, 6)
+        self._content_layout.setSpacing(16)
         scroll.setWidget(self._content_widget)
 
         root = QVBoxLayout(self)
@@ -328,15 +327,36 @@ class BrowserConnectionsDialog(QDialog):
         layout.addWidget(host_note)
         return card
 
-    def _build_fixed_section(self, fixed_rows: list[tuple]) -> QGroupBox:
-        group = QGroupBox(t("dialogs.browser_connections.production_section"), self)
-        layout = QVBoxLayout(group)
-        description = QLabel(t("dialogs.browser_connections.production_description"), group)
+    def _section_title_label(self, text: str) -> QLabel:
+        label = QLabel(text, self)
+        label.setStyleSheet("font-weight: 600; font-size: 14px;")
+        return label
+
+    def _section_panel(self) -> tuple[QFrame, QVBoxLayout]:
+        panel = QFrame(self)
+        panel.setFrameShape(QFrame.StyledPanel)
+        layout = QVBoxLayout(panel)
+        layout.setContentsMargins(12, 12, 12, 12)
+        layout.setSpacing(12)
+        return panel, layout
+
+    def _build_fixed_section(self, fixed_rows: list[tuple]) -> QWidget:
+        section = QWidget(self)
+        outer = QVBoxLayout(section)
+        outer.setContentsMargins(0, 0, 0, 0)
+        outer.setSpacing(8)
+        outer.addWidget(
+            self._section_title_label(t("dialogs.browser_connections.production_section"))
+        )
+
+        panel, layout = self._section_panel()
+        description = QLabel(t("dialogs.browser_connections.production_description"), panel)
         description.setWordWrap(True)
         layout.addWidget(description)
         for env, target, config, status in fixed_rows:
             layout.addWidget(self._build_fixed_card(env, target, config, status))
-        return group
+        outer.addWidget(panel)
+        return section
 
     def _build_fixed_card(
         self,
@@ -408,25 +428,33 @@ class BrowserConnectionsDialog(QDialog):
             actions=actions,
         )
 
-    def _build_unpacked_section(self, unpacked_rows: list[tuple]) -> QGroupBox:
-        group = QGroupBox(t("dialogs.browser_connections.unpacked_section"), self)
-        layout = QVBoxLayout(group)
-        description = QLabel(t("dialogs.browser_connections.unpacked_description"), group)
+    def _build_unpacked_section(self, unpacked_rows: list[tuple]) -> QWidget:
+        section = QWidget(self)
+        outer = QVBoxLayout(section)
+        outer.setContentsMargins(0, 0, 0, 0)
+        outer.setSpacing(8)
+        outer.addWidget(
+            self._section_title_label(t("dialogs.browser_connections.unpacked_section"))
+        )
+
+        panel, layout = self._section_panel()
+        description = QLabel(t("dialogs.browser_connections.unpacked_description"), panel)
         description.setWordWrap(True)
         layout.addWidget(description)
 
         if not unpacked_rows:
-            empty = QLabel(t("dialogs.browser_connections.no_unpacked"), group)
+            empty = QLabel(t("dialogs.browser_connections.no_unpacked"), panel)
             empty.setWordWrap(True)
             layout.addWidget(empty)
         else:
             for config, target, status in unpacked_rows:
                 layout.addWidget(self._build_unpacked_card(config, target, status))
 
-        add_button = QPushButton(t("dialogs.browser_connections.add_unpacked"), group)
+        add_button = QPushButton(t("dialogs.browser_connections.add_unpacked"), panel)
         add_button.clicked.connect(self._add_unpacked)
         layout.addWidget(add_button, 0, Qt.AlignLeft)
-        return group
+        outer.addWidget(panel)
+        return section
 
     def _build_unpacked_card(
         self,
