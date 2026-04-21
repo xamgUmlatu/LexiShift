@@ -26,6 +26,7 @@
         "shared/srs/popup_modules_registry.js",
         "shared/srs/srs_runtime_diagnostics.js",
         "shared/language/lemmatizer.js",
+        "shared/helper/helper_error_copy.js",
         "shared/helper/helper_transport_extension.js",
         "shared/helper/helper_client.js",
         "shared/helper/helper_feedback_sync_primitives.js",

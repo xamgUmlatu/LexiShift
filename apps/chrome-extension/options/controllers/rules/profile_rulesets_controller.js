@@ -1,5 +1,14 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
+  const helperErrorCopy = root.helperErrorCopy;
+
+  if (
+    !helperErrorCopy
+    || typeof helperErrorCopy.normalizeHelperErrorMessage !== "function"
+    || typeof helperErrorCopy.normalizeHelperThrownErrorMessage !== "function"
+  ) {
+    throw new Error("[LexiShift][Options] Missing shared helper error copy.");
+  }
 
   function createController(options) {
     const opts = options && typeof options === "object" ? options : {};
@@ -63,6 +72,20 @@
         return;
       }
       statusOutput.textContent = message || "";
+    }
+
+    function normalizeHelperMessage(error, fallbackText) {
+      return helperErrorCopy.normalizeHelperErrorMessage(error, {
+        translate,
+        fallbackText
+      });
+    }
+
+    function normalizeThrownHelperMessage(error, fallbackText) {
+      return helperErrorCopy.normalizeHelperThrownErrorMessage(error, {
+        translate,
+        fallbackText
+      });
     }
 
     async function persistProfileRulesets(items, profileId, manualState, cache) {
@@ -221,8 +244,10 @@
           manualState = stateHelpers.mergeManualStateFromHelper(manualState, helperRulesets);
           cache = stateHelpers.mergeCacheFromHelper(cache, helperRulesets);
         } else {
-          helperError = stateHelpers.normalizePath(helperResult && helperResult.error && helperResult.error.message)
-            || "Failed to load profile rulesets from helper.";
+          helperError = normalizeHelperMessage(
+            helperResult && helperResult.error,
+            "Failed to load profile rulesets from helper."
+          );
         }
       }
 
@@ -264,7 +289,10 @@
     if (refreshButton) {
       refreshButton.addEventListener("click", () => {
         refreshSelectedProfile().catch((error) => {
-          const message = error && error.message ? error.message : "Failed to refresh profile rulesets.";
+          const message = normalizeThrownHelperMessage(
+            error,
+            "Failed to refresh profile rulesets."
+          );
           setStatus(message, colors.ERROR);
           setInlineStatus(message);
           log("Profile rulesets refresh failed.", error);

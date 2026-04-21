@@ -41,6 +41,7 @@ class TestExtensionStructure(unittest.TestCase):
 
     def test_options_helper_domains_exist(self) -> None:
         required = [
+            EXT_ROOT / "shared" / "helper" / "helper_error_copy.js",
             EXT_ROOT / "options" / "core" / "helper" / "base_methods.js",
             EXT_ROOT / "options" / "core" / "helper" / "diagnostics_methods.js",
             EXT_ROOT / "options" / "core" / "helper" / "srs_set_methods.js",
@@ -53,6 +54,7 @@ class TestExtensionStructure(unittest.TestCase):
         html_path = EXT_ROOT / "options.html"
         html = html_path.read_text(encoding="utf-8")
         ordered_markers = [
+            'src="shared/helper/helper_error_copy.js"',
             'src="options/core/helper/base_methods.js"',
             'src="options/core/helper/diagnostics_methods.js"',
             'src="options/core/helper/srs_set_methods.js"',
@@ -134,6 +136,8 @@ class TestExtensionStructure(unittest.TestCase):
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
         scripts = manifest["content_scripts"][0]["js"]
         required_order = [
+            "shared/helper/helper_error_copy.js",
+            "shared/helper/helper_transport_extension.js",
             "content/runtime/dom_scan/node_filters.js",
             "content/runtime/dom_scan/page_budget_tracker.js",
             "content/runtime/dom_scan/scan_order.js",

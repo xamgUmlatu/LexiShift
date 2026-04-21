@@ -1,5 +1,14 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
+  const helperErrorCopy = root.helperErrorCopy;
+
+  if (
+    !helperErrorCopy
+    || typeof helperErrorCopy.normalizeHelperErrorMessage !== "function"
+    || typeof helperErrorCopy.normalizeHelperThrownErrorMessage !== "function"
+  ) {
+    throw new Error("[LexiShift][Options] Missing shared helper error copy.");
+  }
 
   function installHelperBaseMethods(proto) {
     if (!proto || typeof proto !== "object") {
@@ -51,64 +60,13 @@
       fallbackKey = "status_helper_failed",
       fallbackText = "Helper error."
     ) {
-      const fallback = this.i18n.t(fallbackKey, null, fallbackText);
-      if (!error || typeof error !== "object") {
-        return fallback;
-      }
-      const code = String(error.code || "").trim().toLowerCase();
-      const rawMessage = String(error.message || "").trim();
-      const lowerMessage = rawMessage.toLowerCase();
-
-      if (
-        code === "helper_missing"
-        || code === "transport_missing"
-        || code === "bridge_unavailable"
-        || code === "native_unavailable"
-        || lowerMessage.includes("specified native messaging host not found")
-        || lowerMessage.includes("no such native application")
-      ) {
-        return this.i18n.t("status_helper_missing", null, "Helper unavailable.");
-      }
-      if (code === "timeout" || lowerMessage.includes("timed out")) {
-        return this.i18n.t(
-          "status_helper_timeout",
-          null,
-          "The helper did not respond in time."
-        );
-      }
-      if (
-        code === "native_host_exited"
-        || lowerMessage.includes("native host has exited")
-      ) {
-        return this.i18n.t(
-          "status_helper_native_host_exited",
-          null,
-          "The helper exited unexpectedly."
-        );
-      }
-      if (
-        code === "native_forbidden"
-        || lowerMessage.includes("access to the specified native messaging host is forbidden")
-      ) {
-        return this.i18n.t(
-          "status_helper_native_messaging_forbidden",
-          null,
-          "The browser blocked access to the helper."
-        );
-      }
-      if (
-        lowerMessage.includes("error when communicating with the native messaging host")
-        || code === "native_error"
-        || code === "bridge_error"
-        || code === "native_exception"
-      ) {
-        return this.i18n.t(
-          "status_helper_native_messaging_failed",
-          null,
-          "Could not communicate with the helper."
-        );
-      }
-      return rawMessage || fallback;
+      return helperErrorCopy.normalizeHelperErrorMessage(error, {
+        translate: this.i18n && typeof this.i18n.t === "function"
+          ? this.i18n.t.bind(this.i18n)
+          : null,
+        fallbackKey,
+        fallbackText
+      });
     };
 
     proto.normalizeHelperThrownErrorMessage = function normalizeHelperThrownErrorMessage(
@@ -116,21 +74,13 @@
       fallbackKey = "status_helper_failed",
       fallbackText = "Helper error."
     ) {
-      if (error && typeof error === "object") {
-        return this.normalizeHelperErrorMessage(
-          {
-            code: error.code || "",
-            message: error.message || String(error)
-          },
-          fallbackKey,
-          fallbackText
-        );
-      }
-      return this.normalizeHelperErrorMessage(
-        { code: "", message: String(error || "") },
+      return helperErrorCopy.normalizeHelperThrownErrorMessage(error, {
+        translate: this.i18n && typeof this.i18n.t === "function"
+          ? this.i18n.t.bind(this.i18n)
+          : null,
         fallbackKey,
         fallbackText
-      );
+      });
     };
 
     proto.getStatus = async function getStatus() {

@@ -9,6 +9,7 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 SETTINGS_BASE_JS = PROJECT_ROOT / "apps/chrome-extension/options/core/settings/base_methods.js"
 SIGNALS_METHODS_JS = PROJECT_ROOT / "apps/chrome-extension/options/core/settings/signals_methods.js"
+HELPER_ERROR_COPY_JS = PROJECT_ROOT / "apps/chrome-extension/shared/helper/helper_error_copy.js"
 HELPER_BASE_JS = PROJECT_ROOT / "apps/chrome-extension/options/core/helper/base_methods.js"
 HELPER_SRS_SET_JS = PROJECT_ROOT / "apps/chrome-extension/options/core/helper/srs_set_methods.js"
 
@@ -90,11 +91,13 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const vm = require("node:vm");
 
+const helperErrorCopyPath = {json.dumps(str(HELPER_ERROR_COPY_JS))};
 const helperBasePath = {json.dumps(str(HELPER_BASE_JS))};
 const helperSrsSetPath = {json.dumps(str(HELPER_SRS_SET_JS))};
 const context = vm.createContext({{ console }});
 context.globalThis = context;
 context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(helperErrorCopyPath, "utf8"), context, {{ filename: helperErrorCopyPath }});
 vm.runInContext(fs.readFileSync(helperBasePath, "utf8"), context, {{ filename: helperBasePath }});
 vm.runInContext(fs.readFileSync(helperSrsSetPath, "utf8"), context, {{ filename: helperSrsSetPath }});
 

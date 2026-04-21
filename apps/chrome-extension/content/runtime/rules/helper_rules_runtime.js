@@ -1,5 +1,14 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
+  const helperErrorCopy = root.helperErrorCopy;
+
+  if (
+    !helperErrorCopy
+    || typeof helperErrorCopy.normalizeHelperErrorMessage !== "function"
+    || typeof helperErrorCopy.normalizeHelperThrownErrorMessage !== "function"
+  ) {
+    throw new Error("[LexiShift][Content] Missing shared helper error copy.");
+  }
 
   function createRuntime(options) {
     const opts = options && typeof options === "object" ? options : {};
@@ -18,6 +27,18 @@
     const ruleOriginSrs = String(opts.ruleOriginSrs || "srs");
     const helperRulesCache = new Map();
     const helperSemanticInventoryCache = new Map();
+
+    function normalizeHelperMessage(error, fallbackText) {
+      return helperErrorCopy.normalizeHelperErrorMessage(error, {
+        fallbackText
+      });
+    }
+
+    function normalizeThrownHelperMessage(error, fallbackText) {
+      return helperErrorCopy.normalizeHelperThrownErrorMessage(error, {
+        fallbackText
+      });
+    }
 
     function rulesCacheKey(pair, profileId) {
       const normalizedPair = String(pair || "").trim();
@@ -55,13 +76,20 @@
     async function fetchHelperRules(pair, profileId) {
       const helperClient = getHelperClient();
       if (!helperClient || typeof helperClient.getRuleset !== "function") {
-        return { ruleset: null, error: "Helper client unavailable." };
+        return {
+          ruleset: null,
+          error: normalizeHelperMessage(
+            { code: "helper_missing", message: "Helper client unavailable." },
+            "Failed to load helper ruleset."
+          )
+        };
       }
       const response = await helperClient.getRuleset(pair, profileId);
       if (!response || response.ok === false) {
-        const message = response && response.error && response.error.message
-          ? response.error.message
-          : "Failed to load helper ruleset.";
+        const message = normalizeHelperMessage(
+          response && response.error,
+          "Failed to load helper ruleset."
+        );
         return { ruleset: null, error: message };
       }
       return { ruleset: response.data || null, error: null };
@@ -70,13 +98,20 @@
     async function fetchSemanticInventory(pair, profileId) {
       const helperClient = getHelperClient();
       if (!helperClient || typeof helperClient.getSemanticInventory !== "function") {
-        return { inventory: null, error: "Helper client unavailable." };
+        return {
+          inventory: null,
+          error: normalizeHelperMessage(
+            { code: "helper_missing", message: "Helper client unavailable." },
+            "Failed to load helper semantic inventory."
+          )
+        };
       }
       const response = await helperClient.getSemanticInventory(pair, profileId);
       if (!response || response.ok === false) {
-        const message = response && response.error && response.error.message
-          ? response.error.message
-          : "Failed to load helper semantic inventory.";
+        const message = normalizeHelperMessage(
+          response && response.error,
+          "Failed to load helper semantic inventory."
+        );
         return { inventory: null, error: message };
       }
       return { inventory: response.data || null, error: null };
@@ -85,13 +120,20 @@
     async function requestSemanticAdmitBatch(payload, timeoutMs) {
       const helperClient = getHelperClient();
       if (!helperClient || typeof helperClient.semanticAdmitBatch !== "function") {
-        return { response: null, error: "Helper client unavailable." };
+        return {
+          response: null,
+          error: normalizeHelperMessage(
+            { code: "helper_missing", message: "Helper client unavailable." },
+            "Failed to evaluate helper semantic admission batch."
+          )
+        };
       }
       const response = await helperClient.semanticAdmitBatch(payload, timeoutMs);
       if (!response || response.ok === false) {
-        const message = response && response.error && response.error.message
-          ? response.error.message
-          : "Failed to evaluate helper semantic admission batch.";
+        const message = normalizeHelperMessage(
+          response && response.error,
+          "Failed to evaluate helper semantic admission batch."
+        );
         return { response: null, error: message };
       }
       return { response: response.data || null, error: null };
@@ -163,7 +205,10 @@
           }
         }
       } catch (error) {
-        helperRulesError = error && error.message ? error.message : "Failed to fetch helper rules.";
+        helperRulesError = normalizeThrownHelperMessage(
+          error,
+          "Failed to fetch helper rules."
+        );
         const fallback = await loadCachedRules(normalizedPair, normalizedProfileId);
         if (fallback) {
           helperRules = tagRulesWithOrigin(fallback, ruleOriginSrs);
@@ -209,9 +254,10 @@
           }
         }
       } catch (error) {
-        inventoryError = error && error.message
-          ? error.message
-          : "Failed to fetch helper semantic inventory.";
+        inventoryError = normalizeThrownHelperMessage(
+          error,
+          "Failed to fetch helper semantic inventory."
+        );
         const fallback = await loadCachedSemanticInventory(normalizedPair, normalizedProfileId);
         if (fallback && typeof fallback === "object") {
           inventory = fallback;
@@ -232,9 +278,10 @@
       } catch (error) {
         return {
           response: null,
-          error: error && error.message
-            ? error.message
-            : "Failed to evaluate helper semantic admission batch."
+          error: normalizeThrownHelperMessage(
+            error,
+            "Failed to evaluate helper semantic admission batch."
+          )
         };
       }
     }
