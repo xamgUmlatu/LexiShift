@@ -2,11 +2,8 @@
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
 
   const DEFAULT_SEMANTIC_FALLBACK_POLICY = "legacy_on_unavailable";
-  const FALLBACK_POLICIES = new Set([
-    "legacy_on_unavailable",
-    "abstain_on_unavailable",
-    "soft_affordance_on_unavailable"
-  ]);
+  const FALLBACK_POLICIES = new Set(["legacy_on_unavailable", "abstain_on_unavailable", "soft_affordance_on_unavailable"]);
+  const DEBUG_DECISION_OVERRIDES = new Set(["replace", "abstain", "soft_affordance"]);
 
   function createRuntime(options) {
     const opts = options && typeof options === "object" ? options : {};
@@ -50,6 +47,14 @@
         return "soft_affordance";
       }
       return "replace";
+    }
+
+    function resolveDebugDecisionOverride(settings) {
+      if (!settings || settings.debugEnabled !== true) {
+        return "";
+      }
+      const normalized = String(settings.debugSemanticDecisionOverride || "").trim().toLowerCase();
+      return DEBUG_DECISION_OVERRIDES.has(normalized) ? normalized : "";
     }
 
     function resolveSemanticAdmission(match) {
@@ -123,7 +128,15 @@
         inventorySource: "none",
         inventoryError: "",
         helperError: "",
-        decisionPolicyId: ""
+        decisionPolicyId: "",
+        policyDecisionTotal: 0,
+        fallbackDecisionTotal: 0,
+        overallDecisionTotal: 0,
+        policyAbstainRate: null,
+        fallbackAbstainRate: null,
+        overallAbstainRate: null,
+        debugDecisionOverride: "",
+        debugOverrideApplied: 0
       };
     }
 
@@ -157,6 +170,56 @@
       }
     }
 
+    function finalizeSummary(summary, debugDecisionOverride, debugOverrideApplied) {
+      if (!summary || typeof summary !== "object") {
+        return;
+      }
+      const policyDecisionTotal = (
+        Number(summary.policyReplaces || 0)
+        + Number(summary.policyAbstains || 0)
+        + Number(summary.policySoftAffordances || 0)
+      );
+      const fallbackDecisionTotal = (
+        Number(summary.fallbackReplaces || 0)
+        + Number(summary.fallbackAbstains || 0)
+        + Number(summary.fallbackSoftAffordances || 0)
+      );
+      const overallDecisionTotal = Number(summary.eligible || 0);
+      const normalizeRate = (numerator, denominator) => (
+        Number(denominator) > 0
+          ? Number(numerator) / Number(denominator)
+          : null
+      );
+      summary.policyDecisionTotal = policyDecisionTotal;
+      summary.fallbackDecisionTotal = fallbackDecisionTotal;
+      summary.overallDecisionTotal = overallDecisionTotal;
+      summary.policyAbstainRate = normalizeRate(summary.policyAbstains || 0, policyDecisionTotal);
+      summary.fallbackAbstainRate = normalizeRate(summary.fallbackAbstains || 0, fallbackDecisionTotal);
+      summary.overallAbstainRate = normalizeRate(
+        Number(summary.policyAbstains || 0) + Number(summary.fallbackAbstains || 0),
+        overallDecisionTotal
+      );
+      summary.debugDecisionOverride = debugDecisionOverride || "";
+      summary.debugOverrideApplied = Number(debugOverrideApplied || 0);
+    }
+
+    function buildEffectiveDecisionRecord(decisionRecord, debugDecisionOverride) {
+      if (!decisionRecord || !debugDecisionOverride) {
+        return decisionRecord;
+      }
+      const originalDecision = String(decisionRecord.decision || "");
+      const originalSource = String(decisionRecord.decision_source || "");
+      const applied = originalDecision !== debugDecisionOverride;
+      return {
+        ...decisionRecord,
+        effective_decision: applied ? debugDecisionOverride : originalDecision,
+        effective_decision_source: applied ? "debug_override" : originalSource,
+        debug_override: debugDecisionOverride,
+        debug_original_decision: originalDecision,
+        debug_original_decision_source: originalSource
+      };
+    }
+
     function buildRequestMatch(descriptor, text, tokens, wordPositions, tokenOffsets) {
       const startTokenIdx = Number(wordPositions[descriptor.match.startWordIndex]);
       const endTokenIdx = Number(wordPositions[descriptor.match.endWordIndex]);
@@ -185,6 +248,7 @@
       const matches = Array.isArray(ctx.matches) ? ctx.matches : [];
       const settings = ctx.settings && typeof ctx.settings === "object" ? ctx.settings : {};
       const decisionMap = new Map();
+      const debugDecisionOverride = resolveDebugDecisionOverride(settings);
 
       if (!matches.length || !isSemanticAdmissionEnabled(settings)) {
         return {
@@ -368,12 +432,33 @@
         }
       }
 
+      let debugOverrideApplied = 0;
+      if (debugDecisionOverride) {
+        for (const [match, decisionRecord] of decisionMap.entries()) {
+          const effectiveDecisionRecord = buildEffectiveDecisionRecord(
+            decisionRecord,
+            debugDecisionOverride
+          );
+          decisionMap.set(match, effectiveDecisionRecord);
+          if (
+            effectiveDecisionRecord
+            && String(effectiveDecisionRecord.effective_decision || "") !== String(decisionRecord.decision || "")
+          ) {
+            debugOverrideApplied += 1;
+          }
+        }
+      }
+
+      finalizeSummary(summary, debugDecisionOverride, debugOverrideApplied);
+
       const filteredMatches = matches.filter((match) => {
         const decisionRecord = decisionMap.get(match);
         if (!decisionRecord) {
           return true;
         }
-        return String(decisionRecord.decision || "") === "replace";
+        return String(
+          decisionRecord.effective_decision || decisionRecord.decision || ""
+        ) === "replace";
       });
 
       if (settings.debugEnabled && summary.eligible > 0) {
@@ -384,10 +469,14 @@
           policyAbstains: summary.policyAbstains,
           fallbackReplaces: summary.fallbackReplaces,
           fallbackAbstains: summary.fallbackAbstains,
+          policyAbstainRate: summary.policyAbstainRate,
+          overallAbstainRate: summary.overallAbstainRate,
           inventorySource: summary.inventorySource,
           inventoryError: summary.inventoryError,
           helperError: summary.helperError,
           decisionPolicyId: summary.decisionPolicyId,
+          debugDecisionOverride: summary.debugDecisionOverride,
+          debugOverrideApplied: summary.debugOverrideApplied,
           retainedMatches: filteredMatches.length
         });
       }

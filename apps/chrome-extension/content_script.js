@@ -132,6 +132,16 @@
     runtimeDiagnostics.saveLastState(payload).catch(() => {});
   }
 
+  function clearRuntimeState() {
+    if (!isTopFrameWindow()) {
+      return;
+    }
+    if (!runtimeDiagnostics || typeof runtimeDiagnostics.clearLastState !== "function") {
+      return;
+    }
+    runtimeDiagnostics.clearLastState().catch(() => {});
+  }
+
   function log(...args) {
     if (!currentSettings.debugEnabled) {
       return;
@@ -322,6 +332,7 @@
     getFocusWord,
     log,
     setDebugEnabled,
+    clearRuntimeState,
     setFeedbackSoundEnabled,
     setPopupModulePrefs,
     ensureStyle,

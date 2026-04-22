@@ -148,7 +148,9 @@
         semanticFallbackReplaces: 0,
         semanticFallbackAbstains: 0,
         semanticFallbackSoftAffordances: 0,
-        semanticDecisionPolicyId: ""
+        semanticDecisionPolicyId: "",
+        semanticDebugDecisionOverride: "",
+        semanticDebugOverrideApplied: 0
         };
     }
 
@@ -319,7 +321,9 @@
             fallbackReplaces: counter.semanticFallbackReplaces,
             fallbackAbstains: counter.semanticFallbackAbstains,
             fallbackSoftAffordances: counter.semanticFallbackSoftAffordances,
-            decisionPolicyId: counter.semanticDecisionPolicyId || ""
+            decisionPolicyId: counter.semanticDecisionPolicyId || "",
+            debugDecisionOverride: counter.semanticDebugDecisionOverride || "",
+            debugOverrideApplied: counter.semanticDebugOverrideApplied || 0
           });
         }
         if (counter.focusWord) {
@@ -406,7 +410,9 @@
                 fallbackReplaces: counter.semanticFallbackReplaces,
                 fallbackAbstains: counter.semanticFallbackAbstains,
                 fallbackSoftAffordances: counter.semanticFallbackSoftAffordances,
-                decisionPolicyId: counter.semanticDecisionPolicyId || ""
+                decisionPolicyId: counter.semanticDecisionPolicyId || "",
+                debugDecisionOverride: counter.semanticDebugDecisionOverride || "",
+                debugOverrideApplied: counter.semanticDebugOverrideApplied || 0
               });
             }
             if (counter.detailTruncated) {

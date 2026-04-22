@@ -1,6 +1,7 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
   const STORAGE_KEY = "srsRuntimeLastState";
+  const DEBUG_ENABLED_KEY = "debugEnabled";
 
   function hasLocalStorageApi() {
     return Boolean(globalThis.chrome && chrome.storage && chrome.storage.local);
@@ -83,9 +84,27 @@
       )
         ? Number(state.semantic_fallback_soft_affordances)
         : 0,
+      semantic_policy_decision_total: Number.isFinite(Number(state.semantic_policy_decision_total))
+        ? Number(state.semantic_policy_decision_total)
+        : 0,
+      semantic_fallback_decision_total: Number.isFinite(Number(state.semantic_fallback_decision_total))
+        ? Number(state.semantic_fallback_decision_total)
+        : 0,
+      semantic_overall_decision_total: Number.isFinite(Number(state.semantic_overall_decision_total))
+        ? Number(state.semantic_overall_decision_total)
+        : 0,
+      semantic_policy_abstain_rate: normalizeTiming(state.semantic_policy_abstain_rate),
+      semantic_fallback_abstain_rate: normalizeTiming(state.semantic_fallback_abstain_rate),
+      semantic_overall_abstain_rate: normalizeTiming(state.semantic_overall_abstain_rate),
       semantic_decision_policy_id: state.semantic_decision_policy_id
         ? String(state.semantic_decision_policy_id)
         : "",
+      semantic_debug_decision_override: state.semantic_debug_decision_override
+        ? String(state.semantic_debug_decision_override)
+        : "",
+      semantic_debug_override_applied: Number.isFinite(Number(state.semantic_debug_override_applied))
+        ? Number(state.semantic_debug_override_applied)
+        : 0,
       apply_total_ms: normalizeTiming(state.apply_total_ms),
       active_rules_resolve_ms: normalizeTiming(state.active_rules_resolve_ms),
       helper_rules_resolve_ms: normalizeTiming(state.helper_rules_resolve_ms),
@@ -121,15 +140,30 @@
         resolve(null);
         return;
       }
-      chrome.storage.local.get({ [STORAGE_KEY]: null }, (items) => {
+      chrome.storage.local.get({ [DEBUG_ENABLED_KEY]: false, [STORAGE_KEY]: null }, (items) => {
+        if (items[DEBUG_ENABLED_KEY] !== true) {
+          resolve(null);
+          return;
+        }
         resolve(sanitizeState(items[STORAGE_KEY]));
       });
+    });
+  }
+
+  function clearLastState() {
+    return new Promise((resolve) => {
+      if (!hasLocalStorageApi() || typeof chrome.storage.local.remove !== "function") {
+        resolve();
+        return;
+      }
+      chrome.storage.local.remove(STORAGE_KEY, () => resolve());
     });
   }
 
   root.srsRuntimeDiagnostics = {
     storageKey: STORAGE_KEY,
     saveLastState,
-    loadLastState
+    loadLastState,
+    clearLastState
   };
 })();

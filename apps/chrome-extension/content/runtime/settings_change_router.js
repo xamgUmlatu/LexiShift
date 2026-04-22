@@ -18,6 +18,9 @@
     const setDebugEnabled = typeof opts.setDebugEnabled === "function"
       ? opts.setDebugEnabled
       : null;
+    const clearRuntimeState = typeof opts.clearRuntimeState === "function"
+      ? opts.clearRuntimeState
+      : null;
     const setFeedbackSoundEnabled = typeof opts.setFeedbackSoundEnabled === "function"
       ? opts.setFeedbackSoundEnabled
       : null;
@@ -56,6 +59,7 @@
       "srsRulesetUpdatedAt",
       "srsSemanticAdmissionEnabled",
       "srsSemanticAdmissionFallbackPolicy",
+      "debugSemanticDecisionOverride",
       "targetDisplayScript"
     ];
     const highlightKeys = [
@@ -175,6 +179,9 @@
         if (setDebugEnabled) {
           setDebugEnabled(merged.debugEnabled === true);
         }
+        if (merged.debugEnabled !== true && clearRuntimeState) {
+          clearRuntimeState();
+        }
         log("Debug logging enabled.");
       }
       if (changes.debugFocusWord) {
@@ -185,6 +192,18 @@
           log(`Debug focus word set to "${focusWord}".`);
         } else {
           log("Debug focus word cleared.");
+        }
+      }
+      if (changes.debugSemanticDecisionOverride) {
+        nextSettings.debugSemanticDecisionOverride = changes.debugSemanticDecisionOverride.newValue;
+        const merged = mergeSettings(nextSettings);
+        if (merged.debugEnabled) {
+          const override = String(merged.debugSemanticDecisionOverride || "").trim().toLowerCase();
+          log(
+            override
+              ? `Debug semantic decision override set to "${override}".`
+              : "Debug semantic decision override cleared."
+          );
         }
       }
       if (changes.srsProfileId && setPopupModulePrefs) {

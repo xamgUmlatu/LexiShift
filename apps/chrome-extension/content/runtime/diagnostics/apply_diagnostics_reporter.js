@@ -22,6 +22,38 @@
     const ruleOriginSrs = String(opts.ruleOriginSrs || "srs");
     const ruleOriginRuleset = String(opts.ruleOriginRuleset || "ruleset");
 
+    function normalizeRate(numerator, denominator) {
+      return Number(denominator) > 0
+        ? Number(numerator) / Number(denominator)
+        : null;
+    }
+
+    function buildSemanticDecisionMetrics(scanSummary) {
+      const summary = scanSummary && typeof scanSummary === "object" ? scanSummary : {};
+      const policyDecisionTotal = (
+        Number(summary.semanticPolicyReplaces || 0)
+        + Number(summary.semanticPolicyAbstains || 0)
+        + Number(summary.semanticPolicySoftAffordances || 0)
+      );
+      const fallbackDecisionTotal = (
+        Number(summary.semanticFallbackReplaces || 0)
+        + Number(summary.semanticFallbackAbstains || 0)
+        + Number(summary.semanticFallbackSoftAffordances || 0)
+      );
+      const overallDecisionTotal = Number(summary.semanticEligible || 0);
+      return {
+        policyDecisionTotal,
+        fallbackDecisionTotal,
+        overallDecisionTotal,
+        policyAbstainRate: normalizeRate(summary.semanticPolicyAbstains || 0, policyDecisionTotal),
+        fallbackAbstainRate: normalizeRate(summary.semanticFallbackAbstains || 0, fallbackDecisionTotal),
+        overallAbstainRate: normalizeRate(
+          Number(summary.semanticPolicyAbstains || 0) + Number(summary.semanticFallbackAbstains || 0),
+          overallDecisionTotal
+        )
+      };
+    }
+
     function report(context) {
       const state = context && typeof context === "object" ? context : {};
       const currentSettings = state.currentSettings && typeof state.currentSettings === "object"
@@ -73,6 +105,7 @@
       const scanSummary = state.scanSummary && typeof state.scanSummary === "object"
         ? state.scanSummary
         : null;
+      const semanticDecisionMetrics = buildSemanticDecisionMetrics(scanSummary);
       let srsRulesWithScriptForms = 0;
       let activeSrsRulesWithScriptForms = 0;
       let srsRulesWithWordPackage = 0;
@@ -179,7 +212,12 @@
           fallbackReplaces: Number(scanSummary.semanticFallbackReplaces || 0),
           fallbackAbstains: Number(scanSummary.semanticFallbackAbstains || 0),
           fallbackSoftAffordances: Number(scanSummary.semanticFallbackSoftAffordances || 0),
-          decisionPolicyId: String(scanSummary.semanticDecisionPolicyId || "")
+          decisionPolicyId: String(scanSummary.semanticDecisionPolicyId || ""),
+          policyAbstainRate: semanticDecisionMetrics.policyAbstainRate,
+          fallbackAbstainRate: semanticDecisionMetrics.fallbackAbstainRate,
+          overallAbstainRate: semanticDecisionMetrics.overallAbstainRate,
+          debugDecisionOverride: String(scanSummary.semanticDebugDecisionOverride || ""),
+          debugOverrideApplied: Number(scanSummary.semanticDebugOverrideApplied || 0)
         });
       }
       if (currentSettings.debugEnabled) {
@@ -194,60 +232,72 @@
           firstReplacementLatencyMs,
           firstVisibleReplacementLatencyMs
         });
+        persistRuntimeState({
+          ts: new Date().toISOString(),
+          pair: currentSettings.srsPair || "",
+          profile_id: srsProfileId,
+          srs_enabled: currentSettings.srsEnabled === true,
+          rules_source: rulesSource,
+          rules_enabled_total: enabledRules.length,
+          rules_local_enabled: originCounts[ruleOriginRuleset],
+          rules_srs_enabled: originCounts[ruleOriginSrs],
+          active_rules_total: activeRules.length,
+          active_rules_srs: activeOriginCounts[ruleOriginSrs],
+          rules_srs_with_script_forms: srsRulesWithScriptForms,
+          active_rules_srs_with_script_forms: activeSrsRulesWithScriptForms,
+          rules_srs_with_word_package: srsRulesWithWordPackage,
+          active_rules_srs_with_word_package: activeSrsRulesWithWordPackage,
+          semantic_admission_enabled: semanticAdmissionEnabled,
+          semantic_runtime_capability: semanticRuntimeCapability,
+          semantic_runtime_reason_code: semanticRuntimeReasonCode,
+          semantic_pointer_rule_count: semanticPointerRuleCount,
+          semantic_ready_rule_count: semanticReadyRuleCount,
+          semantic_fallback_policy: semanticFallbackPolicy,
+          semantic_inventory_loaded: semanticInventoryLoaded,
+          semantic_inventory_source: semanticInventorySource,
+          semantic_inventory_error: semanticInventoryError || "",
+          semantic_matches_eligible: scanSummary ? Number(scanSummary.semanticEligible || 0) : 0,
+          semantic_matches_ready: scanSummary ? Number(scanSummary.semanticReady || 0) : 0,
+          semantic_policy_replaces: scanSummary ? Number(scanSummary.semanticPolicyReplaces || 0) : 0,
+          semantic_policy_abstains: scanSummary ? Number(scanSummary.semanticPolicyAbstains || 0) : 0,
+          semantic_policy_soft_affordances: scanSummary
+            ? Number(scanSummary.semanticPolicySoftAffordances || 0)
+            : 0,
+          semantic_fallback_replaces: scanSummary ? Number(scanSummary.semanticFallbackReplaces || 0) : 0,
+          semantic_fallback_abstains: scanSummary ? Number(scanSummary.semanticFallbackAbstains || 0) : 0,
+          semantic_fallback_soft_affordances: scanSummary
+            ? Number(scanSummary.semanticFallbackSoftAffordances || 0)
+            : 0,
+          semantic_policy_decision_total: semanticDecisionMetrics.policyDecisionTotal,
+          semantic_fallback_decision_total: semanticDecisionMetrics.fallbackDecisionTotal,
+          semantic_overall_decision_total: semanticDecisionMetrics.overallDecisionTotal,
+          semantic_policy_abstain_rate: semanticDecisionMetrics.policyAbstainRate,
+          semantic_fallback_abstain_rate: semanticDecisionMetrics.fallbackAbstainRate,
+          semantic_overall_abstain_rate: semanticDecisionMetrics.overallAbstainRate,
+          semantic_decision_policy_id: scanSummary
+            ? String(scanSummary.semanticDecisionPolicyId || "")
+            : "",
+          semantic_debug_decision_override: scanSummary
+            ? String(scanSummary.semanticDebugDecisionOverride || "")
+            : "",
+          semantic_debug_override_applied: scanSummary
+            ? Number(scanSummary.semanticDebugOverrideApplied || 0)
+            : 0,
+          apply_total_ms: applyTotalMs,
+          active_rules_resolve_ms: activeRulesResolveMs,
+          helper_rules_resolve_ms: helperRulesResolveMs,
+          srs_gate_ms: srsGateMs,
+          semantic_inventory_resolve_ms: semanticInventoryResolveMs,
+          runtime_apply_ms: runtimeApplyMs,
+          scan_ms: scanMs,
+          first_replacement_latency_ms: firstReplacementLatencyMs,
+          first_visible_replacement_latency_ms: firstVisibleReplacementLatencyMs,
+          srs_stats: srsStats || null,
+          helper_rules_error: helperRulesError || "",
+          page_url: window.location ? window.location.href : "",
+          frame_type: getFrameInfo().frameType
+        });
       }
-      persistRuntimeState({
-        ts: new Date().toISOString(),
-        pair: currentSettings.srsPair || "",
-        profile_id: srsProfileId,
-        srs_enabled: currentSettings.srsEnabled === true,
-        rules_source: rulesSource,
-        rules_enabled_total: enabledRules.length,
-        rules_local_enabled: originCounts[ruleOriginRuleset],
-        rules_srs_enabled: originCounts[ruleOriginSrs],
-        active_rules_total: activeRules.length,
-        active_rules_srs: activeOriginCounts[ruleOriginSrs],
-        rules_srs_with_script_forms: srsRulesWithScriptForms,
-        active_rules_srs_with_script_forms: activeSrsRulesWithScriptForms,
-        rules_srs_with_word_package: srsRulesWithWordPackage,
-        active_rules_srs_with_word_package: activeSrsRulesWithWordPackage,
-        semantic_admission_enabled: semanticAdmissionEnabled,
-        semantic_runtime_capability: semanticRuntimeCapability,
-        semantic_runtime_reason_code: semanticRuntimeReasonCode,
-        semantic_pointer_rule_count: semanticPointerRuleCount,
-        semantic_ready_rule_count: semanticReadyRuleCount,
-        semantic_fallback_policy: semanticFallbackPolicy,
-        semantic_inventory_loaded: semanticInventoryLoaded,
-        semantic_inventory_source: semanticInventorySource,
-        semantic_inventory_error: semanticInventoryError || "",
-        semantic_matches_eligible: scanSummary ? Number(scanSummary.semanticEligible || 0) : 0,
-        semantic_matches_ready: scanSummary ? Number(scanSummary.semanticReady || 0) : 0,
-        semantic_policy_replaces: scanSummary ? Number(scanSummary.semanticPolicyReplaces || 0) : 0,
-        semantic_policy_abstains: scanSummary ? Number(scanSummary.semanticPolicyAbstains || 0) : 0,
-        semantic_policy_soft_affordances: scanSummary
-          ? Number(scanSummary.semanticPolicySoftAffordances || 0)
-          : 0,
-        semantic_fallback_replaces: scanSummary ? Number(scanSummary.semanticFallbackReplaces || 0) : 0,
-        semantic_fallback_abstains: scanSummary ? Number(scanSummary.semanticFallbackAbstains || 0) : 0,
-        semantic_fallback_soft_affordances: scanSummary
-          ? Number(scanSummary.semanticFallbackSoftAffordances || 0)
-          : 0,
-        semantic_decision_policy_id: scanSummary
-          ? String(scanSummary.semanticDecisionPolicyId || "")
-          : "",
-        apply_total_ms: applyTotalMs,
-        active_rules_resolve_ms: activeRulesResolveMs,
-        helper_rules_resolve_ms: helperRulesResolveMs,
-        srs_gate_ms: srsGateMs,
-        semantic_inventory_resolve_ms: semanticInventoryResolveMs,
-        runtime_apply_ms: runtimeApplyMs,
-        scan_ms: scanMs,
-        first_replacement_latency_ms: firstReplacementLatencyMs,
-        first_visible_replacement_latency_ms: firstVisibleReplacementLatencyMs,
-        srs_stats: srsStats || null,
-        helper_rules_error: helperRulesError || "",
-        page_url: window.location ? window.location.href : "",
-        frame_type: getFrameInfo().frameType
-      });
       if (currentSettings.debugEnabled) {
         log("Context info:", Object.assign({ readyState: document.readyState }, getFrameInfo()));
         if (document.body) {
@@ -257,10 +307,10 @@
           });
         }
       }
-      if (!normalizedRules.length) {
+      if (currentSettings.debugEnabled && !normalizedRules.length) {
         log("No rules loaded.");
       }
-      if (focusWord && focusRulesCount === 0) {
+      if (currentSettings.debugEnabled && focusWord && focusRulesCount === 0) {
         log(`No enabled rule found for focus word "${focusWord}".`);
       }
     }

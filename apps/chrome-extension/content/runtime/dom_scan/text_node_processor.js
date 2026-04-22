@@ -125,11 +125,20 @@
       counter.semanticFallbackReplaces += Number(summary.fallbackReplaces || 0);
       counter.semanticFallbackAbstains += Number(summary.fallbackAbstains || 0);
       counter.semanticFallbackSoftAffordances += Number(summary.fallbackSoftAffordances || 0);
+      counter.semanticDebugOverrideApplied += Number(summary.debugOverrideApplied || 0);
+      const nextDebugDecisionOverride = String(summary.debugDecisionOverride || "").trim();
       if (nextDecisionPolicyId) {
         if (!counter.semanticDecisionPolicyId) {
           counter.semanticDecisionPolicyId = nextDecisionPolicyId;
         } else if (counter.semanticDecisionPolicyId !== nextDecisionPolicyId) {
           counter.semanticDecisionPolicyId = "mixed";
+        }
+      }
+      if (nextDebugDecisionOverride) {
+        if (!counter.semanticDebugDecisionOverride) {
+          counter.semanticDebugDecisionOverride = nextDebugDecisionOverride;
+        } else if (counter.semanticDebugDecisionOverride !== nextDebugDecisionOverride) {
+          counter.semanticDebugDecisionOverride = "mixed";
         }
       }
     }

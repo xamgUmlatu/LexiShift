@@ -207,6 +207,128 @@ const noAdmissionMatch = {{
 """
         _run_node(script)
 
+    def test_debug_override_can_force_visible_replace_without_changing_underlying_counts(
+        self,
+    ) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const modulePath = {json.dumps(str(SEMANTIC_GATE_RUNTIME_JS))};
+const context = vm.createContext({{
+  console,
+  document: {{ documentElement: {{ lang: "en" }} }},
+  location: {{ href: "https://example.com/article" }}
+}});
+context.globalThis = context;
+context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
+
+const createRuntime = context.LexiShift.contentSemanticGateRuntime.createRuntime;
+const runtime = createRuntime({{
+  helperRulesRuntime: {{
+    async resolveSemanticInventory() {{
+      return {{
+        inventory: {{ pair: "en-es", profile_id: "default" }},
+        source: "helper",
+        error: null
+      }};
+    }},
+    async semanticAdmitBatch(_payload) {{
+      return {{
+        response: {{
+          schema_version: 1,
+          pair: "en-es",
+          profile_id: "default",
+          decision_policy_id: "en_es_sentence_veto_v2",
+          decisions: [
+            {{
+              match_id: "semantic:0",
+              decision: "abstain",
+              decision_source: "policy",
+              reason_codes: ["active_margin_low"]
+            }}
+          ]
+        }},
+        error: null
+      }};
+    }}
+  }},
+  getRuleOrigin: (rule) => String(rule && rule.metadata && rule.metadata.lexishift_origin || "ruleset"),
+  normalizeProfileId: (value) => String(value || "").trim() || "default",
+  ruleOriginSrs: "srs"
+}});
+
+const readyMatch = {{
+  startWordIndex: 5,
+  endWordIndex: 5,
+  rule: {{
+    source_phrase: "bank",
+    metadata: {{
+      lexishift_origin: "srs",
+      language_pair: "en-es",
+      semantic_admission: {{
+        schema_version: 1,
+        status: "ready",
+        trigger_id: "trigger:bank",
+        sense_id: "sense:banco",
+        competition_set_id: "comp:bank",
+        phrase_set_id: "phrase:bank"
+      }}
+    }}
+  }}
+}};
+
+(async () => {{
+  const result = await runtime.admitMatches({{
+    text: "I deposited cash at the bank yesterday.",
+    tokens: [
+      {{ text: "I " }},
+      {{ text: "deposited " }},
+      {{ text: "cash " }},
+      {{ text: "at " }},
+      {{ text: "the " }},
+      {{ text: "bank" }},
+      {{ text: " yesterday." }}
+    ],
+    wordPositions: [0, 1, 2, 3, 4, 5, 6],
+    matches: [readyMatch],
+    settings: {{
+      debugEnabled: true,
+      debugSemanticDecisionOverride: "replace",
+      srsEnabled: true,
+      srsSemanticAdmissionEnabled: true,
+      srsSemanticAdmissionFallbackPolicy: "legacy_on_unavailable",
+      srsProfileId: "default",
+      srsPair: "en-es"
+    }}
+  }});
+
+  assert.equal(result.summary.eligible, 1);
+  assert.equal(result.summary.ready, 1);
+  assert.equal(result.summary.policyReplaces, 0);
+  assert.equal(result.summary.policyAbstains, 1);
+  assert.equal(result.summary.policyAbstainRate, 1);
+  assert.equal(result.summary.debugDecisionOverride, "replace");
+  assert.equal(result.summary.debugOverrideApplied, 1);
+  assert.equal(result.matches.includes(readyMatch), true);
+
+  const decision = result.decisionMap.get(readyMatch);
+  assert.equal(decision.decision, "abstain");
+  assert.equal(decision.decision_source, "policy");
+  assert.equal(decision.effective_decision, "replace");
+  assert.equal(decision.effective_decision_source, "debug_override");
+  assert.equal(decision.debug_override, "replace");
+  assert.equal(decision.debug_original_decision, "abstain");
+  assert.equal(decision.debug_original_decision_source, "policy");
+}})().catch((error) => {{
+  console.error(error);
+  process.exit(1);
+}});
+"""
+        _run_node(script)
+
     def test_gate_falls_back_locally_when_inventory_is_unavailable(self) -> None:
         script = f"""
 const assert = require("node:assert/strict");

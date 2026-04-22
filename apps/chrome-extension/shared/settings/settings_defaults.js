@@ -28,6 +28,7 @@
     maxReplacementsPerLemmaPerPage: 0,
     debugEnabled: false,
     debugFocusWord: "",
+    debugSemanticDecisionOverride: "",
     uiLanguage: "system",
     rulesSource: "editor",
     rulesFileName: "",

@@ -98,7 +98,9 @@ reporter.report({{
   semanticFallbackReplaces: 0,
   semanticFallbackAbstains: 1,
   semanticFallbackSoftAffordances: 2,
-  semanticDecisionPolicyId: "en_es_sentence_veto_v2"
+  semanticDecisionPolicyId: "en_es_sentence_veto_v2",
+  semanticDebugDecisionOverride: "replace",
+  semanticDebugOverrideApplied: 3
   }},
   timings: {{
     applyTotalMs: 512.5,
@@ -121,10 +123,72 @@ assert.equal(persisted[0].semantic_ready_rule_count, 5);
 assert.equal(persisted[0].semantic_matches_ready, 5);
 assert.equal(persisted[0].semantic_policy_soft_affordances, 2);
 assert.equal(persisted[0].semantic_fallback_soft_affordances, 2);
+assert.equal(persisted[0].semantic_policy_decision_total, 5);
+assert.equal(persisted[0].semantic_fallback_decision_total, 3);
+assert.equal(persisted[0].semantic_overall_decision_total, 8);
+assert.equal(persisted[0].semantic_policy_abstain_rate, 0.2);
+assert.equal(persisted[0].semantic_fallback_abstain_rate, 1 / 3);
+assert.equal(persisted[0].semantic_overall_abstain_rate, 0.25);
 assert.equal(persisted[0].semantic_decision_policy_id, "en_es_sentence_veto_v2");
+assert.equal(persisted[0].semantic_debug_decision_override, "replace");
+assert.equal(persisted[0].semantic_debug_override_applied, 3);
 assert.equal(persisted[0].apply_total_ms, 512.5);
 assert.equal(persisted[0].first_replacement_latency_ms, 203.25);
 assert.equal(persisted[0].first_visible_replacement_latency_ms, 110.5);
+"""
+        _run_node(script)
+
+    def test_apply_diagnostics_reporter_skips_persistence_when_debug_is_off(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const modulePath = {json.dumps(str(REPORTER_JS))};
+const persisted = [];
+const context = vm.createContext({{
+  console,
+  window: {{ location: {{ href: "https://example.com/page" }} }},
+  document: {{ readyState: "complete", body: {{ childElementCount: 0, innerText: "" }} }}
+}});
+context.globalThis = context;
+context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
+
+const reporter = context.LexiShift.contentApplyDiagnosticsReporter.createReporter({{
+  log: () => {{}},
+  getRuleOrigin: (rule) => String(rule && rule.metadata && rule.metadata.lexishift_origin || "ruleset"),
+  persistRuntimeState: (payload) => persisted.push(payload),
+  getFrameInfo: () => ({{ frameType: "top" }})
+}});
+
+reporter.report({{
+  currentSettings: {{
+    enabled: true,
+    srsEnabled: true,
+    srsPair: "en-es",
+    debugEnabled: false
+  }},
+  normalizedRules: [],
+  enabledRules: [],
+  activeRules: [],
+  originCounts: {{ ruleset: 0, srs: 0 }},
+  activeOriginCounts: {{ ruleset: 0, srs: 0 }},
+  rulesSource: "helper",
+  semanticAdmissionEnabled: true,
+  semanticRuntimeCapability: "active",
+  semanticRuntimeReasonCode: "ready_rules_available",
+  semanticPointerRuleCount: 8,
+  semanticReadyRuleCount: 5,
+  semanticInventoryLoaded: true,
+  semanticInventorySource: "helper",
+  scanSummary: {{
+    semanticEligible: 8,
+    semanticPolicyAbstains: 1
+  }}
+}});
+
+assert.equal(persisted.length, 0);
 """
         _run_node(script)
 
@@ -135,7 +199,7 @@ const fs = require("node:fs");
 const vm = require("node:vm");
 
 const modulePath = {json.dumps(str(RUNTIME_DIAGNOSTICS_JS))};
-const storage = {{}};
+const storage = {{ debugEnabled: true }};
 const context = vm.createContext({{
   console,
   chrome: {{
@@ -153,6 +217,12 @@ const context = vm.createContext({{
             items[key] = value;
           }}
           callback(items);
+        }},
+        remove(key, callback) {{
+          delete storage[key];
+          if (typeof callback === "function") {{
+            callback();
+          }}
         }}
       }}
     }}
@@ -175,7 +245,15 @@ const runtimeDiagnostics = context.LexiShift.srsRuntimeDiagnostics;
     semantic_matches_ready: 7,
     semantic_policy_soft_affordances: 3,
     semantic_fallback_soft_affordances: 2,
+    semantic_policy_decision_total: 7,
+    semantic_fallback_decision_total: 2,
+    semantic_overall_decision_total: 9,
+    semantic_policy_abstain_rate: 0.25,
+    semantic_fallback_abstain_rate: 0.5,
+    semantic_overall_abstain_rate: 1 / 3,
     semantic_decision_policy_id: "en_es_sentence_veto_v2",
+    semantic_debug_decision_override: "replace",
+    semantic_debug_override_applied: 4,
     apply_total_ms: 480,
     first_replacement_latency_ms: 215,
     first_visible_replacement_latency_ms: 125
@@ -188,10 +266,70 @@ const runtimeDiagnostics = context.LexiShift.srsRuntimeDiagnostics;
   assert.equal(loaded.semantic_matches_ready, 7);
   assert.equal(loaded.semantic_policy_soft_affordances, 3);
   assert.equal(loaded.semantic_fallback_soft_affordances, 2);
+  assert.equal(loaded.semantic_policy_decision_total, 7);
+  assert.equal(loaded.semantic_fallback_decision_total, 2);
+  assert.equal(loaded.semantic_overall_decision_total, 9);
+  assert.equal(loaded.semantic_policy_abstain_rate, 0.25);
+  assert.equal(loaded.semantic_fallback_abstain_rate, 0.5);
+  assert.equal(loaded.semantic_overall_abstain_rate, 1 / 3);
   assert.equal(loaded.semantic_decision_policy_id, "en_es_sentence_veto_v2");
+  assert.equal(loaded.semantic_debug_decision_override, "replace");
+  assert.equal(loaded.semantic_debug_override_applied, 4);
   assert.equal(loaded.apply_total_ms, 480);
   assert.equal(loaded.first_replacement_latency_ms, 215);
   assert.equal(loaded.first_visible_replacement_latency_ms, 125);
+}})().catch((error) => {{
+  console.error(error);
+  process.exit(1);
+}});
+"""
+        _run_node(script)
+
+    def test_runtime_diagnostics_load_returns_null_when_debug_is_off(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const modulePath = {json.dumps(str(RUNTIME_DIAGNOSTICS_JS))};
+const storage = {{
+  debugEnabled: false,
+  srsRuntimeLastState: {{
+    pair: "en-es",
+    profile_id: "default",
+    semantic_runtime_capability: "active"
+  }}
+}};
+const context = vm.createContext({{
+  console,
+  chrome: {{
+    storage: {{
+      local: {{
+        set(_payload, callback) {{
+          if (typeof callback === "function") {{
+            callback();
+          }}
+        }},
+        get(defaults, callback) {{
+          callback({{ ...defaults, ...storage }});
+        }},
+        remove(_key, callback) {{
+          if (typeof callback === "function") {{
+            callback();
+          }}
+        }}
+      }}
+    }}
+  }}
+}});
+context.globalThis = context;
+context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
+
+(async () => {{
+  const runtimeDiagnostics = context.LexiShift.srsRuntimeDiagnostics;
+  const loaded = await runtimeDiagnostics.loadLastState();
+  assert.equal(loaded, null);
 }})().catch((error) => {{
   console.error(error);
   process.exit(1);
