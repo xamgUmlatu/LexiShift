@@ -98,7 +98,7 @@ reporter.report({{
     semanticFallbackReplaces: 0,
     semanticFallbackAbstains: 1,
     semanticFallbackSoftAffordances: 2,
-    semanticDecisionPolicyId: "en_es_sentence_veto_v1"
+    semanticDecisionPolicyId: "en_es_sentence_veto_v2"
   }}
 }});
 
@@ -110,7 +110,7 @@ assert.equal(persisted[0].semantic_ready_rule_count, 5);
 assert.equal(persisted[0].semantic_matches_ready, 5);
 assert.equal(persisted[0].semantic_policy_soft_affordances, 2);
 assert.equal(persisted[0].semantic_fallback_soft_affordances, 2);
-assert.equal(persisted[0].semantic_decision_policy_id, "en_es_sentence_veto_v1");
+assert.equal(persisted[0].semantic_decision_policy_id, "en_es_sentence_veto_v2");
 """
         _run_node(script)
 
@@ -161,7 +161,7 @@ const runtimeDiagnostics = context.LexiShift.srsRuntimeDiagnostics;
     semantic_matches_ready: 7,
     semantic_policy_soft_affordances: 3,
     semantic_fallback_soft_affordances: 2,
-    semantic_decision_policy_id: "en_es_sentence_veto_v1"
+    semantic_decision_policy_id: "en_es_sentence_veto_v2"
   }});
   const loaded = await runtimeDiagnostics.loadLastState();
   assert.equal(loaded.semantic_runtime_capability, "published_unready");
@@ -171,7 +171,7 @@ const runtimeDiagnostics = context.LexiShift.srsRuntimeDiagnostics;
   assert.equal(loaded.semantic_matches_ready, 7);
   assert.equal(loaded.semantic_policy_soft_affordances, 3);
   assert.equal(loaded.semantic_fallback_soft_affordances, 2);
-  assert.equal(loaded.semantic_decision_policy_id, "en_es_sentence_veto_v1");
+  assert.equal(loaded.semantic_decision_policy_id, "en_es_sentence_veto_v2");
 }})().catch((error) => {{
   console.error(error);
   process.exit(1);
@@ -212,7 +212,7 @@ context.LexiShift = {{
   }},
   srsRuntimeDiagnostics: {{
     async loadLastState() {{
-      return {{ semantic_decision_policy_id: "en_es_sentence_veto_v1" }};
+      return {{ semantic_decision_policy_id: "en_es_sentence_veto_v2" }};
     }}
   }}
 }};

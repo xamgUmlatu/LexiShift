@@ -21,10 +21,23 @@ from lexishift_core.rulegen.semantic_routing_runtime_scoring import RuntimeSimil
 class SemanticRoutingRuntimePolicyTests(unittest.TestCase):
     def test_resolve_semantic_decision_policy_defaults_en_es(self) -> None:
         policy = resolve_semantic_decision_policy(pair="en-es")
-        self.assertEqual(policy.policy_id, "en_es_sentence_veto_v1")
+        self.assertEqual(policy.policy_id, "en_es_sentence_veto_v2")
         self.assertEqual(policy.pair, "en-es")
+        self.assertEqual(policy.scorer_id, "tfidf_cosine")
+        self.assertEqual(policy.context_view, "masked_sentence")
+        self.assertEqual(policy.evidence_view, "all_evidence_text")
+        self.assertEqual(policy.min_active_score, 0.05)
+        self.assertEqual(policy.min_margin, 0.0)
         self.assertEqual(policy.phrase_control_mode, "noun_family_frame_guard")
         self.assertEqual(policy.active_rescue_mode, "sense_label_near_tie_active_rescue")
+
+    def test_resolve_semantic_decision_policy_allows_explicit_legacy_v1(self) -> None:
+        policy = resolve_semantic_decision_policy(
+            pair="en-es",
+            decision_policy_id="en_es_sentence_veto_v1",
+        )
+        self.assertEqual(policy.policy_id, "en_es_sentence_veto_v1")
+        self.assertEqual(policy.scorer_id, "sentence_transformer_cosine")
 
     def test_resolve_runtime_fallback_decision_maps_all_supported_policies(self) -> None:
         self.assertEqual(resolve_runtime_fallback_decision("legacy_on_unavailable"), "replace")
@@ -165,7 +178,7 @@ class SemanticRoutingRuntimePolicyTests(unittest.TestCase):
             backend_factory=FakeBackend,
         )
 
-        self.assertEqual(response["decision_policy_id"], "en_es_sentence_veto_v1")
+        self.assertEqual(response["decision_policy_id"], "en_es_sentence_veto_v2")
         self.assertEqual(response["fallback_policy"], "abstain_on_unavailable")
         self.assertEqual(len(response["decisions"]), 1)
         self.assertEqual(response["decisions"][0]["decision"], "replace")

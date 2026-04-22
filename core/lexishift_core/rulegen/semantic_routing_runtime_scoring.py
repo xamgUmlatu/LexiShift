@@ -5,7 +5,6 @@ import re
 from typing import Mapping, Sequence
 
 import numpy as np
-from sklearn.feature_extraction.text import TfidfVectorizer
 
 from lexishift_core.rulegen.semantic_shadow_embedding_bridge import (
     DEFAULT_EMBEDDING_BRIDGE_MODEL,
@@ -322,7 +321,8 @@ class RuntimeSimilarityBackend:
         self.scorer_id = normalized_scorer_id
         self.model_name = str(model_name or "").strip() or DEFAULT_EMBEDDING_BRIDGE_MODEL
         self._token_sets: dict[str, frozenset[str]] = {}
-        self._vectorizer: TfidfVectorizer | None = None
+        self._tfidf_vocabulary: dict[tuple[str, ...], int] = {}
+        self._tfidf_idf: np.ndarray | None = None
         self._row_lookup: dict[str, int] = {}
         self._normalized_matrix: np.ndarray | None = None
         self._embedding_model = None
@@ -344,15 +344,32 @@ class RuntimeSimilarityBackend:
             }
             return
         if self.scorer_id == "tfidf_cosine":
-            vectorizer = TfidfVectorizer(lowercase=True, ngram_range=(1, 2))
-            matrix = vectorizer.fit_transform(normalized_texts)
-            dense_matrix = np.asarray(matrix.toarray(), dtype=np.float64)
-            self._vectorizer = vectorizer
+            self._tfidf_vocabulary, self._tfidf_idf = _build_runtime_tfidf_components(
+                normalized_texts
+            )
+            dense_rows = [
+                _build_runtime_tfidf_row(
+                    _build_runtime_tfidf_terms(text),
+                    vocabulary=self._tfidf_vocabulary,
+                    idf=self._tfidf_idf,
+                )
+                for text in normalized_texts
+            ]
+            dense_matrix = (
+                np.vstack(dense_rows)
+                if dense_rows
+                else np.zeros((0, len(self._tfidf_vocabulary)), dtype=np.float64)
+            )
             self._row_lookup = {text: index for index, text in enumerate(normalized_texts)}
             self._normalized_matrix = _normalize_embedding_rows(dense_matrix)
             return
         if self.scorer_id == "sentence_transformer_cosine":
-            from sentence_transformers import SentenceTransformer
+            try:
+                from sentence_transformers import SentenceTransformer
+            except ModuleNotFoundError as exc:
+                raise RuntimeError(
+                    "sentence_transformers is required for sentence_transformer_cosine."
+                ) from exc
 
             self._embedding_model = SentenceTransformer(self.model_name)
             encoded = self._embedding_model.encode(
@@ -402,9 +419,14 @@ class RuntimeSimilarityBackend:
         index = self._row_lookup.get(text)
         if index is not None:
             return index
-        if self.scorer_id == "tfidf_cosine" and self._vectorizer is not None:
-            matrix = self._vectorizer.transform([text])
-            dense_row = _normalize_embedding_rows(np.asarray(matrix.toarray(), dtype=np.float64))
+        if self.scorer_id == "tfidf_cosine" and self._tfidf_idf is not None:
+            dense_row = _normalize_embedding_rows(
+                _build_runtime_tfidf_row(
+                    _build_runtime_tfidf_terms(text),
+                    vocabulary=self._tfidf_vocabulary,
+                    idf=self._tfidf_idf,
+                )
+            )
         elif self.scorer_id == "sentence_transformer_cosine" and self._embedding_model is not None:
             encoded = self._embedding_model.encode([text], normalize_embeddings=True)
             dense_row = _normalize_embedding_rows(np.asarray(encoded, dtype=np.float64))
@@ -569,6 +591,58 @@ def _normalize_surface_token(token: str) -> str:
 
 def _normalize_text_tokens(text: str) -> list[str]:
     return [match.lower() for match in _TOKEN_RE.findall(str(text or ""))]
+
+
+def _build_runtime_tfidf_terms(text: str) -> list[tuple[str, ...]]:
+    tokens = _normalize_text_tokens(text)
+    terms: list[tuple[str, ...]] = []
+    for ngram_size in (1, 2):
+        if len(tokens) < ngram_size:
+            continue
+        for index in range(0, len(tokens) - ngram_size + 1):
+            terms.append(tuple(tokens[index : index + ngram_size]))
+    return terms
+
+
+def _build_runtime_tfidf_components(
+    texts: Sequence[str],
+) -> tuple[dict[tuple[str, ...], int], np.ndarray]:
+    documents = [_build_runtime_tfidf_terms(text) for text in texts]
+    document_frequency: dict[tuple[str, ...], int] = {}
+    for document in documents:
+        for term in set(document):
+            document_frequency[term] = document_frequency.get(term, 0) + 1
+    vocabulary = {
+        term: index
+        for index, term in enumerate(sorted(document_frequency, key=lambda value: value))
+    }
+    idf = np.zeros((len(vocabulary),), dtype=np.float64)
+    document_count = max(1, len(documents))
+    for term, index in vocabulary.items():
+        idf[index] = (
+            np.log((1.0 + float(document_count)) / (1.0 + float(document_frequency[term]))) + 1.0
+        )
+    return vocabulary, idf
+
+
+def _build_runtime_tfidf_row(
+    terms: Sequence[tuple[str, ...]],
+    *,
+    vocabulary: Mapping[tuple[str, ...], int],
+    idf: np.ndarray,
+) -> np.ndarray:
+    row = np.zeros((1, len(vocabulary)), dtype=np.float64)
+    if not vocabulary or not terms:
+        return row
+    counts: dict[int, int] = {}
+    for term in terms:
+        index = vocabulary.get(term)
+        if index is None:
+            continue
+        counts[index] = counts.get(index, 0) + 1
+    for index, count in counts.items():
+        row[0, index] = float(count) * float(idf[index])
+    return row
 
 
 def _normalize_embedding_rows(matrix: np.ndarray) -> np.ndarray:

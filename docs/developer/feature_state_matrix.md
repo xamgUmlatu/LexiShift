@@ -962,6 +962,7 @@ Use this file when:
     - the current `en-es` starter dataset lives at `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v2.json`
     - this harness explicitly measures runtime-scoring quality separately from upstream shadow-mining quality
     - the default sweep stays on the cheap lexical scorer family, while `sentence_transformer_cosine` is available as an explicit heavier model-choice lane
+    - the shipped `en-es` helper runtime now also defaults to the lexical gate via `en_es_sentence_veto_v2` (`tfidf_cosine + masked_sentence + all_evidence_text + min_active=0.05 + min_margin=0.00`); the older sentence-transformer policy remains explicit-only for model-choice comparisons
   - First current lexical result on that harness:
     - the original higher threshold ladder (`min_active >= 0.25`) collapses to total abstention
     - once the sweep includes `min_active_score=0.00` and `0.05`, the best current lexical row is `tfidf_cosine + masked_sentence + all_evidence_text + min_active=0.05 + min_margin=0.00`

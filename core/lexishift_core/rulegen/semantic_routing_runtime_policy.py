@@ -89,10 +89,23 @@ PRODUCTION_SEMANTIC_DECISION_POLICIES: dict[str, SemanticDecisionPolicyConfig] =
         active_rescue_mode="sense_label_near_tie_active_rescue",
         window_tokens=DEFAULT_SENTENCE_VETO_CONTEXT_WINDOW_TOKENS,
         mask_token=DEFAULT_SENTENCE_VETO_MASK_TOKEN,
-    )
+    ),
+    "en_es_sentence_veto_v2": SemanticDecisionPolicyConfig(
+        policy_id="en_es_sentence_veto_v2",
+        pair="en-es",
+        scorer_id="tfidf_cosine",
+        context_view="masked_sentence",
+        evidence_view="all_evidence_text",
+        min_active_score=0.05,
+        min_margin=0.0,
+        phrase_control_mode="noun_family_frame_guard",
+        active_rescue_mode="sense_label_near_tie_active_rescue",
+        window_tokens=DEFAULT_SENTENCE_VETO_CONTEXT_WINDOW_TOKENS,
+        mask_token=DEFAULT_SENTENCE_VETO_MASK_TOKEN,
+    ),
 }
 PAIR_DEFAULT_SEMANTIC_DECISION_POLICY_IDS: dict[str, str] = {
-    "en-es": "en_es_sentence_veto_v1",
+    "en-es": "en_es_sentence_veto_v2",
 }
 
 

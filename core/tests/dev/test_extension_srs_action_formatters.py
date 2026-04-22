@@ -144,7 +144,7 @@ const diagnosticsText = formatters.buildRuntimeDiagnosticsOutput({{
       semantic_fallback_replaces: 0,
       semantic_fallback_abstains: 1,
       semantic_fallback_soft_affordances: 1,
-      semantic_decision_policy_id: "en_es_sentence_veto_v1",
+      semantic_decision_policy_id: "en_es_sentence_veto_v2",
       semantic_inventory_error: "",
       helper_rules_error: "",
       frame_type: "top"
@@ -173,7 +173,7 @@ assert.match(diagnosticsText, /semantic_ready_rule_count: 4/);
 assert.match(diagnosticsText, /semantic_matches_ready: 4/);
 assert.match(diagnosticsText, /semantic_policy_soft_affordances: 1/);
 assert.match(diagnosticsText, /semantic_fallback_soft_affordances: 1/);
-assert.match(diagnosticsText, /semantic_decision_policy_id: en_es_sentence_veto_v1/);
+assert.match(diagnosticsText, /semantic_decision_policy_id: en_es_sentence_veto_v2/);
 """
         _run_node(script)
 

@@ -271,8 +271,7 @@
           "selection_strategy": "frequency_bootstrap",
           "selection_policy": "top_n",
           "selection_seed": null,
-          "selector_version": null,
-          "profile_bootstrap_diagnostics": {}
+          "selector_version": null
         },
         "inventory": {
           "path": "<temp_root>/srs/profiles/default/srs_inventory.json",
@@ -839,8 +838,7 @@
           "selection_strategy": "frequency_bootstrap",
           "selection_policy": "top_n",
           "selection_seed": null,
-          "selector_version": null,
-          "profile_bootstrap_diagnostics": {}
+          "selector_version": null
         },
         "inventory": {
           "path": "<temp_root>/srs/profiles/default/srs_inventory.json",

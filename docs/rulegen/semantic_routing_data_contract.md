@@ -413,7 +413,7 @@ Current request fragment:
   "pair": "en-es",
   "profile_id": "default",
   "offset_encoding": "utf16_code_unit",
-  "decision_policy_id": "en_es_sentence_veto_v1",
+  "decision_policy_id": "en_es_sentence_veto_v2",
   "fallback_policy": "abstain_on_unavailable",
   "surface_kind": "browser_page",
   "matches": [
@@ -466,7 +466,7 @@ Current response fragment:
   "schema_version": 1,
   "pair": "en-es",
   "profile_id": "default",
-  "decision_policy_id": "en_es_sentence_veto_v1",
+  "decision_policy_id": "en_es_sentence_veto_v2",
   "fallback_policy": "abstain_on_unavailable",
   "decisions": [
     {

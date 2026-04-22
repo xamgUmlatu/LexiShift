@@ -1,13 +1,15 @@
 # Semantic Routing Sentence Veto Harness
 
 - Status: `ok`
-- Generated: `2026-04-11T04:00:41Z`
-- Dataset: `/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v2.json`
+- Generated: `2026-04-22T04:40:09Z`
+- Dataset: `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v2.json`
 - Pair: `en-es`
 - Scorer: `tfidf_cosine`
 - Model: `n/a`
 - Context view: `masked_sentence`
 - Evidence view: `all_evidence_text`
+- Phrase control mode: `noun_family_frame_guard`
+- Active rescue mode: `sense_label_near_tie_active_rescue`
 - Thresholds: `min_active=0.05`, `min_margin=0.0`
 
 ## Summary
@@ -17,6 +19,8 @@
 - Harmful replace / false abstain: `0.0%` / `56.2%`
 - Winner accuracy / shadow-winner accuracy: `75.0%` / `50.0%`
 - Predicted replace rate: `17.5%`
+- Phrase preemption hit rate / precision: `12.5%` / `100.0%`
+- Active rescue applied rate / precision: `0.0%` / `n/a`
 
 ## Family Breakdown
 

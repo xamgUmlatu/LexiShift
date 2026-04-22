@@ -278,6 +278,7 @@ Operational note:
 
 - the default sweep now stays on the cheap lexical scorer family (`token_jaccard`, `tfidf_cosine`)
 - the heavier `sentence_transformer_cosine` lane is available explicitly for model-choice comparisons
+- the shipped `en-es` helper/runtime default now aligns to the current lexical gate via `en_es_sentence_veto_v2`; the older sentence-transformer policy remains explicit-only for model-choice comparison and replay
 
 Current dataset scope:
 

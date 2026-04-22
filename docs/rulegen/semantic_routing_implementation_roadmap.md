@@ -286,7 +286,7 @@ Objective:
 Deliverables:
 
 - helper request for batched semantic admission, for example `semantic_admit_batch`
-- production policy registry, starting with `en_es_sentence_veto_v1`
+- production policy registry, starting with lexical default `en_es_sentence_veto_v2` while keeping heavier comparison policies explicit
 - shared Python decision engine that uses:
   - phrase/frame guard
   - primary scorer
