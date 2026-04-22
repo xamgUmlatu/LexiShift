@@ -36,7 +36,7 @@ class UIManager {
       "srs-bootstrap-top-n", "srs-initial-active-count",
       "srs-topic-interests", "srs-proficiency-estimate", "srs-challenge-target",
       "srs-sound-enabled", "srs-highlight-color", "srs-highlight-color-text",
-      "srs-semantic-admission-enabled", "srs-semantic-admission-fallback-policy",
+      "srs-semantic-admission-status", "srs-semantic-admission-status-detail",
       "srs-feedback-srs-enabled", "srs-feedback-rules-enabled",
       "srs-exposure-logging-enabled",
       "srs-admission-preview", "srs-admission-preview-output",
@@ -160,12 +160,6 @@ class UIManager {
     }
     if (this.dom.srsHighlightColorText) {
       this.dom.srsHighlightColorText.value = profile.srsHighlightColor;
-    }
-    if (this.dom.srsSemanticAdmissionEnabled) {
-      this.dom.srsSemanticAdmissionEnabled.checked = profile.srsSemanticAdmissionEnabled === true;
-    }
-    if (this.dom.srsSemanticAdmissionFallbackPolicy) {
-      this.dom.srsSemanticAdmissionFallbackPolicy.value = profile.srsSemanticAdmissionFallbackPolicy;
     }
     if (this.dom.srsFeedbackSrsEnabled) {
       this.dom.srsFeedbackSrsEnabled.checked = profile.srsFeedbackSrsEnabled;

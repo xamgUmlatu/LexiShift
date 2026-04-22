@@ -246,12 +246,8 @@
         : (this.settingsManager.defaults.srsInitialActiveCount || 40),
       srsSoundEnabled: nextPairProfile.srsSoundEnabled !== false,
       srsHighlightColor: String(nextPairProfile.srsHighlightColor || this.settingsManager.defaults.srsHighlightColor || "#2f74d0"),
-      srsSemanticAdmissionEnabled: nextPairProfile.srsSemanticAdmissionEnabled === true,
-      srsSemanticAdmissionFallbackPolicy: String(
-        nextPairProfile.srsSemanticAdmissionFallbackPolicy
-          || this.settingsManager.defaults.srsSemanticAdmissionFallbackPolicy
-          || "legacy_on_unavailable"
-      ).trim() || "legacy_on_unavailable",
+      srsSemanticAdmissionEnabled: true,
+      srsSemanticAdmissionFallbackPolicy: "legacy_on_unavailable",
       srsFeedbackSrsEnabled: nextPairProfile.srsFeedbackSrsEnabled !== false,
       srsFeedbackRulesEnabled: nextPairProfile.srsFeedbackRulesEnabled === true,
       srsExposureLoggingEnabled: nextPairProfile.srsExposureLoggingEnabled !== false

@@ -134,21 +134,21 @@
             <input id="srs-highlight-color" type="color" />
             <input id="srs-highlight-color-text" type="text" class="color-text" />
           </div>
-          <label class="toggle">
-            <input id="srs-semantic-admission-enabled" type="checkbox" />
-            <span data-i18n="toggle_srs_semantic_admission">Enable semantic admission (experimental)</span>
-          </label>
-          <p class="hint" data-i18n="hint_srs_semantic_admission">
-            Filters eligible SRS replacements with helper-side sentence veto. Fallback policy decides what happens when semantic data or helper service is unavailable.
-          </p>
           <div class="field-row">
-            <label for="srs-semantic-admission-fallback-policy" data-i18n="label_srs_semantic_fallback_policy">Semantic fallback policy</label>
-            <select id="srs-semantic-admission-fallback-policy">
-              <option value="legacy_on_unavailable" data-i18n="option_srs_semantic_fallback_legacy">Keep legacy replacement</option>
-              <option value="abstain_on_unavailable" data-i18n="option_srs_semantic_fallback_abstain">Abstain</option>
-              <option value="soft_affordance_on_unavailable" data-i18n="option_srs_semantic_fallback_soft">Soft affordance (reserved)</option>
-            </select>
+            <span data-i18n="label_srs_semantic_admission_status">Semantic admission</span>
+            <span
+              id="srs-semantic-admission-status"
+              class="meta-value"
+              data-i18n="status_srs_semantic_capability_checking"
+            >Checking…</span>
           </div>
+          <p
+            id="srs-semantic-admission-status-detail"
+            class="hint"
+            data-i18n="hint_srs_semantic_capability_checking"
+          >
+            Checking semantic admission status…
+          </p>
           <label class="toggle">
             <input id="srs-feedback-srs-enabled" type="checkbox" />
             <span data-i18n="toggle_srs_feedback_srs">Enable feedback for SRS words</span>
@@ -750,6 +750,7 @@
     <script src="options/controllers/rules/share_center_controller.js"></script>
     <script src="options/controllers/rules/share_controller.js"></script>
     <script src="options/controllers/helper/actions_controller.js"></script>
+    <script src="options/controllers/srs/semantic_admission_status.js"></script>
     <script src="options/controllers/srs/profile_runtime_controller.js"></script>
     <script src="options/controllers/page/init_controller.js"></script>
     <script src="options/controllers/page/events/general/rules_bindings.js"></script>

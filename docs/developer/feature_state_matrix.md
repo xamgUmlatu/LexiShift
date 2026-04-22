@@ -819,12 +819,12 @@ Use this file when:
 
 ## Semantic Routing Runtime Admission Layer
 
-- Status: `implemented`, `default-off`, `verified`
-- Last documented checkpoint: `2026-04-20` kept the shipped runtime contract stable but tightened the helper-source-of-truth path: semantic diagnostics now recomputes current manifest-family drift from the live ruleset/snapshot/semantic-inventory files instead of trusting only the manifest's stored validation bit
-- Last verified: `2026-04-20` targeted helper diagnostics drift tests plus semantic publication/runtime seam tests and state/doc checks confirmed the helper/cache/runtime diagnostics split while keeping the `en-es` ready-publication boundary explicit
+- Status: `implemented`, `default-on-when-capable`, `verified`
+- Last documented checkpoint: `2026-04-22` removed the user-facing semantic-admission toggle and fallback selector from normal options UX, added helper/runtime capability state, and made the browser runtime auto-enable semantic admission only when the selected pair/profile publication has real ready coverage
+- Last verified: `2026-04-22` targeted helper diagnostics, extension runtime/diagnostics, options formatting, and settings-controller tests plus doc/state checks confirmed the new capability-driven contract while keeping the `en-es` ready-publication boundary explicit
 - Default behavior:
-  - No semantic-routing admission layer is active in the browser runtime by default because `srsSemanticAdmissionEnabled` now defaults to `false`.
-  - Current default runtime replacement behavior is still driven by rule emission plus existing SRS gating, not by sentence-level sense competition.
+  - Semantic admission is no longer a normal user preference. The browser runtime auto-uses helper-side semantic admission only when the current pair/profile publication is actually capable of real semantic decisioning.
+  - If a pair/profile has semantic metadata but no ready subset yet, LexiShift stays on standard SRS replacement behavior instead of asking the user to choose a fallback posture.
   - The repo now has passive semantic-routing publication scaffolding:
     - `metadata.semantic_admission` can be emitted on rules
     - helper publication can write a semantic inventory sidecar
@@ -832,22 +832,25 @@ Use this file when:
     - helper/native-host can now serve that semantic inventory as a first-class artifact
     - extension helper cache/runtime can now persist and resolve semantic inventory in parallel with ruleset/snapshot
     - helper source-of-truth diagnostics can inspect pointer coverage, sidecar coverage, publication generation ids, and recomputed manifest-family state from the live helper artifacts
-    - extension options/runtime diagnostics can surface best-effort cache counts plus cached snapshot/semantic generation ids and simple alignment, live semantic gate enablement, helper vs helper-cache source/error, aggregate ready/replace/abstain/soft-affordance counts, and the last resolved `decision_policy_id` from the shipped runtime path
-    - helper/native-host can now also answer `semantic_admit_batch` using a named shared policy registry, and the extension runtime can call that service when semantic admission is enabled
+    - extension options/runtime diagnostics can surface best-effort cache counts plus cached snapshot/semantic generation ids and simple alignment, helper semantic capability/reason state, runtime semantic capability/pointer/ready counts, live semantic gate enablement, helper vs helper-cache source/error, aggregate ready/replace/abstain/soft-affordance counts, and the last resolved `decision_policy_id` from the shipped runtime path
+    - helper/native-host can now also answer `semantic_admit_batch` using a named shared policy registry, and the extension runtime can call that service when semantic admission is active
   - The shipped runtime gate is still intentionally conservative:
     - only SRS-origin rules that already carry `metadata.semantic_admission` are eligible
-    - `srsSemanticAdmissionFallbackPolicy` defaults to `legacy_on_unavailable`, so missing readiness/package/service does not change default replacement behavior
+    - runtime activation now depends on computed capability (`active`, `published_unready`, `unavailable`, `error`) rather than a visible toggle
+    - the shipped runtime still uses `legacy_on_unavailable` internally for ready-rule failure cases, so missing inventory/service does not silently suppress standard SRS behavior
     - the schema still reserves `soft_affordance` as a future optional non-replace outcome, but current DOM behavior only acts on `replace` and otherwise keeps the original text
-  - The browser extension options page now exposes per-profile semantic-admission controls:
-    - `srsSemanticAdmissionEnabled`
-    - `srsSemanticAdmissionFallbackPolicy`
-    - pilot rollout no longer requires direct storage edits
+  - The browser extension options page now exposes a read-only semantic-admission status row:
+    - `Automatic`
+    - `Not yet available`
+    - `Unavailable`
+    - `Needs repair`
   - Current implemented E2E is now explicit:
     - offline helper artifacts stay local
     - extension loads ruleset plus semantic inventory from helper/cache
     - lexical trie matching happens first
+    - semantic admission activates only when the current enabled SRS rules have nonzero `status=ready` coverage and semantic inventory resolves cleanly
     - eligible matches are counted, but only `status=ready` eligible matches are batched to helper `semantic_admit_batch`
-    - non-ready eligible matches resolve locally through the configured fallback policy
+    - non-ready eligible matches still resolve locally through the shipped internal legacy fallback posture
     - runtime replaces only `replace` decisions and keeps the original otherwise
   - `en-es` now has a narrow publication PoC:
     - if real sibling senses for the same trigger are present in the same emitted result batch, `metadata.semantic_admission.status` can be promoted to `ready`
@@ -1006,8 +1009,15 @@ Use this file when:
   - `apps/chrome-extension/content/runtime/diagnostics/apply_diagnostics_reporter.js`
   - `apps/chrome-extension/shared/settings/settings_defaults.js`
   - `apps/chrome-extension/shared/srs/srs_runtime_diagnostics.js`
+  - `apps/chrome-extension/options.html`
+  - `apps/chrome-extension/options/controllers/srs/profile_runtime_controller.js`
   - `apps/chrome-extension/options/controllers/srs/actions/formatters.js`
   - `apps/chrome-extension/content_script.js`
+  - `core/tests/helper/test_helper_engine.py`
+  - `core/tests/dev/test_extension_helper_rule_confidence_contract.py`
+  - `core/tests/dev/test_extension_srs_runtime_diagnostics_contract.py`
+  - `core/tests/dev/test_extension_srs_action_formatters.py`
+  - `core/tests/dev/test_extension_srs_settings_contract.py`
   - `core/tests/rulegen/test_semantic_shadow_frequency.py`
   - `core/tests/rulegen/test_semantic_shadow_embedding_bridge.py`
   - `core/tests/rulegen/test_semantic_routing_runtime_policy.py`

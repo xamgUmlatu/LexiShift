@@ -143,6 +143,45 @@
   "label_srs_highlight_color": {
     "message": "SRS highlight color"
   },
+  "label_srs_semantic_admission_status": {
+    "message": "Semantic admission"
+  },
+  "status_srs_semantic_capability_checking": {
+    "message": "Checking…"
+  },
+  "hint_srs_semantic_capability_checking": {
+    "message": "Checking semantic admission status…"
+  },
+  "status_srs_semantic_capability_active": {
+    "message": "Automatic"
+  },
+  "hint_srs_semantic_capability_active": {
+    "message": "Helper-side sentence veto runs automatically for this pair/profile."
+  },
+  "status_srs_semantic_capability_published_unready": {
+    "message": "Not yet available"
+  },
+  "hint_srs_semantic_capability_published_unready": {
+    "message": "Semantic metadata is published, but this pair/profile has no ready coverage yet. LexiShift currently uses standard SRS replacements."
+  },
+  "status_srs_semantic_capability_unavailable": {
+    "message": "Unavailable"
+  },
+  "hint_srs_semantic_capability_unavailable": {
+    "message": "This pair/profile does not currently publish semantic admission coverage. LexiShift currently uses standard SRS replacements."
+  },
+  "status_srs_semantic_capability_error": {
+    "message": "Needs repair"
+  },
+  "hint_srs_semantic_capability_error": {
+    "message": "Semantic admission data is present but inconsistent or unreadable. LexiShift currently uses standard SRS replacements until it is repaired."
+  },
+  "status_srs_semantic_capability_unknown": {
+    "message": "Status unavailable"
+  },
+  "hint_srs_semantic_capability_unknown": {
+    "message": "Semantic admission status could not be checked right now."
+  },
   "toggle_srs_semantic_admission": {
     "message": "Enable semantic admission (experimental)"
   },

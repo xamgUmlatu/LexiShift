@@ -2,8 +2,8 @@
 
 Status: active mixed contract
 Role: Mixed
-Last updated: 2026-04-21
-Last verified: 2026-04-21 semantic schema-reference reconciliation against the shipped publication seam plus helper diagnostics/runtime protection evidence
+Last updated: 2026-04-22
+Last verified: 2026-04-22 helper diagnostics capability-state reconciliation against the shipped publication seam plus extension runtime/status evidence
 Purpose: define the current semantic-routing emitted-rule and helper publication contract, while keeping the remaining target shape explicit for later rollout work
 Source-of-truth: mixed as-is + target contract; current implemented truth still lives in code, tests, `docs/reference/schema.md`, and `docs/developer/feature_state_matrix.md`
 Current schema references:
@@ -273,6 +273,8 @@ Current helper semantic-inventory diagnostics:
 - `ruleset_rules_semantic_ready`
 - `ruleset_rules_semantic_unavailable`
 - `ruleset_rules_semantic_not_applicable`
+- `semantic_runtime_capability`
+- `semantic_runtime_reason_code`
 
 Current helper publication-manifest diagnostics:
 
@@ -300,6 +302,10 @@ Current extension-cache diagnostics:
 Current tab/runtime last-state diagnostics:
 
 - `semantic_admission_enabled`
+- `semantic_runtime_capability`
+- `semantic_runtime_reason_code`
+- `semantic_pointer_rule_count`
+- `semantic_ready_rule_count`
 - `semantic_fallback_policy`
 - `semantic_inventory_loaded`
 - `semantic_inventory_source`

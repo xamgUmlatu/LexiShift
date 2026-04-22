@@ -67,6 +67,9 @@
     const resolvePlanningState = typeof opts.resolvePlanningState === "function"
       ? opts.resolvePlanningState
       : (() => null);
+    const refreshSemanticAdmissionStatus = typeof opts.refreshSemanticAdmissionStatus === "function"
+      ? opts.refreshSemanticAdmissionStatus
+      : (() => Promise.resolve());
 
     async function initializeSet() {
       if (!initializeButton || !output) {
@@ -143,6 +146,7 @@
         if (applied && publishedRulegen && publishedRulegen.published !== false) {
           await markRulesetUpdatedNow();
         }
+        await refreshSemanticAdmissionStatus(srsPair, synced.profileId);
         const statusMessage = applied
           ? translate("status_srs_set_init_success", [srsPair], `S initialized for ${srsPair}.`)
           : translate("status_srs_set_plan_only", [srsPair], `S planning completed for ${srsPair}; no changes were applied.`);
@@ -220,6 +224,7 @@
         if (publishedRulegen && publishedRulegen.published !== false) {
           await markRulesetUpdatedNow();
         }
+        await refreshSemanticAdmissionStatus(srsPair, synced.profileId);
         setStatus(
           applied
             ? translate("status_srs_refresh_success", [srsPair, added], `S refreshed for ${srsPair}: +${added} admitted.`)

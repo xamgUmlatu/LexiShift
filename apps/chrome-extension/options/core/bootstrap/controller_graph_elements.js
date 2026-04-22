@@ -111,6 +111,8 @@
         srsHighlightTextInput: dom.srsHighlightTextInput,
         srsSemanticAdmissionEnabledInput: dom.srsSemanticAdmissionEnabledInput,
         srsSemanticAdmissionFallbackPolicyInput: dom.srsSemanticAdmissionFallbackPolicyInput,
+        srsSemanticAdmissionStatusOutput: dom.srsSemanticAdmissionStatusOutput,
+        srsSemanticAdmissionStatusDetailOutput: dom.srsSemanticAdmissionStatusDetailOutput,
         srsFeedbackSrsInput: dom.srsFeedbackSrsInput,
         srsFeedbackRulesInput: dom.srsFeedbackRulesInput,
         srsExposureLoggingInput: dom.srsExposureLoggingInput,

@@ -54,7 +54,7 @@
     srsFeedbackSrsEnabled: true,
     srsFeedbackRulesEnabled: false,
     srsExposureLoggingEnabled: true,
-    srsSemanticAdmissionEnabled: false,
+    srsSemanticAdmissionEnabled: true,
     srsSemanticAdmissionFallbackPolicy: "legacy_on_unavailable",
     profileBackgroundEnabled: false,
     profileBackgroundAssetId: "",

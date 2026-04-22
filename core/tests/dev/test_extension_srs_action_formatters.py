@@ -101,6 +101,11 @@ const diagnosticsText = formatters.buildRuntimeDiagnosticsOutput({{
       ...helperData,
       store_items_for_pair: 12,
       ruleset_rules_count: 34,
+      semantic_runtime_capability: "active",
+      semantic_runtime_reason_code: "ready_rules_available",
+      ruleset_rules_with_semantic_admission: 9,
+      ruleset_rules_semantic_ready: 4,
+      ruleset_rules_semantic_unavailable: 5,
       snapshot_target_count: 7,
       store_path: "/tmp/store.json",
       ruleset_path: "/tmp/rules.json"
@@ -124,6 +129,10 @@ const diagnosticsText = formatters.buildRuntimeDiagnosticsOutput({{
       active_rules_total: 18,
       active_rules_srs: 18,
       semantic_admission_enabled: true,
+      semantic_runtime_capability: "active",
+      semantic_runtime_reason_code: "ready_rules_available",
+      semantic_pointer_rule_count: 9,
+      semantic_ready_rule_count: 4,
       semantic_fallback_policy: "legacy_on_unavailable",
       semantic_inventory_loaded: true,
       semantic_inventory_source: "helper",
@@ -150,10 +159,17 @@ assert.match(
   diagnosticsText,
   /set_source_db \\(execution field\\): .*main\\.sqlite \\(exists=true; same as frequency_pack_path\\)/
 );
+assert.match(diagnosticsText, /semantic_runtime_capability: active/);
+assert.match(diagnosticsText, /semantic_runtime_reason_code: ready_rules_available/);
+assert.match(diagnosticsText, /ruleset_rules_with_semantic_admission: 9/);
+assert.match(diagnosticsText, /ruleset_rules_semantic_ready: 4/);
+assert.match(diagnosticsText, /ruleset_rules_semantic_unavailable: 5/);
 assert.match(diagnosticsText, /cached_snapshot_generation_id: en-es:default:abc123/);
 assert.match(diagnosticsText, /cached_semantic_inventory_schema_version: 1/);
 assert.match(diagnosticsText, /cached_semantic_inventory_generation_id: en-es:default:abc123/);
 assert.match(diagnosticsText, /cached_snapshot_semantic_generation_aligned: true/);
+assert.match(diagnosticsText, /semantic_pointer_rule_count: 9/);
+assert.match(diagnosticsText, /semantic_ready_rule_count: 4/);
 assert.match(diagnosticsText, /semantic_matches_ready: 4/);
 assert.match(diagnosticsText, /semantic_policy_soft_affordances: 1/);
 assert.match(diagnosticsText, /semantic_fallback_soft_affordances: 1/);

@@ -100,6 +100,20 @@
       const semanticFallbackPolicy = activeRulesState && activeRulesState.semanticFallbackPolicy
         ? activeRulesState.semanticFallbackPolicy
         : "legacy_on_unavailable";
+      const semanticRuntimeCapability = activeRulesState && activeRulesState.semanticRuntimeCapability
+        ? activeRulesState.semanticRuntimeCapability
+        : "unavailable";
+      const semanticRuntimeReasonCode = activeRulesState && activeRulesState.semanticRuntimeReasonCode
+        ? activeRulesState.semanticRuntimeReasonCode
+        : "no_semantic_rules";
+      const semanticPointerRuleCount = activeRulesState
+        && Number.isFinite(Number(activeRulesState.semanticPointerRuleCount))
+        ? Number(activeRulesState.semanticPointerRuleCount)
+        : 0;
+      const semanticReadyRuleCount = activeRulesState
+        && Number.isFinite(Number(activeRulesState.semanticReadyRuleCount))
+        ? Number(activeRulesState.semanticReadyRuleCount)
+        : 0;
       const semanticInventoryLoaded = activeRulesState && activeRulesState.semanticInventoryLoaded === true;
       const semanticInventorySource = activeRulesState && activeRulesState.semanticInventorySource
         ? activeRulesState.semanticInventorySource
@@ -107,6 +121,11 @@
       const semanticInventoryError = activeRulesState && activeRulesState.semanticInventoryError
         ? activeRulesState.semanticInventoryError
         : null;
+      nextSettings.srsSemanticAdmissionEnabled = semanticAdmissionEnabled;
+      nextSettings.srsSemanticAdmissionFallbackPolicy = semanticFallbackPolicy;
+      nextSettings.semanticRuntimeCapability = semanticRuntimeCapability;
+      nextSettings.semanticRuntimeReasonCode = semanticRuntimeReasonCode;
+      setCurrentSettings(nextSettings);
 
       if (!isTokenCurrent()) {
         return { stale: true };
@@ -145,6 +164,10 @@
           focusRulesCount,
           semanticAdmissionEnabled,
           semanticFallbackPolicy,
+          semanticRuntimeCapability,
+          semanticRuntimeReasonCode,
+          semanticPointerRuleCount,
+          semanticReadyRuleCount,
           semanticInventoryLoaded,
           semanticInventorySource,
           semanticInventoryError,

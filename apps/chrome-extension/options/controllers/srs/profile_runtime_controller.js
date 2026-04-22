@@ -1,11 +1,6 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
   const DEFAULT_SEMANTIC_FALLBACK_POLICY = "legacy_on_unavailable";
-  const SEMANTIC_FALLBACK_POLICIES = new Set([
-    "legacy_on_unavailable",
-    "abstain_on_unavailable",
-    "soft_affordance_on_unavailable"
-  ]);
   const createPlanningStateResolver = root.optionsSrsPlanningState
     && typeof root.optionsSrsPlanningState.createResolver === "function"
     ? root.optionsSrsPlanningState.createResolver
@@ -15,6 +10,9 @@
     const opts = options && typeof options === "object" ? options : {};
     const settingsManager = opts.settingsManager && typeof opts.settingsManager === "object"
       ? opts.settingsManager
+      : null;
+    const helperManager = opts.helperManager && typeof opts.helperManager === "object"
+      ? opts.helperManager
       : null;
     const ui = opts.ui && typeof opts.ui === "object" ? opts.ui : null;
     const translate = root.optionsTranslateResolver.resolveTranslate(opts.t);
@@ -65,13 +63,29 @@
     const srsSoundInput = elements.srsSoundInput || null;
     const srsHighlightInput = elements.srsHighlightInput || null;
     const srsHighlightTextInput = elements.srsHighlightTextInput || null;
-    const srsSemanticAdmissionEnabledInput = elements.srsSemanticAdmissionEnabledInput || null;
-    const srsSemanticAdmissionFallbackPolicyInput = elements.srsSemanticAdmissionFallbackPolicyInput || null;
+    const srsSemanticAdmissionStatusOutput = elements.srsSemanticAdmissionStatusOutput || null;
+    const srsSemanticAdmissionStatusDetailOutput = elements.srsSemanticAdmissionStatusDetailOutput || null;
     const srsFeedbackSrsInput = elements.srsFeedbackSrsInput || null;
     const srsFeedbackRulesInput = elements.srsFeedbackRulesInput || null;
     const srsExposureLoggingInput = elements.srsExposureLoggingInput || null;
     const srsProfileIdInput = elements.srsProfileIdInput || null;
     const srsProfileRefreshButton = elements.srsProfileRefreshButton || null;
+    const semanticAdmissionStatusSupport = root.optionsSrsSemanticAdmissionStatus
+      && typeof root.optionsSrsSemanticAdmissionStatus.createSupport === "function"
+      ? root.optionsSrsSemanticAdmissionStatus.createSupport({
+          t: translate,
+          helperManager,
+          statusOutput: srsSemanticAdmissionStatusOutput,
+          detailOutput: srsSemanticAdmissionStatusDetailOutput
+        })
+      : null;
+
+    async function refreshSemanticAdmissionStatus(pairKey, profileId) {
+      if (!semanticAdmissionStatusSupport) {
+        return "unknown";
+      }
+      return semanticAdmissionStatusSupport.refresh(pairKey, profileId);
+    }
 
     function currentSourceLanguage() {
       return sourceLanguageInput
@@ -167,6 +181,7 @@
         profileId: synced.profileId,
         helperProfilesPayload: synced.helperProfilesPayload
       });
+      await refreshSemanticAdmissionStatus(pairKey, synced.profileId);
       log("Loaded SRS profile settings.", {
         pair: pairKey,
         profileId: synced.profileId,
@@ -201,18 +216,8 @@
         const srsHighlightColor = srsHighlightInput
           ? (srsHighlightInput.value || settingsManager.defaults.srsHighlightColor || "#2F74D0")
           : (settingsManager.defaults.srsHighlightColor || "#2F74D0");
-        const srsSemanticAdmissionEnabled = srsSemanticAdmissionEnabledInput
-          ? srsSemanticAdmissionEnabledInput.checked
-          : (settingsManager.defaults.srsSemanticAdmissionEnabled === true);
-        const rawSemanticFallbackPolicy = srsSemanticAdmissionFallbackPolicyInput
-          ? String(srsSemanticAdmissionFallbackPolicyInput.value || "").trim()
-          : "";
-        const srsSemanticAdmissionFallbackPolicy = SEMANTIC_FALLBACK_POLICIES.has(rawSemanticFallbackPolicy)
-          ? rawSemanticFallbackPolicy
-          : String(
-              settingsManager.defaults.srsSemanticAdmissionFallbackPolicy
-                || DEFAULT_SEMANTIC_FALLBACK_POLICY
-            ).trim() || DEFAULT_SEMANTIC_FALLBACK_POLICY;
+        const srsSemanticAdmissionEnabled = true;
+        const srsSemanticAdmissionFallbackPolicy = DEFAULT_SEMANTIC_FALLBACK_POLICY;
         const srsFeedbackSrsEnabled = srsFeedbackSrsInput ? srsFeedbackSrsInput.checked : true;
         const srsFeedbackRulesEnabled = srsFeedbackRulesInput ? srsFeedbackRulesInput.checked : false;
         const srsExposureLoggingEnabled = srsExposureLoggingInput
@@ -246,9 +251,6 @@
         if (srsInitialActiveCountInput) srsInitialActiveCountInput.value = String(sizing.srsInitialActiveCount);
         if (srsHighlightInput) srsHighlightInput.value = srsHighlightColor;
         if (srsHighlightTextInput) srsHighlightTextInput.value = srsHighlightColor;
-        if (srsSemanticAdmissionFallbackPolicyInput) {
-          srsSemanticAdmissionFallbackPolicyInput.value = srsSemanticAdmissionFallbackPolicy;
-        }
         const interests = parseInterestList(srsTopicInterestsInput ? srsTopicInterestsInput.value : "");
         const proficiencyEstimate = parseOptionalPercent(
           srsProficiencyEstimateInput ? srsProficiencyEstimateInput.value : ""
@@ -427,6 +429,7 @@
 
     return {
       loadSrsProfileForPair,
+      refreshSemanticAdmissionStatus,
       saveSrsSettings,
       saveLanguageSettings,
       saveSrsProfileId,

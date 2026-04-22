@@ -143,6 +143,45 @@
   "label_srs_highlight_color": {
     "message": "SRS-Hervorhebungsfarbe"
   },
+  "label_srs_semantic_admission_status": {
+    "message": "Semantische Zulassung"
+  },
+  "status_srs_semantic_capability_checking": {
+    "message": "Wird geprüft…"
+  },
+  "hint_srs_semantic_capability_checking": {
+    "message": "Status der semantischen Zulassung wird geprüft…"
+  },
+  "status_srs_semantic_capability_active": {
+    "message": "Automatisch"
+  },
+  "hint_srs_semantic_capability_active": {
+    "message": "Das satzbasierte Veto des Helpers läuft für dieses Sprachpaar/Profil automatisch."
+  },
+  "status_srs_semantic_capability_published_unready": {
+    "message": "Noch nicht verfügbar"
+  },
+  "hint_srs_semantic_capability_published_unready": {
+    "message": "Semantische Metadaten sind veröffentlicht, aber für dieses Sprachpaar/Profil gibt es noch keine ready-Abdeckung. LexiShift verwendet derzeit normale SRS-Ersetzungen."
+  },
+  "status_srs_semantic_capability_unavailable": {
+    "message": "Nicht verfügbar"
+  },
+  "hint_srs_semantic_capability_unavailable": {
+    "message": "Für dieses Sprachpaar/Profil ist derzeit keine semantische Zulassungs-Abdeckung veröffentlicht. LexiShift verwendet derzeit normale SRS-Ersetzungen."
+  },
+  "status_srs_semantic_capability_error": {
+    "message": "Reparatur nötig"
+  },
+  "hint_srs_semantic_capability_error": {
+    "message": "Semantische Zulassungsdaten sind vorhanden, aber inkonsistent oder unlesbar. Bis zur Reparatur verwendet LexiShift normale SRS-Ersetzungen."
+  },
+  "status_srs_semantic_capability_unknown": {
+    "message": "Status nicht verfügbar"
+  },
+  "hint_srs_semantic_capability_unknown": {
+    "message": "Der Status der semantischen Zulassung konnte gerade nicht geprüft werden."
+  },
   "toggle_srs_semantic_admission": {
     "message": "Semantische Zulassung aktivieren (experimentell)"
   },

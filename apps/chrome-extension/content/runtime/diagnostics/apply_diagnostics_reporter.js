@@ -44,6 +44,14 @@
       const focusRulesCount = Number(state.focusRulesCount || 0);
       const semanticAdmissionEnabled = state.semanticAdmissionEnabled === true;
       const semanticFallbackPolicy = String(state.semanticFallbackPolicy || "legacy_on_unavailable");
+      const semanticRuntimeCapability = String(state.semanticRuntimeCapability || "unavailable");
+      const semanticRuntimeReasonCode = String(state.semanticRuntimeReasonCode || "no_semantic_rules");
+      const semanticPointerRuleCount = Number.isFinite(Number(state.semanticPointerRuleCount))
+        ? Number(state.semanticPointerRuleCount)
+        : 0;
+      const semanticReadyRuleCount = Number.isFinite(Number(state.semanticReadyRuleCount))
+        ? Number(state.semanticReadyRuleCount)
+        : 0;
       const semanticInventoryLoaded = state.semanticInventoryLoaded === true;
       const semanticInventorySource = String(state.semanticInventorySource || "none");
       const semanticInventoryError = state.semanticInventoryError || null;
@@ -75,6 +83,10 @@
         srsProfileId: srsProfileId,
         srsMaxActive: currentSettings.srsMaxActive,
         semanticAdmissionEnabled,
+        semanticRuntimeCapability,
+        semanticRuntimeReasonCode,
+        semanticPointerRuleCount,
+        semanticReadyRuleCount,
         semanticFallbackPolicy,
         debugEnabled: currentSettings.debugEnabled,
         debugFocusWord: focusWord || ""
@@ -120,10 +132,21 @@
       }
       if (semanticAdmissionEnabled) {
         log("Semantic admission runtime:", {
+          capability: semanticRuntimeCapability,
+          reasonCode: semanticRuntimeReasonCode,
+          pointerRuleCount: semanticPointerRuleCount,
+          readyRuleCount: semanticReadyRuleCount,
           fallbackPolicy: semanticFallbackPolicy,
           inventoryLoaded: semanticInventoryLoaded,
           inventorySource: semanticInventorySource,
           inventoryError: semanticInventoryError || ""
+        });
+      } else if (currentSettings.srsEnabled && semanticPointerRuleCount > 0) {
+        log("Semantic admission capability:", {
+          capability: semanticRuntimeCapability,
+          reasonCode: semanticRuntimeReasonCode,
+          pointerRuleCount: semanticPointerRuleCount,
+          readyRuleCount: semanticReadyRuleCount
         });
       }
       if (semanticAdmissionEnabled && scanSummary && Number(scanSummary.semanticEligible || 0) > 0) {
@@ -155,6 +178,10 @@
         rules_srs_with_word_package: srsRulesWithWordPackage,
         active_rules_srs_with_word_package: activeSrsRulesWithWordPackage,
         semantic_admission_enabled: semanticAdmissionEnabled,
+        semantic_runtime_capability: semanticRuntimeCapability,
+        semantic_runtime_reason_code: semanticRuntimeReasonCode,
+        semantic_pointer_rule_count: semanticPointerRuleCount,
+        semantic_ready_rule_count: semanticReadyRuleCount,
         semantic_fallback_policy: semanticFallbackPolicy,
         semantic_inventory_loaded: semanticInventoryLoaded,
         semantic_inventory_source: semanticInventorySource,

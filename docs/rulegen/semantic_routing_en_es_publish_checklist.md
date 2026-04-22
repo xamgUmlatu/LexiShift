@@ -2,8 +2,8 @@
 
 Status: active launch checklist
 Role: Runbook / operational
-Last updated: 2026-04-16
-Last verified: 2026-04-16 targeted semantic publication/runtime pytest suite plus repo-doc audit of the current emitted-sibling publication boundary and helper/runtime seam
+Last updated: 2026-04-22
+Last verified: 2026-04-22 capability-driven semantic-runtime contract sweep against helper diagnostics, extension runtime, options status UX, and current launch posture docs
 Purpose: define the exact checklist for a controlled `en-es` browser-extension launch of semantic runtime veto without hard-coding the architecture to `en-es`
 Source-of-truth: this checklist is the launch runbook; code truth still lives in runtime/helper code, `docs/developer/feature_state_matrix.md`, and generated test artifacts
 Related docs:
@@ -18,7 +18,7 @@ This checklist is for the first controlled `en-es` launch shape only:
 
 - surface: browser extension
 - rule origin: SRS-origin rules only
-- semantic gate state: opt-in, default-off
+- semantic gate state: automatic when the selected pair/profile publication has active ready coverage
 - artifact transport: local helper files plus extension cache fallback
 - published `status=ready` rows: only the current batch-local `emitted_rule_siblings` PoC when real sibling senses co-occur in the same emitted batch
 - runtime action: `replace` or keep original text
@@ -27,7 +27,7 @@ Not in scope for this checklist:
 
 - cloud-hosted semantic artifacts
 - BetterDiscord/chat runtime integration
-- default-on rollout
+- forcing semantic admission on profiles that still publish zero ready coverage
 - multi-LP rollout policy
 - broad shadow-mined blocker publication
 - phrase-set publication
@@ -35,7 +35,7 @@ Not in scope for this checklist:
 
 ## Current E2E Shape
 
-When semantic admission is enabled today, the runtime path is:
+When semantic admission is active today, the runtime path is:
 
 1. helper publication writes SRS rules plus semantic inventory sidecar for a pair/profile
 2. current `en-es` `status=ready` coverage comes only from batch-local emitted-sibling competition sets when real sibling senses appear in the same emitted result batch
@@ -55,14 +55,13 @@ It does not claim that broad shadow-mined blocker discovery is solved.
 Use this posture for the first real `en-es` pilot:
 
 - `srsEnabled=true`
-- `srsSemanticAdmissionEnabled=true`
-- `srsSemanticAdmissionFallbackPolicy=abstain_on_unavailable`
+- semantic admission status resolves to `Automatic`
 
 Reasoning:
 
-- `default-off` keeps current shipped behavior stable for everyone else
-- `abstain_on_unavailable` matches the product preference for false abstains over harmful replaces
-- rollback stays one setting flip away
+- normal users no longer manage a semantic-admission toggle or fallback selector
+- the runtime should enable helper-side semantic veto automatically only when the selected pair/profile publication has real ready coverage
+- profiles without ready coverage should stay on standard SRS replacement behavior instead of exposing rollout controls in options
 
 ## Preconditions
 
@@ -106,15 +105,15 @@ For each pilot profile:
 1. Open extension options and select the correct SRS profile.
 2. Set source/target languages to `en` -> `es`.
 3. Enable `SRS practice mode`.
-4. Enable `Semantic admission (experimental)`.
-5. Set fallback policy to `Abstain`.
-6. Refresh or initialize the pair so helper artifacts are current.
-7. Run `SRS runtime diagnostics`.
+4. Refresh or initialize the pair so helper artifacts are current.
+5. Confirm the semantic-admission status row reads `Automatic`.
+6. Run `SRS runtime diagnostics`.
 
 The runtime diagnostics should show all of the following:
 
 - `semantic_admission_enabled: true`
-- `semantic_fallback_policy: abstain_on_unavailable`
+- `semantic_runtime_capability: active`
+- `semantic_ready_rule_count: > 0`
 - `semantic_inventory_loaded: true`
 - `semantic_inventory_source: helper` or `helper-cache`
 - nonzero eligible/policy counters once real browsing text is exercised
@@ -138,12 +137,12 @@ Acceptable first-pilot posture:
 
 Fast rollback:
 
-- set `srsSemanticAdmissionEnabled=false`
+- publish a pair/profile state whose semantic-admission status is no longer `Automatic`
 
 Conservative rollback:
 
-- keep semantic admission enabled
-- switch `srsSemanticAdmissionFallbackPolicy=legacy_on_unavailable`
+- keep semantic publication artifacts available
+- accept standard SRS replacement behavior until ready coverage is restored
 
 Artifact rollback:
 

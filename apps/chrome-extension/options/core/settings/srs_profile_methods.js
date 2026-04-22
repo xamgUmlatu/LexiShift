@@ -80,12 +80,8 @@
           ? rawProfile.srsSoundEnabled === true
           : (this.defaults.srsSoundEnabled !== false),
         srsHighlightColor: rawProfile.srsHighlightColor || this.defaults.srsHighlightColor,
-        srsSemanticAdmissionEnabled: rawProfile.srsSemanticAdmissionEnabled !== undefined
-          ? rawProfile.srsSemanticAdmissionEnabled === true
-          : (this.defaults.srsSemanticAdmissionEnabled === true),
-        srsSemanticAdmissionFallbackPolicy: this._normalizeSrsSemanticFallbackPolicy(
-          rawProfile.srsSemanticAdmissionFallbackPolicy || this.defaults.srsSemanticAdmissionFallbackPolicy
-        ),
+        srsSemanticAdmissionEnabled: true,
+        srsSemanticAdmissionFallbackPolicy: DEFAULT_SEMANTIC_FALLBACK_POLICY,
         srsFeedbackSrsEnabled: rawProfile.srsFeedbackSrsEnabled !== undefined
           ? rawProfile.srsFeedbackSrsEnabled === true
           : (this.defaults.srsFeedbackSrsEnabled !== false),
@@ -154,10 +150,8 @@
         srsInitialActiveCount: runtimeProfile.srsInitialActiveCount || this.defaults.srsInitialActiveCount,
         srsSoundEnabled: runtimeProfile.srsSoundEnabled !== false,
         srsHighlightColor: runtimeProfile.srsHighlightColor || this.defaults.srsHighlightColor,
-        srsSemanticAdmissionEnabled: runtimeProfile.srsSemanticAdmissionEnabled === true,
-        srsSemanticAdmissionFallbackPolicy: this._normalizeSrsSemanticFallbackPolicy(
-          runtimeProfile.srsSemanticAdmissionFallbackPolicy || this.defaults.srsSemanticAdmissionFallbackPolicy
-        ),
+        srsSemanticAdmissionEnabled: true,
+        srsSemanticAdmissionFallbackPolicy: DEFAULT_SEMANTIC_FALLBACK_POLICY,
         srsFeedbackSrsEnabled: runtimeProfile.srsFeedbackSrsEnabled !== false,
         srsFeedbackRulesEnabled: runtimeProfile.srsFeedbackRulesEnabled === true,
         srsExposureLoggingEnabled: runtimeProfile.srsExposureLoggingEnabled !== false,

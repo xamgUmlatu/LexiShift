@@ -88,6 +88,12 @@
       debugEnabledInput.checked = items.debugEnabled === true;
       debugFocusInput.value = items.debugFocusWord || "";
       debugFocusInput.disabled = !debugEnabledInput.checked;
+      if (languageSelect) {
+        languageSelect.value = items.uiLanguage || "system";
+      }
+      if (i18n && typeof i18n.load === "function") {
+        await i18n.load(items.uiLanguage || "system");
+      }
       const selectedProfileId = settingsManager.getSelectedSrsProfileId(items);
       const languagePrefs = settingsManager.getProfileLanguagePrefs(items, { profileId: selectedProfileId });
       const pairKey = applyLanguagePrefsToInputs(languagePrefs);
@@ -105,9 +111,6 @@
       setHelperStatus("", "");
       if (helperActionsController && typeof helperActionsController.refreshStatus === "function") {
         await helperActionsController.refreshStatus(selectedProfileId);
-      }
-      if (languageSelect) {
-        languageSelect.value = items.uiLanguage || "system";
       }
       settingsManager.currentRules = items.rules || [];
       if (customRulesetEnabledInput) {
@@ -127,9 +130,6 @@
             "No file imported yet. Re-import after changes."
           );
       updateRulesMeta(settingsManager.currentRules, items.rulesUpdatedAt);
-      if (i18n && typeof i18n.load === "function") {
-        await i18n.load(items.uiLanguage || "system");
-      }
       applyTargetLanguagePrefsLocalization();
       renderProfileBackgroundStatus();
       renderSrsProfileStatus();

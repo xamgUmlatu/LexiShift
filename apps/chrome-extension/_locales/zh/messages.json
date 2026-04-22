@@ -143,6 +143,45 @@
   "label_srs_highlight_color": {
     "message": "SRS 高亮颜色"
   },
+  "label_srs_semantic_admission_status": {
+    "message": "语义准入"
+  },
+  "status_srs_semantic_capability_checking": {
+    "message": "检查中…"
+  },
+  "hint_srs_semantic_capability_checking": {
+    "message": "正在检查语义准入状态…"
+  },
+  "status_srs_semantic_capability_active": {
+    "message": "自动"
+  },
+  "hint_srs_semantic_capability_active": {
+    "message": "此语言对/配置档会自动启用助手端句子级 veto。"
+  },
+  "status_srs_semantic_capability_published_unready": {
+    "message": "尚未可用"
+  },
+  "hint_srs_semantic_capability_published_unready": {
+    "message": "语义元数据已发布，但此语言对/配置档还没有 ready 覆盖。当前会继续使用标准 SRS 替换。"
+  },
+  "status_srs_semantic_capability_unavailable": {
+    "message": "不可用"
+  },
+  "hint_srs_semantic_capability_unavailable": {
+    "message": "此语言对/配置档目前没有发布语义准入覆盖。当前会继续使用标准 SRS 替换。"
+  },
+  "status_srs_semantic_capability_error": {
+    "message": "需要修复"
+  },
+  "hint_srs_semantic_capability_error": {
+    "message": "语义准入数据已存在，但不一致或无法读取。在修复之前，当前会继续使用标准 SRS 替换。"
+  },
+  "status_srs_semantic_capability_unknown": {
+    "message": "状态不可用"
+  },
+  "hint_srs_semantic_capability_unknown": {
+    "message": "目前无法检查语义准入状态。"
+  },
   "toggle_srs_semantic_admission": {
     "message": "启用语义准入（实验性）"
   },

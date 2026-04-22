@@ -7,6 +7,9 @@ from pathlib import Path
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
+SEMANTIC_STATUS_JS = (
+    PROJECT_ROOT / "apps/chrome-extension/options/controllers/srs/semantic_admission_status.js"
+)
 PROFILE_RUNTIME_CONTROLLER_JS = (
     PROJECT_ROOT / "apps/chrome-extension/options/controllers/srs/profile_runtime_controller.js"
 )
@@ -43,6 +46,7 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const vm = require("node:vm");
 
+const semanticStatusPath = {json.dumps(str(SEMANTIC_STATUS_JS))};
 const modulePath = {json.dumps(str(PROFILE_RUNTIME_CONTROLLER_JS))};
 const context = vm.createContext({{ console }});
 context.globalThis = context;
@@ -55,6 +59,7 @@ context.LexiShift = {{
     }}
   }}
 }};
+vm.runInContext(fs.readFileSync(semanticStatusPath, "utf8"), context, {{ filename: semanticStatusPath }});
 vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
 
 const createController = context.LexiShift.optionsSrsProfileRuntime.createController;
@@ -91,7 +96,7 @@ const controller = createController({{
       srsBootstrapTopN: 800,
       srsInitialActiveCount: 40,
       srsHighlightColor: "#2F74D0",
-      srsSemanticAdmissionEnabled: false,
+      srsSemanticAdmissionEnabled: true,
       srsSemanticAdmissionFallbackPolicy: "legacy_on_unavailable",
       srsFeedbackSrsEnabled: true,
       srsFeedbackRulesEnabled: false,
@@ -137,17 +142,15 @@ const controller = createController({{
     srsMaxActiveInput: {{ value: "24" }},
     srsBootstrapTopNInput: {{ value: "900" }},
     srsInitialActiveCountInput: {{ value: "33" }},
-    srsTopicInterestsInput: {{ value: "animals, travel" }},
-    srsProficiencyEstimateInput: {{ value: "55" }},
-    srsChallengeTargetInput: {{ value: "65" }},
-    srsSoundInput: {{ checked: true }},
-    srsHighlightInput: {{ value: "#445566" }},
-    srsHighlightTextInput: {{ value: "" }},
-    srsSemanticAdmissionEnabledInput: {{ checked: true }},
-    srsSemanticAdmissionFallbackPolicyInput: {{ value: "abstain_on_unavailable" }},
-    srsFeedbackSrsInput: {{ checked: true }},
-    srsFeedbackRulesInput: {{ checked: false }},
-    srsExposureLoggingInput: {{ checked: true }}
+      srsTopicInterestsInput: {{ value: "animals, travel" }},
+      srsProficiencyEstimateInput: {{ value: "55" }},
+      srsChallengeTargetInput: {{ value: "65" }},
+      srsSoundInput: {{ checked: true }},
+      srsHighlightInput: {{ value: "#445566" }},
+      srsHighlightTextInput: {{ value: "" }},
+      srsFeedbackSrsInput: {{ checked: true }},
+      srsFeedbackRulesInput: {{ checked: false }},
+      srsExposureLoggingInput: {{ checked: true }}
   }}
 }});
 
@@ -158,6 +161,8 @@ const controller = createController({{
   assert.equal(captured.profileSave.profile.srsMaxActive, 24);
   assert.equal(captured.profileSave.profile.srsBootstrapTopN, 900);
   assert.equal(captured.profileSave.profile.srsInitialActiveCount, 33);
+  assert.equal(captured.profileSave.profile.srsSemanticAdmissionEnabled, true);
+  assert.equal(captured.profileSave.profile.srsSemanticAdmissionFallbackPolicy, "legacy_on_unavailable");
   assert.equal("interests" in captured.profileSave.profile, false);
 
   assert.equal(captured.signalSave.pairKey, "en-ja");
@@ -191,6 +196,7 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const vm = require("node:vm");
 
+const semanticStatusPath = {json.dumps(str(SEMANTIC_STATUS_JS))};
 const modulePath = {json.dumps(str(PROFILE_RUNTIME_CONTROLLER_JS))};
 const context = vm.createContext({{ console }});
 context.globalThis = context;
@@ -203,6 +209,7 @@ context.LexiShift = {{
     }}
   }}
 }};
+vm.runInContext(fs.readFileSync(semanticStatusPath, "utf8"), context, {{ filename: semanticStatusPath }});
 vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
 
 const createController = context.LexiShift.optionsSrsProfileRuntime.createController;
@@ -217,7 +224,7 @@ const controller = createController({{
       srsBootstrapTopN: 800,
       srsInitialActiveCount: 40,
       srsHighlightColor: "#2F74D0",
-      srsSemanticAdmissionEnabled: false,
+      srsSemanticAdmissionEnabled: true,
       srsSemanticAdmissionFallbackPolicy: "legacy_on_unavailable",
       srsFeedbackSrsEnabled: true,
       srsFeedbackRulesEnabled: false,
@@ -273,8 +280,6 @@ const controller = createController({{
     srsSoundInput: {{ checked: true }},
     srsHighlightInput: {{ value: "#445566" }},
     srsHighlightTextInput: {{ value: "" }},
-    srsSemanticAdmissionEnabledInput: {{ checked: true }},
-    srsSemanticAdmissionFallbackPolicyInput: {{ value: "abstain_on_unavailable" }},
     srsFeedbackSrsInput: {{ checked: true }},
     srsFeedbackRulesInput: {{ checked: false }},
     srsExposureLoggingInput: {{ checked: true }}
@@ -335,8 +340,6 @@ const settingNames = new Set([
   "sound",
   "highlight",
   "highlightText",
-  "semanticAdmissionEnabled",
-  "semanticFallbackPolicy",
   "feedbackSrs",
   "feedbackRules",
   "exposureLogging"
@@ -363,8 +366,6 @@ const elements = {{
   srsSoundInput: makeElement("sound"),
   srsHighlightInput: makeElement("highlight"),
   srsHighlightTextInput: makeElement("highlightText"),
-  srsSemanticAdmissionEnabledInput: makeElement("semanticAdmissionEnabled"),
-  srsSemanticAdmissionFallbackPolicyInput: makeElement("semanticFallbackPolicy"),
   srsFeedbackSrsInput: makeElement("feedbackSrs"),
   srsFeedbackRulesInput: makeElement("feedbackRules"),
   srsExposureLoggingInput: makeElement("exposureLogging")
@@ -522,6 +523,115 @@ const manager = new SettingsManager();
   }});
   assert.equal(manager._items.srsSelectedProfileId, "default");
   assert.equal(manager._items.srsProfileId, "default");
+}})().catch((error) => {{
+  console.error(error);
+  process.exit(1);
+}});
+"""
+        _run_node(script)
+
+    def test_controller_refreshes_read_only_semantic_status_from_helper_diagnostics(
+        self,
+    ) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const semanticStatusPath = {json.dumps(str(SEMANTIC_STATUS_JS))};
+const modulePath = {json.dumps(str(PROFILE_RUNTIME_CONTROLLER_JS))};
+const context = vm.createContext({{ console }});
+context.globalThis = context;
+context.LexiShift = {{
+  optionsTranslateResolver: {{
+    resolveTranslate(translate) {{
+      return typeof translate === "function"
+        ? translate
+        : ((_key, _args, fallback) => fallback);
+    }}
+  }}
+}};
+vm.runInContext(fs.readFileSync(semanticStatusPath, "utf8"), context, {{ filename: semanticStatusPath }});
+vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
+
+const createController = context.LexiShift.optionsSrsProfileRuntime.createController;
+const statusOutput = {{ textContent: "" }};
+const detailOutput = {{ textContent: "" }};
+
+const controller = createController({{
+  settingsManager: {{
+    defaults: {{
+      sourceLanguage: "en",
+      targetLanguage: "es",
+      srsMaxActive: 40,
+      srsBootstrapTopN: 800,
+      srsInitialActiveCount: 40,
+      srsHighlightColor: "#2F74D0",
+      srsFeedbackSrsEnabled: true,
+      srsFeedbackRulesEnabled: false,
+      srsExposureLoggingEnabled: true
+    }},
+    getSrsProfile() {{
+      return {{
+        profileId: "default",
+        srsEnabled: true,
+        srsMaxActive: 40,
+        srsBootstrapTopN: 800,
+        srsInitialActiveCount: 40,
+        srsSoundEnabled: true,
+        srsHighlightColor: "#2F74D0",
+        srsSemanticAdmissionEnabled: true,
+        srsSemanticAdmissionFallbackPolicy: "legacy_on_unavailable",
+        srsFeedbackSrsEnabled: true,
+        srsFeedbackRulesEnabled: false,
+        srsExposureLoggingEnabled: true
+      }};
+    }},
+    getSrsProfileSignals() {{
+      return {{}};
+    }},
+    getProfileUiPrefs() {{
+      return {{}};
+    }},
+    async publishSrsRuntimeProfile() {{
+      return {{}};
+    }}
+  }},
+  helperManager: {{
+    async getSrsRuntimeDiagnostics() {{
+      return {{
+        helper: {{
+          semantic_runtime_capability: "published_unready"
+        }}
+      }};
+    }}
+  }},
+  ui: {{
+    updateSrsInputs() {{}},
+    updateProfileBackgroundInputs() {{}}
+  }},
+  resolvePair: () => "en-es",
+  syncSelectedProfile: async (items) => ({{ items, profileId: "default" }}),
+  syncProfileRulesetsForProfile: async () => {{}},
+  syncShareCenterForProfile: async () => {{}},
+  syncProfileBackgroundForPrefs: async () => {{}},
+  setStatus: () => {{}},
+  setProfileStatusLocalized: () => {{}},
+  setProfileStatusMessage: () => {{}},
+  log: () => {{}},
+  elements: {{
+    sourceLanguageInput: {{ value: "en" }},
+    targetLanguageInput: {{ value: "es" }},
+    srsEnabledInput: {{ checked: true }},
+    srsSemanticAdmissionStatusOutput: statusOutput,
+    srsSemanticAdmissionStatusDetailOutput: detailOutput
+  }}
+}});
+
+(async () => {{
+  await controller.loadSrsProfileForPair({{}}, "en-es");
+  assert.equal(statusOutput.textContent, "Not yet available");
+  assert.match(detailOutput.textContent, /no ready coverage yet/i);
 }})().catch((error) => {{
   console.error(error);
   process.exit(1);

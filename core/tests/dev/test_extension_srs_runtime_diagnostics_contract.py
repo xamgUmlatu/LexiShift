@@ -81,6 +81,10 @@ reporter.report({{
   focusWord: "",
   focusRulesCount: 0,
   semanticAdmissionEnabled: true,
+  semanticRuntimeCapability: "active",
+  semanticRuntimeReasonCode: "ready_rules_available",
+  semanticPointerRuleCount: 8,
+  semanticReadyRuleCount: 5,
   semanticFallbackPolicy: "soft_affordance_on_unavailable",
   semanticInventoryLoaded: true,
   semanticInventorySource: "helper",
@@ -99,6 +103,10 @@ reporter.report({{
 }});
 
 assert.equal(persisted.length, 1);
+assert.equal(persisted[0].semantic_runtime_capability, "active");
+assert.equal(persisted[0].semantic_runtime_reason_code, "ready_rules_available");
+assert.equal(persisted[0].semantic_pointer_rule_count, 8);
+assert.equal(persisted[0].semantic_ready_rule_count, 5);
 assert.equal(persisted[0].semantic_matches_ready, 5);
 assert.equal(persisted[0].semantic_policy_soft_affordances, 2);
 assert.equal(persisted[0].semantic_fallback_soft_affordances, 2);
@@ -146,12 +154,20 @@ const runtimeDiagnostics = context.LexiShift.srsRuntimeDiagnostics;
   await runtimeDiagnostics.saveLastState({{
     pair: "en-es",
     profile_id: "default",
+    semantic_runtime_capability: "published_unready",
+    semantic_runtime_reason_code: "no_ready_rules",
+    semantic_pointer_rule_count: 7,
+    semantic_ready_rule_count: 0,
     semantic_matches_ready: 7,
     semantic_policy_soft_affordances: 3,
     semantic_fallback_soft_affordances: 2,
     semantic_decision_policy_id: "en_es_sentence_veto_v1"
   }});
   const loaded = await runtimeDiagnostics.loadLastState();
+  assert.equal(loaded.semantic_runtime_capability, "published_unready");
+  assert.equal(loaded.semantic_runtime_reason_code, "no_ready_rules");
+  assert.equal(loaded.semantic_pointer_rule_count, 7);
+  assert.equal(loaded.semantic_ready_rule_count, 0);
   assert.equal(loaded.semantic_matches_ready, 7);
   assert.equal(loaded.semantic_policy_soft_affordances, 3);
   assert.equal(loaded.semantic_fallback_soft_affordances, 2);

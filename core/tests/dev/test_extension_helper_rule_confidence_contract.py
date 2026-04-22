@@ -158,6 +158,114 @@ const runtime = createRuntime({{
 """
         _run_node(script)
 
+    def test_runtime_auto_enables_semantic_admission_only_for_ready_coverage(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const activeRulesRuntimePath = {json.dumps(str(ACTIVE_RULES_RUNTIME_JS))};
+const context = vm.createContext({{ console }});
+context.globalThis = context;
+context.LexiShift = {{}};
+
+vm.runInContext(
+  fs.readFileSync(activeRulesRuntimePath, "utf8"),
+  context,
+  {{ filename: activeRulesRuntimePath }}
+);
+
+const createRuntime = context.LexiShift.contentActiveRulesRuntime.createRuntime;
+
+function tagRulesWithOrigin(rules, origin) {{
+  return (Array.isArray(rules) ? rules : []).map((rule) => ({{
+    ...rule,
+    metadata: {{
+      ...(rule && rule.metadata && typeof rule.metadata === "object" ? rule.metadata : {{}}),
+      lexishift_origin:
+        (rule && rule.metadata && rule.metadata.lexishift_origin)
+        || origin
+    }}
+  }}));
+}}
+
+function getRuleOrigin(rule) {{
+  return String(rule && rule.metadata && rule.metadata.lexishift_origin || "ruleset");
+}}
+
+const runtime = createRuntime({{
+  normalizeRules: (rules) => (Array.isArray(rules) ? rules : []),
+  tagRulesWithOrigin,
+  normalizeProfileId: (value) => String(value || "").trim() || "default",
+  helperRulesRuntime: {{
+    async resolveHelperRules(_pair, _profileId) {{
+      return {{
+        source: "helper",
+        error: null,
+        rules: [
+          {{
+            source_phrase: "time",
+            replacement: "hora",
+            enabled: true,
+            metadata: {{
+              lexishift_origin: "srs",
+              semantic_admission: {{ schema_version: 1, status: "ready" }}
+            }}
+          }},
+          {{
+            source_phrase: "light",
+            replacement: "luz",
+            enabled: true,
+            metadata: {{
+              lexishift_origin: "srs",
+              semantic_admission: {{ schema_version: 1, status: "unavailable" }}
+            }}
+          }}
+        ]
+      }};
+    }},
+    async resolveSemanticInventory(_pair, _profileId) {{
+      return {{
+        inventory: {{ schema_version: 1 }},
+        source: "helper",
+        error: null
+      }};
+    }}
+  }},
+  srsGate: null,
+  getRuleOrigin,
+  ruleOriginSrs: "srs",
+  ruleOriginRuleset: "ruleset"
+}});
+
+(async () => {{
+  const resolution = await runtime.resolveActiveRules(
+    {{
+      srsEnabled: true,
+      srsPair: "en-es",
+      srsProfileId: "default",
+      profileRules: [],
+      rules: []
+    }},
+    () => {{}},
+    {{ helperAvailable: true }}
+  );
+
+  assert.equal(resolution.semanticRuntimeCapability, "active");
+  assert.equal(resolution.semanticRuntimeReasonCode, "ready_rules_available");
+  assert.equal(resolution.semanticPointerRuleCount, 2);
+  assert.equal(resolution.semanticReadyRuleCount, 1);
+  assert.equal(resolution.semanticAdmissionEnabled, true);
+  assert.equal(resolution.semanticFallbackPolicy, "legacy_on_unavailable");
+  assert.equal(resolution.semanticInventoryLoaded, true);
+  assert.equal(resolution.semanticInventorySource, "helper");
+}})().catch((error) => {{
+  console.error(error);
+  process.exit(1);
+}});
+"""
+        _run_node(script)
+
 
 if __name__ == "__main__":
     unittest.main()

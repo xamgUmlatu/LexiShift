@@ -2,8 +2,8 @@
 
 Status: active mixed readiness
 Role: Mixed
-Last updated: 2026-04-21
-Last verified: 2026-04-21 semantic schema-reference reconciliation against the shipped runtime seam plus stable runtime-policy and helper entrypoint references
+Last updated: 2026-04-22
+Last verified: 2026-04-22 capability-driven runtime-gating reconciliation against the shipped extension runtime, helper diagnostics, and options status UX
 Purpose: describe the current shipped semantic-routing runtime seam and the remaining readiness boundary so rollout work stays grounded in executable behavior instead of research-only optimism
 Source-of-truth: mixed as-is + readiness boundary; current runtime truth still lives in code, tests, and `docs/developer/feature_state_matrix.md`
 Verification:
@@ -66,33 +66,31 @@ This asymmetry should shape both the research program and the eventual runtime p
 
 ## Current Shipped Runtime Seam
 
-Today the browser-extension runtime already has a narrow semantic-admission gate, but it is intentionally default-off.
+Today the browser-extension runtime already has a narrow semantic-admission gate, but it is now capability-driven rather than toggle-driven.
 
 Current shipped behavior:
 
-1. semantic admission is disabled by default through settings:
-   - `srsSemanticAdmissionEnabled: false`
-   - `srsSemanticAdmissionFallbackPolicy: legacy_on_unavailable`
+1. initialize/refresh already publish semantic artifacts without a separate semantic-admission toggle
 2. the runtime gate only activates when both:
    - `srsEnabled === true`
-   - `srsSemanticAdmissionEnabled === true`
-3. only SRS-origin rules are eligible for semantic gating
-4. even within SRS-origin rules, a match is only eligible when the rule already carries `metadata.semantic_admission`
-5. non-ready matches do not call helper scoring:
-   - they resolve locally through the configured fallback policy
-   - current supported fallback policies are:
-     - `legacy_on_unavailable`
-     - `abstain_on_unavailable`
-     - `soft_affordance_on_unavailable`
-6. ready matches are grouped by `pair` + `profile_id`
-7. before helper scoring, the extension runtime resolves semantic inventory through:
+   - the current enabled SRS ruleset for that pair/profile has computed semantic runtime capability `active`
+3. current capability states are:
+   - `active`
+   - `published_unready`
+   - `unavailable`
+   - `error`
+4. only SRS-origin rules are eligible for semantic gating
+5. even within SRS-origin rules, a match is only eligible when the rule already carries `metadata.semantic_admission`
+6. only publications with nonzero ready coverage (`ruleset_rules_semantic_ready > 0`) can activate helper semantic scoring
+7. ready matches are grouped by `pair` + `profile_id`
+8. before helper scoring, the extension runtime resolves semantic inventory through:
    - helper first
    - helper-cache fallback second
-8. the runtime only calls helper `semantic_admit_batch` when:
+9. the runtime only calls helper `semantic_admit_batch` when:
    - the match status is `ready`
    - semantic inventory resolved successfully
    - helper semantic-admission transport is available
-9. if inventory, service, or response data is unavailable, the runtime falls back locally using the configured fallback policy
+10. the shipped runtime still uses internal `legacy_on_unavailable` fallback for ready-rule transport/inventory failures; non-ready publications stay on standard SRS behavior instead of exposing a user-facing fallback selector
 10. only `decision=replace` survives into DOM apply today
 11. `abstain` and the currently reserved `soft_affordance` outcome both keep the original text in the shipped DOM path
 
@@ -362,7 +360,7 @@ Interpretation:
 | Context transformation | automatic | none | masking, context windows, raw vs masked sentence views |
 | Sense representation | mostly automatic | optional handwritten cue bundles | reverse sense text, gloss bundles, qualifiers, anchor construction, source-derived merged text views |
 | Cue augmentation | mixed | handwritten hints and future authored cue bundles | Kaikki-derived cues and raw-example-derived cues |
-| Serving policy | partial | default-off shipped gate, fallback-policy handling, and helper runtime policy are already present; broad rollout-ready policy and soft-affordance UX are not | helper-side runtime policy, fallback-policy mapping, and benchmark-side policy experiments |
+| Serving policy | partial | helper/runtime capability thresholds and rollout readiness still need policy tuning; broad rollout-ready policy and soft-affordance UX are not finished | helper-side runtime policy, capability-gated activation, and benchmark-side policy experiments |
 
 ### Manual today
 

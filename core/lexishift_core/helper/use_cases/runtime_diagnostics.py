@@ -38,6 +38,26 @@ def _append_family_error(errors: list[str], message: str) -> None:
         errors.append(rendered)
 
 
+def _resolve_semantic_runtime_capability(
+    diagnostics: dict[str, object],
+) -> tuple[str, str]:
+    semantic_pointer_count = int(diagnostics.get("ruleset_rules_with_semantic_admission") or 0)
+    semantic_ready_count = int(diagnostics.get("ruleset_rules_semantic_ready") or 0)
+    publication_manifest_family_valid = diagnostics.get("publication_manifest_family_valid")
+
+    if semantic_pointer_count <= 0:
+        return "unavailable", "no_semantic_rules"
+    if semantic_ready_count <= 0:
+        return "published_unready", "no_ready_rules"
+    if diagnostics.get("semantic_inventory_exists") is not True:
+        return "error", "semantic_inventory_missing"
+    if diagnostics.get("semantic_inventory_error") is not None:
+        return "error", "semantic_inventory_unreadable"
+    if publication_manifest_family_valid is False:
+        return "error", "publication_family_invalid"
+    return "active", "ready_rules_available"
+
+
 def _recompute_publication_family_validation(
     *,
     diagnostics: dict,
@@ -334,6 +354,8 @@ def get_srs_runtime_diagnostics(
         "ruleset_rules_semantic_ready": 0,
         "ruleset_rules_semantic_unavailable": 0,
         "ruleset_rules_semantic_not_applicable": 0,
+        "semantic_runtime_capability": "unavailable",
+        "semantic_runtime_reason_code": "no_semantic_rules",
         "ruleset_error": None,
         "snapshot_path": str(snapshot_path),
         "snapshot_exists": snapshot_path.exists(),
@@ -532,4 +554,8 @@ def get_srs_runtime_diagnostics(
             diagnostics["publication_manifest_family_valid"] = False
             diagnostics["publication_manifest_errors"] = [str(exc)]
             diagnostics["publication_manifest_error_count"] = 1
+    (
+        diagnostics["semantic_runtime_capability"],
+        diagnostics["semantic_runtime_reason_code"],
+    ) = _resolve_semantic_runtime_capability(diagnostics)
     return diagnostics

@@ -143,6 +143,45 @@
   "label_srs_highlight_color": {
     "message": "SRSハイライト色"
   },
+  "label_srs_semantic_admission_status": {
+    "message": "意味アドミッション"
+  },
+  "status_srs_semantic_capability_checking": {
+    "message": "確認中…"
+  },
+  "hint_srs_semantic_capability_checking": {
+    "message": "意味アドミッションの状態を確認しています…"
+  },
+  "status_srs_semantic_capability_active": {
+    "message": "自動"
+  },
+  "hint_srs_semantic_capability_active": {
+    "message": "このペア/プロファイルでは、ヘルパー側の文ベース veto が自動で有効になります。"
+  },
+  "status_srs_semantic_capability_published_unready": {
+    "message": "まだ利用不可"
+  },
+  "hint_srs_semantic_capability_published_unready": {
+    "message": "意味メタデータは公開されていますが、このペア/プロファイルには ready カバレッジがまだありません。現在は通常の SRS 置換を使います。"
+  },
+  "status_srs_semantic_capability_unavailable": {
+    "message": "利用不可"
+  },
+  "hint_srs_semantic_capability_unavailable": {
+    "message": "このペア/プロファイルでは、意味アドミッションの公開カバレッジがまだありません。現在は通常の SRS 置換を使います。"
+  },
+  "status_srs_semantic_capability_error": {
+    "message": "要修復"
+  },
+  "hint_srs_semantic_capability_error": {
+    "message": "意味アドミッションのデータはありますが、整合していないか読み取れません。修復されるまでは通常の SRS 置換を使います。"
+  },
+  "status_srs_semantic_capability_unknown": {
+    "message": "状態を確認できません"
+  },
+  "hint_srs_semantic_capability_unknown": {
+    "message": "意味アドミッションの状態を今は確認できません。"
+  },
   "toggle_srs_semantic_admission": {
     "message": "意味アドミッションを有効化（実験的）"
   },

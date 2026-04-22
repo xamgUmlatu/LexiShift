@@ -1259,6 +1259,8 @@ class TestHelperEngineRuntimeDiagnostics(unittest.TestCase):
             self.assertIn("translation_dict_path", missing_types)
             self.assertIn("translation_pack_path", missing_types)
             self.assertTrue(payload["requirements"]["requires_translation_dictionary_for_rulegen"])
+            self.assertEqual(payload["semantic_runtime_capability"], "unavailable")
+            self.assertEqual(payload["semantic_runtime_reason_code"], "no_semantic_rules")
 
     def test_runtime_diagnostics_reports_missing_en_ja_jmdict(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -1382,12 +1384,44 @@ class TestHelperEngineRuntimeDiagnostics(unittest.TestCase):
             self.assertEqual(payload["semantic_inventory_sense_count"], 1)
             self.assertEqual(payload["semantic_inventory_competition_set_count"], 1)
             self.assertEqual(payload["semantic_inventory_phrase_set_count"], 0)
+            self.assertEqual(payload["semantic_runtime_capability"], "active")
+            self.assertEqual(payload["semantic_runtime_reason_code"], "ready_rules_available")
             self.assertTrue(payload["publication_manifest_exists"])
             self.assertEqual(
                 payload["publication_manifest_generation_id"], "en-ja:default:test-generation"
             )
             self.assertTrue(payload["publication_manifest_family_valid"])
             self.assertEqual(payload["publication_manifest_error_count"], 0)
+
+    def test_runtime_diagnostics_marks_publication_without_ready_rules_as_published_unready(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = build_helper_paths(Path(tmp))
+            paths.ruleset_path("en-es").write_text(
+                (
+                    '{"rules":[{"source_phrase":"time","replacement":"hora","metadata":'
+                    '{"semantic_admission":{"schema_version":1,"status":"unavailable"}}}]}'
+                ),
+                encoding="utf-8",
+            )
+            paths.semantic_inventory_path("en-es").write_text(
+                (
+                    '{"schema_version":1,"pair":"en-es","profile_id":"default",'
+                    '"generated_at":"2026-04-22T00:00:00Z","generation_id":"en-es:default:test-generation",'
+                    '"capability":{"pointer_modes":["translation_dict"],'
+                    '"default_unavailable_reason_code":"missing_shadow_selection"},'
+                    '"triggers":{},"senses":{},"competition_sets":{},"phrase_sets":{}}'
+                ),
+                encoding="utf-8",
+            )
+
+            payload = get_srs_runtime_diagnostics(paths, pair="en-es")
+
+            self.assertEqual(payload["ruleset_rules_with_semantic_admission"], 1)
+            self.assertEqual(payload["ruleset_rules_semantic_ready"], 0)
+            self.assertEqual(payload["semantic_runtime_capability"], "published_unready")
+            self.assertEqual(payload["semantic_runtime_reason_code"], "no_ready_rules")
 
     def test_runtime_diagnostics_recomputes_publication_family_validity_for_generation_drift(
         self,

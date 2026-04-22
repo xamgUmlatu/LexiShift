@@ -135,6 +135,7 @@
             shared.setOutputText(text);
           },
           resolveEffectiveSrsPlanningState: opts.resolveEffectiveSrsPlanningState,
+          refreshSemanticAdmissionStatus: opts.refreshSemanticAdmissionStatus,
           markRulesetUpdatedNow: shared.markRulesetUpdatedNow,
           preflightSrsPairResources: shared.preflightSrsPairResources,
           buildInitializeResultOutput,

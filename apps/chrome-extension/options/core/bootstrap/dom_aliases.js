@@ -58,6 +58,8 @@
       srsHighlightTextInput: source.srsHighlightColorText || null,
       srsSemanticAdmissionEnabledInput: source.srsSemanticAdmissionEnabled || null,
       srsSemanticAdmissionFallbackPolicyInput: source.srsSemanticAdmissionFallbackPolicy || null,
+      srsSemanticAdmissionStatusOutput: source.srsSemanticAdmissionStatus || null,
+      srsSemanticAdmissionStatusDetailOutput: source.srsSemanticAdmissionStatusDetail || null,
       srsFeedbackSrsInput: source.srsFeedbackSrsEnabled || null,
       srsFeedbackRulesInput: source.srsFeedbackRulesEnabled || null,
       srsExposureLoggingInput: source.srsExposureLoggingEnabled || null,

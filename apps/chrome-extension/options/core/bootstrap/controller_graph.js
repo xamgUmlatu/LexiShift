@@ -164,6 +164,7 @@
 
     const srsProfileRuntimeController = requireControllerFactory("optionsSrsProfileRuntime")({
       settingsManager,
+      helperManager,
       ui,
       t,
       setStatus: uiBridge.setStatus,
@@ -196,6 +197,9 @@
       syncSelectedProfile: (items, options) => srsProfileSelectorController.syncSelected(items, options),
       resolveEffectiveSrsPlanningState: (items, pairKey, options) => (
         srsProfileRuntimeController.resolveEffectiveSrsPlanningState(items, pairKey, options)
+      ),
+      refreshSemanticAdmissionStatus: (pairKey, profileId) => (
+        srsProfileRuntimeController.refreshSemanticAdmissionStatus(pairKey, profileId)
       ),
       log: logOptions,
       confirm: (message) => globalThis.confirm(message),

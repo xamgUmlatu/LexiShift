@@ -32,6 +32,18 @@
         ? Number(state.active_rules_srs)
         : 0,
       semantic_admission_enabled: state.semantic_admission_enabled === true,
+      semantic_runtime_capability: state.semantic_runtime_capability
+        ? String(state.semantic_runtime_capability)
+        : "unavailable",
+      semantic_runtime_reason_code: state.semantic_runtime_reason_code
+        ? String(state.semantic_runtime_reason_code)
+        : "no_semantic_rules",
+      semantic_pointer_rule_count: Number.isFinite(Number(state.semantic_pointer_rule_count))
+        ? Number(state.semantic_pointer_rule_count)
+        : 0,
+      semantic_ready_rule_count: Number.isFinite(Number(state.semantic_ready_rule_count))
+        ? Number(state.semantic_ready_rule_count)
+        : 0,
       semantic_fallback_policy: state.semantic_fallback_policy
         ? String(state.semantic_fallback_policy)
         : "legacy_on_unavailable",

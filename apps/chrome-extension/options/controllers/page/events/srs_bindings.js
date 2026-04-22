@@ -35,8 +35,6 @@
     const srsSoundInput = elements.srsSoundInput || null;
     const srsHighlightInput = elements.srsHighlightInput || null;
     const srsHighlightTextInput = elements.srsHighlightTextInput || null;
-    const srsSemanticAdmissionEnabledInput = elements.srsSemanticAdmissionEnabledInput || null;
-    const srsSemanticAdmissionFallbackPolicyInput = elements.srsSemanticAdmissionFallbackPolicyInput || null;
     const srsFeedbackSrsInput = elements.srsFeedbackSrsInput || null;
     const srsFeedbackRulesInput = elements.srsFeedbackRulesInput || null;
     const srsExposureLoggingInput = elements.srsExposureLoggingInput || null;
@@ -100,8 +98,6 @@
       }
       return true;
     });
-    bindSrsSettingsChange(srsSemanticAdmissionEnabledInput);
-    bindSrsSettingsChange(srsSemanticAdmissionFallbackPolicyInput);
     bindSrsSettingsChange(srsFeedbackSrsInput);
     bindSrsSettingsChange(srsFeedbackRulesInput);
     bindSrsSettingsChange(srsExposureLoggingInput);
