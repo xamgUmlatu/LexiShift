@@ -41,9 +41,17 @@
     const setApplyingChanges = typeof opts.setApplyingChanges === "function"
       ? opts.setApplyingChanges
       : (() => {});
+    const nowMs = typeof opts.nowMs === "function"
+      ? opts.nowMs
+      : (() => (
+          globalThis.performance && typeof globalThis.performance.now === "function"
+            ? globalThis.performance.now()
+            : Date.now()
+        ));
     const log = typeof opts.log === "function" ? opts.log : (() => {});
 
     async function run(context) {
+      const startedAtMs = nowMs();
       const ctx = context && typeof context === "object" ? context : {};
       const currentSettings = ctx.currentSettings && typeof ctx.currentSettings === "object"
         ? ctx.currentSettings
@@ -51,6 +59,7 @@
       const activeRules = Array.isArray(ctx.activeRules) ? ctx.activeRules : [];
       const focusWord = String(ctx.focusWord || "");
       let scanSummary = null;
+      let processDocumentStartedAtMs = null;
 
       if (ensureStyle) {
         ensureStyle(
@@ -102,14 +111,32 @@
         const nextTrie = buildTrie ? buildTrie(activeRules) : null;
         setCurrentTrie(nextTrie);
         if (domScanRuntime && typeof domScanRuntime.processDocument === "function") {
+          processDocumentStartedAtMs = nowMs();
           scanSummary = await domScanRuntime.processDocument();
         }
       } finally {
         setApplyingChanges(false);
       }
 
-      return {
+      const runtimeApplyMs = nowMs() - startedAtMs;
+      const scanMs = scanSummary && Number.isFinite(Number(scanSummary.scanDurationMs))
+        ? Number(scanSummary.scanDurationMs)
+        : null;
+      const firstReplacementMs = (
         scanSummary
+        && Number.isFinite(Number(scanSummary.firstReplacementLatencyMs))
+        && Number.isFinite(Number(processDocumentStartedAtMs))
+      )
+        ? (processDocumentStartedAtMs - startedAtMs) + Number(scanSummary.firstReplacementLatencyMs)
+        : null;
+
+      return {
+        scanSummary,
+        timings: {
+          runtimeApplyMs,
+          scanMs,
+          firstReplacementMs
+        }
       };
     }
 

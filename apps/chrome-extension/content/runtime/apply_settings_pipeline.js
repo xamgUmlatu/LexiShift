@@ -31,6 +31,13 @@
     const applyRuntimeActions = opts.applyRuntimeActions && typeof opts.applyRuntimeActions === "object"
       ? opts.applyRuntimeActions
       : null;
+    const nowMs = typeof opts.nowMs === "function"
+      ? opts.nowMs
+      : (() => (
+          globalThis.performance && typeof globalThis.performance.now === "function"
+            ? globalThis.performance.now()
+            : Date.now()
+        ));
     const ruleOriginSrs = String(opts.ruleOriginSrs || "srs");
     const ruleOriginRuleset = String(opts.ruleOriginRuleset || "ruleset");
 
@@ -43,6 +50,7 @@
     }
 
     async function run(settings, context) {
+      const pipelineStartedAtMs = nowMs();
       const rawSettings = settings && typeof settings === "object" ? settings : {};
       const runtimeContext = context && typeof context === "object" ? context : {};
       const isTokenCurrent = typeof runtimeContext.isTokenCurrent === "function"
@@ -63,6 +71,7 @@
       setCurrentSettings(nextSettings);
       resetProcessedNodes();
 
+      const activeRulesResolveStartedAtMs = nowMs();
       const activeRulesState = activeRulesRuntime && typeof activeRulesRuntime.resolveActiveRules === "function"
         ? await activeRulesRuntime.resolveActiveRules(
             nextSettings,
@@ -70,6 +79,7 @@
             { helperAvailable: getHelperClientAvailable() }
           )
         : null;
+      const activeRulesResolveMs = nowMs() - activeRulesResolveStartedAtMs;
       const srsProfileId = activeRulesState && activeRulesState.srsProfileId
         ? activeRulesState.srsProfileId
         : String(nextSettings.srsProfileId || "default");
@@ -136,7 +146,9 @@
         ? enabledRules.filter((rule) => String(rule.source_phrase || "").toLowerCase() === focusWord).length
         : 0;
       let runtimeApplyResult = null;
+      let runtimeApplyStartedAtMs = null;
       if (applyRuntimeActions && typeof applyRuntimeActions.run === "function") {
+        runtimeApplyStartedAtMs = nowMs();
         runtimeApplyResult = await applyRuntimeActions.run({
           currentSettings: nextSettings,
           activeRules,
@@ -149,6 +161,27 @@
       }
 
       if (applyDiagnosticsReporter && typeof applyDiagnosticsReporter.report === "function") {
+        const activeRulesTimings = (
+          activeRulesState
+          && activeRulesState.timings
+          && typeof activeRulesState.timings === "object"
+        )
+          ? activeRulesState.timings
+          : null;
+        const runtimeApplyTimings = (
+          runtimeApplyResult
+          && runtimeApplyResult.timings
+          && typeof runtimeApplyResult.timings === "object"
+        )
+          ? runtimeApplyResult.timings
+          : null;
+        const firstReplacementLatencyMs = (
+          runtimeApplyTimings
+          && Number.isFinite(Number(runtimeApplyTimings.firstReplacementMs))
+          && Number.isFinite(Number(runtimeApplyStartedAtMs))
+        )
+          ? (runtimeApplyStartedAtMs - pipelineStartedAtMs) + Number(runtimeApplyTimings.firstReplacementMs)
+          : null;
         applyDiagnosticsReporter.report({
           currentSettings: nextSettings,
           normalizedRules,
@@ -171,6 +204,18 @@
           semanticInventoryLoaded,
           semanticInventorySource,
           semanticInventoryError,
+          timings: {
+            applyTotalMs: nowMs() - pipelineStartedAtMs,
+            activeRulesResolveMs,
+            helperRulesResolveMs: activeRulesTimings ? activeRulesTimings.helperRulesResolveMs : null,
+            srsGateMs: activeRulesTimings ? activeRulesTimings.srsGateMs : null,
+            semanticInventoryResolveMs: activeRulesTimings
+              ? activeRulesTimings.semanticInventoryResolveMs
+              : null,
+            runtimeApplyMs: runtimeApplyTimings ? runtimeApplyTimings.runtimeApplyMs : null,
+            scanMs: runtimeApplyTimings ? runtimeApplyTimings.scanMs : null,
+            firstReplacementLatencyMs
+          },
           scanSummary: runtimeApplyResult && runtimeApplyResult.scanSummary
             ? runtimeApplyResult.scanSummary
             : null

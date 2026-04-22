@@ -259,6 +259,9 @@ const runtime = createRuntime({{
   assert.equal(resolution.semanticFallbackPolicy, "legacy_on_unavailable");
   assert.equal(resolution.semanticInventoryLoaded, true);
   assert.equal(resolution.semanticInventorySource, "helper");
+  assert.equal(Number.isFinite(Number(resolution.timings.activeRulesResolveMs)), true);
+  assert.equal(Number.isFinite(Number(resolution.timings.helperRulesResolveMs)), true);
+  assert.equal(Number.isFinite(Number(resolution.timings.semanticInventoryResolveMs)), true);
 }})().catch((error) => {{
   console.error(error);
   process.exit(1);

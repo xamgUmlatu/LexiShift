@@ -21,6 +21,13 @@
     const getRuleOrigin = typeof opts.getRuleOrigin === "function"
       ? opts.getRuleOrigin
       : (_rule) => String(opts.ruleOriginRuleset || "ruleset");
+    const nowMs = typeof opts.nowMs === "function"
+      ? opts.nowMs
+      : (() => (
+          globalThis.performance && typeof globalThis.performance.now === "function"
+            ? globalThis.performance.now()
+            : Date.now()
+        ));
     const ruleOriginSrs = String(opts.ruleOriginSrs || "srs");
     const ruleOriginRuleset = String(opts.ruleOriginRuleset || "ruleset");
     const DEFAULT_SEMANTIC_FALLBACK_POLICY = "legacy_on_unavailable";
@@ -121,11 +128,15 @@
     }
 
     async function resolveActiveRules(settings, gateLogger, runtimeState) {
+      const startedAtMs = nowMs();
       const runtime = runtimeState && typeof runtimeState === "object" ? runtimeState : {};
       const helperAvailable = runtime.helperAvailable !== false;
       const currentSettings = settings && typeof settings === "object" ? settings : {};
       const srsProfileId = normalizeProfileId(currentSettings.srsProfileId);
       const semanticFallbackPolicy = DEFAULT_SEMANTIC_FALLBACK_POLICY;
+      let helperRulesResolveMs = null;
+      let srsGateMs = null;
+      let semanticInventoryResolveMs = null;
 
       let rulesSource = "local";
       let helperRulesError = null;
@@ -147,10 +158,12 @@
         && helperRulesRuntime
         && typeof helperRulesRuntime.resolveHelperRules === "function"
       ) {
+        const helperRulesStartedAtMs = nowMs();
         const helperResolution = await helperRulesRuntime.resolveHelperRules(
           currentSettings.srsPair,
           srsProfileId
         );
+        helperRulesResolveMs = nowMs() - helperRulesStartedAtMs;
         helperRules = Array.isArray(helperResolution.rules) ? helperResolution.rules : [];
         helperRulesError = helperResolution.error || null;
         if (helperResolution.source === "helper") {
@@ -169,7 +182,9 @@
       let srsActiveLemmas = null;
       let srsStats = null;
       if (currentSettings.srsEnabled && srsGate && typeof srsGate.buildSrsGate === "function") {
+        const srsGateStartedAtMs = nowMs();
         const gate = await srsGate.buildSrsGate(currentSettings, enabledRules, gateLogger);
+        srsGateMs = nowMs() - srsGateStartedAtMs;
         activeRules = gate.activeRules || enabledRules;
         srsActiveLemmas = gate.activeLemmas || null;
         srsStats = gate.stats || null;
@@ -184,10 +199,12 @@
         && helperRulesRuntime
         && typeof helperRulesRuntime.resolveSemanticInventory === "function"
       ) {
+        const semanticInventoryStartedAtMs = nowMs();
         const semanticResolution = await helperRulesRuntime.resolveSemanticInventory(
           currentSettings.srsPair,
           srsProfileId
         );
+        semanticInventoryResolveMs = nowMs() - semanticInventoryStartedAtMs;
         const semanticInventory = semanticResolution && typeof semanticResolution === "object"
           ? semanticResolution.inventory
           : null;
@@ -232,7 +249,13 @@
         semanticReadyRuleCount: activeSemanticCoverage.readyRuleCount,
         semanticInventoryLoaded,
         semanticInventorySource,
-        semanticInventoryError
+        semanticInventoryError,
+        timings: {
+          activeRulesResolveMs: nowMs() - startedAtMs,
+          helperRulesResolveMs,
+          srsGateMs,
+          semanticInventoryResolveMs
+        }
       };
     }
 

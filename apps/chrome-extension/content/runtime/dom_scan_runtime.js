@@ -89,6 +89,13 @@
       ? opts.normalizeProfileId
       : (value) => String(value || "").trim() || "default";
     const log = typeof opts.log === "function" ? opts.log : (() => {});
+    const nowMs = typeof opts.nowMs === "function"
+      ? opts.nowMs
+      : (() => (
+          globalThis.performance && typeof globalThis.performance.now === "function"
+            ? globalThis.performance.now()
+            : Date.now()
+        ));
 
     let observer = null;
     let observedBody = null;
@@ -97,6 +104,9 @@
 
     function buildCounter(currentSettings, detailLimit, focusDetailLimit) {
       return {
+        scanStartedAtMs: nowMs(),
+        firstReplacementLatencyMs: null,
+        scanDurationMs: null,
         totalNodes: 0,
         emptyNodes: 0,
         whitespaceNodes: 0,
@@ -219,6 +229,7 @@
           popupModuleHistoryStore,
           isPopupModuleEnabled,
           normalizeProfileId,
+          nowMs,
           log,
           nodeFilters,
           getPageBudgetState: () => pageBudgetState,
@@ -260,10 +271,17 @@
       for (const node of scanNodes) {
         await textNodeProcessor.processTextNode(node, counter);
       }
+      counter.scanDurationMs = nowMs() - Number(counter.scanStartedAtMs || 0);
       if (currentSettings.debugEnabled) {
         log(
           `Scan summary: ${counter.totalNodes} total text node(s), ${counter.emptyNodes} empty, ${counter.whitespaceNodes} whitespace-only, ${counter.scanned} scanned, ${counter.skippedCached} cached, ${counter.skippedEditable} editable skipped, ${counter.skippedExcluded} excluded skipped, ${counter.skippedLexi} replaced skipped, ${counter.replacements} replacement(s) across ${counter.nodes} node(s).`
         );
+        log("Scan timing:", {
+          scanMs: counter.scanDurationMs,
+          firstReplacementMs: Number.isFinite(Number(counter.firstReplacementLatencyMs))
+            ? Number(counter.firstReplacementLatencyMs)
+            : null
+        });
         if (currentSettings.srsSemanticAdmissionEnabled === true && counter.semanticEligible > 0) {
           log("Semantic admission scan summary:", {
             eligible: counter.semanticEligible,
@@ -331,9 +349,18 @@
               }
             }
           }
+          counter.scanDurationMs = nowMs() - Number(counter.scanStartedAtMs || 0);
           if (currentSettings.debugEnabled) {
             if (counter.replacements > 0) {
               log(`Updated ${counter.replacements} replacement(s) in ${counter.nodes} node(s).`);
+            }
+            if (counter.replacements > 0 || counter.semanticEligible > 0) {
+              log("Mutation timing:", {
+                scanMs: counter.scanDurationMs,
+                firstReplacementMs: Number.isFinite(Number(counter.firstReplacementLatencyMs))
+                  ? Number(counter.firstReplacementLatencyMs)
+                  : null
+              });
             }
             if (currentSettings.srsSemanticAdmissionEnabled === true && counter.semanticEligible > 0) {
               log("Semantic admission mutation summary:", {

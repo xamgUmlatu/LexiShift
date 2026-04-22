@@ -296,6 +296,139 @@ const runtime = createRuntime({{
 """
         _run_node(script)
 
+    def test_dom_scan_runtime_tracks_first_replacement_and_scan_timings(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const modulePath = {json.dumps(str(DOM_SCAN_RUNTIME_JS))};
+const logs = [];
+const context = vm.createContext({{
+  console,
+  document: {{
+    body: {{
+      innerText: "alpha beta gamma",
+      textContent: "alpha beta gamma"
+    }}
+  }}
+}});
+context.globalThis = context;
+context.LexiShift = {{
+  contentDomScanNodeFilters: {{
+    createNodeFilters() {{
+      return {{
+        isEditable() {{ return false; }},
+        isExcluded() {{ return false; }},
+        isLexiShiftNode() {{ return false; }}
+      }};
+    }}
+  }},
+  contentDomScanCounters: {{
+    createScanCounters() {{
+      const createCounter = () => ({{
+        totalNodes: 0,
+        emptyNodes: 0,
+        whitespaceNodes: 0,
+        replacements: 0,
+        nodes: 0,
+        scanned: 0,
+        skippedEditable: 0,
+        skippedExcluded: 0,
+        skippedLexi: 0,
+        skippedCached: 0,
+        detailLogs: 0,
+        detailLimit: 0,
+        detailTruncated: false,
+        focusWord: "",
+        focusSubstringNodes: 0,
+        focusTokenNodes: 0,
+        focusReplaced: 0,
+        focusUnmatched: 0,
+        focusSkippedEditable: 0,
+        focusSkippedExcluded: 0,
+        focusSkippedLexi: 0,
+        focusSkippedCached: 0,
+        focusSubstringNoToken: 0,
+        focusDetailLogs: 0,
+        focusDetailLimit: 0,
+        focusDetailTruncated: false,
+        semanticEligible: 0,
+        semanticReady: 0,
+        semanticPolicyReplaces: 0,
+        semanticPolicyAbstains: 0,
+        semanticPolicySoftAffordances: 0,
+        semanticFallbackReplaces: 0,
+        semanticFallbackAbstains: 0,
+        semanticFallbackSoftAffordances: 0,
+        semanticDecisionPolicyId: ""
+      }});
+      return {{
+        createFullScanCounter() {{
+          return createCounter();
+        }},
+        createMutationCounter() {{
+          return createCounter();
+        }}
+      }};
+    }}
+  }},
+  contentDomScanTextNodeProcessor: {{
+    createTextNodeProcessor(options) {{
+      return {{
+        async processTextNode(_node, counter) {{
+          const scanStartedAtMs = Number.isFinite(Number(counter.scanStartedAtMs))
+            ? Number(counter.scanStartedAtMs)
+            : options.nowMs();
+          if (!Number.isFinite(Number(counter.scanStartedAtMs))) {{
+            counter.scanStartedAtMs = scanStartedAtMs;
+          }}
+          if (!Number.isFinite(Number(counter.firstReplacementLatencyMs))) {{
+            counter.firstReplacementLatencyMs = options.nowMs() - scanStartedAtMs;
+          }}
+          counter.replacements += 1;
+          counter.nodes += 1;
+          counter.scanned += 1;
+        }}
+      }};
+    }}
+  }}
+}};
+vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
+
+const createRuntime = context.LexiShift.contentDomScanRuntime.createRuntime;
+let nowValue = 100;
+const runtime = createRuntime({{
+  nowMs: () => {{
+    nowValue += 5;
+    return nowValue;
+  }},
+  getCurrentSettings: () => ({{
+    enabled: true,
+    debugEnabled: true
+  }}),
+  getCurrentTrie: () => ({{ ready: true }}),
+  getProcessedNodes: () => new WeakMap(),
+  setProcessedNodes: () => {{}},
+  isApplyingChanges: () => false,
+  buildReplacementFragment: () => null,
+  collectTextNodes: () => [{{ id: "a" }}],
+  log: (...args) => logs.push(args)
+}});
+
+(async () => {{
+  const counter = await runtime.processDocument();
+  assert.equal(counter.replacements, 1);
+  assert.equal(counter.firstReplacementLatencyMs, 5);
+  assert.equal(counter.scanDurationMs, 10);
+  assert.equal(logs.some((entry) => entry[0] === "Scan timing:"), true);
+}})().catch((error) => {{
+  console.error(error);
+  process.exit(1);
+}});
+"""
+        _run_node(script)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -10,6 +10,9 @@
     if (!state || typeof state !== "object") {
       return null;
     }
+    const normalizeTiming = (value) => Number.isFinite(Number(value))
+      ? Number(value)
+      : null;
     return {
       ts: state.ts ? String(state.ts) : new Date().toISOString(),
       pair: state.pair ? String(state.pair) : "",
@@ -83,6 +86,14 @@
       semantic_decision_policy_id: state.semantic_decision_policy_id
         ? String(state.semantic_decision_policy_id)
         : "",
+      apply_total_ms: normalizeTiming(state.apply_total_ms),
+      active_rules_resolve_ms: normalizeTiming(state.active_rules_resolve_ms),
+      helper_rules_resolve_ms: normalizeTiming(state.helper_rules_resolve_ms),
+      srs_gate_ms: normalizeTiming(state.srs_gate_ms),
+      semantic_inventory_resolve_ms: normalizeTiming(state.semantic_inventory_resolve_ms),
+      runtime_apply_ms: normalizeTiming(state.runtime_apply_ms),
+      scan_ms: normalizeTiming(state.scan_ms),
+      first_replacement_latency_ms: normalizeTiming(state.first_replacement_latency_ms),
       srs_stats: state.srs_stats && typeof state.srs_stats === "object"
         ? state.srs_stats
         : null,

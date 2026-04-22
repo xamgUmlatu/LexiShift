@@ -49,6 +49,13 @@
     const normalizeProfileId = typeof opts.normalizeProfileId === "function"
       ? opts.normalizeProfileId
       : (value) => String(value || "").trim() || "default";
+    const nowMs = typeof opts.nowMs === "function"
+      ? opts.nowMs
+      : (() => (
+          globalThis.performance && typeof globalThis.performance.now === "function"
+            ? globalThis.performance.now()
+            : Date.now()
+        ));
     const log = typeof opts.log === "function" ? opts.log : (() => {});
     const nodeFilters = opts.nodeFilters && typeof opts.nodeFilters === "object"
       ? opts.nodeFilters
@@ -188,6 +195,12 @@
         }
       }
       const pageBudgetState = getPageBudgetState();
+      const scanStartedAtMs = counter && Number.isFinite(Number(counter.scanStartedAtMs))
+        ? Number(counter.scanStartedAtMs)
+        : nowMs();
+      if (counter && !Number.isFinite(Number(counter.scanStartedAtMs))) {
+        counter.scanStartedAtMs = scanStartedAtMs;
+      }
       const originResolver = (rule) => {
         return String(rule && rule.metadata ? rule.metadata.lexishift_origin : "");
       };
@@ -208,6 +221,12 @@
       if (result && result.fragment) {
         const parent = node.parentNode;
         if (parent) {
+          if (counter && !Number.isFinite(Number(counter.firstReplacementLatencyMs))) {
+            counter.firstReplacementLatencyMs = nowMs() - scanStartedAtMs;
+            if (currentSettings.debugEnabled) {
+              log(`First replacement applied after ${Number(counter.firstReplacementLatencyMs).toFixed(1)} ms.`);
+            }
+          }
           parent.replaceChild(result.fragment, node);
           if (pageBudgetState) {
             updatePageBudgetUsage(pageBudgetState, Array.isArray(result.budgetKeys) ? result.budgetKeys : []);

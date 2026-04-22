@@ -55,6 +55,20 @@
       const semanticInventoryLoaded = state.semanticInventoryLoaded === true;
       const semanticInventorySource = String(state.semanticInventorySource || "none");
       const semanticInventoryError = state.semanticInventoryError || null;
+      const timings = state.timings && typeof state.timings === "object"
+        ? state.timings
+        : {};
+      const normalizeTiming = (value) => Number.isFinite(Number(value))
+        ? Number(value)
+        : null;
+      const applyTotalMs = normalizeTiming(timings.applyTotalMs);
+      const activeRulesResolveMs = normalizeTiming(timings.activeRulesResolveMs);
+      const helperRulesResolveMs = normalizeTiming(timings.helperRulesResolveMs);
+      const srsGateMs = normalizeTiming(timings.srsGateMs);
+      const semanticInventoryResolveMs = normalizeTiming(timings.semanticInventoryResolveMs);
+      const runtimeApplyMs = normalizeTiming(timings.runtimeApplyMs);
+      const scanMs = normalizeTiming(timings.scanMs);
+      const firstReplacementLatencyMs = normalizeTiming(timings.firstReplacementLatencyMs);
       const scanSummary = state.scanSummary && typeof state.scanSummary === "object"
         ? state.scanSummary
         : null;
@@ -162,6 +176,18 @@
           decisionPolicyId: String(scanSummary.semanticDecisionPolicyId || "")
         });
       }
+      if (currentSettings.debugEnabled) {
+        log("Apply timing:", {
+          applyTotalMs,
+          activeRulesResolveMs,
+          helperRulesResolveMs,
+          srsGateMs,
+          semanticInventoryResolveMs,
+          runtimeApplyMs,
+          scanMs,
+          firstReplacementLatencyMs
+        });
+      }
       persistRuntimeState({
         ts: new Date().toISOString(),
         pair: currentSettings.srsPair || "",
@@ -201,6 +227,14 @@
         semantic_decision_policy_id: scanSummary
           ? String(scanSummary.semanticDecisionPolicyId || "")
           : "",
+        apply_total_ms: applyTotalMs,
+        active_rules_resolve_ms: activeRulesResolveMs,
+        helper_rules_resolve_ms: helperRulesResolveMs,
+        srs_gate_ms: srsGateMs,
+        semantic_inventory_resolve_ms: semanticInventoryResolveMs,
+        runtime_apply_ms: runtimeApplyMs,
+        scan_ms: scanMs,
+        first_replacement_latency_ms: firstReplacementLatencyMs,
         srs_stats: srsStats || null,
         helper_rules_error: helperRulesError || "",
         page_url: window.location ? window.location.href : "",

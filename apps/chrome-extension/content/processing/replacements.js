@@ -152,7 +152,7 @@
     };
   }
 
-  function createReplacementSpan(originalText, displayPayload, rule, highlightEnabled, origin) {
+  function createReplacementSpan(originalText, displayPayload, rule, highlightEnabled, origin, debugMetadata) {
     const payload = displayPayload && typeof displayPayload === "object"
       ? displayPayload
       : {
@@ -196,6 +196,48 @@
       }
       if (rule.metadata && rule.metadata.language_pair) {
         span.dataset.languagePair = String(rule.metadata.language_pair);
+      }
+    }
+    const metadata = debugMetadata && typeof debugMetadata === "object" ? debugMetadata : null;
+    if (metadata) {
+      if (metadata.status) {
+        span.dataset.semanticStatus = String(metadata.status);
+      }
+      if (metadata.decision) {
+        span.dataset.semanticDecision = String(metadata.decision);
+      }
+      if (metadata.decision_source) {
+        span.dataset.semanticDecisionSource = String(metadata.decision_source);
+      }
+      if (Array.isArray(metadata.reason_codes) && metadata.reason_codes.length) {
+        span.dataset.semanticReasonCodes = metadata.reason_codes
+          .map((code) => String(code || "").trim())
+          .filter(Boolean)
+          .join(",");
+      }
+      if (metadata.sense_id) {
+        span.dataset.semanticSenseId = String(metadata.sense_id);
+      }
+      if (metadata.competition_set_id) {
+        span.dataset.semanticCompetitionSetId = String(metadata.competition_set_id);
+      }
+      if (metadata.phrase_set_id) {
+        span.dataset.semanticPhraseSetId = String(metadata.phrase_set_id);
+      }
+      if (metadata.trigger_id) {
+        span.dataset.semanticTriggerId = String(metadata.trigger_id);
+      }
+      if (Number.isFinite(Number(metadata.score_margin))) {
+        span.dataset.semanticScoreMargin = String(Number(metadata.score_margin));
+      }
+      if (Number.isFinite(Number(metadata.active_score))) {
+        span.dataset.semanticActiveScore = String(Number(metadata.active_score));
+      }
+      if (Number.isFinite(Number(metadata.top_shadow_score))) {
+        span.dataset.semanticTopShadowScore = String(Number(metadata.top_shadow_score));
+      }
+      if (metadata.phrase_preempted === true) {
+        span.dataset.semanticPhrasePreempted = "true";
       }
     }
 
@@ -346,12 +388,52 @@
         ? originResolver(match.rule, displayPayload.displayReplacement)
         : null;
       const semanticDecision = semanticDecisionMap ? semanticDecisionMap.get(match) : null;
+      const semanticAdmission = (
+        match.rule
+        && match.rule.metadata
+        && typeof match.rule.metadata === "object"
+        && match.rule.metadata.semantic_admission
+        && typeof match.rule.metadata.semantic_admission === "object"
+      )
+        ? match.rule.metadata.semantic_admission
+        : null;
+      const semanticDebugMetadata = settings.debugEnabled === true && (semanticAdmission || semanticDecision)
+        ? {
+            status: semanticAdmission ? String(semanticAdmission.status || "") : "",
+            trigger_id: semanticAdmission ? String(semanticAdmission.trigger_id || "") : "",
+            phrase_set_id: semanticAdmission ? String(semanticAdmission.phrase_set_id || "") : "",
+            decision: semanticDecision ? String(semanticDecision.decision || "") : "",
+            decision_source: semanticDecision ? String(semanticDecision.decision_source || "") : "",
+            reason_codes: semanticDecision && Array.isArray(semanticDecision.reason_codes)
+              ? semanticDecision.reason_codes.map((code) => String(code || "")).filter(Boolean)
+              : [],
+            sense_id: semanticDecision ? String(semanticDecision.sense_id || "") : "",
+            competition_set_id: semanticDecision
+              ? String(semanticDecision.competition_set_id || "")
+              : "",
+            score_margin: semanticDecision && Number.isFinite(Number(semanticDecision.score_margin))
+              ? Number(semanticDecision.score_margin)
+              : null,
+            active_score: semanticDecision && Number.isFinite(Number(semanticDecision.active_score))
+              ? Number(semanticDecision.active_score)
+              : null,
+            top_shadow_score: semanticDecision && Number.isFinite(Number(semanticDecision.top_shadow_score))
+              ? Number(semanticDecision.top_shadow_score)
+              : null,
+            phrase_preempted: semanticDecision ? semanticDecision.phrase_preempted === true : false
+          }
+        : null;
       if (budgetKeys) {
         budgetKeys.push(displayPayload.canonicalReplacement);
       }
-      fragment.appendChild(
-        createReplacementSpan(originalText, displayPayload, match.rule, settings.highlightEnabled, origin)
-      );
+      fragment.appendChild(createReplacementSpan(
+        originalText,
+        displayPayload,
+        match.rule,
+        settings.highlightEnabled,
+        origin,
+        semanticDebugMetadata
+      ));
       if (details) {
         details.push({
           original: originalText,

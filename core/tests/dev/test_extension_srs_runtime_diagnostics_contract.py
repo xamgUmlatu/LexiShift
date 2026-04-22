@@ -95,10 +95,20 @@ reporter.report({{
     semanticPolicyReplaces: 2,
     semanticPolicyAbstains: 1,
     semanticPolicySoftAffordances: 2,
-    semanticFallbackReplaces: 0,
-    semanticFallbackAbstains: 1,
-    semanticFallbackSoftAffordances: 2,
-    semanticDecisionPolicyId: "en_es_sentence_veto_v2"
+  semanticFallbackReplaces: 0,
+  semanticFallbackAbstains: 1,
+  semanticFallbackSoftAffordances: 2,
+  semanticDecisionPolicyId: "en_es_sentence_veto_v2"
+  }},
+  timings: {{
+    applyTotalMs: 512.5,
+    activeRulesResolveMs: 150,
+    helperRulesResolveMs: 90,
+    srsGateMs: 20,
+    semanticInventoryResolveMs: 40,
+    runtimeApplyMs: 330,
+    scanMs: 280,
+    firstReplacementLatencyMs: 203.25
   }}
 }});
 
@@ -111,6 +121,8 @@ assert.equal(persisted[0].semantic_matches_ready, 5);
 assert.equal(persisted[0].semantic_policy_soft_affordances, 2);
 assert.equal(persisted[0].semantic_fallback_soft_affordances, 2);
 assert.equal(persisted[0].semantic_decision_policy_id, "en_es_sentence_veto_v2");
+assert.equal(persisted[0].apply_total_ms, 512.5);
+assert.equal(persisted[0].first_replacement_latency_ms, 203.25);
 """
         _run_node(script)
 
@@ -161,7 +173,9 @@ const runtimeDiagnostics = context.LexiShift.srsRuntimeDiagnostics;
     semantic_matches_ready: 7,
     semantic_policy_soft_affordances: 3,
     semantic_fallback_soft_affordances: 2,
-    semantic_decision_policy_id: "en_es_sentence_veto_v2"
+    semantic_decision_policy_id: "en_es_sentence_veto_v2",
+    apply_total_ms: 480,
+    first_replacement_latency_ms: 215
   }});
   const loaded = await runtimeDiagnostics.loadLastState();
   assert.equal(loaded.semantic_runtime_capability, "published_unready");
@@ -172,6 +186,8 @@ const runtimeDiagnostics = context.LexiShift.srsRuntimeDiagnostics;
   assert.equal(loaded.semantic_policy_soft_affordances, 3);
   assert.equal(loaded.semantic_fallback_soft_affordances, 2);
   assert.equal(loaded.semantic_decision_policy_id, "en_es_sentence_veto_v2");
+  assert.equal(loaded.apply_total_ms, 480);
+  assert.equal(loaded.first_replacement_latency_ms, 215);
 }})().catch((error) => {{
   console.error(error);
   process.exit(1);
