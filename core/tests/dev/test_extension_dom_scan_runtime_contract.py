@@ -32,7 +32,9 @@ def _run_node(script: str) -> None:
 
 
 class TestExtensionDomScanRuntimeContract(unittest.TestCase):
-    def test_scan_order_only_reorders_when_page_budgets_are_active(self) -> None:
+    def test_scan_order_prioritizes_viewport_nodes_and_keeps_stable_order_without_budgets(
+        self,
+    ) -> None:
         script = f"""
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
@@ -41,6 +43,8 @@ const vm = require("node:vm");
 const modulePath = {json.dumps(str(SCAN_ORDER_JS))};
 const context = vm.createContext({{
   console,
+  innerWidth: 1280,
+  innerHeight: 720,
   location: {{
     origin: "https://example.com",
     pathname: "/article"
@@ -53,18 +57,81 @@ vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modul
 const createReorderNodesForScan =
   context.LexiShift.contentDomScanOrder.createReorderNodesForScan;
 const reorderNodesForScan = createReorderNodesForScan();
-const nodes = "abcdefgh".split("").map((id) => ({{ id }}));
+const nodes = [
+  {{
+    id: "far-above",
+    parentElement: {{
+      getBoundingClientRect() {{
+        return {{ top: -1200, bottom: -900, left: 0, right: 400 }};
+      }}
+    }}
+  }},
+  {{
+    id: "visible-a",
+    parentElement: {{
+      getBoundingClientRect() {{
+        return {{ top: 100, bottom: 160, left: 0, right: 400 }};
+      }}
+    }}
+  }},
+  {{
+    id: "near-below",
+    parentElement: {{
+      getBoundingClientRect() {{
+        return {{ top: 900, bottom: 980, left: 0, right: 400 }};
+      }}
+    }}
+  }},
+  {{
+    id: "visible-b",
+    parentElement: {{
+      getBoundingClientRect() {{
+        return {{ top: 320, bottom: 380, left: 0, right: 400 }};
+      }}
+    }}
+  }}
+];
 const ids = (list) => list.map((entry) => entry.id);
 
-assert.equal(reorderNodesForScan(nodes, {{}}), nodes);
-assert.equal(
-  reorderNodesForScan(nodes, {{
-    maxReplacementsPerPage: 0,
-    maxReplacementsPerLemmaPerPage: 0
-  }}),
-  nodes
+assert.deepEqual(
+  ids(reorderNodesForScan(nodes, {{ maxReplacementsPerPage: 0, maxReplacementsPerLemmaPerPage: 0 }})),
+  ["visible-a", "visible-b", "near-below", "far-above"]
 );
+"""
+        _run_node(script)
 
+    def test_scan_order_distributes_within_viewport_band_when_page_budgets_are_active(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const modulePath = {json.dumps(str(SCAN_ORDER_JS))};
+const context = vm.createContext({{
+  console,
+  innerWidth: 1280,
+  innerHeight: 720,
+  location: {{
+    origin: "https://example.com",
+    pathname: "/article"
+  }}
+}});
+context.globalThis = context;
+context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
+
+const createReorderNodesForScan =
+  context.LexiShift.contentDomScanOrder.createReorderNodesForScan;
+const reorderNodesForScan = createReorderNodesForScan();
+const nodes = "abcdefgh".split("").map((id) => ({{
+  id,
+  parentElement: {{
+    getBoundingClientRect() {{
+      return {{ top: 100, bottom: 160, left: 0, right: 400 }};
+    }}
+  }}
+}}));
+const ids = (list) => list.map((entry) => entry.id);
 const first = ids(reorderNodesForScan(nodes, {{
   maxReplacementsPerPage: 3,
   srsProfileId: "default"
@@ -191,11 +258,15 @@ context.LexiShift = {{
     }}
   }},
   contentDomScanCounters: {{
-    createScanCounters() {{
-      const createCounter = () => ({{
-        totalNodes: 0,
-        emptyNodes: 0,
-        whitespaceNodes: 0,
+        createScanCounters() {{
+          const createCounter = () => ({{
+            firstReplacementLatencyMs: null,
+            firstVisibleReplacementLatencyMs: null,
+            scanDurationMs: null,
+            yieldCount: 0,
+            totalNodes: 0,
+            emptyNodes: 0,
+            whitespaceNodes: 0,
         replacements: 0,
         nodes: 0,
         scanned: 0,
@@ -327,6 +398,10 @@ context.LexiShift = {{
   contentDomScanCounters: {{
     createScanCounters() {{
       const createCounter = () => ({{
+        firstReplacementLatencyMs: Number.NaN,
+        firstVisibleReplacementLatencyMs: Number.NaN,
+        scanDurationMs: Number.NaN,
+        yieldCount: 0,
         totalNodes: 0,
         emptyNodes: 0,
         whitespaceNodes: 0,
@@ -420,7 +495,9 @@ const runtime = createRuntime({{
   const counter = await runtime.processDocument();
   assert.equal(counter.replacements, 1);
   assert.equal(counter.firstReplacementLatencyMs, 5);
+  assert.equal(Number.isNaN(counter.firstVisibleReplacementLatencyMs), true);
   assert.equal(counter.scanDurationMs, 10);
+  assert.equal(counter.yieldCount, 0);
   assert.equal(logs.some((entry) => entry[0] === "Scan timing:"), true);
 }})().catch((error) => {{
   console.error(error);

@@ -108,7 +108,8 @@ reporter.report({{
     semanticInventoryResolveMs: 40,
     runtimeApplyMs: 330,
     scanMs: 280,
-    firstReplacementLatencyMs: 203.25
+    firstReplacementLatencyMs: 203.25,
+    firstVisibleReplacementLatencyMs: 110.5
   }}
 }});
 
@@ -123,6 +124,7 @@ assert.equal(persisted[0].semantic_fallback_soft_affordances, 2);
 assert.equal(persisted[0].semantic_decision_policy_id, "en_es_sentence_veto_v2");
 assert.equal(persisted[0].apply_total_ms, 512.5);
 assert.equal(persisted[0].first_replacement_latency_ms, 203.25);
+assert.equal(persisted[0].first_visible_replacement_latency_ms, 110.5);
 """
         _run_node(script)
 
@@ -175,7 +177,8 @@ const runtimeDiagnostics = context.LexiShift.srsRuntimeDiagnostics;
     semantic_fallback_soft_affordances: 2,
     semantic_decision_policy_id: "en_es_sentence_veto_v2",
     apply_total_ms: 480,
-    first_replacement_latency_ms: 215
+    first_replacement_latency_ms: 215,
+    first_visible_replacement_latency_ms: 125
   }});
   const loaded = await runtimeDiagnostics.loadLastState();
   assert.equal(loaded.semantic_runtime_capability, "published_unready");
@@ -188,6 +191,7 @@ const runtimeDiagnostics = context.LexiShift.srsRuntimeDiagnostics;
   assert.equal(loaded.semantic_decision_policy_id, "en_es_sentence_veto_v2");
   assert.equal(loaded.apply_total_ms, 480);
   assert.equal(loaded.first_replacement_latency_ms, 215);
+  assert.equal(loaded.first_visible_replacement_latency_ms, 125);
 }})().catch((error) => {{
   console.error(error);
   process.exit(1);

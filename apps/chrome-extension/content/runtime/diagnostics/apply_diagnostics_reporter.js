@@ -69,6 +69,7 @@
       const runtimeApplyMs = normalizeTiming(timings.runtimeApplyMs);
       const scanMs = normalizeTiming(timings.scanMs);
       const firstReplacementLatencyMs = normalizeTiming(timings.firstReplacementLatencyMs);
+      const firstVisibleReplacementLatencyMs = normalizeTiming(timings.firstVisibleReplacementLatencyMs);
       const scanSummary = state.scanSummary && typeof state.scanSummary === "object"
         ? state.scanSummary
         : null;
@@ -77,35 +78,35 @@
       let srsRulesWithWordPackage = 0;
       let activeSrsRulesWithWordPackage = 0;
 
-      log("Settings loaded.", {
-        enabled: currentSettings.enabled,
-        rules: normalizedRules.length,
-        enabledRules: enabledRules.length,
-        highlightEnabled: currentSettings.highlightEnabled,
-        highlightColor: currentSettings.highlightColor,
-        maxOnePerTextBlock: currentSettings.maxOnePerTextBlock,
-        allowAdjacentReplacements: currentSettings.allowAdjacentReplacements,
-        maxReplacementsPerPage: currentSettings.maxReplacementsPerPage,
-        maxReplacementsPerLemmaPerPage: currentSettings.maxReplacementsPerLemmaPerPage,
-        rulesSource,
-        rulesLocalEnabled: originCounts[ruleOriginRuleset],
-        rulesSrsEnabled: originCounts[ruleOriginSrs],
-        srsEnabled: currentSettings.srsEnabled === true,
-        srsPair: currentSettings.srsPair || "",
-        targetLanguage: currentSettings.targetLanguage || "",
-        targetDisplayScript: currentSettings.targetDisplayScript || "kanji",
-        srsProfileId: srsProfileId,
-        srsMaxActive: currentSettings.srsMaxActive,
-        semanticAdmissionEnabled,
-        semanticRuntimeCapability,
-        semanticRuntimeReasonCode,
-        semanticPointerRuleCount,
-        semanticReadyRuleCount,
-        semanticFallbackPolicy,
-        debugEnabled: currentSettings.debugEnabled,
-        debugFocusWord: focusWord || ""
-      });
       if (currentSettings.debugEnabled) {
+        log("Settings loaded.", {
+          enabled: currentSettings.enabled,
+          rules: normalizedRules.length,
+          enabledRules: enabledRules.length,
+          highlightEnabled: currentSettings.highlightEnabled,
+          highlightColor: currentSettings.highlightColor,
+          maxOnePerTextBlock: currentSettings.maxOnePerTextBlock,
+          allowAdjacentReplacements: currentSettings.allowAdjacentReplacements,
+          maxReplacementsPerPage: currentSettings.maxReplacementsPerPage,
+          maxReplacementsPerLemmaPerPage: currentSettings.maxReplacementsPerLemmaPerPage,
+          rulesSource,
+          rulesLocalEnabled: originCounts[ruleOriginRuleset],
+          rulesSrsEnabled: originCounts[ruleOriginSrs],
+          srsEnabled: currentSettings.srsEnabled === true,
+          srsPair: currentSettings.srsPair || "",
+          targetLanguage: currentSettings.targetLanguage || "",
+          targetDisplayScript: currentSettings.targetDisplayScript || "kanji",
+          srsProfileId: srsProfileId,
+          srsMaxActive: currentSettings.srsMaxActive,
+          semanticAdmissionEnabled,
+          semanticRuntimeCapability,
+          semanticRuntimeReasonCode,
+          semanticPointerRuleCount,
+          semanticReadyRuleCount,
+          semanticFallbackPolicy,
+          debugEnabled: currentSettings.debugEnabled,
+          debugFocusWord: focusWord || ""
+        });
         const srsRulesOnly = enabledRules.filter((rule) => getRuleOrigin(rule) === ruleOriginSrs);
         const activeSrsRules = activeRules.filter((rule) => getRuleOrigin(rule) === ruleOriginSrs);
         srsRulesWithScriptForms = countRulesWithScriptForms(srsRulesOnly);
@@ -136,7 +137,7 @@
           log("SRS mode active but no matching rules for current dataset/pair.");
         }
       }
-      if (currentSettings.srsEnabled && originCounts[ruleOriginSrs] === 0) {
+      if (currentSettings.debugEnabled && currentSettings.srsEnabled && originCounts[ruleOriginSrs] === 0) {
         log(
           "SRS enabled but helper SRS rules are not loaded (rulesSrsEnabled=0). Runtime is local-rules only."
         );
@@ -144,7 +145,7 @@
           log("Helper SRS fetch error:", helperRulesError);
         }
       }
-      if (semanticAdmissionEnabled) {
+      if (currentSettings.debugEnabled && semanticAdmissionEnabled) {
         log("Semantic admission runtime:", {
           capability: semanticRuntimeCapability,
           reasonCode: semanticRuntimeReasonCode,
@@ -155,7 +156,7 @@
           inventorySource: semanticInventorySource,
           inventoryError: semanticInventoryError || ""
         });
-      } else if (currentSettings.srsEnabled && semanticPointerRuleCount > 0) {
+      } else if (currentSettings.debugEnabled && currentSettings.srsEnabled && semanticPointerRuleCount > 0) {
         log("Semantic admission capability:", {
           capability: semanticRuntimeCapability,
           reasonCode: semanticRuntimeReasonCode,
@@ -163,7 +164,12 @@
           readyRuleCount: semanticReadyRuleCount
         });
       }
-      if (semanticAdmissionEnabled && scanSummary && Number(scanSummary.semanticEligible || 0) > 0) {
+      if (
+        currentSettings.debugEnabled
+        && semanticAdmissionEnabled
+        && scanSummary
+        && Number(scanSummary.semanticEligible || 0) > 0
+      ) {
         log("Semantic admission apply summary:", {
           eligible: Number(scanSummary.semanticEligible || 0),
           ready: Number(scanSummary.semanticReady || 0),
@@ -185,7 +191,8 @@
           semanticInventoryResolveMs,
           runtimeApplyMs,
           scanMs,
-          firstReplacementLatencyMs
+          firstReplacementLatencyMs,
+          firstVisibleReplacementLatencyMs
         });
       }
       persistRuntimeState({
@@ -235,6 +242,7 @@
         runtime_apply_ms: runtimeApplyMs,
         scan_ms: scanMs,
         first_replacement_latency_ms: firstReplacementLatencyMs,
+        first_visible_replacement_latency_ms: firstVisibleReplacementLatencyMs,
         srs_stats: srsStats || null,
         helper_rules_error: helperRulesError || "",
         page_url: window.location ? window.location.href : "",

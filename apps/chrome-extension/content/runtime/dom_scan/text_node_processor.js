@@ -88,6 +88,30 @@
       return String(parts[1] || "").trim().toLowerCase();
     }
 
+    function isVisibleInViewport(element) {
+      if (!element || typeof element.getBoundingClientRect !== "function") {
+        return false;
+      }
+      let rect = null;
+      try {
+        rect = element.getBoundingClientRect();
+      } catch (_error) {
+        rect = null;
+      }
+      if (!rect) {
+        return false;
+      }
+      const viewportWidth = Number(globalThis.innerWidth || 0);
+      const viewportHeight = Number(globalThis.innerHeight || 0);
+      if (!Number.isFinite(viewportWidth) || !Number.isFinite(viewportHeight) || viewportWidth <= 0 || viewportHeight <= 0) {
+        return false;
+      }
+      return rect.bottom > 0
+        && rect.top < viewportHeight
+        && rect.right > 0
+        && rect.left < viewportWidth;
+    }
+
     function mergeSemanticSummary(counter, summary) {
       if (!counter || !summary || typeof summary !== "object") {
         return;
@@ -225,6 +249,18 @@
             counter.firstReplacementLatencyMs = nowMs() - scanStartedAtMs;
             if (currentSettings.debugEnabled) {
               log(`First replacement applied after ${Number(counter.firstReplacementLatencyMs).toFixed(1)} ms.`);
+            }
+          }
+          if (
+            counter
+            && !Number.isFinite(Number(counter.firstVisibleReplacementLatencyMs))
+            && isVisibleInViewport(parent)
+          ) {
+            counter.firstVisibleReplacementLatencyMs = nowMs() - scanStartedAtMs;
+            if (currentSettings.debugEnabled) {
+              log(
+                `First visible replacement applied after ${Number(counter.firstVisibleReplacementLatencyMs).toFixed(1)} ms.`
+              );
             }
           }
           parent.replaceChild(result.fragment, node);

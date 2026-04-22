@@ -105,7 +105,9 @@
             domScanRuntime.clearBudgetState();
           }
           setCurrentTrie(null);
-          log("Replacements are disabled.");
+          if (currentSettings.debugEnabled) {
+            log("Replacements are disabled.");
+          }
           return;
         }
         const nextTrie = buildTrie ? buildTrie(activeRules) : null;
@@ -129,13 +131,21 @@
       )
         ? (processDocumentStartedAtMs - startedAtMs) + Number(scanSummary.firstReplacementLatencyMs)
         : null;
+      const firstVisibleReplacementMs = (
+        scanSummary
+        && Number.isFinite(Number(scanSummary.firstVisibleReplacementLatencyMs))
+        && Number.isFinite(Number(processDocumentStartedAtMs))
+      )
+        ? (processDocumentStartedAtMs - startedAtMs) + Number(scanSummary.firstVisibleReplacementLatencyMs)
+        : null;
 
       return {
         scanSummary,
         timings: {
           runtimeApplyMs,
           scanMs,
-          firstReplacementMs
+          firstReplacementMs,
+          firstVisibleReplacementMs
         }
       };
     }

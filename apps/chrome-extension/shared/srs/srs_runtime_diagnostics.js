@@ -94,6 +94,7 @@
       runtime_apply_ms: normalizeTiming(state.runtime_apply_ms),
       scan_ms: normalizeTiming(state.scan_ms),
       first_replacement_latency_ms: normalizeTiming(state.first_replacement_latency_ms),
+      first_visible_replacement_latency_ms: normalizeTiming(state.first_visible_replacement_latency_ms),
       srs_stats: state.srs_stats && typeof state.srs_stats === "object"
         ? state.srs_stats
         : null,

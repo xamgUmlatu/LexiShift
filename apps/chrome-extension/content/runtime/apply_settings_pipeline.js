@@ -182,6 +182,13 @@
         )
           ? (runtimeApplyStartedAtMs - pipelineStartedAtMs) + Number(runtimeApplyTimings.firstReplacementMs)
           : null;
+        const firstVisibleReplacementLatencyMs = (
+          runtimeApplyTimings
+          && Number.isFinite(Number(runtimeApplyTimings.firstVisibleReplacementMs))
+          && Number.isFinite(Number(runtimeApplyStartedAtMs))
+        )
+          ? (runtimeApplyStartedAtMs - pipelineStartedAtMs) + Number(runtimeApplyTimings.firstVisibleReplacementMs)
+          : null;
         applyDiagnosticsReporter.report({
           currentSettings: nextSettings,
           normalizedRules,
@@ -214,7 +221,8 @@
               : null,
             runtimeApplyMs: runtimeApplyTimings ? runtimeApplyTimings.runtimeApplyMs : null,
             scanMs: runtimeApplyTimings ? runtimeApplyTimings.scanMs : null,
-            firstReplacementLatencyMs
+            firstReplacementLatencyMs,
+            firstVisibleReplacementLatencyMs
           },
           scanSummary: runtimeApplyResult && runtimeApplyResult.scanSummary
             ? runtimeApplyResult.scanSummary

@@ -89,6 +89,11 @@
       ? opts.normalizeProfileId
       : (value) => String(value || "").trim() || "default";
     const log = typeof opts.log === "function" ? opts.log : (() => {});
+    const yieldToPage = typeof opts.yieldToPage === "function"
+      ? opts.yieldToPage
+      : (() => new Promise((resolve) => {
+          globalThis.setTimeout(resolve, 0);
+        }));
     const nowMs = typeof opts.nowMs === "function"
       ? opts.nowMs
       : (() => (
@@ -106,7 +111,9 @@
       return {
         scanStartedAtMs: nowMs(),
         firstReplacementLatencyMs: null,
+        firstVisibleReplacementLatencyMs: null,
         scanDurationMs: null,
+        yieldCount: 0,
         totalNodes: 0,
         emptyNodes: 0,
         whitespaceNodes: 0,
@@ -142,7 +149,20 @@
         semanticFallbackAbstains: 0,
         semanticFallbackSoftAffordances: 0,
         semanticDecisionPolicyId: ""
-      };
+        };
+    }
+
+    async function maybeYieldDuringScan(counter, deadlineMs, hasRemaining) {
+      if (!hasRemaining || !counter || !Number.isFinite(Number(deadlineMs)) || deadlineMs <= 0) {
+        return deadlineMs;
+      }
+      const currentMs = nowMs();
+      if ((currentMs - Number(counter.scanStartedAtMs || currentMs)) < deadlineMs) {
+        return deadlineMs;
+      }
+      counter.yieldCount += 1;
+      await yieldToPage();
+      return nowMs();
     }
 
     const nodeFiltersFactory = root.contentDomScanNodeFilters
@@ -268,8 +288,11 @@
       }
       const nodes = collectTextNodes(document.body);
       const scanNodes = reorderNodesForScan(nodes, currentSettings);
-      for (const node of scanNodes) {
+      let deadlineMs = Number(counter.scanStartedAtMs || nowMs()) + 12;
+      for (let index = 0; index < scanNodes.length; index += 1) {
+        const node = scanNodes[index];
         await textNodeProcessor.processTextNode(node, counter);
+        deadlineMs = await maybeYieldDuringScan(counter, deadlineMs, index < scanNodes.length - 1);
       }
       counter.scanDurationMs = nowMs() - Number(counter.scanStartedAtMs || 0);
       if (currentSettings.debugEnabled) {
@@ -278,8 +301,12 @@
         );
         log("Scan timing:", {
           scanMs: counter.scanDurationMs,
+          yieldCount: counter.yieldCount,
           firstReplacementMs: Number.isFinite(Number(counter.firstReplacementLatencyMs))
             ? Number(counter.firstReplacementLatencyMs)
+            : null,
+          firstVisibleReplacementMs: Number.isFinite(Number(counter.firstVisibleReplacementLatencyMs))
+            ? Number(counter.firstVisibleReplacementLatencyMs)
             : null
         });
         if (currentSettings.srsSemanticAdmissionEnabled === true && counter.semanticEligible > 0) {
@@ -306,8 +333,6 @@
         if (counter.focusDetailTruncated) {
           log(`Focus logs truncated after ${counter.focusDetailLimit} node(s).`);
         }
-      } else if (counter.replacements > 0) {
-        log(`Applied ${counter.replacements} replacement(s) across ${counter.nodes} node(s).`);
       }
       return counter;
     }
@@ -333,17 +358,22 @@
           const currentSettings = getCurrentSettings();
           const counter = scanCounters.createMutationCounter(currentSettings);
           pageBudgetState = pageBudgetTracker.buildPageBudgetState(currentSettings);
+          let deadlineMs = Number(counter.scanStartedAtMs || nowMs()) + 12;
           for (const mutation of mutations) {
             if (mutation.type === "characterData") {
               await textNodeProcessor.processTextNode(mutation.target, counter);
+              deadlineMs = await maybeYieldDuringScan(counter, deadlineMs, true);
             } else if (mutation.type === "childList") {
               for (const node of mutation.addedNodes) {
                 if (node.nodeType === Node.TEXT_NODE) {
                   await textNodeProcessor.processTextNode(node, counter);
+                  deadlineMs = await maybeYieldDuringScan(counter, deadlineMs, true);
                 } else if (node.nodeType === Node.ELEMENT_NODE) {
                   const textNodes = collectTextNodes(node);
-                  for (const textNode of textNodes) {
+                  for (let index = 0; index < textNodes.length; index += 1) {
+                    const textNode = textNodes[index];
                     await textNodeProcessor.processTextNode(textNode, counter);
+                    deadlineMs = await maybeYieldDuringScan(counter, deadlineMs, index < textNodes.length - 1);
                   }
                 }
               }
@@ -357,8 +387,12 @@
             if (counter.replacements > 0 || counter.semanticEligible > 0) {
               log("Mutation timing:", {
                 scanMs: counter.scanDurationMs,
+                yieldCount: counter.yieldCount,
                 firstReplacementMs: Number.isFinite(Number(counter.firstReplacementLatencyMs))
                   ? Number(counter.firstReplacementLatencyMs)
+                  : null,
+                firstVisibleReplacementMs: Number.isFinite(Number(counter.firstVisibleReplacementLatencyMs))
+                  ? Number(counter.firstVisibleReplacementLatencyMs)
                   : null
               });
             }
@@ -381,8 +415,6 @@
             if (counter.focusDetailTruncated) {
               log(`Focus logs truncated after ${counter.focusDetailLimit} node(s).`);
             }
-          } else if (counter.replacements > 0) {
-            log(`Updated ${counter.replacements} replacement(s) in ${counter.nodes} node(s).`);
           }
         });
       });
