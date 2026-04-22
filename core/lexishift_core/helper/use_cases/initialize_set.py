@@ -277,9 +277,6 @@ def initialize_srs_set(
             "selection_policy": getattr(init_report, "selection_policy", None),
             "selection_seed": getattr(init_report, "selection_seed", None),
             "selector_version": getattr(init_report, "selector_version", None),
-            "profile_bootstrap_diagnostics": dict(
-                getattr(init_report, "profile_bootstrap_diagnostics", {}) or {}
-            ),
         },
         "inventory": {
             "path": str(inventory_path),

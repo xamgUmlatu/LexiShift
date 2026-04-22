@@ -1860,6 +1860,91 @@ class TestHelperEngineInitializeSrsSet(unittest.TestCase):
             self.assertTrue(result["rulegen"]["published"])
             self.assertTrue(result["rulegen"]["semantic_inventory_path"].endswith("en-ja.json"))
 
+    def test_initialize_set_omits_large_profile_bootstrap_diagnostics_from_response(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paths = build_helper_paths(root)
+            jmdict_dir = root / "jmdict"
+            jmdict_dir.mkdir(parents=True, exist_ok=True)
+            source_db = root / "freq.sqlite"
+            _create_frequency_db(source_db)
+
+            ranking_preview = [
+                {
+                    "lemma": f"lemma_{index}",
+                    "reranked_rank": index + 1,
+                    "base_rank": index + 1,
+                    "rank_delta": 0,
+                    "profile_score": 0.5,
+                    "explanation": "Kept near frequency order.",
+                }
+                for index in range(800)
+            ]
+
+            with (
+                patch(
+                    "lexishift_core.helper.engine.initialize_store_from_frequency_list_with_report",
+                    return_value=(
+                        SrsStore(items=tuple(), version=1),
+                        SimpleNamespace(
+                            selected_count=800,
+                            selected_unique_count=800,
+                            admitted_count=5,
+                            inserted_count=5,
+                            updated_count=0,
+                            selected_preview=tuple(
+                                entry["lemma"] for entry in ranking_preview[:10]
+                            ),
+                            initial_active_preview=tuple(
+                                entry["lemma"] for entry in ranking_preview[:5]
+                            ),
+                            admission_weight_profile={"noun": 1.0},
+                            initial_active_weight_preview=tuple(
+                                {
+                                    "lemma": entry["lemma"],
+                                    "admission_weight": 0.5,
+                                    "pos_bucket": "noun",
+                                }
+                                for entry in ranking_preview[:5]
+                            ),
+                            selection_strategy="profile_bootstrap",
+                            selection_policy="top_n",
+                            selector_version="profile_bootstrap_v3",
+                            profile_bootstrap_diagnostics={
+                                "profile_context": {"active_signals": ["interests"]},
+                                "ranking_preview": ranking_preview,
+                            },
+                        ),
+                    ),
+                ),
+                patch(
+                    "lexishift_core.helper.engine.run_rulegen_for_pair",
+                    return_value=(
+                        SrsStore(items=tuple(), version=1),
+                        SimpleNamespace(
+                            rules=tuple(),
+                            snapshot={"stats": {"target_count": 0, "rule_count": 0}},
+                            target_count=0,
+                        ),
+                    ),
+                ),
+                patch("lexishift_core.helper.engine.write_rulegen_outputs"),
+            ):
+                result = initialize_srs_set(
+                    paths,
+                    config=SetInitializationJobConfig(
+                        pair="en-ja",
+                        jmdict_path=jmdict_dir,
+                        set_source_db=source_db,
+                        strategy="profile_bootstrap",
+                        profile_context={"interests": ["animals"]},
+                    ),
+                )
+
+            bootstrap = result["bootstrap_diagnostics"]
+            self.assertNotIn("profile_bootstrap_diagnostics", bootstrap)
+            self.assertLess(len(json.dumps(result).encode("utf-8")), 50_000)
+
 
 class TestHelperEnginePlanSrsSet(unittest.TestCase):
     def test_plan_returns_signal_summary_and_strategy(self) -> None:
