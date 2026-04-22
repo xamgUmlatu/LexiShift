@@ -103,6 +103,9 @@
       setProfileStatusLocalized: (key, substitutions, fallback) => {
         profileStatusController.setLocalized(key, substitutions, fallback);
       },
+      setProfileStatusMessage: (message) => {
+        profileStatusController.setMessage(message);
+      },
       onProfileLanguagePrefsSync: async ({ items, profileId }) => {
         const languagePrefs = settingsManager.getProfileLanguagePrefs(items, { profileId });
         languagePrefsAdapter.applyLanguagePrefsToInputs(languagePrefs);

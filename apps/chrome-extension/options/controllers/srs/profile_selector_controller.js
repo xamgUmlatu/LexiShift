@@ -13,6 +13,9 @@
     const setProfileStatusLocalized = typeof opts.setProfileStatusLocalized === "function"
       ? opts.setProfileStatusLocalized
       : (() => {});
+    const setProfileStatusMessage = typeof opts.setProfileStatusMessage === "function"
+      ? opts.setProfileStatusMessage
+      : (() => {});
     const onProfileLanguagePrefsSync = typeof opts.onProfileLanguagePrefsSync === "function"
       ? opts.onProfileLanguagePrefsSync
       : (() => Promise.resolve());
@@ -45,9 +48,6 @@
     function renderProfileControls(selectedProfileId, helperProfilesPayload) {
       const resolvedProfileId = String(selectedProfileId || "default").trim() || "default";
       const helperItems = resolveHelperProfileItems(helperProfilesPayload);
-      const fallbackIds = [resolvedProfileId, "default"]
-        .map((value) => String(value || "").trim())
-        .filter(Boolean);
       const merged = [];
       const seen = new Set();
       for (const item of helperItems) {
@@ -57,12 +57,17 @@
         seen.add(item.profileId);
         merged.push(item);
       }
-      for (const profileId of fallbackIds) {
-        if (seen.has(profileId)) {
-          continue;
+      if (!helperItems.length) {
+        const fallbackIds = [resolvedProfileId, "default"]
+          .map((value) => String(value || "").trim())
+          .filter(Boolean);
+        for (const profileId of fallbackIds) {
+          if (seen.has(profileId)) {
+            continue;
+          }
+          seen.add(profileId);
+          merged.push({ profileId, name: profileId });
         }
-        seen.add(profileId);
-        merged.push({ profileId, name: profileId });
       }
 
       if (profileSelect) {
@@ -71,7 +76,9 @@
         merged.forEach((item) => {
           const option = document.createElement("option");
           option.value = item.profileId;
-          option.textContent = `${item.name} (${item.profileId})`;
+          option.textContent = item.name === item.profileId
+            ? item.name
+            : `${item.name} (${item.profileId})`;
           profileSelect.appendChild(option);
         });
         const fallbackValue = merged.length ? merged[0].profileId : "default";
@@ -81,11 +88,7 @@
         profileSelect.value = nextValue || "default";
         profileSelect.disabled = merged.length === 0;
       }
-      setProfileStatusLocalized(
-        "status_profile_selected",
-        [resolvedProfileId],
-        `Selected profile: ${resolvedProfileId}.`
-      );
+      setProfileStatusMessage("");
     }
 
     async function fetchHelperProfiles(options) {
