@@ -83,6 +83,7 @@ class SetInitializationReport:
     inserted_count: int
     updated_count: int
     selected_preview: Sequence[str]
+    selected_unique_lemmas: Sequence[str]
     initial_active_preview: Sequence[str]
     admission_weight_profile: Mapping[str, float]
     initial_active_weight_preview: Sequence[Mapping[str, object]]
@@ -330,6 +331,11 @@ def initialize_store_from_frequency_list_with_report(
         inserted_count=inserted_count,
         updated_count=updated_count,
         selected_preview=selected_preview,
+        selected_unique_lemmas=tuple(
+            str(selected.lemma).strip()
+            for selected in unique_selected_words
+            if str(selected.lemma).strip()
+        ),
         initial_active_preview=initial_active_preview,
         admission_weight_profile=resolved_pos_weights.to_dict(),
         initial_active_weight_preview=tuple(
@@ -535,6 +541,48 @@ def _normalize_optional_int(value: object) -> Optional[int]:
         return None
 
 
+def _build_rulegen_adapter_request(
+    *,
+    pair: str,
+    targets: Sequence[str],
+    rulegen_config: RulegenConfig,
+    jmdict_path: Optional[Path],
+    translation_dict_path: Optional[Path],
+    resolved_reverse_translation_dict_path: Optional[Path],
+    translation_packs_module: object,
+    word_packages_by_target: Optional[Mapping[str, Mapping[str, object]]] = None,
+) -> RulegenAdapterRequest:
+    return RulegenAdapterRequest(
+        pair=pair,
+        targets=targets,
+        language_pair=rulegen_config.language_pair,
+        confidence_threshold=rulegen_config.confidence_threshold,
+        max_definitions_per_target=rulegen_config.max_definitions_per_target,
+        max_rules_per_target=rulegen_config.max_rules_per_target,
+        semantic_demotion_scale=rulegen_config.semantic_demotion_scale,
+        include_variants=rulegen_config.include_variants,
+        allow_multiword_glosses=rulegen_config.allow_multiword_glosses,
+        scoring=rulegen_config.scoring,
+        reverse_check=rulegen_config.reverse_check,
+        gloss_decay=rulegen_config.gloss_decay,
+        enable_exact_gloss_demotions=rulegen_config.enable_exact_gloss_demotions,
+        jmdict_path=jmdict_path,
+        translation_pack=translation_packs_module.build_translation_pack_ref(
+            pair,
+            translation_dict_path,
+            direction=translation_packs_module.FORWARD_PACK_DIRECTION,
+        ),
+        translation_dict_path=translation_dict_path,
+        reverse_translation_pack=translation_packs_module.build_translation_pack_ref(
+            pair,
+            resolved_reverse_translation_dict_path,
+            direction=translation_packs_module.REVERSE_PACK_DIRECTION,
+        ),
+        reverse_translation_dict_path=resolved_reverse_translation_dict_path,
+        word_packages_by_target=word_packages_by_target,
+    )
+
+
 def run_rulegen_for_pair(
     *,
     paths: HelperPaths,
@@ -548,6 +596,7 @@ def run_rulegen_for_pair(
     rulegen_config: Optional[RulegenConfig] = None,
     targets_override: Optional[Sequence[str]] = None,
     active_item_ids: Optional[Sequence[str]] = None,
+    semantic_context_targets: Optional[Sequence[str]] = None,
     initialize_if_empty: bool = True,
     persist_store: bool = True,
 ) -> tuple[SrsStore, RulegenOutput]:
@@ -588,33 +637,14 @@ def run_rulegen_for_pair(
         resolved_reverse_translation_dict_path = None
     translation_packs_module = _load_translation_packs_module()
     results = run_results_with_adapter(
-        RulegenAdapterRequest(
+        _build_rulegen_adapter_request(
             pair=pair,
             targets=targets,
-            language_pair=rulegen_config.language_pair,
-            confidence_threshold=rulegen_config.confidence_threshold,
-            max_definitions_per_target=rulegen_config.max_definitions_per_target,
-            max_rules_per_target=rulegen_config.max_rules_per_target,
-            semantic_demotion_scale=rulegen_config.semantic_demotion_scale,
-            include_variants=rulegen_config.include_variants,
-            allow_multiword_glosses=rulegen_config.allow_multiword_glosses,
-            scoring=rulegen_config.scoring,
-            reverse_check=rulegen_config.reverse_check,
-            gloss_decay=rulegen_config.gloss_decay,
-            enable_exact_gloss_demotions=rulegen_config.enable_exact_gloss_demotions,
+            rulegen_config=rulegen_config,
             jmdict_path=jmdict_path,
-            translation_pack=translation_packs_module.build_translation_pack_ref(
-                pair,
-                translation_dict_path,
-                direction=translation_packs_module.FORWARD_PACK_DIRECTION,
-            ),
             translation_dict_path=translation_dict_path,
-            reverse_translation_pack=translation_packs_module.build_translation_pack_ref(
-                pair,
-                resolved_reverse_translation_dict_path,
-                direction=translation_packs_module.REVERSE_PACK_DIRECTION,
-            ),
-            reverse_translation_dict_path=resolved_reverse_translation_dict_path,
+            resolved_reverse_translation_dict_path=resolved_reverse_translation_dict_path,
+            translation_packs_module=translation_packs_module,
             word_packages_by_target=target_word_packages or None,
         )
     )
@@ -632,6 +662,42 @@ def run_rulegen_for_pair(
         profile_id=profile_id,
         generated_at=str(snapshot.get("generated_at") or ""),
     )
+    normalized_semantic_context_targets = tuple(
+        dict.fromkeys(
+            str(target).strip()
+            for target in (semantic_context_targets or ())
+            if str(target).strip()
+        )
+    )
+    normalized_targets = tuple(str(target).strip() for target in targets if str(target).strip())
+    if (
+        normalized_semantic_context_targets
+        and normalized_semantic_context_targets != normalized_targets
+    ):
+        context_results = run_results_with_adapter(
+            _build_rulegen_adapter_request(
+                pair=pair,
+                targets=normalized_semantic_context_targets,
+                rulegen_config=rulegen_config,
+                jmdict_path=jmdict_path,
+                translation_dict_path=translation_dict_path,
+                resolved_reverse_translation_dict_path=resolved_reverse_translation_dict_path,
+                translation_packs_module=translation_packs_module,
+            )
+        )
+        context_inventory = semantic_publication_module.build_semantic_inventory_from_results(
+            results=context_results,
+            pair=pair,
+            profile_id=profile_id,
+            generated_at=str(snapshot.get("generated_at") or ""),
+        )
+        rules, semantic_inventory = (
+            semantic_publication_module.merge_semantic_publication_with_context_inventory(
+                rules=rules,
+                primary_inventory=semantic_inventory,
+                context_inventory=context_inventory,
+            )
+        )
     if persist_store and updated_store is not store:
         save_srs_store(updated_store, paths.srs_store_path_for(profile_id))
     return updated_store, RulegenOutput(

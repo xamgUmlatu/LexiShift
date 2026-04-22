@@ -20,7 +20,7 @@ This checklist is for the first controlled `en-es` launch shape only:
 - rule origin: SRS-origin rules only
 - semantic gate state: automatic when the selected pair/profile publication has active ready coverage
 - artifact transport: local helper files plus extension cache fallback
-- published `status=ready` rows: only the current batch-local `emitted_rule_siblings` PoC when real sibling senses co-occur in the same emitted batch
+- published `status=ready` rows: only the current helper-side `emitted_rule_siblings` PoC when real sibling senses are available in the active emitted ruleset or the broader initialize/refresh semantic-context pool
 - runtime action: `replace` or keep original text
 
 Not in scope for this checklist:
@@ -38,7 +38,7 @@ Not in scope for this checklist:
 When semantic admission is active today, the runtime path is:
 
 1. helper publication writes SRS rules plus semantic inventory sidecar for a pair/profile
-2. current `en-es` `status=ready` coverage comes only from batch-local emitted-sibling competition sets when real sibling senses appear in the same emitted result batch
+2. current `en-es` `status=ready` coverage comes from emitted-sibling competition sets built from the active emitted rules plus the broader helper-side initialize/refresh semantic-context pool
 3. extension loads rules and semantic inventory from helper, with extension cache as fallback
 4. extension finds normal trie matches first
 5. only SRS matches that already carry `rule.metadata.semantic_admission` are semantically eligible
@@ -69,7 +69,7 @@ Before enabling the pilot for any profile:
 
 - the helper can publish an `en-es` ruleset containing nonzero `metadata.semantic_admission` coverage
 - the helper can publish an `en-es` semantic inventory sidecar for the same profile
-- the helper can publish a nonzero emitted-sibling `status=ready` subset for the pilot profile, or the launch owner explicitly accepts that the pilot is only exercising fallback behavior
+- the helper can publish a nonzero emitted-sibling `status=ready` subset for the pilot profile from the active rules plus the broader initialize/refresh semantic-context pool, or the launch owner explicitly accepts that the pilot is only exercising fallback behavior
 - the extension can reach the helper/native-host on the target machine
 - the active policy id and sidecar schema version are frozen for the pilot batch
 
@@ -152,7 +152,7 @@ Artifact rollback:
 
 These limits should stay explicit during launch:
 
-- published `en-es` competition sets are still the current conservative batch-local emitted-sibling PoC, not a solved fully-general miner or LP-parity-ready blocker inventory
+- published `en-es` competition sets are still the current conservative helper-side emitted-sibling PoC, not a solved fully-general miner or LP-parity-ready blocker inventory
 - phrase-set publication is not populated yet, so phrase preemption does not rely on published phrase inventories
 - `soft_affordance` exists in contracts and policy outputs, but the browser currently treats non-`replace` outcomes as keep-original
 - extension launch readiness does not prove chat/plugin readiness

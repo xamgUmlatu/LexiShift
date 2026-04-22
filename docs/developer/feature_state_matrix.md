@@ -820,8 +820,8 @@ Use this file when:
 ## Semantic Routing Runtime Admission Layer
 
 - Status: `implemented`, `default-on-when-capable`, `verified`
-- Last documented checkpoint: `2026-04-22` removed the user-facing semantic-admission toggle and fallback selector from normal options UX, added helper/runtime capability state, and made the browser runtime auto-enable semantic admission only when the selected pair/profile publication has real ready coverage
-- Last verified: `2026-04-22` targeted helper diagnostics, extension runtime/diagnostics, options formatting, and settings-controller tests plus doc/state checks confirmed the new capability-driven contract while keeping the `en-es` ready-publication boundary explicit
+- Last documented checkpoint: `2026-04-22` removed the user-facing semantic-admission toggle and fallback selector from normal options UX, added helper/runtime capability state, and updated `en-es` helper publication so initialize/refresh can overlay broader semantic context onto the active ruleset without widening the visible SRS ruleset
+- Last verified: `2026-04-22` targeted helper/rulegen/publication tests plus SRS quality and doc/state checks confirmed the capability-driven contract and the new `en-es` broader-context ready-publication seam while keeping the non-shadow-mined boundary explicit
 - Default behavior:
   - Semantic admission is no longer a normal user preference. The browser runtime auto-uses helper-side semantic admission only when the current pair/profile publication is actually capable of real semantic decisioning.
   - If a pair/profile has semantic metadata but no ready subset yet, LexiShift stays on standard SRS replacement behavior instead of asking the user to choose a fallback posture.
@@ -853,9 +853,9 @@ Use this file when:
     - non-ready eligible matches still resolve locally through the shipped internal legacy fallback posture
     - runtime replaces only `replace` decisions and keeps the original otherwise
   - `en-es` now has a narrow publication PoC:
-    - if real sibling senses for the same trigger are present in the same emitted result batch, `metadata.semantic_admission.status` can be promoted to `ready`
+    - if real sibling senses for the same trigger are present either in the active emitted ruleset or in the broader initialize/refresh semantic-context pool, `metadata.semantic_admission.status` can be promoted to `ready` for the active rules without widening the visible SRS ruleset
     - the semantic inventory then publishes `competition_sets` with `selection_mode=automatic` and `selection_policy_version=en_es_emitted_rule_siblings_v1`
-  - That PoC is intentionally limited to emitted siblings already present in the batch; it is not broad shadow mining, phrase-preemption publication, or LP-parity runtime readiness.
+  - That PoC is intentionally limited to emitted siblings reachable from helper-side initialize/refresh context; it is not broad shadow mining, phrase-preemption publication, or LP-parity runtime readiness.
   - `en-es` now also has a research-only shadow inventory path:
     - `scripts/testing/semantic_shadow_inventory_en_es.py` mines sibling candidates from reviewed benchmark trigger phrases plus installed translation packs
     - `scripts/testing/semantic_shadow_inventory_triage_en_es.py` scores the resulting preview into `benchmark_aligned`, `same_pos_only`, and `no_promotion` buckets
@@ -1067,8 +1067,8 @@ Use this file when:
     - `en-es` / `en-de`: source-sense provenance first, with translation-gloss fallback
     - `de-en` / `es-en`: deterministic translation-gloss locator (currently FreeDict-backed)
     - `en-ja`: deterministic JMDict entry locator
-  - `en-es` can now emit `status=ready` in the explicit batch-local `emitted_rule_siblings` PoC mode, but that is still narrower than true shadow promotion and should not be read as end-to-end runtime readiness or LP parity.
-  - Helper publication can now generate a semantic inventory sidecar with pair capability summary, and `en-es` can publish ready competition sets in that batch-local PoC, but current default output still does not include mined shadow sets or phrase-preemption inventory.
+  - `en-es` can now emit `status=ready` in the explicit helper-side broader-context `emitted_rule_siblings` PoC mode, but that is still narrower than true shadow promotion and should not be read as end-to-end runtime readiness or LP parity.
+  - Helper publication can now generate a semantic inventory sidecar with pair capability summary, and `en-es` can publish ready competition sets in that helper-side broader-context PoC, but current default output still does not include mined shadow sets or phrase-preemption inventory.
   - The first live `en-es` shadow inventory artifact proves that broad sibling mining is feasible, but its current promoted-shadow preview is still too noisy to serve as a runtime blocker set.
   - The new sentence-level runtime-veto harness is still intentionally small and curated:
     - only `en-es` is covered today

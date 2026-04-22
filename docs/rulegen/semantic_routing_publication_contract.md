@@ -384,7 +384,7 @@ LP-specific locator details stay nested in:
 Good:
 
 - `en-es` emits a `sense_provenance`-backed pointer
-- `en-es` can publish a limited `emitted_rule_siblings` competition set when real sibling senses are present in the same emitted batch
+- `en-es` can publish a limited `emitted_rule_siblings` competition set when real sibling senses are present either in the active emitted ruleset or in the broader helper-side initialize/refresh semantic-context pool that publication overlays onto the active ruleset
 - `de-en` emits a `translation_gloss`-backed pointer (currently FreeDict-backed)
 - `en-ja` emits a `jmdict_entry`-backed pointer
 
@@ -404,12 +404,12 @@ The lowest-risk order remains:
 5. helper publication for the sidecar
 6. helper publication diagnostics plus joined options/runtime visibility for pointer + sidecar coverage
 7. generation-aligned publication manifest plus reset cleanup
-8. narrow batch-local `status=ready` rollout for emitted siblings in the strongest current LP only
+8. narrow helper-side broader-context `status=ready` rollout for emitted siblings in the strongest current LP only
 
 Current checkpoint:
 
 - steps `1` through `7` are now landed
-- step `8` is landed only as a narrow `en-es` batch-local emitted-sibling publication PoC, not as broad shadow-mined runtime readiness or LP-parity readiness
+- step `8` is landed only as a narrow `en-es` helper-side broader-context emitted-sibling publication PoC, not as broad shadow-mined runtime readiness or LP-parity readiness
 
 ## Current Acceptance Bar
 
@@ -428,5 +428,5 @@ What this does not yet prove:
 
 - broad publishable shadow-mined competition sets
 - phrase-preemption publication
-- LP-parity ready publication beyond the current `en-es` batch-local PoC
+- LP-parity ready publication beyond the current `en-es` helper-side broader-context PoC
 - production-ready semantic scoring defaults

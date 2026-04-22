@@ -216,6 +216,11 @@ def initialize_srs_set(
             enable_exact_gloss_demotions=(effective_rulegen_tuning.enable_exact_gloss_demotions),
         ),
         active_item_ids=active_item_ids,
+        semantic_context_targets=tuple(
+            str(lemma).strip()
+            for lemma in getattr(init_report, "selected_unique_lemmas", ()) or ()
+            if str(lemma).strip()
+        ),
         initialize_if_empty=False,
         persist_store=False,
     )

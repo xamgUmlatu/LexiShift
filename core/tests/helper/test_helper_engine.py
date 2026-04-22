@@ -1817,6 +1817,7 @@ class TestHelperEngineInitializeSrsSet(unittest.TestCase):
                             inserted_count=2,
                             updated_count=0,
                             selected_preview=("alpha", "gamma"),
+                            selected_unique_lemmas=("alpha", "gamma"),
                             initial_active_preview=("alpha", "gamma"),
                         ),
                     ),
@@ -1840,6 +1841,10 @@ class TestHelperEngineInitializeSrsSet(unittest.TestCase):
             self.assertEqual(
                 tuple(run_rulegen_patch.call_args.kwargs["active_item_ids"]),
                 ("en-ja:alpha", "en-ja:gamma"),
+            )
+            self.assertEqual(
+                tuple(run_rulegen_patch.call_args.kwargs["semantic_context_targets"]),
+                ("alpha", "gamma"),
             )
             self.assertEqual(
                 write_outputs_patch.call_args.kwargs["semantic_inventory"],
@@ -2521,6 +2526,10 @@ class TestHelperEngineFeedbackCycle(unittest.TestCase):
             self.assertEqual(
                 tuple(run_rulegen_patch.call_args.kwargs["active_item_ids"]),
                 ("en-ja:alpha", "en-ja:beta", "en-ja:gamma"),
+            )
+            self.assertEqual(
+                tuple(run_rulegen_patch.call_args.kwargs["semantic_context_targets"]),
+                ("alpha", "beta", "gamma"),
             )
 
             rulegen_payload = result.get("rulegen")

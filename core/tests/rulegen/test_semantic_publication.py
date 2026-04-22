@@ -14,6 +14,7 @@ from lexishift_core.rulegen.generation import RuleCandidate  # noqa: E402
 from lexishift_core.rulegen.semantic_publication import (  # noqa: E402
     annotate_results_with_semantic_admission,
     build_semantic_inventory_from_results,
+    merge_semantic_publication_with_context_inventory,
 )
 
 
@@ -190,6 +191,62 @@ class TestSemanticPublication(unittest.TestCase):
         for record in inventory["competition_sets"].values():
             self.assertEqual(record["status"], "unavailable")
             self.assertEqual(record["reason_code"], "missing_shadow_selection")
+
+    def test_merge_semantic_publication_uses_ready_context_without_widening_ruleset(self) -> None:
+        primary_results = (
+            _build_en_es_result(
+                source_phrase="ball",
+                replacement="pelota",
+                entry_ord=20,
+                sense_ord=0,
+            ),
+        )
+        context_results = (
+            _build_en_es_result(
+                source_phrase="ball",
+                replacement="pelota",
+                entry_ord=20,
+                sense_ord=0,
+            ),
+            _build_en_es_result(
+                source_phrase="ball",
+                replacement="baile",
+                entry_ord=21,
+                sense_ord=0,
+            ),
+        )
+        primary_inventory = build_semantic_inventory_from_results(
+            results=primary_results,
+            pair="en-es",
+            profile_id="default",
+            generated_at="2026-04-10T00:00:00Z",
+        )
+        context_inventory = build_semantic_inventory_from_results(
+            results=context_results,
+            pair="en-es",
+            profile_id="default",
+            generated_at="2026-04-10T00:00:00Z",
+        )
+
+        merged_rules, merged_inventory = merge_semantic_publication_with_context_inventory(
+            rules=tuple(result.rule for result in primary_results),
+            primary_inventory=primary_inventory,
+            context_inventory=context_inventory,
+        )
+
+        self.assertEqual(len(merged_rules), 1)
+        merged_admission = merged_rules[0].metadata.semantic_admission
+        assert isinstance(merged_admission, dict)
+        self.assertEqual(merged_admission["status"], "ready")
+        self.assertNotIn("reason_code", merged_admission)
+        self.assertEqual(len(merged_inventory["competition_sets"]), 1)
+        merged_competition_set = next(iter(merged_inventory["competition_sets"].values()))
+        self.assertEqual(merged_competition_set["status"], "ready")
+        self.assertEqual(
+            merged_competition_set["selection_policy_version"], "en_es_emitted_rule_siblings_v1"
+        )
+        self.assertEqual(len(merged_competition_set["shadow_sense_ids"]), 1)
+        self.assertEqual(len(merged_inventory["senses"]), 2)
 
     def test_de_en_missing_gloss_index_reports_translation_gloss_reason_code(self) -> None:
         results = annotate_results_with_semantic_admission(

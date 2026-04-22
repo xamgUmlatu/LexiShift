@@ -110,6 +110,13 @@ def refresh_srs_set(
             require_jmdict=capability.requires_jmdict_for_seed,
         ),
     )
+    semantic_context_targets = tuple(
+        dict.fromkeys(
+            str(getattr(seed, "lemma", "")).strip()
+            for seed in selection
+            if str(getattr(seed, "lemma", "")).strip()
+        )
+    )
     selector_candidates = seed_to_selector_candidates(selection)
     signal_events = load_signal_events(paths.srs_signal_queue_path_for(profile_id))
     allowed_pos = _normalize_allowed_pos(getattr(config, "allowed_pos", None))
@@ -190,6 +197,7 @@ def refresh_srs_set(
                 ),
             ),
             active_item_ids=active_item_ids,
+            semantic_context_targets=semantic_context_targets,
             initialize_if_empty=False,
             persist_store=False,
         )

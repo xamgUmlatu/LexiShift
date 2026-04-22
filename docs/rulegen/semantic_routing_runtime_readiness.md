@@ -412,7 +412,7 @@ The verified current behavior is:
 
 | LP / pair | Candidate-level sense evidence | Emitted rule-level sense pointer |
 |---|---|---|
-| `en-es` | rich candidate metadata can include `dictionary_record`, `dictionary_record_views`, `gloss_provenance`, `sense_provenance`, `target_provenance`, and shadow-risk metadata | shared `metadata.semantic_admission` is emitted by default adapter/helper paths; it carries stable `trigger_id`, `sense_id`, and `competition_set_id` using `sense_provenance` first and `translation_gloss` fallback, and it now has a narrow batch-local `status=ready` PoC when real sibling senses are present in the same emitted batch (`competition_mode=emitted_rule_siblings`), not a broad mined blocker set |
+| `en-es` | rich candidate metadata can include `dictionary_record`, `dictionary_record_views`, `gloss_provenance`, `sense_provenance`, `target_provenance`, and shadow-risk metadata | shared `metadata.semantic_admission` is emitted by default adapter/helper paths; it carries stable `trigger_id`, `sense_id`, and `competition_set_id` using `sense_provenance` first and `translation_gloss` fallback, and it now has a narrow helper-side `status=ready` PoC when real sibling senses are present either in the active emitted ruleset or in the broader initialize/refresh semantic-context pool overlaid onto that ruleset (`competition_mode=emitted_rule_siblings`), not a broad mined blocker set |
 | `en-de` | same general shape as `en-es` for Kaikki/provenance-aware candidate generation | shared `metadata.semantic_admission` is emitted by default adapter/helper paths; it can now carry stable `trigger_id`, `sense_id`, and `competition_set_id` using `sense_provenance` first and `translation_gloss` fallback, but currently stays `status=unavailable` because shadow promotion is not solved yet |
 | `en-ja` | no analogous rich sense-provenance layer today; candidate metadata is mostly gloss order, POS, script forms, and word-package information | shared `metadata.semantic_admission` is emitted by default adapter/helper paths and can now carry a stable `jmdict_entry`-backed active pointer derived from target forms, but it still stays `status=unavailable` because shadow promotion is not solved and the pointer is coarser than source-sense provenance |
 | `de-en` | candidate metadata is mostly gloss order and POS | shared `metadata.semantic_admission` is emitted by default adapter/helper paths and can now carry a stable `translation_gloss`-backed active pointer derived from deterministic gloss order, but it still stays `status=unavailable` because shadow promotion is not solved |
@@ -434,7 +434,7 @@ What is true today is weaker:
   - `en-es` / `en-de`: richest, source-sense provenance first
   - `de-en` / `es-en`: deterministic FreeDict gloss-slot locator
   - `en-ja`: deterministic JMDict entry locator
-- `en-es` now also has a first narrow batch-local competition-set publication PoC that can emit `status=ready` from real emitted sibling senses,
+- `en-es` now also has a first narrow helper-side broader-context competition-set publication PoC that can emit `status=ready` from real emitted sibling senses while keeping the visible ruleset limited to active items,
 - helper publication can now emit a minimal semantic inventory sidecar,
 - but no LP yet emits a fully ready competition/shadow set by default.
 

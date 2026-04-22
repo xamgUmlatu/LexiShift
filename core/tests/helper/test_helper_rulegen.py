@@ -19,6 +19,11 @@ from lexishift_core.helper.rulegen import (  # noqa: E402
     run_rulegen_for_pair,
 )
 from lexishift_core.helper.paths import build_helper_paths  # noqa: E402
+from lexishift_core.replacement.core import RuleMetadata, VocabRule  # noqa: E402
+from lexishift_core.rulegen.generation import RuleCandidate  # noqa: E402
+from lexishift_core.rulegen.semantic_publication import (  # noqa: E402
+    annotate_results_with_semantic_admission,
+)
 from lexishift_core.srs import SrsItem, SrsStore  # noqa: E402
 
 
@@ -49,6 +54,10 @@ class TestHelperRulegenInitialization(unittest.TestCase):
         self.assertEqual(report.admitted_count, 2)
         self.assertEqual(report.inserted_count, 2)
         self.assertEqual(report.updated_count, 0)
+        self.assertEqual(
+            tuple(report.selected_unique_lemmas),
+            ("alpha", "beta", "gamma", "delta", "epsilon"),
+        )
         self.assertEqual(tuple(report.initial_active_preview), ("alpha", "beta"))
 
     def test_deduplicates_before_admission(self) -> None:
@@ -288,6 +297,112 @@ class TestHelperRulegenInitialization(unittest.TestCase):
         self.assertTrue(request.scoring.pos_match.enabled)
         self.assertAlmostEqual(request.scoring.weights.pos_match, 0.1, places=6)
         self.assertFalse(request.reverse_check.enabled)
+
+    def test_run_rulegen_for_pair_can_upgrade_primary_rules_from_semantic_context_targets(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paths = build_helper_paths(root)
+            store = SrsStore(
+                items=(
+                    SrsItem(
+                        item_id="en-es:pelota",
+                        lemma="pelota",
+                        language_pair="en-es",
+                        source_type="initial_set",
+                    ),
+                ),
+                version=1,
+            )
+            primary_results = annotate_results_with_semantic_admission(
+                [
+                    _build_semantic_result(
+                        source_phrase="ball",
+                        replacement="pelota",
+                        entry_ord=20,
+                        sense_ord=0,
+                    ),
+                ]
+            )
+            context_results = annotate_results_with_semantic_admission(
+                [
+                    _build_semantic_result(
+                        source_phrase="ball",
+                        replacement="pelota",
+                        entry_ord=20,
+                        sense_ord=0,
+                    ),
+                    _build_semantic_result(
+                        source_phrase="ball",
+                        replacement="baile",
+                        entry_ord=21,
+                        sense_ord=0,
+                    ),
+                ]
+            )
+            with patch(
+                "lexishift_core.helper.rulegen.run_results_with_adapter",
+                side_effect=(primary_results, context_results),
+            ) as run_results:
+                _updated_store, output = run_rulegen_for_pair(
+                    paths=paths,
+                    pair="en-es",
+                    store=store,
+                    settings=None,
+                    translation_dict_path=Path("/tmp/freedict-es-en.sqlite"),
+                    rulegen_config=RulegenConfig(language_pair="en-es"),
+                    initialize_if_empty=False,
+                    persist_store=False,
+                    semantic_context_targets=("pelota", "baile"),
+                )
+
+        self.assertEqual(run_results.call_count, 2)
+        primary_request = run_results.call_args_list[0].args[0]
+        context_request = run_results.call_args_list[1].args[0]
+        self.assertEqual(tuple(primary_request.targets), ("pelota",))
+        self.assertEqual(tuple(context_request.targets), ("pelota", "baile"))
+        merged_admission = output.rules[0].metadata.semantic_admission
+        assert isinstance(merged_admission, dict)
+        self.assertEqual(merged_admission["status"], "ready")
+        self.assertEqual(len(output.semantic_inventory["competition_sets"]), 1)
+        competition_set = next(iter(output.semantic_inventory["competition_sets"].values()))
+        self.assertEqual(competition_set["status"], "ready")
+
+
+def _build_semantic_result(
+    *,
+    source_phrase: str,
+    replacement: str,
+    entry_ord: int,
+    sense_ord: int,
+) -> SimpleNamespace:
+    return SimpleNamespace(
+        candidate=RuleCandidate(
+            source_phrase=source_phrase,
+            replacement=replacement,
+            language_pair="en-es",
+            source_dict="wiktionary_es_en",
+            metadata={
+                "sense_provenance": {
+                    "entry_ord": entry_ord,
+                    "sense_ord": sense_ord,
+                    "gloss_ord": 0,
+                    "sense_raw_glosses": (f"{replacement} sense",),
+                },
+                "gloss_provenance": {
+                    "raw_gloss_text": f"{source_phrase} -> {replacement}",
+                    "fragment_emitted_text": source_phrase,
+                },
+            },
+        ),
+        rule=VocabRule(
+            source_phrase=source_phrase,
+            replacement=replacement,
+            metadata=RuleMetadata(language_pair="en-es"),
+        ),
+        confidence=0.9,
+    )
 
 
 if __name__ == "__main__":
