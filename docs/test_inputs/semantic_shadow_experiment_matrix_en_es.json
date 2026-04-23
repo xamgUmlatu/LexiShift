@@ -195,6 +195,35 @@
       }
     },
     {
+      "experiment_id": "promotion_triplet_core_bonus",
+      "label": "Borrowed baseline with multi-source 1.5 plus triplet core bonus 1.0",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "shadow_support_weights": {
+        "multi_source_candidate_support": 1.5,
+        "triplet_core_bonus": 1.0
+      }
+    },
+    {
+      "experiment_id": "promotion_triplet_forward_bonus",
+      "label": "Borrowed baseline with multi-source 1.5 plus triplet core 1.0 and forward bonus 0.5",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "shadow_support_weights": {
+        "multi_source_candidate_support": 1.5,
+        "triplet_core_bonus": 1.0,
+        "triplet_forward_bonus": 0.5
+      }
+    },
+    {
+      "experiment_id": "promotion_triplet_bridge_guard_bonus",
+      "label": "Borrowed baseline with multi-source 1.5 plus triplet core 1.0 and bridge-guard bonus 1.0",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "shadow_support_weights": {
+        "multi_source_candidate_support": 1.5,
+        "triplet_core_bonus": 1.0,
+        "triplet_bridge_guard_bonus": 1.0
+      }
+    },
+    {
       "experiment_id": "promotion_multi_source_candidate_2",
       "label": "Borrowed baseline with multi-source candidate support 2.0",
       "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",

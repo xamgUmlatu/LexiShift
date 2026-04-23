@@ -2,7 +2,7 @@
 
 Status: active ledger
 Role: Canonical current
-Last updated: 2026-04-21
+Last updated: 2026-04-23
 Source-of-truth: cross-cutting state ledger; runtime truth still lives in code, tests, and dated evidence artifacts.
 
 Purpose:
@@ -959,19 +959,36 @@ Use this file when:
   - The repo now also has a research-only sentence-level runtime-veto harness:
     - `scripts/testing/semantic_routing_sentence_veto_harness.py` evaluates one fixed active-vs-shadow scorer configuration over a curated sentence dataset
     - `scripts/testing/semantic_routing_sentence_veto_sweep.py` sweeps scorer family, context view, evidence view, and threshold ladders over that same fixed dataset
-    - the current `en-es` starter dataset lives at `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v2.json`
+    - the current `en-es` fixed-shadow evaluation dataset lives at `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v9.json`
     - this harness explicitly measures runtime-scoring quality separately from upstream shadow-mining quality
     - the default sweep stays on the cheap lexical scorer family, while `sentence_transformer_cosine` is available as an explicit heavier model-choice lane
-    - the shipped `en-es` helper runtime now also defaults to the lexical gate via `en_es_sentence_veto_v2` (`tfidf_cosine + masked_sentence + all_evidence_text + min_active=0.05 + min_margin=0.00`); the older sentence-transformer policy remains explicit-only for model-choice comparisons
+    - the shipped `en-es` helper runtime now defaults to the bounded sentence-transformer gate via `en_es_sentence_veto_v3` (`sentence_transformer_cosine + masked_sentence + all_evidence_text + min_active=0.00 + min_margin=0.00`); the lexical `en_es_sentence_veto_v2` row remains the explicit conservative control
   - First current lexical result on that harness:
     - the original higher threshold ladder (`min_active >= 0.25`) collapses to total abstention
     - once the sweep includes `min_active_score=0.00` and `0.05`, the best current lexical row is `tfidf_cosine + masked_sentence + all_evidence_text + min_active=0.05 + min_margin=0.00`
-    - on the expanded `v2` dataset, that row reaches `77.5%` decision accuracy with `0.0%` harmful replace, `100.0%` replace precision, and `43.8%` replace recall on the current 40-case curated dataset
+    - on the expanded `v9` dataset, that row reaches `73.3%` decision accuracy with `0.0%` harmful replace, `100.0%` replace precision, and `33.3%` replace recall on the current 90-case curated dataset
   - First current model-choice result on that harness:
-    - the current multilingual default sentence-transformer row is now best understood as a ranking win, not a gate win, on the expanded `v2` dataset
-    - best current multilingual row is `masked_sentence + all_evidence_text + min_active=0.00 + min_margin=0.15`
-    - that row reaches `75.0%` decision accuracy with `0.0%` harmful replace, `100.0%` replace precision, `37.5%` replace recall, `93.8%` winner accuracy, and `100.0%` shadow-winner accuracy
-    - first English-centric challenger `sentence-transformers/all-MiniLM-L6-v2` is worse as a gate on `v2`, at `67.5%` decision accuracy and `18.8%` replace recall
+    - the shipped `v3` sentence-transformer default is still the bounded runtime experiment, but the active `v9` evaluation slice still does not show a clean hard-replace story
+    - on `v9`, the same `masked_sentence + all_evidence_text + noun_family_frame_guard + sense_label_near_tie_active_rescue + min_active=0.00 + min_margin=0.00` row reaches `91.1%` decision accuracy with `1.9%` harmful replace, `96.7%` replace precision, `80.6%` replace recall, `90.3%` winner accuracy, and `100.0%` shadow-winner accuracy
+    - the current hard errors on the fixed-shadow `v9` slice are:
+      - harmful replace: `en-es:sentence-veto:play:005`
+      - false abstains: `en-es:sentence-veto:plant:002`, `en-es:sentence-veto:park:001`, `en-es:sentence-veto:drink:002`, `en-es:sentence-veto:play:002`, `en-es:sentence-veto:check:002`, `en-es:sentence-veto:order:002`, `en-es:sentence-veto:trip:002`
+    - the best zero-noise soft ladder still stays small:
+      - it recovers `plant:002`, `drink:002`, `order:002`, and `trip:002`
+      - it still does not remove the `park`, `play`, or `check` residue
+    - the widened rescue overlay also remains non-clean on `v9`, because the same `play:005` row remains harmful
+    - first English-centric challenger `sentence-transformers/all-MiniLM-L6-v2` remains worse as a gate than the multilingual default lane
+    - `trip` does not reopen the phrase-leak seam on the current strong runtime row; `trip up` is already safely abstained, while `trip:002` joins `check:002` and `order:002` as held-out weak-active-support residue
+    - the current testing-only phrase-leak probe now isolates a stronger bounded candidate:
+      - active-sense noun phrase guarding on mixed noun/verb families
+      - it removes `play:005` on both the hard row and the widened overlay
+      - it now also cleanly phrase-preempts `watch:005`, `check:005`, `order:005`, and `trip:005`
+      - it preserves the existing rescue wins
+      - the held-out review is now more precise:
+        - the active-sense hard lane removes the harmful replace ceiling without improving the conservative hard corridor
+        - the active-sense overlay removes the harmful replace ceiling without giving back the current overlay corridor
+      - so the active-sense overlay is now the preferred bounded experiment, but this is still an evaluation/reference candidate rather than a shipped policy change
+    - current runtime-eval frontier is therefore no longer phrase-leak diagnosis by itself; it is resumed held-out family growth plus corridor tightening against the frozen hard reference and the accepted active-sense overlay experiment, with `check:002`, `order:002`, and `trip:002` as the current held-out weak-active-support residue
   - Before any rollout, the project still needs:
     - active-sense provenance carried from rulegen into runtime-consumable metadata
     - automatic sibling-shadow candidate mining and a small promotion policy

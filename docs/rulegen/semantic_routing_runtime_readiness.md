@@ -2,8 +2,8 @@
 
 Status: active mixed readiness
 Role: Mixed
-Last updated: 2026-04-22
-Last verified: 2026-04-22 capability-driven runtime-gating reconciliation against the shipped extension runtime, helper diagnostics, and options status UX
+Last updated: 2026-04-23
+Last verified: 2026-04-23 runtime-eval truth pass against the current fixed-shadow artifacts, held-out bound, phrase-leak probe, and canonical state docs
 Purpose: describe the current shipped semantic-routing runtime seam and the remaining readiness boundary so rollout work stays grounded in executable behavior instead of research-only optimism
 Source-of-truth: mixed as-is + readiness boundary; current runtime truth still lives in code, tests, and `docs/developer/feature_state_matrix.md`
 Verification:
@@ -63,6 +63,41 @@ This asymmetry should shape both the research program and the eventual runtime p
 - Treat `docs/rulegen/semantic_shadow_testing_architecture.md` as the authority for detailed artifact filenames and research workflow lanes; this doc should summarize what the current evidence means, not carry the full artifact directory listing in the prose.
 - Treat `What Is Still Missing For True End-To-End Automatic Semantic Routing` and `Runtime Readiness Floor` as the remaining readiness boundary.
 - Use the roadmap for implementation sequencing and the checklist for launch operation; this doc should not be used as a step-by-step plan.
+
+## What Progress Means Here
+
+Not every semantic-routing improvement is the same kind of improvement.
+When reading new results, keep these axes separate:
+
+- upstream blocker generation:
+  - did the system mine and promote the right shadow competitors at all
+- runtime discrimination:
+  - given the right fixed competition set, did scoring choose the correct active-vs-shadow outcome
+- phrase / frame containment:
+  - did the system correctly identify lexicalized-expression or frame cases that should not be treated as ordinary sense competition
+- decision-policy shape:
+  - how the score geometry is mapped into `replace`, `soft_affordance`, and `abstain`
+- confidence tightening:
+  - how conservative the held-out floor / ceiling corridor is, not just the point estimate
+- research machinery:
+  - whether the repo can reproduce, isolate, and explain a failure class cleanly
+
+This matters because a turn can be real progress even when the headline score does not improve.
+
+Common examples:
+
+- a new held-out family can lower the visible metrics while still improving the project, because it exposes a real failure class that was previously hidden
+- a cleaner failure taxonomy can be progress even before a runtime row improves
+- a bounded experimental overlay can improve understanding without being ready for shipped policy
+
+So the current campaign should not be read as one scalar optimization problem.
+It is a coordinated effort to improve:
+
+1. blocker-generation quality,
+2. runtime score separation,
+3. phrase containment,
+4. policy conservatism,
+5. and trust in the evaluation surface itself.
 
 ## Current Shipped Runtime Seam
 
@@ -269,23 +304,31 @@ The repo now has a research-only harness that isolates the runtime scorer from u
 Current files:
 
 - `docs/test_inputs/semantic_routing/sentence_veto_case.schema.json`
-- `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v2.json`
+- `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v9.json`
 - `core/lexishift_core/rulegen/semantic_routing_runtime_scoring.py`
 - `scripts/testing/semantic_routing_sentence_veto_harness.py`
 - `scripts/testing/semantic_routing_sentence_veto_sweep.py`
+- `scripts/testing/semantic_routing_sentence_veto_ladder.py`
+- `scripts/testing/semantic_routing_sentence_veto_weak_active_probe.py`
+- `scripts/testing/semantic_routing_sentence_veto_phrase_leak_probe.py`
 
 Operational note:
 
 - the default sweep now stays on the cheap lexical scorer family (`token_jaccard`, `tfidf_cosine`)
 - the heavier `sentence_transformer_cosine` lane is available explicitly for model-choice comparisons
-- the shipped `en-es` helper/runtime default now aligns to the current lexical gate via `en_es_sentence_veto_v2`; the older sentence-transformer policy remains explicit-only for model-choice comparison and replay
+- the current evaluation slice now aligns to `en_es_sentence_veto_v9`; the shipped `en-es` helper runtime still uses the bounded `en_es_sentence_veto_v3` sentence-transformer phrase-guard lane by default, while the lexical `en_es_sentence_veto_v2` row remains the explicit conservative control
+- this bounded default still relies on existing helper availability of `sentence_transformers`; if model load fails, the current fallback path still abstains rather than forcing a replace
 
 Current dataset scope:
 
 - pair: `en-es`
-- 8 ambiguity families: `ball`, `bank`, `plant`, `cell`, `spring`, `seal`, `file`, `match`
-- 40 labeled sentences total
+- 18 ambiguity families: `ball`, `bank`, `plant`, `cell`, `spring`, `seal`, `file`, `match`, `board`, `table`, `branch`, `park`, `drink`, `play`, `watch`, `check`, `order`, `trip`
+- 90 labeled sentences total
 - fixed active sense plus fixed shadow senses per family
+- `v9` adds:
+  - `trip` on the held-out side as a noun-active / verb-shadow weak-active-support family
+  - one new held-out trip-style false-abstain row (`trip:002`)
+  - one lexicalized `trip up` phrase row that broadens the mixed noun/verb phrase surface without becoming the live harmful-replace seam
 
 What this harness is for:
 
@@ -303,54 +346,247 @@ What it is not for:
 
 Current lexical read on that fixed-shadow harness:
 
-- with the original higher default threshold ladder (`min_active >= 0.25`), both lexical scorers collapse to pure abstain:
-  - `60.0%` decision accuracy
-  - `0.0%` harmful replace
-  - `100.0%` false abstain on gold replace rows
 - after widening the threshold sweep to include lower active-score gates, the best current lexical row is:
-  - from the cheap default sweep
   - `tfidf_cosine`
   - `masked_sentence`
   - `all_evidence_text`
+  - `noun_family_frame_guard`
+  - `sense_label_near_tie_active_rescue`
   - `min_active_score=0.05`
   - `min_margin=0.00`
-- that row currently yields:
-  - `77.5%` decision accuracy
+- that row currently yields on `v9`:
+  - `73.3%` decision accuracy
   - `100.0%` replace precision
-  - `43.8%` replace recall
+  - `33.3%` replace recall
   - `0.0%` harmful replace
-  - `56.2%` false abstain
-- the new family breakdown matters:
+  - `66.7%` false abstain
+- the family breakdown matters:
   - lexical control is already perfect on `cell`, `file`, and `seal`
-  - it still fully abstains on the active rows for `ball`, `bank`, `plant`, and `spring`
+  - it still fully abstains on the active rows for `ball`, `bank`, `check`, `order`, `park`, `plant`, `play`, `spring`, and `trip`
+  - `branch`, `drink`, `table`, and `watch` remain mid-strength breadth / held-out families (`80.0%` decision accuracy / `50.0%` active recall)
+  - `trip` is the newest held-out weak-active-support family:
+    - its active rows still abstain
+    - its lexicalized `trip up` row still abstains safely, so it does not reopen the current phrase-leak failure class
 
-First explicit model-choice read:
+Current model-choice read:
 
-- on the expanded `v2` dataset, model choice is still a real lever, but the picture is now more nuanced:
-  - current multilingual default (`sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2`) best row:
-    - `masked_sentence + all_evidence_text + min_active_score=0.00 + min_margin=0.15`
-    - `75.0%` decision accuracy
+- on the expanded `v9` dataset, model choice is still a decisive runtime lever, but the clean runtime story is still gone:
+  - best zero-harm sentence-transformer budget row:
+    - `masked_sentence + all_evidence_text + noun_family_frame_guard + sense_label_near_tie_active_rescue + min_active_score=0.00 + min_margin=0.10`
+    - `76.7%` decision accuracy
     - `100.0%` replace precision
-    - `37.5%` replace recall
+    - `41.7%` replace recall
     - `0.0%` harmful replace
-    - `93.8%` winner accuracy
+    - `58.3%` false abstain
+  - best objective sentence-transformer row:
+    - `masked_sentence + all_evidence_text + noun_family_frame_guard + sense_label_near_tie_active_rescue + min_active_score=0.00 + min_margin=0.00`
+    - `91.1%` decision accuracy
+    - `96.7%` replace precision
+    - `80.6%` replace recall
+    - `1.9%` harmful replace
+    - `19.4%` false abstain
+    - `90.3%` winner accuracy
     - `100.0%` shadow-winner accuracy
-  - first English-centric challenger (`sentence-transformers/all-MiniLM-L6-v2`) is worse as a gate on this dataset:
-    - `67.5%` decision accuracy
-    - `18.8%` replace recall
-    - but still `93.8%` winner accuracy and `100.0%` shadow-winner accuracy
+    - current hard errors are now:
+      - harmful replace: `play:005`
+      - false abstains: `plant:002`, `park:001`, `drink:002`, `play:002`, `check:002`, `order:002`, `trip:002`
 - interpretation:
-  - the lexical control is currently the best gate on `v2`
-  - the transformer scorers are currently the best sense-rankers on `v2`
-  - so winner ranking and safe replace gating should be treated as related but distinct optimization surfaces
+  - the lexical control remains the conservative shipped gate posture
+  - the stronger sentence-transformer lane still materially beats lexical control on the fixed-shadow harness
+  - but `v9` still shows there is no clean hard-replace sentence-transformer row on the active evaluation slice
+  - `trip` does not reopen the phrase-leak seam; instead it adds one more held-out weak-active-support miss to the same strong row
+  - the next runtime question is therefore no longer “does the stronger lane exist”; it is how to preserve phrase-leak containment while improving the remaining weak-active-support residue
+
+Decision-ladder read on the frozen `v9` runtime row:
+
+- `docs/test_outputs/semantic_routing_sentence_veto_ladder_latest.md`
+  - keep the current hard-replace gate fixed:
+    - `sentence_transformer_cosine + masked_sentence + all_evidence_text + noun_family_frame_guard + sense_label_near_tie_active_rescue + min_active_score=0.00 + min_margin=0.00`
+  - then allow `soft_affordance` only over the current abstains
+  - best zero-noise ladder row is:
+    - `soft_min_active_score=0.55`
+    - `soft_min_margin=-0.03`
+    - `4` soft true positives
+    - `0` soft false positives
+    - `91.7%` replace-or-soft recall
+    - recovered rows:
+      - `plant:002`
+      - `drink:002`
+      - `order:002`
+      - `trip:002`
+- interpretation:
+  - the zero-noise soft lane is still real, and it now has slightly more mass
+  - but it still does not solve the `park`, `play`, or `check` residue
+  - visible `soft_affordance` product behavior should therefore remain a separate bounded contract step rather than the next runtime-default change
+
+Weak-active-support runtime probe on frozen `v9`:
+
+- `docs/test_outputs/semantic_routing_sentence_veto_weak_active_latest.md`
+  - current default row now reads:
+    - `1` harmful replace
+    - `7` false abstains
+    - `80.6%` replace recall
+    - `91.1%` decision accuracy
+    - rescue coverage:
+      - `ball:002`
+      - `drink:001`
+      - `play:001`
+  - direct primary-surface swaps do recover the weak-active-support misses, but they are too noisy for promotion:
+    - `masked_sentence + sense_label`
+      - `4` harmful replaces
+      - `7` false abstains
+      - `79.4%` replace recall
+    - `raw_sentence + all_evidence_text`
+      - `5` harmful replaces
+      - `0` false abstains
+      - `100.0%` replace recall
+    - `raw_window + all_evidence_text`
+      - `5` harmful replaces
+      - `1` false abstain
+      - `97.1%` replace recall
+  - the best simulated rescue overlay is now only bounded, not clean:
+    - primary stays `masked_sentence + all_evidence_text`
+    - backup stays `sense_label`
+    - widening the rescue trigger floor from `-0.02` to `-0.05` yields:
+      - `1` harmful replace
+      - `4` false abstains
+      - `88.9%` replace recall
+      - `94.4%` decision accuracy
+      - rescued rows:
+        - `ball:002`
+        - `plant:002`
+        - `park:001`
+        - `drink:001`
+        - `drink:002`
+        - `play:001`
+      - remaining residue:
+        - harmful replace: `play:005`
+        - false abstains: `play:002`, `check:002`, `order:002`, `trip:002`
+- interpretation:
+  - `park`-like weak-active-support misses are still recoverable without promoting raw-context or sense-label primaries
+  - `trip:002` now joins `check:002` and `order:002` as held-out weak-active-support residue that the bounded overlay still does not recover
+  - `v9` still shows the clean widened-rescue story does not survive while `play:005` remains harmful
+  - the next runtime frontier is now mixed:
+    - preserve the current phrase-leak containment candidate
+    - while tightening weak-active-support coverage beyond `plant`, `park`, `drink`, `check`, and `order`
+
+Held-out confidence update after `v9`:
+
+- `docs/test_outputs/semantic_routing_generalization_bound_en_es_latest.md`
+  - the bound surface now carries four runtime references:
+    - `Sentence-transformer phrase-guard candidate`
+    - `Sentence-transformer active-sense phrase-guard experiment`
+    - `Sentence-transformer zero-noise soft ladder`
+    - `Sentence-transformer active-sense phrase-guard overlay (simulated)`
+  - current corridor:
+    - runtime reference replace-recall conservative floor: `69.4%`
+    - runtime reference harmful-replace conservative ceiling: `5.6%`
+    - runtime reference false-abstain conservative ceiling: `30.6%`
+    - active-sense hard experimental replace-recall conservative floor: `69.4%`
+    - active-sense hard experimental harmful-replace conservative ceiling: `0.0%`
+    - active-sense hard experimental false-abstain conservative ceiling: `30.6%`
+    - runtime ladder replace-or-soft conservative floor: `83.3%`
+    - runtime ladder soft-noise conservative ceiling: `0.0%`
+    - rescue-overlay replace-recall conservative floor: `77.8%`
+    - rescue-overlay harmful-replace conservative ceiling: `5.6%`
+    - rescue-overlay false-abstain conservative ceiling: `22.2%`
+    - active-sense overlay experimental replace-recall conservative floor: `77.8%`
+    - active-sense overlay experimental harmful-replace conservative ceiling: `0.0%`
+    - active-sense overlay experimental false-abstain conservative ceiling: `22.2%`
+- interpretation:
+  - the plain runtime reference and plain widened-rescue overlay are still not clean, because the `play:005` phrase leak remains their only harmful row
+  - `v9` still keeps the active-sense overlay experiment clean after adding another held-out weak-active-support family
+  - the active-sense hard lane is still safer without giving back any additional conservative corridor relative to the plain hard reference, but it still does not improve the weak-active-support residue
+  - the next honest step is therefore resumed held-out family growth plus corridor tightening against the frozen hard reference, fixed soft ladder, and accepted active-sense overlay experiment
+
+Phrase-leak probe on frozen `v9`:
+
+- `docs/test_outputs/semantic_routing_sentence_veto_phrase_leak_latest.md`
+  - testing-only comparison:
+    - current mixed-POS phrase guard
+    - active-sense noun phrase guard
+    - current widened overlay
+    - active-sense noun guard overlay
+  - hard-row result:
+    - current mixed-POS phrase guard:
+      - `1` harmful replace
+      - `7` false abstains
+      - `80.6%` replace recall
+      - `91.1%` decision accuracy
+    - active-sense noun phrase guard:
+      - `0` harmful replaces
+      - `7` false abstains
+      - `80.6%` replace recall
+      - `92.2%` decision accuracy
+    - only decision change:
+      - `play:005`
+        - `replace -> abstain`
+        - phrase reason becomes `modal_trigger_frame`
+  - bounded overlay result:
+    - current widened overlay:
+      - `1` harmful replace
+      - `4` false abstains
+      - `88.9%` replace recall
+      - `94.4%` decision accuracy
+    - active-sense noun guard overlay:
+      - `0` harmful replaces
+      - `4` false abstains
+      - `88.9%` replace recall
+      - `95.6%` decision accuracy
+    - only decision change:
+      - `play:005`
+        - `replace -> abstain`
+  - preserved wins:
+    - hard-row rescue cases stay unchanged:
+      - `ball:002`
+      - `drink:001`
+      - `play:001`
+    - overlay rescue cases also stay unchanged:
+      - `ball:002`
+      - `plant:002`
+      - `park:001`
+      - `drink:001`
+      - `drink:002`
+      - `play:001`
+  - explicit tradeoff:
+    - phrase-preemption hits broaden from `7` to `20`
+    - newly phrase-preempted mixed noun/verb shadow rows include:
+      - `park:003`
+      - `park:004`
+      - `park:005`
+      - `drink:003`
+      - `drink:004`
+      - `drink:005`
+      - `play:004`
+      - `watch:005`
+      - `check:003`
+      - `check:005`
+      - `order:005`
+      - `trip:005`
+- interpretation:
+  - the live `play:005` leak still appears to be caused by the current family-wide POS gate suppressing phrase control on mixed noun/verb families
+  - anchoring phrase control to the active noun POS now also cleanly catches the held-out `watch:005`, `check:005`, `order:005`, and `trip:005` lexicalized-expression rows without disturbing the held-out active rows
+  - the acceptability review now extends through a fourth held-out mixed noun/verb lexicalized-expression family:
+    - the active-sense hard experiment removes the `5.6%` harmful-replace conservative ceiling while keeping the same `69.4%` hard replace-recall floor and `30.6%` false-abstain ceiling as the plain hard reference
+    - the active-sense overlay experiment is cleaner:
+      - replace-recall conservative floor stays `77.8%`
+      - harmful-replace conservative ceiling drops from `5.6%` to `0.0%`
+      - false-abstain conservative ceiling stays `22.2%`
+  - so the active-sense noun phrase guard is still the stronger preferred bounded experimental overlay semantics for the frozen `v9` slice
+  - that means the next honest step is resumed held-out family growth plus corridor tightening against the frozen hard reference and the accepted experimental overlay
 
 Interpretation:
 
-- the runtime harness is already useful, because it exposes a real gate frontier instead of collapsing everything into upstream blocker quality
-- on the current curated dataset, context masking helps
-- the main current lexical weakness is conservative under-replacement, not harmful replacement
-- the current transformer scorers materially improve winner selection without yet beating the lexical control on final gate accuracy over the broader `v2` slice
-- this is exactly the right surface for further scorer, evidence-view, and threshold work
+- the runtime harness is doing the right job: it is still separating new weak-active-support residue from the older phrase-leak seam instead of flattening them together
+- on the current curated dataset, lexical weakness is still mostly conservative under-replacement
+- the stronger sentence-transformer lane is still materially better than lexical control, but `play:005` means the current frontier is no longer “find more rescue”
+- the live frontier is now a mixed runtime problem:
+  - preserving the current hard reference while tracking the safer active-sense overlay experiment
+  - plus widening held-out coverage to find out whether the new phrase semantics stay clean and whether weak-active-support residue stays bounded on future families
+- `v9` strengthens that read:
+  - `trip:002` behaves like `check:002` and `order:002`, not like a new phrase leak
+  - `trip:002` also joins the zero-noise soft ladder, which slightly strengthens the bounded soft reference without changing the rollout posture
+- this is still the right surface for held-out confidence work, bounded future runtime-policy probes, and any eventual phrase-lane refinement
 
 ## Boundary: Manual Vs Automatic Today
 

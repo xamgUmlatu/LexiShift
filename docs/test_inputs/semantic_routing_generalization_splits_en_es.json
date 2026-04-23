@@ -8,15 +8,25 @@
     "splits": {
       "tune": [
         "en-es:sentence-veto:ball:pelota",
+        "en-es:sentence-veto:board:tablero",
+        "en-es:sentence-veto:branch:sucursal",
         "en-es:sentence-veto:cell:celula",
+        "en-es:sentence-veto:drink:bebida",
         "en-es:sentence-veto:match:partido",
         "en-es:sentence-veto:spring:primavera"
       ],
       "held_out": [
         "en-es:sentence-veto:bank:banco",
         "en-es:sentence-veto:file:archivo",
+        "en-es:sentence-veto:park:parque",
+        "en-es:sentence-veto:play:obra",
         "en-es:sentence-veto:plant:planta",
-        "en-es:sentence-veto:seal:sello"
+        "en-es:sentence-veto:seal:sello",
+        "en-es:sentence-veto:table:mesa",
+        "en-es:sentence-veto:watch:reloj",
+        "en-es:sentence-veto:check:cheque",
+        "en-es:sentence-veto:order:pedido",
+        "en-es:sentence-veto:trip:viaje"
       ]
     }
   },

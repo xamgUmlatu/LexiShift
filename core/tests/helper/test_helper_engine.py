@@ -432,7 +432,7 @@ class TestHelperEngineSemanticInventoryLoad(unittest.TestCase):
                 },
             )
 
-            self.assertEqual(response["decision_policy_id"], "en_es_sentence_veto_v2")
+            self.assertEqual(response["decision_policy_id"], "en_es_sentence_veto_v3")
             self.assertEqual(response["decisions"][0]["decision"], "abstain")
             self.assertEqual(response["decisions"][0]["decision_source"], "fallback_policy")
             self.assertIn("semantic_inventory_missing", response["decisions"][0]["reason_codes"])

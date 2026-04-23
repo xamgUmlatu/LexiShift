@@ -49,7 +49,13 @@ def _render_surface_markdown(
             "min_active_score",
             "min_margin",
             "phrase_control_mode",
+            "phrase_guard_pos_scope",
             "active_rescue_mode",
+            "backup_evidence_view",
+            "primary_margin_floor",
+            "backup_margin_floor",
+            "simulated",
+            "experimental",
             "source_id",
         ):
             if key in config:
@@ -111,6 +117,9 @@ def _render_surface_markdown(
                 if "decision_accuracy" in summary:
                     primary = _render_rate(summary.get("replace_recall"))
                     risk = _render_rate(summary.get("harmful_replace_rate"))
+                elif "replace_or_soft_recall" in summary:
+                    primary = _render_rate(summary.get("replace_or_soft_recall"))
+                    risk = _render_rate(summary.get("soft_noise_rate"))
                 else:
                     primary = _render_rate(summary.get("abstain_recall"))
                     risk = _render_rate(summary.get("harmful_allow_rate"))
@@ -169,6 +178,63 @@ def render_generalization_bound_markdown(
                 f"- Fixed-shadow harmful-replace conservative ceiling: `{_render_rate(corridor.get('fixed_shadow_harmful_replace_conservative_ceiling'))}`",
             ]
         )
+        fixed_shadow_reference_label = str(
+            corridor.get("fixed_shadow_reference_label") or ""
+        ).strip()
+        if fixed_shadow_reference_label:
+            lines.extend(
+                [
+                    f"- Evaluated runtime reference lane: `{fixed_shadow_reference_label}`",
+                    f"- Runtime reference replace-recall conservative floor: `{_render_rate(corridor.get('fixed_shadow_reference_replace_recall_conservative_floor'))}`",
+                    f"- Runtime reference harmful-replace conservative ceiling: `{_render_rate(corridor.get('fixed_shadow_reference_harmful_replace_conservative_ceiling'))}`",
+                    f"- Runtime reference false-abstain conservative ceiling: `{_render_rate(corridor.get('fixed_shadow_reference_false_abstain_conservative_ceiling'))}`",
+                ]
+            )
+        fixed_shadow_active_only_reference_label = str(
+            corridor.get("fixed_shadow_active_only_reference_label") or ""
+        ).strip()
+        if fixed_shadow_active_only_reference_label:
+            lines.extend(
+                [
+                    f"- Experimental phrase-guard lane: `{fixed_shadow_active_only_reference_label}`",
+                    f"- Experimental phrase-guard replace-recall conservative floor: `{_render_rate(corridor.get('fixed_shadow_active_only_reference_replace_recall_conservative_floor'))}`",
+                    f"- Experimental phrase-guard harmful-replace conservative ceiling: `{_render_rate(corridor.get('fixed_shadow_active_only_reference_harmful_replace_conservative_ceiling'))}`",
+                    f"- Experimental phrase-guard false-abstain conservative ceiling: `{_render_rate(corridor.get('fixed_shadow_active_only_reference_false_abstain_conservative_ceiling'))}`",
+                ]
+            )
+        fixed_shadow_ladder_label = str(corridor.get("fixed_shadow_ladder_label") or "").strip()
+        if fixed_shadow_ladder_label:
+            lines.extend(
+                [
+                    f"- Evaluated runtime ladder lane: `{fixed_shadow_ladder_label}`",
+                    f"- Runtime ladder replace-or-soft recall conservative floor: `{_render_rate(corridor.get('fixed_shadow_ladder_replace_or_soft_recall_conservative_floor'))}`",
+                    f"- Runtime ladder soft-noise conservative ceiling: `{_render_rate(corridor.get('fixed_shadow_ladder_soft_noise_conservative_ceiling'))}`",
+                ]
+            )
+        fixed_shadow_rescue_overlay_label = str(
+            corridor.get("fixed_shadow_rescue_overlay_label") or ""
+        ).strip()
+        if fixed_shadow_rescue_overlay_label:
+            lines.extend(
+                [
+                    f"- Evaluated rescue-overlay lane: `{fixed_shadow_rescue_overlay_label}`",
+                    f"- Rescue-overlay replace-recall conservative floor: `{_render_rate(corridor.get('fixed_shadow_rescue_overlay_replace_recall_conservative_floor'))}`",
+                    f"- Rescue-overlay harmful-replace conservative ceiling: `{_render_rate(corridor.get('fixed_shadow_rescue_overlay_harmful_replace_conservative_ceiling'))}`",
+                    f"- Rescue-overlay false-abstain conservative ceiling: `{_render_rate(corridor.get('fixed_shadow_rescue_overlay_false_abstain_conservative_ceiling'))}`",
+                ]
+            )
+        fixed_shadow_active_only_rescue_overlay_label = str(
+            corridor.get("fixed_shadow_active_only_rescue_overlay_label") or ""
+        ).strip()
+        if fixed_shadow_active_only_rescue_overlay_label:
+            lines.extend(
+                [
+                    f"- Experimental phrase-guard overlay lane: `{fixed_shadow_active_only_rescue_overlay_label}`",
+                    f"- Experimental phrase-guard overlay replace-recall conservative floor: `{_render_rate(corridor.get('fixed_shadow_active_only_rescue_overlay_replace_recall_conservative_floor'))}`",
+                    f"- Experimental phrase-guard overlay harmful-replace conservative ceiling: `{_render_rate(corridor.get('fixed_shadow_active_only_rescue_overlay_harmful_replace_conservative_ceiling'))}`",
+                    f"- Experimental phrase-guard overlay false-abstain conservative ceiling: `{_render_rate(corridor.get('fixed_shadow_active_only_rescue_overlay_false_abstain_conservative_ceiling'))}`",
+                ]
+            )
 
     fixed_shadow_bounds = report.get("fixed_shadow_bounds")
     if isinstance(fixed_shadow_bounds, Sequence) and not isinstance(

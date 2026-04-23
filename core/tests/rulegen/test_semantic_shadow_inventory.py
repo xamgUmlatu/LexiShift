@@ -1772,6 +1772,71 @@ class TestSemanticShadowInventory(unittest.TestCase):
         self.assertEqual(support["support_penalties"], [])
         self.assertEqual(support["support_score"], 4.5)
 
+    def test_build_shadow_candidate_support_details_adds_triplet_core_bonus(self) -> None:
+        support = build_shadow_candidate_support_details(
+            candidate={
+                "target": "terreno",
+                "canonical_pos": "noun",
+                "benchmark_target_present": True,
+            },
+            active_candidates=[{"canonical_pos": "noun"}],
+            score_weights={"triplet_core_bonus": 1.0},
+        )
+
+        self.assertIn("triplet_core_bonus", support["support_features"])
+        self.assertEqual(support["support_penalties"], [])
+        self.assertEqual(float(support["support_score_breakdown"]["triplet_core_bonus"]), 1.0)
+        self.assertEqual(support["support_score"], 4.0)
+
+    def test_build_shadow_candidate_support_details_adds_triplet_forward_bonus(self) -> None:
+        support = build_shadow_candidate_support_details(
+            candidate={
+                "target": "empleo",
+                "canonical_pos": "noun",
+                "benchmark_target_present": True,
+                "forward_trigger_support": True,
+            },
+            active_candidates=[{"canonical_pos": "noun"}],
+            score_weights={
+                "triplet_core_bonus": 1.0,
+                "triplet_forward_bonus": 0.5,
+            },
+        )
+
+        self.assertIn("triplet_core_bonus", support["support_features"])
+        self.assertIn("triplet_forward_bonus", support["support_features"])
+        self.assertEqual(float(support["support_score_breakdown"]["triplet_core_bonus"]), 1.0)
+        self.assertEqual(
+            float(support["support_score_breakdown"]["triplet_forward_bonus"]),
+            0.5,
+        )
+        self.assertEqual(support["support_score"], 5.0)
+
+    def test_build_shadow_candidate_support_details_adds_triplet_bridge_guard_bonus(
+        self,
+    ) -> None:
+        support = build_shadow_candidate_support_details(
+            candidate={
+                "target": "rejilla",
+                "canonical_pos": "noun",
+                "benchmark_target_present": True,
+                "semantic_bridge_markers": ["mesh"],
+            },
+            active_candidates=[{"canonical_pos": "noun"}],
+            score_weights={
+                "triplet_core_bonus": 1.0,
+                "triplet_bridge_guard_bonus": 1.0,
+            },
+        )
+
+        self.assertIn("triplet_core_bonus", support["support_features"])
+        self.assertIn("triplet_bridge_guard_bonus", support["support_features"])
+        self.assertEqual(
+            float(support["support_score_breakdown"]["triplet_bridge_guard_bonus"]),
+            1.0,
+        )
+        self.assertEqual(support["support_score"], 6.0)
+
     def test_build_shadow_candidate_support_details_adds_forward_neighborhood_overlap(
         self,
     ) -> None:

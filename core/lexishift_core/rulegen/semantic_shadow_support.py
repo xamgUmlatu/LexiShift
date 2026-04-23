@@ -22,6 +22,9 @@ SHADOW_SUPPORT_SCORE_WEIGHTS = {
     "active_side_support": 1.0,
     "active_profile_support": 1.0,
     "multi_source_candidate_support": 0.0,
+    "triplet_core_bonus": 0.0,
+    "triplet_forward_bonus": 0.0,
+    "triplet_bridge_guard_bonus": 0.0,
     "trigger_family_reentry": 0.0,
     "forward_neighborhood_overlap": 0.0,
     "semantic_bridge_support": 1.0,
@@ -204,6 +207,9 @@ def build_shadow_candidate_support_details(
         candidate.get("semantic_bridge_markers")
         or float(candidate.get("embedding_bridge_similarity") or 0.0) > 0.0
     )
+    triplet_core_bonus = bool(benchmark_target_present and same_pos and has_active_candidates)
+    triplet_forward_bonus = bool(triplet_core_bonus and forward_trigger_support)
+    triplet_bridge_guard_bonus = bool(triplet_core_bonus and semantic_bridge_support)
     forward_neighborhood_overlap = build_forward_neighborhood_overlap_details(
         candidate=candidate,
         active_candidates=active_candidates,
@@ -266,6 +272,15 @@ def build_shadow_candidate_support_details(
             if multi_source_candidate_support
             else 0.0
         ),
+        "triplet_core_bonus": (
+            resolved_weights["triplet_core_bonus"] if triplet_core_bonus else 0.0
+        ),
+        "triplet_forward_bonus": (
+            resolved_weights["triplet_forward_bonus"] if triplet_forward_bonus else 0.0
+        ),
+        "triplet_bridge_guard_bonus": (
+            resolved_weights["triplet_bridge_guard_bonus"] if triplet_bridge_guard_bonus else 0.0
+        ),
         "trigger_family_reentry": (
             resolved_weights["trigger_family_reentry"] * trigger_family_reentry_score
             if trigger_family_reentry_present
@@ -301,6 +316,19 @@ def build_shadow_candidate_support_details(
             ("active_side_support", has_active_candidates),
             ("active_profile_support", has_active_profile_support),
             ("multi_source_candidate_support", multi_source_candidate_support),
+            (
+                "triplet_core_bonus",
+                triplet_core_bonus and float(resolved_weights["triplet_core_bonus"]) > 0.0,
+            ),
+            (
+                "triplet_forward_bonus",
+                triplet_forward_bonus and float(resolved_weights["triplet_forward_bonus"]) > 0.0,
+            ),
+            (
+                "triplet_bridge_guard_bonus",
+                triplet_bridge_guard_bonus
+                and float(resolved_weights["triplet_bridge_guard_bonus"]) > 0.0,
+            ),
             ("trigger_family_reentry", trigger_family_reentry_present),
             ("forward_neighborhood_overlap", forward_neighborhood_overlap_present),
             ("semantic_bridge_support", semantic_bridge_support),

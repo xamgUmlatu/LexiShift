@@ -1,25 +1,25 @@
 # Semantic Routing Sentence Veto Harness
 
 - Status: `ok`
-- Generated: `2026-04-22T04:40:09Z`
-- Dataset: `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v2.json`
+- Generated: `2026-04-23T05:06:43Z`
+- Dataset: `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v9.json`
 - Pair: `en-es`
 - Scorer: `tfidf_cosine`
 - Model: `n/a`
 - Context view: `masked_sentence`
 - Evidence view: `all_evidence_text`
-- Phrase control mode: `noun_family_frame_guard`
-- Active rescue mode: `sense_label_near_tie_active_rescue`
+- Phrase control mode: `off`
+- Active rescue mode: `off`
 - Thresholds: `min_active=0.05`, `min_margin=0.0`
 
 ## Summary
 
-- Decision accuracy: `77.5%`
-- Replace precision / recall: `100.0%` / `43.8%`
-- Harmful replace / false abstain: `0.0%` / `56.2%`
-- Winner accuracy / shadow-winner accuracy: `75.0%` / `50.0%`
-- Predicted replace rate: `17.5%`
-- Phrase preemption hit rate / precision: `12.5%` / `100.0%`
+- Decision accuracy: `71.1%`
+- Replace precision / recall: `100.0%` / `27.8%`
+- Harmful replace / false abstain: `0.0%` / `72.2%`
+- Winner accuracy / shadow-winner accuracy: `63.9%` / `33.3%`
+- Predicted replace rate: `11.1%`
+- Phrase preemption hit rate / precision: `7.8%` / `100.0%`
 - Active rescue applied rate / precision: `0.0%` / `n/a`
 
 ## Family Breakdown
@@ -28,37 +28,47 @@
 | --- | ---: | ---: | ---: | ---: | ---: |
 | ball -> pelota vs baile | 5 | 60.0% | 0.0% | 0.0% | 50.0% |
 | bank -> banco vs orilla | 5 | 60.0% | 0.0% | 0.0% | 75.0% |
+| board -> tablero vs junta | 5 | 60.0% | 0.0% | 0.0% | 75.0% |
+| branch -> sucursal vs rama | 5 | 80.0% | 50.0% | 0.0% | 75.0% |
 | cell -> célula vs celda | 5 | 100.0% | 100.0% | 0.0% | 100.0% |
+| check -> cheque vs revisar | 5 | 60.0% | 0.0% | 0.0% | 50.0% |
+| drink -> bebida vs beber | 5 | 60.0% | 0.0% | 0.0% | 50.0% |
 | file -> archivo vs lima | 5 | 100.0% | 100.0% | 0.0% | 100.0% |
 | match -> partido vs cerilla | 5 | 80.0% | 50.0% | 0.0% | 75.0% |
+| order -> pedido vs ordenar | 5 | 60.0% | 0.0% | 0.0% | 50.0% |
+| park -> parque vs aparcar | 5 | 60.0% | 0.0% | 0.0% | 50.0% |
 | plant -> planta vs fábrica | 5 | 60.0% | 0.0% | 0.0% | 50.0% |
+| play -> obra vs jugar | 5 | 60.0% | 0.0% | 0.0% | 25.0% |
 | seal -> sello vs foca | 5 | 100.0% | 100.0% | 0.0% | 100.0% |
 | spring -> primavera vs resorte | 5 | 60.0% | 0.0% | 0.0% | 50.0% |
+| table -> mesa vs tabla | 5 | 80.0% | 50.0% | 0.0% | 75.0% |
+| trip -> viaje vs tropezar | 5 | 60.0% | 0.0% | 0.0% | 50.0% |
+| watch -> reloj vs vigilar | 5 | 80.0% | 50.0% | 0.0% | 50.0% |
 
 ## Gold Winner Type Breakdown
 
 | Slice | Cases | Decision Acc. | Replace Recall | Harmful Replace | Winner Acc. |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| active | 16 | 43.8% | 43.8% | n/a | 100.0% |
-| shadow | 16 | 100.0% | n/a | 0.0% | 50.0% |
-| none | 8 | 100.0% | n/a | 0.0% | n/a |
+| active | 36 | 27.8% | 27.8% | n/a | 94.4% |
+| shadow | 36 | 100.0% | n/a | 0.0% | 33.3% |
+| none | 18 | 100.0% | n/a | 0.0% | n/a |
 
 ## Slice Tag Breakdown
 
 | Slice | Cases | Decision Acc. | Replace Recall | Harmful Replace | Winner Acc. |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| clear_active | 16 | 43.8% | 43.8% | n/a | 100.0% |
-| clear_shadow | 16 | 100.0% | n/a | 0.0% | 50.0% |
-| phrase_control | 8 | 100.0% | n/a | 0.0% | n/a |
-| verb | 5 | 100.0% | n/a | 0.0% | n/a |
-| sports | 4 | 25.0% | 25.0% | n/a | 100.0% |
-| animal | 2 | 100.0% | n/a | 0.0% | 100.0% |
-| biology | 2 | 100.0% | 100.0% | n/a | 100.0% |
-| digital | 2 | 100.0% | 100.0% | n/a | 100.0% |
-| document | 2 | 100.0% | 100.0% | n/a | 100.0% |
-| event | 2 | 100.0% | n/a | 0.0% | 0.0% |
-| finance | 2 | 0.0% | 0.0% | n/a | 100.0% |
-| fire | 2 | 100.0% | n/a | 0.0% | 50.0% |
+| clear_shadow | 36 | 100.0% | n/a | 0.0% | 33.3% |
+| clear_active | 35 | 28.6% | 28.6% | n/a | 94.3% |
+| cross_pos | 31 | 64.5% | 8.3% | 0.0% | 45.8% |
+| verb | 23 | 100.0% | n/a | 0.0% | 8.3% |
+| phrase_control | 18 | 100.0% | n/a | 0.0% | n/a |
+| weak_active_support | 13 | 7.7% | 7.7% | n/a | 84.6% |
+| lexicalized_expression | 7 | 100.0% | n/a | 0.0% | n/a |
+| idiom | 5 | 100.0% | n/a | 0.0% | n/a |
+| beverage | 4 | 50.0% | 0.0% | 0.0% | 50.0% |
+| document | 4 | 100.0% | 100.0% | 0.0% | 75.0% |
+| finance | 4 | 0.0% | 0.0% | n/a | 100.0% |
+| home | 4 | 25.0% | 25.0% | n/a | 100.0% |
 
 ## Failure Samples
 
@@ -78,7 +88,7 @@
   sentence: The bank approved our mortgage application.
 - `en-es:sentence-veto:plant:001` `abstain` vs `replace` | trigger `plant` | margin `0.000`
   sentence: She watered the plant on the windowsill.
-- `en-es:sentence-veto:plant:002` `abstain` vs `replace` | trigger `plant` | margin `0.022`
+- `en-es:sentence-veto:plant:002` `abstain` vs `replace` | trigger `plant` | margin `0.020`
   sentence: The plant needs more sunlight in the afternoon.
 
 ### Winner errors

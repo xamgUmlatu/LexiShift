@@ -19,6 +19,7 @@ from lexishift_core.helper.paths import resolve_data_root  # noqa: E402
 from semantic_routing_generalization_bound_helpers import (  # noqa: E402
     build_surface_bound as _build_surface_bound,
     extend_with_split_surfaces as _extend_with_split_surfaces,
+    summarize_sentence_veto_ladder_rows as _summarize_sentence_veto_ladder_rows,
     summarize_sentence_veto_rows as _summarize_sentence_veto_rows,
     summarize_veto_proxy_rows as _summarize_veto_proxy_rows,
 )
@@ -35,6 +36,8 @@ from semantic_routing_generalization_bound_splits import (  # noqa: E402
 )
 from semantic_routing_sentence_veto_support import (  # noqa: E402
     DEFAULT_SENTENCE_VETO_DATASET,
+    build_sentence_veto_rescue_overlay_case_rows,
+    build_sentence_veto_ladder_case_rows,
     build_sentence_veto_report,
 )
 from semantic_shadow_seed_compare_en_es import (  # noqa: E402
@@ -62,25 +65,84 @@ DEFAULT_RANDOM_SEED = 1729
 DEFAULT_CONFIDENCE_LEVEL = 0.95
 
 FIXED_SHADOW_CONTROL_CONFIG = {
-    "label": "Fixed-shadow scorer control",
+    "label": "Fixed-shadow runtime control",
     "scorer_id": "tfidf_cosine",
     "context_view": "masked_sentence",
     "evidence_view": "all_evidence_text",
     "min_active_score": 0.05,
     "min_margin": 0.0,
-    "phrase_control_mode": "off",
-    "active_rescue_mode": "off",
+    "phrase_control_mode": "noun_family_frame_guard",
+    "active_rescue_mode": "sense_label_near_tie_active_rescue",
 }
 
 FIXED_SHADOW_REFERENCE_CONFIG = {
-    "label": "Sentence-transformer reference",
+    "label": "Sentence-transformer phrase-guard candidate",
     "scorer_id": "sentence_transformer_cosine",
     "context_view": "masked_sentence",
     "evidence_view": "all_evidence_text",
     "min_active_score": 0.0,
-    "min_margin": 0.15,
-    "phrase_control_mode": "off",
-    "active_rescue_mode": "off",
+    "min_margin": 0.0,
+    "phrase_control_mode": "noun_family_frame_guard",
+    "active_rescue_mode": "sense_label_near_tie_active_rescue",
+}
+
+FIXED_SHADOW_ACTIVE_ONLY_REFERENCE_CONFIG = {
+    "label": "Sentence-transformer active-sense phrase-guard experiment",
+    "scorer_id": "sentence_transformer_cosine",
+    "context_view": "masked_sentence",
+    "evidence_view": "all_evidence_text",
+    "min_active_score": 0.0,
+    "min_margin": 0.0,
+    "phrase_control_mode": "noun_family_frame_guard",
+    "phrase_guard_pos_scope": "active_only",
+    "active_rescue_mode": "sense_label_near_tie_active_rescue",
+    "experimental": True,
+}
+
+FIXED_SHADOW_LADDER_CONFIG = {
+    "label": "Sentence-transformer zero-noise soft ladder",
+    "scorer_id": "sentence_transformer_cosine",
+    "context_view": "masked_sentence",
+    "evidence_view": "all_evidence_text",
+    "min_active_score": 0.0,
+    "min_margin": 0.0,
+    "phrase_control_mode": "noun_family_frame_guard",
+    "active_rescue_mode": "sense_label_near_tie_active_rescue",
+    "soft_min_active_score": 0.55,
+    "soft_min_margin": -0.03,
+    "apply_over_current_abstains_only": True,
+}
+
+FIXED_SHADOW_RESCUE_OVERLAY_CONFIG = {
+    "label": "Sentence-transformer widened-rescue candidate (simulated)",
+    "scorer_id": "sentence_transformer_cosine",
+    "context_view": "masked_sentence",
+    "evidence_view": "all_evidence_text",
+    "min_active_score": 0.0,
+    "min_margin": 0.0,
+    "phrase_control_mode": "noun_family_frame_guard",
+    "active_rescue_mode": "sense_label_near_tie_active_rescue",
+    "backup_evidence_view": "sense_label",
+    "primary_margin_floor": -0.05,
+    "backup_margin_floor": 0.02,
+    "simulated": True,
+}
+
+FIXED_SHADOW_ACTIVE_ONLY_RESCUE_OVERLAY_CONFIG = {
+    "label": "Sentence-transformer active-sense phrase-guard overlay (simulated)",
+    "scorer_id": "sentence_transformer_cosine",
+    "context_view": "masked_sentence",
+    "evidence_view": "all_evidence_text",
+    "min_active_score": 0.0,
+    "min_margin": 0.0,
+    "phrase_control_mode": "noun_family_frame_guard",
+    "phrase_guard_pos_scope": "active_only",
+    "active_rescue_mode": "sense_label_near_tie_active_rescue",
+    "backup_evidence_view": "sense_label",
+    "primary_margin_floor": -0.05,
+    "backup_margin_floor": 0.02,
+    "simulated": True,
+    "experimental": True,
 }
 
 FIXED_SHADOW_METRIC_DIRECTIONS = {
@@ -91,6 +153,15 @@ FIXED_SHADOW_METRIC_DIRECTIONS = {
     "false_abstain_rate": "lower",
     "winner_accuracy": "higher",
     "shadow_winner_accuracy": "higher",
+}
+
+FIXED_SHADOW_LADDER_METRIC_DIRECTIONS = {
+    "hard_replace_recall": "higher",
+    "hard_harmful_replace_rate": "lower",
+    "replace_or_soft_recall": "higher",
+    "soft_noise_rate": "lower",
+    "surfaced_precision": "higher",
+    "remaining_missed_replace_rate": "lower",
 }
 
 VETO_PROXY_METRIC_DIRECTIONS = {
@@ -178,8 +249,9 @@ def _parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--include-sentence-transformer-reference",
-        action="store_true",
-        help="Also compute the current sentence-transformer reference row.",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Whether to also compute the current sentence-transformer candidate row.",
     )
     parser.add_argument(
         "--json-out",
@@ -221,6 +293,11 @@ def build_generalization_bound_report(
     )
 
     fixed_shadow_surfaces: list[dict[str, object]] = []
+    reference_surface: dict[str, object] | None = None
+    active_only_reference_surface: dict[str, object] | None = None
+    ladder_surface: dict[str, object] | None = None
+    rescue_overlay_surface: dict[str, object] | None = None
+    active_only_rescue_overlay_surface: dict[str, object] | None = None
     fixed_shadow_control_report = build_sentence_veto_report(
         dataset_path=sentence_dataset,
         scorer_id=str(FIXED_SHADOW_CONTROL_CONFIG["scorer_id"]),
@@ -291,6 +368,7 @@ def build_generalization_bound_report(
                 config=FIXED_SHADOW_REFERENCE_CONFIG,
             )
         )
+        reference_surface = fixed_shadow_surfaces[-1]
         _extend_with_split_surfaces(
             fixed_shadow_surfaces,
             label=str(FIXED_SHADOW_REFERENCE_CONFIG["label"]),
@@ -302,6 +380,225 @@ def build_generalization_bound_report(
             random_seed=random_seed + 1,
             confidence_level=confidence_level,
             config=FIXED_SHADOW_REFERENCE_CONFIG,
+            split_ids=fixed_shadow_split_ids,
+            split_lookup=fixed_shadow_split_lookup,
+            resolve_split_id=resolve_sentence_veto_split_id,
+        )
+        active_only_reference_report = build_sentence_veto_report(
+            dataset_path=sentence_dataset,
+            scorer_id=str(FIXED_SHADOW_ACTIVE_ONLY_REFERENCE_CONFIG["scorer_id"]),
+            context_view=str(FIXED_SHADOW_ACTIVE_ONLY_REFERENCE_CONFIG["context_view"]),
+            evidence_view=str(FIXED_SHADOW_ACTIVE_ONLY_REFERENCE_CONFIG["evidence_view"]),
+            min_active_score=float(FIXED_SHADOW_ACTIVE_ONLY_REFERENCE_CONFIG["min_active_score"]),
+            min_margin=float(FIXED_SHADOW_ACTIVE_ONLY_REFERENCE_CONFIG["min_margin"]),
+            phrase_control_mode=str(
+                FIXED_SHADOW_ACTIVE_ONLY_REFERENCE_CONFIG["phrase_control_mode"]
+            ),
+            phrase_guard_pos_scope=str(
+                FIXED_SHADOW_ACTIVE_ONLY_REFERENCE_CONFIG["phrase_guard_pos_scope"]
+            ),
+            active_rescue_mode=str(FIXED_SHADOW_ACTIVE_ONLY_REFERENCE_CONFIG["active_rescue_mode"]),
+        )
+        active_only_reference_rows = tuple(
+            row
+            for row in active_only_reference_report.get("row_results", ())
+            if isinstance(row, Mapping)
+        )
+        fixed_shadow_surfaces.append(
+            _build_surface_bound(
+                label=str(FIXED_SHADOW_ACTIVE_ONLY_REFERENCE_CONFIG["label"]),
+                rows=active_only_reference_rows,
+                cluster_key_name="family_id",
+                summarize_rows=_summarize_sentence_veto_rows,
+                metric_directions=FIXED_SHADOW_METRIC_DIRECTIONS,
+                bootstrap_iterations=bootstrap_iterations,
+                random_seed=random_seed + 4,
+                confidence_level=confidence_level,
+                config=FIXED_SHADOW_ACTIVE_ONLY_REFERENCE_CONFIG,
+            )
+        )
+        active_only_reference_surface = fixed_shadow_surfaces[-1]
+        _extend_with_split_surfaces(
+            fixed_shadow_surfaces,
+            label=str(FIXED_SHADOW_ACTIVE_ONLY_REFERENCE_CONFIG["label"]),
+            rows=active_only_reference_rows,
+            cluster_key_name="family_id",
+            summarize_rows=_summarize_sentence_veto_rows,
+            metric_directions=FIXED_SHADOW_METRIC_DIRECTIONS,
+            bootstrap_iterations=bootstrap_iterations,
+            random_seed=random_seed + 4,
+            confidence_level=confidence_level,
+            config=FIXED_SHADOW_ACTIVE_ONLY_REFERENCE_CONFIG,
+            split_ids=fixed_shadow_split_ids,
+            split_lookup=fixed_shadow_split_lookup,
+            resolve_split_id=resolve_sentence_veto_split_id,
+        )
+        ladder_rows = tuple(
+            row
+            for row in build_sentence_veto_ladder_case_rows(
+                reference_report,
+                soft_min_active_score=float(FIXED_SHADOW_LADDER_CONFIG["soft_min_active_score"]),
+                soft_min_margin=float(FIXED_SHADOW_LADDER_CONFIG["soft_min_margin"]),
+            )
+            if isinstance(row, Mapping)
+        )
+        fixed_shadow_surfaces.append(
+            _build_surface_bound(
+                label=str(FIXED_SHADOW_LADDER_CONFIG["label"]),
+                rows=ladder_rows,
+                cluster_key_name="family_id",
+                summarize_rows=_summarize_sentence_veto_ladder_rows,
+                metric_directions=FIXED_SHADOW_LADDER_METRIC_DIRECTIONS,
+                bootstrap_iterations=bootstrap_iterations,
+                random_seed=random_seed + 2,
+                confidence_level=confidence_level,
+                config=FIXED_SHADOW_LADDER_CONFIG,
+            )
+        )
+        ladder_surface = fixed_shadow_surfaces[-1]
+        _extend_with_split_surfaces(
+            fixed_shadow_surfaces,
+            label=str(FIXED_SHADOW_LADDER_CONFIG["label"]),
+            rows=ladder_rows,
+            cluster_key_name="family_id",
+            summarize_rows=_summarize_sentence_veto_ladder_rows,
+            metric_directions=FIXED_SHADOW_LADDER_METRIC_DIRECTIONS,
+            bootstrap_iterations=bootstrap_iterations,
+            random_seed=random_seed + 2,
+            confidence_level=confidence_level,
+            config=FIXED_SHADOW_LADDER_CONFIG,
+            split_ids=fixed_shadow_split_ids,
+            split_lookup=fixed_shadow_split_lookup,
+            resolve_split_id=resolve_sentence_veto_split_id,
+        )
+        rescue_overlay_backup_report = build_sentence_veto_report(
+            dataset_path=sentence_dataset,
+            scorer_id=str(FIXED_SHADOW_RESCUE_OVERLAY_CONFIG["scorer_id"]),
+            context_view=str(FIXED_SHADOW_RESCUE_OVERLAY_CONFIG["context_view"]),
+            evidence_view=str(FIXED_SHADOW_RESCUE_OVERLAY_CONFIG["backup_evidence_view"]),
+            min_active_score=float(FIXED_SHADOW_RESCUE_OVERLAY_CONFIG["min_active_score"]),
+            min_margin=float(FIXED_SHADOW_RESCUE_OVERLAY_CONFIG["min_margin"]),
+            phrase_control_mode=str(FIXED_SHADOW_RESCUE_OVERLAY_CONFIG["phrase_control_mode"]),
+            active_rescue_mode="off",
+        )
+        rescue_overlay_rows = tuple(
+            row
+            for row in build_sentence_veto_rescue_overlay_case_rows(
+                primary_report=reference_report,
+                backup_report=rescue_overlay_backup_report,
+                primary_margin_floor=float(
+                    FIXED_SHADOW_RESCUE_OVERLAY_CONFIG["primary_margin_floor"]
+                ),
+                backup_margin_floor=float(
+                    FIXED_SHADOW_RESCUE_OVERLAY_CONFIG["backup_margin_floor"]
+                ),
+            )
+            if isinstance(row, Mapping)
+        )
+        fixed_shadow_surfaces.append(
+            _build_surface_bound(
+                label=str(FIXED_SHADOW_RESCUE_OVERLAY_CONFIG["label"]),
+                rows=rescue_overlay_rows,
+                cluster_key_name="family_id",
+                summarize_rows=_summarize_sentence_veto_rows,
+                metric_directions=FIXED_SHADOW_METRIC_DIRECTIONS,
+                bootstrap_iterations=bootstrap_iterations,
+                random_seed=random_seed + 3,
+                confidence_level=confidence_level,
+                config=FIXED_SHADOW_RESCUE_OVERLAY_CONFIG,
+            )
+        )
+        rescue_overlay_surface = fixed_shadow_surfaces[-1]
+        _extend_with_split_surfaces(
+            fixed_shadow_surfaces,
+            label=str(FIXED_SHADOW_RESCUE_OVERLAY_CONFIG["label"]),
+            rows=rescue_overlay_rows,
+            cluster_key_name="family_id",
+            summarize_rows=_summarize_sentence_veto_rows,
+            metric_directions=FIXED_SHADOW_METRIC_DIRECTIONS,
+            bootstrap_iterations=bootstrap_iterations,
+            random_seed=random_seed + 3,
+            confidence_level=confidence_level,
+            config=FIXED_SHADOW_RESCUE_OVERLAY_CONFIG,
+            split_ids=fixed_shadow_split_ids,
+            split_lookup=fixed_shadow_split_lookup,
+            resolve_split_id=resolve_sentence_veto_split_id,
+        )
+        active_only_rescue_overlay_backup_report = build_sentence_veto_report(
+            dataset_path=sentence_dataset,
+            scorer_id=str(FIXED_SHADOW_ACTIVE_ONLY_RESCUE_OVERLAY_CONFIG["scorer_id"]),
+            context_view=str(FIXED_SHADOW_ACTIVE_ONLY_RESCUE_OVERLAY_CONFIG["context_view"]),
+            evidence_view=str(
+                FIXED_SHADOW_ACTIVE_ONLY_RESCUE_OVERLAY_CONFIG["backup_evidence_view"]
+            ),
+            min_active_score=float(
+                FIXED_SHADOW_ACTIVE_ONLY_RESCUE_OVERLAY_CONFIG["min_active_score"]
+            ),
+            min_margin=float(FIXED_SHADOW_ACTIVE_ONLY_RESCUE_OVERLAY_CONFIG["min_margin"]),
+            phrase_control_mode=str(
+                FIXED_SHADOW_ACTIVE_ONLY_RESCUE_OVERLAY_CONFIG["phrase_control_mode"]
+            ),
+            phrase_guard_pos_scope=str(
+                FIXED_SHADOW_ACTIVE_ONLY_RESCUE_OVERLAY_CONFIG["phrase_guard_pos_scope"]
+            ),
+            active_rescue_mode="off",
+        )
+        active_only_rescue_overlay_primary_report = build_sentence_veto_report(
+            dataset_path=sentence_dataset,
+            scorer_id=str(FIXED_SHADOW_ACTIVE_ONLY_RESCUE_OVERLAY_CONFIG["scorer_id"]),
+            context_view=str(FIXED_SHADOW_ACTIVE_ONLY_RESCUE_OVERLAY_CONFIG["context_view"]),
+            evidence_view=str(FIXED_SHADOW_ACTIVE_ONLY_RESCUE_OVERLAY_CONFIG["evidence_view"]),
+            min_active_score=float(
+                FIXED_SHADOW_ACTIVE_ONLY_RESCUE_OVERLAY_CONFIG["min_active_score"]
+            ),
+            min_margin=float(FIXED_SHADOW_ACTIVE_ONLY_RESCUE_OVERLAY_CONFIG["min_margin"]),
+            phrase_control_mode=str(
+                FIXED_SHADOW_ACTIVE_ONLY_RESCUE_OVERLAY_CONFIG["phrase_control_mode"]
+            ),
+            phrase_guard_pos_scope=str(
+                FIXED_SHADOW_ACTIVE_ONLY_RESCUE_OVERLAY_CONFIG["phrase_guard_pos_scope"]
+            ),
+            active_rescue_mode="off",
+        )
+        active_only_rescue_overlay_rows = tuple(
+            row
+            for row in build_sentence_veto_rescue_overlay_case_rows(
+                primary_report=active_only_rescue_overlay_primary_report,
+                backup_report=active_only_rescue_overlay_backup_report,
+                primary_margin_floor=float(
+                    FIXED_SHADOW_ACTIVE_ONLY_RESCUE_OVERLAY_CONFIG["primary_margin_floor"]
+                ),
+                backup_margin_floor=float(
+                    FIXED_SHADOW_ACTIVE_ONLY_RESCUE_OVERLAY_CONFIG["backup_margin_floor"]
+                ),
+            )
+            if isinstance(row, Mapping)
+        )
+        fixed_shadow_surfaces.append(
+            _build_surface_bound(
+                label=str(FIXED_SHADOW_ACTIVE_ONLY_RESCUE_OVERLAY_CONFIG["label"]),
+                rows=active_only_rescue_overlay_rows,
+                cluster_key_name="family_id",
+                summarize_rows=_summarize_sentence_veto_rows,
+                metric_directions=FIXED_SHADOW_METRIC_DIRECTIONS,
+                bootstrap_iterations=bootstrap_iterations,
+                random_seed=random_seed + 5,
+                confidence_level=confidence_level,
+                config=FIXED_SHADOW_ACTIVE_ONLY_RESCUE_OVERLAY_CONFIG,
+            )
+        )
+        active_only_rescue_overlay_surface = fixed_shadow_surfaces[-1]
+        _extend_with_split_surfaces(
+            fixed_shadow_surfaces,
+            label=str(FIXED_SHADOW_ACTIVE_ONLY_RESCUE_OVERLAY_CONFIG["label"]),
+            rows=active_only_rescue_overlay_rows,
+            cluster_key_name="family_id",
+            summarize_rows=_summarize_sentence_veto_rows,
+            metric_directions=FIXED_SHADOW_METRIC_DIRECTIONS,
+            bootstrap_iterations=bootstrap_iterations,
+            random_seed=random_seed + 5,
+            confidence_level=confidence_level,
+            config=FIXED_SHADOW_ACTIVE_ONLY_RESCUE_OVERLAY_CONFIG,
             split_ids=fixed_shadow_split_ids,
             split_lookup=fixed_shadow_split_lookup,
             resolve_split_id=resolve_sentence_veto_split_id,
@@ -414,6 +711,117 @@ def build_generalization_bound_report(
         "fixed_shadow_harmful_replace_conservative_ceiling": _metric_view(
             fixed_shadow_control_surface, "harmful_replace_rate"
         ).get("conservative_ceiling"),
+        "fixed_shadow_reference_label": (
+            str(reference_surface.get("label") or "")
+            if isinstance(reference_surface, Mapping)
+            else ""
+        ),
+        "fixed_shadow_reference_replace_recall_conservative_floor": (
+            _metric_view(reference_surface or {}, "replace_recall").get("conservative_floor")
+            if isinstance(reference_surface, Mapping)
+            else None
+        ),
+        "fixed_shadow_reference_harmful_replace_conservative_ceiling": (
+            _metric_view(reference_surface or {}, "harmful_replace_rate").get(
+                "conservative_ceiling"
+            )
+            if isinstance(reference_surface, Mapping)
+            else None
+        ),
+        "fixed_shadow_reference_false_abstain_conservative_ceiling": (
+            _metric_view(reference_surface or {}, "false_abstain_rate").get("conservative_ceiling")
+            if isinstance(reference_surface, Mapping)
+            else None
+        ),
+        "fixed_shadow_active_only_reference_label": (
+            str(active_only_reference_surface.get("label") or "")
+            if isinstance(active_only_reference_surface, Mapping)
+            else ""
+        ),
+        "fixed_shadow_active_only_reference_replace_recall_conservative_floor": (
+            _metric_view(active_only_reference_surface or {}, "replace_recall").get(
+                "conservative_floor"
+            )
+            if isinstance(active_only_reference_surface, Mapping)
+            else None
+        ),
+        "fixed_shadow_active_only_reference_harmful_replace_conservative_ceiling": (
+            _metric_view(active_only_reference_surface or {}, "harmful_replace_rate").get(
+                "conservative_ceiling"
+            )
+            if isinstance(active_only_reference_surface, Mapping)
+            else None
+        ),
+        "fixed_shadow_active_only_reference_false_abstain_conservative_ceiling": (
+            _metric_view(active_only_reference_surface or {}, "false_abstain_rate").get(
+                "conservative_ceiling"
+            )
+            if isinstance(active_only_reference_surface, Mapping)
+            else None
+        ),
+        "fixed_shadow_ladder_label": (
+            str(ladder_surface.get("label") or "") if isinstance(ladder_surface, Mapping) else ""
+        ),
+        "fixed_shadow_ladder_replace_or_soft_recall_conservative_floor": (
+            _metric_view(ladder_surface or {}, "replace_or_soft_recall").get("conservative_floor")
+            if isinstance(ladder_surface, Mapping)
+            else None
+        ),
+        "fixed_shadow_ladder_soft_noise_conservative_ceiling": (
+            _metric_view(ladder_surface or {}, "soft_noise_rate").get("conservative_ceiling")
+            if isinstance(ladder_surface, Mapping)
+            else None
+        ),
+        "fixed_shadow_rescue_overlay_label": (
+            str(rescue_overlay_surface.get("label") or "")
+            if isinstance(rescue_overlay_surface, Mapping)
+            else ""
+        ),
+        "fixed_shadow_rescue_overlay_replace_recall_conservative_floor": (
+            _metric_view(rescue_overlay_surface or {}, "replace_recall").get("conservative_floor")
+            if isinstance(rescue_overlay_surface, Mapping)
+            else None
+        ),
+        "fixed_shadow_rescue_overlay_harmful_replace_conservative_ceiling": (
+            _metric_view(rescue_overlay_surface or {}, "harmful_replace_rate").get(
+                "conservative_ceiling"
+            )
+            if isinstance(rescue_overlay_surface, Mapping)
+            else None
+        ),
+        "fixed_shadow_rescue_overlay_false_abstain_conservative_ceiling": (
+            _metric_view(rescue_overlay_surface or {}, "false_abstain_rate").get(
+                "conservative_ceiling"
+            )
+            if isinstance(rescue_overlay_surface, Mapping)
+            else None
+        ),
+        "fixed_shadow_active_only_rescue_overlay_label": (
+            str(active_only_rescue_overlay_surface.get("label") or "")
+            if isinstance(active_only_rescue_overlay_surface, Mapping)
+            else ""
+        ),
+        "fixed_shadow_active_only_rescue_overlay_replace_recall_conservative_floor": (
+            _metric_view(active_only_rescue_overlay_surface or {}, "replace_recall").get(
+                "conservative_floor"
+            )
+            if isinstance(active_only_rescue_overlay_surface, Mapping)
+            else None
+        ),
+        "fixed_shadow_active_only_rescue_overlay_harmful_replace_conservative_ceiling": (
+            _metric_view(active_only_rescue_overlay_surface or {}, "harmful_replace_rate").get(
+                "conservative_ceiling"
+            )
+            if isinstance(active_only_rescue_overlay_surface, Mapping)
+            else None
+        ),
+        "fixed_shadow_active_only_rescue_overlay_false_abstain_conservative_ceiling": (
+            _metric_view(active_only_rescue_overlay_surface or {}, "false_abstain_rate").get(
+                "conservative_ceiling"
+            )
+            if isinstance(active_only_rescue_overlay_surface, Mapping)
+            else None
+        ),
         "reviewed_auto_abstain_recall_conservative_floor": None,
         "reviewed_auto_harmful_allow_conservative_ceiling": None,
         "curated_abstain_recall_conservative_floor": None,
@@ -516,7 +924,14 @@ def main() -> int:
     args.markdown_out.write_text(
         render_generalization_bound_markdown(
             report,
-            fixed_shadow_metric_order=tuple(FIXED_SHADOW_METRIC_DIRECTIONS.keys()),
+            fixed_shadow_metric_order=tuple(
+                list(FIXED_SHADOW_METRIC_DIRECTIONS.keys())
+                + [
+                    metric_name
+                    for metric_name in FIXED_SHADOW_LADDER_METRIC_DIRECTIONS.keys()
+                    if metric_name not in FIXED_SHADOW_METRIC_DIRECTIONS
+                ]
+            ),
             veto_proxy_metric_order=tuple(VETO_PROXY_METRIC_DIRECTIONS.keys()),
         ),
         encoding="utf-8",

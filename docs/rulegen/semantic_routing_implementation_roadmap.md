@@ -10,6 +10,7 @@ Related planning docs:
 - `docs/rulegen/semantic_routing_data_contract.md`
 - `docs/rulegen/semantic_routing_publication_contract.md`
 - `docs/rulegen/semantic_routing_runtime_readiness.md`
+- `docs/rulegen/semantic_routing_weakness_triage_plan.md`
 - `docs/rulegen/semantic_routing_data_update_lifecycle.md`
 - `docs/rulegen/semantic_routing_generalization_evaluation_plan.md`
 - `docs/rulegen/semantic_shadow_testing_architecture.md`
@@ -39,11 +40,13 @@ Use the semantic-routing docs in this order:
    - operational runbook for the first controlled `en-es` launch only
 4. this roadmap
    - near-term implementation ladder from the current emitted-sibling PoC to a broader launchable system
-5. `docs/rulegen/semantic_routing_generalization_evaluation_plan.md`
+5. `docs/rulegen/semantic_routing_weakness_triage_plan.md`
+   - many-turn triage checklist for deciding which weak seams should change, in what order, and with what work estimate
+6. `docs/rulegen/semantic_routing_generalization_evaluation_plan.md`
    - post-PoC evidence plan for proving blocker generation beyond the emitted-sibling slice
-6. `docs/rulegen/semantic_shadow_testing_architecture.md`
+7. `docs/rulegen/semantic_shadow_testing_architecture.md`
    - research harness architecture and experiment workflow, not the current launch contract
-7. `docs/rulegen/semantic_routing_data_update_lifecycle.md`
+8. `docs/rulegen/semantic_routing_data_update_lifecycle.md`
    - future data-promotion/update lifecycle once broader semantic evidence starts landing
 
 Do not mix those roles.
@@ -286,7 +289,7 @@ Objective:
 Deliverables:
 
 - helper request for batched semantic admission, for example `semantic_admit_batch`
-- production policy registry, starting with lexical default `en_es_sentence_veto_v2` while keeping heavier comparison policies explicit
+- production policy registry, with bounded sentence-transformer default `en_es_sentence_veto_v3` and explicit lexical control `en_es_sentence_veto_v2`
 - shared Python decision engine that uses:
   - phrase/frame guard
   - primary scorer

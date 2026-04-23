@@ -138,12 +138,18 @@ Primary files:
 - `core/tests/rulegen/test_semantic_routing_runtime_scoring.py`
 - `scripts/testing/semantic_routing_sentence_veto_harness.py`
 - `scripts/testing/semantic_routing_sentence_veto_sweep.py`
+- `scripts/testing/semantic_routing_sentence_veto_ladder.py`
+- `scripts/testing/semantic_routing_sentence_veto_weak_active_probe.py`
+- `scripts/testing/semantic_routing_sentence_veto_phrase_leak_probe.py`
 - `scripts/testing/semantic_routing_sentence_veto_support.py`
 - `docs/test_inputs/semantic_routing/sentence_veto_case.schema.json`
-- `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v2.json`
+- `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v9.json`
 - `docs/test_outputs/semantic_routing_sentence_veto_latest.md`
 - `docs/test_outputs/semantic_routing_sentence_veto_sweep_latest.md`
 - `docs/test_outputs/semantic_routing_sentence_veto_sweep_sentence_transformer_latest.md`
+- `docs/test_outputs/semantic_routing_sentence_veto_ladder_latest.md`
+- `docs/test_outputs/semantic_routing_sentence_veto_weak_active_latest.md`
+- `docs/test_outputs/semantic_routing_sentence_veto_phrase_leak_latest.md`
 
 Key metrics:
 - decision accuracy

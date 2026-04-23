@@ -103,6 +103,69 @@ def summarize_sentence_veto_rows(rows: Sequence[Mapping[str, object]]) -> dict[s
     }
 
 
+def summarize_sentence_veto_ladder_rows(rows: Sequence[Mapping[str, object]]) -> dict[str, object]:
+    cases_total = len(rows)
+    gold_replace_cases = 0
+    gold_abstain_cases = 0
+    replace_count = 0
+    soft_affordance_count = 0
+    hard_true_positive_count = 0
+    hard_false_positive_count = 0
+    soft_true_positive_count = 0
+    soft_false_positive_count = 0
+    remaining_missed_replace_count = 0
+
+    for row in rows:
+        gold_decision = str(row.get("gold_decision") or "").strip().lower()
+        ladder_decision = str(row.get("ladder_decision") or "").strip().lower()
+
+        if gold_decision == "replace":
+            gold_replace_cases += 1
+        else:
+            gold_abstain_cases += 1
+
+        if ladder_decision == "replace":
+            replace_count += 1
+            if gold_decision == "replace":
+                hard_true_positive_count += 1
+            else:
+                hard_false_positive_count += 1
+        elif ladder_decision == "soft_affordance":
+            soft_affordance_count += 1
+            if gold_decision == "replace":
+                soft_true_positive_count += 1
+            else:
+                soft_false_positive_count += 1
+        elif gold_decision == "replace":
+            remaining_missed_replace_count += 1
+
+    surfaced_count = replace_count + soft_affordance_count
+    surfaced_true_positive_count = hard_true_positive_count + soft_true_positive_count
+
+    return {
+        "cases_total": cases_total,
+        "gold_replace_cases": gold_replace_cases,
+        "gold_abstain_cases": gold_abstain_cases,
+        "replace_count": replace_count,
+        "soft_affordance_count": soft_affordance_count,
+        "hard_true_positive_count": hard_true_positive_count,
+        "hard_false_positive_count": hard_false_positive_count,
+        "soft_true_positive_count": soft_true_positive_count,
+        "soft_false_positive_count": soft_false_positive_count,
+        "remaining_missed_replace_count": remaining_missed_replace_count,
+        "hard_replace_recall": safe_rate(hard_true_positive_count, gold_replace_cases),
+        "hard_replace_precision": safe_rate(hard_true_positive_count, replace_count),
+        "hard_harmful_replace_rate": safe_rate(hard_false_positive_count, gold_abstain_cases),
+        "replace_or_soft_recall": safe_rate(surfaced_true_positive_count, gold_replace_cases),
+        "soft_precision": safe_rate(soft_true_positive_count, soft_affordance_count),
+        "soft_noise_rate": safe_rate(soft_false_positive_count, gold_abstain_cases),
+        "surfaced_precision": safe_rate(surfaced_true_positive_count, surfaced_count),
+        "remaining_missed_replace_rate": safe_rate(
+            remaining_missed_replace_count, gold_replace_cases
+        ),
+    }
+
+
 def summarize_veto_proxy_rows(rows: Sequence[Mapping[str, object]]) -> dict[str, object]:
     trigger_rows_total = len(rows)
     ambiguous_trigger_rows = 0

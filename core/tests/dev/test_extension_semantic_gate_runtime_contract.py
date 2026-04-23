@@ -68,7 +68,7 @@ const runtime = createRuntime({{
           schema_version: 1,
           pair: "en-es",
           profile_id: "default",
-          decision_policy_id: "en_es_sentence_veto_v2",
+          decision_policy_id: "en_es_sentence_veto_v3",
           fallback_policy: "abstain_on_unavailable",
           decisions: [
             {{
@@ -186,7 +186,7 @@ const noAdmissionMatch = {{
   assert.equal(result.summary.ready, 1);
   assert.equal(result.summary.policyReplaces, 1);
   assert.equal(result.summary.fallbackAbstains, 1);
-  assert.equal(result.summary.decisionPolicyId, "en_es_sentence_veto_v2");
+  assert.equal(result.summary.decisionPolicyId, "en_es_sentence_veto_v3");
 
   assert.equal(result.matches.includes(readyMatch), true);
   assert.equal(result.matches.includes(pendingMatch), false);
@@ -241,7 +241,7 @@ const runtime = createRuntime({{
           schema_version: 1,
           pair: "en-es",
           profile_id: "default",
-          decision_policy_id: "en_es_sentence_veto_v2",
+          decision_policy_id: "en_es_sentence_veto_v3",
           decisions: [
             {{
               match_id: "semantic:0",

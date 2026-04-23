@@ -40,10 +40,40 @@ Files:
   - intended current use: compare scorer families, context transforms, evidence views, and threshold ladders without changing the mined shadow source
 
 Datasets:
-- `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v2.json`
+- `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v9.json`
   - current curated `en-es` runtime-veto harness dataset
-  - currently 8 ambiguity families / 40 labeled sentences
-  - purpose: separate runtime scorer quality from upstream shadow-mining quality
+  - currently 18 ambiguity families / 90 labeled sentences
+  - expands `v8` with one held-out cross-POS weak-active-support family:
+    - `trip` as a noun-active / verb-shadow family with one held-out trip-style false-abstain row and a lexicalized `trip up` phrase row
+  - purpose: test whether new held-out residue keeps widening through weak-active-support rather than reopening phrase leakage
+- `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v8.json`
+  - preserved prior held-out weak-active-support slice
+  - 17 ambiguity families / 85 labeled sentences
+  - retained frozen for before/after comparison against `v9`
+- `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v7.json`
+  - preserved prior held-out weak-active-support slice
+  - 16 ambiguity families / 80 labeled sentences
+  - retained frozen for before/after comparison against `v8`
+- `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v6.json`
+  - preserved prior held-out phrase-risk validation slice
+  - 15 ambiguity families / 75 labeled sentences
+  - retained frozen for before/after comparison against `v7`
+- `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v5.json`
+  - preserved prior held-out-growth and phrase-leak review slice
+  - 14 ambiguity families / 70 labeled sentences
+  - retained frozen for before/after comparison against `v6`
+- `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v4.json`
+  - preserved prior held-out-growth slice
+  - 12 ambiguity families / 60 labeled sentences
+  - retained frozen for before/after comparison against `v5`
+- `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v3.json`
+  - preserved prior phrase-lane expansion slice
+  - 10 ambiguity families / 50 labeled sentences
+  - retained frozen for before/after comparison against `v4`
+- `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v2.json`
+  - preserved prior main runtime-veto slice
+  - 8 ambiguity families / 40 labeled sentences
+  - retained frozen for before/after comparison against `v3`
 - `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v1.json`
   - preserved earlier starter slice
   - 4 ambiguity families / 20 labeled sentences

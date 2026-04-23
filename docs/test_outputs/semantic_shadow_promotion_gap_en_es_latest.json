@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "pair": "en-es",
-  "generated_at": "2026-04-10T23:41:24Z",
+  "generated_at": "2026-04-22T20:02:46Z",
   "status": "ok",
   "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
   "policy": "support_score_v1",
@@ -13,58 +13,69 @@
   },
   "summary": {
     "gold_trigger_rows": 33,
-    "hit_rows": 19,
+    "hit_rows": 12,
     "promotion_miss_rows": 7,
-    "candidate_missing_rows": 7
+    "candidate_missing_rows": 14
   },
   "promotion_miss_score_histogram": {
-    "1.5": 1,
+    "1.0": 1,
+    "2.0": 2,
     "3.0": 2,
-    "3.5": 3,
-    "4.0": 1
+    "4.0": 2,
+    "4.5": 1
   },
   "promotion_miss_reason_signatures": {
-    "forward_trigger_support+benchmark_target_present+same_pos_as_active+active_side_support": 3,
-    "benchmark_target_present+same_pos_as_active+active_side_support": 2,
-    "benchmark_target_present+same_pos_as_active+active_side_support+semantic_bridge_support": 1,
-    "forward_trigger_support+benchmark_target_present+active_side_support": 1
+    "benchmark_target_present": 1,
+    "benchmark_target_present+active_side_support+trigger_family_reentry": 1,
+    "benchmark_target_present+active_side_support+trigger_family_reentry+forward_neighborhood_overlap+semantic_bridge_support": 1,
+    "benchmark_target_present+active_side_support+trigger_family_reentry+semantic_bridge_support": 1,
+    "benchmark_target_present+semantic_bridge_support": 1,
+    "reviewed_trigger_support+benchmark_target_present+active_side_support+trigger_family_reentry": 1,
+    "reviewed_trigger_support+benchmark_target_present+active_side_support+trigger_family_reentry+forward_neighborhood_overlap": 1,
+    "reviewed_trigger_support+forward_trigger_support+benchmark_target_present+semantic_bridge_support": 1
   },
   "promotion_miss_semantic_families": {
-    "net_mesh_network": 3,
-    "field_area_country": 2,
-    "job": 1,
-    "table_board_chart": 1
+    "field_area_country": 3,
+    "net_mesh_network": 1,
+    "path_route": 1,
+    "remove_take_out": 1,
+    "take_carry": 1
   },
   "promotion_miss_rows": [
     {
-      "target": "reja",
-      "trigger": "grille",
+      "target": "tierra",
+      "trigger": "ground",
       "gold_shadow_targets": [
-        "rejilla"
+        "terreno"
       ],
       "promoted_targets": [],
-      "semantic_family": "net_mesh_network",
-      "active_candidate_count": 1,
+      "semantic_family": "field_area_country",
+      "active_candidate_count": 0,
       "best_gold_candidate": {
-        "target": "rejilla",
-        "canonical_pos": "noun",
-        "support_score": 4.0,
-        "support_gap_to_threshold": 1.0,
-        "same_pos_as_active": true,
+        "target": "terreno",
+        "canonical_pos": "",
+        "support_score": 4.5,
+        "support_gap_to_threshold": 0.5,
+        "same_pos_as_active": false,
         "promotion_reasons": [
+          "reviewed_trigger_support",
+          "forward_trigger_support",
           "benchmark_target_present",
-          "same_pos_as_active",
-          "active_side_support",
           "semantic_bridge_support"
         ],
         "support_score_breakdown": {
-          "reviewed_trigger_support": 0.0,
-          "forward_trigger_support": 0.0,
+          "reviewed_trigger_support": 2.0,
+          "forward_trigger_support": 0.5,
           "benchmark_target_present": 1.0,
-          "same_pos_as_active": 1.0,
-          "active_side_support": 1.0,
+          "same_pos_as_active": 0.0,
+          "active_side_support": 0.0,
           "active_profile_support": 0.0,
           "multi_source_candidate_support": 0.0,
+          "triplet_core_bonus": 0.0,
+          "triplet_forward_bonus": 0.0,
+          "triplet_bridge_guard_bonus": 0.0,
+          "trigger_family_reentry": 0.0,
+          "forward_neighborhood_overlap": 0.0,
           "semantic_bridge_support": 1.0,
           "frequency_representative_bonus": 0.0,
           "frequency_similarity_bonus": 0.0,
@@ -73,25 +84,30 @@
       },
       "gold_candidates": [
         {
-          "target": "rejilla",
-          "canonical_pos": "noun",
-          "support_score": 4.0,
-          "support_gap_to_threshold": 1.0,
-          "same_pos_as_active": true,
+          "target": "terreno",
+          "canonical_pos": "",
+          "support_score": 4.5,
+          "support_gap_to_threshold": 0.5,
+          "same_pos_as_active": false,
           "promotion_reasons": [
+            "reviewed_trigger_support",
+            "forward_trigger_support",
             "benchmark_target_present",
-            "same_pos_as_active",
-            "active_side_support",
             "semantic_bridge_support"
           ],
           "support_score_breakdown": {
-            "reviewed_trigger_support": 0.0,
-            "forward_trigger_support": 0.0,
+            "reviewed_trigger_support": 2.0,
+            "forward_trigger_support": 0.5,
             "benchmark_target_present": 1.0,
-            "same_pos_as_active": 1.0,
-            "active_side_support": 1.0,
+            "same_pos_as_active": 0.0,
+            "active_side_support": 0.0,
             "active_profile_support": 0.0,
             "multi_source_candidate_support": 0.0,
+            "triplet_core_bonus": 0.0,
+            "triplet_forward_bonus": 0.0,
+            "triplet_bridge_guard_bonus": 0.0,
+            "trigger_family_reentry": 0.0,
+            "forward_neighborhood_overlap": 0.0,
             "semantic_bridge_support": 1.0,
             "frequency_representative_bonus": 0.0,
             "frequency_similarity_bonus": 0.0,
@@ -101,34 +117,40 @@
       ]
     },
     {
-      "target": "red",
-      "trigger": "net",
+      "target": "camino",
+      "trigger": "road",
       "gold_shadow_targets": [
-        "malla"
+        "carretera",
+        "ruta"
       ],
       "promoted_targets": [],
-      "semantic_family": "net_mesh_network",
+      "semantic_family": "path_route",
       "active_candidate_count": 1,
       "best_gold_candidate": {
-        "target": "malla",
+        "target": "carretera",
         "canonical_pos": "noun",
-        "support_score": 3.5,
-        "support_gap_to_threshold": 1.5,
-        "same_pos_as_active": true,
+        "support_score": 4.0,
+        "support_gap_to_threshold": 1.0,
+        "same_pos_as_active": false,
         "promotion_reasons": [
-          "forward_trigger_support",
+          "reviewed_trigger_support",
           "benchmark_target_present",
-          "same_pos_as_active",
-          "active_side_support"
+          "active_side_support",
+          "trigger_family_reentry"
         ],
         "support_score_breakdown": {
-          "reviewed_trigger_support": 0.0,
-          "forward_trigger_support": 0.5,
+          "reviewed_trigger_support": 2.0,
+          "forward_trigger_support": 0.0,
           "benchmark_target_present": 1.0,
-          "same_pos_as_active": 1.0,
+          "same_pos_as_active": 0.0,
           "active_side_support": 1.0,
           "active_profile_support": 0.0,
           "multi_source_candidate_support": 0.0,
+          "triplet_core_bonus": 0.0,
+          "triplet_forward_bonus": 0.0,
+          "triplet_bridge_guard_bonus": 0.0,
+          "trigger_family_reentry": 0.0,
+          "forward_neighborhood_overlap": 0.0,
           "semantic_bridge_support": 0.0,
           "frequency_representative_bonus": 0.0,
           "frequency_similarity_bonus": 0.0,
@@ -137,25 +159,62 @@
       },
       "gold_candidates": [
         {
-          "target": "malla",
+          "target": "ruta",
           "canonical_pos": "noun",
-          "support_score": 3.5,
-          "support_gap_to_threshold": 1.5,
-          "same_pos_as_active": true,
+          "support_score": 3.0,
+          "support_gap_to_threshold": 2.0,
+          "same_pos_as_active": false,
           "promotion_reasons": [
-            "forward_trigger_support",
             "benchmark_target_present",
-            "same_pos_as_active",
-            "active_side_support"
+            "active_side_support",
+            "trigger_family_reentry",
+            "forward_neighborhood_overlap",
+            "semantic_bridge_support"
           ],
           "support_score_breakdown": {
             "reviewed_trigger_support": 0.0,
-            "forward_trigger_support": 0.5,
+            "forward_trigger_support": 0.0,
             "benchmark_target_present": 1.0,
-            "same_pos_as_active": 1.0,
+            "same_pos_as_active": 0.0,
             "active_side_support": 1.0,
             "active_profile_support": 0.0,
             "multi_source_candidate_support": 0.0,
+            "triplet_core_bonus": 0.0,
+            "triplet_forward_bonus": 0.0,
+            "triplet_bridge_guard_bonus": 0.0,
+            "trigger_family_reentry": 0.0,
+            "forward_neighborhood_overlap": 0.0,
+            "semantic_bridge_support": 1.0,
+            "frequency_representative_bonus": 0.0,
+            "frequency_similarity_bonus": 0.0,
+            "cross_pos_mismatch_penalty": 0.0
+          }
+        },
+        {
+          "target": "carretera",
+          "canonical_pos": "noun",
+          "support_score": 4.0,
+          "support_gap_to_threshold": 1.0,
+          "same_pos_as_active": false,
+          "promotion_reasons": [
+            "reviewed_trigger_support",
+            "benchmark_target_present",
+            "active_side_support",
+            "trigger_family_reentry"
+          ],
+          "support_score_breakdown": {
+            "reviewed_trigger_support": 2.0,
+            "forward_trigger_support": 0.0,
+            "benchmark_target_present": 1.0,
+            "same_pos_as_active": 0.0,
+            "active_side_support": 1.0,
+            "active_profile_support": 0.0,
+            "multi_source_candidate_support": 0.0,
+            "triplet_core_bonus": 0.0,
+            "triplet_forward_bonus": 0.0,
+            "triplet_bridge_guard_bonus": 0.0,
+            "trigger_family_reentry": 0.0,
+            "forward_neighborhood_overlap": 0.0,
             "semantic_bridge_support": 0.0,
             "frequency_representative_bonus": 0.0,
             "frequency_similarity_bonus": 0.0,
@@ -165,34 +224,40 @@
       ]
     },
     {
-      "target": "tabla",
-      "trigger": "table",
+      "target": "coger",
+      "trigger": "take",
       "gold_shadow_targets": [
-        "cuadro"
+        "llevar"
       ],
       "promoted_targets": [],
-      "semantic_family": "table_board_chart",
+      "semantic_family": "take_carry",
       "active_candidate_count": 1,
       "best_gold_candidate": {
-        "target": "cuadro",
-        "canonical_pos": "noun",
-        "support_score": 3.5,
-        "support_gap_to_threshold": 1.5,
-        "same_pos_as_active": true,
+        "target": "llevar",
+        "canonical_pos": "verb",
+        "support_score": 4.0,
+        "support_gap_to_threshold": 1.0,
+        "same_pos_as_active": false,
         "promotion_reasons": [
-          "forward_trigger_support",
+          "reviewed_trigger_support",
           "benchmark_target_present",
-          "same_pos_as_active",
-          "active_side_support"
+          "active_side_support",
+          "trigger_family_reentry",
+          "forward_neighborhood_overlap"
         ],
         "support_score_breakdown": {
-          "reviewed_trigger_support": 0.0,
-          "forward_trigger_support": 0.5,
+          "reviewed_trigger_support": 2.0,
+          "forward_trigger_support": 0.0,
           "benchmark_target_present": 1.0,
-          "same_pos_as_active": 1.0,
+          "same_pos_as_active": 0.0,
           "active_side_support": 1.0,
           "active_profile_support": 0.0,
           "multi_source_candidate_support": 0.0,
+          "triplet_core_bonus": 0.0,
+          "triplet_forward_bonus": 0.0,
+          "triplet_bridge_guard_bonus": 0.0,
+          "trigger_family_reentry": 0.0,
+          "forward_neighborhood_overlap": 0.0,
           "semantic_bridge_support": 0.0,
           "frequency_representative_bonus": 0.0,
           "frequency_similarity_bonus": 0.0,
@@ -201,25 +266,31 @@
       },
       "gold_candidates": [
         {
-          "target": "cuadro",
-          "canonical_pos": "noun",
-          "support_score": 3.5,
-          "support_gap_to_threshold": 1.5,
-          "same_pos_as_active": true,
+          "target": "llevar",
+          "canonical_pos": "verb",
+          "support_score": 4.0,
+          "support_gap_to_threshold": 1.0,
+          "same_pos_as_active": false,
           "promotion_reasons": [
-            "forward_trigger_support",
+            "reviewed_trigger_support",
             "benchmark_target_present",
-            "same_pos_as_active",
-            "active_side_support"
+            "active_side_support",
+            "trigger_family_reentry",
+            "forward_neighborhood_overlap"
           ],
           "support_score_breakdown": {
-            "reviewed_trigger_support": 0.0,
-            "forward_trigger_support": 0.5,
+            "reviewed_trigger_support": 2.0,
+            "forward_trigger_support": 0.0,
             "benchmark_target_present": 1.0,
-            "same_pos_as_active": 1.0,
+            "same_pos_as_active": 0.0,
             "active_side_support": 1.0,
             "active_profile_support": 0.0,
             "multi_source_candidate_support": 0.0,
+            "triplet_core_bonus": 0.0,
+            "triplet_forward_bonus": 0.0,
+            "triplet_bridge_guard_bonus": 0.0,
+            "trigger_family_reentry": 0.0,
+            "forward_neighborhood_overlap": 0.0,
             "semantic_bridge_support": 0.0,
             "frequency_representative_bonus": 0.0,
             "frequency_similarity_bonus": 0.0,
@@ -229,35 +300,40 @@
       ]
     },
     {
-      "target": "trabajo",
-      "trigger": "work",
+      "target": "tierra",
+      "trigger": "land",
       "gold_shadow_targets": [
-        "empleo"
+        "terreno"
       ],
       "promoted_targets": [],
-      "semantic_family": "job",
+      "semantic_family": "field_area_country",
       "active_candidate_count": 1,
       "best_gold_candidate": {
-        "target": "empleo",
+        "target": "terreno",
         "canonical_pos": "noun",
-        "support_score": 3.5,
-        "support_gap_to_threshold": 1.5,
-        "same_pos_as_active": true,
+        "support_score": 3.0,
+        "support_gap_to_threshold": 2.0,
+        "same_pos_as_active": false,
         "promotion_reasons": [
-          "forward_trigger_support",
           "benchmark_target_present",
-          "same_pos_as_active",
-          "active_side_support"
+          "active_side_support",
+          "trigger_family_reentry",
+          "semantic_bridge_support"
         ],
         "support_score_breakdown": {
           "reviewed_trigger_support": 0.0,
-          "forward_trigger_support": 0.5,
+          "forward_trigger_support": 0.0,
           "benchmark_target_present": 1.0,
-          "same_pos_as_active": 1.0,
+          "same_pos_as_active": 0.0,
           "active_side_support": 1.0,
           "active_profile_support": 0.0,
           "multi_source_candidate_support": 0.0,
-          "semantic_bridge_support": 0.0,
+          "triplet_core_bonus": 0.0,
+          "triplet_forward_bonus": 0.0,
+          "triplet_bridge_guard_bonus": 0.0,
+          "trigger_family_reentry": 0.0,
+          "forward_neighborhood_overlap": 0.0,
+          "semantic_bridge_support": 1.0,
           "frequency_representative_bonus": 0.0,
           "frequency_similarity_bonus": 0.0,
           "cross_pos_mismatch_penalty": 0.0
@@ -265,26 +341,31 @@
       },
       "gold_candidates": [
         {
-          "target": "empleo",
+          "target": "terreno",
           "canonical_pos": "noun",
-          "support_score": 3.5,
-          "support_gap_to_threshold": 1.5,
-          "same_pos_as_active": true,
+          "support_score": 3.0,
+          "support_gap_to_threshold": 2.0,
+          "same_pos_as_active": false,
           "promotion_reasons": [
-            "forward_trigger_support",
             "benchmark_target_present",
-            "same_pos_as_active",
-            "active_side_support"
+            "active_side_support",
+            "trigger_family_reentry",
+            "semantic_bridge_support"
           ],
           "support_score_breakdown": {
             "reviewed_trigger_support": 0.0,
-            "forward_trigger_support": 0.5,
+            "forward_trigger_support": 0.0,
             "benchmark_target_present": 1.0,
-            "same_pos_as_active": 1.0,
+            "same_pos_as_active": 0.0,
             "active_side_support": 1.0,
             "active_profile_support": 0.0,
             "multi_source_candidate_support": 0.0,
-            "semantic_bridge_support": 0.0,
+            "triplet_core_bonus": 0.0,
+            "triplet_forward_bonus": 0.0,
+            "triplet_bridge_guard_bonus": 0.0,
+            "trigger_family_reentry": 0.0,
+            "forward_neighborhood_overlap": 0.0,
+            "semantic_bridge_support": 1.0,
             "frequency_representative_bonus": 0.0,
             "frequency_similarity_bonus": 0.0,
             "cross_pos_mismatch_penalty": 0.0
@@ -304,22 +385,27 @@
       "best_gold_candidate": {
         "target": "terreno",
         "canonical_pos": "noun",
-        "support_score": 3.0,
-        "support_gap_to_threshold": 2.0,
-        "same_pos_as_active": true,
+        "support_score": 2.0,
+        "support_gap_to_threshold": 3.0,
+        "same_pos_as_active": false,
         "promotion_reasons": [
           "benchmark_target_present",
-          "same_pos_as_active",
-          "active_side_support"
+          "active_side_support",
+          "trigger_family_reentry"
         ],
         "support_score_breakdown": {
           "reviewed_trigger_support": 0.0,
           "forward_trigger_support": 0.0,
           "benchmark_target_present": 1.0,
-          "same_pos_as_active": 1.0,
+          "same_pos_as_active": 0.0,
           "active_side_support": 1.0,
           "active_profile_support": 0.0,
           "multi_source_candidate_support": 0.0,
+          "triplet_core_bonus": 0.0,
+          "triplet_forward_bonus": 0.0,
+          "triplet_bridge_guard_bonus": 0.0,
+          "trigger_family_reentry": 0.0,
+          "forward_neighborhood_overlap": 0.0,
           "semantic_bridge_support": 0.0,
           "frequency_representative_bonus": 0.0,
           "frequency_similarity_bonus": 0.0,
@@ -330,23 +416,98 @@
         {
           "target": "terreno",
           "canonical_pos": "noun",
-          "support_score": 3.0,
-          "support_gap_to_threshold": 2.0,
-          "same_pos_as_active": true,
+          "support_score": 2.0,
+          "support_gap_to_threshold": 3.0,
+          "same_pos_as_active": false,
           "promotion_reasons": [
             "benchmark_target_present",
-            "same_pos_as_active",
-            "active_side_support"
+            "active_side_support",
+            "trigger_family_reentry"
           ],
           "support_score_breakdown": {
             "reviewed_trigger_support": 0.0,
             "forward_trigger_support": 0.0,
             "benchmark_target_present": 1.0,
-            "same_pos_as_active": 1.0,
+            "same_pos_as_active": 0.0,
             "active_side_support": 1.0,
             "active_profile_support": 0.0,
             "multi_source_candidate_support": 0.0,
+            "triplet_core_bonus": 0.0,
+            "triplet_forward_bonus": 0.0,
+            "triplet_bridge_guard_bonus": 0.0,
+            "trigger_family_reentry": 0.0,
+            "forward_neighborhood_overlap": 0.0,
             "semantic_bridge_support": 0.0,
+            "frequency_representative_bonus": 0.0,
+            "frequency_similarity_bonus": 0.0,
+            "cross_pos_mismatch_penalty": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "target": "quitar",
+      "trigger": "remove",
+      "gold_shadow_targets": [
+        "sacar"
+      ],
+      "promoted_targets": [],
+      "semantic_family": "remove_take_out",
+      "active_candidate_count": 0,
+      "best_gold_candidate": {
+        "target": "sacar",
+        "canonical_pos": "",
+        "support_score": 2.0,
+        "support_gap_to_threshold": 3.0,
+        "same_pos_as_active": false,
+        "promotion_reasons": [
+          "benchmark_target_present",
+          "semantic_bridge_support"
+        ],
+        "support_score_breakdown": {
+          "reviewed_trigger_support": 0.0,
+          "forward_trigger_support": 0.0,
+          "benchmark_target_present": 1.0,
+          "same_pos_as_active": 0.0,
+          "active_side_support": 0.0,
+          "active_profile_support": 0.0,
+          "multi_source_candidate_support": 0.0,
+          "triplet_core_bonus": 0.0,
+          "triplet_forward_bonus": 0.0,
+          "triplet_bridge_guard_bonus": 0.0,
+          "trigger_family_reentry": 0.0,
+          "forward_neighborhood_overlap": 0.0,
+          "semantic_bridge_support": 1.0,
+          "frequency_representative_bonus": 0.0,
+          "frequency_similarity_bonus": 0.0,
+          "cross_pos_mismatch_penalty": 0.0
+        }
+      },
+      "gold_candidates": [
+        {
+          "target": "sacar",
+          "canonical_pos": "",
+          "support_score": 2.0,
+          "support_gap_to_threshold": 3.0,
+          "same_pos_as_active": false,
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "semantic_bridge_support"
+          ],
+          "support_score_breakdown": {
+            "reviewed_trigger_support": 0.0,
+            "forward_trigger_support": 0.0,
+            "benchmark_target_present": 1.0,
+            "same_pos_as_active": 0.0,
+            "active_side_support": 0.0,
+            "active_profile_support": 0.0,
+            "multi_source_candidate_support": 0.0,
+            "triplet_core_bonus": 0.0,
+            "triplet_forward_bonus": 0.0,
+            "triplet_bridge_guard_bonus": 0.0,
+            "trigger_family_reentry": 0.0,
+            "forward_neighborhood_overlap": 0.0,
+            "semantic_bridge_support": 1.0,
             "frequency_representative_bonus": 0.0,
             "frequency_similarity_bonus": 0.0,
             "cross_pos_mismatch_penalty": 0.0
@@ -363,26 +524,29 @@
       ],
       "promoted_targets": [],
       "semantic_family": "net_mesh_network",
-      "active_candidate_count": 1,
+      "active_candidate_count": 0,
       "best_gold_candidate": {
         "target": "rejilla",
         "canonical_pos": "noun",
-        "support_score": 3.0,
-        "support_gap_to_threshold": 2.0,
-        "same_pos_as_active": true,
+        "support_score": 1.0,
+        "support_gap_to_threshold": 4.0,
+        "same_pos_as_active": false,
         "promotion_reasons": [
-          "benchmark_target_present",
-          "same_pos_as_active",
-          "active_side_support"
+          "benchmark_target_present"
         ],
         "support_score_breakdown": {
           "reviewed_trigger_support": 0.0,
           "forward_trigger_support": 0.0,
           "benchmark_target_present": 1.0,
-          "same_pos_as_active": 1.0,
-          "active_side_support": 1.0,
+          "same_pos_as_active": 0.0,
+          "active_side_support": 0.0,
           "active_profile_support": 0.0,
           "multi_source_candidate_support": 0.0,
+          "triplet_core_bonus": 0.0,
+          "triplet_forward_bonus": 0.0,
+          "triplet_bridge_guard_bonus": 0.0,
+          "trigger_family_reentry": 0.0,
+          "forward_neighborhood_overlap": 0.0,
           "semantic_bridge_support": 0.0,
           "frequency_representative_bonus": 0.0,
           "frequency_similarity_bonus": 0.0,
@@ -393,90 +557,29 @@
         {
           "target": "rejilla",
           "canonical_pos": "noun",
-          "support_score": 3.0,
-          "support_gap_to_threshold": 2.0,
-          "same_pos_as_active": true,
+          "support_score": 1.0,
+          "support_gap_to_threshold": 4.0,
+          "same_pos_as_active": false,
           "promotion_reasons": [
-            "benchmark_target_present",
-            "same_pos_as_active",
-            "active_side_support"
+            "benchmark_target_present"
           ],
           "support_score_breakdown": {
             "reviewed_trigger_support": 0.0,
             "forward_trigger_support": 0.0,
             "benchmark_target_present": 1.0,
-            "same_pos_as_active": 1.0,
-            "active_side_support": 1.0,
+            "same_pos_as_active": 0.0,
+            "active_side_support": 0.0,
             "active_profile_support": 0.0,
             "multi_source_candidate_support": 0.0,
+            "triplet_core_bonus": 0.0,
+            "triplet_forward_bonus": 0.0,
+            "triplet_bridge_guard_bonus": 0.0,
+            "trigger_family_reentry": 0.0,
+            "forward_neighborhood_overlap": 0.0,
             "semantic_bridge_support": 0.0,
             "frequency_representative_bonus": 0.0,
             "frequency_similarity_bonus": 0.0,
             "cross_pos_mismatch_penalty": 0.0
-          }
-        }
-      ]
-    },
-    {
-      "target": "tierra",
-      "trigger": "ground",
-      "gold_shadow_targets": [
-        "terreno"
-      ],
-      "promoted_targets": [
-        "fondo"
-      ],
-      "semantic_family": "field_area_country",
-      "active_candidate_count": 1,
-      "best_gold_candidate": {
-        "target": "terreno",
-        "canonical_pos": "adj",
-        "support_score": 1.5,
-        "support_gap_to_threshold": 3.5,
-        "same_pos_as_active": false,
-        "promotion_reasons": [
-          "forward_trigger_support",
-          "benchmark_target_present",
-          "active_side_support"
-        ],
-        "support_score_breakdown": {
-          "reviewed_trigger_support": 0.0,
-          "forward_trigger_support": 0.5,
-          "benchmark_target_present": 1.0,
-          "same_pos_as_active": 0.0,
-          "active_side_support": 1.0,
-          "active_profile_support": 0.0,
-          "multi_source_candidate_support": 0.0,
-          "semantic_bridge_support": 0.0,
-          "frequency_representative_bonus": 0.0,
-          "frequency_similarity_bonus": 0.0,
-          "cross_pos_mismatch_penalty": -1.0
-        }
-      },
-      "gold_candidates": [
-        {
-          "target": "terreno",
-          "canonical_pos": "adj",
-          "support_score": 1.5,
-          "support_gap_to_threshold": 3.5,
-          "same_pos_as_active": false,
-          "promotion_reasons": [
-            "forward_trigger_support",
-            "benchmark_target_present",
-            "active_side_support"
-          ],
-          "support_score_breakdown": {
-            "reviewed_trigger_support": 0.0,
-            "forward_trigger_support": 0.5,
-            "benchmark_target_present": 1.0,
-            "same_pos_as_active": 0.0,
-            "active_side_support": 1.0,
-            "active_profile_support": 0.0,
-            "multi_source_candidate_support": 0.0,
-            "semantic_bridge_support": 0.0,
-            "frequency_representative_bonus": 0.0,
-            "frequency_similarity_bonus": 0.0,
-            "cross_pos_mismatch_penalty": -1.0
           }
         }
       ]
@@ -494,14 +597,26 @@
       "mined_shadow_targets": []
     },
     {
+      "target": "terreno",
+      "trigger": "land",
+      "gold_shadow_targets": [
+        "tierra"
+      ],
+      "semantic_family": "field_area_country",
+      "active_candidate_count": 0,
+      "mined_shadow_targets": []
+    },
+    {
       "target": "empleo",
       "trigger": "employment",
       "gold_shadow_targets": [
         "ocupación"
       ],
       "semantic_family": "job",
-      "active_candidate_count": 1,
-      "mined_shadow_targets": []
+      "active_candidate_count": 0,
+      "mined_shadow_targets": [
+        "trabajo"
+      ]
     },
     {
       "target": "ocupación",
@@ -510,6 +625,45 @@
         "empleo"
       ],
       "semantic_family": "job",
+      "active_candidate_count": 0,
+      "mined_shadow_targets": []
+    },
+    {
+      "target": "ocupación",
+      "trigger": "job",
+      "gold_shadow_targets": [
+        "cargo",
+        "empleo",
+        "trabajo"
+      ],
+      "semantic_family": "job",
+      "active_candidate_count": 0,
+      "mined_shadow_targets": []
+    },
+    {
+      "target": "red",
+      "trigger": "net",
+      "gold_shadow_targets": [
+        "malla"
+      ],
+      "semantic_family": "net_mesh_network",
+      "active_candidate_count": 1,
+      "mined_shadow_targets": [
+        "almadraba",
+        "jábeca",
+        "jábega",
+        "líquido",
+        "net",
+        "neto"
+      ]
+    },
+    {
+      "target": "reja",
+      "trigger": "grille",
+      "gold_shadow_targets": [
+        "rejilla"
+      ],
+      "semantic_family": "net_mesh_network",
       "active_candidate_count": 0,
       "mined_shadow_targets": []
     },
@@ -555,6 +709,46 @@
       "semantic_family": "path_route",
       "active_candidate_count": 0,
       "mined_shadow_targets": []
+    },
+    {
+      "target": "sacar",
+      "trigger": "remove",
+      "gold_shadow_targets": [
+        "quitar"
+      ],
+      "semantic_family": "remove_take_out",
+      "active_candidate_count": 0,
+      "mined_shadow_targets": []
+    },
+    {
+      "target": "cuadro",
+      "trigger": "table",
+      "gold_shadow_targets": [
+        "tabla"
+      ],
+      "semantic_family": "table_board_chart",
+      "active_candidate_count": 0,
+      "mined_shadow_targets": []
+    },
+    {
+      "target": "tabla",
+      "trigger": "table",
+      "gold_shadow_targets": [
+        "cuadro"
+      ],
+      "semantic_family": "table_board_chart",
+      "active_candidate_count": 0,
+      "mined_shadow_targets": [
+        "entremijo",
+        "entremiso",
+        "expremijo",
+        "mesa",
+        "poner sobre la mesa",
+        "subir",
+        "tablas",
+        "tabular",
+        "traer a discusión"
+      ]
     }
   ]
 }

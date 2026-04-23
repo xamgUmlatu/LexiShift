@@ -98,7 +98,7 @@ reporter.report({{
   semanticFallbackReplaces: 0,
   semanticFallbackAbstains: 1,
   semanticFallbackSoftAffordances: 2,
-  semanticDecisionPolicyId: "en_es_sentence_veto_v2",
+  semanticDecisionPolicyId: "en_es_sentence_veto_v3",
   semanticDebugDecisionOverride: "replace",
   semanticDebugOverrideApplied: 3
   }},
@@ -129,7 +129,7 @@ assert.equal(persisted[0].semantic_overall_decision_total, 8);
 assert.equal(persisted[0].semantic_policy_abstain_rate, 0.2);
 assert.equal(persisted[0].semantic_fallback_abstain_rate, 1 / 3);
 assert.equal(persisted[0].semantic_overall_abstain_rate, 0.25);
-assert.equal(persisted[0].semantic_decision_policy_id, "en_es_sentence_veto_v2");
+assert.equal(persisted[0].semantic_decision_policy_id, "en_es_sentence_veto_v3");
 assert.equal(persisted[0].semantic_debug_decision_override, "replace");
 assert.equal(persisted[0].semantic_debug_override_applied, 3);
 assert.equal(persisted[0].apply_total_ms, 512.5);
@@ -251,7 +251,7 @@ const runtimeDiagnostics = context.LexiShift.srsRuntimeDiagnostics;
     semantic_policy_abstain_rate: 0.25,
     semantic_fallback_abstain_rate: 0.5,
     semantic_overall_abstain_rate: 1 / 3,
-    semantic_decision_policy_id: "en_es_sentence_veto_v2",
+    semantic_decision_policy_id: "en_es_sentence_veto_v3",
     semantic_debug_decision_override: "replace",
     semantic_debug_override_applied: 4,
     apply_total_ms: 480,
@@ -272,7 +272,7 @@ const runtimeDiagnostics = context.LexiShift.srsRuntimeDiagnostics;
   assert.equal(loaded.semantic_policy_abstain_rate, 0.25);
   assert.equal(loaded.semantic_fallback_abstain_rate, 0.5);
   assert.equal(loaded.semantic_overall_abstain_rate, 1 / 3);
-  assert.equal(loaded.semantic_decision_policy_id, "en_es_sentence_veto_v2");
+  assert.equal(loaded.semantic_decision_policy_id, "en_es_sentence_veto_v3");
   assert.equal(loaded.semantic_debug_decision_override, "replace");
   assert.equal(loaded.semantic_debug_override_applied, 4);
   assert.equal(loaded.apply_total_ms, 480);
@@ -370,7 +370,7 @@ context.LexiShift = {{
   }},
   srsRuntimeDiagnostics: {{
     async loadLastState() {{
-      return {{ semantic_decision_policy_id: "en_es_sentence_veto_v2" }};
+      return {{ semantic_decision_policy_id: "en_es_sentence_veto_v3" }};
     }}
   }}
 }};
