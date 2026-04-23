@@ -79,5 +79,10 @@ Reason:
 ## `example_sentence_bank` Note
 
 - `example_sentence_bank` is already approved in `docs/test_inputs/semantic_shadow_source_registry.json` for `discrimination` and `cue_generation`.
-- it is still not integrated into the current code path, so there is no cheap adapter-backed pilot to run yet.
-- the next non-prompt implementation slice should therefore be a tiny `example_sentence_bank` pilot adapter over the frozen `v10` bakeoff queue before any paid prompt smoke pass.
+- the new feasibility artifact `docs/test_outputs/semantic_example_sentence_bank_pilot_en_es_latest.md` now makes the current local state explicit:
+  - queued-family example coverage is `0 / 6` on the installed packs
+  - reverse-side auxiliary sense text is available for `6 / 6` target families
+- so there is still no live example-backed cue source on this machine for the frozen `v10` queue.
+- the next non-prompt choice is now narrower:
+  - either ingest a real example source before prompt spend
+  - or run one reverse-aux-text control before prompt smoke testing

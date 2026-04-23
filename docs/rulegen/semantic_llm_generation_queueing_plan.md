@@ -370,6 +370,8 @@ Without that state, later LLM work would keep re-answering questions the repo ha
 Current first concrete artifact:
 
 - `docs/test_inputs/semantic_routing/semantic_family_inventory_en_es_v10.json`
+- `docs/test_outputs/semantic_llm_queue_review_en_es_latest.md`
+- `docs/test_outputs/semantic_example_sentence_bank_pilot_en_es_latest.md`
 
 Current posture from that first artifact:
 
@@ -378,6 +380,12 @@ Current posture from that first artifact:
 - current calibration families are `plant` and `drink`
 - current negative controls are `play` and `watch`
 - current `needs_shadow_data` tranche count is `0`
+- current installed packs expose no queued-family example rows on that frozen slice:
+  - `0 / 6` target families are example-ready for `example_sentence_bank`
+  - `6 / 6` target families do expose reverse-side auxiliary sense text
+- so the current next non-LLM choice is explicit:
+  - either ingest a real example source
+  - or use reverse aux text as the last cheap control before prompt spend
 
 Minimum family inventory responsibilities:
 

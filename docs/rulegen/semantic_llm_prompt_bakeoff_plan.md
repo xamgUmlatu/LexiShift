@@ -505,7 +505,13 @@ Current status:
 - deferred slot:
   - `shadow_expand_core_v1`
 - current next prerequisite before prompt spend:
-  - tiny `example_sentence_bank` cue pilot over the frozen queue
+  - completed: tiny `example_sentence_bank` feasibility pilot over the frozen queue
+  - current read:
+    - the installed packs expose `0 / 6` target families with example-bearing queued rows
+    - all `6 / 6` target families do expose reverse-side auxiliary sense text
+  - current next choice before prompt spend:
+    - either accept prompt bakeoff without a live example-source control
+    - or run one last reverse-aux-text control first
 
 ### Phase 2. Proxy smoke pass
 
@@ -590,7 +596,8 @@ LexiShift is not yet ready to claim that one exact prompt wording is already kno
 The correct next move is:
 
 1. keep the `v10` queue slice fixed
-2. run a tiny `example_sentence_bank` cue pilot on that same slice
-3. compare a few prompt slots cheaply
-4. confirm finalists on the target model
-5. spend the real batch budget only on accepted slots
+2. treat the `example_sentence_bank` pilot as a feasibility result, not as a live cue source on current packs
+3. optionally run one reverse-aux-text control on that same slice if we still want more non-LLM coverage before spending
+4. compare a few prompt slots cheaply
+5. confirm finalists on the target model
+6. spend the real batch budget only on accepted slots

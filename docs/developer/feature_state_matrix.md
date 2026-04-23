@@ -992,7 +992,8 @@ Use this file when:
 	      - keep the hard reference and accepted active-sense overlay fixed
 	      - treat `play` as the phrase-risk negative control
 	      - treat `check:002`, `order:002`, `trip:002`, `report:001`, and `report:002` as the current held-out weak-active-support residue
-	      - run a tiny `example_sentence_bank` cue pilot before prompt smoke testing
+	      - the new `example_sentence_bank` feasibility pilot shows no queued-family example rows on the current installed packs
+	      - so the last optional non-LLM control before prompt smoke testing is now reverse aux text, not a live example-source adapter
   - Before any rollout, the project still needs:
     - active-sense provenance carried from rulegen into runtime-consumable metadata
     - automatic sibling-shadow candidate mining and a small promotion policy

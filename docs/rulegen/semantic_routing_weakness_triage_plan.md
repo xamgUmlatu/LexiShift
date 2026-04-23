@@ -1105,7 +1105,12 @@ The family map changes the next-step order:
   - do not infer a broader soft rollout from the old `plant` / `drink` / `order` / `trip` lift story; the corrected `v10` zero-noise row adds no new surfaced wins
   - do not promote the direct `sense_label` or raw-context primaries into runtime-default candidates
   - keep the new family inventory, bakeoff queue, and prompt-slot manifest fixed against the same slice
-  - run a tiny `example_sentence_bank` cue-data pilot before resuming prompt smoke or another held-out family wave
+  - keep the new `example_sentence_bank` feasibility pilot artifact current:
+    - current installed packs expose `0 / 6` target families with example-bearing queued rows
+    - all `6 / 6` target families do expose reverse-side auxiliary sense text
+  - do not block prompt work on a nonexistent queued-family example source:
+    - if we still want a non-LLM control before prompt spend, the next honest slice is a reverse-aux-text cue pilot
+    - if we want a true example-backed control, the next honest slice is dedicated example-source ingestion, not prompt wording work
 - Decision:
   - `do_now`
 
@@ -1784,7 +1789,8 @@ Current status after this document was created:
     - keep `T1-A` closed as flat until new blocker evidence justifies reopening it
     - keep the fixed `v10` hard row, the fixed zero-noise soft row, and the accepted active-sense overlay experiment as frozen references
     - keep the new family inventory, bakeoff queue, and prompt-slot manifest frozen with the same slice
-    - run a tiny `example_sentence_bank` cue-data pilot before any paid prompt smoke pass
+    - keep the new `example_sentence_bank` feasibility pilot current
+    - if we want more non-LLM pre-prompt coverage, run a reverse-aux-text cue pilot before any paid prompt smoke pass
 
 Reasoning:
 
@@ -1857,3 +1863,4 @@ Use this section to record the result of each completed triage turn.
 | `2026-04-23` | `EVAL-2 targeted family growth v9` | `do_now` | the `v9` fixed-shadow slice adds `trip` as a held-out weak-active-support noun/verb family; it does not create a new phrase-leak harmful row, but it does add `trip:002` as another held-out false-abstain residue while keeping `play:005` as the only harmful replace on the plain hard and widened-rescue lanes, and it is the second new held-out residue that cleanly joins the zero-noise soft ladder | next turn should keep `v9` fixed, keep the hard reference, zero-noise soft row, and accepted active-sense overlay frozen, and continue held-out family growth plus corridor tightening with `check:002`, `order:002`, and `trip:002` tracked as weak-active-support residue rather than reopening generic phrase-leak diagnosis |
 | `2026-04-24` | `EVAL-2 targeted family growth v10` | `do_now` | the `v10` fixed-shadow slice adds `report` as a held-out weak-active-support noun/verb family; it does not create a new phrase-leak harmful row, but it does add `report:001` and `report:002` as new held-out false-abstain residue while keeping `play:005` as the only harmful replace on the plain hard and widened-rescue lanes, and it collapses the current zero-noise soft ladder back to a pure monitoring control | next turn should keep `v10` fixed, stop defaulting to more family growth, and move to the queue-backed pre-prompt data path |
 | `2026-04-24` | `Pre-prompt family inventory and queue freeze` | `do_now` | the repo now has the first concrete family inventory, sampled queue review, frozen bakeoff queue, and frozen prompt-slot manifest for the active `v10` runtime slice; current first-tranche targets are cue-heavy (`check`, `order`, `trip`, `report`) with `play` and `watch` held as guardrail families | next turn should run a tiny `example_sentence_bank` cue-data pilot on that frozen queue before any paid prompt smoke pass |
+| `2026-04-24` | `Pre-prompt example_sentence_bank feasibility pilot` | `do_now` | the new pilot shows that the current installed packs expose `0 / 6` target families with queued-family example rows on the frozen `v10` queue, while all `6 / 6` target families do expose reverse-side auxiliary sense text; so a true example-backed control is not currently available on this machine without dedicated source ingestion | next turn should either run a reverse-aux-text cue pilot as the last non-LLM control before prompt spend or explicitly accept prompt bakeoff without a live example-source control |

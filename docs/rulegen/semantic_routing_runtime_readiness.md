@@ -568,8 +568,8 @@ Interpretation:
   - the zero-noise soft ladder no longer adds practical lift
 - this is therefore the right surface for:
   - a frozen first family inventory / bakeoff queue
-  - an `example_sentence_bank` cue-data pilot on that queue
-  - and only then a paid prompt smoke pass
+  - an `example_sentence_bank` feasibility pilot on that queue
+  - and then either dedicated example-source ingestion or a reverse-aux-text control before any paid prompt smoke pass
 
 ## Boundary: Manual Vs Automatic Today
 
