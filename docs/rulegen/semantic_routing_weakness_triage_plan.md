@@ -1112,8 +1112,14 @@ The family map changes the next-step order:
     - `reverse_aux_plus_all_evidence` is now the best cheap non-LLM control on the frozen queue slice
     - it improves the queue-slice point read from `1` harmful / `8` false abstains to `1` harmful / `6` false abstains
     - the concrete recovered rows are `plant:002`, `drink:002`, and `order:002`
+  - keep the new prompt-spec and smoke-preview bundle current:
+    - proxy default `gpt-5.4-mini`
+    - target default `gpt-5.4`
+    - `6` concrete prompt requests across the `2` active cue slots on the frozen `v10` queue
   - do not treat that win as a new runtime-default candidate:
     - it is a pre-prompt control row, not a shipped runtime policy change
+  - do not treat the smoke bundle as a completed proxy batch:
+    - actual prompt execution still requires a configured API surface on the machine that runs it
 - Decision:
   - `do_now`
 
@@ -1868,3 +1874,4 @@ Use this section to record the result of each completed triage turn.
 | `2026-04-24` | `Pre-prompt family inventory and queue freeze` | `do_now` | the repo now has the first concrete family inventory, sampled queue review, frozen bakeoff queue, and frozen prompt-slot manifest for the active `v10` runtime slice; current first-tranche targets are cue-heavy (`check`, `order`, `trip`, `report`) with `play` and `watch` held as guardrail families | next turn should run a tiny `example_sentence_bank` cue-data pilot on that frozen queue before any paid prompt smoke pass |
 | `2026-04-24` | `Pre-prompt example_sentence_bank feasibility pilot` | `do_now` | the new pilot shows that the current installed packs expose `0 / 6` target families with queued-family example rows on the frozen `v10` queue, while all `6 / 6` target families do expose reverse-side auxiliary sense text; so a true example-backed control is not currently available on this machine without dedicated source ingestion | next turn should either run a reverse-aux-text cue pilot as the last non-LLM control before prompt spend or explicitly accept prompt bakeoff without a live example-source control |
 | `2026-04-24` | `Pre-prompt reverse-aux-text queue pilot` | `do_now` | the new reverse-aux-text pilot shows that `reverse_aux_plus_all_evidence` is a real cheap control on the frozen `v10` prompt slice: it improves the point read from `77.5%` accuracy / `50.0%` replace recall / `1` harmful / `8` false abstains to `82.5%` / `62.5%` / `1` / `6`, fixing `plant:002`, `drink:002`, and `order:002` while leaving `play:005` as the live harmful row | next turn should keep that row frozen as the last non-LLM control and move into the actual prompt bakeoff |
+| `2026-04-24` | `Pre-prompt prompt smoke bundle` | `do_now` | the repo now has the first concrete prompt wording bundle for the frozen `v10` queue: `semantic_prompt_bakeoff_v1` with proxy `gpt-5.4-mini`, target `gpt-5.4`, and `6` rendered request rows across the `2` active cue slots, so prompt work is now an execution surface rather than a plan-only seam | next turn should run the actual cheap proxy batch on a configured API surface rather than reopen queue design or add more local prompt variants first |

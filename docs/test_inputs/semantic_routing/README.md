@@ -25,6 +25,11 @@ Files:
   - offline Layer 2 normalized evidence lane emitted after raw source batches are deduped into one common semantic-evidence shape
 - `semantic_family_inventory.schema.json`
   - planning schema for family-level queue memory, triage hypotheses, and additive semantic-generation tracking
+- `semantic_prompt_spec_en_es_v10.json`
+  - frozen prompt wording + model-default bundle for the first bounded `en-es` cue bakeoff
+  - current defaults:
+    - proxy `gpt-5.4-mini`
+    - target `gpt-5.4`
 - `semantic_report_event_batch.schema.json`
   - planning schema for append-only raw semantic user report events attached to concrete runtime rule fires
 - `semantic_local_override_bundle.schema.json`

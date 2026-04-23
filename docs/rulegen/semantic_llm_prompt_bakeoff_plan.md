@@ -91,7 +91,9 @@ Current frozen pre-prompt artifacts:
 - `docs/test_inputs/semantic_routing/semantic_family_inventory_en_es_v10.json`
 - `docs/test_inputs/semantic_routing/semantic_prompt_bakeoff_queue_en_es.json`
 - `docs/test_inputs/semantic_routing/semantic_prompt_slot_manifest.json`
+- `docs/test_inputs/semantic_routing/semantic_prompt_spec_en_es_v10.json`
 - `docs/test_outputs/semantic_llm_queue_review_en_es_latest.md`
+- `docs/test_outputs/semantic_llm_prompt_smoke_latest.md`
 
 Current `v10` read:
 
@@ -497,6 +499,9 @@ Acceptance:
 Current status:
 
 - landed on `v10`
+- chosen default model pair:
+  - Stage A proxy: `gpt-5.4-mini`
+  - Stage B/C target: `gpt-5.4`
 - active slots:
   - `cue_contrastive_general_v1`
   - `cue_cross_pos_frame_v1`
@@ -533,6 +538,19 @@ Acceptance:
 
 - surviving prompts are structurally reliable
 - obviously generic or malformed prompts are dropped
+
+Current status:
+
+- prompt wording and stage defaults are now frozen in:
+  - `docs/test_inputs/semantic_routing/semantic_prompt_spec_en_es_v10.json`
+- the local prompt preview bundle is now rendered in:
+  - `docs/test_outputs/semantic_llm_prompt_smoke_latest.md`
+- current preview read:
+  - `2` active slots
+  - `6` rendered target-family prompt requests
+  - `play` and `watch` remain held out as negative controls, not prompt targets
+- current local limitation:
+  - this machine does not currently expose a configured OpenAI API surface (`OPENAI_API_KEY` unset and no local `openai` package), so the actual cheap-model proxy batch is still pending a configured runtime rather than more planning
 
 ### Phase 3. Target-model finalist pass
 
@@ -602,6 +620,7 @@ The correct next move is:
 1. keep the `v10` queue slice fixed
 2. treat the `example_sentence_bank` pilot as a feasibility result, not as a live cue source on current packs
 3. keep `reverse_aux_plus_all_evidence` as the last cheap non-LLM control on that same slice
-4. compare a few prompt slots cheaply
-5. confirm finalists on the target model
-6. spend the real batch budget only on accepted slots
+4. keep `semantic_prompt_bakeoff_v1` and the rendered smoke bundle fixed as the current wording baseline
+5. run the actual cheap proxy batch on a configured API surface
+6. confirm finalists on the target model
+7. spend the real batch budget only on accepted slots

@@ -995,7 +995,12 @@ Use this file when:
 	      - the new `example_sentence_bank` feasibility pilot shows no queued-family example rows on the current installed packs
 	      - the new reverse-aux-text pilot now lands that last cheap control:
 	        - `reverse_aux_plus_all_evidence` improves the frozen queue-slice point read without widening the current harmful count
-	      - so prompt smoke testing can now proceed with one explicit non-LLM control row, not an unresolved source question
+	      - the new prompt-spec plus smoke harness now freeze the first wording bundle too:
+	        - proxy `gpt-5.4-mini`
+	        - target `gpt-5.4`
+	        - `6` concrete request rows across the `2` active cue slots
+	      - so prompt smoke work is now a real execution surface, not just a plan
+	      - actual model execution is still pending a configured API surface on this machine, not more queue design work
   - Before any rollout, the project still needs:
     - active-sense provenance carried from rulegen into runtime-consumable metadata
     - automatic sibling-shadow candidate mining and a small promotion policy

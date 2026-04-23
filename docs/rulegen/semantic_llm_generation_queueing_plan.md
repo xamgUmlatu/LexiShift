@@ -557,11 +557,13 @@ The current queueing unit is now stable enough for a first bounded pre-prompt wo
 - sampled manual queue review
 - frozen bakeoff queue
 - frozen prompt-slot manifest
+- frozen prompt spec
+- rendered prompt smoke bundle
 
 What is still missing before prompt spend:
 
-- a tiny non-LLM cue-data pilot over that frozen queue
-- then prompt-slot smoke work on the same frozen slice
+- actual proxy-model execution on a configured API surface
+- then target-model finalist confirmation on the same frozen slice
 
 Once the queueing unit is stable, use `docs/rulegen/semantic_llm_prompt_bakeoff_plan.md` for the prompt-slot matrix, proxy-vs-target model policy, and cheap bakeoff workflow.
 
@@ -593,6 +595,15 @@ The present understanding is:
 - "worried about polysemy" should mean product-relevant semantic hazard, not dictionary polysemy alone
 - automatic classification can only produce hypotheses, not certain root-cause labels
 - LLM budget should be spent only after a family-level queue exists
+- the frozen `v10` queue now already carries the first prompt-ready bundle:
+  - family inventory
+  - bakeoff queue
+  - slot manifest
+  - prompt spec
+  - rendered smoke bundle
+- current first-tranche defaults are now explicit:
+  - proxy `gpt-5.4-mini`
+  - target `gpt-5.4`
 - reuse should happen at family level for shadows and at sense-pair level for cues
 
 ## Not yet decided

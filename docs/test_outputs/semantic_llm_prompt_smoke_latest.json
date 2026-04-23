@@ -1,0 +1,292 @@
+{
+  "schema_version": 1,
+  "status": "ok",
+  "pair": "en-es",
+  "generated_at": "2026-04-23T20:47:56Z",
+  "queue_id": "semantic_prompt_bakeoff_en_es_v10",
+  "prompt_spec_id": "semantic_prompt_spec_en_es_v10",
+  "prompt_version": "semantic_prompt_bakeoff_v1",
+  "stage": "proxy",
+  "selected_model_id": "gpt-5.4-mini",
+  "selected_temperature": 0.2,
+  "summary": {
+    "active_slot_count": 2,
+    "request_count": 6,
+    "target_family_count": 6,
+    "negative_control_count": 2
+  },
+  "slot_rows": [
+    {
+      "prompt_slot": "cue_contrastive_general_v1",
+      "status": "active",
+      "target_family_count": 2,
+      "request_count": 2,
+      "notes": [
+        "Keep the first general cue slot small and contrastive.",
+        "Use same-POS or ordinary competition families only."
+      ]
+    },
+    {
+      "prompt_slot": "cue_cross_pos_frame_v1",
+      "status": "active",
+      "target_family_count": 4,
+      "request_count": 4,
+      "notes": [
+        "This is the primary first-tranche slot on v10.",
+        "Favor frame-sensitive noun-active vs verb-shadow cue generation."
+      ]
+    }
+  ],
+  "sample_requests": [
+    {
+      "request_id": "en-es:proxy:cue-contrastive-general-v1:plant:fabrica",
+      "prompt_slot": "cue_contrastive_general_v1",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "fábrica",
+      "candidate_pos": "noun",
+      "model_id": "gpt-5.4-mini",
+      "temperature": 0.2,
+      "system_prompt": "You generate one LexiShift semantic cue row. Return compact JSON only. The cue must help choose the active Spanish target over one named competitor for one English trigger. Write short discriminative evidence text in English. Prefer concrete semantic or lexical discriminators over dictionary paraphrase. Do not generate phrase or idiom guidance, examples, explanations, markdown, or extra keys.",
+      "user_prompt": "Return a JSON object with exactly one key `items`. `items` must be an array with exactly one object.\n\nCopy these fields exactly into that object:\n- `row_id`: `en-es:proxy:cue-contrastive-general-v1:plant:fabrica:row`\n- `relation_type`: `anchor_cue`\n- `trigger`: `plant`\n- `active_target`: `planta`\n- `candidate_target`: `fábrica`\n- `candidate_pos`: `noun`\n- `prompt_slot`: `cue_contrastive_general_v1`\n- `input_ref`: `en-es:proxy:cue-contrastive-general-v1:plant:fabrica`\n\nSet `metadata` to an object containing these exact fields:\n- `family_id`: `en-es:sentence-veto:plant:planta`\n- `active_sense_id`: `en-es:sentence-veto:plant:planta:active`\n- `candidate_sense_id`: `en-es:sentence-veto:plant:fabrica:shadow`\n- `stage`: `proxy`\n- `family_archetype`: `ordinary_weak_active_support`\n\nActive sense:\n- sense label: `living plant`\n- gloss: `living organism that grows in soil or water`\n\nCandidate sense:\n- sense label: `industrial plant`\n- gloss: `factory where goods are manufactured`\n\nFamily notes:\n- `Useful same-POS cue calibration family. | Current hard row still misses plant:002, but the accepted overlay already rescues it. | The hard runtime row still misses plant:002.`\n\nTask:\nWrite `evidence_text` in English, between 6 and 18 words, as one compact cue for the active sense only.\n\nRules:\n- make it contrastive and specific\n- do not merely restate the active label\n- do not mention the candidate target by name\n- do not write multiple cues or bullets\n- do not mention phrases, idioms, or lexicalized expressions\n- keep the cue useful for ordinary single-word sense discrimination\n\nOptional:\n- include `confidence` as a number from 0 to 1\n\nReturn JSON only.",
+      "expected_row_preview": {
+        "row_id": "en-es:proxy:cue-contrastive-general-v1:plant:fabrica:row",
+        "relation_type": "anchor_cue",
+        "trigger": "plant",
+        "active_target": "planta",
+        "candidate_target": "fábrica",
+        "candidate_pos": "noun",
+        "evidence_text": "<model-written cue text>",
+        "prompt_slot": "cue_contrastive_general_v1",
+        "input_ref": "en-es:proxy:cue-contrastive-general-v1:plant:fabrica",
+        "metadata": {
+          "family_id": "en-es:sentence-veto:plant:planta",
+          "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+          "candidate_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+          "stage": "proxy",
+          "family_archetype": "ordinary_weak_active_support"
+        }
+      }
+    },
+    {
+      "request_id": "en-es:proxy:cue-cross-pos-frame-v1:check:revisar",
+      "prompt_slot": "cue_cross_pos_frame_v1",
+      "family_id": "en-es:sentence-veto:check:cheque",
+      "trigger": "check",
+      "active_target": "cheque",
+      "candidate_target": "revisar",
+      "candidate_pos": "verb",
+      "model_id": "gpt-5.4-mini",
+      "temperature": 0.2,
+      "system_prompt": "You generate one LexiShift semantic cue row for cross-POS ambiguity. Return compact JSON only. The cue must help choose the active Spanish target over one named competitor for one English trigger. Favor short frame-sensitive evidence in English: noun-vs-verb usage, nearby function words, determiner patterns, object or modifier cues, or document-like vs action-like framing. Do not generate phrase or idiom guidance, examples, explanations, markdown, or extra keys.",
+      "user_prompt": "Return a JSON object with exactly one key `items`. `items` must be an array with exactly one object.\n\nCopy these fields exactly into that object:\n- `row_id`: `en-es:proxy:cue-cross-pos-frame-v1:check:revisar:row`\n- `relation_type`: `anchor_cue`\n- `trigger`: `check`\n- `active_target`: `cheque`\n- `candidate_target`: `revisar`\n- `candidate_pos`: `verb`\n- `prompt_slot`: `cue_cross_pos_frame_v1`\n- `input_ref`: `en-es:proxy:cue-cross-pos-frame-v1:check:revisar`\n\nSet `metadata` to an object containing these exact fields:\n- `family_id`: `en-es:sentence-veto:check:cheque`\n- `active_sense_id`: `en-es:sentence-veto:check:cheque:active`\n- `candidate_sense_id`: `en-es:sentence-veto:check:revisar:shadow`\n- `stage`: `proxy`\n- `family_archetype`: `cross_pos_weak_active_support`\n\nActive sense:\n- canonical POS: `noun`\n- sense label: `check as a bank payment slip`\n- gloss: `written order directing a bank to pay money`\n\nCandidate sense:\n- canonical POS: `verb`\n- sense label: `check or inspect carefully`\n- gloss: `examine, verify, or inspect something carefully`\n\nFamily notes:\n- `Held-out noun-active / verb-shadow residue remains unresolved after the accepted overlay. | The fixed-shadow competition set is already plausible, but check:002 still abstains on the strong row and on the accepted overlay. | The phrase probe keeps check:005 safely abstained, so the remaining gap is not a new phrase leak.`\n\nTask:\nWrite `evidence_text` in English, between 6 and 18 words, as one compact cue for the active sense only.\n\nRules:\n- prefer syntactic-frame or collocate signals that favor the active POS\n- make the cue specific enough to separate noun-active from verb-shadow competition\n- do not mention the candidate target by name\n- do not write multiple cues or bullets\n- do not mention phrases, idioms, or lexicalized expressions\n- avoid generic dictionary prose that ignores POS framing\n\nOptional:\n- include `confidence` as a number from 0 to 1\n\nReturn JSON only.",
+      "expected_row_preview": {
+        "row_id": "en-es:proxy:cue-cross-pos-frame-v1:check:revisar:row",
+        "relation_type": "anchor_cue",
+        "trigger": "check",
+        "active_target": "cheque",
+        "candidate_target": "revisar",
+        "candidate_pos": "verb",
+        "evidence_text": "<model-written cue text>",
+        "prompt_slot": "cue_cross_pos_frame_v1",
+        "input_ref": "en-es:proxy:cue-cross-pos-frame-v1:check:revisar",
+        "metadata": {
+          "family_id": "en-es:sentence-veto:check:cheque",
+          "active_sense_id": "en-es:sentence-veto:check:cheque:active",
+          "candidate_sense_id": "en-es:sentence-veto:check:revisar:shadow",
+          "stage": "proxy",
+          "family_archetype": "cross_pos_weak_active_support"
+        }
+      }
+    }
+  ],
+  "request_rows": [
+    {
+      "request_id": "en-es:proxy:cue-contrastive-general-v1:plant:fabrica",
+      "prompt_slot": "cue_contrastive_general_v1",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "fábrica",
+      "candidate_pos": "noun",
+      "model_id": "gpt-5.4-mini",
+      "temperature": 0.2,
+      "system_prompt": "You generate one LexiShift semantic cue row. Return compact JSON only. The cue must help choose the active Spanish target over one named competitor for one English trigger. Write short discriminative evidence text in English. Prefer concrete semantic or lexical discriminators over dictionary paraphrase. Do not generate phrase or idiom guidance, examples, explanations, markdown, or extra keys.",
+      "user_prompt": "Return a JSON object with exactly one key `items`. `items` must be an array with exactly one object.\n\nCopy these fields exactly into that object:\n- `row_id`: `en-es:proxy:cue-contrastive-general-v1:plant:fabrica:row`\n- `relation_type`: `anchor_cue`\n- `trigger`: `plant`\n- `active_target`: `planta`\n- `candidate_target`: `fábrica`\n- `candidate_pos`: `noun`\n- `prompt_slot`: `cue_contrastive_general_v1`\n- `input_ref`: `en-es:proxy:cue-contrastive-general-v1:plant:fabrica`\n\nSet `metadata` to an object containing these exact fields:\n- `family_id`: `en-es:sentence-veto:plant:planta`\n- `active_sense_id`: `en-es:sentence-veto:plant:planta:active`\n- `candidate_sense_id`: `en-es:sentence-veto:plant:fabrica:shadow`\n- `stage`: `proxy`\n- `family_archetype`: `ordinary_weak_active_support`\n\nActive sense:\n- sense label: `living plant`\n- gloss: `living organism that grows in soil or water`\n\nCandidate sense:\n- sense label: `industrial plant`\n- gloss: `factory where goods are manufactured`\n\nFamily notes:\n- `Useful same-POS cue calibration family. | Current hard row still misses plant:002, but the accepted overlay already rescues it. | The hard runtime row still misses plant:002.`\n\nTask:\nWrite `evidence_text` in English, between 6 and 18 words, as one compact cue for the active sense only.\n\nRules:\n- make it contrastive and specific\n- do not merely restate the active label\n- do not mention the candidate target by name\n- do not write multiple cues or bullets\n- do not mention phrases, idioms, or lexicalized expressions\n- keep the cue useful for ordinary single-word sense discrimination\n\nOptional:\n- include `confidence` as a number from 0 to 1\n\nReturn JSON only.",
+      "expected_row_preview": {
+        "row_id": "en-es:proxy:cue-contrastive-general-v1:plant:fabrica:row",
+        "relation_type": "anchor_cue",
+        "trigger": "plant",
+        "active_target": "planta",
+        "candidate_target": "fábrica",
+        "candidate_pos": "noun",
+        "evidence_text": "<model-written cue text>",
+        "prompt_slot": "cue_contrastive_general_v1",
+        "input_ref": "en-es:proxy:cue-contrastive-general-v1:plant:fabrica",
+        "metadata": {
+          "family_id": "en-es:sentence-veto:plant:planta",
+          "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+          "candidate_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+          "stage": "proxy",
+          "family_archetype": "ordinary_weak_active_support"
+        }
+      }
+    },
+    {
+      "request_id": "en-es:proxy:cue-contrastive-general-v1:drink:beber",
+      "prompt_slot": "cue_contrastive_general_v1",
+      "family_id": "en-es:sentence-veto:drink:bebida",
+      "trigger": "drink",
+      "active_target": "bebida",
+      "candidate_target": "beber",
+      "candidate_pos": "verb",
+      "model_id": "gpt-5.4-mini",
+      "temperature": 0.2,
+      "system_prompt": "You generate one LexiShift semantic cue row. Return compact JSON only. The cue must help choose the active Spanish target over one named competitor for one English trigger. Write short discriminative evidence text in English. Prefer concrete semantic or lexical discriminators over dictionary paraphrase. Do not generate phrase or idiom guidance, examples, explanations, markdown, or extra keys.",
+      "user_prompt": "Return a JSON object with exactly one key `items`. `items` must be an array with exactly one object.\n\nCopy these fields exactly into that object:\n- `row_id`: `en-es:proxy:cue-contrastive-general-v1:drink:beber:row`\n- `relation_type`: `anchor_cue`\n- `trigger`: `drink`\n- `active_target`: `bebida`\n- `candidate_target`: `beber`\n- `candidate_pos`: `verb`\n- `prompt_slot`: `cue_contrastive_general_v1`\n- `input_ref`: `en-es:proxy:cue-contrastive-general-v1:drink:beber`\n\nSet `metadata` to an object containing these exact fields:\n- `family_id`: `en-es:sentence-veto:drink:bebida`\n- `active_sense_id`: `en-es:sentence-veto:drink:bebida:active`\n- `candidate_sense_id`: `en-es:sentence-veto:drink:beber:shadow`\n- `stage`: `proxy`\n- `family_archetype`: `ordinary_weak_active_support`\n\nActive sense:\n- sense label: `drink as a beverage`\n- gloss: `liquid intended for drinking`\n\nCandidate sense:\n- sense label: `drink liquid`\n- gloss: `consume a beverage or other liquid`\n\nFamily notes:\n- `Useful same-POS cue calibration family. | Drink:002 is still a hard-row abstain but already rescued by the accepted overlay. | The hard runtime row still under-replaces drink:002.`\n\nTask:\nWrite `evidence_text` in English, between 6 and 18 words, as one compact cue for the active sense only.\n\nRules:\n- make it contrastive and specific\n- do not merely restate the active label\n- do not mention the candidate target by name\n- do not write multiple cues or bullets\n- do not mention phrases, idioms, or lexicalized expressions\n- keep the cue useful for ordinary single-word sense discrimination\n\nOptional:\n- include `confidence` as a number from 0 to 1\n\nReturn JSON only.",
+      "expected_row_preview": {
+        "row_id": "en-es:proxy:cue-contrastive-general-v1:drink:beber:row",
+        "relation_type": "anchor_cue",
+        "trigger": "drink",
+        "active_target": "bebida",
+        "candidate_target": "beber",
+        "candidate_pos": "verb",
+        "evidence_text": "<model-written cue text>",
+        "prompt_slot": "cue_contrastive_general_v1",
+        "input_ref": "en-es:proxy:cue-contrastive-general-v1:drink:beber",
+        "metadata": {
+          "family_id": "en-es:sentence-veto:drink:bebida",
+          "active_sense_id": "en-es:sentence-veto:drink:bebida:active",
+          "candidate_sense_id": "en-es:sentence-veto:drink:beber:shadow",
+          "stage": "proxy",
+          "family_archetype": "ordinary_weak_active_support"
+        }
+      }
+    },
+    {
+      "request_id": "en-es:proxy:cue-cross-pos-frame-v1:check:revisar",
+      "prompt_slot": "cue_cross_pos_frame_v1",
+      "family_id": "en-es:sentence-veto:check:cheque",
+      "trigger": "check",
+      "active_target": "cheque",
+      "candidate_target": "revisar",
+      "candidate_pos": "verb",
+      "model_id": "gpt-5.4-mini",
+      "temperature": 0.2,
+      "system_prompt": "You generate one LexiShift semantic cue row for cross-POS ambiguity. Return compact JSON only. The cue must help choose the active Spanish target over one named competitor for one English trigger. Favor short frame-sensitive evidence in English: noun-vs-verb usage, nearby function words, determiner patterns, object or modifier cues, or document-like vs action-like framing. Do not generate phrase or idiom guidance, examples, explanations, markdown, or extra keys.",
+      "user_prompt": "Return a JSON object with exactly one key `items`. `items` must be an array with exactly one object.\n\nCopy these fields exactly into that object:\n- `row_id`: `en-es:proxy:cue-cross-pos-frame-v1:check:revisar:row`\n- `relation_type`: `anchor_cue`\n- `trigger`: `check`\n- `active_target`: `cheque`\n- `candidate_target`: `revisar`\n- `candidate_pos`: `verb`\n- `prompt_slot`: `cue_cross_pos_frame_v1`\n- `input_ref`: `en-es:proxy:cue-cross-pos-frame-v1:check:revisar`\n\nSet `metadata` to an object containing these exact fields:\n- `family_id`: `en-es:sentence-veto:check:cheque`\n- `active_sense_id`: `en-es:sentence-veto:check:cheque:active`\n- `candidate_sense_id`: `en-es:sentence-veto:check:revisar:shadow`\n- `stage`: `proxy`\n- `family_archetype`: `cross_pos_weak_active_support`\n\nActive sense:\n- canonical POS: `noun`\n- sense label: `check as a bank payment slip`\n- gloss: `written order directing a bank to pay money`\n\nCandidate sense:\n- canonical POS: `verb`\n- sense label: `check or inspect carefully`\n- gloss: `examine, verify, or inspect something carefully`\n\nFamily notes:\n- `Held-out noun-active / verb-shadow residue remains unresolved after the accepted overlay. | The fixed-shadow competition set is already plausible, but check:002 still abstains on the strong row and on the accepted overlay. | The phrase probe keeps check:005 safely abstained, so the remaining gap is not a new phrase leak.`\n\nTask:\nWrite `evidence_text` in English, between 6 and 18 words, as one compact cue for the active sense only.\n\nRules:\n- prefer syntactic-frame or collocate signals that favor the active POS\n- make the cue specific enough to separate noun-active from verb-shadow competition\n- do not mention the candidate target by name\n- do not write multiple cues or bullets\n- do not mention phrases, idioms, or lexicalized expressions\n- avoid generic dictionary prose that ignores POS framing\n\nOptional:\n- include `confidence` as a number from 0 to 1\n\nReturn JSON only.",
+      "expected_row_preview": {
+        "row_id": "en-es:proxy:cue-cross-pos-frame-v1:check:revisar:row",
+        "relation_type": "anchor_cue",
+        "trigger": "check",
+        "active_target": "cheque",
+        "candidate_target": "revisar",
+        "candidate_pos": "verb",
+        "evidence_text": "<model-written cue text>",
+        "prompt_slot": "cue_cross_pos_frame_v1",
+        "input_ref": "en-es:proxy:cue-cross-pos-frame-v1:check:revisar",
+        "metadata": {
+          "family_id": "en-es:sentence-veto:check:cheque",
+          "active_sense_id": "en-es:sentence-veto:check:cheque:active",
+          "candidate_sense_id": "en-es:sentence-veto:check:revisar:shadow",
+          "stage": "proxy",
+          "family_archetype": "cross_pos_weak_active_support"
+        }
+      }
+    },
+    {
+      "request_id": "en-es:proxy:cue-cross-pos-frame-v1:order:ordenar",
+      "prompt_slot": "cue_cross_pos_frame_v1",
+      "family_id": "en-es:sentence-veto:order:pedido",
+      "trigger": "order",
+      "active_target": "pedido",
+      "candidate_target": "ordenar",
+      "candidate_pos": "verb",
+      "model_id": "gpt-5.4-mini",
+      "temperature": 0.2,
+      "system_prompt": "You generate one LexiShift semantic cue row for cross-POS ambiguity. Return compact JSON only. The cue must help choose the active Spanish target over one named competitor for one English trigger. Favor short frame-sensitive evidence in English: noun-vs-verb usage, nearby function words, determiner patterns, object or modifier cues, or document-like vs action-like framing. Do not generate phrase or idiom guidance, examples, explanations, markdown, or extra keys.",
+      "user_prompt": "Return a JSON object with exactly one key `items`. `items` must be an array with exactly one object.\n\nCopy these fields exactly into that object:\n- `row_id`: `en-es:proxy:cue-cross-pos-frame-v1:order:ordenar:row`\n- `relation_type`: `anchor_cue`\n- `trigger`: `order`\n- `active_target`: `pedido`\n- `candidate_target`: `ordenar`\n- `candidate_pos`: `verb`\n- `prompt_slot`: `cue_cross_pos_frame_v1`\n- `input_ref`: `en-es:proxy:cue-cross-pos-frame-v1:order:ordenar`\n\nSet `metadata` to an object containing these exact fields:\n- `family_id`: `en-es:sentence-veto:order:pedido`\n- `active_sense_id`: `en-es:sentence-veto:order:pedido:active`\n- `candidate_sense_id`: `en-es:sentence-veto:order:ordenar:shadow`\n- `stage`: `proxy`\n- `family_archetype`: `cross_pos_weak_active_support`\n\nActive sense:\n- canonical POS: `noun`\n- sense label: `order as a purchase request`\n- gloss: `request to buy or deliver goods`\n\nCandidate sense:\n- canonical POS: `verb`\n- sense label: `order or command something`\n- gloss: `command or request that something be done`\n\nFamily notes:\n- `Held-out noun-active / verb-shadow residue remains unresolved after the accepted overlay. | Order:002 still abstains on the strong row and on the accepted overlay even though the fixed-shadow competitor is already present. | Order:005 stays safely abstained under the phrase probe, so this is not a reopened phrase leak.`\n\nTask:\nWrite `evidence_text` in English, between 6 and 18 words, as one compact cue for the active sense only.\n\nRules:\n- prefer syntactic-frame or collocate signals that favor the active POS\n- make the cue specific enough to separate noun-active from verb-shadow competition\n- do not mention the candidate target by name\n- do not write multiple cues or bullets\n- do not mention phrases, idioms, or lexicalized expressions\n- avoid generic dictionary prose that ignores POS framing\n\nOptional:\n- include `confidence` as a number from 0 to 1\n\nReturn JSON only.",
+      "expected_row_preview": {
+        "row_id": "en-es:proxy:cue-cross-pos-frame-v1:order:ordenar:row",
+        "relation_type": "anchor_cue",
+        "trigger": "order",
+        "active_target": "pedido",
+        "candidate_target": "ordenar",
+        "candidate_pos": "verb",
+        "evidence_text": "<model-written cue text>",
+        "prompt_slot": "cue_cross_pos_frame_v1",
+        "input_ref": "en-es:proxy:cue-cross-pos-frame-v1:order:ordenar",
+        "metadata": {
+          "family_id": "en-es:sentence-veto:order:pedido",
+          "active_sense_id": "en-es:sentence-veto:order:pedido:active",
+          "candidate_sense_id": "en-es:sentence-veto:order:ordenar:shadow",
+          "stage": "proxy",
+          "family_archetype": "cross_pos_weak_active_support"
+        }
+      }
+    },
+    {
+      "request_id": "en-es:proxy:cue-cross-pos-frame-v1:trip:tropezar",
+      "prompt_slot": "cue_cross_pos_frame_v1",
+      "family_id": "en-es:sentence-veto:trip:viaje",
+      "trigger": "trip",
+      "active_target": "viaje",
+      "candidate_target": "tropezar",
+      "candidate_pos": "verb",
+      "model_id": "gpt-5.4-mini",
+      "temperature": 0.2,
+      "system_prompt": "You generate one LexiShift semantic cue row for cross-POS ambiguity. Return compact JSON only. The cue must help choose the active Spanish target over one named competitor for one English trigger. Favor short frame-sensitive evidence in English: noun-vs-verb usage, nearby function words, determiner patterns, object or modifier cues, or document-like vs action-like framing. Do not generate phrase or idiom guidance, examples, explanations, markdown, or extra keys.",
+      "user_prompt": "Return a JSON object with exactly one key `items`. `items` must be an array with exactly one object.\n\nCopy these fields exactly into that object:\n- `row_id`: `en-es:proxy:cue-cross-pos-frame-v1:trip:tropezar:row`\n- `relation_type`: `anchor_cue`\n- `trigger`: `trip`\n- `active_target`: `viaje`\n- `candidate_target`: `tropezar`\n- `candidate_pos`: `verb`\n- `prompt_slot`: `cue_cross_pos_frame_v1`\n- `input_ref`: `en-es:proxy:cue-cross-pos-frame-v1:trip:tropezar`\n\nSet `metadata` to an object containing these exact fields:\n- `family_id`: `en-es:sentence-veto:trip:viaje`\n- `active_sense_id`: `en-es:sentence-veto:trip:viaje:active`\n- `candidate_sense_id`: `en-es:sentence-veto:trip:viaje:shadow`\n- `stage`: `proxy`\n- `family_archetype`: `cross_pos_weak_active_support`\n\nActive sense:\n- canonical POS: `noun`\n- sense label: `trip or short journey`\n- gloss: `brief journey or outing`\n\nCandidate sense:\n- canonical POS: `verb`\n- sense label: `to trip or stumble`\n- gloss: `catch a foot and stumble`\n\nFamily notes:\n- `Held-out noun-active / verb-shadow residue remains unresolved after the accepted overlay. | Trip:002 still abstains on the strong row and on the accepted overlay. | Trip:005 stays safely abstained under the phrase probe, so the family does not reopen the current phrase-leak seam.`\n\nTask:\nWrite `evidence_text` in English, between 6 and 18 words, as one compact cue for the active sense only.\n\nRules:\n- prefer syntactic-frame or collocate signals that favor the active POS\n- make the cue specific enough to separate noun-active from verb-shadow competition\n- do not mention the candidate target by name\n- do not write multiple cues or bullets\n- do not mention phrases, idioms, or lexicalized expressions\n- avoid generic dictionary prose that ignores POS framing\n\nOptional:\n- include `confidence` as a number from 0 to 1\n\nReturn JSON only.",
+      "expected_row_preview": {
+        "row_id": "en-es:proxy:cue-cross-pos-frame-v1:trip:tropezar:row",
+        "relation_type": "anchor_cue",
+        "trigger": "trip",
+        "active_target": "viaje",
+        "candidate_target": "tropezar",
+        "candidate_pos": "verb",
+        "evidence_text": "<model-written cue text>",
+        "prompt_slot": "cue_cross_pos_frame_v1",
+        "input_ref": "en-es:proxy:cue-cross-pos-frame-v1:trip:tropezar",
+        "metadata": {
+          "family_id": "en-es:sentence-veto:trip:viaje",
+          "active_sense_id": "en-es:sentence-veto:trip:viaje:active",
+          "candidate_sense_id": "en-es:sentence-veto:trip:viaje:shadow",
+          "stage": "proxy",
+          "family_archetype": "cross_pos_weak_active_support"
+        }
+      }
+    },
+    {
+      "request_id": "en-es:proxy:cue-cross-pos-frame-v1:report:informar",
+      "prompt_slot": "cue_cross_pos_frame_v1",
+      "family_id": "en-es:sentence-veto:report:informe",
+      "trigger": "report",
+      "active_target": "informe",
+      "candidate_target": "informar",
+      "candidate_pos": "verb",
+      "model_id": "gpt-5.4-mini",
+      "temperature": 0.2,
+      "system_prompt": "You generate one LexiShift semantic cue row for cross-POS ambiguity. Return compact JSON only. The cue must help choose the active Spanish target over one named competitor for one English trigger. Favor short frame-sensitive evidence in English: noun-vs-verb usage, nearby function words, determiner patterns, object or modifier cues, or document-like vs action-like framing. Do not generate phrase or idiom guidance, examples, explanations, markdown, or extra keys.",
+      "user_prompt": "Return a JSON object with exactly one key `items`. `items` must be an array with exactly one object.\n\nCopy these fields exactly into that object:\n- `row_id`: `en-es:proxy:cue-cross-pos-frame-v1:report:informar:row`\n- `relation_type`: `anchor_cue`\n- `trigger`: `report`\n- `active_target`: `informe`\n- `candidate_target`: `informar`\n- `candidate_pos`: `verb`\n- `prompt_slot`: `cue_cross_pos_frame_v1`\n- `input_ref`: `en-es:proxy:cue-cross-pos-frame-v1:report:informar`\n\nSet `metadata` to an object containing these exact fields:\n- `family_id`: `en-es:sentence-veto:report:informe`\n- `active_sense_id`: `en-es:sentence-veto:report:informe:active`\n- `candidate_sense_id`: `en-es:sentence-veto:report:informar:shadow`\n- `stage`: `proxy`\n- `family_archetype`: `cross_pos_weak_active_support`\n\nActive sense:\n- canonical POS: `noun`\n- sense label: `written report or formal account`\n- gloss: `written document describing facts, results, or findings`\n\nCandidate sense:\n- canonical POS: `verb`\n- sense label: `report or state information`\n- gloss: `tell, announce, or state information`\n\nFamily notes:\n- `Harder held-out noun-active / verb-shadow family with two unresolved active rows. | Report:001 and report:002 both remain abstained on the strong row and on the accepted overlay. | Report:005 stays safely abstained, so the new held-out family widened weak-active residue without reopening phrase leakage.`\n\nTask:\nWrite `evidence_text` in English, between 6 and 18 words, as one compact cue for the active sense only.\n\nRules:\n- prefer syntactic-frame or collocate signals that favor the active POS\n- make the cue specific enough to separate noun-active from verb-shadow competition\n- do not mention the candidate target by name\n- do not write multiple cues or bullets\n- do not mention phrases, idioms, or lexicalized expressions\n- avoid generic dictionary prose that ignores POS framing\n\nOptional:\n- include `confidence` as a number from 0 to 1\n\nReturn JSON only.",
+      "expected_row_preview": {
+        "row_id": "en-es:proxy:cue-cross-pos-frame-v1:report:informar:row",
+        "relation_type": "anchor_cue",
+        "trigger": "report",
+        "active_target": "informe",
+        "candidate_target": "informar",
+        "candidate_pos": "verb",
+        "evidence_text": "<model-written cue text>",
+        "prompt_slot": "cue_cross_pos_frame_v1",
+        "input_ref": "en-es:proxy:cue-cross-pos-frame-v1:report:informar",
+        "metadata": {
+          "family_id": "en-es:sentence-veto:report:informe",
+          "active_sense_id": "en-es:sentence-veto:report:informe:active",
+          "candidate_sense_id": "en-es:sentence-veto:report:informar:shadow",
+          "stage": "proxy",
+          "family_archetype": "cross_pos_weak_active_support"
+        }
+      }
+    }
+  ]
+}
