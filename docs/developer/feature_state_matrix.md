@@ -2,7 +2,7 @@
 
 Status: active ledger
 Role: Canonical current
-Last updated: 2026-04-23
+Last updated: 2026-04-24
 Source-of-truth: cross-cutting state ledger; runtime truth still lives in code, tests, and dated evidence artifacts.
 
 Purpose:
@@ -820,8 +820,8 @@ Use this file when:
 ## Semantic Routing Runtime Admission Layer
 
 - Status: `implemented`, `default-on-when-capable`, `verified`
-- Last documented checkpoint: `2026-04-22` removed the user-facing semantic-admission toggle and fallback selector from normal options UX, added helper/runtime capability state, and updated `en-es` helper publication so initialize/refresh can overlay broader semantic context onto the active ruleset without widening the visible SRS ruleset
-- Last verified: `2026-04-22` targeted helper/rulegen/publication tests plus SRS quality and doc/state checks confirmed the capability-driven contract and the new `en-es` broader-context ready-publication seam while keeping the non-shadow-mined boundary explicit
+- Last documented checkpoint: `2026-04-24` kept the shipped capability-driven runtime contract unchanged, but refreshed the current fixed-shadow evaluation surface to `v10`, froze the first family inventory / bakeoff queue, and clarified that the accepted active-sense overlay remains the clean bounded comparator while the zero-noise soft ladder has collapsed on the tougher slice
+- Last verified: `2026-04-24` targeted runtime-eval dev tests plus doc/state checks confirmed the `v10` fixed-shadow evidence, the active-sense overlay comparison, and the new pre-prompt queue state while keeping the non-shadow-mined boundary explicit
 - Default behavior:
   - Semantic admission is no longer a normal user preference. The browser runtime auto-uses helper-side semantic admission only when the current pair/profile publication is actually capable of real semantic decisioning.
   - If a pair/profile has semantic metadata but no ready subset yet, LexiShift stays on standard SRS replacement behavior instead of asking the user to choose a fallback posture.
@@ -946,49 +946,53 @@ Use this file when:
       - the installed `wiktionary-es-en.sqlite` forward pack is older than the new example-preserving schema and exposes `0 / 453` benchmark-target forward records with examples
       - rebuilding the same forward pack from the local `raw-wiktextract-data.jsonl.gz` raises that benchmark-target availability to `132 / 453` records across `45` targets
       - interpretation: forward example absence was a stale-pack issue, not a source-limitation issue, but the current examples bridge still adds mostly extra candidate mass rather than the missing blockers we need
-  - The next broadening step is now explicit rather than ad hoc:
-    - `docs/rulegen/semantic_shadow_source_intake_plan.md` defines the operating model for source-heavy experimentation
-    - `docs/test_inputs/semantic_shadow_source_registry.json` tracks current and proposed source families together with approval state, role, and runtime-publishability
-    - the intended discipline is broad offline ingestion plus narrow runtime publication, with one coverage-heavy and one discrimination-heavy source family approved at a time
-  - The intended future direction is a conservative admission layer that can choose among:
-    - hard replace
-    - soft affordance / annotation
-    - abstain
-  - The governing product preference for that future layer is explicit:
-    - false abstain is cheaper than harmful replacement
-  - The repo now also has a research-only sentence-level runtime-veto harness:
-    - `scripts/testing/semantic_routing_sentence_veto_harness.py` evaluates one fixed active-vs-shadow scorer configuration over a curated sentence dataset
-    - `scripts/testing/semantic_routing_sentence_veto_sweep.py` sweeps scorer family, context view, evidence view, and threshold ladders over that same fixed dataset
-    - the current `en-es` fixed-shadow evaluation dataset lives at `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v9.json`
-    - this harness explicitly measures runtime-scoring quality separately from upstream shadow-mining quality
-    - the default sweep stays on the cheap lexical scorer family, while `sentence_transformer_cosine` is available as an explicit heavier model-choice lane
-    - the shipped `en-es` helper runtime now defaults to the bounded sentence-transformer gate via `en_es_sentence_veto_v3` (`sentence_transformer_cosine + masked_sentence + all_evidence_text + min_active=0.00 + min_margin=0.00`); the lexical `en_es_sentence_veto_v2` row remains the explicit conservative control
-  - First current lexical result on that harness:
-    - the original higher threshold ladder (`min_active >= 0.25`) collapses to total abstention
-    - once the sweep includes `min_active_score=0.00` and `0.05`, the best current lexical row is `tfidf_cosine + masked_sentence + all_evidence_text + min_active=0.05 + min_margin=0.00`
-    - on the expanded `v9` dataset, that row reaches `73.3%` decision accuracy with `0.0%` harmful replace, `100.0%` replace precision, and `33.3%` replace recall on the current 90-case curated dataset
-  - First current model-choice result on that harness:
-    - the shipped `v3` sentence-transformer default is still the bounded runtime experiment, but the active `v9` evaluation slice still does not show a clean hard-replace story
-    - on `v9`, the same `masked_sentence + all_evidence_text + noun_family_frame_guard + sense_label_near_tie_active_rescue + min_active=0.00 + min_margin=0.00` row reaches `91.1%` decision accuracy with `1.9%` harmful replace, `96.7%` replace precision, `80.6%` replace recall, `90.3%` winner accuracy, and `100.0%` shadow-winner accuracy
-    - the current hard errors on the fixed-shadow `v9` slice are:
-      - harmful replace: `en-es:sentence-veto:play:005`
-      - false abstains: `en-es:sentence-veto:plant:002`, `en-es:sentence-veto:park:001`, `en-es:sentence-veto:drink:002`, `en-es:sentence-veto:play:002`, `en-es:sentence-veto:check:002`, `en-es:sentence-veto:order:002`, `en-es:sentence-veto:trip:002`
-    - the best zero-noise soft ladder still stays small:
-      - it recovers `plant:002`, `drink:002`, `order:002`, and `trip:002`
-      - it still does not remove the `park`, `play`, or `check` residue
-    - the widened rescue overlay also remains non-clean on `v9`, because the same `play:005` row remains harmful
-    - first English-centric challenger `sentence-transformers/all-MiniLM-L6-v2` remains worse as a gate than the multilingual default lane
-    - `trip` does not reopen the phrase-leak seam on the current strong runtime row; `trip up` is already safely abstained, while `trip:002` joins `check:002` and `order:002` as held-out weak-active-support residue
-    - the current testing-only phrase-leak probe now isolates a stronger bounded candidate:
-      - active-sense noun phrase guarding on mixed noun/verb families
-      - it removes `play:005` on both the hard row and the widened overlay
-      - it now also cleanly phrase-preempts `watch:005`, `check:005`, `order:005`, and `trip:005`
-      - it preserves the existing rescue wins
-      - the held-out review is now more precise:
-        - the active-sense hard lane removes the harmful replace ceiling without improving the conservative hard corridor
-        - the active-sense overlay removes the harmful replace ceiling without giving back the current overlay corridor
-      - so the active-sense overlay is now the preferred bounded experiment, but this is still an evaluation/reference candidate rather than a shipped policy change
-    - current runtime-eval frontier is therefore no longer phrase-leak diagnosis by itself; it is resumed held-out family growth plus corridor tightening against the frozen hard reference and the accepted active-sense overlay experiment, with `check:002`, `order:002`, and `trip:002` as the current held-out weak-active-support residue
+	  - The next broadening step is now explicit rather than ad hoc:
+	    - `docs/rulegen/semantic_shadow_source_intake_plan.md` defines the operating model for source-heavy experimentation
+	    - `docs/test_inputs/semantic_shadow_source_registry.json` tracks current and proposed source families together with approval state, role, and runtime-publishability
+	    - the intended discipline is broad offline ingestion plus narrow runtime publication, with one coverage-heavy and one discrimination-heavy source family approved at a time
+	  - The intended future direction is a conservative admission layer that can choose among:
+	    - hard replace
+	    - soft affordance / annotation
+	    - abstain
+	  - The governing product preference for that future layer is explicit:
+	    - false abstain is cheaper than harmful replacement
+	  - The repo now also has a research-only sentence-level runtime-veto harness:
+	    - `scripts/testing/semantic_routing_sentence_veto_harness.py` evaluates one fixed active-vs-shadow scorer configuration over a curated sentence dataset
+	    - `scripts/testing/semantic_routing_sentence_veto_sweep.py` sweeps scorer family, context view, evidence view, and threshold ladders over that same fixed dataset
+	    - the current `en-es` fixed-shadow evaluation dataset lives at `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v10.json`
+	    - this harness explicitly measures runtime-scoring quality separately from upstream shadow-mining quality
+	    - the default sweep stays on the cheap lexical scorer family, while `sentence_transformer_cosine` is available as an explicit heavier model-choice lane
+	    - the shipped `en-es` helper runtime now defaults to the bounded sentence-transformer gate via `en_es_sentence_veto_v3` (`sentence_transformer_cosine + masked_sentence + all_evidence_text + min_active=0.00 + min_margin=0.00`); the lexical `en_es_sentence_veto_v2` row remains the explicit conservative control
+	  - First current lexical result on that harness:
+	    - the original higher threshold ladder (`min_active >= 0.25`) collapses to total abstention
+	    - once the sweep includes `min_active_score=0.00` and `0.05`, the best current lexical row is `tfidf_cosine + masked_sentence + all_evidence_text + min_active=0.05 + min_margin=0.00`
+	    - on the expanded `v10` dataset, that row reaches `73.7%` decision accuracy with `0.0%` harmful replace, `100.0%` replace precision, and `34.2%` replace recall on the current 95-case curated dataset
+	  - First current model-choice result on that harness:
+	    - the shipped `v3` sentence-transformer default is still the bounded runtime experiment, but the active `v10` evaluation slice still does not show a clean hard-replace story
+	    - on `v10`, the same `masked_sentence + all_evidence_text + noun_family_frame_guard + sense_label_near_tie_active_rescue + min_active=0.00 + min_margin=0.00` row reaches `89.5%` decision accuracy with `1.8%` harmful replace, `96.7%` replace precision, `76.3%` replace recall, `88.2%` winner accuracy, and `100.0%` shadow-winner accuracy
+	    - the current hard errors on the fixed-shadow `v10` slice are:
+	      - harmful replace: `en-es:sentence-veto:play:005`
+	      - false abstains: `en-es:sentence-veto:plant:002`, `en-es:sentence-veto:park:001`, `en-es:sentence-veto:drink:002`, `en-es:sentence-veto:play:002`, `en-es:sentence-veto:check:002`, `en-es:sentence-veto:order:002`, `en-es:sentence-veto:trip:002`, `en-es:sentence-veto:report:001`, `en-es:sentence-veto:report:002`
+	    - the corrected zero-noise soft ladder has collapsed on `v10`:
+	      - best zero-noise row is `soft:a=0.60:m=0.00`
+	      - it adds `0` soft true positives and `0` soft false positives
+	    - the widened rescue overlay also remains non-clean on `v10`, because the same `play:005` row remains harmful
+	    - first English-centric challenger `sentence-transformers/all-MiniLM-L6-v2` remains worse as a gate than the multilingual default lane
+	    - `report` does not reopen the phrase-leak seam on the current strong runtime row; `report back` is already safely abstained, while `report:001` and `report:002` widen the held-out weak-active-support residue
+	    - the current testing-only phrase-leak probe now isolates a stronger bounded candidate:
+	      - active-sense noun phrase guarding on mixed noun/verb families
+	      - it removes `play:005` on both the hard row and the widened overlay
+	      - it now also cleanly phrase-preempts `watch:005`, `check:005`, `order:005`, `trip:005`, and `report:005`
+	      - it preserves the existing rescue wins
+	      - the held-out review is now more precise:
+	        - the active-sense hard lane removes the harmful replace ceiling without improving the conservative hard corridor
+	        - the active-sense overlay removes the harmful replace ceiling without giving back the current overlay corridor
+	      - so the active-sense overlay is now the preferred bounded experiment, but this is still an evaluation/reference candidate rather than a shipped policy change
+	    - current runtime-eval frontier is therefore no longer phrase-leak diagnosis by itself; it is frozen-queue cue-data preparation:
+	      - keep the hard reference and accepted active-sense overlay fixed
+	      - treat `play` as the phrase-risk negative control
+	      - treat `check:002`, `order:002`, `trip:002`, `report:001`, and `report:002` as the current held-out weak-active-support residue
+	      - run a tiny `example_sentence_bank` cue pilot before prompt smoke testing
   - Before any rollout, the project still needs:
     - active-sense provenance carried from rulegen into runtime-consumable metadata
     - automatic sibling-shadow candidate mining and a small promotion policy

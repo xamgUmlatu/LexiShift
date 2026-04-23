@@ -2,8 +2,8 @@
 
 Status: active planning
 Role: Planning / WIP
-Last updated: 2026-04-23
-Last verified: 2026-04-23 desk audit against the current semantic-routing contracts, feature-state ledger, runtime policy/scoring modules, and latest semantic-routing evidence artifacts
+Last updated: 2026-04-24
+Last verified: 2026-04-24 desk audit against the current semantic-routing contracts, feature-state ledger, runtime policy/scoring modules, and latest semantic-routing evidence and queue artifacts
 Purpose: define the many-turn triage program for deciding which semantic-routing weak points are real, which changes can and should be made, and what work is required before implementation or rollout
 Source-of-truth: planning doc only; current implementation truth still lives in code, tests, generated evidence, and `docs/developer/feature_state_matrix.md`
 Related docs:
@@ -1041,55 +1041,47 @@ The family map changes the next-step order:
 - Primary evidence:
   - `docs/test_inputs/semantic_routing/README.md`
     - the current curated runtime-veto dataset is now:
-      - `18` ambiguity families
-      - `90` labeled sentences
-    - `v9` adds:
-      - `trip` as a held-out noun-active / verb-shadow weak-active-support family
+      - `19` ambiguity families
+      - `95` labeled sentences
+    - `v10` adds:
+      - `report` as a held-out noun-active / verb-shadow weak-active-support family
   - `docs/test_outputs/semantic_routing_sentence_veto_latest.md`
     - the lexical control remains polarized, but the new family additions are informative rather than uniform:
       - `watch` still lands at `80.0%` decision accuracy / `50.0%` active recall
       - `check` lands at `60.0%` decision accuracy / `0.0%` active recall
-      - `order` now also lands at `60.0%` decision accuracy / `0.0%` active recall
-      - `trip` now also lands at `60.0%` decision accuracy / `0.0%` active recall
+      - `order`, `trip`, and `report` now also land at `60.0%` decision accuracy / `0.0%` active recall
   - `docs/test_outputs/semantic_routing_sentence_veto_ladder_latest.md`
-    - the zero-noise soft row now recovers:
-      - `plant:002`
-      - `drink:002`
-      - `order:002`
-      - `trip:002`
-    - but still does not recover:
-      - `park:001`
-      - `play:002`
-      - `check:002`
-      - `order` via hard replace or bounded rescue
+    - the corrected zero-noise soft row is now:
+      - `soft:a=0.60:m=0.00`
+    - and it recovers no additional surfaced wins on the frozen `v10` hard row
   - `docs/test_outputs/semantic_routing_generalization_bound_en_es_latest.md`
     - the held-out runtime corridor is now more honest and more differentiated:
-      - hard replace conservative floor `69.4%`
-      - hard replace harmful ceiling `5.6%`
-      - replace-or-soft conservative floor `83.3%`
-      - active-sense overlay conservative floor `77.8%`
+      - hard replace conservative floor `63.2%`
+      - hard replace harmful ceiling `5.3%`
+      - replace-or-soft conservative floor `63.2%`
+      - active-sense overlay conservative floor `71.1%`
       - active-sense overlay harmful ceiling `0.0%`
 - Best read:
   - the targeted family-growth approach was the right move
-  - `v9` did exactly what the evaluation layer needed:
+  - `v10` did exactly what the evaluation layer needed:
     - it added a held-out weak-active-support family without creating a new phrase-leak seam
     - while keeping the underlying hard-reference harmful row unchanged
   - the new weak-active probe sharpens the runtime read:
     - direct primary swaps still recover the weak-active rows
-    - but they now add `4-5` harmful replaces on the same slice
+    - but they now add `4-8` harmful replaces on the same slice
     - and the widened rescue overlay is still not clean because `play:005` stays harmful
-    - while `check:001`, `order:001`, and `trip:001` already land cleanly and `trip:002` joins `check:002` and `order:002` as held-out weak-active-support residue
+    - while `check:001`, `order:001`, and `trip:001` already land cleanly and `report:001` / `report:002` widen the held-out weak-active-support residue beyond `check:002`, `order:002`, and `trip:002`
   - the held-out corridor now sharpens that again:
-    - both the runtime reference lane and the widened-rescue simulated lane still carry a `5.6%` harmful-replace ceiling
-    - but the accepted active-sense overlay experiment now keeps a `77.8%` replace-recall conservative floor with a `0.0%` harmful-replace ceiling
+    - both the runtime reference lane and the widened-rescue simulated lane still carry a `5.3%` harmful-replace ceiling
+    - but the accepted active-sense overlay experiment now keeps a `71.1%` replace-recall conservative floor with a `0.0%` harmful-replace ceiling
   - dataset coverage is still small, so this remains an offline analysis result rather than rollout evidence
-  - the next gap is now narrower than “diagnose phrase leakage again”:
+  - the next gap is now narrower than “add another held-out family right away”:
     - keep `play:005` as the live hard-reference harmful row
     - keep the active-sense overlay as the preferred bounded experimental comparator
     - preserve the genuine weak-active-support rescue wins on rows like `drink:001`, `drink:002`, and `park:001`
-    - track `check:002`, `order:002`, and `trip:002` as the current held-out false-abstain residue
+    - track `check:002`, `order:002`, `trip:002`, `report:001`, and `report:002` as the current held-out false-abstain residue
     - do not reopen generic context widening or broad soft-rollout claims
-    - move the next evaluation turn back to targeted held-out family growth plus corridor refresh
+    - move the next evaluation turn to the queue-backed pre-prompt data path
 - Can change cleanly:
   - `yes`
 - Should change now:
@@ -1097,7 +1089,7 @@ The family map changes the next-step order:
 - Work necessary:
   - `new_evaluation_work`
 - Required next work:
-  - keep `v9` fixed as the active fixed-shadow evaluation slice
+  - keep `v10` fixed as the active fixed-shadow evaluation slice
   - keep:
     - `drink` in tune
     - `play` in held-out
@@ -1105,13 +1097,15 @@ The family map changes the next-step order:
     - `check` in held-out
     - `order` in held-out
     - `trip` in held-out
+    - `report` in held-out
   - keep the new weak-active probe artifact current
   - keep the active-sense overlay bound lane current
   - treat `play:005` as the leading hard-reference phrase-leak target
-  - treat `play:002`, `check:002`, `order:002`, and `trip:002` as the remaining held-out false-abstain targets
-  - do not infer a broader soft rollout from `plant:002`, `drink:002`, `order:002`, and `trip:002`
+  - treat `play:002`, `check:002`, `order:002`, `trip:002`, `report:001`, and `report:002` as the remaining held-out false-abstain targets
+  - do not infer a broader soft rollout from the old `plant` / `drink` / `order` / `trip` lift story; the corrected `v10` zero-noise row adds no new surfaced wins
   - do not promote the direct `sense_label` or raw-context primaries into runtime-default candidates
-  - resume targeted held-out family growth only against the frozen hard reference and frozen active-sense overlay experiment
+  - keep the new family inventory, bakeoff queue, and prompt-slot manifest fixed against the same slice
+  - run a tiny `example_sentence_bank` cue-data pilot before resuming prompt smoke or another held-out family wave
 - Decision:
   - `do_now`
 
@@ -1297,9 +1291,10 @@ These are the paths we actively expect to keep pushing in the current campaign.
 
 | Path | Owning IDs | Why it is still open | Next concrete work | Success signal | Do not forget |
 | --- | --- | --- | --- | --- | --- |
-| bounded active-sense noun phrase-guard experiment | `PH-1`, `RT-3` | the acceptability review is now sharper: on `v9`, the active-sense hard lane removes harmful replace without improving the conservative hard corridor, while the active-sense overlay removes harmful replace without giving back the current overlay floor | keep the active-sense overlay as the preferred bounded experiment while monitoring the hard variant as a secondary lane | the overlay survives the next held-out family wave with `0` harmful replaces and no phrase-preemption precision regression | do not promote the active-sense hard lane to the main reference unless it materially improves weak-active-support residue too |
-| weak-active-support diagnosis on every new family | `RT-2`, `RT-3` | current `drink` and `play` evidence says new families can split into backup-rescue cases vs mixed phrase-leak cases; we still need to know which bucket each future miss belongs to | for each new family, compare current default, direct primary swaps, bounded overlay behavior, and phrase-sensitive failure rows | new misses separate into safe backup-rescue cases vs phrase-leak or scorer-failure cases | do not promote `sense_label` or raw-context primaries based on diagnostic wins alone |
-| runtime held-out corridor tightening | `EVAL-1`, `EVAL-2` | the corridor is more honest now, but the hard reference and plain widened-rescue overlay still carry a non-zero harmful ceiling on `v9`; the accepted active-sense overlay is the clean comparator | keep the bound artifact authoritative and refresh it after each accepted runtime-eval move | the phrase-leak failure class is isolated cleanly enough that the held-out corridor tightens again | avoid reading one point estimate as a deploy KPI |
+| bounded active-sense noun phrase-guard experiment | `PH-1`, `RT-3` | the acceptability review is now sharper: on `v10`, the active-sense hard lane still removes harmful replace without improving the conservative hard corridor, while the active-sense overlay removes harmful replace without giving back the current overlay floor | keep the active-sense overlay as the preferred bounded experiment while monitoring the hard variant as a secondary lane | the overlay stays clean while future cue-data work or new held-out families do not reopen phrase leakage beyond `play:005` | do not promote the active-sense hard lane to the main reference unless it materially improves weak-active-support residue too |
+| weak-active-support diagnosis on every new family | `RT-2`, `RT-3` | current `drink`, `trip`, and `report` evidence says new families can split into backup-rescue cases vs cue-data residue vs mixed phrase-leak cases; we still need to keep the buckets explicit | for each new family, compare current default, direct primary swaps, bounded overlay behavior, and phrase-sensitive failure rows, then register the result in the family inventory | new misses separate into safe backup-rescue cases vs phrase-leak or cue-data residue | do not promote `sense_label` or raw-context primaries based on diagnostic wins alone |
+| runtime held-out corridor tightening | `EVAL-1`, `EVAL-2` | the corridor is more honest now, but the hard reference and plain widened-rescue overlay still carry a non-zero harmful ceiling on `v10`; the accepted active-sense overlay is the clean comparator | keep the bound artifact authoritative and refresh it after each accepted runtime-eval move or cue-data pilot | the phrase-leak failure class is isolated cleanly enough that the held-out corridor tightens again | avoid reading one point estimate as a deploy KPI |
+| pre-prompt family queue freeze and review | `EVAL-2`, `CAL-1` | the first real family inventory and bakeoff queue now exist, but they still need to remain the canonical frozen slice for pre-prompt work | keep the `v10` inventory, queue, slot manifest, and queue-review note fixed while new cue-data work is judged against them | prompt work starts from a stable family slice rather than drifting with each new runtime artifact | do not start prompt smoke work on a moving queue |
 
 ### Bucket B: queued next once the current runtime-eval slice is sharper
 
@@ -1307,7 +1302,7 @@ These are real paths, but they should not jump ahead of the current rescue-gatin
 
 | Path | Owning IDs | Why it is queued rather than active-now | Next concrete work | Re-entry trigger |
 | --- | --- | --- | --- | --- |
-| another held-out rescue-gating / phrase-leak family-growth wave | `RT-3`, `PH-1`, `EVAL-2` | the `play` phrase-leak seam is now classified well enough to resume held-out growth, and `v9` shows the active-sense overlay still stays clean when the held-out slice gains another weak-active-support family | add the next held-out family and rerun the bound, phrase-leak, and weak-active probes against the frozen `v9` references | the accepted overlay experiment stays clean on the new family wave and any new residue separates cleanly into phrase-leak vs weak-active-support buckets |
+| another held-out rescue-gating / phrase-leak family-growth wave | `RT-3`, `PH-1`, `EVAL-2` | `v10` already served the current conservative pre-prompt goal: `report` widened cue-data residue without reopening phrase leakage, so another family wave should not jump ahead of queue-backed cue-data pilots | resume held-out growth only after the `v10` queue and the first non-LLM cue pilot are stable | the current queue-backed cue pilot fails to explain the residue or a new phrase seam appears |
 | promotion-feature redesign from current live miss signatures | `BG-3` | blocker generation is still the main product limiter overall, but the first new triplet feature pack was flat and should not be blindly replaced by another guess | reopen the promotion queue only after the next held-out/runtime additions clarify the live miss signatures again | a refreshed promotion-gap read produces a bounded feature idea tied to current misses rather than stale signatures |
 | family-local seed audit | `BG-1` | seed work still matters, but it is now a smaller residual lane rather than the current main frontier | audit remaining hard families for `seed_missing` patterns only after the current runtime-eval step is stable | clear family-local seed misses remain after the current runtime frontier is mapped |
 | family-local candidate-source audit | `BG-2` | candidate coverage is still real, but not the next bottleneck to resolve in the current turn order | classify remaining hard misses by candidate-source lane after the next runtime-eval additions land | live hard misses still show real `candidate_missing` rows after current runtime work |
@@ -1753,12 +1748,12 @@ Current status after this document was created:
 - `TECH-1`: triaged to `instrument_first`; stronger semantic tech is still worth studying, but only in narrow abstain-biased failure-bucket probes
 - Current recommended next turn:
   - keep `PH-1` narrow, but treat the candidate decision as landed through the current held-out phrase and weak-active families:
-    - the phrase-leak probe now spans `play`, `watch`, and the held-out `check` phrase row
+    - the phrase-leak probe now spans `play`, `watch`, `check`, `order`, `trip`, and `report`
     - active-sense noun phrase guarding is no longer an abstract candidate
     - the hard lane is safer but does not improve the conservative hard corridor
     - the overlay lane remains the preferred bounded experiment
   - keep the bounded runtime-default decision fixed while follow-on work catches up:
-    - keep `en_es_sentence_veto_v9.json` as the active fixed-shadow evaluation slice
+    - keep `en_es_sentence_veto_v10.json` as the active fixed-shadow evaluation slice
     - keep:
       - `drink` in tune
       - `play` in held-out
@@ -1766,33 +1761,30 @@ Current status after this document was created:
       - `check` in held-out
       - `order` in held-out
       - `trip` in held-out
+      - `report` in held-out
     - keep `en_es_sentence_veto_v3` as the shipped bounded default
     - keep `en_es_sentence_veto_v2` as the explicit conservative lexical control
-    - treat the new bound as authoritative for that frozen default/control split:
-      - control floor `16.7%` replace recall
-      - candidate floor `69.4%` replace recall
-      - candidate harmful-replace ceiling `5.6%`
-      - active-sense hard experimental floor `69.4%` replace recall with `0.0%` harmful replace ceiling
-      - active-sense overlay experimental floor `77.8%` replace recall with `0.0%` harmful replace ceiling
+    - treat the current bound as authoritative for that frozen default/control split:
+      - control floor `15.8%` replace recall
+      - candidate floor `63.2%` replace recall
+      - candidate harmful-replace ceiling `5.3%`
+      - active-sense hard experimental floor `63.2%` replace recall with `0.0%` harmful replace ceiling
+      - active-sense overlay experimental floor `71.1%` replace recall with `0.0%` harmful replace ceiling
   - keep the first `RT-3` ladder baseline fixed:
-    - best zero-noise soft row is `soft:a=0.58:m=-0.03`
-    - it recovers:
-      - `plant:002`
-      - `drink:002`
-      - `order:002`
-      - `trip:002`
-    - do not treat that as justification for a visible soft-affordance rollout yet
+    - best zero-noise soft row is now `soft:a=0.60:m=0.00`
+    - it recovers no additional surfaced wins on `v10`
+    - do not treat soft-affordance as a live frontier again unless a later slice re-establishes clean lift
   - the held-out confidence baseline is now landed for the runtime lane:
-    - default runtime reference floor is `69.4%` replace recall with `5.6%` harmful replace ceiling
-    - zero-noise soft ladder floor is `83.3%` replace-or-soft recall with `0.0%` soft-noise ceiling
-    - widened-rescue simulated floor is `77.8%` replace recall with `5.6%` harmful replace ceiling
-    - active-sense hard experimental floor is `69.4%` replace recall with `0.0%` harmful replace ceiling
-    - active-sense overlay experimental floor is `77.8%` replace recall with `0.0%` harmful replace ceiling
-  - next runtime work should shift from bounded candidate decision back to held-out growth with fixed references:
+    - default runtime reference floor is `63.2%` replace recall with `5.3%` harmful replace ceiling
+    - zero-noise soft ladder floor is `63.2%` replace-or-soft recall with `0.0%` soft-noise ceiling
+    - widened-rescue simulated floor is `71.1%` replace recall with `5.3%` harmful replace ceiling
+    - active-sense hard experimental floor is `63.2%` replace recall with `0.0%` harmful replace ceiling
+    - active-sense overlay experimental floor is `71.1%` replace recall with `0.0%` harmful replace ceiling
+  - next runtime work should now shift from more held-out growth to the pre-prompt data path:
     - keep `T1-A` closed as flat until new blocker evidence justifies reopening it
-    - keep the fixed `v9` hard row, the fixed zero-noise soft row, and the accepted active-sense overlay experiment as frozen references
-    - do not treat the active-sense hard lane as the new main reference yet
-    - resume another held-out family-growth wave only with those frozen references in place
+    - keep the fixed `v10` hard row, the fixed zero-noise soft row, and the accepted active-sense overlay experiment as frozen references
+    - keep the new family inventory, bakeoff queue, and prompt-slot manifest frozen with the same slice
+    - run a tiny `example_sentence_bank` cue-data pilot before any paid prompt smoke pass
 
 Reasoning:
 
@@ -1863,3 +1855,5 @@ Use this section to record the result of each completed triage turn.
 | `2026-04-23` | `EVAL-2 targeted family growth v7` | `do_now` | the `v7` fixed-shadow slice adds `check` as a held-out weak-active-support noun/verb family; it does not create a new phrase-leak harmful row, but it does add `check:002` as a new held-out false-abstain residue while keeping `play:005` as the only harmful replace on the plain hard and widened-rescue lanes | next turn should keep `v7` fixed, keep the hard reference and accepted active-sense overlay frozen, and continue held-out family growth plus corridor tightening with `check:002` tracked as weak-active-support residue rather than reopening generic phrase-leak diagnosis |
 | `2026-04-23` | `EVAL-2 targeted family growth v8` | `do_now` | the `v8` fixed-shadow slice adds `order` as a held-out weak-active-support noun/verb family; it does not create a new phrase-leak harmful row, but it does add `order:002` as another held-out false-abstain residue while keeping `play:005` as the only harmful replace on the plain hard and widened-rescue lanes, and it is the first new held-out residue that cleanly joins the zero-noise soft ladder | next turn should keep `v8` fixed, keep the hard reference, zero-noise soft row, and accepted active-sense overlay frozen, and continue held-out family growth plus corridor tightening with `check:002` and `order:002` tracked as weak-active-support residue rather than reopening generic phrase-leak diagnosis |
 | `2026-04-23` | `EVAL-2 targeted family growth v9` | `do_now` | the `v9` fixed-shadow slice adds `trip` as a held-out weak-active-support noun/verb family; it does not create a new phrase-leak harmful row, but it does add `trip:002` as another held-out false-abstain residue while keeping `play:005` as the only harmful replace on the plain hard and widened-rescue lanes, and it is the second new held-out residue that cleanly joins the zero-noise soft ladder | next turn should keep `v9` fixed, keep the hard reference, zero-noise soft row, and accepted active-sense overlay frozen, and continue held-out family growth plus corridor tightening with `check:002`, `order:002`, and `trip:002` tracked as weak-active-support residue rather than reopening generic phrase-leak diagnosis |
+| `2026-04-24` | `EVAL-2 targeted family growth v10` | `do_now` | the `v10` fixed-shadow slice adds `report` as a held-out weak-active-support noun/verb family; it does not create a new phrase-leak harmful row, but it does add `report:001` and `report:002` as new held-out false-abstain residue while keeping `play:005` as the only harmful replace on the plain hard and widened-rescue lanes, and it collapses the current zero-noise soft ladder back to a pure monitoring control | next turn should keep `v10` fixed, stop defaulting to more family growth, and move to the queue-backed pre-prompt data path |
+| `2026-04-24` | `Pre-prompt family inventory and queue freeze` | `do_now` | the repo now has the first concrete family inventory, sampled queue review, frozen bakeoff queue, and frozen prompt-slot manifest for the active `v10` runtime slice; current first-tranche targets are cue-heavy (`check`, `order`, `trip`, `report`) with `play` and `watch` held as guardrail families | next turn should run a tiny `example_sentence_bank` cue-data pilot on that frozen queue before any paid prompt smoke pass |

@@ -70,7 +70,11 @@ SENTENCE_VETO_PHRASE_GUARD_POS_SCOPES = (
 )
 
 DEFAULT_SENTENCE_VETO_DATASET = (
-    PROJECT_ROOT / "docs" / "test_inputs" / "semantic_routing_cases" / "en_es_sentence_veto_v9.json"
+    PROJECT_ROOT
+    / "docs"
+    / "test_inputs"
+    / "semantic_routing_cases"
+    / "en_es_sentence_veto_v10.json"
 )
 DEFAULT_SENTENCE_VETO_JSON_OUT = (
     PROJECT_ROOT / "docs" / "test_outputs" / "semantic_routing_sentence_veto_latest.json"
@@ -1404,6 +1408,9 @@ def build_sentence_veto_phrase_leak_probe_report(
         "en-es:sentence-veto:trip:001",
         "en-es:sentence-veto:trip:002",
         "en-es:sentence-veto:trip:005",
+        "en-es:sentence-veto:report:001",
+        "en-es:sentence-veto:report:002",
+        "en-es:sentence-veto:report:005",
     ),
     model_name: str | None = None,
     window_tokens: int = DEFAULT_SENTENCE_VETO_CONTEXT_WINDOW_TOKENS,

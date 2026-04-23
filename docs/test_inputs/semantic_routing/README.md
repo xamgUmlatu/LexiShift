@@ -40,12 +40,16 @@ Files:
   - intended current use: compare scorer families, context transforms, evidence views, and threshold ladders without changing the mined shadow source
 
 Datasets:
-- `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v9.json`
+- `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v10.json`
   - current curated `en-es` runtime-veto harness dataset
-  - currently 18 ambiguity families / 90 labeled sentences
-  - expands `v8` with one held-out cross-POS weak-active-support family:
-    - `trip` as a noun-active / verb-shadow family with one held-out trip-style false-abstain row and a lexicalized `trip up` phrase row
+  - currently 19 ambiguity families / 95 labeled sentences
+  - expands `v9` with one held-out cross-POS weak-active-support family:
+    - `report` as a noun-active / verb-shadow family with one new held-out report-style false-abstain probe row and a lexicalized `report back` phrase row
   - purpose: test whether new held-out residue keeps widening through weak-active-support rather than reopening phrase leakage
+- `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v9.json`
+  - preserved prior held-out weak-active-support slice
+  - 18 ambiguity families / 90 labeled sentences
+  - retained frozen for before/after comparison against `v10`
 - `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v8.json`
   - preserved prior held-out weak-active-support slice
   - 17 ambiguity families / 85 labeled sentences

@@ -18,6 +18,7 @@ from semantic_routing_generalization_bound_en_es import (  # noqa: E402
     FIXED_SHADOW_LADDER_CONFIG,
     FIXED_SHADOW_REFERENCE_CONFIG,
     FIXED_SHADOW_RESCUE_OVERLAY_CONFIG,
+    resolve_fixed_shadow_ladder_config,
 )
 from semantic_routing_generalization_bound_reporting import (  # noqa: E402
     render_generalization_bound_markdown,
@@ -28,8 +29,8 @@ from semantic_routing_sentence_veto_support import (  # noqa: E402
 
 
 class SemanticRoutingGeneralizationBoundTests(unittest.TestCase):
-    def test_default_sentence_veto_dataset_advances_to_v9(self) -> None:
-        self.assertTrue(str(DEFAULT_SENTENCE_VETO_DATASET).endswith("en_es_sentence_veto_v9.json"))
+    def test_default_sentence_veto_dataset_advances_to_v10(self) -> None:
+        self.assertTrue(str(DEFAULT_SENTENCE_VETO_DATASET).endswith("en_es_sentence_veto_v10.json"))
 
     def test_bound_configs_track_current_runtime_control_and_candidate_lanes(self) -> None:
         self.assertEqual(FIXED_SHADOW_CONTROL_CONFIG["label"], "Fixed-shadow runtime control")
@@ -66,8 +67,12 @@ class SemanticRoutingGeneralizationBoundTests(unittest.TestCase):
             FIXED_SHADOW_LADDER_CONFIG["label"],
             "Sentence-transformer zero-noise soft ladder",
         )
-        self.assertEqual(FIXED_SHADOW_LADDER_CONFIG["soft_min_active_score"], 0.55)
-        self.assertEqual(FIXED_SHADOW_LADDER_CONFIG["soft_min_margin"], -0.03)
+        resolved_ladder_config = resolve_fixed_shadow_ladder_config(
+            sentence_dataset=DEFAULT_SENTENCE_VETO_DATASET
+        )
+        self.assertEqual(resolved_ladder_config["soft_min_active_score"], 0.60)
+        self.assertEqual(resolved_ladder_config["soft_min_margin"], 0.0)
+        self.assertEqual(resolved_ladder_config["resolved_config_id"], "soft:a=0.60:m=0.00")
         self.assertEqual(
             FIXED_SHADOW_RESCUE_OVERLAY_CONFIG["label"],
             "Sentence-transformer widened-rescue candidate (simulated)",

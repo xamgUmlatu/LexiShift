@@ -36,6 +36,7 @@ from semantic_routing_generalization_bound_splits import (  # noqa: E402
 )
 from semantic_routing_sentence_veto_support import (  # noqa: E402
     DEFAULT_SENTENCE_VETO_DATASET,
+    build_sentence_veto_ladder_report,
     build_sentence_veto_rescue_overlay_case_rows,
     build_sentence_veto_ladder_case_rows,
     build_sentence_veto_report,
@@ -268,6 +269,46 @@ def _parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+def resolve_fixed_shadow_ladder_config(*, sentence_dataset: Path) -> dict[str, object]:
+    ladder_report = build_sentence_veto_ladder_report(
+        dataset_path=sentence_dataset,
+        scorer_id=str(FIXED_SHADOW_LADDER_CONFIG["scorer_id"]),
+        context_view=str(FIXED_SHADOW_LADDER_CONFIG["context_view"]),
+        evidence_view=str(FIXED_SHADOW_LADDER_CONFIG["evidence_view"]),
+        min_active_score=float(FIXED_SHADOW_LADDER_CONFIG["min_active_score"]),
+        min_margin=float(FIXED_SHADOW_LADDER_CONFIG["min_margin"]),
+        phrase_control_mode=str(FIXED_SHADOW_LADDER_CONFIG["phrase_control_mode"]),
+        active_rescue_mode=str(FIXED_SHADOW_LADDER_CONFIG["active_rescue_mode"]),
+    )
+    budget_rows = (
+        ladder_report.get("best_rows_by_soft_false_positive_budget")
+        if isinstance(ladder_report.get("best_rows_by_soft_false_positive_budget"), list)
+        else []
+    )
+    selected_row: Mapping[str, object] | None = None
+    for entry in budget_rows:
+        if not isinstance(entry, Mapping):
+            continue
+        if int(entry.get("soft_false_positive_budget") or 0) != 0:
+            continue
+        row = entry.get("row")
+        if isinstance(row, Mapping):
+            selected_row = row
+            break
+    if selected_row is None:
+        best_row = ladder_report.get("best_row")
+        if isinstance(best_row, Mapping):
+            selected_row = best_row
+    if selected_row is None:
+        raise ValueError("Unable to resolve the current fixed-shadow ladder row.")
+    return {
+        **FIXED_SHADOW_LADDER_CONFIG,
+        "soft_min_active_score": float(selected_row.get("soft_min_active_score") or 0.0),
+        "soft_min_margin": float(selected_row.get("soft_min_margin") or 0.0),
+        "resolved_config_id": str(selected_row.get("config_id") or "").strip(),
+    }
+
+
 def build_generalization_bound_report(
     *,
     sentence_dataset: Path,
@@ -298,6 +339,7 @@ def build_generalization_bound_report(
     ladder_surface: dict[str, object] | None = None
     rescue_overlay_surface: dict[str, object] | None = None
     active_only_rescue_overlay_surface: dict[str, object] | None = None
+    resolved_ladder_config = resolve_fixed_shadow_ladder_config(sentence_dataset=sentence_dataset)
     fixed_shadow_control_report = build_sentence_veto_report(
         dataset_path=sentence_dataset,
         scorer_id=str(FIXED_SHADOW_CONTROL_CONFIG["scorer_id"]),
@@ -437,14 +479,14 @@ def build_generalization_bound_report(
             row
             for row in build_sentence_veto_ladder_case_rows(
                 reference_report,
-                soft_min_active_score=float(FIXED_SHADOW_LADDER_CONFIG["soft_min_active_score"]),
-                soft_min_margin=float(FIXED_SHADOW_LADDER_CONFIG["soft_min_margin"]),
+                soft_min_active_score=float(resolved_ladder_config["soft_min_active_score"]),
+                soft_min_margin=float(resolved_ladder_config["soft_min_margin"]),
             )
             if isinstance(row, Mapping)
         )
         fixed_shadow_surfaces.append(
             _build_surface_bound(
-                label=str(FIXED_SHADOW_LADDER_CONFIG["label"]),
+                label=str(resolved_ladder_config["label"]),
                 rows=ladder_rows,
                 cluster_key_name="family_id",
                 summarize_rows=_summarize_sentence_veto_ladder_rows,
@@ -452,13 +494,13 @@ def build_generalization_bound_report(
                 bootstrap_iterations=bootstrap_iterations,
                 random_seed=random_seed + 2,
                 confidence_level=confidence_level,
-                config=FIXED_SHADOW_LADDER_CONFIG,
+                config=resolved_ladder_config,
             )
         )
         ladder_surface = fixed_shadow_surfaces[-1]
         _extend_with_split_surfaces(
             fixed_shadow_surfaces,
-            label=str(FIXED_SHADOW_LADDER_CONFIG["label"]),
+            label=str(resolved_ladder_config["label"]),
             rows=ladder_rows,
             cluster_key_name="family_id",
             summarize_rows=_summarize_sentence_veto_ladder_rows,
@@ -466,7 +508,7 @@ def build_generalization_bound_report(
             bootstrap_iterations=bootstrap_iterations,
             random_seed=random_seed + 2,
             confidence_level=confidence_level,
-            config=FIXED_SHADOW_LADDER_CONFIG,
+            config=resolved_ladder_config,
             split_ids=fixed_shadow_split_ids,
             split_lookup=fixed_shadow_split_lookup,
             resolve_split_id=resolve_sentence_veto_split_id,

@@ -3,8 +3,8 @@
 Status: active workflow
 Role: Runbook / operational
 Purpose: keep semantic-shadow research testing repeatable, sweepable, and comparable as the workstream continues
-Last updated: 2026-04-16
-Last verified: 2026-04-16 repo-doc routing review against the current semantic-routing contracts, launch checklist, and generalization plan
+Last updated: 2026-04-24
+Last verified: 2026-04-24 repo-doc routing review against the current semantic-routing contracts, launch checklist, generalization plan, and current `v10` runtime-eval slice
 Source-of-truth: current semantic-shadow testing workflow; implementation truth lives in the scripts and core scoring modules referenced below
 
 Routing note:
@@ -143,7 +143,7 @@ Primary files:
 - `scripts/testing/semantic_routing_sentence_veto_phrase_leak_probe.py`
 - `scripts/testing/semantic_routing_sentence_veto_support.py`
 - `docs/test_inputs/semantic_routing/sentence_veto_case.schema.json`
-- `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v9.json`
+- `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v10.json`
 - `docs/test_outputs/semantic_routing_sentence_veto_latest.md`
 - `docs/test_outputs/semantic_routing_sentence_veto_sweep_latest.md`
 - `docs/test_outputs/semantic_routing_sentence_veto_sweep_sentence_transformer_latest.md`
@@ -163,6 +163,7 @@ Key metrics:
 Interpretation rule:
 - this layer does not prove that automatic shadow mining is solved
 - it answers the narrower question: given a fixed competition set, how good is the runtime scorer and gate
+- on the current `v10` slice, it also seeds the first pre-prompt family queue by separating phrase-risk guardrail families from cue-like weak-active-support residue
 
 ### 9. Cluster-aware confidence-bound read
 

@@ -3,8 +3,8 @@
 Status: active plan
 Role: Planning / pre-scan framing
 Purpose: define what semantic-routing data should eventually be generated with LLM support, which units deserve queueing, what can be inferred automatically versus what remains hypothesis, and how to avoid redundant generation work
-Last updated: 2026-04-15
-Last verified: 2026-04-15 repo-doc review against the semantic-routing data/publication contracts, runtime-readiness framing, source-intake plan, and first offline LLM intake seam
+Last updated: 2026-04-24
+Last verified: 2026-04-24 repo-doc review against the semantic-routing data/publication contracts, runtime-readiness framing, source-intake plan, first concrete family inventory, and frozen bakeoff queue
 Source-of-truth: planning doc only; current implemented truth still lives in the semantic-routing contracts, inventory publication code, and offline evidence normalization seam
 Related docs:
 - `docs/rulegen/semantic_shadow_source_intake_plan.md`
@@ -367,7 +367,19 @@ To support later add-on waves, the repo needs explicit family-level queue state.
 
 Without that state, later LLM work would keep re-answering questions the repo has already asked.
 
-Minimum future family inventory responsibilities:
+Current first concrete artifact:
+
+- `docs/test_inputs/semantic_routing/semantic_family_inventory_en_es_v10.json`
+
+Current posture from that first artifact:
+
+- current first-tranche queue is cue-heavy, not shadow-heavy
+- current routed primary targets are `check`, `order`, `trip`, and `report`
+- current calibration families are `plant` and `drink`
+- current negative controls are `play` and `watch`
+- current `needs_shadow_data` tranche count is `0`
+
+Minimum family inventory responsibilities:
 
 - remember which family has already been queued
 - remember whether the family received shadow generation, cue generation, or both
@@ -375,7 +387,7 @@ Minimum future family inventory responsibilities:
 - remember whether the family still looks unresolved
 - remember whether the current best diagnosis is data-related or non-data-related
 
-Minimum future family inventory fields:
+Minimum family inventory fields:
 
 - `family_id`
 - `pair`
@@ -529,6 +541,18 @@ Current planning anchor:
 - `docs/test_inputs/semantic_routing/semantic_family_inventory.schema.json`
 
 The prompt should be written after the queueing unit is stable, not before.
+
+The current queueing unit is now stable enough for a first bounded pre-prompt workflow:
+
+- inventory row
+- sampled manual queue review
+- frozen bakeoff queue
+- frozen prompt-slot manifest
+
+What is still missing before prompt spend:
+
+- a tiny non-LLM cue-data pilot over that frozen queue
+- then prompt-slot smoke work on the same frozen slice
 
 Once the queueing unit is stable, use `docs/rulegen/semantic_llm_prompt_bakeoff_plan.md` for the prompt-slot matrix, proxy-vs-target model policy, and cheap bakeoff workflow.
 

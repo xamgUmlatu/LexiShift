@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "manifest_id": "semantic_prompt_slot_manifest_en_es_v10",
+  "pair": "en-es",
+  "generated_at": "2026-04-23T19:17:26Z",
+  "slots": [
+    {
+      "prompt_slot": "cue_contrastive_general_v1",
+      "generation_kind": "cue_generation",
+      "expected_row_type": "anchor_cue",
+      "status": "active",
+      "target_archetypes": [
+        "ordinary_weak_active_support"
+      ],
+      "target_family_ids": [
+        "en-es:sentence-veto:plant:planta",
+        "en-es:sentence-veto:drink:bebida"
+      ],
+      "negative_control_family_ids": [
+        "en-es:sentence-veto:play:obra",
+        "en-es:sentence-veto:watch:reloj"
+      ],
+      "notes": [
+        "Keep the first general cue slot small and contrastive.",
+        "Use same-POS or ordinary competition families only."
+      ]
+    },
+    {
+      "prompt_slot": "cue_cross_pos_frame_v1",
+      "generation_kind": "cue_generation",
+      "expected_row_type": "anchor_cue",
+      "status": "active",
+      "target_archetypes": [
+        "cross_pos_weak_active_support"
+      ],
+      "target_family_ids": [
+        "en-es:sentence-veto:check:cheque",
+        "en-es:sentence-veto:order:pedido",
+        "en-es:sentence-veto:trip:viaje",
+        "en-es:sentence-veto:report:informe"
+      ],
+      "negative_control_family_ids": [
+        "en-es:sentence-veto:play:obra",
+        "en-es:sentence-veto:watch:reloj"
+      ],
+      "notes": [
+        "This is the primary first-tranche slot on v10.",
+        "Favor frame-sensitive noun-active vs verb-shadow cue generation."
+      ]
+    },
+    {
+      "prompt_slot": "cue_minimal_rescue_v1",
+      "generation_kind": "cue_generation",
+      "expected_row_type": "anchor_cue",
+      "status": "reserve",
+      "target_archetypes": [
+        "near_recoverable_rescue"
+      ],
+      "target_family_ids": [
+        "en-es:sentence-veto:plant:planta",
+        "en-es:sentence-veto:drink:bebida",
+        "en-es:sentence-veto:park:parque"
+      ],
+      "negative_control_family_ids": [
+        "en-es:sentence-veto:play:obra"
+      ],
+      "notes": [
+        "Keep this slot out of the first paid bakeoff.",
+        "v10 collapsed the zero-noise soft-ladder optimism, so minimal-rescue prompting is reserve-only until the cue baseline is clearer."
+      ]
+    },
+    {
+      "prompt_slot": "shadow_expand_core_v1",
+      "generation_kind": "shadow_generation",
+      "expected_row_type": "shadow_candidate",
+      "status": "deferred",
+      "target_archetypes": [
+        "coverage_thin"
+      ],
+      "target_family_ids": [],
+      "negative_control_family_ids": [],
+      "notes": [
+        "Do not activate a shadow prompt slot in the first tranche.",
+        "The v10 runtime residue is still cue-heavy rather than shadow-thin."
+      ]
+    }
+  ]
+}

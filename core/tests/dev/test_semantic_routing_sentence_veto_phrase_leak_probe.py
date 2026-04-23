@@ -23,7 +23,7 @@ class SemanticRoutingSentenceVetoPhraseLeakProbeTests(unittest.TestCase):
             / "docs"
             / "test_inputs"
             / "semantic_routing_cases"
-            / "en_es_sentence_veto_v9.json",
+            / "en_es_sentence_veto_v10.json",
         )
         hard_entries = {
             str(entry.get("config_id") or "").strip(): entry
@@ -34,8 +34,8 @@ class SemanticRoutingSentenceVetoPhraseLeakProbeTests(unittest.TestCase):
         active_only_hard = hard_entries["active_only_phrase_guard"]
         self.assertEqual(int(current_hard["summary"]["harmful_replace_count"]), 1)
         self.assertEqual(int(active_only_hard["summary"]["harmful_replace_count"]), 0)
-        self.assertEqual(int(current_hard["summary"]["false_abstain_count"]), 7)
-        self.assertEqual(int(active_only_hard["summary"]["false_abstain_count"]), 7)
+        self.assertEqual(int(current_hard["summary"]["false_abstain_count"]), 9)
+        self.assertEqual(int(active_only_hard["summary"]["false_abstain_count"]), 9)
         self.assertEqual(
             current_hard["active_rescue_case_ids"],
             active_only_hard["active_rescue_case_ids"],
@@ -66,6 +66,10 @@ class SemanticRoutingSentenceVetoPhraseLeakProbeTests(unittest.TestCase):
             "en-es:sentence-veto:trip:005",
             set(hard_delta["new_phrase_preemption_case_ids"]),
         )
+        self.assertIn(
+            "en-es:sentence-veto:report:005",
+            set(hard_delta["new_phrase_preemption_case_ids"]),
+        )
 
         overlay_entries = {
             str(entry.get("config_id") or "").strip(): entry
@@ -76,8 +80,8 @@ class SemanticRoutingSentenceVetoPhraseLeakProbeTests(unittest.TestCase):
         active_only_overlay = overlay_entries["active_only_overlay"]
         self.assertEqual(int(current_overlay["summary"]["harmful_replace_count"]), 1)
         self.assertEqual(int(active_only_overlay["summary"]["harmful_replace_count"]), 0)
-        self.assertEqual(int(current_overlay["summary"]["false_abstain_count"]), 4)
-        self.assertEqual(int(active_only_overlay["summary"]["false_abstain_count"]), 4)
+        self.assertEqual(int(current_overlay["summary"]["false_abstain_count"]), 6)
+        self.assertEqual(int(active_only_overlay["summary"]["false_abstain_count"]), 6)
         self.assertEqual(
             current_overlay["active_rescue_case_ids"],
             active_only_overlay["active_rescue_case_ids"],

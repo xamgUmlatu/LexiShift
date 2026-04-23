@@ -3,8 +3,8 @@
 Status: active planning
 Role: production-stabilization plan
 Purpose: define the evaluation workstream required to move semantic veto from the narrow `en-es` emitted-sibling runtime slice to a production-trustworthy, more general blocker system
-Last updated: 2026-04-23
-Last verified: 2026-04-23 fixed-shadow runtime/bound refresh against the current `v9` dataset and held-out corridor artifacts
+Last updated: 2026-04-24
+Last verified: 2026-04-24 fixed-shadow runtime/bound refresh against the current `v10` dataset and held-out corridor artifacts
 Source-of-truth: this plan is the canonical next-step document for semantic-veto generalization; implementation truth still lives in code, test scripts, and `docs/developer/feature_state_matrix.md`
 
 Routing note:
@@ -74,33 +74,33 @@ They are the current measured starting point.
 
 Use the current conservative zero-harmful-replace runtime row from the fixed-shadow sentence harness as the control:
 
-- dataset: `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v9.json`
+- dataset: `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v10.json`
 - config: `tfidf_cosine:masked_sentence:all_evidence_text:p=noun_family_frame_guard:r=sense_label_near_tie_active_rescue:a=0.05:m=0.00`
-- decision accuracy: `73.3%`
-- replace precision / recall: `100.0%` / `33.3%`
-- harmful replace / false abstain: `0.0%` / `66.7%`
+- decision accuracy: `73.7%`
+- replace precision / recall: `100.0%` / `34.2%`
+- harmful replace / false abstain: `0.0%` / `65.8%`
 
 Interpretation:
 
 - the current runtime gate still has the desired abstain-first safety shape,
-- but it misses even more clear active rows on the tougher `v8` slice,
-- and the newest held-out family confirms the remaining runtime gap is still widening through weak-active-support rather than through a second phrase-leak family.
+- but it still misses most held-out weak-active-support rows,
+- and the newest held-out family confirms the remaining runtime gap is still widening through cue-like under-replacement rather than through a second phrase-leak family.
 
 ### Sentence-transformer bounded default
 
 Use the best current sentence-transformer read as the bounded runtime-default experiment, while keeping the lexical row above as the explicit conservative control:
 
-- dataset: `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v9.json`
+- dataset: `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v10.json`
 - config: `sentence_transformer_cosine:masked_sentence:all_evidence_text:p=noun_family_frame_guard:r=sense_label_near_tie_active_rescue:a=0.00:m=0.00`
-- decision accuracy: `91.1%`
-- replace precision / recall: `96.7%` / `80.6%`
-- harmful replace / false abstain: `1.9%` / `19.4%`
+- decision accuracy: `89.5%`
+- replace precision / recall: `96.7%` / `76.3%`
+- harmful replace / false abstain: `1.8%` / `23.7%`
 
 Interpretation:
 
 - the heavier scorer is still clearly beating the conservative lexical control on the fixed-shadow harness,
 - but it is still not a clean hard-replace lane on the active held-out slice,
-- and `v8` keeps the honest hard errors explicit:
+- and `v10` keeps the honest hard errors explicit:
   - harmful replace:
     - `play:005`
   - false abstains:
@@ -111,83 +111,78 @@ Interpretation:
     - `check:002`
     - `order:002`
     - `trip:002`
+    - `report:001`
+    - `report:002`
 
 ### Zero-noise soft ladder reference
 
 Keep one bounded three-way reference row alongside the hard-replace default:
 
-- dataset: `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v9.json`
+- dataset: `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v10.json`
 - base hard-replace config:
   - `sentence_transformer_cosine:masked_sentence:all_evidence_text:p=noun_family_frame_guard:r=sense_label_near_tie_active_rescue:a=0.00:m=0.00`
 - soft-affordance overlay:
-  - `soft_min_active_score=0.58`
-  - `soft_min_margin=-0.03`
+  - `soft_min_active_score=0.60`
+  - `soft_min_margin=0.00`
   - applied only over rows that the hard gate currently abstains on
--- current fixed-shadow read:
-  - `4` soft true positives
+- current fixed-shadow read:
+  - `0` soft true positives
   - `0` soft false positives
-  - recovered rows:
-    - `plant:002`
-    - `drink:002`
-    - `order:002`
-    - `trip:002`
+  - recovered rows: none
 - current held-out bound read:
-  - replace-or-soft conservative floor: `83.3%`
+  - replace-or-soft conservative floor: `63.2%`
   - soft-noise conservative ceiling: `0.0%`
 
 Interpretation:
 
 - this is still useful as a held-out monitoring reference,
-- the zero-noise soft lane has a little more real mass now that `trip:002` joins `order:002`,
-- but the `play` and `check` residue still does not join this row,
-- so it should still not be treated as justification for a visible soft-affordance product rollout.
+- but the zero-noise soft lane has now collapsed on the tougher `v10` slice,
+- so it should remain a fixed control rather than a prompt-design or rollout driver.
 
-### `v9` EVAL-2 addition
+### `v10` EVAL-2 addition
 
-The current fixed-shadow slice is now `v9`, not `v8`.
+The current fixed-shadow slice is now `v10`, not `v9`.
 
 What changed:
 
-- `trip` was added on the held-out side as a noun-active / verb-shadow weak-active-support family
-- its new held-out trip-style active row, `trip:002`, is a clean under-replacement case
-- its lexicalized-expression row, `trip up`, broadens the mixed noun/verb phrase surface without becoming a new harmful-replace seam
+- `report` was added on the held-out side as a noun-active / verb-shadow weak-active-support family
+- its two held-out active rows, `report:001` and `report:002`, are clean under-replacement cases
+- its lexicalized-expression row, `report back`, broadens the mixed noun/verb phrase surface without becoming a new harmful-replace seam
 
 Why this matters:
 
 - the hard sentence-transformer reference still carries the same single harmful replace, `play:005`
-- so `order` does not change the basic phrase-risk story
+- so `report` does not change the basic phrase-risk story
 - instead, it asks the sharper continuation of the `check` question:
   - does the held-out residue keep looking like weak-active-support, or does the next cross-POS family reopen phrase leakage?
 
 Current read:
 
 - the hard sentence-transformer reference is still materially stronger than lexical control, but it is still not zero-harm on the active slice
-- the zero-noise soft ladder now recovers `plant:002`, `drink:002`, `order:002`, and `trip:002`
+- the zero-noise soft ladder no longer recovers any new surfaced wins on the frozen `v10` row
 - the new weak-active probe sharpens that read:
-  - direct primary-surface swaps (`sense_label`, `raw_sentence`, `raw_window`) still recover the weak-active rows, but only by introducing `4-5` harmful replaces on the same frozen slice
+  - direct primary-surface swaps (`sense_label`, `raw_sentence`, `raw_window`) still recover the weak-active rows, but only by introducing `4-8` harmful replaces on the same frozen slice
   - the best widened rescue overlay is still only bounded:
     - it still leaves `play:005` harmful
-    - and now leaves `play:002`, `check:002`, `order:002`, and `trip:002` abstained
-  - `trip` does not reopen the phrase-leak seam:
-    - `trip up` is already safely abstained
-    - `trip:001` already lands cleanly
-    - `trip:002` joins `check:002` and `order:002` as held-out weak-active-support residue
+    - and now leaves `play:002`, `check:002`, `order:002`, `trip:002`, `report:001`, and `report:002` abstained
+  - `report` does not reopen the phrase-leak seam:
+    - `report back` is already safely abstained
+    - `report:001` and `report:002` both join the held-out weak-active-support residue
 - the held-out corridor sharpens it further:
-  - the runtime reference lane now carries a `5.6%` harmful-replace conservative ceiling
-  - the widened-rescue simulated lane also carries a `5.6%` harmful-replace conservative ceiling
+  - the runtime reference lane now carries a `5.3%` harmful-replace conservative ceiling
+  - the widened-rescue simulated lane also carries a `5.3%` harmful-replace conservative ceiling
   - the accepted active-sense overlay keeps:
-    - `77.8%` replace-recall conservative floor
+    - `71.1%` replace-recall conservative floor
     - `0.0%` harmful-replace conservative ceiling
-    - `22.2%` false-abstain conservative ceiling
+    - `28.9%` false-abstain conservative ceiling
 - `play:005` should still therefore be treated as the phrase-leak / lexicalized-expression target rather than collapsed into generic weak-active-support residue
-- the phrase-leak probe now extends that read through `watch`, `check`, and `order`:
- - the phrase-leak probe now extends that read through `watch`, `check`, `order`, and `trip`:
+- the phrase-leak probe now extends that read through `watch`, `check`, `order`, `trip`, and `report`:
   - `docs/test_outputs/semantic_routing_sentence_veto_phrase_leak_latest.md`
   - active-sense noun phrase guarding is still the first bounded candidate that:
     - removes the hard-row `play:005` harmful replace
     - removes the overlay `play:005` harmful replace
     - preserves the current rescue wins on `play:001`, `drink:001`, `drink:002`, and `park:001`
-    - newly phrase-preempts `watch:005`, `check:005`, `order:005`, and `trip:005` without disturbing the held-out active rows
+    - newly phrase-preempts `watch:005`, `check:005`, `order:005`, `trip:005`, and `report:005` without disturbing the held-out active rows
   - but it also broadens phrase-preemption hits across mixed noun/verb shadow rows like:
     - `play:004`
     - `drink:003`
@@ -200,8 +195,9 @@ Current read:
     - `check:005`
     - `order:005`
     - `trip:005`
+    - `report:005`
 - so the active-sense noun phrase guard remains accepted as the preferred bounded overlay experiment, but not yet as a hard-lane replacement
-- the next evaluation step remains another held-out family-growth wave plus corridor refresh, with the current hard reference, zero-noise soft row, and accepted active-sense overlay experiment all kept fixed
+- the next evaluation step is now to keep the current hard reference, zero-noise soft row, and accepted active-sense overlay experiment fixed while freezing a real family queue and running a tiny non-LLM cue-data pilot before prompt testing
 
 ### Auto-shadow veto lower-bound controls
 

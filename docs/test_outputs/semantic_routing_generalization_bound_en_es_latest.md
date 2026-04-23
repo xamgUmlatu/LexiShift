@@ -1,7 +1,7 @@
 # en-es Semantic Veto Generalization Bound
 
 - Status: `ok`
-- Generated: `2026-04-23T05:10:04Z`
+- Generated: `2026-04-23T19:15:19Z`
 - Pair: `en-es`
 - Confidence method: `cluster_bootstrap_plus_leave_one_cluster_out`
 - Bootstrap iterations: `2000`
@@ -12,47 +12,47 @@
 ## Current Corridor
 
 - Best current source-only blocker lane: `borrowed_trigger_auto_shadows`
-- Source-only abstain-recall conservative floor: `3.2%`
-- Source-only harmful-allow conservative ceiling: `96.8%`
-- Fixed-shadow replace-recall conservative floor: `16.7%`
+- Source-only abstain-recall conservative floor: `0.0%`
+- Source-only harmful-allow conservative ceiling: `100.0%`
+- Fixed-shadow replace-recall conservative floor: `15.8%`
 - Fixed-shadow harmful-replace conservative ceiling: `0.0%`
 - Evaluated runtime reference lane: `Sentence-transformer phrase-guard candidate`
-- Runtime reference replace-recall conservative floor: `69.4%`
-- Runtime reference harmful-replace conservative ceiling: `5.6%`
-- Runtime reference false-abstain conservative ceiling: `30.6%`
+- Runtime reference replace-recall conservative floor: `63.2%`
+- Runtime reference harmful-replace conservative ceiling: `5.3%`
+- Runtime reference false-abstain conservative ceiling: `36.8%`
 - Experimental phrase-guard lane: `Sentence-transformer active-sense phrase-guard experiment`
-- Experimental phrase-guard replace-recall conservative floor: `69.4%`
+- Experimental phrase-guard replace-recall conservative floor: `63.2%`
 - Experimental phrase-guard harmful-replace conservative ceiling: `0.0%`
-- Experimental phrase-guard false-abstain conservative ceiling: `30.6%`
+- Experimental phrase-guard false-abstain conservative ceiling: `36.8%`
 - Evaluated runtime ladder lane: `Sentence-transformer zero-noise soft ladder`
-- Runtime ladder replace-or-soft recall conservative floor: `83.3%`
+- Runtime ladder replace-or-soft recall conservative floor: `63.2%`
 - Runtime ladder soft-noise conservative ceiling: `0.0%`
 - Evaluated rescue-overlay lane: `Sentence-transformer widened-rescue candidate (simulated)`
-- Rescue-overlay replace-recall conservative floor: `77.8%`
-- Rescue-overlay harmful-replace conservative ceiling: `5.6%`
-- Rescue-overlay false-abstain conservative ceiling: `22.2%`
+- Rescue-overlay replace-recall conservative floor: `71.1%`
+- Rescue-overlay harmful-replace conservative ceiling: `5.3%`
+- Rescue-overlay false-abstain conservative ceiling: `28.9%`
 - Experimental phrase-guard overlay lane: `Sentence-transformer active-sense phrase-guard overlay (simulated)`
-- Experimental phrase-guard overlay replace-recall conservative floor: `77.8%`
+- Experimental phrase-guard overlay replace-recall conservative floor: `71.1%`
 - Experimental phrase-guard overlay harmful-replace conservative ceiling: `0.0%`
-- Experimental phrase-guard overlay false-abstain conservative ceiling: `22.2%`
+- Experimental phrase-guard overlay false-abstain conservative ceiling: `28.9%`
 
 ## Fixed-Shadow Bounds
 
 ### Fixed-shadow runtime control
 
 - Cluster key: `family_id`
-- Cluster count: `18`
+- Cluster count: `19`
 - Config: `scorer_id='tfidf_cosine', context_view='masked_sentence', evidence_view='all_evidence_text', min_active_score=0.05, min_margin=0.0, phrase_control_mode='noun_family_frame_guard', active_rescue_mode='sense_label_near_tie_active_rescue'`
 
 | Metric | Point | Bootstrap CI | Held-out worst | Conservative bound |
 | --- | ---: | ---: | ---: | ---: |
-| decision_accuracy | 73.3% | 66.7% to 80.0% | 71.8% | 66.7% |
+| decision_accuracy | 73.7% | 66.3% to 81.1% | 72.2% | 66.3% |
 | replace_precision | 100.0% | 100.0% to 100.0% | 100.0% | 100.0% |
-| replace_recall | 33.3% | 16.7% to 50.0% | 29.4% | 16.7% |
+| replace_recall | 34.2% | 15.8% to 52.6% | 30.6% | 15.8% |
 | harmful_replace_rate | 0.0% | 0.0% to 0.0% | 0.0% | 0.0% |
-| false_abstain_rate | 66.7% | 50.0% to 83.3% | 70.6% | 83.3% |
-| winner_accuracy | 63.9% | 54.2% to 73.6% | 61.8% | 54.2% |
-| shadow_winner_accuracy | 33.3% | 16.7% to 50.0% | 29.4% | 16.7% |
+| false_abstain_rate | 65.8% | 47.4% to 84.2% | 69.4% | 84.2% |
+| winner_accuracy | 63.2% | 53.9% to 72.4% | 61.1% | 53.9% |
+| shadow_winner_accuracy | 31.6% | 15.8% to 50.0% | 27.8% | 15.8% |
 
 #### Cluster Breakdown
 
@@ -64,7 +64,7 @@
 | en-es:sentence-veto:branch:sucursal | 5 | 50.0% | 0.0% |
 | en-es:sentence-veto:cell:celula | 5 | 100.0% | 0.0% |
 | en-es:sentence-veto:check:cheque | 5 | 0.0% | 0.0% |
-| en-es:sentence-veto:drink:bebida | 5 | 50.0% | 0.0% |
+| en-es:sentence-veto:drink:bebida | 5 | 100.0% | 0.0% |
 | en-es:sentence-veto:file:archivo | 5 | 100.0% | 0.0% |
 | en-es:sentence-veto:match:partido | 5 | 50.0% | 0.0% |
 | en-es:sentence-veto:order:pedido | 5 | 0.0% | 0.0% |
@@ -79,11 +79,11 @@
 
 | Metric | Point | Bootstrap CI | Held-out worst | Conservative bound |
 | --- | ---: | ---: | ---: | ---: |
-| decision_accuracy | 77.1% | 68.6% to 85.7% | 73.3% | 68.6% |
+| decision_accuracy | 80.0% | 68.6% to 91.4% | 76.7% | 68.6% |
 | replace_precision | 100.0% | 100.0% to 100.0% | 100.0% | 100.0% |
-| replace_recall | 42.9% | 21.4% to 64.3% | 33.3% | 21.4% |
+| replace_recall | 50.0% | 21.4% to 78.6% | 41.7% | 21.4% |
 | harmful_replace_rate | 0.0% | 0.0% to 0.0% | 0.0% | 0.0% |
-| false_abstain_rate | 57.1% | 35.7% to 78.6% | 66.7% | 78.6% |
+| false_abstain_rate | 50.0% | 21.4% to 78.6% | 58.3% | 78.6% |
 | winner_accuracy | 67.9% | 57.1% to 82.1% | 62.5% | 57.1% |
 | shadow_winner_accuracy | 35.7% | 14.3% to 64.3% | 25.0% | 14.3% |
 
@@ -95,25 +95,25 @@
 | en-es:sentence-veto:board:tablero | 5 | 50.0% | 0.0% |
 | en-es:sentence-veto:branch:sucursal | 5 | 50.0% | 0.0% |
 | en-es:sentence-veto:cell:celula | 5 | 100.0% | 0.0% |
-| en-es:sentence-veto:drink:bebida | 5 | 50.0% | 0.0% |
+| en-es:sentence-veto:drink:bebida | 5 | 100.0% | 0.0% |
 | en-es:sentence-veto:match:partido | 5 | 50.0% | 0.0% |
 | en-es:sentence-veto:spring:primavera | 5 | 0.0% | 0.0% |
 
 ### Fixed-shadow runtime control [held_out]
 
 - Cluster key: `family_id`
-- Cluster count: `11`
+- Cluster count: `12`
 - Config: `scorer_id='tfidf_cosine', context_view='masked_sentence', evidence_view='all_evidence_text', min_active_score=0.05, min_margin=0.0, phrase_control_mode='noun_family_frame_guard', active_rescue_mode='sense_label_near_tie_active_rescue'`
 
 | Metric | Point | Bootstrap CI | Held-out worst | Conservative bound |
 | --- | ---: | ---: | ---: | ---: |
-| decision_accuracy | 70.9% | 61.8% to 80.0% | 68.0% | 61.8% |
+| decision_accuracy | 70.0% | 61.7% to 80.0% | 67.3% | 61.7% |
 | replace_precision | 100.0% | 100.0% to 100.0% | 100.0% | 100.0% |
-| replace_recall | 27.3% | 4.5% to 50.0% | 20.0% | 4.5% |
+| replace_recall | 25.0% | 4.2% to 50.0% | 18.2% | 4.2% |
 | harmful_replace_rate | 0.0% | 0.0% to 0.0% | 0.0% | 0.0% |
-| false_abstain_rate | 72.7% | 50.0% to 95.5% | 80.0% | 95.5% |
-| winner_accuracy | 61.4% | 50.0% to 75.0% | 57.5% | 50.0% |
-| shadow_winner_accuracy | 31.8% | 9.1% to 54.5% | 25.0% | 9.1% |
+| false_abstain_rate | 75.0% | 50.0% to 95.8% | 81.8% | 95.8% |
+| winner_accuracy | 60.4% | 50.0% to 72.9% | 56.8% | 50.0% |
+| shadow_winner_accuracy | 29.2% | 8.3% to 50.0% | 22.7% | 8.3% |
 
 #### Cluster Breakdown
 
@@ -126,6 +126,7 @@
 | en-es:sentence-veto:park:parque | 5 | 0.0% | 0.0% |
 | en-es:sentence-veto:plant:planta | 5 | 0.0% | 0.0% |
 | en-es:sentence-veto:play:obra | 5 | 0.0% | 0.0% |
+| en-es:sentence-veto:report:informe | 5 | 0.0% | 0.0% |
 | en-es:sentence-veto:seal:sello | 5 | 100.0% | 0.0% |
 | en-es:sentence-veto:table:mesa | 5 | 50.0% | 0.0% |
 | en-es:sentence-veto:trip:viaje | 5 | 0.0% | 0.0% |
@@ -134,17 +135,17 @@
 ### Sentence-transformer phrase-guard candidate
 
 - Cluster key: `family_id`
-- Cluster count: `18`
+- Cluster count: `19`
 - Config: `scorer_id='sentence_transformer_cosine', context_view='masked_sentence', evidence_view='all_evidence_text', min_active_score=0.0, min_margin=0.0, phrase_control_mode='noun_family_frame_guard', active_rescue_mode='sense_label_near_tie_active_rescue'`
 
 | Metric | Point | Bootstrap CI | Held-out worst | Conservative bound |
 | --- | ---: | ---: | ---: | ---: |
-| decision_accuracy | 91.1% | 85.6% to 96.7% | 90.6% | 85.6% |
-| replace_precision | 96.7% | 89.7% to 100.0% | 96.4% | 89.7% |
-| replace_recall | 80.6% | 69.4% to 91.7% | 79.4% | 69.4% |
-| harmful_replace_rate | 1.9% | 0.0% to 5.6% | 2.0% | 5.6% |
-| false_abstain_rate | 19.4% | 8.3% to 30.6% | 20.6% | 30.6% |
-| winner_accuracy | 90.3% | 84.7% to 95.8% | 89.7% | 84.7% |
+| decision_accuracy | 89.5% | 83.2% to 94.7% | 88.9% | 83.2% |
+| replace_precision | 96.7% | 89.3% to 100.0% | 96.4% | 89.3% |
+| replace_recall | 76.3% | 63.2% to 89.5% | 75.0% | 63.2% |
+| harmful_replace_rate | 1.8% | 0.0% to 5.3% | 1.9% | 5.3% |
+| false_abstain_rate | 23.7% | 10.5% to 36.8% | 25.0% | 36.8% |
+| winner_accuracy | 88.2% | 81.6% to 94.7% | 87.5% | 81.6% |
 | shadow_winner_accuracy | 100.0% | 100.0% to 100.0% | 100.0% | 100.0% |
 
 #### Cluster Breakdown
@@ -195,17 +196,17 @@
 ### Sentence-transformer phrase-guard candidate [held_out]
 
 - Cluster key: `family_id`
-- Cluster count: `11`
+- Cluster count: `12`
 - Config: `scorer_id='sentence_transformer_cosine', context_view='masked_sentence', evidence_view='all_evidence_text', min_active_score=0.0, min_margin=0.0, phrase_control_mode='noun_family_frame_guard', active_rescue_mode='sense_label_near_tie_active_rescue'`
 
 | Metric | Point | Bootstrap CI | Held-out worst | Conservative bound |
 | --- | ---: | ---: | ---: | ---: |
-| decision_accuracy | 87.3% | 80.0% to 94.5% | 86.0% | 80.0% |
-| replace_precision | 94.1% | 82.3% to 100.0% | 93.3% | 82.3% |
-| replace_recall | 72.7% | 59.1% to 86.4% | 70.0% | 59.1% |
-| harmful_replace_rate | 3.0% | 0.0% to 9.1% | 3.3% | 9.1% |
-| false_abstain_rate | 27.3% | 13.6% to 40.9% | 30.0% | 40.9% |
-| winner_accuracy | 86.4% | 79.5% to 93.2% | 85.0% | 79.5% |
+| decision_accuracy | 85.0% | 76.7% to 93.3% | 83.6% | 76.7% |
+| replace_precision | 94.1% | 81.2% to 100.0% | 93.3% | 81.2% |
+| replace_recall | 66.7% | 50.0% to 83.3% | 63.6% | 50.0% |
+| harmful_replace_rate | 2.8% | 0.0% to 8.3% | 3.0% | 8.3% |
+| false_abstain_rate | 33.3% | 16.7% to 50.0% | 36.4% | 50.0% |
+| winner_accuracy | 83.3% | 75.0% to 91.7% | 81.8% | 75.0% |
 | shadow_winner_accuracy | 100.0% | 100.0% to 100.0% | 100.0% | 100.0% |
 
 #### Cluster Breakdown
@@ -219,6 +220,7 @@
 | en-es:sentence-veto:park:parque | 5 | 50.0% | 0.0% |
 | en-es:sentence-veto:plant:planta | 5 | 50.0% | 0.0% |
 | en-es:sentence-veto:play:obra | 5 | 50.0% | 33.3% |
+| en-es:sentence-veto:report:informe | 5 | 0.0% | 0.0% |
 | en-es:sentence-veto:seal:sello | 5 | 100.0% | 0.0% |
 | en-es:sentence-veto:table:mesa | 5 | 100.0% | 0.0% |
 | en-es:sentence-veto:trip:viaje | 5 | 50.0% | 0.0% |
@@ -227,17 +229,17 @@
 ### Sentence-transformer active-sense phrase-guard experiment
 
 - Cluster key: `family_id`
-- Cluster count: `18`
+- Cluster count: `19`
 - Config: `scorer_id='sentence_transformer_cosine', context_view='masked_sentence', evidence_view='all_evidence_text', min_active_score=0.0, min_margin=0.0, phrase_control_mode='noun_family_frame_guard', phrase_guard_pos_scope='active_only', active_rescue_mode='sense_label_near_tie_active_rescue', experimental=True`
 
 | Metric | Point | Bootstrap CI | Held-out worst | Conservative bound |
 | --- | ---: | ---: | ---: | ---: |
-| decision_accuracy | 92.2% | 87.8% to 96.7% | 91.8% | 87.8% |
+| decision_accuracy | 90.5% | 85.3% to 95.8% | 90.0% | 85.3% |
 | replace_precision | 100.0% | 100.0% to 100.0% | 100.0% | 100.0% |
-| replace_recall | 80.6% | 69.4% to 91.7% | 79.4% | 69.4% |
+| replace_recall | 76.3% | 63.2% to 89.5% | 75.0% | 63.2% |
 | harmful_replace_rate | 0.0% | 0.0% to 0.0% | 0.0% | 0.0% |
-| false_abstain_rate | 19.4% | 8.3% to 30.6% | 20.6% | 30.6% |
-| winner_accuracy | 90.3% | 84.7% to 95.8% | 89.7% | 84.7% |
+| false_abstain_rate | 23.7% | 10.5% to 36.8% | 25.0% | 36.8% |
+| winner_accuracy | 88.2% | 81.6% to 94.7% | 87.5% | 81.6% |
 | shadow_winner_accuracy | 100.0% | 100.0% to 100.0% | 100.0% | 100.0% |
 
 #### Cluster Breakdown
@@ -288,17 +290,17 @@
 ### Sentence-transformer active-sense phrase-guard experiment [held_out]
 
 - Cluster key: `family_id`
-- Cluster count: `11`
+- Cluster count: `12`
 - Config: `scorer_id='sentence_transformer_cosine', context_view='masked_sentence', evidence_view='all_evidence_text', min_active_score=0.0, min_margin=0.0, phrase_control_mode='noun_family_frame_guard', phrase_guard_pos_scope='active_only', active_rescue_mode='sense_label_near_tie_active_rescue', experimental=True`
 
 | Metric | Point | Bootstrap CI | Held-out worst | Conservative bound |
 | --- | ---: | ---: | ---: | ---: |
-| decision_accuracy | 89.1% | 83.6% to 94.5% | 88.0% | 83.6% |
+| decision_accuracy | 86.7% | 80.0% to 93.3% | 85.5% | 80.0% |
 | replace_precision | 100.0% | 100.0% to 100.0% | 100.0% | 100.0% |
-| replace_recall | 72.7% | 59.1% to 86.4% | 70.0% | 59.1% |
+| replace_recall | 66.7% | 50.0% to 83.3% | 63.6% | 50.0% |
 | harmful_replace_rate | 0.0% | 0.0% to 0.0% | 0.0% | 0.0% |
-| false_abstain_rate | 27.3% | 13.6% to 40.9% | 30.0% | 40.9% |
-| winner_accuracy | 86.4% | 79.5% to 93.2% | 85.0% | 79.5% |
+| false_abstain_rate | 33.3% | 16.7% to 50.0% | 36.4% | 50.0% |
+| winner_accuracy | 83.3% | 75.0% to 91.7% | 81.8% | 75.0% |
 | shadow_winner_accuracy | 100.0% | 100.0% to 100.0% | 100.0% | 100.0% |
 
 #### Cluster Breakdown
@@ -312,6 +314,7 @@
 | en-es:sentence-veto:park:parque | 5 | 50.0% | 0.0% |
 | en-es:sentence-veto:plant:planta | 5 | 50.0% | 0.0% |
 | en-es:sentence-veto:play:obra | 5 | 50.0% | 0.0% |
+| en-es:sentence-veto:report:informe | 5 | 0.0% | 0.0% |
 | en-es:sentence-veto:seal:sello | 5 | 100.0% | 0.0% |
 | en-es:sentence-veto:table:mesa | 5 | 100.0% | 0.0% |
 | en-es:sentence-veto:trip:viaje | 5 | 50.0% | 0.0% |
@@ -320,17 +323,17 @@
 ### Sentence-transformer zero-noise soft ladder
 
 - Cluster key: `family_id`
-- Cluster count: `18`
+- Cluster count: `19`
 - Config: `scorer_id='sentence_transformer_cosine', context_view='masked_sentence', evidence_view='all_evidence_text', min_active_score=0.0, min_margin=0.0, phrase_control_mode='noun_family_frame_guard', active_rescue_mode='sense_label_near_tie_active_rescue'`
 
 | Metric | Point | Bootstrap CI | Held-out worst | Conservative bound |
 | --- | ---: | ---: | ---: | ---: |
-| hard_replace_recall | 80.6% | 69.4% to 91.7% | 79.4% | 69.4% |
-| hard_harmful_replace_rate | 1.9% | 0.0% to 5.6% | 2.0% | 5.6% |
-| replace_or_soft_recall | 91.7% | 83.3% to 100.0% | 91.2% | 83.3% |
+| hard_replace_recall | 76.3% | 63.2% to 89.5% | 75.0% | 63.2% |
+| hard_harmful_replace_rate | 1.8% | 0.0% to 5.3% | 1.9% | 5.3% |
+| replace_or_soft_recall | 76.3% | 63.2% to 89.5% | 75.0% | 63.2% |
 | soft_noise_rate | 0.0% | 0.0% to 0.0% | 0.0% | 0.0% |
-| surfaced_precision | 97.1% | 91.2% to 100.0% | 96.9% | 91.2% |
-| remaining_missed_replace_rate | 8.3% | 0.0% to 16.7% | 8.8% | 16.7% |
+| surfaced_precision | 96.7% | 89.7% to 100.0% | 96.4% | 89.7% |
+| remaining_missed_replace_rate | 23.7% | 10.5% to 36.8% | 25.0% | 36.8% |
 
 #### Cluster Breakdown
 
@@ -342,12 +345,12 @@
 | en-es:sentence-veto:branch:sucursal | 5 | 100.0% | 0.0% |
 | en-es:sentence-veto:cell:celula | 5 | 100.0% | 0.0% |
 | en-es:sentence-veto:check:cheque | 5 | 50.0% | 0.0% |
-| en-es:sentence-veto:drink:bebida | 5 | 100.0% | 0.0% |
+| en-es:sentence-veto:drink:bebida | 5 | 50.0% | 0.0% |
 | en-es:sentence-veto:file:archivo | 5 | 100.0% | 0.0% |
 | en-es:sentence-veto:match:partido | 5 | 100.0% | 0.0% |
-| en-es:sentence-veto:order:pedido | 5 | 100.0% | 0.0% |
+| en-es:sentence-veto:order:pedido | 5 | 50.0% | 0.0% |
 | en-es:sentence-veto:park:parque | 5 | 50.0% | 0.0% |
-| en-es:sentence-veto:plant:planta | 5 | 100.0% | 0.0% |
+| en-es:sentence-veto:plant:planta | 5 | 50.0% | 0.0% |
 
 ### Sentence-transformer zero-noise soft ladder [tune]
 
@@ -359,10 +362,10 @@
 | --- | ---: | ---: | ---: | ---: |
 | hard_replace_recall | 92.9% | 78.6% to 100.0% | 91.7% | 78.6% |
 | hard_harmful_replace_rate | 0.0% | 0.0% to 0.0% | 0.0% | 0.0% |
-| replace_or_soft_recall | 100.0% | 100.0% to 100.0% | 100.0% | 100.0% |
+| replace_or_soft_recall | 92.9% | 78.6% to 100.0% | 91.7% | 78.6% |
 | soft_noise_rate | 0.0% | 0.0% to 0.0% | 0.0% | 0.0% |
 | surfaced_precision | 100.0% | 100.0% to 100.0% | 100.0% | 100.0% |
-| remaining_missed_replace_rate | 0.0% | 0.0% to 0.0% | 0.0% | 0.0% |
+| remaining_missed_replace_rate | 7.1% | 0.0% to 21.4% | 8.3% | 21.4% |
 
 #### Cluster Breakdown
 
@@ -372,24 +375,24 @@
 | en-es:sentence-veto:board:tablero | 5 | 100.0% | 0.0% |
 | en-es:sentence-veto:branch:sucursal | 5 | 100.0% | 0.0% |
 | en-es:sentence-veto:cell:celula | 5 | 100.0% | 0.0% |
-| en-es:sentence-veto:drink:bebida | 5 | 100.0% | 0.0% |
+| en-es:sentence-veto:drink:bebida | 5 | 50.0% | 0.0% |
 | en-es:sentence-veto:match:partido | 5 | 100.0% | 0.0% |
 | en-es:sentence-veto:spring:primavera | 5 | 100.0% | 0.0% |
 
 ### Sentence-transformer zero-noise soft ladder [held_out]
 
 - Cluster key: `family_id`
-- Cluster count: `11`
+- Cluster count: `12`
 - Config: `scorer_id='sentence_transformer_cosine', context_view='masked_sentence', evidence_view='all_evidence_text', min_active_score=0.0, min_margin=0.0, phrase_control_mode='noun_family_frame_guard', active_rescue_mode='sense_label_near_tie_active_rescue'`
 
 | Metric | Point | Bootstrap CI | Held-out worst | Conservative bound |
 | --- | ---: | ---: | ---: | ---: |
-| hard_replace_recall | 72.7% | 59.1% to 86.4% | 70.0% | 59.1% |
-| hard_harmful_replace_rate | 3.0% | 0.0% to 9.1% | 3.3% | 9.1% |
-| replace_or_soft_recall | 86.4% | 72.7% to 100.0% | 85.0% | 72.7% |
+| hard_replace_recall | 66.7% | 50.0% to 83.3% | 63.6% | 50.0% |
+| hard_harmful_replace_rate | 2.8% | 0.0% to 8.3% | 3.0% | 8.3% |
+| replace_or_soft_recall | 66.7% | 50.0% to 83.3% | 63.6% | 50.0% |
 | soft_noise_rate | 0.0% | 0.0% to 0.0% | 0.0% | 0.0% |
-| surfaced_precision | 95.0% | 85.0% to 100.0% | 94.4% | 85.0% |
-| remaining_missed_replace_rate | 13.6% | 0.0% to 27.3% | 15.0% | 27.3% |
+| surfaced_precision | 94.1% | 81.2% to 100.0% | 93.3% | 81.2% |
+| remaining_missed_replace_rate | 33.3% | 16.7% to 50.0% | 36.4% | 50.0% |
 
 #### Cluster Breakdown
 
@@ -398,29 +401,30 @@
 | en-es:sentence-veto:bank:banco | 5 | 100.0% | 0.0% |
 | en-es:sentence-veto:check:cheque | 5 | 50.0% | 0.0% |
 | en-es:sentence-veto:file:archivo | 5 | 100.0% | 0.0% |
-| en-es:sentence-veto:order:pedido | 5 | 100.0% | 0.0% |
+| en-es:sentence-veto:order:pedido | 5 | 50.0% | 0.0% |
 | en-es:sentence-veto:park:parque | 5 | 50.0% | 0.0% |
-| en-es:sentence-veto:plant:planta | 5 | 100.0% | 0.0% |
+| en-es:sentence-veto:plant:planta | 5 | 50.0% | 0.0% |
 | en-es:sentence-veto:play:obra | 5 | 50.0% | 0.0% |
+| en-es:sentence-veto:report:informe | 5 | 0.0% | 0.0% |
 | en-es:sentence-veto:seal:sello | 5 | 100.0% | 0.0% |
 | en-es:sentence-veto:table:mesa | 5 | 100.0% | 0.0% |
-| en-es:sentence-veto:trip:viaje | 5 | 100.0% | 0.0% |
+| en-es:sentence-veto:trip:viaje | 5 | 50.0% | 0.0% |
 | en-es:sentence-veto:watch:reloj | 5 | 100.0% | 0.0% |
 
 ### Sentence-transformer widened-rescue candidate (simulated)
 
 - Cluster key: `family_id`
-- Cluster count: `18`
+- Cluster count: `19`
 - Config: `scorer_id='sentence_transformer_cosine', context_view='masked_sentence', evidence_view='all_evidence_text', min_active_score=0.0, min_margin=0.0, phrase_control_mode='noun_family_frame_guard', active_rescue_mode='sense_label_near_tie_active_rescue', backup_evidence_view='sense_label', primary_margin_floor=-0.05, backup_margin_floor=0.02, simulated=True`
 
 | Metric | Point | Bootstrap CI | Held-out worst | Conservative bound |
 | --- | ---: | ---: | ---: | ---: |
-| decision_accuracy | 94.4% | 88.9% to 98.9% | 94.1% | 88.9% |
-| replace_precision | 97.0% | 90.6% to 100.0% | 96.8% | 90.6% |
-| replace_recall | 88.9% | 77.8% to 97.2% | 88.2% | 77.8% |
-| harmful_replace_rate | 1.9% | 0.0% to 5.6% | 2.0% | 5.6% |
-| false_abstain_rate | 11.1% | 2.8% to 22.2% | 11.8% | 22.2% |
-| winner_accuracy | 94.4% | 88.9% to 98.6% | 94.1% | 88.9% |
+| decision_accuracy | 92.6% | 86.3% to 97.9% | 92.2% | 86.3% |
+| replace_precision | 97.0% | 90.0% to 100.0% | 96.8% | 90.0% |
+| replace_recall | 84.2% | 71.1% to 94.7% | 83.3% | 71.1% |
+| harmful_replace_rate | 1.8% | 0.0% to 5.3% | 1.9% | 5.3% |
+| false_abstain_rate | 15.8% | 5.3% to 28.9% | 16.7% | 28.9% |
+| winner_accuracy | 92.1% | 85.5% to 97.4% | 91.7% | 85.5% |
 | shadow_winner_accuracy | 100.0% | 100.0% to 100.0% | 100.0% | 100.0% |
 
 #### Cluster Breakdown
@@ -471,17 +475,17 @@
 ### Sentence-transformer widened-rescue candidate (simulated) [held_out]
 
 - Cluster key: `family_id`
-- Cluster count: `11`
+- Cluster count: `12`
 - Config: `scorer_id='sentence_transformer_cosine', context_view='masked_sentence', evidence_view='all_evidence_text', min_active_score=0.0, min_margin=0.0, phrase_control_mode='noun_family_frame_guard', active_rescue_mode='sense_label_near_tie_active_rescue', backup_evidence_view='sense_label', primary_margin_floor=-0.05, backup_margin_floor=0.02, simulated=True`
 
 | Metric | Point | Bootstrap CI | Held-out worst | Conservative bound |
 | --- | ---: | ---: | ---: | ---: |
-| decision_accuracy | 90.9% | 81.8% to 98.2% | 90.0% | 81.8% |
+| decision_accuracy | 88.3% | 80.0% to 96.7% | 87.3% | 80.0% |
 | replace_precision | 94.7% | 83.3% to 100.0% | 94.1% | 83.3% |
-| replace_recall | 81.8% | 68.2% to 95.5% | 80.0% | 68.2% |
-| harmful_replace_rate | 3.0% | 0.0% to 9.1% | 3.3% | 9.1% |
-| false_abstain_rate | 18.2% | 4.5% to 31.8% | 20.0% | 31.8% |
-| winner_accuracy | 90.9% | 84.1% to 97.7% | 90.0% | 84.1% |
+| replace_recall | 75.0% | 54.2% to 91.7% | 72.7% | 54.2% |
+| harmful_replace_rate | 2.8% | 0.0% to 8.3% | 3.0% | 8.3% |
+| false_abstain_rate | 25.0% | 8.3% to 45.8% | 27.3% | 45.8% |
+| winner_accuracy | 87.5% | 77.1% to 95.8% | 86.4% | 77.1% |
 | shadow_winner_accuracy | 100.0% | 100.0% to 100.0% | 100.0% | 100.0% |
 
 #### Cluster Breakdown
@@ -495,6 +499,7 @@
 | en-es:sentence-veto:park:parque | 5 | 100.0% | 0.0% |
 | en-es:sentence-veto:plant:planta | 5 | 100.0% | 0.0% |
 | en-es:sentence-veto:play:obra | 5 | 50.0% | 33.3% |
+| en-es:sentence-veto:report:informe | 5 | 0.0% | 0.0% |
 | en-es:sentence-veto:seal:sello | 5 | 100.0% | 0.0% |
 | en-es:sentence-veto:table:mesa | 5 | 100.0% | 0.0% |
 | en-es:sentence-veto:trip:viaje | 5 | 50.0% | 0.0% |
@@ -503,17 +508,17 @@
 ### Sentence-transformer active-sense phrase-guard overlay (simulated)
 
 - Cluster key: `family_id`
-- Cluster count: `18`
+- Cluster count: `19`
 - Config: `scorer_id='sentence_transformer_cosine', context_view='masked_sentence', evidence_view='all_evidence_text', min_active_score=0.0, min_margin=0.0, phrase_control_mode='noun_family_frame_guard', phrase_guard_pos_scope='active_only', active_rescue_mode='sense_label_near_tie_active_rescue', backup_evidence_view='sense_label', primary_margin_floor=-0.05, backup_margin_floor=0.02, simulated=True, experimental=True`
 
 | Metric | Point | Bootstrap CI | Held-out worst | Conservative bound |
 | --- | ---: | ---: | ---: | ---: |
-| decision_accuracy | 95.6% | 91.1% to 98.9% | 95.3% | 91.1% |
+| decision_accuracy | 93.7% | 88.4% to 97.9% | 93.3% | 88.4% |
 | replace_precision | 100.0% | 100.0% to 100.0% | 100.0% | 100.0% |
-| replace_recall | 88.9% | 77.8% to 97.2% | 88.2% | 77.8% |
+| replace_recall | 84.2% | 71.1% to 94.7% | 83.3% | 71.1% |
 | harmful_replace_rate | 0.0% | 0.0% to 0.0% | 0.0% | 0.0% |
-| false_abstain_rate | 11.1% | 2.8% to 22.2% | 11.8% | 22.2% |
-| winner_accuracy | 94.4% | 88.9% to 98.6% | 94.1% | 88.9% |
+| false_abstain_rate | 15.8% | 5.3% to 28.9% | 16.7% | 28.9% |
+| winner_accuracy | 92.1% | 85.5% to 97.4% | 91.7% | 85.5% |
 | shadow_winner_accuracy | 100.0% | 100.0% to 100.0% | 100.0% | 100.0% |
 
 #### Cluster Breakdown
@@ -564,17 +569,17 @@
 ### Sentence-transformer active-sense phrase-guard overlay (simulated) [held_out]
 
 - Cluster key: `family_id`
-- Cluster count: `11`
+- Cluster count: `12`
 - Config: `scorer_id='sentence_transformer_cosine', context_view='masked_sentence', evidence_view='all_evidence_text', min_active_score=0.0, min_margin=0.0, phrase_control_mode='noun_family_frame_guard', phrase_guard_pos_scope='active_only', active_rescue_mode='sense_label_near_tie_active_rescue', backup_evidence_view='sense_label', primary_margin_floor=-0.05, backup_margin_floor=0.02, simulated=True, experimental=True`
 
 | Metric | Point | Bootstrap CI | Held-out worst | Conservative bound |
 | --- | ---: | ---: | ---: | ---: |
-| decision_accuracy | 92.7% | 87.3% to 98.2% | 92.0% | 87.3% |
+| decision_accuracy | 90.0% | 81.7% to 96.7% | 89.1% | 81.7% |
 | replace_precision | 100.0% | 100.0% to 100.0% | 100.0% | 100.0% |
-| replace_recall | 81.8% | 68.2% to 95.5% | 80.0% | 68.2% |
+| replace_recall | 75.0% | 54.2% to 91.7% | 72.7% | 54.2% |
 | harmful_replace_rate | 0.0% | 0.0% to 0.0% | 0.0% | 0.0% |
-| false_abstain_rate | 18.2% | 4.5% to 31.8% | 20.0% | 31.8% |
-| winner_accuracy | 90.9% | 84.1% to 97.7% | 90.0% | 84.1% |
+| false_abstain_rate | 25.0% | 8.3% to 45.8% | 27.3% | 45.8% |
+| winner_accuracy | 87.5% | 77.1% to 95.8% | 86.4% | 77.1% |
 | shadow_winner_accuracy | 100.0% | 100.0% to 100.0% | 100.0% | 100.0% |
 
 #### Cluster Breakdown
@@ -588,6 +593,7 @@
 | en-es:sentence-veto:park:parque | 5 | 100.0% | 0.0% |
 | en-es:sentence-veto:plant:planta | 5 | 100.0% | 0.0% |
 | en-es:sentence-veto:play:obra | 5 | 50.0% | 0.0% |
+| en-es:sentence-veto:report:informe | 5 | 0.0% | 0.0% |
 | en-es:sentence-veto:seal:sello | 5 | 100.0% | 0.0% |
 | en-es:sentence-veto:table:mesa | 5 | 100.0% | 0.0% |
 | en-es:sentence-veto:trip:viaje | 5 | 50.0% | 0.0% |
@@ -687,11 +693,11 @@
 
 | Metric | Point | Bootstrap CI | Held-out worst | Conservative bound |
 | --- | ---: | ---: | ---: | ---: |
-| overall_accuracy | 81.7% | 73.6% to 89.7% | 81.6% | 73.6% |
-| abstain_recall | 9.1% | 0.0% to 22.7% | 3.3% | 0.0% |
-| harmful_allow_rate | 90.9% | 77.3% to 100.0% | 96.7% | 100.0% |
-| allow_precision | 82.4% | 74.2% to 90.6% | 82.2% | 74.2% |
-| overblocking_rate | 1.4% | 0.0% to 3.5% | 1.4% | 3.5% |
+| overall_accuracy | 81.7% | 73.4% to 90.2% | 81.6% | 73.4% |
+| abstain_recall | 6.1% | 0.0% to 20.5% | 0.0% | 0.0% |
+| harmful_allow_rate | 93.9% | 79.5% to 100.0% | 100.0% | 100.0% |
+| allow_precision | 82.0% | 73.5% to 90.4% | 81.9% | 73.5% |
+| overblocking_rate | 0.7% | 0.0% to 2.2% | 0.7% | 2.2% |
 
 ### Source-only auto shadows [tune]
 
@@ -701,10 +707,10 @@
 
 | Metric | Point | Bootstrap CI | Held-out worst | Conservative bound |
 | --- | ---: | ---: | ---: | ---: |
-| overall_accuracy | 61.4% | 45.1% to 82.1% | 60.5% | 45.1% |
-| abstain_recall | 5.6% | 0.0% to 15.0% | 0.0% | 0.0% |
-| harmful_allow_rate | 94.4% | 85.0% to 100.0% | 100.0% | 100.0% |
-| allow_precision | 60.5% | 43.8% to 81.6% | 59.5% | 43.8% |
+| overall_accuracy | 59.1% | 41.7% to 79.5% | 58.1% | 41.7% |
+| abstain_recall | 0.0% | 0.0% to 0.0% | 0.0% | 0.0% |
+| harmful_allow_rate | 100.0% | 100.0% to 100.0% | 100.0% | 100.0% |
+| allow_precision | 59.1% | 41.7% to 79.5% | 58.1% | 41.7% |
 | overblocking_rate | 0.0% | 0.0% to 0.0% | 0.0% | 0.0% |
 
 ### Source-only auto shadows [held_out]
@@ -729,11 +735,11 @@
 
 | Metric | Point | Bootstrap CI | Held-out worst | Conservative bound |
 | --- | ---: | ---: | ---: | ---: |
-| overall_accuracy | 82.9% | 75.5% to 89.8% | 82.8% | 75.5% |
-| abstain_recall | 15.2% | 3.2% to 28.0% | 10.0% | 3.2% |
-| harmful_allow_rate | 84.8% | 72.0% to 96.8% | 90.0% | 96.8% |
-| allow_precision | 83.3% | 75.3% to 90.7% | 83.2% | 75.3% |
-| overblocking_rate | 1.4% | 0.0% to 3.6% | 1.4% | 3.6% |
+| overall_accuracy | 81.7% | 73.9% to 89.1% | 81.6% | 73.9% |
+| abstain_recall | 12.1% | 0.0% to 24.4% | 6.7% | 0.0% |
+| harmful_allow_rate | 87.9% | 75.6% to 100.0% | 93.3% | 100.0% |
+| allow_precision | 82.7% | 74.7% to 90.2% | 82.6% | 74.7% |
+| overblocking_rate | 2.1% | 0.0% to 4.9% | 2.1% | 4.9% |
 
 ### Source-only borrowed-trigger shadows [tune]
 
@@ -743,11 +749,11 @@
 
 | Metric | Point | Bootstrap CI | Held-out worst | Conservative bound |
 | --- | ---: | ---: | ---: | ---: |
-| overall_accuracy | 65.9% | 50.9% to 83.8% | 65.1% | 50.9% |
-| abstain_recall | 16.7% | 0.0% to 31.2% | 12.5% | 0.0% |
-| harmful_allow_rate | 83.3% | 68.8% to 100.0% | 87.5% | 100.0% |
-| allow_precision | 63.4% | 45.7% to 83.3% | 62.5% | 45.7% |
-| overblocking_rate | 0.0% | 0.0% to 0.0% | 0.0% | 0.0% |
+| overall_accuracy | 61.4% | 45.3% to 79.5% | 60.5% | 45.3% |
+| abstain_recall | 11.1% | 0.0% to 25.0% | 6.2% | 0.0% |
+| harmful_allow_rate | 88.9% | 75.0% to 100.0% | 93.8% | 100.0% |
+| allow_precision | 61.0% | 43.5% to 81.1% | 60.0% | 43.5% |
+| overblocking_rate | 3.8% | 0.0% to 12.5% | 4.0% | 12.5% |
 
 ### Source-only borrowed-trigger shadows [held_out]
 

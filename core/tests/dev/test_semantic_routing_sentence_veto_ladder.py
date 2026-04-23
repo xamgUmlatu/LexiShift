@@ -23,10 +23,10 @@ class SemanticRoutingSentenceVetoLadderTests(unittest.TestCase):
             / "docs"
             / "test_inputs"
             / "semantic_routing_cases"
-            / "en_es_sentence_veto_v9.json",
+            / "en_es_sentence_veto_v10.json",
         )
         self.assertEqual(int(report["base_summary"]["harmful_replace_count"]), 1)
-        self.assertEqual(int(report["base_summary"]["false_abstain_count"]), 7)
+        self.assertEqual(int(report["base_summary"]["false_abstain_count"]), 9)
         best_budget_rows = {
             int(entry.get("soft_false_positive_budget") or 0): entry.get("row")
             for entry in report.get("best_rows_by_soft_false_positive_budget", [])
@@ -34,21 +34,14 @@ class SemanticRoutingSentenceVetoLadderTests(unittest.TestCase):
         }
         zero_noise_row = best_budget_rows[0]
         self.assertIsInstance(zero_noise_row, dict)
+        self.assertEqual(str(zero_noise_row["config_id"]), "soft:a=0.60:m=0.00")
         self.assertEqual(int(zero_noise_row["soft_false_positive_count"]), 0)
-        self.assertEqual(int(zero_noise_row["soft_true_positive_count"]), 4)
-        self.assertEqual(int(zero_noise_row["remaining_missed_replace_count"]), 3)
-        self.assertAlmostEqual(float(zero_noise_row["replace_or_soft_recall"]), 33 / 36)
-        self.assertAlmostEqual(float(zero_noise_row["replace_or_soft_recall_lift"]), 4 / 36)
+        self.assertEqual(int(zero_noise_row["soft_true_positive_count"]), 0)
+        self.assertEqual(int(zero_noise_row["remaining_missed_replace_count"]), 9)
+        self.assertAlmostEqual(float(zero_noise_row["replace_or_soft_recall"]), 29 / 38)
+        self.assertAlmostEqual(float(zero_noise_row["replace_or_soft_recall_lift"]), 0.0)
         soft_samples = zero_noise_row.get("sample_soft_true_positive_rows")
-        self.assertEqual(
-            [row["case_id"] for row in soft_samples],
-            [
-                "en-es:sentence-veto:plant:002",
-                "en-es:sentence-veto:drink:002",
-                "en-es:sentence-veto:order:002",
-                "en-es:sentence-veto:trip:002",
-            ],
-        )
+        self.assertEqual(list(soft_samples), [])
 
 
 if __name__ == "__main__":

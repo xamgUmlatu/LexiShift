@@ -86,6 +86,21 @@ The repo already has the right scaffolding for a measured bakeoff:
 
 That means prompt work can be versioned and compared cleanly instead of becoming ad hoc batch prose.
 
+Current frozen pre-prompt artifacts:
+
+- `docs/test_inputs/semantic_routing/semantic_family_inventory_en_es_v10.json`
+- `docs/test_inputs/semantic_routing/semantic_prompt_bakeoff_queue_en_es.json`
+- `docs/test_inputs/semantic_routing/semantic_prompt_slot_manifest.json`
+- `docs/test_outputs/semantic_llm_queue_review_en_es_latest.md`
+
+Current `v10` read:
+
+- first-tranche prompt work should still be cue-heavy rather than shadow-heavy
+- the accepted active-sense overlay is the clean bounded runtime comparator
+- `play` remains the phrase-risk negative control
+- `report` widened the held-out cue-like residue
+- the zero-noise soft ladder no longer adds real lift on the frozen slice
+
 ## Core Design Rules
 
 ### 1. Prompt by job, not by word
@@ -169,7 +184,7 @@ That is how later budget waves stay additive rather than repetitive.
 
 ## First Prompt Matrix
 
-The current `v9` runtime evidence supports a cue-heavy first matrix.
+The current `v10` runtime evidence supports a cue-heavy first matrix.
 
 ### Slot 1. `cue_contrastive_general_v1`
 
@@ -215,6 +230,7 @@ Primary target archetypes:
 - `check`
 - `order`
 - `trip`
+- `report`
 
 Kill signals:
 
@@ -334,18 +350,22 @@ The first bakeoff should use a small stratified family slice.
 
 - `plant`
 - `drink`
-- `park`
 
 ### Held-out cross-POS weak-active-support
 
 - `check`
 - `order`
 - `trip`
+- `report`
 
 ### Negative controls
 
 - `play`
-- optionally one already-safe phrase family if needed for extra guardrail
+- `watch`
+
+### Reserve-only calibration slice
+
+- `park`
 
 Principles:
 
@@ -437,6 +457,7 @@ The first implementation pass for this workstream should add:
 
 - `docs/test_inputs/semantic_routing/semantic_prompt_bakeoff_queue_en_es.json`
 - `docs/test_inputs/semantic_routing/semantic_prompt_slot_manifest.json`
+- `docs/test_inputs/semantic_routing/semantic_family_inventory_en_es_v10.json`
 - optional prompt text templates or prompt-spec file keyed by `prompt_version` and `prompt_slot`
 
 ### Scripts
@@ -451,6 +472,7 @@ The first implementation pass for this workstream should add:
 - `docs/test_outputs/semantic_llm_prompt_bakeoff_latest.md`
 - `docs/test_outputs/semantic_llm_prompt_confirmation_latest.json`
 - `docs/test_outputs/semantic_llm_prompt_confirmation_latest.md`
+- `docs/test_outputs/semantic_llm_queue_review_en_es_latest.md`
 
 ## Phase Plan
 
@@ -464,12 +486,26 @@ Deliverables:
 
 - bakeoff queue artifact
 - slot manifest
+- family inventory artifact
 - target-model choice for Stage B and C
 
 Acceptance:
 
 - each chosen family has a declared archetype
 - each prompt slot has one job
+
+Current status:
+
+- landed on `v10`
+- active slots:
+  - `cue_contrastive_general_v1`
+  - `cue_cross_pos_frame_v1`
+- reserve slot:
+  - `cue_minimal_rescue_v1`
+- deferred slot:
+  - `shadow_expand_core_v1`
+- current next prerequisite before prompt spend:
+  - tiny `example_sentence_bank` cue pilot over the frozen queue
 
 ### Phase 2. Proxy smoke pass
 
@@ -553,7 +589,8 @@ LexiShift is not yet ready to claim that one exact prompt wording is already kno
 
 The correct next move is:
 
-1. freeze a small queue slice
-2. compare a few prompt slots cheaply
-3. confirm finalists on the target model
-4. spend the real batch budget only on accepted slots
+1. keep the `v10` queue slice fixed
+2. run a tiny `example_sentence_bank` cue pilot on that same slice
+3. compare a few prompt slots cheaply
+4. confirm finalists on the target model
+5. spend the real batch budget only on accepted slots

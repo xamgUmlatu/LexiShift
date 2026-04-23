@@ -23,7 +23,7 @@ class SemanticRoutingSentenceVetoWeakActiveProbeTests(unittest.TestCase):
             / "docs"
             / "test_inputs"
             / "semantic_routing_cases"
-            / "en_es_sentence_veto_v9.json",
+            / "en_es_sentence_veto_v10.json",
         )
         self.assertFalse(bool(report["zero_harmful_overlay_available"]))
         self.assertEqual(str(report["best_zero_harmful_overlay_config_id"]), "")
@@ -53,8 +53,8 @@ class SemanticRoutingSentenceVetoWeakActiveProbeTests(unittest.TestCase):
         self.assertEqual(best_overlay["label"], "Best bounded rescue overlay")
         overlay_summary = best_overlay["summary"]
         self.assertEqual(int(overlay_summary["harmful_replace_count"]), 1)
-        self.assertEqual(int(overlay_summary["false_abstain_count"]), 4)
-        self.assertAlmostEqual(float(overlay_summary["replace_recall"]), 32 / 36)
+        self.assertEqual(int(overlay_summary["false_abstain_count"]), 6)
+        self.assertAlmostEqual(float(overlay_summary["replace_recall"]), 32 / 38)
         overlay_focus = {
             row["case_id"]: row
             for row in best_overlay.get("focus_cases", [])
@@ -84,6 +84,14 @@ class SemanticRoutingSentenceVetoWeakActiveProbeTests(unittest.TestCase):
         )
         self.assertEqual(
             overlay_focus["en-es:sentence-veto:trip:002"]["predicted_decision"],
+            "abstain",
+        )
+        self.assertEqual(
+            overlay_focus["en-es:sentence-veto:report:001"]["predicted_decision"],
+            "abstain",
+        )
+        self.assertEqual(
+            overlay_focus["en-es:sentence-veto:report:002"]["predicted_decision"],
             "abstain",
         )
 
