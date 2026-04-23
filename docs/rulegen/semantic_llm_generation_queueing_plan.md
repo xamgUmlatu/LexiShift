@@ -383,9 +383,10 @@ Current posture from that first artifact:
 - current installed packs expose no queued-family example rows on that frozen slice:
   - `0 / 6` target families are example-ready for `example_sentence_bank`
   - `6 / 6` target families do expose reverse-side auxiliary sense text
-- so the current next non-LLM choice is explicit:
-  - either ingest a real example source
-  - or use reverse aux text as the last cheap control before prompt spend
+- the new reverse-aux-text pilot now resolves that remaining cheap-control choice:
+  - `reverse_aux_plus_all_evidence` is the best non-LLM queue-slice control
+  - it improves the frozen prompt-slice point read without widening the current harmful count
+  - so prompt spend can now proceed with one explicit non-LLM reference row rather than an unresolved source question
 
 Minimum family inventory responsibilities:
 

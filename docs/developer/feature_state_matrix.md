@@ -993,7 +993,9 @@ Use this file when:
 	      - treat `play` as the phrase-risk negative control
 	      - treat `check:002`, `order:002`, `trip:002`, `report:001`, and `report:002` as the current held-out weak-active-support residue
 	      - the new `example_sentence_bank` feasibility pilot shows no queued-family example rows on the current installed packs
-	      - so the last optional non-LLM control before prompt smoke testing is now reverse aux text, not a live example-source adapter
+	      - the new reverse-aux-text pilot now lands that last cheap control:
+	        - `reverse_aux_plus_all_evidence` improves the frozen queue-slice point read without widening the current harmful count
+	      - so prompt smoke testing can now proceed with one explicit non-LLM control row, not an unresolved source question
   - Before any rollout, the project still needs:
     - active-sense provenance carried from rulegen into runtime-consumable metadata
     - automatic sibling-shadow candidate mining and a small promotion policy

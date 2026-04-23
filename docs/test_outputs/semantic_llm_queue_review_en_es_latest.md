@@ -83,6 +83,7 @@ Reason:
   - queued-family example coverage is `0 / 6` on the installed packs
   - reverse-side auxiliary sense text is available for `6 / 6` target families
 - so there is still no live example-backed cue source on this machine for the frozen `v10` queue.
-- the next non-prompt choice is now narrower:
-  - either ingest a real example source before prompt spend
-  - or run one reverse-aux-text control before prompt smoke testing
+- the new control artifact `docs/test_outputs/semantic_reverse_aux_text_pilot_en_es_latest.md` now resolves the remaining cheap-control question:
+  - `reverse_aux_plus_all_evidence` is the best last non-LLM control on the frozen queue slice
+  - it improves the point read from `1` harmful / `8` false abstains to `1` harmful / `6` false abstains
+  - recovered rows: `plant:002`, `drink:002`, `order:002`

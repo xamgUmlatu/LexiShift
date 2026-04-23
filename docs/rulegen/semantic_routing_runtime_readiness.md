@@ -569,7 +569,14 @@ Interpretation:
 - this is therefore the right surface for:
   - a frozen first family inventory / bakeoff queue
   - an `example_sentence_bank` feasibility pilot on that queue
-  - and then either dedicated example-source ingestion or a reverse-aux-text control before any paid prompt smoke pass
+  - and then a reverse-aux-text control before any paid prompt smoke pass
+- the new reverse-aux-text control now tightens that read:
+  - on the frozen prompt queue slice, `reverse_aux_plus_all_evidence` improves the point read from:
+    - `77.5%` decision accuracy / `50.0%` replace recall / `1` harmful replace / `8` false abstains
+    - to `82.5%` / `62.5%` / `1` harmful replace / `6` false abstains
+  - it fixes `plant:002`, `drink:002`, and `order:002`
+  - it still leaves `play:005` as the live harmful row and still misses `play:002`, `check:002`, `trip:002`, `report:001`, and `report:002`
+  - so it is useful as the last cheap non-LLM control, but not as a runtime-default candidate
 
 ## Boundary: Manual Vs Automatic Today
 

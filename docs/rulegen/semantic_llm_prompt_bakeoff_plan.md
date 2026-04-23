@@ -509,9 +509,13 @@ Current status:
   - current read:
     - the installed packs expose `0 / 6` target families with example-bearing queued rows
     - all `6 / 6` target families do expose reverse-side auxiliary sense text
-  - current next choice before prompt spend:
-    - either accept prompt bakeoff without a live example-source control
-    - or run one last reverse-aux-text control first
+- current next choice before prompt spend:
+    - completed: one last reverse-aux-text control on that same frozen queue slice
+  - current read from that control:
+    - `reverse_aux_plus_all_evidence` improves the queue-slice point read from `77.5%` accuracy / `50.0%` replace recall / `1` harmful / `8` false abstains
+    - to `82.5%` / `62.5%` / `1` / `6`
+    - recovered rows: `plant:002`, `drink:002`, `order:002`
+    - persistent residue: `play:005`, `play:002`, `check:002`, `trip:002`, `report:001`, `report:002`
 
 ### Phase 2. Proxy smoke pass
 
@@ -597,7 +601,7 @@ The correct next move is:
 
 1. keep the `v10` queue slice fixed
 2. treat the `example_sentence_bank` pilot as a feasibility result, not as a live cue source on current packs
-3. optionally run one reverse-aux-text control on that same slice if we still want more non-LLM coverage before spending
+3. keep `reverse_aux_plus_all_evidence` as the last cheap non-LLM control on that same slice
 4. compare a few prompt slots cheaply
 5. confirm finalists on the target model
 6. spend the real batch budget only on accepted slots

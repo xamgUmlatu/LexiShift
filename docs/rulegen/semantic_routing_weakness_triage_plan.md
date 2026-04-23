@@ -1108,9 +1108,12 @@ The family map changes the next-step order:
   - keep the new `example_sentence_bank` feasibility pilot artifact current:
     - current installed packs expose `0 / 6` target families with example-bearing queued rows
     - all `6 / 6` target families do expose reverse-side auxiliary sense text
-  - do not block prompt work on a nonexistent queued-family example source:
-    - if we still want a non-LLM control before prompt spend, the next honest slice is a reverse-aux-text cue pilot
-    - if we want a true example-backed control, the next honest slice is dedicated example-source ingestion, not prompt wording work
+  - keep the new reverse-aux-text pilot artifact current:
+    - `reverse_aux_plus_all_evidence` is now the best cheap non-LLM control on the frozen queue slice
+    - it improves the queue-slice point read from `1` harmful / `8` false abstains to `1` harmful / `6` false abstains
+    - the concrete recovered rows are `plant:002`, `drink:002`, and `order:002`
+  - do not treat that win as a new runtime-default candidate:
+    - it is a pre-prompt control row, not a shipped runtime policy change
 - Decision:
   - `do_now`
 
@@ -1864,3 +1867,4 @@ Use this section to record the result of each completed triage turn.
 | `2026-04-24` | `EVAL-2 targeted family growth v10` | `do_now` | the `v10` fixed-shadow slice adds `report` as a held-out weak-active-support noun/verb family; it does not create a new phrase-leak harmful row, but it does add `report:001` and `report:002` as new held-out false-abstain residue while keeping `play:005` as the only harmful replace on the plain hard and widened-rescue lanes, and it collapses the current zero-noise soft ladder back to a pure monitoring control | next turn should keep `v10` fixed, stop defaulting to more family growth, and move to the queue-backed pre-prompt data path |
 | `2026-04-24` | `Pre-prompt family inventory and queue freeze` | `do_now` | the repo now has the first concrete family inventory, sampled queue review, frozen bakeoff queue, and frozen prompt-slot manifest for the active `v10` runtime slice; current first-tranche targets are cue-heavy (`check`, `order`, `trip`, `report`) with `play` and `watch` held as guardrail families | next turn should run a tiny `example_sentence_bank` cue-data pilot on that frozen queue before any paid prompt smoke pass |
 | `2026-04-24` | `Pre-prompt example_sentence_bank feasibility pilot` | `do_now` | the new pilot shows that the current installed packs expose `0 / 6` target families with queued-family example rows on the frozen `v10` queue, while all `6 / 6` target families do expose reverse-side auxiliary sense text; so a true example-backed control is not currently available on this machine without dedicated source ingestion | next turn should either run a reverse-aux-text cue pilot as the last non-LLM control before prompt spend or explicitly accept prompt bakeoff without a live example-source control |
+| `2026-04-24` | `Pre-prompt reverse-aux-text queue pilot` | `do_now` | the new reverse-aux-text pilot shows that `reverse_aux_plus_all_evidence` is a real cheap control on the frozen `v10` prompt slice: it improves the point read from `77.5%` accuracy / `50.0%` replace recall / `1` harmful / `8` false abstains to `82.5%` / `62.5%` / `1` / `6`, fixing `plant:002`, `drink:002`, and `order:002` while leaving `play:005` as the live harmful row | next turn should keep that row frozen as the last non-LLM control and move into the actual prompt bakeoff |
