@@ -13,6 +13,7 @@ Related planning docs:
 - `docs/rulegen/semantic_routing_weakness_triage_plan.md`
 - `docs/rulegen/semantic_routing_data_update_lifecycle.md`
 - `docs/rulegen/semantic_routing_generalization_evaluation_plan.md`
+- `docs/rulegen/semantic_llm_prompt_bakeoff_plan.md`
 - `docs/rulegen/semantic_shadow_testing_architecture.md`
 - `docs/rulegen/semantic_shadow_source_intake_plan.md`
 Related runbooks:
@@ -48,6 +49,8 @@ Use the semantic-routing docs in this order:
    - research harness architecture and experiment workflow, not the current launch contract
 8. `docs/rulegen/semantic_routing_data_update_lifecycle.md`
    - future data-promotion/update lifecycle once broader semantic evidence starts landing
+9. `docs/rulegen/semantic_llm_prompt_bakeoff_plan.md`
+   - prompt-slot selection, cheap bakeoff workflow, and target-model confirmation plan for later LLM-generated cue or shadow data
 
 Do not mix those roles.
 Current contract truth, launch steps, and research evidence should not be reconstructed by averaging multiple docs together.

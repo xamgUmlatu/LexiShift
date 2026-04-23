@@ -8,6 +8,7 @@ Last verified: 2026-04-15 repo-doc review against the semantic-routing data/publ
 Source-of-truth: planning doc only; current implemented truth still lives in the semantic-routing contracts, inventory publication code, and offline evidence normalization seam
 Related docs:
 - `docs/rulegen/semantic_shadow_source_intake_plan.md`
+- `docs/rulegen/semantic_llm_prompt_bakeoff_plan.md`
 - `docs/rulegen/semantic_routing_data_update_lifecycle.md`
 - `docs/rulegen/semantic_feedback_promotion_flow.md`
 - `docs/rulegen/semantic_routing_data_contract.md`
@@ -528,6 +529,8 @@ Current planning anchor:
 - `docs/test_inputs/semantic_routing/semantic_family_inventory.schema.json`
 
 The prompt should be written after the queueing unit is stable, not before.
+
+Once the queueing unit is stable, use `docs/rulegen/semantic_llm_prompt_bakeoff_plan.md` for the prompt-slot matrix, proxy-vs-target model policy, and cheap bakeoff workflow.
 
 ## Human review posture
 

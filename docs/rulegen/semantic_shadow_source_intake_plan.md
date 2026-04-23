@@ -10,6 +10,7 @@ Related inputs:
 - `docs/test_inputs/semantic_shadow_source_registry.json`
 - `docs/rulegen/semantic_routing_data_update_lifecycle.md`
 - `docs/rulegen/semantic_llm_generation_queueing_plan.md`
+- `docs/rulegen/semantic_llm_prompt_bakeoff_plan.md`
 - `docs/rulegen/semantic_feedback_promotion_flow.md`
 - `docs/rulegen/semantic_shadow_testing_architecture.md`
 - `docs/rulegen/semantic_routing_runtime_readiness.md`
