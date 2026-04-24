@@ -387,6 +387,12 @@ Current posture from that first artifact:
   - `reverse_aux_plus_all_evidence` is the best non-LLM queue-slice control
   - it improves the frozen prompt-slice point read without widening the current harmful count
   - so prompt spend can now proceed with one explicit non-LLM reference row rather than an unresolved source question
+- the new downstream bakeoff on the accepted `gpt-5.4` cue tranche now sharpens the generation decision too:
+  - the safe additive LLM lane (`llm_cue_plus_all_evidence`) is flat on both the hard reference and the active-sense overlay
+  - it only swaps `drink:002` for `drink:001`, so it is not yet better than the existing baseline
+  - the stronger LLM cue insertions (`llm_cue_plus_sense_label`, `llm_cue_plus_gloss`) do move recall, but only by widening harmful replace
+  - so the current routed conclusion is not "scale cue generation now"
+  - it is "keep the queue fixed, keep reverse-aux as the current control, and redesign the next cue prompt around stronger overlap-bearing discriminators before larger spend"
 
 Minimum family inventory responsibilities:
 

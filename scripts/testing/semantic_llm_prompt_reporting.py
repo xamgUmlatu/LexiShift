@@ -332,6 +332,145 @@ def render_prompt_cost_estimate_markdown(report: Mapping[str, object]) -> str:
     return "\n".join(lines)
 
 
+def render_prompt_downstream_markdown(report: Mapping[str, object]) -> str:
+    summary = report.get("summary") if isinstance(report.get("summary"), Mapping) else {}
+    llm_batch = report.get("llm_batch") if isinstance(report.get("llm_batch"), Mapping) else {}
+    coverage_rows = _coerce_rows(report.get("coverage_rows"))
+    config_rows = _coerce_rows(report.get("configurations"))
+
+    lines = [
+        "# en-es Semantic LLM Prompt Downstream Bakeoff",
+        "",
+        f"- Status: `{report.get('status', 'unknown')}`",
+        f"- Generated: `{report.get('generated_at', '')}`",
+        f"- Queue: `{report.get('queue_id', '')}`",
+        f"- Runtime dataset: `{report.get('dataset_id', '')}`",
+        f"- Scorer: `{report.get('scorer_id', '')}`",
+        f"- Min active / margin: `{report.get('min_active_score', '')}` / `{report.get('min_margin', '')}`",
+        "",
+        "## LLM Batch",
+        "",
+        f"- Batch id: `{llm_batch.get('batch_id', '')}`",
+        f"- Source id: `{llm_batch.get('source_id', '')}`",
+        f"- Prompt version: `{llm_batch.get('prompt_version', '')}`",
+        f"- Model: `{llm_batch.get('model_id', '')}`",
+        f"- Batch review state: `{llm_batch.get('review_state', '')}`",
+        f"- Runtime publishable rows: `{llm_batch.get('runtime_publishable_count', 0)}` / `{llm_batch.get('row_count', 0)}`",
+        "",
+        "## Coverage",
+        "",
+        f"- Target families: `{summary.get('target_family_count', 0)}`",
+        f"- Target families with LLM cues: `{summary.get('target_families_with_llm_cues', 0)}`",
+        f"- Negative controls with LLM cues: `{summary.get('negative_controls_with_llm_cues', 0)}`",
+        "",
+        "| Family | Role | LLM Cue Rows | Prompt Slots | Sample Cue |",
+        "| --- | --- | ---: | --- | --- |",
+    ]
+    for row in coverage_rows:
+        sample_texts = row.get("sample_llm_cue_texts")
+        if isinstance(sample_texts, Sequence) and not isinstance(sample_texts, (str, bytes)):
+            sample_value = "<br>".join(
+                _truncate_markdown_cell(str(item), limit=96)
+                for item in sample_texts
+                if str(item).strip()
+            )
+        else:
+            sample_value = "n/a"
+        prompt_slots = row.get("prompt_slots")
+        if isinstance(prompt_slots, Sequence) and not isinstance(prompt_slots, (str, bytes)):
+            prompt_slot_value = ", ".join(f"`{str(item)}`" for item in prompt_slots if str(item).strip())
+        else:
+            prompt_slot_value = "n/a"
+        lines.append(
+            "| "
+            + " | ".join(
+                [
+                    f"`{row.get('trigger', '')} -> {row.get('active_target', '')}`",
+                    f"`{row.get('role', '')}`",
+                    str(int(row.get("llm_cue_row_count") or 0)),
+                    prompt_slot_value or "n/a",
+                    sample_value or "n/a",
+                ]
+            )
+            + " |"
+        )
+
+    lines.extend(
+        [
+            "",
+            "## Configuration Summary",
+            "",
+            "| Config | Scope | Evidence View | Harmful | False Abstain | Replace Recall | Decision Acc. | Fixed False Abstains | Introduced False Abstains |",
+            "| --- | --- | --- | ---: | ---: | ---: | ---: | --- | --- |",
+        ]
+    )
+    for row in config_rows:
+        summary_row = row.get("summary") if isinstance(row.get("summary"), Mapping) else {}
+        lines.append(
+            "| "
+            + " | ".join(
+                [
+                    f"`{row.get('label', row.get('config_id', ''))}`",
+                    f"`{row.get('phrase_guard_pos_scope', '')}`",
+                    f"`{row.get('evidence_view', '')}`",
+                    str(int(summary_row.get("harmful_replace_count") or 0)),
+                    str(int(summary_row.get("false_abstain_count") or 0)),
+                    _render_rate(summary_row.get("replace_recall")),
+                    _render_rate(summary_row.get("decision_accuracy")),
+                    ", ".join(
+                        f"`{case_id}`"
+                        for case_id in _normalize_string_list(
+                            row.get("fixed_false_abstain_case_ids")
+                        )
+                    )
+                    or "none",
+                    ", ".join(
+                        f"`{case_id}`"
+                        for case_id in _normalize_string_list(
+                            row.get("introduced_false_abstain_case_ids")
+                        )
+                    )
+                    or "none",
+                ]
+            )
+            + " |"
+        )
+
+    lines.extend(
+        [
+            "",
+            "## Focus Case Outcomes",
+            "",
+            "| Config | Case | Gold | Predicted | Margin | Phrase | Rescue |",
+            "| --- | --- | --- | --- | ---: | --- | --- |",
+        ]
+    )
+    for row in config_rows:
+        for case in row.get("focus_cases", ()):
+            if not isinstance(case, Mapping):
+                continue
+            lines.append(
+                "| "
+                + " | ".join(
+                    [
+                        str(row.get("config_id") or ""),
+                        str(case.get("case_id") or ""),
+                        str(case.get("gold_decision") or ""),
+                        str(case.get("predicted_decision") or ""),
+                        _render_metric(case.get("margin")),
+                        "yes" if bool(case.get("phrase_preemption_hit")) else "no",
+                        "yes" if bool(case.get("active_rescue_applied")) else "no",
+                    ]
+                )
+                + " |"
+            )
+
+    recommendation = str(report.get("recommendation") or "").strip()
+    if recommendation:
+        lines.extend(["", "## Recommendation", "", f"- {recommendation}"])
+    return "\n".join(lines)
+
+
 def _render_request_outcome(row: Mapping[str, object]) -> str:
     evidence_text = str(row.get("evidence_text") or "").strip()
     if evidence_text:
@@ -345,8 +484,29 @@ def _render_request_outcome(row: Mapping[str, object]) -> str:
     return "n/a"
 
 
+def _normalize_string_list(value: object) -> list[str]:
+    if isinstance(value, Sequence) and not isinstance(value, (str, bytes)):
+        return [str(item).strip() for item in value if str(item).strip()]
+    text = str(value or "").strip()
+    return [text] if text else []
+
+
 def _truncate_markdown_cell(value: str, *, limit: int = 96) -> str:
     text = " ".join(value.split())
     if len(text) <= limit:
         return text
     return text[: limit - 3].rstrip() + "..."
+
+
+def _render_rate(value: object) -> str:
+    try:
+        return f"{float(value) * 100.0:.1f}%"
+    except (TypeError, ValueError):
+        return "n/a"
+
+
+def _render_metric(value: object) -> str:
+    try:
+        return f"{float(value):.3f}"
+    except (TypeError, ValueError):
+        return "n/a"

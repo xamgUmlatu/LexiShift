@@ -683,6 +683,24 @@ Acceptance:
 - winner slots have measurable value on the intended bucket
 - phrase-risk and harmful-replace controls stay acceptable
 
+Current status:
+
+- the downstream bakeoff is now landed in `docs/test_outputs/semantic_llm_prompt_downstream_latest.md`
+- the accepted target cue tranche is not yet promotion-ready on the frozen `v10` queue slice
+- the intended safe additive lane, `llm_cue_plus_all_evidence`, is flat on both current reference lanes:
+  - hard reference: `77.5%` accuracy / `50.0%` replace recall / `1` harmful / `8` false abstains
+  - active-sense overlay: `80.0%` / `50.0%` / `0` / `8`
+- that additive lane does move one row, but not in the right net direction:
+  - fixed: `drink:002`
+  - introduced: `drink:001`
+- the frozen non-LLM control still wins clearly:
+  - `reverse_aux_plus_all_evidence` stays at `82.5%` / `62.5%` / `1` / `6` on the hard row
+  - and `85.0%` / `62.5%` / `0` / `6` on the active-sense overlay
+- the stronger diagnostic LLM insertions do show some signal, but not safely:
+  - `llm_cue_plus_sense_label` and `llm_cue_plus_gloss` both improve recall to `62.5%`
+  - but each widens harmful replace from `1` to `3`
+- so the current prompt wording is good enough to generate stable structured cues, but not yet good enough to clear the downstream acceptance gate
+
 ### Phase 5. Tranche decision
 
 Objective:
@@ -713,14 +731,17 @@ Stop and re-route if:
 
 LexiShift is ready to choose the first prompt matrix rigorously enough.
 
-LexiShift is not yet ready to claim that one exact prompt wording is already known to be best.
+LexiShift is now ready to say more than that:
+
+- the simplified `semantic_prompt_bakeoff_v2` contract is the right prompt-output shape
+- but the current accepted `gpt-5.4` cue tranche is not yet strong enough downstream to justify larger-budget generation
 
 The correct next move is:
 
 1. keep the `v10` queue slice fixed
 2. treat the `example_sentence_bank` pilot as a feasibility result, not as a live cue source on current packs
 3. keep `reverse_aux_plus_all_evidence` as the last cheap non-LLM control on that same slice
-4. keep `semantic_prompt_bakeoff_v1` and the rendered smoke bundle fixed as the current wording baseline
-5. run the actual cheap proxy batch on a configured API surface
-6. confirm finalists on the target model
-7. spend the real batch budget only on accepted slots
+4. keep `semantic_prompt_bakeoff_v2` as the stable prompt-output contract
+5. treat the current accepted cue tranche as analysis-only, not promotion-ready
+6. redesign the next cue prompt around stronger context overlap / collocate recovery rather than broader prose framing
+7. only re-enter larger-budget generation once a new cue tranche beats both the frozen hard reference and the reverse-aux control downstream

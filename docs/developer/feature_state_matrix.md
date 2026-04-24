@@ -1015,6 +1015,24 @@ Use this file when:
 	        - the frame-sensitive cross-POS behavior persisted on the target model
 	      - so the main remaining acceptance gate is no longer prompt confirmation:
 	        - it is downstream effect on the fixed-shadow runtime slice
+	      - that downstream bakeoff is now also landed:
+	        - `scripts/testing/semantic_llm_prompt_downstream_en_es.py`
+	        - `docs/test_outputs/semantic_llm_prompt_downstream_latest.md`
+	      - current downstream read is negative for tranche promotion:
+	        - the intended safe additive lane, `llm_cue_plus_all_evidence`, stays flat on both the hard reference and the active-sense overlay
+	        - on the hard row it remains `77.5%` decision accuracy / `50.0%` replace recall / `1` harmful / `8` false abstains
+	        - on the active-sense overlay it remains `80.0%` / `50.0%` / `0` / `8`
+	        - it fixes `drink:002`, but introduces `drink:001`, so there is no net false-abstain gain
+	      - the frozen reverse-aux control still wins:
+	        - hard row `82.5%` / `62.5%` / `1` / `6`
+	        - active-sense overlay `85.0%` / `62.5%` / `0` / `6`
+	      - the stronger LLM diagnostic insertions do show signal, but not safely:
+	        - `llm_cue_plus_sense_label` and `llm_cue_plus_gloss` both reach `62.5%` replace recall
+	        - but both widen harmful replace from `1` to `3`
+	      - current conclusion:
+	        - keep `semantic_prompt_bakeoff_v2` as the prompt-output contract
+	        - keep the accepted `gpt-5.4` cue tranche in analysis-only status
+	        - do not approve broader cue-generation spend until a new prompt shape beats both the hard baseline and the reverse-aux control downstream
 	      - the live prompt runner now exists too:
 	        - `scripts/testing/semantic_llm_prompt_bakeoff_en_es.py`
 	        - it preserves immutable raw response bundles plus raw and normalized batch artifacts under `docs/test_outputs/experiments/semantic_llm_prompt_batches/`
