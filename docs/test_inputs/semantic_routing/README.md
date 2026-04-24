@@ -20,9 +20,17 @@ Files:
   - helper artifact naming is `srs_semantic_inventory_<pair>_<profile>.json`
   - includes optional pair capability summary for active-pointer modes and default unavailable reasons
 - `semantic_llm_intake_batch.schema.json`
-  - offline Layer 1 raw LLM intake envelope for shadow, bridge, or cue proposal batches before canonical normalization
+  - offline Layer 1 raw source intake envelope for LLM, external, or internal reviewed semantic evidence batches before canonical normalization
 - `semantic_evidence_batch.schema.json`
   - offline Layer 2 normalized evidence lane emitted after raw source batches are deduped into one common semantic-evidence shape
+  - current example-frame source work requires active, shadow, and phrase-control rows together before a batch is promotion-relevant
+  - `scripts/testing/semantic_llm_reviewed_example_frame_batch_en_es.py` builds the current no-spend reviewed fixture in that shape
+  - `scripts/testing/semantic_reverse_aux_example_frame_batch_en_es.py` builds the current non-LLM reverse-aux source batch in that shape, with expected gaps preserved
+  - `scripts/testing/semantic_llm_example_frame_contract_en_es.py` renders the current no-spend contract read for raw intake or normalized evidence batches; pass `--required-family-json` when a queue or dataset family set must be covered
+  - `scripts/testing/semantic_llm_example_frame_generation_plan_en_es.py` renders the current no-spend missing-row generation plan from a required-family contract read; it plans only missing active/shadow/phrase-control rows and keeps reviewed case sentences plus translation targets out of prompt input
+  - `scripts/testing/semantic_llm_example_frame_generation_run_en_es.py` executes or replays that plan with the same raw-response, journal, and spend-guard discipline as the prompt bakeoff runner
+  - `scripts/testing/semantic_example_frame_batch_merge_en_es.py` builds a virtual composite evidence batch for contract/prototype probes
+  - `scripts/testing/semantic_llm_example_frame_generation_quality_gate_en_es.py` gates generated source batches after contract/prototype reads so structural completeness cannot be mistaken for promotion readiness
 - `semantic_family_inventory.schema.json`
   - planning schema for family-level queue memory, triage hypotheses, and additive semantic-generation tracking
 - `semantic_prompt_spec_en_es_v10.json`

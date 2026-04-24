@@ -41,7 +41,11 @@
     },
     "source_type": {
       "type": "string",
-      "const": "llm"
+      "enum": [
+        "llm",
+        "external",
+        "internal"
+      ]
     },
     "source_id": {
       "type": "string",
@@ -49,7 +53,19 @@
     },
     "source_family": {
       "type": "string",
-      "const": "silver_llm_generation"
+      "enum": [
+        "silver_llm_generation",
+        "internal_reviewed_dataset",
+        "internal_rulegen_artifact",
+        "installed_translation_pack",
+        "installed_translation_pack_plus_internal_derivations",
+        "installed_frequency_pack",
+        "derived_embedding_probe",
+        "external_structured_dictionary_dump",
+        "external_sense_graph",
+        "external_parallel_corpus_derivation",
+        "external_example_corpus"
+      ]
     },
     "roles": {
       "$ref": "#/definitions/roleArray"
@@ -105,7 +121,8 @@
           "candidate_generation",
           "discrimination",
           "sense_linking",
-          "cue_generation"
+          "cue_generation",
+          "phrase_containment"
         ]
       }
     },
@@ -231,7 +248,11 @@
         },
         "source_type": {
           "type": "string",
-          "const": "llm"
+          "enum": [
+            "llm",
+            "external",
+            "internal"
+          ]
         },
         "source_id": {
           "type": "string",
@@ -239,7 +260,19 @@
         },
         "source_family": {
           "type": "string",
-          "const": "silver_llm_generation"
+          "enum": [
+            "silver_llm_generation",
+            "internal_reviewed_dataset",
+            "internal_rulegen_artifact",
+            "installed_translation_pack",
+            "installed_translation_pack_plus_internal_derivations",
+            "installed_frequency_pack",
+            "derived_embedding_probe",
+            "external_structured_dictionary_dump",
+            "external_sense_graph",
+            "external_parallel_corpus_derivation",
+            "external_example_corpus"
+          ]
         },
         "roles": {
           "$ref": "#/definitions/roleArray"
@@ -249,7 +282,8 @@
           "enum": [
             "shadow_candidate",
             "bridge_candidate",
-            "anchor_cue"
+            "anchor_cue",
+            "phrase_control_example"
           ]
         },
         "trigger": {

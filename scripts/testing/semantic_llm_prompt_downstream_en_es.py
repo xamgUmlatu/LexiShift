@@ -13,6 +13,9 @@ from typing import Mapping, Sequence
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 CORE_ROOT = PROJECT_ROOT / "core"
 SCRIPT_ROOT = Path(__file__).resolve().parent
+DOCS_ROOT = PROJECT_ROOT / "docs"
+TEST_INPUTS_ROOT = DOCS_ROOT / "test_inputs"
+TEST_OUTPUTS_ROOT = DOCS_ROOT / "test_outputs"
 for candidate in (str(CORE_ROOT), str(SCRIPT_ROOT)):
     if candidate not in sys.path:
         sys.path.insert(0, candidate)
@@ -36,33 +39,17 @@ from semantic_routing_sentence_veto_support import (  # noqa: E402
 
 
 DEFAULT_QUEUE_JSON = (
-    PROJECT_ROOT
-    / "docs"
-    / "test_inputs"
-    / "semantic_routing"
-    / "semantic_prompt_bakeoff_queue_en_es.json"
+    TEST_INPUTS_ROOT / "semantic_routing" / "semantic_prompt_bakeoff_queue_en_es.json"
 )
-DEFAULT_DATASET_PATH = (
-    PROJECT_ROOT
-    / "docs"
-    / "test_inputs"
-    / "semantic_routing_cases"
-    / "en_es_sentence_veto_v10.json"
-)
+DEFAULT_DATASET_PATH = TEST_INPUTS_ROOT / "semantic_routing_cases" / "en_es_sentence_veto_v10.json"
 DEFAULT_LLM_BATCH_JSON = (
-    PROJECT_ROOT
-    / "docs"
-    / "test_outputs"
+    TEST_OUTPUTS_ROOT
     / "experiments"
     / "semantic_llm_prompt_batches"
-    / "en-es-target-prompt-target-v2-20260424a_normalized_evidence.json"
+    / "en-es-target-prompt-target-overlap-v3-20260425a_normalized_evidence.json"
 )
-DEFAULT_JSON_OUT = (
-    PROJECT_ROOT / "docs" / "test_outputs" / "semantic_llm_prompt_downstream_latest.json"
-)
-DEFAULT_MARKDOWN_OUT = (
-    PROJECT_ROOT / "docs" / "test_outputs" / "semantic_llm_prompt_downstream_latest.md"
-)
+DEFAULT_JSON_OUT = TEST_OUTPUTS_ROOT / "semantic_llm_prompt_downstream_latest.json"
+DEFAULT_MARKDOWN_OUT = TEST_OUTPUTS_ROOT / "semantic_llm_prompt_downstream_latest.md"
 
 DEFAULT_SCORER_ID = "sentence_transformer_cosine"
 DEFAULT_CONTEXT_VIEW = "masked_sentence"
@@ -260,6 +247,10 @@ def _normalize_string_list(value: object) -> list[str]:
     return [text] if text else []
 
 
+def _case_id_set(row: Mapping[str, object] | None, key: str) -> set[str]:
+    return set(_normalize_string_list(row.get(key) if isinstance(row, Mapping) else []))
+
+
 def _build_focus_case_row(row: Mapping[str, object] | None) -> dict[str, object]:
     if not isinstance(row, Mapping):
         return {}
@@ -299,8 +290,7 @@ def augment_queue_dataset_with_llm_cue_views(
     llm_rows = [
         dict(row)
         for row in llm_batch_payload.get("rows", ())
-        if isinstance(row, Mapping)
-        and str(row.get("relation_type") or "").strip() == "anchor_cue"
+        if isinstance(row, Mapping) and str(row.get("relation_type") or "").strip() == "anchor_cue"
     ]
     cues_by_active_sense: dict[str, list[str]] = {}
     family_row_bundles: dict[str, list[dict[str, object]]] = {}
@@ -317,7 +307,9 @@ def augment_queue_dataset_with_llm_cue_views(
                 unmatched_row_ids.append(row_id)
             continue
         active_hint = (
-            row.get("active_sense_hint") if isinstance(row.get("active_sense_hint"), Mapping) else {}
+            row.get("active_sense_hint")
+            if isinstance(row.get("active_sense_hint"), Mapping)
+            else {}
         )
         active_sense_id = str(
             active_hint.get("target_key") or metadata.get("active_sense_id") or ""
@@ -370,12 +362,30 @@ def augment_queue_dataset_with_llm_cue_views(
                 "active_target": str(active.get("target_lemma") or "").strip(),
                 "llm_cue_ready": bool(cue_text),
                 "llm_cue_row_count": len(family_rows),
-                "sample_llm_cue_texts": [str(row.get("evidence_text") or "").strip() for row in family_rows if str(row.get("evidence_text") or "").strip()][:2],
+                "sample_llm_cue_texts": [
+                    str(row.get("evidence_text") or "").strip()
+                    for row in family_rows
+                    if str(row.get("evidence_text") or "").strip()
+                ][:2],
                 "prompt_slots": list(
                     dict.fromkeys(
-                        str(((row.get("provenance") or {}) if isinstance(row.get("provenance"), Mapping) else {}).get("prompt_slot") or "").strip()
+                        str(
+                            (
+                                (row.get("provenance") or {})
+                                if isinstance(row.get("provenance"), Mapping)
+                                else {}
+                            ).get("prompt_slot")
+                            or ""
+                        ).strip()
                         for row in family_rows
-                        if str(((row.get("provenance") or {}) if isinstance(row.get("provenance"), Mapping) else {}).get("prompt_slot") or "").strip()
+                        if str(
+                            (
+                                (row.get("provenance") or {})
+                                if isinstance(row.get("provenance"), Mapping)
+                                else {}
+                            ).get("prompt_slot")
+                            or ""
+                        ).strip()
                     )
                 ),
                 "review_states": list(
@@ -419,7 +429,9 @@ def _run_sentence_veto_config(
     min_active_score: float,
     min_margin: float,
 ) -> dict[str, object]:
-    with tempfile.NamedTemporaryFile("w+", suffix=".json", delete=False, encoding="utf-8") as handle:
+    with tempfile.NamedTemporaryFile(
+        "w+", suffix=".json", delete=False, encoding="utf-8"
+    ) as handle:
         json.dump(dataset_payload, handle, ensure_ascii=False, indent=2)
         handle.flush()
         dataset_path = Path(handle.name)
@@ -458,9 +470,7 @@ def _run_sentence_veto_config(
             if isinstance(row, Mapping)
         ],
         "row_results": [
-            dict(row)
-            for row in config_report.get("row_results", ())
-            if isinstance(row, Mapping)
+            dict(row) for row in config_report.get("row_results", ()) if isinstance(row, Mapping)
         ],
     }
 
@@ -483,15 +493,19 @@ def build_prompt_downstream_report(
             datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
         )
     subset_dataset, family_roles = build_queue_subset_dataset(dataset_payload, queue_payload)
-    llm_augmented_dataset, llm_coverage_rows, llm_batch_summary = augment_queue_dataset_with_llm_cue_views(
-        subset_dataset,
-        family_roles=family_roles,
-        llm_batch_payload=llm_batch_payload,
+    llm_augmented_dataset, llm_coverage_rows, llm_batch_summary = (
+        augment_queue_dataset_with_llm_cue_views(
+            subset_dataset,
+            family_roles=family_roles,
+            llm_batch_payload=llm_batch_payload,
+        )
     )
-    reverse_augmented_dataset, reverse_aux_coverage_rows = augment_queue_dataset_with_reverse_aux_views(
-        subset_dataset,
-        family_roles=family_roles,
-        reverse_records_by_trigger=reverse_records_by_trigger,
+    reverse_augmented_dataset, reverse_aux_coverage_rows = (
+        augment_queue_dataset_with_reverse_aux_views(
+            subset_dataset,
+            family_roles=family_roles,
+            reverse_records_by_trigger=reverse_records_by_trigger,
+        )
     )
 
     missing_resources: list[str] = []
@@ -536,7 +550,8 @@ def build_prompt_downstream_report(
             if isinstance(family, Mapping)
             and str(family_roles.get(str(family.get("family_id") or "").strip()) or "") == "target"
             for case in family.get("cases", ())
-            if isinstance(case, Mapping) and str(case.get("gold_decision") or "").strip() == "replace"
+            if isinstance(case, Mapping)
+            and str(case.get("gold_decision") or "").strip() == "replace"
         }
     )
     negative_control_phrase_case_ids = sorted(
@@ -552,16 +567,8 @@ def build_prompt_downstream_report(
         }
     )
     hard_baseline_row = config_lookup.get("hard_current_default")
-    hard_baseline_harmful = set(
-        _normalize_string_list(
-            hard_baseline_row.get("harmful_replace_case_ids") if isinstance(hard_baseline_row, Mapping) else []
-        )
-    )
-    hard_baseline_false_abstain = set(
-        _normalize_string_list(
-            hard_baseline_row.get("false_abstain_case_ids") if isinstance(hard_baseline_row, Mapping) else []
-        )
-    )
+    hard_baseline_harmful = _case_id_set(hard_baseline_row, "harmful_replace_case_ids")
+    hard_baseline_false_abstain = _case_id_set(hard_baseline_row, "false_abstain_case_ids")
     focus_case_ids = list(
         dict.fromkeys(
             [
@@ -576,16 +583,8 @@ def build_prompt_downstream_report(
     for config_row in config_rows:
         baseline_id = str(config_row.get("baseline_config_id") or "").strip()
         baseline_row = config_lookup.get(baseline_id)
-        baseline_harmful = set(
-            _normalize_string_list(
-                baseline_row.get("harmful_replace_case_ids") if isinstance(baseline_row, Mapping) else []
-            )
-        )
-        baseline_false_abstain = set(
-            _normalize_string_list(
-                baseline_row.get("false_abstain_case_ids") if isinstance(baseline_row, Mapping) else []
-            )
-        )
+        baseline_harmful = _case_id_set(baseline_row, "harmful_replace_case_ids")
+        baseline_false_abstain = _case_id_set(baseline_row, "false_abstain_case_ids")
         harmful_ids = set(_normalize_string_list(config_row.get("harmful_replace_case_ids")))
         false_abstain_ids = set(_normalize_string_list(config_row.get("false_abstain_case_ids")))
         config_row["fixed_false_abstain_case_ids"] = sorted(
@@ -631,7 +630,9 @@ def build_prompt_downstream_report(
         "negative_controls_with_llm_cues": sum(
             1 for row in negative_control_coverage_rows if bool(row.get("llm_cue_ready"))
         ),
-        "llm_runtime_publishable_count": int(llm_batch_summary.get("runtime_publishable_count") or 0),
+        "llm_runtime_publishable_count": int(
+            llm_batch_summary.get("runtime_publishable_count") or 0
+        ),
         "hard_baseline_harmful_replace_count": int(
             ((hard_baseline_row or {}).get("summary") or {}).get("harmful_replace_count") or 0
         ),
@@ -682,13 +683,17 @@ def _build_recommendation(report: Mapping[str, object]) -> str:
     overlay_llm = config_rows.get("active_only_llm_cue_plus_all_evidence") or {}
     diagnostic_llm = config_rows.get("hard_llm_cue_plus_gloss") or {}
 
-    hard_base_summary = hard_baseline.get("summary") if isinstance(hard_baseline.get("summary"), Mapping) else {}
-    hard_control_summary = hard_control.get("summary") if isinstance(hard_control.get("summary"), Mapping) else {}
-    hard_llm_summary = hard_llm.get("summary") if isinstance(hard_llm.get("summary"), Mapping) else {}
-    overlay_base_summary = overlay_baseline.get("summary") if isinstance(overlay_baseline.get("summary"), Mapping) else {}
-    overlay_control_summary = overlay_control.get("summary") if isinstance(overlay_control.get("summary"), Mapping) else {}
-    overlay_llm_summary = overlay_llm.get("summary") if isinstance(overlay_llm.get("summary"), Mapping) else {}
-    diagnostic_summary = diagnostic_llm.get("summary") if isinstance(diagnostic_llm.get("summary"), Mapping) else {}
+    def summary_for(row: Mapping[str, object]) -> Mapping[str, object]:
+        summary = row.get("summary") if isinstance(row, Mapping) else {}
+        return summary if isinstance(summary, Mapping) else {}
+
+    hard_base_summary = summary_for(hard_baseline)
+    hard_control_summary = summary_for(hard_control)
+    hard_llm_summary = summary_for(hard_llm)
+    overlay_base_summary = summary_for(overlay_baseline)
+    overlay_control_summary = summary_for(overlay_control)
+    overlay_llm_summary = summary_for(overlay_llm)
+    diagnostic_summary = summary_for(diagnostic_llm)
 
     hard_llm_false = int(hard_llm_summary.get("false_abstain_count") or 0)
     hard_base_false = int(hard_base_summary.get("false_abstain_count") or 0)
@@ -701,10 +706,22 @@ def _build_recommendation(report: Mapping[str, object]) -> str:
     diagnostic_harmful = int(diagnostic_summary.get("harmful_replace_count") or 0)
     diagnostic_false = int(diagnostic_summary.get("false_abstain_count") or 0)
 
-    hard_fixed = ", ".join(f"`{case_id}`" for case_id in _normalize_string_list(hard_llm.get("fixed_target_case_ids"))) or "none"
-    hard_introduced = ", ".join(
-        f"`{case_id}`" for case_id in _normalize_string_list(hard_llm.get("introduced_target_false_abstain_case_ids"))
-    ) or "none"
+    hard_fixed = (
+        ", ".join(
+            f"`{case_id}`"
+            for case_id in _normalize_string_list(hard_llm.get("fixed_target_case_ids"))
+        )
+        or "none"
+    )
+    hard_introduced = (
+        ", ".join(
+            f"`{case_id}`"
+            for case_id in _normalize_string_list(
+                hard_llm.get("introduced_target_false_abstain_case_ids")
+            )
+        )
+        or "none"
+    )
 
     if (
         hard_llm_harmful <= hard_base_harmful

@@ -56,6 +56,10 @@ class TestSemanticLlmPromptPreflightEnEs(unittest.TestCase):
         self.assertFalse(report["summary"]["local_env_ready"])
         self.assertTrue(report["summary"]["live_spend_guarded"])
         self.assertIn("--execute-live", report["live_command_example"])
+        self.assertIn(
+            "--request-id en-es:proxy:cue-contrastive-general-v1:plant:fabrica",
+            report["live_command_example"],
+        )
         self.assertIn("--require-selected-request-count 1", report["live_command_example"])
         self.assertIn("--max-estimated-cost-ceiling-usd <USD_CAP>", report["live_command_example"])
         self.assertEqual(report["summary"]["selected_request_count"], 1)
@@ -97,6 +101,10 @@ class TestSemanticLlmPromptPreflightEnEs(unittest.TestCase):
         self.assertFalse(report["summary"]["current_shell_ready"])
         self.assertTrue(report["summary"]["sourced_shell_ready"])
         self.assertTrue(report["summary"]["local_env_ready"])
+        self.assertIn(
+            "--request-id en-es:proxy:cue-contrastive-general-v1:plant:fabrica",
+            report["live_command_example"],
+        )
         self.assertIn("--require-selected-request-count 1", report["live_command_example"])
         self.assertIn("--input-rate-per-1m <INPUT_RATE>", report["live_command_example"])
 

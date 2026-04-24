@@ -3,8 +3,8 @@
 Status: active plan
 Role: Planning / operational
 Purpose: define a cheap, rigorous prompt-selection workflow for semantic LLM cue and shadow generation before LexiShift spends a larger semantic-generation budget
-Last updated: 2026-04-24
-Last verified: 2026-04-24 repo-doc review against the runtime-readiness, LLM queueing, source-intake, and semantic-evidence normalization seams
+Last updated: 2026-04-25
+Last verified: 2026-04-25 no-spend downstream, failure-diagnostic, and source/insertion probe artifacts
 Source-of-truth: planning doc only; current implemented truth still lives in the runtime-readiness artifacts, the LLM intake/evidence schemas, and the offline normalization code
 Related docs:
 - `docs/rulegen/semantic_llm_generation_queueing_plan.md`
@@ -696,6 +696,19 @@ Current status:
     - target `gpt-5.4`
   - the remaining missing gate is no longer prompt-quality confirmation
   - it is downstream effect on the fixed-shadow runtime slice
+- the narrowed `semantic_prompt_bakeoff_v3` overlap-challenger target pass has now also run:
+  - only the overlap challenger slots were carried forward:
+    - `cue_contrastive_overlap_v1`
+    - `cue_cross_pos_overlap_v1`
+  - all `6 / 6` target requests were accepted and normalized
+  - target token usage stayed bounded:
+    - input tokens `2825`
+    - output tokens `179`
+  - the target cues preserved the intended literal-overlap shape:
+    - `green leaves, roots in soil`
+    - `write a check to pay the rent`
+    - `the final report on findings and results`
+  - this confirms the overlap prompt shape can be executed on the target model, but it still must be judged by downstream effect
 
 ### Phase 4. Downstream bakeoff
 
@@ -730,6 +743,47 @@ Current status:
   - `llm_cue_plus_sense_label` and `llm_cue_plus_gloss` both improve recall to `62.5%`
   - but each widens harmful replace from `1` to `3`
 - so the current prompt wording is good enough to generate stable structured cues, but not yet good enough to clear the downstream acceptance gate
+- the `semantic_prompt_bakeoff_v3` overlap target tranche has now gone through the same downstream gate:
+  - `llm_cue_plus_all_evidence` is still not promotion-ready:
+    - hard reference: `72.5%` accuracy / `50.0%` replace recall / `3` harmful / `8` false abstains
+    - active-sense overlay: `80.0%` / `50.0%` / `0` / `8`
+  - it fixes only `order:002` while introducing `drink:001`, so the intended safe additive lane is still flat on false abstain and worse on hard-lane harmful replace
+  - diagnostic LLM-only insertions show stronger recall but remain unsafe:
+    - `llm_cue_text` and `llm_cue_plus_sense_label`: `68.8%` replace recall with `5` harmful replaces
+    - `llm_cue_plus_gloss`: `50.0%` replace recall with `5` harmful replaces
+  - the frozen non-LLM control still wins:
+    - `reverse_aux_plus_all_evidence` remains `82.5%` / `62.5%` / `1` / `6` on the hard row
+    - and `85.0%` / `62.5%` / `0` / `6` on the active-sense overlay
+  - so `v3` validates the prompt-execution machinery, but rejects overlap-cue promotion on the current downstream acceptance gate
+- the follow-on failure diagnostic is now preserved in `docs/test_outputs/semantic_llm_prompt_failure_diagnostic_latest.md`:
+  - reverse-aux remains the current control: `82.5%` accuracy / `62.5%` replace recall / `1` harmful / `6` false abstains
+  - active-only reverse-aux drops to `80.0%` / `56.2%` / `1` / `7`, so shadow-side/source-symmetric evidence is material
+  - LLM cue plus all evidence stays worse: `72.5%` / `50.0%` / `3` / `8`
+  - reverse-aux plus LLM cue is identical to reverse-aux alone, so the accepted cue text adds no incremental value once source-derived active/shadow evidence is present
+  - LLM cue rescue-only probes also fail to beat reverse-aux; the best safety-preserving row is just the baseline behavior
+- the source/insertion probe is now preserved in `docs/test_outputs/semantic_llm_source_insertion_probe_latest.md`:
+  - full symmetric reverse-aux remains the only winning no-spend lane: `82.5%` accuracy / `62.5%` replace recall / `1` harmful / `6` false abstains
+  - active-only reverse-aux falls back to `80.0%` / `56.2%` / `1` / `7`
+  - shadow-only reverse-aux falls back to `77.5%` / `56.2%` / `2` / `7`
+  - mixing active LLM cues with reverse-shadow calibration is still unsafe/weak: `72.5%` / `56.2%` / `4` / `7`
+  - hard reviewed example frames remove all false abstains but reopen phrase leaks: `92.5%` / `100.0%` / `3` / `0`
+  - active-guard reviewed example frames are the first clean upper-bound source shape on the frozen queue: `100.0%` / `100.0%` / `0` / `0`
+  - this reviewed-frame row is an internal oracle, not runtime-publishable evidence
+- the prototype-admission probe is now preserved in `docs/test_outputs/semantic_llm_prototype_admission_probe_latest.md` and `docs/test_outputs/semantic_llm_prototype_admission_probe_expanded_latest.md`:
+  - it keeps the user-visible decision binary while changing the internal comparison from one evidence string to nearest active/shadow example prototypes
+  - it clears the frozen prompt queue at `100.0%` accuracy / `100.0%` replace recall / `0` harmful / `0` false abstains
+  - the full `v10` read shows that active/shadow prototypes plus active-sense phrase guarding still leak `ball:005` and `match:005` at `97.9%` / `100.0%` / `2` / `0`
+  - adding phrase-control examples as abstain prototypes clears the expanded oracle read at `100.0%` / `100.0%` / `0` / `0`
+  - `semantic_llm_intake_batch.schema.json`, `semantic_evidence_batch.schema.json`, and `semantic_evidence.py` now accept `relation_type=phrase_control_example` plus the `phrase_containment` role, so future source batches can express the oracle shape directly
+  - the evidence normalizer now also accepts explicit `external` and `internal` source types, so real installed-pack or reviewed-source batches no longer have to masquerade as LLM output
+  - `scripts/testing/semantic_llm_reviewed_example_frame_batch_en_es.py` now emits a no-spend reviewed fixture as raw intake plus normalized evidence, and the prototype probe can consume that normalized evidence directly
+  - `scripts/testing/semantic_reverse_aux_example_frame_batch_en_es.py` now emits a real non-LLM reverse-aux batch in the same normalized evidence shape
+  - `docs/test_outputs/semantic_llm_example_frame_contract_latest.md` shows the frozen fixture is contract-complete: `8 / 8` families
+  - `docs/test_outputs/semantic_llm_example_frame_contract_required_latest.md` shows that the frozen fixture still passes when the gate requires every family from the queue
+  - `docs/test_outputs/semantic_llm_example_frame_contract_expanded_latest.md` shows the full-`v10` fixture is contract-complete: `19 / 19` families
+  - `docs/test_outputs/semantic_llm_example_frame_contract_overlap_latest.md` makes the current overlap target batch fail this source contract explicitly: `0 / 6` families are complete because each family has active cue evidence but no shadow or phrase-control example rows
+  - `docs/test_outputs/semantic_reverse_aux_example_frame_contract_latest.md` makes the external reverse-aux batch fail honestly: `0 / 8` required queue families are complete because phrase-control examples are absent, with additional shadow gaps for `plant` and `check`
+  - so shadow calibration alone does not salvage active-only LLM cue insertion; the next paid source hypothesis must generate or ingest active, shadow, and phrase-control example/frame evidence together
 
 ### Phase 5. Tranche decision
 
@@ -747,6 +801,18 @@ Acceptance:
 
 - the tranche decision is based on downstream results, not prompt aesthetics alone
 
+Current decision:
+
+- keep both accepted target cue tranches in analysis-only status:
+  - `semantic_prompt_bakeoff_v2`
+  - `semantic_prompt_bakeoff_v3`
+- do not approve broader cue-generation spend from the current prompt matrix
+- do not widen prompt slots again just because the proxy outputs look better
+- re-enter paid prompt generation only after a concrete downstream insertion or source-data change has a reason to beat:
+  - the frozen hard reference
+  - the active-sense overlay reference
+  - `reverse_aux_plus_all_evidence`
+
 ## Stop Rules
 
 Stop and re-route if:
@@ -759,27 +825,33 @@ Stop and re-route if:
 
 ## Practical Current Takeaway
 
-LexiShift is ready to choose the first prompt matrix rigorously enough.
+LexiShift has now run the first prompt matrix end to end:
 
-LexiShift is now ready to say more than that:
-
-- the simplified `semantic_prompt_bakeoff_v2` contract is the right prompt-output shape
-- but the current accepted `gpt-5.4` cue tranche is not yet strong enough downstream to justify larger-budget generation
-- and that redesign seam is now concretely prepared as `semantic_prompt_bakeoff_v3`:
-  - same output contract
-  - same frozen `v10` queue
-  - incumbents plus overlap-bearing challengers in one bounded proxy matrix
+- `semantic_prompt_bakeoff_v2` proved the simplified output contract
+- `semantic_prompt_bakeoff_v3` proved that overlap-bearing target prompts can produce the intended literal cue shape
+- neither accepted target tranche clears the downstream acceptance gate on the frozen `v10` queue
+- `reverse_aux_plus_all_evidence` remains the best current queue-slice control
 
 The correct next move is:
 
 1. keep the `v10` queue slice fixed
 2. treat the `example_sentence_bank` pilot as a feasibility result, not as a live cue source on current packs
 3. keep `reverse_aux_plus_all_evidence` as the last cheap non-LLM control on that same slice
-4. keep the simplified `semantic_prompt_bakeoff_v2` output contract as the incumbent storage shape
-5. treat the current accepted cue tranche as analysis-only, not promotion-ready
-6. run the prepared `semantic_prompt_bakeoff_v3` proxy matrix:
-   - `cue_contrastive_general_v1` vs `cue_contrastive_overlap_v1`
-   - `cue_cross_pos_frame_v1` vs `cue_cross_pos_overlap_v1`
-7. advance only the overlap challenger slots that now look better than their incumbents on the cheap proxy pass
-8. run a new target confirmation pass on those challenger slots before trusting them
-9. only re-enter larger-budget generation once a new cue tranche beats both the frozen hard reference and the reverse-aux control downstream
+4. keep the simplified `semantic_prompt_bakeoff_v2` output contract as the incumbent storage shape for any future cue rows
+5. treat both accepted target cue tranches as analysis-only, not promotion-ready
+6. stop the current prompt-only loop rather than widening the matrix again
+7. inspect the downstream failure cases before the next prompt spend, especially why overlap cue text:
+   - helps `order:002`
+   - still misses `check:002`, `plant:002`, `report:001`, `report:002`, and `trip:002`
+   - introduces or preserves harmful pressure on the hard lane
+8. use `scripts/testing/semantic_llm_prompt_failure_diagnostic_en_es.py` as the no-spend gate before reopening paid generation
+9. use `scripts/testing/semantic_llm_source_insertion_probe_en_es.py` to test source/insertion hypotheses before any more paid prompt generation
+10. use `scripts/testing/semantic_llm_prototype_admission_probe_en_es.py` to test richer internal admission shapes while preserving binary UX
+11. use `scripts/testing/semantic_llm_example_frame_contract_en_es.py` to reject source batches that do not carry active, shadow, and phrase-control rows together
+12. use `scripts/testing/semantic_llm_reviewed_example_frame_batch_en_es.py` as the no-spend positive fixture for contract-complete example-frame batches
+13. make the next no-spend hypothesis source/insertion-shaped, not prompt-wording-shaped:
+   - build or ingest competition-symmetric example/frame evidence for active, shadow, and phrase-control abstain cases
+   - avoid active-only cue boosts unless the shadow side is equally represented
+   - preserve active-sense phrase guarding or an equivalent phrase-leak containment path
+   - rerun the failure diagnostic and source/insertion probe before any paid prompt tranche
+11. only re-enter larger-budget generation once a changed cue source, insertion strategy, or evaluation lane has a plausible path to beat both the frozen hard reference and the reverse-aux control downstream

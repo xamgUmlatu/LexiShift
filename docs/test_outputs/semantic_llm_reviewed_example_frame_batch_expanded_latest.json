@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-04-24T20:01:32Z",
+  "status": "ok",
+  "pair": "en-es",
+  "dataset_id": "en_es_sentence_veto_v10",
+  "evaluation_scope": "all_dataset_families",
+  "batch_id": "en-es:reviewed-example-frames:reviewed-example-frames-v10-full-20260425a",
+  "source_id": "reviewed_sentence_veto_example_frames",
+  "row_count": 95,
+  "family_count": 19,
+  "family_rows": [
+    {
+      "family_id": "en-es:sentence-veto:ball:pelota",
+      "trigger": "ball",
+      "active_example_count": 2,
+      "shadow_example_count": 2,
+      "phrase_control_example_count": 1,
+      "row_count": 5
+    },
+    {
+      "family_id": "en-es:sentence-veto:bank:banco",
+      "trigger": "bank",
+      "active_example_count": 2,
+      "shadow_example_count": 2,
+      "phrase_control_example_count": 1,
+      "row_count": 5
+    },
+    {
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "trigger": "plant",
+      "active_example_count": 2,
+      "shadow_example_count": 2,
+      "phrase_control_example_count": 1,
+      "row_count": 5
+    },
+    {
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "trigger": "cell",
+      "active_example_count": 2,
+      "shadow_example_count": 2,
+      "phrase_control_example_count": 1,
+      "row_count": 5
+    },
+    {
+      "family_id": "en-es:sentence-veto:spring:primavera",
+      "trigger": "spring",
+      "active_example_count": 2,
+      "shadow_example_count": 2,
+      "phrase_control_example_count": 1,
+      "row_count": 5
+    },
+    {
+      "family_id": "en-es:sentence-veto:seal:sello",
+      "trigger": "seal",
+      "active_example_count": 2,
+      "shadow_example_count": 2,
+      "phrase_control_example_count": 1,
+      "row_count": 5
+    },
+    {
+      "family_id": "en-es:sentence-veto:file:archivo",
+      "trigger": "file",
+      "active_example_count": 2,
+      "shadow_example_count": 2,
+      "phrase_control_example_count": 1,
+      "row_count": 5
+    },
+    {
+      "family_id": "en-es:sentence-veto:match:partido",
+      "trigger": "match",
+      "active_example_count": 2,
+      "shadow_example_count": 2,
+      "phrase_control_example_count": 1,
+      "row_count": 5
+    },
+    {
+      "family_id": "en-es:sentence-veto:board:tablero",
+      "trigger": "board",
+      "active_example_count": 2,
+      "shadow_example_count": 2,
+      "phrase_control_example_count": 1,
+      "row_count": 5
+    },
+    {
+      "family_id": "en-es:sentence-veto:table:mesa",
+      "trigger": "table",
+      "active_example_count": 2,
+      "shadow_example_count": 2,
+      "phrase_control_example_count": 1,
+      "row_count": 5
+    },
+    {
+      "family_id": "en-es:sentence-veto:branch:sucursal",
+      "trigger": "branch",
+      "active_example_count": 2,
+      "shadow_example_count": 2,
+      "phrase_control_example_count": 1,
+      "row_count": 5
+    },
+    {
+      "family_id": "en-es:sentence-veto:park:parque",
+      "trigger": "park",
+      "active_example_count": 2,
+      "shadow_example_count": 2,
+      "phrase_control_example_count": 1,
+      "row_count": 5
+    },
+    {
+      "family_id": "en-es:sentence-veto:drink:bebida",
+      "trigger": "drink",
+      "active_example_count": 2,
+      "shadow_example_count": 2,
+      "phrase_control_example_count": 1,
+      "row_count": 5
+    },
+    {
+      "family_id": "en-es:sentence-veto:play:obra",
+      "trigger": "play",
+      "active_example_count": 2,
+      "shadow_example_count": 2,
+      "phrase_control_example_count": 1,
+      "row_count": 5
+    },
+    {
+      "family_id": "en-es:sentence-veto:watch:reloj",
+      "trigger": "watch",
+      "active_example_count": 2,
+      "shadow_example_count": 2,
+      "phrase_control_example_count": 1,
+      "row_count": 5
+    },
+    {
+      "family_id": "en-es:sentence-veto:check:cheque",
+      "trigger": "check",
+      "active_example_count": 2,
+      "shadow_example_count": 2,
+      "phrase_control_example_count": 1,
+      "row_count": 5
+    },
+    {
+      "family_id": "en-es:sentence-veto:order:pedido",
+      "trigger": "order",
+      "active_example_count": 2,
+      "shadow_example_count": 2,
+      "phrase_control_example_count": 1,
+      "row_count": 5
+    },
+    {
+      "family_id": "en-es:sentence-veto:trip:viaje",
+      "trigger": "trip",
+      "active_example_count": 2,
+      "shadow_example_count": 2,
+      "phrase_control_example_count": 1,
+      "row_count": 5
+    },
+    {
+      "family_id": "en-es:sentence-veto:report:informe",
+      "trigger": "report",
+      "active_example_count": 2,
+      "shadow_example_count": 2,
+      "phrase_control_example_count": 1,
+      "row_count": 5
+    }
+  ],
+  "recommendation": "Use this no-spend reviewed fixture to test the active/shadow/phrase-control source contract and prototype-admission plumbing. It is not runtime-publishable and must not be treated as paid-generation evidence."
+}

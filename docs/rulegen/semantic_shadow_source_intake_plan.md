@@ -3,8 +3,8 @@
 Status: active plan
 Role: Planning / operational
 Purpose: prepare broad data-source experimentation for semantic-shadow mining without turning runtime veto into a source-specific heuristic pile
-Last updated: 2026-04-11
-Last verified: 2026-04-11 repo-doc review against the current semantic-shadow miner, support scorer, experiment harness, and runtime-readiness plan
+Last updated: 2026-04-25
+Last verified: 2026-04-25 no-spend source/insertion probe plus missing-row generation plan against the frozen `v10` queue
 Source-of-truth: planning doc only; executable truth still lives in the current semantic-shadow modules and experiment artifacts
 Related inputs:
 - `docs/test_inputs/semantic_shadow_source_registry.json`
@@ -185,14 +185,65 @@ When new source families are implemented, prefer this split:
 
 Do not bury new source-family assumptions inside the runtime publication layer.
 
-First repo-facing intake lane now exists for LLM silver batches:
+First repo-facing intake lane now exists for heterogeneous semantic source batches:
 
 - `docs/test_inputs/semantic_routing/semantic_llm_intake_batch.schema.json`
 - `docs/test_inputs/semantic_routing/semantic_evidence_batch.schema.json`
 - `core/lexishift_core/rulegen/semantic_evidence.py`
 
-That means later API jobs only need to emit cohesive raw batch rows.
+That means later API or external-source jobs only need to emit cohesive raw batch rows.
 The batch-to-canonical mapping seam is now explicit instead of ad hoc.
+The normalizer now accepts `llm`, `external`, and `internal` source types while preserving explicit `source_family` values.
+The current source contract now has the row shape needed by the prototype-admission result:
+
+- active and shadow examples use existing cue/discrimination rows
+- phrase-control abstain examples can use `relation_type=phrase_control_example`
+- batches that include phrase containment must declare the `phrase_containment` role
+- these rows remain `runtime_publishable=false` until a separate runtime publication path exists
+- `scripts/testing/semantic_llm_example_frame_contract_en_es.py` checks raw intake or normalized evidence batches for the full active/shadow/phrase-control contract
+- the same contract gate can require an expected queue/dataset family set via `--required-family-json`, so a cherry-picked complete subset cannot pass as a complete source batch
+- `scripts/testing/semantic_llm_reviewed_example_frame_batch_en_es.py` now builds the no-spend reviewed fixture as raw intake plus normalized evidence
+- `scripts/testing/semantic_reverse_aux_example_frame_batch_en_es.py` now builds a non-LLM installed-pack reverse-aux example-frame batch as raw intake plus normalized evidence
+- `docs/test_outputs/semantic_llm_example_frame_contract_latest.md` is the positive frozen-queue fixture read: `8 / 8` families complete
+- `docs/test_outputs/semantic_llm_example_frame_contract_required_latest.md` is the same positive frozen-queue fixture with required-family coverage enforced
+- `docs/test_outputs/semantic_llm_example_frame_contract_expanded_latest.md` is the positive full-`v10` fixture read: `19 / 19` families complete
+- `docs/test_outputs/semantic_llm_example_frame_contract_overlap_latest.md` preserves the old overlap target batch as a negative read: `0 / 6` families complete because all six families still lack shadow and phrase-control example rows
+- `docs/test_outputs/semantic_reverse_aux_example_frame_contract_latest.md` preserves the real external-source reverse-aux read as `review`: `0 / 8` families complete because the source has active text for all six target families, shadow text for four target families, and no phrase-control examples
+- `scripts/testing/semantic_llm_example_frame_generation_plan_en_es.py` turns that required-family contract gap into a no-spend, exact missing-row request plan
+- `docs/test_outputs/semantic_llm_example_frame_generation_plan_latest.md` plans exactly `11` rows: `1` active example for `play`, `2` shadow examples for `plant`/`check`, and `8` phrase-control examples across the frozen queue
+- the plan deliberately keeps reviewed sentence-veto case text and translation targets out of prompt input; prompts use the English trigger, active/shadow sense labels and glosses, and queue role/archetype/notes while internal row previews retain target ids for normalization
+- `scripts/testing/semantic_llm_example_frame_generation_run_en_es.py` has now executed that plan live with append-only journaling and explicit spend guards
+- `docs/test_outputs/semantic_llm_example_frame_generation_run_latest.md` shows the live run accepted and normalized `11 / 11` rows (`3382` input tokens / `358` output tokens)
+- `scripts/testing/semantic_example_frame_batch_merge_en_es.py` merged those rows with reverse-aux into `24` composite rows: `8` active, `8` shadow, and `8` phrase-control examples
+- `docs/test_outputs/semantic_llm_example_frame_generation_contract_latest.md` shows the merged batch is structurally complete: `8 / 8` required families
+- `docs/test_outputs/semantic_llm_example_frame_generation_quality_gate_latest.md` rejects it as analysis-only because the best prototype config is still only `67.5%` decision accuracy / `31.2%` replace recall / `2` harmful / `11` false abstains
+- the diagnostic lesson is now explicit: filling missing rows is not enough; generated phrase-control examples overreach as broad semantic competitors, and the next source pass must generate balanced active/shadow exemplars while treating phrase-control rows as containment patterns or separately gated abstain evidence
+
+First repo-facing source/insertion upper-bound lane now also exists:
+
+- `reviewed_sentence_veto_example_frames` in `docs/test_inputs/semantic_shadow_source_registry.json`
+- `scripts/testing/semantic_llm_source_insertion_probe_en_es.py`
+- `docs/test_outputs/semantic_llm_source_insertion_probe_latest.md`
+- `scripts/testing/semantic_llm_prototype_admission_probe_en_es.py`
+- `docs/test_outputs/semantic_llm_prototype_admission_probe_latest.md`
+- `docs/test_outputs/semantic_llm_prototype_admission_probe_expanded_latest.md`
+- `docs/test_outputs/semantic_llm_reviewed_example_frame_batch_latest.md`
+- `docs/test_outputs/semantic_llm_reviewed_example_frame_batch_expanded_latest.md`
+
+Current read:
+
+- symmetric reviewed active/shadow example frames erase the false-abstain slice but reopen phrase leaks under the old family-wide phrase guard
+- the same reviewed example frames plus active-sense phrase guarding reach `100.0%` decision accuracy / `100.0%` replace recall / `0` harmful / `0` false abstains on the frozen queue
+- the prototype-admission variant keeps the UX decision binary, scores context against active/shadow reviewed examples directly, and also reaches `100.0%` / `100.0%` / `0` / `0` on the frozen queue
+- the expanded full-`v10` prototype read shows why phrase-control examples need to be first-class competitors: active-sense phrase guarding alone reaches `97.9%` accuracy / `100.0%` recall / `2` harmful / `0` false abstains, while adding phrase-control prototypes reaches `100.0%` / `100.0%` / `0` / `0`
+- the prototype probe now uses the normalized reviewed evidence batch as input, not only the sentence-veto dataset directly
+- this is an internal reviewed-data oracle, not runtime-publishable source evidence
+- it does prove the next useful source shape: competition-symmetric active, shadow, and phrase-control example/frame evidence plus explicit phrase-leak containment
+- the real reverse-aux source batch is useful as gap-routing evidence, not as a promotion-ready prototype source:
+  - `docs/test_outputs/semantic_reverse_aux_example_frame_batch_en_es_latest.md`
+  - `docs/test_outputs/semantic_reverse_aux_prototype_admission_probe_latest.md`
+  - the direct prototype read is only `67.5%` decision accuracy / `50.0%` replace recall / `5` harmful / `8` false abstains because phrase-control examples are absent and `plant`/`check` lack shadow-side auxiliary rows
+  - the next generated/source batch should fill exactly those missing shadow and phrase-control rows before any runtime claim
 
 ### Experiment discipline
 

@@ -1,0 +1,284 @@
+{
+  "schema_version": 1,
+  "status": "ok",
+  "pair": "en-es",
+  "generated_at": "2026-04-24T21:32:32Z",
+  "execution_mode": "live",
+  "replay_source": "",
+  "batch_id": "en-es:example-frame-missing-rows:example-frame-missing-rows-v1-20260425a",
+  "source_id": "llm_example_frame_missing_rows",
+  "prompt_version": "example-frame-missing-rows-v1",
+  "selected_model_id": "gpt-5.4-mini",
+  "selected_temperature": 0.2,
+  "summary": {
+    "selected_request_count": 11,
+    "accepted_item_count": 11,
+    "api_error_count": 0,
+    "invalid_output_count": 0,
+    "normalized_row_count": 11,
+    "input_tokens": 3382,
+    "output_tokens": 358,
+    "reasoning_tokens": 0
+  },
+  "artifacts": {
+    "journal_jsonl": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-missing-rows-v1-20260425a_journal.jsonl",
+    "raw_response_bundle_json": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-missing-rows-v1-20260425a_raw_responses.json",
+    "intake_batch_json": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-missing-rows-v1-20260425a_intake_batch.json",
+    "normalized_batch_json": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-missing-rows-v1-20260425a_normalized_evidence.json"
+  },
+  "request_rows": [
+    {
+      "request_id": "en-es:example-frame-missing:shadow:en-es-sentence-veto-plant-planta:en-es-sentence-veto-plant-fabrica-shadow",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "fábrica",
+      "status": "accepted",
+      "response_id": "resp_036256f221aa39110169ebe171e7ac8190a73255c5fef37f7e",
+      "evidence_text": "The new plant will assemble batteries around the clock.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-missing-rows-v1-20260425a_raw_responses.json#en-es:example-frame-missing:shadow:en-es-sentence-veto-plant-planta:en-es-sentence-veto-plant-fabrica-shadow",
+      "usage": {
+        "input_tokens": 300,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 32,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 332
+      }
+    },
+    {
+      "request_id": "en-es:example-frame-missing:phrase-control:en-es-sentence-veto-plant-planta",
+      "prompt_slot": "phrase_control_example",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "phrase_control",
+      "status": "accepted",
+      "response_id": "resp_040ef95576d790c90169ebe17399c88197b19825ce427d2e73",
+      "evidence_text": "The plan will plant itself in their minds by morning.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-missing-rows-v1-20260425a_raw_responses.json#en-es:example-frame-missing:phrase-control:en-es-sentence-veto-plant-planta",
+      "usage": {
+        "input_tokens": 315,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 33,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 348
+      }
+    },
+    {
+      "request_id": "en-es:example-frame-missing:phrase-control:en-es-sentence-veto-drink-bebida",
+      "prompt_slot": "phrase_control_example",
+      "family_id": "en-es:sentence-veto:drink:bebida",
+      "trigger": "drink",
+      "active_target": "bebida",
+      "candidate_target": "phrase_control",
+      "status": "accepted",
+      "response_id": "resp_00396afb60516b5a0169ebe174d8ec8194acae674dfdcbd50a",
+      "evidence_text": "The committee will drink in the details before voting.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-missing-rows-v1-20260425a_raw_responses.json#en-es:example-frame-missing:phrase-control:en-es-sentence-veto-drink-bebida",
+      "usage": {
+        "input_tokens": 314,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 32,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 346
+      }
+    },
+    {
+      "request_id": "en-es:example-frame-missing:shadow:en-es-sentence-veto-check-cheque:en-es-sentence-veto-check-revisar-shadow",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:check:cheque",
+      "trigger": "check",
+      "active_target": "cheque",
+      "candidate_target": "revisar",
+      "status": "accepted",
+      "response_id": "resp_0e92e43c413d633d0169ebe175d49c819094186cdf0f3d7a73",
+      "evidence_text": "Please check the wiring before we power up the machine.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-missing-rows-v1-20260425a_raw_responses.json#en-es:example-frame-missing:shadow:en-es-sentence-veto-check-cheque:en-es-sentence-veto-check-revisar-shadow",
+      "usage": {
+        "input_tokens": 303,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 33,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 336
+      }
+    },
+    {
+      "request_id": "en-es:example-frame-missing:phrase-control:en-es-sentence-veto-check-cheque",
+      "prompt_slot": "phrase_control_example",
+      "family_id": "en-es:sentence-veto:check:cheque",
+      "trigger": "check",
+      "active_target": "cheque",
+      "candidate_target": "phrase_control",
+      "status": "accepted",
+      "response_id": "resp_0c110e9d0c95b5930169ebe176b46081909cddede4e454c8f6",
+      "evidence_text": "The rain check is still valid for next week.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-missing-rows-v1-20260425a_raw_responses.json#en-es:example-frame-missing:phrase-control:en-es-sentence-veto-check-cheque",
+      "usage": {
+        "input_tokens": 313,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 32,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 345
+      }
+    },
+    {
+      "request_id": "en-es:example-frame-missing:phrase-control:en-es-sentence-veto-order-pedido",
+      "prompt_slot": "phrase_control_example",
+      "family_id": "en-es:sentence-veto:order:pedido",
+      "trigger": "order",
+      "active_target": "pedido",
+      "candidate_target": "phrase_control",
+      "status": "accepted",
+      "response_id": "resp_03846d9d7178864b0169ebe177c09c819092b73da12931a677",
+      "evidence_text": "in order to keep things simple, we left early",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-missing-rows-v1-20260425a_raw_responses.json#en-es:example-frame-missing:phrase-control:en-es-sentence-veto-order-pedido",
+      "usage": {
+        "input_tokens": 309,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 33,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 342
+      }
+    },
+    {
+      "request_id": "en-es:example-frame-missing:phrase-control:en-es-sentence-veto-trip-viaje",
+      "prompt_slot": "phrase_control_example",
+      "family_id": "en-es:sentence-veto:trip:viaje",
+      "trigger": "trip",
+      "active_target": "viaje",
+      "candidate_target": "phrase_control",
+      "status": "accepted",
+      "response_id": "resp_0aa6ca456cee63680169ebe1789290819486aa2355a0b5a00d",
+      "evidence_text": "The trip wire snapped before anyone reached the gate.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-missing-rows-v1-20260425a_raw_responses.json#en-es:example-frame-missing:phrase-control:en-es-sentence-veto-trip-viaje",
+      "usage": {
+        "input_tokens": 304,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 32,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 336
+      }
+    },
+    {
+      "request_id": "en-es:example-frame-missing:phrase-control:en-es-sentence-veto-report-informe",
+      "prompt_slot": "phrase_control_example",
+      "family_id": "en-es:sentence-veto:report:informe",
+      "trigger": "report",
+      "active_target": "informe",
+      "candidate_target": "phrase_control",
+      "status": "accepted",
+      "response_id": "resp_003d40c3e79752bd0169ebe179a6f48195a4718338eedccb5d",
+      "evidence_text": "The report card came home with a smiley sticker.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-missing-rows-v1-20260425a_raw_responses.json#en-es:example-frame-missing:phrase-control:en-es-sentence-veto-report-informe",
+      "usage": {
+        "input_tokens": 313,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 33,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 346
+      }
+    },
+    {
+      "request_id": "en-es:example-frame-missing:active:en-es-sentence-veto-play-obra",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:play:obra",
+      "trigger": "play",
+      "active_target": "obra",
+      "candidate_target": "obra",
+      "status": "accepted",
+      "response_id": "resp_0c9031b28e04a1ae0169ebe17a730481949c30ad6af29a3d91",
+      "evidence_text": "The school staged a play about climate change in the auditorium.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-missing-rows-v1-20260425a_raw_responses.json#en-es:example-frame-missing:active:en-es-sentence-veto-play-obra",
+      "usage": {
+        "input_tokens": 284,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 34,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 318
+      }
+    },
+    {
+      "request_id": "en-es:example-frame-missing:phrase-control:en-es-sentence-veto-play-obra",
+      "prompt_slot": "phrase_control_example",
+      "family_id": "en-es:sentence-veto:play:obra",
+      "trigger": "play",
+      "active_target": "obra",
+      "candidate_target": "phrase_control",
+      "status": "accepted",
+      "response_id": "resp_0087b8ecedbaf4650169ebe17b7f00819492114cf8f5419891",
+      "evidence_text": "play it by ear and see how things go",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-missing-rows-v1-20260425a_raw_responses.json#en-es:example-frame-missing:phrase-control:en-es-sentence-veto-play-obra",
+      "usage": {
+        "input_tokens": 314,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 32,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 346
+      }
+    },
+    {
+      "request_id": "en-es:example-frame-missing:phrase-control:en-es-sentence-veto-watch-reloj",
+      "prompt_slot": "phrase_control_example",
+      "family_id": "en-es:sentence-veto:watch:reloj",
+      "trigger": "watch",
+      "active_target": "reloj",
+      "candidate_target": "phrase_control",
+      "status": "accepted",
+      "response_id": "resp_095b0acceac303090169ebe17c69c08196aa2f3186ea7d6dfd",
+      "evidence_text": "Watch out for the slippery steps near the entrance.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-missing-rows-v1-20260425a_raw_responses.json#en-es:example-frame-missing:phrase-control:en-es-sentence-veto-watch-reloj",
+      "usage": {
+        "input_tokens": 313,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 32,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 345
+      }
+    }
+  ]
+}

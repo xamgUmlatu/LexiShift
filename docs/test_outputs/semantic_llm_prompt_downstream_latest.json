@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "pair": "en-es",
-  "generated_at": "2026-04-24T02:18:23Z",
+  "generated_at": "2026-04-24T18:14:26Z",
   "status": "ok",
   "queue_id": "semantic_prompt_bakeoff_en_es_v10",
   "dataset_id": "en_es_sentence_veto_v10",
@@ -20,11 +20,11 @@
     "missing_resources": []
   },
   "llm_batch": {
-    "batch_id": "en-es:target:prompt-target-v2-20260424a",
+    "batch_id": "en-es:target:prompt-target-overlap-v3-20260425a",
     "source_id": "semantic_prompt_bakeoff_en_es_v10:target",
-    "prompt_version": "semantic_prompt_bakeoff_v2",
+    "prompt_version": "semantic_prompt_bakeoff_v3",
     "model_id": "gpt-5.4",
-    "generated_at": "2026-04-24T01:38:58Z",
+    "generated_at": "2026-04-24T18:13:41Z",
     "review_state": "unreviewed",
     "row_count": 6,
     "runtime_publishable_count": 0,
@@ -87,10 +87,10 @@
       "llm_cue_ready": true,
       "llm_cue_row_count": 1,
       "sample_llm_cue_texts": [
-        "Refers to something rooted that grows leaves, stems, or flowers."
+        "green leaves, roots in soil"
       ],
       "prompt_slots": [
-        "cue_contrastive_general_v1"
+        "cue_contrastive_overlap_v1"
       ],
       "review_states": [
         "unreviewed"
@@ -105,10 +105,10 @@
       "llm_cue_ready": true,
       "llm_cue_row_count": 1,
       "sample_llm_cue_texts": [
-        "Refers to the liquid itself, often countable or ordered, not the act."
+        "soft drink, alcoholic beverage, hot drink"
       ],
       "prompt_slots": [
-        "cue_contrastive_general_v1"
+        "cue_contrastive_overlap_v1"
       ],
       "review_states": [
         "unreviewed"
@@ -147,10 +147,10 @@
       "llm_cue_ready": true,
       "llm_cue_row_count": 1,
       "sample_llm_cue_texts": [
-        "Preceded by a determiner or amount, often written, signed, deposited, or cashed."
+        "write a check to pay the rent"
       ],
       "prompt_slots": [
-        "cue_cross_pos_frame_v1"
+        "cue_cross_pos_overlap_v1"
       ],
       "review_states": [
         "unreviewed"
@@ -165,10 +165,10 @@
       "llm_cue_ready": true,
       "llm_cue_row_count": 1,
       "sample_llm_cue_texts": [
-        "Preceded by a determiner or quantity and followed by for goods or delivery."
+        "place an order for delivery today"
       ],
       "prompt_slots": [
-        "cue_cross_pos_frame_v1"
+        "cue_cross_pos_overlap_v1"
       ],
       "review_states": [
         "unreviewed"
@@ -183,10 +183,10 @@
       "llm_cue_ready": true,
       "llm_cue_row_count": 1,
       "sample_llm_cue_texts": [
-        "A determiner or adjective before trip signals a planned journey noun."
+        "booked a short trip to Madrid"
       ],
       "prompt_slots": [
-        "cue_cross_pos_frame_v1"
+        "cue_cross_pos_overlap_v1"
       ],
       "review_states": [
         "unreviewed"
@@ -201,10 +201,10 @@
       "llm_cue_ready": true,
       "llm_cue_row_count": 1,
       "sample_llm_cue_texts": [
-        "Preceded by a determiner or adjective, especially followed by on/about findings."
+        "the final report on findings and results"
       ],
       "prompt_slots": [
-        "cue_cross_pos_frame_v1"
+        "cue_cross_pos_overlap_v1"
       ],
       "review_states": [
         "unreviewed"
@@ -767,75 +767,68 @@
         "gold_active_winner_cases": 16,
         "gold_shadow_winner_cases": 16,
         "gold_none_cases": 8,
-        "predicted_replace_cases": 13,
-        "predicted_abstain_cases": 27,
-        "true_replace_count": 8,
+        "predicted_replace_cases": 16,
+        "predicted_abstain_cases": 24,
+        "true_replace_count": 11,
         "true_abstain_count": 19,
         "harmful_replace_count": 5,
-        "false_abstain_count": 8,
+        "false_abstain_count": 5,
         "winner_labeled_cases": 32,
-        "winner_correct_count": 21,
+        "winner_correct_count": 25,
         "shadow_winner_labeled_cases": 16,
-        "shadow_winner_correct_count": 13,
+        "shadow_winner_correct_count": 14,
         "phrase_preemption_hit_count": 1,
         "phrase_preemption_correct_abstain_count": 1,
         "phrase_preemption_harmful_block_count": 0,
-        "active_rescue_applied_count": 1,
-        "active_rescue_correct_replace_count": 1,
+        "active_rescue_applied_count": 2,
+        "active_rescue_correct_replace_count": 2,
         "active_rescue_harmful_replace_count": 0,
-        "decision_accuracy": 0.675,
-        "replace_precision": 0.6153846153846154,
-        "replace_recall": 0.5,
+        "decision_accuracy": 0.75,
+        "replace_precision": 0.6875,
+        "replace_recall": 0.6875,
         "harmful_replace_rate": 0.20833333333333334,
-        "false_abstain_rate": 0.5,
-        "winner_accuracy": 0.65625,
-        "shadow_winner_accuracy": 0.8125,
-        "predicted_replace_rate": 0.325,
+        "false_abstain_rate": 0.3125,
+        "winner_accuracy": 0.78125,
+        "shadow_winner_accuracy": 0.875,
+        "predicted_replace_rate": 0.4,
         "phrase_preemption_hit_rate": 0.025,
         "phrase_preemption_precision": 1.0,
-        "active_rescue_applied_rate": 0.025,
+        "active_rescue_applied_rate": 0.05,
         "active_rescue_precision": 1.0
       },
       "harmful_replace_case_ids": [
-        "en-es:sentence-veto:drink:004",
         "en-es:sentence-veto:play:005",
-        "en-es:sentence-veto:trip:005",
+        "en-es:sentence-veto:order:005",
         "en-es:sentence-veto:report:003",
-        "en-es:sentence-veto:report:004"
+        "en-es:sentence-veto:report:004",
+        "en-es:sentence-veto:report:005"
       ],
       "false_abstain_case_ids": [
-        "en-es:sentence-veto:plant:002",
-        "en-es:sentence-veto:drink:001",
-        "en-es:sentence-veto:drink:002",
         "en-es:sentence-veto:play:002",
         "en-es:sentence-veto:check:002",
-        "en-es:sentence-veto:trip:001",
+        "en-es:sentence-veto:trip:002",
         "en-es:sentence-veto:report:001",
         "en-es:sentence-veto:report:002"
       ],
       "fixed_false_abstain_case_ids": [
+        "en-es:sentence-veto:drink:002",
         "en-es:sentence-veto:order:002",
-        "en-es:sentence-veto:trip:002"
+        "en-es:sentence-veto:plant:002"
       ],
-      "introduced_false_abstain_case_ids": [
-        "en-es:sentence-veto:drink:001",
-        "en-es:sentence-veto:trip:001"
-      ],
+      "introduced_false_abstain_case_ids": [],
       "fixed_harmful_replace_case_ids": [],
       "introduced_harmful_replace_case_ids": [
-        "en-es:sentence-veto:drink:004",
+        "en-es:sentence-veto:order:005",
         "en-es:sentence-veto:report:003",
         "en-es:sentence-veto:report:004",
-        "en-es:sentence-veto:trip:005"
+        "en-es:sentence-veto:report:005"
       ],
       "fixed_target_case_ids": [
+        "en-es:sentence-veto:drink:002",
         "en-es:sentence-veto:order:002",
-        "en-es:sentence-veto:trip:002"
+        "en-es:sentence-veto:plant:002"
       ],
-      "introduced_target_false_abstain_case_ids": [
-        "en-es:sentence-veto:drink:001",
-        "en-es:sentence-veto:trip:001"
-      ],
+      "introduced_target_false_abstain_case_ids": [],
       "focus_cases": [
         {
           "case_id": "en-es:sentence-veto:check:001",
@@ -843,7 +836,7 @@
           "gold_decision": "replace",
           "predicted_decision": "replace",
           "predicted_winner": "en-es:sentence-veto:check:cheque:active",
-          "margin": 0.12344130647394858,
+          "margin": 0.21365980582201638,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -853,7 +846,7 @@
           "gold_decision": "replace",
           "predicted_decision": "abstain",
           "predicted_winner": "en-es:sentence-veto:check:revisar:shadow",
-          "margin": -0.04518182027494311,
+          "margin": -0.053340620921054294,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -861,9 +854,9 @@
           "case_id": "en-es:sentence-veto:drink:001",
           "family_id": "en-es:sentence-veto:drink:bebida",
           "gold_decision": "replace",
-          "predicted_decision": "abstain",
-          "predicted_winner": "en-es:sentence-veto:drink:beber:shadow",
-          "margin": -0.11168729227157059,
+          "predicted_decision": "replace",
+          "predicted_winner": "en-es:sentence-veto:drink:bebida:active",
+          "margin": 0.0018085947092186805,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -871,9 +864,9 @@
           "case_id": "en-es:sentence-veto:drink:002",
           "family_id": "en-es:sentence-veto:drink:bebida",
           "gold_decision": "replace",
-          "predicted_decision": "abstain",
-          "predicted_winner": "en-es:sentence-veto:drink:beber:shadow",
-          "margin": -0.05945435123732179,
+          "predicted_decision": "replace",
+          "predicted_winner": "en-es:sentence-veto:drink:bebida:active",
+          "margin": 0.016036563824977645,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -883,7 +876,7 @@
           "gold_decision": "replace",
           "predicted_decision": "replace",
           "predicted_winner": "en-es:sentence-veto:order:pedido:active",
-          "margin": 0.06299235833973005,
+          "margin": 0.17283116546805888,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -893,7 +886,7 @@
           "gold_decision": "replace",
           "predicted_decision": "replace",
           "predicted_winner": "en-es:sentence-veto:order:pedido:active",
-          "margin": 0.0021007646087483067,
+          "margin": 0.021772698271754987,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -903,7 +896,7 @@
           "gold_decision": "replace",
           "predicted_decision": "replace",
           "predicted_winner": "en-es:sentence-veto:plant:planta:active",
-          "margin": 0.0316049164775285,
+          "margin": 0.02701844911505169,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -911,11 +904,11 @@
           "case_id": "en-es:sentence-veto:plant:002",
           "family_id": "en-es:sentence-veto:plant:planta",
           "gold_decision": "replace",
-          "predicted_decision": "abstain",
-          "predicted_winner": "en-es:sentence-veto:plant:fabrica:shadow",
-          "margin": -0.036892776235197045,
+          "predicted_decision": "replace",
+          "predicted_winner": "en-es:sentence-veto:plant:planta:active",
+          "margin": -0.014400331278068723,
           "phrase_preemption_hit": false,
-          "active_rescue_applied": false
+          "active_rescue_applied": true
         },
         {
           "case_id": "en-es:sentence-veto:report:001",
@@ -923,7 +916,7 @@
           "gold_decision": "replace",
           "predicted_decision": "abstain",
           "predicted_winner": "en-es:sentence-veto:report:informar:shadow",
-          "margin": -0.01616353458004305,
+          "margin": -0.06115858075061109,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -933,7 +926,7 @@
           "gold_decision": "replace",
           "predicted_decision": "abstain",
           "predicted_winner": "en-es:sentence-veto:report:informar:shadow",
-          "margin": -0.05086834629065062,
+          "margin": -0.03149001400322782,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -941,9 +934,9 @@
           "case_id": "en-es:sentence-veto:trip:001",
           "family_id": "en-es:sentence-veto:trip:viaje",
           "gold_decision": "replace",
-          "predicted_decision": "abstain",
-          "predicted_winner": "en-es:sentence-veto:trip:viaje:shadow",
-          "margin": -0.02340296602740688,
+          "predicted_decision": "replace",
+          "predicted_winner": "en-es:sentence-veto:trip:viaje:active",
+          "margin": 0.028494607169657793,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -951,9 +944,9 @@
           "case_id": "en-es:sentence-veto:trip:002",
           "family_id": "en-es:sentence-veto:trip:viaje",
           "gold_decision": "replace",
-          "predicted_decision": "replace",
-          "predicted_winner": "en-es:sentence-veto:trip:viaje:active",
-          "margin": 0.0074273411130224565,
+          "predicted_decision": "abstain",
+          "predicted_winner": "en-es:sentence-veto:trip:viaje:shadow",
+          "margin": -0.06495761146705015,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -1003,30 +996,30 @@
         "gold_active_winner_cases": 16,
         "gold_shadow_winner_cases": 16,
         "gold_none_cases": 8,
-        "predicted_replace_cases": 13,
-        "predicted_abstain_cases": 27,
-        "true_replace_count": 10,
-        "true_abstain_count": 21,
-        "harmful_replace_count": 3,
-        "false_abstain_count": 6,
+        "predicted_replace_cases": 16,
+        "predicted_abstain_cases": 24,
+        "true_replace_count": 11,
+        "true_abstain_count": 19,
+        "harmful_replace_count": 5,
+        "false_abstain_count": 5,
         "winner_labeled_cases": 32,
-        "winner_correct_count": 24,
+        "winner_correct_count": 26,
         "shadow_winner_labeled_cases": 16,
-        "shadow_winner_correct_count": 14,
+        "shadow_winner_correct_count": 15,
         "phrase_preemption_hit_count": 1,
         "phrase_preemption_correct_abstain_count": 1,
         "phrase_preemption_harmful_block_count": 0,
         "active_rescue_applied_count": 2,
         "active_rescue_correct_replace_count": 2,
         "active_rescue_harmful_replace_count": 0,
-        "decision_accuracy": 0.775,
-        "replace_precision": 0.7692307692307693,
-        "replace_recall": 0.625,
-        "harmful_replace_rate": 0.125,
-        "false_abstain_rate": 0.375,
-        "winner_accuracy": 0.75,
-        "shadow_winner_accuracy": 0.875,
-        "predicted_replace_rate": 0.325,
+        "decision_accuracy": 0.75,
+        "replace_precision": 0.6875,
+        "replace_recall": 0.6875,
+        "harmful_replace_rate": 0.20833333333333334,
+        "false_abstain_rate": 0.3125,
+        "winner_accuracy": 0.8125,
+        "shadow_winner_accuracy": 0.9375,
+        "predicted_replace_rate": 0.4,
         "phrase_preemption_hit_rate": 0.025,
         "phrase_preemption_precision": 1.0,
         "active_rescue_applied_rate": 0.05,
@@ -1034,11 +1027,12 @@
       },
       "harmful_replace_case_ids": [
         "en-es:sentence-veto:play:005",
-        "en-es:sentence-veto:report:003",
-        "en-es:sentence-veto:report:004"
+        "en-es:sentence-veto:order:005",
+        "en-es:sentence-veto:trip:005",
+        "en-es:sentence-veto:report:004",
+        "en-es:sentence-veto:report:005"
       ],
       "false_abstain_case_ids": [
-        "en-es:sentence-veto:drink:001",
         "en-es:sentence-veto:play:002",
         "en-es:sentence-veto:check:002",
         "en-es:sentence-veto:trip:002",
@@ -1050,22 +1044,20 @@
         "en-es:sentence-veto:order:002",
         "en-es:sentence-veto:plant:002"
       ],
-      "introduced_false_abstain_case_ids": [
-        "en-es:sentence-veto:drink:001"
-      ],
+      "introduced_false_abstain_case_ids": [],
       "fixed_harmful_replace_case_ids": [],
       "introduced_harmful_replace_case_ids": [
-        "en-es:sentence-veto:report:003",
-        "en-es:sentence-veto:report:004"
+        "en-es:sentence-veto:order:005",
+        "en-es:sentence-veto:report:004",
+        "en-es:sentence-veto:report:005",
+        "en-es:sentence-veto:trip:005"
       ],
       "fixed_target_case_ids": [
         "en-es:sentence-veto:drink:002",
         "en-es:sentence-veto:order:002",
         "en-es:sentence-veto:plant:002"
       ],
-      "introduced_target_false_abstain_case_ids": [
-        "en-es:sentence-veto:drink:001"
-      ],
+      "introduced_target_false_abstain_case_ids": [],
       "focus_cases": [
         {
           "case_id": "en-es:sentence-veto:check:001",
@@ -1073,7 +1065,7 @@
           "gold_decision": "replace",
           "predicted_decision": "replace",
           "predicted_winner": "en-es:sentence-veto:check:cheque:active",
-          "margin": 0.08784113266914217,
+          "margin": 0.16242709813116296,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -1083,7 +1075,7 @@
           "gold_decision": "replace",
           "predicted_decision": "abstain",
           "predicted_winner": "en-es:sentence-veto:check:revisar:shadow",
-          "margin": -0.023055791886805288,
+          "margin": -0.025987730724914226,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -1091,11 +1083,11 @@
           "case_id": "en-es:sentence-veto:drink:001",
           "family_id": "en-es:sentence-veto:drink:bebida",
           "gold_decision": "replace",
-          "predicted_decision": "abstain",
-          "predicted_winner": "en-es:sentence-veto:drink:beber:shadow",
-          "margin": -0.03540137347492056,
+          "predicted_decision": "replace",
+          "predicted_winner": "en-es:sentence-veto:drink:bebida:active",
+          "margin": -0.00492802647468793,
           "phrase_preemption_hit": false,
-          "active_rescue_applied": false
+          "active_rescue_applied": true
         },
         {
           "case_id": "en-es:sentence-veto:drink:002",
@@ -1103,7 +1095,7 @@
           "gold_decision": "replace",
           "predicted_decision": "replace",
           "predicted_winner": "en-es:sentence-veto:drink:bebida:active",
-          "margin": 0.012801661186706892,
+          "margin": 0.0042903702729386595,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -1113,7 +1105,7 @@
           "gold_decision": "replace",
           "predicted_decision": "replace",
           "predicted_winner": "en-es:sentence-veto:order:pedido:active",
-          "margin": 0.06273931100065233,
+          "margin": 0.13375967740168182,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -1123,7 +1115,7 @@
           "gold_decision": "replace",
           "predicted_decision": "replace",
           "predicted_winner": "en-es:sentence-veto:order:pedido:active",
-          "margin": 0.00125558810029347,
+          "margin": 0.020814360986336822,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -1133,7 +1125,7 @@
           "gold_decision": "replace",
           "predicted_decision": "replace",
           "predicted_winner": "en-es:sentence-veto:plant:planta:active",
-          "margin": 0.01716812992624628,
+          "margin": 0.035647451415707465,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -1143,9 +1135,9 @@
           "gold_decision": "replace",
           "predicted_decision": "replace",
           "predicted_winner": "en-es:sentence-veto:plant:planta:active",
-          "margin": -0.019517677373972364,
+          "margin": 0.0124528342063559,
           "phrase_preemption_hit": false,
-          "active_rescue_applied": true
+          "active_rescue_applied": false
         },
         {
           "case_id": "en-es:sentence-veto:report:001",
@@ -1153,7 +1145,7 @@
           "gold_decision": "replace",
           "predicted_decision": "abstain",
           "predicted_winner": "en-es:sentence-veto:report:informar:shadow",
-          "margin": -0.010437922919613096,
+          "margin": -0.04797618866286535,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -1163,7 +1155,7 @@
           "gold_decision": "replace",
           "predicted_decision": "abstain",
           "predicted_winner": "en-es:sentence-veto:report:informar:shadow",
-          "margin": -0.04363302962645377,
+          "margin": -0.04598171841465226,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -1173,7 +1165,7 @@
           "gold_decision": "replace",
           "predicted_decision": "replace",
           "predicted_winner": "en-es:sentence-veto:trip:viaje:active",
-          "margin": 0.013107316804548241,
+          "margin": 0.03985844487775336,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -1183,7 +1175,7 @@
           "gold_decision": "replace",
           "predicted_decision": "abstain",
           "predicted_winner": "en-es:sentence-veto:trip:viaje:shadow",
-          "margin": -0.0073970313400000265,
+          "margin": -0.05073298144805838,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -1193,7 +1185,7 @@
           "gold_decision": "abstain",
           "predicted_decision": "replace",
           "predicted_winner": "en-es:sentence-veto:play:obra:active",
-          "margin": 0.06544672758784187,
+          "margin": 0.06544671589243639,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -1203,7 +1195,7 @@
           "gold_decision": "abstain",
           "predicted_decision": "abstain",
           "predicted_winner": "en-es:sentence-veto:watch:vigilar:shadow",
-          "margin": -0.06748755850711285,
+          "margin": -0.06748759941541549,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -1213,7 +1205,7 @@
           "gold_decision": "replace",
           "predicted_decision": "abstain",
           "predicted_winner": "en-es:sentence-veto:play:jugar:shadow",
-          "margin": -0.029500865738202875,
+          "margin": -0.029500858832330723,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         }
@@ -1235,63 +1227,65 @@
         "gold_none_cases": 8,
         "predicted_replace_cases": 13,
         "predicted_abstain_cases": 27,
-        "true_replace_count": 10,
-        "true_abstain_count": 21,
-        "harmful_replace_count": 3,
-        "false_abstain_count": 6,
+        "true_replace_count": 8,
+        "true_abstain_count": 19,
+        "harmful_replace_count": 5,
+        "false_abstain_count": 8,
         "winner_labeled_cases": 32,
-        "winner_correct_count": 24,
+        "winner_correct_count": 22,
         "shadow_winner_labeled_cases": 16,
         "shadow_winner_correct_count": 14,
         "phrase_preemption_hit_count": 1,
         "phrase_preemption_correct_abstain_count": 1,
         "phrase_preemption_harmful_block_count": 0,
-        "active_rescue_applied_count": 2,
-        "active_rescue_correct_replace_count": 2,
+        "active_rescue_applied_count": 1,
+        "active_rescue_correct_replace_count": 1,
         "active_rescue_harmful_replace_count": 0,
-        "decision_accuracy": 0.775,
-        "replace_precision": 0.7692307692307693,
-        "replace_recall": 0.625,
-        "harmful_replace_rate": 0.125,
-        "false_abstain_rate": 0.375,
-        "winner_accuracy": 0.75,
+        "decision_accuracy": 0.675,
+        "replace_precision": 0.6153846153846154,
+        "replace_recall": 0.5,
+        "harmful_replace_rate": 0.20833333333333334,
+        "false_abstain_rate": 0.5,
+        "winner_accuracy": 0.6875,
         "shadow_winner_accuracy": 0.875,
         "predicted_replace_rate": 0.325,
         "phrase_preemption_hit_rate": 0.025,
         "phrase_preemption_precision": 1.0,
-        "active_rescue_applied_rate": 0.05,
+        "active_rescue_applied_rate": 0.025,
         "active_rescue_precision": 1.0
       },
       "harmful_replace_case_ids": [
         "en-es:sentence-veto:play:005",
+        "en-es:sentence-veto:order:005",
         "en-es:sentence-veto:report:003",
-        "en-es:sentence-veto:report:004"
+        "en-es:sentence-veto:report:004",
+        "en-es:sentence-veto:report:005"
       ],
       "false_abstain_case_ids": [
         "en-es:sentence-veto:plant:002",
         "en-es:sentence-veto:drink:001",
+        "en-es:sentence-veto:drink:002",
         "en-es:sentence-veto:play:002",
         "en-es:sentence-veto:check:002",
+        "en-es:sentence-veto:trip:002",
         "en-es:sentence-veto:report:001",
         "en-es:sentence-veto:report:002"
       ],
       "fixed_false_abstain_case_ids": [
-        "en-es:sentence-veto:drink:002",
-        "en-es:sentence-veto:order:002",
-        "en-es:sentence-veto:trip:002"
+        "en-es:sentence-veto:order:002"
       ],
       "introduced_false_abstain_case_ids": [
         "en-es:sentence-veto:drink:001"
       ],
       "fixed_harmful_replace_case_ids": [],
       "introduced_harmful_replace_case_ids": [
+        "en-es:sentence-veto:order:005",
         "en-es:sentence-veto:report:003",
-        "en-es:sentence-veto:report:004"
+        "en-es:sentence-veto:report:004",
+        "en-es:sentence-veto:report:005"
       ],
       "fixed_target_case_ids": [
-        "en-es:sentence-veto:drink:002",
-        "en-es:sentence-veto:order:002",
-        "en-es:sentence-veto:trip:002"
+        "en-es:sentence-veto:order:002"
       ],
       "introduced_target_false_abstain_case_ids": [
         "en-es:sentence-veto:drink:001"
@@ -1303,7 +1297,7 @@
           "gold_decision": "replace",
           "predicted_decision": "replace",
           "predicted_winner": "en-es:sentence-veto:check:cheque:active",
-          "margin": 0.1393950058472374,
+          "margin": 0.186689180386431,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -1313,7 +1307,7 @@
           "gold_decision": "replace",
           "predicted_decision": "abstain",
           "predicted_winner": "en-es:sentence-veto:check:revisar:shadow",
-          "margin": -0.09975536776818622,
+          "margin": -0.09292665347829976,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -1323,7 +1317,7 @@
           "gold_decision": "replace",
           "predicted_decision": "abstain",
           "predicted_winner": "en-es:sentence-veto:drink:beber:shadow",
-          "margin": -0.06585421731068286,
+          "margin": -0.03957842452480265,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -1331,11 +1325,11 @@
           "case_id": "en-es:sentence-veto:drink:002",
           "family_id": "en-es:sentence-veto:drink:bebida",
           "gold_decision": "replace",
-          "predicted_decision": "replace",
-          "predicted_winner": "en-es:sentence-veto:drink:bebida:active",
-          "margin": -0.016586033945154566,
+          "predicted_decision": "abstain",
+          "predicted_winner": "en-es:sentence-veto:drink:beber:shadow",
+          "margin": -0.03167530131215346,
           "phrase_preemption_hit": false,
-          "active_rescue_applied": true
+          "active_rescue_applied": false
         },
         {
           "case_id": "en-es:sentence-veto:order:001",
@@ -1343,7 +1337,7 @@
           "gold_decision": "replace",
           "predicted_decision": "replace",
           "predicted_winner": "en-es:sentence-veto:order:pedido:active",
-          "margin": 0.0718815187751759,
+          "margin": 0.14619166246180104,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -1353,7 +1347,7 @@
           "gold_decision": "replace",
           "predicted_decision": "replace",
           "predicted_winner": "en-es:sentence-veto:order:pedido:active",
-          "margin": 0.020743065016928464,
+          "margin": 0.030299758687426737,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -1363,7 +1357,7 @@
           "gold_decision": "replace",
           "predicted_decision": "replace",
           "predicted_winner": "en-es:sentence-veto:plant:planta:active",
-          "margin": 0.010452204410902222,
+          "margin": 0.028599940226922693,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -1373,7 +1367,7 @@
           "gold_decision": "replace",
           "predicted_decision": "abstain",
           "predicted_winner": "en-es:sentence-veto:plant:fabrica:shadow",
-          "margin": -0.07591501307553561,
+          "margin": -0.03706356294153079,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -1383,7 +1377,7 @@
           "gold_decision": "replace",
           "predicted_decision": "abstain",
           "predicted_winner": "en-es:sentence-veto:report:informar:shadow",
-          "margin": -0.0337711781525607,
+          "margin": -0.06296078854103071,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -1393,7 +1387,7 @@
           "gold_decision": "replace",
           "predicted_decision": "abstain",
           "predicted_winner": "en-es:sentence-veto:report:informar:shadow",
-          "margin": -0.04005083988536806,
+          "margin": -0.03176356209905906,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -1403,7 +1397,7 @@
           "gold_decision": "replace",
           "predicted_decision": "replace",
           "predicted_winner": "en-es:sentence-veto:trip:viaje:active",
-          "margin": 0.01302896314977231,
+          "margin": 0.022669212986640264,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -1411,9 +1405,9 @@
           "case_id": "en-es:sentence-veto:trip:002",
           "family_id": "en-es:sentence-veto:trip:viaje",
           "gold_decision": "replace",
-          "predicted_decision": "replace",
-          "predicted_winner": "en-es:sentence-veto:trip:viaje:active",
-          "margin": 0.009966836534297419,
+          "predicted_decision": "abstain",
+          "predicted_winner": "en-es:sentence-veto:trip:viaje:shadow",
+          "margin": -0.05684797097262195,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -1423,7 +1417,7 @@
           "gold_decision": "abstain",
           "predicted_decision": "replace",
           "predicted_winner": "en-es:sentence-veto:play:obra:active",
-          "margin": 0.06544672758784187,
+          "margin": 0.06544671589243639,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -1433,7 +1427,7 @@
           "gold_decision": "abstain",
           "predicted_decision": "abstain",
           "predicted_winner": "en-es:sentence-veto:watch:vigilar:shadow",
-          "margin": -0.06748755850711285,
+          "margin": -0.06748759941541549,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -1443,7 +1437,7 @@
           "gold_decision": "replace",
           "predicted_decision": "abstain",
           "predicted_winner": "en-es:sentence-veto:play:jugar:shadow",
-          "margin": -0.029500865738202875,
+          "margin": -0.029500858832330723,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         }
@@ -1463,11 +1457,11 @@
         "gold_active_winner_cases": 16,
         "gold_shadow_winner_cases": 16,
         "gold_none_cases": 8,
-        "predicted_replace_cases": 9,
-        "predicted_abstain_cases": 31,
+        "predicted_replace_cases": 11,
+        "predicted_abstain_cases": 29,
         "true_replace_count": 8,
-        "true_abstain_count": 23,
-        "harmful_replace_count": 1,
+        "true_abstain_count": 21,
+        "harmful_replace_count": 3,
         "false_abstain_count": 8,
         "winner_labeled_cases": 32,
         "winner_correct_count": 24,
@@ -1476,45 +1470,50 @@
         "phrase_preemption_hit_count": 1,
         "phrase_preemption_correct_abstain_count": 1,
         "phrase_preemption_harmful_block_count": 0,
-        "active_rescue_applied_count": 2,
-        "active_rescue_correct_replace_count": 2,
+        "active_rescue_applied_count": 1,
+        "active_rescue_correct_replace_count": 1,
         "active_rescue_harmful_replace_count": 0,
-        "decision_accuracy": 0.775,
-        "replace_precision": 0.8888888888888888,
+        "decision_accuracy": 0.725,
+        "replace_precision": 0.7272727272727273,
         "replace_recall": 0.5,
-        "harmful_replace_rate": 0.041666666666666664,
+        "harmful_replace_rate": 0.125,
         "false_abstain_rate": 0.5,
         "winner_accuracy": 0.75,
         "shadow_winner_accuracy": 1.0,
-        "predicted_replace_rate": 0.225,
+        "predicted_replace_rate": 0.275,
         "phrase_preemption_hit_rate": 0.025,
         "phrase_preemption_precision": 1.0,
-        "active_rescue_applied_rate": 0.05,
+        "active_rescue_applied_rate": 0.025,
         "active_rescue_precision": 1.0
       },
       "harmful_replace_case_ids": [
-        "en-es:sentence-veto:play:005"
+        "en-es:sentence-veto:play:005",
+        "en-es:sentence-veto:order:005",
+        "en-es:sentence-veto:report:005"
       ],
       "false_abstain_case_ids": [
         "en-es:sentence-veto:plant:002",
         "en-es:sentence-veto:drink:001",
+        "en-es:sentence-veto:drink:002",
         "en-es:sentence-veto:play:002",
         "en-es:sentence-veto:check:002",
-        "en-es:sentence-veto:order:002",
         "en-es:sentence-veto:trip:002",
         "en-es:sentence-veto:report:001",
         "en-es:sentence-veto:report:002"
       ],
       "fixed_false_abstain_case_ids": [
-        "en-es:sentence-veto:drink:002"
+        "en-es:sentence-veto:order:002"
       ],
       "introduced_false_abstain_case_ids": [
         "en-es:sentence-veto:drink:001"
       ],
       "fixed_harmful_replace_case_ids": [],
-      "introduced_harmful_replace_case_ids": [],
+      "introduced_harmful_replace_case_ids": [
+        "en-es:sentence-veto:order:005",
+        "en-es:sentence-veto:report:005"
+      ],
       "fixed_target_case_ids": [
-        "en-es:sentence-veto:drink:002"
+        "en-es:sentence-veto:order:002"
       ],
       "introduced_target_false_abstain_case_ids": [
         "en-es:sentence-veto:drink:001"
@@ -1526,7 +1525,7 @@
           "gold_decision": "replace",
           "predicted_decision": "replace",
           "predicted_winner": "en-es:sentence-veto:check:cheque:active",
-          "margin": 0.1066671326091102,
+          "margin": 0.1226144787134753,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -1536,7 +1535,7 @@
           "gold_decision": "replace",
           "predicted_decision": "abstain",
           "predicted_winner": "en-es:sentence-veto:check:revisar:shadow",
-          "margin": -0.05891116736477031,
+          "margin": -0.05211985667816221,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -1546,7 +1545,7 @@
           "gold_decision": "replace",
           "predicted_decision": "abstain",
           "predicted_winner": "en-es:sentence-veto:drink:beber:shadow",
-          "margin": -0.045177449337721276,
+          "margin": -0.03571204696724117,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -1554,11 +1553,11 @@
           "case_id": "en-es:sentence-veto:drink:002",
           "family_id": "en-es:sentence-veto:drink:bebida",
           "gold_decision": "replace",
-          "predicted_decision": "replace",
-          "predicted_winner": "en-es:sentence-veto:drink:bebida:active",
-          "margin": -0.002725219705775217,
+          "predicted_decision": "abstain",
+          "predicted_winner": "en-es:sentence-veto:drink:beber:shadow",
+          "margin": -0.03222362001890766,
           "phrase_preemption_hit": false,
-          "active_rescue_applied": true
+          "active_rescue_applied": false
         },
         {
           "case_id": "en-es:sentence-veto:order:001",
@@ -1566,7 +1565,7 @@
           "gold_decision": "replace",
           "predicted_decision": "replace",
           "predicted_winner": "en-es:sentence-veto:order:pedido:active",
-          "margin": 0.06499616776256634,
+          "margin": 0.11758634924946432,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -1574,9 +1573,9 @@
           "case_id": "en-es:sentence-veto:order:002",
           "family_id": "en-es:sentence-veto:order:pedido",
           "gold_decision": "replace",
-          "predicted_decision": "abstain",
-          "predicted_winner": "en-es:sentence-veto:order:ordenar:shadow",
-          "margin": -0.002820904575807859,
+          "predicted_decision": "replace",
+          "predicted_winner": "en-es:sentence-veto:order:pedido:active",
+          "margin": 0.019426769490869966,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -1586,7 +1585,7 @@
           "gold_decision": "replace",
           "predicted_decision": "replace",
           "predicted_winner": "en-es:sentence-veto:plant:planta:active",
-          "margin": 0.01815473997470074,
+          "margin": 0.04336672410425402,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -1596,7 +1595,7 @@
           "gold_decision": "replace",
           "predicted_decision": "abstain",
           "predicted_winner": "en-es:sentence-veto:plant:fabrica:shadow",
-          "margin": -0.06350549615310386,
+          "margin": -0.0256371741783209,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -1606,7 +1605,7 @@
           "gold_decision": "replace",
           "predicted_decision": "abstain",
           "predicted_winner": "en-es:sentence-veto:report:informar:shadow",
-          "margin": -0.032579810188966496,
+          "margin": -0.055515453925430225,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -1616,7 +1615,7 @@
           "gold_decision": "replace",
           "predicted_decision": "abstain",
           "predicted_winner": "en-es:sentence-veto:report:informar:shadow",
-          "margin": -0.05279505363160808,
+          "margin": -0.05448291531738114,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -1626,7 +1625,7 @@
           "gold_decision": "replace",
           "predicted_decision": "replace",
           "predicted_winner": "en-es:sentence-veto:trip:viaje:active",
-          "margin": 0.012822141080734761,
+          "margin": 0.02299009654002815,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -1636,7 +1635,7 @@
           "gold_decision": "replace",
           "predicted_decision": "abstain",
           "predicted_winner": "en-es:sentence-veto:trip:viaje:shadow",
-          "margin": -0.001952333030984743,
+          "margin": -0.04354170792789014,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -2133,8 +2132,8 @@
         "phrase_preemption_hit_count": 12,
         "phrase_preemption_correct_abstain_count": 12,
         "phrase_preemption_harmful_block_count": 0,
-        "active_rescue_applied_count": 2,
-        "active_rescue_correct_replace_count": 2,
+        "active_rescue_applied_count": 1,
+        "active_rescue_correct_replace_count": 1,
         "active_rescue_harmful_replace_count": 0,
         "decision_accuracy": 0.8,
         "replace_precision": 1.0,
@@ -2146,22 +2145,22 @@
         "predicted_replace_rate": 0.2,
         "phrase_preemption_hit_rate": 0.3,
         "phrase_preemption_precision": 1.0,
-        "active_rescue_applied_rate": 0.05,
+        "active_rescue_applied_rate": 0.025,
         "active_rescue_precision": 1.0
       },
       "harmful_replace_case_ids": [],
       "false_abstain_case_ids": [
         "en-es:sentence-veto:plant:002",
         "en-es:sentence-veto:drink:001",
+        "en-es:sentence-veto:drink:002",
         "en-es:sentence-veto:play:002",
         "en-es:sentence-veto:check:002",
-        "en-es:sentence-veto:order:002",
         "en-es:sentence-veto:trip:002",
         "en-es:sentence-veto:report:001",
         "en-es:sentence-veto:report:002"
       ],
       "fixed_false_abstain_case_ids": [
-        "en-es:sentence-veto:drink:002"
+        "en-es:sentence-veto:order:002"
       ],
       "introduced_false_abstain_case_ids": [
         "en-es:sentence-veto:drink:001"
@@ -2169,7 +2168,7 @@
       "fixed_harmful_replace_case_ids": [],
       "introduced_harmful_replace_case_ids": [],
       "fixed_target_case_ids": [
-        "en-es:sentence-veto:drink:002"
+        "en-es:sentence-veto:order:002"
       ],
       "introduced_target_false_abstain_case_ids": [
         "en-es:sentence-veto:drink:001"
@@ -2181,7 +2180,7 @@
           "gold_decision": "replace",
           "predicted_decision": "replace",
           "predicted_winner": "en-es:sentence-veto:check:cheque:active",
-          "margin": 0.1066671326091102,
+          "margin": 0.1226144787134753,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -2191,7 +2190,7 @@
           "gold_decision": "replace",
           "predicted_decision": "abstain",
           "predicted_winner": "en-es:sentence-veto:check:revisar:shadow",
-          "margin": -0.05891116736477031,
+          "margin": -0.05211985667816221,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -2201,7 +2200,7 @@
           "gold_decision": "replace",
           "predicted_decision": "abstain",
           "predicted_winner": "en-es:sentence-veto:drink:beber:shadow",
-          "margin": -0.045177449337721276,
+          "margin": -0.03571204696724117,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -2209,11 +2208,11 @@
           "case_id": "en-es:sentence-veto:drink:002",
           "family_id": "en-es:sentence-veto:drink:bebida",
           "gold_decision": "replace",
-          "predicted_decision": "replace",
-          "predicted_winner": "en-es:sentence-veto:drink:bebida:active",
-          "margin": -0.002725219705775217,
+          "predicted_decision": "abstain",
+          "predicted_winner": "en-es:sentence-veto:drink:beber:shadow",
+          "margin": -0.03222362001890766,
           "phrase_preemption_hit": false,
-          "active_rescue_applied": true
+          "active_rescue_applied": false
         },
         {
           "case_id": "en-es:sentence-veto:order:001",
@@ -2221,7 +2220,7 @@
           "gold_decision": "replace",
           "predicted_decision": "replace",
           "predicted_winner": "en-es:sentence-veto:order:pedido:active",
-          "margin": 0.06499616776256634,
+          "margin": 0.11758634924946432,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -2229,9 +2228,9 @@
           "case_id": "en-es:sentence-veto:order:002",
           "family_id": "en-es:sentence-veto:order:pedido",
           "gold_decision": "replace",
-          "predicted_decision": "abstain",
-          "predicted_winner": "en-es:sentence-veto:order:ordenar:shadow",
-          "margin": -0.002820904575807859,
+          "predicted_decision": "replace",
+          "predicted_winner": "en-es:sentence-veto:order:pedido:active",
+          "margin": 0.019426769490869966,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -2241,7 +2240,7 @@
           "gold_decision": "replace",
           "predicted_decision": "replace",
           "predicted_winner": "en-es:sentence-veto:plant:planta:active",
-          "margin": 0.01815473997470074,
+          "margin": 0.04336672410425402,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -2251,7 +2250,7 @@
           "gold_decision": "replace",
           "predicted_decision": "abstain",
           "predicted_winner": "en-es:sentence-veto:plant:fabrica:shadow",
-          "margin": -0.06350549615310386,
+          "margin": -0.0256371741783209,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -2261,7 +2260,7 @@
           "gold_decision": "replace",
           "predicted_decision": "abstain",
           "predicted_winner": "en-es:sentence-veto:report:informar:shadow",
-          "margin": -0.032579810188966496,
+          "margin": -0.055515453925430225,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -2271,7 +2270,7 @@
           "gold_decision": "replace",
           "predicted_decision": "abstain",
           "predicted_winner": "en-es:sentence-veto:report:informar:shadow",
-          "margin": -0.05279505363160808,
+          "margin": -0.05448291531738114,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -2281,7 +2280,7 @@
           "gold_decision": "replace",
           "predicted_decision": "replace",
           "predicted_winner": "en-es:sentence-veto:trip:viaje:active",
-          "margin": 0.012822141080734761,
+          "margin": 0.02299009654002815,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -2291,7 +2290,7 @@
           "gold_decision": "replace",
           "predicted_decision": "abstain",
           "predicted_winner": "en-es:sentence-veto:trip:viaje:shadow",
-          "margin": -0.001952333030984743,
+          "margin": -0.04354170792789014,
           "phrase_preemption_hit": false,
           "active_rescue_applied": false
         },
@@ -2328,5 +2327,5 @@
       ]
     }
   ],
-  "recommendation": "`Hard LLM cue plus all evidence` is not yet promotion-ready on the frozen queue slice. On the hard reference it stays at `1` harmful and `8` false abstains against the baseline `1` / `8`, fixing `en-es:sentence-veto:drink:002` but introducing `en-es:sentence-veto:drink:001`. The active-sense overlay lane is also flat at `8` false abstains versus the overlay baseline `8` and still behind the reverse-aux control (`6` hard false abstains, `6` overlay false abstains). `Hard LLM cue plus gloss` shows some signal, but it widens harmful replace to `3` while only reducing false abstains to `6`."
+  "recommendation": "`Hard LLM cue plus all evidence` is not yet promotion-ready on the frozen queue slice. On the hard reference it stays at `3` harmful and `8` false abstains against the baseline `1` / `8`, fixing `en-es:sentence-veto:order:002` but introducing `en-es:sentence-veto:drink:001`. The active-sense overlay lane is also flat at `8` false abstains versus the overlay baseline `8` and still behind the reverse-aux control (`6` hard false abstains, `6` overlay false abstains). `Hard LLM cue plus gloss` shows some signal, but it widens harmful replace to `5` while only reducing false abstains to `8`."
 }

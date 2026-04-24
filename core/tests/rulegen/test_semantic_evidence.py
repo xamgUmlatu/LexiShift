@@ -117,6 +117,81 @@ class TestSemanticEvidence(unittest.TestCase):
         self.assertEqual(row["linkage_status"], "unlinked")
         self.assertEqual(row["relation_type"], "anchor_cue")
 
+    def test_normalize_llm_intake_batch_accepts_phrase_control_examples(self) -> None:
+        normalized = normalize_llm_intake_batch(
+            {
+                "schema_version": 1,
+                "batch_id": "llm-en-es-phrase-001",
+                "pair": "en-es",
+                "source_type": "llm",
+                "source_id": "llm_example_frame_source",
+                "source_family": "silver_llm_generation",
+                "roles": ["discrimination", "phrase_containment"],
+                "generated_at": "2026-04-25T10:00:00Z",
+                "ingested_at": "2026-04-25T10:05:00Z",
+                "review_state": "unreviewed",
+                "model_id": "gpt-5.4",
+                "prompt_version": "example-frames-v1",
+                "items": [
+                    {
+                        "row_id": "phrase-row-1",
+                        "relation_type": "phrase_control_example",
+                        "trigger": "ball",
+                        "active_target": "pelota",
+                        "candidate_target": "phrase_control",
+                        "evidence_text": "The ball is in your court now.",
+                        "metadata": {
+                            "gold_decision": "abstain",
+                            "frame_kind": "idiom",
+                        },
+                    }
+                ],
+            }
+        )
+
+        row = normalized["rows"][0]
+        self.assertEqual(row["relation_type"], "phrase_control_example")
+        self.assertEqual(row["roles"], ["discrimination", "phrase_containment"])
+        self.assertEqual(row["normalized_candidate_target"], "phrase_control")
+        self.assertFalse(row["runtime_publishable"])
+
+    def test_normalize_llm_intake_batch_accepts_external_source_families(self) -> None:
+        normalized = normalize_llm_intake_batch(
+            {
+                "schema_version": 1,
+                "batch_id": "external-en-es-reverse-aux-001",
+                "pair": "en-es",
+                "source_type": "external",
+                "source_id": "reverse_aux_example_frames",
+                "source_family": "installed_translation_pack",
+                "roles": ["discrimination"],
+                "generated_at": "2026-04-25T10:00:00Z",
+                "ingested_at": "2026-04-25T10:05:00Z",
+                "review_state": "unreviewed",
+                "model_id": "not_applicable",
+                "prompt_version": "reverse-aux-example-frames-v1",
+                "items": [
+                    {
+                        "row_id": "reverse-aux-shadow-row-1",
+                        "relation_type": "shadow_candidate",
+                        "trigger": "order",
+                        "active_target": "pedido",
+                        "candidate_target": "ordenar",
+                        "candidate_pos": "verb",
+                        "evidence_text": "to set in any order",
+                        "metadata": {"family_id": "fam:order"},
+                    }
+                ],
+            }
+        )
+
+        row = normalized["rows"][0]
+        self.assertEqual(normalized["source_type"], "external")
+        self.assertEqual(normalized["source_family"], "installed_translation_pack")
+        self.assertEqual(row["source_type"], "external")
+        self.assertEqual(row["source_family"], "installed_translation_pack")
+        self.assertFalse(row["runtime_publishable"])
+
     def test_normalize_llm_intake_batch_rejects_pair_mismatch(self) -> None:
         with self.assertRaisesRegex(ValueError, "does not match batch pair"):
             normalize_llm_intake_batch(

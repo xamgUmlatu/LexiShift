@@ -7,6 +7,7 @@ import importlib.util
 import json
 import os
 from pathlib import Path
+import shlex
 import subprocess
 import sys
 from typing import Mapping, Sequence
@@ -151,6 +152,11 @@ def build_prompt_preflight_report(
         current_shell_ready=current_shell_ready,
         sourced_shell_ready=sourced_shell_ready,
         selected_request_count=len(selected_request_rows),
+        selected_request_ids=[
+            str(row.get("request_id") or "").strip()
+            for row in selected_request_rows
+            if str(row.get("request_id") or "").strip()
+        ],
     )
 
     report = {
@@ -297,18 +303,42 @@ def _build_live_command(
     current_shell_ready: bool,
     sourced_shell_ready: bool,
     selected_request_count: int,
+    selected_request_ids: Sequence[str],
 ) -> str:
-    base = (
-        f"PYTHONPATH=apps/gui/src:core .venv/bin/python scripts/testing/semantic_llm_prompt_bakeoff_en_es.py --stage {stage} --execute-live "
-        "--run-id <RUN_ID> "
-        f"--require-selected-request-count {selected_request_count} "
-        "--input-rate-per-1m <INPUT_RATE> "
-        "--output-rate-per-1m <OUTPUT_RATE> "
-        "--max-estimated-cost-ceiling-usd <USD_CAP>"
+    base_parts = [
+        "PYTHONPATH=apps/gui/src:core",
+        ".venv/bin/python",
+        "scripts/testing/semantic_llm_prompt_bakeoff_en_es.py",
+        "--stage",
+        stage,
+        "--execute-live",
+    ]
+    for request_id in selected_request_ids:
+        base_parts.extend(["--request-id", request_id])
+    base_parts.extend(
+        [
+            "--run-id",
+            "<RUN_ID>",
+            "--require-selected-request-count",
+            str(selected_request_count),
+            "--input-rate-per-1m",
+            "<INPUT_RATE>",
+            "--output-rate-per-1m",
+            "<OUTPUT_RATE>",
+            "--max-estimated-cost-ceiling-usd",
+            "<USD_CAP>",
+        ]
     )
+    base = " ".join(_quote_command_part(part) for part in base_parts)
     if current_shell_ready or not sourced_shell_ready:
         return base
-    return f"zsh -lc 'source {shell_rc} >/dev/null 2>&1; {base}'"
+    return f"zsh -lc {shlex.quote(f'source {shell_rc} >/dev/null 2>&1; {base}')}"
+
+
+def _quote_command_part(value: str) -> str:
+    if value.startswith("<") and value.endswith(">"):
+        return value
+    return shlex.quote(value)
 
 
 def main() -> int:

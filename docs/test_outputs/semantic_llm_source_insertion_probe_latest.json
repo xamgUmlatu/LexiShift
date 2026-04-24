@@ -1,0 +1,2429 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-04-24T19:26:57Z",
+  "status": "ok",
+  "pair": "en-es",
+  "queue_id": "semantic_prompt_bakeoff_en_es_v10",
+  "dataset_id": "en_es_sentence_veto_v10",
+  "scorer_id": "sentence_transformer_cosine",
+  "min_active_score": 0.0,
+  "min_margin": 0.0,
+  "resource_status": {
+    "data_root": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift",
+    "reverse_pack": {
+      "path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-en-es.sqlite",
+      "exists": true,
+      "provider": "wiktionary",
+      "pack_id": "wiktionary_en_es",
+      "direction": "reverse"
+    },
+    "missing_resources": []
+  },
+  "llm_batch": {
+    "batch_id": "en-es:target:prompt-target-overlap-v3-20260425a",
+    "source_id": "semantic_prompt_bakeoff_en_es_v10:target",
+    "prompt_version": "semantic_prompt_bakeoff_v3",
+    "model_id": "gpt-5.4",
+    "generated_at": "2026-04-24T18:13:41Z",
+    "review_state": "unreviewed",
+    "row_count": 6,
+    "runtime_publishable_count": 0,
+    "distinct_review_states": [
+      "unreviewed"
+    ],
+    "unmatched_row_ids": []
+  },
+  "coverage_rows": [
+    {
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "role": "target",
+      "trigger": "plant",
+      "active_target": "planta",
+      "llm_cue_ready": true,
+      "llm_cue_row_count": 1,
+      "sample_llm_cue_texts": [
+        "green leaves, roots in soil"
+      ],
+      "prompt_slots": [
+        "cue_contrastive_overlap_v1"
+      ],
+      "review_states": [
+        "unreviewed"
+      ],
+      "runtime_publishable_count": 0
+    },
+    {
+      "family_id": "en-es:sentence-veto:drink:bebida",
+      "role": "target",
+      "trigger": "drink",
+      "active_target": "bebida",
+      "llm_cue_ready": true,
+      "llm_cue_row_count": 1,
+      "sample_llm_cue_texts": [
+        "soft drink, alcoholic beverage, hot drink"
+      ],
+      "prompt_slots": [
+        "cue_contrastive_overlap_v1"
+      ],
+      "review_states": [
+        "unreviewed"
+      ],
+      "runtime_publishable_count": 0
+    },
+    {
+      "family_id": "en-es:sentence-veto:play:obra",
+      "role": "negative_control",
+      "trigger": "play",
+      "active_target": "obra",
+      "llm_cue_ready": false,
+      "llm_cue_row_count": 0,
+      "sample_llm_cue_texts": [],
+      "prompt_slots": [],
+      "review_states": [],
+      "runtime_publishable_count": 0
+    },
+    {
+      "family_id": "en-es:sentence-veto:watch:reloj",
+      "role": "negative_control",
+      "trigger": "watch",
+      "active_target": "reloj",
+      "llm_cue_ready": false,
+      "llm_cue_row_count": 0,
+      "sample_llm_cue_texts": [],
+      "prompt_slots": [],
+      "review_states": [],
+      "runtime_publishable_count": 0
+    },
+    {
+      "family_id": "en-es:sentence-veto:check:cheque",
+      "role": "target",
+      "trigger": "check",
+      "active_target": "cheque",
+      "llm_cue_ready": true,
+      "llm_cue_row_count": 1,
+      "sample_llm_cue_texts": [
+        "write a check to pay the rent"
+      ],
+      "prompt_slots": [
+        "cue_cross_pos_overlap_v1"
+      ],
+      "review_states": [
+        "unreviewed"
+      ],
+      "runtime_publishable_count": 0
+    },
+    {
+      "family_id": "en-es:sentence-veto:order:pedido",
+      "role": "target",
+      "trigger": "order",
+      "active_target": "pedido",
+      "llm_cue_ready": true,
+      "llm_cue_row_count": 1,
+      "sample_llm_cue_texts": [
+        "place an order for delivery today"
+      ],
+      "prompt_slots": [
+        "cue_cross_pos_overlap_v1"
+      ],
+      "review_states": [
+        "unreviewed"
+      ],
+      "runtime_publishable_count": 0
+    },
+    {
+      "family_id": "en-es:sentence-veto:trip:viaje",
+      "role": "target",
+      "trigger": "trip",
+      "active_target": "viaje",
+      "llm_cue_ready": true,
+      "llm_cue_row_count": 1,
+      "sample_llm_cue_texts": [
+        "booked a short trip to Madrid"
+      ],
+      "prompt_slots": [
+        "cue_cross_pos_overlap_v1"
+      ],
+      "review_states": [
+        "unreviewed"
+      ],
+      "runtime_publishable_count": 0
+    },
+    {
+      "family_id": "en-es:sentence-veto:report:informe",
+      "role": "target",
+      "trigger": "report",
+      "active_target": "informe",
+      "llm_cue_ready": true,
+      "llm_cue_row_count": 1,
+      "sample_llm_cue_texts": [
+        "the final report on findings and results"
+      ],
+      "prompt_slots": [
+        "cue_cross_pos_overlap_v1"
+      ],
+      "review_states": [
+        "unreviewed"
+      ],
+      "runtime_publishable_count": 0
+    }
+  ],
+  "reverse_aux_coverage_rows": [
+    {
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "role": "target",
+      "trigger": "plant",
+      "active_target": "planta",
+      "active_aux_ready": true,
+      "shadow_aux_count": 0,
+      "shadow_count": 1,
+      "sample_active_aux_text": "organism capable of photosynthesis",
+      "sample_shadow_aux_texts": []
+    },
+    {
+      "family_id": "en-es:sentence-veto:drink:bebida",
+      "role": "target",
+      "trigger": "drink",
+      "active_target": "bebida",
+      "active_aux_ready": true,
+      "shadow_aux_count": 1,
+      "shadow_count": 1,
+      "sample_active_aux_text": "served beverage",
+      "sample_shadow_aux_texts": [
+        "consume liquid through the mouth"
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:play:obra",
+      "role": "negative_control",
+      "trigger": "play",
+      "active_target": "obra",
+      "active_aux_ready": false,
+      "shadow_aux_count": 1,
+      "shadow_count": 1,
+      "sample_active_aux_text": "",
+      "sample_shadow_aux_texts": [
+        "act in a manner such that one has fun"
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:watch:reloj",
+      "role": "negative_control",
+      "trigger": "watch",
+      "active_target": "reloj",
+      "active_aux_ready": true,
+      "shadow_aux_count": 1,
+      "shadow_count": 1,
+      "sample_active_aux_text": "portable or wearable timepiece",
+      "sample_shadow_aux_texts": [
+        "to attend or guard"
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:check:cheque",
+      "role": "target",
+      "trigger": "check",
+      "active_target": "cheque",
+      "active_aux_ready": true,
+      "shadow_aux_count": 0,
+      "shadow_count": 1,
+      "sample_active_aux_text": "mark used as an indicator",
+      "sample_shadow_aux_texts": []
+    },
+    {
+      "family_id": "en-es:sentence-veto:order:pedido",
+      "role": "target",
+      "trigger": "order",
+      "active_target": "pedido",
+      "active_aux_ready": true,
+      "shadow_aux_count": 1,
+      "shadow_count": 1,
+      "sample_active_aux_text": "request for some product or service",
+      "sample_shadow_aux_texts": [
+        "to set in (any) order"
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:trip:viaje",
+      "role": "target",
+      "trigger": "trip",
+      "active_target": "viaje",
+      "active_aux_ready": true,
+      "shadow_aux_count": 1,
+      "shadow_count": 1,
+      "sample_active_aux_text": "journey",
+      "sample_shadow_aux_texts": [
+        "stumble or misstep"
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:report:informe",
+      "role": "target",
+      "trigger": "report",
+      "active_target": "informe",
+      "active_aux_ready": true,
+      "shadow_aux_count": 1,
+      "shadow_count": 1,
+      "sample_active_aux_text": "information describing events",
+      "sample_shadow_aux_texts": [
+        "to relate details of"
+      ]
+    }
+  ],
+  "reviewed_frame_coverage_rows": [
+    {
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "trigger": "plant",
+      "active_target": "planta",
+      "active_example_count": 2,
+      "shadow_example_counts": [
+        2
+      ],
+      "sample_active_examples": [
+        "She watered the ___ on the windowsill.",
+        "The ___ needs more sunlight in the afternoon."
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:drink:bebida",
+      "trigger": "drink",
+      "active_target": "bebida",
+      "active_example_count": 2,
+      "shadow_example_counts": [
+        2
+      ],
+      "sample_active_examples": [
+        "They enjoyed a ___ after dinner.",
+        "I ordered a ___ at the bar."
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:play:obra",
+      "trigger": "play",
+      "active_target": "obra",
+      "active_example_count": 2,
+      "shadow_example_counts": [
+        2
+      ],
+      "sample_active_examples": [
+        "They praised the ___ in reviews.",
+        "The ___ opened last night."
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:watch:reloj",
+      "trigger": "watch",
+      "active_target": "reloj",
+      "active_example_count": 2,
+      "shadow_example_counts": [
+        2
+      ],
+      "sample_active_examples": [
+        "He adjusted his ___ strap before the interview.",
+        "The ___ needed a new battery after the trip."
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:check:cheque",
+      "trigger": "check",
+      "active_target": "cheque",
+      "active_example_count": 2,
+      "shadow_example_counts": [
+        2
+      ],
+      "sample_active_examples": [
+        "He signed the ___ before mailing the rent.",
+        "The ___ cleared after the holiday weekend."
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:order:pedido",
+      "trigger": "order",
+      "active_target": "pedido",
+      "active_example_count": 2,
+      "shadow_example_counts": [
+        2
+      ],
+      "sample_active_examples": [
+        "The ___ shipped this morning.",
+        "Your ___ arrived before noon."
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:trip:viaje",
+      "trigger": "trip",
+      "active_target": "viaje",
+      "active_example_count": 2,
+      "shadow_example_counts": [
+        2
+      ],
+      "sample_active_examples": [
+        "The ___ lasted only two days.",
+        "Their ___ ended before sunrise."
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:report:informe",
+      "trigger": "report",
+      "active_target": "informe",
+      "active_example_count": 2,
+      "shadow_example_counts": [
+        2
+      ],
+      "sample_active_examples": [
+        "The ___ arrived this morning.",
+        "The ___ was delayed until Friday."
+      ]
+    }
+  ],
+  "configurations": [
+    {
+      "config_id": "hard_current_default",
+      "label": "Hard current default runtime row",
+      "baseline_config_id": "hard_current_default",
+      "category": "baseline",
+      "evidence_view": "all_evidence_text",
+      "phrase_guard_pos_scope": "family_all",
+      "summary": {
+        "cases_total": 40,
+        "gold_replace_cases": 16,
+        "gold_abstain_cases": 24,
+        "gold_active_winner_cases": 16,
+        "gold_shadow_winner_cases": 16,
+        "gold_none_cases": 8,
+        "predicted_replace_cases": 9,
+        "predicted_abstain_cases": 31,
+        "true_replace_count": 8,
+        "true_abstain_count": 23,
+        "harmful_replace_count": 1,
+        "false_abstain_count": 8,
+        "winner_labeled_cases": 32,
+        "winner_correct_count": 24,
+        "shadow_winner_labeled_cases": 16,
+        "shadow_winner_correct_count": 16,
+        "phrase_preemption_hit_count": 1,
+        "phrase_preemption_correct_abstain_count": 1,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 2,
+        "active_rescue_correct_replace_count": 2,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.775,
+        "replace_precision": 0.8888888888888888,
+        "replace_recall": 0.5,
+        "harmful_replace_rate": 0.041666666666666664,
+        "false_abstain_rate": 0.5,
+        "winner_accuracy": 0.75,
+        "shadow_winner_accuracy": 1.0,
+        "predicted_replace_rate": 0.225,
+        "phrase_preemption_hit_rate": 0.025,
+        "phrase_preemption_precision": 1.0,
+        "active_rescue_applied_rate": 0.05,
+        "active_rescue_precision": 1.0
+      },
+      "harmful_replace_case_ids": [
+        "en-es:sentence-veto:play:005"
+      ],
+      "false_abstain_case_ids": [
+        "en-es:sentence-veto:plant:002",
+        "en-es:sentence-veto:drink:002",
+        "en-es:sentence-veto:play:002",
+        "en-es:sentence-veto:check:002",
+        "en-es:sentence-veto:order:002",
+        "en-es:sentence-veto:trip:002",
+        "en-es:sentence-veto:report:001",
+        "en-es:sentence-veto:report:002"
+      ],
+      "fixed_false_abstain_case_ids": [],
+      "introduced_false_abstain_case_ids": [],
+      "fixed_harmful_replace_case_ids": [],
+      "introduced_harmful_replace_case_ids": []
+    },
+    {
+      "config_id": "hard_reverse_aux_active_only",
+      "label": "Hard reverse aux active-only",
+      "baseline_config_id": "hard_current_default",
+      "category": "source_ablation",
+      "evidence_view": "reverse_aux_plus_all_evidence",
+      "phrase_guard_pos_scope": "family_all",
+      "summary": {
+        "cases_total": 40,
+        "gold_replace_cases": 16,
+        "gold_abstain_cases": 24,
+        "gold_active_winner_cases": 16,
+        "gold_shadow_winner_cases": 16,
+        "gold_none_cases": 8,
+        "predicted_replace_cases": 10,
+        "predicted_abstain_cases": 30,
+        "true_replace_count": 9,
+        "true_abstain_count": 23,
+        "harmful_replace_count": 1,
+        "false_abstain_count": 7,
+        "winner_labeled_cases": 32,
+        "winner_correct_count": 25,
+        "shadow_winner_labeled_cases": 16,
+        "shadow_winner_correct_count": 16,
+        "phrase_preemption_hit_count": 1,
+        "phrase_preemption_correct_abstain_count": 1,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 1,
+        "active_rescue_correct_replace_count": 1,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.8,
+        "replace_precision": 0.9,
+        "replace_recall": 0.5625,
+        "harmful_replace_rate": 0.041666666666666664,
+        "false_abstain_rate": 0.4375,
+        "winner_accuracy": 0.78125,
+        "shadow_winner_accuracy": 1.0,
+        "predicted_replace_rate": 0.25,
+        "phrase_preemption_hit_rate": 0.025,
+        "phrase_preemption_precision": 1.0,
+        "active_rescue_applied_rate": 0.025,
+        "active_rescue_precision": 1.0
+      },
+      "harmful_replace_case_ids": [
+        "en-es:sentence-veto:play:005"
+      ],
+      "false_abstain_case_ids": [
+        "en-es:sentence-veto:play:002",
+        "en-es:sentence-veto:watch:001",
+        "en-es:sentence-veto:check:002",
+        "en-es:sentence-veto:order:002",
+        "en-es:sentence-veto:trip:002",
+        "en-es:sentence-veto:report:001",
+        "en-es:sentence-veto:report:002"
+      ],
+      "fixed_false_abstain_case_ids": [
+        "en-es:sentence-veto:drink:002",
+        "en-es:sentence-veto:plant:002"
+      ],
+      "introduced_false_abstain_case_ids": [
+        "en-es:sentence-veto:watch:001"
+      ],
+      "fixed_harmful_replace_case_ids": [],
+      "introduced_harmful_replace_case_ids": []
+    },
+    {
+      "config_id": "hard_reverse_aux_shadow_only",
+      "label": "Hard reverse aux shadow-only",
+      "baseline_config_id": "hard_current_default",
+      "category": "source_ablation",
+      "evidence_view": "reverse_aux_plus_all_evidence",
+      "phrase_guard_pos_scope": "family_all",
+      "summary": {
+        "cases_total": 40,
+        "gold_replace_cases": 16,
+        "gold_abstain_cases": 24,
+        "gold_active_winner_cases": 16,
+        "gold_shadow_winner_cases": 16,
+        "gold_none_cases": 8,
+        "predicted_replace_cases": 11,
+        "predicted_abstain_cases": 29,
+        "true_replace_count": 9,
+        "true_abstain_count": 22,
+        "harmful_replace_count": 2,
+        "false_abstain_count": 7,
+        "winner_labeled_cases": 32,
+        "winner_correct_count": 25,
+        "shadow_winner_labeled_cases": 16,
+        "shadow_winner_correct_count": 16,
+        "phrase_preemption_hit_count": 1,
+        "phrase_preemption_correct_abstain_count": 1,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 2,
+        "active_rescue_correct_replace_count": 2,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.775,
+        "replace_precision": 0.8181818181818182,
+        "replace_recall": 0.5625,
+        "harmful_replace_rate": 0.08333333333333333,
+        "false_abstain_rate": 0.4375,
+        "winner_accuracy": 0.78125,
+        "shadow_winner_accuracy": 1.0,
+        "predicted_replace_rate": 0.275,
+        "phrase_preemption_hit_rate": 0.025,
+        "phrase_preemption_precision": 1.0,
+        "active_rescue_applied_rate": 0.05,
+        "active_rescue_precision": 1.0
+      },
+      "harmful_replace_case_ids": [
+        "en-es:sentence-veto:play:005",
+        "en-es:sentence-veto:report:005"
+      ],
+      "false_abstain_case_ids": [
+        "en-es:sentence-veto:plant:002",
+        "en-es:sentence-veto:play:002",
+        "en-es:sentence-veto:watch:001",
+        "en-es:sentence-veto:check:002",
+        "en-es:sentence-veto:trip:002",
+        "en-es:sentence-veto:report:001",
+        "en-es:sentence-veto:report:002"
+      ],
+      "fixed_false_abstain_case_ids": [
+        "en-es:sentence-veto:drink:002",
+        "en-es:sentence-veto:order:002"
+      ],
+      "introduced_false_abstain_case_ids": [
+        "en-es:sentence-veto:watch:001"
+      ],
+      "fixed_harmful_replace_case_ids": [],
+      "introduced_harmful_replace_case_ids": [
+        "en-es:sentence-veto:report:005"
+      ]
+    },
+    {
+      "config_id": "hard_reverse_aux_symmetric",
+      "label": "Hard reverse aux symmetric",
+      "baseline_config_id": "hard_current_default",
+      "category": "source_control",
+      "evidence_view": "reverse_aux_plus_all_evidence",
+      "phrase_guard_pos_scope": "family_all",
+      "summary": {
+        "cases_total": 40,
+        "gold_replace_cases": 16,
+        "gold_abstain_cases": 24,
+        "gold_active_winner_cases": 16,
+        "gold_shadow_winner_cases": 16,
+        "gold_none_cases": 8,
+        "predicted_replace_cases": 11,
+        "predicted_abstain_cases": 29,
+        "true_replace_count": 10,
+        "true_abstain_count": 23,
+        "harmful_replace_count": 1,
+        "false_abstain_count": 6,
+        "winner_labeled_cases": 32,
+        "winner_correct_count": 26,
+        "shadow_winner_labeled_cases": 16,
+        "shadow_winner_correct_count": 16,
+        "phrase_preemption_hit_count": 1,
+        "phrase_preemption_correct_abstain_count": 1,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 1,
+        "active_rescue_correct_replace_count": 1,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.825,
+        "replace_precision": 0.9090909090909091,
+        "replace_recall": 0.625,
+        "harmful_replace_rate": 0.041666666666666664,
+        "false_abstain_rate": 0.375,
+        "winner_accuracy": 0.8125,
+        "shadow_winner_accuracy": 1.0,
+        "predicted_replace_rate": 0.275,
+        "phrase_preemption_hit_rate": 0.025,
+        "phrase_preemption_precision": 1.0,
+        "active_rescue_applied_rate": 0.025,
+        "active_rescue_precision": 1.0
+      },
+      "harmful_replace_case_ids": [
+        "en-es:sentence-veto:play:005"
+      ],
+      "false_abstain_case_ids": [
+        "en-es:sentence-veto:play:002",
+        "en-es:sentence-veto:watch:001",
+        "en-es:sentence-veto:check:002",
+        "en-es:sentence-veto:trip:002",
+        "en-es:sentence-veto:report:001",
+        "en-es:sentence-veto:report:002"
+      ],
+      "fixed_false_abstain_case_ids": [
+        "en-es:sentence-veto:drink:002",
+        "en-es:sentence-veto:order:002",
+        "en-es:sentence-veto:plant:002"
+      ],
+      "introduced_false_abstain_case_ids": [
+        "en-es:sentence-veto:watch:001"
+      ],
+      "fixed_harmful_replace_case_ids": [],
+      "introduced_harmful_replace_case_ids": []
+    },
+    {
+      "config_id": "hard_llm_active_base_shadow",
+      "label": "Hard LLM active cue with base shadows",
+      "baseline_config_id": "hard_current_default",
+      "category": "llm_insertion_probe",
+      "evidence_view": "llm_cue_plus_all_evidence",
+      "phrase_guard_pos_scope": "family_all",
+      "summary": {
+        "cases_total": 40,
+        "gold_replace_cases": 16,
+        "gold_abstain_cases": 24,
+        "gold_active_winner_cases": 16,
+        "gold_shadow_winner_cases": 16,
+        "gold_none_cases": 8,
+        "predicted_replace_cases": 11,
+        "predicted_abstain_cases": 29,
+        "true_replace_count": 8,
+        "true_abstain_count": 21,
+        "harmful_replace_count": 3,
+        "false_abstain_count": 8,
+        "winner_labeled_cases": 32,
+        "winner_correct_count": 24,
+        "shadow_winner_labeled_cases": 16,
+        "shadow_winner_correct_count": 16,
+        "phrase_preemption_hit_count": 1,
+        "phrase_preemption_correct_abstain_count": 1,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 1,
+        "active_rescue_correct_replace_count": 1,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.725,
+        "replace_precision": 0.7272727272727273,
+        "replace_recall": 0.5,
+        "harmful_replace_rate": 0.125,
+        "false_abstain_rate": 0.5,
+        "winner_accuracy": 0.75,
+        "shadow_winner_accuracy": 1.0,
+        "predicted_replace_rate": 0.275,
+        "phrase_preemption_hit_rate": 0.025,
+        "phrase_preemption_precision": 1.0,
+        "active_rescue_applied_rate": 0.025,
+        "active_rescue_precision": 1.0
+      },
+      "harmful_replace_case_ids": [
+        "en-es:sentence-veto:play:005",
+        "en-es:sentence-veto:order:005",
+        "en-es:sentence-veto:report:005"
+      ],
+      "false_abstain_case_ids": [
+        "en-es:sentence-veto:plant:002",
+        "en-es:sentence-veto:drink:001",
+        "en-es:sentence-veto:drink:002",
+        "en-es:sentence-veto:play:002",
+        "en-es:sentence-veto:check:002",
+        "en-es:sentence-veto:trip:002",
+        "en-es:sentence-veto:report:001",
+        "en-es:sentence-veto:report:002"
+      ],
+      "fixed_false_abstain_case_ids": [
+        "en-es:sentence-veto:order:002"
+      ],
+      "introduced_false_abstain_case_ids": [
+        "en-es:sentence-veto:drink:001"
+      ],
+      "fixed_harmful_replace_case_ids": [],
+      "introduced_harmful_replace_case_ids": [
+        "en-es:sentence-veto:order:005",
+        "en-es:sentence-veto:report:005"
+      ]
+    },
+    {
+      "config_id": "hard_llm_active_reverse_shadow",
+      "label": "Hard LLM active cue with reverse shadows",
+      "baseline_config_id": "hard_current_default",
+      "category": "mixed_insertion_probe",
+      "evidence_view": "llm_active_shadow_reverse_aux",
+      "phrase_guard_pos_scope": "family_all",
+      "summary": {
+        "cases_total": 40,
+        "gold_replace_cases": 16,
+        "gold_abstain_cases": 24,
+        "gold_active_winner_cases": 16,
+        "gold_shadow_winner_cases": 16,
+        "gold_none_cases": 8,
+        "predicted_replace_cases": 13,
+        "predicted_abstain_cases": 27,
+        "true_replace_count": 9,
+        "true_abstain_count": 20,
+        "harmful_replace_count": 4,
+        "false_abstain_count": 7,
+        "winner_labeled_cases": 32,
+        "winner_correct_count": 24,
+        "shadow_winner_labeled_cases": 16,
+        "shadow_winner_correct_count": 15,
+        "phrase_preemption_hit_count": 1,
+        "phrase_preemption_correct_abstain_count": 1,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 3,
+        "active_rescue_correct_replace_count": 3,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.725,
+        "replace_precision": 0.6923076923076923,
+        "replace_recall": 0.5625,
+        "harmful_replace_rate": 0.16666666666666666,
+        "false_abstain_rate": 0.4375,
+        "winner_accuracy": 0.75,
+        "shadow_winner_accuracy": 0.9375,
+        "predicted_replace_rate": 0.325,
+        "phrase_preemption_hit_rate": 0.025,
+        "phrase_preemption_precision": 1.0,
+        "active_rescue_applied_rate": 0.075,
+        "active_rescue_precision": 1.0
+      },
+      "harmful_replace_case_ids": [
+        "en-es:sentence-veto:play:005",
+        "en-es:sentence-veto:order:005",
+        "en-es:sentence-veto:report:004",
+        "en-es:sentence-veto:report:005"
+      ],
+      "false_abstain_case_ids": [
+        "en-es:sentence-veto:plant:002",
+        "en-es:sentence-veto:play:002",
+        "en-es:sentence-veto:watch:001",
+        "en-es:sentence-veto:check:002",
+        "en-es:sentence-veto:trip:002",
+        "en-es:sentence-veto:report:001",
+        "en-es:sentence-veto:report:002"
+      ],
+      "fixed_false_abstain_case_ids": [
+        "en-es:sentence-veto:drink:002",
+        "en-es:sentence-veto:order:002"
+      ],
+      "introduced_false_abstain_case_ids": [
+        "en-es:sentence-veto:watch:001"
+      ],
+      "fixed_harmful_replace_case_ids": [],
+      "introduced_harmful_replace_case_ids": [
+        "en-es:sentence-veto:order:005",
+        "en-es:sentence-veto:report:004",
+        "en-es:sentence-veto:report:005"
+      ]
+    },
+    {
+      "config_id": "hard_reviewed_example_frames",
+      "label": "Hard reviewed example frames",
+      "baseline_config_id": "hard_current_default",
+      "category": "reviewed_source_oracle",
+      "evidence_view": "reviewed_example_frame_text",
+      "phrase_guard_pos_scope": "family_all",
+      "summary": {
+        "cases_total": 40,
+        "gold_replace_cases": 16,
+        "gold_abstain_cases": 24,
+        "gold_active_winner_cases": 16,
+        "gold_shadow_winner_cases": 16,
+        "gold_none_cases": 8,
+        "predicted_replace_cases": 19,
+        "predicted_abstain_cases": 21,
+        "true_replace_count": 16,
+        "true_abstain_count": 21,
+        "harmful_replace_count": 3,
+        "false_abstain_count": 0,
+        "winner_labeled_cases": 32,
+        "winner_correct_count": 32,
+        "shadow_winner_labeled_cases": 16,
+        "shadow_winner_correct_count": 16,
+        "phrase_preemption_hit_count": 1,
+        "phrase_preemption_correct_abstain_count": 1,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.925,
+        "replace_precision": 0.8421052631578947,
+        "replace_recall": 1.0,
+        "harmful_replace_rate": 0.125,
+        "false_abstain_rate": 0.0,
+        "winner_accuracy": 1.0,
+        "shadow_winner_accuracy": 1.0,
+        "predicted_replace_rate": 0.475,
+        "phrase_preemption_hit_rate": 0.025,
+        "phrase_preemption_precision": 1.0,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      },
+      "harmful_replace_case_ids": [
+        "en-es:sentence-veto:drink:005",
+        "en-es:sentence-veto:play:005",
+        "en-es:sentence-veto:order:005"
+      ],
+      "false_abstain_case_ids": [],
+      "fixed_false_abstain_case_ids": [
+        "en-es:sentence-veto:check:002",
+        "en-es:sentence-veto:drink:002",
+        "en-es:sentence-veto:order:002",
+        "en-es:sentence-veto:plant:002",
+        "en-es:sentence-veto:play:002",
+        "en-es:sentence-veto:report:001",
+        "en-es:sentence-veto:report:002",
+        "en-es:sentence-veto:trip:002"
+      ],
+      "introduced_false_abstain_case_ids": [],
+      "fixed_harmful_replace_case_ids": [],
+      "introduced_harmful_replace_case_ids": [
+        "en-es:sentence-veto:drink:005",
+        "en-es:sentence-veto:order:005"
+      ]
+    },
+    {
+      "config_id": "active_guard_reviewed_example_frames",
+      "label": "Active-guard reviewed example frames",
+      "baseline_config_id": "hard_current_default",
+      "category": "reviewed_source_oracle",
+      "evidence_view": "reviewed_example_frame_text",
+      "phrase_guard_pos_scope": "active_only",
+      "summary": {
+        "cases_total": 40,
+        "gold_replace_cases": 16,
+        "gold_abstain_cases": 24,
+        "gold_active_winner_cases": 16,
+        "gold_shadow_winner_cases": 16,
+        "gold_none_cases": 8,
+        "predicted_replace_cases": 16,
+        "predicted_abstain_cases": 24,
+        "true_replace_count": 16,
+        "true_abstain_count": 24,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 0,
+        "winner_labeled_cases": 32,
+        "winner_correct_count": 32,
+        "shadow_winner_labeled_cases": 16,
+        "shadow_winner_correct_count": 16,
+        "phrase_preemption_hit_count": 12,
+        "phrase_preemption_correct_abstain_count": 12,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 1.0,
+        "replace_precision": 1.0,
+        "replace_recall": 1.0,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": 0.0,
+        "winner_accuracy": 1.0,
+        "shadow_winner_accuracy": 1.0,
+        "predicted_replace_rate": 0.4,
+        "phrase_preemption_hit_rate": 0.3,
+        "phrase_preemption_precision": 1.0,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      },
+      "harmful_replace_case_ids": [],
+      "false_abstain_case_ids": [],
+      "fixed_false_abstain_case_ids": [
+        "en-es:sentence-veto:check:002",
+        "en-es:sentence-veto:drink:002",
+        "en-es:sentence-veto:order:002",
+        "en-es:sentence-veto:plant:002",
+        "en-es:sentence-veto:play:002",
+        "en-es:sentence-veto:report:001",
+        "en-es:sentence-veto:report:002",
+        "en-es:sentence-veto:trip:002"
+      ],
+      "introduced_false_abstain_case_ids": [],
+      "fixed_harmful_replace_case_ids": [
+        "en-es:sentence-veto:play:005"
+      ],
+      "introduced_harmful_replace_case_ids": []
+    },
+    {
+      "config_id": "hard_reverse_aux_plus_llm_cue",
+      "label": "Hard reverse aux plus LLM cue",
+      "baseline_config_id": "hard_reverse_aux_symmetric",
+      "category": "combined_source_probe",
+      "evidence_view": "reverse_aux_plus_llm_cue",
+      "phrase_guard_pos_scope": "family_all",
+      "summary": {
+        "cases_total": 40,
+        "gold_replace_cases": 16,
+        "gold_abstain_cases": 24,
+        "gold_active_winner_cases": 16,
+        "gold_shadow_winner_cases": 16,
+        "gold_none_cases": 8,
+        "predicted_replace_cases": 11,
+        "predicted_abstain_cases": 29,
+        "true_replace_count": 10,
+        "true_abstain_count": 23,
+        "harmful_replace_count": 1,
+        "false_abstain_count": 6,
+        "winner_labeled_cases": 32,
+        "winner_correct_count": 26,
+        "shadow_winner_labeled_cases": 16,
+        "shadow_winner_correct_count": 16,
+        "phrase_preemption_hit_count": 1,
+        "phrase_preemption_correct_abstain_count": 1,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 4,
+        "active_rescue_correct_replace_count": 4,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.825,
+        "replace_precision": 0.9090909090909091,
+        "replace_recall": 0.625,
+        "harmful_replace_rate": 0.041666666666666664,
+        "false_abstain_rate": 0.375,
+        "winner_accuracy": 0.8125,
+        "shadow_winner_accuracy": 1.0,
+        "predicted_replace_rate": 0.275,
+        "phrase_preemption_hit_rate": 0.025,
+        "phrase_preemption_precision": 1.0,
+        "active_rescue_applied_rate": 0.1,
+        "active_rescue_precision": 1.0
+      },
+      "harmful_replace_case_ids": [
+        "en-es:sentence-veto:play:005"
+      ],
+      "false_abstain_case_ids": [
+        "en-es:sentence-veto:play:002",
+        "en-es:sentence-veto:watch:001",
+        "en-es:sentence-veto:check:002",
+        "en-es:sentence-veto:trip:002",
+        "en-es:sentence-veto:report:001",
+        "en-es:sentence-veto:report:002"
+      ],
+      "fixed_false_abstain_case_ids": [],
+      "introduced_false_abstain_case_ids": [],
+      "fixed_harmful_replace_case_ids": [],
+      "introduced_harmful_replace_case_ids": []
+    }
+  ],
+  "case_matrix": [
+    {
+      "case_id": "en-es:sentence-veto:check:002",
+      "family_id": "en-es:sentence-veto:check:cheque",
+      "gold_decision": "replace",
+      "slice_tags": [
+        "clear_active",
+        "finance",
+        "weak_active_support",
+        "cross_pos"
+      ],
+      "configs": {
+        "hard_current_default": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.5522,
+          "strongest_shadow_score": 0.597,
+          "margin": -0.0448,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_active_only": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.5534,
+          "strongest_shadow_score": 0.597,
+          "margin": -0.0436,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_shadow_only": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.5522,
+          "strongest_shadow_score": 0.597,
+          "margin": -0.0448,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_symmetric": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.5534,
+          "strongest_shadow_score": 0.597,
+          "margin": -0.0436,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_llm_active_base_shadow": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.5448,
+          "strongest_shadow_score": 0.597,
+          "margin": -0.0521,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_llm_active_reverse_shadow": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.5448,
+          "strongest_shadow_score": 0.597,
+          "margin": -0.0521,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reviewed_example_frames": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.7834,
+          "strongest_shadow_score": 0.5605,
+          "margin": 0.2229,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "active_guard_reviewed_example_frames": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.7834,
+          "strongest_shadow_score": 0.5605,
+          "margin": 0.2229,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_plus_llm_cue": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.5393,
+          "strongest_shadow_score": 0.597,
+          "margin": -0.0577,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        }
+      }
+    },
+    {
+      "case_id": "en-es:sentence-veto:drink:001",
+      "family_id": "en-es:sentence-veto:drink:bebida",
+      "gold_decision": "replace",
+      "slice_tags": [
+        "clear_active",
+        "beverage",
+        "weak_active_support",
+        "cross_pos"
+      ],
+      "configs": {
+        "hard_current_default": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.631,
+          "strongest_shadow_score": 0.6428,
+          "margin": -0.0118,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": true
+        },
+        "hard_reverse_aux_active_only": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.6434,
+          "strongest_shadow_score": 0.6428,
+          "margin": 0.0006,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_shadow_only": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.631,
+          "strongest_shadow_score": 0.6224,
+          "margin": 0.0086,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_symmetric": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.6434,
+          "strongest_shadow_score": 0.6224,
+          "margin": 0.021,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_llm_active_base_shadow": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.6071,
+          "strongest_shadow_score": 0.6428,
+          "margin": -0.0357,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_llm_active_reverse_shadow": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.6071,
+          "strongest_shadow_score": 0.6224,
+          "margin": -0.0153,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": true
+        },
+        "hard_reviewed_example_frames": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.9032,
+          "strongest_shadow_score": 0.4719,
+          "margin": 0.4312,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "active_guard_reviewed_example_frames": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.9032,
+          "strongest_shadow_score": 0.4719,
+          "margin": 0.4312,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_plus_llm_cue": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.6152,
+          "strongest_shadow_score": 0.6224,
+          "margin": -0.0072,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": true
+        }
+      }
+    },
+    {
+      "case_id": "en-es:sentence-veto:drink:002",
+      "family_id": "en-es:sentence-veto:drink:bebida",
+      "gold_decision": "replace",
+      "slice_tags": [
+        "clear_active",
+        "beverage",
+        "weak_active_support",
+        "cross_pos"
+      ],
+      "configs": {
+        "hard_current_default": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.6423,
+          "strongest_shadow_score": 0.6631,
+          "margin": -0.0208,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_active_only": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.667,
+          "strongest_shadow_score": 0.6631,
+          "margin": 0.004,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_shadow_only": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.6423,
+          "strongest_shadow_score": 0.6507,
+          "margin": -0.0084,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": true
+        },
+        "hard_reverse_aux_symmetric": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.667,
+          "strongest_shadow_score": 0.6507,
+          "margin": 0.0163,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_llm_active_base_shadow": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.6308,
+          "strongest_shadow_score": 0.6631,
+          "margin": -0.0322,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_llm_active_reverse_shadow": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.6308,
+          "strongest_shadow_score": 0.6507,
+          "margin": -0.0199,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": true
+        },
+        "hard_reviewed_example_frames": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.9046,
+          "strongest_shadow_score": 0.5791,
+          "margin": 0.3255,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "active_guard_reviewed_example_frames": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.9046,
+          "strongest_shadow_score": 0.5791,
+          "margin": 0.3255,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_plus_llm_cue": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.6396,
+          "strongest_shadow_score": 0.6507,
+          "margin": -0.0111,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": true
+        }
+      }
+    },
+    {
+      "case_id": "en-es:sentence-veto:drink:005",
+      "family_id": "en-es:sentence-veto:drink:bebida",
+      "gold_decision": "abstain",
+      "slice_tags": [
+        "phrase_control",
+        "verb",
+        "cross_pos",
+        "lexicalized_expression"
+      ],
+      "configs": {
+        "hard_current_default": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.5637,
+          "strongest_shadow_score": 0.5974,
+          "margin": -0.0338,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_active_only": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.5734,
+          "strongest_shadow_score": 0.5974,
+          "margin": -0.024,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_shadow_only": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.5637,
+          "strongest_shadow_score": 0.6097,
+          "margin": -0.046,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_symmetric": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.5734,
+          "strongest_shadow_score": 0.6097,
+          "margin": -0.0362,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_llm_active_base_shadow": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.5709,
+          "strongest_shadow_score": 0.5974,
+          "margin": -0.0266,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_llm_active_reverse_shadow": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.5709,
+          "strongest_shadow_score": 0.6097,
+          "margin": -0.0388,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reviewed_example_frames": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.6692,
+          "strongest_shadow_score": 0.5326,
+          "margin": 0.1366,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "active_guard_reviewed_example_frames": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "active",
+          "active_score": 0.6692,
+          "strongest_shadow_score": 0.5326,
+          "margin": 0.1366,
+          "phrase_preemption_hit": true,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_plus_llm_cue": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.5725,
+          "strongest_shadow_score": 0.6097,
+          "margin": -0.0372,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        }
+      }
+    },
+    {
+      "case_id": "en-es:sentence-veto:order:002",
+      "family_id": "en-es:sentence-veto:order:pedido",
+      "gold_decision": "replace",
+      "slice_tags": [
+        "clear_active",
+        "commerce",
+        "weak_active_support",
+        "cross_pos"
+      ],
+      "configs": {
+        "hard_current_default": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.6104,
+          "strongest_shadow_score": 0.6212,
+          "margin": -0.0108,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_active_only": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.6049,
+          "strongest_shadow_score": 0.6212,
+          "margin": -0.0163,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_shadow_only": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.6104,
+          "strongest_shadow_score": 0.6006,
+          "margin": 0.0098,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_symmetric": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.6049,
+          "strongest_shadow_score": 0.6006,
+          "margin": 0.0043,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_llm_active_base_shadow": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.6406,
+          "strongest_shadow_score": 0.6212,
+          "margin": 0.0194,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_llm_active_reverse_shadow": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.6406,
+          "strongest_shadow_score": 0.6006,
+          "margin": 0.04,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reviewed_example_frames": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.9531,
+          "strongest_shadow_score": 0.5852,
+          "margin": 0.3679,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "active_guard_reviewed_example_frames": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.9531,
+          "strongest_shadow_score": 0.5852,
+          "margin": 0.3679,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_plus_llm_cue": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.6283,
+          "strongest_shadow_score": 0.6006,
+          "margin": 0.0277,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        }
+      }
+    },
+    {
+      "case_id": "en-es:sentence-veto:order:005",
+      "family_id": "en-es:sentence-veto:order:pedido",
+      "gold_decision": "abstain",
+      "slice_tags": [
+        "phrase_control",
+        "verb",
+        "cross_pos",
+        "lexicalized_expression"
+      ],
+      "configs": {
+        "hard_current_default": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.5463,
+          "strongest_shadow_score": 0.583,
+          "margin": -0.0366,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_active_only": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.5362,
+          "strongest_shadow_score": 0.583,
+          "margin": -0.0468,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_shadow_only": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.5463,
+          "strongest_shadow_score": 0.5843,
+          "margin": -0.038,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_symmetric": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.5362,
+          "strongest_shadow_score": 0.5843,
+          "margin": -0.0482,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_llm_active_base_shadow": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.5928,
+          "strongest_shadow_score": 0.583,
+          "margin": 0.0098,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_llm_active_reverse_shadow": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.5928,
+          "strongest_shadow_score": 0.5843,
+          "margin": 0.0085,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reviewed_example_frames": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.6348,
+          "strongest_shadow_score": 0.6137,
+          "margin": 0.0211,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "active_guard_reviewed_example_frames": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "active",
+          "active_score": 0.6348,
+          "strongest_shadow_score": 0.6137,
+          "margin": 0.0211,
+          "phrase_preemption_hit": true,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_plus_llm_cue": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.5797,
+          "strongest_shadow_score": 0.5843,
+          "margin": -0.0047,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        }
+      }
+    },
+    {
+      "case_id": "en-es:sentence-veto:plant:002",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "gold_decision": "replace",
+      "slice_tags": [
+        "clear_active",
+        "home"
+      ],
+      "configs": {
+        "hard_current_default": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.5818,
+          "strongest_shadow_score": 0.602,
+          "margin": -0.0202,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_active_only": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.6068,
+          "strongest_shadow_score": 0.602,
+          "margin": 0.0048,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_shadow_only": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.5818,
+          "strongest_shadow_score": 0.602,
+          "margin": -0.0202,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_symmetric": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.6068,
+          "strongest_shadow_score": 0.602,
+          "margin": 0.0048,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_llm_active_base_shadow": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.5764,
+          "strongest_shadow_score": 0.602,
+          "margin": -0.0256,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_llm_active_reverse_shadow": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.5764,
+          "strongest_shadow_score": 0.602,
+          "margin": -0.0256,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reviewed_example_frames": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.8567,
+          "strongest_shadow_score": 0.6505,
+          "margin": 0.2062,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "active_guard_reviewed_example_frames": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.8567,
+          "strongest_shadow_score": 0.6505,
+          "margin": 0.2062,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_plus_llm_cue": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.5825,
+          "strongest_shadow_score": 0.602,
+          "margin": -0.0195,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": true
+        }
+      }
+    },
+    {
+      "case_id": "en-es:sentence-veto:play:002",
+      "family_id": "en-es:sentence-veto:play:obra",
+      "gold_decision": "replace",
+      "slice_tags": [
+        "clear_active",
+        "arts",
+        "weak_active_support",
+        "cross_pos"
+      ],
+      "configs": {
+        "hard_current_default": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.4924,
+          "strongest_shadow_score": 0.5219,
+          "margin": -0.0295,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_active_only": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.4924,
+          "strongest_shadow_score": 0.5219,
+          "margin": -0.0295,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_shadow_only": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.4924,
+          "strongest_shadow_score": 0.4933,
+          "margin": -0.0008,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_symmetric": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.4924,
+          "strongest_shadow_score": 0.4933,
+          "margin": -0.0008,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_llm_active_base_shadow": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.4924,
+          "strongest_shadow_score": 0.5219,
+          "margin": -0.0295,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_llm_active_reverse_shadow": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.4924,
+          "strongest_shadow_score": 0.4933,
+          "margin": -0.0008,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reviewed_example_frames": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.8392,
+          "strongest_shadow_score": 0.5549,
+          "margin": 0.2844,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "active_guard_reviewed_example_frames": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.8392,
+          "strongest_shadow_score": 0.5549,
+          "margin": 0.2844,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_plus_llm_cue": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.4924,
+          "strongest_shadow_score": 0.4933,
+          "margin": -0.0008,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        }
+      }
+    },
+    {
+      "case_id": "en-es:sentence-veto:play:005",
+      "family_id": "en-es:sentence-veto:play:obra",
+      "gold_decision": "abstain",
+      "slice_tags": [
+        "phrase_control",
+        "verb",
+        "cross_pos",
+        "lexicalized_expression"
+      ],
+      "configs": {
+        "hard_current_default": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.5591,
+          "strongest_shadow_score": 0.4937,
+          "margin": 0.0654,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_active_only": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.5591,
+          "strongest_shadow_score": 0.4937,
+          "margin": 0.0654,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_shadow_only": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.5591,
+          "strongest_shadow_score": 0.4758,
+          "margin": 0.0834,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_symmetric": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.5591,
+          "strongest_shadow_score": 0.4758,
+          "margin": 0.0834,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_llm_active_base_shadow": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.5591,
+          "strongest_shadow_score": 0.4937,
+          "margin": 0.0654,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_llm_active_reverse_shadow": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.5591,
+          "strongest_shadow_score": 0.4758,
+          "margin": 0.0834,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reviewed_example_frames": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.5486,
+          "strongest_shadow_score": 0.5462,
+          "margin": 0.0023,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "active_guard_reviewed_example_frames": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "active",
+          "active_score": 0.5486,
+          "strongest_shadow_score": 0.5462,
+          "margin": 0.0023,
+          "phrase_preemption_hit": true,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_plus_llm_cue": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.5591,
+          "strongest_shadow_score": 0.4758,
+          "margin": 0.0834,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        }
+      }
+    },
+    {
+      "case_id": "en-es:sentence-veto:report:001",
+      "family_id": "en-es:sentence-veto:report:informe",
+      "gold_decision": "replace",
+      "slice_tags": [
+        "clear_active",
+        "document",
+        "weak_active_support",
+        "cross_pos"
+      ],
+      "configs": {
+        "hard_current_default": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.5676,
+          "strongest_shadow_score": 0.6155,
+          "margin": -0.0479,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_active_only": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.5714,
+          "strongest_shadow_score": 0.6155,
+          "margin": -0.0442,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_shadow_only": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.5676,
+          "strongest_shadow_score": 0.6045,
+          "margin": -0.0369,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_symmetric": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.5714,
+          "strongest_shadow_score": 0.6045,
+          "margin": -0.0331,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_llm_active_base_shadow": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.56,
+          "strongest_shadow_score": 0.6155,
+          "margin": -0.0555,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_llm_active_reverse_shadow": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.56,
+          "strongest_shadow_score": 0.6045,
+          "margin": -0.0444,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reviewed_example_frames": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.8497,
+          "strongest_shadow_score": 0.5748,
+          "margin": 0.2749,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "active_guard_reviewed_example_frames": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.8497,
+          "strongest_shadow_score": 0.5748,
+          "margin": 0.2749,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_plus_llm_cue": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.5618,
+          "strongest_shadow_score": 0.6045,
+          "margin": -0.0426,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        }
+      }
+    },
+    {
+      "case_id": "en-es:sentence-veto:report:002",
+      "family_id": "en-es:sentence-veto:report:informe",
+      "gold_decision": "replace",
+      "slice_tags": [
+        "clear_active",
+        "document",
+        "weak_active_support",
+        "cross_pos"
+      ],
+      "configs": {
+        "hard_current_default": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.5044,
+          "strongest_shadow_score": 0.5749,
+          "margin": -0.0705,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_active_only": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.5199,
+          "strongest_shadow_score": 0.5749,
+          "margin": -0.0551,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_shadow_only": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.5044,
+          "strongest_shadow_score": 0.5646,
+          "margin": -0.0601,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_symmetric": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.5199,
+          "strongest_shadow_score": 0.5646,
+          "margin": -0.0447,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_llm_active_base_shadow": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.5205,
+          "strongest_shadow_score": 0.5749,
+          "margin": -0.0545,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_llm_active_reverse_shadow": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.5205,
+          "strongest_shadow_score": 0.5646,
+          "margin": -0.0441,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reviewed_example_frames": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.9108,
+          "strongest_shadow_score": 0.5795,
+          "margin": 0.3313,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "active_guard_reviewed_example_frames": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.9108,
+          "strongest_shadow_score": 0.5795,
+          "margin": 0.3313,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_plus_llm_cue": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.528,
+          "strongest_shadow_score": 0.5646,
+          "margin": -0.0366,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        }
+      }
+    },
+    {
+      "case_id": "en-es:sentence-veto:report:004",
+      "family_id": "en-es:sentence-veto:report:informe",
+      "gold_decision": "abstain",
+      "slice_tags": [
+        "clear_shadow",
+        "verb",
+        "cross_pos",
+        "communication"
+      ],
+      "configs": {
+        "hard_current_default": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.6038,
+          "strongest_shadow_score": 0.6208,
+          "margin": -0.017,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_active_only": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.594,
+          "strongest_shadow_score": 0.6208,
+          "margin": -0.0268,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_shadow_only": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.6038,
+          "strongest_shadow_score": 0.6079,
+          "margin": -0.0041,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_symmetric": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.594,
+          "strongest_shadow_score": 0.6079,
+          "margin": -0.0139,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_llm_active_base_shadow": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.6132,
+          "strongest_shadow_score": 0.6208,
+          "margin": -0.0076,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_llm_active_reverse_shadow": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.6132,
+          "strongest_shadow_score": 0.6079,
+          "margin": 0.0053,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reviewed_example_frames": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.5811,
+          "strongest_shadow_score": 0.8502,
+          "margin": -0.2691,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "active_guard_reviewed_example_frames": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.5811,
+          "strongest_shadow_score": 0.8502,
+          "margin": -0.2691,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_plus_llm_cue": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.6016,
+          "strongest_shadow_score": 0.6079,
+          "margin": -0.0063,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        }
+      }
+    },
+    {
+      "case_id": "en-es:sentence-veto:report:005",
+      "family_id": "en-es:sentence-veto:report:informe",
+      "gold_decision": "abstain",
+      "slice_tags": [
+        "phrase_control",
+        "verb",
+        "cross_pos",
+        "lexicalized_expression"
+      ],
+      "configs": {
+        "hard_current_default": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.6365,
+          "strongest_shadow_score": 0.6484,
+          "margin": -0.0119,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_active_only": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.6196,
+          "strongest_shadow_score": 0.6484,
+          "margin": -0.0288,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_shadow_only": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.6365,
+          "strongest_shadow_score": 0.6351,
+          "margin": 0.0014,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_symmetric": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.6196,
+          "strongest_shadow_score": 0.6351,
+          "margin": -0.0155,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_llm_active_base_shadow": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.6548,
+          "strongest_shadow_score": 0.6484,
+          "margin": 0.0064,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_llm_active_reverse_shadow": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.6548,
+          "strongest_shadow_score": 0.6351,
+          "margin": 0.0197,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reviewed_example_frames": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.6294,
+          "strongest_shadow_score": 0.6496,
+          "margin": -0.0202,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "active_guard_reviewed_example_frames": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.6294,
+          "strongest_shadow_score": 0.6496,
+          "margin": -0.0202,
+          "phrase_preemption_hit": true,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_plus_llm_cue": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.6323,
+          "strongest_shadow_score": 0.6351,
+          "margin": -0.0028,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        }
+      }
+    },
+    {
+      "case_id": "en-es:sentence-veto:trip:002",
+      "family_id": "en-es:sentence-veto:trip:viaje",
+      "gold_decision": "replace",
+      "slice_tags": [
+        "weak_active_support"
+      ],
+      "configs": {
+        "hard_current_default": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.5669,
+          "strongest_shadow_score": 0.5803,
+          "margin": -0.0134,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_active_only": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.5616,
+          "strongest_shadow_score": 0.5803,
+          "margin": -0.0187,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_shadow_only": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.5669,
+          "strongest_shadow_score": 0.5824,
+          "margin": -0.0155,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_symmetric": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.5616,
+          "strongest_shadow_score": 0.5824,
+          "margin": -0.0208,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_llm_active_base_shadow": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.5368,
+          "strongest_shadow_score": 0.5803,
+          "margin": -0.0435,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_llm_active_reverse_shadow": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.5368,
+          "strongest_shadow_score": 0.5824,
+          "margin": -0.0457,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reviewed_example_frames": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.9003,
+          "strongest_shadow_score": 0.568,
+          "margin": 0.3323,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "active_guard_reviewed_example_frames": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.9003,
+          "strongest_shadow_score": 0.568,
+          "margin": 0.3323,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_plus_llm_cue": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.5313,
+          "strongest_shadow_score": 0.5824,
+          "margin": -0.0511,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        }
+      }
+    },
+    {
+      "case_id": "en-es:sentence-veto:watch:001",
+      "family_id": "en-es:sentence-veto:watch:reloj",
+      "gold_decision": "replace",
+      "slice_tags": [
+        "clear_active",
+        "accessory",
+        "weak_active_support",
+        "cross_pos"
+      ],
+      "configs": {
+        "hard_current_default": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.5722,
+          "strongest_shadow_score": 0.5713,
+          "margin": 0.0009,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_active_only": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.5556,
+          "strongest_shadow_score": 0.5713,
+          "margin": -0.0157,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_shadow_only": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.5722,
+          "strongest_shadow_score": 0.5916,
+          "margin": -0.0194,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_symmetric": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.5556,
+          "strongest_shadow_score": 0.5916,
+          "margin": -0.036,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_llm_active_base_shadow": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.5722,
+          "strongest_shadow_score": 0.5713,
+          "margin": 0.0009,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_llm_active_reverse_shadow": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.5722,
+          "strongest_shadow_score": 0.5916,
+          "margin": -0.0194,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reviewed_example_frames": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.896,
+          "strongest_shadow_score": 0.527,
+          "margin": 0.369,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "active_guard_reviewed_example_frames": {
+          "predicted_decision": "replace",
+          "predicted_winner_type": "active",
+          "active_score": 0.896,
+          "strongest_shadow_score": 0.527,
+          "margin": 0.369,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        },
+        "hard_reverse_aux_plus_llm_cue": {
+          "predicted_decision": "abstain",
+          "predicted_winner_type": "shadow",
+          "active_score": 0.5556,
+          "strongest_shadow_score": 0.5916,
+          "margin": -0.036,
+          "phrase_preemption_hit": false,
+          "active_rescue_applied": false
+        }
+      }
+    }
+  ],
+  "summary_findings": {
+    "reverse_aux_symmetric_result": {
+      "decision_accuracy": 0.825,
+      "replace_recall": 0.625,
+      "harmful_replace_count": 1,
+      "false_abstain_count": 6
+    },
+    "reverse_aux_active_only_result": {
+      "decision_accuracy": 0.8,
+      "replace_recall": 0.5625,
+      "harmful_replace_count": 1,
+      "false_abstain_count": 7
+    },
+    "reverse_aux_shadow_only_result": {
+      "decision_accuracy": 0.775,
+      "replace_recall": 0.5625,
+      "harmful_replace_count": 2,
+      "false_abstain_count": 7
+    },
+    "llm_active_base_shadow_result": {
+      "decision_accuracy": 0.725,
+      "replace_recall": 0.5,
+      "harmful_replace_count": 3,
+      "false_abstain_count": 8
+    },
+    "llm_active_reverse_shadow_result": {
+      "decision_accuracy": 0.725,
+      "replace_recall": 0.5625,
+      "harmful_replace_count": 4,
+      "false_abstain_count": 7
+    },
+    "reviewed_example_frame_result": {
+      "decision_accuracy": 0.925,
+      "replace_recall": 1.0,
+      "harmful_replace_count": 3,
+      "false_abstain_count": 0
+    },
+    "active_guard_reviewed_example_frame_result": {
+      "decision_accuracy": 1.0,
+      "replace_recall": 1.0,
+      "harmful_replace_count": 0,
+      "false_abstain_count": 0
+    },
+    "reverse_aux_plus_llm_result": {
+      "decision_accuracy": 0.825,
+      "replace_recall": 0.625,
+      "harmful_replace_count": 1,
+      "false_abstain_count": 6
+    },
+    "symmetric_reverse_beats_single_sided_reverse": true,
+    "shadow_calibration_salvages_llm_active_cues": false,
+    "active_guard_reviewed_frames_beat_reverse_aux": true,
+    "llm_adds_incremental_value_over_reverse_aux": false
+  },
+  "recommendation": "Keep the next step source/insertion-shaped. Full reverse-aux evidence is `82.5%` accuracy / `62.5%` recall / `1` harmful / `6` false abstains, while active-only reverse is `80.0%` accuracy / `56.2%` recall / `1` harmful / `7` false abstains and shadow-only reverse is `77.5%` accuracy / `56.2%` recall / `2` harmful / `7` false abstains. The mixed LLM-active plus reverse-shadow probe is `72.5%` accuracy / `56.2%` recall / `4` harmful / `7` false abstains, so shadow calibration alone does not salvage active-only LLM cue insertion. The internal reviewed example-frame oracle with the active-sense phrase guard is `100.0%` accuracy / `100.0%` recall / `0` harmful / `0` false abstains, which shows the next viable path is competition-symmetric example/frame evidence plus phrase-leak containment. It is not runtime-publishable evidence; use it as an upper-bound target for external source ingestion or future paid generation."
+}

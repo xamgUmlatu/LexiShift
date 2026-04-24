@@ -1,0 +1,3524 @@
+{
+  "schema_version": 1,
+  "batch_id": "en-es:reviewed-example-frames:reviewed-example-frames-v10-full-20260425a",
+  "pair": "en-es",
+  "source_type": "llm",
+  "source_id": "reviewed_sentence_veto_example_frames",
+  "source_family": "silver_llm_generation",
+  "roles": [
+    "cue_generation",
+    "discrimination",
+    "phrase_containment"
+  ],
+  "generated_at": "2026-04-24T20:01:32Z",
+  "ingested_at": "2026-04-24T20:01:32Z",
+  "review_state": "accepted",
+  "model_id": "reviewed-sentence-veto-fixture",
+  "prompt_version": "reviewed-example-frames-v1",
+  "temperature": 0.0,
+  "provenance": {
+    "dataset_id": "en_es_sentence_veto_v10",
+    "evaluation_scope": "all_dataset_families",
+    "source_note": "schema-shaped no-spend fixture generated from reviewed cases",
+    "family_rows": [
+      {
+        "family_id": "en-es:sentence-veto:ball:pelota",
+        "trigger": "ball",
+        "active_example_count": 2,
+        "shadow_example_count": 2,
+        "phrase_control_example_count": 1,
+        "row_count": 5
+      },
+      {
+        "family_id": "en-es:sentence-veto:bank:banco",
+        "trigger": "bank",
+        "active_example_count": 2,
+        "shadow_example_count": 2,
+        "phrase_control_example_count": 1,
+        "row_count": 5
+      },
+      {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "trigger": "plant",
+        "active_example_count": 2,
+        "shadow_example_count": 2,
+        "phrase_control_example_count": 1,
+        "row_count": 5
+      },
+      {
+        "family_id": "en-es:sentence-veto:cell:celula",
+        "trigger": "cell",
+        "active_example_count": 2,
+        "shadow_example_count": 2,
+        "phrase_control_example_count": 1,
+        "row_count": 5
+      },
+      {
+        "family_id": "en-es:sentence-veto:spring:primavera",
+        "trigger": "spring",
+        "active_example_count": 2,
+        "shadow_example_count": 2,
+        "phrase_control_example_count": 1,
+        "row_count": 5
+      },
+      {
+        "family_id": "en-es:sentence-veto:seal:sello",
+        "trigger": "seal",
+        "active_example_count": 2,
+        "shadow_example_count": 2,
+        "phrase_control_example_count": 1,
+        "row_count": 5
+      },
+      {
+        "family_id": "en-es:sentence-veto:file:archivo",
+        "trigger": "file",
+        "active_example_count": 2,
+        "shadow_example_count": 2,
+        "phrase_control_example_count": 1,
+        "row_count": 5
+      },
+      {
+        "family_id": "en-es:sentence-veto:match:partido",
+        "trigger": "match",
+        "active_example_count": 2,
+        "shadow_example_count": 2,
+        "phrase_control_example_count": 1,
+        "row_count": 5
+      },
+      {
+        "family_id": "en-es:sentence-veto:board:tablero",
+        "trigger": "board",
+        "active_example_count": 2,
+        "shadow_example_count": 2,
+        "phrase_control_example_count": 1,
+        "row_count": 5
+      },
+      {
+        "family_id": "en-es:sentence-veto:table:mesa",
+        "trigger": "table",
+        "active_example_count": 2,
+        "shadow_example_count": 2,
+        "phrase_control_example_count": 1,
+        "row_count": 5
+      },
+      {
+        "family_id": "en-es:sentence-veto:branch:sucursal",
+        "trigger": "branch",
+        "active_example_count": 2,
+        "shadow_example_count": 2,
+        "phrase_control_example_count": 1,
+        "row_count": 5
+      },
+      {
+        "family_id": "en-es:sentence-veto:park:parque",
+        "trigger": "park",
+        "active_example_count": 2,
+        "shadow_example_count": 2,
+        "phrase_control_example_count": 1,
+        "row_count": 5
+      },
+      {
+        "family_id": "en-es:sentence-veto:drink:bebida",
+        "trigger": "drink",
+        "active_example_count": 2,
+        "shadow_example_count": 2,
+        "phrase_control_example_count": 1,
+        "row_count": 5
+      },
+      {
+        "family_id": "en-es:sentence-veto:play:obra",
+        "trigger": "play",
+        "active_example_count": 2,
+        "shadow_example_count": 2,
+        "phrase_control_example_count": 1,
+        "row_count": 5
+      },
+      {
+        "family_id": "en-es:sentence-veto:watch:reloj",
+        "trigger": "watch",
+        "active_example_count": 2,
+        "shadow_example_count": 2,
+        "phrase_control_example_count": 1,
+        "row_count": 5
+      },
+      {
+        "family_id": "en-es:sentence-veto:check:cheque",
+        "trigger": "check",
+        "active_example_count": 2,
+        "shadow_example_count": 2,
+        "phrase_control_example_count": 1,
+        "row_count": 5
+      },
+      {
+        "family_id": "en-es:sentence-veto:order:pedido",
+        "trigger": "order",
+        "active_example_count": 2,
+        "shadow_example_count": 2,
+        "phrase_control_example_count": 1,
+        "row_count": 5
+      },
+      {
+        "family_id": "en-es:sentence-veto:trip:viaje",
+        "trigger": "trip",
+        "active_example_count": 2,
+        "shadow_example_count": 2,
+        "phrase_control_example_count": 1,
+        "row_count": 5
+      },
+      {
+        "family_id": "en-es:sentence-veto:report:informe",
+        "trigger": "report",
+        "active_example_count": 2,
+        "shadow_example_count": 2,
+        "phrase_control_example_count": 1,
+        "row_count": 5
+      }
+    ]
+  },
+  "items": [
+    {
+      "row_id": "en-es-sentence-veto-ball-pelota:active-1",
+      "relation_type": "anchor_cue",
+      "trigger": "ball",
+      "active_target": "pelota",
+      "candidate_target": "pelota",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:ball:pelota:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "The goalkeeper punched the ___ over the bar.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:ball:pelota",
+        "active_sense_id": "en-es:sentence-veto:ball:pelota:active",
+        "example_bucket": "active",
+        "candidate_sense_id": "en-es:sentence-veto:ball:pelota:active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:ball:pelota:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-ball-pelota:active-2",
+      "relation_type": "anchor_cue",
+      "trigger": "ball",
+      "active_target": "pelota",
+      "candidate_target": "pelota",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:ball:pelota:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "The child kicked the ___ into the street.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:ball:pelota",
+        "active_sense_id": "en-es:sentence-veto:ball:pelota:active",
+        "example_bucket": "active",
+        "candidate_sense_id": "en-es:sentence-veto:ball:pelota:active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:ball:pelota:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-ball-pelota:shadow-en-es-sentence-veto-ball-baile-shadow-1",
+      "relation_type": "shadow_candidate",
+      "trigger": "ball",
+      "active_target": "pelota",
+      "candidate_target": "baile",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:ball:pelota:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "They danced at the royal ___ until dawn.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:ball:pelota",
+        "active_sense_id": "en-es:sentence-veto:ball:pelota:active",
+        "example_bucket": "shadow",
+        "candidate_sense_id": "en-es:sentence-veto:ball:baile:shadow"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:ball:baile:shadow",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-ball-pelota:shadow-en-es-sentence-veto-ball-baile-shadow-2",
+      "relation_type": "shadow_candidate",
+      "trigger": "ball",
+      "active_target": "pelota",
+      "candidate_target": "baile",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:ball:pelota:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "The charity ___ raised thousands of dollars.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:ball:pelota",
+        "active_sense_id": "en-es:sentence-veto:ball:pelota:active",
+        "example_bucket": "shadow",
+        "candidate_sense_id": "en-es:sentence-veto:ball:baile:shadow"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:ball:baile:shadow",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-ball-pelota:phrase-1",
+      "relation_type": "phrase_control_example",
+      "trigger": "ball",
+      "active_target": "pelota",
+      "candidate_target": "phrase_control",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:ball:pelota:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "phrase_control",
+      "evidence_text": "The ___ is in your court now.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination",
+        "phrase_containment"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:ball:pelota",
+        "active_sense_id": "en-es:sentence-veto:ball:pelota:active",
+        "example_bucket": "phrase_control",
+        "gold_decision": "abstain"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-bank-banco:active-1",
+      "relation_type": "anchor_cue",
+      "trigger": "bank",
+      "active_target": "banco",
+      "candidate_target": "banco",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:bank:banco:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "She deposited the cash at the ___ before lunch.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:bank:banco",
+        "active_sense_id": "en-es:sentence-veto:bank:banco:active",
+        "example_bucket": "active",
+        "candidate_sense_id": "en-es:sentence-veto:bank:banco:active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:bank:banco:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-bank-banco:active-2",
+      "relation_type": "anchor_cue",
+      "trigger": "bank",
+      "active_target": "banco",
+      "candidate_target": "banco",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:bank:banco:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "The ___ approved our mortgage application.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:bank:banco",
+        "active_sense_id": "en-es:sentence-veto:bank:banco:active",
+        "example_bucket": "active",
+        "candidate_sense_id": "en-es:sentence-veto:bank:banco:active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:bank:banco:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-bank-banco:shadow-en-es-sentence-veto-bank-orilla-shadow-1",
+      "relation_type": "shadow_candidate",
+      "trigger": "bank",
+      "active_target": "banco",
+      "candidate_target": "orilla",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:bank:banco:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "They sat on the grassy ___ of the river.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:bank:banco",
+        "active_sense_id": "en-es:sentence-veto:bank:banco:active",
+        "example_bucket": "shadow",
+        "candidate_sense_id": "en-es:sentence-veto:bank:orilla:shadow"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:bank:orilla:shadow",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-bank-banco:shadow-en-es-sentence-veto-bank-orilla-shadow-2",
+      "relation_type": "shadow_candidate",
+      "trigger": "bank",
+      "active_target": "banco",
+      "candidate_target": "orilla",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:bank:banco:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "Wildflowers grew along the muddy ___",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:bank:banco",
+        "active_sense_id": "en-es:sentence-veto:bank:banco:active",
+        "example_bucket": "shadow",
+        "candidate_sense_id": "en-es:sentence-veto:bank:orilla:shadow"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:bank:orilla:shadow",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-bank-banco:phrase-1",
+      "relation_type": "phrase_control_example",
+      "trigger": "bank",
+      "active_target": "banco",
+      "candidate_target": "phrase_control",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:bank:banco:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "phrase_control",
+      "evidence_text": "You can ___ on her support.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination",
+        "phrase_containment"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:bank:banco",
+        "active_sense_id": "en-es:sentence-veto:bank:banco:active",
+        "example_bucket": "phrase_control",
+        "gold_decision": "abstain"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:active-1",
+      "relation_type": "anchor_cue",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "planta",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "She watered the ___ on the windowsill.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "example_bucket": "active",
+        "candidate_sense_id": "en-es:sentence-veto:plant:planta:active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:active-2",
+      "relation_type": "anchor_cue",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "planta",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "The ___ needs more sunlight in the afternoon.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "example_bucket": "active",
+        "candidate_sense_id": "en-es:sentence-veto:plant:planta:active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:shadow-en-es-sentence-veto-plant-fabrica-shadow-1",
+      "relation_type": "shadow_candidate",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "fábrica",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "The steel ___ closed after the strike.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "example_bucket": "shadow",
+        "candidate_sense_id": "en-es:sentence-veto:plant:fabrica:shadow"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:fabrica:shadow",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:shadow-en-es-sentence-veto-plant-fabrica-shadow-2",
+      "relation_type": "shadow_candidate",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "fábrica",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "Hundreds of workers left the chemical ___ at noon.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "example_bucket": "shadow",
+        "candidate_sense_id": "en-es:sentence-veto:plant:fabrica:shadow"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:fabrica:shadow",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:phrase-1",
+      "relation_type": "phrase_control_example",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "phrase_control",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "phrase_control",
+      "evidence_text": "They tried to ___ evidence in his office.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination",
+        "phrase_containment"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "example_bucket": "phrase_control",
+        "gold_decision": "abstain"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-1",
+      "relation_type": "anchor_cue",
+      "trigger": "cell",
+      "active_target": "célula",
+      "candidate_target": "célula",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:cell:celula:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "The scientist examined the ___ under a microscope.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:cell:celula",
+        "active_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "example_bucket": "active",
+        "candidate_sense_id": "en-es:sentence-veto:cell:celula:active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:cell:celula:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-2",
+      "relation_type": "anchor_cue",
+      "trigger": "cell",
+      "active_target": "célula",
+      "candidate_target": "célula",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:cell:celula:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "Each ___ in the tissue absorbed the dye.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:cell:celula",
+        "active_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "example_bucket": "active",
+        "candidate_sense_id": "en-es:sentence-veto:cell:celula:active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:cell:celula:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:shadow-en-es-sentence-veto-cell-celda-shadow-1",
+      "relation_type": "shadow_candidate",
+      "trigger": "cell",
+      "active_target": "célula",
+      "candidate_target": "celda",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:cell:celula:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "The prisoner was returned to his ___ after dinner.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:cell:celula",
+        "active_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "example_bucket": "shadow",
+        "candidate_sense_id": "en-es:sentence-veto:cell:celda:shadow"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:cell:celda:shadow",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:shadow-en-es-sentence-veto-cell-celda-shadow-2",
+      "relation_type": "shadow_candidate",
+      "trigger": "cell",
+      "active_target": "célula",
+      "candidate_target": "celda",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:cell:celula:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "The guard unlocked the ___ at dawn.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:cell:celula",
+        "active_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "example_bucket": "shadow",
+        "candidate_sense_id": "en-es:sentence-veto:cell:celda:shadow"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:cell:celda:shadow",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:phrase-1",
+      "relation_type": "phrase_control_example",
+      "trigger": "cell",
+      "active_target": "célula",
+      "candidate_target": "phrase_control",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:cell:celula:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "phrase_control",
+      "evidence_text": "My phone lost ___ service in the tunnel.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination",
+        "phrase_containment"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:cell:celula",
+        "active_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "example_bucket": "phrase_control",
+        "gold_decision": "abstain"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-spring-primavera:active-1",
+      "relation_type": "anchor_cue",
+      "trigger": "spring",
+      "active_target": "primavera",
+      "candidate_target": "primavera",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:spring:primavera:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "Warm rain usually arrives in ___",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:spring:primavera",
+        "active_sense_id": "en-es:sentence-veto:spring:primavera:active",
+        "example_bucket": "active",
+        "candidate_sense_id": "en-es:sentence-veto:spring:primavera:active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:spring:primavera:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-spring-primavera:active-2",
+      "relation_type": "anchor_cue",
+      "trigger": "spring",
+      "active_target": "primavera",
+      "candidate_target": "primavera",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:spring:primavera:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "The park looks beautiful in the ___",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:spring:primavera",
+        "active_sense_id": "en-es:sentence-veto:spring:primavera:active",
+        "example_bucket": "active",
+        "candidate_sense_id": "en-es:sentence-veto:spring:primavera:active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:spring:primavera:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-spring-primavera:shadow-en-es-sentence-veto-spring-resorte-shadow-1",
+      "relation_type": "shadow_candidate",
+      "trigger": "spring",
+      "active_target": "primavera",
+      "candidate_target": "resorte",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:spring:primavera:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "The ___ inside the lock snapped suddenly.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:spring:primavera",
+        "active_sense_id": "en-es:sentence-veto:spring:primavera:active",
+        "example_bucket": "shadow",
+        "candidate_sense_id": "en-es:sentence-veto:spring:resorte:shadow"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:spring:resorte:shadow",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-spring-primavera:shadow-en-es-sentence-veto-spring-resorte-shadow-2",
+      "relation_type": "shadow_candidate",
+      "trigger": "spring",
+      "active_target": "primavera",
+      "candidate_target": "resorte",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:spring:primavera:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "He replaced the broken ___ in the toy.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:spring:primavera",
+        "active_sense_id": "en-es:sentence-veto:spring:primavera:active",
+        "example_bucket": "shadow",
+        "candidate_sense_id": "en-es:sentence-veto:spring:resorte:shadow"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:spring:resorte:shadow",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-spring-primavera:phrase-1",
+      "relation_type": "phrase_control_example",
+      "trigger": "spring",
+      "active_target": "primavera",
+      "candidate_target": "phrase_control",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:spring:primavera:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "phrase_control",
+      "evidence_text": "The team will ___ into action at dawn.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination",
+        "phrase_containment"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:spring:primavera",
+        "active_sense_id": "en-es:sentence-veto:spring:primavera:active",
+        "example_bucket": "phrase_control",
+        "gold_decision": "abstain"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-seal-sello:active-1",
+      "relation_type": "anchor_cue",
+      "trigger": "seal",
+      "active_target": "sello",
+      "candidate_target": "sello",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:seal:sello:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "The certificate carries the official ___",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:seal:sello",
+        "active_sense_id": "en-es:sentence-veto:seal:sello:active",
+        "example_bucket": "active",
+        "candidate_sense_id": "en-es:sentence-veto:seal:sello:active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:seal:sello:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-seal-sello:active-2",
+      "relation_type": "anchor_cue",
+      "trigger": "seal",
+      "active_target": "sello",
+      "candidate_target": "sello",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:seal:sello:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "She pressed the ___ into the hot wax.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:seal:sello",
+        "active_sense_id": "en-es:sentence-veto:seal:sello:active",
+        "example_bucket": "active",
+        "candidate_sense_id": "en-es:sentence-veto:seal:sello:active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:seal:sello:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-seal-sello:shadow-en-es-sentence-veto-seal-foca-shadow-1",
+      "relation_type": "shadow_candidate",
+      "trigger": "seal",
+      "active_target": "sello",
+      "candidate_target": "foca",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:seal:sello:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "A ___ rested on the icy rock.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:seal:sello",
+        "active_sense_id": "en-es:sentence-veto:seal:sello:active",
+        "example_bucket": "shadow",
+        "candidate_sense_id": "en-es:sentence-veto:seal:foca:shadow"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:seal:foca:shadow",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-seal-sello:shadow-en-es-sentence-veto-seal-foca-shadow-2",
+      "relation_type": "shadow_candidate",
+      "trigger": "seal",
+      "active_target": "sello",
+      "candidate_target": "foca",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:seal:sello:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "The ___ disappeared beneath the water.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:seal:sello",
+        "active_sense_id": "en-es:sentence-veto:seal:sello:active",
+        "example_bucket": "shadow",
+        "candidate_sense_id": "en-es:sentence-veto:seal:foca:shadow"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:seal:foca:shadow",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-seal-sello:phrase-1",
+      "relation_type": "phrase_control_example",
+      "trigger": "seal",
+      "active_target": "sello",
+      "candidate_target": "phrase_control",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:seal:sello:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "phrase_control",
+      "evidence_text": "Please ___ the envelope before mailing it.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination",
+        "phrase_containment"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:seal:sello",
+        "active_sense_id": "en-es:sentence-veto:seal:sello:active",
+        "example_bucket": "phrase_control",
+        "gold_decision": "abstain"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-file-archivo:active-1",
+      "relation_type": "anchor_cue",
+      "trigger": "file",
+      "active_target": "archivo",
+      "candidate_target": "archivo",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:file:archivo:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "I uploaded the ___ to the shared folder.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:file:archivo",
+        "active_sense_id": "en-es:sentence-veto:file:archivo:active",
+        "example_bucket": "active",
+        "candidate_sense_id": "en-es:sentence-veto:file:archivo:active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:file:archivo:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-file-archivo:active-2",
+      "relation_type": "anchor_cue",
+      "trigger": "file",
+      "active_target": "archivo",
+      "candidate_target": "archivo",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:file:archivo:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "The ___ was corrupted after the download.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:file:archivo",
+        "active_sense_id": "en-es:sentence-veto:file:archivo:active",
+        "example_bucket": "active",
+        "candidate_sense_id": "en-es:sentence-veto:file:archivo:active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:file:archivo:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-file-archivo:shadow-en-es-sentence-veto-file-lima-shadow-1",
+      "relation_type": "shadow_candidate",
+      "trigger": "file",
+      "active_target": "archivo",
+      "candidate_target": "lima",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:file:archivo:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "He used a ___ to smooth the rough edge.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:file:archivo",
+        "active_sense_id": "en-es:sentence-veto:file:archivo:active",
+        "example_bucket": "shadow",
+        "candidate_sense_id": "en-es:sentence-veto:file:lima:shadow"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:file:lima:shadow",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-file-archivo:shadow-en-es-sentence-veto-file-lima-shadow-2",
+      "relation_type": "shadow_candidate",
+      "trigger": "file",
+      "active_target": "archivo",
+      "candidate_target": "lima",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:file:archivo:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "The jeweler picked up a fine ___ from the bench.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:file:archivo",
+        "active_sense_id": "en-es:sentence-veto:file:archivo:active",
+        "example_bucket": "shadow",
+        "candidate_sense_id": "en-es:sentence-veto:file:lima:shadow"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:file:lima:shadow",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-file-archivo:phrase-1",
+      "relation_type": "phrase_control_example",
+      "trigger": "file",
+      "active_target": "archivo",
+      "candidate_target": "phrase_control",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:file:archivo:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "phrase_control",
+      "evidence_text": "They will ___ the complaint tomorrow morning.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination",
+        "phrase_containment"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:file:archivo",
+        "active_sense_id": "en-es:sentence-veto:file:archivo:active",
+        "example_bucket": "phrase_control",
+        "gold_decision": "abstain"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-match-partido:active-1",
+      "relation_type": "anchor_cue",
+      "trigger": "match",
+      "active_target": "partido",
+      "candidate_target": "partido",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:match:partido:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "The ___ ended after extra time.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:match:partido",
+        "active_sense_id": "en-es:sentence-veto:match:partido:active",
+        "example_bucket": "active",
+        "candidate_sense_id": "en-es:sentence-veto:match:partido:active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:match:partido:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-match-partido:active-2",
+      "relation_type": "anchor_cue",
+      "trigger": "match",
+      "active_target": "partido",
+      "candidate_target": "partido",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:match:partido:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "The stadium filled before the ___ began.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:match:partido",
+        "active_sense_id": "en-es:sentence-veto:match:partido:active",
+        "example_bucket": "active",
+        "candidate_sense_id": "en-es:sentence-veto:match:partido:active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:match:partido:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-match-partido:shadow-en-es-sentence-veto-match-cerilla-shadow-1",
+      "relation_type": "shadow_candidate",
+      "trigger": "match",
+      "active_target": "partido",
+      "candidate_target": "cerilla",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:match:partido:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "She lit a ___ beside the stove.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:match:partido",
+        "active_sense_id": "en-es:sentence-veto:match:partido:active",
+        "example_bucket": "shadow",
+        "candidate_sense_id": "en-es:sentence-veto:match:cerilla:shadow"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:match:cerilla:shadow",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-match-partido:shadow-en-es-sentence-veto-match-cerilla-shadow-2",
+      "relation_type": "shadow_candidate",
+      "trigger": "match",
+      "active_target": "partido",
+      "candidate_target": "cerilla",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:match:partido:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "He dropped the burning ___ into the sink.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:match:partido",
+        "active_sense_id": "en-es:sentence-veto:match:partido:active",
+        "example_bucket": "shadow",
+        "candidate_sense_id": "en-es:sentence-veto:match:cerilla:shadow"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:match:cerilla:shadow",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-match-partido:phrase-1",
+      "relation_type": "phrase_control_example",
+      "trigger": "match",
+      "active_target": "partido",
+      "candidate_target": "phrase_control",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:match:partido:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "phrase_control",
+      "evidence_text": "These curtains ___ the sofa perfectly.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination",
+        "phrase_containment"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:match:partido",
+        "active_sense_id": "en-es:sentence-veto:match:partido:active",
+        "example_bucket": "phrase_control",
+        "gold_decision": "abstain"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-board-tablero:active-1",
+      "relation_type": "anchor_cue",
+      "trigger": "board",
+      "active_target": "tablero",
+      "candidate_target": "tablero",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:board:tablero:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "He arranged the pieces on the ___ before the lesson began.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:board:tablero",
+        "active_sense_id": "en-es:sentence-veto:board:tablero:active",
+        "example_bucket": "active",
+        "candidate_sense_id": "en-es:sentence-veto:board:tablero:active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:board:tablero:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-board-tablero:active-2",
+      "relation_type": "anchor_cue",
+      "trigger": "board",
+      "active_target": "tablero",
+      "candidate_target": "tablero",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:board:tablero:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "She folded the ___ after the game ended.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:board:tablero",
+        "active_sense_id": "en-es:sentence-veto:board:tablero:active",
+        "example_bucket": "active",
+        "candidate_sense_id": "en-es:sentence-veto:board:tablero:active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:board:tablero:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-board-tablero:shadow-en-es-sentence-veto-board-junta-shadow-1",
+      "relation_type": "shadow_candidate",
+      "trigger": "board",
+      "active_target": "tablero",
+      "candidate_target": "junta",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:board:tablero:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "The ___ approved the merger on Tuesday.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:board:tablero",
+        "active_sense_id": "en-es:sentence-veto:board:tablero:active",
+        "example_bucket": "shadow",
+        "candidate_sense_id": "en-es:sentence-veto:board:junta:shadow"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:board:junta:shadow",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-board-tablero:shadow-en-es-sentence-veto-board-junta-shadow-2",
+      "relation_type": "shadow_candidate",
+      "trigger": "board",
+      "active_target": "tablero",
+      "candidate_target": "junta",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:board:tablero:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "Two members of the ___ resigned after the audit.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:board:tablero",
+        "active_sense_id": "en-es:sentence-veto:board:tablero:active",
+        "example_bucket": "shadow",
+        "candidate_sense_id": "en-es:sentence-veto:board:junta:shadow"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:board:junta:shadow",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-board-tablero:phrase-1",
+      "relation_type": "phrase_control_example",
+      "trigger": "board",
+      "active_target": "tablero",
+      "candidate_target": "phrase_control",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:board:tablero:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "phrase_control",
+      "evidence_text": "Are you on ___ with the revised plan?",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination",
+        "phrase_containment"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:board:tablero",
+        "active_sense_id": "en-es:sentence-veto:board:tablero:active",
+        "example_bucket": "phrase_control",
+        "gold_decision": "abstain"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-table-mesa:active-1",
+      "relation_type": "anchor_cue",
+      "trigger": "table",
+      "active_target": "mesa",
+      "candidate_target": "mesa",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:table:mesa:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "The plates are already on the ___",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:table:mesa",
+        "active_sense_id": "en-es:sentence-veto:table:mesa:active",
+        "example_bucket": "active",
+        "candidate_sense_id": "en-es:sentence-veto:table:mesa:active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:table:mesa:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-table-mesa:active-2",
+      "relation_type": "anchor_cue",
+      "trigger": "table",
+      "active_target": "mesa",
+      "candidate_target": "mesa",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:table:mesa:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "We left the flowers on the kitchen ___",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:table:mesa",
+        "active_sense_id": "en-es:sentence-veto:table:mesa:active",
+        "example_bucket": "active",
+        "candidate_sense_id": "en-es:sentence-veto:table:mesa:active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:table:mesa:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-table-mesa:shadow-en-es-sentence-veto-table-tabla-shadow-1",
+      "relation_type": "shadow_candidate",
+      "trigger": "table",
+      "active_target": "mesa",
+      "candidate_target": "tabla",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:table:mesa:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "The ___ of exchange rates appears in the appendix.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:table:mesa",
+        "active_sense_id": "en-es:sentence-veto:table:mesa:active",
+        "example_bucket": "shadow",
+        "candidate_sense_id": "en-es:sentence-veto:table:tabla:shadow"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:table:tabla:shadow",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-table-mesa:shadow-en-es-sentence-veto-table-tabla-shadow-2",
+      "relation_type": "shadow_candidate",
+      "trigger": "table",
+      "active_target": "mesa",
+      "candidate_target": "tabla",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:table:mesa:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "The budget ___ lists every department in one column.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:table:mesa",
+        "active_sense_id": "en-es:sentence-veto:table:mesa:active",
+        "example_bucket": "shadow",
+        "candidate_sense_id": "en-es:sentence-veto:table:tabla:shadow"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:table:tabla:shadow",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-table-mesa:phrase-1",
+      "relation_type": "phrase_control_example",
+      "trigger": "table",
+      "active_target": "mesa",
+      "candidate_target": "phrase_control",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:table:mesa:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "phrase_control",
+      "evidence_text": "They will ___ the amendment until Friday.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination",
+        "phrase_containment"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:table:mesa",
+        "active_sense_id": "en-es:sentence-veto:table:mesa:active",
+        "example_bucket": "phrase_control",
+        "gold_decision": "abstain"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-branch-sucursal:active-1",
+      "relation_type": "anchor_cue",
+      "trigger": "branch",
+      "active_target": "sucursal",
+      "candidate_target": "sucursal",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:branch:sucursal:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "The downtown ___ closes at five on weekdays.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:branch:sucursal",
+        "active_sense_id": "en-es:sentence-veto:branch:sucursal:active",
+        "example_bucket": "active",
+        "candidate_sense_id": "en-es:sentence-veto:branch:sucursal:active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:branch:sucursal:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-branch-sucursal:active-2",
+      "relation_type": "anchor_cue",
+      "trigger": "branch",
+      "active_target": "sucursal",
+      "candidate_target": "sucursal",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:branch:sucursal:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "She submitted the paperwork at the ___ office.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:branch:sucursal",
+        "active_sense_id": "en-es:sentence-veto:branch:sucursal:active",
+        "example_bucket": "active",
+        "candidate_sense_id": "en-es:sentence-veto:branch:sucursal:active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:branch:sucursal:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-branch-sucursal:shadow-en-es-sentence-veto-branch-rama-shadow-1",
+      "relation_type": "shadow_candidate",
+      "trigger": "branch",
+      "active_target": "sucursal",
+      "candidate_target": "rama",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:branch:sucursal:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "A bird landed on the highest ___ of the oak.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:branch:sucursal",
+        "active_sense_id": "en-es:sentence-veto:branch:sucursal:active",
+        "example_bucket": "shadow",
+        "candidate_sense_id": "en-es:sentence-veto:branch:rama:shadow"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:branch:rama:shadow",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-branch-sucursal:shadow-en-es-sentence-veto-branch-rama-shadow-2",
+      "relation_type": "shadow_candidate",
+      "trigger": "branch",
+      "active_target": "sucursal",
+      "candidate_target": "rama",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:branch:sucursal:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "The storm snapped a heavy ___ in the yard.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:branch:sucursal",
+        "active_sense_id": "en-es:sentence-veto:branch:sucursal:active",
+        "example_bucket": "shadow",
+        "candidate_sense_id": "en-es:sentence-veto:branch:rama:shadow"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:branch:rama:shadow",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-branch-sucursal:phrase-1",
+      "relation_type": "phrase_control_example",
+      "trigger": "branch",
+      "active_target": "sucursal",
+      "candidate_target": "phrase_control",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:branch:sucursal:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "phrase_control",
+      "evidence_text": "The startup plans to ___ out into tutoring.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination",
+        "phrase_containment"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:branch:sucursal",
+        "active_sense_id": "en-es:sentence-veto:branch:sucursal:active",
+        "example_bucket": "phrase_control",
+        "gold_decision": "abstain"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-park-parque:active-1",
+      "relation_type": "anchor_cue",
+      "trigger": "park",
+      "active_target": "parque",
+      "candidate_target": "parque",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:park:parque:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "The children ran through the ___ after school.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:park:parque",
+        "active_sense_id": "en-es:sentence-veto:park:parque:active",
+        "example_bucket": "active",
+        "candidate_sense_id": "en-es:sentence-veto:park:parque:active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:park:parque:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-park-parque:active-2",
+      "relation_type": "anchor_cue",
+      "trigger": "park",
+      "active_target": "parque",
+      "candidate_target": "parque",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:park:parque:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "We met near the fountain in the ___",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:park:parque",
+        "active_sense_id": "en-es:sentence-veto:park:parque:active",
+        "example_bucket": "active",
+        "candidate_sense_id": "en-es:sentence-veto:park:parque:active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:park:parque:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-park-parque:shadow-en-es-sentence-veto-park-aparcar-shadow-1",
+      "relation_type": "shadow_candidate",
+      "trigger": "park",
+      "active_target": "parque",
+      "candidate_target": "aparcar",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:park:parque:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "verb",
+      "evidence_text": "Please ___ behind the building.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:park:parque",
+        "active_sense_id": "en-es:sentence-veto:park:parque:active",
+        "example_bucket": "shadow",
+        "candidate_sense_id": "en-es:sentence-veto:park:aparcar:shadow"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:park:aparcar:shadow",
+        "canonical_pos": "verb",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-park-parque:shadow-en-es-sentence-veto-park-aparcar-shadow-2",
+      "relation_type": "shadow_candidate",
+      "trigger": "park",
+      "active_target": "parque",
+      "candidate_target": "aparcar",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:park:parque:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "verb",
+      "evidence_text": "They had to ___ on the next block.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:park:parque",
+        "active_sense_id": "en-es:sentence-veto:park:parque:active",
+        "example_bucket": "shadow",
+        "candidate_sense_id": "en-es:sentence-veto:park:aparcar:shadow"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:park:aparcar:shadow",
+        "canonical_pos": "verb",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-park-parque:phrase-1",
+      "relation_type": "phrase_control_example",
+      "trigger": "park",
+      "active_target": "parque",
+      "candidate_target": "phrase_control",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:park:parque:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "phrase_control",
+      "evidence_text": "The committee will ___ that issue for now.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination",
+        "phrase_containment"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:park:parque",
+        "active_sense_id": "en-es:sentence-veto:park:parque:active",
+        "example_bucket": "phrase_control",
+        "gold_decision": "abstain"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-drink-bebida:active-1",
+      "relation_type": "anchor_cue",
+      "trigger": "drink",
+      "active_target": "bebida",
+      "candidate_target": "bebida",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:drink:bebida:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "They enjoyed a ___ after dinner.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:drink:bebida",
+        "active_sense_id": "en-es:sentence-veto:drink:bebida:active",
+        "example_bucket": "active",
+        "candidate_sense_id": "en-es:sentence-veto:drink:bebida:active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:drink:bebida:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-drink-bebida:active-2",
+      "relation_type": "anchor_cue",
+      "trigger": "drink",
+      "active_target": "bebida",
+      "candidate_target": "bebida",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:drink:bebida:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "I ordered a ___ at the bar.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:drink:bebida",
+        "active_sense_id": "en-es:sentence-veto:drink:bebida:active",
+        "example_bucket": "active",
+        "candidate_sense_id": "en-es:sentence-veto:drink:bebida:active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:drink:bebida:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-drink-bebida:shadow-en-es-sentence-veto-drink-beber-shadow-1",
+      "relation_type": "shadow_candidate",
+      "trigger": "drink",
+      "active_target": "bebida",
+      "candidate_target": "beber",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:drink:bebida:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "verb",
+      "evidence_text": "Athletes should ___ more water during practice.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:drink:bebida",
+        "active_sense_id": "en-es:sentence-veto:drink:bebida:active",
+        "example_bucket": "shadow",
+        "candidate_sense_id": "en-es:sentence-veto:drink:beber:shadow"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:drink:beber:shadow",
+        "canonical_pos": "verb",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-drink-bebida:shadow-en-es-sentence-veto-drink-beber-shadow-2",
+      "relation_type": "shadow_candidate",
+      "trigger": "drink",
+      "active_target": "bebida",
+      "candidate_target": "beber",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:drink:bebida:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "verb",
+      "evidence_text": "He refused to ___ after the surgery.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:drink:bebida",
+        "active_sense_id": "en-es:sentence-veto:drink:bebida:active",
+        "example_bucket": "shadow",
+        "candidate_sense_id": "en-es:sentence-veto:drink:beber:shadow"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:drink:beber:shadow",
+        "canonical_pos": "verb",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-drink-bebida:phrase-1",
+      "relation_type": "phrase_control_example",
+      "trigger": "drink",
+      "active_target": "bebida",
+      "candidate_target": "phrase_control",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:drink:bebida:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "phrase_control",
+      "evidence_text": "She tried to ___ in the view from the balcony.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination",
+        "phrase_containment"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:drink:bebida",
+        "active_sense_id": "en-es:sentence-veto:drink:bebida:active",
+        "example_bucket": "phrase_control",
+        "gold_decision": "abstain"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-play-obra:active-1",
+      "relation_type": "anchor_cue",
+      "trigger": "play",
+      "active_target": "obra",
+      "candidate_target": "obra",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:play:obra:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "They praised the ___ in reviews.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:play:obra",
+        "active_sense_id": "en-es:sentence-veto:play:obra:active",
+        "example_bucket": "active",
+        "candidate_sense_id": "en-es:sentence-veto:play:obra:active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:play:obra:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-play-obra:active-2",
+      "relation_type": "anchor_cue",
+      "trigger": "play",
+      "active_target": "obra",
+      "candidate_target": "obra",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:play:obra:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "The ___ opened last night.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:play:obra",
+        "active_sense_id": "en-es:sentence-veto:play:obra:active",
+        "example_bucket": "active",
+        "candidate_sense_id": "en-es:sentence-veto:play:obra:active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:play:obra:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-play-obra:shadow-en-es-sentence-veto-play-jugar-shadow-1",
+      "relation_type": "shadow_candidate",
+      "trigger": "play",
+      "active_target": "obra",
+      "candidate_target": "jugar",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:play:obra:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "verb",
+      "evidence_text": "The children ___ outside after school.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:play:obra",
+        "active_sense_id": "en-es:sentence-veto:play:obra:active",
+        "example_bucket": "shadow",
+        "candidate_sense_id": "en-es:sentence-veto:play:jugar:shadow"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:play:jugar:shadow",
+        "canonical_pos": "verb",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-play-obra:shadow-en-es-sentence-veto-play-jugar-shadow-2",
+      "relation_type": "shadow_candidate",
+      "trigger": "play",
+      "active_target": "obra",
+      "candidate_target": "jugar",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:play:obra:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "verb",
+      "evidence_text": "She likes to ___ chess online.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:play:obra",
+        "active_sense_id": "en-es:sentence-veto:play:obra:active",
+        "example_bucket": "shadow",
+        "candidate_sense_id": "en-es:sentence-veto:play:jugar:shadow"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:play:jugar:shadow",
+        "canonical_pos": "verb",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-play-obra:phrase-1",
+      "relation_type": "phrase_control_example",
+      "trigger": "play",
+      "active_target": "obra",
+      "candidate_target": "phrase_control",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:play:obra:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "phrase_control",
+      "evidence_text": "The scandal will ___ out over several weeks.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination",
+        "phrase_containment"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:play:obra",
+        "active_sense_id": "en-es:sentence-veto:play:obra:active",
+        "example_bucket": "phrase_control",
+        "gold_decision": "abstain"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-watch-reloj:active-1",
+      "relation_type": "anchor_cue",
+      "trigger": "watch",
+      "active_target": "reloj",
+      "candidate_target": "reloj",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:watch:reloj:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "He adjusted his ___ strap before the interview.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:watch:reloj",
+        "active_sense_id": "en-es:sentence-veto:watch:reloj:active",
+        "example_bucket": "active",
+        "candidate_sense_id": "en-es:sentence-veto:watch:reloj:active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:watch:reloj:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-watch-reloj:active-2",
+      "relation_type": "anchor_cue",
+      "trigger": "watch",
+      "active_target": "reloj",
+      "candidate_target": "reloj",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:watch:reloj:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "The ___ needed a new battery after the trip.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:watch:reloj",
+        "active_sense_id": "en-es:sentence-veto:watch:reloj:active",
+        "example_bucket": "active",
+        "candidate_sense_id": "en-es:sentence-veto:watch:reloj:active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:watch:reloj:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-watch-reloj:shadow-en-es-sentence-veto-watch-vigilar-shadow-1",
+      "relation_type": "shadow_candidate",
+      "trigger": "watch",
+      "active_target": "reloj",
+      "candidate_target": "vigilar",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:watch:reloj:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "verb",
+      "evidence_text": "Parents ___ their children closely at the beach.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:watch:reloj",
+        "active_sense_id": "en-es:sentence-veto:watch:reloj:active",
+        "example_bucket": "shadow",
+        "candidate_sense_id": "en-es:sentence-veto:watch:vigilar:shadow"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:watch:vigilar:shadow",
+        "canonical_pos": "verb",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-watch-reloj:shadow-en-es-sentence-veto-watch-vigilar-shadow-2",
+      "relation_type": "shadow_candidate",
+      "trigger": "watch",
+      "active_target": "reloj",
+      "candidate_target": "vigilar",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:watch:reloj:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "verb",
+      "evidence_text": "Guards ___ the entrance through the night.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:watch:reloj",
+        "active_sense_id": "en-es:sentence-veto:watch:reloj:active",
+        "example_bucket": "shadow",
+        "candidate_sense_id": "en-es:sentence-veto:watch:vigilar:shadow"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:watch:vigilar:shadow",
+        "canonical_pos": "verb",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-watch-reloj:phrase-1",
+      "relation_type": "phrase_control_example",
+      "trigger": "watch",
+      "active_target": "reloj",
+      "candidate_target": "phrase_control",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:watch:reloj:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "phrase_control",
+      "evidence_text": "You should ___ out for black ice on the bridge.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination",
+        "phrase_containment"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:watch:reloj",
+        "active_sense_id": "en-es:sentence-veto:watch:reloj:active",
+        "example_bucket": "phrase_control",
+        "gold_decision": "abstain"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-check-cheque:active-1",
+      "relation_type": "anchor_cue",
+      "trigger": "check",
+      "active_target": "cheque",
+      "candidate_target": "cheque",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:check:cheque:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "He signed the ___ before mailing the rent.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:check:cheque",
+        "active_sense_id": "en-es:sentence-veto:check:cheque:active",
+        "example_bucket": "active",
+        "candidate_sense_id": "en-es:sentence-veto:check:cheque:active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:check:cheque:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-check-cheque:active-2",
+      "relation_type": "anchor_cue",
+      "trigger": "check",
+      "active_target": "cheque",
+      "candidate_target": "cheque",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:check:cheque:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "The ___ cleared after the holiday weekend.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:check:cheque",
+        "active_sense_id": "en-es:sentence-veto:check:cheque:active",
+        "example_bucket": "active",
+        "candidate_sense_id": "en-es:sentence-veto:check:cheque:active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:check:cheque:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-check-cheque:shadow-en-es-sentence-veto-check-revisar-shadow-1",
+      "relation_type": "shadow_candidate",
+      "trigger": "check",
+      "active_target": "cheque",
+      "candidate_target": "revisar",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:check:cheque:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "verb",
+      "evidence_text": "Please ___ the figures one more time.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:check:cheque",
+        "active_sense_id": "en-es:sentence-veto:check:cheque:active",
+        "example_bucket": "shadow",
+        "candidate_sense_id": "en-es:sentence-veto:check:revisar:shadow"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:check:revisar:shadow",
+        "canonical_pos": "verb",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-check-cheque:shadow-en-es-sentence-veto-check-revisar-shadow-2",
+      "relation_type": "shadow_candidate",
+      "trigger": "check",
+      "active_target": "cheque",
+      "candidate_target": "revisar",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:check:cheque:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "verb",
+      "evidence_text": "Technicians ___ the pressure every hour.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:check:cheque",
+        "active_sense_id": "en-es:sentence-veto:check:cheque:active",
+        "example_bucket": "shadow",
+        "candidate_sense_id": "en-es:sentence-veto:check:revisar:shadow"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:check:revisar:shadow",
+        "canonical_pos": "verb",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-check-cheque:phrase-1",
+      "relation_type": "phrase_control_example",
+      "trigger": "check",
+      "active_target": "cheque",
+      "candidate_target": "phrase_control",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:check:cheque:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "phrase_control",
+      "evidence_text": "You should ___ out the new exhibit downtown.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination",
+        "phrase_containment"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:check:cheque",
+        "active_sense_id": "en-es:sentence-veto:check:cheque:active",
+        "example_bucket": "phrase_control",
+        "gold_decision": "abstain"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-order-pedido:active-1",
+      "relation_type": "anchor_cue",
+      "trigger": "order",
+      "active_target": "pedido",
+      "candidate_target": "pedido",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:order:pedido:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "The ___ shipped this morning.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:order:pedido",
+        "active_sense_id": "en-es:sentence-veto:order:pedido:active",
+        "example_bucket": "active",
+        "candidate_sense_id": "en-es:sentence-veto:order:pedido:active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:order:pedido:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-order-pedido:active-2",
+      "relation_type": "anchor_cue",
+      "trigger": "order",
+      "active_target": "pedido",
+      "candidate_target": "pedido",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:order:pedido:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "Your ___ arrived before noon.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:order:pedido",
+        "active_sense_id": "en-es:sentence-veto:order:pedido:active",
+        "example_bucket": "active",
+        "candidate_sense_id": "en-es:sentence-veto:order:pedido:active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:order:pedido:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-order-pedido:shadow-en-es-sentence-veto-order-ordenar-shadow-1",
+      "relation_type": "shadow_candidate",
+      "trigger": "order",
+      "active_target": "pedido",
+      "candidate_target": "ordenar",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:order:pedido:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "verb",
+      "evidence_text": "Teachers ___ the class to remain silent.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:order:pedido",
+        "active_sense_id": "en-es:sentence-veto:order:pedido:active",
+        "example_bucket": "shadow",
+        "candidate_sense_id": "en-es:sentence-veto:order:ordenar:shadow"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:order:ordenar:shadow",
+        "canonical_pos": "verb",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-order-pedido:shadow-en-es-sentence-veto-order-ordenar-shadow-2",
+      "relation_type": "shadow_candidate",
+      "trigger": "order",
+      "active_target": "pedido",
+      "candidate_target": "ordenar",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:order:pedido:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "verb",
+      "evidence_text": "Commanders ___ the troops forward.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:order:pedido",
+        "active_sense_id": "en-es:sentence-veto:order:pedido:active",
+        "example_bucket": "shadow",
+        "candidate_sense_id": "en-es:sentence-veto:order:ordenar:shadow"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:order:ordenar:shadow",
+        "canonical_pos": "verb",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-order-pedido:phrase-1",
+      "relation_type": "phrase_control_example",
+      "trigger": "order",
+      "active_target": "pedido",
+      "candidate_target": "phrase_control",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:order:pedido:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "phrase_control",
+      "evidence_text": "We should ___ out tonight.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination",
+        "phrase_containment"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:order:pedido",
+        "active_sense_id": "en-es:sentence-veto:order:pedido:active",
+        "example_bucket": "phrase_control",
+        "gold_decision": "abstain"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-trip-viaje:active-1",
+      "relation_type": "anchor_cue",
+      "trigger": "trip",
+      "active_target": "viaje",
+      "candidate_target": "viaje",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:trip:viaje:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "The ___ lasted only two days.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:trip:viaje",
+        "active_sense_id": "en-es:sentence-veto:trip:viaje:active",
+        "example_bucket": "active",
+        "candidate_sense_id": "en-es:sentence-veto:trip:viaje:active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:trip:viaje:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-trip-viaje:active-2",
+      "relation_type": "anchor_cue",
+      "trigger": "trip",
+      "active_target": "viaje",
+      "candidate_target": "viaje",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:trip:viaje:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "Their ___ ended before sunrise.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:trip:viaje",
+        "active_sense_id": "en-es:sentence-veto:trip:viaje:active",
+        "example_bucket": "active",
+        "candidate_sense_id": "en-es:sentence-veto:trip:viaje:active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:trip:viaje:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-trip-viaje:shadow-en-es-sentence-veto-trip-viaje-shadow-1",
+      "relation_type": "shadow_candidate",
+      "trigger": "trip",
+      "active_target": "viaje",
+      "candidate_target": "tropezar",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:trip:viaje:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "verb",
+      "evidence_text": "Runners ___ on these loose stones.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:trip:viaje",
+        "active_sense_id": "en-es:sentence-veto:trip:viaje:active",
+        "example_bucket": "shadow",
+        "candidate_sense_id": "en-es:sentence-veto:trip:viaje:shadow"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:trip:viaje:shadow",
+        "canonical_pos": "verb",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-trip-viaje:shadow-en-es-sentence-veto-trip-viaje-shadow-2",
+      "relation_type": "shadow_candidate",
+      "trigger": "trip",
+      "active_target": "viaje",
+      "candidate_target": "tropezar",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:trip:viaje:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "verb",
+      "evidence_text": "Children ___ if the laces come loose.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:trip:viaje",
+        "active_sense_id": "en-es:sentence-veto:trip:viaje:active",
+        "example_bucket": "shadow",
+        "candidate_sense_id": "en-es:sentence-veto:trip:viaje:shadow"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:trip:viaje:shadow",
+        "canonical_pos": "verb",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-trip-viaje:phrase-1",
+      "relation_type": "phrase_control_example",
+      "trigger": "trip",
+      "active_target": "viaje",
+      "candidate_target": "phrase_control",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:trip:viaje:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "phrase_control",
+      "evidence_text": "That question can ___ up new hires.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination",
+        "phrase_containment"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:trip:viaje",
+        "active_sense_id": "en-es:sentence-veto:trip:viaje:active",
+        "example_bucket": "phrase_control",
+        "gold_decision": "abstain"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-report-informe:active-1",
+      "relation_type": "anchor_cue",
+      "trigger": "report",
+      "active_target": "informe",
+      "candidate_target": "informe",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:report:informe:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "The ___ arrived this morning.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:report:informe",
+        "active_sense_id": "en-es:sentence-veto:report:informe:active",
+        "example_bucket": "active",
+        "candidate_sense_id": "en-es:sentence-veto:report:informe:active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:report:informe:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-report-informe:active-2",
+      "relation_type": "anchor_cue",
+      "trigger": "report",
+      "active_target": "informe",
+      "candidate_target": "informe",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:report:informe:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "The ___ was delayed until Friday.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:report:informe",
+        "active_sense_id": "en-es:sentence-veto:report:informe:active",
+        "example_bucket": "active",
+        "candidate_sense_id": "en-es:sentence-veto:report:informe:active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:report:informe:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-report-informe:shadow-en-es-sentence-veto-report-informar-shadow-1",
+      "relation_type": "shadow_candidate",
+      "trigger": "report",
+      "active_target": "informe",
+      "candidate_target": "informar",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:report:informe:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "verb",
+      "evidence_text": "Witnesses ___ heavy rain near the coast.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:report:informe",
+        "active_sense_id": "en-es:sentence-veto:report:informe:active",
+        "example_bucket": "shadow",
+        "candidate_sense_id": "en-es:sentence-veto:report:informar:shadow"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:report:informar:shadow",
+        "canonical_pos": "verb",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-report-informe:shadow-en-es-sentence-veto-report-informar-shadow-2",
+      "relation_type": "shadow_candidate",
+      "trigger": "report",
+      "active_target": "informe",
+      "candidate_target": "informar",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:report:informe:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "verb",
+      "evidence_text": "Analysts ___ slower growth this quarter.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:report:informe",
+        "active_sense_id": "en-es:sentence-veto:report:informe:active",
+        "example_bucket": "shadow",
+        "candidate_sense_id": "en-es:sentence-veto:report:informar:shadow"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:report:informar:shadow",
+        "canonical_pos": "verb",
+        "note": "fixed_shadow_candidate"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-report-informe:phrase-1",
+      "relation_type": "phrase_control_example",
+      "trigger": "report",
+      "active_target": "informe",
+      "candidate_target": "phrase_control",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:report:informe:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_pos": "phrase_control",
+      "evidence_text": "Please ___ back after the conference.",
+      "example_count": 1,
+      "review_state": "accepted",
+      "promotion_state": "kept",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination",
+        "phrase_containment"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:report:informe",
+        "active_sense_id": "en-es:sentence-veto:report:informe:active",
+        "example_bucket": "phrase_control",
+        "gold_decision": "abstain"
+      }
+    }
+  ]
+}

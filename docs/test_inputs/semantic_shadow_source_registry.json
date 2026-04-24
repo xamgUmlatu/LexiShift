@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "purpose": "Track current and proposed semantic-shadow data sources so source-heavy veto experimentation stays explicit, comparable, and approval-aware.",
-  "last_updated": "2026-04-11",
+  "last_updated": "2026-04-25",
   "statuses": [
     "integrated",
     "planned",
@@ -29,6 +29,41 @@
       "runtime_publishable": false,
       "expected_value": "High-precision control lane for overlap and veto lower-bound measurement.",
       "main_risk": "Not production-eligible; can hide automatic seed weakness if treated as more than a control."
+    },
+    {
+      "source_id": "reviewed_sentence_veto_example_frames",
+      "label": "Reviewed sentence-veto example frames",
+      "status": "integrated",
+      "approval_state": "not_required",
+      "pair_scope": [
+        "en-es"
+      ],
+      "source_family": "internal_reviewed_dataset",
+      "roles": [
+        "discrimination",
+        "cue_generation",
+        "phrase_containment"
+      ],
+      "runtime_publishable": false,
+      "expected_value": "Upper-bound source/insertion and prototype-admission probe for competition-symmetric active, shadow, and phrase-control example-frame evidence.",
+      "main_risk": "Oracle-style internal evaluation evidence; useful for source-shape direction, not as production or paid-generation acceptance evidence."
+    },
+    {
+      "source_id": "reverse_aux_example_frames",
+      "label": "Reverse auxiliary sense text as example-frame evidence",
+      "status": "integrated",
+      "approval_state": "not_required",
+      "pair_scope": [
+        "en-es"
+      ],
+      "source_family": "installed_translation_pack",
+      "roles": [
+        "discrimination",
+        "cue_generation"
+      ],
+      "runtime_publishable": false,
+      "expected_value": "Real non-LLM active and shadow source evidence for gap-routing against the active/shadow/phrase-control example-frame contract.",
+      "main_risk": "Auxiliary sense text is not true contextual example evidence and currently has no phrase-control rows."
     },
     {
       "source_id": "rulegen_sources",

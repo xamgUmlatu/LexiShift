@@ -1,0 +1,193 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-04-24T21:36:05Z",
+  "status": "reject",
+  "decision": "analysis_only",
+  "thresholds": {
+    "min_decision_accuracy": 0.8,
+    "min_replace_recall": 0.625,
+    "max_harmful_replace": 0,
+    "max_false_abstain": 8
+  },
+  "run_summary": {
+    "status": "ok",
+    "batch_id": "en-es:example-frame-missing-rows:example-frame-missing-rows-v1-20260425a",
+    "selected_request_count": 11,
+    "accepted_item_count": 11,
+    "input_tokens": 3382,
+    "output_tokens": 358
+  },
+  "contract_summary": {
+    "status": "ok",
+    "batch_id": "en-es:example-frame-composite:reverse-aux-plus-llm-missing-rows-latest",
+    "complete_families": 8,
+    "families_total": 8
+  },
+  "prototype_config_rows": [
+    {
+      "config_id": "prototype_reviewed_examples_family_guard",
+      "label": "Prototype reverse_aux_plus_llm_example_frame_missing_rows, family phrase guard",
+      "decision_accuracy": 0.6,
+      "replace_recall": 0.3125,
+      "harmful_replace_count": 5,
+      "false_abstain_count": 11,
+      "quality_gate_pass": false
+    },
+    {
+      "config_id": "prototype_reviewed_examples_active_guard",
+      "label": "Prototype reverse_aux_plus_llm_example_frame_missing_rows, active phrase guard",
+      "decision_accuracy": 0.675,
+      "replace_recall": 0.3125,
+      "harmful_replace_count": 2,
+      "false_abstain_count": 11,
+      "quality_gate_pass": false
+    },
+    {
+      "config_id": "prototype_reviewed_examples_phrase_prototype_guard",
+      "label": "Prototype reverse_aux_plus_llm_example_frame_missing_rows, phrase-control prototype guard",
+      "decision_accuracy": 0.625,
+      "replace_recall": 0.1875,
+      "harmful_replace_count": 2,
+      "false_abstain_count": 13,
+      "quality_gate_pass": false
+    }
+  ],
+  "best_config": {
+    "config_id": "prototype_reviewed_examples_active_guard",
+    "label": "Prototype reverse_aux_plus_llm_example_frame_missing_rows, active phrase guard",
+    "decision_accuracy": 0.675,
+    "replace_recall": 0.3125,
+    "harmful_replace_count": 2,
+    "false_abstain_count": 11,
+    "quality_gate_pass": false
+  },
+  "diagnostics": {
+    "phrase_overreach_false_abstain_count": 12,
+    "phrase_overreach_samples": [
+      {
+        "case_id": "en-es:sentence-veto:plant:001",
+        "gold_decision": "replace",
+        "predicted_decision": "abstain",
+        "predicted_winner": "en-es:sentence-veto:plant:fabrica:shadow",
+        "active_score": 0.521,
+        "strongest_shadow_score": 0.5696,
+        "phrase_control_score": 0.5596,
+        "active_evidence_text": "organism capable of photosynthesis",
+        "strongest_shadow_evidence_text": "The new plant will assemble batteries around the clock.",
+        "phrase_control_evidence_text": "The plan will plant itself in their minds by morning."
+      },
+      {
+        "case_id": "en-es:sentence-veto:plant:002",
+        "gold_decision": "replace",
+        "predicted_decision": "abstain",
+        "predicted_winner": "phrase_control",
+        "active_score": 0.6169,
+        "strongest_shadow_score": 0.6574,
+        "phrase_control_score": 0.6915,
+        "active_evidence_text": "organism capable of photosynthesis",
+        "strongest_shadow_evidence_text": "The new plant will assemble batteries around the clock.",
+        "phrase_control_evidence_text": "The plan will plant itself in their minds by morning."
+      },
+      {
+        "case_id": "en-es:sentence-veto:play:001",
+        "gold_decision": "replace",
+        "predicted_decision": "abstain",
+        "predicted_winner": "en-es:sentence-veto:play:jugar:shadow",
+        "active_score": 0.5151,
+        "strongest_shadow_score": 0.5267,
+        "phrase_control_score": 0.519,
+        "active_evidence_text": "The school staged a play about climate change in the auditorium.",
+        "strongest_shadow_evidence_text": "act in a manner such that one has fun",
+        "phrase_control_evidence_text": "play it by ear and see how things go"
+      },
+      {
+        "case_id": "en-es:sentence-veto:play:002",
+        "gold_decision": "replace",
+        "predicted_decision": "abstain",
+        "predicted_winner": "phrase_control",
+        "active_score": 0.5262,
+        "strongest_shadow_score": 0.4875,
+        "phrase_control_score": 0.5713,
+        "active_evidence_text": "The school staged a play about climate change in the auditorium.",
+        "strongest_shadow_evidence_text": "act in a manner such that one has fun",
+        "phrase_control_evidence_text": "play it by ear and see how things go"
+      },
+      {
+        "case_id": "en-es:sentence-veto:check:001",
+        "gold_decision": "replace",
+        "predicted_decision": "abstain",
+        "predicted_winner": "phrase_control",
+        "active_score": 0.5195,
+        "strongest_shadow_score": 0.5791,
+        "phrase_control_score": 0.5893,
+        "active_evidence_text": "mark used as an indicator",
+        "strongest_shadow_evidence_text": "Please check the wiring before we power up the machine.",
+        "phrase_control_evidence_text": "The rain check is still valid for next week."
+      },
+      {
+        "case_id": "en-es:sentence-veto:check:002",
+        "gold_decision": "replace",
+        "predicted_decision": "abstain",
+        "predicted_winner": "phrase_control",
+        "active_score": 0.5539,
+        "strongest_shadow_score": 0.5715,
+        "phrase_control_score": 0.7021,
+        "active_evidence_text": "mark used as an indicator",
+        "strongest_shadow_evidence_text": "Please check the wiring before we power up the machine.",
+        "phrase_control_evidence_text": "The rain check is still valid for next week."
+      },
+      {
+        "case_id": "en-es:sentence-veto:order:001",
+        "gold_decision": "replace",
+        "predicted_decision": "abstain",
+        "predicted_winner": "phrase_control",
+        "active_score": 0.5595,
+        "strongest_shadow_score": 0.5671,
+        "phrase_control_score": 0.6877,
+        "active_evidence_text": "request for some product or service",
+        "strongest_shadow_evidence_text": "to set in (any) order",
+        "phrase_control_evidence_text": "in order to keep things simple, we left early"
+      },
+      {
+        "case_id": "en-es:sentence-veto:order:002",
+        "gold_decision": "replace",
+        "predicted_decision": "abstain",
+        "predicted_winner": "phrase_control",
+        "active_score": 0.5323,
+        "strongest_shadow_score": 0.5645,
+        "phrase_control_score": 0.7301,
+        "active_evidence_text": "request for some product or service",
+        "strongest_shadow_evidence_text": "to set in (any) order",
+        "phrase_control_evidence_text": "in order to keep things simple, we left early"
+      }
+    ],
+    "harmful_replace_count": 2,
+    "harmful_replace_samples": [
+      {
+        "case_id": "en-es:sentence-veto:report:003",
+        "gold_decision": "abstain",
+        "predicted_decision": "replace",
+        "predicted_winner": "en-es:sentence-veto:report:informe:active",
+        "active_score": 0.6607,
+        "strongest_shadow_score": 0.6381,
+        "phrase_control_score": 0.0,
+        "active_evidence_text": "information describing events",
+        "strongest_shadow_evidence_text": "to relate details of",
+        "phrase_control_evidence_text": ""
+      },
+      {
+        "case_id": "en-es:sentence-veto:report:004",
+        "gold_decision": "abstain",
+        "predicted_decision": "replace",
+        "predicted_winner": "en-es:sentence-veto:report:informe:active",
+        "active_score": 0.567,
+        "strongest_shadow_score": 0.5495,
+        "phrase_control_score": 0.0,
+        "active_evidence_text": "information describing events",
+        "strongest_shadow_evidence_text": "to relate details of",
+        "phrase_control_evidence_text": ""
+      }
+    ]
+  },
+  "recommendation": "Keep this generated batch analysis-only. It clears the row contract but fails the prototype-quality gate: best config `prototype_reviewed_examples_active_guard` is `67.5%` accuracy / `31.2%` recall / `2` harmful / `11` false abstains. Diagnostics show `12` phrase-overreach false abstains and `2` harmful active wins. The next source pass should not merely fill missing rows; it should generate balanced active/shadow exemplars and treat phrase-control rows as containment patterns or separately gated abstain evidence, not broad semantic competitors."
+}

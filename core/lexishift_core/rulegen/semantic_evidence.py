@@ -10,11 +10,34 @@ SEMANTIC_EVIDENCE_SCHEMA_VERSION = 1
 SEMANTIC_EVIDENCE_NORMALIZATION_VERSION = "semantic_evidence_v1"
 LLM_SOURCE_TYPE = "llm"
 LLM_SOURCE_FAMILY = "silver_llm_generation"
+SUPPORTED_SOURCE_TYPES = frozenset(
+    {
+        "llm",
+        "external",
+        "internal",
+    }
+)
+SUPPORTED_SOURCE_FAMILIES = frozenset(
+    {
+        "silver_llm_generation",
+        "internal_reviewed_dataset",
+        "internal_rulegen_artifact",
+        "installed_translation_pack",
+        "installed_translation_pack_plus_internal_derivations",
+        "installed_frequency_pack",
+        "derived_embedding_probe",
+        "external_structured_dictionary_dump",
+        "external_sense_graph",
+        "external_parallel_corpus_derivation",
+        "external_example_corpus",
+    }
+)
 SUPPORTED_RELATION_TYPES = frozenset(
     {
         "shadow_candidate",
         "bridge_candidate",
         "anchor_cue",
+        "phrase_control_example",
     }
 )
 SUPPORTED_REVIEW_STATES = frozenset(
@@ -40,6 +63,7 @@ SUPPORTED_ROLES = frozenset(
         "discrimination",
         "sense_linking",
         "cue_generation",
+        "phrase_containment",
     }
 )
 
@@ -63,9 +87,9 @@ def normalize_llm_intake_batch(batch: Mapping[str, object]) -> dict[str, object]
     _require_schema_version(batch)
     batch_id = _require_text(batch, "batch_id")
     pair = _require_pair(batch, "pair")
-    source_type = _require_enum_text(batch, "source_type", {LLM_SOURCE_TYPE})
+    source_type = _require_enum_text(batch, "source_type", SUPPORTED_SOURCE_TYPES)
     source_id = _require_text(batch, "source_id")
-    source_family = _require_enum_text(batch, "source_family", {LLM_SOURCE_FAMILY})
+    source_family = _require_enum_text(batch, "source_family", SUPPORTED_SOURCE_FAMILIES)
     roles = _normalize_roles(batch.get("roles"))
     generated_at = _require_text(batch, "generated_at")
     ingested_at = _require_text(batch, "ingested_at")

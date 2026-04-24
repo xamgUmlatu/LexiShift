@@ -3,8 +3,8 @@
 Status: active plan
 Role: Planning / pre-scan framing
 Purpose: define what semantic-routing data should eventually be generated with LLM support, which units deserve queueing, what can be inferred automatically versus what remains hypothesis, and how to avoid redundant generation work
-Last updated: 2026-04-24
-Last verified: 2026-04-24 repo-doc review against the semantic-routing data/publication contracts, runtime-readiness framing, source-intake plan, first concrete family inventory, and frozen bakeoff queue
+Last updated: 2026-04-25
+Last verified: 2026-04-25 no-spend source/insertion probe plus missing-row generation plan against the frozen `v10` queue
 Source-of-truth: planning doc only; current implemented truth still lives in the semantic-routing contracts, inventory publication code, and offline evidence normalization seam
 Related docs:
 - `docs/rulegen/semantic_shadow_source_intake_plan.md`
@@ -100,11 +100,12 @@ It is:
 
 ## Current intended generated data
 
-The current LLM intake seam supports three row types:
+The current semantic evidence intake seam supports four row types:
 
 - `shadow_candidate`
 - `bridge_candidate`
 - `anchor_cue`
+- `phrase_control_example`
 
 Interpretation:
 
@@ -114,9 +115,12 @@ Interpretation:
   - propose a plausible competing target that current lexical mining may miss
 - `anchor_cue`
   - propose discriminative evidence text for an already-known active/shadow contrast
+- `phrase_control_example`
+  - propose or ingest an abstain-side example/frame for phrase, idiom, lexicalized, or otherwise no-replacement uses of the same trigger
 
 Those rows are offline evidence only.
 They are not runtime decisions and they are not runtime sidecars.
+The current example-frame contract requires active, shadow, and phrase-control rows together before a generated/source batch is promotion-relevant.
 
 ## Budget posture
 
@@ -394,7 +398,7 @@ Current posture from that first artifact:
   - so the current routed conclusion is not "scale cue generation now"
   - it is "keep the queue fixed, keep reverse-aux as the current control, and redesign the next cue prompt around stronger overlap-bearing discriminators before larger spend"
 - that redesign is now prepared as a bounded no-spend challenger matrix rather than a vague idea:
-  - now also exercised once on a real cheap proxy batch
+  - now also exercised once on a real cheap proxy batch and once on the target model for the overlap challenger slots
   - `semantic_prompt_bakeoff_v3`
   - `4` active cue slots and `12` proxy requests on the same frozen queue
   - incumbents:
@@ -403,10 +407,20 @@ Current posture from that first artifact:
   - challengers:
     - `cue_contrastive_overlap_v1`
     - `cue_cross_pos_overlap_v1`
-  - next spend decision is therefore narrow:
-    - cheap incumbent-vs-overlap proxy comparison is now complete
-    - the overlap challengers look better than the incumbent wording on that proxy read
-    - only carry those challenger slots forward into another target-model pass
+  - current target/downstream result is negative for promotion:
+    - the narrowed target pass accepted and normalized `6 / 6` overlap requests
+    - the safe additive downstream lane still stays flat on false abstain and worsens the hard-lane harmful count
+    - `reverse_aux_plus_all_evidence` remains better than the LLM cue rows on the frozen queue slice
+  - the preserved failure diagnostic now explains the failure mode:
+    - `scripts/testing/semantic_llm_prompt_failure_diagnostic_en_es.py`
+    - `docs/test_outputs/semantic_llm_prompt_failure_diagnostic_latest.md`
+    - reverse-aux works best when both active and shadow senses receive source-side auxiliary evidence
+    - active-only cue additions are unsafe or inert
+    - LLM cues add no value on top of the current reverse-aux evidence surface
+  - next spend decision is therefore "stop", not "scale":
+    - keep both accepted target cue tranches analysis-only
+    - do not broaden cue-generation spend from the current prompt matrix
+    - only re-enter paid generation after a source-data, insertion-strategy, or evaluation-lane change gives a concrete path past the reverse-aux control
 
 Minimum family inventory responsibilities:
 
@@ -580,10 +594,55 @@ The current queueing unit is now stable enough for a first bounded pre-prompt wo
 - frozen prompt spec
 - rendered prompt smoke bundle
 
-What is still missing before prompt spend:
+What is still missing before another prompt-spend wave:
 
-- actual proxy-model execution with usable quota on a configured API surface
-- then target-model finalist confirmation on the same frozen slice
+- a concrete explanation of why the accepted cue text is not moving the safe additive downstream lane
+- a changed source-data, insertion-strategy, or evaluation-lane hypothesis that could plausibly beat the current reverse-aux control
+- then another bounded proxy/target pass only for that new hypothesis
+
+Current answer to the first item:
+
+- the accepted cue text is active-side only
+- active-side-only evidence broadens replace pressure without equal shadow-side calibration
+- reverse-aux succeeds because it changes active and shadow evidence together
+- therefore the next queue work should prioritize competition-symmetric source data over another prompt wording pass
+- the new source/insertion probe makes that concrete:
+  - `scripts/testing/semantic_llm_source_insertion_probe_en_es.py`
+  - `docs/test_outputs/semantic_llm_source_insertion_probe_latest.md`
+  - full symmetric reverse-aux is `82.5%` accuracy / `62.5%` replace recall / `1` harmful / `6` false abstains
+  - active-only reverse-aux drops to `80.0%` / `56.2%` / `1` / `7`
+  - shadow-only reverse-aux drops to `77.5%` / `56.2%` / `2` / `7`
+  - active LLM cues plus reverse-shadow calibration still lands at `72.5%` / `56.2%` / `4` / `7`
+  - hard reviewed example frames remove all false abstains but reopen phrase leaks: `92.5%` / `100.0%` / `3` / `0`
+  - active-guard reviewed example frames reach `100.0%` / `100.0%` / `0` / `0` as an internal upper bound
+  - `scripts/testing/semantic_llm_prototype_admission_probe_en_es.py` now tests the more fundamental internal shape: score contexts against active/shadow example prototypes, then still emit only `replace` or `abstain`
+  - `docs/test_outputs/semantic_llm_prototype_admission_probe_latest.md` clears the frozen queue at `100.0%` / `100.0%` / `0` / `0`
+  - `docs/test_outputs/semantic_llm_prototype_admission_probe_expanded_latest.md` expands to all `95` `v10` cases and shows that active/shadow prototypes plus active-sense phrase guarding still leave phrase-control leaks at `97.9%` / `100.0%` / `2` / `0`
+  - adding phrase-control prototypes as abstain competitors clears that expanded oracle read at `100.0%` / `100.0%` / `0` / `0`
+  - the canonical intake/evidence schemas and normalizer now accept `relation_type=phrase_control_example` and `role=phrase_containment`
+  - `scripts/testing/semantic_llm_example_frame_contract_en_es.py` now gates future source batches against the full active/shadow/phrase-control contract
+  - `scripts/testing/semantic_llm_reviewed_example_frame_batch_en_es.py` now builds a no-spend reviewed fixture in the same raw-intake and normalized-evidence shape expected from future generated batches
+  - `docs/test_outputs/semantic_llm_example_frame_contract_latest.md` shows the frozen-queue fixture is contract-complete: `8 / 8` families
+  - `docs/test_outputs/semantic_llm_example_frame_contract_expanded_latest.md` shows the full-`v10` fixture is contract-complete: `19 / 19` families
+  - `docs/test_outputs/semantic_llm_example_frame_contract_overlap_latest.md` preserves the current overlap target batch as a negative contract read: `0 / 6` families are complete because the batch only has active cue rows
+  - the prototype-admission probe now consumes the normalized reviewed evidence batches directly and still clears the frozen queue and full-`v10` reads
+  - so the next source hypothesis needs active, shadow, and phrase-control example/frame evidence generated or ingested together, not active cue text with a later shadow-side patch
+  - `scripts/testing/semantic_llm_example_frame_generation_plan_en_es.py` now turns the reverse-aux required-family gap into an exact no-spend missing-row plan
+  - `docs/test_outputs/semantic_llm_example_frame_generation_plan_latest.md` currently plans `11` requests only: `1` active example for `play`, `2` shadow examples for `plant`/`check`, and `8` phrase-control examples
+  - that plan keeps reviewed sentence-veto case text and translation targets out of prompt input; the prompts carry only trigger text, active/shadow sense labels and glosses, and queue role/archetype/notes
+  - the live missing-row execution completed cleanly, but the downstream quality gate rejects the result:
+    - `scripts/testing/semantic_llm_example_frame_generation_run_en_es.py`
+    - `scripts/testing/semantic_example_frame_batch_merge_en_es.py`
+    - `scripts/testing/semantic_llm_example_frame_generation_quality_gate_en_es.py`
+    - `docs/test_outputs/semantic_llm_example_frame_generation_run_latest.md`
+    - `docs/test_outputs/semantic_llm_example_frame_generation_contract_latest.md`
+    - `docs/test_outputs/semantic_llm_example_frame_generation_quality_gate_latest.md`
+    - live generation accepted and normalized `11 / 11` rows
+    - the merged reverse-aux plus generated batch is structurally complete at `8 / 8` required families
+    - the quality gate rejects it as analysis-only: best prototype config is `67.5%` accuracy / `31.2%` recall / `2` harmful / `11` false abstains
+    - current conclusion is not "generate more missing rows"; it is "change the source shape and scorer interface"
+    - phrase-control generated examples should not be used as broad semantic competitors without an additional containment/gating layer
+    - future generated source batches should generate balanced active and shadow exemplars as a set, not only fill reverse-aux gaps
 
 Current status on that seam:
 
@@ -593,6 +652,26 @@ Current status on that seam:
   - `scripts/testing/semantic_llm_prompt_cost_estimate_en_es.py`
 - the execution runner now exists:
   - `scripts/testing/semantic_llm_prompt_bakeoff_en_es.py`
+- the no-spend source/insertion probe now exists:
+  - `scripts/testing/semantic_llm_source_insertion_probe_en_es.py`
+- the no-spend prototype-admission probe now exists:
+  - `scripts/testing/semantic_llm_prototype_admission_probe_en_es.py`
+- the no-spend example-frame source-contract gate now exists:
+  - `scripts/testing/semantic_llm_example_frame_contract_en_es.py`
+  - use `--required-family-json` for promotion-relevant reads so all frozen queue families must be covered, not only families present in the batch
+- the no-spend reviewed example-frame batch generator now exists:
+  - `scripts/testing/semantic_llm_reviewed_example_frame_batch_en_es.py`
+- the non-LLM reverse-aux example-frame batch generator now exists:
+  - `scripts/testing/semantic_reverse_aux_example_frame_batch_en_es.py`
+  - `docs/test_outputs/semantic_reverse_aux_example_frame_contract_latest.md` shows the real external batch is useful but not contract-complete: `0 / 8` required families complete, with missing shadow rows for `plant` and `check` and missing phrase-control rows for every family
+- the no-spend missing-row generation planner now exists:
+  - `scripts/testing/semantic_llm_example_frame_generation_plan_en_es.py`
+  - `docs/test_outputs/semantic_llm_example_frame_generation_plan_latest.md`
+- the live/replay missing-row generation runner and post-generation gates now exist:
+  - `scripts/testing/semantic_llm_example_frame_generation_run_en_es.py`
+  - `scripts/testing/semantic_example_frame_batch_merge_en_es.py`
+  - `scripts/testing/semantic_llm_example_frame_generation_quality_gate_en_es.py`
+  - current status is `analysis_only`, not promotion-ready
 - the same runner now has a strict replay path:
   - `docs/test_inputs/semantic_routing/semantic_prompt_replay_fixture_en_es_v10.json`
   - `docs/test_outputs/semantic_llm_prompt_replay_latest.md`
@@ -607,15 +686,17 @@ Current status on that seam:
   - ambiguous started-without-outcome requests block resume instead of risking duplicate spend
 - the current Codex command shell still does not inherit `OPENAI_API_KEY` automatically, but the sourced-shell + repo-venv path is now surfaced explicitly by the preflight artifact
 - current token-volume review is also explicit before any paid run:
-  - `6` proxy requests
-  - heuristic `3418` input tokens
+  - latest target-overlap preflight selected `6` target requests
+  - heuristic `3155` input tokens
   - heuristic `540` expected output tokens
 - the replay rehearsal has already proven the preserved-batch plumbing:
   - `1` accepted request normalized cleanly
   - `1` malformed output stayed raw-only and was rejected
   - `1` forced API error stayed raw-only and was counted separately
-- and the separately verified sourced-shell account path still returns `insufficient_quota`
-- so the blocker is now quota/billing, not missing local runner infrastructure
+- the latest sourced-shell target path is now proven end to end:
+  - `6 / 6` overlap challenger target requests accepted and normalized
+  - actual target usage was `2825` input tokens and `179` output tokens
+- so the blocker is no longer local runner infrastructure or target-model prompt validity; it is downstream acceptance
 
 Once the queueing unit is stable, use `docs/rulegen/semantic_llm_prompt_bakeoff_plan.md` for the prompt-slot matrix, proxy-vs-target model policy, and cheap bakeoff workflow.
 

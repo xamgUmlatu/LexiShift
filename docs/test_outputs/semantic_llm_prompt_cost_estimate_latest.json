@@ -1,40 +1,29 @@
 {
   "schema_version": 1,
   "status": "ok",
-  "generated_at": "2026-04-24T02:41:17Z",
+  "generated_at": "2026-04-24T18:13:21Z",
   "pair": "en-es",
   "queue_id": "semantic_prompt_bakeoff_en_es_v10",
   "prompt_spec_id": "semantic_prompt_spec_en_es_v10",
   "prompt_version": "semantic_prompt_bakeoff_v3",
-  "stage": "proxy",
-  "selected_model_id": "gpt-5.4-mini",
+  "stage": "target",
+  "selected_model_id": "gpt-5.4",
   "input_token_heuristic": "ceil(characters / 4.0)",
   "summary": {
-    "selected_request_count": 12,
-    "estimated_input_tokens": 5969,
-    "expected_output_tokens": 1080,
-    "max_output_tokens": 3600
+    "selected_request_count": 6,
+    "estimated_input_tokens": 3155,
+    "expected_output_tokens": 540,
+    "max_output_tokens": 1800,
+    "estimated_cost_expected": 0.015987,
+    "estimated_cost_ceiling": 0.034888
   },
-  "rate_info": {},
+  "rate_info": {
+    "input_rate_per_1m": 2.5,
+    "output_rate_per_1m": 15.0
+  },
   "request_rows": [
     {
-      "request_id": "en-es:proxy:cue-contrastive-general-v1:plant:fabrica",
-      "prompt_slot": "cue_contrastive_general_v1",
-      "family_id": "en-es:sentence-veto:plant:planta",
-      "estimated_input_tokens": 416,
-      "expected_output_tokens": 90,
-      "max_output_tokens": 300
-    },
-    {
-      "request_id": "en-es:proxy:cue-contrastive-general-v1:drink:beber",
-      "prompt_slot": "cue_contrastive_general_v1",
-      "family_id": "en-es:sentence-veto:drink:bebida",
-      "estimated_input_tokens": 414,
-      "expected_output_tokens": 90,
-      "max_output_tokens": 300
-    },
-    {
-      "request_id": "en-es:proxy:cue-contrastive-overlap-v1:plant:fabrica",
+      "request_id": "en-es:target:cue-contrastive-overlap-v1:plant:fabrica",
       "prompt_slot": "cue_contrastive_overlap_v1",
       "family_id": "en-es:sentence-veto:plant:planta",
       "estimated_input_tokens": 491,
@@ -42,7 +31,7 @@
       "max_output_tokens": 300
     },
     {
-      "request_id": "en-es:proxy:cue-contrastive-overlap-v1:drink:beber",
+      "request_id": "en-es:target:cue-contrastive-overlap-v1:drink:beber",
       "prompt_slot": "cue_contrastive_overlap_v1",
       "family_id": "en-es:sentence-veto:drink:bebida",
       "estimated_input_tokens": 488,
@@ -50,39 +39,7 @@
       "max_output_tokens": 300
     },
     {
-      "request_id": "en-es:proxy:cue-cross-pos-frame-v1:check:revisar",
-      "prompt_slot": "cue_cross_pos_frame_v1",
-      "family_id": "en-es:sentence-veto:check:cheque",
-      "estimated_input_tokens": 504,
-      "expected_output_tokens": 90,
-      "max_output_tokens": 300
-    },
-    {
-      "request_id": "en-es:proxy:cue-cross-pos-frame-v1:order:ordenar",
-      "prompt_slot": "cue_cross_pos_frame_v1",
-      "family_id": "en-es:sentence-veto:order:pedido",
-      "estimated_input_tokens": 499,
-      "expected_output_tokens": 90,
-      "max_output_tokens": 300
-    },
-    {
-      "request_id": "en-es:proxy:cue-cross-pos-frame-v1:trip:tropezar",
-      "prompt_slot": "cue_cross_pos_frame_v1",
-      "family_id": "en-es:sentence-veto:trip:viaje",
-      "estimated_input_tokens": 479,
-      "expected_output_tokens": 90,
-      "max_output_tokens": 300
-    },
-    {
-      "request_id": "en-es:proxy:cue-cross-pos-frame-v1:report:informar",
-      "prompt_slot": "cue_cross_pos_frame_v1",
-      "family_id": "en-es:sentence-veto:report:informe",
-      "estimated_input_tokens": 502,
-      "expected_output_tokens": 90,
-      "max_output_tokens": 300
-    },
-    {
-      "request_id": "en-es:proxy:cue-cross-pos-overlap-v1:check:revisar",
+      "request_id": "en-es:target:cue-cross-pos-overlap-v1:check:revisar",
       "prompt_slot": "cue_cross_pos_overlap_v1",
       "family_id": "en-es:sentence-veto:check:cheque",
       "estimated_input_tokens": 552,
@@ -90,7 +47,7 @@
       "max_output_tokens": 300
     },
     {
-      "request_id": "en-es:proxy:cue-cross-pos-overlap-v1:order:ordenar",
+      "request_id": "en-es:target:cue-cross-pos-overlap-v1:order:ordenar",
       "prompt_slot": "cue_cross_pos_overlap_v1",
       "family_id": "en-es:sentence-veto:order:pedido",
       "estimated_input_tokens": 547,
@@ -98,7 +55,7 @@
       "max_output_tokens": 300
     },
     {
-      "request_id": "en-es:proxy:cue-cross-pos-overlap-v1:trip:tropezar",
+      "request_id": "en-es:target:cue-cross-pos-overlap-v1:trip:tropezar",
       "prompt_slot": "cue_cross_pos_overlap_v1",
       "family_id": "en-es:sentence-veto:trip:viaje",
       "estimated_input_tokens": 527,
@@ -106,7 +63,7 @@
       "max_output_tokens": 300
     },
     {
-      "request_id": "en-es:proxy:cue-cross-pos-overlap-v1:report:informar",
+      "request_id": "en-es:target:cue-cross-pos-overlap-v1:report:informar",
       "prompt_slot": "cue_cross_pos_overlap_v1",
       "family_id": "en-es:sentence-veto:report:informe",
       "estimated_input_tokens": 550,
