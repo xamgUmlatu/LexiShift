@@ -648,6 +648,22 @@ Current status:
     - current proxy slice estimate is `2814` input tokens and `540` expected output tokens across the `6` frozen requests
     - pricing stays intentionally external to the repo unless current rates are supplied explicitly at runtime
   - the sourced-shell + repo-venv live path is now proven on real proxy execution, not just preflight
+  - the cheap incumbent-vs-overlap proxy comparison has now also run live on that same frozen matrix:
+    - all `12 / 12` requests accepted and normalized
+    - token usage stayed bounded:
+      - input tokens `5370`
+      - output tokens `414`
+    - the overlap challengers now visibly do the thing the downstream-negative `v2` tranche was missing:
+      - same-POS challengers emit literal anchor words and collocate fragments such as `soil, water, leaves, roots, sunlight`
+      - cross-POS challengers emit short overlap-bearing frame fragments such as `your online order for delivery` and `annual report with findings, results, and recommendations`
+    - the incumbent slots remain usable, but they still lean harder on meta-language:
+      - `preceded by a determiner`
+      - `article or amount before check`
+  - current read from that proxy comparison:
+    - the overlap challengers look better aligned with the intended downstream evidence shape than the incumbent wording
+    - the next prompt spend should therefore be narrow:
+      - target confirmation on the overlap challenger slots
+      - not another broad proxy exploration pass
 
 ### Phase 3. Target-model finalist pass
 
@@ -764,5 +780,6 @@ The correct next move is:
 6. run the prepared `semantic_prompt_bakeoff_v3` proxy matrix:
    - `cue_contrastive_general_v1` vs `cue_contrastive_overlap_v1`
    - `cue_cross_pos_frame_v1` vs `cue_cross_pos_overlap_v1`
-7. only advance slots that beat their incumbents cheaply enough to justify a new target confirmation pass
-8. only re-enter larger-budget generation once a new cue tranche beats both the frozen hard reference and the reverse-aux control downstream
+7. advance only the overlap challenger slots that now look better than their incumbents on the cheap proxy pass
+8. run a new target confirmation pass on those challenger slots before trusting them
+9. only re-enter larger-budget generation once a new cue tranche beats both the frozen hard reference and the reverse-aux control downstream

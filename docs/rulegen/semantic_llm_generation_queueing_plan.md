@@ -394,6 +394,7 @@ Current posture from that first artifact:
   - so the current routed conclusion is not "scale cue generation now"
   - it is "keep the queue fixed, keep reverse-aux as the current control, and redesign the next cue prompt around stronger overlap-bearing discriminators before larger spend"
 - that redesign is now prepared as a bounded no-spend challenger matrix rather than a vague idea:
+  - now also exercised once on a real cheap proxy batch
   - `semantic_prompt_bakeoff_v3`
   - `4` active cue slots and `12` proxy requests on the same frozen queue
   - incumbents:
@@ -403,8 +404,9 @@ Current posture from that first artifact:
     - `cue_contrastive_overlap_v1`
     - `cue_cross_pos_overlap_v1`
   - next spend decision is therefore narrow:
-    - run a cheap incumbent-vs-overlap proxy comparison
-    - only carry forward slots that look better than the incumbent before another target-model pass
+    - cheap incumbent-vs-overlap proxy comparison is now complete
+    - the overlap challengers look better than the incumbent wording on that proxy read
+    - only carry those challenger slots forward into another target-model pass
 
 Minimum family inventory responsibilities:
 

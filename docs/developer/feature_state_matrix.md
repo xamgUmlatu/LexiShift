@@ -1045,6 +1045,17 @@ Use this file when:
 	        - next paid decision is therefore narrow:
 	          - cheap proxy comparison first
 	          - then another target-model pass only for slots that beat the incumbents
+	      - that cheap proxy comparison has now also run:
+	        - `12 / 12` requests accepted and normalized
+	        - token volume stayed small enough for a bounded screening pass (`5370` input / `414` output)
+	        - the overlap challengers are the first prompt variants that visibly move toward literal overlap-bearing evidence:
+	          - `soil, water, leaves, roots, sunlight`
+	          - `your online order for delivery`
+	          - `annual report with findings, results, and recommendations`
+	        - the incumbent slots remain readable, but still rely more on meta-language like `preceded by a determiner`
+	      - current next step is therefore tighter now:
+	        - run target confirmation on the overlap challenger slots only
+	        - then return to the downstream acceptance harness rather than widening the prompt matrix again
 	      - the live prompt runner now exists too:
 	        - `scripts/testing/semantic_llm_prompt_bakeoff_en_es.py`
 	        - it preserves immutable raw response bundles plus raw and normalized batch artifacts under `docs/test_outputs/experiments/semantic_llm_prompt_batches/`
