@@ -1,19 +1,19 @@
 # en-es Semantic LLM Prompt Preflight
 
 - Status: `sourced-shell-ready`
-- Generated: `2026-04-23T23:51:23Z`
+- Generated: `2026-04-24T02:41:17Z`
 - Queue: `semantic_prompt_bakeoff_en_es_v10`
 - Prompt spec: `semantic_prompt_spec_en_es_v10`
-- Prompt version: `semantic_prompt_bakeoff_v2`
+- Prompt version: `semantic_prompt_bakeoff_v3`
 - Stage: `proxy`
 - Selected model: `gpt-5.4-mini`
 - Temperature: `0.2`
 
 ## Summary
 
-- Selected requests: `6`
+- Selected requests: `12`
 - Selected families: `6`
-- Active slots represented: `2`
+- Active slots represented: `4`
 - Current shell ready: `False`
 - Sourced shell ready: `True`
 - Any safe local path ready: `True`
@@ -42,13 +42,19 @@
 | --- | --- | --- | --- | --- |
 | `en-es:proxy:cue-contrastive-general-v1:plant:fabrica` | `cue_contrastive_general_v1` | `en-es:sentence-veto:plant:planta` | `plant` | `planta` -> `fábrica` |
 | `en-es:proxy:cue-contrastive-general-v1:drink:beber` | `cue_contrastive_general_v1` | `en-es:sentence-veto:drink:bebida` | `drink` | `bebida` -> `beber` |
+| `en-es:proxy:cue-contrastive-overlap-v1:plant:fabrica` | `cue_contrastive_overlap_v1` | `en-es:sentence-veto:plant:planta` | `plant` | `planta` -> `fábrica` |
+| `en-es:proxy:cue-contrastive-overlap-v1:drink:beber` | `cue_contrastive_overlap_v1` | `en-es:sentence-veto:drink:bebida` | `drink` | `bebida` -> `beber` |
 | `en-es:proxy:cue-cross-pos-frame-v1:check:revisar` | `cue_cross_pos_frame_v1` | `en-es:sentence-veto:check:cheque` | `check` | `cheque` -> `revisar` |
 | `en-es:proxy:cue-cross-pos-frame-v1:order:ordenar` | `cue_cross_pos_frame_v1` | `en-es:sentence-veto:order:pedido` | `order` | `pedido` -> `ordenar` |
 | `en-es:proxy:cue-cross-pos-frame-v1:trip:tropezar` | `cue_cross_pos_frame_v1` | `en-es:sentence-veto:trip:viaje` | `trip` | `viaje` -> `tropezar` |
 | `en-es:proxy:cue-cross-pos-frame-v1:report:informar` | `cue_cross_pos_frame_v1` | `en-es:sentence-veto:report:informe` | `report` | `informe` -> `informar` |
+| `en-es:proxy:cue-cross-pos-overlap-v1:check:revisar` | `cue_cross_pos_overlap_v1` | `en-es:sentence-veto:check:cheque` | `check` | `cheque` -> `revisar` |
+| `en-es:proxy:cue-cross-pos-overlap-v1:order:ordenar` | `cue_cross_pos_overlap_v1` | `en-es:sentence-veto:order:pedido` | `order` | `pedido` -> `ordenar` |
+| `en-es:proxy:cue-cross-pos-overlap-v1:trip:tropezar` | `cue_cross_pos_overlap_v1` | `en-es:sentence-veto:trip:viaje` | `trip` | `viaje` -> `tropezar` |
+| `en-es:proxy:cue-cross-pos-overlap-v1:report:informar` | `cue_cross_pos_overlap_v1` | `en-es:sentence-veto:report:informe` | `report` | `informe` -> `informar` |
 
 ## Live Command
 
 ```bash
-zsh -lc 'source /Users/takeyayuki/.zshrc >/dev/null 2>&1; PYTHONPATH=apps/gui/src:core .venv/bin/python scripts/testing/semantic_llm_prompt_bakeoff_en_es.py --stage proxy --execute-live --run-id <RUN_ID> --require-selected-request-count 6 --input-rate-per-1m <INPUT_RATE> --output-rate-per-1m <OUTPUT_RATE> --max-estimated-cost-ceiling-usd <USD_CAP>'
+zsh -lc 'source /Users/takeyayuki/.zshrc >/dev/null 2>&1; PYTHONPATH=apps/gui/src:core .venv/bin/python scripts/testing/semantic_llm_prompt_bakeoff_en_es.py --stage proxy --execute-live --run-id <RUN_ID> --require-selected-request-count 12 --input-rate-per-1m <INPUT_RATE> --output-rate-per-1m <OUTPUT_RATE> --max-estimated-cost-ceiling-usd <USD_CAP>'
 ```

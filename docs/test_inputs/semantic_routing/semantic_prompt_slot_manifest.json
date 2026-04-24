@@ -2,7 +2,7 @@
   "schema_version": 1,
   "manifest_id": "semantic_prompt_slot_manifest_en_es_v10",
   "pair": "en-es",
-  "generated_at": "2026-04-23T19:17:26Z",
+  "generated_at": "2026-04-24T03:05:00Z",
   "slots": [
     {
       "prompt_slot": "cue_contrastive_general_v1",
@@ -21,8 +21,29 @@
         "en-es:sentence-veto:watch:reloj"
       ],
       "notes": [
-        "Keep the first general cue slot small and contrastive.",
+        "Incumbent general cue slot from semantic_prompt_bakeoff_v2.",
         "Use same-POS or ordinary competition families only."
+      ]
+    },
+    {
+      "prompt_slot": "cue_contrastive_overlap_v1",
+      "generation_kind": "cue_generation",
+      "expected_row_type": "anchor_cue",
+      "status": "active",
+      "target_archetypes": [
+        "ordinary_weak_active_support"
+      ],
+      "target_family_ids": [
+        "en-es:sentence-veto:plant:planta",
+        "en-es:sentence-veto:drink:bebida"
+      ],
+      "negative_control_family_ids": [
+        "en-es:sentence-veto:play:obra",
+        "en-es:sentence-veto:watch:reloj"
+      ],
+      "notes": [
+        "Challenger general cue slot for overlap-bearing discriminators.",
+        "Test whether shorter collocate fragments beat smoother semantic prose downstream."
       ]
     },
     {
@@ -44,8 +65,31 @@
         "en-es:sentence-veto:watch:reloj"
       ],
       "notes": [
-        "This is the primary first-tranche slot on v10.",
+        "Incumbent cross-POS cue slot from semantic_prompt_bakeoff_v2.",
         "Favor frame-sensitive noun-active vs verb-shadow cue generation."
+      ]
+    },
+    {
+      "prompt_slot": "cue_cross_pos_overlap_v1",
+      "generation_kind": "cue_generation",
+      "expected_row_type": "anchor_cue",
+      "status": "active",
+      "target_archetypes": [
+        "cross_pos_weak_active_support"
+      ],
+      "target_family_ids": [
+        "en-es:sentence-veto:check:cheque",
+        "en-es:sentence-veto:order:pedido",
+        "en-es:sentence-veto:trip:viaje",
+        "en-es:sentence-veto:report:informe"
+      ],
+      "negative_control_family_ids": [
+        "en-es:sentence-veto:play:obra",
+        "en-es:sentence-veto:watch:reloj"
+      ],
+      "notes": [
+        "Challenger cross-POS slot aimed at overlap-bearing frame fragments.",
+        "Test literal collocates and frame snippets against the incumbent meta-frame phrasing."
       ]
     },
     {

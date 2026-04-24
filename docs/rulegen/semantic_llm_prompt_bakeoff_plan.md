@@ -571,6 +571,18 @@ Current status:
   - the model emits only `evidence_text`
   - optional `confidence` may still be emitted
   - the runner synthesizes all fixed ids and metadata into the intake batch
+- after the downstream-negative read on the first accepted cue tranche, the next wording experiment is now concretized as:
+  - `semantic_prompt_bakeoff_v3`
+  - same simplified output contract as the `v2` incumbent
+  - a challenger matrix with `4` active slots and `12` frozen proxy requests
+  - incumbent slots:
+    - `cue_contrastive_general_v1`
+    - `cue_cross_pos_frame_v1`
+  - challenger slots:
+    - `cue_contrastive_overlap_v1`
+    - `cue_cross_pos_overlap_v1`
+  - prompt goal:
+    - test overlap-bearing collocates and short frame fragments against the smoother incumbent cue wording
 - the local prompt preview bundle is now rendered in:
   - `docs/test_outputs/semantic_llm_prompt_smoke_latest.md`
 - the new no-spend preflight surface is now rendered in:
@@ -619,10 +631,12 @@ Current status:
     - less fragile
     - and more aligned with the intended cue job
 - current next step is therefore:
-  - target confirmation on the same simplified contract
+  - a reopened cheap proxy comparison on the `semantic_prompt_bakeoff_v3` challenger matrix
+  - use the existing `v2` slots as incumbents rather than replacing them on theory alone
 - current preview read:
-  - `2` active slots
-  - `6` rendered target-family prompt requests
+  - `4` active slots
+  - `12` rendered target-family prompt requests
+  - `6` families still covered on the same frozen `v10` queue
   - `play` and `watch` remain held out as negative controls, not prompt targets
 - current local limitation:
   - the new preflight now resolves the environment split more precisely:
@@ -735,13 +749,20 @@ LexiShift is now ready to say more than that:
 
 - the simplified `semantic_prompt_bakeoff_v2` contract is the right prompt-output shape
 - but the current accepted `gpt-5.4` cue tranche is not yet strong enough downstream to justify larger-budget generation
+- and that redesign seam is now concretely prepared as `semantic_prompt_bakeoff_v3`:
+  - same output contract
+  - same frozen `v10` queue
+  - incumbents plus overlap-bearing challengers in one bounded proxy matrix
 
 The correct next move is:
 
 1. keep the `v10` queue slice fixed
 2. treat the `example_sentence_bank` pilot as a feasibility result, not as a live cue source on current packs
 3. keep `reverse_aux_plus_all_evidence` as the last cheap non-LLM control on that same slice
-4. keep `semantic_prompt_bakeoff_v2` as the stable prompt-output contract
+4. keep the simplified `semantic_prompt_bakeoff_v2` output contract as the incumbent storage shape
 5. treat the current accepted cue tranche as analysis-only, not promotion-ready
-6. redesign the next cue prompt around stronger context overlap / collocate recovery rather than broader prose framing
-7. only re-enter larger-budget generation once a new cue tranche beats both the frozen hard reference and the reverse-aux control downstream
+6. run the prepared `semantic_prompt_bakeoff_v3` proxy matrix:
+   - `cue_contrastive_general_v1` vs `cue_contrastive_overlap_v1`
+   - `cue_cross_pos_frame_v1` vs `cue_cross_pos_overlap_v1`
+7. only advance slots that beat their incumbents cheaply enough to justify a new target confirmation pass
+8. only re-enter larger-budget generation once a new cue tranche beats both the frozen hard reference and the reverse-aux control downstream

@@ -1030,9 +1030,21 @@ Use this file when:
 	        - `llm_cue_plus_sense_label` and `llm_cue_plus_gloss` both reach `62.5%` replace recall
 	        - but both widen harmful replace from `1` to `3`
 	      - current conclusion:
-	        - keep `semantic_prompt_bakeoff_v2` as the prompt-output contract
+	        - keep the simplified `semantic_prompt_bakeoff_v2` output contract as the incumbent storage shape
 	        - keep the accepted `gpt-5.4` cue tranche in analysis-only status
 	        - do not approve broader cue-generation spend until a new prompt shape beats both the hard baseline and the reverse-aux control downstream
+	      - that next prompt shape is now prepared as a bounded challenger matrix rather than just a note:
+	        - prompt version `semantic_prompt_bakeoff_v3`
+	        - `4` active cue slots and `12` proxy requests on the same frozen `v10` queue
+	        - incumbent slots:
+	          - `cue_contrastive_general_v1`
+	          - `cue_cross_pos_frame_v1`
+	        - overlap challengers:
+	          - `cue_contrastive_overlap_v1`
+	          - `cue_cross_pos_overlap_v1`
+	        - next paid decision is therefore narrow:
+	          - cheap proxy comparison first
+	          - then another target-model pass only for slots that beat the incumbents
 	      - the live prompt runner now exists too:
 	        - `scripts/testing/semantic_llm_prompt_bakeoff_en_es.py`
 	        - it preserves immutable raw response bundles plus raw and normalized batch artifacts under `docs/test_outputs/experiments/semantic_llm_prompt_batches/`
