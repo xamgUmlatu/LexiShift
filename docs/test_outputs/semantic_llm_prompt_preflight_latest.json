@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "status": "ok",
-  "pair": "en-es",
+  "status": "sourced-shell-ready",
   "generated_at": "2026-04-23T23:51:23Z",
+  "pair": "en-es",
   "queue_id": "semantic_prompt_bakeoff_en_es_v10",
   "prompt_spec_id": "semantic_prompt_spec_en_es_v10",
   "prompt_version": "semantic_prompt_bakeoff_v2",
@@ -10,97 +10,49 @@
   "selected_model_id": "gpt-5.4-mini",
   "selected_temperature": 0.2,
   "summary": {
-    "active_slot_count": 2,
-    "request_count": 6,
-    "target_family_count": 6,
-    "negative_control_count": 2
+    "selected_request_count": 6,
+    "selected_family_count": 6,
+    "selected_slot_count": 2,
+    "current_shell_ready": false,
+    "sourced_shell_ready": true,
+    "local_env_ready": true,
+    "live_spend_guarded": true
   },
-  "slot_rows": [
+  "env_checks": [
     {
-      "prompt_slot": "cue_contrastive_general_v1",
-      "status": "active",
-      "target_family_count": 2,
-      "request_count": 2,
-      "notes": [
-        "Keep the first general cue slot small and contrastive.",
-        "Use same-POS or ordinary competition families only."
-      ]
+      "check_id": "current_python_openai_sdk_installed",
+      "status": "missing",
+      "notes": "The current Python environment used by this command must import `openai` for direct live execution."
     },
     {
-      "prompt_slot": "cue_cross_pos_frame_v1",
-      "status": "active",
-      "target_family_count": 4,
-      "request_count": 4,
-      "notes": [
-        "This is the primary first-tranche slot on v10.",
-        "Favor frame-sensitive noun-active vs verb-shadow cue generation."
-      ]
-    }
-  ],
-  "sample_requests": [
-    {
-      "request_id": "en-es:proxy:cue-contrastive-general-v1:plant:fabrica",
-      "prompt_slot": "cue_contrastive_general_v1",
-      "family_id": "en-es:sentence-veto:plant:planta",
-      "trigger": "plant",
-      "active_target": "planta",
-      "candidate_target": "fábrica",
-      "candidate_pos": "noun",
-      "model_id": "gpt-5.4-mini",
-      "temperature": 0.2,
-      "system_prompt": "You generate one LexiShift semantic cue. Return compact JSON only. The cue must help choose the active Spanish target over one named competitor for one English trigger. Write short discriminative evidence text in English. Prefer concrete semantic or lexical discriminators over dictionary paraphrase. Do not generate phrase or idiom guidance, examples, explanations, markdown, or extra keys.",
-      "user_prompt": "Return a JSON object with exactly one key `items`. `items` must be an array with exactly one object.\n\nThat object may contain only:\n- required `evidence_text`\n- optional `confidence`\n\nDo not repeat ids, targets, trigger text, or metadata; those are already fixed outside the model output.\n\nActive sense:\n- trigger: `plant`\n- active target: `planta`\n- sense label: `living plant`\n- gloss: `living organism that grows in soil or water`\n\nCompeting candidate:\n- candidate target: `fábrica`\n- candidate POS: `noun`\n- sense label: `industrial plant`\n- gloss: `factory where goods are manufactured`\n\nFamily notes:\n- `Useful same-POS cue calibration family. | Current hard row still misses plant:002, but the accepted overlay already rescues it. | The hard runtime row still misses plant:002.`\n\nTask:\nWrite `evidence_text` in English, between 6 and 18 words, as one compact cue for the active sense only.\n\nRules:\n- make it contrastive and specific\n- do not merely restate the active label\n- do not mention the candidate target by name\n- do not write multiple cues or bullets\n- do not mention phrases, idioms, or lexicalized expressions\n- keep the cue useful for ordinary single-word sense discrimination\n\nOptional:\n- include `confidence` as a number from 0 to 1\n\nReturn JSON only.",
-      "expected_row_preview": {
-        "row_id": "en-es:proxy:cue-contrastive-general-v1:plant:fabrica:row",
-        "relation_type": "anchor_cue",
-        "trigger": "plant",
-        "active_target": "planta",
-        "candidate_target": "fábrica",
-        "candidate_pos": "noun",
-        "evidence_text": "<model-written cue text>",
-        "prompt_slot": "cue_contrastive_general_v1",
-        "input_ref": "en-es:proxy:cue-contrastive-general-v1:plant:fabrica",
-        "metadata": {
-          "family_id": "en-es:sentence-veto:plant:planta",
-          "active_sense_id": "en-es:sentence-veto:plant:planta:active",
-          "candidate_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
-          "stage": "proxy",
-          "family_archetype": "ordinary_weak_active_support"
-        }
-      }
+      "check_id": "current_shell_openai_api_key_visible",
+      "status": "missing",
+      "notes": "The current shell must expose `OPENAI_API_KEY`; this preflight does not source shell rc files automatically."
     },
     {
-      "request_id": "en-es:proxy:cue-cross-pos-frame-v1:check:revisar",
-      "prompt_slot": "cue_cross_pos_frame_v1",
-      "family_id": "en-es:sentence-veto:check:cheque",
-      "trigger": "check",
-      "active_target": "cheque",
-      "candidate_target": "revisar",
-      "candidate_pos": "verb",
-      "model_id": "gpt-5.4-mini",
-      "temperature": 0.2,
-      "system_prompt": "You generate one LexiShift semantic cue for cross-POS ambiguity. Return compact JSON only. The cue must help choose the active Spanish target over one named competitor for one English trigger. Favor short frame-sensitive evidence in English: noun-vs-verb usage, nearby function words, determiner patterns, object or modifier cues, or document-like vs action-like framing. Do not generate phrase or idiom guidance, examples, explanations, markdown, or extra keys.",
-      "user_prompt": "Return a JSON object with exactly one key `items`. `items` must be an array with exactly one object.\n\nThat object may contain only:\n- required `evidence_text`\n- optional `confidence`\n\nDo not repeat ids, targets, trigger text, or metadata; those are already fixed outside the model output.\n\nActive sense:\n- trigger: `check`\n- active target: `cheque`\n- canonical POS: `noun`\n- sense label: `check as a bank payment slip`\n- gloss: `written order directing a bank to pay money`\n\nCompeting candidate:\n- candidate target: `revisar`\n- candidate POS: `verb`\n- sense label: `check or inspect carefully`\n- gloss: `examine, verify, or inspect something carefully`\n\nFamily notes:\n- `Held-out noun-active / verb-shadow residue remains unresolved after the accepted overlay. | The fixed-shadow competition set is already plausible, but check:002 still abstains on the strong row and on the accepted overlay. | The phrase probe keeps check:005 safely abstained, so the remaining gap is not a new phrase leak.`\n\nTask:\nWrite `evidence_text` in English, between 6 and 18 words, as one compact cue for the active sense only.\n\nRules:\n- prefer syntactic-frame or collocate signals that favor the active POS\n- make the cue specific enough to separate noun-active from verb-shadow competition\n- do not mention the candidate target by name\n- do not write multiple cues or bullets\n- do not mention phrases, idioms, or lexicalized expressions\n- avoid generic dictionary prose that ignores POS framing\n\nOptional:\n- include `confidence` as a number from 0 to 1\n\nReturn JSON only.",
-      "expected_row_preview": {
-        "row_id": "en-es:proxy:cue-cross-pos-frame-v1:check:revisar:row",
-        "relation_type": "anchor_cue",
-        "trigger": "check",
-        "active_target": "cheque",
-        "candidate_target": "revisar",
-        "candidate_pos": "verb",
-        "evidence_text": "<model-written cue text>",
-        "prompt_slot": "cue_cross_pos_frame_v1",
-        "input_ref": "en-es:proxy:cue-cross-pos-frame-v1:check:revisar",
-        "metadata": {
-          "family_id": "en-es:sentence-veto:check:cheque",
-          "active_sense_id": "en-es:sentence-veto:check:cheque:active",
-          "candidate_sense_id": "en-es:sentence-veto:check:revisar:shadow",
-          "stage": "proxy",
-          "family_archetype": "cross_pos_weak_active_support"
-        }
-      }
+      "check_id": "repo_venv_openai_sdk_installed",
+      "status": "ok",
+      "notes": "Checks whether the repo venv at `.venv/bin/python` can import `openai`."
+    },
+    {
+      "check_id": "shell_rc_mentions_openai_api_key",
+      "status": "ok",
+      "notes": "Checks whether `/Users/takeyayuki/.zshrc` appears to export `OPENAI_API_KEY` without printing the key."
+    },
+    {
+      "check_id": "quota_not_checked",
+      "status": "warn",
+      "notes": "This no-spend preflight does not make a live API call, so quota/billing remains unverified here."
     }
   ],
+  "planned_artifacts": {
+    "journal_jsonl": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-run-id_journal.jsonl",
+    "raw_response_bundle_json": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-run-id_raw_responses.json",
+    "intake_batch_json": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-run-id_intake_batch.json",
+    "normalized_batch_json": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-run-id_normalized_evidence.json",
+    "live_summary_json": "docs/test_outputs/semantic_llm_prompt_bakeoff_latest.json",
+    "live_summary_markdown": "docs/test_outputs/semantic_llm_prompt_bakeoff_latest.md"
+  },
   "request_rows": [
     {
       "request_id": "en-es:proxy:cue-contrastive-general-v1:plant:fabrica",
@@ -288,5 +240,6 @@
         }
       }
     }
-  ]
+  ],
+  "live_command_example": "zsh -lc 'source /Users/takeyayuki/.zshrc >/dev/null 2>&1; PYTHONPATH=apps/gui/src:core .venv/bin/python scripts/testing/semantic_llm_prompt_bakeoff_en_es.py --stage proxy --execute-live --run-id <RUN_ID> --require-selected-request-count 6 --input-rate-per-1m <INPUT_RATE> --output-rate-per-1m <OUTPUT_RATE> --max-estimated-cost-ceiling-usd <USD_CAP>'"
 }

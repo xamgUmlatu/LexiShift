@@ -1,10 +1,10 @@
 # en-es Semantic LLM Prompt Smoke
 
 - Status: `ok`
-- Generated: `2026-04-23T20:47:56Z`
+- Generated: `2026-04-23T23:51:23Z`
 - Queue: `semantic_prompt_bakeoff_en_es_v10`
 - Prompt spec: `semantic_prompt_spec_en_es_v10`
-- Prompt version: `semantic_prompt_bakeoff_v1`
+- Prompt version: `semantic_prompt_bakeoff_v2`
 - Stage: `proxy`
 - Selected model: `gpt-5.4-mini`
 - Temperature: `0.2`
@@ -36,7 +36,7 @@
 System prompt:
 
 ```text
-You generate one LexiShift semantic cue row. Return compact JSON only. The cue must help choose the active Spanish target over one named competitor for one English trigger. Write short discriminative evidence text in English. Prefer concrete semantic or lexical discriminators over dictionary paraphrase. Do not generate phrase or idiom guidance, examples, explanations, markdown, or extra keys.
+You generate one LexiShift semantic cue. Return compact JSON only. The cue must help choose the active Spanish target over one named competitor for one English trigger. Write short discriminative evidence text in English. Prefer concrete semantic or lexical discriminators over dictionary paraphrase. Do not generate phrase or idiom guidance, examples, explanations, markdown, or extra keys.
 ```
 
 User prompt:
@@ -44,28 +44,21 @@ User prompt:
 ```text
 Return a JSON object with exactly one key `items`. `items` must be an array with exactly one object.
 
-Copy these fields exactly into that object:
-- `row_id`: `en-es:proxy:cue-contrastive-general-v1:plant:fabrica:row`
-- `relation_type`: `anchor_cue`
-- `trigger`: `plant`
-- `active_target`: `planta`
-- `candidate_target`: `fábrica`
-- `candidate_pos`: `noun`
-- `prompt_slot`: `cue_contrastive_general_v1`
-- `input_ref`: `en-es:proxy:cue-contrastive-general-v1:plant:fabrica`
+That object may contain only:
+- required `evidence_text`
+- optional `confidence`
 
-Set `metadata` to an object containing these exact fields:
-- `family_id`: `en-es:sentence-veto:plant:planta`
-- `active_sense_id`: `en-es:sentence-veto:plant:planta:active`
-- `candidate_sense_id`: `en-es:sentence-veto:plant:fabrica:shadow`
-- `stage`: `proxy`
-- `family_archetype`: `ordinary_weak_active_support`
+Do not repeat ids, targets, trigger text, or metadata; those are already fixed outside the model output.
 
 Active sense:
+- trigger: `plant`
+- active target: `planta`
 - sense label: `living plant`
 - gloss: `living organism that grows in soil or water`
 
-Candidate sense:
+Competing candidate:
+- candidate target: `fábrica`
+- candidate POS: `noun`
 - sense label: `industrial plant`
 - gloss: `factory where goods are manufactured`
 
@@ -123,7 +116,7 @@ Expected row preview:
 System prompt:
 
 ```text
-You generate one LexiShift semantic cue row for cross-POS ambiguity. Return compact JSON only. The cue must help choose the active Spanish target over one named competitor for one English trigger. Favor short frame-sensitive evidence in English: noun-vs-verb usage, nearby function words, determiner patterns, object or modifier cues, or document-like vs action-like framing. Do not generate phrase or idiom guidance, examples, explanations, markdown, or extra keys.
+You generate one LexiShift semantic cue for cross-POS ambiguity. Return compact JSON only. The cue must help choose the active Spanish target over one named competitor for one English trigger. Favor short frame-sensitive evidence in English: noun-vs-verb usage, nearby function words, determiner patterns, object or modifier cues, or document-like vs action-like framing. Do not generate phrase or idiom guidance, examples, explanations, markdown, or extra keys.
 ```
 
 User prompt:
@@ -131,30 +124,22 @@ User prompt:
 ```text
 Return a JSON object with exactly one key `items`. `items` must be an array with exactly one object.
 
-Copy these fields exactly into that object:
-- `row_id`: `en-es:proxy:cue-cross-pos-frame-v1:check:revisar:row`
-- `relation_type`: `anchor_cue`
-- `trigger`: `check`
-- `active_target`: `cheque`
-- `candidate_target`: `revisar`
-- `candidate_pos`: `verb`
-- `prompt_slot`: `cue_cross_pos_frame_v1`
-- `input_ref`: `en-es:proxy:cue-cross-pos-frame-v1:check:revisar`
+That object may contain only:
+- required `evidence_text`
+- optional `confidence`
 
-Set `metadata` to an object containing these exact fields:
-- `family_id`: `en-es:sentence-veto:check:cheque`
-- `active_sense_id`: `en-es:sentence-veto:check:cheque:active`
-- `candidate_sense_id`: `en-es:sentence-veto:check:revisar:shadow`
-- `stage`: `proxy`
-- `family_archetype`: `cross_pos_weak_active_support`
+Do not repeat ids, targets, trigger text, or metadata; those are already fixed outside the model output.
 
 Active sense:
+- trigger: `check`
+- active target: `cheque`
 - canonical POS: `noun`
 - sense label: `check as a bank payment slip`
 - gloss: `written order directing a bank to pay money`
 
-Candidate sense:
-- canonical POS: `verb`
+Competing candidate:
+- candidate target: `revisar`
+- candidate POS: `verb`
 - sense label: `check or inspect carefully`
 - gloss: `examine, verify, or inspect something carefully`
 

@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "status": "ok",
+  "generated_at": "2026-04-23T23:51:23Z",
+  "pair": "en-es",
+  "queue_id": "semantic_prompt_bakeoff_en_es_v10",
+  "prompt_spec_id": "semantic_prompt_spec_en_es_v10",
+  "prompt_version": "semantic_prompt_bakeoff_v2",
+  "stage": "proxy",
+  "selected_model_id": "gpt-5.4-mini",
+  "input_token_heuristic": "ceil(characters / 4.0)",
+  "summary": {
+    "selected_request_count": 6,
+    "estimated_input_tokens": 2814,
+    "expected_output_tokens": 540,
+    "max_output_tokens": 1800
+  },
+  "rate_info": {},
+  "request_rows": [
+    {
+      "request_id": "en-es:proxy:cue-contrastive-general-v1:plant:fabrica",
+      "prompt_slot": "cue_contrastive_general_v1",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "estimated_input_tokens": 416,
+      "expected_output_tokens": 90,
+      "max_output_tokens": 300
+    },
+    {
+      "request_id": "en-es:proxy:cue-contrastive-general-v1:drink:beber",
+      "prompt_slot": "cue_contrastive_general_v1",
+      "family_id": "en-es:sentence-veto:drink:bebida",
+      "estimated_input_tokens": 414,
+      "expected_output_tokens": 90,
+      "max_output_tokens": 300
+    },
+    {
+      "request_id": "en-es:proxy:cue-cross-pos-frame-v1:check:revisar",
+      "prompt_slot": "cue_cross_pos_frame_v1",
+      "family_id": "en-es:sentence-veto:check:cheque",
+      "estimated_input_tokens": 504,
+      "expected_output_tokens": 90,
+      "max_output_tokens": 300
+    },
+    {
+      "request_id": "en-es:proxy:cue-cross-pos-frame-v1:order:ordenar",
+      "prompt_slot": "cue_cross_pos_frame_v1",
+      "family_id": "en-es:sentence-veto:order:pedido",
+      "estimated_input_tokens": 499,
+      "expected_output_tokens": 90,
+      "max_output_tokens": 300
+    },
+    {
+      "request_id": "en-es:proxy:cue-cross-pos-frame-v1:trip:tropezar",
+      "prompt_slot": "cue_cross_pos_frame_v1",
+      "family_id": "en-es:sentence-veto:trip:viaje",
+      "estimated_input_tokens": 479,
+      "expected_output_tokens": 90,
+      "max_output_tokens": 300
+    },
+    {
+      "request_id": "en-es:proxy:cue-cross-pos-frame-v1:report:informar",
+      "prompt_slot": "cue_cross_pos_frame_v1",
+      "family_id": "en-es:sentence-veto:report:informe",
+      "estimated_input_tokens": 502,
+      "expected_output_tokens": 90,
+      "max_output_tokens": 300
+    }
+  ]
+}

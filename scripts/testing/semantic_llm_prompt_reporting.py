@@ -106,3 +106,247 @@ def _render_notes(value: object) -> str:
 
 def _render_json_preview(value: object) -> str:
     return json.dumps(value, ensure_ascii=False, indent=2) if isinstance(value, Mapping) else "{}"
+
+
+def render_prompt_bakeoff_markdown(report: Mapping[str, object]) -> str:
+    summary = report.get("summary") if isinstance(report.get("summary"), Mapping) else {}
+    artifacts = report.get("artifacts") if isinstance(report.get("artifacts"), Mapping) else {}
+    request_rows = _coerce_rows(report.get("request_rows"))
+
+    lines = [
+        "# en-es Semantic LLM Prompt Bakeoff",
+        "",
+        f"- Status: `{report.get('status', 'unknown')}`",
+        f"- Generated: `{report.get('generated_at', '')}`",
+        f"- Queue: `{report.get('queue_id', '')}`",
+        f"- Prompt spec: `{report.get('prompt_spec_id', '')}`",
+        f"- Prompt version: `{report.get('prompt_version', '')}`",
+        f"- Stage: `{report.get('stage', '')}`",
+        f"- Execution mode: `{report.get('execution_mode', 'live')}`",
+        f"- Batch id: `{report.get('batch_id', '')}`",
+        f"- Source id: `{report.get('source_id', '')}`",
+        f"- Selected model: `{report.get('selected_model_id', '')}`",
+        f"- Temperature: `{report.get('selected_temperature', '')}`",
+    ]
+    replay_source = str(report.get("replay_source") or "").strip()
+    if replay_source:
+        lines.append(f"- Replay source: `{replay_source}`")
+    lines.extend(
+        [
+            "",
+            "## Summary",
+            "",
+            f"- Selected requests: `{summary.get('selected_request_count', 0)}`",
+            f"- Accepted items: `{summary.get('accepted_item_count', 0)}`",
+            f"- API errors: `{summary.get('api_error_count', 0)}`",
+            f"- Invalid outputs: `{summary.get('invalid_output_count', 0)}`",
+            f"- Normalized rows: `{summary.get('normalized_row_count', 0)}`",
+            f"- Input tokens: `{summary.get('input_tokens', 0)}`",
+            f"- Output tokens: `{summary.get('output_tokens', 0)}`",
+            "",
+            "## Artifacts",
+            "",
+            f"- Journal: `{artifacts.get('journal_jsonl', 'n/a')}`",
+            f"- Raw responses: `{artifacts.get('raw_response_bundle_json', 'n/a')}`",
+            f"- Intake batch: `{artifacts.get('intake_batch_json', 'n/a')}`",
+            f"- Normalized batch: `{artifacts.get('normalized_batch_json', 'n/a')}`",
+            "",
+            "## Request Outcomes",
+            "",
+            "| Request | Slot | Family | Status | Output |",
+            "| --- | --- | --- | --- | --- |",
+        ]
+    )
+    for row in request_rows:
+        lines.append(
+            "| "
+            + " | ".join(
+                [
+                    f"`{row.get('request_id', '')}`",
+                    f"`{row.get('prompt_slot', '')}`",
+                    f"`{row.get('family_id', '')}`",
+                    f"`{row.get('status', '')}`",
+                    _render_request_outcome(row),
+                ]
+            )
+            + " |"
+        )
+    return "\n".join(lines)
+
+
+def render_prompt_preflight_markdown(report: Mapping[str, object]) -> str:
+    summary = report.get("summary") if isinstance(report.get("summary"), Mapping) else {}
+    env_checks = _coerce_rows(report.get("env_checks"))
+    request_rows = _coerce_rows(report.get("request_rows"))
+    planned_artifacts = report.get("planned_artifacts")
+    if not isinstance(planned_artifacts, Mapping):
+        planned_artifacts = {}
+
+    lines = [
+        "# en-es Semantic LLM Prompt Preflight",
+        "",
+        f"- Status: `{report.get('status', 'unknown')}`",
+        f"- Generated: `{report.get('generated_at', '')}`",
+        f"- Queue: `{report.get('queue_id', '')}`",
+        f"- Prompt spec: `{report.get('prompt_spec_id', '')}`",
+        f"- Prompt version: `{report.get('prompt_version', '')}`",
+        f"- Stage: `{report.get('stage', '')}`",
+        f"- Selected model: `{report.get('selected_model_id', '')}`",
+        f"- Temperature: `{report.get('selected_temperature', '')}`",
+        "",
+        "## Summary",
+        "",
+        f"- Selected requests: `{summary.get('selected_request_count', 0)}`",
+        f"- Selected families: `{summary.get('selected_family_count', 0)}`",
+        f"- Active slots represented: `{summary.get('selected_slot_count', 0)}`",
+        f"- Current shell ready: `{summary.get('current_shell_ready', False)}`",
+        f"- Sourced shell ready: `{summary.get('sourced_shell_ready', False)}`",
+        f"- Any safe local path ready: `{summary.get('local_env_ready', False)}`",
+        f"- Live spend blocked by default: `{summary.get('live_spend_guarded', False)}`",
+        "",
+        "## Environment Checks",
+        "",
+        "| Check | Status | Notes |",
+        "| --- | --- | --- |",
+    ]
+    for row in env_checks:
+        lines.append(
+            "| "
+            + " | ".join(
+                [
+                    f"`{row.get('check_id', '')}`",
+                    f"`{row.get('status', '')}`",
+                    _truncate_markdown_cell(str(row.get("notes") or "n/a"), limit=120),
+                ]
+            )
+            + " |"
+        )
+
+    lines.extend(
+        [
+            "",
+            "## Planned Artifacts",
+            "",
+            f"- Journal: `{planned_artifacts.get('journal_jsonl', 'n/a')}`",
+            f"- Raw responses: `{planned_artifacts.get('raw_response_bundle_json', 'n/a')}`",
+            f"- Intake batch: `{planned_artifacts.get('intake_batch_json', 'n/a')}`",
+            f"- Normalized batch: `{planned_artifacts.get('normalized_batch_json', 'n/a')}`",
+            "",
+            "## Selected Requests",
+            "",
+            "| Request | Slot | Family | Trigger | Active -> Candidate |",
+            "| --- | --- | --- | --- | --- |",
+        ]
+    )
+    for row in request_rows:
+        lines.append(
+            "| "
+            + " | ".join(
+                [
+                    f"`{row.get('request_id', '')}`",
+                    f"`{row.get('prompt_slot', '')}`",
+                    f"`{row.get('family_id', '')}`",
+                    f"`{row.get('trigger', '')}`",
+                    f"`{row.get('active_target', '')}` -> `{row.get('candidate_target', '')}`",
+                ]
+            )
+            + " |"
+        )
+
+    command = str(report.get("live_command_example") or "").strip()
+    if command:
+        lines.extend(
+            [
+                "",
+                "## Live Command",
+                "",
+                "```bash",
+                command,
+                "```",
+            ]
+        )
+    return "\n".join(lines)
+
+
+def render_prompt_cost_estimate_markdown(report: Mapping[str, object]) -> str:
+    summary = report.get("summary") if isinstance(report.get("summary"), Mapping) else {}
+    rate_info = report.get("rate_info")
+    if not isinstance(rate_info, Mapping):
+        rate_info = {}
+    request_rows = _coerce_rows(report.get("request_rows"))
+
+    lines = [
+        "# en-es Semantic LLM Prompt Cost Estimate",
+        "",
+        f"- Status: `{report.get('status', 'unknown')}`",
+        f"- Generated: `{report.get('generated_at', '')}`",
+        f"- Queue: `{report.get('queue_id', '')}`",
+        f"- Prompt spec: `{report.get('prompt_spec_id', '')}`",
+        f"- Prompt version: `{report.get('prompt_version', '')}`",
+        f"- Stage: `{report.get('stage', '')}`",
+        f"- Selected model: `{report.get('selected_model_id', '')}`",
+        f"- Input-token heuristic: `{report.get('input_token_heuristic', '')}`",
+        "",
+        "## Summary",
+        "",
+        f"- Selected requests: `{summary.get('selected_request_count', 0)}`",
+        f"- Estimated input tokens: `{summary.get('estimated_input_tokens', 0)}`",
+        f"- Estimated output tokens (expected): `{summary.get('expected_output_tokens', 0)}`",
+        f"- Output token ceiling: `{summary.get('max_output_tokens', 0)}`",
+    ]
+    if rate_info:
+        lines.extend(
+            [
+                f"- Input rate per 1M: `{rate_info.get('input_rate_per_1m', 'n/a')}`",
+                f"- Output rate per 1M: `{rate_info.get('output_rate_per_1m', 'n/a')}`",
+                f"- Estimated cost (expected): `{summary.get('estimated_cost_expected', 'n/a')}`",
+                f"- Estimated cost (ceiling): `{summary.get('estimated_cost_ceiling', 'n/a')}`",
+            ]
+        )
+    else:
+        lines.append("- Pricing rates: `not supplied`")
+
+    lines.extend(
+        [
+            "",
+            "## Request Estimates",
+            "",
+            "| Request | Slot | Input Tokens | Expected Output | Output Ceiling |",
+            "| --- | --- | ---: | ---: | ---: |",
+        ]
+    )
+    for row in request_rows:
+        lines.append(
+            "| "
+            + " | ".join(
+                [
+                    f"`{row.get('request_id', '')}`",
+                    f"`{row.get('prompt_slot', '')}`",
+                    str(int(row.get("estimated_input_tokens") or 0)),
+                    str(int(row.get("expected_output_tokens") or 0)),
+                    str(int(row.get("max_output_tokens") or 0)),
+                ]
+            )
+            + " |"
+        )
+    return "\n".join(lines)
+
+
+def _render_request_outcome(row: Mapping[str, object]) -> str:
+    evidence_text = str(row.get("evidence_text") or "").strip()
+    if evidence_text:
+        return _truncate_markdown_cell(evidence_text)
+    error_text = str(row.get("error_message") or "").strip()
+    if error_text:
+        return _truncate_markdown_cell(error_text)
+    output_text = str(row.get("output_text") or "").strip()
+    if output_text:
+        return _truncate_markdown_cell(output_text)
+    return "n/a"
+
+
+def _truncate_markdown_cell(value: str, *, limit: int = 96) -> str:
+    text = " ".join(value.split())
+    if len(text) <= limit:
+        return text
+    return text[: limit - 3].rstrip() + "..."

@@ -820,8 +820,8 @@ Use this file when:
 ## Semantic Routing Runtime Admission Layer
 
 - Status: `implemented`, `default-on-when-capable`, `verified`
-- Last documented checkpoint: `2026-04-24` kept the shipped capability-driven runtime contract unchanged, but refreshed the current fixed-shadow evaluation surface to `v10`, froze the first family inventory / bakeoff queue, and clarified that the accepted active-sense overlay remains the clean bounded comparator while the zero-noise soft ladder has collapsed on the tougher slice
-- Last verified: `2026-04-24` targeted runtime-eval dev tests plus doc/state checks confirmed the `v10` fixed-shadow evidence, the active-sense overlay comparison, and the new pre-prompt queue state while keeping the non-shadow-mined boundary explicit
+- Last documented checkpoint: `2026-04-24` kept the shipped capability-driven runtime contract unchanged, refreshed the current fixed-shadow evaluation surface to `v10`, froze the first family inventory / bakeoff queue, then landed the real prompt bakeoff runner together with no-spend preflight and cost-estimate surfaces so the first paid prompt passes are preserved, token-reviewed, and explicitly guarded behind `--execute-live`
+- Last verified: `2026-04-24` targeted runtime-eval, prompt-bakeoff, prompt-preflight, and prompt-cost-estimate dev tests plus doc/state checks confirmed the `v10` fixed-shadow evidence, the active-sense overlay comparison, and the new preserved pre-prompt execution surface while keeping the non-shadow-mined boundary explicit
 - Default behavior:
   - Semantic admission is no longer a normal user preference. The browser runtime auto-uses helper-side semantic admission only when the current pair/profile publication is actually capable of real semantic decisioning.
   - If a pair/profile has semantic metadata but no ready subset yet, LexiShift stays on standard SRS replacement behavior instead of asking the user to choose a fallback posture.
@@ -999,8 +999,59 @@ Use this file when:
 	        - proxy `gpt-5.4-mini`
 	        - target `gpt-5.4`
 	        - `6` concrete request rows across the `2` active cue slots
-	      - so prompt smoke work is now a real execution surface, not just a plan
-	      - actual model execution is still pending a configured API surface on this machine, not more queue design work
+	      - after the first live proxy review, the frozen prompt contract was simplified:
+	        - the model now emits only `evidence_text`
+	        - optional `confidence` remains allowed
+	        - the runner synthesizes all fixed ids and sense metadata into the stored intake row
+	      - that keeps prompt output cheaper and less fragile while preserving the same stored provenance
+	      - the simplified `semantic_prompt_bakeoff_v2` contract has now also passed a real live proxy run:
+	        - `6 / 6` accepted and normalized
+	        - input tokens dropped from `3414` to `2545`
+	        - output tokens dropped from `1137` to `222`
+	        - the cross-POS slot shifted from broad noun-gloss cues toward determiner/preposition/document framing
+	      - the same simplified contract has now also passed a real live `gpt-5.4` target run:
+	        - `6 / 6` accepted and normalized
+	        - token volume stayed close to proxy (`2545` input, `231` output)
+	        - the frame-sensitive cross-POS behavior persisted on the target model
+	      - so the main remaining acceptance gate is no longer prompt confirmation:
+	        - it is downstream effect on the fixed-shadow runtime slice
+	      - the live prompt runner now exists too:
+	        - `scripts/testing/semantic_llm_prompt_bakeoff_en_es.py`
+	        - it preserves immutable raw response bundles plus raw and normalized batch artifacts under `docs/test_outputs/experiments/semantic_llm_prompt_batches/`
+	      - the repo now also has a no-spend preflight surface:
+	        - `scripts/testing/semantic_llm_prompt_preflight_en_es.py`
+	        - `docs/test_outputs/semantic_llm_prompt_preflight_latest.md`
+	      - the repo now also has a no-spend cost-estimate surface:
+	        - `scripts/testing/semantic_llm_prompt_cost_estimate_en_es.py`
+	        - `docs/test_outputs/semantic_llm_prompt_cost_estimate_latest.md`
+	      - the same runner now also has a no-spend replay rehearsal path:
+	        - `docs/test_inputs/semantic_routing/semantic_prompt_replay_fixture_en_es_v10.json`
+	        - `docs/test_outputs/semantic_llm_prompt_replay_latest.md`
+	      - the live runner now requires explicit `--execute-live`
+	      - live spend is now also fail-closed on:
+	        - exact selected-request-count declaration
+	        - explicit pricing inputs
+	        - explicit estimated cost ceiling
+	      - live execution is now also resume-safe by explicit operator choice:
+	        - each paid run is keyed by `--run-id`
+	        - completed per-request outcomes are appended to a journal under `docs/test_outputs/experiments/semantic_llm_prompt_batches/`
+	        - reruns without `--resume` are rejected over an existing journal
+	        - `--resume` reuses completed outcomes but refuses ambiguous started-without-outcome requests
+	      - the preflight artifact now prints a spend-capped live command template rather than an uncapped one
+	      - so prompt bakeoff work is now a real preserved execution surface, not just a plan
+	      - the replay rehearsal has already proven the core plumbing:
+	        - one accepted request survives into raw, intake, and normalized artifacts
+	        - one malformed request stays raw-only and is rejected
+	        - one forced API failure is counted separately without corrupting the batch
+	      - the current remaining local blockers are no longer queueing or runner code:
+	        - the Codex command shell still does not inherit `OPENAI_API_KEY` automatically
+	        - the new preflight artifact now makes the safer path explicit:
+	          - current shell `not ready`
+	          - sourced shell + repo venv `ready`
+	        - the new cost-estimate artifact now makes the prompt volume explicit before any spend:
+	          - `3418` heuristic input tokens
+	          - `540` heuristic expected output tokens
+	        - the sourced-shell + repo venv live path is now proven on the real proxy batch
   - Before any rollout, the project still needs:
     - active-sense provenance carried from rulegen into runtime-consumable metadata
     - automatic sibling-shadow candidate mining and a small promotion policy
@@ -1009,6 +1060,7 @@ Use this file when:
 - Evidence:
   - `docs/rulegen/semantic_routing_runtime_readiness.md`
   - `docs/rulegen/semantic_shadow_source_intake_plan.md`
+  - `docs/rulegen/semantic_llm_prompt_bakeoff_plan.md`
   - `docs/rulegen/semantic_routing_publication_contract.md`
   - `docs/rulegen/rule_generation_technical.md`
   - `docs/architecture/extension_system_map.md`
@@ -1021,6 +1073,9 @@ Use this file when:
   - `core/lexishift_core/helper/use_cases/runtime_diagnostics.py`
   - `core/lexishift_core/helper/use_cases/semantic_admission.py`
   - `core/lexishift_core/rulegen/semantic_publication.py`
+  - `scripts/testing/semantic_llm_prompt_bakeoff_en_es.py`
+  - `scripts/testing/semantic_llm_prompt_preflight_en_es.py`
+  - `scripts/testing/semantic_llm_prompt_cost_estimate_en_es.py`
   - `core/lexishift_core/rulegen/semantic_shadow_inventory.py`
   - `core/lexishift_core/rulegen/semantic_shadow_frequency.py`
   - `core/lexishift_core/rulegen/semantic_shadow_embedding_bridge.py`

@@ -1,0 +1,172 @@
+{
+  "schema_version": 1,
+  "status": "ok",
+  "pair": "en-es",
+  "generated_at": "2026-04-24T01:38:58Z",
+  "queue_id": "semantic_prompt_bakeoff_en_es_v10",
+  "prompt_spec_id": "semantic_prompt_spec_en_es_v10",
+  "prompt_version": "semantic_prompt_bakeoff_v2",
+  "stage": "target",
+  "execution_mode": "live",
+  "replay_source": "",
+  "batch_id": "en-es:target:prompt-target-v2-20260424a",
+  "source_id": "semantic_prompt_bakeoff_en_es_v10:target",
+  "selected_model_id": "gpt-5.4",
+  "selected_temperature": 0.2,
+  "summary": {
+    "selected_request_count": 6,
+    "accepted_item_count": 6,
+    "api_error_count": 0,
+    "invalid_output_count": 0,
+    "normalized_row_count": 6,
+    "input_tokens": 2545,
+    "output_tokens": 231,
+    "reasoning_tokens": 0
+  },
+  "artifacts": {
+    "journal_jsonl": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-target-prompt-target-v2-20260424a_journal.jsonl",
+    "raw_response_bundle_json": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-target-prompt-target-v2-20260424a_raw_responses.json",
+    "intake_batch_json": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-target-prompt-target-v2-20260424a_intake_batch.json",
+    "normalized_batch_json": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-target-prompt-target-v2-20260424a_normalized_evidence.json"
+  },
+  "request_rows": [
+    {
+      "request_id": "en-es:target:cue-contrastive-general-v1:plant:fabrica",
+      "prompt_slot": "cue_contrastive_general_v1",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "fábrica",
+      "status": "accepted",
+      "response_id": "resp_0208e3b511d9b5b80169eac9b345b08195aa3266dc465af739",
+      "evidence_text": "Refers to something rooted that grows leaves, stems, or flowers.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-target-prompt-target-v2-20260424a_raw_responses.json#en-es:target:cue-contrastive-general-v1:plant:fabrica",
+      "usage": {
+        "input_tokens": 380,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 36,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 416
+      }
+    },
+    {
+      "request_id": "en-es:target:cue-contrastive-general-v1:drink:beber",
+      "prompt_slot": "cue_contrastive_general_v1",
+      "family_id": "en-es:sentence-veto:drink:bebida",
+      "trigger": "drink",
+      "active_target": "bebida",
+      "candidate_target": "beber",
+      "status": "accepted",
+      "response_id": "resp_0e24ad87295ae29d0169eac9b50c9c8190a5df15916c12c005",
+      "evidence_text": "Refers to the liquid itself, often countable or ordered, not the act.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-target-prompt-target-v2-20260424a_raw_responses.json#en-es:target:cue-contrastive-general-v1:drink:beber",
+      "usage": {
+        "input_tokens": 381,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 39,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 420
+      }
+    },
+    {
+      "request_id": "en-es:target:cue-cross-pos-frame-v1:check:revisar",
+      "prompt_slot": "cue_cross_pos_frame_v1",
+      "family_id": "en-es:sentence-veto:check:cheque",
+      "trigger": "check",
+      "active_target": "cheque",
+      "candidate_target": "revisar",
+      "status": "accepted",
+      "response_id": "resp_0486f1ac8a8133640169eac9b67a588195a7ecd40e92264151",
+      "evidence_text": "Preceded by a determiner or amount, often written, signed, deposited, or cashed.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-target-prompt-target-v2-20260424a_raw_responses.json#en-es:target:cue-cross-pos-frame-v1:check:revisar",
+      "usage": {
+        "input_tokens": 454,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 43,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 497
+      }
+    },
+    {
+      "request_id": "en-es:target:cue-cross-pos-frame-v1:order:ordenar",
+      "prompt_slot": "cue_cross_pos_frame_v1",
+      "family_id": "en-es:sentence-veto:order:pedido",
+      "trigger": "order",
+      "active_target": "pedido",
+      "candidate_target": "ordenar",
+      "status": "accepted",
+      "response_id": "resp_0662b618c5e1d3af0169eac9b818b481909071efdfa2492c74",
+      "evidence_text": "Preceded by a determiner or quantity and followed by for goods or delivery.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-target-prompt-target-v2-20260424a_raw_responses.json#en-es:target:cue-cross-pos-frame-v1:order:ordenar",
+      "usage": {
+        "input_tokens": 445,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 39,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 484
+      }
+    },
+    {
+      "request_id": "en-es:target:cue-cross-pos-frame-v1:trip:tropezar",
+      "prompt_slot": "cue_cross_pos_frame_v1",
+      "family_id": "en-es:sentence-veto:trip:viaje",
+      "trigger": "trip",
+      "active_target": "viaje",
+      "candidate_target": "tropezar",
+      "status": "accepted",
+      "response_id": "resp_0a6758b9b0f5ff7a0169eac9b967c88195aef83cb22a6ace16",
+      "evidence_text": "A determiner or adjective before trip signals a planned journey noun.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-target-prompt-target-v2-20260424a_raw_responses.json#en-es:target:cue-cross-pos-frame-v1:trip:tropezar",
+      "usage": {
+        "input_tokens": 437,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 35,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 472
+      }
+    },
+    {
+      "request_id": "en-es:target:cue-cross-pos-frame-v1:report:informar",
+      "prompt_slot": "cue_cross_pos_frame_v1",
+      "family_id": "en-es:sentence-veto:report:informe",
+      "trigger": "report",
+      "active_target": "informe",
+      "candidate_target": "informar",
+      "status": "accepted",
+      "response_id": "resp_0c7383e659e13df50169eac9bab4848190b5cb4dcfc6fdae76",
+      "evidence_text": "Preceded by a determiner or adjective, especially followed by on/about findings.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-target-prompt-target-v2-20260424a_raw_responses.json#en-es:target:cue-cross-pos-frame-v1:report:informar",
+      "usage": {
+        "input_tokens": 448,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 39,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 487
+      }
+    }
+  ]
+}

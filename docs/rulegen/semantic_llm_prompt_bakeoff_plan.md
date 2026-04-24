@@ -86,6 +86,19 @@ The repo already has the right scaffolding for a measured bakeoff:
 
 That means prompt work can be versioned and compared cleanly instead of becoming ad hoc batch prose.
 
+Current output-contract posture:
+
+- the model should emit only the fields it is actually deciding:
+  - required `evidence_text`
+  - optional `confidence`
+- the runner should synthesize the richer stored intake row from the frozen request context:
+  - row ids
+  - targets
+  - trigger
+  - prompt slot
+  - sense metadata
+- this keeps the model output smaller, cheaper, and less fragile without weakening stored provenance
+
 Current frozen pre-prompt artifacts:
 
 - `docs/test_inputs/semantic_routing/semantic_family_inventory_en_es_v10.json`
@@ -460,21 +473,32 @@ The first implementation pass for this workstream should add:
 - `docs/test_inputs/semantic_routing/semantic_prompt_bakeoff_queue_en_es.json`
 - `docs/test_inputs/semantic_routing/semantic_prompt_slot_manifest.json`
 - `docs/test_inputs/semantic_routing/semantic_family_inventory_en_es_v10.json`
+- `docs/test_inputs/semantic_routing/semantic_prompt_replay_fixture_en_es_v10.json`
 - optional prompt text templates or prompt-spec file keyed by `prompt_version` and `prompt_slot`
 
 ### Scripts
 
+- `scripts/testing/semantic_llm_prompt_preflight_en_es.py`
+- `scripts/testing/semantic_llm_prompt_cost_estimate_en_es.py`
 - `scripts/testing/semantic_llm_prompt_smoke.py`
 - `scripts/testing/semantic_llm_prompt_bakeoff_en_es.py`
 - `scripts/testing/semantic_llm_prompt_reporting.py`
 
 ### Output artifacts
 
+- `docs/test_outputs/semantic_llm_prompt_preflight_latest.json`
+- `docs/test_outputs/semantic_llm_prompt_preflight_latest.md`
+- `docs/test_outputs/semantic_llm_prompt_cost_estimate_latest.json`
+- `docs/test_outputs/semantic_llm_prompt_cost_estimate_latest.md`
+- `docs/test_outputs/semantic_llm_prompt_replay_latest.json`
+- `docs/test_outputs/semantic_llm_prompt_replay_latest.md`
 - `docs/test_outputs/semantic_llm_prompt_bakeoff_latest.json`
 - `docs/test_outputs/semantic_llm_prompt_bakeoff_latest.md`
 - `docs/test_outputs/semantic_llm_prompt_confirmation_latest.json`
 - `docs/test_outputs/semantic_llm_prompt_confirmation_latest.md`
 - `docs/test_outputs/semantic_llm_queue_review_en_es_latest.md`
+- immutable batch-specific raw response, intake, and normalized evidence artifacts under:
+  - `docs/test_outputs/experiments/semantic_llm_prompt_batches/`
 
 ## Phase Plan
 
@@ -543,14 +567,73 @@ Current status:
 
 - prompt wording and stage defaults are now frozen in:
   - `docs/test_inputs/semantic_routing/semantic_prompt_spec_en_es_v10.json`
+- the frozen prompt contract is now the simplified `semantic_prompt_bakeoff_v2` shape:
+  - the model emits only `evidence_text`
+  - optional `confidence` may still be emitted
+  - the runner synthesizes all fixed ids and metadata into the intake batch
 - the local prompt preview bundle is now rendered in:
   - `docs/test_outputs/semantic_llm_prompt_smoke_latest.md`
+- the new no-spend preflight surface is now rendered in:
+  - `docs/test_outputs/semantic_llm_prompt_preflight_latest.md`
+- the new no-spend cost-estimate surface is now rendered in:
+  - `docs/test_outputs/semantic_llm_prompt_cost_estimate_latest.md`
+- the live execution runner is now implemented in:
+  - `scripts/testing/semantic_llm_prompt_bakeoff_en_es.py`
+- the live runner now refuses API spend unless `--execute-live` is passed explicitly
+- live execution is now also fail-closed on three explicit guards:
+  - exact `--require-selected-request-count`
+  - explicit `--input-rate-per-1m` and `--output-rate-per-1m`
+  - explicit `--max-estimated-cost-ceiling-usd`
+- the live runner now preserves:
+  - an append-only per-request journal keyed by operator-supplied `--run-id`
+  - immutable raw response bundles
+  - immutable raw LLM intake batches
+  - immutable normalized evidence batches
+  - plus the stable `latest` summary artifact
+- live interruption handling is now explicit:
+  - re-running the same live slice without `--resume` is rejected if the journal already exists
+  - `--resume` reuses already completed request outcomes from the journal instead of re-spending them
+  - if a request was started but no outcome was recorded, resume refuses and asks for manual inspection rather than risking duplicate spend
+- the same runner now also supports a strict no-spend replay mode backed by:
+  - `docs/test_inputs/semantic_routing/semantic_prompt_replay_fixture_en_es_v10.json`
+  - `docs/test_outputs/semantic_llm_prompt_replay_latest.md`
+- current replay read:
+  - `3` selected requests
+  - `1` accepted row
+  - `1` forced API error
+  - `1` strict malformed-row rejection
+  - accepted replay data survives into immutable raw, intake, and normalized artifacts with replay provenance attached
+- first live proxy read on the older verbose contract showed:
+  - all `6 / 6` requests accepted and normalized
+  - but the cross-POS slot still drifted toward gloss-like noun summaries, especially on `order`
+  - and the model was being asked to echo ids and metadata that the runner already knew
+- second live proxy read on the simplified `semantic_prompt_bakeoff_v2` contract now shows:
+  - all `6 / 6` requests accepted and normalized again
+  - proxy token usage dropped materially:
+    - input tokens `3414 -> 2545`
+    - output tokens `1137 -> 222`
+  - the cross-POS slot moved in the intended direction:
+    - `check`, `order`, `trip`, and `report` now emphasize determiner/preposition/document framing instead of broad noun-gloss summaries
+  - the simplified contract therefore looks strictly better as the proxy default:
+    - cheaper
+    - less fragile
+    - and more aligned with the intended cue job
+- current next step is therefore:
+  - target confirmation on the same simplified contract
 - current preview read:
   - `2` active slots
   - `6` rendered target-family prompt requests
   - `play` and `watch` remain held out as negative controls, not prompt targets
 - current local limitation:
-  - this machine does not currently expose a configured OpenAI API surface (`OPENAI_API_KEY` unset and no local `openai` package), so the actual cheap-model proxy batch is still pending a configured runtime rather than more planning
+  - the new preflight now resolves the environment split more precisely:
+  - current Codex command shell is still not ready for direct spend
+  - sourced shell + repo venv are ready enough for execution
+  - the preflight command template is now spend-capped by default rather than showing an uncapped live command
+  - the same preflight surface now points at a `--run-id`-based live path so paid runs are resumable rather than timestamp-bound
+  - the new cost-estimate artifact now keeps the token-volume review explicit before any live run:
+    - current proxy slice estimate is `2814` input tokens and `540` expected output tokens across the `6` frozen requests
+    - pricing stays intentionally external to the repo unless current rates are supplied explicitly at runtime
+  - the sourced-shell + repo-venv live path is now proven on real proxy execution, not just preflight
 
 ### Phase 3. Target-model finalist pass
 
@@ -566,6 +649,23 @@ Deliverables:
 Acceptance:
 
 - at least one slot per active job survives target-model confirmation
+
+Current status:
+
+- `semantic_prompt_bakeoff_v2` has now also passed a real live `gpt-5.4` target run:
+  - all `6 / 6` requests accepted and normalized
+  - target token usage stayed close to proxy:
+    - input tokens `2545`
+    - output tokens `231`
+  - the target cues preserved the same qualitative improvement seen in proxy:
+    - cross-POS rows remained frame-sensitive rather than reverting to broad noun-gloss summaries
+    - `order`, `trip`, `check`, and `report` all stayed on determiner/quantity/document framing
+- current read:
+  - the simplified `v2` contract now looks validated on both:
+    - proxy `gpt-5.4-mini`
+    - target `gpt-5.4`
+  - the remaining missing gate is no longer prompt-quality confirmation
+  - it is downstream effect on the fixed-shadow runtime slice
 
 ### Phase 4. Downstream bakeoff
 

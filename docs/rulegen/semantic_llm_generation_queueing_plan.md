@@ -562,8 +562,40 @@ The current queueing unit is now stable enough for a first bounded pre-prompt wo
 
 What is still missing before prompt spend:
 
-- actual proxy-model execution on a configured API surface
+- actual proxy-model execution with usable quota on a configured API surface
 - then target-model finalist confirmation on the same frozen slice
+
+Current status on that seam:
+
+- the no-spend preflight runner now exists:
+  - `scripts/testing/semantic_llm_prompt_preflight_en_es.py`
+- the no-spend cost-estimate runner now exists:
+  - `scripts/testing/semantic_llm_prompt_cost_estimate_en_es.py`
+- the execution runner now exists:
+  - `scripts/testing/semantic_llm_prompt_bakeoff_en_es.py`
+- the same runner now has a strict replay path:
+  - `docs/test_inputs/semantic_routing/semantic_prompt_replay_fixture_en_es_v10.json`
+  - `docs/test_outputs/semantic_llm_prompt_replay_latest.md`
+- the live runner now requires explicit `--execute-live` so prompt spend cannot happen accidentally
+- live runs are now also hard-stopped unless they declare:
+  - the exact selected request count
+  - explicit pricing inputs
+  - and an explicit estimated cost ceiling
+- live execution is now also journaled by operator-supplied `--run-id`:
+  - completed request outcomes are append-only and resumable
+  - rerunning without `--resume` over an existing journal is rejected
+  - ambiguous started-without-outcome requests block resume instead of risking duplicate spend
+- the current Codex command shell still does not inherit `OPENAI_API_KEY` automatically, but the sourced-shell + repo-venv path is now surfaced explicitly by the preflight artifact
+- current token-volume review is also explicit before any paid run:
+  - `6` proxy requests
+  - heuristic `3418` input tokens
+  - heuristic `540` expected output tokens
+- the replay rehearsal has already proven the preserved-batch plumbing:
+  - `1` accepted request normalized cleanly
+  - `1` malformed output stayed raw-only and was rejected
+  - `1` forced API error stayed raw-only and was counted separately
+- and the separately verified sourced-shell account path still returns `insufficient_quota`
+- so the blocker is now quota/billing, not missing local runner infrastructure
 
 Once the queueing unit is stable, use `docs/rulegen/semantic_llm_prompt_bakeoff_plan.md` for the prompt-slot matrix, proxy-vs-target model policy, and cheap bakeoff workflow.
 

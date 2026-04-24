@@ -2,7 +2,7 @@
   "schema_version": 1,
   "spec_id": "semantic_prompt_spec_en_es_v10",
   "pair": "en-es",
-  "prompt_version": "semantic_prompt_bakeoff_v1",
+  "prompt_version": "semantic_prompt_bakeoff_v2",
   "proxy_model_id": "gpt-5.4-mini",
   "target_model_id": "gpt-5.4",
   "stage_defaults": {
@@ -25,23 +25,14 @@
         "cue_generation",
         "discrimination"
       ],
-      "system_prompt": "You generate one LexiShift semantic cue row. Return compact JSON only. The cue must help choose the active Spanish target over one named competitor for one English trigger. Write short discriminative evidence text in English. Prefer concrete semantic or lexical discriminators over dictionary paraphrase. Do not generate phrase or idiom guidance, examples, explanations, markdown, or extra keys.",
-      "user_prompt_template": "Return a JSON object with exactly one key `items`. `items` must be an array with exactly one object.\n\nCopy these fields exactly into that object:\n- `row_id`: `{row_id}`\n- `relation_type`: `anchor_cue`\n- `trigger`: `{trigger}`\n- `active_target`: `{active_target}`\n- `candidate_target`: `{candidate_target}`\n- `candidate_pos`: `{candidate_pos}`\n- `prompt_slot`: `{prompt_slot}`\n- `input_ref`: `{input_ref}`\n\nSet `metadata` to an object containing these exact fields:\n- `family_id`: `{family_id}`\n- `active_sense_id`: `{active_sense_id}`\n- `candidate_sense_id`: `{candidate_sense_id}`\n- `stage`: `{stage}`\n- `family_archetype`: `{family_archetype}`\n\nActive sense:\n- sense label: `{active_sense_label}`\n- gloss: `{active_gloss_text}`\n\nCandidate sense:\n- sense label: `{candidate_sense_label}`\n- gloss: `{candidate_gloss_text}`\n\nFamily notes:\n- `{family_notes}`\n\nTask:\nWrite `evidence_text` in English, between 6 and 18 words, as one compact cue for the active sense only.\n\nRules:\n- make it contrastive and specific\n- do not merely restate the active label\n- do not mention the candidate target by name\n- do not write multiple cues or bullets\n- do not mention phrases, idioms, or lexicalized expressions\n- keep the cue useful for ordinary single-word sense discrimination\n\nOptional:\n- include `confidence` as a number from 0 to 1\n\nReturn JSON only.",
+      "system_prompt": "You generate one LexiShift semantic cue. Return compact JSON only. The cue must help choose the active Spanish target over one named competitor for one English trigger. Write short discriminative evidence text in English. Prefer concrete semantic or lexical discriminators over dictionary paraphrase. Do not generate phrase or idiom guidance, examples, explanations, markdown, or extra keys.",
+      "user_prompt_template": "Return a JSON object with exactly one key `items`. `items` must be an array with exactly one object.\n\nThat object may contain only:\n- required `evidence_text`\n- optional `confidence`\n\nDo not repeat ids, targets, trigger text, or metadata; those are already fixed outside the model output.\n\nActive sense:\n- trigger: `{trigger}`\n- active target: `{active_target}`\n- sense label: `{active_sense_label}`\n- gloss: `{active_gloss_text}`\n\nCompeting candidate:\n- candidate target: `{candidate_target}`\n- candidate POS: `{candidate_pos}`\n- sense label: `{candidate_sense_label}`\n- gloss: `{candidate_gloss_text}`\n\nFamily notes:\n- `{family_notes}`\n\nTask:\nWrite `evidence_text` in English, between 6 and 18 words, as one compact cue for the active sense only.\n\nRules:\n- make it contrastive and specific\n- do not merely restate the active label\n- do not mention the candidate target by name\n- do not write multiple cues or bullets\n- do not mention phrases, idioms, or lexicalized expressions\n- keep the cue useful for ordinary single-word sense discrimination\n\nOptional:\n- include `confidence` as a number from 0 to 1\n\nReturn JSON only.",
       "output_contract": {
         "format": "json_object",
         "top_level_key": "items",
         "exact_item_count": 1,
         "required_item_fields": [
-          "row_id",
-          "relation_type",
-          "trigger",
-          "active_target",
-          "candidate_target",
-          "candidate_pos",
-          "evidence_text",
-          "prompt_slot",
-          "input_ref",
-          "metadata"
+          "evidence_text"
         ]
       }
     },
@@ -54,23 +45,14 @@
         "cue_generation",
         "discrimination"
       ],
-      "system_prompt": "You generate one LexiShift semantic cue row for cross-POS ambiguity. Return compact JSON only. The cue must help choose the active Spanish target over one named competitor for one English trigger. Favor short frame-sensitive evidence in English: noun-vs-verb usage, nearby function words, determiner patterns, object or modifier cues, or document-like vs action-like framing. Do not generate phrase or idiom guidance, examples, explanations, markdown, or extra keys.",
-      "user_prompt_template": "Return a JSON object with exactly one key `items`. `items` must be an array with exactly one object.\n\nCopy these fields exactly into that object:\n- `row_id`: `{row_id}`\n- `relation_type`: `anchor_cue`\n- `trigger`: `{trigger}`\n- `active_target`: `{active_target}`\n- `candidate_target`: `{candidate_target}`\n- `candidate_pos`: `{candidate_pos}`\n- `prompt_slot`: `{prompt_slot}`\n- `input_ref`: `{input_ref}`\n\nSet `metadata` to an object containing these exact fields:\n- `family_id`: `{family_id}`\n- `active_sense_id`: `{active_sense_id}`\n- `candidate_sense_id`: `{candidate_sense_id}`\n- `stage`: `{stage}`\n- `family_archetype`: `{family_archetype}`\n\nActive sense:\n- canonical POS: `{active_pos}`\n- sense label: `{active_sense_label}`\n- gloss: `{active_gloss_text}`\n\nCandidate sense:\n- canonical POS: `{candidate_pos}`\n- sense label: `{candidate_sense_label}`\n- gloss: `{candidate_gloss_text}`\n\nFamily notes:\n- `{family_notes}`\n\nTask:\nWrite `evidence_text` in English, between 6 and 18 words, as one compact cue for the active sense only.\n\nRules:\n- prefer syntactic-frame or collocate signals that favor the active POS\n- make the cue specific enough to separate noun-active from verb-shadow competition\n- do not mention the candidate target by name\n- do not write multiple cues or bullets\n- do not mention phrases, idioms, or lexicalized expressions\n- avoid generic dictionary prose that ignores POS framing\n\nOptional:\n- include `confidence` as a number from 0 to 1\n\nReturn JSON only.",
+      "system_prompt": "You generate one LexiShift semantic cue for cross-POS ambiguity. Return compact JSON only. The cue must help choose the active Spanish target over one named competitor for one English trigger. Favor short frame-sensitive evidence in English: noun-vs-verb usage, nearby function words, determiner patterns, object or modifier cues, or document-like vs action-like framing. Do not generate phrase or idiom guidance, examples, explanations, markdown, or extra keys.",
+      "user_prompt_template": "Return a JSON object with exactly one key `items`. `items` must be an array with exactly one object.\n\nThat object may contain only:\n- required `evidence_text`\n- optional `confidence`\n\nDo not repeat ids, targets, trigger text, or metadata; those are already fixed outside the model output.\n\nActive sense:\n- trigger: `{trigger}`\n- active target: `{active_target}`\n- canonical POS: `{active_pos}`\n- sense label: `{active_sense_label}`\n- gloss: `{active_gloss_text}`\n\nCompeting candidate:\n- candidate target: `{candidate_target}`\n- candidate POS: `{candidate_pos}`\n- sense label: `{candidate_sense_label}`\n- gloss: `{candidate_gloss_text}`\n\nFamily notes:\n- `{family_notes}`\n\nTask:\nWrite `evidence_text` in English, between 6 and 18 words, as one compact cue for the active sense only.\n\nRules:\n- prefer syntactic-frame or collocate signals that favor the active POS\n- make the cue specific enough to separate noun-active from verb-shadow competition\n- do not mention the candidate target by name\n- do not write multiple cues or bullets\n- do not mention phrases, idioms, or lexicalized expressions\n- avoid generic dictionary prose that ignores POS framing\n\nOptional:\n- include `confidence` as a number from 0 to 1\n\nReturn JSON only.",
       "output_contract": {
         "format": "json_object",
         "top_level_key": "items",
         "exact_item_count": 1,
         "required_item_fields": [
-          "row_id",
-          "relation_type",
-          "trigger",
-          "active_target",
-          "candidate_target",
-          "candidate_pos",
-          "evidence_text",
-          "prompt_slot",
-          "input_ref",
-          "metadata"
+          "evidence_text"
         ]
       }
     },
@@ -83,23 +65,14 @@
         "cue_generation",
         "discrimination"
       ],
-      "system_prompt": "You generate one LexiShift minimal rescue cue row. Return compact JSON only. The cue must be short and high precision. Prefer a small lexical or semantic discriminator that can help a bounded rescue path. Do not generate broad prose, examples, phrase guidance, markdown, or extra keys.",
-      "user_prompt_template": "Return a JSON object with exactly one key `items`. `items` must be an array with exactly one object.\n\nCopy these fields exactly into that object:\n- `row_id`: `{row_id}`\n- `relation_type`: `anchor_cue`\n- `trigger`: `{trigger}`\n- `active_target`: `{active_target}`\n- `candidate_target`: `{candidate_target}`\n- `candidate_pos`: `{candidate_pos}`\n- `prompt_slot`: `{prompt_slot}`\n- `input_ref`: `{input_ref}`\n\nSet `metadata` to an object containing these exact fields:\n- `family_id`: `{family_id}`\n- `active_sense_id`: `{active_sense_id}`\n- `candidate_sense_id`: `{candidate_sense_id}`\n- `stage`: `{stage}`\n- `family_archetype`: `{family_archetype}`\n\nActive sense label: `{active_sense_label}`\nCandidate sense label: `{candidate_sense_label}`\nFamily notes: `{family_notes}`\n\nTask:\nWrite `evidence_text` in English, between 4 and 12 words, as one high-precision rescue cue for the active sense only.\n\nRules:\n- one cue only\n- no generic gloss restatement\n- no phrase or idiom hints\n- no example sentences\n- no broad semantic summaries\n\nOptional:\n- include `confidence` as a number from 0 to 1\n\nReturn JSON only.",
+      "system_prompt": "You generate one LexiShift minimal rescue cue. Return compact JSON only. The cue must be short and high precision. Prefer a small lexical or semantic discriminator that can help a bounded rescue path. Do not generate broad prose, examples, phrase guidance, markdown, or extra keys.",
+      "user_prompt_template": "Return a JSON object with exactly one key `items`. `items` must be an array with exactly one object.\n\nThat object may contain only:\n- required `evidence_text`\n- optional `confidence`\n\nDo not repeat ids, targets, trigger text, or metadata; those are already fixed outside the model output.\n\nActive sense label: `{active_sense_label}`\nCandidate sense label: `{candidate_sense_label}`\nFamily notes: `{family_notes}`\n\nTask:\nWrite `evidence_text` in English, between 4 and 12 words, as one high-precision rescue cue for the active sense only.\n\nRules:\n- one cue only\n- no generic gloss restatement\n- no phrase or idiom hints\n- no example sentences\n- no broad semantic summaries\n\nOptional:\n- include `confidence` as a number from 0 to 1\n\nReturn JSON only.",
       "output_contract": {
         "format": "json_object",
         "top_level_key": "items",
         "exact_item_count": 1,
         "required_item_fields": [
-          "row_id",
-          "relation_type",
-          "trigger",
-          "active_target",
-          "candidate_target",
-          "candidate_pos",
-          "evidence_text",
-          "prompt_slot",
-          "input_ref",
-          "metadata"
+          "evidence_text"
         ]
       }
     },
