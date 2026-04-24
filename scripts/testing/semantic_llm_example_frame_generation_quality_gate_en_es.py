@@ -288,6 +288,7 @@ def _evaluate_config(config: Mapping[str, object]) -> dict[str, object]:
         ).strip(),
         "use_phrase_prototypes": bool(config.get("use_phrase_prototypes")),
         "use_phrase_containment_gate": bool(config.get("use_phrase_containment_gate")),
+        "use_surface_pos_rescue": bool(config.get("use_surface_pos_rescue")),
         "decision_accuracy": float(summary.get("decision_accuracy") or 0.0),
         "replace_recall": float(summary.get("replace_recall") or 0.0),
         "harmful_replace_count": int(summary.get("harmful_replace_count") or 0),
@@ -315,6 +316,8 @@ def _best_config_row(rows: Sequence[Mapping[str, object]]) -> dict[str, object]:
 
 def _config_preference(row: Mapping[str, object]) -> int:
     config_id = str(row.get("config_id") or "").strip()
+    if config_id == "prototype_reviewed_examples_surface_pos_rescue_guard":
+        return 4
     if config_id == "prototype_reviewed_examples_phrase_containment_guard":
         return 3
     if config_id == "prototype_reviewed_examples_active_guard":
@@ -332,7 +335,12 @@ def _build_diagnostics(config_rows: Sequence[Mapping[str, object]]) -> dict[str,
         config_rows,
         "prototype_reviewed_examples_phrase_containment_guard",
     )
+    surface_pos_config = _config_by_id(
+        config_rows,
+        "prototype_reviewed_examples_surface_pos_rescue_guard",
+    )
     active_config = _config_by_id(config_rows, "prototype_reviewed_examples_active_guard")
+    harmful_diagnostic_config = surface_pos_config or active_config
     active_false_abstain_ids = _false_abstain_case_ids(active_config)
     phrase_overreach = [
         _case_sample(row)
@@ -371,7 +379,7 @@ def _build_diagnostics(config_rows: Sequence[Mapping[str, object]]) -> dict[str,
     ]
     harmful = [
         _case_sample(row)
-        for row in _row_results(active_config)
+        for row in _row_results(harmful_diagnostic_config)
         if str(row.get("gold_decision") or "").strip() == "abstain"
         and str(row.get("predicted_decision") or "").strip() == "replace"
     ]

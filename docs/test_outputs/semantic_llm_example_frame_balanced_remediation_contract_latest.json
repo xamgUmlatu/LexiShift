@@ -1,0 +1,247 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-04-24T22:43:54Z",
+  "status": "ok",
+  "pair": "en-es",
+  "batch_path": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-reverse-aux-plus-llm-missing-rows-plus-balanced-remediation-latest_normalized_evidence.json",
+  "batch_id": "en-es:example-frame-composite:reverse-aux-plus-llm-missing-rows-plus-balanced-remediation-latest",
+  "source_id": "reverse_aux_plus_llm_example_frame_missing_rows_plus_balanced_remediation",
+  "prompt_version": "example-frame-composite-v1",
+  "model_id": "mixed",
+  "row_count": 36,
+  "contract": {
+    "required_relation_sets": {
+      "active_examples": [
+        "anchor_cue"
+      ],
+      "shadow_examples": [
+        "bridge_candidate",
+        "shadow_candidate"
+      ],
+      "phrase_control_examples": [
+        "phrase_control_example"
+      ]
+    },
+    "required_batch_role_for_phrase_rows": "phrase_containment",
+    "runtime_publishable_required": false,
+    "required_family_keys": [
+      "en-es:sentence-veto:plant:planta",
+      "en-es:sentence-veto:drink:bebida",
+      "en-es:sentence-veto:check:cheque",
+      "en-es:sentence-veto:order:pedido",
+      "en-es:sentence-veto:trip:viaje",
+      "en-es:sentence-veto:report:informe",
+      "en-es:sentence-veto:play:obra",
+      "en-es:sentence-veto:watch:reloj"
+    ]
+  },
+  "summary": {
+    "families_total": 8,
+    "contract_complete_family_count": 8,
+    "contract_complete": true,
+    "missing_active_family_keys": [],
+    "missing_shadow_family_keys": [],
+    "missing_phrase_control_family_keys": [],
+    "phrase_role_issue_family_keys": [],
+    "runtime_publishable_issue_family_keys": []
+  },
+  "family_rows": [
+    {
+      "family_key": "en-es:sentence-veto:check:cheque",
+      "family_id": "en-es:sentence-veto:check:cheque",
+      "trigger": "check",
+      "active_target": "cheque",
+      "active_example_count": 3,
+      "shadow_example_count": 1,
+      "phrase_control_example_count": 1,
+      "row_count": 5,
+      "contract_complete": true,
+      "missing_requirements": [],
+      "active_row_ids": [
+        "en-es-sentence-veto-check-cheque:active-reverse-aux",
+        "en-es-sentence-veto-check-cheque:llm:active:missing:v1",
+        "en-es-sentence-veto-check-cheque:llm:active:remediation-active-002:v1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-check-cheque:llm:shadow:en-es-sentence-veto-check-revisar-shadow:missing:v1"
+      ],
+      "phrase_control_row_ids": [
+        "en-es-sentence-veto-check-cheque:llm:phrase-control:missing:v1"
+      ],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:drink:bebida",
+      "family_id": "en-es:sentence-veto:drink:bebida",
+      "trigger": "drink",
+      "active_target": "bebida",
+      "active_example_count": 1,
+      "shadow_example_count": 1,
+      "phrase_control_example_count": 1,
+      "row_count": 3,
+      "contract_complete": true,
+      "missing_requirements": [],
+      "active_row_ids": [
+        "en-es-sentence-veto-drink-bebida:active-reverse-aux"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-drink-bebida:shadow-en-es-sentence-veto-drink-beber-shadow-reverse-aux"
+      ],
+      "phrase_control_row_ids": [
+        "en-es-sentence-veto-drink-bebida:llm:phrase-control:missing:v1"
+      ],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:order:pedido",
+      "family_id": "en-es:sentence-veto:order:pedido",
+      "trigger": "order",
+      "active_target": "pedido",
+      "active_example_count": 3,
+      "shadow_example_count": 1,
+      "phrase_control_example_count": 1,
+      "row_count": 5,
+      "contract_complete": true,
+      "missing_requirements": [],
+      "active_row_ids": [
+        "en-es-sentence-veto-order-pedido:active-reverse-aux",
+        "en-es-sentence-veto-order-pedido:llm:active:missing:v1",
+        "en-es-sentence-veto-order-pedido:llm:active:remediation-active-002:v1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-order-pedido:shadow-en-es-sentence-veto-order-ordenar-shadow-reverse-aux"
+      ],
+      "phrase_control_row_ids": [
+        "en-es-sentence-veto-order-pedido:llm:phrase-control:missing:v1"
+      ],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:plant:planta",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "trigger": "plant",
+      "active_target": "planta",
+      "active_example_count": 1,
+      "shadow_example_count": 1,
+      "phrase_control_example_count": 1,
+      "row_count": 3,
+      "contract_complete": true,
+      "missing_requirements": [],
+      "active_row_ids": [
+        "en-es-sentence-veto-plant-planta:active-reverse-aux"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-plant-planta:llm:shadow:en-es-sentence-veto-plant-fabrica-shadow:missing:v1"
+      ],
+      "phrase_control_row_ids": [
+        "en-es-sentence-veto-plant-planta:llm:phrase-control:missing:v1"
+      ],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:play:obra",
+      "family_id": "en-es:sentence-veto:play:obra",
+      "trigger": "play",
+      "active_target": "obra",
+      "active_example_count": 3,
+      "shadow_example_count": 1,
+      "phrase_control_example_count": 1,
+      "row_count": 5,
+      "contract_complete": true,
+      "missing_requirements": [],
+      "active_row_ids": [
+        "en-es-sentence-veto-play-obra:llm:active:missing:v1",
+        "en-es-sentence-veto-play-obra:llm:active:missing:v1",
+        "en-es-sentence-veto-play-obra:llm:active:remediation-active-001:v1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-play-obra:shadow-en-es-sentence-veto-play-jugar-shadow-reverse-aux"
+      ],
+      "phrase_control_row_ids": [
+        "en-es-sentence-veto-play-obra:llm:phrase-control:missing:v1"
+      ],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:report:informe",
+      "family_id": "en-es:sentence-veto:report:informe",
+      "trigger": "report",
+      "active_target": "informe",
+      "active_example_count": 3,
+      "shadow_example_count": 3,
+      "phrase_control_example_count": 1,
+      "row_count": 7,
+      "contract_complete": true,
+      "missing_requirements": [],
+      "active_row_ids": [
+        "en-es-sentence-veto-report-informe:active-reverse-aux",
+        "en-es-sentence-veto-report-informe:llm:active:missing:v1",
+        "en-es-sentence-veto-report-informe:llm:active:remediation-active-001-002:v1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-report-informe:shadow-en-es-sentence-veto-report-informar-shadow-reverse-aux",
+        "en-es-sentence-veto-report-informe:llm:shadow:en-es-sentence-veto-report-informar-shadow:missing:v1",
+        "en-es-sentence-veto-report-informe:llm:shadow:en-es-sentence-veto-report-informar-shadow:remediation-shadow-003-004:v1"
+      ],
+      "phrase_control_row_ids": [
+        "en-es-sentence-veto-report-informe:llm:phrase-control:missing:v1"
+      ],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:trip:viaje",
+      "family_id": "en-es:sentence-veto:trip:viaje",
+      "trigger": "trip",
+      "active_target": "viaje",
+      "active_example_count": 2,
+      "shadow_example_count": 1,
+      "phrase_control_example_count": 1,
+      "row_count": 4,
+      "contract_complete": true,
+      "missing_requirements": [],
+      "active_row_ids": [
+        "en-es-sentence-veto-trip-viaje:active-reverse-aux",
+        "en-es-sentence-veto-trip-viaje:llm:active:missing:v1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-trip-viaje:shadow-en-es-sentence-veto-trip-viaje-shadow-reverse-aux"
+      ],
+      "phrase_control_row_ids": [
+        "en-es-sentence-veto-trip-viaje:llm:phrase-control:missing:v1"
+      ],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:watch:reloj",
+      "family_id": "en-es:sentence-veto:watch:reloj",
+      "trigger": "watch",
+      "active_target": "reloj",
+      "active_example_count": 2,
+      "shadow_example_count": 1,
+      "phrase_control_example_count": 1,
+      "row_count": 4,
+      "contract_complete": true,
+      "missing_requirements": [],
+      "active_row_ids": [
+        "en-es-sentence-veto-watch-reloj:active-reverse-aux",
+        "en-es-sentence-veto-watch-reloj:llm:active:missing:v1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-watch-reloj:shadow-en-es-sentence-veto-watch-vigilar-shadow-reverse-aux"
+      ],
+      "phrase_control_row_ids": [
+        "en-es-sentence-veto-watch-reloj:llm:phrase-control:missing:v1"
+      ],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    }
+  ],
+  "recommendation": "This batch satisfies the no-spend example-frame source contract: every family has active, shadow, and phrase-control evidence while remaining non-publishable."
+}

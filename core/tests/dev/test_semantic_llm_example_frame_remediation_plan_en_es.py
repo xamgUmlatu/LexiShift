@@ -50,6 +50,15 @@ class SemanticLlmExampleFrameRemediationPlanTests(unittest.TestCase):
         shadow = report["request_rows"][1]
         self.assertEqual(active["prompt_slot"], "remediation_active_example")
         self.assertEqual(shadow["prompt_slot"], "remediation_shadow_example")
+        self.assertNotIn(":missing:v1", active["expected_row_preview"]["row_id"])
+        self.assertIn(
+            ":remediation-active-001:v1",
+            active["expected_row_preview"]["row_id"],
+        )
+        self.assertIn(
+            ":remediation-shadow-003:v1",
+            shadow["expected_row_preview"]["row_id"],
+        )
         self.assertEqual(
             shadow["expected_row_preview"]["metadata"]["candidate_sense_id"],
             "fam:report:shadow",

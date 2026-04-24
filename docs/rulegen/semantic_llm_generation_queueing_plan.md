@@ -4,7 +4,7 @@ Status: active plan
 Role: Planning / pre-scan framing
 Purpose: define what semantic-routing data should eventually be generated with LLM support, which units deserve queueing, what can be inferred automatically versus what remains hypothesis, and how to avoid redundant generation work
 Last updated: 2026-04-25
-Last verified: 2026-04-25 no-spend source/insertion probe plus missing-row generation plan against the frozen `v10` queue
+Last verified: 2026-04-25 filtered residual source runs, leakage admission, and surface-POS prototype-quality gate against the frozen `v10` queue
 Source-of-truth: planning doc only; current implemented truth still lives in the semantic-routing contracts, inventory publication code, and offline evidence normalization seam
 Related docs:
 - `docs/rulegen/semantic_shadow_source_intake_plan.md`
@@ -647,6 +647,22 @@ Current answer to the first item:
     - current conclusion is not "generate more missing rows"; it is "change the source shape and scorer interface"
     - phrase-control generated examples should not be used as broad semantic competitors without an additional containment/gating layer
     - future generated source batches should generate balanced active and shadow exemplars as a set, not only fill reverse-aux gaps
+  - the residual source pass has now been executed and filtered:
+    - `scripts/testing/semantic_llm_example_frame_leakage_audit_en_es.py`
+    - `docs/test_outputs/semantic_llm_example_frame_remediation_run_latest.md`
+    - `docs/test_outputs/semantic_llm_example_frame_leakage_audit_latest.md`
+    - `docs/test_outputs/semantic_llm_example_frame_balanced_remediation_run_latest.md`
+    - `docs/test_outputs/semantic_llm_example_frame_balanced_remediation_leakage_audit_latest.md`
+    - the first residual pass accepted `8 / 8` rows, but leakage filtering removed `1` benchmark-near-copy `plant` row
+    - the second bounded residual pass was replayed through rekeyed row ids and accepted `6 / 6` rows, but leakage filtering removed `1` shared-span `plant` row
+    - the filtered generated-source composite is structurally complete at `8 / 8` families with `36` rows
+  - the key quality gain came from a scorer-interface change, not more rows alone:
+    - `scripts/testing/semantic_llm_prototype_admission_probe_en_es.py`
+    - `docs/test_outputs/semantic_llm_example_frame_balanced_remediation_prototype_admission_probe_latest.md`
+    - `docs/test_outputs/semantic_llm_example_frame_balanced_remediation_quality_gate_latest.md`
+    - the new `prototype_reviewed_examples_surface_pos_rescue_guard` keeps the UX binary, keeps phrase-control evidence containment-only, and adds local surface-POS rescue/preemption for noun-active vs verb-shadow frames
+    - that config clears the prototype-quality gate at `95.0%` accuracy / `87.5%` recall / `0` harmful / `2` false abstains
+    - the two remaining false abstains are same-POS `plant` rows; the next queue should target same-POS discrimination or held-out validation of the surface-POS guard, not another generic cross-POS prompt fill
 
 Current status on that seam:
 

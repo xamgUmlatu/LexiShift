@@ -820,8 +820,8 @@ Use this file when:
 ## Semantic Routing Runtime Admission Layer
 
 - Status: `implemented`, `default-on-when-capable`, `verified`
-- Last documented checkpoint: `2026-04-25` the prompt-only loop is now closed: both target cue tranches remain analysis-only, the no-spend failure diagnostic, source/insertion probe, prototype-admission probe, and required-family example-frame source-contract gate are preserved, the first real external reverse-aux example-frame batch proves the remaining source gap is missing shadow rows for `plant`/`check` plus phrase-control rows for every queue family, and the live missing-row generation run now proves that structural contract completion alone is not enough because the generated composite batch fails the prototype-quality gate
-- Last verified: `2026-04-25` targeted prompt preflight/downstream/failure/source-insertion/prototype-admission/example-frame generation tests, live missing-row run, refreshed contract/prototype/quality-gate artifacts, doc reference checks, feature-state audit, and local changed-scope gate
+- Last documented checkpoint: `2026-04-25` the prompt-only loop is closed and the example-frame source lane now has filtered residual generation, benchmark-leakage admission, rekeyed remediation row ids, and a surface-POS prototype guard; structural source completion alone failed, but the filtered generated-source composite plus local containment and surface-POS rescue/preemption now clears the prototype-quality gate as a promotion candidate
+- Last verified: `2026-04-25` targeted prompt preflight/downstream/failure/source-insertion/prototype-admission/example-frame generation and leakage-admission tests, live/replayed residual generation artifacts, refreshed contract/prototype/quality-gate artifacts, doc reference checks, feature-state audit, and local changed-scope gate
 - Default behavior:
   - Semantic admission is no longer a normal user preference. The browser runtime auto-uses helper-side semantic admission only when the current pair/profile publication is actually capable of real semantic decisioning.
   - If a pair/profile has semantic metadata but no ready subset yet, LexiShift stays on standard SRS replacement behavior instead of asking the user to choose a fallback posture.
@@ -1122,6 +1122,19 @@ Use this file when:
 	          - the generated batch remains analysis-only because the quality gate rejects it: best containment-aware prototype config is `67.5%` accuracy / `31.2%` recall / `2` harmful / `11` false abstains
 	          - the phrase-control ablation now separates the failure modes: broad semantic phrase prototypes put phrase-overreach pressure on `12` active false-abstain rows and directly add `2` incremental false abstains beyond the active-guard baseline, while containment-gated phrase evidence creates `0` incremental false-abstains and `2` correct containment hits
 	          - the residual remediation planner now converts those containment-aware failures into `8` no-spend requests: `7` active examples for the `11` false-abstain cases and `1` shadow example for the `2` harmful `report` cases
+	          - the residual source lane is now executed and filtered:
+	            - `scripts/testing/semantic_llm_example_frame_leakage_audit_en_es.py`
+	            - `docs/test_outputs/semantic_llm_example_frame_remediation_run_latest.md`
+	            - `docs/test_outputs/semantic_llm_example_frame_leakage_audit_latest.md`
+	            - `docs/test_outputs/semantic_llm_example_frame_balanced_remediation_run_latest.md`
+	            - `docs/test_outputs/semantic_llm_example_frame_balanced_remediation_leakage_audit_latest.md`
+	            - the first residual pass accepted `8 / 8` rows and the second replayed/rekeyed pass accepted `6 / 6`; benchmark-leakage admission filtered out one `plant` row from each pass before merge
+	          - the prototype probe now has a surface-POS guard:
+	            - `docs/test_outputs/semantic_llm_example_frame_balanced_remediation_prototype_admission_probe_latest.md`
+	            - `docs/test_outputs/semantic_llm_example_frame_balanced_remediation_quality_gate_latest.md`
+	            - the best generated-source config is now `prototype_reviewed_examples_surface_pos_rescue_guard`
+	            - it keeps the UX binary and phrase-control containment-only, then uses local surface syntax to rescue noun-frame active cases and preempt verb-frame shadow cases
+	            - it clears the prototype-quality gate at `95.0%` accuracy / `87.5%` recall / `0` harmful / `2` false abstains with `8 / 8` required families complete
 	        - the prototype-admission probe now consumes the normalized reviewed evidence batches directly, not only the sentence-veto dataset oracle path
 	        - the prototype-admission probe also consumes the normalized reverse-aux evidence batch as a real external-source comparison and currently reads `67.5%` accuracy / `50.0%` recall / `5` harmful / `8` false abstains
 	      - next technical direction:

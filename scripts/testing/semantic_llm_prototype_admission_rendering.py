@@ -49,8 +49,8 @@ def render_prototype_admission_markdown(report: Mapping[str, object]) -> str:
             "",
             "## Residual Case Matrix",
             "",
-            "| Case | Gold | Family Guard | Active Guard | Phrase Containment Guard | Phrase Prototype Guard |",
-            "| --- | --- | --- | --- | --- | --- |",
+            "| Case | Gold | Family Guard | Active Guard | Phrase Containment Guard | Surface-POS Rescue Guard | Phrase Prototype Guard |",
+            "| --- | --- | --- | --- | --- | --- | --- |",
         ]
     )
     for row in report.get("case_matrix", ()):
@@ -69,6 +69,9 @@ def render_prototype_admission_markdown(report: Mapping[str, object]) -> str:
                         configs.get("prototype_reviewed_examples_phrase_containment_guard")
                     ),
                     _format_case_config(
+                        configs.get("prototype_reviewed_examples_surface_pos_rescue_guard")
+                    ),
+                    _format_case_config(
                         configs.get("prototype_reviewed_examples_phrase_prototype_guard")
                     ),
                 ]
@@ -76,7 +79,7 @@ def render_prototype_admission_markdown(report: Mapping[str, object]) -> str:
             + " |"
         )
     if not report.get("case_matrix"):
-        lines.append("| `none` | `n/a` | `n/a` | `n/a` | `n/a` | `n/a` |")
+        lines.append("| `none` | `n/a` | `n/a` | `n/a` | `n/a` | `n/a` | `n/a` |")
 
     lines.extend(["", "## Recommendation", "", f"- {report.get('recommendation', '')}"])
     return "\n".join(lines) + "\n"
@@ -91,7 +94,8 @@ def _format_case_config(value: object) -> str:
         f"a={value.get('active_score', '')} "
         f"s={value.get('strongest_shadow_score', '')} "
         f"p={value.get('phrase_control_score', '')} "
-        f"pc={str(bool(value.get('phrase_containment_hit'))).lower()}"
+        f"pc={str(bool(value.get('phrase_containment_hit'))).lower()} "
+        f"ar={str(bool(value.get('active_rescue_applied'))).lower()}"
     )
 
 

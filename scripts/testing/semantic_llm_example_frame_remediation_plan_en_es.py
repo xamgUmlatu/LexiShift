@@ -241,9 +241,10 @@ def _remediation_request_row(
     }
     preview = row.get("expected_row_preview")
     if isinstance(preview, dict):
-        preview["row_id"] = str(preview.get("row_id") or "").replace(
-            "missing-v1",
-            "remediation-v1",
+        preview["row_id"] = _remediation_row_id(
+            str(preview.get("row_id") or ""),
+            generation_target=generation_target,
+            case_ids=_case_ids(group),
         )
         preview["input_ref"] = request_id
         preview["prompt_slot"] = str(row["prompt_slot"])
@@ -254,6 +255,25 @@ def _remediation_request_row(
             metadata["failure_case_ids"] = _case_ids(group)
             metadata["failure_slice_tags"] = _slice_tags(group)
     return row
+
+
+def _remediation_row_id(
+    row_id: str,
+    *,
+    generation_target: str,
+    case_ids: Sequence[str],
+) -> str:
+    normalized = str(row_id or "").strip()
+    target_slug = _slug_component(generation_target.replace("_example", ""))
+    case_slug = _case_group_slug(case_ids)
+    remediation_slot = (
+        f"remediation-{target_slug}-{case_slug}" if case_slug else (f"remediation-{target_slug}")
+    )
+    if ":missing:v1" in normalized:
+        return normalized.replace(":missing:v1", f":{remediation_slot}:v1")
+    if "missing-v1" in normalized:
+        return normalized.replace("missing-v1", f"{remediation_slot}-v1")
+    return f"{normalized}:{remediation_slot}" if normalized else remediation_slot
 
 
 def _build_residual_groups(config: Mapping[str, object]) -> dict[str, dict[str, dict[str, object]]]:
@@ -419,6 +439,29 @@ def _slice_tags(group: Mapping[str, object]) -> list[str]:
     if not isinstance(values, Sequence) or isinstance(values, (str, bytes)):
         return []
     return [str(value).strip() for value in values if str(value).strip()]
+
+
+def _case_group_slug(case_ids: Sequence[str]) -> str:
+    suffixes = []
+    for case_id in case_ids:
+        text = str(case_id or "").strip()
+        if not text:
+            continue
+        suffixes.append(_slug_component(text.rsplit(":", maxsplit=1)[-1]))
+    return "-".join(value for value in suffixes if value)[:48]
+
+
+def _slug_component(value: str) -> str:
+    chars = []
+    prior_dash = False
+    for char in str(value or "").strip().lower():
+        if char.isalnum():
+            chars.append(char)
+            prior_dash = False
+        elif not prior_dash:
+            chars.append("-")
+            prior_dash = True
+    return "".join(chars).strip("-")
 
 
 def _build_recommendation(summary: Mapping[str, object]) -> str:

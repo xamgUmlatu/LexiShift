@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-04-24T22:43:48Z",
+  "status": "ok",
+  "batch_id": "en-es:example-frame-composite:reverse-aux-plus-llm-missing-rows-plus-balanced-remediation-latest",
+  "source_id": "reverse_aux_plus_llm_example_frame_missing_rows_plus_balanced_remediation",
+  "summary": {
+    "component_count": 3,
+    "row_count": 36,
+    "family_count": 8,
+    "relation_counts": {
+      "anchor_cue": 18,
+      "shadow_candidate": 10,
+      "phrase_control_example": 8
+    }
+  },
+  "component_batches": [
+    {
+      "component_index": 1,
+      "batch_id": "en-es:example-frame-composite:reverse-aux-plus-llm-missing-rows-latest",
+      "source_id": "reverse_aux_plus_llm_example_frame_missing_rows",
+      "source_type": "internal",
+      "source_family": "internal_rulegen_artifact",
+      "input_row_count": 24,
+      "accepted_row_count": 24,
+      "duplicate_row_count": 0
+    },
+    {
+      "component_index": 2,
+      "batch_id": "en-es:example-frame-missing-rows:example-frame-remediation-v1-20260425a:filtered",
+      "source_id": "llm_example_frame_residual_remediation",
+      "source_type": "llm",
+      "source_family": "silver_llm_generation",
+      "input_row_count": 7,
+      "accepted_row_count": 7,
+      "duplicate_row_count": 0
+    },
+    {
+      "component_index": 3,
+      "batch_id": "en-es:example-frame-missing-rows:example-frame-balanced-remediation-v1-20260425a-rekeyed:replay:filtered",
+      "source_id": "llm_example_frame_residual_remediation",
+      "source_type": "llm",
+      "source_family": "silver_llm_generation",
+      "input_row_count": 5,
+      "accepted_row_count": 5,
+      "duplicate_row_count": 0
+    }
+  ]
+}

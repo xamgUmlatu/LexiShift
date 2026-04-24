@@ -44,6 +44,11 @@ from semantic_example_frame_evidence_support import (  # noqa: E402
 from semantic_llm_prototype_admission_rendering import (  # noqa: E402
     render_prototype_admission_markdown,
 )
+from semantic_llm_prototype_admission_summary import (  # noqa: E402
+    build_prototype_case_matrix,
+    build_prototype_recommendation,
+    build_prototype_summary_findings,
+)
 from semantic_reverse_aux_text_pilot_en_es import build_queue_subset_dataset  # noqa: E402
 from semantic_routing_sentence_veto_helpers import (  # noqa: E402
     _accumulate_sentence_veto_summary,
@@ -61,15 +66,17 @@ from semantic_phrase_containment_support import (  # noqa: E402
     add_phrase_containment_summary,
     match_phrase_containment_examples,
 )
+from semantic_llm_surface_pos_support import surface_pos_signal as build_surface_pos_signal  # noqa: E402
 
 
 DEFAULT_JSON_OUT = TEST_OUTPUTS_ROOT / "semantic_llm_prototype_admission_probe_latest.json"
 DEFAULT_MARKDOWN_OUT = TEST_OUTPUTS_ROOT / "semantic_llm_prototype_admission_probe_latest.md"
-PROTOTYPE_CONFIGS: tuple[tuple[str, str, str, bool, bool], ...] = (
+PROTOTYPE_CONFIGS: tuple[tuple[str, str, str, bool, bool, bool], ...] = (
     (
         "prototype_reviewed_examples_family_guard",
         "Prototype reviewed examples, family phrase guard",
         "family_all",
+        False,
         False,
         False,
     ),
@@ -79,6 +86,7 @@ PROTOTYPE_CONFIGS: tuple[tuple[str, str, str, bool, bool], ...] = (
         "active_only",
         False,
         False,
+        False,
     ),
     (
         "prototype_reviewed_examples_phrase_containment_guard",
@@ -86,12 +94,22 @@ PROTOTYPE_CONFIGS: tuple[tuple[str, str, str, bool, bool], ...] = (
         "active_only",
         False,
         True,
+        False,
+    ),
+    (
+        "prototype_reviewed_examples_surface_pos_rescue_guard",
+        "Prototype reviewed examples, surface-POS rescue guard",
+        "active_only",
+        False,
+        True,
+        True,
     ),
     (
         "prototype_reviewed_examples_phrase_prototype_guard",
         "Prototype reviewed examples, phrase-control prototype guard",
         "active_only",
         True,
+        False,
         False,
     ),
 )
@@ -175,6 +193,7 @@ def build_prototype_admission_report(
             min_margin=min_margin,
             use_phrase_prototypes=use_phrase_prototypes,
             use_phrase_containment_gate=use_phrase_containment_gate,
+            use_surface_pos_rescue=use_surface_pos_rescue,
             evidence_lookup=evidence_lookup,
             prototype_source_label=prototype_source_label,
         )
@@ -184,6 +203,7 @@ def build_prototype_admission_report(
             phrase_guard_pos_scope,
             use_phrase_prototypes,
             use_phrase_containment_gate,
+            use_surface_pos_rescue,
         ) in PROTOTYPE_CONFIGS
     ]
 
@@ -209,9 +229,9 @@ def build_prototype_admission_report(
         "coverage_rows": coverage_rows,
         "configurations": config_rows,
     }
-    report["summary_findings"] = _build_summary_findings(config_rows)
-    report["case_matrix"] = _build_case_matrix(config_rows)
-    report["recommendation"] = _build_recommendation(report)
+    report["summary_findings"] = build_prototype_summary_findings(config_rows)
+    report["case_matrix"] = build_prototype_case_matrix(config_rows)
+    report["recommendation"] = build_prototype_recommendation(report)
     return report
 
 
@@ -329,6 +349,7 @@ def _run_prototype_config(
     min_margin: float,
     use_phrase_prototypes: bool,
     use_phrase_containment_gate: bool,
+    use_surface_pos_rescue: bool,
     evidence_lookup: Mapping[str, Mapping[str, object]] | None,
     prototype_source_label: str,
 ) -> dict[str, object]:
@@ -369,6 +390,7 @@ def _run_prototype_config(
                 min_margin=min_margin,
                 use_phrase_prototypes=use_phrase_prototypes,
                 use_phrase_containment_gate=use_phrase_containment_gate,
+                use_surface_pos_rescue=use_surface_pos_rescue,
             )
             rows.append(row)
             summary_result = SimpleNamespace(**row)
@@ -386,9 +408,11 @@ def _run_prototype_config(
         "phrase_guard_pos_scope": phrase_guard_pos_scope,
         "use_phrase_prototypes": bool(use_phrase_prototypes),
         "use_phrase_containment_gate": bool(use_phrase_containment_gate),
+        "use_surface_pos_rescue": bool(use_surface_pos_rescue),
         "phrase_control_evidence_mode": _phrase_control_evidence_mode(
             use_phrase_prototypes=use_phrase_prototypes,
             use_phrase_containment_gate=use_phrase_containment_gate,
+            use_surface_pos_rescue=use_surface_pos_rescue,
         ),
         "summary": summary,
         "harmful_replace_case_ids": harmful_ids,
@@ -411,6 +435,7 @@ def _score_case(
     min_margin: float,
     use_phrase_prototypes: bool,
     use_phrase_containment_gate: bool,
+    use_surface_pos_rescue: bool,
 ) -> dict[str, object]:
     trigger = str(family.get("trigger") or "").strip()
     context_text = case_context_text(case, trigger=trigger)
@@ -481,17 +506,42 @@ def _score_case(
         predicted_decision = "abstain"
         predicted_winner = "phrase_control"
         predicted_winner_type = "none"
-    if phrase_containment_match.hit:
-        predicted_decision = "abstain"
-        predicted_winner = "phrase_control"
-        predicted_winner_type = "none"
     phrase_signals = extract_runtime_phrase_control_signals(
         str(case.get("sentence") or "").strip(),
         source_phrase=str(case.get("source_phrase") or trigger).strip(),
         family_pos_tags=family_pos_tags,
     )
+    if phrase_containment_match.hit:
+        predicted_decision = "abstain"
+        predicted_winner = "phrase_control"
+        predicted_winner_type = "none"
     if phrase_signals.phrase_preemption_hit:
         predicted_decision = "abstain"
+    surface_pos_signal = (
+        build_surface_pos_signal(
+            active_sense=active_sense,
+            shadow_examples=shadow_examples,
+            preceding_token=phrase_signals.preceding_token,
+            following_token=phrase_signals.following_token,
+        )
+        if use_surface_pos_rescue
+        and not phrase_containment_match.hit
+        and not phrase_signals.phrase_preemption_hit
+        else ""
+    )
+    active_rescue_applied = False
+    surface_pos_preemption_applied = False
+    if surface_pos_signal == "active_noun_frame" and predicted_decision != "replace":
+        predicted_decision = "replace"
+        predicted_winner = active_sense_id
+        predicted_winner_type = "active"
+        active_rescue_applied = True
+    elif surface_pos_signal == "shadow_verb_frame" and predicted_decision == "replace":
+        predicted_decision = "abstain"
+        if strongest_shadow_id:
+            predicted_winner = strongest_shadow_id
+            predicted_winner_type = "shadow"
+        surface_pos_preemption_applied = True
 
     gold_winner = str(case.get("gold_winner") or "").strip()
     gold_decision = str(case.get("gold_decision") or "").strip().lower()
@@ -525,7 +575,12 @@ def _score_case(
         "phrase_preemption_hit": bool(phrase_signals.phrase_preemption_hit),
         "matched_phrase_pattern": phrase_signals.matched_phrase_pattern,
         "phrase_reason_code": phrase_signals.phrase_reason_code,
-        "active_rescue_applied": False,
+        "active_rescue_applied": active_rescue_applied,
+        "active_rescue_reason_code": (
+            "surface_pos_active_noun_frame_rescue" if active_rescue_applied else ""
+        ),
+        "surface_pos_signal": surface_pos_signal,
+        "surface_pos_preemption_applied": surface_pos_preemption_applied,
         "slice_tags": _normalize_string_list(case.get("slice_tags")),
         "slice_dimensions": _normalize_slice_dimensions(case.get("slice_dimensions")),
         "notes": str(case.get("notes") or "").strip(),
@@ -552,7 +607,10 @@ def _phrase_control_evidence_mode(
     *,
     use_phrase_prototypes: bool,
     use_phrase_containment_gate: bool,
+    use_surface_pos_rescue: bool,
 ) -> str:
+    if use_surface_pos_rescue:
+        return "local_containment_patterns_plus_surface_pos"
     if use_phrase_prototypes:
         return "semantic_prototype_competition"
     if use_phrase_containment_gate:
@@ -567,111 +625,6 @@ def _classify_gold_winner_type(gold_winner: str, *, active_sense_id: str) -> str
     if normalized == active_sense_id:
         return "active"
     return "shadow"
-
-
-def _build_summary_findings(config_rows: Sequence[Mapping[str, object]]) -> dict[str, object]:
-    lookup = {
-        str(row.get("config_id") or "").strip(): row
-        for row in config_rows
-        if str(row.get("config_id") or "").strip()
-    }
-    family_guard = _summary_metrics(lookup.get("prototype_reviewed_examples_family_guard"))
-    active_guard = _summary_metrics(lookup.get("prototype_reviewed_examples_active_guard"))
-    phrase_containment_guard = _summary_metrics(
-        lookup.get("prototype_reviewed_examples_phrase_containment_guard")
-    )
-    phrase_prototype_guard = _summary_metrics(
-        lookup.get("prototype_reviewed_examples_phrase_prototype_guard")
-    )
-    return {
-        "family_guard_result": family_guard,
-        "active_guard_result": active_guard,
-        "phrase_containment_guard_result": phrase_containment_guard,
-        "phrase_prototype_guard_result": phrase_prototype_guard,
-        "active_guard_reduces_phrase_leak_without_false_abstain": int(
-            active_guard.get("harmful_replace_count") or 0
-        )
-        < int(family_guard.get("harmful_replace_count") or 0)
-        and int(active_guard.get("false_abstain_count") or 0)
-        <= int(family_guard.get("false_abstain_count") or 0),
-        "phrase_prototype_guard_clears_active_guard_residue": int(
-            phrase_prototype_guard.get("harmful_replace_count") or 0
-        )
-        < int(active_guard.get("harmful_replace_count") or 0)
-        and int(phrase_prototype_guard.get("false_abstain_count") or 0)
-        <= int(active_guard.get("false_abstain_count") or 0),
-        "phrase_containment_avoids_phrase_prototype_overreach": int(
-            phrase_containment_guard.get("harmful_replace_count") or 0
-        )
-        <= int(phrase_prototype_guard.get("harmful_replace_count") or 0)
-        and int(phrase_containment_guard.get("false_abstain_count") or 0)
-        <= int(phrase_prototype_guard.get("false_abstain_count") or 0),
-    }
-
-
-def _build_case_matrix(config_rows: Sequence[Mapping[str, object]]) -> list[dict[str, object]]:
-    config_lookups = {
-        str(config.get("config_id") or "").strip(): {
-            str(row.get("case_id") or "").strip(): row
-            for row in config.get("row_results", ())
-            if isinstance(row, Mapping) and str(row.get("case_id") or "").strip()
-        }
-        for config in config_rows
-        if str(config.get("config_id") or "").strip()
-    }
-    focus_case_ids: set[str] = set()
-    for config in config_rows:
-        focus_case_ids.update(_case_id_set(config.get("harmful_replace_case_ids")))
-        focus_case_ids.update(_case_id_set(config.get("false_abstain_case_ids")))
-    rows: list[dict[str, object]] = []
-    for case_id in sorted(focus_case_ids):
-        configs = {}
-        gold_decision = ""
-        family_id = ""
-        for config_id, lookup in config_lookups.items():
-            row = lookup.get(case_id)
-            if row is None:
-                continue
-            gold_decision = gold_decision or str(row.get("gold_decision") or "").strip()
-            family_id = family_id or str(row.get("family_id") or "").strip()
-            configs[config_id] = _case_prediction(row)
-        rows.append(
-            {
-                "case_id": case_id,
-                "family_id": family_id,
-                "gold_decision": gold_decision,
-                "configs": configs,
-            }
-        )
-    return rows
-
-
-def _build_recommendation(report: Mapping[str, object]) -> str:
-    findings = report.get("summary_findings")
-    best_guard = (
-        findings.get("phrase_containment_guard_result")
-        if isinstance(findings, Mapping)
-        and isinstance(findings.get("phrase_containment_guard_result"), Mapping)
-        else {}
-    )
-    scope = str(report.get("evaluation_scope") or "").strip()
-    if (
-        int(best_guard.get("harmful_replace_count") or 0) == 0
-        and int(best_guard.get("false_abstain_count") or 0) == 0
-    ):
-        verdict = "clears this evaluation slice"
-    else:
-        verdict = "still leaves residual cases on this evaluation slice"
-    source_note = _source_note(report)
-    return (
-        "Keep the user-facing UX binary, but move the internal experiment from a single "
-        "evidence string toward prototype admission: context competes against active and "
-        "shadow example frames, while phrase-control evidence can only abstain through local "
-        "containment-pattern matches. "
-        f"The phrase-control containment guard {verdict} ({_format_metric_summary(best_guard)}) "
-        f"on `{scope}`; keep broad phrase-control prototype scoring as an overreach control only. "
-        f"{source_note}"
-    )
 
 
 def _config_label(label: str, prototype_source_label: str) -> str:
@@ -693,77 +646,11 @@ def _source_shape(evidence_source_id: str) -> str:
     return "reviewed_sentence_veto_examples_as_per_sense_prototypes"
 
 
-def _source_note(report: Mapping[str, object]) -> str:
-    source_id = str(report.get("evidence_source_id") or "").strip()
-    if (
-        str(report.get("evidence_source") or "").strip() == "reviewed_dataset"
-        or source_id == "reviewed_sentence_veto_example_frames"
-    ):
-        return (
-            "The reviewed examples are internal oracle data, not runtime-publishable evidence; "
-            "use this as the acceptance target for external or generated example-frame sources."
-        )
-    batch_id = str(report.get("evidence_batch_id") or "").strip()
-    source_id = source_id or "evidence_batch"
-    return (
-        f"The `{source_id}` batch `{batch_id}` is source evidence, but it should clear the "
-        "required-family contract gate before any promotion or runtime publication claim."
-    )
-
-
-def _summary_metrics(config: object) -> dict[str, object]:
-    if not isinstance(config, Mapping):
-        return {}
-    summary = config.get("summary") if isinstance(config.get("summary"), Mapping) else {}
-    return {
-        "decision_accuracy": _round_float(summary.get("decision_accuracy")),
-        "replace_recall": _round_float(summary.get("replace_recall")),
-        "harmful_replace_count": int(summary.get("harmful_replace_count") or 0),
-        "false_abstain_count": int(summary.get("false_abstain_count") or 0),
-    }
-
-
-def _case_prediction(row: Mapping[str, object]) -> dict[str, object]:
-    return {
-        "predicted_decision": str(row.get("predicted_decision") or "").strip(),
-        "predicted_winner_type": str(row.get("predicted_winner_type") or "").strip(),
-        "active_score": _round_float(row.get("active_score")),
-        "strongest_shadow_score": _round_float(row.get("strongest_shadow_score")),
-        "phrase_control_score": _round_float(row.get("phrase_control_score")),
-        "margin": _round_float(row.get("margin")),
-        "phrase_preemption_hit": bool(row.get("phrase_preemption_hit")),
-        "phrase_containment_hit": bool(row.get("phrase_containment_hit")),
-    }
-
-
-def _format_metric_summary(value: Mapping[str, object]) -> str:
-    return (
-        f"`{_pct(value.get('decision_accuracy'))}` accuracy / "
-        f"`{_pct(value.get('replace_recall'))}` recall / "
-        f"`{value.get('harmful_replace_count', 0)}` harmful / "
-        f"`{value.get('false_abstain_count', 0)}` false abstains"
-    )
-
-
-def _pct(value: object) -> str:
-    try:
-        return f"{float(value) * 100:.1f}%"
-    except (TypeError, ValueError):
-        return "n/a"
-
-
 def _round_float(value: object) -> float:
     try:
         return round(float(value), 4)
     except (TypeError, ValueError):
         return 0.0
-
-
-def _case_id_set(value: object) -> set[str]:
-    if isinstance(value, Sequence) and not isinstance(value, (str, bytes)):
-        return {str(item).strip() for item in value if str(item).strip()}
-    text = str(value or "").strip()
-    return {text} if text else set()
 
 
 def _unique_texts(values: Sequence[str]) -> list[str]:

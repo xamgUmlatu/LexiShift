@@ -4,7 +4,7 @@ Status: active plan
 Role: Planning / operational
 Purpose: prepare broad data-source experimentation for semantic-shadow mining without turning runtime veto into a source-specific heuristic pile
 Last updated: 2026-04-25
-Last verified: 2026-04-25 no-spend source/insertion probe plus missing-row generation plan against the frozen `v10` queue
+Last verified: 2026-04-25 filtered remediation source runs, surface-POS prototype guard, and quality-gate pass against the frozen `v10` queue
 Source-of-truth: planning doc only; executable truth still lives in the current semantic-shadow modules and experiment artifacts
 Related inputs:
 - `docs/test_inputs/semantic_shadow_source_registry.json`
@@ -221,6 +221,12 @@ The current source contract now has the row shape needed by the prototype-admiss
 - the diagnostic lesson is now narrower and stronger: filling missing rows is not enough; generated phrase-control rows should not be semantic competitors, and the next source pass must generate balanced active/shadow exemplars while keeping phrase-control rows as containment patterns or separately gated abstain evidence
 - `scripts/testing/semantic_llm_example_frame_remediation_plan_en_es.py` turns the containment-aware residuals into the next no-spend source plan
 - `docs/test_outputs/semantic_llm_example_frame_remediation_plan_latest.md` plans `8` targeted requests: `7` active examples for the `11` false-abstain cases and `1` shadow example for the `2` harmful `report` cases; it preserves the no reviewed-sentence leakage policy and keeps phrase-control rows out of broad semantic scoring
+- `scripts/testing/semantic_llm_example_frame_leakage_audit_en_es.py` now runs source-admission leakage checks against generated example-frame batches before merge; it flags both full benchmark sentence containment and shared contiguous benchmark spans
+- `docs/test_outputs/semantic_llm_example_frame_remediation_run_latest.md` shows the first residual source pass accepted `8 / 8` rows; the leakage audit removed `1` benchmark-near-copy `plant` row, leaving `7` filtered rows for downstream evaluation
+- `docs/test_outputs/semantic_llm_example_frame_balanced_remediation_run_latest.md` preserves a second bounded residual pass as a replayed/rekeyed batch: `6 / 6` accepted rows, with unique residual-case row ids; the stricter leakage audit removed `1` additional `plant` benchmark-span overlap, leaving `5` filtered rows
+- `scripts/testing/semantic_llm_prototype_admission_probe_en_es.py` now includes a `prototype_reviewed_examples_surface_pos_rescue_guard` config: active/shadow example prototypes still compete internally, phrase-control rows remain local containment patterns, and a deterministic surface-POS layer rescues noun-frame active cases while preempting verb-frame shadow cases
+- `docs/test_outputs/semantic_llm_example_frame_balanced_remediation_quality_gate_latest.md` is now the promotion-candidate read for the filtered generated-source composite: `95.0%` decision accuracy / `87.5%` replace recall / `0` harmful / `2` false abstains, with `8 / 8` required families structurally complete
+- the remaining false abstains are both same-POS `plant` rows, so the next quality work is not another cross-POS prompt fill; it is either same-POS source discrimination for `plant` or a broader held-out/generalization check for the surface-POS guard
 
 First repo-facing source/insertion upper-bound lane now also exists:
 

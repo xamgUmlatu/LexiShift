@@ -1,0 +1,169 @@
+{
+  "schema_version": 1,
+  "status": "ok",
+  "pair": "en-es",
+  "generated_at": "2026-04-24T22:42:27Z",
+  "execution_mode": "replay",
+  "replay_source": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-balanced-remediation-v1-20260425a_raw_responses.json",
+  "batch_id": "en-es:example-frame-missing-rows:example-frame-balanced-remediation-v1-20260425a-rekeyed:replay",
+  "source_id": "llm_example_frame_residual_remediation",
+  "prompt_version": "example-frame-residual-remediation-v1",
+  "selected_model_id": "gpt-5.4-mini",
+  "selected_temperature": 0.2,
+  "summary": {
+    "selected_request_count": 6,
+    "accepted_item_count": 6,
+    "api_error_count": 0,
+    "invalid_output_count": 0,
+    "normalized_row_count": 6,
+    "input_tokens": 2182,
+    "output_tokens": 198,
+    "reasoning_tokens": 0
+  },
+  "artifacts": {
+    "journal_jsonl": "",
+    "raw_response_bundle_json": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-balanced-remediation-v1-20260425a-rekeyed-replay_raw_responses.json",
+    "intake_batch_json": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-balanced-remediation-v1-20260425a-rekeyed-replay_intake_batch.json",
+    "normalized_batch_json": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-balanced-remediation-v1-20260425a-rekeyed-replay_normalized_evidence.json"
+  },
+  "request_rows": [
+    {
+      "request_id": "en-es:example-frame-remediation:active:en-es-sentence-veto-check-cheque",
+      "prompt_slot": "remediation_active_example",
+      "family_id": "en-es:sentence-veto:check:cheque",
+      "trigger": "check",
+      "active_target": "cheque",
+      "candidate_target": "cheque",
+      "status": "accepted",
+      "response_id": "resp_019b55c42e7fec820169ebf18342b88193ae68576631a4cbff",
+      "evidence_text": "She mailed the rent check with the signed lease yesterday.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-balanced-remediation-v1-20260425a-rekeyed-replay_raw_responses.json#en-es:example-frame-remediation:active:en-es-sentence-veto-check-cheque",
+      "usage": {
+        "input_tokens": 357,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 33,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 390
+      }
+    },
+    {
+      "request_id": "en-es:example-frame-remediation:active:en-es-sentence-veto-order-pedido",
+      "prompt_slot": "remediation_active_example",
+      "family_id": "en-es:sentence-veto:order:pedido",
+      "trigger": "order",
+      "active_target": "pedido",
+      "candidate_target": "pedido",
+      "status": "accepted",
+      "response_id": "resp_05bd98014da9a95d0169ebf185cbcc81969c552e2c0ae85853",
+      "evidence_text": "I placed an order for two laptops and extra chargers online.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-balanced-remediation-v1-20260425a-rekeyed-replay_raw_responses.json#en-es:example-frame-remediation:active:en-es-sentence-veto-order-pedido",
+      "usage": {
+        "input_tokens": 353,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 34,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 387
+      }
+    },
+    {
+      "request_id": "en-es:example-frame-remediation:active:en-es-sentence-veto-plant-planta",
+      "prompt_slot": "remediation_active_example",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "planta",
+      "status": "accepted",
+      "response_id": "resp_047da03ce296d49a0169ebf186f2cc81939ed8785e2dc04fc8",
+      "evidence_text": "I watered the plant on the windowsill every morning.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-balanced-remediation-v1-20260425a-rekeyed-replay_raw_responses.json#en-es:example-frame-remediation:active:en-es-sentence-veto-plant-planta",
+      "usage": {
+        "input_tokens": 363,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 33,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 396
+      }
+    },
+    {
+      "request_id": "en-es:example-frame-remediation:active:en-es-sentence-veto-play-obra",
+      "prompt_slot": "remediation_active_example",
+      "family_id": "en-es:sentence-veto:play:obra",
+      "trigger": "play",
+      "active_target": "obra",
+      "candidate_target": "obra",
+      "status": "accepted",
+      "response_id": "resp_04889921e98779bf0169ebf187f0488193aac365d098447763",
+      "evidence_text": "The school play opened to a full house on Friday night.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-balanced-remediation-v1-20260425a-rekeyed-replay_raw_responses.json#en-es:example-frame-remediation:active:en-es-sentence-veto-play-obra",
+      "usage": {
+        "input_tokens": 358,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 34,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 392
+      }
+    },
+    {
+      "request_id": "en-es:example-frame-remediation:active:en-es-sentence-veto-report-informe",
+      "prompt_slot": "remediation_active_example",
+      "family_id": "en-es:sentence-veto:report:informe",
+      "trigger": "report",
+      "active_target": "informe",
+      "candidate_target": "informe",
+      "status": "accepted",
+      "response_id": "resp_03bb2a0f4e7b8f280169ebf18a2b648194bfdd527a03fbcebc",
+      "evidence_text": "The final report summarized the survey results and recommendations.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-balanced-remediation-v1-20260425a-rekeyed-replay_raw_responses.json#en-es:example-frame-remediation:active:en-es-sentence-veto-report-informe",
+      "usage": {
+        "input_tokens": 368,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 32,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 400
+      }
+    },
+    {
+      "request_id": "en-es:example-frame-remediation:shadow:en-es-sentence-veto-report-informe:en-es-sentence-veto-report-informar-shadow",
+      "prompt_slot": "remediation_shadow_example",
+      "family_id": "en-es:sentence-veto:report:informe",
+      "trigger": "report",
+      "active_target": "informe",
+      "candidate_target": "informar",
+      "status": "accepted",
+      "response_id": "resp_0036c4187ce51dea0169ebf18b255c8197b04730eb02218006",
+      "evidence_text": "Please report the delay to the manager before noon.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-balanced-remediation-v1-20260425a-rekeyed-replay_raw_responses.json#en-es:example-frame-remediation:shadow:en-es-sentence-veto-report-informe:en-es-sentence-veto-report-informar-shadow",
+      "usage": {
+        "input_tokens": 383,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 32,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 415
+      }
+    }
+  ]
+}
