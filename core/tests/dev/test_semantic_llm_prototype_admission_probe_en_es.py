@@ -42,8 +42,10 @@ class SemanticLlmPrototypeAdmissionProbeTests(unittest.TestCase):
         }
         self.assertIn("prototype_reviewed_examples_family_guard", config_ids)
         self.assertIn("prototype_reviewed_examples_active_guard", config_ids)
+        self.assertIn("prototype_reviewed_examples_phrase_containment_guard", config_ids)
         self.assertIn("prototype_reviewed_examples_phrase_prototype_guard", config_ids)
         self.assertIn("active_guard_result", report["summary_findings"])
+        self.assertIn("phrase_containment_guard_result", report["summary_findings"])
         self.assertIn("phrase_prototype_guard_result", report["summary_findings"])
         for config in report["configurations"]:
             self.assertTrue(isinstance(config, dict))
@@ -53,6 +55,7 @@ class SemanticLlmPrototypeAdmissionProbeTests(unittest.TestCase):
         markdown = render_prototype_admission_markdown(report)
         self.assertIn("Semantic LLM Prototype Admission Probe", markdown)
         self.assertIn("Prototype reviewed examples, active phrase guard", markdown)
+        self.assertIn("Prototype reviewed examples, phrase-control containment guard", markdown)
         self.assertIn("Prototype reviewed examples, phrase-control prototype guard", markdown)
 
     def test_prototype_admission_probe_can_expand_to_all_dataset_families(self) -> None:
@@ -79,7 +82,7 @@ class SemanticLlmPrototypeAdmissionProbeTests(unittest.TestCase):
         phrase_guard = next(
             row
             for row in report["configurations"]
-            if row["config_id"] == "prototype_reviewed_examples_phrase_prototype_guard"
+            if row["config_id"] == "prototype_reviewed_examples_phrase_containment_guard"
         )
         self.assertEqual(phrase_guard["summary"]["harmful_replace_count"], 0)
 
@@ -105,9 +108,45 @@ class SemanticLlmPrototypeAdmissionProbeTests(unittest.TestCase):
         phrase_guard = next(
             row
             for row in report["configurations"]
-            if row["config_id"] == "prototype_reviewed_examples_phrase_prototype_guard"
+            if row["config_id"] == "prototype_reviewed_examples_phrase_containment_guard"
         )
         self.assertEqual(phrase_guard["summary"]["harmful_replace_count"], 0)
+
+    def test_phrase_containment_gate_uses_local_patterns_not_semantic_similarity(self) -> None:
+        queue_payload, dataset_payload = _sample_inputs()
+        dataset_payload["families"][0]["cases"].append(
+            {
+                "case_id": "check:003",
+                "sentence": "The rain check expires tomorrow.",
+                "source_phrase": "check",
+                "gold_winner": "none",
+                "gold_decision": "abstain",
+                "slice_tags": ["phrase_control"],
+            }
+        )
+        evidence_batch = _normalized_evidence_batch()
+
+        report = build_prototype_admission_report(
+            queue_payload=queue_payload,
+            dataset_payload=dataset_payload,
+            evidence_batch_payload=evidence_batch,
+            scorer_id="token_jaccard",
+            min_active_score=0.0,
+            min_margin=-1.0,
+            generated_at="2026-04-25T12:00:00Z",
+        )
+
+        containment_guard = next(
+            row
+            for row in report["configurations"]
+            if row["config_id"] == "prototype_reviewed_examples_phrase_containment_guard"
+        )
+        rows = {row["case_id"]: row for row in containment_guard["row_results"]}
+        self.assertFalse(rows["check:001"]["phrase_containment_hit"])
+        self.assertEqual(rows["check:001"]["predicted_decision"], "replace")
+        self.assertTrue(rows["check:003"]["phrase_containment_hit"])
+        self.assertEqual(rows["check:003"]["phrase_containment_pattern"], "rain check")
+        self.assertEqual(rows["check:003"]["predicted_decision"], "abstain")
 
 
 def _sample_inputs() -> tuple[dict[str, object], dict[str, object]]:
@@ -150,6 +189,40 @@ def _sample_inputs() -> tuple[dict[str, object], dict[str, object]]:
         ],
     }
     return queue_payload, dataset_payload
+
+
+def _normalized_evidence_batch() -> dict[str, object]:
+    return {
+        "schema_version": 1,
+        "source_id": "test_evidence",
+        "batch_id": "test",
+        "rows": [
+            {
+                "relation_type": "anchor_cue",
+                "trigger": "check",
+                "evidence_text": "cleared deposit payment rent",
+                "metadata": {
+                    "family_id": "fam:check",
+                    "active_sense_id": "fam:check:active",
+                },
+            },
+            {
+                "relation_type": "shadow_candidate",
+                "trigger": "check",
+                "evidence_text": "inspect records figures",
+                "metadata": {
+                    "family_id": "fam:check",
+                    "candidate_sense_id": "fam:check:shadow",
+                },
+            },
+            {
+                "relation_type": "phrase_control_example",
+                "trigger": "check",
+                "evidence_text": "The rain check is valid next week.",
+                "metadata": {"family_id": "fam:check"},
+            },
+        ],
+    }
 
 
 def _family(

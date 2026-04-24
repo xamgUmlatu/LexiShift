@@ -152,8 +152,8 @@ def render_example_frame_generation_quality_gate_markdown(report: Mapping[str, o
         "",
         "## Prototype Configs",
         "",
-        "| Config | Gate | Accuracy | Recall | Harmful | False Abstain |",
-        "| --- | --- | ---: | ---: | ---: | ---: |",
+        "| Config | Mode | Gate | Accuracy | Recall | Harmful | False Abstain |",
+        "| --- | --- | --- | ---: | ---: | ---: | ---: |",
     ]
     for row in report.get("prototype_config_rows", ()):
         if not isinstance(row, Mapping):
@@ -163,6 +163,7 @@ def render_example_frame_generation_quality_gate_markdown(report: Mapping[str, o
             + " | ".join(
                 [
                     f"`{row.get('config_id', '')}`",
+                    f"`{row.get('phrase_control_evidence_mode', '')}`",
                     "`pass`" if bool(row.get("quality_gate_pass")) else "`fail`",
                     _pct(row.get("decision_accuracy")),
                     _pct(row.get("replace_recall")),
@@ -177,7 +178,12 @@ def render_example_frame_generation_quality_gate_markdown(report: Mapping[str, o
             "",
             "## Diagnostics",
             "",
-            f"- Phrase overreach false-abstains: `{diagnostics.get('phrase_overreach_false_abstain_count', 0)}`",
+            f"- Phrase-overreach pressure false-abstains: `{diagnostics.get('phrase_overreach_false_abstain_count', 0)}`",
+            f"- Incremental phrase-prototype false-abstains: `{diagnostics.get('phrase_incremental_false_abstain_count', 0)}`",
+            f"- Containment false-abstains: `{diagnostics.get('containment_false_abstain_count', 0)}`",
+            f"- Incremental containment false-abstains: `{diagnostics.get('containment_incremental_false_abstain_count', 0)}`",
+            f"- Containment overreach reduction: `{diagnostics.get('containment_overreach_reduction_count', 0)}`",
+            f"- Phrase containment hits: `{diagnostics.get('phrase_containment_hit_count', 0)}`",
             f"- Harmful replace residuals: `{diagnostics.get('harmful_replace_count', 0)}`",
             "",
             "### Phrase Overreach Samples",
@@ -187,6 +193,29 @@ def render_example_frame_generation_quality_gate_markdown(report: Mapping[str, o
         ]
     )
     for row in diagnostics.get("phrase_overreach_samples", ()):
+        if not isinstance(row, Mapping):
+            continue
+        lines.append(
+            "| "
+            + " | ".join(
+                [
+                    f"`{row.get('case_id', '')}`",
+                    _cell(row.get("phrase_control_evidence_text")),
+                    _cell(row.get("active_evidence_text")),
+                ]
+            )
+            + " |"
+        )
+    lines.extend(
+        [
+            "",
+            "### Incremental Phrase False-Abstain Samples",
+            "",
+            "| Case | Phrase Prototype | Active Evidence |",
+            "| --- | --- | --- |",
+        ]
+    )
+    for row in diagnostics.get("phrase_incremental_false_abstain_samples", ()):
         if not isinstance(row, Mapping):
             continue
         lines.append(
@@ -254,10 +283,16 @@ def _evaluate_config(config: Mapping[str, object]) -> dict[str, object]:
     return {
         "config_id": str(config.get("config_id") or "").strip(),
         "label": str(config.get("label") or "").strip(),
+        "phrase_control_evidence_mode": str(
+            config.get("phrase_control_evidence_mode") or ""
+        ).strip(),
+        "use_phrase_prototypes": bool(config.get("use_phrase_prototypes")),
+        "use_phrase_containment_gate": bool(config.get("use_phrase_containment_gate")),
         "decision_accuracy": float(summary.get("decision_accuracy") or 0.0),
         "replace_recall": float(summary.get("replace_recall") or 0.0),
         "harmful_replace_count": int(summary.get("harmful_replace_count") or 0),
         "false_abstain_count": int(summary.get("false_abstain_count") or 0),
+        "phrase_containment_hit_count": int(summary.get("phrase_containment_hit_count") or 0),
     }
 
 
@@ -272,14 +307,33 @@ def _best_config_row(rows: Sequence[Mapping[str, object]]) -> dict[str, object]:
                 float(row.get("replace_recall") or 0.0),
                 -int(row.get("harmful_replace_count") or 0),
                 -int(row.get("false_abstain_count") or 0),
+                _config_preference(row),
             ),
         )
     )
 
 
+def _config_preference(row: Mapping[str, object]) -> int:
+    config_id = str(row.get("config_id") or "").strip()
+    if config_id == "prototype_reviewed_examples_phrase_containment_guard":
+        return 3
+    if config_id == "prototype_reviewed_examples_active_guard":
+        return 2
+    if config_id == "prototype_reviewed_examples_family_guard":
+        return 1
+    if config_id == "prototype_reviewed_examples_phrase_prototype_guard":
+        return 0
+    return 0
+
+
 def _build_diagnostics(config_rows: Sequence[Mapping[str, object]]) -> dict[str, object]:
     phrase_config = _config_by_id(config_rows, "prototype_reviewed_examples_phrase_prototype_guard")
+    containment_config = _config_by_id(
+        config_rows,
+        "prototype_reviewed_examples_phrase_containment_guard",
+    )
     active_config = _config_by_id(config_rows, "prototype_reviewed_examples_active_guard")
+    active_false_abstain_ids = _false_abstain_case_ids(active_config)
     phrase_overreach = [
         _case_sample(row)
         for row in _row_results(phrase_config)
@@ -291,6 +345,30 @@ def _build_diagnostics(config_rows: Sequence[Mapping[str, object]]) -> dict[str,
             >= float(row.get("active_score") or 0.0)
         )
     ]
+    phrase_incremental_false_abstains = [
+        _case_sample(row)
+        for row in _row_results(phrase_config)
+        if str(row.get("gold_decision") or "").strip() == "replace"
+        and str(row.get("predicted_decision") or "").strip() == "abstain"
+        and str(row.get("case_id") or "").strip() not in active_false_abstain_ids
+    ]
+    containment_false_abstains = [
+        _case_sample(row)
+        for row in _row_results(containment_config)
+        if str(row.get("gold_decision") or "").strip() == "replace"
+        and str(row.get("predicted_decision") or "").strip() == "abstain"
+        and (
+            bool(row.get("phrase_containment_hit"))
+            or str(row.get("predicted_winner") or "").strip() == "phrase_control"
+        )
+    ]
+    containment_incremental_false_abstains = [
+        _case_sample(row)
+        for row in _row_results(containment_config)
+        if str(row.get("gold_decision") or "").strip() == "replace"
+        and str(row.get("predicted_decision") or "").strip() == "abstain"
+        and str(row.get("case_id") or "").strip() not in active_false_abstain_ids
+    ]
     harmful = [
         _case_sample(row)
         for row in _row_results(active_config)
@@ -299,7 +377,19 @@ def _build_diagnostics(config_rows: Sequence[Mapping[str, object]]) -> dict[str,
     ]
     return {
         "phrase_overreach_false_abstain_count": len(phrase_overreach),
+        "phrase_incremental_false_abstain_count": len(phrase_incremental_false_abstains),
+        "containment_false_abstain_count": len(containment_false_abstains),
+        "containment_incremental_false_abstain_count": len(containment_incremental_false_abstains),
+        "containment_overreach_reduction_count": max(
+            0,
+            len(phrase_incremental_false_abstains) - len(containment_incremental_false_abstains),
+        ),
+        "phrase_containment_hit_count": _summary_count(
+            containment_config,
+            "phrase_containment_hit_count",
+        ),
         "phrase_overreach_samples": phrase_overreach[:8],
+        "phrase_incremental_false_abstain_samples": phrase_incremental_false_abstains[:8],
         "harmful_replace_count": len(harmful),
         "harmful_replace_samples": harmful[:8],
     }
@@ -316,6 +406,12 @@ def _build_recommendation(
             "it can proceed to the next no-spend source/insertion checks before any runtime claim."
         )
     phrase_overreach = int(diagnostics.get("phrase_overreach_false_abstain_count") or 0)
+    phrase_incremental = int(diagnostics.get("phrase_incremental_false_abstain_count") or 0)
+    containment_false_abstains = int(diagnostics.get("containment_false_abstain_count") or 0)
+    containment_incremental = int(
+        diagnostics.get("containment_incremental_false_abstain_count") or 0
+    )
+    containment_reduction = int(diagnostics.get("containment_overreach_reduction_count") or 0)
     harmful = int(diagnostics.get("harmful_replace_count") or 0)
     return (
         "Keep this generated batch analysis-only. It clears the row contract but fails the "
@@ -324,10 +420,15 @@ def _build_recommendation(
         f"`{_pct(best_row.get('replace_recall'))}` recall / "
         f"`{best_row.get('harmful_replace_count', 0)}` harmful / "
         f"`{best_row.get('false_abstain_count', 0)}` false abstains. Diagnostics show "
-        f"`{phrase_overreach}` phrase-overreach false abstains and `{harmful}` harmful "
-        "active wins. The next source pass should not merely fill missing rows; it should "
-        "generate balanced active/shadow exemplars and treat phrase-control rows as containment "
-        "patterns or separately gated abstain evidence, not broad semantic competitors."
+        f"`{phrase_overreach}` broad phrase-prototype pressure rows, "
+        f"`{phrase_incremental}` incremental broad-phrase false abstains, "
+        f"`{containment_false_abstains}` containment-gated phrase false abstains, "
+        f"`{containment_incremental}` incremental containment false abstains "
+        f"(`{containment_reduction}` incremental overreach avoided), and `{harmful}` harmful "
+        "active wins. "
+        "The next source pass should not merely fill missing rows; it should generate balanced "
+        "active/shadow exemplars while keeping phrase-control rows as containment patterns or "
+        "separately gated abstain evidence, not broad semantic competitors."
     )
 
 
@@ -352,6 +453,21 @@ def _row_results(config: Mapping[str, object]) -> list[dict[str, object]]:
     return [dict(row) for row in rows if isinstance(row, Mapping)]
 
 
+def _false_abstain_case_ids(config: Mapping[str, object]) -> set[str]:
+    return {
+        str(row.get("case_id") or "").strip()
+        for row in _row_results(config)
+        if str(row.get("case_id") or "").strip()
+        and str(row.get("gold_decision") or "").strip() == "replace"
+        and str(row.get("predicted_decision") or "").strip() == "abstain"
+    }
+
+
+def _summary_count(config: Mapping[str, object], key: str) -> int:
+    summary = _coerce_mapping(config.get("summary"))
+    return int(summary.get(key) or 0)
+
+
 def _case_sample(row: Mapping[str, object]) -> dict[str, object]:
     return {
         "case_id": str(row.get("case_id") or "").strip(),
@@ -361,6 +477,8 @@ def _case_sample(row: Mapping[str, object]) -> dict[str, object]:
         "active_score": _round_float(row.get("active_score")),
         "strongest_shadow_score": _round_float(row.get("strongest_shadow_score")),
         "phrase_control_score": _round_float(row.get("phrase_control_score")),
+        "phrase_containment_hit": bool(row.get("phrase_containment_hit")),
+        "phrase_containment_pattern": str(row.get("phrase_containment_pattern") or "").strip(),
         "active_evidence_text": str(row.get("active_evidence_text") or "").strip(),
         "strongest_shadow_evidence_text": str(
             row.get("strongest_shadow_evidence_text") or ""

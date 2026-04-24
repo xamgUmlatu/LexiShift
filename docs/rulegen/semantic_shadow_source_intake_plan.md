@@ -216,8 +216,11 @@ The current source contract now has the row shape needed by the prototype-admiss
 - `docs/test_outputs/semantic_llm_example_frame_generation_run_latest.md` shows the live run accepted and normalized `11 / 11` rows (`3382` input tokens / `358` output tokens)
 - `scripts/testing/semantic_example_frame_batch_merge_en_es.py` merged those rows with reverse-aux into `24` composite rows: `8` active, `8` shadow, and `8` phrase-control examples
 - `docs/test_outputs/semantic_llm_example_frame_generation_contract_latest.md` shows the merged batch is structurally complete: `8 / 8` required families
-- `docs/test_outputs/semantic_llm_example_frame_generation_quality_gate_latest.md` rejects it as analysis-only because the best prototype config is still only `67.5%` decision accuracy / `31.2%` replace recall / `2` harmful / `11` false abstains
-- the diagnostic lesson is now explicit: filling missing rows is not enough; generated phrase-control examples overreach as broad semantic competitors, and the next source pass must generate balanced active/shadow exemplars while treating phrase-control rows as containment patterns or separately gated abstain evidence
+- `docs/test_outputs/semantic_llm_example_frame_generation_quality_gate_latest.md` rejects it as analysis-only because the best containment-aware prototype config is still only `67.5%` decision accuracy / `31.2%` replace recall / `2` harmful / `11` false abstains
+- the no-spend containment ablation is now explicit: broad semantic phrase-control prototypes put phrase-overreach pressure on `12` active false-abstain rows and directly add `2` incremental false abstains beyond the active-guard baseline, while local containment-pattern use creates `0` incremental containment false abstains and `2` correct phrase containment hits
+- the diagnostic lesson is now narrower and stronger: filling missing rows is not enough; generated phrase-control rows should not be semantic competitors, and the next source pass must generate balanced active/shadow exemplars while keeping phrase-control rows as containment patterns or separately gated abstain evidence
+- `scripts/testing/semantic_llm_example_frame_remediation_plan_en_es.py` turns the containment-aware residuals into the next no-spend source plan
+- `docs/test_outputs/semantic_llm_example_frame_remediation_plan_latest.md` plans `8` targeted requests: `7` active examples for the `11` false-abstain cases and `1` shadow example for the `2` harmful `report` cases; it preserves the no reviewed-sentence leakage policy and keeps phrase-control rows out of broad semantic scoring
 
 First repo-facing source/insertion upper-bound lane now also exists:
 
@@ -235,10 +238,10 @@ Current read:
 - symmetric reviewed active/shadow example frames erase the false-abstain slice but reopen phrase leaks under the old family-wide phrase guard
 - the same reviewed example frames plus active-sense phrase guarding reach `100.0%` decision accuracy / `100.0%` replace recall / `0` harmful / `0` false abstains on the frozen queue
 - the prototype-admission variant keeps the UX decision binary, scores context against active/shadow reviewed examples directly, and also reaches `100.0%` / `100.0%` / `0` / `0` on the frozen queue
-- the expanded full-`v10` prototype read shows why phrase-control examples need to be first-class competitors: active-sense phrase guarding alone reaches `97.9%` accuracy / `100.0%` recall / `2` harmful / `0` false abstains, while adding phrase-control prototypes reaches `100.0%` / `100.0%` / `0` / `0`
+- the expanded full-`v10` reviewed-oracle prototype read shows why phrase-control evidence needs a first-class lane: active-sense phrase guarding alone reaches `97.9%` accuracy / `100.0%` recall / `2` harmful / `0` false abstains, while reviewed phrase-control prototypes reach `100.0%` / `100.0%` / `0` / `0`; generated phrase-control rows must still be admitted through local containment or a separate abstain gate rather than broad semantic competition
 - the prototype probe now uses the normalized reviewed evidence batch as input, not only the sentence-veto dataset directly
 - this is an internal reviewed-data oracle, not runtime-publishable source evidence
-- it does prove the next useful source shape: competition-symmetric active, shadow, and phrase-control example/frame evidence plus explicit phrase-leak containment
+- it does prove the next useful source shape: competition-symmetric active/shadow example-frame evidence plus explicit phrase-control containment or separately gated abstain evidence
 - the real reverse-aux source batch is useful as gap-routing evidence, not as a promotion-ready prototype source:
   - `docs/test_outputs/semantic_reverse_aux_example_frame_batch_en_es_latest.md`
   - `docs/test_outputs/semantic_reverse_aux_prototype_admission_probe_latest.md`

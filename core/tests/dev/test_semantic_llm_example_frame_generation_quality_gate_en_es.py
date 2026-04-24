@@ -31,12 +31,13 @@ class SemanticLlmExampleFrameGenerationQualityGateTests(unittest.TestCase):
         self.assertEqual(report["contract_summary"]["complete_families"], 8)
         self.assertFalse(report["prototype_config_rows"][0]["quality_gate_pass"])
         self.assertEqual(report["diagnostics"]["phrase_overreach_false_abstain_count"], 1)
+        self.assertEqual(report["diagnostics"]["containment_overreach_reduction_count"], 1)
         self.assertEqual(report["diagnostics"]["harmful_replace_count"], 1)
         self.assertIn("analysis-only", report["recommendation"])
 
         markdown = render_example_frame_generation_quality_gate_markdown(report)
         self.assertIn("Example-Frame Generation Quality Gate", markdown)
-        self.assertIn("phrase-overreach", markdown)
+        self.assertIn("Phrase-overreach", markdown)
 
     def test_accepts_when_run_contract_and_quality_all_pass(self) -> None:
         prototype = _prototype_payload(
@@ -114,11 +115,29 @@ def _prototype_payload(
                 "strongest_shadow_evidence_text": "shadow evidence",
             },
         ]
+    active_row_results = [
+        row for row in row_results if str(row.get("case_id") or "") != "active:001"
+    ]
     return {
         "configurations": [
             {
+                "config_id": "prototype_reviewed_examples_phrase_containment_guard",
+                "label": "Phrase containment guard",
+                "phrase_control_evidence_mode": "local_containment_patterns",
+                "use_phrase_containment_gate": True,
+                "summary": {
+                    "decision_accuracy": decision_accuracy,
+                    "replace_recall": replace_recall,
+                    "harmful_replace_count": harmful,
+                    "false_abstain_count": false_abstain,
+                    "phrase_containment_hit_count": 0,
+                },
+                "row_results": [],
+            },
+            {
                 "config_id": "prototype_reviewed_examples_phrase_prototype_guard",
                 "label": "Phrase guard",
+                "phrase_control_evidence_mode": "semantic_prototype_competition",
                 "summary": {
                     "decision_accuracy": decision_accuracy,
                     "replace_recall": replace_recall,
@@ -130,13 +149,14 @@ def _prototype_payload(
             {
                 "config_id": "prototype_reviewed_examples_active_guard",
                 "label": "Active guard",
+                "phrase_control_evidence_mode": "runtime_phrase_guard_only",
                 "summary": {
                     "decision_accuracy": decision_accuracy,
                     "replace_recall": replace_recall,
                     "harmful_replace_count": harmful,
                     "false_abstain_count": false_abstain,
                 },
-                "row_results": row_results,
+                "row_results": active_row_results,
             },
         ]
     }

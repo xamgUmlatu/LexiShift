@@ -618,7 +618,7 @@ Current answer to the first item:
   - `scripts/testing/semantic_llm_prototype_admission_probe_en_es.py` now tests the more fundamental internal shape: score contexts against active/shadow example prototypes, then still emit only `replace` or `abstain`
   - `docs/test_outputs/semantic_llm_prototype_admission_probe_latest.md` clears the frozen queue at `100.0%` / `100.0%` / `0` / `0`
   - `docs/test_outputs/semantic_llm_prototype_admission_probe_expanded_latest.md` expands to all `95` `v10` cases and shows that active/shadow prototypes plus active-sense phrase guarding still leave phrase-control leaks at `97.9%` / `100.0%` / `2` / `0`
-  - adding phrase-control prototypes as abstain competitors clears that expanded oracle read at `100.0%` / `100.0%` / `0` / `0`
+  - adding reviewed phrase-control prototypes as abstain competitors clears that expanded oracle read at `100.0%` / `100.0%` / `0` / `0`
   - the canonical intake/evidence schemas and normalizer now accept `relation_type=phrase_control_example` and `role=phrase_containment`
   - `scripts/testing/semantic_llm_example_frame_contract_en_es.py` now gates future source batches against the full active/shadow/phrase-control contract
   - `scripts/testing/semantic_llm_reviewed_example_frame_batch_en_es.py` now builds a no-spend reviewed fixture in the same raw-intake and normalized-evidence shape expected from future generated batches
@@ -626,13 +626,17 @@ Current answer to the first item:
   - `docs/test_outputs/semantic_llm_example_frame_contract_expanded_latest.md` shows the full-`v10` fixture is contract-complete: `19 / 19` families
   - `docs/test_outputs/semantic_llm_example_frame_contract_overlap_latest.md` preserves the current overlap target batch as a negative contract read: `0 / 6` families are complete because the batch only has active cue rows
   - the prototype-admission probe now consumes the normalized reviewed evidence batches directly and still clears the frozen queue and full-`v10` reads
-  - so the next source hypothesis needs active, shadow, and phrase-control example/frame evidence generated or ingested together, not active cue text with a later shadow-side patch
+  - the generated missing-row quality gate now shows why that reviewed oracle result cannot be copied directly into source admission: broad semantic phrase-control prototypes put phrase-overreach pressure on `12` active false-abstain rows and directly add `2` incremental false abstains, while local containment-pattern admission creates `0` incremental containment false-abstains and `2` correct containment hits
+  - so the next source hypothesis needs balanced active/shadow example-frame evidence generated or ingested together, plus phrase-control rows admitted as containment patterns or a separate abstain gate, not active cue text with a later shadow-side patch
   - `scripts/testing/semantic_llm_example_frame_generation_plan_en_es.py` now turns the reverse-aux required-family gap into an exact no-spend missing-row plan
   - `docs/test_outputs/semantic_llm_example_frame_generation_plan_latest.md` currently plans `11` requests only: `1` active example for `play`, `2` shadow examples for `plant`/`check`, and `8` phrase-control examples
   - that plan keeps reviewed sentence-veto case text and translation targets out of prompt input; the prompts carry only trigger text, active/shadow sense labels and glosses, and queue role/archetype/notes
   - the live missing-row execution completed cleanly, but the downstream quality gate rejects the result:
     - `scripts/testing/semantic_llm_example_frame_generation_run_en_es.py`
     - `scripts/testing/semantic_example_frame_batch_merge_en_es.py`
+    - `scripts/testing/semantic_llm_example_frame_remediation_plan_en_es.py`
+    - `docs/test_outputs/semantic_llm_example_frame_remediation_plan_latest.md`
+    - the next no-spend remediation plan is `8` requests: `7` active examples for active false-abstain families and `1` shadow example for the harmful `report` shadow cases, with phrase-control evidence left on the containment-only path
     - `scripts/testing/semantic_llm_example_frame_generation_quality_gate_en_es.py`
     - `docs/test_outputs/semantic_llm_example_frame_generation_run_latest.md`
     - `docs/test_outputs/semantic_llm_example_frame_generation_contract_latest.md`

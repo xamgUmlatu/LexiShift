@@ -41,6 +41,9 @@ from semantic_example_frame_evidence_support import (  # noqa: E402
     shadow_example_pairs_for_family,
     shadow_examples_for_sense,
 )
+from semantic_llm_prototype_admission_rendering import (  # noqa: E402
+    render_prototype_admission_markdown,
+)
 from semantic_reverse_aux_text_pilot_en_es import build_queue_subset_dataset  # noqa: E402
 from semantic_routing_sentence_veto_helpers import (  # noqa: E402
     _accumulate_sentence_veto_summary,
@@ -53,15 +56,21 @@ from semantic_routing_sentence_veto_support import (  # noqa: E402
     _resolve_sentence_veto_phrase_guard_pos_tags,
     load_sentence_veto_dataset,
 )
+from semantic_phrase_containment_support import (  # noqa: E402
+    PhraseContainmentMatch,
+    add_phrase_containment_summary,
+    match_phrase_containment_examples,
+)
 
 
 DEFAULT_JSON_OUT = TEST_OUTPUTS_ROOT / "semantic_llm_prototype_admission_probe_latest.json"
 DEFAULT_MARKDOWN_OUT = TEST_OUTPUTS_ROOT / "semantic_llm_prototype_admission_probe_latest.md"
-PROTOTYPE_CONFIGS: tuple[tuple[str, str, str, bool], ...] = (
+PROTOTYPE_CONFIGS: tuple[tuple[str, str, str, bool, bool], ...] = (
     (
         "prototype_reviewed_examples_family_guard",
         "Prototype reviewed examples, family phrase guard",
         "family_all",
+        False,
         False,
     ),
     (
@@ -69,12 +78,21 @@ PROTOTYPE_CONFIGS: tuple[tuple[str, str, str, bool], ...] = (
         "Prototype reviewed examples, active phrase guard",
         "active_only",
         False,
+        False,
+    ),
+    (
+        "prototype_reviewed_examples_phrase_containment_guard",
+        "Prototype reviewed examples, phrase-control containment guard",
+        "active_only",
+        False,
+        True,
     ),
     (
         "prototype_reviewed_examples_phrase_prototype_guard",
         "Prototype reviewed examples, phrase-control prototype guard",
         "active_only",
         True,
+        False,
     ),
 )
 
@@ -156,10 +174,17 @@ def build_prototype_admission_report(
             min_active_score=min_active_score,
             min_margin=min_margin,
             use_phrase_prototypes=use_phrase_prototypes,
+            use_phrase_containment_gate=use_phrase_containment_gate,
             evidence_lookup=evidence_lookup,
             prototype_source_label=prototype_source_label,
         )
-        for config_id, label, phrase_guard_pos_scope, use_phrase_prototypes in PROTOTYPE_CONFIGS
+        for (
+            config_id,
+            label,
+            phrase_guard_pos_scope,
+            use_phrase_prototypes,
+            use_phrase_containment_gate,
+        ) in PROTOTYPE_CONFIGS
     ]
 
     report: dict[str, object] = {
@@ -247,7 +272,7 @@ def _collect_prototype_texts(
                 texts.extend(
                     shadow_examples_for_sense(
                         family,
-                        sense_id=_sense_id(shadow),
+                        sense_id=sense_id(shadow),
                         lookup=evidence_lookup,
                     )
                 )
@@ -270,7 +295,7 @@ def _build_coverage_rows(
             len(
                 shadow_examples_for_sense(
                     family,
-                    sense_id=_sense_id(shadow),
+                    sense_id=sense_id(shadow),
                     lookup=evidence_lookup,
                 )
             )
@@ -303,6 +328,7 @@ def _run_prototype_config(
     min_active_score: float,
     min_margin: float,
     use_phrase_prototypes: bool,
+    use_phrase_containment_gate: bool,
     evidence_lookup: Mapping[str, Mapping[str, object]] | None,
     prototype_source_label: str,
 ) -> dict[str, object]:
@@ -323,7 +349,9 @@ def _run_prototype_config(
         active_examples = active_examples_for_family(family, evidence_lookup)
         shadow_examples = shadow_example_pairs_for_family(family, shadows, evidence_lookup)
         phrase_examples = (
-            phrase_examples_for_family(family, evidence_lookup) if use_phrase_prototypes else []
+            phrase_examples_for_family(family, evidence_lookup)
+            if use_phrase_prototypes or use_phrase_containment_gate
+            else []
         )
         for case in family.get("cases", ()):
             if not isinstance(case, Mapping):
@@ -339,6 +367,8 @@ def _run_prototype_config(
                 scorer=scorer,
                 min_active_score=min_active_score,
                 min_margin=min_margin,
+                use_phrase_prototypes=use_phrase_prototypes,
+                use_phrase_containment_gate=use_phrase_containment_gate,
             )
             rows.append(row)
             summary_result = SimpleNamespace(**row)
@@ -348,12 +378,18 @@ def _run_prototype_config(
             if row["predicted_decision"] != "replace" and row["gold_decision"] == "replace":
                 false_ids.append(str(row["case_id"]))
     _finalize_sentence_veto_summary(summary)
+    add_phrase_containment_summary(summary, rows)
     return {
         "config_id": config_id,
         "label": _config_label(label, prototype_source_label),
         "category": "prototype_admission_probe",
         "phrase_guard_pos_scope": phrase_guard_pos_scope,
         "use_phrase_prototypes": bool(use_phrase_prototypes),
+        "use_phrase_containment_gate": bool(use_phrase_containment_gate),
+        "phrase_control_evidence_mode": _phrase_control_evidence_mode(
+            use_phrase_prototypes=use_phrase_prototypes,
+            use_phrase_containment_gate=use_phrase_containment_gate,
+        ),
         "summary": summary,
         "harmful_replace_case_ids": harmful_ids,
         "false_abstain_case_ids": false_ids,
@@ -373,6 +409,8 @@ def _score_case(
     scorer: RuntimeSimilarityBackend,
     min_active_score: float,
     min_margin: float,
+    use_phrase_prototypes: bool,
+    use_phrase_containment_gate: bool,
 ) -> dict[str, object]:
     trigger = str(family.get("trigger") or "").strip()
     context_text = case_context_text(case, trigger=trigger)
@@ -386,8 +424,8 @@ def _score_case(
     strongest_shadow_example = ""
     for candidate_shadow, candidate_example in shadow_examples:
         shadow_score = scorer.similarity(context_text, candidate_example)
-        shadow_id = _sense_id(candidate_shadow)
-        current_shadow_id = _sense_id(shadow_sense)
+        shadow_id = sense_id(candidate_shadow)
+        current_shadow_id = sense_id(shadow_sense)
         if shadow_score > strongest_shadow_score or (
             shadow_score == strongest_shadow_score
             and shadow_id
@@ -397,14 +435,30 @@ def _score_case(
             shadow_sense = candidate_shadow
             strongest_shadow_score = shadow_score
             strongest_shadow_example = candidate_example
-    phrase_control_score, phrase_control_example = _best_example_score(
-        scorer=scorer,
-        context_text=context_text,
-        examples=phrase_examples,
+    phrase_containment_match = (
+        match_phrase_containment_examples(
+            sentence=str(case.get("sentence") or "").strip(),
+            source_phrase=str(case.get("source_phrase") or trigger).strip(),
+            trigger=trigger,
+            phrase_examples=phrase_examples,
+        )
+        if use_phrase_containment_gate
+        else PhraseContainmentMatch(hit=False)
     )
+    phrase_control_score = 0.0
+    phrase_control_example = ""
+    if use_phrase_prototypes:
+        phrase_control_score, phrase_control_example = _best_example_score(
+            scorer=scorer,
+            context_text=context_text,
+            examples=phrase_examples,
+        )
+    elif phrase_containment_match.hit:
+        phrase_control_score = 1.0
+        phrase_control_example = phrase_containment_match.example_text
 
-    active_sense_id = _sense_id(active_sense)
-    strongest_shadow_id = _sense_id(shadow_sense)
+    active_sense_id = sense_id(active_sense)
+    strongest_shadow_id = sense_id(shadow_sense)
     predicted_winner = active_sense_id
     predicted_winner_type = "active"
     if strongest_shadow_id and strongest_shadow_score > active_score:
@@ -419,7 +473,15 @@ def _score_case(
     )
     if not active_examples:
         predicted_decision = "abstain"
-    if phrase_examples and phrase_control_score >= max(active_score, strongest_shadow_score):
+    if (
+        use_phrase_prototypes
+        and phrase_examples
+        and phrase_control_score >= max(active_score, strongest_shadow_score)
+    ):
+        predicted_decision = "abstain"
+        predicted_winner = "phrase_control"
+        predicted_winner_type = "none"
+    if phrase_containment_match.hit:
         predicted_decision = "abstain"
         predicted_winner = "phrase_control"
         predicted_winner_type = "none"
@@ -457,6 +519,9 @@ def _score_case(
         "active_evidence_text": active_example,
         "strongest_shadow_evidence_text": strongest_shadow_example,
         "phrase_control_evidence_text": phrase_control_example,
+        "phrase_containment_hit": bool(phrase_containment_match.hit),
+        "phrase_containment_pattern": phrase_containment_match.pattern_text,
+        "phrase_containment_reason_code": phrase_containment_match.reason_code,
         "phrase_preemption_hit": bool(phrase_signals.phrase_preemption_hit),
         "matched_phrase_pattern": phrase_signals.matched_phrase_pattern,
         "phrase_reason_code": phrase_signals.phrase_reason_code,
@@ -483,8 +548,16 @@ def _best_example_score(
     return best_score, best_example
 
 
-def _sense_id(sense: Mapping[str, object]) -> str:
-    return sense_id(sense)
+def _phrase_control_evidence_mode(
+    *,
+    use_phrase_prototypes: bool,
+    use_phrase_containment_gate: bool,
+) -> str:
+    if use_phrase_prototypes:
+        return "semantic_prototype_competition"
+    if use_phrase_containment_gate:
+        return "local_containment_patterns"
+    return "runtime_phrase_guard_only"
 
 
 def _classify_gold_winner_type(gold_winner: str, *, active_sense_id: str) -> str:
@@ -504,12 +577,16 @@ def _build_summary_findings(config_rows: Sequence[Mapping[str, object]]) -> dict
     }
     family_guard = _summary_metrics(lookup.get("prototype_reviewed_examples_family_guard"))
     active_guard = _summary_metrics(lookup.get("prototype_reviewed_examples_active_guard"))
+    phrase_containment_guard = _summary_metrics(
+        lookup.get("prototype_reviewed_examples_phrase_containment_guard")
+    )
     phrase_prototype_guard = _summary_metrics(
         lookup.get("prototype_reviewed_examples_phrase_prototype_guard")
     )
     return {
         "family_guard_result": family_guard,
         "active_guard_result": active_guard,
+        "phrase_containment_guard_result": phrase_containment_guard,
         "phrase_prototype_guard_result": phrase_prototype_guard,
         "active_guard_reduces_phrase_leak_without_false_abstain": int(
             active_guard.get("harmful_replace_count") or 0
@@ -523,6 +600,12 @@ def _build_summary_findings(config_rows: Sequence[Mapping[str, object]]) -> dict
         < int(active_guard.get("harmful_replace_count") or 0)
         and int(phrase_prototype_guard.get("false_abstain_count") or 0)
         <= int(active_guard.get("false_abstain_count") or 0),
+        "phrase_containment_avoids_phrase_prototype_overreach": int(
+            phrase_containment_guard.get("harmful_replace_count") or 0
+        )
+        <= int(phrase_prototype_guard.get("harmful_replace_count") or 0)
+        and int(phrase_containment_guard.get("false_abstain_count") or 0)
+        <= int(phrase_prototype_guard.get("false_abstain_count") or 0),
     }
 
 
@@ -566,9 +649,9 @@ def _build_case_matrix(config_rows: Sequence[Mapping[str, object]]) -> list[dict
 def _build_recommendation(report: Mapping[str, object]) -> str:
     findings = report.get("summary_findings")
     best_guard = (
-        findings.get("phrase_prototype_guard_result")
+        findings.get("phrase_containment_guard_result")
         if isinstance(findings, Mapping)
-        and isinstance(findings.get("phrase_prototype_guard_result"), Mapping)
+        and isinstance(findings.get("phrase_containment_guard_result"), Mapping)
         else {}
     )
     scope = str(report.get("evaluation_scope") or "").strip()
@@ -582,10 +665,11 @@ def _build_recommendation(report: Mapping[str, object]) -> str:
     source_note = _source_note(report)
     return (
         "Keep the user-facing UX binary, but move the internal experiment from a single "
-        "evidence string toward prototype admission: context competes against active, "
-        "shadow, and phrase-control example frames, then resolves to replace or abstain. "
-        f"The phrase-control prototype guard {verdict} ({_format_metric_summary(best_guard)}) "
-        f"on `{scope}`. "
+        "evidence string toward prototype admission: context competes against active and "
+        "shadow example frames, while phrase-control evidence can only abstain through local "
+        "containment-pattern matches. "
+        f"The phrase-control containment guard {verdict} ({_format_metric_summary(best_guard)}) "
+        f"on `{scope}`; keep broad phrase-control prototype scoring as an overreach control only. "
         f"{source_note}"
     )
 
@@ -627,80 +711,6 @@ def _source_note(report: Mapping[str, object]) -> str:
     )
 
 
-def render_prototype_admission_markdown(report: Mapping[str, object]) -> str:
-    lines = [
-        "# en-es Semantic LLM Prototype Admission Probe",
-        "",
-        f"- Status: `{report.get('status', 'unknown')}`",
-        f"- Generated: `{report.get('generated_at', '')}`",
-        f"- Scope: `{report.get('evaluation_scope', '')}`",
-        f"- Queue: `{report.get('queue_id', '')}`",
-        f"- Runtime dataset: `{report.get('dataset_id', '')}`",
-        f"- Scorer: `{report.get('scorer_id', '')}`",
-        f"- Decision contract: `{report.get('decision_contract', '')}`",
-        f"- Runtime publishable: `{report.get('runtime_publishable', False)}`",
-        "",
-        "## Prototype Results",
-        "",
-        "| Config | Phrase Guard | Cases | Harmful | False Abstain | Replace Recall | Decision Acc. | Phrase Hits |",
-        "| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |",
-    ]
-    for row in report.get("configurations", ()):
-        if not isinstance(row, Mapping):
-            continue
-        summary = row.get("summary") if isinstance(row.get("summary"), Mapping) else {}
-        lines.append(
-            "| "
-            + " | ".join(
-                [
-                    f"`{row.get('label', row.get('config_id', ''))}`",
-                    f"`{row.get('phrase_guard_pos_scope', '')}`",
-                    str(summary.get("cases_total", 0)),
-                    str(summary.get("harmful_replace_count", 0)),
-                    str(summary.get("false_abstain_count", 0)),
-                    _pct(summary.get("replace_recall")),
-                    _pct(summary.get("decision_accuracy")),
-                    str(summary.get("phrase_preemption_hit_count", 0)),
-                ]
-            )
-            + " |"
-        )
-
-    lines.extend(
-        [
-            "",
-            "## Residual Case Matrix",
-            "",
-            "| Case | Gold | Family Guard | Active Guard | Phrase Prototype Guard |",
-            "| --- | --- | --- | --- | --- |",
-        ]
-    )
-    for row in report.get("case_matrix", ()):
-        if not isinstance(row, Mapping):
-            continue
-        configs = row.get("configs") if isinstance(row.get("configs"), Mapping) else {}
-        lines.append(
-            "| "
-            + " | ".join(
-                [
-                    f"`{row.get('case_id', '')}`",
-                    f"`{row.get('gold_decision', '')}`",
-                    _format_case_config(configs.get("prototype_reviewed_examples_family_guard")),
-                    _format_case_config(configs.get("prototype_reviewed_examples_active_guard")),
-                    _format_case_config(
-                        configs.get("prototype_reviewed_examples_phrase_prototype_guard")
-                    ),
-                ]
-            )
-            + " |"
-        )
-    if not report.get("case_matrix"):
-        lines.append("| `none` | `n/a` | `n/a` | `n/a` | `n/a` |")
-
-    lines.extend(["", "## Recommendation", "", f"- {report.get('recommendation', '')}"])
-    return "\n".join(lines) + "\n"
-
-
 def _summary_metrics(config: object) -> dict[str, object]:
     if not isinstance(config, Mapping):
         return {}
@@ -722,6 +732,7 @@ def _case_prediction(row: Mapping[str, object]) -> dict[str, object]:
         "phrase_control_score": _round_float(row.get("phrase_control_score")),
         "margin": _round_float(row.get("margin")),
         "phrase_preemption_hit": bool(row.get("phrase_preemption_hit")),
+        "phrase_containment_hit": bool(row.get("phrase_containment_hit")),
     }
 
 
@@ -731,18 +742,6 @@ def _format_metric_summary(value: Mapping[str, object]) -> str:
         f"`{_pct(value.get('replace_recall'))}` recall / "
         f"`{value.get('harmful_replace_count', 0)}` harmful / "
         f"`{value.get('false_abstain_count', 0)}` false abstains"
-    )
-
-
-def _format_case_config(value: object) -> str:
-    if not isinstance(value, Mapping):
-        return "`n/a`"
-    return (
-        f"`{value.get('predicted_decision', '')}` "
-        f"m={value.get('margin', '')} "
-        f"a={value.get('active_score', '')} "
-        f"s={value.get('strongest_shadow_score', '')} "
-        f"p={value.get('phrase_control_score', '')}"
     )
 
 

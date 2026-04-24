@@ -1119,13 +1119,15 @@ Use this file when:
 	          - the real external reverse-aux batch remains a negative required-family read with `0 / 8` complete families: active aux exists for all six target families, shadow aux exists for four, and phrase-control rows are absent
 	          - the missing-row generation plan is no-spend and exact: `1` active example for `play`, `2` shadow examples for `plant`/`check`, and `8` phrase-control examples, with prompt input limited to trigger text, active/shadow sense labels and glosses, and queue role/archetype/notes rather than reviewed case sentences or translation targets
 	          - the live missing-row generation run accepted and normalized `11 / 11` rows, and the merged batch is structurally complete at `8 / 8` required families with `24` rows
-	          - the generated batch remains analysis-only because the quality gate rejects it: best prototype config is `67.5%` accuracy / `31.2%` recall / `2` harmful / `11` false abstains, with generated phrase-control rows overreaching into active contexts
+	          - the generated batch remains analysis-only because the quality gate rejects it: best containment-aware prototype config is `67.5%` accuracy / `31.2%` recall / `2` harmful / `11` false abstains
+	          - the phrase-control ablation now separates the failure modes: broad semantic phrase prototypes put phrase-overreach pressure on `12` active false-abstain rows and directly add `2` incremental false abstains beyond the active-guard baseline, while containment-gated phrase evidence creates `0` incremental false-abstains and `2` correct containment hits
+	          - the residual remediation planner now converts those containment-aware failures into `8` no-spend requests: `7` active examples for the `11` false-abstain cases and `1` shadow example for the `2` harmful `report` cases
 	        - the prototype-admission probe now consumes the normalized reviewed evidence batches directly, not only the sentence-veto dataset oracle path
 	        - the prototype-admission probe also consumes the normalized reverse-aux evidence batch as a real external-source comparison and currently reads `67.5%` accuracy / `50.0%` recall / `5` harmful / `8` false abstains
 	      - next technical direction:
 	        - source/insertion work before any further prompt spend
 	        - prioritize competition-symmetric active/shadow example-frame sets rather than missing-row-only fills
-	        - keep phrase-control examples as a first-class source requirement, but do not treat generated phrase examples as broad semantic competitors without containment-pattern extraction or a separate abstain gate
+	        - keep phrase-control examples as a first-class source requirement, but treat generated phrase examples as local containment patterns or separately gated abstain evidence rather than broad semantic competitors
 	        - rerun the failure diagnostic, source/insertion probe, and prototype-admission probe as no-spend gates before reopening paid generation
 	      - the live prompt runner now exists too:
 	        - `scripts/testing/semantic_llm_prompt_bakeoff_en_es.py`
