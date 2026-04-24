@@ -36,6 +36,41 @@ DEFAULT_FILTERED_BATCH_OUT = TEST_OUTPUTS_ROOT / (
 DEFAULT_JACCARD_THRESHOLD = 0.75
 DEFAULT_MIN_CONTAINED_TOKENS = 5
 _TOKEN_RE = re.compile(r"[0-9A-Za-zÀ-ÖØ-öø-ÿ']+")
+_PERSON_REFERENCE_TOKENS = frozenset(
+    {
+        "he",
+        "him",
+        "i",
+        "me",
+        "she",
+        "them",
+        "they",
+        "us",
+        "we",
+    }
+)
+_DETERMINER_TOKENS = frozenset(
+    {
+        "a",
+        "an",
+        "her",
+        "hers",
+        "his",
+        "mine",
+        "my",
+        "our",
+        "ours",
+        "the",
+        "their",
+        "theirs",
+        "that",
+        "these",
+        "this",
+        "those",
+        "your",
+        "yours",
+    }
+)
 
 
 def _parse_args() -> argparse.Namespace:
@@ -190,19 +225,46 @@ def _audit_row(
         sentence = str(case.get("sentence") or "").strip()
         case_tokens = _tokens(sentence)
         jaccard = _jaccard(evidence_tokens, case_tokens)
-        contained = _contains_subsequence(
+        exact_contained = _contains_subsequence(
             evidence_tokens,
             case_tokens,
             min_tokens=min_contained_tokens,
         ) or _contains_subsequence(case_tokens, evidence_tokens, min_tokens=min_contained_tokens)
-        common_sequence = _longest_common_contiguous_sequence(evidence_tokens, case_tokens)
+        canonical_evidence_tokens = _canonical_tokens(evidence_tokens)
+        canonical_case_tokens = _canonical_tokens(case_tokens)
+        canonical_contained = _contains_subsequence(
+            canonical_evidence_tokens,
+            canonical_case_tokens,
+            min_tokens=min_contained_tokens,
+        ) or _contains_subsequence(
+            canonical_case_tokens,
+            canonical_evidence_tokens,
+            min_tokens=min_contained_tokens,
+        )
+        exact_sequence = _longest_common_contiguous_sequence(evidence_tokens, case_tokens)
+        canonical_sequence = _longest_common_contiguous_sequence(
+            canonical_evidence_tokens,
+            canonical_case_tokens,
+        )
+        common_sequence = (
+            canonical_sequence if len(canonical_sequence) > len(exact_sequence) else exact_sequence
+        )
         common_sequence_length = len(common_sequence)
+        reason_code = _leakage_reason_code(
+            exact_contained=exact_contained,
+            canonical_contained=canonical_contained,
+            exact_sequence_length=len(exact_sequence),
+            canonical_sequence_length=len(canonical_sequence),
+            jaccard=jaccard,
+            jaccard_threshold=jaccard_threshold,
+            min_contained_tokens=min_contained_tokens,
+        )
         if _leakage_rank(
-            contained=contained,
+            reason_code=reason_code,
             common_sequence_length=common_sequence_length,
             jaccard=jaccard,
         ) > _leakage_rank(
-            contained=bool(best["contained"]),
+            reason_code=str(best.get("reason_code") or ""),
             common_sequence_length=int(best["common_sequence_length"]),
             jaccard=float(best["jaccard"]),
         ):
@@ -210,17 +272,12 @@ def _audit_row(
                 "case_id": str(case.get("case_id") or "").strip(),
                 "sentence": sentence,
                 "jaccard": jaccard,
-                "contained": contained,
+                "contained": exact_contained or canonical_contained,
                 "common_sequence_length": common_sequence_length,
                 "common_sequence": " ".join(common_sequence),
+                "reason_code": reason_code,
             }
-    reason_code = ""
-    if bool(best["contained"]):
-        reason_code = "benchmark_token_sequence_contained"
-    elif int(best["common_sequence_length"]) >= min_contained_tokens:
-        reason_code = "benchmark_token_sequence_overlap"
-    elif float(best["jaccard"]) >= jaccard_threshold:
-        reason_code = "benchmark_token_jaccard_threshold"
+    reason_code = str(best.get("reason_code") or "").strip()
     metadata = row.get("metadata") if isinstance(row.get("metadata"), Mapping) else {}
     return {
         "row_id": str(row.get("row_id") or "").strip(),
@@ -259,19 +316,66 @@ def _dataset_case_rows(dataset_payload: Mapping[str, object]) -> list[dict[str, 
 
 def _leakage_rank(
     *,
-    contained: bool,
+    reason_code: str,
     common_sequence_length: int,
     jaccard: float,
 ) -> tuple[int, int, float]:
     return (
-        1 if contained else 0,
+        _reason_rank(reason_code),
         int(common_sequence_length),
         float(jaccard),
     )
 
 
+def _leakage_reason_code(
+    *,
+    exact_contained: bool,
+    canonical_contained: bool,
+    exact_sequence_length: int,
+    canonical_sequence_length: int,
+    jaccard: float,
+    jaccard_threshold: float,
+    min_contained_tokens: int,
+) -> str:
+    if exact_contained:
+        return "benchmark_token_sequence_contained"
+    if canonical_contained:
+        return "benchmark_canonical_token_sequence_contained"
+    if exact_sequence_length >= min_contained_tokens:
+        return "benchmark_token_sequence_overlap"
+    if canonical_sequence_length >= min_contained_tokens:
+        return "benchmark_canonical_token_sequence_overlap"
+    if jaccard >= jaccard_threshold:
+        return "benchmark_token_jaccard_threshold"
+    return ""
+
+
+def _reason_rank(reason_code: str) -> int:
+    ranks = {
+        "benchmark_token_sequence_contained": 5,
+        "benchmark_canonical_token_sequence_contained": 4,
+        "benchmark_token_sequence_overlap": 3,
+        "benchmark_canonical_token_sequence_overlap": 2,
+        "benchmark_token_jaccard_threshold": 1,
+    }
+    return ranks.get(str(reason_code or "").strip(), 0)
+
+
 def _tokens(text: str) -> list[str]:
     return [match.lower() for match in _TOKEN_RE.findall(str(text or ""))]
+
+
+def _canonical_tokens(tokens: Sequence[str]) -> list[str]:
+    values: list[str] = []
+    for token in tokens:
+        text = str(token or "").strip().lower()
+        if text in _PERSON_REFERENCE_TOKENS:
+            values.append("<person>")
+        elif text in _DETERMINER_TOKENS:
+            values.append("<det>")
+        else:
+            values.append(text)
+    return values
 
 
 def _jaccard(left_tokens: Sequence[str], right_tokens: Sequence[str]) -> float:

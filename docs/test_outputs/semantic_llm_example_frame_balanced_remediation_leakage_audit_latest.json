@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-04-24T22:58:24Z",
+  "generated_at": "2026-04-24T23:09:37Z",
   "status": "review",
   "batch_id": "en-es:example-frame-missing-rows:example-frame-balanced-remediation-v1-20260425a-rekeyed:replay",
   "filtered_batch_id": "en-es:example-frame-missing-rows:example-frame-balanced-remediation-v1-20260425a-rekeyed:replay:filtered",
@@ -37,8 +37,8 @@
       "matched_sentence": "The order shipped this morning.",
       "jaccard": 0.0667,
       "contained": false,
-      "common_sequence_length": 1,
-      "common_sequence": "order"
+      "common_sequence_length": 2,
+      "common_sequence": "<det> order"
     },
     {
       "row_id": "en-es-sentence-veto-plant-planta:llm:active:remediation-active-001-002:v1",
@@ -46,13 +46,13 @@
       "relation_type": "anchor_cue",
       "evidence_text": "I watered the plant on the windowsill every morning.",
       "leakage_hit": true,
-      "reason_code": "benchmark_token_sequence_overlap",
+      "reason_code": "benchmark_canonical_token_sequence_contained",
       "matched_case_id": "en-es:sentence-veto:plant:001",
       "matched_sentence": "She watered the plant on the windowsill.",
       "jaccard": 0.5556,
-      "contained": false,
-      "common_sequence_length": 6,
-      "common_sequence": "watered the plant on the windowsill"
+      "contained": true,
+      "common_sequence_length": 7,
+      "common_sequence": "<person> watered <det> plant on <det> windowsill"
     },
     {
       "row_id": "en-es-sentence-veto-play-obra:llm:active:remediation-active-001:v1",
@@ -104,13 +104,13 @@
       "relation_type": "anchor_cue",
       "evidence_text": "I watered the plant on the windowsill every morning.",
       "leakage_hit": true,
-      "reason_code": "benchmark_token_sequence_overlap",
+      "reason_code": "benchmark_canonical_token_sequence_contained",
       "matched_case_id": "en-es:sentence-veto:plant:001",
       "matched_sentence": "She watered the plant on the windowsill.",
       "jaccard": 0.5556,
-      "contained": false,
-      "common_sequence_length": 6,
-      "common_sequence": "watered the plant on the windowsill"
+      "contained": true,
+      "common_sequence_length": 7,
+      "common_sequence": "<person> watered <det> plant on <det> windowsill"
     }
   ],
   "recommendation": "Use the filtered batch for downstream prototype reads, and regenerate or replace the removed rows before any promotion claim."

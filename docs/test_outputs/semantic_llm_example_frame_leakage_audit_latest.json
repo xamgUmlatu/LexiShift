@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-04-24T22:58:19Z",
+  "generated_at": "2026-04-24T23:09:37Z",
   "status": "review",
   "batch_id": "en-es:example-frame-missing-rows:example-frame-remediation-v1-20260425a",
   "filtered_batch_id": "en-es:example-frame-missing-rows:example-frame-remediation-v1-20260425a:filtered",
@@ -33,12 +33,12 @@
       "evidence_text": "I placed an order for two laptops and a printer online.",
       "leakage_hit": false,
       "reason_code": "",
-      "matched_case_id": "en-es:sentence-veto:drink:002",
-      "matched_sentence": "I ordered a drink at the bar.",
-      "jaccard": 0.125,
+      "matched_case_id": "en-es:sentence-veto:order:001",
+      "matched_sentence": "The order shipped this morning.",
+      "jaccard": 0.0667,
       "contained": false,
-      "common_sequence_length": 1,
-      "common_sequence": "i"
+      "common_sequence_length": 2,
+      "common_sequence": "<det> order"
     },
     {
       "row_id": "en-es-sentence-veto-plant-planta:llm:active:missing:v1",
@@ -61,12 +61,12 @@
       "evidence_text": "The school’s winter play opens Friday with a full cast and orchestra.",
       "leakage_hit": false,
       "reason_code": "",
-      "matched_case_id": "en-es:sentence-veto:play:003",
-      "matched_sentence": "The children play outside after school.",
-      "jaccard": 0.1875,
+      "matched_case_id": "en-es:sentence-veto:board:005",
+      "matched_sentence": "Are you on board with the revised plan?",
+      "jaccard": 0.1053,
       "contained": false,
-      "common_sequence_length": 1,
-      "common_sequence": "the"
+      "common_sequence_length": 2,
+      "common_sequence": "with <det>"
     },
     {
       "row_id": "en-es-sentence-veto-report-informe:llm:active:missing:v1",
@@ -103,12 +103,12 @@
       "evidence_text": "She checked her watch before boarding the train.",
       "leakage_hit": false,
       "reason_code": "",
-      "matched_case_id": "en-es:sentence-veto:bank:001",
-      "matched_sentence": "She deposited the cash at the bank before lunch.",
+      "matched_case_id": "en-es:sentence-veto:watch:001",
+      "matched_sentence": "He adjusted his watch strap before the interview.",
       "jaccard": 0.2308,
       "contained": false,
-      "common_sequence_length": 1,
-      "common_sequence": "she"
+      "common_sequence_length": 2,
+      "common_sequence": "<det> watch"
     },
     {
       "row_id": "en-es-sentence-veto-report-informe:llm:shadow:en-es-sentence-veto-report-informar-shadow:missing:v1",

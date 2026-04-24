@@ -26,8 +26,8 @@ class SemanticLlmExampleFrameLeakageAuditTests(unittest.TestCase):
         )
 
         self.assertEqual(report["status"], "review")
-        self.assertEqual(report["summary"]["input_row_count"], 3)
-        self.assertEqual(report["summary"]["leakage_hit_count"], 2)
+        self.assertEqual(report["summary"]["input_row_count"], 4)
+        self.assertEqual(report["summary"]["leakage_hit_count"], 3)
         self.assertEqual(report["summary"]["kept_row_count"], 1)
         self.assertEqual(report["leakage_rows"][0]["row_id"], "row:plant")
         self.assertEqual(
@@ -37,9 +37,14 @@ class SemanticLlmExampleFrameLeakageAuditTests(unittest.TestCase):
         self.assertEqual(report["leakage_rows"][1]["row_id"], "row:plant-variant")
         self.assertEqual(
             report["leakage_rows"][1]["reason_code"],
-            "benchmark_token_sequence_overlap",
+            "benchmark_canonical_token_sequence_contained",
         )
-        self.assertEqual(report["leakage_rows"][1]["common_sequence_length"], 6)
+        self.assertEqual(report["leakage_rows"][1]["common_sequence_length"], 7)
+        self.assertEqual(report["leakage_rows"][2]["row_id"], "row:plant-possessive")
+        self.assertEqual(
+            report["leakage_rows"][2]["reason_code"],
+            "benchmark_canonical_token_sequence_contained",
+        )
         self.assertEqual(report["filtered_batch"]["row_count"], 1)
         self.assertEqual(report["filtered_batch"]["rows"][0]["row_id"], "row:order")
 
@@ -115,6 +120,17 @@ def _batch_payload() -> dict[str, object]:
                 "active_target": "planta",
                 "candidate_target": "planta",
                 "evidence_text": "I watered the plant on the windowsill every morning.",
+                "runtime_publishable": False,
+                "metadata": {"family_id": "fam:plant"},
+            },
+            {
+                "row_id": "row:plant-possessive",
+                "relation_type": "anchor_cue",
+                "roles": ["cue_generation", "discrimination"],
+                "trigger": "plant",
+                "active_target": "planta",
+                "candidate_target": "planta",
+                "evidence_text": "I watered the plant on my windowsill every morning.",
                 "runtime_publishable": False,
                 "metadata": {"family_id": "fam:plant"},
             },

@@ -820,8 +820,8 @@ Use this file when:
 ## Semantic Routing Runtime Admission Layer
 
 - Status: `implemented`, `default-on-when-capable`, `verified`
-- Last documented checkpoint: `2026-04-25` the prompt-only loop is closed and the example-frame source lane now has filtered residual generation, benchmark-leakage admission, rekeyed remediation row ids, and a surface-POS prototype guard; structural source completion alone failed, but the filtered generated-source composite plus local containment and surface-POS rescue/preemption now clears the prototype-quality gate as a promotion candidate
-- Last verified: `2026-04-25` targeted prompt preflight/downstream/failure/source-insertion/prototype-admission/example-frame generation and leakage-admission tests, live/replayed residual generation artifacts, refreshed contract/prototype/quality-gate artifacts, doc reference checks, feature-state audit, and local changed-scope gate
+- Last documented checkpoint: `2026-04-25` the prompt-only loop is closed and the example-frame source lane now has filtered residual generation, benchmark-leakage admission, rekeyed remediation row ids, and a surface-POS prototype guard; structural source completion alone failed, but the filtered generated-source composite plus local containment and surface-POS rescue/preemption now clears the prototype-quality gate as a promotion candidate; the subsequent plant-only source attempts did not fix the remaining same-POS false abstains because stricter canonical leakage admission filtered both accepted live rows
+- Last verified: `2026-04-25` targeted prompt preflight/downstream/failure/source-insertion/prototype-admission/example-frame generation and leakage-admission tests, live/replayed residual generation artifacts, plant-only remediation artifacts, refreshed contract/prototype/quality-gate/generalization artifacts, doc reference checks, feature-state audit, and local changed-scope gate
 - Default behavior:
   - Semantic admission is no longer a normal user preference. The browser runtime auto-uses helper-side semantic admission only when the current pair/profile publication is actually capable of real semantic decisioning.
   - If a pair/profile has semantic metadata but no ready subset yet, LexiShift stays on standard SRS replacement behavior instead of asking the user to choose a fallback posture.
@@ -1135,6 +1135,14 @@ Use this file when:
 	            - the best generated-source config is now `prototype_reviewed_examples_surface_pos_rescue_guard`
 	            - it keeps the UX binary and phrase-control containment-only, then uses local surface syntax to rescue noun-frame active cases and preempt verb-frame shadow cases
 	            - it clears the prototype-quality gate at `95.0%` accuracy / `87.5%` recall / `0` harmful / `2` false abstains with `8 / 8` required families complete
+	          - the post-promotion-candidate plant source check is negative:
+	            - `docs/test_outputs/semantic_llm_example_frame_balanced_remediation_generalization_probe_latest.md`
+	            - `docs/test_outputs/semantic_llm_example_frame_plant_remediation_plan_latest.md`
+	            - `docs/test_outputs/semantic_llm_example_frame_plant_remediation_leakage_audit_latest.md`
+	            - `docs/test_outputs/semantic_llm_example_frame_plant_remediation_v2_leakage_audit_latest.md`
+	            - the full-`v10` generalization read keeps the surface-POS guard at `0` harmful replacements, but recall outside the frozen queue is source-coverage-limited
+	            - the remediation planner now tracks the current best remediation guard and reduces the next source plan to `1` active `plant` request
+	            - both bounded live plant attempts were structurally accepted but rejected by canonical benchmark-leakage admission, so the quality-gate numbers do not improve beyond the prior `95.0%` / `87.5%` / `0` / `2`
 	        - the prototype-admission probe now consumes the normalized reviewed evidence batches directly, not only the sentence-veto dataset oracle path
 	        - the prototype-admission probe also consumes the normalized reverse-aux evidence batch as a real external-source comparison and currently reads `67.5%` accuracy / `50.0%` recall / `5` harmful / `8` false abstains
 	      - next technical direction:

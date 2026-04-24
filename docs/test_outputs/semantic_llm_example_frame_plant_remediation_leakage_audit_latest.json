@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-04-24T23:09:37Z",
+  "status": "review",
+  "batch_id": "en-es:example-frame-missing-rows:example-frame-plant-remediation-v1-20260425a",
+  "filtered_batch_id": "en-es:example-frame-missing-rows:example-frame-plant-remediation-v1-20260425a:filtered",
+  "summary": {
+    "input_row_count": 1,
+    "leakage_hit_count": 1,
+    "kept_row_count": 0,
+    "jaccard_threshold": 0.75,
+    "min_contained_tokens": 5
+  },
+  "row_results": [
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:llm:active:remediation-active-001-002:v1",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "relation_type": "anchor_cue",
+      "evidence_text": "I watered the plant on my windowsill every morning.",
+      "leakage_hit": true,
+      "reason_code": "benchmark_canonical_token_sequence_contained",
+      "matched_case_id": "en-es:sentence-veto:plant:001",
+      "matched_sentence": "She watered the plant on the windowsill.",
+      "jaccard": 0.5,
+      "contained": true,
+      "common_sequence_length": 7,
+      "common_sequence": "<person> watered <det> plant on <det> windowsill"
+    }
+  ],
+  "leakage_rows": [
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:llm:active:remediation-active-001-002:v1",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "relation_type": "anchor_cue",
+      "evidence_text": "I watered the plant on my windowsill every morning.",
+      "leakage_hit": true,
+      "reason_code": "benchmark_canonical_token_sequence_contained",
+      "matched_case_id": "en-es:sentence-veto:plant:001",
+      "matched_sentence": "She watered the plant on the windowsill.",
+      "jaccard": 0.5,
+      "contained": true,
+      "common_sequence_length": 7,
+      "common_sequence": "<person> watered <det> plant on <det> windowsill"
+    }
+  ],
+  "recommendation": "Use the filtered batch for downstream prototype reads, and regenerate or replace the removed rows before any promotion claim."
+}

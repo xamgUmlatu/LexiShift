@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "status": "ok",
+  "pair": "en-es",
+  "generated_at": "2026-04-24T23:10:28Z",
+  "execution_mode": "live",
+  "replay_source": "",
+  "batch_id": "en-es:example-frame-missing-rows:example-frame-plant-remediation-v2-20260425a",
+  "source_id": "llm_example_frame_residual_remediation",
+  "prompt_version": "example-frame-residual-remediation-v1",
+  "selected_model_id": "gpt-5.4-mini",
+  "selected_temperature": 0.2,
+  "summary": {
+    "selected_request_count": 1,
+    "accepted_item_count": 1,
+    "api_error_count": 0,
+    "invalid_output_count": 0,
+    "normalized_row_count": 1,
+    "input_tokens": 390,
+    "output_tokens": 36,
+    "reasoning_tokens": 0
+  },
+  "artifacts": {
+    "journal_jsonl": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-plant-remediation-v2-20260425a_journal.jsonl",
+    "raw_response_bundle_json": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-plant-remediation-v2-20260425a_raw_responses.json",
+    "intake_batch_json": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-plant-remediation-v2-20260425a_intake_batch.json",
+    "normalized_batch_json": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-plant-remediation-v2-20260425a_normalized_evidence.json"
+  },
+  "request_rows": [
+    {
+      "request_id": "en-es:example-frame-remediation:active:en-es-sentence-veto-plant-planta",
+      "prompt_slot": "remediation_active_example",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "planta",
+      "status": "accepted",
+      "response_id": "resp_0113e4108124ee880169ebf8657c888194b854a37b891a17d6",
+      "evidence_text": "The plant on my windowsill drooped until I watered its roots.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-plant-remediation-v2-20260425a_raw_responses.json#en-es:example-frame-remediation:active:en-es-sentence-veto-plant-planta",
+      "usage": {
+        "input_tokens": 390,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 36,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 426
+      }
+    }
+  ]
+}

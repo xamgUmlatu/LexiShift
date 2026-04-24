@@ -49,7 +49,9 @@ DEFAULT_JSON_OUT = TEST_OUTPUTS_ROOT / "semantic_llm_example_frame_remediation_p
 DEFAULT_MARKDOWN_OUT = TEST_OUTPUTS_ROOT / "semantic_llm_example_frame_remediation_plan_latest.md"
 PROMPT_VERSION = "example-frame-residual-remediation-v1"
 SOURCE_ID = "llm_example_frame_residual_remediation"
-DEFAULT_CONFIG_ID = "prototype_reviewed_examples_phrase_containment_guard"
+DEFAULT_CONFIG_ID = "auto_best_remediation_guard"
+AUTO_CONFIG_IDS = frozenset({"", "auto", "auto_best", DEFAULT_CONFIG_ID})
+PHRASE_PROTOTYPE_CONFIG_ID = "prototype_reviewed_examples_phrase_prototype_guard"
 
 
 def _parse_args() -> argparse.Namespace:
@@ -229,8 +231,11 @@ def _remediation_request_row(
             f"- failure mode: {str(group.get('failure_mode') or '').strip()}",
             f"- residual case count: {len(_case_ids(group))}",
             f"- case ids: {', '.join(_case_ids(group))}",
-            f"- slice tags: {', '.join(_slice_tags(group)) or 'none'}",
-            "- do not copy benchmark sentences; use these tags only as a topical cue",
+            "- do not copy benchmark sentences",
+            "- use the active sense and competing-sense evidence as the only content anchors",
+            "- residual slice tags are retained in metadata only; do not infer or echo their "
+            "surface setting",
+            "- prefer distinctive sense cues over generic topical settings",
         ]
     )
     row["prompt_slot"] = f"remediation_{generation_target}"
@@ -394,11 +399,50 @@ def _prototype_config(payload: Mapping[str, object], *, config_id: str) -> Mappi
     rows = payload.get("configurations")
     if not isinstance(rows, Sequence) or isinstance(rows, (str, bytes)):
         raise ValueError("prototype payload must contain a `configurations` array.")
-    target = str(config_id or "").strip() or DEFAULT_CONFIG_ID
+    config_rows = [row for row in rows if isinstance(row, Mapping)]
+    target = str(config_id or "").strip()
+    if target in AUTO_CONFIG_IDS:
+        return _best_remediation_config(config_rows)
     for row in rows:
         if isinstance(row, Mapping) and str(row.get("config_id") or "").strip() == target:
             return row
     raise ValueError(f"Prototype configuration {target!r} was not found.")
+
+
+def _best_remediation_config(rows: Sequence[Mapping[str, object]]) -> Mapping[str, object]:
+    eligible_rows = [
+        row
+        for row in rows
+        if str(row.get("config_id") or "").strip() != PHRASE_PROTOTYPE_CONFIG_ID
+        and not bool(row.get("use_phrase_prototypes"))
+    ]
+    if not eligible_rows:
+        raise ValueError("prototype payload did not contain a remediation-eligible configuration.")
+    return max(eligible_rows, key=_remediation_config_sort_key)
+
+
+def _remediation_config_sort_key(row: Mapping[str, object]) -> tuple[float, float, int, int, int]:
+    summary = row.get("summary") if isinstance(row.get("summary"), Mapping) else {}
+    return (
+        float(summary.get("decision_accuracy") or 0.0),
+        float(summary.get("replace_recall") or 0.0),
+        -int(summary.get("harmful_replace_count") or 0),
+        -int(summary.get("false_abstain_count") or 0),
+        _remediation_config_preference(row),
+    )
+
+
+def _remediation_config_preference(row: Mapping[str, object]) -> int:
+    config_id = str(row.get("config_id") or "").strip()
+    if config_id == "prototype_reviewed_examples_surface_pos_rescue_guard":
+        return 4
+    if config_id == "prototype_reviewed_examples_phrase_containment_guard":
+        return 3
+    if config_id == "prototype_reviewed_examples_active_guard":
+        return 2
+    if config_id == "prototype_reviewed_examples_family_guard":
+        return 1
+    return 0
 
 
 def _row_results(config: Mapping[str, object]) -> list[dict[str, object]]:

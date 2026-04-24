@@ -1,7 +1,7 @@
 # en-es LLM Example-Frame Leakage Audit
 
 - Status: `review`
-- Generated: `2026-04-24T22:58:19Z`
+- Generated: `2026-04-24T23:09:37Z`
 - Batch: `en-es:example-frame-missing-rows:example-frame-remediation-v1-20260425a`
 - Filtered batch: `en-es:example-frame-missing-rows:example-frame-remediation-v1-20260425a:filtered`
 

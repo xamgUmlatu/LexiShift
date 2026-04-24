@@ -663,6 +663,17 @@ Current answer to the first item:
     - the new `prototype_reviewed_examples_surface_pos_rescue_guard` keeps the UX binary, keeps phrase-control evidence containment-only, and adds local surface-POS rescue/preemption for noun-active vs verb-shadow frames
     - that config clears the prototype-quality gate at `95.0%` accuracy / `87.5%` recall / `0` harmful / `2` false abstains
     - the two remaining false abstains are same-POS `plant` rows; the next queue should target same-POS discrimination or held-out validation of the surface-POS guard, not another generic cross-POS prompt fill
+  - the next plant-only source attempt has now been bounded and shown not to fix the gate:
+    - `docs/test_outputs/semantic_llm_example_frame_balanced_remediation_generalization_probe_latest.md`
+    - `docs/test_outputs/semantic_llm_example_frame_plant_remediation_plan_latest.md`
+    - `docs/test_outputs/semantic_llm_example_frame_plant_remediation_run_latest.md`
+    - `docs/test_outputs/semantic_llm_example_frame_plant_remediation_v2_run_latest.md`
+    - `docs/test_outputs/semantic_llm_example_frame_plant_remediation_leakage_audit_latest.md`
+    - `docs/test_outputs/semantic_llm_example_frame_plant_remediation_v2_leakage_audit_latest.md`
+    - the broader `95`-case read keeps the surface-POS guard at `0` harmful replacements, so that guard remains safety-positive rather than an overfit harmful-replacement source
+    - the remediation planner now auto-selects the current best remediation-eligible prototype config; the latest plan correctly reduces the live source target to one active `plant` request
+    - both plant live attempts were structurally accepted, but canonical leakage admission filtered both because the model kept returning `watered` / `windowsill` variants of the reviewed benchmark sentence
+    - current conclusion: no quality fix came from the plant-only source spend; the next source step needs a stronger repair strategy, such as split multi-example active generation with explicit non-overlap validation or a different source family, before more paid plant attempts
 
 Current status on that seam:
 

@@ -43,13 +43,15 @@ class SemanticLlmExampleFrameRemediationPlanTests(unittest.TestCase):
         prompts = "\n".join(str(row["user_prompt"]) for row in report["request_rows"])
         self.assertNotIn("He signed the check before mailing the rent.", prompts)
         self.assertNotIn("Witnesses report heavy rain near the coast.", prompts)
-        self.assertIn("finance", prompts)
-        self.assertIn("communication", prompts)
+        self.assertNotIn("finance", prompts)
+        self.assertNotIn("communication", prompts)
+        self.assertIn("residual slice tags are retained in metadata only", prompts)
 
         active = report["request_rows"][0]
         shadow = report["request_rows"][1]
         self.assertEqual(active["prompt_slot"], "remediation_active_example")
         self.assertEqual(shadow["prompt_slot"], "remediation_shadow_example")
+        self.assertEqual(active["remediation_context"]["slice_tags"], ["finance", "cross_pos"])
         self.assertNotIn(":missing:v1", active["expected_row_preview"]["row_id"])
         self.assertIn(
             ":remediation-active-001:v1",
@@ -68,6 +70,29 @@ class SemanticLlmExampleFrameRemediationPlanTests(unittest.TestCase):
         self.assertIn("Example-Frame Remediation Plan", markdown)
         self.assertIn("false_abstain_active_example_gap", markdown)
         self.assertIn("harmful_replace_shadow_example_gap", markdown)
+
+    def test_default_config_tracks_best_remediation_guard(self) -> None:
+        report = build_example_frame_remediation_plan(
+            dataset_payload=_dataset_payload(),
+            required_family_payload=_queue_payload(),
+            prototype_payload=_prototype_payload_with_surface_guard(),
+            model_id="gpt-5.4-mini",
+            generated_at="2026-04-25T16:30:00Z",
+        )
+
+        self.assertEqual(
+            report["prototype_config_id"],
+            "prototype_reviewed_examples_surface_pos_rescue_guard",
+        )
+        self.assertEqual(report["summary"]["request_count"], 1)
+        self.assertEqual(
+            report["summary"]["requests_by_generation_target"],
+            {"remediation_active_example": 1},
+        )
+        self.assertEqual(
+            report["request_rows"][0]["remediation_context"]["case_ids"],
+            ["check:001"],
+        )
 
 
 def _queue_payload() -> dict[str, object]:
@@ -192,6 +217,34 @@ def _prototype_payload() -> dict[str, object]:
             }
         ]
     }
+
+
+def _prototype_payload_with_surface_guard() -> dict[str, object]:
+    payload = _prototype_payload()
+    payload["configurations"].append(
+        {
+            "config_id": "prototype_reviewed_examples_surface_pos_rescue_guard",
+            "use_surface_pos_rescue": True,
+            "summary": {
+                "decision_accuracy": 0.95,
+                "replace_recall": 0.875,
+                "harmful_replace_count": 0,
+                "false_abstain_count": 1,
+            },
+            "row_results": [
+                {
+                    "case_id": "check:001",
+                    "family_id": "fam:check",
+                    "gold_decision": "replace",
+                    "gold_winner": "fam:check:active",
+                    "predicted_decision": "abstain",
+                    "slice_tags": ["finance", "cross_pos"],
+                    "sentence": "He signed the check before mailing the rent.",
+                }
+            ],
+        }
+    )
+    return payload
 
 
 if __name__ == "__main__":
