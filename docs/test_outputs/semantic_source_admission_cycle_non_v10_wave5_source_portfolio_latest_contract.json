@@ -1,0 +1,635 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-04-28T22:34:17Z",
+  "status": "review",
+  "pair": "en-es",
+  "batch_path": "",
+  "batch_id": "en-es:wordnet-source-portfolio:non-v10-wave5-anypos-v1:cycle:sense-admitted",
+  "source_id": "wordnet_source_portfolio_non_v10_wave5_anypos_v1",
+  "prompt_version": "example-frame-composite-v1",
+  "model_id": "mixed",
+  "row_count": 51,
+  "contract": {
+    "required_relation_sets": {
+      "active_examples": [
+        "anchor_cue"
+      ],
+      "shadow_examples": [
+        "bridge_candidate",
+        "shadow_candidate"
+      ],
+      "phrase_control_examples": [
+        "phrase_control_example"
+      ]
+    },
+    "required_batch_role_for_phrase_rows": "phrase_containment",
+    "runtime_publishable_required": false,
+    "required_family_keys": [
+      "en-es:sentence-veto:dry:seco",
+      "en-es:sentence-veto:use:uso",
+      "en-es:sentence-veto:plain:llano",
+      "en-es:sentence-veto:fast:r-pido",
+      "en-es:sentence-veto:train:tren",
+      "en-es:sentence-veto:land:tierra",
+      "en-es:sentence-veto:mean:medio",
+      "en-es:sentence-veto:offer:oferta",
+      "en-es:sentence-veto:present:presente",
+      "en-es:sentence-veto:sign:se-al",
+      "en-es:sentence-veto:quiet:silencio",
+      "en-es:sentence-veto:change:cambio",
+      "en-es:sentence-veto:look:aspecto",
+      "en-es:sentence-veto:rest:reposo",
+      "en-es:sentence-veto:answer:respuesta",
+      "en-es:sentence-veto:end:fin"
+    ]
+  },
+  "summary": {
+    "families_total": 16,
+    "semantic_contract_complete_family_count": 16,
+    "semantic_contract_complete": true,
+    "phrase_containment_contract_complete_family_count": 0,
+    "phrase_containment_contract_complete": false,
+    "contract_complete_family_count": 0,
+    "contract_complete": false,
+    "missing_active_family_keys": [],
+    "missing_shadow_family_keys": [],
+    "semantic_gap_family_keys": [],
+    "missing_phrase_control_family_keys": [
+      "en-es:sentence-veto:answer:respuesta",
+      "en-es:sentence-veto:change:cambio",
+      "en-es:sentence-veto:dry:seco",
+      "en-es:sentence-veto:end:fin",
+      "en-es:sentence-veto:fast:r-pido",
+      "en-es:sentence-veto:land:tierra",
+      "en-es:sentence-veto:look:aspecto",
+      "en-es:sentence-veto:mean:medio",
+      "en-es:sentence-veto:offer:oferta",
+      "en-es:sentence-veto:plain:llano",
+      "en-es:sentence-veto:present:presente",
+      "en-es:sentence-veto:quiet:silencio",
+      "en-es:sentence-veto:rest:reposo",
+      "en-es:sentence-veto:sign:se-al",
+      "en-es:sentence-veto:train:tren",
+      "en-es:sentence-veto:use:uso"
+    ],
+    "phrase_role_issue_family_keys": [],
+    "phrase_containment_gap_family_keys": [
+      "en-es:sentence-veto:answer:respuesta",
+      "en-es:sentence-veto:change:cambio",
+      "en-es:sentence-veto:dry:seco",
+      "en-es:sentence-veto:end:fin",
+      "en-es:sentence-veto:fast:r-pido",
+      "en-es:sentence-veto:land:tierra",
+      "en-es:sentence-veto:look:aspecto",
+      "en-es:sentence-veto:mean:medio",
+      "en-es:sentence-veto:offer:oferta",
+      "en-es:sentence-veto:plain:llano",
+      "en-es:sentence-veto:present:presente",
+      "en-es:sentence-veto:quiet:silencio",
+      "en-es:sentence-veto:rest:reposo",
+      "en-es:sentence-veto:sign:se-al",
+      "en-es:sentence-veto:train:tren",
+      "en-es:sentence-veto:use:uso"
+    ],
+    "runtime_publishable_issue_family_keys": [],
+    "semantic_contract": {
+      "complete_family_count": 16,
+      "complete": true,
+      "gap_family_keys": [],
+      "missing_active_family_keys": [],
+      "missing_shadow_family_keys": []
+    },
+    "phrase_containment_contract": {
+      "complete_family_count": 0,
+      "complete": false,
+      "gap_family_keys": [
+        "en-es:sentence-veto:answer:respuesta",
+        "en-es:sentence-veto:change:cambio",
+        "en-es:sentence-veto:dry:seco",
+        "en-es:sentence-veto:end:fin",
+        "en-es:sentence-veto:fast:r-pido",
+        "en-es:sentence-veto:land:tierra",
+        "en-es:sentence-veto:look:aspecto",
+        "en-es:sentence-veto:mean:medio",
+        "en-es:sentence-veto:offer:oferta",
+        "en-es:sentence-veto:plain:llano",
+        "en-es:sentence-veto:present:presente",
+        "en-es:sentence-veto:quiet:silencio",
+        "en-es:sentence-veto:rest:reposo",
+        "en-es:sentence-veto:sign:se-al",
+        "en-es:sentence-veto:train:tren",
+        "en-es:sentence-veto:use:uso"
+      ],
+      "missing_phrase_control_family_keys": [
+        "en-es:sentence-veto:answer:respuesta",
+        "en-es:sentence-veto:change:cambio",
+        "en-es:sentence-veto:dry:seco",
+        "en-es:sentence-veto:end:fin",
+        "en-es:sentence-veto:fast:r-pido",
+        "en-es:sentence-veto:land:tierra",
+        "en-es:sentence-veto:look:aspecto",
+        "en-es:sentence-veto:mean:medio",
+        "en-es:sentence-veto:offer:oferta",
+        "en-es:sentence-veto:plain:llano",
+        "en-es:sentence-veto:present:presente",
+        "en-es:sentence-veto:quiet:silencio",
+        "en-es:sentence-veto:rest:reposo",
+        "en-es:sentence-veto:sign:se-al",
+        "en-es:sentence-veto:train:tren",
+        "en-es:sentence-veto:use:uso"
+      ],
+      "phrase_role_issue_family_keys": []
+    },
+    "combined_contract": {
+      "complete_family_count": 0,
+      "complete": false,
+      "runtime_publishable_issue_family_keys": []
+    }
+  },
+  "family_rows": [
+    {
+      "family_key": "en-es:sentence-veto:answer:respuesta",
+      "family_id": "en-es:sentence-veto:answer:respuesta",
+      "trigger": "answer",
+      "active_target": "respuesta",
+      "active_example_count": 1,
+      "shadow_example_count": 2,
+      "phrase_control_example_count": 0,
+      "row_count": 3,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [
+        "en-es-sentence-veto-answer-respuesta:active-wordnet-example-2"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-answer-respuesta:shadow-en-es-sentence-veto-answer-respuesta-responder-shadow-wordnet-definition-1",
+        "en-es-sentence-veto-answer-respuesta:shadow-en-es-sentence-veto-answer-respuesta-responder-shadow-wordnet-entry_sentence-2"
+      ],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:change:cambio",
+      "family_id": "en-es:sentence-veto:change:cambio",
+      "trigger": "change",
+      "active_target": "cambio",
+      "active_example_count": 1,
+      "shadow_example_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [
+        "en-es-sentence-veto-change-cambio:active-wordnet-definition-1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-change-cambio:shadow-en-es-sentence-veto-change-cambio-cambiar-shadow-wordnet-example-2"
+      ],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:dry:seco",
+      "family_id": "en-es:sentence-veto:dry:seco",
+      "trigger": "dry",
+      "active_target": "seco",
+      "active_example_count": 1,
+      "shadow_example_count": 2,
+      "phrase_control_example_count": 0,
+      "row_count": 3,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [
+        "en-es-sentence-veto-dry-seco:active-wordnet-definition-1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-dry-seco:shadow-en-es-sentence-veto-dry-seco-secar-shadow-wordnet-definition-1",
+        "en-es-sentence-veto-dry-seco:shadow-en-es-sentence-veto-dry-seco-secar-shadow-wordnet-example-2"
+      ],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:end:fin",
+      "family_id": "en-es:sentence-veto:end:fin",
+      "trigger": "end",
+      "active_target": "fin",
+      "active_example_count": 2,
+      "shadow_example_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 3,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [
+        "en-es-sentence-veto-end-fin:active-wordnet-definition-1",
+        "en-es-sentence-veto-end-fin:active-wordnet-example-2"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-end-fin:shadow-en-es-sentence-veto-end-fin-acabar-shadow-wordnet-definition-1"
+      ],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:fast:r-pido",
+      "family_id": "en-es:sentence-veto:fast:r-pido",
+      "trigger": "fast",
+      "active_target": "rápido",
+      "active_example_count": 2,
+      "shadow_example_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 3,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [
+        "en-es-sentence-veto-fast-r-pido:active-wordnet-definition-1",
+        "en-es-sentence-veto-fast-r-pido:active-wordnet-example-2"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-fast-r-pido:shadow-en-es-sentence-veto-fast-r-pido-ayunar-shadow-wordnet-definition-1"
+      ],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:land:tierra",
+      "family_id": "en-es:sentence-veto:land:tierra",
+      "trigger": "land",
+      "active_target": "tierra",
+      "active_example_count": 2,
+      "shadow_example_count": 3,
+      "phrase_control_example_count": 0,
+      "row_count": 5,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [
+        "en-es-sentence-veto-land-tierra:active-wordnet-definition-1",
+        "en-es-sentence-veto-land-tierra:active-wordnet-example-2"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-land-tierra:shadow-en-es-sentence-veto-land-tierra-pa-s-shadow-wordnet-definition-1",
+        "en-es-sentence-veto-land-tierra:shadow-en-es-sentence-veto-land-tierra-atracar-shadow-wordnet-definition-1",
+        "en-es-sentence-veto-land-tierra:shadow-en-es-sentence-veto-land-tierra-atracar-shadow-wordnet-example-2"
+      ],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:look:aspecto",
+      "family_id": "en-es:sentence-veto:look:aspecto",
+      "trigger": "look",
+      "active_target": "aspecto",
+      "active_example_count": 2,
+      "shadow_example_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 3,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [
+        "en-es-sentence-veto-look-aspecto:active-wordnet-definition-1",
+        "en-es-sentence-veto-look-aspecto:active-wordnet-example-2"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-look-aspecto:shadow-en-es-sentence-veto-look-aspecto-parecer-shadow-wordnet-entry_sentence-2"
+      ],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:mean:medio",
+      "family_id": "en-es:sentence-veto:mean:medio",
+      "trigger": "mean",
+      "active_target": "medio",
+      "active_example_count": 1,
+      "shadow_example_count": 2,
+      "phrase_control_example_count": 0,
+      "row_count": 3,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [
+        "en-es-sentence-veto-mean-medio:active-wordnet-definition-1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-mean-medio:shadow-en-es-sentence-veto-mean-medio-significar-shadow-wordnet-definition-1",
+        "en-es-sentence-veto-mean-medio:shadow-en-es-sentence-veto-mean-medio-significar-shadow-wordnet-example-2"
+      ],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:offer:oferta",
+      "family_id": "en-es:sentence-veto:offer:oferta",
+      "trigger": "offer",
+      "active_target": "oferta",
+      "active_example_count": 2,
+      "shadow_example_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 3,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [
+        "en-es-sentence-veto-offer-oferta:active-wordnet-definition-1",
+        "en-es-sentence-veto-offer-oferta:active-wordnet-example-2"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-offer-oferta:shadow-en-es-sentence-veto-offer-oferta-ofrecer-shadow-wordnet-definition-1"
+      ],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:plain:llano",
+      "family_id": "en-es:sentence-veto:plain:llano",
+      "trigger": "plain",
+      "active_target": "llano",
+      "active_example_count": 2,
+      "shadow_example_count": 2,
+      "phrase_control_example_count": 0,
+      "row_count": 4,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [
+        "en-es-sentence-veto-plain-llano:active-wordnet-definition-1",
+        "en-es-sentence-veto-plain-llano:active-wordnet-example-2"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-plain-llano:shadow-en-es-sentence-veto-plain-llano-llanura-shadow-wordnet-definition-1",
+        "en-es-sentence-veto-plain-llano:shadow-en-es-sentence-veto-plain-llano-llanura-shadow-wordnet-example-2"
+      ],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:present:presente",
+      "family_id": "en-es:sentence-veto:present:presente",
+      "trigger": "present",
+      "active_target": "presente",
+      "active_example_count": 2,
+      "shadow_example_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 3,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [
+        "en-es-sentence-veto-present-presente:active-wordnet-definition-1",
+        "en-es-sentence-veto-present-presente:active-wordnet-example-2"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-present-presente:shadow-en-es-sentence-veto-present-presente-actual-shadow-wordnet-definition-1"
+      ],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:quiet:silencio",
+      "family_id": "en-es:sentence-veto:quiet:silencio",
+      "trigger": "quiet",
+      "active_target": "silencio",
+      "active_example_count": 1,
+      "shadow_example_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [
+        "en-es-sentence-veto-quiet-silencio:active-wordnet-definition-1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-quiet-silencio:shadow-en-es-sentence-veto-quiet-silencio-calmar-shadow-wordnet-definition-1"
+      ],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:rest:reposo",
+      "family_id": "en-es:sentence-veto:rest:reposo",
+      "trigger": "rest",
+      "active_target": "reposo",
+      "active_example_count": 1,
+      "shadow_example_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [
+        "en-es-sentence-veto-rest-reposo:active-wordnet-example-2"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-rest-reposo:shadow-en-es-sentence-veto-rest-reposo-descanso-shadow-wordnet-definition-1"
+      ],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:sign:se-al",
+      "family_id": "en-es:sentence-veto:sign:se-al",
+      "trigger": "sign",
+      "active_target": "señal",
+      "active_example_count": 2,
+      "shadow_example_count": 3,
+      "phrase_control_example_count": 0,
+      "row_count": 5,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [
+        "en-es-sentence-veto-sign-se-al:active-wordnet-definition-1",
+        "en-es-sentence-veto-sign-se-al:active-wordnet-example-2"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-sign-se-al:shadow-en-es-sentence-veto-sign-se-al-se-a-shadow-wordnet-definition-1",
+        "en-es-sentence-veto-sign-se-al:shadow-en-es-sentence-veto-sign-se-al-firmar-shadow-wordnet-definition-1",
+        "en-es-sentence-veto-sign-se-al:shadow-en-es-sentence-veto-sign-se-al-firmar-shadow-wordnet-example-2"
+      ],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:train:tren",
+      "family_id": "en-es:sentence-veto:train:tren",
+      "trigger": "train",
+      "active_target": "tren",
+      "active_example_count": 2,
+      "shadow_example_count": 2,
+      "phrase_control_example_count": 0,
+      "row_count": 4,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [
+        "en-es-sentence-veto-train-tren:active-wordnet-definition-1",
+        "en-es-sentence-veto-train-tren:active-wordnet-example-2"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-train-tren:shadow-en-es-sentence-veto-train-tren-adiestrar-shadow-wordnet-definition-1",
+        "en-es-sentence-veto-train-tren:shadow-en-es-sentence-veto-train-tren-adiestrar-shadow-wordnet-example-2"
+      ],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:use:uso",
+      "family_id": "en-es:sentence-veto:use:uso",
+      "trigger": "use",
+      "active_target": "uso",
+      "active_example_count": 2,
+      "shadow_example_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 3,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [
+        "en-es-sentence-veto-use-uso:active-wordnet-definition-1",
+        "en-es-sentence-veto-use-uso:active-wordnet-example-2"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-use-uso:shadow-en-es-sentence-veto-use-uso-usar-shadow-wordnet-definition-1"
+      ],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    }
+  ],
+  "recommendation": "Semantic active/shadow coverage is complete, but the combined source contract remains review. Phrase containment gaps: missing_phrase_control=16, phrase_role_issues=0. Keep this batch analysis-only unless a downstream no-phrase ablation explicitly carries the candidate lane and promotion policy accepts the split contract."
+}

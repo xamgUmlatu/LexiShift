@@ -25,6 +25,9 @@ Current process ledger:
 Current source-row audits:
 - `docs/test_outputs/semantic_source_row_alignment_audit_en_es_latest.md`
 - `docs/test_outputs/semantic_source_row_alignment_audit_def_example_plus_llm_aligned_frame_gap_v2_latest.md`
+Current source-portfolio admission artifacts:
+- `docs/test_outputs/semantic_non_v10_source_portfolio_wave5_anypos_latest.md`
+- `docs/test_outputs/semantic_source_admission_cycle_non_v10_wave5_source_portfolio_latest.md`
 Current source-frame request plans:
 - `docs/test_outputs/semantic_source_frame_gap_plan_en_es_latest.md`
 - `docs/test_outputs/semantic_source_frame_gap_plan_def_example_plus_llm_aligned_v2_en_es_latest.md`

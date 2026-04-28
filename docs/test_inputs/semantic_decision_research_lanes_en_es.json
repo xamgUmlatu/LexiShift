@@ -216,10 +216,13 @@
       "artifacts": [
         "docs/test_outputs/semantic_source_failure_class_mining_latest.md",
         "docs/test_outputs/semantic_non_v10_wave_admission_sweep_wave32_anypos_latest.md",
-        "docs/test_outputs/semantic_non_v10_source_support_conversion_wave4_anypos_supported_probe_latest.md"
+        "docs/test_outputs/semantic_non_v10_source_support_conversion_wave4_anypos_supported_probe_latest.md",
+        "docs/test_outputs/semantic_non_v10_wave_admission_sweep_wave64_anypos_latest.md",
+        "docs/test_outputs/semantic_non_v10_source_portfolio_wave5_anypos_latest.md",
+        "docs/test_outputs/semantic_source_admission_cycle_non_v10_wave5_source_portfolio_latest.md"
       ],
-      "current_read": "Automatic non-v10 source-supported waves are promising but still need broader held-out proof and phrase-contract coverage before runtime-quality claims.",
-      "next_action": "Continue broad held-out expansion and source-support conversion audits in the source-admission program.",
+      "current_read": "Automatic non-v10 source-supported waves are promising but still need broader held-out proof and phrase-contract coverage before runtime-quality claims. The wave64 any-POS supported sweep found a 16-family semantic source portfolio, and the materialized portfolio now passes the source-admission cycle with 51 final admitted rows, 0 leakage rejects, 0 sense rejects, and semantic contract coverage 16 / 16. It remains analysis-only because phrase containment is 0 / 16 and no independent held-out cases exist for these selected families yet.",
+      "next_action": "Add independent active/shadow and phrase/no-winner held-out cases for the materialized 16-family portfolio, then validate against the exact admitted source batch before any promotion or scorer comparison claim.",
       "promotion_status": "analysis_only"
     },
     {
