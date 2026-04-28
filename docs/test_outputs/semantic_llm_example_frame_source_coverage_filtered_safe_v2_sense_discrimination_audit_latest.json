@@ -1,0 +1,3097 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-04-25T00:53:04Z",
+  "status": "review",
+  "batch_id": "en-es:example-frame-composite:balanced-plus-source-coverage-filtered-safe-v2-20260425a",
+  "admitted_batch_id": "en-es:example-frame-composite:balanced-plus-source-coverage-filtered-safe-v2-20260425a:sense-admitted",
+  "summary": {
+    "input_row_count": 60,
+    "semantic_input_row_count": 52,
+    "semantic_admitted_row_count": 31,
+    "semantic_rejected_row_count": 21,
+    "non_semantic_passthrough_row_count": 8,
+    "admitted_row_count": 40,
+    "scorers": [
+      "token_jaccard",
+      "tfidf_cosine"
+    ],
+    "evidence_view": "all_evidence_text",
+    "min_intended_score": 0.05,
+    "min_margin": 0.01,
+    "rejection_reason_counts": {
+      "weak_intended_similarity": 17,
+      "competitor_sense_not_lower": 3,
+      "insufficient_sense_margin": 1
+    }
+  },
+  "row_results": [
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:active-reverse-aux",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "relation_type": "anchor_cue",
+      "evidence_text": "organism capable of photosynthesis",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:plant:fabrica:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "token_jaccard",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "intended_score": 0.066667,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+        "strongest_competitor_score": 0.0,
+        "margin": 0.066667
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+          "intended_score": 0.066667,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+          "strongest_competitor_score": 0.0,
+          "margin": 0.066667
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+          "intended_score": 0.062168,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+          "strongest_competitor_score": 0.0,
+          "margin": 0.062168
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-drink-bebida:active-reverse-aux",
+      "family_id": "en-es:sentence-veto:drink:bebida",
+      "relation_type": "anchor_cue",
+      "evidence_text": "served beverage",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:drink:bebida:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:drink:beber:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "tfidf_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:drink:bebida:active",
+        "intended_score": 0.210097,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:drink:beber:shadow",
+        "strongest_competitor_score": 0.10322,
+        "margin": 0.106877
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:drink:bebida:active",
+          "intended_score": 0.090909,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:drink:beber:shadow",
+          "strongest_competitor_score": 0.090909,
+          "margin": 0.0
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:drink:bebida:active",
+          "intended_score": 0.210097,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:drink:beber:shadow",
+          "strongest_competitor_score": 0.10322,
+          "margin": 0.106877
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-drink-bebida:shadow-en-es-sentence-veto-drink-beber-shadow-reverse-aux",
+      "family_id": "en-es:sentence-veto:drink:bebida",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "consume liquid through the mouth",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:drink:beber:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:drink:bebida:active"
+      ],
+      "best_result": {
+        "scorer_id": "tfidf_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:drink:beber:shadow",
+        "intended_score": 0.197269,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:drink:bebida:active",
+        "strongest_competitor_score": 0.063903,
+        "margin": 0.133367
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:drink:beber:shadow",
+          "intended_score": 0.153846,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:drink:bebida:active",
+          "strongest_competitor_score": 0.071429,
+          "margin": 0.082418
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:drink:beber:shadow",
+          "intended_score": 0.197269,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:drink:bebida:active",
+          "strongest_competitor_score": 0.063903,
+          "margin": 0.133367
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-play-obra:shadow-en-es-sentence-veto-play-jugar-shadow-reverse-aux",
+      "family_id": "en-es:sentence-veto:play:obra",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "act in a manner such that one has fun",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:play:jugar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:play:obra:active"
+      ],
+      "best_result": {
+        "scorer_id": "tfidf_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:play:jugar:shadow",
+        "intended_score": 0.07034,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:play:obra:active",
+        "strongest_competitor_score": 0.008337,
+        "margin": 0.062003
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:play:jugar:shadow",
+          "intended_score": 0.111111,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:play:obra:active",
+          "strongest_competitor_score": 0.05,
+          "margin": 0.061111
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:play:jugar:shadow",
+          "intended_score": 0.07034,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:play:obra:active",
+          "strongest_competitor_score": 0.008337,
+          "margin": 0.062003
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-watch-reloj:active-reverse-aux",
+      "family_id": "en-es:sentence-veto:watch:reloj",
+      "relation_type": "anchor_cue",
+      "evidence_text": "portable or wearable timepiece",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:watch:reloj:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:watch:vigilar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "tfidf_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:watch:reloj:active",
+        "intended_score": 0.173496,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:watch:vigilar:shadow",
+        "strongest_competitor_score": 0.032874,
+        "margin": 0.140622
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:watch:reloj:active",
+          "intended_score": 0.214286,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:watch:vigilar:shadow",
+          "strongest_competitor_score": 0.076923,
+          "margin": 0.137363
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:watch:reloj:active",
+          "intended_score": 0.173496,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:watch:vigilar:shadow",
+          "strongest_competitor_score": 0.032874,
+          "margin": 0.140622
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-watch-reloj:shadow-en-es-sentence-veto-watch-vigilar-shadow-reverse-aux",
+      "family_id": "en-es:sentence-veto:watch:reloj",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "to attend or guard",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:watch:vigilar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:watch:reloj:active"
+      ],
+      "best_result": {
+        "scorer_id": "tfidf_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:watch:vigilar:shadow",
+        "intended_score": 0.333242,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:watch:reloj:active",
+        "strongest_competitor_score": 0.02163,
+        "margin": 0.311613
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:watch:vigilar:shadow",
+          "intended_score": 0.166667,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:watch:reloj:active",
+          "strongest_competitor_score": 0.0625,
+          "margin": 0.104167
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:watch:vigilar:shadow",
+          "intended_score": 0.333242,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:watch:reloj:active",
+          "strongest_competitor_score": 0.02163,
+          "margin": 0.311613
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-check-cheque:active-reverse-aux",
+      "family_id": "en-es:sentence-veto:check:cheque",
+      "relation_type": "anchor_cue",
+      "evidence_text": "mark used as an indicator",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:check:cheque:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:check:revisar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "token_jaccard",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:check:cheque:active",
+        "intended_score": 0.055556,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:check:revisar:shadow",
+        "strongest_competitor_score": 0.0,
+        "margin": 0.055556
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:check:cheque:active",
+          "intended_score": 0.055556,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:check:revisar:shadow",
+          "strongest_competitor_score": 0.0,
+          "margin": 0.055556
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:check:cheque:active",
+          "intended_score": 0.031127,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:check:revisar:shadow",
+          "strongest_competitor_score": 0.0,
+          "margin": 0.031127
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-order-pedido:active-reverse-aux",
+      "family_id": "en-es:sentence-veto:order:pedido",
+      "relation_type": "anchor_cue",
+      "evidence_text": "request for some product or service",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:order:pedido:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:order:ordenar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "tfidf_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:order:pedido:active",
+        "intended_score": 0.111192,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:order:ordenar:shadow",
+        "strongest_competitor_score": 0.069697,
+        "margin": 0.041495
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:order:pedido:active",
+          "intended_score": 0.125,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:order:ordenar:shadow",
+          "strongest_competitor_score": 0.142857,
+          "margin": -0.017857
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:order:pedido:active",
+          "intended_score": 0.111192,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:order:ordenar:shadow",
+          "strongest_competitor_score": 0.069697,
+          "margin": 0.041495
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-order-pedido:shadow-en-es-sentence-veto-order-ordenar-shadow-reverse-aux",
+      "family_id": "en-es:sentence-veto:order:pedido",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "to set in (any) order",
+      "admission_status": "rejected",
+      "reason_code": "weak_intended_similarity",
+      "intended_sense_id": "en-es:sentence-veto:order:ordenar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:order:pedido:active"
+      ],
+      "best_result": {
+        "scorer_id": "tfidf_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:order:ordenar:shadow",
+        "intended_score": 0.034643,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:order:pedido:active",
+        "strongest_competitor_score": 0.061999,
+        "margin": -0.027356
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:order:ordenar:shadow",
+          "intended_score": 0.071429,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:order:pedido:active",
+          "strongest_competitor_score": 0.133333,
+          "margin": -0.061905
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:order:ordenar:shadow",
+          "intended_score": 0.034643,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:order:pedido:active",
+          "strongest_competitor_score": 0.061999,
+          "margin": -0.027356
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-trip-viaje:active-reverse-aux",
+      "family_id": "en-es:sentence-veto:trip:viaje",
+      "relation_type": "anchor_cue",
+      "evidence_text": "journey",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:trip:viaje:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:trip:viaje:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "tfidf_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:trip:viaje:active",
+        "intended_score": 0.425496,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:trip:viaje:shadow",
+        "strongest_competitor_score": 0.0,
+        "margin": 0.425496
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:trip:viaje:active",
+          "intended_score": 0.125,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:trip:viaje:shadow",
+          "strongest_competitor_score": 0.0,
+          "margin": 0.125
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:trip:viaje:active",
+          "intended_score": 0.425496,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:trip:viaje:shadow",
+          "strongest_competitor_score": 0.0,
+          "margin": 0.425496
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-trip-viaje:shadow-en-es-sentence-veto-trip-viaje-shadow-reverse-aux",
+      "family_id": "en-es:sentence-veto:trip:viaje",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "stumble or misstep",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:trip:viaje:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:trip:viaje:active"
+      ],
+      "best_result": {
+        "scorer_id": "tfidf_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:trip:viaje:shadow",
+        "intended_score": 0.219163,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:trip:viaje:active",
+        "strongest_competitor_score": 0.05042,
+        "margin": 0.168743
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:trip:viaje:shadow",
+          "intended_score": 0.181818,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:trip:viaje:active",
+          "strongest_competitor_score": 0.1,
+          "margin": 0.081818
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:trip:viaje:shadow",
+          "intended_score": 0.219163,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:trip:viaje:active",
+          "strongest_competitor_score": 0.05042,
+          "margin": 0.168743
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-report-informe:active-reverse-aux",
+      "family_id": "en-es:sentence-veto:report:informe",
+      "relation_type": "anchor_cue",
+      "evidence_text": "information describing events",
+      "admission_status": "rejected",
+      "reason_code": "competitor_sense_not_lower",
+      "intended_sense_id": "en-es:sentence-veto:report:informe:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:report:informar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "token_jaccard",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:report:informe:active",
+        "intended_score": 0.076923,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:report:informar:shadow",
+        "strongest_competitor_score": 0.1,
+        "margin": -0.023077
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:report:informe:active",
+          "intended_score": 0.076923,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:report:informar:shadow",
+          "strongest_competitor_score": 0.1,
+          "margin": -0.023077
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:report:informe:active",
+          "intended_score": 0.071186,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:report:informar:shadow",
+          "strongest_competitor_score": 0.142498,
+          "margin": -0.071312
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-report-informe:shadow-en-es-sentence-veto-report-informar-shadow-reverse-aux",
+      "family_id": "en-es:sentence-veto:report:informe",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "to relate details of",
+      "admission_status": "rejected",
+      "reason_code": "weak_intended_similarity",
+      "intended_sense_id": "en-es:sentence-veto:report:informar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:report:informe:active"
+      ],
+      "best_result": {
+        "scorer_id": "token_jaccard",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:report:informar:shadow",
+        "intended_score": 0.0,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:report:informe:active",
+        "strongest_competitor_score": 0.0,
+        "margin": 0.0
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:report:informar:shadow",
+          "intended_score": 0.0,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:report:informe:active",
+          "strongest_competitor_score": 0.0,
+          "margin": 0.0
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:report:informar:shadow",
+          "intended_score": 0.0,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:report:informe:active",
+          "strongest_competitor_score": 0.0,
+          "margin": 0.0
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:llm:shadow:en-es-sentence-veto-plant-fabrica-shadow:missing:v1",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "The new plant will assemble batteries around the clock.",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:plant:planta:active"
+      ],
+      "best_result": {
+        "scorer_id": "token_jaccard",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+        "intended_score": 0.066667,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "strongest_competitor_score": 0.052632,
+        "margin": 0.014035
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+          "intended_score": 0.066667,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:plant:planta:active",
+          "strongest_competitor_score": 0.052632,
+          "margin": 0.014035
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+          "intended_score": 0.033868,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:plant:planta:active",
+          "strongest_competitor_score": 0.030562,
+          "margin": 0.003306
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:llm:phrase-control:missing:v1",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "relation_type": "phrase_control_example",
+      "evidence_text": "The plan will plant itself in their minds by morning.",
+      "admission_status": "not_applicable",
+      "reason_code": "phrase_containment_not_semantic_competition",
+      "scorer_results": []
+    },
+    {
+      "row_id": "en-es-sentence-veto-drink-bebida:llm:phrase-control:missing:v1",
+      "family_id": "en-es:sentence-veto:drink:bebida",
+      "relation_type": "phrase_control_example",
+      "evidence_text": "The committee will drink in the details before voting.",
+      "admission_status": "not_applicable",
+      "reason_code": "phrase_containment_not_semantic_competition",
+      "scorer_results": []
+    },
+    {
+      "row_id": "en-es-sentence-veto-check-cheque:llm:shadow:en-es-sentence-veto-check-revisar-shadow:missing:v1",
+      "family_id": "en-es:sentence-veto:check:cheque",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "Please check the wiring before we power up the machine.",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:check:revisar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:check:cheque:active"
+      ],
+      "best_result": {
+        "scorer_id": "token_jaccard",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:check:revisar:shadow",
+        "intended_score": 0.0625,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:check:cheque:active",
+        "strongest_competitor_score": 0.045455,
+        "margin": 0.017045
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:check:revisar:shadow",
+          "intended_score": 0.0625,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:check:cheque:active",
+          "strongest_competitor_score": 0.045455,
+          "margin": 0.017045
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:check:revisar:shadow",
+          "intended_score": 0.023993,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:check:cheque:active",
+          "strongest_competitor_score": 0.02478,
+          "margin": -0.000787
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-check-cheque:llm:phrase-control:missing:v1",
+      "family_id": "en-es:sentence-veto:check:cheque",
+      "relation_type": "phrase_control_example",
+      "evidence_text": "The rain check is still valid for next week.",
+      "admission_status": "not_applicable",
+      "reason_code": "phrase_containment_not_semantic_competition",
+      "scorer_results": []
+    },
+    {
+      "row_id": "en-es-sentence-veto-order-pedido:llm:phrase-control:missing:v1",
+      "family_id": "en-es:sentence-veto:order:pedido",
+      "relation_type": "phrase_control_example",
+      "evidence_text": "in order to keep things simple, we left early",
+      "admission_status": "not_applicable",
+      "reason_code": "phrase_containment_not_semantic_competition",
+      "scorer_results": []
+    },
+    {
+      "row_id": "en-es-sentence-veto-trip-viaje:llm:phrase-control:missing:v1",
+      "family_id": "en-es:sentence-veto:trip:viaje",
+      "relation_type": "phrase_control_example",
+      "evidence_text": "The trip wire snapped before anyone reached the gate.",
+      "admission_status": "not_applicable",
+      "reason_code": "phrase_containment_not_semantic_competition",
+      "scorer_results": []
+    },
+    {
+      "row_id": "en-es-sentence-veto-report-informe:llm:phrase-control:missing:v1",
+      "family_id": "en-es:sentence-veto:report:informe",
+      "relation_type": "phrase_control_example",
+      "evidence_text": "The report card came home with a smiley sticker.",
+      "admission_status": "not_applicable",
+      "reason_code": "phrase_containment_not_semantic_competition",
+      "scorer_results": []
+    },
+    {
+      "row_id": "en-es-sentence-veto-play-obra:llm:active:missing:v1",
+      "family_id": "en-es:sentence-veto:play:obra",
+      "relation_type": "anchor_cue",
+      "evidence_text": "The school staged a play about climate change in the auditorium.",
+      "admission_status": "rejected",
+      "reason_code": "competitor_sense_not_lower",
+      "intended_sense_id": "en-es:sentence-veto:play:obra:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:play:jugar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "token_jaccard",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:play:obra:active",
+        "intended_score": 0.157895,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:play:jugar:shadow",
+        "strongest_competitor_score": 0.166667,
+        "margin": -0.008772
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:play:obra:active",
+          "intended_score": 0.157895,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:play:jugar:shadow",
+          "strongest_competitor_score": 0.166667,
+          "margin": -0.008772
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:play:obra:active",
+          "intended_score": 0.044315,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:play:jugar:shadow",
+          "strongest_competitor_score": 0.057303,
+          "margin": -0.012988
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-play-obra:llm:phrase-control:missing:v1",
+      "family_id": "en-es:sentence-veto:play:obra",
+      "relation_type": "phrase_control_example",
+      "evidence_text": "play it by ear and see how things go",
+      "admission_status": "not_applicable",
+      "reason_code": "phrase_containment_not_semantic_competition",
+      "scorer_results": []
+    },
+    {
+      "row_id": "en-es-sentence-veto-watch-reloj:llm:phrase-control:missing:v1",
+      "family_id": "en-es:sentence-veto:watch:reloj",
+      "relation_type": "phrase_control_example",
+      "evidence_text": "Watch out for the slippery steps near the entrance.",
+      "admission_status": "not_applicable",
+      "reason_code": "phrase_containment_not_semantic_competition",
+      "scorer_results": []
+    },
+    {
+      "row_id": "en-es-sentence-veto-check-cheque:llm:active:missing:v1",
+      "family_id": "en-es:sentence-veto:check:cheque",
+      "relation_type": "anchor_cue",
+      "evidence_text": "She mailed the rent check with the signed lease renewal.",
+      "admission_status": "rejected",
+      "reason_code": "weak_intended_similarity",
+      "intended_sense_id": "en-es:sentence-veto:check:cheque:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:check:revisar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "tfidf_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:check:cheque:active",
+        "intended_score": 0.026106,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:check:revisar:shadow",
+        "strongest_competitor_score": 0.025277,
+        "margin": 0.000829
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:check:cheque:active",
+          "intended_score": 0.045455,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:check:revisar:shadow",
+          "strongest_competitor_score": 0.0625,
+          "margin": -0.017045
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:check:cheque:active",
+          "intended_score": 0.026106,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:check:revisar:shadow",
+          "strongest_competitor_score": 0.025277,
+          "margin": 0.000829
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-order-pedido:llm:active:missing:v1",
+      "family_id": "en-es:sentence-veto:order:pedido",
+      "relation_type": "anchor_cue",
+      "evidence_text": "I placed an order for two laptops and a printer online.",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:order:pedido:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:order:ordenar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "token_jaccard",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:order:pedido:active",
+        "intended_score": 0.15,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:order:ordenar:shadow",
+        "strongest_competitor_score": 0.105263,
+        "margin": 0.044737
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:order:pedido:active",
+          "intended_score": 0.15,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:order:ordenar:shadow",
+          "strongest_competitor_score": 0.105263,
+          "margin": 0.044737
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:order:pedido:active",
+          "intended_score": 0.040492,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:order:ordenar:shadow",
+          "strongest_competitor_score": 0.029173,
+          "margin": 0.011319
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-play-obra:llm:active:missing:v1",
+      "family_id": "en-es:sentence-veto:play:obra",
+      "relation_type": "anchor_cue",
+      "evidence_text": "The school’s winter play opens Friday with a full cast and orchestra.",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:play:obra:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:play:jugar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "token_jaccard",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:play:obra:active",
+        "intended_score": 0.190476,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:play:jugar:shadow",
+        "strongest_competitor_score": 0.142857,
+        "margin": 0.047619
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:play:obra:active",
+          "intended_score": 0.190476,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:play:jugar:shadow",
+          "strongest_competitor_score": 0.142857,
+          "margin": 0.047619
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:play:obra:active",
+          "intended_score": 0.040048,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:play:jugar:shadow",
+          "strongest_competitor_score": 0.043952,
+          "margin": -0.003904
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-report-informe:llm:active:missing:v1",
+      "family_id": "en-es:sentence-veto:report:informe",
+      "relation_type": "anchor_cue",
+      "evidence_text": "The quarterly report summarized sales trends, expenses, and next quarter's projections.",
+      "admission_status": "rejected",
+      "reason_code": "weak_intended_similarity",
+      "intended_sense_id": "en-es:sentence-veto:report:informe:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:report:informar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "tfidf_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:report:informe:active",
+        "intended_score": 0.029304,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:report:informar:shadow",
+        "strongest_competitor_score": 0.02933,
+        "margin": -2.6e-05
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:report:informe:active",
+          "intended_score": 0.1,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:report:informar:shadow",
+          "strongest_competitor_score": 0.117647,
+          "margin": -0.017647
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:report:informe:active",
+          "intended_score": 0.029304,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:report:informar:shadow",
+          "strongest_competitor_score": 0.02933,
+          "margin": -2.6e-05
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-trip-viaje:llm:active:missing:v1",
+      "family_id": "en-es:sentence-veto:trip:viaje",
+      "relation_type": "anchor_cue",
+      "evidence_text": "We planned a quick trip to the coast for lunch.",
+      "admission_status": "rejected",
+      "reason_code": "weak_intended_similarity",
+      "intended_sense_id": "en-es:sentence-veto:trip:viaje:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:trip:viaje:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "tfidf_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:trip:viaje:active",
+        "intended_score": 0.039979,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:trip:viaje:shadow",
+        "strongest_competitor_score": 0.069081,
+        "margin": -0.029102
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:trip:viaje:active",
+          "intended_score": 0.058824,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:trip:viaje:shadow",
+          "strongest_competitor_score": 0.176471,
+          "margin": -0.117647
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:trip:viaje:active",
+          "intended_score": 0.039979,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:trip:viaje:shadow",
+          "strongest_competitor_score": 0.069081,
+          "margin": -0.029102
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-watch-reloj:llm:active:missing:v1",
+      "family_id": "en-es:sentence-veto:watch:reloj",
+      "relation_type": "anchor_cue",
+      "evidence_text": "She checked her watch before boarding the train.",
+      "admission_status": "rejected",
+      "reason_code": "weak_intended_similarity",
+      "intended_sense_id": "en-es:sentence-veto:watch:reloj:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:watch:vigilar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "tfidf_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:watch:reloj:active",
+        "intended_score": 0.041002,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:watch:vigilar:shadow",
+        "strongest_competitor_score": 0.033726,
+        "margin": 0.007276
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:watch:reloj:active",
+          "intended_score": 0.05,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:watch:vigilar:shadow",
+          "strongest_competitor_score": 0.058824,
+          "margin": -0.008824
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:watch:reloj:active",
+          "intended_score": 0.041002,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:watch:vigilar:shadow",
+          "strongest_competitor_score": 0.033726,
+          "margin": 0.007276
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-report-informe:llm:shadow:en-es-sentence-veto-report-informar-shadow:missing:v1",
+      "family_id": "en-es:sentence-veto:report:informe",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "Please report the delay to the manager before noon.",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:report:informar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:report:informe:active"
+      ],
+      "best_result": {
+        "scorer_id": "token_jaccard",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:report:informar:shadow",
+        "intended_score": 0.066667,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:report:informe:active",
+        "strongest_competitor_score": 0.055556,
+        "margin": 0.011111
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:report:informar:shadow",
+          "intended_score": 0.066667,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:report:informe:active",
+          "strongest_competitor_score": 0.055556,
+          "margin": 0.011111
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:report:informar:shadow",
+          "intended_score": 0.027604,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:report:informe:active",
+          "strongest_competitor_score": 0.02758,
+          "margin": 2.4e-05
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-check-cheque:llm:active:remediation-active-002:v1",
+      "family_id": "en-es:sentence-veto:check:cheque",
+      "relation_type": "anchor_cue",
+      "evidence_text": "She mailed the rent check with the signed lease yesterday.",
+      "admission_status": "rejected",
+      "reason_code": "weak_intended_similarity",
+      "intended_sense_id": "en-es:sentence-veto:check:cheque:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:check:revisar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "tfidf_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:check:cheque:active",
+        "intended_score": 0.026106,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:check:revisar:shadow",
+        "strongest_competitor_score": 0.025277,
+        "margin": 0.000829
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:check:cheque:active",
+          "intended_score": 0.045455,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:check:revisar:shadow",
+          "strongest_competitor_score": 0.0625,
+          "margin": -0.017045
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:check:cheque:active",
+          "intended_score": 0.026106,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:check:revisar:shadow",
+          "strongest_competitor_score": 0.025277,
+          "margin": 0.000829
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-order-pedido:llm:active:remediation-active-002:v1",
+      "family_id": "en-es:sentence-veto:order:pedido",
+      "relation_type": "anchor_cue",
+      "evidence_text": "I placed an order for two laptops and extra chargers online.",
+      "admission_status": "rejected",
+      "reason_code": "weak_intended_similarity",
+      "intended_sense_id": "en-es:sentence-veto:order:pedido:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:order:ordenar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "tfidf_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:order:pedido:active",
+        "intended_score": 0.031478,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:order:ordenar:shadow",
+        "strongest_competitor_score": 0.028427,
+        "margin": 0.003051
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:order:pedido:active",
+          "intended_score": 0.095238,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:order:ordenar:shadow",
+          "strongest_competitor_score": 0.105263,
+          "margin": -0.010025
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:order:pedido:active",
+          "intended_score": 0.031478,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:order:ordenar:shadow",
+          "strongest_competitor_score": 0.028427,
+          "margin": 0.003051
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-play-obra:llm:active:remediation-active-001:v1",
+      "family_id": "en-es:sentence-veto:play:obra",
+      "relation_type": "anchor_cue",
+      "evidence_text": "The school play opened to a full house on Friday night.",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:play:obra:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:play:jugar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "token_jaccard",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:play:obra:active",
+        "intended_score": 0.15,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:play:jugar:shadow",
+        "strongest_competitor_score": 0.1,
+        "margin": 0.05
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:play:obra:active",
+          "intended_score": 0.15,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:play:jugar:shadow",
+          "strongest_competitor_score": 0.1,
+          "margin": 0.05
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:play:obra:active",
+          "intended_score": 0.037347,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:play:jugar:shadow",
+          "strongest_competitor_score": 0.041187,
+          "margin": -0.003839
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-report-informe:llm:active:remediation-active-001-002:v1",
+      "family_id": "en-es:sentence-veto:report:informe",
+      "relation_type": "anchor_cue",
+      "evidence_text": "The final report summarized the survey results and recommendations.",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:report:informe:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:report:informar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "token_jaccard",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:report:informe:active",
+        "intended_score": 0.1875,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:report:informar:shadow",
+        "strongest_competitor_score": 0.142857,
+        "margin": 0.044643
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:report:informe:active",
+          "intended_score": 0.1875,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:report:informar:shadow",
+          "strongest_competitor_score": 0.142857,
+          "margin": 0.044643
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:report:informe:active",
+          "intended_score": 0.075244,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:report:informar:shadow",
+          "strongest_competitor_score": 0.03373,
+          "margin": 0.041514
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-report-informe:llm:shadow:en-es-sentence-veto-report-informar-shadow:remediation-shadow-003-004:v1",
+      "family_id": "en-es:sentence-veto:report:informe",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "Please report the delay to the manager before noon.",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:report:informar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:report:informe:active"
+      ],
+      "best_result": {
+        "scorer_id": "token_jaccard",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:report:informar:shadow",
+        "intended_score": 0.066667,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:report:informe:active",
+        "strongest_competitor_score": 0.055556,
+        "margin": 0.011111
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:report:informar:shadow",
+          "intended_score": 0.066667,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:report:informe:active",
+          "strongest_competitor_score": 0.055556,
+          "margin": 0.011111
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:report:informar:shadow",
+          "intended_score": 0.027604,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:report:informe:active",
+          "strongest_competitor_score": 0.02758,
+          "margin": 2.4e-05
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-ball-pelota:llm:shadow:en-es-sentence-veto-ball-baile-shadow:missing:v1",
+      "family_id": "en-es:sentence-veto:ball:pelota",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "They attended the charity ball in evening gowns and tuxedos.",
+      "admission_status": "rejected",
+      "reason_code": "weak_intended_similarity",
+      "intended_sense_id": "en-es:sentence-veto:ball:baile:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:ball:pelota:active"
+      ],
+      "best_result": {
+        "scorer_id": "tfidf_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:ball:baile:shadow",
+        "intended_score": 0.042816,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:ball:pelota:active",
+        "strongest_competitor_score": 0.067414,
+        "margin": -0.024598
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:ball:baile:shadow",
+          "intended_score": 0.058824,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:ball:pelota:active",
+          "strongest_competitor_score": 0.157895,
+          "margin": -0.099071
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:ball:baile:shadow",
+          "intended_score": 0.042816,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:ball:pelota:active",
+          "strongest_competitor_score": 0.067414,
+          "margin": -0.024598
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-bank-banco:llm:active:missing:v1",
+      "family_id": "en-es:sentence-veto:bank:banco",
+      "relation_type": "anchor_cue",
+      "evidence_text": "She deposited her paycheck at the bank before heading home.",
+      "admission_status": "rejected",
+      "reason_code": "competitor_sense_not_lower",
+      "intended_sense_id": "en-es:sentence-veto:bank:banco:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:bank:orilla:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "token_jaccard",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:bank:banco:active",
+        "intended_score": 0.052632,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:bank:orilla:shadow",
+        "strongest_competitor_score": 0.055556,
+        "margin": -0.002924
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:bank:banco:active",
+          "intended_score": 0.052632,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:bank:orilla:shadow",
+          "strongest_competitor_score": 0.055556,
+          "margin": -0.002924
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:bank:banco:active",
+          "intended_score": 0.029254,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:bank:orilla:shadow",
+          "strongest_competitor_score": 0.032656,
+          "margin": -0.003402
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-bank-banco:llm:shadow:en-es-sentence-veto-bank-orilla-shadow:missing:v1",
+      "family_id": "en-es:sentence-veto:bank:banco",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "We sat on the bank watching ducks drift past the reeds.",
+      "admission_status": "rejected",
+      "reason_code": "weak_intended_similarity",
+      "intended_sense_id": "en-es:sentence-veto:bank:orilla:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:bank:banco:active"
+      ],
+      "best_result": {
+        "scorer_id": "tfidf_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:bank:orilla:shadow",
+        "intended_score": 0.030976,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:bank:banco:active",
+        "strongest_competitor_score": 0.027749,
+        "margin": 0.003227
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:bank:orilla:shadow",
+          "intended_score": 0.055556,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:bank:banco:active",
+          "strongest_competitor_score": 0.052632,
+          "margin": 0.002924
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:bank:orilla:shadow",
+          "intended_score": 0.030976,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:bank:banco:active",
+          "strongest_competitor_score": 0.027749,
+          "margin": 0.003227
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:llm:active:missing:v1",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "The microscope revealed a damaged cell dividing rapidly in the tissue sample.",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "tfidf_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.125964,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.062922,
+        "margin": 0.063042
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.222222,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.176471,
+          "margin": 0.045752
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.125964,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.062922,
+          "margin": 0.063042
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:llm:shadow:en-es-sentence-veto-cell-celda-shadow:missing:v1",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "The guard locked him back in his cell after the hearing.",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celula:active"
+      ],
+      "best_result": {
+        "scorer_id": "token_jaccard",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "intended_score": 0.1875,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "strongest_competitor_score": 0.05,
+        "margin": 0.1375
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "intended_score": 0.1875,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "strongest_competitor_score": 0.05,
+          "margin": 0.1375
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "intended_score": 0.093331,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "strongest_competitor_score": 0.034164,
+          "margin": 0.059167
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-spring-primavera:llm:active:missing:v1",
+      "family_id": "en-es:sentence-veto:spring:primavera",
+      "relation_type": "anchor_cue",
+      "evidence_text": "In spring, the cherry trees bloom and the days grow warmer.",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:spring:primavera:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:spring:resorte:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "token_jaccard",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:spring:primavera:active",
+        "intended_score": 0.125,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:spring:resorte:shadow",
+        "strongest_competitor_score": 0.1,
+        "margin": 0.025
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:spring:primavera:active",
+          "intended_score": 0.125,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:spring:resorte:shadow",
+          "strongest_competitor_score": 0.1,
+          "margin": 0.025
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:spring:primavera:active",
+          "intended_score": 0.050583,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:spring:resorte:shadow",
+          "strongest_competitor_score": 0.039393,
+          "margin": 0.01119
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-spring-primavera:llm:shadow:en-es-sentence-veto-spring-resorte-shadow:missing:v1",
+      "family_id": "en-es:sentence-veto:spring:primavera",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "The old mattress had a broken spring poking through the fabric.",
+      "admission_status": "rejected",
+      "reason_code": "weak_intended_similarity",
+      "intended_sense_id": "en-es:sentence-veto:spring:resorte:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:spring:primavera:active"
+      ],
+      "best_result": {
+        "scorer_id": "tfidf_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:spring:resorte:shadow",
+        "intended_score": 0.032723,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:spring:primavera:active",
+        "strongest_competitor_score": 0.03612,
+        "margin": -0.003397
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:spring:resorte:shadow",
+          "intended_score": 0.047619,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:spring:primavera:active",
+          "strongest_competitor_score": 0.058824,
+          "margin": -0.011204
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:spring:resorte:shadow",
+          "intended_score": 0.032723,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:spring:primavera:active",
+          "strongest_competitor_score": 0.03612,
+          "margin": -0.003397
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-seal-sello:llm:active:missing:v1",
+      "family_id": "en-es:sentence-veto:seal:sello",
+      "relation_type": "anchor_cue",
+      "evidence_text": "The clerk pressed the seal onto the notarized certificate.",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:seal:sello:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:seal:foca:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "token_jaccard",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:seal:sello:active",
+        "intended_score": 0.111111,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:seal:foca:shadow",
+        "strongest_competitor_score": 0.066667,
+        "margin": 0.044444
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:seal:sello:active",
+          "intended_score": 0.111111,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:seal:foca:shadow",
+          "strongest_competitor_score": 0.066667,
+          "margin": 0.044444
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:seal:sello:active",
+          "intended_score": 0.08642,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:seal:foca:shadow",
+          "strongest_competitor_score": 0.044327,
+          "margin": 0.042093
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-seal-sello:llm:shadow:en-es-sentence-veto-seal-foca-shadow:missing:v1",
+      "family_id": "en-es:sentence-veto:seal:sello",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "A seal basked on the rocks beside the harbor, watching the waves.",
+      "admission_status": "rejected",
+      "reason_code": "weak_intended_similarity",
+      "intended_sense_id": "en-es:sentence-veto:seal:foca:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:seal:sello:active"
+      ],
+      "best_result": {
+        "scorer_id": "tfidf_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:seal:foca:shadow",
+        "intended_score": 0.038948,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:seal:sello:active",
+        "strongest_competitor_score": 0.041635,
+        "margin": -0.002686
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:seal:foca:shadow",
+          "intended_score": 0.055556,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:seal:sello:active",
+          "strongest_competitor_score": 0.095238,
+          "margin": -0.039683
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:seal:foca:shadow",
+          "intended_score": 0.038948,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:seal:sello:active",
+          "strongest_competitor_score": 0.041635,
+          "margin": -0.002686
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-file-archivo:llm:active:missing:v1",
+      "family_id": "en-es:sentence-veto:file:archivo",
+      "relation_type": "anchor_cue",
+      "evidence_text": "I saved the invoice as a PDF file on my laptop.",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:file:archivo:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:file:lima:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "tfidf_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:file:archivo:active",
+        "intended_score": 0.07583,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:file:lima:shadow",
+        "strongest_competitor_score": 0.043279,
+        "margin": 0.032551
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:file:archivo:active",
+          "intended_score": 0.052632,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:file:lima:shadow",
+          "strongest_competitor_score": 0.090909,
+          "margin": -0.038278
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:file:archivo:active",
+          "intended_score": 0.07583,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:file:lima:shadow",
+          "strongest_competitor_score": 0.043279,
+          "margin": 0.032551
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-match-partido:llm:active:missing:v1",
+      "family_id": "en-es:sentence-veto:match:partido",
+      "relation_type": "anchor_cue",
+      "evidence_text": "The match went into overtime after both teams scored twice.",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:match:partido:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:match:cerilla:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "token_jaccard",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:match:partido:active",
+        "intended_score": 0.05,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:match:cerilla:shadow",
+        "strongest_competitor_score": 0.0,
+        "margin": 0.05
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:match:partido:active",
+          "intended_score": 0.05,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:match:cerilla:shadow",
+          "strongest_competitor_score": 0.0,
+          "margin": 0.05
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:match:partido:active",
+          "intended_score": 0.041379,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:match:cerilla:shadow",
+          "strongest_competitor_score": 0.0,
+          "margin": 0.041379
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-match-partido:llm:shadow:en-es-sentence-veto-match-cerilla-shadow:missing:v1",
+      "family_id": "en-es:sentence-veto:match:partido",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "He struck a match to light the candle.",
+      "admission_status": "rejected",
+      "reason_code": "insufficient_sense_margin",
+      "intended_sense_id": "en-es:sentence-veto:match:cerilla:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:match:partido:active"
+      ],
+      "best_result": {
+        "scorer_id": "token_jaccard",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:match:cerilla:shadow",
+        "intended_score": 0.058824,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:match:partido:active",
+        "strongest_competitor_score": 0.055556,
+        "margin": 0.003268
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:match:cerilla:shadow",
+          "intended_score": 0.058824,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:match:partido:active",
+          "strongest_competitor_score": 0.055556,
+          "margin": 0.003268
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:match:cerilla:shadow",
+          "intended_score": 0.022133,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:match:partido:active",
+          "strongest_competitor_score": 0.049183,
+          "margin": -0.02705
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-board-tablero:llm:active:missing:v1",
+      "family_id": "en-es:sentence-veto:board:tablero",
+      "relation_type": "anchor_cue",
+      "evidence_text": "We spread the cards across the board and started the game.",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:board:tablero:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:board:junta:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "token_jaccard",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:board:tablero:active",
+        "intended_score": 0.157895,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:board:junta:shadow",
+        "strongest_competitor_score": 0.1,
+        "margin": 0.057895
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:board:tablero:active",
+          "intended_score": 0.157895,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:board:junta:shadow",
+          "strongest_competitor_score": 0.1,
+          "margin": 0.057895
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:board:tablero:active",
+          "intended_score": 0.099054,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:board:junta:shadow",
+          "strongest_competitor_score": 0.04139,
+          "margin": 0.057664
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-table-mesa:llm:active:missing:v1",
+      "family_id": "en-es:sentence-veto:table:mesa",
+      "relation_type": "anchor_cue",
+      "evidence_text": "We ate dinner at the table by the window.",
+      "admission_status": "rejected",
+      "reason_code": "weak_intended_similarity",
+      "intended_sense_id": "en-es:sentence-veto:table:mesa:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:table:tabla:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "tfidf_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:table:mesa:active",
+        "intended_score": 0.034892,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:table:tabla:shadow",
+        "strongest_competitor_score": 0.041461,
+        "margin": -0.006569
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:table:mesa:active",
+          "intended_score": 0.05,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:table:tabla:shadow",
+          "strongest_competitor_score": 0.058824,
+          "margin": -0.008824
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:table:mesa:active",
+          "intended_score": 0.034892,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:table:tabla:shadow",
+          "strongest_competitor_score": 0.041461,
+          "margin": -0.006569
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-table-mesa:llm:shadow:en-es-sentence-veto-table-tabla-shadow:missing:v1",
+      "family_id": "en-es:sentence-veto:table:mesa",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "The table lists monthly sales by region and product category.",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:table:tabla:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:table:mesa:active"
+      ],
+      "best_result": {
+        "scorer_id": "token_jaccard",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:table:tabla:shadow",
+        "intended_score": 0.111111,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:table:mesa:active",
+        "strongest_competitor_score": 0.095238,
+        "margin": 0.015873
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:table:tabla:shadow",
+          "intended_score": 0.111111,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:table:mesa:active",
+          "strongest_competitor_score": 0.095238,
+          "margin": 0.015873
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:table:tabla:shadow",
+          "intended_score": 0.05324,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:table:mesa:active",
+          "strongest_competitor_score": 0.044805,
+          "margin": 0.008435
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-branch-sucursal:llm:active:missing:v1",
+      "family_id": "en-es:sentence-veto:branch:sucursal",
+      "relation_type": "anchor_cue",
+      "evidence_text": "She transferred to the downtown branch to handle customer accounts.",
+      "admission_status": "rejected",
+      "reason_code": "weak_intended_similarity",
+      "intended_sense_id": "en-es:sentence-veto:branch:sucursal:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:branch:rama:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "tfidf_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:branch:sucursal:active",
+        "intended_score": 0.035623,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:branch:rama:shadow",
+        "strongest_competitor_score": 0.035804,
+        "margin": -0.000181
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:branch:sucursal:active",
+          "intended_score": 0.052632,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:branch:rama:shadow",
+          "strongest_competitor_score": 0.055556,
+          "margin": -0.002924
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:branch:sucursal:active",
+          "intended_score": 0.035623,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:branch:rama:shadow",
+          "strongest_competitor_score": 0.035804,
+          "margin": -0.000181
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-branch-sucursal:llm:shadow:en-es-sentence-veto-branch-rama-shadow:missing:v1",
+      "family_id": "en-es:sentence-veto:branch:sucursal",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "A heavy branch cracked under the snow and fell into the yard.",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:branch:rama:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:branch:sucursal:active"
+      ],
+      "best_result": {
+        "scorer_id": "token_jaccard",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:branch:rama:shadow",
+        "intended_score": 0.166667,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:branch:sucursal:active",
+        "strongest_competitor_score": 0.1,
+        "margin": 0.066667
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:branch:rama:shadow",
+          "intended_score": 0.166667,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:branch:sucursal:active",
+          "strongest_competitor_score": 0.1,
+          "margin": 0.066667
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:branch:rama:shadow",
+          "intended_score": 0.047309,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:branch:sucursal:active",
+          "strongest_competitor_score": 0.03902,
+          "margin": 0.008289
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-park-parque:llm:active:missing:v1",
+      "family_id": "en-es:sentence-veto:park:parque",
+      "relation_type": "anchor_cue",
+      "evidence_text": "We had a picnic in the park beside the lake after lunch.",
+      "admission_status": "rejected",
+      "reason_code": "weak_intended_similarity",
+      "intended_sense_id": "en-es:sentence-veto:park:parque:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:park:aparcar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "tfidf_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:park:parque:active",
+        "intended_score": 0.036207,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:park:aparcar:shadow",
+        "strongest_competitor_score": 0.067676,
+        "margin": -0.031469
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:park:parque:active",
+          "intended_score": 0.052632,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:park:aparcar:shadow",
+          "strongest_competitor_score": 0.157895,
+          "margin": -0.105263
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:park:parque:active",
+          "intended_score": 0.036207,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:park:aparcar:shadow",
+          "strongest_competitor_score": 0.067676,
+          "margin": -0.031469
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-park-parque:llm:shadow:en-es-sentence-veto-park-aparcar-shadow:missing:v1",
+      "family_id": "en-es:sentence-veto:park:parque",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "I park the car behind the store before lunch.",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:park:aparcar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:park:parque:active"
+      ],
+      "best_result": {
+        "scorer_id": "token_jaccard",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:park:aparcar:shadow",
+        "intended_score": 0.117647,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:park:parque:active",
+        "strongest_competitor_score": 0.0625,
+        "margin": 0.055147
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:park:aparcar:shadow",
+          "intended_score": 0.117647,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:park:parque:active",
+          "strongest_competitor_score": 0.0625,
+          "margin": 0.055147
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:park:aparcar:shadow",
+          "intended_score": 0.078268,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:park:parque:active",
+          "strongest_competitor_score": 0.040503,
+          "margin": 0.037764
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-ball-pelota:manual:active:leakage-safe:v1",
+      "family_id": "en-es:sentence-veto:ball:pelota",
+      "relation_type": "anchor_cue",
+      "evidence_text": "A rubber ball bounced across the kitchen floor.",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:ball:pelota:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:ball:baile:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "token_jaccard",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:ball:pelota:active",
+        "intended_score": 0.052632,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:ball:baile:shadow",
+        "strongest_competitor_score": 0.0,
+        "margin": 0.052632
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:ball:pelota:active",
+          "intended_score": 0.052632,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:ball:baile:shadow",
+          "strongest_competitor_score": 0.0,
+          "margin": 0.052632
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:ball:pelota:active",
+          "intended_score": 0.038244,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:ball:baile:shadow",
+          "strongest_competitor_score": 0.0,
+          "margin": 0.038244
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-file-archivo:manual:shadow:en-es-sentence-veto-file-lima-shadow:leakage-safe:v1",
+      "family_id": "en-es:sentence-veto:file:archivo",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "The carpenter shaped the latch with a coarse file.",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:file:lima:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:file:archivo:active"
+      ],
+      "best_result": {
+        "scorer_id": "token_jaccard",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:file:lima:shadow",
+        "intended_score": 0.166667,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:file:archivo:active",
+        "strongest_competitor_score": 0.0625,
+        "margin": 0.104167
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:file:lima:shadow",
+          "intended_score": 0.166667,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:file:archivo:active",
+          "strongest_competitor_score": 0.0625,
+          "margin": 0.104167
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:file:lima:shadow",
+          "intended_score": 0.111822,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:file:archivo:active",
+          "strongest_competitor_score": 0.08604,
+          "margin": 0.025782
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-board-tablero:manual:shadow:en-es-sentence-veto-board-junta-shadow:leakage-safe:v1",
+      "family_id": "en-es:sentence-veto:board:tablero",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "The board voted to hire a new director.",
+      "admission_status": "rejected",
+      "reason_code": "weak_intended_similarity",
+      "intended_sense_id": "en-es:sentence-veto:board:junta:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:board:tablero:active"
+      ],
+      "best_result": {
+        "scorer_id": "tfidf_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:board:junta:shadow",
+        "intended_score": 0.040934,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:board:tablero:active",
+        "strongest_competitor_score": 0.082322,
+        "margin": -0.041388
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:board:junta:shadow",
+          "intended_score": 0.05,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:board:tablero:active",
+          "strongest_competitor_score": 0.105263,
+          "margin": -0.055263
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:board:junta:shadow",
+          "intended_score": 0.040934,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:board:tablero:active",
+          "strongest_competitor_score": 0.082322,
+          "margin": -0.041388
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:manual:active:leakage-safe:v1",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "relation_type": "anchor_cue",
+      "evidence_text": "A leafy plant grew taller in the clay pot.",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:plant:fabrica:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "token_jaccard",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "intended_score": 0.105263,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+        "strongest_competitor_score": 0.0625,
+        "margin": 0.042763
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+          "intended_score": 0.105263,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+          "strongest_competitor_score": 0.0625,
+          "margin": 0.042763
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+          "intended_score": 0.048605,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+          "strongest_competitor_score": 0.034789,
+          "margin": 0.013817
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:manual:active:leakage-safe-light:v1",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "relation_type": "anchor_cue",
+      "evidence_text": "A potted plant thrives near a bright window.",
+      "admission_status": "rejected",
+      "reason_code": "weak_intended_similarity",
+      "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:plant:fabrica:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "tfidf_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "intended_score": 0.032435,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+        "strongest_competitor_score": 0.035943,
+        "margin": -0.003509
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+          "intended_score": 0.055556,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+          "strongest_competitor_score": 0.071429,
+          "margin": -0.015873
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+          "intended_score": 0.032435,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+          "strongest_competitor_score": 0.035943,
+          "margin": -0.003509
+        }
+      ]
+    }
+  ],
+  "rejected_rows": [
+    {
+      "row_id": "en-es-sentence-veto-order-pedido:shadow-en-es-sentence-veto-order-ordenar-shadow-reverse-aux",
+      "family_id": "en-es:sentence-veto:order:pedido",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "to set in (any) order",
+      "admission_status": "rejected",
+      "reason_code": "weak_intended_similarity",
+      "intended_sense_id": "en-es:sentence-veto:order:ordenar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:order:pedido:active"
+      ],
+      "best_result": {
+        "scorer_id": "tfidf_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:order:ordenar:shadow",
+        "intended_score": 0.034643,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:order:pedido:active",
+        "strongest_competitor_score": 0.061999,
+        "margin": -0.027356
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:order:ordenar:shadow",
+          "intended_score": 0.071429,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:order:pedido:active",
+          "strongest_competitor_score": 0.133333,
+          "margin": -0.061905
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:order:ordenar:shadow",
+          "intended_score": 0.034643,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:order:pedido:active",
+          "strongest_competitor_score": 0.061999,
+          "margin": -0.027356
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-report-informe:active-reverse-aux",
+      "family_id": "en-es:sentence-veto:report:informe",
+      "relation_type": "anchor_cue",
+      "evidence_text": "information describing events",
+      "admission_status": "rejected",
+      "reason_code": "competitor_sense_not_lower",
+      "intended_sense_id": "en-es:sentence-veto:report:informe:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:report:informar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "token_jaccard",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:report:informe:active",
+        "intended_score": 0.076923,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:report:informar:shadow",
+        "strongest_competitor_score": 0.1,
+        "margin": -0.023077
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:report:informe:active",
+          "intended_score": 0.076923,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:report:informar:shadow",
+          "strongest_competitor_score": 0.1,
+          "margin": -0.023077
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:report:informe:active",
+          "intended_score": 0.071186,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:report:informar:shadow",
+          "strongest_competitor_score": 0.142498,
+          "margin": -0.071312
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-report-informe:shadow-en-es-sentence-veto-report-informar-shadow-reverse-aux",
+      "family_id": "en-es:sentence-veto:report:informe",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "to relate details of",
+      "admission_status": "rejected",
+      "reason_code": "weak_intended_similarity",
+      "intended_sense_id": "en-es:sentence-veto:report:informar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:report:informe:active"
+      ],
+      "best_result": {
+        "scorer_id": "token_jaccard",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:report:informar:shadow",
+        "intended_score": 0.0,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:report:informe:active",
+        "strongest_competitor_score": 0.0,
+        "margin": 0.0
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:report:informar:shadow",
+          "intended_score": 0.0,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:report:informe:active",
+          "strongest_competitor_score": 0.0,
+          "margin": 0.0
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:report:informar:shadow",
+          "intended_score": 0.0,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:report:informe:active",
+          "strongest_competitor_score": 0.0,
+          "margin": 0.0
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-play-obra:llm:active:missing:v1",
+      "family_id": "en-es:sentence-veto:play:obra",
+      "relation_type": "anchor_cue",
+      "evidence_text": "The school staged a play about climate change in the auditorium.",
+      "admission_status": "rejected",
+      "reason_code": "competitor_sense_not_lower",
+      "intended_sense_id": "en-es:sentence-veto:play:obra:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:play:jugar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "token_jaccard",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:play:obra:active",
+        "intended_score": 0.157895,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:play:jugar:shadow",
+        "strongest_competitor_score": 0.166667,
+        "margin": -0.008772
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:play:obra:active",
+          "intended_score": 0.157895,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:play:jugar:shadow",
+          "strongest_competitor_score": 0.166667,
+          "margin": -0.008772
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:play:obra:active",
+          "intended_score": 0.044315,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:play:jugar:shadow",
+          "strongest_competitor_score": 0.057303,
+          "margin": -0.012988
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-check-cheque:llm:active:missing:v1",
+      "family_id": "en-es:sentence-veto:check:cheque",
+      "relation_type": "anchor_cue",
+      "evidence_text": "She mailed the rent check with the signed lease renewal.",
+      "admission_status": "rejected",
+      "reason_code": "weak_intended_similarity",
+      "intended_sense_id": "en-es:sentence-veto:check:cheque:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:check:revisar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "tfidf_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:check:cheque:active",
+        "intended_score": 0.026106,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:check:revisar:shadow",
+        "strongest_competitor_score": 0.025277,
+        "margin": 0.000829
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:check:cheque:active",
+          "intended_score": 0.045455,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:check:revisar:shadow",
+          "strongest_competitor_score": 0.0625,
+          "margin": -0.017045
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:check:cheque:active",
+          "intended_score": 0.026106,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:check:revisar:shadow",
+          "strongest_competitor_score": 0.025277,
+          "margin": 0.000829
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-report-informe:llm:active:missing:v1",
+      "family_id": "en-es:sentence-veto:report:informe",
+      "relation_type": "anchor_cue",
+      "evidence_text": "The quarterly report summarized sales trends, expenses, and next quarter's projections.",
+      "admission_status": "rejected",
+      "reason_code": "weak_intended_similarity",
+      "intended_sense_id": "en-es:sentence-veto:report:informe:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:report:informar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "tfidf_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:report:informe:active",
+        "intended_score": 0.029304,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:report:informar:shadow",
+        "strongest_competitor_score": 0.02933,
+        "margin": -2.6e-05
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:report:informe:active",
+          "intended_score": 0.1,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:report:informar:shadow",
+          "strongest_competitor_score": 0.117647,
+          "margin": -0.017647
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:report:informe:active",
+          "intended_score": 0.029304,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:report:informar:shadow",
+          "strongest_competitor_score": 0.02933,
+          "margin": -2.6e-05
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-trip-viaje:llm:active:missing:v1",
+      "family_id": "en-es:sentence-veto:trip:viaje",
+      "relation_type": "anchor_cue",
+      "evidence_text": "We planned a quick trip to the coast for lunch.",
+      "admission_status": "rejected",
+      "reason_code": "weak_intended_similarity",
+      "intended_sense_id": "en-es:sentence-veto:trip:viaje:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:trip:viaje:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "tfidf_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:trip:viaje:active",
+        "intended_score": 0.039979,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:trip:viaje:shadow",
+        "strongest_competitor_score": 0.069081,
+        "margin": -0.029102
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:trip:viaje:active",
+          "intended_score": 0.058824,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:trip:viaje:shadow",
+          "strongest_competitor_score": 0.176471,
+          "margin": -0.117647
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:trip:viaje:active",
+          "intended_score": 0.039979,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:trip:viaje:shadow",
+          "strongest_competitor_score": 0.069081,
+          "margin": -0.029102
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-watch-reloj:llm:active:missing:v1",
+      "family_id": "en-es:sentence-veto:watch:reloj",
+      "relation_type": "anchor_cue",
+      "evidence_text": "She checked her watch before boarding the train.",
+      "admission_status": "rejected",
+      "reason_code": "weak_intended_similarity",
+      "intended_sense_id": "en-es:sentence-veto:watch:reloj:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:watch:vigilar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "tfidf_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:watch:reloj:active",
+        "intended_score": 0.041002,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:watch:vigilar:shadow",
+        "strongest_competitor_score": 0.033726,
+        "margin": 0.007276
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:watch:reloj:active",
+          "intended_score": 0.05,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:watch:vigilar:shadow",
+          "strongest_competitor_score": 0.058824,
+          "margin": -0.008824
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:watch:reloj:active",
+          "intended_score": 0.041002,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:watch:vigilar:shadow",
+          "strongest_competitor_score": 0.033726,
+          "margin": 0.007276
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-check-cheque:llm:active:remediation-active-002:v1",
+      "family_id": "en-es:sentence-veto:check:cheque",
+      "relation_type": "anchor_cue",
+      "evidence_text": "She mailed the rent check with the signed lease yesterday.",
+      "admission_status": "rejected",
+      "reason_code": "weak_intended_similarity",
+      "intended_sense_id": "en-es:sentence-veto:check:cheque:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:check:revisar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "tfidf_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:check:cheque:active",
+        "intended_score": 0.026106,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:check:revisar:shadow",
+        "strongest_competitor_score": 0.025277,
+        "margin": 0.000829
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:check:cheque:active",
+          "intended_score": 0.045455,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:check:revisar:shadow",
+          "strongest_competitor_score": 0.0625,
+          "margin": -0.017045
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:check:cheque:active",
+          "intended_score": 0.026106,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:check:revisar:shadow",
+          "strongest_competitor_score": 0.025277,
+          "margin": 0.000829
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-order-pedido:llm:active:remediation-active-002:v1",
+      "family_id": "en-es:sentence-veto:order:pedido",
+      "relation_type": "anchor_cue",
+      "evidence_text": "I placed an order for two laptops and extra chargers online.",
+      "admission_status": "rejected",
+      "reason_code": "weak_intended_similarity",
+      "intended_sense_id": "en-es:sentence-veto:order:pedido:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:order:ordenar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "tfidf_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:order:pedido:active",
+        "intended_score": 0.031478,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:order:ordenar:shadow",
+        "strongest_competitor_score": 0.028427,
+        "margin": 0.003051
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:order:pedido:active",
+          "intended_score": 0.095238,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:order:ordenar:shadow",
+          "strongest_competitor_score": 0.105263,
+          "margin": -0.010025
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:order:pedido:active",
+          "intended_score": 0.031478,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:order:ordenar:shadow",
+          "strongest_competitor_score": 0.028427,
+          "margin": 0.003051
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-ball-pelota:llm:shadow:en-es-sentence-veto-ball-baile-shadow:missing:v1",
+      "family_id": "en-es:sentence-veto:ball:pelota",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "They attended the charity ball in evening gowns and tuxedos.",
+      "admission_status": "rejected",
+      "reason_code": "weak_intended_similarity",
+      "intended_sense_id": "en-es:sentence-veto:ball:baile:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:ball:pelota:active"
+      ],
+      "best_result": {
+        "scorer_id": "tfidf_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:ball:baile:shadow",
+        "intended_score": 0.042816,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:ball:pelota:active",
+        "strongest_competitor_score": 0.067414,
+        "margin": -0.024598
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:ball:baile:shadow",
+          "intended_score": 0.058824,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:ball:pelota:active",
+          "strongest_competitor_score": 0.157895,
+          "margin": -0.099071
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:ball:baile:shadow",
+          "intended_score": 0.042816,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:ball:pelota:active",
+          "strongest_competitor_score": 0.067414,
+          "margin": -0.024598
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-bank-banco:llm:active:missing:v1",
+      "family_id": "en-es:sentence-veto:bank:banco",
+      "relation_type": "anchor_cue",
+      "evidence_text": "She deposited her paycheck at the bank before heading home.",
+      "admission_status": "rejected",
+      "reason_code": "competitor_sense_not_lower",
+      "intended_sense_id": "en-es:sentence-veto:bank:banco:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:bank:orilla:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "token_jaccard",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:bank:banco:active",
+        "intended_score": 0.052632,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:bank:orilla:shadow",
+        "strongest_competitor_score": 0.055556,
+        "margin": -0.002924
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:bank:banco:active",
+          "intended_score": 0.052632,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:bank:orilla:shadow",
+          "strongest_competitor_score": 0.055556,
+          "margin": -0.002924
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:bank:banco:active",
+          "intended_score": 0.029254,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:bank:orilla:shadow",
+          "strongest_competitor_score": 0.032656,
+          "margin": -0.003402
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-bank-banco:llm:shadow:en-es-sentence-veto-bank-orilla-shadow:missing:v1",
+      "family_id": "en-es:sentence-veto:bank:banco",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "We sat on the bank watching ducks drift past the reeds.",
+      "admission_status": "rejected",
+      "reason_code": "weak_intended_similarity",
+      "intended_sense_id": "en-es:sentence-veto:bank:orilla:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:bank:banco:active"
+      ],
+      "best_result": {
+        "scorer_id": "tfidf_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:bank:orilla:shadow",
+        "intended_score": 0.030976,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:bank:banco:active",
+        "strongest_competitor_score": 0.027749,
+        "margin": 0.003227
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:bank:orilla:shadow",
+          "intended_score": 0.055556,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:bank:banco:active",
+          "strongest_competitor_score": 0.052632,
+          "margin": 0.002924
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:bank:orilla:shadow",
+          "intended_score": 0.030976,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:bank:banco:active",
+          "strongest_competitor_score": 0.027749,
+          "margin": 0.003227
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-spring-primavera:llm:shadow:en-es-sentence-veto-spring-resorte-shadow:missing:v1",
+      "family_id": "en-es:sentence-veto:spring:primavera",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "The old mattress had a broken spring poking through the fabric.",
+      "admission_status": "rejected",
+      "reason_code": "weak_intended_similarity",
+      "intended_sense_id": "en-es:sentence-veto:spring:resorte:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:spring:primavera:active"
+      ],
+      "best_result": {
+        "scorer_id": "tfidf_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:spring:resorte:shadow",
+        "intended_score": 0.032723,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:spring:primavera:active",
+        "strongest_competitor_score": 0.03612,
+        "margin": -0.003397
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:spring:resorte:shadow",
+          "intended_score": 0.047619,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:spring:primavera:active",
+          "strongest_competitor_score": 0.058824,
+          "margin": -0.011204
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:spring:resorte:shadow",
+          "intended_score": 0.032723,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:spring:primavera:active",
+          "strongest_competitor_score": 0.03612,
+          "margin": -0.003397
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-seal-sello:llm:shadow:en-es-sentence-veto-seal-foca-shadow:missing:v1",
+      "family_id": "en-es:sentence-veto:seal:sello",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "A seal basked on the rocks beside the harbor, watching the waves.",
+      "admission_status": "rejected",
+      "reason_code": "weak_intended_similarity",
+      "intended_sense_id": "en-es:sentence-veto:seal:foca:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:seal:sello:active"
+      ],
+      "best_result": {
+        "scorer_id": "tfidf_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:seal:foca:shadow",
+        "intended_score": 0.038948,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:seal:sello:active",
+        "strongest_competitor_score": 0.041635,
+        "margin": -0.002686
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:seal:foca:shadow",
+          "intended_score": 0.055556,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:seal:sello:active",
+          "strongest_competitor_score": 0.095238,
+          "margin": -0.039683
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:seal:foca:shadow",
+          "intended_score": 0.038948,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:seal:sello:active",
+          "strongest_competitor_score": 0.041635,
+          "margin": -0.002686
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-match-partido:llm:shadow:en-es-sentence-veto-match-cerilla-shadow:missing:v1",
+      "family_id": "en-es:sentence-veto:match:partido",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "He struck a match to light the candle.",
+      "admission_status": "rejected",
+      "reason_code": "insufficient_sense_margin",
+      "intended_sense_id": "en-es:sentence-veto:match:cerilla:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:match:partido:active"
+      ],
+      "best_result": {
+        "scorer_id": "token_jaccard",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:match:cerilla:shadow",
+        "intended_score": 0.058824,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:match:partido:active",
+        "strongest_competitor_score": 0.055556,
+        "margin": 0.003268
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:match:cerilla:shadow",
+          "intended_score": 0.058824,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:match:partido:active",
+          "strongest_competitor_score": 0.055556,
+          "margin": 0.003268
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:match:cerilla:shadow",
+          "intended_score": 0.022133,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:match:partido:active",
+          "strongest_competitor_score": 0.049183,
+          "margin": -0.02705
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-table-mesa:llm:active:missing:v1",
+      "family_id": "en-es:sentence-veto:table:mesa",
+      "relation_type": "anchor_cue",
+      "evidence_text": "We ate dinner at the table by the window.",
+      "admission_status": "rejected",
+      "reason_code": "weak_intended_similarity",
+      "intended_sense_id": "en-es:sentence-veto:table:mesa:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:table:tabla:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "tfidf_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:table:mesa:active",
+        "intended_score": 0.034892,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:table:tabla:shadow",
+        "strongest_competitor_score": 0.041461,
+        "margin": -0.006569
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:table:mesa:active",
+          "intended_score": 0.05,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:table:tabla:shadow",
+          "strongest_competitor_score": 0.058824,
+          "margin": -0.008824
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:table:mesa:active",
+          "intended_score": 0.034892,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:table:tabla:shadow",
+          "strongest_competitor_score": 0.041461,
+          "margin": -0.006569
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-branch-sucursal:llm:active:missing:v1",
+      "family_id": "en-es:sentence-veto:branch:sucursal",
+      "relation_type": "anchor_cue",
+      "evidence_text": "She transferred to the downtown branch to handle customer accounts.",
+      "admission_status": "rejected",
+      "reason_code": "weak_intended_similarity",
+      "intended_sense_id": "en-es:sentence-veto:branch:sucursal:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:branch:rama:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "tfidf_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:branch:sucursal:active",
+        "intended_score": 0.035623,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:branch:rama:shadow",
+        "strongest_competitor_score": 0.035804,
+        "margin": -0.000181
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:branch:sucursal:active",
+          "intended_score": 0.052632,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:branch:rama:shadow",
+          "strongest_competitor_score": 0.055556,
+          "margin": -0.002924
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:branch:sucursal:active",
+          "intended_score": 0.035623,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:branch:rama:shadow",
+          "strongest_competitor_score": 0.035804,
+          "margin": -0.000181
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-park-parque:llm:active:missing:v1",
+      "family_id": "en-es:sentence-veto:park:parque",
+      "relation_type": "anchor_cue",
+      "evidence_text": "We had a picnic in the park beside the lake after lunch.",
+      "admission_status": "rejected",
+      "reason_code": "weak_intended_similarity",
+      "intended_sense_id": "en-es:sentence-veto:park:parque:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:park:aparcar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "tfidf_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:park:parque:active",
+        "intended_score": 0.036207,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:park:aparcar:shadow",
+        "strongest_competitor_score": 0.067676,
+        "margin": -0.031469
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:park:parque:active",
+          "intended_score": 0.052632,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:park:aparcar:shadow",
+          "strongest_competitor_score": 0.157895,
+          "margin": -0.105263
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:park:parque:active",
+          "intended_score": 0.036207,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:park:aparcar:shadow",
+          "strongest_competitor_score": 0.067676,
+          "margin": -0.031469
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-board-tablero:manual:shadow:en-es-sentence-veto-board-junta-shadow:leakage-safe:v1",
+      "family_id": "en-es:sentence-veto:board:tablero",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "The board voted to hire a new director.",
+      "admission_status": "rejected",
+      "reason_code": "weak_intended_similarity",
+      "intended_sense_id": "en-es:sentence-veto:board:junta:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:board:tablero:active"
+      ],
+      "best_result": {
+        "scorer_id": "tfidf_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:board:junta:shadow",
+        "intended_score": 0.040934,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:board:tablero:active",
+        "strongest_competitor_score": 0.082322,
+        "margin": -0.041388
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:board:junta:shadow",
+          "intended_score": 0.05,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:board:tablero:active",
+          "strongest_competitor_score": 0.105263,
+          "margin": -0.055263
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:board:junta:shadow",
+          "intended_score": 0.040934,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:board:tablero:active",
+          "strongest_competitor_score": 0.082322,
+          "margin": -0.041388
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:manual:active:leakage-safe-light:v1",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "relation_type": "anchor_cue",
+      "evidence_text": "A potted plant thrives near a bright window.",
+      "admission_status": "rejected",
+      "reason_code": "weak_intended_similarity",
+      "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:plant:fabrica:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "tfidf_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "intended_score": 0.032435,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+        "strongest_competitor_score": 0.035943,
+        "margin": -0.003509
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "token_jaccard",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+          "intended_score": 0.055556,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+          "strongest_competitor_score": 0.071429,
+          "margin": -0.015873
+        },
+        {
+          "scorer_id": "tfidf_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+          "intended_score": 0.032435,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+          "strongest_competitor_score": 0.035943,
+          "margin": -0.003509
+        }
+      ]
+    }
+  ],
+  "recommendation": "Use the admitted batch only as an analysis artifact. Replace or quarantine rejected active/shadow rows before any promotion-candidate merge."
+}

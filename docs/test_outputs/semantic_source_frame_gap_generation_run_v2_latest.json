@@ -1,0 +1,146 @@
+{
+  "schema_version": 1,
+  "status": "ok",
+  "pair": "en-es",
+  "generated_at": "2026-04-28T21:08:55Z",
+  "execution_mode": "live",
+  "replay_source": "",
+  "batch_id": "en-es:example-frame-missing-rows:source-frame-gap-v2-20260429a",
+  "source_id": "llm_aligned_sentence_frame_rows",
+  "prompt_version": "aligned-sentence-frame-v2",
+  "selected_model_id": "gpt-5.4-mini",
+  "selected_temperature": 0.2,
+  "summary": {
+    "selected_request_count": 5,
+    "accepted_item_count": 5,
+    "api_error_count": 0,
+    "invalid_output_count": 0,
+    "normalized_row_count": 5,
+    "input_tokens": 1947,
+    "output_tokens": 184,
+    "reasoning_tokens": 0
+  },
+  "artifacts": {
+    "journal_jsonl": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v2-20260429a_journal.jsonl",
+    "raw_response_bundle_json": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v2-20260429a_raw_responses.json",
+    "intake_batch_json": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v2-20260429a_intake_batch.json",
+    "normalized_batch_json": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v2-20260429a_normalized_evidence.json"
+  },
+  "request_rows": [
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-board-tablero:en-es-sentence-veto-board-junta-shadow:candidate-01",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:board:tablero",
+      "trigger": "board",
+      "active_target": "tablero",
+      "candidate_target": "junta",
+      "status": "accepted",
+      "response_id": "resp_0d7ae5e4e612b31b0169f121e8271c8195b5a98719b6841a00",
+      "evidence_text": "The hospital board reviewed the surgeon's budget proposal before voting on staffing cuts.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v2-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-board-tablero:en-es-sentence-veto-board-junta-shadow:candidate-01",
+      "usage": {
+        "input_tokens": 393,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 37,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 430
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-board-tablero:en-es-sentence-veto-board-junta-shadow:candidate-02",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:board:tablero",
+      "trigger": "board",
+      "active_target": "tablero",
+      "candidate_target": "junta",
+      "status": "accepted",
+      "response_id": "resp_0590e52a1754f8060169f121e961b881909994bf1c61290c70",
+      "evidence_text": "At Monday's meeting, the board approved the merger after reviewing the audit report.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v2-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-board-tablero:en-es-sentence-veto-board-junta-shadow:candidate-02",
+      "usage": {
+        "input_tokens": 390,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 38,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 428
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-board-tablero:en-es-sentence-veto-board-junta-shadow:candidate-03",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:board:tablero",
+      "trigger": "board",
+      "active_target": "tablero",
+      "candidate_target": "junta",
+      "status": "accepted",
+      "response_id": "resp_007565d02d5543230169f121ea7f3c8195877147ff8f34f19b",
+      "evidence_text": "After the compliance breach, the board ordered an independent audit and new controls.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v2-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-board-tablero:en-es-sentence-veto-board-junta-shadow:candidate-03",
+      "usage": {
+        "input_tokens": 387,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 37,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 424
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-board-tablero:en-es-sentence-veto-board-junta-shadow:candidate-04",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:board:tablero",
+      "trigger": "board",
+      "active_target": "tablero",
+      "candidate_target": "junta",
+      "status": "accepted",
+      "response_id": "resp_08ad99ab79fb7b0e0169f121eb707c8197906f7dd00f41d57a",
+      "evidence_text": "The CEO asked the board to approve the merger before Friday.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v2-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-board-tablero:en-es-sentence-veto-board-junta-shadow:candidate-04",
+      "usage": {
+        "input_tokens": 388,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 34,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 422
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-board-tablero:en-es-sentence-veto-board-junta-shadow:candidate-05",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:board:tablero",
+      "trigger": "board",
+      "active_target": "tablero",
+      "candidate_target": "junta",
+      "status": "accepted",
+      "response_id": "resp_0a24c758fb2cc6fa0169f121ed4654819383142e5f52ad9d31",
+      "evidence_text": "After the audit, the board approved the merger and appointed a new chief executive.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v2-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-board-tablero:en-es-sentence-veto-board-junta-shadow:candidate-05",
+      "usage": {
+        "input_tokens": 389,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 38,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 427
+      }
+    }
+  ]
+}

@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "matrix_id": "en_es_semantic_decision_suite_confirmation_v1",
+  "description": "No-spend confirmation matrix for selected active-vs-shadow decision families across frozen v10 plus locked held-out active/shadow and phrase/no-winner suites. Source evidence is borrowed from the fixed v10 base dataset; held-out suite rows provide only fresh browser sentences and gold decisions.",
+  "include_case_results": true,
+  "dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v10.json",
+  "evaluation_suites": [
+    {
+      "suite_id": "frozen_v10",
+      "suite_role": "frozen_current",
+      "dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v10.json"
+    },
+    {
+      "suite_id": "source_heldout_v2",
+      "suite_role": "locked_active_shadow",
+      "base_dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v10.json",
+      "case_dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_source_heldout_cases_v2.json"
+    },
+    {
+      "suite_id": "phrase_heldout_v2",
+      "suite_role": "locked_phrase_no_winner",
+      "base_dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v10.json",
+      "case_dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_source_phrase_heldout_cases_v2.json"
+    },
+    {
+      "suite_id": "phrase_challenge_v1",
+      "suite_role": "locked_phrase_challenge",
+      "base_dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v10.json",
+      "case_dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_source_phrase_challenge_cases_v1.json"
+    }
+  ],
+  "defaults": {
+    "scorer_id": "tfidf_cosine",
+    "context_view": "masked_sentence",
+    "sense_representation": "all_evidence_text",
+    "aggregation_rule": "single_concatenated_text",
+    "phrase_handling": "phrase_override",
+    "window_tokens": 4,
+    "mask_token": "___",
+    "min_active_score": 0.0,
+    "min_margin": 0.0,
+    "ratio_threshold": 1.0,
+    "softmax_threshold": 0.5,
+    "softmax_temperature": 8.0,
+    "pairwise_min_win_rate": 0.75,
+    "top_k": 2,
+    "phrase_guard_pos_scope": "family_all",
+    "evidence_control": "normal",
+    "split_modulo": 4,
+    "locked_eval_remainders": [
+      0
+    ]
+  },
+  "rows": [
+    {
+      "config_id": "suite_control_margin_a005_m0",
+      "label": "Current fixed scalar control under suite confirmation",
+      "category": "suite_confirmation",
+      "algorithm_family": "control_margin",
+      "is_control": true,
+      "decision_rule": "active_minus_strongest_shadow",
+      "min_active_score": 0.05,
+      "min_margin": 0.0
+    },
+    {
+      "config_id": "suite_margin_a002_m0",
+      "label": "Margin lower active threshold candidate",
+      "category": "suite_confirmation",
+      "algorithm_family": "margin",
+      "decision_rule": "active_minus_strongest_shadow",
+      "min_active_score": 0.02,
+      "min_margin": 0.0
+    },
+    {
+      "config_id": "suite_margin_a005_m0",
+      "label": "Margin family best zero-harm bakeoff candidate",
+      "category": "suite_confirmation",
+      "algorithm_family": "margin",
+      "decision_rule": "active_minus_strongest_shadow",
+      "min_active_score": 0.05,
+      "min_margin": 0.0
+    },
+    {
+      "config_id": "suite_ratio_a005_r1",
+      "label": "Ratio family best zero-harm bakeoff candidate",
+      "category": "suite_confirmation",
+      "algorithm_family": "ratio",
+      "decision_rule": "active_ratio_strongest_shadow",
+      "min_active_score": 0.05,
+      "ratio_threshold": 1.0
+    },
+    {
+      "config_id": "suite_softmax_a005_p052_t12",
+      "label": "Softmax family best zero-harm bakeoff candidate",
+      "category": "suite_confirmation",
+      "algorithm_family": "softmax_probability",
+      "decision_rule": "softmax_probability",
+      "min_active_score": 0.05,
+      "softmax_threshold": 0.52,
+      "softmax_temperature": 12.0
+    },
+    {
+      "config_id": "suite_pairwise_all_a005_m0",
+      "label": "Pairwise-all best zero-harm bakeoff candidate",
+      "category": "suite_confirmation",
+      "algorithm_family": "pairwise_all",
+      "decision_rule": "pairwise_active_beats_all_shadows",
+      "min_active_score": 0.05,
+      "min_margin": 0.0
+    },
+    {
+      "config_id": "suite_pairwise_most_a005_m0005_w05",
+      "label": "Pairwise-most best zero-harm bakeoff candidate",
+      "category": "suite_confirmation",
+      "algorithm_family": "pairwise_most",
+      "decision_rule": "pairwise_active_beats_most_shadows",
+      "min_active_score": 0.05,
+      "min_margin": 0.005,
+      "pairwise_min_win_rate": 0.5
+    }
+  ]
+}

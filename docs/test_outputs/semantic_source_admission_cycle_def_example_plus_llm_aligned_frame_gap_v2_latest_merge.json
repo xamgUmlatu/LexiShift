@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-04-28T21:09:19Z",
+  "status": "ok",
+  "batch_id": "en-es:example-frame-composite:def-example-plus-llm-aligned-source-frame-gap-v2-20260429a",
+  "source_id": "def_example_plus_llm_aligned_sentence_frame_rows_v2",
+  "summary": {
+    "component_count": 2,
+    "row_count": 126,
+    "family_count": 19,
+    "relation_counts": {
+      "anchor_cue": 62,
+      "shadow_candidate": 64
+    }
+  },
+  "component_batches": [
+    {
+      "component_index": 1,
+      "batch_id": "en-es:example-frame-composite:def-example-plus-llm-aligned-source-frame-gap-v1-20260429a:sense-admitted",
+      "source_id": "def_example_plus_llm_aligned_sentence_frame_rows",
+      "source_type": "internal",
+      "source_family": "internal_rulegen_artifact",
+      "input_row_count": 123,
+      "accepted_row_count": 123,
+      "duplicate_row_count": 0
+    },
+    {
+      "component_index": 2,
+      "batch_id": "en-es:example-frame-missing-rows:source-frame-gap-v2-20260429a:filtered",
+      "source_id": "llm_aligned_sentence_frame_rows",
+      "source_type": "llm",
+      "source_family": "silver_llm_generation",
+      "input_row_count": 3,
+      "accepted_row_count": 3,
+      "duplicate_row_count": 0
+    }
+  ]
+}

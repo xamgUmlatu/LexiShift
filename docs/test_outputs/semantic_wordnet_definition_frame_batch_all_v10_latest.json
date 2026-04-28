@@ -1,0 +1,849 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-04-25T01:43:14Z",
+  "status": "ok",
+  "pair": "en-es",
+  "queue_id": "semantic_prompt_bakeoff_en_es_v10",
+  "dataset_id": "en_es_sentence_veto_v10",
+  "run_id": "wordnet-definition-frames-all-v10-20260425a",
+  "source_scope": "all_dataset_families",
+  "batch_id": "en-es:wordnet-example-frames:wordnet-definition-frames-all-v10-20260425a",
+  "source_type": "external",
+  "source_id": "wordnet_example_frames",
+  "source_family": "external_sense_graph",
+  "resource_status": {
+    "data_root": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift",
+    "wordnet_dir": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/english-wordnet-2025-json",
+    "wordnet_dir_exists": true,
+    "wordnet_source_file_count": 72,
+    "wordnet_entry_count": 127311,
+    "wordnet_synset_count": 107519,
+    "missing_resources": []
+  },
+  "summary": {
+    "queue_family_count": 8,
+    "source_family_count": 19,
+    "target_family_count": 19,
+    "row_count": 34,
+    "families_with_active_wordnet": 18,
+    "families_with_shadow_wordnet": 16,
+    "target_families_with_active_wordnet": 18,
+    "target_families_with_shadow_wordnet": 16,
+    "families_with_phrase_control_examples": 0,
+    "missing_active_family_keys": [
+      "en-es:sentence-veto:match:partido"
+    ],
+    "missing_shadow_family_keys": [
+      "en-es:sentence-veto:spring:primavera",
+      "en-es:sentence-veto:match:partido",
+      "en-es:sentence-veto:board:tablero"
+    ],
+    "min_link_score": 0.12,
+    "evidence_mode": "definition_preferred"
+  },
+  "family_rows": [
+    {
+      "family_id": "en-es:sentence-veto:ball:pelota",
+      "trigger": "ball",
+      "active_target": "pelota",
+      "role": "target",
+      "active_wordnet_count": 1,
+      "shadow_wordnet_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:ball:pelota:active",
+          "target_lemma": "pelota",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_wordnet_sense_id": "ball%1:06:02::",
+          "best_wordnet_synset_id": "02782458-n",
+          "best_link_score": 0.4,
+          "best_overlap": [
+            "object",
+            "play",
+            "spherical",
+            "used"
+          ],
+          "candidate_count": 3
+        },
+        {
+          "sense_id": "en-es:sentence-veto:ball:baile:shadow",
+          "target_lemma": "baile",
+          "canonical_pos": "noun",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_wordnet_sense_id": "ball%1:11:00::",
+          "best_wordnet_synset_id": "07463485-n",
+          "best_link_score": 0.2222,
+          "best_overlap": [
+            "dance",
+            "formal"
+          ],
+          "candidate_count": 1
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:bank:banco",
+      "trigger": "bank",
+      "active_target": "banco",
+      "role": "target",
+      "active_wordnet_count": 1,
+      "shadow_wordnet_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:bank:banco:active",
+          "target_lemma": "banco",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_wordnet_sense_id": "bank%1:14:00::",
+          "best_wordnet_synset_id": "08437235-n",
+          "best_link_score": 0.4,
+          "best_overlap": [
+            "financial",
+            "institution",
+            "lend",
+            "money"
+          ],
+          "candidate_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:bank:orilla:shadow",
+          "target_lemma": "orilla",
+          "canonical_pos": "noun",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_wordnet_sense_id": "bank%1:17:01::",
+          "best_wordnet_synset_id": "09236472-n",
+          "best_link_score": 0.1429,
+          "best_overlap": [
+            "river"
+          ],
+          "candidate_count": 1
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "trigger": "plant",
+      "active_target": "planta",
+      "role": "target",
+      "active_wordnet_count": 1,
+      "shadow_wordnet_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:plant:planta:active",
+          "target_lemma": "planta",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_wordnet_sense_id": "plant%1:03:00::",
+          "best_wordnet_synset_id": "00017402-n",
+          "best_link_score": 0.2,
+          "best_overlap": [
+            "liv",
+            "organism"
+          ],
+          "candidate_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+          "target_lemma": "fábrica",
+          "canonical_pos": "noun",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_wordnet_sense_id": "plant%1:06:01::",
+          "best_wordnet_synset_id": "03963198-n",
+          "best_link_score": 0.1429,
+          "best_overlap": [
+            "industrial"
+          ],
+          "candidate_count": 1
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "trigger": "cell",
+      "active_target": "célula",
+      "role": "target",
+      "active_wordnet_count": 1,
+      "shadow_wordnet_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:cell:celula:active",
+          "target_lemma": "célula",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_wordnet_sense_id": "cell%1:03:00::",
+          "best_wordnet_synset_id": "00006484-n",
+          "best_link_score": 0.3,
+          "best_overlap": [
+            "biology",
+            "organism",
+            "unit"
+          ],
+          "candidate_count": 3
+        },
+        {
+          "sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "target_lemma": "celda",
+          "canonical_pos": "noun",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_wordnet_sense_id": "cell%1:06:01::",
+          "best_wordnet_synset_id": "02994757-n",
+          "best_link_score": 0.5,
+          "best_overlap": [
+            "jail",
+            "prison",
+            "prisoner",
+            "room"
+          ],
+          "candidate_count": 5
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:spring:primavera",
+      "trigger": "spring",
+      "active_target": "primavera",
+      "role": "target",
+      "active_wordnet_count": 1,
+      "shadow_wordnet_count": 0,
+      "phrase_control_example_count": 0,
+      "row_count": 1,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:spring:primavera:active",
+          "target_lemma": "primavera",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_wordnet_sense_id": "spring%1:28:00::",
+          "best_wordnet_synset_id": "15261841-n",
+          "best_link_score": 0.2222,
+          "best_overlap": [
+            "season",
+            "year"
+          ],
+          "candidate_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:spring:resorte:shadow",
+          "target_lemma": "resorte",
+          "canonical_pos": "noun",
+          "relation_type": "shadow_candidate",
+          "linked": false,
+          "best_wordnet_sense_id": "",
+          "best_wordnet_synset_id": "",
+          "best_link_score": 0.0,
+          "best_overlap": [],
+          "candidate_count": 0
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:seal:sello",
+      "trigger": "seal",
+      "active_target": "sello",
+      "role": "target",
+      "active_wordnet_count": 1,
+      "shadow_wordnet_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:seal:sello:active",
+          "target_lemma": "sello",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_wordnet_sense_id": "seal%1:06:01::",
+          "best_wordnet_synset_id": "04167097-n",
+          "best_link_score": 0.3,
+          "best_overlap": [
+            "document",
+            "used",
+            "wax"
+          ],
+          "candidate_count": 3
+        },
+        {
+          "sense_id": "en-es:sentence-veto:seal:foca:shadow",
+          "target_lemma": "foca",
+          "canonical_pos": "noun",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_wordnet_sense_id": "seal%1:05:00::",
+          "best_wordnet_synset_id": "02078848-n",
+          "best_link_score": 0.2222,
+          "best_overlap": [
+            "mammal",
+            "marine"
+          ],
+          "candidate_count": 1
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:file:archivo",
+      "trigger": "file",
+      "active_target": "archivo",
+      "role": "target",
+      "active_wordnet_count": 1,
+      "shadow_wordnet_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:file:archivo:active",
+          "target_lemma": "archivo",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_wordnet_sense_id": "file%1:10:00::",
+          "best_wordnet_synset_id": "06520807-n",
+          "best_link_score": 0.125,
+          "best_overlap": [
+            "data"
+          ],
+          "candidate_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:file:lima:shadow",
+          "target_lemma": "lima",
+          "canonical_pos": "noun",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_wordnet_sense_id": "file%1:06:00::",
+          "best_wordnet_synset_id": "03341784-n",
+          "best_link_score": 0.3,
+          "best_overlap": [
+            "metal",
+            "smooth",
+            "tool"
+          ],
+          "candidate_count": 1
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:match:partido",
+      "trigger": "match",
+      "active_target": "partido",
+      "role": "target",
+      "active_wordnet_count": 0,
+      "shadow_wordnet_count": 0,
+      "phrase_control_example_count": 0,
+      "row_count": 0,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:match:partido:active",
+          "target_lemma": "partido",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": false,
+          "best_wordnet_sense_id": "",
+          "best_wordnet_synset_id": "",
+          "best_link_score": 0.0,
+          "best_overlap": [],
+          "candidate_count": 0
+        },
+        {
+          "sense_id": "en-es:sentence-veto:match:cerilla:shadow",
+          "target_lemma": "cerilla",
+          "canonical_pos": "noun",
+          "relation_type": "shadow_candidate",
+          "linked": false,
+          "best_wordnet_sense_id": "",
+          "best_wordnet_synset_id": "",
+          "best_link_score": 0.0,
+          "best_overlap": [],
+          "candidate_count": 0
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:board:tablero",
+      "trigger": "board",
+      "active_target": "tablero",
+      "role": "target",
+      "active_wordnet_count": 1,
+      "shadow_wordnet_count": 0,
+      "phrase_control_example_count": 0,
+      "row_count": 1,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:board:tablero:active",
+          "target_lemma": "tablero",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_wordnet_sense_id": "board%1:06:02::",
+          "best_wordnet_synset_id": "03102791-n",
+          "best_link_score": 0.3,
+          "best_overlap": [
+            "flat",
+            "panel",
+            "surface"
+          ],
+          "candidate_count": 3
+        },
+        {
+          "sense_id": "en-es:sentence-veto:board:junta:shadow",
+          "target_lemma": "junta",
+          "canonical_pos": "noun",
+          "relation_type": "shadow_candidate",
+          "linked": false,
+          "best_wordnet_sense_id": "",
+          "best_wordnet_synset_id": "",
+          "best_link_score": 0.0,
+          "best_overlap": [],
+          "candidate_count": 0
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:table:mesa",
+      "trigger": "table",
+      "active_target": "mesa",
+      "role": "target",
+      "active_wordnet_count": 1,
+      "shadow_wordnet_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:table:mesa:active",
+          "target_lemma": "mesa",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_wordnet_sense_id": "table%1:06:01::",
+          "best_wordnet_synset_id": "04386330-n",
+          "best_link_score": 0.5,
+          "best_overlap": [
+            "flat",
+            "furniture",
+            "leg",
+            "piece",
+            "top"
+          ],
+          "candidate_count": 3
+        },
+        {
+          "sense_id": "en-es:sentence-veto:table:tabla:shadow",
+          "target_lemma": "tabla",
+          "canonical_pos": "noun",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_wordnet_sense_id": "table%1:14:00::",
+          "best_wordnet_synset_id": "08283156-n",
+          "best_link_score": 0.3333,
+          "best_overlap": [
+            "column",
+            "data",
+            "row"
+          ],
+          "candidate_count": 1
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:branch:sucursal",
+      "trigger": "branch",
+      "active_target": "sucursal",
+      "role": "target",
+      "active_wordnet_count": 1,
+      "shadow_wordnet_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:branch:sucursal:active",
+          "target_lemma": "sucursal",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_wordnet_sense_id": "branch%1:14:00::",
+          "best_wordnet_synset_id": "08418205-n",
+          "best_link_score": 0.25,
+          "best_overlap": [
+            "division",
+            "organization"
+          ],
+          "candidate_count": 2
+        },
+        {
+          "sense_id": "en-es:sentence-veto:branch:rama:shadow",
+          "target_lemma": "rama",
+          "canonical_pos": "noun",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_wordnet_sense_id": "branch%1:06:00::",
+          "best_wordnet_synset_id": "02740838-n",
+          "best_link_score": 0.125,
+          "best_overlap": [
+            "limb"
+          ],
+          "candidate_count": 1
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:park:parque",
+      "trigger": "park",
+      "active_target": "parque",
+      "role": "target",
+      "active_wordnet_count": 1,
+      "shadow_wordnet_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:park:parque:active",
+          "target_lemma": "parque",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_wordnet_sense_id": "park%1:15:01::",
+          "best_wordnet_synset_id": "08632949-n",
+          "best_link_score": 0.125,
+          "best_overlap": [
+            "green"
+          ],
+          "candidate_count": 2
+        },
+        {
+          "sense_id": "en-es:sentence-veto:park:aparcar:shadow",
+          "target_lemma": "aparcar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_wordnet_sense_id": "park%2:35:00::",
+          "best_wordnet_synset_id": "01496037-v",
+          "best_link_score": 0.375,
+          "best_overlap": [
+            "car",
+            "place",
+            "temporarily"
+          ],
+          "candidate_count": 2
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:drink:bebida",
+      "trigger": "drink",
+      "active_target": "bebida",
+      "role": "target",
+      "active_wordnet_count": 1,
+      "shadow_wordnet_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:drink:bebida:active",
+          "target_lemma": "bebida",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_wordnet_sense_id": "drink%1:13:00::",
+          "best_wordnet_synset_id": "07897775-n",
+          "best_link_score": 0.3333,
+          "best_overlap": [
+            "beverage",
+            "liquid"
+          ],
+          "candidate_count": 3
+        },
+        {
+          "sense_id": "en-es:sentence-veto:drink:beber:shadow",
+          "target_lemma": "beber",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_wordnet_sense_id": "drink%2:34:01::",
+          "best_wordnet_synset_id": "01173463-v",
+          "best_link_score": 0.1429,
+          "best_overlap": [
+            "consume"
+          ],
+          "candidate_count": 2
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:play:obra",
+      "trigger": "play",
+      "active_target": "obra",
+      "role": "target",
+      "active_wordnet_count": 1,
+      "shadow_wordnet_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:play:obra:active",
+          "target_lemma": "obra",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_wordnet_sense_id": "play%1:10:01::",
+          "best_wordnet_synset_id": "07021061-n",
+          "best_link_score": 0.5556,
+          "best_overlap": [
+            "actor",
+            "drama",
+            "dramatic",
+            "stage",
+            "work"
+          ],
+          "candidate_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:play:jugar:shadow",
+          "target_lemma": "jugar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_wordnet_sense_id": "play%2:33:02::",
+          "best_wordnet_synset_id": "01081873-v",
+          "best_link_score": 0.3333,
+          "best_overlap": [
+            "game",
+            "sport",
+            "take"
+          ],
+          "candidate_count": 3
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:watch:reloj",
+      "trigger": "watch",
+      "active_target": "reloj",
+      "role": "target",
+      "active_wordnet_count": 1,
+      "shadow_wordnet_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:watch:reloj:active",
+          "target_lemma": "reloj",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_wordnet_sense_id": "watch%1:06:00::",
+          "best_wordnet_synset_id": "04563183-n",
+          "best_link_score": 0.3,
+          "best_overlap": [
+            "portable",
+            "small",
+            "timepiece"
+          ],
+          "candidate_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:watch:vigilar:shadow",
+          "target_lemma": "vigilar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_wordnet_sense_id": "watch%2:41:00::",
+          "best_wordnet_synset_id": "02460829-v",
+          "best_link_score": 0.1429,
+          "best_overlap": [
+            "observe"
+          ],
+          "candidate_count": 4
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:check:cheque",
+      "trigger": "check",
+      "active_target": "cheque",
+      "role": "target",
+      "active_wordnet_count": 1,
+      "shadow_wordnet_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:check:cheque:active",
+          "target_lemma": "cheque",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_wordnet_sense_id": "check%1:21:00::",
+          "best_wordnet_synset_id": "13402907-n",
+          "best_link_score": 0.6364,
+          "best_overlap": [
+            "bank",
+            "cheque",
+            "direct",
+            "money",
+            "order",
+            "pay",
+            "written"
+          ],
+          "candidate_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:check:revisar:shadow",
+          "target_lemma": "revisar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_wordnet_sense_id": "check%2:31:12::",
+          "best_wordnet_synset_id": "00665271-v",
+          "best_link_score": 0.1667,
+          "best_overlap": [
+            "verify"
+          ],
+          "candidate_count": 2
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:order:pedido",
+      "trigger": "order",
+      "active_target": "pedido",
+      "role": "target",
+      "active_wordnet_count": 1,
+      "shadow_wordnet_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:order:pedido:active",
+          "target_lemma": "pedido",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_wordnet_sense_id": "order%1:10:01::",
+          "best_wordnet_synset_id": "06541210-n",
+          "best_link_score": 0.25,
+          "best_overlap": [
+            "purchase",
+            "request"
+          ],
+          "candidate_count": 2
+        },
+        {
+          "sense_id": "en-es:sentence-veto:order:ordenar:shadow",
+          "target_lemma": "ordenar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_wordnet_sense_id": "order%2:32:01::",
+          "best_wordnet_synset_id": "00748704-v",
+          "best_link_score": 0.1667,
+          "best_overlap": [
+            "instruction"
+          ],
+          "candidate_count": 3
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:trip:viaje",
+      "trigger": "trip",
+      "active_target": "viaje",
+      "role": "target",
+      "active_wordnet_count": 1,
+      "shadow_wordnet_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:trip:viaje:active",
+          "target_lemma": "viaje",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_wordnet_sense_id": "trip%1:04:00::",
+          "best_wordnet_synset_id": "00309196-n",
+          "best_link_score": 0.1667,
+          "best_overlap": [
+            "journey"
+          ],
+          "candidate_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:trip:viaje:shadow",
+          "target_lemma": "tropezar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_wordnet_sense_id": "trip%2:38:01::",
+          "best_wordnet_synset_id": "01904753-v",
+          "best_link_score": 0.1667,
+          "best_overlap": [
+            "stumble"
+          ],
+          "candidate_count": 2
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:report:informe",
+      "trigger": "report",
+      "active_target": "informe",
+      "role": "target",
+      "active_wordnet_count": 1,
+      "shadow_wordnet_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:report:informe:active",
+          "target_lemma": "informe",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_wordnet_sense_id": "report%1:10:03::",
+          "best_wordnet_synset_id": "07233130-n",
+          "best_link_score": 0.4,
+          "best_overlap": [
+            "describ",
+            "document",
+            "finding",
+            "written"
+          ],
+          "candidate_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:report:informar:shadow",
+          "target_lemma": "informar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_wordnet_sense_id": "report%2:32:04::",
+          "best_wordnet_synset_id": "00968841-v",
+          "best_link_score": 0.25,
+          "best_overlap": [
+            "announce",
+            "information"
+          ],
+          "candidate_count": 2
+        }
+      ]
+    }
+  ],
+  "recommendation": "This adapter is a real local source pass for active/shadow semantic evidence, but it intentionally does not solve phrase containment. Run the source-admission cycle before using it as a challenger, and treat missing/low-score links as source gaps rather than generated coverage."
+}

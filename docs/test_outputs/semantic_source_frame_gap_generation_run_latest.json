@@ -1,0 +1,2262 @@
+{
+  "schema_version": 1,
+  "status": "ok",
+  "pair": "en-es",
+  "generated_at": "2026-04-28T20:59:28Z",
+  "execution_mode": "live",
+  "replay_source": "",
+  "batch_id": "en-es:example-frame-missing-rows:source-frame-gap-v1-20260429a",
+  "source_id": "llm_aligned_sentence_frame_rows",
+  "prompt_version": "aligned-sentence-frame-v1",
+  "selected_model_id": "gpt-5.4-mini",
+  "selected_temperature": 0.2,
+  "summary": {
+    "selected_request_count": 97,
+    "accepted_item_count": 97,
+    "api_error_count": 0,
+    "invalid_output_count": 0,
+    "normalized_row_count": 97,
+    "input_tokens": 32232,
+    "output_tokens": 3449,
+    "reasoning_tokens": 0
+  },
+  "artifacts": {
+    "journal_jsonl": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_journal.jsonl",
+    "raw_response_bundle_json": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json",
+    "intake_batch_json": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_intake_batch.json",
+    "normalized_batch_json": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_normalized_evidence.json"
+  },
+  "request_rows": [
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-ball-pelota:en-es-sentence-veto-ball-baile-shadow:candidate-01",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:ball:pelota",
+      "trigger": "ball",
+      "active_target": "pelota",
+      "candidate_target": "baile",
+      "status": "accepted",
+      "response_id": "resp_037ed0210bd5fc160169f11fb1a2a88195b45c48a0d345686a",
+      "evidence_text": "Guests arrived early for the charity ball beneath glittering chandeliers and live orchestra.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-ball-pelota:en-es-sentence-veto-ball-baile-shadow:candidate-01",
+      "usage": {
+        "input_tokens": 334,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 38,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 372
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-ball-pelota:en-es-sentence-veto-ball-baile-shadow:candidate-02",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:ball:pelota",
+      "trigger": "ball",
+      "active_target": "pelota",
+      "candidate_target": "baile",
+      "status": "accepted",
+      "response_id": "resp_0045700d4d1781f90169f11fb3163c8193b6457f2f0a6beed8",
+      "evidence_text": "Guests arrived early for the charity ball beneath glittering chandeliers and live string music.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-ball-pelota:en-es-sentence-veto-ball-baile-shadow:candidate-02",
+      "usage": {
+        "input_tokens": 334,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 39,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 373
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-ball-pelota:en-es-sentence-veto-ball-baile-shadow:candidate-03",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:ball:pelota",
+      "trigger": "ball",
+      "active_target": "pelota",
+      "candidate_target": "baile",
+      "status": "accepted",
+      "response_id": "resp_04788c9f62cf2f740169f11fb4826881939fffa6c1d2579e88",
+      "evidence_text": "Guests arrived early for the charity ball beneath glittering chandeliers and live orchestra.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-ball-pelota:en-es-sentence-veto-ball-baile-shadow:candidate-03",
+      "usage": {
+        "input_tokens": 334,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 38,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 372
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-ball-pelota:en-es-sentence-veto-ball-baile-shadow:candidate-04",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:ball:pelota",
+      "trigger": "ball",
+      "active_target": "pelota",
+      "candidate_target": "baile",
+      "status": "accepted",
+      "response_id": "resp_0eb1ee3e53c0d51d0169f11fb6406081959bf716e3f8a72f5a",
+      "evidence_text": "Guests arrived early for the charity ball, wearing elegant gowns and polished shoes.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-ball-pelota:en-es-sentence-veto-ball-baile-shadow:candidate-04",
+      "usage": {
+        "input_tokens": 334,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 37,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 371
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-ball-pelota:en-es-sentence-veto-ball-baile-shadow:candidate-05",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:ball:pelota",
+      "trigger": "ball",
+      "active_target": "pelota",
+      "candidate_target": "baile",
+      "status": "accepted",
+      "response_id": "resp_0aefacbdca29c0c80169f11fb7384c8194af2519c6c42b869e",
+      "evidence_text": "Guests arrived early, and the charity ball glittered beneath chandeliers all evening.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-ball-pelota:en-es-sentence-veto-ball-baile-shadow:candidate-05",
+      "usage": {
+        "input_tokens": 334,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 38,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 372
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-plant-planta:en-es-sentence-veto-plant-planta-active:candidate-01",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "planta",
+      "status": "accepted",
+      "response_id": "resp_03fc922226a1ef2f0169f11fb85d84819798f82899161cf83e",
+      "evidence_text": "The gardener watered the plant beside the window after sunrise.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:active_example:en-es-sentence-veto-plant-planta:en-es-sentence-veto-plant-planta-active:candidate-01",
+      "usage": {
+        "input_tokens": 332,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 33,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 365
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-plant-planta:en-es-sentence-veto-plant-planta-active:candidate-02",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "planta",
+      "status": "accepted",
+      "response_id": "resp_0c534872e62305890169f11fba67408195ab670fe15c5beae6",
+      "evidence_text": "The gardener watered the plant beside the sunny window every morning.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:active_example:en-es-sentence-veto-plant-planta:en-es-sentence-veto-plant-planta-active:candidate-02",
+      "usage": {
+        "input_tokens": 332,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 34,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 366
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-plant-planta:en-es-sentence-veto-plant-planta-active:candidate-03",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "planta",
+      "status": "accepted",
+      "response_id": "resp_089e8ce6e68707470169f11fbbfad08196821b432037af09ec",
+      "evidence_text": "The gardener watered the plant beside the sunny window every morning.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:active_example:en-es-sentence-veto-plant-planta:en-es-sentence-veto-plant-planta-active:candidate-03",
+      "usage": {
+        "input_tokens": 332,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 34,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 366
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-plant-planta:en-es-sentence-veto-plant-planta-active:candidate-04",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "planta",
+      "status": "accepted",
+      "response_id": "resp_00db564bff3ad4860169f11fbe71308193b15c01681f4add11",
+      "evidence_text": "The gardener watered the plant beside the sunny window every morning.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:active_example:en-es-sentence-veto-plant-planta:en-es-sentence-veto-plant-planta-active:candidate-04",
+      "usage": {
+        "input_tokens": 332,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 34,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 366
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-plant-planta:en-es-sentence-veto-plant-planta-active:candidate-05",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "planta",
+      "status": "accepted",
+      "response_id": "resp_053afd7145acc7db0169f11fbfd7588195911d0187c9da9e1c",
+      "evidence_text": "The gardener watered the plant beside the sunny window every morning.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:active_example:en-es-sentence-veto-plant-planta:en-es-sentence-veto-plant-planta-active:candidate-05",
+      "usage": {
+        "input_tokens": 332,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 34,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 366
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-cell-celula:en-es-sentence-veto-cell-celula-active:candidate-01",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "trigger": "cell",
+      "active_target": "célula",
+      "candidate_target": "célula",
+      "status": "accepted",
+      "response_id": "resp_00521475a17ff6760169f11fc0d1888190af673c589179672b",
+      "evidence_text": "Under the microscope, the cell divided rapidly during early embryonic development.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:active_example:en-es-sentence-veto-cell-celula:en-es-sentence-veto-cell-celula-active:candidate-01",
+      "usage": {
+        "input_tokens": 330,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 36,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 366
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-cell-celula:en-es-sentence-veto-cell-celula-active:candidate-02",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "trigger": "cell",
+      "active_target": "célula",
+      "candidate_target": "célula",
+      "status": "accepted",
+      "response_id": "resp_0758b4d94d0637040169f11fc1fc7081958e05f13a38b8aaf7",
+      "evidence_text": "Under the microscope, the cell divided rapidly during the early embryo stage.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:active_example:en-es-sentence-veto-cell-celula:en-es-sentence-veto-cell-celula-active:candidate-02",
+      "usage": {
+        "input_tokens": 330,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 36,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 366
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-cell-celula:en-es-sentence-veto-cell-celula-active:candidate-03",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "trigger": "cell",
+      "active_target": "célula",
+      "candidate_target": "célula",
+      "status": "accepted",
+      "response_id": "resp_03d6656503daf9900169f11fc357588193be13a3b0a5fa01d3",
+      "evidence_text": "Under the microscope, the cell divided rapidly during early embryo development.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:active_example:en-es-sentence-veto-cell-celula:en-es-sentence-veto-cell-celula-active:candidate-03",
+      "usage": {
+        "input_tokens": 330,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 35,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 365
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-cell-celula:en-es-sentence-veto-cell-celula-active:candidate-04",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "trigger": "cell",
+      "active_target": "célula",
+      "candidate_target": "célula",
+      "status": "accepted",
+      "response_id": "resp_03752a770ec8ff4c0169f11fc45ab08195bdca1d5f26b33827",
+      "evidence_text": "Under the microscope, the cell divided rapidly during the experiment.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:active_example:en-es-sentence-veto-cell-celula:en-es-sentence-veto-cell-celula-active:candidate-04",
+      "usage": {
+        "input_tokens": 330,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 34,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 364
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-cell-celula:en-es-sentence-veto-cell-celula-active:candidate-05",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "trigger": "cell",
+      "active_target": "célula",
+      "candidate_target": "célula",
+      "status": "accepted",
+      "response_id": "resp_0817b038e8f5d5eb0169f11fc5890c81939a0f461705f3b51e",
+      "evidence_text": "Under the microscope, the cell divided rapidly during early embryo development.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:active_example:en-es-sentence-veto-cell-celula:en-es-sentence-veto-cell-celula-active:candidate-05",
+      "usage": {
+        "input_tokens": 330,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 35,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 365
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-cell-celula:en-es-sentence-veto-cell-celda-shadow:candidate-01",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "trigger": "cell",
+      "active_target": "célula",
+      "candidate_target": "celda",
+      "status": "accepted",
+      "response_id": "resp_0489c0efdec8ab8c0169f11fc6ef548196b5e5b1910f4b0a03",
+      "evidence_text": "The guard locked him inside a dark cell after the riot ended.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-cell-celula:en-es-sentence-veto-cell-celda-shadow:candidate-01",
+      "usage": {
+        "input_tokens": 328,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 35,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 363
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-cell-celula:en-es-sentence-veto-cell-celda-shadow:candidate-02",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "trigger": "cell",
+      "active_target": "célula",
+      "candidate_target": "celda",
+      "status": "accepted",
+      "response_id": "resp_09358e731be752a40169f11fc876608194a876b3472fdff310",
+      "evidence_text": "The guard locked him in a dark cell after the riot ended.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-cell-celula:en-es-sentence-veto-cell-celda-shadow:candidate-02",
+      "usage": {
+        "input_tokens": 328,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 35,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 363
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-cell-celula:en-es-sentence-veto-cell-celda-shadow:candidate-03",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "trigger": "cell",
+      "active_target": "célula",
+      "candidate_target": "celda",
+      "status": "accepted",
+      "response_id": "resp_03679802c3edb9920169f11fc9af94819681eaaee14a4e9bb9",
+      "evidence_text": "The guard locked the cell after dinner, and the prisoner pounded the door.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-cell-celula:en-es-sentence-veto-cell-celda-shadow:candidate-03",
+      "usage": {
+        "input_tokens": 328,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 38,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 366
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-cell-celula:en-es-sentence-veto-cell-celda-shadow:candidate-04",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "trigger": "cell",
+      "active_target": "célula",
+      "candidate_target": "celda",
+      "status": "accepted",
+      "response_id": "resp_03210ecffff776290169f11fcc0db88194955b8b43d58b1ee0",
+      "evidence_text": "The guard locked the cell after the inmate shouted through the bars.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-cell-celula:en-es-sentence-veto-cell-celda-shadow:candidate-04",
+      "usage": {
+        "input_tokens": 328,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 35,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 363
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-cell-celula:en-es-sentence-veto-cell-celda-shadow:candidate-05",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "trigger": "cell",
+      "active_target": "célula",
+      "candidate_target": "celda",
+      "status": "accepted",
+      "response_id": "resp_07994364950f8c4b0169f11fcd3270819590e6e0056731f185",
+      "evidence_text": "The guard locked the cell after dinner, leaving him alone in silence.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-cell-celula:en-es-sentence-veto-cell-celda-shadow:candidate-05",
+      "usage": {
+        "input_tokens": 328,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 36,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 364
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-spring-primavera:en-es-sentence-veto-spring-resorte-shadow:candidate-01",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:spring:primavera",
+      "trigger": "spring",
+      "active_target": "primavera",
+      "candidate_target": "resorte",
+      "status": "accepted",
+      "response_id": "resp_0e66530aa17af7200169f11fce1ac081959b2f846879f1fd5c",
+      "evidence_text": "The broken garage door needed a new spring to lift it smoothly.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-spring-primavera:en-es-sentence-veto-spring-resorte-shadow:candidate-01",
+      "usage": {
+        "input_tokens": 336,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 35,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 371
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-spring-primavera:en-es-sentence-veto-spring-resorte-shadow:candidate-02",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:spring:primavera",
+      "trigger": "spring",
+      "active_target": "primavera",
+      "candidate_target": "resorte",
+      "status": "accepted",
+      "response_id": "resp_07327f496f7f7b5b0169f11fcfa4e48190b2af58d75bf57cc7",
+      "evidence_text": "The broken garage door needed a new spring before it would close properly.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-spring-primavera:en-es-sentence-veto-spring-resorte-shadow:candidate-02",
+      "usage": {
+        "input_tokens": 336,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 36,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 372
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-spring-primavera:en-es-sentence-veto-spring-resorte-shadow:candidate-03",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:spring:primavera",
+      "trigger": "spring",
+      "active_target": "primavera",
+      "candidate_target": "resorte",
+      "status": "accepted",
+      "response_id": "resp_0f34bfac8a7543fa0169f11fd21c0081908581e524852d66c8",
+      "evidence_text": "The broken garage door needed a new spring before it would close properly.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-spring-primavera:en-es-sentence-veto-spring-resorte-shadow:candidate-03",
+      "usage": {
+        "input_tokens": 336,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 36,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 372
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-spring-primavera:en-es-sentence-veto-spring-resorte-shadow:candidate-04",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:spring:primavera",
+      "trigger": "spring",
+      "active_target": "primavera",
+      "candidate_target": "resorte",
+      "status": "accepted",
+      "response_id": "resp_0c52790b88c5b5ea0169f11fd3423c8190a0da718112d828d8",
+      "evidence_text": "The mechanic replaced the broken spring inside the valve assembly yesterday.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-spring-primavera:en-es-sentence-veto-spring-resorte-shadow:candidate-04",
+      "usage": {
+        "input_tokens": 336,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 34,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 370
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-spring-primavera:en-es-sentence-veto-spring-resorte-shadow:candidate-05",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:spring:primavera",
+      "trigger": "spring",
+      "active_target": "primavera",
+      "candidate_target": "resorte",
+      "status": "accepted",
+      "response_id": "resp_022e7696881e5cf30169f11fd5c9148195b128a43e22ab5dab",
+      "evidence_text": "The broken garage door needed a new spring before it would close properly.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-spring-primavera:en-es-sentence-veto-spring-resorte-shadow:candidate-05",
+      "usage": {
+        "input_tokens": 336,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 36,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 372
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-seal-sello:en-es-sentence-veto-seal-sello-active:candidate-01",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:seal:sello",
+      "trigger": "seal",
+      "active_target": "sello",
+      "candidate_target": "sello",
+      "status": "accepted",
+      "response_id": "resp_028814c89fd48e9d0169f11fd77eac819780506375831d1dee",
+      "evidence_text": "The notary pressed the seal onto the contract before signing the final page.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:active_example:en-es-sentence-veto-seal-sello:en-es-sentence-veto-seal-sello-active:candidate-01",
+      "usage": {
+        "input_tokens": 331,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 37,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 368
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-seal-sello:en-es-sentence-veto-seal-sello-active:candidate-02",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:seal:sello",
+      "trigger": "seal",
+      "active_target": "sello",
+      "candidate_target": "sello",
+      "status": "accepted",
+      "response_id": "resp_0a2977191a7280da0169f11fd8939481949655f1f64ec97b2e",
+      "evidence_text": "The clerk pressed the seal onto the notarized contract before filing it.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:active_example:en-es-sentence-veto-seal-sello:en-es-sentence-veto-seal-sello-active:candidate-02",
+      "usage": {
+        "input_tokens": 331,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 36,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 367
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-seal-sello:en-es-sentence-veto-seal-sello-active:candidate-03",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:seal:sello",
+      "trigger": "seal",
+      "active_target": "sello",
+      "candidate_target": "sello",
+      "status": "accepted",
+      "response_id": "resp_0d57ee016ae48fce0169f11fd993788190a896fddfba8f0eb0",
+      "evidence_text": "The clerk pressed the seal onto the notarized contract before filing it.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:active_example:en-es-sentence-veto-seal-sello:en-es-sentence-veto-seal-sello-active:candidate-03",
+      "usage": {
+        "input_tokens": 331,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 36,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 367
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-seal-sello:en-es-sentence-veto-seal-sello-active:candidate-04",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:seal:sello",
+      "trigger": "seal",
+      "active_target": "sello",
+      "candidate_target": "sello",
+      "status": "accepted",
+      "response_id": "resp_0149f6623d5fc2a80169f11fda847c8197983f2890b2efc5b9",
+      "evidence_text": "The clerk pressed the seal onto the notarized contract before filing it.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:active_example:en-es-sentence-veto-seal-sello:en-es-sentence-veto-seal-sello-active:candidate-04",
+      "usage": {
+        "input_tokens": 331,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 36,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 367
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-seal-sello:en-es-sentence-veto-seal-sello-active:candidate-05",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:seal:sello",
+      "trigger": "seal",
+      "active_target": "sello",
+      "candidate_target": "sello",
+      "status": "accepted",
+      "response_id": "resp_017c67be161d0cdb0169f11fdbe4c08190aeee4a19f0124adb",
+      "evidence_text": "The clerk pressed the official seal onto the notarized contract before filing it.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:active_example:en-es-sentence-veto-seal-sello:en-es-sentence-veto-seal-sello-active:candidate-05",
+      "usage": {
+        "input_tokens": 331,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 37,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 368
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-seal-sello:en-es-sentence-veto-seal-foca-shadow:candidate-01",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:seal:sello",
+      "trigger": "seal",
+      "active_target": "sello",
+      "candidate_target": "foca",
+      "status": "accepted",
+      "response_id": "resp_0aea3f8bea4bfbee0169f11fdcfaec81939f3976829eaca791",
+      "evidence_text": "The curious seal bobbed beside the kayak, chasing fish through the cold harbor.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-seal-sello:en-es-sentence-veto-seal-foca-shadow:candidate-01",
+      "usage": {
+        "input_tokens": 329,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 38,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 367
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-seal-sello:en-es-sentence-veto-seal-foca-shadow:candidate-02",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:seal:sello",
+      "trigger": "seal",
+      "active_target": "sello",
+      "candidate_target": "foca",
+      "status": "accepted",
+      "response_id": "resp_017912e9378cf3000169f11fddfda48195b71c267ca18fa2df",
+      "evidence_text": "At dawn, the curious seal chased fish through the rocky harbor shallows.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-seal-sello:en-es-sentence-veto-seal-foca-shadow:candidate-02",
+      "usage": {
+        "input_tokens": 329,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 37,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 366
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-seal-sello:en-es-sentence-veto-seal-foca-shadow:candidate-03",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:seal:sello",
+      "trigger": "seal",
+      "active_target": "sello",
+      "candidate_target": "foca",
+      "status": "accepted",
+      "response_id": "resp_0544f2de552af19b0169f11fdf0348819087508c49e4fa82e5",
+      "evidence_text": "The curious seal surfaced beside the rocky shore, chasing fish through cold waves.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-seal-sello:en-es-sentence-veto-seal-foca-shadow:candidate-03",
+      "usage": {
+        "input_tokens": 329,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 37,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 366
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-seal-sello:en-es-sentence-veto-seal-foca-shadow:candidate-04",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:seal:sello",
+      "trigger": "seal",
+      "active_target": "sello",
+      "candidate_target": "foca",
+      "status": "accepted",
+      "response_id": "resp_03ccfbe2f370ebae0169f11fe01bbc81939eb69662e874e48e",
+      "evidence_text": "At dawn, the curious seal surfaced beside the rocky harbor, chasing fish.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-seal-sello:en-es-sentence-veto-seal-foca-shadow:candidate-04",
+      "usage": {
+        "input_tokens": 329,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 37,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 366
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-seal-sello:en-es-sentence-veto-seal-foca-shadow:candidate-05",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:seal:sello",
+      "trigger": "seal",
+      "active_target": "sello",
+      "candidate_target": "foca",
+      "status": "accepted",
+      "response_id": "resp_0b7e0bc8199c860b0169f11fe1378481958a316cc5896f7077",
+      "evidence_text": "At dawn, the seal basked on the rocky shore beside restless waves.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-seal-sello:en-es-sentence-veto-seal-foca-shadow:candidate-05",
+      "usage": {
+        "input_tokens": 329,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 37,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 366
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-file-archivo:en-es-sentence-veto-file-archivo-active:candidate-01",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:file:archivo",
+      "trigger": "file",
+      "active_target": "archivo",
+      "candidate_target": "archivo",
+      "status": "accepted",
+      "response_id": "resp_0820e1d58c80515a0169f11fe25b0881908d97c302b3003850",
+      "evidence_text": "The backup file stored on the server was encrypted overnight.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:active_example:en-es-sentence-veto-file-archivo:en-es-sentence-veto-file-archivo-active:candidate-01",
+      "usage": {
+        "input_tokens": 325,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 33,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 358
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-file-archivo:en-es-sentence-veto-file-archivo-active:candidate-02",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:file:archivo",
+      "trigger": "file",
+      "active_target": "archivo",
+      "candidate_target": "archivo",
+      "status": "accepted",
+      "response_id": "resp_035163300d7ad7670169f11fe37b948197a1f34e0dd465f4e8",
+      "evidence_text": "She saved the file to cloud storage after editing the report.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:active_example:en-es-sentence-veto-file-archivo:en-es-sentence-veto-file-archivo-active:candidate-02",
+      "usage": {
+        "input_tokens": 325,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 34,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 359
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-file-archivo:en-es-sentence-veto-file-archivo-active:candidate-03",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:file:archivo",
+      "trigger": "file",
+      "active_target": "archivo",
+      "candidate_target": "archivo",
+      "status": "accepted",
+      "response_id": "resp_0b55302d8a51c5c70169f11fe484508193aedef3a01adb7745",
+      "evidence_text": "The accountant saved the tax file on the secure server last night.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:active_example:en-es-sentence-veto-file-archivo:en-es-sentence-veto-file-archivo-active:candidate-03",
+      "usage": {
+        "input_tokens": 325,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 35,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 360
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-file-archivo:en-es-sentence-veto-file-archivo-active:candidate-04",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:file:archivo",
+      "trigger": "file",
+      "active_target": "archivo",
+      "candidate_target": "archivo",
+      "status": "accepted",
+      "response_id": "resp_00e98e7b1c95216c0169f11fe62dcc81939fcd05e953a77838",
+      "evidence_text": "She uploaded the file to cloud storage before the meeting started.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:active_example:en-es-sentence-veto-file-archivo:en-es-sentence-veto-file-archivo-active:candidate-04",
+      "usage": {
+        "input_tokens": 325,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 34,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 359
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-file-archivo:en-es-sentence-veto-file-archivo-active:candidate-05",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:file:archivo",
+      "trigger": "file",
+      "active_target": "archivo",
+      "candidate_target": "archivo",
+      "status": "accepted",
+      "response_id": "resp_02cc16c5d6e87e9f0169f11fe78f8081949d74c4ee04e92f65",
+      "evidence_text": "The accountant uploaded the file to the secure server before noon.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:active_example:en-es-sentence-veto-file-archivo:en-es-sentence-veto-file-archivo-active:candidate-05",
+      "usage": {
+        "input_tokens": 325,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 34,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 359
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-file-archivo:en-es-sentence-veto-file-lima-shadow:candidate-01",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:file:archivo",
+      "trigger": "file",
+      "active_target": "archivo",
+      "candidate_target": "lima",
+      "status": "accepted",
+      "response_id": "resp_0b0ce94563e3c0f30169f11fe8f56481959490ba5ce8d4f9d4",
+      "evidence_text": "The mechanic used a coarse file to smooth the jagged metal edge.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-file-archivo:en-es-sentence-veto-file-lima-shadow:candidate-01",
+      "usage": {
+        "input_tokens": 328,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 36,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 364
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-file-archivo:en-es-sentence-veto-file-lima-shadow:candidate-02",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:file:archivo",
+      "trigger": "file",
+      "active_target": "archivo",
+      "candidate_target": "lima",
+      "status": "accepted",
+      "response_id": "resp_0c3d75a60db7840b0169f11fea0ef48190989a8d2a3b661a41",
+      "evidence_text": "The mechanic grabbed a coarse file to smooth the jagged metal edge.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-file-archivo:en-es-sentence-veto-file-lima-shadow:candidate-02",
+      "usage": {
+        "input_tokens": 328,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 36,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 364
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-file-archivo:en-es-sentence-veto-file-lima-shadow:candidate-03",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:file:archivo",
+      "trigger": "file",
+      "active_target": "archivo",
+      "candidate_target": "lima",
+      "status": "accepted",
+      "response_id": "resp_031275a2cafa68540169f11feb1b108197812995b14de376b4",
+      "evidence_text": "The mechanic used a coarse file to smooth the jagged metal edge.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-file-archivo:en-es-sentence-veto-file-lima-shadow:candidate-03",
+      "usage": {
+        "input_tokens": 328,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 36,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 364
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-file-archivo:en-es-sentence-veto-file-lima-shadow:candidate-04",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:file:archivo",
+      "trigger": "file",
+      "active_target": "archivo",
+      "candidate_target": "lima",
+      "status": "accepted",
+      "response_id": "resp_0f2a1c7b991bd7a10169f11fec734081979aa3be8586a22beb",
+      "evidence_text": "The mechanic used a coarse file to smooth the jagged metal edge.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-file-archivo:en-es-sentence-veto-file-lima-shadow:candidate-04",
+      "usage": {
+        "input_tokens": 328,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 36,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 364
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-file-archivo:en-es-sentence-veto-file-lima-shadow:candidate-05",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:file:archivo",
+      "trigger": "file",
+      "active_target": "archivo",
+      "candidate_target": "lima",
+      "status": "accepted",
+      "response_id": "resp_00628e37dff574770169f11fee55408190a25e099f4118505a",
+      "evidence_text": "The mechanic used a coarse file to smooth the jagged metal edge.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-file-archivo:en-es-sentence-veto-file-lima-shadow:candidate-05",
+      "usage": {
+        "input_tokens": 328,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 36,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 364
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-match-partido:en-es-sentence-veto-match-partido-active:candidate-01",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:match:partido",
+      "trigger": "match",
+      "active_target": "partido",
+      "candidate_target": "partido",
+      "status": "accepted",
+      "response_id": "resp_0b040db532547b5f0169f11fef50188195bb1f376d40e2405f",
+      "evidence_text": "The championship match drew thousands of fans to the stadium last night.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:active_example:en-es-sentence-veto-match-partido:en-es-sentence-veto-match-partido-active:candidate-01",
+      "usage": {
+        "input_tokens": 329,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 35,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 364
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-match-partido:en-es-sentence-veto-match-partido-active:candidate-02",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:match:partido",
+      "trigger": "match",
+      "active_target": "partido",
+      "candidate_target": "partido",
+      "status": "accepted",
+      "response_id": "resp_0f1c3bf81053462b0169f11ff0650481909aed7c2801bee6c6",
+      "evidence_text": "The championship match drew thousands of fans to the packed stadium tonight.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:active_example:en-es-sentence-veto-match-partido:en-es-sentence-veto-match-partido-active:candidate-02",
+      "usage": {
+        "input_tokens": 329,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 35,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 364
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-match-partido:en-es-sentence-veto-match-partido-active:candidate-03",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:match:partido",
+      "trigger": "match",
+      "active_target": "partido",
+      "candidate_target": "partido",
+      "status": "accepted",
+      "response_id": "resp_0a776fe2df0582e70169f11ff1682c8197ba315ac5b0ed4886",
+      "evidence_text": "The championship match drew thousands of fans into the stadium last night.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:active_example:en-es-sentence-veto-match-partido:en-es-sentence-veto-match-partido-active:candidate-03",
+      "usage": {
+        "input_tokens": 329,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 35,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 364
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-match-partido:en-es-sentence-veto-match-partido-active:candidate-04",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:match:partido",
+      "trigger": "match",
+      "active_target": "partido",
+      "candidate_target": "partido",
+      "status": "accepted",
+      "response_id": "resp_0421a9122a36a0e80169f11ff2750c81939b708034de929a4d",
+      "evidence_text": "The championship match drew thousands of fans to the stadium last night.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:active_example:en-es-sentence-veto-match-partido:en-es-sentence-veto-match-partido-active:candidate-04",
+      "usage": {
+        "input_tokens": 329,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 35,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 364
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-match-partido:en-es-sentence-veto-match-partido-active:candidate-05",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:match:partido",
+      "trigger": "match",
+      "active_target": "partido",
+      "candidate_target": "partido",
+      "status": "accepted",
+      "response_id": "resp_0124115cc997eb650169f11ff33d188193ae303960cd43ae4d",
+      "evidence_text": "The championship match drew thousands of fans into the stadium last night.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:active_example:en-es-sentence-veto-match-partido:en-es-sentence-veto-match-partido-active:candidate-05",
+      "usage": {
+        "input_tokens": 329,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 35,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 364
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-match-partido:en-es-sentence-veto-match-cerilla-shadow:candidate-01",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:match:partido",
+      "trigger": "match",
+      "active_target": "partido",
+      "candidate_target": "cerilla",
+      "status": "accepted",
+      "response_id": "resp_04bfd152400a53af0169f11ff433cc8194bb0404d4f407062c",
+      "evidence_text": "She struck the match against the box, and a tiny flame appeared.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-match-partido:en-es-sentence-veto-match-cerilla-shadow:candidate-01",
+      "usage": {
+        "input_tokens": 329,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 36,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 365
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-match-partido:en-es-sentence-veto-match-cerilla-shadow:candidate-02",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:match:partido",
+      "trigger": "match",
+      "active_target": "partido",
+      "candidate_target": "cerilla",
+      "status": "accepted",
+      "response_id": "resp_0fd91a5a99aa19680169f11ff52ffc8197a3845b54a1a0fe69",
+      "evidence_text": "She struck the match carefully, then lit the candle beside the sink.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-match-partido:en-es-sentence-veto-match-cerilla-shadow:candidate-02",
+      "usage": {
+        "input_tokens": 329,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 36,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 365
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-match-partido:en-es-sentence-veto-match-cerilla-shadow:candidate-03",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:match:partido",
+      "trigger": "match",
+      "active_target": "partido",
+      "candidate_target": "cerilla",
+      "status": "accepted",
+      "response_id": "resp_0ef4930e57fe9b9e0169f11ff61e6c8196a08a6d26310b5273",
+      "evidence_text": "She lit the candle with a wooden match before the power returned.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-match-partido:en-es-sentence-veto-match-cerilla-shadow:candidate-03",
+      "usage": {
+        "input_tokens": 329,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 35,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 364
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-match-partido:en-es-sentence-veto-match-cerilla-shadow:candidate-04",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:match:partido",
+      "trigger": "match",
+      "active_target": "partido",
+      "candidate_target": "cerilla",
+      "status": "accepted",
+      "response_id": "resp_02b067dbbb731a1b0169f11ff74588819497beb0709743040b",
+      "evidence_text": "She struck the match carefully, then lit the candle beside the sink.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-match-partido:en-es-sentence-veto-match-cerilla-shadow:candidate-04",
+      "usage": {
+        "input_tokens": 329,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 36,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 365
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-match-partido:en-es-sentence-veto-match-cerilla-shadow:candidate-05",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:match:partido",
+      "trigger": "match",
+      "active_target": "partido",
+      "candidate_target": "cerilla",
+      "status": "accepted",
+      "response_id": "resp_0137b65cad4b06f50169f11ff84e1c819789aff8f97fce2efe",
+      "evidence_text": "She struck the match against the box, and a tiny flame appeared.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-match-partido:en-es-sentence-veto-match-cerilla-shadow:candidate-05",
+      "usage": {
+        "input_tokens": 329,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 36,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 365
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-board-tablero:en-es-sentence-veto-board-tablero-active:candidate-01",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:board:tablero",
+      "trigger": "board",
+      "active_target": "tablero",
+      "candidate_target": "tablero",
+      "status": "accepted",
+      "response_id": "resp_082ea98bfba7cd9f0169f11ff96670819082ea7380908ca51f",
+      "evidence_text": "The children placed cards on the board during the classroom game.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:active_example:en-es-sentence-veto-board-tablero:en-es-sentence-veto-board-tablero-active:candidate-01",
+      "usage": {
+        "input_tokens": 340,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 34,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 374
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-board-tablero:en-es-sentence-veto-board-tablero-active:candidate-02",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:board:tablero",
+      "trigger": "board",
+      "active_target": "tablero",
+      "candidate_target": "tablero",
+      "status": "accepted",
+      "response_id": "resp_05c3557b0a0b0ecd0169f11ffb8e68819388830d128eabe2bf",
+      "evidence_text": "She placed the pieces on the board before starting the strategy game.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:active_example:en-es-sentence-veto-board-tablero:en-es-sentence-veto-board-tablero-active:candidate-02",
+      "usage": {
+        "input_tokens": 340,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 35,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 375
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-board-tablero:en-es-sentence-veto-board-tablero-active:candidate-03",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:board:tablero",
+      "trigger": "board",
+      "active_target": "tablero",
+      "candidate_target": "tablero",
+      "status": "accepted",
+      "response_id": "resp_00f69b4e600ac5c10169f11ffc9b8c819398887113b97de724",
+      "evidence_text": "She placed the checker pieces on the board before starting the game.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:active_example:en-es-sentence-veto-board-tablero:en-es-sentence-veto-board-tablero-active:candidate-03",
+      "usage": {
+        "input_tokens": 340,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 35,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 375
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-board-tablero:en-es-sentence-veto-board-tablero-active:candidate-04",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:board:tablero",
+      "trigger": "board",
+      "active_target": "tablero",
+      "candidate_target": "tablero",
+      "status": "accepted",
+      "response_id": "resp_00d3c15fbfd767bf0169f11ffda25c8194add47516aeec613a",
+      "evidence_text": "She rolled the dice across the board during the family game night.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:active_example:en-es-sentence-veto-board-tablero:en-es-sentence-veto-board-tablero-active:candidate-04",
+      "usage": {
+        "input_tokens": 340,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 35,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 375
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-board-tablero:en-es-sentence-veto-board-tablero-active:candidate-05",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:board:tablero",
+      "trigger": "board",
+      "active_target": "tablero",
+      "candidate_target": "tablero",
+      "status": "accepted",
+      "response_id": "resp_0a8f2ff543a411230169f11ffea43881959285b040a568f948",
+      "evidence_text": "She placed the pieces on the board before starting the chess match.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:active_example:en-es-sentence-veto-board-tablero:en-es-sentence-veto-board-tablero-active:candidate-05",
+      "usage": {
+        "input_tokens": 340,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 35,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 375
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-board-tablero:en-es-sentence-veto-board-junta-shadow:candidate-01",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:board:tablero",
+      "trigger": "board",
+      "active_target": "tablero",
+      "candidate_target": "junta",
+      "status": "accepted",
+      "response_id": "resp_0bcb6443db8d68810169f11fff920881968eee7414efb50c0c",
+      "evidence_text": "The board approved the merger after reviewing the chief executive's detailed proposal.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-board-tablero:en-es-sentence-veto-board-junta-shadow:candidate-01",
+      "usage": {
+        "input_tokens": 336,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 36,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 372
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-board-tablero:en-es-sentence-veto-board-junta-shadow:candidate-02",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:board:tablero",
+      "trigger": "board",
+      "active_target": "tablero",
+      "candidate_target": "junta",
+      "status": "accepted",
+      "response_id": "resp_0ed012ecab596c050169f12001380481959e11d1176b82b0f1",
+      "evidence_text": "The hospital board approved the merger after reviewing the chief executive's proposal.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-board-tablero:en-es-sentence-veto-board-junta-shadow:candidate-02",
+      "usage": {
+        "input_tokens": 336,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 36,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 372
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-board-tablero:en-es-sentence-veto-board-junta-shadow:candidate-03",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:board:tablero",
+      "trigger": "board",
+      "active_target": "tablero",
+      "candidate_target": "junta",
+      "status": "accepted",
+      "response_id": "resp_008d09e1157fdb950169f1200242c8819080c8a31e66038eae",
+      "evidence_text": "The hospital board approved the merger after reviewing the financial report yesterday.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-board-tablero:en-es-sentence-veto-board-junta-shadow:candidate-03",
+      "usage": {
+        "input_tokens": 336,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 35,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 371
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-board-tablero:en-es-sentence-veto-board-junta-shadow:candidate-04",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:board:tablero",
+      "trigger": "board",
+      "active_target": "tablero",
+      "candidate_target": "junta",
+      "status": "accepted",
+      "response_id": "resp_0d975f83175c6e8d0169f120035d74819492c6644dc1f8af41",
+      "evidence_text": "The board approved the merger after reviewing the chief executive's proposal yesterday.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-board-tablero:en-es-sentence-veto-board-junta-shadow:candidate-04",
+      "usage": {
+        "input_tokens": 336,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 36,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 372
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-board-tablero:en-es-sentence-veto-board-junta-shadow:candidate-05",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:board:tablero",
+      "trigger": "board",
+      "active_target": "tablero",
+      "candidate_target": "junta",
+      "status": "accepted",
+      "response_id": "resp_05d30510395c96cb0169f120047b848195b7e7a649a86b57be",
+      "evidence_text": "The board approved the merger after reviewing the quarterly financial report.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-board-tablero:en-es-sentence-veto-board-junta-shadow:candidate-05",
+      "usage": {
+        "input_tokens": 336,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 34,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 370
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-branch-sucursal:en-es-sentence-veto-branch-rama-shadow:candidate-01",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:branch:sucursal",
+      "trigger": "branch",
+      "active_target": "sucursal",
+      "candidate_target": "rama",
+      "status": "accepted",
+      "response_id": "resp_0962f6eb1542f1930169f12005ecd08195bc5df1839cef530b",
+      "evidence_text": "The squirrel leaped onto a low branch above the quiet garden path.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-branch-sucursal:en-es-sentence-veto-branch-rama-shadow:candidate-01",
+      "usage": {
+        "input_tokens": 328,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 36,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 364
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-branch-sucursal:en-es-sentence-veto-branch-rama-shadow:candidate-02",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:branch:sucursal",
+      "trigger": "branch",
+      "active_target": "sucursal",
+      "candidate_target": "rama",
+      "status": "accepted",
+      "response_id": "resp_01b02acca4fe2db80169f12006e6388196a7486a3509fc1382",
+      "evidence_text": "After the storm, a broken branch hung over the muddy trail.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-branch-sucursal:en-es-sentence-veto-branch-rama-shadow:candidate-02",
+      "usage": {
+        "input_tokens": 328,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 35,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 363
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-branch-sucursal:en-es-sentence-veto-branch-rama-shadow:candidate-03",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:branch:sucursal",
+      "trigger": "branch",
+      "active_target": "sucursal",
+      "candidate_target": "rama",
+      "status": "accepted",
+      "response_id": "resp_0c16b8b1decfdcb20169f12007f1d8819087d29113a2bbc434",
+      "evidence_text": "After the storm, a heavy branch cracked and fell onto the wet path.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-branch-sucursal:en-es-sentence-veto-branch-rama-shadow:candidate-03",
+      "usage": {
+        "input_tokens": 328,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 37,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 365
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-branch-sucursal:en-es-sentence-veto-branch-rama-shadow:candidate-04",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:branch:sucursal",
+      "trigger": "branch",
+      "active_target": "sucursal",
+      "candidate_target": "rama",
+      "status": "accepted",
+      "response_id": "resp_095ccf89b9fa9b9d0169f12008ce7c8197984680cdf4f0bbc3",
+      "evidence_text": "The squirrel scampered along the branch above the quiet stream, searching for acorns.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-branch-sucursal:en-es-sentence-veto-branch-rama-shadow:candidate-04",
+      "usage": {
+        "input_tokens": 328,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 39,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 367
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-branch-sucursal:en-es-sentence-veto-branch-rama-shadow:candidate-05",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:branch:sucursal",
+      "trigger": "branch",
+      "active_target": "sucursal",
+      "candidate_target": "rama",
+      "status": "accepted",
+      "response_id": "resp_088b4a7360dadad20169f12009ced88193956193ea9c7684e3",
+      "evidence_text": "The squirrel leaped onto a low branch and nibbled ripe acorns above us.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-branch-sucursal:en-es-sentence-veto-branch-rama-shadow:candidate-05",
+      "usage": {
+        "input_tokens": 328,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 40,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 368
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-drink-bebida:en-es-sentence-veto-drink-bebida-active:candidate-01",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:drink:bebida",
+      "trigger": "drink",
+      "active_target": "bebida",
+      "candidate_target": "bebida",
+      "status": "accepted",
+      "response_id": "resp_06597a746aceb4080169f1200b13388194a8f68bb276445b80",
+      "evidence_text": "The chilled drink sat beside the picnic basket, sparkling with lemon and mint.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:active_example:en-es-sentence-veto-drink-bebida:en-es-sentence-veto-drink-bebida-active:candidate-01",
+      "usage": {
+        "input_tokens": 329,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 37,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 366
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-drink-bebida:en-es-sentence-veto-drink-bebida-active:candidate-02",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:drink:bebida",
+      "trigger": "drink",
+      "active_target": "bebida",
+      "candidate_target": "bebida",
+      "status": "accepted",
+      "response_id": "resp_0dd37bce91c26f8b0169f1200c23e0819391884b502b7602bd",
+      "evidence_text": "The chilled drink refreshed everyone after the long, humid afternoon hike.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:active_example:en-es-sentence-veto-drink-bebida:en-es-sentence-veto-drink-bebida-active:candidate-02",
+      "usage": {
+        "input_tokens": 329,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 35,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 364
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-drink-bebida:en-es-sentence-veto-drink-bebida-active:candidate-03",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:drink:bebida",
+      "trigger": "drink",
+      "active_target": "bebida",
+      "candidate_target": "bebida",
+      "status": "accepted",
+      "response_id": "resp_0692ef605e8313e50169f1200d0c6c81968190044c2d4c17af",
+      "evidence_text": "The chilled drink refreshed everyone after the long, humid afternoon hike.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:active_example:en-es-sentence-veto-drink-bebida:en-es-sentence-veto-drink-bebida-active:candidate-03",
+      "usage": {
+        "input_tokens": 329,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 35,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 364
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-drink-bebida:en-es-sentence-veto-drink-beber-shadow:candidate-01",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:drink:bebida",
+      "trigger": "drink",
+      "active_target": "bebida",
+      "candidate_target": "beber",
+      "status": "accepted",
+      "response_id": "resp_0838e08714c9c9df0169f1200de814819682bf014bde5c5d55",
+      "evidence_text": "After the marathon, runners drink electrolyte solution to recover quickly and rehydrate.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-drink-bebida:en-es-sentence-veto-drink-beber-shadow:candidate-01",
+      "usage": {
+        "input_tokens": 329,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 37,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 366
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-drink-bebida:en-es-sentence-veto-drink-beber-shadow:candidate-02",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:drink:bebida",
+      "trigger": "drink",
+      "active_target": "bebida",
+      "candidate_target": "beber",
+      "status": "accepted",
+      "response_id": "resp_049e82f29f835db10169f1200f8aec8193b9b9e05545a25b82",
+      "evidence_text": "After the marathon, athletes drink electrolyte solution to replace lost fluids quickly.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-drink-bebida:en-es-sentence-veto-drink-beber-shadow:candidate-02",
+      "usage": {
+        "input_tokens": 329,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 36,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 365
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-drink-bebida:en-es-sentence-veto-drink-beber-shadow:candidate-03",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:drink:bebida",
+      "trigger": "drink",
+      "active_target": "bebida",
+      "candidate_target": "beber",
+      "status": "accepted",
+      "response_id": "resp_0b7d7b631351c0d90169f12010c02081909cf36e8d180694fc",
+      "evidence_text": "After the workout, athletes drink electrolyte solution to replace lost fluids quickly.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-drink-bebida:en-es-sentence-veto-drink-beber-shadow:candidate-03",
+      "usage": {
+        "input_tokens": 329,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 36,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 365
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-play-obra:en-es-sentence-veto-play-obra-active:candidate-01",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:play:obra",
+      "trigger": "play",
+      "active_target": "obra",
+      "candidate_target": "obra",
+      "status": "accepted",
+      "response_id": "resp_00459074a2ace5da0169f12011bc808196a675d52bf17a080d",
+      "evidence_text": "The acclaimed director will play Hamlet on the main stage tonight.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:active_example:en-es-sentence-veto-play-obra:en-es-sentence-veto-play-obra-active:candidate-01",
+      "usage": {
+        "input_tokens": 335,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 34,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 369
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-play-obra:en-es-sentence-veto-play-obra-active:candidate-02",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:play:obra",
+      "trigger": "play",
+      "active_target": "obra",
+      "candidate_target": "obra",
+      "status": "accepted",
+      "response_id": "resp_0739555d34340cf90169f12012ae648195810eb8a934c88281",
+      "evidence_text": "The community theater will play a new drama on opening night.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:active_example:en-es-sentence-veto-play-obra:en-es-sentence-veto-play-obra-active:candidate-02",
+      "usage": {
+        "input_tokens": 335,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 34,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 369
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-play-obra:en-es-sentence-veto-play-obra-active:candidate-03",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:play:obra",
+      "trigger": "play",
+      "active_target": "obra",
+      "candidate_target": "obra",
+      "status": "accepted",
+      "response_id": "resp_0e48cdaf5f573bdb0169f12013a32c8194a909be9146130984",
+      "evidence_text": "The university theater will play a new drama on opening night.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:active_example:en-es-sentence-veto-play-obra:en-es-sentence-veto-play-obra-active:candidate-03",
+      "usage": {
+        "input_tokens": 335,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 34,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 369
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-play-obra:en-es-sentence-veto-play-jugar-shadow:candidate-01",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:play:obra",
+      "trigger": "play",
+      "active_target": "obra",
+      "candidate_target": "jugar",
+      "status": "accepted",
+      "response_id": "resp_043341f22c12e1030169f12015354881968f19683a08fb9209",
+      "evidence_text": "After school, the kids play soccer in the park every afternoon.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-play-obra:en-es-sentence-veto-play-jugar-shadow:candidate-01",
+      "usage": {
+        "input_tokens": 334,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 35,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 369
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-play-obra:en-es-sentence-veto-play-jugar-shadow:candidate-02",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:play:obra",
+      "trigger": "play",
+      "active_target": "obra",
+      "candidate_target": "jugar",
+      "status": "accepted",
+      "response_id": "resp_021e45404c74bef30169f12016ccf48194a5abec3197171f49",
+      "evidence_text": "The kids play soccer after school on the muddy field.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-play-obra:en-es-sentence-veto-play-jugar-shadow:candidate-02",
+      "usage": {
+        "input_tokens": 334,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 33,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 367
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-play-obra:en-es-sentence-veto-play-jugar-shadow:candidate-03",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:play:obra",
+      "trigger": "play",
+      "active_target": "obra",
+      "candidate_target": "jugar",
+      "status": "accepted",
+      "response_id": "resp_0c27246277af519b0169f12017b14881979a06d2e54535de01",
+      "evidence_text": "After practice, the kids play soccer in the park every Saturday.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-play-obra:en-es-sentence-veto-play-jugar-shadow:candidate-03",
+      "usage": {
+        "input_tokens": 334,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 35,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 369
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-watch-reloj:en-es-sentence-veto-watch-reloj-active:candidate-01",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:watch:reloj",
+      "trigger": "watch",
+      "active_target": "reloj",
+      "candidate_target": "reloj",
+      "status": "accepted",
+      "response_id": "resp_036cb141ee621af40169f12018c8648190b9bb7df4956e012d",
+      "evidence_text": "She checked the antique watch before placing it carefully into the velvet box.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:active_example:en-es-sentence-veto-watch-reloj:en-es-sentence-veto-watch-reloj-active:candidate-01",
+      "usage": {
+        "input_tokens": 338,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 36,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 374
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-watch-reloj:en-es-sentence-veto-watch-reloj-active:candidate-02",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:watch:reloj",
+      "trigger": "watch",
+      "active_target": "reloj",
+      "candidate_target": "reloj",
+      "status": "accepted",
+      "response_id": "resp_0d17839a57860e320169f1201a9ba081909b6c5e41b114f2af",
+      "evidence_text": "She checked the antique watch before placing it carefully into the velvet box.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:active_example:en-es-sentence-veto-watch-reloj:en-es-sentence-veto-watch-reloj-active:candidate-02",
+      "usage": {
+        "input_tokens": 338,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 36,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 374
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-watch-reloj:en-es-sentence-veto-watch-reloj-active:candidate-03",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:watch:reloj",
+      "trigger": "watch",
+      "active_target": "reloj",
+      "candidate_target": "reloj",
+      "status": "accepted",
+      "response_id": "resp_0f489e76c553e5920169f1201b951c8196813e67d5c75947e3",
+      "evidence_text": "She checked the antique watch before dinner and admired its delicate silver hands.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:active_example:en-es-sentence-veto-watch-reloj:en-es-sentence-veto-watch-reloj-active:candidate-03",
+      "usage": {
+        "input_tokens": 338,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 36,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 374
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-watch-reloj:en-es-sentence-veto-watch-vigilar-shadow:candidate-01",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:watch:reloj",
+      "trigger": "watch",
+      "active_target": "reloj",
+      "candidate_target": "vigilar",
+      "status": "accepted",
+      "response_id": "resp_0c559b5c6011d6050169f1201cb1b08196bf13823b436d6bcd",
+      "evidence_text": "The security guard will watch the loading dock overnight for any suspicious activity.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-watch-reloj:en-es-sentence-veto-watch-vigilar-shadow:candidate-01",
+      "usage": {
+        "input_tokens": 338,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 36,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 374
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-watch-reloj:en-es-sentence-veto-watch-vigilar-shadow:candidate-02",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:watch:reloj",
+      "trigger": "watch",
+      "active_target": "reloj",
+      "candidate_target": "vigilar",
+      "status": "accepted",
+      "response_id": "resp_04d567608b2b15d50169f1201dd70c81949e3920898fd9b795",
+      "evidence_text": "Security staff watch the entrance closely during late-night shifts and emergency drills.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-watch-reloj:en-es-sentence-veto-watch-vigilar-shadow:candidate-02",
+      "usage": {
+        "input_tokens": 338,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 36,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 374
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-watch-reloj:en-es-sentence-veto-watch-vigilar-shadow:candidate-03",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:watch:reloj",
+      "trigger": "watch",
+      "active_target": "reloj",
+      "candidate_target": "vigilar",
+      "status": "accepted",
+      "response_id": "resp_0e56e993c8e3398a0169f1201f2000819795fad455369740dd",
+      "evidence_text": "Security staff watch the entrance closely during every late-night shift.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-watch-reloj:en-es-sentence-veto-watch-vigilar-shadow:candidate-03",
+      "usage": {
+        "input_tokens": 338,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 34,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 372
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-trip-viaje:en-es-sentence-veto-trip-viaje-shadow:candidate-01",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:trip:viaje",
+      "trigger": "trip",
+      "active_target": "viaje",
+      "candidate_target": "tropezar",
+      "status": "accepted",
+      "response_id": "resp_08f2b6437cc71bbc0169f120207b588197beac2ff35a8cbf99",
+      "evidence_text": "She began to trip over the loose cable and nearly fell backward.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-trip-viaje:en-es-sentence-veto-trip-viaje-shadow:candidate-01",
+      "usage": {
+        "input_tokens": 331,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 35,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 366
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-trip-viaje:en-es-sentence-veto-trip-viaje-shadow:candidate-02",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:trip:viaje",
+      "trigger": "trip",
+      "active_target": "viaje",
+      "candidate_target": "tropezar",
+      "status": "accepted",
+      "response_id": "resp_034b645bfd9ce31d0169f12021d0b48197b6d88b1b345891c2",
+      "evidence_text": "She might trip on the loose cable and spill her coffee.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-trip-viaje:en-es-sentence-veto-trip-viaje-shadow:candidate-02",
+      "usage": {
+        "input_tokens": 331,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 34,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 365
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-trip-viaje:en-es-sentence-veto-trip-viaje-shadow:candidate-03",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:trip:viaje",
+      "trigger": "trip",
+      "active_target": "viaje",
+      "candidate_target": "tropezar",
+      "status": "accepted",
+      "response_id": "resp_0ca008d777cce2990169f12023c0488196be0e84a6a4db3392",
+      "evidence_text": "She hit the loose cable and began to trip over the broken tiles.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-trip-viaje:en-es-sentence-veto-trip-viaje-shadow:candidate-03",
+      "usage": {
+        "input_tokens": 331,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 36,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 367
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-report-informe:en-es-sentence-veto-report-informe-active:candidate-01",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:report:informe",
+      "trigger": "report",
+      "active_target": "informe",
+      "candidate_target": "informe",
+      "status": "accepted",
+      "response_id": "resp_0fc5f203007845da0169f120250a8c81968b58331aedb248fb",
+      "evidence_text": "The auditor will report detailed findings in tomorrow's compliance summary.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:active_example:en-es-sentence-veto-report-informe:en-es-sentence-veto-report-informe-active:candidate-01",
+      "usage": {
+        "input_tokens": 344,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 34,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 378
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-report-informe:en-es-sentence-veto-report-informe-active:candidate-02",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:report:informe",
+      "trigger": "report",
+      "active_target": "informe",
+      "candidate_target": "informe",
+      "status": "accepted",
+      "response_id": "resp_0df00b7be455a1ea0169f1202600a88194b07d9fdc5a670c08",
+      "evidence_text": "The auditor will report detailed findings after reviewing the company records.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:active_example:en-es-sentence-veto-report-informe:en-es-sentence-veto-report-informe-active:candidate-02",
+      "usage": {
+        "input_tokens": 344,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 34,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 378
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-report-informe:en-es-sentence-veto-report-informe-active:candidate-03",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:report:informe",
+      "trigger": "report",
+      "active_target": "informe",
+      "candidate_target": "informe",
+      "status": "accepted",
+      "response_id": "resp_0b0c7a322f9872cf0169f12026fc948194b181cc967c96c25f",
+      "evidence_text": "The auditor filed a detailed report summarizing the quarterly compliance findings.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:active_example:en-es-sentence-veto-report-informe:en-es-sentence-veto-report-informe-active:candidate-03",
+      "usage": {
+        "input_tokens": 344,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 35,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 379
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-report-informe:en-es-sentence-veto-report-informar-shadow:candidate-01",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:report:informe",
+      "trigger": "report",
+      "active_target": "informe",
+      "candidate_target": "informar",
+      "status": "accepted",
+      "response_id": "resp_0ff6dc9c05463f9a0169f12028204c81979ec22dbcb74884ba",
+      "evidence_text": "Please report the outage to maintenance immediately so repairs can begin tonight.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-report-informe:en-es-sentence-veto-report-informar-shadow:candidate-01",
+      "usage": {
+        "input_tokens": 341,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 35,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 376
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-report-informe:en-es-sentence-veto-report-informar-shadow:candidate-02",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:report:informe",
+      "trigger": "report",
+      "active_target": "informe",
+      "candidate_target": "informar",
+      "status": "accepted",
+      "response_id": "resp_02ae3f6c27d902b80169f1202921508196a8cba60ca722c9c8",
+      "evidence_text": "Witnesses report seeing smoke rise quickly after the factory alarm sounded.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-report-informe:en-es-sentence-veto-report-informar-shadow:candidate-02",
+      "usage": {
+        "input_tokens": 341,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 35,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 376
+      }
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-report-informe:en-es-sentence-veto-report-informar-shadow:candidate-03",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:report:informe",
+      "trigger": "report",
+      "active_target": "informe",
+      "candidate_target": "informar",
+      "status": "accepted",
+      "response_id": "resp_0cbd9d7e8073b5410169f1202a017081938da437197d729703",
+      "evidence_text": "Please report the outage to maintenance immediately so crews can respond quickly.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-frame-gap-v1-20260429a_raw_responses.json#en-es:source-frame-gap:shadow_example:en-es-sentence-veto-report-informe:en-es-sentence-veto-report-informar-shadow:candidate-03",
+      "usage": {
+        "input_tokens": 341,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 35,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 376
+      }
+    }
+  ]
+}

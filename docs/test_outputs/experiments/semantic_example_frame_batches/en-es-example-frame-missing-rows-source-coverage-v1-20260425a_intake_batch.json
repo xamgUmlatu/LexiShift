@@ -1,0 +1,924 @@
+{
+  "schema_version": 1,
+  "batch_id": "en-es:example-frame-missing-rows:source-coverage-v1-20260425a",
+  "pair": "en-es",
+  "source_type": "llm",
+  "source_id": "llm_example_frame_missing_rows",
+  "source_family": "silver_llm_generation",
+  "roles": [
+    "cue_generation",
+    "discrimination"
+  ],
+  "generated_at": "2026-04-25T00:02:26Z",
+  "ingested_at": "2026-04-25T00:02:26Z",
+  "review_state": "unreviewed",
+  "model_id": "gpt-5.4-mini",
+  "prompt_version": "example-frame-missing-rows-v1",
+  "temperature": 0.2,
+  "cost_metadata": {
+    "request_count": 22,
+    "requests_with_usage": 22,
+    "input_tokens": 5670,
+    "output_tokens": 745,
+    "reasoning_tokens": 0
+  },
+  "provenance": {
+    "generation_plan_batch_id": "en-es:example-frame-composite:reverse-aux-plus-llm-missing-rows-plus-balanced-remediation-latest",
+    "required_family_source": "en_es_sentence_veto_v10",
+    "execution_mode": "live",
+    "raw_response_bundle_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-coverage-v1-20260425a_raw_responses.json"
+  },
+  "items": [
+    {
+      "row_id": "en-es-sentence-veto-ball-pelota:llm:active:missing:v1",
+      "relation_type": "anchor_cue",
+      "trigger": "ball",
+      "active_target": "pelota",
+      "candidate_target": "pelota",
+      "candidate_pos": "noun",
+      "prompt_slot": "active_example",
+      "input_ref": "en-es:example-frame-missing:active:en-es-sentence-veto-ball-pelota",
+      "metadata": {
+        "family_id": "en-es:sentence-veto:ball:pelota",
+        "active_sense_id": "en-es:sentence-veto:ball:pelota:active",
+        "candidate_sense_id": "en-es:sentence-veto:ball:pelota:active",
+        "generation_target": "active_example",
+        "source_gap": "active_example"
+      },
+      "evidence_text": "He kicked the ball into the net during soccer practice.",
+      "confidence": 0.98,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "pair": "en-es",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:ball:pelota:active",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:ball:pelota:active",
+        "note": "fixed_shadow_candidate",
+        "canonical_pos": "noun"
+      },
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-coverage-v1-20260425a_raw_responses.json#en-es:example-frame-missing:active:en-es-sentence-veto-ball-pelota",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false
+    },
+    {
+      "row_id": "en-es-sentence-veto-ball-pelota:llm:shadow:en-es-sentence-veto-ball-baile-shadow:missing:v1",
+      "relation_type": "shadow_candidate",
+      "trigger": "ball",
+      "active_target": "pelota",
+      "candidate_target": "baile",
+      "candidate_pos": "noun",
+      "prompt_slot": "shadow_example",
+      "input_ref": "en-es:example-frame-missing:shadow:en-es-sentence-veto-ball-pelota:en-es-sentence-veto-ball-baile-shadow",
+      "metadata": {
+        "family_id": "en-es:sentence-veto:ball:pelota",
+        "active_sense_id": "en-es:sentence-veto:ball:pelota:active",
+        "candidate_sense_id": "en-es:sentence-veto:ball:baile:shadow",
+        "generation_target": "shadow_example",
+        "source_gap": "shadow_example"
+      },
+      "evidence_text": "They attended the charity ball in evening gowns and tuxedos.",
+      "confidence": 0.98,
+      "roles": [
+        "discrimination"
+      ],
+      "pair": "en-es",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:ball:pelota:active",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:ball:baile:shadow",
+        "note": "fixed_shadow_candidate",
+        "canonical_pos": "noun"
+      },
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-coverage-v1-20260425a_raw_responses.json#en-es:example-frame-missing:shadow:en-es-sentence-veto-ball-pelota:en-es-sentence-veto-ball-baile-shadow",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false
+    },
+    {
+      "row_id": "en-es-sentence-veto-bank-banco:llm:active:missing:v1",
+      "relation_type": "anchor_cue",
+      "trigger": "bank",
+      "active_target": "banco",
+      "candidate_target": "banco",
+      "candidate_pos": "noun",
+      "prompt_slot": "active_example",
+      "input_ref": "en-es:example-frame-missing:active:en-es-sentence-veto-bank-banco",
+      "metadata": {
+        "family_id": "en-es:sentence-veto:bank:banco",
+        "active_sense_id": "en-es:sentence-veto:bank:banco:active",
+        "candidate_sense_id": "en-es:sentence-veto:bank:banco:active",
+        "generation_target": "active_example",
+        "source_gap": "active_example"
+      },
+      "evidence_text": "She deposited her paycheck at the bank before heading home.",
+      "confidence": 0.98,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "pair": "en-es",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:bank:banco:active",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:bank:banco:active",
+        "note": "fixed_shadow_candidate",
+        "canonical_pos": "noun"
+      },
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-coverage-v1-20260425a_raw_responses.json#en-es:example-frame-missing:active:en-es-sentence-veto-bank-banco",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false
+    },
+    {
+      "row_id": "en-es-sentence-veto-bank-banco:llm:shadow:en-es-sentence-veto-bank-orilla-shadow:missing:v1",
+      "relation_type": "shadow_candidate",
+      "trigger": "bank",
+      "active_target": "banco",
+      "candidate_target": "orilla",
+      "candidate_pos": "noun",
+      "prompt_slot": "shadow_example",
+      "input_ref": "en-es:example-frame-missing:shadow:en-es-sentence-veto-bank-banco:en-es-sentence-veto-bank-orilla-shadow",
+      "metadata": {
+        "family_id": "en-es:sentence-veto:bank:banco",
+        "active_sense_id": "en-es:sentence-veto:bank:banco:active",
+        "candidate_sense_id": "en-es:sentence-veto:bank:orilla:shadow",
+        "generation_target": "shadow_example",
+        "source_gap": "shadow_example"
+      },
+      "evidence_text": "We sat on the bank watching ducks drift past the reeds.",
+      "confidence": 0.98,
+      "roles": [
+        "discrimination"
+      ],
+      "pair": "en-es",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:bank:banco:active",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:bank:orilla:shadow",
+        "note": "fixed_shadow_candidate",
+        "canonical_pos": "noun"
+      },
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-coverage-v1-20260425a_raw_responses.json#en-es:example-frame-missing:shadow:en-es-sentence-veto-bank-banco:en-es-sentence-veto-bank-orilla-shadow",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:llm:active:missing:v1",
+      "relation_type": "anchor_cue",
+      "trigger": "cell",
+      "active_target": "célula",
+      "candidate_target": "célula",
+      "candidate_pos": "noun",
+      "prompt_slot": "active_example",
+      "input_ref": "en-es:example-frame-missing:active:en-es-sentence-veto-cell-celula",
+      "metadata": {
+        "family_id": "en-es:sentence-veto:cell:celula",
+        "active_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "candidate_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "generation_target": "active_example",
+        "source_gap": "active_example"
+      },
+      "evidence_text": "The microscope revealed a damaged cell dividing rapidly in the tissue sample.",
+      "confidence": 0.98,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "pair": "en-es",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:cell:celula:active",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:cell:celula:active",
+        "note": "fixed_shadow_candidate",
+        "canonical_pos": "noun"
+      },
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-coverage-v1-20260425a_raw_responses.json#en-es:example-frame-missing:active:en-es-sentence-veto-cell-celula",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:llm:shadow:en-es-sentence-veto-cell-celda-shadow:missing:v1",
+      "relation_type": "shadow_candidate",
+      "trigger": "cell",
+      "active_target": "célula",
+      "candidate_target": "celda",
+      "candidate_pos": "noun",
+      "prompt_slot": "shadow_example",
+      "input_ref": "en-es:example-frame-missing:shadow:en-es-sentence-veto-cell-celula:en-es-sentence-veto-cell-celda-shadow",
+      "metadata": {
+        "family_id": "en-es:sentence-veto:cell:celula",
+        "active_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "candidate_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "generation_target": "shadow_example",
+        "source_gap": "shadow_example"
+      },
+      "evidence_text": "The guard locked him back in his cell after the hearing.",
+      "confidence": 0.98,
+      "roles": [
+        "discrimination"
+      ],
+      "pair": "en-es",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:cell:celula:active",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:cell:celda:shadow",
+        "note": "fixed_shadow_candidate",
+        "canonical_pos": "noun"
+      },
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-coverage-v1-20260425a_raw_responses.json#en-es:example-frame-missing:shadow:en-es-sentence-veto-cell-celula:en-es-sentence-veto-cell-celda-shadow",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false
+    },
+    {
+      "row_id": "en-es-sentence-veto-spring-primavera:llm:active:missing:v1",
+      "relation_type": "anchor_cue",
+      "trigger": "spring",
+      "active_target": "primavera",
+      "candidate_target": "primavera",
+      "candidate_pos": "noun",
+      "prompt_slot": "active_example",
+      "input_ref": "en-es:example-frame-missing:active:en-es-sentence-veto-spring-primavera",
+      "metadata": {
+        "family_id": "en-es:sentence-veto:spring:primavera",
+        "active_sense_id": "en-es:sentence-veto:spring:primavera:active",
+        "candidate_sense_id": "en-es:sentence-veto:spring:primavera:active",
+        "generation_target": "active_example",
+        "source_gap": "active_example"
+      },
+      "evidence_text": "In spring, the cherry trees bloom and the days grow warmer.",
+      "confidence": 0.98,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "pair": "en-es",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:spring:primavera:active",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:spring:primavera:active",
+        "note": "fixed_shadow_candidate",
+        "canonical_pos": "noun"
+      },
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-coverage-v1-20260425a_raw_responses.json#en-es:example-frame-missing:active:en-es-sentence-veto-spring-primavera",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false
+    },
+    {
+      "row_id": "en-es-sentence-veto-spring-primavera:llm:shadow:en-es-sentence-veto-spring-resorte-shadow:missing:v1",
+      "relation_type": "shadow_candidate",
+      "trigger": "spring",
+      "active_target": "primavera",
+      "candidate_target": "resorte",
+      "candidate_pos": "noun",
+      "prompt_slot": "shadow_example",
+      "input_ref": "en-es:example-frame-missing:shadow:en-es-sentence-veto-spring-primavera:en-es-sentence-veto-spring-resorte-shadow",
+      "metadata": {
+        "family_id": "en-es:sentence-veto:spring:primavera",
+        "active_sense_id": "en-es:sentence-veto:spring:primavera:active",
+        "candidate_sense_id": "en-es:sentence-veto:spring:resorte:shadow",
+        "generation_target": "shadow_example",
+        "source_gap": "shadow_example"
+      },
+      "evidence_text": "The old mattress had a broken spring poking through the fabric.",
+      "confidence": 0.98,
+      "roles": [
+        "discrimination"
+      ],
+      "pair": "en-es",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:spring:primavera:active",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:spring:resorte:shadow",
+        "note": "fixed_shadow_candidate",
+        "canonical_pos": "noun"
+      },
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-coverage-v1-20260425a_raw_responses.json#en-es:example-frame-missing:shadow:en-es-sentence-veto-spring-primavera:en-es-sentence-veto-spring-resorte-shadow",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false
+    },
+    {
+      "row_id": "en-es-sentence-veto-seal-sello:llm:active:missing:v1",
+      "relation_type": "anchor_cue",
+      "trigger": "seal",
+      "active_target": "sello",
+      "candidate_target": "sello",
+      "candidate_pos": "noun",
+      "prompt_slot": "active_example",
+      "input_ref": "en-es:example-frame-missing:active:en-es-sentence-veto-seal-sello",
+      "metadata": {
+        "family_id": "en-es:sentence-veto:seal:sello",
+        "active_sense_id": "en-es:sentence-veto:seal:sello:active",
+        "candidate_sense_id": "en-es:sentence-veto:seal:sello:active",
+        "generation_target": "active_example",
+        "source_gap": "active_example"
+      },
+      "evidence_text": "The clerk pressed the seal onto the notarized certificate.",
+      "confidence": 0.98,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "pair": "en-es",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:seal:sello:active",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:seal:sello:active",
+        "note": "fixed_shadow_candidate",
+        "canonical_pos": "noun"
+      },
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-coverage-v1-20260425a_raw_responses.json#en-es:example-frame-missing:active:en-es-sentence-veto-seal-sello",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false
+    },
+    {
+      "row_id": "en-es-sentence-veto-seal-sello:llm:shadow:en-es-sentence-veto-seal-foca-shadow:missing:v1",
+      "relation_type": "shadow_candidate",
+      "trigger": "seal",
+      "active_target": "sello",
+      "candidate_target": "foca",
+      "candidate_pos": "noun",
+      "prompt_slot": "shadow_example",
+      "input_ref": "en-es:example-frame-missing:shadow:en-es-sentence-veto-seal-sello:en-es-sentence-veto-seal-foca-shadow",
+      "metadata": {
+        "family_id": "en-es:sentence-veto:seal:sello",
+        "active_sense_id": "en-es:sentence-veto:seal:sello:active",
+        "candidate_sense_id": "en-es:sentence-veto:seal:foca:shadow",
+        "generation_target": "shadow_example",
+        "source_gap": "shadow_example"
+      },
+      "evidence_text": "A seal basked on the rocks beside the harbor, watching the waves.",
+      "confidence": 0.98,
+      "roles": [
+        "discrimination"
+      ],
+      "pair": "en-es",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:seal:sello:active",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:seal:foca:shadow",
+        "note": "fixed_shadow_candidate",
+        "canonical_pos": "noun"
+      },
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-coverage-v1-20260425a_raw_responses.json#en-es:example-frame-missing:shadow:en-es-sentence-veto-seal-sello:en-es-sentence-veto-seal-foca-shadow",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false
+    },
+    {
+      "row_id": "en-es-sentence-veto-file-archivo:llm:active:missing:v1",
+      "relation_type": "anchor_cue",
+      "trigger": "file",
+      "active_target": "archivo",
+      "candidate_target": "archivo",
+      "candidate_pos": "noun",
+      "prompt_slot": "active_example",
+      "input_ref": "en-es:example-frame-missing:active:en-es-sentence-veto-file-archivo",
+      "metadata": {
+        "family_id": "en-es:sentence-veto:file:archivo",
+        "active_sense_id": "en-es:sentence-veto:file:archivo:active",
+        "candidate_sense_id": "en-es:sentence-veto:file:archivo:active",
+        "generation_target": "active_example",
+        "source_gap": "active_example"
+      },
+      "evidence_text": "I saved the invoice as a PDF file on my laptop.",
+      "confidence": 0.98,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "pair": "en-es",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:file:archivo:active",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:file:archivo:active",
+        "note": "fixed_shadow_candidate",
+        "canonical_pos": "noun"
+      },
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-coverage-v1-20260425a_raw_responses.json#en-es:example-frame-missing:active:en-es-sentence-veto-file-archivo",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false
+    },
+    {
+      "row_id": "en-es-sentence-veto-file-archivo:llm:shadow:en-es-sentence-veto-file-lima-shadow:missing:v1",
+      "relation_type": "shadow_candidate",
+      "trigger": "file",
+      "active_target": "archivo",
+      "candidate_target": "lima",
+      "candidate_pos": "noun",
+      "prompt_slot": "shadow_example",
+      "input_ref": "en-es:example-frame-missing:shadow:en-es-sentence-veto-file-archivo:en-es-sentence-veto-file-lima-shadow",
+      "metadata": {
+        "family_id": "en-es:sentence-veto:file:archivo",
+        "active_sense_id": "en-es:sentence-veto:file:archivo:active",
+        "candidate_sense_id": "en-es:sentence-veto:file:lima:shadow",
+        "generation_target": "shadow_example",
+        "source_gap": "shadow_example"
+      },
+      "evidence_text": "He used a file to smooth the jagged edge of the metal rod.",
+      "confidence": 0.98,
+      "roles": [
+        "discrimination"
+      ],
+      "pair": "en-es",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:file:archivo:active",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:file:lima:shadow",
+        "note": "fixed_shadow_candidate",
+        "canonical_pos": "noun"
+      },
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-coverage-v1-20260425a_raw_responses.json#en-es:example-frame-missing:shadow:en-es-sentence-veto-file-archivo:en-es-sentence-veto-file-lima-shadow",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false
+    },
+    {
+      "row_id": "en-es-sentence-veto-match-partido:llm:active:missing:v1",
+      "relation_type": "anchor_cue",
+      "trigger": "match",
+      "active_target": "partido",
+      "candidate_target": "partido",
+      "candidate_pos": "noun",
+      "prompt_slot": "active_example",
+      "input_ref": "en-es:example-frame-missing:active:en-es-sentence-veto-match-partido",
+      "metadata": {
+        "family_id": "en-es:sentence-veto:match:partido",
+        "active_sense_id": "en-es:sentence-veto:match:partido:active",
+        "candidate_sense_id": "en-es:sentence-veto:match:partido:active",
+        "generation_target": "active_example",
+        "source_gap": "active_example"
+      },
+      "evidence_text": "The match went into overtime after both teams scored twice.",
+      "confidence": 0.98,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "pair": "en-es",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:match:partido:active",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:match:partido:active",
+        "note": "fixed_shadow_candidate",
+        "canonical_pos": "noun"
+      },
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-coverage-v1-20260425a_raw_responses.json#en-es:example-frame-missing:active:en-es-sentence-veto-match-partido",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false
+    },
+    {
+      "row_id": "en-es-sentence-veto-match-partido:llm:shadow:en-es-sentence-veto-match-cerilla-shadow:missing:v1",
+      "relation_type": "shadow_candidate",
+      "trigger": "match",
+      "active_target": "partido",
+      "candidate_target": "cerilla",
+      "candidate_pos": "noun",
+      "prompt_slot": "shadow_example",
+      "input_ref": "en-es:example-frame-missing:shadow:en-es-sentence-veto-match-partido:en-es-sentence-veto-match-cerilla-shadow",
+      "metadata": {
+        "family_id": "en-es:sentence-veto:match:partido",
+        "active_sense_id": "en-es:sentence-veto:match:partido:active",
+        "candidate_sense_id": "en-es:sentence-veto:match:cerilla:shadow",
+        "generation_target": "shadow_example",
+        "source_gap": "shadow_example"
+      },
+      "evidence_text": "He struck a match to light the candle.",
+      "confidence": 0.98,
+      "roles": [
+        "discrimination"
+      ],
+      "pair": "en-es",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:match:partido:active",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:match:cerilla:shadow",
+        "note": "fixed_shadow_candidate",
+        "canonical_pos": "noun"
+      },
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-coverage-v1-20260425a_raw_responses.json#en-es:example-frame-missing:shadow:en-es-sentence-veto-match-partido:en-es-sentence-veto-match-cerilla-shadow",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false
+    },
+    {
+      "row_id": "en-es-sentence-veto-board-tablero:llm:active:missing:v1",
+      "relation_type": "anchor_cue",
+      "trigger": "board",
+      "active_target": "tablero",
+      "candidate_target": "tablero",
+      "candidate_pos": "noun",
+      "prompt_slot": "active_example",
+      "input_ref": "en-es:example-frame-missing:active:en-es-sentence-veto-board-tablero",
+      "metadata": {
+        "family_id": "en-es:sentence-veto:board:tablero",
+        "active_sense_id": "en-es:sentence-veto:board:tablero:active",
+        "candidate_sense_id": "en-es:sentence-veto:board:tablero:active",
+        "generation_target": "active_example",
+        "source_gap": "active_example"
+      },
+      "evidence_text": "We spread the cards across the board and started the game.",
+      "confidence": 0.98,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "pair": "en-es",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:board:tablero:active",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:board:tablero:active",
+        "note": "fixed_shadow_candidate",
+        "canonical_pos": "noun"
+      },
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-coverage-v1-20260425a_raw_responses.json#en-es:example-frame-missing:active:en-es-sentence-veto-board-tablero",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false
+    },
+    {
+      "row_id": "en-es-sentence-veto-board-tablero:llm:shadow:en-es-sentence-veto-board-junta-shadow:missing:v1",
+      "relation_type": "shadow_candidate",
+      "trigger": "board",
+      "active_target": "tablero",
+      "candidate_target": "junta",
+      "candidate_pos": "noun",
+      "prompt_slot": "shadow_example",
+      "input_ref": "en-es:example-frame-missing:shadow:en-es-sentence-veto-board-tablero:en-es-sentence-veto-board-junta-shadow",
+      "metadata": {
+        "family_id": "en-es:sentence-veto:board:tablero",
+        "active_sense_id": "en-es:sentence-veto:board:tablero:active",
+        "candidate_sense_id": "en-es:sentence-veto:board:junta:shadow",
+        "generation_target": "shadow_example",
+        "source_gap": "shadow_example"
+      },
+      "evidence_text": "The board approved the merger after reviewing the quarterly report.",
+      "confidence": 0.98,
+      "roles": [
+        "discrimination"
+      ],
+      "pair": "en-es",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:board:tablero:active",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:board:junta:shadow",
+        "note": "fixed_shadow_candidate",
+        "canonical_pos": "noun"
+      },
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-coverage-v1-20260425a_raw_responses.json#en-es:example-frame-missing:shadow:en-es-sentence-veto-board-tablero:en-es-sentence-veto-board-junta-shadow",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false
+    },
+    {
+      "row_id": "en-es-sentence-veto-table-mesa:llm:active:missing:v1",
+      "relation_type": "anchor_cue",
+      "trigger": "table",
+      "active_target": "mesa",
+      "candidate_target": "mesa",
+      "candidate_pos": "noun",
+      "prompt_slot": "active_example",
+      "input_ref": "en-es:example-frame-missing:active:en-es-sentence-veto-table-mesa",
+      "metadata": {
+        "family_id": "en-es:sentence-veto:table:mesa",
+        "active_sense_id": "en-es:sentence-veto:table:mesa:active",
+        "candidate_sense_id": "en-es:sentence-veto:table:mesa:active",
+        "generation_target": "active_example",
+        "source_gap": "active_example"
+      },
+      "evidence_text": "We ate dinner at the table by the window.",
+      "confidence": 0.98,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "pair": "en-es",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:table:mesa:active",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:table:mesa:active",
+        "note": "fixed_shadow_candidate",
+        "canonical_pos": "noun"
+      },
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-coverage-v1-20260425a_raw_responses.json#en-es:example-frame-missing:active:en-es-sentence-veto-table-mesa",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false
+    },
+    {
+      "row_id": "en-es-sentence-veto-table-mesa:llm:shadow:en-es-sentence-veto-table-tabla-shadow:missing:v1",
+      "relation_type": "shadow_candidate",
+      "trigger": "table",
+      "active_target": "mesa",
+      "candidate_target": "tabla",
+      "candidate_pos": "noun",
+      "prompt_slot": "shadow_example",
+      "input_ref": "en-es:example-frame-missing:shadow:en-es-sentence-veto-table-mesa:en-es-sentence-veto-table-tabla-shadow",
+      "metadata": {
+        "family_id": "en-es:sentence-veto:table:mesa",
+        "active_sense_id": "en-es:sentence-veto:table:mesa:active",
+        "candidate_sense_id": "en-es:sentence-veto:table:tabla:shadow",
+        "generation_target": "shadow_example",
+        "source_gap": "shadow_example"
+      },
+      "evidence_text": "The table lists monthly sales by region and product category.",
+      "confidence": 0.98,
+      "roles": [
+        "discrimination"
+      ],
+      "pair": "en-es",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:table:mesa:active",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:table:tabla:shadow",
+        "note": "fixed_shadow_candidate",
+        "canonical_pos": "noun"
+      },
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-coverage-v1-20260425a_raw_responses.json#en-es:example-frame-missing:shadow:en-es-sentence-veto-table-mesa:en-es-sentence-veto-table-tabla-shadow",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false
+    },
+    {
+      "row_id": "en-es-sentence-veto-branch-sucursal:llm:active:missing:v1",
+      "relation_type": "anchor_cue",
+      "trigger": "branch",
+      "active_target": "sucursal",
+      "candidate_target": "sucursal",
+      "candidate_pos": "noun",
+      "prompt_slot": "active_example",
+      "input_ref": "en-es:example-frame-missing:active:en-es-sentence-veto-branch-sucursal",
+      "metadata": {
+        "family_id": "en-es:sentence-veto:branch:sucursal",
+        "active_sense_id": "en-es:sentence-veto:branch:sucursal:active",
+        "candidate_sense_id": "en-es:sentence-veto:branch:sucursal:active",
+        "generation_target": "active_example",
+        "source_gap": "active_example"
+      },
+      "evidence_text": "She transferred to the downtown branch to handle customer accounts.",
+      "confidence": 0.98,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "pair": "en-es",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:branch:sucursal:active",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:branch:sucursal:active",
+        "note": "fixed_shadow_candidate",
+        "canonical_pos": "noun"
+      },
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-coverage-v1-20260425a_raw_responses.json#en-es:example-frame-missing:active:en-es-sentence-veto-branch-sucursal",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false
+    },
+    {
+      "row_id": "en-es-sentence-veto-branch-sucursal:llm:shadow:en-es-sentence-veto-branch-rama-shadow:missing:v1",
+      "relation_type": "shadow_candidate",
+      "trigger": "branch",
+      "active_target": "sucursal",
+      "candidate_target": "rama",
+      "candidate_pos": "noun",
+      "prompt_slot": "shadow_example",
+      "input_ref": "en-es:example-frame-missing:shadow:en-es-sentence-veto-branch-sucursal:en-es-sentence-veto-branch-rama-shadow",
+      "metadata": {
+        "family_id": "en-es:sentence-veto:branch:sucursal",
+        "active_sense_id": "en-es:sentence-veto:branch:sucursal:active",
+        "candidate_sense_id": "en-es:sentence-veto:branch:rama:shadow",
+        "generation_target": "shadow_example",
+        "source_gap": "shadow_example"
+      },
+      "evidence_text": "A heavy branch cracked under the snow and fell into the yard.",
+      "confidence": 0.98,
+      "roles": [
+        "discrimination"
+      ],
+      "pair": "en-es",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:branch:sucursal:active",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:branch:rama:shadow",
+        "note": "fixed_shadow_candidate",
+        "canonical_pos": "noun"
+      },
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-coverage-v1-20260425a_raw_responses.json#en-es:example-frame-missing:shadow:en-es-sentence-veto-branch-sucursal:en-es-sentence-veto-branch-rama-shadow",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false
+    },
+    {
+      "row_id": "en-es-sentence-veto-park-parque:llm:active:missing:v1",
+      "relation_type": "anchor_cue",
+      "trigger": "park",
+      "active_target": "parque",
+      "candidate_target": "parque",
+      "candidate_pos": "noun",
+      "prompt_slot": "active_example",
+      "input_ref": "en-es:example-frame-missing:active:en-es-sentence-veto-park-parque",
+      "metadata": {
+        "family_id": "en-es:sentence-veto:park:parque",
+        "active_sense_id": "en-es:sentence-veto:park:parque:active",
+        "candidate_sense_id": "en-es:sentence-veto:park:parque:active",
+        "generation_target": "active_example",
+        "source_gap": "active_example"
+      },
+      "evidence_text": "We had a picnic in the park beside the lake after lunch.",
+      "confidence": 0.98,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "pair": "en-es",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:park:parque:active",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:park:parque:active",
+        "note": "fixed_shadow_candidate",
+        "canonical_pos": "noun"
+      },
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-coverage-v1-20260425a_raw_responses.json#en-es:example-frame-missing:active:en-es-sentence-veto-park-parque",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false
+    },
+    {
+      "row_id": "en-es-sentence-veto-park-parque:llm:shadow:en-es-sentence-veto-park-aparcar-shadow:missing:v1",
+      "relation_type": "shadow_candidate",
+      "trigger": "park",
+      "active_target": "parque",
+      "candidate_target": "aparcar",
+      "candidate_pos": "verb",
+      "prompt_slot": "shadow_example",
+      "input_ref": "en-es:example-frame-missing:shadow:en-es-sentence-veto-park-parque:en-es-sentence-veto-park-aparcar-shadow",
+      "metadata": {
+        "family_id": "en-es:sentence-veto:park:parque",
+        "active_sense_id": "en-es:sentence-veto:park:parque:active",
+        "candidate_sense_id": "en-es:sentence-veto:park:aparcar:shadow",
+        "generation_target": "shadow_example",
+        "source_gap": "shadow_example"
+      },
+      "evidence_text": "I park the car behind the store before lunch.",
+      "confidence": 0.98,
+      "roles": [
+        "discrimination"
+      ],
+      "pair": "en-es",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:park:parque:active",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:park:aparcar:shadow",
+        "note": "fixed_shadow_candidate",
+        "canonical_pos": "verb"
+      },
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-source-coverage-v1-20260425a_raw_responses.json#en-es:example-frame-missing:shadow:en-es-sentence-veto-park-parque:en-es-sentence-veto-park-aparcar-shadow",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false
+    }
+  ]
+}

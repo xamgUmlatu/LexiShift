@@ -1,0 +1,185 @@
+{
+  "schema_version": 1,
+  "pair": "en-es",
+  "dataset_id": "en_es_phrase_policy_signal_non_v10_v1",
+  "description": "Non-v10 phrase-policy signal audit cases. These rows test phrase-pattern firing separately from semantic source coverage so new ambiguous families can be screened before source evidence exists.",
+  "case_scope": "phrase_policy_signal_only",
+  "families": [
+    {
+      "family_id": "en-es:phrase-signal:rock:roca",
+      "family_pos_tags": ["noun", "noun"],
+      "cases": [
+        {
+          "case_id": "en-es:phrase-signal:non-v10:v1:rock:001",
+          "sentence": "The policy could rock the market before Monday.",
+          "source_phrase": "rock",
+          "expected_phrase_preemption": true,
+          "required_signal_codes": ["modal_trigger_frame"],
+          "slice_tags": ["non_v10", "phrase_signal", "verb_phrase"]
+        },
+        {
+          "case_id": "en-es:phrase-signal:non-v10:v1:rock:002",
+          "sentence": "The rock beside the gate cracked overnight.",
+          "source_phrase": "rock",
+          "expected_phrase_preemption": false,
+          "required_signal_codes": [],
+          "slice_tags": ["non_v10", "phrase_signal", "literal_active_counterexample"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:phrase-signal:draft:borrador",
+      "family_pos_tags": ["noun", "noun"],
+      "cases": [
+        {
+          "case_id": "en-es:phrase-signal:non-v10:v1:draft:001",
+          "sentence": "Agencies may draft in volunteers before storms.",
+          "source_phrase": "draft",
+          "expected_phrase_preemption": true,
+          "required_signal_codes": ["modal_trigger_frame"],
+          "slice_tags": ["non_v10", "phrase_signal", "phrasal_verb"]
+        },
+        {
+          "case_id": "en-es:phrase-signal:non-v10:v1:draft:002",
+          "sentence": "The draft of the letter was brief.",
+          "source_phrase": "draft",
+          "expected_phrase_preemption": false,
+          "required_signal_codes": [],
+          "slice_tags": ["non_v10", "phrase_signal", "literal_active_counterexample"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:phrase-signal:case:caso",
+      "family_pos_tags": ["noun", "noun"],
+      "cases": [
+        {
+          "case_id": "en-es:phrase-signal:non-v10:v1:case:001",
+          "sentence": "Detectives can case out the warehouse quietly.",
+          "source_phrase": "case",
+          "expected_phrase_preemption": true,
+          "required_signal_codes": ["modal_trigger_frame"],
+          "slice_tags": ["non_v10", "phrase_signal", "phrasal_verb"]
+        },
+        {
+          "case_id": "en-es:phrase-signal:non-v10:v1:case:002",
+          "sentence": "The case on the shelf was empty.",
+          "source_phrase": "case",
+          "expected_phrase_preemption": false,
+          "required_signal_codes": [],
+          "slice_tags": ["non_v10", "phrase_signal", "literal_shadow_counterexample"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:phrase-signal:scale:escala",
+      "family_pos_tags": ["noun", "noun"],
+      "cases": [
+        {
+          "case_id": "en-es:phrase-signal:non-v10:v1:scale:001",
+          "sentence": "Executives should scale back the rollout.",
+          "source_phrase": "scale",
+          "expected_phrase_preemption": true,
+          "required_signal_codes": ["modal_trigger_frame"],
+          "slice_tags": ["non_v10", "phrase_signal", "phrasal_verb"]
+        },
+        {
+          "case_id": "en-es:phrase-signal:non-v10:v1:scale:002",
+          "sentence": "The scale near the sink was broken.",
+          "source_phrase": "scale",
+          "expected_phrase_preemption": false,
+          "required_signal_codes": [],
+          "slice_tags": ["non_v10", "phrase_signal", "literal_shadow_counterexample"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:phrase-signal:line:linea",
+      "family_pos_tags": ["noun", "noun"],
+      "cases": [
+        {
+          "case_id": "en-es:phrase-signal:non-v10:v1:line:001",
+          "sentence": "Organizers will line up speakers tomorrow.",
+          "source_phrase": "line",
+          "expected_phrase_preemption": true,
+          "required_signal_codes": ["modal_trigger_frame"],
+          "slice_tags": ["non_v10", "phrase_signal", "phrasal_verb"]
+        },
+        {
+          "case_id": "en-es:phrase-signal:non-v10:v1:line:002",
+          "sentence": "The line near the door moved slowly.",
+          "source_phrase": "line",
+          "expected_phrase_preemption": false,
+          "required_signal_codes": [],
+          "slice_tags": ["non_v10", "phrase_signal", "literal_shadow_counterexample"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:phrase-signal:point:punto",
+      "family_pos_tags": ["noun", "noun"],
+      "cases": [
+        {
+          "case_id": "en-es:phrase-signal:non-v10:v1:point:001",
+          "sentence": "Editors may point out errors before print.",
+          "source_phrase": "point",
+          "expected_phrase_preemption": true,
+          "required_signal_codes": ["modal_trigger_frame"],
+          "slice_tags": ["non_v10", "phrase_signal", "phrasal_verb"]
+        },
+        {
+          "case_id": "en-es:phrase-signal:non-v10:v1:point:002",
+          "sentence": "Each point in the plan mattered.",
+          "source_phrase": "point",
+          "expected_phrase_preemption": false,
+          "required_signal_codes": [],
+          "slice_tags": ["non_v10", "phrase_signal", "literal_active_counterexample"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:phrase-signal:ring:anillo",
+      "family_pos_tags": ["noun", "noun"],
+      "cases": [
+        {
+          "case_id": "en-es:phrase-signal:non-v10:v1:ring:001",
+          "sentence": "Cashiers can ring up purchases quickly.",
+          "source_phrase": "ring",
+          "expected_phrase_preemption": true,
+          "required_signal_codes": ["modal_trigger_frame"],
+          "slice_tags": ["non_v10", "phrase_signal", "phrasal_verb"]
+        },
+        {
+          "case_id": "en-es:phrase-signal:non-v10:v1:ring:002",
+          "sentence": "The ring in the box was silver.",
+          "source_phrase": "ring",
+          "expected_phrase_preemption": false,
+          "required_signal_codes": [],
+          "slice_tags": ["non_v10", "phrase_signal", "literal_active_counterexample"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:phrase-signal:date:fecha",
+      "family_pos_tags": ["noun", "noun"],
+      "cases": [
+        {
+          "case_id": "en-es:phrase-signal:non-v10:v1:date:001",
+          "sentence": "The ruins may date back to the tenth century.",
+          "source_phrase": "date",
+          "expected_phrase_preemption": true,
+          "required_signal_codes": ["modal_trigger_frame"],
+          "slice_tags": ["non_v10", "phrase_signal", "phrasal_verb"]
+        },
+        {
+          "case_id": "en-es:phrase-signal:non-v10:v1:date:002",
+          "sentence": "The date on the notice changed.",
+          "source_phrase": "date",
+          "expected_phrase_preemption": false,
+          "required_signal_codes": [],
+          "slice_tags": ["non_v10", "phrase_signal", "literal_active_counterexample"]
+        }
+      ]
+    }
+  ]
+}

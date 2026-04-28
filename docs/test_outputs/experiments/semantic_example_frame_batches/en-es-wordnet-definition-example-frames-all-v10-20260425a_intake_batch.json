@@ -1,0 +1,4454 @@
+{
+  "schema_version": 1,
+  "batch_id": "en-es:wordnet-example-frames:wordnet-definition-example-frames-all-v10-20260425a",
+  "pair": "en-es",
+  "source_type": "external",
+  "source_id": "wordnet_example_frames",
+  "source_family": "external_sense_graph",
+  "roles": [
+    "cue_generation",
+    "discrimination"
+  ],
+  "generated_at": "2026-04-25T01:42:25Z",
+  "ingested_at": "2026-04-25T01:42:25Z",
+  "review_state": "unreviewed",
+  "model_id": "not_applicable",
+  "prompt_version": "wordnet-example-frames-v1",
+  "provenance": {
+    "dataset_id": "en_es_sentence_veto_v10",
+    "source_scope": "all_dataset_families",
+    "source_note": "local English WordNet definitions/examples linked to dataset senses",
+    "min_link_score": 0.12,
+    "evidence_mode": "definition_and_example",
+    "max_rows_per_sense": 2,
+    "family_rows": [
+      {
+        "family_id": "en-es:sentence-veto:ball:pelota",
+        "trigger": "ball",
+        "active_target": "pelota",
+        "role": "target",
+        "active_wordnet_count": 2,
+        "shadow_wordnet_count": 1,
+        "phrase_control_example_count": 0,
+        "row_count": 3,
+        "link_rows": [
+          {
+            "sense_id": "en-es:sentence-veto:ball:pelota:active",
+            "target_lemma": "pelota",
+            "canonical_pos": "noun",
+            "relation_type": "anchor_cue",
+            "linked": true,
+            "best_wordnet_sense_id": "ball%1:06:02::",
+            "best_wordnet_synset_id": "02782458-n",
+            "best_link_score": 0.4,
+            "best_overlap": [
+              "object",
+              "play",
+              "spherical",
+              "used"
+            ],
+            "candidate_count": 3
+          },
+          {
+            "sense_id": "en-es:sentence-veto:ball:baile:shadow",
+            "target_lemma": "baile",
+            "canonical_pos": "noun",
+            "relation_type": "shadow_candidate",
+            "linked": true,
+            "best_wordnet_sense_id": "ball%1:11:00::",
+            "best_wordnet_synset_id": "07463485-n",
+            "best_link_score": 0.2222,
+            "best_overlap": [
+              "dance",
+              "formal"
+            ],
+            "candidate_count": 1
+          }
+        ]
+      },
+      {
+        "family_id": "en-es:sentence-veto:bank:banco",
+        "trigger": "bank",
+        "active_target": "banco",
+        "role": "target",
+        "active_wordnet_count": 2,
+        "shadow_wordnet_count": 2,
+        "phrase_control_example_count": 0,
+        "row_count": 4,
+        "link_rows": [
+          {
+            "sense_id": "en-es:sentence-veto:bank:banco:active",
+            "target_lemma": "banco",
+            "canonical_pos": "noun",
+            "relation_type": "anchor_cue",
+            "linked": true,
+            "best_wordnet_sense_id": "bank%1:14:00::",
+            "best_wordnet_synset_id": "08437235-n",
+            "best_link_score": 0.4,
+            "best_overlap": [
+              "financial",
+              "institution",
+              "lend",
+              "money"
+            ],
+            "candidate_count": 1
+          },
+          {
+            "sense_id": "en-es:sentence-veto:bank:orilla:shadow",
+            "target_lemma": "orilla",
+            "canonical_pos": "noun",
+            "relation_type": "shadow_candidate",
+            "linked": true,
+            "best_wordnet_sense_id": "bank%1:17:01::",
+            "best_wordnet_synset_id": "09236472-n",
+            "best_link_score": 0.1429,
+            "best_overlap": [
+              "river"
+            ],
+            "candidate_count": 1
+          }
+        ]
+      },
+      {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "trigger": "plant",
+        "active_target": "planta",
+        "role": "target",
+        "active_wordnet_count": 1,
+        "shadow_wordnet_count": 2,
+        "phrase_control_example_count": 0,
+        "row_count": 3,
+        "link_rows": [
+          {
+            "sense_id": "en-es:sentence-veto:plant:planta:active",
+            "target_lemma": "planta",
+            "canonical_pos": "noun",
+            "relation_type": "anchor_cue",
+            "linked": true,
+            "best_wordnet_sense_id": "plant%1:03:00::",
+            "best_wordnet_synset_id": "00017402-n",
+            "best_link_score": 0.2,
+            "best_overlap": [
+              "liv",
+              "organism"
+            ],
+            "candidate_count": 1
+          },
+          {
+            "sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+            "target_lemma": "fábrica",
+            "canonical_pos": "noun",
+            "relation_type": "shadow_candidate",
+            "linked": true,
+            "best_wordnet_sense_id": "plant%1:06:01::",
+            "best_wordnet_synset_id": "03963198-n",
+            "best_link_score": 0.1429,
+            "best_overlap": [
+              "industrial"
+            ],
+            "candidate_count": 1
+          }
+        ]
+      },
+      {
+        "family_id": "en-es:sentence-veto:cell:celula",
+        "trigger": "cell",
+        "active_target": "célula",
+        "role": "target",
+        "active_wordnet_count": 2,
+        "shadow_wordnet_count": 2,
+        "phrase_control_example_count": 0,
+        "row_count": 4,
+        "link_rows": [
+          {
+            "sense_id": "en-es:sentence-veto:cell:celula:active",
+            "target_lemma": "célula",
+            "canonical_pos": "noun",
+            "relation_type": "anchor_cue",
+            "linked": true,
+            "best_wordnet_sense_id": "cell%1:03:00::",
+            "best_wordnet_synset_id": "00006484-n",
+            "best_link_score": 0.3,
+            "best_overlap": [
+              "biology",
+              "organism",
+              "unit"
+            ],
+            "candidate_count": 3
+          },
+          {
+            "sense_id": "en-es:sentence-veto:cell:celda:shadow",
+            "target_lemma": "celda",
+            "canonical_pos": "noun",
+            "relation_type": "shadow_candidate",
+            "linked": true,
+            "best_wordnet_sense_id": "cell%1:06:01::",
+            "best_wordnet_synset_id": "02994757-n",
+            "best_link_score": 0.5,
+            "best_overlap": [
+              "jail",
+              "prison",
+              "prisoner",
+              "room"
+            ],
+            "candidate_count": 5
+          }
+        ]
+      },
+      {
+        "family_id": "en-es:sentence-veto:spring:primavera",
+        "trigger": "spring",
+        "active_target": "primavera",
+        "role": "target",
+        "active_wordnet_count": 2,
+        "shadow_wordnet_count": 0,
+        "phrase_control_example_count": 0,
+        "row_count": 2,
+        "link_rows": [
+          {
+            "sense_id": "en-es:sentence-veto:spring:primavera:active",
+            "target_lemma": "primavera",
+            "canonical_pos": "noun",
+            "relation_type": "anchor_cue",
+            "linked": true,
+            "best_wordnet_sense_id": "spring%1:28:00::",
+            "best_wordnet_synset_id": "15261841-n",
+            "best_link_score": 0.2222,
+            "best_overlap": [
+              "season",
+              "year"
+            ],
+            "candidate_count": 1
+          },
+          {
+            "sense_id": "en-es:sentence-veto:spring:resorte:shadow",
+            "target_lemma": "resorte",
+            "canonical_pos": "noun",
+            "relation_type": "shadow_candidate",
+            "linked": false,
+            "best_wordnet_sense_id": "",
+            "best_wordnet_synset_id": "",
+            "best_link_score": 0.0,
+            "best_overlap": [],
+            "candidate_count": 0
+          }
+        ]
+      },
+      {
+        "family_id": "en-es:sentence-veto:seal:sello",
+        "trigger": "seal",
+        "active_target": "sello",
+        "role": "target",
+        "active_wordnet_count": 2,
+        "shadow_wordnet_count": 1,
+        "phrase_control_example_count": 0,
+        "row_count": 3,
+        "link_rows": [
+          {
+            "sense_id": "en-es:sentence-veto:seal:sello:active",
+            "target_lemma": "sello",
+            "canonical_pos": "noun",
+            "relation_type": "anchor_cue",
+            "linked": true,
+            "best_wordnet_sense_id": "seal%1:06:01::",
+            "best_wordnet_synset_id": "04167097-n",
+            "best_link_score": 0.3,
+            "best_overlap": [
+              "document",
+              "used",
+              "wax"
+            ],
+            "candidate_count": 3
+          },
+          {
+            "sense_id": "en-es:sentence-veto:seal:foca:shadow",
+            "target_lemma": "foca",
+            "canonical_pos": "noun",
+            "relation_type": "shadow_candidate",
+            "linked": true,
+            "best_wordnet_sense_id": "seal%1:05:00::",
+            "best_wordnet_synset_id": "02078848-n",
+            "best_link_score": 0.2222,
+            "best_overlap": [
+              "mammal",
+              "marine"
+            ],
+            "candidate_count": 1
+          }
+        ]
+      },
+      {
+        "family_id": "en-es:sentence-veto:file:archivo",
+        "trigger": "file",
+        "active_target": "archivo",
+        "role": "target",
+        "active_wordnet_count": 1,
+        "shadow_wordnet_count": 1,
+        "phrase_control_example_count": 0,
+        "row_count": 2,
+        "link_rows": [
+          {
+            "sense_id": "en-es:sentence-veto:file:archivo:active",
+            "target_lemma": "archivo",
+            "canonical_pos": "noun",
+            "relation_type": "anchor_cue",
+            "linked": true,
+            "best_wordnet_sense_id": "file%1:10:00::",
+            "best_wordnet_synset_id": "06520807-n",
+            "best_link_score": 0.125,
+            "best_overlap": [
+              "data"
+            ],
+            "candidate_count": 1
+          },
+          {
+            "sense_id": "en-es:sentence-veto:file:lima:shadow",
+            "target_lemma": "lima",
+            "canonical_pos": "noun",
+            "relation_type": "shadow_candidate",
+            "linked": true,
+            "best_wordnet_sense_id": "file%1:06:00::",
+            "best_wordnet_synset_id": "03341784-n",
+            "best_link_score": 0.3,
+            "best_overlap": [
+              "metal",
+              "smooth",
+              "tool"
+            ],
+            "candidate_count": 1
+          }
+        ]
+      },
+      {
+        "family_id": "en-es:sentence-veto:match:partido",
+        "trigger": "match",
+        "active_target": "partido",
+        "role": "target",
+        "active_wordnet_count": 0,
+        "shadow_wordnet_count": 0,
+        "phrase_control_example_count": 0,
+        "row_count": 0,
+        "link_rows": [
+          {
+            "sense_id": "en-es:sentence-veto:match:partido:active",
+            "target_lemma": "partido",
+            "canonical_pos": "noun",
+            "relation_type": "anchor_cue",
+            "linked": false,
+            "best_wordnet_sense_id": "",
+            "best_wordnet_synset_id": "",
+            "best_link_score": 0.0,
+            "best_overlap": [],
+            "candidate_count": 0
+          },
+          {
+            "sense_id": "en-es:sentence-veto:match:cerilla:shadow",
+            "target_lemma": "cerilla",
+            "canonical_pos": "noun",
+            "relation_type": "shadow_candidate",
+            "linked": false,
+            "best_wordnet_sense_id": "",
+            "best_wordnet_synset_id": "",
+            "best_link_score": 0.0,
+            "best_overlap": [],
+            "candidate_count": 0
+          }
+        ]
+      },
+      {
+        "family_id": "en-es:sentence-veto:board:tablero",
+        "trigger": "board",
+        "active_target": "tablero",
+        "role": "target",
+        "active_wordnet_count": 2,
+        "shadow_wordnet_count": 0,
+        "phrase_control_example_count": 0,
+        "row_count": 2,
+        "link_rows": [
+          {
+            "sense_id": "en-es:sentence-veto:board:tablero:active",
+            "target_lemma": "tablero",
+            "canonical_pos": "noun",
+            "relation_type": "anchor_cue",
+            "linked": true,
+            "best_wordnet_sense_id": "board%1:06:02::",
+            "best_wordnet_synset_id": "03102791-n",
+            "best_link_score": 0.3,
+            "best_overlap": [
+              "flat",
+              "panel",
+              "surface"
+            ],
+            "candidate_count": 3
+          },
+          {
+            "sense_id": "en-es:sentence-veto:board:junta:shadow",
+            "target_lemma": "junta",
+            "canonical_pos": "noun",
+            "relation_type": "shadow_candidate",
+            "linked": false,
+            "best_wordnet_sense_id": "",
+            "best_wordnet_synset_id": "",
+            "best_link_score": 0.0,
+            "best_overlap": [],
+            "candidate_count": 0
+          }
+        ]
+      },
+      {
+        "family_id": "en-es:sentence-veto:table:mesa",
+        "trigger": "table",
+        "active_target": "mesa",
+        "role": "target",
+        "active_wordnet_count": 2,
+        "shadow_wordnet_count": 2,
+        "phrase_control_example_count": 0,
+        "row_count": 4,
+        "link_rows": [
+          {
+            "sense_id": "en-es:sentence-veto:table:mesa:active",
+            "target_lemma": "mesa",
+            "canonical_pos": "noun",
+            "relation_type": "anchor_cue",
+            "linked": true,
+            "best_wordnet_sense_id": "table%1:06:01::",
+            "best_wordnet_synset_id": "04386330-n",
+            "best_link_score": 0.5,
+            "best_overlap": [
+              "flat",
+              "furniture",
+              "leg",
+              "piece",
+              "top"
+            ],
+            "candidate_count": 3
+          },
+          {
+            "sense_id": "en-es:sentence-veto:table:tabla:shadow",
+            "target_lemma": "tabla",
+            "canonical_pos": "noun",
+            "relation_type": "shadow_candidate",
+            "linked": true,
+            "best_wordnet_sense_id": "table%1:14:00::",
+            "best_wordnet_synset_id": "08283156-n",
+            "best_link_score": 0.3333,
+            "best_overlap": [
+              "column",
+              "data",
+              "row"
+            ],
+            "candidate_count": 1
+          }
+        ]
+      },
+      {
+        "family_id": "en-es:sentence-veto:branch:sucursal",
+        "trigger": "branch",
+        "active_target": "sucursal",
+        "role": "target",
+        "active_wordnet_count": 2,
+        "shadow_wordnet_count": 2,
+        "phrase_control_example_count": 0,
+        "row_count": 4,
+        "link_rows": [
+          {
+            "sense_id": "en-es:sentence-veto:branch:sucursal:active",
+            "target_lemma": "sucursal",
+            "canonical_pos": "noun",
+            "relation_type": "anchor_cue",
+            "linked": true,
+            "best_wordnet_sense_id": "branch%1:14:00::",
+            "best_wordnet_synset_id": "08418205-n",
+            "best_link_score": 0.25,
+            "best_overlap": [
+              "division",
+              "organization"
+            ],
+            "candidate_count": 2
+          },
+          {
+            "sense_id": "en-es:sentence-veto:branch:rama:shadow",
+            "target_lemma": "rama",
+            "canonical_pos": "noun",
+            "relation_type": "shadow_candidate",
+            "linked": true,
+            "best_wordnet_sense_id": "branch%1:06:00::",
+            "best_wordnet_synset_id": "02740838-n",
+            "best_link_score": 0.125,
+            "best_overlap": [
+              "limb"
+            ],
+            "candidate_count": 1
+          }
+        ]
+      },
+      {
+        "family_id": "en-es:sentence-veto:park:parque",
+        "trigger": "park",
+        "active_target": "parque",
+        "role": "target",
+        "active_wordnet_count": 2,
+        "shadow_wordnet_count": 2,
+        "phrase_control_example_count": 0,
+        "row_count": 4,
+        "link_rows": [
+          {
+            "sense_id": "en-es:sentence-veto:park:parque:active",
+            "target_lemma": "parque",
+            "canonical_pos": "noun",
+            "relation_type": "anchor_cue",
+            "linked": true,
+            "best_wordnet_sense_id": "park%1:15:01::",
+            "best_wordnet_synset_id": "08632949-n",
+            "best_link_score": 0.125,
+            "best_overlap": [
+              "green"
+            ],
+            "candidate_count": 2
+          },
+          {
+            "sense_id": "en-es:sentence-veto:park:aparcar:shadow",
+            "target_lemma": "aparcar",
+            "canonical_pos": "verb",
+            "relation_type": "shadow_candidate",
+            "linked": true,
+            "best_wordnet_sense_id": "park%2:35:00::",
+            "best_wordnet_synset_id": "01496037-v",
+            "best_link_score": 0.375,
+            "best_overlap": [
+              "car",
+              "place",
+              "temporarily"
+            ],
+            "candidate_count": 2
+          }
+        ]
+      },
+      {
+        "family_id": "en-es:sentence-veto:drink:bebida",
+        "trigger": "drink",
+        "active_target": "bebida",
+        "role": "target",
+        "active_wordnet_count": 2,
+        "shadow_wordnet_count": 2,
+        "phrase_control_example_count": 0,
+        "row_count": 4,
+        "link_rows": [
+          {
+            "sense_id": "en-es:sentence-veto:drink:bebida:active",
+            "target_lemma": "bebida",
+            "canonical_pos": "noun",
+            "relation_type": "anchor_cue",
+            "linked": true,
+            "best_wordnet_sense_id": "drink%1:13:00::",
+            "best_wordnet_synset_id": "07897775-n",
+            "best_link_score": 0.3333,
+            "best_overlap": [
+              "beverage",
+              "liquid"
+            ],
+            "candidate_count": 3
+          },
+          {
+            "sense_id": "en-es:sentence-veto:drink:beber:shadow",
+            "target_lemma": "beber",
+            "canonical_pos": "verb",
+            "relation_type": "shadow_candidate",
+            "linked": true,
+            "best_wordnet_sense_id": "drink%2:34:01::",
+            "best_wordnet_synset_id": "01173463-v",
+            "best_link_score": 0.1429,
+            "best_overlap": [
+              "consume"
+            ],
+            "candidate_count": 2
+          }
+        ]
+      },
+      {
+        "family_id": "en-es:sentence-veto:play:obra",
+        "trigger": "play",
+        "active_target": "obra",
+        "role": "target",
+        "active_wordnet_count": 2,
+        "shadow_wordnet_count": 2,
+        "phrase_control_example_count": 0,
+        "row_count": 4,
+        "link_rows": [
+          {
+            "sense_id": "en-es:sentence-veto:play:obra:active",
+            "target_lemma": "obra",
+            "canonical_pos": "noun",
+            "relation_type": "anchor_cue",
+            "linked": true,
+            "best_wordnet_sense_id": "play%1:10:01::",
+            "best_wordnet_synset_id": "07021061-n",
+            "best_link_score": 0.5556,
+            "best_overlap": [
+              "actor",
+              "drama",
+              "dramatic",
+              "stage",
+              "work"
+            ],
+            "candidate_count": 1
+          },
+          {
+            "sense_id": "en-es:sentence-veto:play:jugar:shadow",
+            "target_lemma": "jugar",
+            "canonical_pos": "verb",
+            "relation_type": "shadow_candidate",
+            "linked": true,
+            "best_wordnet_sense_id": "play%2:33:02::",
+            "best_wordnet_synset_id": "01081873-v",
+            "best_link_score": 0.3333,
+            "best_overlap": [
+              "game",
+              "sport",
+              "take"
+            ],
+            "candidate_count": 3
+          }
+        ]
+      },
+      {
+        "family_id": "en-es:sentence-veto:watch:reloj",
+        "trigger": "watch",
+        "active_target": "reloj",
+        "role": "target",
+        "active_wordnet_count": 1,
+        "shadow_wordnet_count": 2,
+        "phrase_control_example_count": 0,
+        "row_count": 3,
+        "link_rows": [
+          {
+            "sense_id": "en-es:sentence-veto:watch:reloj:active",
+            "target_lemma": "reloj",
+            "canonical_pos": "noun",
+            "relation_type": "anchor_cue",
+            "linked": true,
+            "best_wordnet_sense_id": "watch%1:06:00::",
+            "best_wordnet_synset_id": "04563183-n",
+            "best_link_score": 0.3,
+            "best_overlap": [
+              "portable",
+              "small",
+              "timepiece"
+            ],
+            "candidate_count": 1
+          },
+          {
+            "sense_id": "en-es:sentence-veto:watch:vigilar:shadow",
+            "target_lemma": "vigilar",
+            "canonical_pos": "verb",
+            "relation_type": "shadow_candidate",
+            "linked": true,
+            "best_wordnet_sense_id": "watch%2:41:00::",
+            "best_wordnet_synset_id": "02460829-v",
+            "best_link_score": 0.1429,
+            "best_overlap": [
+              "observe"
+            ],
+            "candidate_count": 4
+          }
+        ]
+      },
+      {
+        "family_id": "en-es:sentence-veto:check:cheque",
+        "trigger": "check",
+        "active_target": "cheque",
+        "role": "target",
+        "active_wordnet_count": 2,
+        "shadow_wordnet_count": 2,
+        "phrase_control_example_count": 0,
+        "row_count": 4,
+        "link_rows": [
+          {
+            "sense_id": "en-es:sentence-veto:check:cheque:active",
+            "target_lemma": "cheque",
+            "canonical_pos": "noun",
+            "relation_type": "anchor_cue",
+            "linked": true,
+            "best_wordnet_sense_id": "check%1:21:00::",
+            "best_wordnet_synset_id": "13402907-n",
+            "best_link_score": 0.6364,
+            "best_overlap": [
+              "bank",
+              "cheque",
+              "direct",
+              "money",
+              "order",
+              "pay",
+              "written"
+            ],
+            "candidate_count": 1
+          },
+          {
+            "sense_id": "en-es:sentence-veto:check:revisar:shadow",
+            "target_lemma": "revisar",
+            "canonical_pos": "verb",
+            "relation_type": "shadow_candidate",
+            "linked": true,
+            "best_wordnet_sense_id": "check%2:31:12::",
+            "best_wordnet_synset_id": "00665271-v",
+            "best_link_score": 0.1667,
+            "best_overlap": [
+              "verify"
+            ],
+            "candidate_count": 2
+          }
+        ]
+      },
+      {
+        "family_id": "en-es:sentence-veto:order:pedido",
+        "trigger": "order",
+        "active_target": "pedido",
+        "role": "target",
+        "active_wordnet_count": 2,
+        "shadow_wordnet_count": 2,
+        "phrase_control_example_count": 0,
+        "row_count": 4,
+        "link_rows": [
+          {
+            "sense_id": "en-es:sentence-veto:order:pedido:active",
+            "target_lemma": "pedido",
+            "canonical_pos": "noun",
+            "relation_type": "anchor_cue",
+            "linked": true,
+            "best_wordnet_sense_id": "order%1:10:01::",
+            "best_wordnet_synset_id": "06541210-n",
+            "best_link_score": 0.25,
+            "best_overlap": [
+              "purchase",
+              "request"
+            ],
+            "candidate_count": 2
+          },
+          {
+            "sense_id": "en-es:sentence-veto:order:ordenar:shadow",
+            "target_lemma": "ordenar",
+            "canonical_pos": "verb",
+            "relation_type": "shadow_candidate",
+            "linked": true,
+            "best_wordnet_sense_id": "order%2:32:01::",
+            "best_wordnet_synset_id": "00748704-v",
+            "best_link_score": 0.1667,
+            "best_overlap": [
+              "instruction"
+            ],
+            "candidate_count": 3
+          }
+        ]
+      },
+      {
+        "family_id": "en-es:sentence-veto:trip:viaje",
+        "trigger": "trip",
+        "active_target": "viaje",
+        "role": "target",
+        "active_wordnet_count": 2,
+        "shadow_wordnet_count": 2,
+        "phrase_control_example_count": 0,
+        "row_count": 4,
+        "link_rows": [
+          {
+            "sense_id": "en-es:sentence-veto:trip:viaje:active",
+            "target_lemma": "viaje",
+            "canonical_pos": "noun",
+            "relation_type": "anchor_cue",
+            "linked": true,
+            "best_wordnet_sense_id": "trip%1:04:00::",
+            "best_wordnet_synset_id": "00309196-n",
+            "best_link_score": 0.1667,
+            "best_overlap": [
+              "journey"
+            ],
+            "candidate_count": 1
+          },
+          {
+            "sense_id": "en-es:sentence-veto:trip:viaje:shadow",
+            "target_lemma": "tropezar",
+            "canonical_pos": "verb",
+            "relation_type": "shadow_candidate",
+            "linked": true,
+            "best_wordnet_sense_id": "trip%2:38:01::",
+            "best_wordnet_synset_id": "01904753-v",
+            "best_link_score": 0.1667,
+            "best_overlap": [
+              "stumble"
+            ],
+            "candidate_count": 2
+          }
+        ]
+      },
+      {
+        "family_id": "en-es:sentence-veto:report:informe",
+        "trigger": "report",
+        "active_target": "informe",
+        "role": "target",
+        "active_wordnet_count": 2,
+        "shadow_wordnet_count": 2,
+        "phrase_control_example_count": 0,
+        "row_count": 4,
+        "link_rows": [
+          {
+            "sense_id": "en-es:sentence-veto:report:informe:active",
+            "target_lemma": "informe",
+            "canonical_pos": "noun",
+            "relation_type": "anchor_cue",
+            "linked": true,
+            "best_wordnet_sense_id": "report%1:10:03::",
+            "best_wordnet_synset_id": "07233130-n",
+            "best_link_score": 0.4,
+            "best_overlap": [
+              "describ",
+              "document",
+              "finding",
+              "written"
+            ],
+            "candidate_count": 1
+          },
+          {
+            "sense_id": "en-es:sentence-veto:report:informar:shadow",
+            "target_lemma": "informar",
+            "canonical_pos": "verb",
+            "relation_type": "shadow_candidate",
+            "linked": true,
+            "best_wordnet_sense_id": "report%2:32:04::",
+            "best_wordnet_synset_id": "00968841-v",
+            "best_link_score": 0.25,
+            "best_overlap": [
+              "announce",
+              "information"
+            ],
+            "candidate_count": 2
+          }
+        ]
+      }
+    ]
+  },
+  "items": [
+    {
+      "row_id": "en-es-sentence-veto-ball-pelota:active-wordnet-definition-1",
+      "relation_type": "anchor_cue",
+      "trigger": "ball",
+      "active_target": "pelota",
+      "candidate_target": "pelota",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:ball:pelota:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:ball:pelota:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "ball%1:06:02::",
+          "wordnet_synset_id": "02782458-n",
+          "wordnet_link_score": 0.4,
+          "wordnet_link_overlap": [
+            "object",
+            "play",
+            "spherical",
+            "used"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "a spherical object used as a plaything",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:ball:pelota",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:ball:pelota:active",
+        "candidate_sense_id": "en-es:sentence-veto:ball:pelota:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "ball%1:06:02::",
+        "wordnet_synset_id": "02782458-n",
+        "wordnet_link_score": 0.4,
+        "wordnet_link_overlap": [
+          "object",
+          "play",
+          "spherical",
+          "used"
+        ],
+        "wordnet_evidence_kind": "definition"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-ball-pelota:active-wordnet-example-2",
+      "relation_type": "anchor_cue",
+      "trigger": "ball",
+      "active_target": "pelota",
+      "candidate_target": "pelota",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:ball:pelota:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:ball:pelota:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "ball%1:06:02::",
+          "wordnet_synset_id": "02782458-n",
+          "wordnet_link_score": 0.4,
+          "wordnet_link_overlap": [
+            "object",
+            "play",
+            "spherical",
+            "used"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "he played with his rubber ball in the bathtub",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:ball:pelota",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:ball:pelota:active",
+        "candidate_sense_id": "en-es:sentence-veto:ball:pelota:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "ball%1:06:02::",
+        "wordnet_synset_id": "02782458-n",
+        "wordnet_link_score": 0.4,
+        "wordnet_link_overlap": [
+          "object",
+          "play",
+          "spherical",
+          "used"
+        ],
+        "wordnet_evidence_kind": "example"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-ball-pelota:shadow-en-es-sentence-veto-ball-baile-shadow-wordnet-definition-1",
+      "relation_type": "shadow_candidate",
+      "trigger": "ball",
+      "active_target": "pelota",
+      "candidate_target": "baile",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:ball:pelota:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:ball:baile:shadow",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "ball%1:11:00::",
+          "wordnet_synset_id": "07463485-n",
+          "wordnet_link_score": 0.2222,
+          "wordnet_link_overlap": [
+            "dance",
+            "formal"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "a lavish dance requiring formal attire",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:ball:pelota",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:ball:pelota:active",
+        "candidate_sense_id": "en-es:sentence-veto:ball:baile:shadow",
+        "example_bucket": "shadow",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "ball%1:11:00::",
+        "wordnet_synset_id": "07463485-n",
+        "wordnet_link_score": 0.2222,
+        "wordnet_link_overlap": [
+          "dance",
+          "formal"
+        ],
+        "wordnet_evidence_kind": "definition"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-bank-banco:active-wordnet-definition-1",
+      "relation_type": "anchor_cue",
+      "trigger": "bank",
+      "active_target": "banco",
+      "candidate_target": "banco",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:bank:banco:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:bank:banco:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "bank%1:14:00::",
+          "wordnet_synset_id": "08437235-n",
+          "wordnet_link_score": 0.4,
+          "wordnet_link_overlap": [
+            "financial",
+            "institution",
+            "lend",
+            "money"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "a financial institution that accepts deposits and channels the money into lending activities",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:bank:banco",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:bank:banco:active",
+        "candidate_sense_id": "en-es:sentence-veto:bank:banco:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "bank%1:14:00::",
+        "wordnet_synset_id": "08437235-n",
+        "wordnet_link_score": 0.4,
+        "wordnet_link_overlap": [
+          "financial",
+          "institution",
+          "lend",
+          "money"
+        ],
+        "wordnet_evidence_kind": "definition"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-bank-banco:active-wordnet-example-2",
+      "relation_type": "anchor_cue",
+      "trigger": "bank",
+      "active_target": "banco",
+      "candidate_target": "banco",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:bank:banco:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:bank:banco:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "bank%1:14:00::",
+          "wordnet_synset_id": "08437235-n",
+          "wordnet_link_score": 0.4,
+          "wordnet_link_overlap": [
+            "financial",
+            "institution",
+            "lend",
+            "money"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "he cashed a check at the bank",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:bank:banco",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:bank:banco:active",
+        "candidate_sense_id": "en-es:sentence-veto:bank:banco:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "bank%1:14:00::",
+        "wordnet_synset_id": "08437235-n",
+        "wordnet_link_score": 0.4,
+        "wordnet_link_overlap": [
+          "financial",
+          "institution",
+          "lend",
+          "money"
+        ],
+        "wordnet_evidence_kind": "example"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-bank-banco:shadow-en-es-sentence-veto-bank-orilla-shadow-wordnet-definition-1",
+      "relation_type": "shadow_candidate",
+      "trigger": "bank",
+      "active_target": "banco",
+      "candidate_target": "orilla",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:bank:banco:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:bank:orilla:shadow",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "bank%1:17:01::",
+          "wordnet_synset_id": "09236472-n",
+          "wordnet_link_score": 0.1429,
+          "wordnet_link_overlap": [
+            "river"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "sloping land (especially the slope beside a body of water)",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:bank:banco",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:bank:banco:active",
+        "candidate_sense_id": "en-es:sentence-veto:bank:orilla:shadow",
+        "example_bucket": "shadow",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "bank%1:17:01::",
+        "wordnet_synset_id": "09236472-n",
+        "wordnet_link_score": 0.1429,
+        "wordnet_link_overlap": [
+          "river"
+        ],
+        "wordnet_evidence_kind": "definition"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-bank-banco:shadow-en-es-sentence-veto-bank-orilla-shadow-wordnet-example-2",
+      "relation_type": "shadow_candidate",
+      "trigger": "bank",
+      "active_target": "banco",
+      "candidate_target": "orilla",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:bank:banco:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:bank:orilla:shadow",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "bank%1:17:01::",
+          "wordnet_synset_id": "09236472-n",
+          "wordnet_link_score": 0.1429,
+          "wordnet_link_overlap": [
+            "river"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "they pulled the canoe up on the bank",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:bank:banco",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:bank:banco:active",
+        "candidate_sense_id": "en-es:sentence-veto:bank:orilla:shadow",
+        "example_bucket": "shadow",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "bank%1:17:01::",
+        "wordnet_synset_id": "09236472-n",
+        "wordnet_link_score": 0.1429,
+        "wordnet_link_overlap": [
+          "river"
+        ],
+        "wordnet_evidence_kind": "example"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:active-wordnet-definition-1",
+      "relation_type": "anchor_cue",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "planta",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "plant%1:03:00::",
+          "wordnet_synset_id": "00017402-n",
+          "wordnet_link_score": 0.2,
+          "wordnet_link_overlap": [
+            "liv",
+            "organism"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "(botany) a living organism lacking the power of locomotion",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "candidate_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "plant%1:03:00::",
+        "wordnet_synset_id": "00017402-n",
+        "wordnet_link_score": 0.2,
+        "wordnet_link_overlap": [
+          "liv",
+          "organism"
+        ],
+        "wordnet_evidence_kind": "definition"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:shadow-en-es-sentence-veto-plant-fabrica-shadow-wordnet-definition-1",
+      "relation_type": "shadow_candidate",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "fábrica",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:fabrica:shadow",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "plant%1:06:01::",
+          "wordnet_synset_id": "03963198-n",
+          "wordnet_link_score": 0.1429,
+          "wordnet_link_overlap": [
+            "industrial"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "buildings for carrying on industrial labor",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "candidate_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+        "example_bucket": "shadow",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "plant%1:06:01::",
+        "wordnet_synset_id": "03963198-n",
+        "wordnet_link_score": 0.1429,
+        "wordnet_link_overlap": [
+          "industrial"
+        ],
+        "wordnet_evidence_kind": "definition"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:shadow-en-es-sentence-veto-plant-fabrica-shadow-wordnet-example-2",
+      "relation_type": "shadow_candidate",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "fábrica",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:fabrica:shadow",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "plant%1:06:01::",
+          "wordnet_synset_id": "03963198-n",
+          "wordnet_link_score": 0.1429,
+          "wordnet_link_overlap": [
+            "industrial"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "they built a large plant to manufacture automobiles",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "candidate_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+        "example_bucket": "shadow",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "plant%1:06:01::",
+        "wordnet_synset_id": "03963198-n",
+        "wordnet_link_score": 0.1429,
+        "wordnet_link_overlap": [
+          "industrial"
+        ],
+        "wordnet_evidence_kind": "example"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-1",
+      "relation_type": "anchor_cue",
+      "trigger": "cell",
+      "active_target": "célula",
+      "candidate_target": "célula",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:cell:celula:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:cell:celula:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "cell%1:03:00::",
+          "wordnet_synset_id": "00006484-n",
+          "wordnet_link_score": 0.3,
+          "wordnet_link_overlap": [
+            "biology",
+            "organism",
+            "unit"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "(biology) the basic structural and functional unit of all organisms; they may exist as independent units of life (as in monads) or may form colonies or tissues as in higher plants and animals",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:cell:celula",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "candidate_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "cell%1:03:00::",
+        "wordnet_synset_id": "00006484-n",
+        "wordnet_link_score": 0.3,
+        "wordnet_link_overlap": [
+          "biology",
+          "organism",
+          "unit"
+        ],
+        "wordnet_evidence_kind": "definition"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-2",
+      "relation_type": "anchor_cue",
+      "trigger": "cell",
+      "active_target": "célula",
+      "candidate_target": "célula",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:cell:celula:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:cell:celula:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "cell%1:14:00::",
+          "wordnet_synset_id": "08375521-n",
+          "wordnet_link_score": 0.2,
+          "wordnet_link_overlap": [
+            "small",
+            "unit"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "a small unit serving as part of or as the nucleus of a larger political movement",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:cell:celula",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "candidate_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "cell%1:14:00::",
+        "wordnet_synset_id": "08375521-n",
+        "wordnet_link_score": 0.2,
+        "wordnet_link_overlap": [
+          "small",
+          "unit"
+        ],
+        "wordnet_evidence_kind": "definition"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:shadow-en-es-sentence-veto-cell-celda-shadow-wordnet-definition-1",
+      "relation_type": "shadow_candidate",
+      "trigger": "cell",
+      "active_target": "célula",
+      "candidate_target": "celda",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:cell:celula:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:cell:celda:shadow",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "cell%1:06:01::",
+          "wordnet_synset_id": "02994757-n",
+          "wordnet_link_score": 0.5,
+          "wordnet_link_overlap": [
+            "jail",
+            "prison",
+            "prisoner",
+            "room"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "a room where a prisoner is kept",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:cell:celula",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "candidate_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "example_bucket": "shadow",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "cell%1:06:01::",
+        "wordnet_synset_id": "02994757-n",
+        "wordnet_link_score": 0.5,
+        "wordnet_link_overlap": [
+          "jail",
+          "prison",
+          "prisoner",
+          "room"
+        ],
+        "wordnet_evidence_kind": "definition"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:shadow-en-es-sentence-veto-cell-celda-shadow-wordnet-definition-2",
+      "relation_type": "shadow_candidate",
+      "trigger": "cell",
+      "active_target": "célula",
+      "candidate_target": "celda",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:cell:celula:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:cell:celda:shadow",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "cell%1:06:02::",
+          "wordnet_synset_id": "02995010-n",
+          "wordnet_link_score": 0.25,
+          "wordnet_link_overlap": [
+            "room",
+            "small"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "small room in which a monk or nun lives",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:cell:celula",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "candidate_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "example_bucket": "shadow",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "cell%1:06:02::",
+        "wordnet_synset_id": "02995010-n",
+        "wordnet_link_score": 0.25,
+        "wordnet_link_overlap": [
+          "room",
+          "small"
+        ],
+        "wordnet_evidence_kind": "definition"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-spring-primavera:active-wordnet-definition-1",
+      "relation_type": "anchor_cue",
+      "trigger": "spring",
+      "active_target": "primavera",
+      "candidate_target": "primavera",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:spring:primavera:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:spring:primavera:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "spring%1:28:00::",
+          "wordnet_synset_id": "15261841-n",
+          "wordnet_link_score": 0.2222,
+          "wordnet_link_overlap": [
+            "season",
+            "year"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "the season of growth; spring; the beginning of spring",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:spring:primavera",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:spring:primavera:active",
+        "candidate_sense_id": "en-es:sentence-veto:spring:primavera:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "spring%1:28:00::",
+        "wordnet_synset_id": "15261841-n",
+        "wordnet_link_score": 0.2222,
+        "wordnet_link_overlap": [
+          "season",
+          "year"
+        ],
+        "wordnet_evidence_kind": "definition"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-spring-primavera:active-wordnet-example-2",
+      "relation_type": "anchor_cue",
+      "trigger": "spring",
+      "active_target": "primavera",
+      "candidate_target": "primavera",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:spring:primavera:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:spring:primavera:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "spring%1:28:00::",
+          "wordnet_synset_id": "15261841-n",
+          "wordnet_link_score": 0.2222,
+          "wordnet_link_overlap": [
+            "season",
+            "year"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "the emerging buds were a sure sign of spring",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:spring:primavera",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:spring:primavera:active",
+        "candidate_sense_id": "en-es:sentence-veto:spring:primavera:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "spring%1:28:00::",
+        "wordnet_synset_id": "15261841-n",
+        "wordnet_link_score": 0.2222,
+        "wordnet_link_overlap": [
+          "season",
+          "year"
+        ],
+        "wordnet_evidence_kind": "example"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-seal-sello:active-wordnet-definition-1",
+      "relation_type": "anchor_cue",
+      "trigger": "seal",
+      "active_target": "sello",
+      "candidate_target": "sello",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:seal:sello:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:seal:sello:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "seal%1:06:01::",
+          "wordnet_synset_id": "04167097-n",
+          "wordnet_link_score": 0.3,
+          "wordnet_link_overlap": [
+            "document",
+            "used",
+            "wax"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "fastener consisting of a resinous composition that is plastic when warm; used for sealing documents and parcels and letters",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:seal:sello",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:seal:sello:active",
+        "candidate_sense_id": "en-es:sentence-veto:seal:sello:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "seal%1:06:01::",
+        "wordnet_synset_id": "04167097-n",
+        "wordnet_link_score": 0.3,
+        "wordnet_link_overlap": [
+          "document",
+          "used",
+          "wax"
+        ],
+        "wordnet_evidence_kind": "definition"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-seal-sello:active-wordnet-definition-2",
+      "relation_type": "anchor_cue",
+      "trigger": "seal",
+      "active_target": "sello",
+      "candidate_target": "sello",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:seal:sello:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:seal:sello:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "seal%1:06:00::",
+          "wordnet_synset_id": "04166119-n",
+          "wordnet_link_score": 0.3,
+          "wordnet_link_overlap": [
+            "document",
+            "stamp",
+            "used"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "a device incised to make an impression; used to secure a closing or to authenticate documents",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:seal:sello",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:seal:sello:active",
+        "candidate_sense_id": "en-es:sentence-veto:seal:sello:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "seal%1:06:00::",
+        "wordnet_synset_id": "04166119-n",
+        "wordnet_link_score": 0.3,
+        "wordnet_link_overlap": [
+          "document",
+          "stamp",
+          "used"
+        ],
+        "wordnet_evidence_kind": "definition"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-seal-sello:shadow-en-es-sentence-veto-seal-foca-shadow-wordnet-definition-1",
+      "relation_type": "shadow_candidate",
+      "trigger": "seal",
+      "active_target": "sello",
+      "candidate_target": "foca",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:seal:sello:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:seal:foca:shadow",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "seal%1:05:00::",
+          "wordnet_synset_id": "02078848-n",
+          "wordnet_link_score": 0.2222,
+          "wordnet_link_overlap": [
+            "mammal",
+            "marine"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "any of numerous marine mammals that come on shore to breed; chiefly of cold regions",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:seal:sello",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:seal:sello:active",
+        "candidate_sense_id": "en-es:sentence-veto:seal:foca:shadow",
+        "example_bucket": "shadow",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "seal%1:05:00::",
+        "wordnet_synset_id": "02078848-n",
+        "wordnet_link_score": 0.2222,
+        "wordnet_link_overlap": [
+          "mammal",
+          "marine"
+        ],
+        "wordnet_evidence_kind": "definition"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-file-archivo:active-wordnet-definition-1",
+      "relation_type": "anchor_cue",
+      "trigger": "file",
+      "active_target": "archivo",
+      "candidate_target": "archivo",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:file:archivo:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:file:archivo:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "file%1:10:00::",
+          "wordnet_synset_id": "06520807-n",
+          "wordnet_link_score": 0.125,
+          "wordnet_link_overlap": [
+            "data"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "a set of related records (either written or electronic) kept together",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:file:archivo",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:file:archivo:active",
+        "candidate_sense_id": "en-es:sentence-veto:file:archivo:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "file%1:10:00::",
+        "wordnet_synset_id": "06520807-n",
+        "wordnet_link_score": 0.125,
+        "wordnet_link_overlap": [
+          "data"
+        ],
+        "wordnet_evidence_kind": "definition"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-file-archivo:shadow-en-es-sentence-veto-file-lima-shadow-wordnet-definition-1",
+      "relation_type": "shadow_candidate",
+      "trigger": "file",
+      "active_target": "archivo",
+      "candidate_target": "lima",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:file:archivo:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:file:lima:shadow",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "file%1:06:00::",
+          "wordnet_synset_id": "03341784-n",
+          "wordnet_link_score": 0.3,
+          "wordnet_link_overlap": [
+            "metal",
+            "smooth",
+            "tool"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "a steel hand tool with small sharp teeth on some or all of its surfaces; used for smoothing wood or metal",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:file:archivo",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:file:archivo:active",
+        "candidate_sense_id": "en-es:sentence-veto:file:lima:shadow",
+        "example_bucket": "shadow",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "file%1:06:00::",
+        "wordnet_synset_id": "03341784-n",
+        "wordnet_link_score": 0.3,
+        "wordnet_link_overlap": [
+          "metal",
+          "smooth",
+          "tool"
+        ],
+        "wordnet_evidence_kind": "definition"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-board-tablero:active-wordnet-definition-1",
+      "relation_type": "anchor_cue",
+      "trigger": "board",
+      "active_target": "tablero",
+      "candidate_target": "tablero",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:board:tablero:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:board:tablero:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "board%1:06:02::",
+          "wordnet_synset_id": "03102791-n",
+          "wordnet_link_score": 0.3,
+          "wordnet_link_overlap": [
+            "flat",
+            "panel",
+            "surface"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "electrical device consisting of a flat insulated surface that contains switches and dials and meters for controlling other electrical devices",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:board:tablero",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:board:tablero:active",
+        "candidate_sense_id": "en-es:sentence-veto:board:tablero:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "board%1:06:02::",
+        "wordnet_synset_id": "03102791-n",
+        "wordnet_link_score": 0.3,
+        "wordnet_link_overlap": [
+          "flat",
+          "panel",
+          "surface"
+        ],
+        "wordnet_evidence_kind": "definition"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-board-tablero:active-wordnet-example-2",
+      "relation_type": "anchor_cue",
+      "trigger": "board",
+      "active_target": "tablero",
+      "candidate_target": "tablero",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:board:tablero:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:board:tablero:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "board%1:06:02::",
+          "wordnet_synset_id": "03102791-n",
+          "wordnet_link_score": 0.3,
+          "wordnet_link_overlap": [
+            "flat",
+            "panel",
+            "surface"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "he checked the instrument panel",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:board:tablero",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:board:tablero:active",
+        "candidate_sense_id": "en-es:sentence-veto:board:tablero:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "board%1:06:02::",
+        "wordnet_synset_id": "03102791-n",
+        "wordnet_link_score": 0.3,
+        "wordnet_link_overlap": [
+          "flat",
+          "panel",
+          "surface"
+        ],
+        "wordnet_evidence_kind": "example"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-table-mesa:active-wordnet-definition-1",
+      "relation_type": "anchor_cue",
+      "trigger": "table",
+      "active_target": "mesa",
+      "candidate_target": "mesa",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:table:mesa:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:table:mesa:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "table%1:06:01::",
+          "wordnet_synset_id": "04386330-n",
+          "wordnet_link_score": 0.5,
+          "wordnet_link_overlap": [
+            "flat",
+            "furniture",
+            "leg",
+            "piece",
+            "top"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "a piece of furniture having a smooth flat top that is usually supported by one or more vertical legs",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:table:mesa",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:table:mesa:active",
+        "candidate_sense_id": "en-es:sentence-veto:table:mesa:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "table%1:06:01::",
+        "wordnet_synset_id": "04386330-n",
+        "wordnet_link_score": 0.5,
+        "wordnet_link_overlap": [
+          "flat",
+          "furniture",
+          "leg",
+          "piece",
+          "top"
+        ],
+        "wordnet_evidence_kind": "definition"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-table-mesa:active-wordnet-example-2",
+      "relation_type": "anchor_cue",
+      "trigger": "table",
+      "active_target": "mesa",
+      "candidate_target": "mesa",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:table:mesa:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:table:mesa:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "table%1:06:01::",
+          "wordnet_synset_id": "04386330-n",
+          "wordnet_link_score": 0.5,
+          "wordnet_link_overlap": [
+            "flat",
+            "furniture",
+            "leg",
+            "piece",
+            "top"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "it was a sturdy table",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:table:mesa",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:table:mesa:active",
+        "candidate_sense_id": "en-es:sentence-veto:table:mesa:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "table%1:06:01::",
+        "wordnet_synset_id": "04386330-n",
+        "wordnet_link_score": 0.5,
+        "wordnet_link_overlap": [
+          "flat",
+          "furniture",
+          "leg",
+          "piece",
+          "top"
+        ],
+        "wordnet_evidence_kind": "example"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-table-mesa:shadow-en-es-sentence-veto-table-tabla-shadow-wordnet-definition-1",
+      "relation_type": "shadow_candidate",
+      "trigger": "table",
+      "active_target": "mesa",
+      "candidate_target": "tabla",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:table:mesa:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:table:tabla:shadow",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "table%1:14:00::",
+          "wordnet_synset_id": "08283156-n",
+          "wordnet_link_score": 0.3333,
+          "wordnet_link_overlap": [
+            "column",
+            "data",
+            "row"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "a set of data arranged in rows and columns",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:table:mesa",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:table:mesa:active",
+        "candidate_sense_id": "en-es:sentence-veto:table:tabla:shadow",
+        "example_bucket": "shadow",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "table%1:14:00::",
+        "wordnet_synset_id": "08283156-n",
+        "wordnet_link_score": 0.3333,
+        "wordnet_link_overlap": [
+          "column",
+          "data",
+          "row"
+        ],
+        "wordnet_evidence_kind": "definition"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-table-mesa:shadow-en-es-sentence-veto-table-tabla-shadow-wordnet-example-2",
+      "relation_type": "shadow_candidate",
+      "trigger": "table",
+      "active_target": "mesa",
+      "candidate_target": "tabla",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:table:mesa:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:table:tabla:shadow",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "table%1:14:00::",
+          "wordnet_synset_id": "08283156-n",
+          "wordnet_link_score": 0.3333,
+          "wordnet_link_overlap": [
+            "column",
+            "data",
+            "row"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "see table 1",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:table:mesa",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:table:mesa:active",
+        "candidate_sense_id": "en-es:sentence-veto:table:tabla:shadow",
+        "example_bucket": "shadow",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "table%1:14:00::",
+        "wordnet_synset_id": "08283156-n",
+        "wordnet_link_score": 0.3333,
+        "wordnet_link_overlap": [
+          "column",
+          "data",
+          "row"
+        ],
+        "wordnet_evidence_kind": "example"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-branch-sucursal:active-wordnet-definition-1",
+      "relation_type": "anchor_cue",
+      "trigger": "branch",
+      "active_target": "sucursal",
+      "candidate_target": "sucursal",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:branch:sucursal:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:branch:sucursal:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "branch%1:14:00::",
+          "wordnet_synset_id": "08418205-n",
+          "wordnet_link_score": 0.25,
+          "wordnet_link_overlap": [
+            "division",
+            "organization"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "a division of some larger or more complex organization",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:branch:sucursal",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:branch:sucursal:active",
+        "candidate_sense_id": "en-es:sentence-veto:branch:sucursal:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "branch%1:14:00::",
+        "wordnet_synset_id": "08418205-n",
+        "wordnet_link_score": 0.25,
+        "wordnet_link_overlap": [
+          "division",
+          "organization"
+        ],
+        "wordnet_evidence_kind": "definition"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-branch-sucursal:active-wordnet-example-2",
+      "relation_type": "anchor_cue",
+      "trigger": "branch",
+      "active_target": "sucursal",
+      "candidate_target": "sucursal",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:branch:sucursal:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:branch:sucursal:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "branch%1:14:00::",
+          "wordnet_synset_id": "08418205-n",
+          "wordnet_link_score": 0.25,
+          "wordnet_link_overlap": [
+            "division",
+            "organization"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "a branch of Congress",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:branch:sucursal",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:branch:sucursal:active",
+        "candidate_sense_id": "en-es:sentence-veto:branch:sucursal:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "branch%1:14:00::",
+        "wordnet_synset_id": "08418205-n",
+        "wordnet_link_score": 0.25,
+        "wordnet_link_overlap": [
+          "division",
+          "organization"
+        ],
+        "wordnet_evidence_kind": "example"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-branch-sucursal:shadow-en-es-sentence-veto-branch-rama-shadow-wordnet-definition-1",
+      "relation_type": "shadow_candidate",
+      "trigger": "branch",
+      "active_target": "sucursal",
+      "candidate_target": "rama",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:branch:sucursal:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:branch:rama:shadow",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "branch%1:06:00::",
+          "wordnet_synset_id": "02740838-n",
+          "wordnet_link_score": 0.125,
+          "wordnet_link_overlap": [
+            "limb"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "any projection that is thought to resemble a human arm",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:branch:sucursal",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:branch:sucursal:active",
+        "candidate_sense_id": "en-es:sentence-veto:branch:rama:shadow",
+        "example_bucket": "shadow",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "branch%1:06:00::",
+        "wordnet_synset_id": "02740838-n",
+        "wordnet_link_score": 0.125,
+        "wordnet_link_overlap": [
+          "limb"
+        ],
+        "wordnet_evidence_kind": "definition"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-branch-sucursal:shadow-en-es-sentence-veto-branch-rama-shadow-wordnet-example-2",
+      "relation_type": "shadow_candidate",
+      "trigger": "branch",
+      "active_target": "sucursal",
+      "candidate_target": "rama",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:branch:sucursal:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:branch:rama:shadow",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "branch%1:06:00::",
+          "wordnet_synset_id": "02740838-n",
+          "wordnet_link_score": 0.125,
+          "wordnet_link_overlap": [
+            "limb"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "the arm of the record player",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:branch:sucursal",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:branch:sucursal:active",
+        "candidate_sense_id": "en-es:sentence-veto:branch:rama:shadow",
+        "example_bucket": "shadow",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "branch%1:06:00::",
+        "wordnet_synset_id": "02740838-n",
+        "wordnet_link_score": 0.125,
+        "wordnet_link_overlap": [
+          "limb"
+        ],
+        "wordnet_evidence_kind": "example"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-park-parque:active-wordnet-definition-1",
+      "relation_type": "anchor_cue",
+      "trigger": "park",
+      "active_target": "parque",
+      "candidate_target": "parque",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:park:parque:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:park:parque:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "park%1:15:01::",
+          "wordnet_synset_id": "08632949-n",
+          "wordnet_link_score": 0.125,
+          "wordnet_link_overlap": [
+            "green"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "a piece of open land for recreational use in an urban area",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:park:parque",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:park:parque:active",
+        "candidate_sense_id": "en-es:sentence-veto:park:parque:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "park%1:15:01::",
+        "wordnet_synset_id": "08632949-n",
+        "wordnet_link_score": 0.125,
+        "wordnet_link_overlap": [
+          "green"
+        ],
+        "wordnet_evidence_kind": "definition"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-park-parque:active-wordnet-example-2",
+      "relation_type": "anchor_cue",
+      "trigger": "park",
+      "active_target": "parque",
+      "candidate_target": "parque",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:park:parque:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:park:parque:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "park%1:15:01::",
+          "wordnet_synset_id": "08632949-n",
+          "wordnet_link_score": 0.125,
+          "wordnet_link_overlap": [
+            "green"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "they went for a walk in the park",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:park:parque",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:park:parque:active",
+        "candidate_sense_id": "en-es:sentence-veto:park:parque:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "park%1:15:01::",
+        "wordnet_synset_id": "08632949-n",
+        "wordnet_link_score": 0.125,
+        "wordnet_link_overlap": [
+          "green"
+        ],
+        "wordnet_evidence_kind": "example"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-park-parque:shadow-en-es-sentence-veto-park-aparcar-shadow-wordnet-definition-1",
+      "relation_type": "shadow_candidate",
+      "trigger": "park",
+      "active_target": "parque",
+      "candidate_target": "aparcar",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:park:parque:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:park:aparcar:shadow",
+        "canonical_pos": "verb",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "park%2:35:00::",
+          "wordnet_synset_id": "01496037-v",
+          "wordnet_link_score": 0.375,
+          "wordnet_link_overlap": [
+            "car",
+            "place",
+            "temporarily"
+          ]
+        }
+      },
+      "candidate_pos": "verb",
+      "evidence_text": "place temporarily",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:park:parque",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:park:parque:active",
+        "candidate_sense_id": "en-es:sentence-veto:park:aparcar:shadow",
+        "example_bucket": "shadow",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "park%2:35:00::",
+        "wordnet_synset_id": "01496037-v",
+        "wordnet_link_score": 0.375,
+        "wordnet_link_overlap": [
+          "car",
+          "place",
+          "temporarily"
+        ],
+        "wordnet_evidence_kind": "definition"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-park-parque:shadow-en-es-sentence-veto-park-aparcar-shadow-wordnet-example-2",
+      "relation_type": "shadow_candidate",
+      "trigger": "park",
+      "active_target": "parque",
+      "candidate_target": "aparcar",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:park:parque:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:park:aparcar:shadow",
+        "canonical_pos": "verb",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "park%2:35:00::",
+          "wordnet_synset_id": "01496037-v",
+          "wordnet_link_score": 0.375,
+          "wordnet_link_overlap": [
+            "car",
+            "place",
+            "temporarily"
+          ]
+        }
+      },
+      "candidate_pos": "verb",
+      "evidence_text": "park the car in the yard",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:park:parque",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:park:parque:active",
+        "candidate_sense_id": "en-es:sentence-veto:park:aparcar:shadow",
+        "example_bucket": "shadow",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "park%2:35:00::",
+        "wordnet_synset_id": "01496037-v",
+        "wordnet_link_score": 0.375,
+        "wordnet_link_overlap": [
+          "car",
+          "place",
+          "temporarily"
+        ],
+        "wordnet_evidence_kind": "example"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-drink-bebida:active-wordnet-definition-1",
+      "relation_type": "anchor_cue",
+      "trigger": "drink",
+      "active_target": "bebida",
+      "candidate_target": "bebida",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:drink:bebida:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:drink:bebida:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "drink%1:13:00::",
+          "wordnet_synset_id": "07897775-n",
+          "wordnet_link_score": 0.3333,
+          "wordnet_link_overlap": [
+            "beverage",
+            "liquid"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "any liquid suitable for drinking",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:drink:bebida",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:drink:bebida:active",
+        "candidate_sense_id": "en-es:sentence-veto:drink:bebida:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "drink%1:13:00::",
+        "wordnet_synset_id": "07897775-n",
+        "wordnet_link_score": 0.3333,
+        "wordnet_link_overlap": [
+          "beverage",
+          "liquid"
+        ],
+        "wordnet_evidence_kind": "definition"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-drink-bebida:active-wordnet-example-2",
+      "relation_type": "anchor_cue",
+      "trigger": "drink",
+      "active_target": "bebida",
+      "candidate_target": "bebida",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:drink:bebida:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:drink:bebida:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "drink%1:13:00::",
+          "wordnet_synset_id": "07897775-n",
+          "wordnet_link_score": 0.3333,
+          "wordnet_link_overlap": [
+            "beverage",
+            "liquid"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "may I take your beverage order?",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:drink:bebida",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:drink:bebida:active",
+        "candidate_sense_id": "en-es:sentence-veto:drink:bebida:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "drink%1:13:00::",
+        "wordnet_synset_id": "07897775-n",
+        "wordnet_link_score": 0.3333,
+        "wordnet_link_overlap": [
+          "beverage",
+          "liquid"
+        ],
+        "wordnet_evidence_kind": "example"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-drink-bebida:shadow-en-es-sentence-veto-drink-beber-shadow-wordnet-definition-1",
+      "relation_type": "shadow_candidate",
+      "trigger": "drink",
+      "active_target": "bebida",
+      "candidate_target": "beber",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:drink:bebida:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:drink:beber:shadow",
+        "canonical_pos": "verb",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "drink%2:34:01::",
+          "wordnet_synset_id": "01173463-v",
+          "wordnet_link_score": 0.1429,
+          "wordnet_link_overlap": [
+            "consume"
+          ]
+        }
+      },
+      "candidate_pos": "verb",
+      "evidence_text": "consume alcohol",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:drink:bebida",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:drink:bebida:active",
+        "candidate_sense_id": "en-es:sentence-veto:drink:beber:shadow",
+        "example_bucket": "shadow",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "drink%2:34:01::",
+        "wordnet_synset_id": "01173463-v",
+        "wordnet_link_score": 0.1429,
+        "wordnet_link_overlap": [
+          "consume"
+        ],
+        "wordnet_evidence_kind": "definition"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-drink-bebida:shadow-en-es-sentence-veto-drink-beber-shadow-wordnet-example-2",
+      "relation_type": "shadow_candidate",
+      "trigger": "drink",
+      "active_target": "bebida",
+      "candidate_target": "beber",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:drink:bebida:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:drink:beber:shadow",
+        "canonical_pos": "verb",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "drink%2:34:01::",
+          "wordnet_synset_id": "01173463-v",
+          "wordnet_link_score": 0.1429,
+          "wordnet_link_overlap": [
+            "consume"
+          ]
+        }
+      },
+      "candidate_pos": "verb",
+      "evidence_text": "We were up drinking all night",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:drink:bebida",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:drink:bebida:active",
+        "candidate_sense_id": "en-es:sentence-veto:drink:beber:shadow",
+        "example_bucket": "shadow",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "drink%2:34:01::",
+        "wordnet_synset_id": "01173463-v",
+        "wordnet_link_score": 0.1429,
+        "wordnet_link_overlap": [
+          "consume"
+        ],
+        "wordnet_evidence_kind": "example"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-play-obra:active-wordnet-definition-1",
+      "relation_type": "anchor_cue",
+      "trigger": "play",
+      "active_target": "obra",
+      "candidate_target": "obra",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:play:obra:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:play:obra:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "play%1:10:01::",
+          "wordnet_synset_id": "07021061-n",
+          "wordnet_link_score": 0.5556,
+          "wordnet_link_overlap": [
+            "actor",
+            "drama",
+            "dramatic",
+            "stage",
+            "work"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "a dramatic work intended for performance by actors on a stage",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:play:obra",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:play:obra:active",
+        "candidate_sense_id": "en-es:sentence-veto:play:obra:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "play%1:10:01::",
+        "wordnet_synset_id": "07021061-n",
+        "wordnet_link_score": 0.5556,
+        "wordnet_link_overlap": [
+          "actor",
+          "drama",
+          "dramatic",
+          "stage",
+          "work"
+        ],
+        "wordnet_evidence_kind": "definition"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-play-obra:active-wordnet-example-2",
+      "relation_type": "anchor_cue",
+      "trigger": "play",
+      "active_target": "obra",
+      "candidate_target": "obra",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:play:obra:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:play:obra:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "play%1:10:01::",
+          "wordnet_synset_id": "07021061-n",
+          "wordnet_link_score": 0.5556,
+          "wordnet_link_overlap": [
+            "actor",
+            "drama",
+            "dramatic",
+            "stage",
+            "work"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "he wrote several plays but only one was produced on Broadway",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:play:obra",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:play:obra:active",
+        "candidate_sense_id": "en-es:sentence-veto:play:obra:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "play%1:10:01::",
+        "wordnet_synset_id": "07021061-n",
+        "wordnet_link_score": 0.5556,
+        "wordnet_link_overlap": [
+          "actor",
+          "drama",
+          "dramatic",
+          "stage",
+          "work"
+        ],
+        "wordnet_evidence_kind": "example"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-play-obra:shadow-en-es-sentence-veto-play-jugar-shadow-wordnet-definition-1",
+      "relation_type": "shadow_candidate",
+      "trigger": "play",
+      "active_target": "obra",
+      "candidate_target": "jugar",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:play:obra:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:play:jugar:shadow",
+        "canonical_pos": "verb",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "play%2:33:02::",
+          "wordnet_synset_id": "01081873-v",
+          "wordnet_link_score": 0.3333,
+          "wordnet_link_overlap": [
+            "game",
+            "sport",
+            "take"
+          ]
+        }
+      },
+      "candidate_pos": "verb",
+      "evidence_text": "contend against an opponent in a sport, game, or battle",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:play:obra",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:play:obra:active",
+        "candidate_sense_id": "en-es:sentence-veto:play:jugar:shadow",
+        "example_bucket": "shadow",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "play%2:33:02::",
+        "wordnet_synset_id": "01081873-v",
+        "wordnet_link_score": 0.3333,
+        "wordnet_link_overlap": [
+          "game",
+          "sport",
+          "take"
+        ],
+        "wordnet_evidence_kind": "definition"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-play-obra:shadow-en-es-sentence-veto-play-jugar-shadow-wordnet-example-2",
+      "relation_type": "shadow_candidate",
+      "trigger": "play",
+      "active_target": "obra",
+      "candidate_target": "jugar",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:play:obra:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:play:jugar:shadow",
+        "canonical_pos": "verb",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "play%2:33:02::",
+          "wordnet_synset_id": "01081873-v",
+          "wordnet_link_score": 0.3333,
+          "wordnet_link_overlap": [
+            "game",
+            "sport",
+            "take"
+          ]
+        }
+      },
+      "candidate_pos": "verb",
+      "evidence_text": "Princeton plays Yale this weekend",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:play:obra",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:play:obra:active",
+        "candidate_sense_id": "en-es:sentence-veto:play:jugar:shadow",
+        "example_bucket": "shadow",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "play%2:33:02::",
+        "wordnet_synset_id": "01081873-v",
+        "wordnet_link_score": 0.3333,
+        "wordnet_link_overlap": [
+          "game",
+          "sport",
+          "take"
+        ],
+        "wordnet_evidence_kind": "example"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-watch-reloj:active-wordnet-definition-1",
+      "relation_type": "anchor_cue",
+      "trigger": "watch",
+      "active_target": "reloj",
+      "candidate_target": "reloj",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:watch:reloj:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:watch:reloj:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "watch%1:06:00::",
+          "wordnet_synset_id": "04563183-n",
+          "wordnet_link_score": 0.3,
+          "wordnet_link_overlap": [
+            "portable",
+            "small",
+            "timepiece"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "a small portable timepiece",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:watch:reloj",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:watch:reloj:active",
+        "candidate_sense_id": "en-es:sentence-veto:watch:reloj:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "watch%1:06:00::",
+        "wordnet_synset_id": "04563183-n",
+        "wordnet_link_score": 0.3,
+        "wordnet_link_overlap": [
+          "portable",
+          "small",
+          "timepiece"
+        ],
+        "wordnet_evidence_kind": "definition"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-watch-reloj:shadow-en-es-sentence-veto-watch-vigilar-shadow-wordnet-definition-1",
+      "relation_type": "shadow_candidate",
+      "trigger": "watch",
+      "active_target": "reloj",
+      "candidate_target": "vigilar",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:watch:reloj:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:watch:vigilar:shadow",
+        "canonical_pos": "verb",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "watch%2:41:00::",
+          "wordnet_synset_id": "02460829-v",
+          "wordnet_link_score": 0.1429,
+          "wordnet_link_overlap": [
+            "observe"
+          ]
+        }
+      },
+      "candidate_pos": "verb",
+      "evidence_text": "follow with the eyes or the mind",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:watch:reloj",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:watch:reloj:active",
+        "candidate_sense_id": "en-es:sentence-veto:watch:vigilar:shadow",
+        "example_bucket": "shadow",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "watch%2:41:00::",
+        "wordnet_synset_id": "02460829-v",
+        "wordnet_link_score": 0.1429,
+        "wordnet_link_overlap": [
+          "observe"
+        ],
+        "wordnet_evidence_kind": "definition"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-watch-reloj:shadow-en-es-sentence-veto-watch-vigilar-shadow-wordnet-example-2",
+      "relation_type": "shadow_candidate",
+      "trigger": "watch",
+      "active_target": "reloj",
+      "candidate_target": "vigilar",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:watch:reloj:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:watch:vigilar:shadow",
+        "canonical_pos": "verb",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "watch%2:41:00::",
+          "wordnet_synset_id": "02460829-v",
+          "wordnet_link_score": 0.1429,
+          "wordnet_link_overlap": [
+            "observe"
+          ]
+        }
+      },
+      "candidate_pos": "verb",
+      "evidence_text": "Keep an eye on the baby, please!",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:watch:reloj",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:watch:reloj:active",
+        "candidate_sense_id": "en-es:sentence-veto:watch:vigilar:shadow",
+        "example_bucket": "shadow",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "watch%2:41:00::",
+        "wordnet_synset_id": "02460829-v",
+        "wordnet_link_score": 0.1429,
+        "wordnet_link_overlap": [
+          "observe"
+        ],
+        "wordnet_evidence_kind": "example"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-check-cheque:active-wordnet-definition-1",
+      "relation_type": "anchor_cue",
+      "trigger": "check",
+      "active_target": "cheque",
+      "candidate_target": "cheque",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:check:cheque:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:check:cheque:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "check%1:21:00::",
+          "wordnet_synset_id": "13402907-n",
+          "wordnet_link_score": 0.6364,
+          "wordnet_link_overlap": [
+            "bank",
+            "cheque",
+            "direct",
+            "money",
+            "order",
+            "pay",
+            "written"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "a written order directing a bank to pay money",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:check:cheque",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:check:cheque:active",
+        "candidate_sense_id": "en-es:sentence-veto:check:cheque:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "check%1:21:00::",
+        "wordnet_synset_id": "13402907-n",
+        "wordnet_link_score": 0.6364,
+        "wordnet_link_overlap": [
+          "bank",
+          "cheque",
+          "direct",
+          "money",
+          "order",
+          "pay",
+          "written"
+        ],
+        "wordnet_evidence_kind": "definition"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-check-cheque:active-wordnet-example-2",
+      "relation_type": "anchor_cue",
+      "trigger": "check",
+      "active_target": "cheque",
+      "candidate_target": "cheque",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:check:cheque:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:check:cheque:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "check%1:21:00::",
+          "wordnet_synset_id": "13402907-n",
+          "wordnet_link_score": 0.6364,
+          "wordnet_link_overlap": [
+            "bank",
+            "cheque",
+            "direct",
+            "money",
+            "order",
+            "pay",
+            "written"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "he paid all his bills by check",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:check:cheque",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:check:cheque:active",
+        "candidate_sense_id": "en-es:sentence-veto:check:cheque:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "check%1:21:00::",
+        "wordnet_synset_id": "13402907-n",
+        "wordnet_link_score": 0.6364,
+        "wordnet_link_overlap": [
+          "bank",
+          "cheque",
+          "direct",
+          "money",
+          "order",
+          "pay",
+          "written"
+        ],
+        "wordnet_evidence_kind": "example"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-check-cheque:shadow-en-es-sentence-veto-check-revisar-shadow-wordnet-definition-1",
+      "relation_type": "shadow_candidate",
+      "trigger": "check",
+      "active_target": "cheque",
+      "candidate_target": "revisar",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:check:cheque:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:check:revisar:shadow",
+        "canonical_pos": "verb",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "check%2:31:12::",
+          "wordnet_synset_id": "00665271-v",
+          "wordnet_link_score": 0.1667,
+          "wordnet_link_overlap": [
+            "verify"
+          ]
+        }
+      },
+      "candidate_pos": "verb",
+      "evidence_text": "verify by consulting a source or authority",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:check:cheque",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:check:cheque:active",
+        "candidate_sense_id": "en-es:sentence-veto:check:revisar:shadow",
+        "example_bucket": "shadow",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "check%2:31:12::",
+        "wordnet_synset_id": "00665271-v",
+        "wordnet_link_score": 0.1667,
+        "wordnet_link_overlap": [
+          "verify"
+        ],
+        "wordnet_evidence_kind": "definition"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-check-cheque:shadow-en-es-sentence-veto-check-revisar-shadow-wordnet-example-2",
+      "relation_type": "shadow_candidate",
+      "trigger": "check",
+      "active_target": "cheque",
+      "candidate_target": "revisar",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:check:cheque:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:check:revisar:shadow",
+        "canonical_pos": "verb",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "check%2:31:12::",
+          "wordnet_synset_id": "00665271-v",
+          "wordnet_link_score": 0.1667,
+          "wordnet_link_overlap": [
+            "verify"
+          ]
+        }
+      },
+      "candidate_pos": "verb",
+      "evidence_text": "check the spelling of this word",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:check:cheque",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:check:cheque:active",
+        "candidate_sense_id": "en-es:sentence-veto:check:revisar:shadow",
+        "example_bucket": "shadow",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "check%2:31:12::",
+        "wordnet_synset_id": "00665271-v",
+        "wordnet_link_score": 0.1667,
+        "wordnet_link_overlap": [
+          "verify"
+        ],
+        "wordnet_evidence_kind": "example"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-order-pedido:active-wordnet-definition-1",
+      "relation_type": "anchor_cue",
+      "trigger": "order",
+      "active_target": "pedido",
+      "candidate_target": "pedido",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:order:pedido:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:order:pedido:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "order%1:10:01::",
+          "wordnet_synset_id": "06541210-n",
+          "wordnet_link_score": 0.25,
+          "wordnet_link_overlap": [
+            "purchase",
+            "request"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "a commercial document used to request someone to supply something in return for payment and providing specifications and quantities",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:order:pedido",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:order:pedido:active",
+        "candidate_sense_id": "en-es:sentence-veto:order:pedido:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "order%1:10:01::",
+        "wordnet_synset_id": "06541210-n",
+        "wordnet_link_score": 0.25,
+        "wordnet_link_overlap": [
+          "purchase",
+          "request"
+        ],
+        "wordnet_evidence_kind": "definition"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-order-pedido:active-wordnet-example-2",
+      "relation_type": "anchor_cue",
+      "trigger": "order",
+      "active_target": "pedido",
+      "candidate_target": "pedido",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:order:pedido:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:order:pedido:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "order%1:10:01::",
+          "wordnet_synset_id": "06541210-n",
+          "wordnet_link_score": 0.25,
+          "wordnet_link_overlap": [
+            "purchase",
+            "request"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "IBM received an order for a hundred computers",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:order:pedido",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:order:pedido:active",
+        "candidate_sense_id": "en-es:sentence-veto:order:pedido:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "order%1:10:01::",
+        "wordnet_synset_id": "06541210-n",
+        "wordnet_link_score": 0.25,
+        "wordnet_link_overlap": [
+          "purchase",
+          "request"
+        ],
+        "wordnet_evidence_kind": "example"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-order-pedido:shadow-en-es-sentence-veto-order-ordenar-shadow-wordnet-definition-1",
+      "relation_type": "shadow_candidate",
+      "trigger": "order",
+      "active_target": "pedido",
+      "candidate_target": "ordenar",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:order:pedido:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:order:ordenar:shadow",
+        "canonical_pos": "verb",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "order%2:32:01::",
+          "wordnet_synset_id": "00748704-v",
+          "wordnet_link_score": 0.1667,
+          "wordnet_link_overlap": [
+            "instruction"
+          ]
+        }
+      },
+      "candidate_pos": "verb",
+      "evidence_text": "give instructions to or direct somebody to do something with authority",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:order:pedido",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:order:pedido:active",
+        "candidate_sense_id": "en-es:sentence-veto:order:ordenar:shadow",
+        "example_bucket": "shadow",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "order%2:32:01::",
+        "wordnet_synset_id": "00748704-v",
+        "wordnet_link_score": 0.1667,
+        "wordnet_link_overlap": [
+          "instruction"
+        ],
+        "wordnet_evidence_kind": "definition"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-order-pedido:shadow-en-es-sentence-veto-order-ordenar-shadow-wordnet-example-2",
+      "relation_type": "shadow_candidate",
+      "trigger": "order",
+      "active_target": "pedido",
+      "candidate_target": "ordenar",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:order:pedido:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:order:ordenar:shadow",
+        "canonical_pos": "verb",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "order%2:32:01::",
+          "wordnet_synset_id": "00748704-v",
+          "wordnet_link_score": 0.1667,
+          "wordnet_link_overlap": [
+            "instruction"
+          ]
+        }
+      },
+      "candidate_pos": "verb",
+      "evidence_text": "I said to him to go home",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:order:pedido",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:order:pedido:active",
+        "candidate_sense_id": "en-es:sentence-veto:order:ordenar:shadow",
+        "example_bucket": "shadow",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "order%2:32:01::",
+        "wordnet_synset_id": "00748704-v",
+        "wordnet_link_score": 0.1667,
+        "wordnet_link_overlap": [
+          "instruction"
+        ],
+        "wordnet_evidence_kind": "example"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-trip-viaje:active-wordnet-definition-1",
+      "relation_type": "anchor_cue",
+      "trigger": "trip",
+      "active_target": "viaje",
+      "candidate_target": "viaje",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:trip:viaje:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:trip:viaje:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "trip%1:04:00::",
+          "wordnet_synset_id": "00309196-n",
+          "wordnet_link_score": 0.1667,
+          "wordnet_link_overlap": [
+            "journey"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "a journey for some purpose (usually including the return)",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:trip:viaje",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:trip:viaje:active",
+        "candidate_sense_id": "en-es:sentence-veto:trip:viaje:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "trip%1:04:00::",
+        "wordnet_synset_id": "00309196-n",
+        "wordnet_link_score": 0.1667,
+        "wordnet_link_overlap": [
+          "journey"
+        ],
+        "wordnet_evidence_kind": "definition"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-trip-viaje:active-wordnet-example-2",
+      "relation_type": "anchor_cue",
+      "trigger": "trip",
+      "active_target": "viaje",
+      "candidate_target": "viaje",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:trip:viaje:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:trip:viaje:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "trip%1:04:00::",
+          "wordnet_synset_id": "00309196-n",
+          "wordnet_link_score": 0.1667,
+          "wordnet_link_overlap": [
+            "journey"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "he took a trip to the shopping center",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:trip:viaje",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:trip:viaje:active",
+        "candidate_sense_id": "en-es:sentence-veto:trip:viaje:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "trip%1:04:00::",
+        "wordnet_synset_id": "00309196-n",
+        "wordnet_link_score": 0.1667,
+        "wordnet_link_overlap": [
+          "journey"
+        ],
+        "wordnet_evidence_kind": "example"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-trip-viaje:shadow-en-es-sentence-veto-trip-viaje-shadow-wordnet-definition-1",
+      "relation_type": "shadow_candidate",
+      "trigger": "trip",
+      "active_target": "viaje",
+      "candidate_target": "tropezar",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:trip:viaje:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:trip:viaje:shadow",
+        "canonical_pos": "verb",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "trip%2:38:01::",
+          "wordnet_synset_id": "01904753-v",
+          "wordnet_link_score": 0.1667,
+          "wordnet_link_overlap": [
+            "stumble"
+          ]
+        }
+      },
+      "candidate_pos": "verb",
+      "evidence_text": "cause to stumble",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:trip:viaje",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:trip:viaje:active",
+        "candidate_sense_id": "en-es:sentence-veto:trip:viaje:shadow",
+        "example_bucket": "shadow",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "trip%2:38:01::",
+        "wordnet_synset_id": "01904753-v",
+        "wordnet_link_score": 0.1667,
+        "wordnet_link_overlap": [
+          "stumble"
+        ],
+        "wordnet_evidence_kind": "definition"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-trip-viaje:shadow-en-es-sentence-veto-trip-viaje-shadow-wordnet-example-2",
+      "relation_type": "shadow_candidate",
+      "trigger": "trip",
+      "active_target": "viaje",
+      "candidate_target": "tropezar",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:trip:viaje:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:trip:viaje:shadow",
+        "canonical_pos": "verb",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "trip%2:38:01::",
+          "wordnet_synset_id": "01904753-v",
+          "wordnet_link_score": 0.1667,
+          "wordnet_link_overlap": [
+            "stumble"
+          ]
+        }
+      },
+      "candidate_pos": "verb",
+      "evidence_text": "The questions on the test tripped him up",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:trip:viaje",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:trip:viaje:active",
+        "candidate_sense_id": "en-es:sentence-veto:trip:viaje:shadow",
+        "example_bucket": "shadow",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "trip%2:38:01::",
+        "wordnet_synset_id": "01904753-v",
+        "wordnet_link_score": 0.1667,
+        "wordnet_link_overlap": [
+          "stumble"
+        ],
+        "wordnet_evidence_kind": "example"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-report-informe:active-wordnet-definition-1",
+      "relation_type": "anchor_cue",
+      "trigger": "report",
+      "active_target": "informe",
+      "candidate_target": "informe",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:report:informe:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:report:informe:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "report%1:10:03::",
+          "wordnet_synset_id": "07233130-n",
+          "wordnet_link_score": 0.4,
+          "wordnet_link_overlap": [
+            "describ",
+            "document",
+            "finding",
+            "written"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "a written document describing the findings of some individual or group",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:report:informe",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:report:informe:active",
+        "candidate_sense_id": "en-es:sentence-veto:report:informe:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "report%1:10:03::",
+        "wordnet_synset_id": "07233130-n",
+        "wordnet_link_score": 0.4,
+        "wordnet_link_overlap": [
+          "describ",
+          "document",
+          "finding",
+          "written"
+        ],
+        "wordnet_evidence_kind": "definition"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-report-informe:active-wordnet-example-2",
+      "relation_type": "anchor_cue",
+      "trigger": "report",
+      "active_target": "informe",
+      "candidate_target": "informe",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:report:informe:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:report:informe:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "report%1:10:03::",
+          "wordnet_synset_id": "07233130-n",
+          "wordnet_link_score": 0.4,
+          "wordnet_link_overlap": [
+            "describ",
+            "document",
+            "finding",
+            "written"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "this accords with the recent study by Hill and Dale",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:report:informe",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:report:informe:active",
+        "candidate_sense_id": "en-es:sentence-veto:report:informe:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "report%1:10:03::",
+        "wordnet_synset_id": "07233130-n",
+        "wordnet_link_score": 0.4,
+        "wordnet_link_overlap": [
+          "describ",
+          "document",
+          "finding",
+          "written"
+        ],
+        "wordnet_evidence_kind": "example"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-report-informe:shadow-en-es-sentence-veto-report-informar-shadow-wordnet-definition-1",
+      "relation_type": "shadow_candidate",
+      "trigger": "report",
+      "active_target": "informe",
+      "candidate_target": "informar",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:report:informe:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:report:informar:shadow",
+        "canonical_pos": "verb",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "report%2:32:04::",
+          "wordnet_synset_id": "00968841-v",
+          "wordnet_link_score": 0.25,
+          "wordnet_link_overlap": [
+            "announce",
+            "information"
+          ]
+        }
+      },
+      "candidate_pos": "verb",
+      "evidence_text": "announce as the result of an investigation or experience or finding",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:report:informe",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:report:informe:active",
+        "candidate_sense_id": "en-es:sentence-veto:report:informar:shadow",
+        "example_bucket": "shadow",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "report%2:32:04::",
+        "wordnet_synset_id": "00968841-v",
+        "wordnet_link_score": 0.25,
+        "wordnet_link_overlap": [
+          "announce",
+          "information"
+        ],
+        "wordnet_evidence_kind": "definition"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-report-informe:shadow-en-es-sentence-veto-report-informar-shadow-wordnet-example-2",
+      "relation_type": "shadow_candidate",
+      "trigger": "report",
+      "active_target": "informe",
+      "candidate_target": "informar",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:report:informe:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:report:informar:shadow",
+        "canonical_pos": "verb",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "report%2:32:04::",
+          "wordnet_synset_id": "00968841-v",
+          "wordnet_link_score": 0.25,
+          "wordnet_link_overlap": [
+            "announce",
+            "information"
+          ]
+        }
+      },
+      "candidate_pos": "verb",
+      "evidence_text": "Dozens of incidents of wife beatings are reported daily in this city",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:report:informe",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:report:informe:active",
+        "candidate_sense_id": "en-es:sentence-veto:report:informar:shadow",
+        "example_bucket": "shadow",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "report%2:32:04::",
+        "wordnet_synset_id": "00968841-v",
+        "wordnet_link_score": 0.25,
+        "wordnet_link_overlap": [
+          "announce",
+          "information"
+        ],
+        "wordnet_evidence_kind": "example"
+      }
+    }
+  ]
+}

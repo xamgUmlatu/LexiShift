@@ -1,0 +1,346 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-04-26T03:25:23Z",
+  "status": "review",
+  "pair": "en-es",
+  "batch_path": "",
+  "batch_id": "en-es:source-admission-cycle:wordnet-def-source-non-v10-probe-v1-20260426a:sense-admitted",
+  "source_id": "wordnet_def_source_non_v10_probe_v1",
+  "prompt_version": "example-frame-composite-v1",
+  "model_id": "mixed",
+  "row_count": 18,
+  "contract": {
+    "required_relation_sets": {
+      "active_examples": [
+        "anchor_cue"
+      ],
+      "shadow_examples": [
+        "bridge_candidate",
+        "shadow_candidate"
+      ],
+      "phrase_control_examples": [
+        "phrase_control_example"
+      ]
+    },
+    "required_batch_role_for_phrase_rows": "phrase_containment",
+    "runtime_publishable_required": false,
+    "required_family_keys": [
+      "en-es:sentence-veto:rock:roca",
+      "en-es:sentence-veto:draft:borrador",
+      "en-es:sentence-veto:case:caso",
+      "en-es:sentence-veto:scale:escala",
+      "en-es:sentence-veto:line:linea",
+      "en-es:sentence-veto:point:punto",
+      "en-es:sentence-veto:ring:anillo",
+      "en-es:sentence-veto:date:fecha"
+    ]
+  },
+  "summary": {
+    "families_total": 8,
+    "semantic_contract_complete_family_count": 8,
+    "semantic_contract_complete": true,
+    "phrase_containment_contract_complete_family_count": 0,
+    "phrase_containment_contract_complete": false,
+    "contract_complete_family_count": 0,
+    "contract_complete": false,
+    "missing_active_family_keys": [],
+    "missing_shadow_family_keys": [],
+    "semantic_gap_family_keys": [],
+    "missing_phrase_control_family_keys": [
+      "en-es:sentence-veto:case:caso",
+      "en-es:sentence-veto:date:fecha",
+      "en-es:sentence-veto:draft:borrador",
+      "en-es:sentence-veto:line:linea",
+      "en-es:sentence-veto:point:punto",
+      "en-es:sentence-veto:ring:anillo",
+      "en-es:sentence-veto:rock:roca",
+      "en-es:sentence-veto:scale:escala"
+    ],
+    "phrase_role_issue_family_keys": [],
+    "phrase_containment_gap_family_keys": [
+      "en-es:sentence-veto:case:caso",
+      "en-es:sentence-veto:date:fecha",
+      "en-es:sentence-veto:draft:borrador",
+      "en-es:sentence-veto:line:linea",
+      "en-es:sentence-veto:point:punto",
+      "en-es:sentence-veto:ring:anillo",
+      "en-es:sentence-veto:rock:roca",
+      "en-es:sentence-veto:scale:escala"
+    ],
+    "runtime_publishable_issue_family_keys": [],
+    "semantic_contract": {
+      "complete_family_count": 8,
+      "complete": true,
+      "gap_family_keys": [],
+      "missing_active_family_keys": [],
+      "missing_shadow_family_keys": []
+    },
+    "phrase_containment_contract": {
+      "complete_family_count": 0,
+      "complete": false,
+      "gap_family_keys": [
+        "en-es:sentence-veto:case:caso",
+        "en-es:sentence-veto:date:fecha",
+        "en-es:sentence-veto:draft:borrador",
+        "en-es:sentence-veto:line:linea",
+        "en-es:sentence-veto:point:punto",
+        "en-es:sentence-veto:ring:anillo",
+        "en-es:sentence-veto:rock:roca",
+        "en-es:sentence-veto:scale:escala"
+      ],
+      "missing_phrase_control_family_keys": [
+        "en-es:sentence-veto:case:caso",
+        "en-es:sentence-veto:date:fecha",
+        "en-es:sentence-veto:draft:borrador",
+        "en-es:sentence-veto:line:linea",
+        "en-es:sentence-veto:point:punto",
+        "en-es:sentence-veto:ring:anillo",
+        "en-es:sentence-veto:rock:roca",
+        "en-es:sentence-veto:scale:escala"
+      ],
+      "phrase_role_issue_family_keys": []
+    },
+    "combined_contract": {
+      "complete_family_count": 0,
+      "complete": false,
+      "runtime_publishable_issue_family_keys": []
+    }
+  },
+  "family_rows": [
+    {
+      "family_key": "en-es:sentence-veto:case:caso",
+      "family_id": "en-es:sentence-veto:case:caso",
+      "trigger": "case",
+      "active_target": "caso",
+      "active_example_count": 1,
+      "shadow_example_count": 2,
+      "phrase_control_example_count": 0,
+      "row_count": 3,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [
+        "en-es-sentence-veto-case-caso:active-wordnet-definition-1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-case-caso:shadow-en-es-sentence-veto-case-estuche-shadow-wordnet-definition-1",
+        "en-es-sentence-veto-case-caso:shadow-en-es-sentence-veto-case-vigilar-shadow-wordnet-definition-1"
+      ],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:date:fecha",
+      "family_id": "en-es:sentence-veto:date:fecha",
+      "trigger": "date",
+      "active_target": "fecha",
+      "active_example_count": 1,
+      "shadow_example_count": 2,
+      "phrase_control_example_count": 0,
+      "row_count": 3,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [
+        "en-es-sentence-veto-date-fecha:active-wordnet-definition-1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-date-fecha:shadow-en-es-sentence-veto-date-datil-shadow-wordnet-definition-1",
+        "en-es-sentence-veto-date-fecha:shadow-en-es-sentence-veto-date-fechar-shadow-wordnet-definition-1"
+      ],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:draft:borrador",
+      "family_id": "en-es:sentence-veto:draft:borrador",
+      "trigger": "draft",
+      "active_target": "borrador",
+      "active_example_count": 1,
+      "shadow_example_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [
+        "en-es-sentence-veto-draft-borrador:active-wordnet-definition-1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-draft-borrador:shadow-en-es-sentence-veto-draft-reclutar-shadow-wordnet-definition-1"
+      ],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:line:linea",
+      "family_id": "en-es:sentence-veto:line:linea",
+      "trigger": "line",
+      "active_target": "linea",
+      "active_example_count": 1,
+      "shadow_example_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [
+        "en-es-sentence-veto-line-linea:active-wordnet-definition-1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-line-linea:shadow-en-es-sentence-veto-line-forrar-shadow-wordnet-definition-1"
+      ],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:point:punto",
+      "family_id": "en-es:sentence-veto:point:punto",
+      "trigger": "point",
+      "active_target": "punto",
+      "active_example_count": 1,
+      "shadow_example_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [
+        "en-es-sentence-veto-point-punto:active-wordnet-definition-1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-point-punto:shadow-en-es-sentence-veto-point-senalar-shadow-wordnet-definition-1"
+      ],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:ring:anillo",
+      "family_id": "en-es:sentence-veto:ring:anillo",
+      "trigger": "ring",
+      "active_target": "anillo",
+      "active_example_count": 1,
+      "shadow_example_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [
+        "en-es-sentence-veto-ring-anillo:active-wordnet-definition-1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-ring-anillo:shadow-en-es-sentence-veto-ring-sonar-shadow-wordnet-definition-1"
+      ],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:rock:roca",
+      "family_id": "en-es:sentence-veto:rock:roca",
+      "trigger": "rock",
+      "active_target": "roca",
+      "active_example_count": 1,
+      "shadow_example_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [
+        "en-es-sentence-veto-rock-roca:active-wordnet-definition-1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-rock-roca:shadow-en-es-sentence-veto-rock-sacudir-shadow-wordnet-definition-1"
+      ],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:scale:escala",
+      "family_id": "en-es:sentence-veto:scale:escala",
+      "trigger": "scale",
+      "active_target": "escala",
+      "active_example_count": 1,
+      "shadow_example_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [
+        "en-es-sentence-veto-scale-escala:active-wordnet-definition-1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-scale-escala:shadow-en-es-sentence-veto-scale-escalar-shadow-wordnet-definition-1"
+      ],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    }
+  ],
+  "recommendation": "Semantic active/shadow coverage is complete, but the combined source contract remains review. Phrase containment gaps: missing_phrase_control=8, phrase_role_issues=0. Keep this batch analysis-only unless a downstream no-phrase ablation explicitly carries the candidate lane and promotion policy accepts the split contract."
+}

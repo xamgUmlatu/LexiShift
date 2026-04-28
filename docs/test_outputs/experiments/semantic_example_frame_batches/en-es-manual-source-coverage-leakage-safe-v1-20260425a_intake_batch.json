@@ -1,0 +1,184 @@
+{
+  "schema_version": 1,
+  "batch_id": "en-es:manual-example-frame-replacements:source-coverage-leakage-safe-v1-20260425a",
+  "pair": "en-es",
+  "source_type": "internal",
+  "source_id": "manual_leakage_safe_example_frames",
+  "source_family": "internal_rulegen_artifact",
+  "roles": [
+    "cue_generation",
+    "discrimination"
+  ],
+  "generated_at": "2026-04-25T00:09:35Z",
+  "ingested_at": "2026-04-25T00:09:35Z",
+  "review_state": "unreviewed",
+  "model_id": "not_applicable",
+  "prompt_version": "manual-leakage-safe-v1",
+  "provenance": {
+    "source_note": "Manual leakage-safe replacements for rows removed by semantic example-frame leakage audit; analysis-only, not runtime-publishable."
+  },
+  "items": [
+    {
+      "row_id": "en-es-sentence-veto-ball-pelota:manual:active:leakage-safe:v1",
+      "relation_type": "anchor_cue",
+      "trigger": "ball",
+      "active_target": "pelota",
+      "candidate_target": "pelota",
+      "candidate_pos": "noun",
+      "prompt_slot": "leakage_safe_active_example",
+      "input_ref": "manual:leakage-safe:ball:active",
+      "metadata": {
+        "family_id": "en-es:sentence-veto:ball:pelota",
+        "active_sense_id": "en-es:sentence-veto:ball:pelota:active",
+        "candidate_sense_id": "en-es:sentence-veto:ball:pelota:active",
+        "generation_target": "active_example",
+        "source_gap": "leaked_active_replacement",
+        "replaces_filtered_row_id": "en-es-sentence-veto-ball-pelota:llm:active:missing:v1"
+      },
+      "evidence_text": "A rubber ball bounced across the kitchen floor.",
+      "confidence": 0.98,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "pair": "en-es",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:ball:pelota:active",
+        "note": "manual_leakage_safe_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:ball:pelota:active",
+        "note": "manual_leakage_safe_candidate",
+        "canonical_pos": "noun"
+      },
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false
+    },
+    {
+      "row_id": "en-es-sentence-veto-file-archivo:manual:shadow:en-es-sentence-veto-file-lima-shadow:leakage-safe:v1",
+      "relation_type": "shadow_candidate",
+      "trigger": "file",
+      "active_target": "archivo",
+      "candidate_target": "lima",
+      "candidate_pos": "noun",
+      "prompt_slot": "leakage_safe_shadow_example",
+      "input_ref": "manual:leakage-safe:file:shadow:lima",
+      "metadata": {
+        "family_id": "en-es:sentence-veto:file:archivo",
+        "active_sense_id": "en-es:sentence-veto:file:archivo:active",
+        "candidate_sense_id": "en-es:sentence-veto:file:lima:shadow",
+        "generation_target": "shadow_example",
+        "source_gap": "leaked_shadow_replacement",
+        "replaces_filtered_row_id": "en-es-sentence-veto-file-archivo:llm:shadow:en-es-sentence-veto-file-lima-shadow:missing:v1"
+      },
+      "evidence_text": "The carpenter shaped the latch with a coarse file.",
+      "confidence": 0.98,
+      "roles": [
+        "discrimination"
+      ],
+      "pair": "en-es",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:file:archivo:active",
+        "note": "manual_leakage_safe_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:file:lima:shadow",
+        "note": "manual_leakage_safe_candidate",
+        "canonical_pos": "noun"
+      },
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false
+    },
+    {
+      "row_id": "en-es-sentence-veto-board-tablero:manual:shadow:en-es-sentence-veto-board-junta-shadow:leakage-safe:v1",
+      "relation_type": "shadow_candidate",
+      "trigger": "board",
+      "active_target": "tablero",
+      "candidate_target": "junta",
+      "candidate_pos": "noun",
+      "prompt_slot": "leakage_safe_shadow_example",
+      "input_ref": "manual:leakage-safe:board:shadow:junta",
+      "metadata": {
+        "family_id": "en-es:sentence-veto:board:tablero",
+        "active_sense_id": "en-es:sentence-veto:board:tablero:active",
+        "candidate_sense_id": "en-es:sentence-veto:board:junta:shadow",
+        "generation_target": "shadow_example",
+        "source_gap": "leaked_shadow_replacement",
+        "replaces_filtered_row_id": "en-es-sentence-veto-board-tablero:llm:shadow:en-es-sentence-veto-board-junta-shadow:missing:v1"
+      },
+      "evidence_text": "The board voted to hire a new director.",
+      "confidence": 0.98,
+      "roles": [
+        "discrimination"
+      ],
+      "pair": "en-es",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:board:tablero:active",
+        "note": "manual_leakage_safe_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:board:junta:shadow",
+        "note": "manual_leakage_safe_candidate",
+        "canonical_pos": "noun"
+      },
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false
+    },
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:manual:active:leakage-safe:v1",
+      "relation_type": "anchor_cue",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "planta",
+      "candidate_pos": "noun",
+      "prompt_slot": "leakage_safe_active_example",
+      "input_ref": "manual:leakage-safe:plant:active",
+      "metadata": {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "candidate_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "generation_target": "active_example",
+        "source_gap": "residual_false_abstain_active_replacement",
+        "replaces_filtered_row_id": "en-es-sentence-veto-plant-planta:llm:active:remediation-active-001-002:v1"
+      },
+      "evidence_text": "A leafy plant grew taller in the clay pot.",
+      "confidence": 0.98,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "pair": "en-es",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "note": "manual_leakage_safe_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "note": "manual_leakage_safe_candidate",
+        "canonical_pos": "noun"
+      },
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false
+    }
+  ]
+}

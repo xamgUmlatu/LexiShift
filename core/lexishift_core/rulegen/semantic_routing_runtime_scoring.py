@@ -46,6 +46,8 @@ _NOUN_LIKE_POS_TAGS = frozenset({"noun", "proper_noun"})
 _PHRASE_CONTROL_MODAL_TOKENS = frozenset(
     {
         "can",
+        "cannot",
+        "can't",
         "could",
         "may",
         "might",
@@ -73,7 +75,62 @@ _PHRASE_CONTROL_DETERMINER_TOKENS = frozenset(
         "your",
     }
 )
-_PHRASE_CONTROL_PARTICLE_TOKENS = frozenset({"into", "on"})
+_PHRASE_CONTROL_PARTICLE_TOKENS = frozenset(
+    {
+        "away",
+        "back",
+        "down",
+        "in",
+        "into",
+        "off",
+        "on",
+        "out",
+        "over",
+        "past",
+        "through",
+        "up",
+    }
+)
+_PHRASE_CONTROL_PREPOSITION_TOKENS = _PHRASE_CONTROL_PARTICLE_TOKENS | frozenset(
+    {
+        "at",
+        "before",
+        "beside",
+        "by",
+        "during",
+        "for",
+        "from",
+        "near",
+        "through",
+        "to",
+        "toward",
+        "with",
+        "within",
+        "without",
+    }
+)
+_PHRASE_CONTROL_SUBJECT_TRIGGER_PARTICLE_TOKENS = frozenset(
+    {
+        "away",
+        "back",
+        "down",
+        "off",
+        "out",
+        "over",
+        "past",
+        "through",
+        "up",
+    }
+)
+_PHRASE_CONTROL_PROGRESSIVE_OBJECT_VERBS = frozenset(
+    {"get", "gets", "got", "keep", "keeps", "kept", "set", "sets", "start", "starts", "started"}
+)
+_PHRASE_CONTROL_PROGRESSIVE_OBJECT_TRIGGERS = {
+    "ball": frozenset({"rolling"}),
+}
+_PHRASE_CONTROL_NOUN_OF_PHRASE_TRIGGERS = {
+    "rest": "alternate_noun_of_phrase_frame",
+}
 
 
 @dataclass(frozen=True)
@@ -256,6 +313,9 @@ def extract_runtime_phrase_control_signals(
 
     start_index, end_index = match
     preceding_token = _normalize_surface_token(tokens[start_index - 1]) if start_index > 0 else ""
+    pre_preceding_token = (
+        _normalize_surface_token(tokens[start_index - 2]) if start_index > 1 else ""
+    )
     following_token = _normalize_surface_token(tokens[end_index]) if end_index < len(tokens) else ""
 
     signal_codes: list[str] = []
@@ -285,6 +345,61 @@ def extract_runtime_phrase_control_signals(
     if start_index == 0 and following_token in _PHRASE_CONTROL_DETERMINER_TOKENS:
         strong_signal_rows.append(
             ("sentence_initial_object_frame", f"{normalized_source_phrase} {following_token}")
+        )
+    if (
+        start_index > 0
+        and preceding_token
+        and preceding_token not in _PHRASE_CONTROL_DETERMINER_TOKENS
+        and following_token in _PHRASE_CONTROL_DETERMINER_TOKENS
+    ):
+        strong_signal_rows.append(
+            (
+                "subject_trigger_object_frame",
+                f"{preceding_token} {normalized_source_phrase} {following_token}",
+            )
+        )
+    if (
+        start_index > 0
+        and preceding_token
+        and preceding_token not in _PHRASE_CONTROL_DETERMINER_TOKENS
+        and preceding_token not in _PHRASE_CONTROL_PREPOSITION_TOKENS
+        and following_token in _PHRASE_CONTROL_SUBJECT_TRIGGER_PARTICLE_TOKENS
+    ):
+        strong_signal_rows.append(
+            (
+                "subject_trigger_particle_frame",
+                f"{preceding_token} {normalized_source_phrase} {following_token}",
+            )
+        )
+    progressive_followers = _PHRASE_CONTROL_PROGRESSIVE_OBJECT_TRIGGERS.get(
+        normalized_source_phrase
+    )
+    if (
+        progressive_followers
+        and preceding_token in _PHRASE_CONTROL_DETERMINER_TOKENS
+        and pre_preceding_token in _PHRASE_CONTROL_PROGRESSIVE_OBJECT_VERBS
+        and following_token in progressive_followers
+    ):
+        strong_signal_rows.append(
+            (
+                "idiom_progressive_object_frame",
+                (
+                    f"{pre_preceding_token} {preceding_token} "
+                    f"{normalized_source_phrase} {following_token}"
+                ),
+            )
+        )
+    noun_of_phrase_reason = _PHRASE_CONTROL_NOUN_OF_PHRASE_TRIGGERS.get(normalized_source_phrase)
+    if (
+        noun_of_phrase_reason
+        and preceding_token in _PHRASE_CONTROL_DETERMINER_TOKENS
+        and following_token == "of"
+    ):
+        strong_signal_rows.append(
+            (
+                noun_of_phrase_reason,
+                f"{preceding_token} {normalized_source_phrase} {following_token}",
+            )
         )
     if following_token in _PHRASE_CONTROL_PARTICLE_TOKENS and strong_signal_rows:
         register_signal(

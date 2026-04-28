@@ -6,7 +6,6 @@ from datetime import datetime, timezone
 import json
 import math
 from pathlib import Path
-import re
 import sys
 from typing import Mapping, Sequence
 
@@ -21,6 +20,20 @@ for candidate in (str(CORE_ROOT), str(SCRIPT_ROOT)):
 
 from semantic_llm_example_frame_contract_en_es import (  # noqa: E402
     build_example_frame_contract_report,
+)
+from semantic_llm_example_frame_generation_plan_candidates import (  # noqa: E402
+    DEFAULT_HARD_SEMANTIC_CANDIDATES_PER_ROW,
+    DEFAULT_PHRASE_CANDIDATES_PER_ROW,
+    DEFAULT_SEMANTIC_CANDIDATES_PER_ROW,
+    candidate_count_for_slot,
+    candidate_strategy,
+    expected_row_id,
+    request_id,
+    slug,
+)
+from semantic_llm_example_frame_generation_prompts import (  # noqa: E402
+    system_prompt,
+    user_prompt,
 )
 from semantic_llm_prompt_downstream_en_es import (  # noqa: E402
     DEFAULT_DATASET_PATH,
@@ -45,7 +58,8 @@ DEFAULT_EXPECTED_OUTPUT_TOKENS = 50
 DEFAULT_MAX_OUTPUT_TOKENS = 180
 PROMPT_VERSION = "example-frame-missing-rows-v1"
 SOURCE_ID = "llm_example_frame_missing_rows"
-_SLUG_RE = re.compile(r"[^a-z0-9]+")
+DEFAULT_GENERATION_TARGETS = ("active_example", "shadow_example")
+SUPPORTED_GENERATION_TARGETS = frozenset((*DEFAULT_GENERATION_TARGETS, "phrase_control_example"))
 
 
 def _parse_args() -> argparse.Namespace:
@@ -65,6 +79,36 @@ def _parse_args() -> argparse.Namespace:
         "--expected-output-tokens", type=int, default=DEFAULT_EXPECTED_OUTPUT_TOKENS
     )
     parser.add_argument("--max-output-tokens", type=int, default=DEFAULT_MAX_OUTPUT_TOKENS)
+    parser.add_argument(
+        "--generation-targets",
+        default=",".join(DEFAULT_GENERATION_TARGETS),
+        help=(
+            "Comma-separated missing-row targets to plan: active_example, "
+            "shadow_example, phrase_control_example. Phrase rows are excluded by default "
+            "and must be requested explicitly."
+        ),
+    )
+    parser.add_argument(
+        "--semantic-candidates-per-row",
+        type=int,
+        default=DEFAULT_SEMANTIC_CANDIDATES_PER_ROW,
+        help="Candidate attempts to plan for ordinary active/shadow missing rows.",
+    )
+    parser.add_argument(
+        "--hard-semantic-candidates-per-row",
+        type=int,
+        default=DEFAULT_HARD_SEMANTIC_CANDIDATES_PER_ROW,
+        help=(
+            "Candidate attempts to plan for same-POS active/shadow families, where "
+            "surface ambiguity is harder."
+        ),
+    )
+    parser.add_argument(
+        "--phrase-candidates-per-row",
+        type=int,
+        default=DEFAULT_PHRASE_CANDIDATES_PER_ROW,
+        help="Candidate attempts to plan for explicitly requested phrase-containment rows.",
+    )
     parser.add_argument("--json-out", type=Path, default=DEFAULT_JSON_OUT)
     parser.add_argument("--markdown-out", type=Path, default=DEFAULT_MARKDOWN_OUT)
     return parser.parse_args()
@@ -80,6 +124,10 @@ def build_example_frame_generation_plan(
     chars_per_token: float = DEFAULT_CHARS_PER_TOKEN,
     expected_output_tokens: int = DEFAULT_EXPECTED_OUTPUT_TOKENS,
     max_output_tokens: int = DEFAULT_MAX_OUTPUT_TOKENS,
+    generation_targets: Sequence[str] = DEFAULT_GENERATION_TARGETS,
+    semantic_candidates_per_row: int = DEFAULT_SEMANTIC_CANDIDATES_PER_ROW,
+    hard_semantic_candidates_per_row: int = DEFAULT_HARD_SEMANTIC_CANDIDATES_PER_ROW,
+    phrase_candidates_per_row: int = DEFAULT_PHRASE_CANDIDATES_PER_ROW,
     generated_at: str | None = None,
 ) -> dict[str, object]:
     if generated_at is None:
@@ -88,6 +136,12 @@ def build_example_frame_generation_plan(
         )
     if chars_per_token <= 0:
         raise ValueError("chars_per_token must be > 0")
+    if semantic_candidates_per_row <= 0:
+        raise ValueError("semantic_candidates_per_row must be > 0")
+    if hard_semantic_candidates_per_row <= 0:
+        raise ValueError("hard_semantic_candidates_per_row must be > 0")
+    if phrase_candidates_per_row <= 0:
+        raise ValueError("phrase_candidates_per_row must be > 0")
     required_family_keys = _required_family_keys(required_family_payload)
     queue_lookup = _queue_family_lookup(required_family_payload)
     contract_report = build_example_frame_contract_report(
@@ -96,13 +150,18 @@ def build_example_frame_generation_plan(
         generated_at=generated_at,
     )
     dataset_lookup = _dataset_family_lookup(dataset_payload)
+    target_filter = _normalize_generation_targets(generation_targets)
     request_rows = _build_request_rows(
         contract_report=contract_report,
         dataset_lookup=dataset_lookup,
         queue_lookup=queue_lookup,
         required_family_keys=required_family_keys,
+        generation_targets=target_filter,
         model_id=str(model_id or "").strip() or DEFAULT_MODEL_ID,
         temperature=float(temperature),
+        semantic_candidates_per_row=int(semantic_candidates_per_row),
+        hard_semantic_candidates_per_row=int(hard_semantic_candidates_per_row),
+        phrase_candidates_per_row=int(phrase_candidates_per_row),
     )
     _attach_token_estimates(
         request_rows,
@@ -131,6 +190,13 @@ def build_example_frame_generation_plan(
         "selected_temperature": float(temperature),
         "decision_contract": "binary_replace_or_abstain",
         "review_leakage_policy": "do_not_include_sentence_veto_case_sentences_in_prompts",
+        "generation_targets": target_filter,
+        "candidate_defaults": {
+            "semantic_candidates_per_row": int(semantic_candidates_per_row),
+            "hard_semantic_candidates_per_row": int(hard_semantic_candidates_per_row),
+            "phrase_candidates_per_row": int(phrase_candidates_per_row),
+            "hard_semantic_condition": "active_and_candidate_sense_share_canonical_pos",
+        },
         "input_token_heuristic": f"ceil(characters / {chars_per_token})",
         "contract_summary": contract_report.get("summary", {}),
         "summary": summary,
@@ -145,8 +211,12 @@ def _build_request_rows(
     dataset_lookup: Mapping[str, Mapping[str, object]],
     queue_lookup: Mapping[str, Mapping[str, object]],
     required_family_keys: Sequence[str],
+    generation_targets: Sequence[str],
     model_id: str,
     temperature: float,
+    semantic_candidates_per_row: int,
+    hard_semantic_candidates_per_row: int,
+    phrase_candidates_per_row: int,
 ) -> list[dict[str, object]]:
     contract_rows = {
         str(row.get("family_key") or "").strip(): row
@@ -165,10 +235,10 @@ def _build_request_rows(
             for item in contract_row.get("missing_requirements", ())
             if str(item).strip()
         }
-        if "active_examples" in missing:
+        if "active_examples" in missing and "active_example" in generation_targets:
             active = _active_sense(family)
-            request_rows.append(
-                _request_row(
+            request_rows.extend(
+                _request_rows_for_candidate_slot(
                     family=family,
                     queue_family=queue_family,
                     candidate_sense=active,
@@ -176,12 +246,15 @@ def _build_request_rows(
                     relation_type="anchor_cue",
                     model_id=model_id,
                     temperature=temperature,
+                    semantic_candidates_per_row=semantic_candidates_per_row,
+                    hard_semantic_candidates_per_row=hard_semantic_candidates_per_row,
+                    phrase_candidates_per_row=phrase_candidates_per_row,
                 )
             )
-        if "shadow_examples" in missing:
+        if "shadow_examples" in missing and "shadow_example" in generation_targets:
             for shadow in _shadow_senses(family):
-                request_rows.append(
-                    _request_row(
+                request_rows.extend(
+                    _request_rows_for_candidate_slot(
                         family=family,
                         queue_family=queue_family,
                         candidate_sense=shadow,
@@ -189,11 +262,14 @@ def _build_request_rows(
                         relation_type="shadow_candidate",
                         model_id=model_id,
                         temperature=temperature,
+                        semantic_candidates_per_row=semantic_candidates_per_row,
+                        hard_semantic_candidates_per_row=hard_semantic_candidates_per_row,
+                        phrase_candidates_per_row=phrase_candidates_per_row,
                     )
                 )
-        if "phrase_control_examples" in missing:
-            request_rows.append(
-                _request_row(
+        if "phrase_control_examples" in missing and "phrase_control_example" in generation_targets:
+            request_rows.extend(
+                _request_rows_for_candidate_slot(
                     family=family,
                     queue_family=queue_family,
                     candidate_sense={},
@@ -201,9 +277,52 @@ def _build_request_rows(
                     relation_type="phrase_control_example",
                     model_id=model_id,
                     temperature=temperature,
+                    semantic_candidates_per_row=semantic_candidates_per_row,
+                    hard_semantic_candidates_per_row=hard_semantic_candidates_per_row,
+                    phrase_candidates_per_row=phrase_candidates_per_row,
                 )
             )
     return request_rows
+
+
+def _request_rows_for_candidate_slot(
+    *,
+    family: Mapping[str, object],
+    queue_family: Mapping[str, object],
+    candidate_sense: Mapping[str, object],
+    generation_target: str,
+    relation_type: str,
+    model_id: str,
+    temperature: float,
+    semantic_candidates_per_row: int,
+    hard_semantic_candidates_per_row: int,
+    phrase_candidates_per_row: int,
+) -> list[dict[str, object]]:
+    active = _active_sense(family)
+    shadows = _shadow_senses(family)
+    candidate_count = candidate_count_for_slot(
+        generation_target=generation_target,
+        active_pos=_canonical_pos(active),
+        candidate_pos=_canonical_pos(candidate_sense),
+        shadow_positions=[_canonical_pos(shadow) for shadow in shadows],
+        semantic_candidates_per_row=semantic_candidates_per_row,
+        hard_semantic_candidates_per_row=hard_semantic_candidates_per_row,
+        phrase_candidates_per_row=phrase_candidates_per_row,
+    )
+    return [
+        _request_row(
+            family=family,
+            queue_family=queue_family,
+            candidate_sense=candidate_sense,
+            generation_target=generation_target,
+            relation_type=relation_type,
+            model_id=model_id,
+            temperature=temperature,
+            candidate_index=index,
+            candidate_count=candidate_count,
+        )
+        for index in range(1, candidate_count + 1)
+    ]
 
 
 def _request_row(
@@ -215,6 +334,8 @@ def _request_row(
     relation_type: str,
     model_id: str,
     temperature: float,
+    candidate_index: int,
+    candidate_count: int,
 ) -> dict[str, object]:
     family_id = str(family.get("family_id") or "").strip()
     trigger = str(family.get("trigger") or "").strip()
@@ -225,18 +346,28 @@ def _request_row(
         str(candidate_sense.get("target_lemma") or "").strip() if candidate_id else "phrase_control"
     )
     request_kind = _request_kind(generation_target)
-    request_id = _request_id(
+    request_id_value = request_id(
         family_id=family_id,
         request_kind=request_kind,
         candidate_id=candidate_id,
+        candidate_index=candidate_index,
+        candidate_count=candidate_count,
     )
     roles = _roles_for_generation_target(generation_target)
     queue_metadata = _queue_metadata(queue_family)
+    candidate_strategy_value = candidate_strategy(
+        generation_target=generation_target,
+        active_pos=_canonical_pos(active),
+        candidate_pos=_canonical_pos(candidate_sense),
+        shadow_positions=[_canonical_pos(shadow) for shadow in _shadow_senses(family)],
+    )
     expected_row = {
-        "row_id": _expected_row_id(
+        "row_id": expected_row_id(
             family_id=family_id,
             request_kind=request_kind,
             candidate_id=candidate_id,
+            candidate_index=candidate_index,
+            candidate_count=candidate_count,
         ),
         "relation_type": relation_type,
         "roles": roles,
@@ -248,7 +379,7 @@ def _request_row(
         else "phrase_control",
         "evidence_text": "<model-written original example frame>",
         "prompt_slot": generation_target,
-        "input_ref": request_id,
+        "input_ref": request_id_value,
         "review_state": "unreviewed",
         "promotion_state": "proposed",
         "runtime_publishable": False,
@@ -258,6 +389,9 @@ def _request_row(
             "candidate_sense_id": candidate_id,
             "generation_target": generation_target,
             "source_gap": generation_target,
+            "candidate_index": candidate_index,
+            "candidate_count": candidate_count,
+            "candidate_strategy": candidate_strategy_value,
             **queue_metadata,
         },
     }
@@ -265,7 +399,7 @@ def _request_row(
         expected_row["metadata"]["gold_decision"] = "abstain"
 
     return {
-        "request_id": request_id,
+        "request_id": request_id_value,
         "prompt_slot": generation_target,
         "family_id": family_id,
         "trigger": trigger,
@@ -275,111 +409,22 @@ def _request_row(
         "relation_type": relation_type,
         "roles": roles,
         "queue_metadata": queue_metadata,
+        "candidate_index": candidate_index,
+        "candidate_count": candidate_count,
+        "candidate_strategy": candidate_strategy_value,
         "model_id": model_id,
         "temperature": temperature,
-        "system_prompt": _system_prompt(generation_target),
-        "user_prompt": _user_prompt(
+        "system_prompt": system_prompt(generation_target),
+        "user_prompt": user_prompt(
             family=family,
             queue_family=queue_family,
             candidate_sense=candidate_sense,
             generation_target=generation_target,
+            candidate_index=candidate_index,
+            candidate_count=candidate_count,
         ),
         "expected_row_preview": expected_row,
     }
-
-
-def _system_prompt(generation_target: str) -> str:
-    if generation_target == "phrase_control_example":
-        return (
-            "You generate one LexiShift phrase-control example. Return compact JSON only. "
-            "The example must use the English trigger in a phrase, idiom, lexicalized frame, "
-            "or unrelated sense that should make LexiShift abstain. Do not use Spanish. "
-            "Do not copy any benchmark sentence."
-        )
-    return (
-        "You generate one LexiShift semantic example frame. Return compact JSON only. "
-        "The example must help discriminate one English trigger sense from its competitor. "
-        "Write an original English sentence or compact frame that could overlap real user text. "
-        "Do not use Spanish. Do not copy any benchmark sentence."
-    )
-
-
-def _user_prompt(
-    *,
-    family: Mapping[str, object],
-    queue_family: Mapping[str, object],
-    candidate_sense: Mapping[str, object],
-    generation_target: str,
-) -> str:
-    trigger = str(family.get("trigger") or "").strip()
-    active = _active_sense(family)
-    shadows = _shadow_senses(family)
-    selected_shadow_label = _selected_shadow_label(
-        shadows=shadows,
-        candidate_sense=candidate_sense,
-    )
-    active_label = _sense_text(active, "sense_label")
-    active_gloss = _sense_text(active, "gloss_text")
-    shadow_lines = "\n".join(
-        (
-            f"- competing sense {index}: {_sense_text(shadow, 'sense_label')} | "
-            f"{_sense_text(shadow, 'gloss_text')} | POS: "
-            f"{str(shadow.get('canonical_pos') or '').strip() or 'unknown'}"
-        )
-        for index, shadow in enumerate(shadows, start=1)
-    )
-    queue_lines = _queue_prompt_lines(queue_family)
-    base = [
-        "Return a JSON object with exactly one key `items`.",
-        "`items` must be an array with exactly one object.",
-        "That object may contain only `evidence_text` and optional numeric `confidence`.",
-        "",
-        f"English trigger: `{trigger}`",
-        f"Active sense: {active_label} | {active_gloss} | POS: {str(active.get('canonical_pos') or '').strip() or 'unknown'}",
-        "",
-        "Competing senses:",
-        shadow_lines or "- none",
-        "",
-        "Queue context:",
-        *queue_lines,
-        "",
-    ]
-    if generation_target == "active_example":
-        base.extend(
-            [
-                "Task: write one original English example for the active sense.",
-                "The example must make the active sense more plausible than the competing senses.",
-            ]
-        )
-    elif generation_target == "shadow_example":
-        base.extend(
-            [
-                f"Task: write one original English example for {selected_shadow_label}.",
-                f"Competing sense details: {_sense_text(candidate_sense, 'sense_label')} | {_sense_text(candidate_sense, 'gloss_text')}",
-                "The example must make the competing sense more plausible than the active sense.",
-            ]
-        )
-    else:
-        base.extend(
-            [
-                "Task: write one original phrase-control example that should abstain.",
-                "It must contain the trigger text, but it must not express the active sense or any listed competing sense cleanly.",
-                "Prefer idioms, lexicalized particles, verb frames, or phrase-level uses when natural.",
-            ]
-        )
-    base.extend(
-        [
-            "",
-            "Rules:",
-            "- write 5 to 18 English words",
-            "- include the trigger text naturally",
-            "- do not mention translation targets or non-English words",
-            "- do not explain the answer",
-            "- do not use bullets or multiple examples",
-            "- return JSON only",
-        ]
-    )
-    return "\n".join(base)
 
 
 def _attach_token_estimates(
@@ -408,19 +453,42 @@ def _build_summary(
     max_output_tokens: int,
 ) -> dict[str, object]:
     by_target: dict[str, int] = {}
+    by_strategy: dict[str, int] = {}
     families: set[str] = set()
+    candidate_slots: set[tuple[str, str, str]] = set()
     estimated_input_tokens = 0
+    semantic_candidate_count = 0
+    phrase_candidate_count = 0
     for row in request_rows:
         target = str(row.get("prompt_slot") or "").strip()
         by_target[target] = by_target.get(target, 0) + 1
+        strategy = str(row.get("candidate_strategy") or "").strip()
+        if strategy:
+            by_strategy[strategy] = by_strategy.get(strategy, 0) + 1
         family_id = str(row.get("family_id") or "").strip()
         if family_id:
             families.add(family_id)
+            candidate_slots.add(
+                (
+                    family_id,
+                    target,
+                    str(row.get("candidate_target") or "").strip(),
+                )
+            )
+        if target in {"active_example", "shadow_example"}:
+            semantic_candidate_count += 1
+        elif target == "phrase_control_example":
+            phrase_candidate_count += 1
         estimated_input_tokens += int(row.get("estimated_input_tokens") or 0)
     return {
         "request_count": len(request_rows),
         "family_count": len(families),
+        "candidate_slot_count": len(candidate_slots),
+        "planned_raw_candidate_count": len(request_rows),
+        "planned_semantic_candidate_count": semantic_candidate_count,
+        "planned_phrase_candidate_count": phrase_candidate_count,
         "requests_by_generation_target": by_target,
+        "requests_by_candidate_strategy": by_strategy,
         "estimated_input_tokens": estimated_input_tokens,
         "expected_output_tokens": expected_output_tokens * len(request_rows),
         "max_output_tokens": max_output_tokens * len(request_rows),
@@ -441,20 +509,27 @@ def render_example_frame_generation_plan_markdown(report: Mapping[str, object]) 
         f"- Selected model: `{report.get('selected_model_id', '')}`",
         f"- Decision contract: `{report.get('decision_contract', '')}`",
         f"- Review leakage policy: `{report.get('review_leakage_policy', '')}`",
+        f"- Generation targets: `{', '.join(_as_texts(report.get('generation_targets')) or [])}`",
+        f"- Candidate defaults: `{json.dumps(report.get('candidate_defaults', {}), sort_keys=True)}`",
         "",
         "## Summary",
         "",
         f"- Requests: `{summary.get('request_count', 0)}`",
         f"- Families: `{summary.get('family_count', 0)}`",
+        f"- Candidate slots: `{summary.get('candidate_slot_count', 0)}`",
+        f"- Planned raw candidates: `{summary.get('planned_raw_candidate_count', 0)}`",
+        f"- Planned semantic candidates: `{summary.get('planned_semantic_candidate_count', 0)}`",
+        f"- Planned phrase candidates: `{summary.get('planned_phrase_candidate_count', 0)}`",
         f"- Estimated input tokens: `{summary.get('estimated_input_tokens', 0)}`",
         f"- Expected output tokens: `{summary.get('expected_output_tokens', 0)}`",
         f"- Max output tokens: `{summary.get('max_output_tokens', 0)}`",
         f"- Requests by target: `{json.dumps(summary.get('requests_by_generation_target', {}), sort_keys=True)}`",
+        f"- Requests by strategy: `{json.dumps(summary.get('requests_by_candidate_strategy', {}), sort_keys=True)}`",
         "",
         "## Request Rows",
         "",
-        "| Request | Target | Family | Candidate | Input Tokens |",
-        "| --- | --- | --- | --- | ---: |",
+        "| Request | Target | Family | Candidate | Attempt | Strategy | Input Tokens |",
+        "| --- | --- | --- | --- | ---: | --- | ---: |",
     ]
     for row in report.get("request_rows", ()):
         if not isinstance(row, Mapping):
@@ -467,6 +542,8 @@ def render_example_frame_generation_plan_markdown(report: Mapping[str, object]) 
                     f"`{row.get('prompt_slot', '')}`",
                     f"`{row.get('family_id', '')}`",
                     f"`{row.get('candidate_target', '')}`",
+                    str(row.get("candidate_index", 1)),
+                    f"`{row.get('candidate_strategy', '')}`",
                     str(row.get("estimated_input_tokens", 0)),
                 ]
             )
@@ -478,11 +555,48 @@ def render_example_frame_generation_plan_markdown(report: Mapping[str, object]) 
 
 def _build_recommendation(summary: Mapping[str, object]) -> str:
     if int(summary.get("request_count") or 0) <= 0:
-        return "The base evidence batch already satisfies the required-family source contract."
+        return (
+            "The base evidence batch already satisfies the selected missing-row target plan "
+            "for the required families."
+        )
     return (
-        "Execute only these missing-row requests, then merge accepted rows with the base "
-        "reverse-aux batch and rerun the required-family contract plus prototype-admission probe."
+        "Execute only these selected candidate requests, preserve raw generated count separately "
+        "from structurally accepted, leakage-kept, and admitted counts, then merge admitted rows "
+        "with the base evidence batch and rerun the split contract plus prototype-admission "
+        "ablation matrix."
     )
+
+
+def _normalize_generation_targets(values: Sequence[str]) -> list[str]:
+    normalized = []
+    unsupported = []
+    for value in values:
+        text = str(value or "").strip()
+        if not text:
+            continue
+        if text not in SUPPORTED_GENERATION_TARGETS:
+            unsupported.append(text)
+            continue
+        if text not in normalized:
+            normalized.append(text)
+    if unsupported:
+        raise ValueError(
+            "Unsupported generation_targets values: "
+            f"{unsupported!r}; expected one of {sorted(SUPPORTED_GENERATION_TARGETS)!r}."
+        )
+    if not normalized:
+        raise ValueError(
+            "generation_targets must include at least one of "
+            f"{sorted(SUPPORTED_GENERATION_TARGETS)!r}."
+        )
+    return normalized
+
+
+def _as_texts(value: object) -> list[str]:
+    if isinstance(value, Sequence) and not isinstance(value, (str, bytes)):
+        return [str(item).strip() for item in value if str(item).strip()]
+    text = str(value or "").strip()
+    return [text] if text else []
 
 
 def _required_family_keys(payload: Mapping[str, object]) -> list[str]:
@@ -537,43 +651,12 @@ def _shadow_senses(family: Mapping[str, object]) -> list[Mapping[str, object]]:
     return [shadow for shadow in shadows if isinstance(shadow, Mapping)]
 
 
-def _sense_text(sense: Mapping[str, object], key: str) -> str:
-    views = sense.get("evidence_views")
-    if isinstance(views, Mapping):
-        text = str(views.get(key) or "").strip()
-        if text:
-            return text
-    return ""
-
-
 def _sense_id(sense: Mapping[str, object]) -> str:
     return str(sense.get("sense_id") or "").strip()
 
 
-def _selected_shadow_label(
-    *,
-    shadows: Sequence[Mapping[str, object]],
-    candidate_sense: Mapping[str, object],
-) -> str:
-    candidate_id = _sense_id(candidate_sense)
-    for index, shadow in enumerate(shadows, start=1):
-        if _sense_id(shadow) == candidate_id:
-            return f"competing sense {index}"
-    return "the requested competing sense"
-
-
-def _queue_prompt_lines(queue_family: Mapping[str, object]) -> list[str]:
-    lines = [
-        f"- role: {str(queue_family.get('role') or '').strip() or 'unspecified'}",
-        f"- archetype: {str(queue_family.get('archetype') or '').strip() or 'unspecified'}",
-        f"- likely bucket: {str(queue_family.get('likely_bucket') or '').strip() or 'unspecified'}",
-    ]
-    notes = queue_family.get("notes")
-    if isinstance(notes, Sequence) and not isinstance(notes, (str, bytes)):
-        note_texts = [str(note).strip() for note in notes if str(note).strip()]
-        if note_texts:
-            lines.append("- notes: " + " | ".join(note_texts))
-    return lines
+def _canonical_pos(sense: Mapping[str, object]) -> str:
+    return str(sense.get("canonical_pos") or "").strip().lower()
 
 
 def _queue_metadata(queue_family: Mapping[str, object]) -> dict[str, object]:
@@ -613,35 +696,7 @@ def _request_kind(generation_target: str) -> str:
         return "shadow"
     if generation_target == "phrase_control_example":
         return "phrase-control"
-    return _slug(generation_target)
-
-
-def _request_id(*, family_id: str, request_kind: str, candidate_id: str) -> str:
-    parts = ["en-es", "example-frame-missing", request_kind, _slug(family_id)]
-    if request_kind == "shadow" and candidate_id:
-        parts.append(_slug(candidate_id))
-    return ":".join(parts)
-
-
-def _expected_row_id(
-    *,
-    family_id: str,
-    request_kind: str,
-    candidate_id: str,
-) -> str:
-    parts = [_slug(family_id), "llm"]
-    if request_kind == "phrase-control":
-        parts.extend(["phrase-control", "missing", "v1"])
-    elif request_kind == "shadow":
-        parts.extend(["shadow", _slug(candidate_id), "missing", "v1"])
-    else:
-        parts.extend(["active", "missing", "v1"])
-    return ":".join(parts)
-
-
-def _slug(value: object) -> str:
-    text = str(value or "").strip().lower()
-    return _SLUG_RE.sub("-", text).strip("-") or "row"
+    return slug(generation_target)
 
 
 def main() -> int:
@@ -655,6 +710,10 @@ def main() -> int:
         chars_per_token=float(args.chars_per_token),
         expected_output_tokens=int(args.expected_output_tokens),
         max_output_tokens=int(args.max_output_tokens),
+        generation_targets=_as_texts(str(args.generation_targets or "").split(",")),
+        semantic_candidates_per_row=int(args.semantic_candidates_per_row),
+        hard_semantic_candidates_per_row=int(args.hard_semantic_candidates_per_row),
+        phrase_candidates_per_row=int(args.phrase_candidates_per_row),
     )
     args.json_out.parent.mkdir(parents=True, exist_ok=True)
     args.json_out.write_text(

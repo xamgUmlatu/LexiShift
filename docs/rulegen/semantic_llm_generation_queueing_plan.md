@@ -628,8 +628,8 @@ Current answer to the first item:
   - the prototype-admission probe now consumes the normalized reviewed evidence batches directly and still clears the frozen queue and full-`v10` reads
   - the generated missing-row quality gate now shows why that reviewed oracle result cannot be copied directly into source admission: broad semantic phrase-control prototypes put phrase-overreach pressure on `12` active false-abstain rows and directly add `2` incremental false abstains, while local containment-pattern admission creates `0` incremental containment false-abstains and `2` correct containment hits
   - so the next source hypothesis needs balanced active/shadow example-frame evidence generated or ingested together, plus phrase-control rows admitted as containment patterns or a separate abstain gate, not active cue text with a later shadow-side patch
-  - `scripts/testing/semantic_llm_example_frame_generation_plan_en_es.py` now turns the reverse-aux required-family gap into an exact no-spend missing-row plan
-  - `docs/test_outputs/semantic_llm_example_frame_generation_plan_latest.md` currently plans `11` requests only: `1` active example for `play`, `2` shadow examples for `plant`/`check`, and `8` phrase-control examples
+  - `scripts/testing/semantic_llm_example_frame_generation_plan_en_es.py` now turns the reverse-aux required-family gap into a no-spend candidate plan
+  - `docs/test_outputs/semantic_llm_example_frame_generation_plan_latest.md` currently plans `20` active/shadow semantic candidate requests by default: `10` same-POS `plant` shadow candidates, `5` `check` shadow candidates, and `5` `play` active candidates; phrase-control generation is explicit opt-in
   - that plan keeps reviewed sentence-veto case text and translation targets out of prompt input; the prompts carry only trigger text, active/shadow sense labels and glosses, and queue role/archetype/notes
   - the live missing-row execution completed cleanly, but the downstream quality gate rejects the result:
     - `scripts/testing/semantic_llm_example_frame_generation_run_en_es.py`

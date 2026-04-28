@@ -20,7 +20,10 @@ for candidate in (str(CORE_ROOT), str(SCRIPT_ROOT)):
         sys.path.insert(0, candidate)
 
 from lexishift_core.rulegen.semantic_routing_runtime_scoring import (  # noqa: E402
+    DEFAULT_SENTENCE_VETO_CONTEXT_WINDOW_TOKENS,
+    DEFAULT_SENTENCE_VETO_MASK_TOKEN,
     RuntimeSimilarityBackend,
+    SENTENCE_VETO_CONTEXT_VIEWS,
     decide_runtime_veto_outcome,
     extract_runtime_phrase_control_signals,
 )
@@ -66,11 +69,15 @@ from semantic_phrase_containment_support import (  # noqa: E402
     add_phrase_containment_summary,
     match_phrase_containment_examples,
 )
-from semantic_llm_surface_pos_support import surface_pos_signal as build_surface_pos_signal  # noqa: E402
+from semantic_llm_surface_pos_support import (  # noqa: E402
+    active_noun_rescue_shadow_context_is_verb_like,
+    surface_pos_signal as build_surface_pos_signal,
+)
 
 
 DEFAULT_JSON_OUT = TEST_OUTPUTS_ROOT / "semantic_llm_prototype_admission_probe_latest.json"
 DEFAULT_MARKDOWN_OUT = TEST_OUTPUTS_ROOT / "semantic_llm_prototype_admission_probe_latest.md"
+DEFAULT_PROTOTYPE_CONTEXT_VIEW = "masked_sentence"
 PROTOTYPE_CONFIGS: tuple[tuple[str, str, str, bool, bool, bool], ...] = (
     (
         "prototype_reviewed_examples_family_guard",
@@ -136,8 +143,19 @@ def _parse_args() -> argparse.Namespace:
         help="Evaluate every family in the sentence-veto dataset instead of the prompt queue slice.",
     )
     parser.add_argument("--scorer-id", default=DEFAULT_SCORER_ID)
+    parser.add_argument(
+        "--context-view",
+        default=DEFAULT_PROTOTYPE_CONTEXT_VIEW,
+        choices=SENTENCE_VETO_CONTEXT_VIEWS,
+    )
     parser.add_argument("--min-active-score", type=float, default=DEFAULT_MIN_ACTIVE_SCORE)
     parser.add_argument("--min-margin", type=float, default=DEFAULT_MIN_MARGIN)
+    parser.add_argument(
+        "--window-tokens",
+        type=int,
+        default=DEFAULT_SENTENCE_VETO_CONTEXT_WINDOW_TOKENS,
+    )
+    parser.add_argument("--mask-token", default=DEFAULT_SENTENCE_VETO_MASK_TOKEN)
     parser.add_argument("--json-out", type=Path, default=DEFAULT_JSON_OUT)
     parser.add_argument("--markdown-out", type=Path, default=DEFAULT_MARKDOWN_OUT)
     return parser.parse_args()
@@ -150,8 +168,11 @@ def build_prototype_admission_report(
     evidence_batch_payload: Mapping[str, object] | None = None,
     all_dataset_families: bool = False,
     scorer_id: str = DEFAULT_SCORER_ID,
+    context_view: str = DEFAULT_PROTOTYPE_CONTEXT_VIEW,
     min_active_score: float = DEFAULT_MIN_ACTIVE_SCORE,
     min_margin: float = DEFAULT_MIN_MARGIN,
+    window_tokens: int = DEFAULT_SENTENCE_VETO_CONTEXT_WINDOW_TOKENS,
+    mask_token: str = DEFAULT_SENTENCE_VETO_MASK_TOKEN,
     generated_at: str | None = None,
 ) -> dict[str, object]:
     if generated_at is None:
@@ -178,10 +199,29 @@ def build_prototype_admission_report(
         else ""
     )
     prototype_source_label = _prototype_source_label(evidence_source_id)
-    texts = _collect_prototype_texts(subset_dataset, evidence_lookup=evidence_lookup)
+    resolved_context_view = str(context_view or "").strip() or DEFAULT_PROTOTYPE_CONTEXT_VIEW
+    if resolved_context_view not in SENTENCE_VETO_CONTEXT_VIEWS:
+        raise ValueError(
+            f"Unsupported prototype context view: {resolved_context_view!r}; "
+            f"expected one of {SENTENCE_VETO_CONTEXT_VIEWS!r}"
+        )
+    context_options = {
+        "context_view": resolved_context_view,
+        "window_tokens": window_tokens,
+        "mask_token": mask_token,
+    }
+    texts = _collect_prototype_texts(
+        subset_dataset,
+        evidence_lookup=evidence_lookup,
+        context_options=context_options,
+    )
     backend = RuntimeSimilarityBackend(scorer_id=scorer_id)
     backend.fit(texts)
-    coverage_rows = _build_coverage_rows(subset_dataset, evidence_lookup=evidence_lookup)
+    coverage_rows = _build_coverage_rows(
+        subset_dataset,
+        evidence_lookup=evidence_lookup,
+        context_options=context_options,
+    )
     config_rows = [
         _run_prototype_config(
             dataset_payload=subset_dataset,
@@ -191,6 +231,7 @@ def build_prototype_admission_report(
             scorer=backend,
             min_active_score=min_active_score,
             min_margin=min_margin,
+            context_options=context_options,
             use_phrase_prototypes=use_phrase_prototypes,
             use_phrase_containment_gate=use_phrase_containment_gate,
             use_surface_pos_rescue=use_surface_pos_rescue,
@@ -216,8 +257,11 @@ def build_prototype_admission_report(
         "dataset_id": str(dataset_payload.get("dataset_id") or "").strip(),
         "evaluation_scope": scope,
         "scorer_id": str(scorer_id or "").strip() or DEFAULT_SCORER_ID,
+        "context_view": resolved_context_view,
         "min_active_score": float(min_active_score),
         "min_margin": float(min_margin),
+        "window_tokens": int(window_tokens),
+        "mask_token": str(mask_token or "").strip() or DEFAULT_SENTENCE_VETO_MASK_TOKEN,
         "decision_contract": "binary_replace_or_abstain",
         "source_shape": _source_shape(evidence_source_id),
         "evidence_source": "evidence_batch" if evidence_lookup is not None else "reviewed_dataset",
@@ -274,19 +318,38 @@ def _collect_prototype_texts(
     dataset_payload: Mapping[str, object],
     *,
     evidence_lookup: Mapping[str, Mapping[str, object]] | None,
+    context_options: Mapping[str, object],
 ) -> list[str]:
     texts: list[str] = []
     for family in dataset_payload.get("families", ()):
         if not isinstance(family, Mapping):
             continue
         for case in family.get("cases", ()):
-            if not isinstance(case, Mapping):
+            if not isinstance(case, Mapping) or "not_quality_evaluation" in case.get(
+                "slice_tags", ()
+            ):
                 continue
-            context_text = case_context_text(case, trigger=str(family.get("trigger") or ""))
+            context_text = case_context_text(
+                case,
+                trigger=str(family.get("trigger") or ""),
+                **context_options,
+            )
             if context_text:
                 texts.append(context_text)
-        texts.extend(active_examples_for_family(family, evidence_lookup))
-        texts.extend(phrase_examples_for_family(family, evidence_lookup))
+        texts.extend(
+            active_examples_for_family(
+                family,
+                evidence_lookup,
+                **context_options,
+            )
+        )
+        texts.extend(
+            phrase_examples_for_family(
+                family,
+                evidence_lookup,
+                **context_options,
+            )
+        )
         for shadow in family.get("shadows", ()):
             if isinstance(shadow, Mapping):
                 texts.extend(
@@ -294,6 +357,7 @@ def _collect_prototype_texts(
                         family,
                         sense_id=sense_id(shadow),
                         lookup=evidence_lookup,
+                        **context_options,
                     )
                 )
     return _unique_texts(texts)
@@ -303,6 +367,7 @@ def _build_coverage_rows(
     dataset_payload: Mapping[str, object],
     *,
     evidence_lookup: Mapping[str, Mapping[str, object]] | None,
+    context_options: Mapping[str, object],
 ) -> list[dict[str, object]]:
     rows: list[dict[str, object]] = []
     for family in dataset_payload.get("families", ()):
@@ -310,24 +375,38 @@ def _build_coverage_rows(
             continue
         active = family.get("active") if isinstance(family.get("active"), Mapping) else {}
         shadows = [shadow for shadow in family.get("shadows", ()) if isinstance(shadow, Mapping)]
-        active_examples = active_examples_for_family(family, evidence_lookup)
+        active_examples = active_examples_for_family(
+            family,
+            evidence_lookup,
+            **context_options,
+        )
         shadow_counts = [
             len(
                 shadow_examples_for_sense(
                     family,
                     sense_id=sense_id(shadow),
                     lookup=evidence_lookup,
+                    **context_options,
                 )
             )
             for shadow in shadows
         ]
-        phrase_count = len(phrase_examples_for_family(family, evidence_lookup))
+        phrase_count = len(
+            phrase_examples_for_family(
+                family,
+                evidence_lookup,
+                **context_options,
+            )
+        )
         rows.append(
             {
                 "family_id": str(family.get("family_id") or "").strip(),
                 "trigger": str(family.get("trigger") or "").strip(),
-                "case_count": len(
-                    [case for case in family.get("cases", ()) if isinstance(case, Mapping)]
+                "case_count": sum(
+                    1
+                    for case in family.get("cases", ())
+                    if isinstance(case, Mapping)
+                    and "not_quality_evaluation" not in case.get("slice_tags", ())
                 ),
                 "active_target": str(active.get("target_lemma") or "").strip(),
                 "active_example_count": len(active_examples),
@@ -347,6 +426,7 @@ def _run_prototype_config(
     scorer: RuntimeSimilarityBackend,
     min_active_score: float,
     min_margin: float,
+    context_options: Mapping[str, object],
     use_phrase_prototypes: bool,
     use_phrase_containment_gate: bool,
     use_surface_pos_rescue: bool,
@@ -367,15 +447,30 @@ def _run_prototype_config(
             shadow_senses=shadows,
             phrase_guard_pos_scope=phrase_guard_pos_scope,
         )
-        active_examples = active_examples_for_family(family, evidence_lookup)
-        shadow_examples = shadow_example_pairs_for_family(family, shadows, evidence_lookup)
+        active_examples = active_examples_for_family(
+            family,
+            evidence_lookup,
+            **context_options,
+        )
+        shadow_examples = shadow_example_pairs_for_family(
+            family,
+            shadows,
+            evidence_lookup,
+            **context_options,
+        )
         phrase_examples = (
-            phrase_examples_for_family(family, evidence_lookup)
+            phrase_examples_for_family(
+                family,
+                evidence_lookup,
+                **context_options,
+            )
             if use_phrase_prototypes or use_phrase_containment_gate
             else []
         )
         for case in family.get("cases", ()):
-            if not isinstance(case, Mapping):
+            if not isinstance(case, Mapping) or "not_quality_evaluation" in case.get(
+                "slice_tags", ()
+            ):
                 continue
             row = _score_case(
                 family=family,
@@ -388,6 +483,7 @@ def _run_prototype_config(
                 scorer=scorer,
                 min_active_score=min_active_score,
                 min_margin=min_margin,
+                context_options=context_options,
                 use_phrase_prototypes=use_phrase_prototypes,
                 use_phrase_containment_gate=use_phrase_containment_gate,
                 use_surface_pos_rescue=use_surface_pos_rescue,
@@ -433,12 +529,17 @@ def _score_case(
     scorer: RuntimeSimilarityBackend,
     min_active_score: float,
     min_margin: float,
+    context_options: Mapping[str, object],
     use_phrase_prototypes: bool,
     use_phrase_containment_gate: bool,
     use_surface_pos_rescue: bool,
 ) -> dict[str, object]:
     trigger = str(family.get("trigger") or "").strip()
-    context_text = case_context_text(case, trigger=trigger)
+    context_text = case_context_text(
+        case,
+        trigger=trigger,
+        **context_options,
+    )
     active_score, active_example = _best_example_score(
         scorer=scorer,
         context_text=context_text,
@@ -531,11 +632,18 @@ def _score_case(
     )
     active_rescue_applied = False
     surface_pos_preemption_applied = False
+    surface_pos_rescue_blocked_reason = ""
     if surface_pos_signal == "active_noun_frame" and predicted_decision != "replace":
-        predicted_decision = "replace"
-        predicted_winner = active_sense_id
-        predicted_winner_type = "active"
-        active_rescue_applied = True
+        if not active_noun_rescue_shadow_context_is_verb_like(
+            strongest_shadow_sense=shadow_sense,
+            shadow_examples=shadow_examples,
+        ):
+            surface_pos_rescue_blocked_reason = "strongest_shadow_not_verb_like"
+        else:
+            predicted_decision = "replace"
+            predicted_winner = active_sense_id
+            predicted_winner_type = "active"
+            active_rescue_applied = True
     elif surface_pos_signal == "shadow_verb_frame" and predicted_decision == "replace":
         predicted_decision = "abstain"
         if strongest_shadow_id:
@@ -579,6 +687,7 @@ def _score_case(
         "active_rescue_reason_code": (
             "surface_pos_active_noun_frame_rescue" if active_rescue_applied else ""
         ),
+        "surface_pos_rescue_blocked_reason": surface_pos_rescue_blocked_reason,
         "surface_pos_signal": surface_pos_signal,
         "surface_pos_preemption_applied": surface_pos_preemption_applied,
         "slice_tags": _normalize_string_list(case.get("slice_tags")),
@@ -675,8 +784,11 @@ def main() -> int:
         evidence_batch_payload=evidence_batch_payload,
         all_dataset_families=bool(args.all_dataset_families),
         scorer_id=str(args.scorer_id or "").strip() or DEFAULT_SCORER_ID,
+        context_view=str(args.context_view or "").strip() or DEFAULT_PROTOTYPE_CONTEXT_VIEW,
         min_active_score=float(args.min_active_score),
         min_margin=float(args.min_margin),
+        window_tokens=max(0, int(args.window_tokens)),
+        mask_token=str(args.mask_token or "").strip() or DEFAULT_SENTENCE_VETO_MASK_TOKEN,
     )
     args.json_out.parent.mkdir(parents=True, exist_ok=True)
     args.json_out.write_text(

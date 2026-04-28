@@ -7,6 +7,7 @@ Last verified: 2026-04-19 doc-routing review against the current contract, launc
 Purpose: sequence the work required to turn semantic-routing publication scaffolding plus research harnesses into a real runtime admission layer, while keeping the architecture LP-symmetric and transport-agnostic
 Source-of-truth: planning doc only; current implemented truth still lives in code, `docs/developer/feature_state_matrix.md`, and the linked planning docs
 Related planning docs:
+- `docs/rulegen/semantic_sentence_veto_algorithm.md`
 - `docs/rulegen/semantic_routing_data_contract.md`
 - `docs/rulegen/semantic_routing_publication_contract.md`
 - `docs/rulegen/semantic_routing_runtime_readiness.md`
@@ -33,23 +34,25 @@ Verification:
 
 Use the semantic-routing docs in this order:
 
-1. `docs/rulegen/semantic_routing_publication_contract.md`
+1. `docs/rulegen/semantic_sentence_veto_algorithm.md`
+   - cohesive end-to-end algorithm reference from source evidence through runtime YES/NO decision
+2. `docs/rulegen/semantic_routing_publication_contract.md`
    - current emitted-rule pointer, sidecar, manifest, and helper diagnostics contract
-2. `docs/rulegen/semantic_routing_runtime_readiness.md`
+3. `docs/rulegen/semantic_routing_runtime_readiness.md`
    - current shipped browser-runtime seam and the remaining readiness boundary
-3. `docs/rulegen/semantic_routing_en_es_publish_checklist.md`
+4. `docs/rulegen/semantic_routing_en_es_publish_checklist.md`
    - operational runbook for the first controlled `en-es` launch only
-4. this roadmap
+5. this roadmap
    - near-term implementation ladder from the current emitted-sibling PoC to a broader launchable system
-5. `docs/rulegen/semantic_routing_weakness_triage_plan.md`
+6. `docs/rulegen/semantic_routing_weakness_triage_plan.md`
    - many-turn triage checklist for deciding which weak seams should change, in what order, and with what work estimate
-6. `docs/rulegen/semantic_routing_generalization_evaluation_plan.md`
+7. `docs/rulegen/semantic_routing_generalization_evaluation_plan.md`
    - post-PoC evidence plan for proving blocker generation beyond the emitted-sibling slice
-7. `docs/rulegen/semantic_shadow_testing_architecture.md`
+8. `docs/rulegen/semantic_shadow_testing_architecture.md`
    - research harness architecture and experiment workflow, not the current launch contract
-8. `docs/rulegen/semantic_routing_data_update_lifecycle.md`
+9. `docs/rulegen/semantic_routing_data_update_lifecycle.md`
    - future data-promotion/update lifecycle once broader semantic evidence starts landing
-9. `docs/rulegen/semantic_llm_prompt_bakeoff_plan.md`
+10. `docs/rulegen/semantic_llm_prompt_bakeoff_plan.md`
    - prompt-slot selection, cheap bakeoff workflow, and target-model confirmation plan for later LLM-generated cue or shadow data
 
 Do not mix those roles.

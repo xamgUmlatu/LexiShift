@@ -1,0 +1,266 @@
+{
+  "schema_version": 1,
+  "matrix_id": "en_es_semantic_source_scope_margin_bakeoff_v1",
+  "description": "Focused no-spend bakeoff for source evidence scope and margin policy. It compares the current definition/example row control, the admitted LLM aligned v2 source lane, the existing WordNet active-related reference lane, and the combined source scope in one reproducible matrix.",
+  "include_case_results": false,
+  "dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v10.json",
+  "evaluation_suites": [
+    {
+      "suite_id": "frozen_v10",
+      "suite_role": "frozen_current",
+      "dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v10.json"
+    },
+    {
+      "suite_id": "source_heldout_v2",
+      "suite_role": "locked_active_shadow",
+      "base_dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v10.json",
+      "case_dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_source_heldout_cases_v2.json"
+    },
+    {
+      "suite_id": "phrase_heldout_v2",
+      "suite_role": "locked_phrase_no_winner",
+      "base_dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v10.json",
+      "case_dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_source_phrase_heldout_cases_v2.json"
+    },
+    {
+      "suite_id": "phrase_challenge_v1",
+      "suite_role": "locked_phrase_challenge",
+      "base_dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v10.json",
+      "case_dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_source_phrase_challenge_cases_v1.json"
+    }
+  ],
+  "defaults": {
+    "scorer_id": "tfidf_cosine",
+    "context_view": "masked_sentence",
+    "evidence_selector_context_view": "before_after_slot_context",
+    "evidence_selector_source_view": "before_after_slot_context",
+    "sense_representation": "source_plus_definition_rows_separate",
+    "aggregation_rule": "max_row_score",
+    "decision_rule": "active_minus_strongest_shadow",
+    "phrase_handling": "phrase_override",
+    "window_tokens": 4,
+    "mask_token": "___",
+    "min_active_score": 0.1,
+    "min_margin": 0.0,
+    "ratio_threshold": 1.0,
+    "softmax_threshold": 0.5,
+    "softmax_temperature": 8.0,
+    "pairwise_min_win_rate": 0.75,
+    "top_k": 2,
+    "selection_top_k": 2,
+    "phrase_guard_pos_scope": "family_all",
+    "evidence_control": "normal",
+    "split_modulo": 4,
+    "locked_eval_remainders": [
+      0
+    ]
+  },
+  "rows": [
+    {
+      "config_id": "source_scope_definition_example_row_control",
+      "label": "Definition/example separate-row control with no source rows",
+      "category": "source_scope_control",
+      "algorithm_family": "control:definition_example_rows",
+      "is_control": true,
+      "source_evidence_scope_id": "no_source",
+      "source_evidence_batch_paths": [],
+      "sense_representation": "definition_and_example_rows_separate",
+      "aggregation_rule": "max_row_score",
+      "min_active_score": 0.1,
+      "min_margin": 0.0
+    },
+    {
+      "config_id": "llm_v2_source_plus_definition_max",
+      "label": "LLM aligned v2 source rows plus definitions",
+      "category": "llm_v2_source_scope",
+      "algorithm_family": "llm_v2:source_plus_definition:max",
+      "source_evidence_scope_id": "llm_aligned_v2",
+      "source_evidence_batch_paths": [
+        "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-def-example-plus-llm-aligned-frame-gap-v2-20260429a_cycle_sense_admitted_normalized_evidence.json"
+      ],
+      "sense_representation": "source_plus_definition_rows_separate",
+      "aggregation_rule": "max_row_score",
+      "parameter_grid": {
+        "min_active_score": [
+          0.05,
+          0.1
+        ],
+        "min_margin": [
+          0.0,
+          0.005,
+          0.02
+        ]
+      }
+    },
+    {
+      "config_id": "llm_v2_definition_example_plus_source_max",
+      "label": "Definition/example rows plus LLM aligned v2 source rows",
+      "category": "llm_v2_source_scope",
+      "algorithm_family": "llm_v2:definition_example_plus_source:max",
+      "source_evidence_scope_id": "llm_aligned_v2",
+      "source_evidence_batch_paths": [
+        "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-def-example-plus-llm-aligned-frame-gap-v2-20260429a_cycle_sense_admitted_normalized_evidence.json"
+      ],
+      "sense_representation": "definition_example_plus_source_rows_separate",
+      "aggregation_rule": "max_row_score",
+      "parameter_grid": {
+        "min_active_score": [
+          0.05,
+          0.1
+        ],
+        "min_margin": [
+          0.0,
+          0.005,
+          0.02
+        ]
+      }
+    },
+    {
+      "config_id": "llm_v2_source_rows_max",
+      "label": "LLM aligned v2 source rows only",
+      "category": "llm_v2_source_scope",
+      "algorithm_family": "llm_v2:source_rows:max",
+      "source_evidence_scope_id": "llm_aligned_v2",
+      "source_evidence_batch_paths": [
+        "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-def-example-plus-llm-aligned-frame-gap-v2-20260429a_cycle_sense_admitted_normalized_evidence.json"
+      ],
+      "sense_representation": "source_rows_separate",
+      "aggregation_rule": "max_row_score",
+      "parameter_grid": {
+        "min_active_score": [
+          0.05,
+          0.1
+        ],
+        "min_margin": [
+          0.0,
+          0.005,
+          0.02
+        ]
+      }
+    },
+    {
+      "config_id": "reference_source_plus_definition_max",
+      "label": "WordNet active-related reference rows plus definitions",
+      "category": "reference_source_scope",
+      "algorithm_family": "reference:source_plus_definition:max",
+      "source_evidence_scope_id": "wordnet_active_related_reference",
+      "source_evidence_batch_paths": [
+        "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-wordnet-active-related-plant-cell-depth3-heldout-v2-policy-v1-20260425a_cycle_sense_admitted_normalized_evidence.json"
+      ],
+      "sense_representation": "source_plus_definition_rows_separate",
+      "aggregation_rule": "max_row_score",
+      "parameter_grid": {
+        "min_active_score": [
+          0.05,
+          0.1
+        ],
+        "min_margin": [
+          0.0,
+          0.005,
+          0.02
+        ]
+      }
+    },
+    {
+      "config_id": "reference_definition_example_plus_source_max",
+      "label": "Definition/example rows plus WordNet active-related reference rows",
+      "category": "reference_source_scope",
+      "algorithm_family": "reference:definition_example_plus_source:max",
+      "source_evidence_scope_id": "wordnet_active_related_reference",
+      "source_evidence_batch_paths": [
+        "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-wordnet-active-related-plant-cell-depth3-heldout-v2-policy-v1-20260425a_cycle_sense_admitted_normalized_evidence.json"
+      ],
+      "sense_representation": "definition_example_plus_source_rows_separate",
+      "aggregation_rule": "max_row_score",
+      "parameter_grid": {
+        "min_active_score": [
+          0.05,
+          0.1
+        ],
+        "min_margin": [
+          0.0,
+          0.005,
+          0.02
+        ]
+      }
+    },
+    {
+      "config_id": "combined_source_plus_definition_max",
+      "label": "LLM v2 plus WordNet reference rows plus definitions",
+      "category": "combined_source_scope",
+      "algorithm_family": "combined:source_plus_definition:max",
+      "source_evidence_scope_id": "llm_v2_plus_wordnet_reference",
+      "source_evidence_batch_paths": [
+        "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-def-example-plus-llm-aligned-frame-gap-v2-20260429a_cycle_sense_admitted_normalized_evidence.json",
+        "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-wordnet-active-related-plant-cell-depth3-heldout-v2-policy-v1-20260425a_cycle_sense_admitted_normalized_evidence.json"
+      ],
+      "sense_representation": "source_plus_definition_rows_separate",
+      "aggregation_rule": "max_row_score",
+      "parameter_grid": {
+        "min_active_score": [
+          0.05,
+          0.1
+        ],
+        "min_margin": [
+          0.0,
+          0.005,
+          0.02
+        ]
+      }
+    },
+    {
+      "config_id": "combined_definition_example_plus_source_max",
+      "label": "Definition/example rows plus LLM v2 and WordNet reference rows",
+      "category": "combined_source_scope",
+      "algorithm_family": "combined:definition_example_plus_source:max",
+      "source_evidence_scope_id": "llm_v2_plus_wordnet_reference",
+      "source_evidence_batch_paths": [
+        "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-def-example-plus-llm-aligned-frame-gap-v2-20260429a_cycle_sense_admitted_normalized_evidence.json",
+        "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-wordnet-active-related-plant-cell-depth3-heldout-v2-policy-v1-20260425a_cycle_sense_admitted_normalized_evidence.json"
+      ],
+      "sense_representation": "definition_example_plus_source_rows_separate",
+      "aggregation_rule": "max_row_score",
+      "parameter_grid": {
+        "min_active_score": [
+          0.05,
+          0.1
+        ],
+        "min_margin": [
+          0.0,
+          0.005,
+          0.02
+        ]
+      }
+    },
+    {
+      "config_id": "combined_context_selected_definition_source",
+      "label": "Context-selected combined source rows plus definitions",
+      "category": "combined_source_scope",
+      "algorithm_family": "combined:context_selected_definition_source:before_after",
+      "source_evidence_scope_id": "llm_v2_plus_wordnet_reference",
+      "source_evidence_batch_paths": [
+        "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-def-example-plus-llm-aligned-frame-gap-v2-20260429a_cycle_sense_admitted_normalized_evidence.json",
+        "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-wordnet-active-related-plant-cell-depth3-heldout-v2-policy-v1-20260425a_cycle_sense_admitted_normalized_evidence.json"
+      ],
+      "sense_representation": "contextualized_source_plus_definition_rows",
+      "aggregation_rule": "context_selected_top_k_mean",
+      "top_k": 1,
+      "parameter_grid": {
+        "selection_top_k": [
+          1,
+          2,
+          3
+        ],
+        "min_active_score": [
+          0.02,
+          0.05,
+          0.1
+        ],
+        "min_margin": [
+          0.0,
+          0.005
+        ]
+      }
+    }
+  ]
+}

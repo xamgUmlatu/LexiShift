@@ -66,6 +66,7 @@ class SemanticReverseAuxExampleFrameBatchTests(unittest.TestCase):
         self.assertEqual(summary["target_families_with_active_aux"], 2)
         self.assertEqual(summary["target_families_with_shadow_aux"], 1)
         self.assertEqual(summary["families_with_phrase_control_examples"], 0)
+        self.assertEqual(summary["source_family_count"], 2)
 
         contract = build_example_frame_contract_report(
             normalized,
@@ -83,6 +84,76 @@ class SemanticReverseAuxExampleFrameBatchTests(unittest.TestCase):
         markdown = render_reverse_aux_example_frame_batch_markdown(report)
         self.assertIn("Reverse Aux Example-Frame Batch", markdown)
         self.assertIn("not contract-complete", markdown)
+
+    def test_all_dataset_scope_extracts_non_queue_families(self) -> None:
+        dataset_payload = _dataset_payload()
+        dataset_payload["families"].append(
+            {
+                "family_id": "fam:bank",
+                "trigger": "bank",
+                "active": {
+                    "sense_id": "fam:bank:active",
+                    "target_lemma": "banco",
+                    "canonical_pos": "noun",
+                },
+                "shadows": [
+                    {
+                        "sense_id": "fam:bank:shadow",
+                        "target_lemma": "orilla",
+                        "canonical_pos": "noun",
+                    }
+                ],
+            }
+        )
+        bundle = build_reverse_aux_example_frame_bundle(
+            queue_payload=_queue_payload(),
+            dataset_payload=dataset_payload,
+            reverse_records_by_trigger={
+                "order": (
+                    TranslationGlossRecord(
+                        translation="pedido",
+                        pos_raw="noun",
+                        metadata={"translation_sense_text": "request for a product or service"},
+                    ),
+                ),
+                "check": (
+                    TranslationGlossRecord(
+                        translation="cheque",
+                        pos_raw="noun",
+                        metadata={"translation_sense_text": "written payment instruction"},
+                    ),
+                ),
+                "bank": (
+                    TranslationGlossRecord(
+                        translation="banco",
+                        pos_raw="noun",
+                        metadata={"translation_sense_text": "financial institution"},
+                    ),
+                    TranslationGlossRecord(
+                        translation="orilla",
+                        pos_raw="noun",
+                        metadata={"translation_sense_text": "river shore"},
+                    ),
+                ),
+            },
+            data_root=REPO_ROOT,
+            reverse_pack=_pack("/tmp/reverse-aux-test.sqlite"),
+            scope="all_dataset_families",
+            generated_at="2026-04-25T12:00:00Z",
+        )
+
+        report = bundle["report"]
+        summary = report["summary"]
+        self.assertEqual(report["source_scope"], "all_dataset_families")
+        self.assertEqual(summary["queue_family_count"], 2)
+        self.assertEqual(summary["source_family_count"], 3)
+        self.assertEqual(summary["target_family_count"], 3)
+        self.assertEqual(summary["families_with_active_aux"], 3)
+        self.assertEqual(summary["families_with_shadow_aux"], 1)
+        self.assertIn(
+            "fam:bank",
+            [row["metadata"]["family_id"] for row in bundle["normalized_batch"]["rows"]],
+        )
 
 
 def _queue_payload() -> dict[str, object]:

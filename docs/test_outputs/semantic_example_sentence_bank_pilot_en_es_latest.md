@@ -1,7 +1,7 @@
 # en-es Example Sentence Bank Pilot
 
 - Status: `ok`
-- Generated: `2026-04-23T20:16:09Z`
+- Generated: `2026-04-25T01:20:27Z`
 - Source: `example_sentence_bank` / `external_example_corpus`
 - Queue: `semantic_prompt_bakeoff_en_es_v10`
 - Inventory: `semantic_family_inventory_en_es_v10`

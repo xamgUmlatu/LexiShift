@@ -151,6 +151,16 @@ def _build_family_row(
         missing_requirements.append("phrase_containment_role")
     if runtime_publishable_rows:
         missing_requirements.append("runtime_publishable_false")
+    semantic_missing_requirements = []
+    if not active_rows:
+        semantic_missing_requirements.append("active_examples")
+    if not shadow_rows:
+        semantic_missing_requirements.append("shadow_examples")
+    phrase_missing_requirements = []
+    if not phrase_rows:
+        phrase_missing_requirements.append("phrase_control_examples")
+    if phrase_rows_missing_role:
+        phrase_missing_requirements.append("phrase_containment_role")
     first_row = rows[0] if rows else {}
     return {
         "family_key": family_key,
@@ -161,8 +171,12 @@ def _build_family_row(
         "shadow_example_count": len(shadow_rows),
         "phrase_control_example_count": len(phrase_rows),
         "row_count": len(rows),
+        "semantic_contract_complete": not semantic_missing_requirements,
+        "phrase_containment_contract_complete": not phrase_missing_requirements,
         "contract_complete": not missing_requirements,
         "missing_requirements": missing_requirements,
+        "semantic_missing_requirements": semantic_missing_requirements,
+        "phrase_containment_missing_requirements": phrase_missing_requirements,
         "active_row_ids": _row_ids(active_rows),
         "shadow_row_ids": _row_ids(shadow_rows),
         "phrase_control_row_ids": _row_ids(phrase_rows),
@@ -181,6 +195,12 @@ def _relation_rows(
 def _build_summary(family_rows: Sequence[Mapping[str, object]]) -> dict[str, object]:
     family_count = len(family_rows)
     complete_count = sum(1 for row in family_rows if bool(row.get("contract_complete")))
+    semantic_complete_count = sum(
+        1 for row in family_rows if bool(row.get("semantic_contract_complete"))
+    )
+    phrase_complete_count = sum(
+        1 for row in family_rows if bool(row.get("phrase_containment_contract_complete"))
+    )
     missing_active = [
         str(row.get("family_key") or "")
         for row in family_rows
@@ -206,15 +226,45 @@ def _build_summary(family_rows: Sequence[Mapping[str, object]]) -> dict[str, obj
         for row in family_rows
         if row.get("runtime_publishable_row_ids")
     ]
+    semantic_gap_keys = _unique_texts([*missing_active, *missing_shadow])
+    phrase_gap_keys = _unique_texts([*missing_phrase, *phrase_role_issues])
+    semantic_complete = bool(family_count) and semantic_complete_count == family_count
+    phrase_complete = bool(family_count) and phrase_complete_count == family_count
+    combined_complete = bool(family_count) and complete_count == family_count
     return {
         "families_total": family_count,
+        "semantic_contract_complete_family_count": semantic_complete_count,
+        "semantic_contract_complete": semantic_complete,
+        "phrase_containment_contract_complete_family_count": phrase_complete_count,
+        "phrase_containment_contract_complete": phrase_complete,
         "contract_complete_family_count": complete_count,
-        "contract_complete": bool(family_count) and complete_count == family_count,
+        "contract_complete": combined_complete,
         "missing_active_family_keys": missing_active,
         "missing_shadow_family_keys": missing_shadow,
+        "semantic_gap_family_keys": semantic_gap_keys,
         "missing_phrase_control_family_keys": missing_phrase,
         "phrase_role_issue_family_keys": phrase_role_issues,
+        "phrase_containment_gap_family_keys": phrase_gap_keys,
         "runtime_publishable_issue_family_keys": publishable_issues,
+        "semantic_contract": {
+            "complete_family_count": semantic_complete_count,
+            "complete": semantic_complete,
+            "gap_family_keys": semantic_gap_keys,
+            "missing_active_family_keys": missing_active,
+            "missing_shadow_family_keys": missing_shadow,
+        },
+        "phrase_containment_contract": {
+            "complete_family_count": phrase_complete_count,
+            "complete": phrase_complete,
+            "gap_family_keys": phrase_gap_keys,
+            "missing_phrase_control_family_keys": missing_phrase,
+            "phrase_role_issue_family_keys": phrase_role_issues,
+        },
+        "combined_contract": {
+            "complete_family_count": complete_count,
+            "complete": combined_complete,
+            "runtime_publishable_issue_family_keys": publishable_issues,
+        },
     }
 
 
@@ -224,14 +274,24 @@ def _build_recommendation(summary: Mapping[str, object]) -> str:
             "This batch satisfies the no-spend example-frame source contract: every family "
             "has active, shadow, and phrase-control evidence while remaining non-publishable."
         )
+    if bool(summary.get("semantic_contract_complete")):
+        missing_phrase = len(_as_sequence(summary.get("missing_phrase_control_family_keys")))
+        phrase_role_issues = len(_as_sequence(summary.get("phrase_role_issue_family_keys")))
+        return (
+            "Semantic active/shadow coverage is complete, but the combined source contract "
+            "remains review. Phrase containment gaps: missing_phrase_control="
+            f"{missing_phrase}, phrase_role_issues={phrase_role_issues}. Keep this batch "
+            "analysis-only unless a downstream no-phrase ablation explicitly carries the "
+            "candidate lane and promotion policy accepts the split contract."
+        )
     missing_shadow = len(_as_sequence(summary.get("missing_shadow_family_keys")))
     missing_phrase = len(_as_sequence(summary.get("missing_phrase_control_family_keys")))
     missing_active = len(_as_sequence(summary.get("missing_active_family_keys")))
     return (
-        "Do not treat this batch as promotion-relevant for prototype admission. Missing "
-        f"families: active={missing_active}, shadow={missing_shadow}, "
-        f"phrase_control={missing_phrase}. Generate or ingest active, shadow, and "
-        "phrase-control rows together before downstream spend."
+        "Do not treat this batch as promotion-relevant for prototype admission. Semantic "
+        f"gaps: active={missing_active}, shadow={missing_shadow}. Phrase containment gaps: "
+        f"phrase_control={missing_phrase}. Generate or ingest admitted active/shadow rows "
+        "first, and keep phrase rows on the containment-only path."
     )
 
 
@@ -245,12 +305,15 @@ def render_example_frame_contract_markdown(report: Mapping[str, object]) -> str:
         f"- Batch: `{report.get('batch_id', '')}`",
         f"- Source: `{report.get('source_id', '')}`",
         f"- Rows: `{report.get('row_count', 0)}`",
+        f"- Semantic complete families: `{summary.get('semantic_contract_complete_family_count', 0)}` / `{summary.get('families_total', 0)}`",
+        f"- Phrase-containment complete families: `{summary.get('phrase_containment_contract_complete_family_count', 0)}` / `{summary.get('families_total', 0)}`",
         f"- Complete families: `{summary.get('contract_complete_family_count', 0)}` / `{summary.get('families_total', 0)}`",
+        f"- Combined status: `{'ok' if bool(summary.get('contract_complete')) else 'review'}`",
         "",
         "## Family Coverage",
         "",
-        "| Family | Active | Shadow | Phrase Control | Status | Missing |",
-        "| --- | ---: | ---: | ---: | --- | --- |",
+        "| Family | Active | Shadow | Phrase Control | Semantic | Phrase | Combined | Missing |",
+        "| --- | ---: | ---: | ---: | --- | --- | --- | --- |",
     ]
     for row in report.get("family_rows", ()):
         if not isinstance(row, Mapping):
@@ -263,6 +326,8 @@ def render_example_frame_contract_markdown(report: Mapping[str, object]) -> str:
                     str(row.get("active_example_count", 0)),
                     str(row.get("shadow_example_count", 0)),
                     str(row.get("phrase_control_example_count", 0)),
+                    "`ok`" if bool(row.get("semantic_contract_complete")) else "`review`",
+                    "`ok`" if bool(row.get("phrase_containment_contract_complete")) else "`review`",
                     "`ok`" if bool(row.get("contract_complete")) else "`review`",
                     _join_code(row.get("missing_requirements")),
                 ]
@@ -270,7 +335,7 @@ def render_example_frame_contract_markdown(report: Mapping[str, object]) -> str:
             + " |"
         )
     if not report.get("family_rows"):
-        lines.append("| `none` | 0 | 0 | 0 | `review` | `no_families` |")
+        lines.append("| `none` | 0 | 0 | 0 | `review` | `review` | `review` | `no_families` |")
 
     lines.extend(["", "## Recommendation", "", f"- {report.get('recommendation', '')}"])
     return "\n".join(lines) + "\n"
@@ -291,6 +356,15 @@ def _as_sequence(value: object) -> Sequence[object]:
 def _join_code(value: object) -> str:
     values = [str(item).strip() for item in _as_sequence(value) if str(item).strip()]
     return ", ".join(f"`{item}`" for item in values) if values else "none"
+
+
+def _unique_texts(values: Sequence[str]) -> list[str]:
+    unique: list[str] = []
+    for value in values:
+        text = str(value or "").strip()
+        if text and text not in unique:
+            unique.append(text)
+    return unique
 
 
 def _load_json(path: Path) -> dict[str, object]:

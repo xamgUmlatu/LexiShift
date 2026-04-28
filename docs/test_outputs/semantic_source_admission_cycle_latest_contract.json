@@ -1,0 +1,679 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-04-25T01:25:12Z",
+  "status": "review",
+  "pair": "en-es",
+  "batch_path": "",
+  "batch_id": "en-es:example-frame-composite:source-admission-cycle-latest:sense-admitted",
+  "source_id": "source_admission_cycle_candidate",
+  "prompt_version": "example-frame-composite-v1",
+  "model_id": "mixed",
+  "row_count": 55,
+  "contract": {
+    "required_relation_sets": {
+      "active_examples": [
+        "anchor_cue"
+      ],
+      "shadow_examples": [
+        "bridge_candidate",
+        "shadow_candidate"
+      ],
+      "phrase_control_examples": [
+        "phrase_control_example"
+      ]
+    },
+    "required_batch_role_for_phrase_rows": "phrase_containment",
+    "runtime_publishable_required": false,
+    "required_family_keys": [
+      "en-es:sentence-veto:ball:pelota",
+      "en-es:sentence-veto:bank:banco",
+      "en-es:sentence-veto:plant:planta",
+      "en-es:sentence-veto:cell:celula",
+      "en-es:sentence-veto:spring:primavera",
+      "en-es:sentence-veto:seal:sello",
+      "en-es:sentence-veto:file:archivo",
+      "en-es:sentence-veto:match:partido",
+      "en-es:sentence-veto:board:tablero",
+      "en-es:sentence-veto:table:mesa",
+      "en-es:sentence-veto:branch:sucursal",
+      "en-es:sentence-veto:park:parque",
+      "en-es:sentence-veto:drink:bebida",
+      "en-es:sentence-veto:play:obra",
+      "en-es:sentence-veto:watch:reloj",
+      "en-es:sentence-veto:check:cheque",
+      "en-es:sentence-veto:order:pedido",
+      "en-es:sentence-veto:trip:viaje",
+      "en-es:sentence-veto:report:informe"
+    ]
+  },
+  "summary": {
+    "families_total": 19,
+    "semantic_contract_complete_family_count": 19,
+    "semantic_contract_complete": true,
+    "phrase_containment_contract_complete_family_count": 8,
+    "phrase_containment_contract_complete": false,
+    "contract_complete_family_count": 8,
+    "contract_complete": false,
+    "missing_active_family_keys": [],
+    "missing_shadow_family_keys": [],
+    "semantic_gap_family_keys": [],
+    "missing_phrase_control_family_keys": [
+      "en-es:sentence-veto:ball:pelota",
+      "en-es:sentence-veto:bank:banco",
+      "en-es:sentence-veto:board:tablero",
+      "en-es:sentence-veto:branch:sucursal",
+      "en-es:sentence-veto:cell:celula",
+      "en-es:sentence-veto:file:archivo",
+      "en-es:sentence-veto:match:partido",
+      "en-es:sentence-veto:park:parque",
+      "en-es:sentence-veto:seal:sello",
+      "en-es:sentence-veto:spring:primavera",
+      "en-es:sentence-veto:table:mesa"
+    ],
+    "phrase_role_issue_family_keys": [],
+    "phrase_containment_gap_family_keys": [
+      "en-es:sentence-veto:ball:pelota",
+      "en-es:sentence-veto:bank:banco",
+      "en-es:sentence-veto:board:tablero",
+      "en-es:sentence-veto:branch:sucursal",
+      "en-es:sentence-veto:cell:celula",
+      "en-es:sentence-veto:file:archivo",
+      "en-es:sentence-veto:match:partido",
+      "en-es:sentence-veto:park:parque",
+      "en-es:sentence-veto:seal:sello",
+      "en-es:sentence-veto:spring:primavera",
+      "en-es:sentence-veto:table:mesa"
+    ],
+    "runtime_publishable_issue_family_keys": [],
+    "semantic_contract": {
+      "complete_family_count": 19,
+      "complete": true,
+      "gap_family_keys": [],
+      "missing_active_family_keys": [],
+      "missing_shadow_family_keys": []
+    },
+    "phrase_containment_contract": {
+      "complete_family_count": 8,
+      "complete": false,
+      "gap_family_keys": [
+        "en-es:sentence-veto:ball:pelota",
+        "en-es:sentence-veto:bank:banco",
+        "en-es:sentence-veto:board:tablero",
+        "en-es:sentence-veto:branch:sucursal",
+        "en-es:sentence-veto:cell:celula",
+        "en-es:sentence-veto:file:archivo",
+        "en-es:sentence-veto:match:partido",
+        "en-es:sentence-veto:park:parque",
+        "en-es:sentence-veto:seal:sello",
+        "en-es:sentence-veto:spring:primavera",
+        "en-es:sentence-veto:table:mesa"
+      ],
+      "missing_phrase_control_family_keys": [
+        "en-es:sentence-veto:ball:pelota",
+        "en-es:sentence-veto:bank:banco",
+        "en-es:sentence-veto:board:tablero",
+        "en-es:sentence-veto:branch:sucursal",
+        "en-es:sentence-veto:cell:celula",
+        "en-es:sentence-veto:file:archivo",
+        "en-es:sentence-veto:match:partido",
+        "en-es:sentence-veto:park:parque",
+        "en-es:sentence-veto:seal:sello",
+        "en-es:sentence-veto:spring:primavera",
+        "en-es:sentence-veto:table:mesa"
+      ],
+      "phrase_role_issue_family_keys": []
+    },
+    "combined_contract": {
+      "complete_family_count": 8,
+      "complete": false,
+      "runtime_publishable_issue_family_keys": []
+    }
+  },
+  "family_rows": [
+    {
+      "family_key": "en-es:sentence-veto:ball:pelota",
+      "family_id": "en-es:sentence-veto:ball:pelota",
+      "trigger": "ball",
+      "active_target": "pelota",
+      "active_example_count": 1,
+      "shadow_example_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [
+        "en-es-sentence-veto-ball-pelota:manual:active:leakage-safe:v1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-ball-pelota:llm:shadow:en-es-sentence-veto-ball-baile-shadow:missing:v1"
+      ],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:bank:banco",
+      "family_id": "en-es:sentence-veto:bank:banco",
+      "trigger": "bank",
+      "active_target": "banco",
+      "active_example_count": 1,
+      "shadow_example_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [
+        "en-es-sentence-veto-bank-banco:llm:active:missing:v1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-bank-banco:llm:shadow:en-es-sentence-veto-bank-orilla-shadow:missing:v1"
+      ],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:board:tablero",
+      "family_id": "en-es:sentence-veto:board:tablero",
+      "trigger": "board",
+      "active_target": "tablero",
+      "active_example_count": 1,
+      "shadow_example_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [
+        "en-es-sentence-veto-board-tablero:llm:active:missing:v1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-board-tablero:manual:shadow:en-es-sentence-veto-board-junta-shadow:leakage-safe:v1"
+      ],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:branch:sucursal",
+      "family_id": "en-es:sentence-veto:branch:sucursal",
+      "trigger": "branch",
+      "active_target": "sucursal",
+      "active_example_count": 1,
+      "shadow_example_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [
+        "en-es-sentence-veto-branch-sucursal:llm:active:missing:v1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-branch-sucursal:llm:shadow:en-es-sentence-veto-branch-rama-shadow:missing:v1"
+      ],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:cell:celula",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "trigger": "cell",
+      "active_target": "célula",
+      "active_example_count": 1,
+      "shadow_example_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [
+        "en-es-sentence-veto-cell-celula:llm:active:missing:v1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-cell-celula:llm:shadow:en-es-sentence-veto-cell-celda-shadow:missing:v1"
+      ],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:check:cheque",
+      "family_id": "en-es:sentence-veto:check:cheque",
+      "trigger": "check",
+      "active_target": "cheque",
+      "active_example_count": 1,
+      "shadow_example_count": 1,
+      "phrase_control_example_count": 1,
+      "row_count": 3,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": true,
+      "contract_complete": true,
+      "missing_requirements": [],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [],
+      "active_row_ids": [
+        "en-es-sentence-veto-check-cheque:llm:active:missing:v1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-check-cheque:llm:shadow:en-es-sentence-veto-check-revisar-shadow:missing:v1"
+      ],
+      "phrase_control_row_ids": [
+        "en-es-sentence-veto-check-cheque:llm:phrase-control:missing:v1"
+      ],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:drink:bebida",
+      "family_id": "en-es:sentence-veto:drink:bebida",
+      "trigger": "drink",
+      "active_target": "bebida",
+      "active_example_count": 1,
+      "shadow_example_count": 1,
+      "phrase_control_example_count": 1,
+      "row_count": 3,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": true,
+      "contract_complete": true,
+      "missing_requirements": [],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [],
+      "active_row_ids": [
+        "en-es-sentence-veto-drink-bebida:active-reverse-aux"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-drink-bebida:shadow-en-es-sentence-veto-drink-beber-shadow-reverse-aux"
+      ],
+      "phrase_control_row_ids": [
+        "en-es-sentence-veto-drink-bebida:llm:phrase-control:missing:v1"
+      ],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:file:archivo",
+      "family_id": "en-es:sentence-veto:file:archivo",
+      "trigger": "file",
+      "active_target": "archivo",
+      "active_example_count": 1,
+      "shadow_example_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [
+        "en-es-sentence-veto-file-archivo:llm:active:missing:v1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-file-archivo:manual:shadow:en-es-sentence-veto-file-lima-shadow:leakage-safe:v1"
+      ],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:match:partido",
+      "family_id": "en-es:sentence-veto:match:partido",
+      "trigger": "match",
+      "active_target": "partido",
+      "active_example_count": 1,
+      "shadow_example_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [
+        "en-es-sentence-veto-match-partido:llm:active:missing:v1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-match-partido:llm:shadow:en-es-sentence-veto-match-cerilla-shadow:missing:v1"
+      ],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:order:pedido",
+      "family_id": "en-es:sentence-veto:order:pedido",
+      "trigger": "order",
+      "active_target": "pedido",
+      "active_example_count": 2,
+      "shadow_example_count": 1,
+      "phrase_control_example_count": 1,
+      "row_count": 4,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": true,
+      "contract_complete": true,
+      "missing_requirements": [],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [],
+      "active_row_ids": [
+        "en-es-sentence-veto-order-pedido:active-reverse-aux",
+        "en-es-sentence-veto-order-pedido:llm:active:missing:v1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-order-pedido:shadow-en-es-sentence-veto-order-ordenar-shadow-reverse-aux"
+      ],
+      "phrase_control_row_ids": [
+        "en-es-sentence-veto-order-pedido:llm:phrase-control:missing:v1"
+      ],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:park:parque",
+      "family_id": "en-es:sentence-veto:park:parque",
+      "trigger": "park",
+      "active_target": "parque",
+      "active_example_count": 1,
+      "shadow_example_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [
+        "en-es-sentence-veto-park-parque:llm:active:missing:v1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-park-parque:llm:shadow:en-es-sentence-veto-park-aparcar-shadow:missing:v1"
+      ],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:plant:planta",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "trigger": "plant",
+      "active_target": "planta",
+      "active_example_count": 3,
+      "shadow_example_count": 1,
+      "phrase_control_example_count": 1,
+      "row_count": 5,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": true,
+      "contract_complete": true,
+      "missing_requirements": [],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [],
+      "active_row_ids": [
+        "en-es-sentence-veto-plant-planta:active-reverse-aux",
+        "en-es-sentence-veto-plant-planta:manual:active:leakage-safe:v1",
+        "en-es-sentence-veto-plant-planta:manual:active:leakage-safe-light:v1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-plant-planta:llm:shadow:en-es-sentence-veto-plant-fabrica-shadow:missing:v1"
+      ],
+      "phrase_control_row_ids": [
+        "en-es-sentence-veto-plant-planta:llm:phrase-control:missing:v1"
+      ],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:play:obra",
+      "family_id": "en-es:sentence-veto:play:obra",
+      "trigger": "play",
+      "active_target": "obra",
+      "active_example_count": 3,
+      "shadow_example_count": 1,
+      "phrase_control_example_count": 1,
+      "row_count": 5,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": true,
+      "contract_complete": true,
+      "missing_requirements": [],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [],
+      "active_row_ids": [
+        "en-es-sentence-veto-play-obra:llm:active:missing:v1",
+        "en-es-sentence-veto-play-obra:llm:active:missing:v1",
+        "en-es-sentence-veto-play-obra:llm:active:remediation-active-001:v1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-play-obra:shadow-en-es-sentence-veto-play-jugar-shadow-reverse-aux"
+      ],
+      "phrase_control_row_ids": [
+        "en-es-sentence-veto-play-obra:llm:phrase-control:missing:v1"
+      ],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:report:informe",
+      "family_id": "en-es:sentence-veto:report:informe",
+      "trigger": "report",
+      "active_target": "informe",
+      "active_example_count": 3,
+      "shadow_example_count": 1,
+      "phrase_control_example_count": 1,
+      "row_count": 5,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": true,
+      "contract_complete": true,
+      "missing_requirements": [],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [],
+      "active_row_ids": [
+        "en-es-sentence-veto-report-informe:active-reverse-aux",
+        "en-es-sentence-veto-report-informe:llm:active:missing:v1",
+        "en-es-sentence-veto-report-informe:llm:active:remediation-active-001-002:v1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-report-informe:llm:shadow:en-es-sentence-veto-report-informar-shadow:missing:v1"
+      ],
+      "phrase_control_row_ids": [
+        "en-es-sentence-veto-report-informe:llm:phrase-control:missing:v1"
+      ],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:seal:sello",
+      "family_id": "en-es:sentence-veto:seal:sello",
+      "trigger": "seal",
+      "active_target": "sello",
+      "active_example_count": 1,
+      "shadow_example_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [
+        "en-es-sentence-veto-seal-sello:llm:active:missing:v1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-seal-sello:llm:shadow:en-es-sentence-veto-seal-foca-shadow:missing:v1"
+      ],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:spring:primavera",
+      "family_id": "en-es:sentence-veto:spring:primavera",
+      "trigger": "spring",
+      "active_target": "primavera",
+      "active_example_count": 1,
+      "shadow_example_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [
+        "en-es-sentence-veto-spring-primavera:llm:active:missing:v1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-spring-primavera:llm:shadow:en-es-sentence-veto-spring-resorte-shadow:missing:v1"
+      ],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:table:mesa",
+      "family_id": "en-es:sentence-veto:table:mesa",
+      "trigger": "table",
+      "active_target": "mesa",
+      "active_example_count": 1,
+      "shadow_example_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [
+        "en-es-sentence-veto-table-mesa:llm:active:missing:v1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-table-mesa:llm:shadow:en-es-sentence-veto-table-tabla-shadow:missing:v1"
+      ],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:trip:viaje",
+      "family_id": "en-es:sentence-veto:trip:viaje",
+      "trigger": "trip",
+      "active_target": "viaje",
+      "active_example_count": 2,
+      "shadow_example_count": 1,
+      "phrase_control_example_count": 1,
+      "row_count": 4,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": true,
+      "contract_complete": true,
+      "missing_requirements": [],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [],
+      "active_row_ids": [
+        "en-es-sentence-veto-trip-viaje:active-reverse-aux",
+        "en-es-sentence-veto-trip-viaje:llm:active:missing:v1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-trip-viaje:shadow-en-es-sentence-veto-trip-viaje-shadow-reverse-aux"
+      ],
+      "phrase_control_row_ids": [
+        "en-es-sentence-veto-trip-viaje:llm:phrase-control:missing:v1"
+      ],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:watch:reloj",
+      "family_id": "en-es:sentence-veto:watch:reloj",
+      "trigger": "watch",
+      "active_target": "reloj",
+      "active_example_count": 2,
+      "shadow_example_count": 1,
+      "phrase_control_example_count": 1,
+      "row_count": 4,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": true,
+      "contract_complete": true,
+      "missing_requirements": [],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [],
+      "active_row_ids": [
+        "en-es-sentence-veto-watch-reloj:active-reverse-aux",
+        "en-es-sentence-veto-watch-reloj:llm:active:missing:v1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-watch-reloj:shadow-en-es-sentence-veto-watch-vigilar-shadow-reverse-aux"
+      ],
+      "phrase_control_row_ids": [
+        "en-es-sentence-veto-watch-reloj:llm:phrase-control:missing:v1"
+      ],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    }
+  ],
+  "recommendation": "Semantic active/shadow coverage is complete, but the combined source contract remains review. Phrase containment gaps: missing_phrase_control=11, phrase_role_issues=0. Keep this batch analysis-only unless a downstream no-phrase ablation explicitly carries the candidate lane and promotion policy accepts the split contract."
+}

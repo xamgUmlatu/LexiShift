@@ -27,30 +27,43 @@ class SemanticLlmExampleFrameGenerationPlanTests(unittest.TestCase):
         )
 
         summary = report["summary"]
-        self.assertEqual(summary["request_count"], 4)
+        self.assertEqual(summary["request_count"], 10)
         self.assertEqual(summary["family_count"], 2)
+        self.assertEqual(summary["candidate_slot_count"], 2)
+        self.assertEqual(summary["planned_semantic_candidate_count"], 10)
+        self.assertEqual(summary["planned_phrase_candidate_count"], 0)
         self.assertEqual(
             summary["requests_by_generation_target"],
             {
-                "shadow_example": 1,
-                "phrase_control_example": 2,
-                "active_example": 1,
+                "shadow_example": 5,
+                "active_example": 5,
             },
         )
         self.assertEqual(
             [row["request_id"] for row in report["request_rows"]],
             [
-                "en-es:example-frame-missing:shadow:fam-check:fam-check-revisar-shadow",
-                "en-es:example-frame-missing:phrase-control:fam-check",
-                "en-es:example-frame-missing:active:fam-play",
-                "en-es:example-frame-missing:phrase-control:fam-play",
+                "en-es:example-frame-missing:shadow:fam-check:fam-check-revisar-shadow:candidate-01",
+                "en-es:example-frame-missing:shadow:fam-check:fam-check-revisar-shadow:candidate-02",
+                "en-es:example-frame-missing:shadow:fam-check:fam-check-revisar-shadow:candidate-03",
+                "en-es:example-frame-missing:shadow:fam-check:fam-check-revisar-shadow:candidate-04",
+                "en-es:example-frame-missing:shadow:fam-check:fam-check-revisar-shadow:candidate-05",
+                "en-es:example-frame-missing:active:fam-play:candidate-01",
+                "en-es:example-frame-missing:active:fam-play:candidate-02",
+                "en-es:example-frame-missing:active:fam-play:candidate-03",
+                "en-es:example-frame-missing:active:fam-play:candidate-04",
+                "en-es:example-frame-missing:active:fam-play:candidate-05",
             ],
+        )
+        self.assertEqual(
+            summary["requests_by_candidate_strategy"],
+            {"standard_semantic": 10},
         )
 
         prompts = "\n".join(str(row["user_prompt"]) for row in report["request_rows"])
         self.assertIn("Queue context:", prompts)
         self.assertIn("archetype: cross_pos", prompts)
         self.assertIn("competing sense 1", prompts)
+        self.assertIn("Candidate attempt: 1 of 5.", prompts)
         for leaked_text in (
             "cheque",
             "revisar",
@@ -62,17 +75,106 @@ class SemanticLlmExampleFrameGenerationPlanTests(unittest.TestCase):
         ):
             self.assertNotIn(leaked_text, prompts)
 
-        phrase_request = report["request_rows"][1]
-        phrase_preview = phrase_request["expected_row_preview"]
-        self.assertEqual(phrase_preview["relation_type"], "phrase_control_example")
-        self.assertEqual(phrase_preview["roles"], ["discrimination", "phrase_containment"])
-        self.assertFalse(phrase_preview["runtime_publishable"])
-        self.assertEqual(phrase_preview["metadata"]["queue_role"], "target")
-        self.assertEqual(phrase_preview["metadata"]["gold_decision"], "abstain")
+        first_preview = report["request_rows"][0]["expected_row_preview"]
+        self.assertEqual(first_preview["metadata"]["candidate_index"], 1)
+        self.assertEqual(first_preview["metadata"]["candidate_count"], 5)
+        self.assertEqual(first_preview["metadata"]["candidate_strategy"], "standard_semantic")
+        self.assertFalse(first_preview["runtime_publishable"])
+        self.assertEqual(first_preview["metadata"]["queue_role"], "target")
 
         markdown = render_example_frame_generation_plan_markdown(report)
         self.assertIn("LLM Example-Frame Generation Plan", markdown)
-        self.assertIn("Requests: `4`", markdown)
+        self.assertIn("Requests: `10`", markdown)
+        self.assertIn("Generation targets: `active_example, shadow_example`", markdown)
+        self.assertIn("Planned semantic candidates: `10`", markdown)
+
+    def test_can_plan_active_shadow_coverage_without_phrase_rows(self) -> None:
+        report = build_example_frame_generation_plan(
+            dataset_payload=_dataset_payload(),
+            required_family_payload=_queue_payload(),
+            base_evidence_batch_payload=_base_batch_payload(),
+            generation_targets=("active_example", "shadow_example"),
+            semantic_candidates_per_row=1,
+            generated_at="2026-04-25T13:00:00Z",
+        )
+
+        summary = report["summary"]
+        self.assertEqual(report["generation_targets"], ["active_example", "shadow_example"])
+        self.assertEqual(summary["request_count"], 2)
+        self.assertEqual(summary["family_count"], 2)
+        self.assertEqual(
+            summary["requests_by_generation_target"],
+            {
+                "shadow_example": 1,
+                "active_example": 1,
+            },
+        )
+        self.assertEqual(
+            [row["prompt_slot"] for row in report["request_rows"]],
+            ["shadow_example", "active_example"],
+        )
+        self.assertNotIn(
+            "phrase_control_example",
+            {str(row.get("prompt_slot") or "") for row in report["request_rows"]},
+        )
+
+    def test_can_explicitly_plan_phrase_containment_rows(self) -> None:
+        report = build_example_frame_generation_plan(
+            dataset_payload=_dataset_payload(),
+            required_family_payload=_queue_payload(),
+            base_evidence_batch_payload=_base_batch_payload(),
+            generation_targets=("phrase_control_example",),
+            generated_at="2026-04-25T13:00:00Z",
+        )
+
+        summary = report["summary"]
+        self.assertEqual(report["generation_targets"], ["phrase_control_example"])
+        self.assertEqual(summary["request_count"], 2)
+        self.assertEqual(summary["planned_semantic_candidate_count"], 0)
+        self.assertEqual(summary["planned_phrase_candidate_count"], 2)
+        phrase_request = report["request_rows"][0]
+        phrase_preview = phrase_request["expected_row_preview"]
+        self.assertEqual(phrase_preview["relation_type"], "phrase_control_example")
+        self.assertEqual(phrase_preview["roles"], ["discrimination", "phrase_containment"])
+        self.assertEqual(phrase_preview["metadata"]["candidate_strategy"], "phrase_containment")
+        self.assertEqual(phrase_preview["metadata"]["gold_decision"], "abstain")
+
+    def test_uses_hard_candidate_count_for_same_pos_semantic_rows(self) -> None:
+        report = build_example_frame_generation_plan(
+            dataset_payload=_same_pos_dataset_payload(),
+            required_family_payload=_same_pos_queue_payload(),
+            base_evidence_batch_payload=_same_pos_base_batch_payload(),
+            generation_targets=("shadow_example",),
+            semantic_candidates_per_row=2,
+            hard_semantic_candidates_per_row=3,
+            generated_at="2026-04-25T13:00:00Z",
+        )
+
+        summary = report["summary"]
+        self.assertEqual(summary["request_count"], 3)
+        self.assertEqual(
+            summary["requests_by_candidate_strategy"],
+            {"same_pos_hard_semantic": 3},
+        )
+        self.assertEqual(
+            [row["candidate_index"] for row in report["request_rows"]],
+            [1, 2, 3],
+        )
+        self.assertTrue(all(row["candidate_count"] == 3 for row in report["request_rows"]))
+        self.assertIn(
+            "candidate-03",
+            report["request_rows"][-1]["request_id"],
+        )
+
+    def test_rejects_unknown_generation_target(self) -> None:
+        with self.assertRaisesRegex(ValueError, "Unsupported generation_targets"):
+            build_example_frame_generation_plan(
+                dataset_payload=_dataset_payload(),
+                required_family_payload=_queue_payload(),
+                base_evidence_batch_payload=_base_batch_payload(),
+                generation_targets=("active_example", "misspelled_target"),
+                generated_at="2026-04-25T13:00:00Z",
+            )
 
 
 def _queue_payload() -> dict[str, object]:
@@ -190,6 +292,78 @@ def _base_batch_payload() -> dict[str, object]:
                 active_target="obra",
                 candidate_target="jugar",
             ),
+        ],
+    }
+
+
+def _same_pos_queue_payload() -> dict[str, object]:
+    return {
+        "queue_id": "semantic_prompt_bakeoff_en_es_same_pos",
+        "pair": "en-es",
+        "families": [
+            {
+                "family_id": "fam:plant",
+                "trigger": "plant",
+                "role": "target",
+                "archetype": "same_pos",
+                "likely_bucket": "needs_cue_data",
+            }
+        ],
+    }
+
+
+def _same_pos_dataset_payload() -> dict[str, object]:
+    return {
+        "pair": "en-es",
+        "dataset_id": "en_es_sentence_veto_same_pos",
+        "families": [
+            {
+                "family_id": "fam:plant",
+                "trigger": "plant",
+                "active": {
+                    "sense_id": "fam:plant:planta:active",
+                    "target_lemma": "planta",
+                    "canonical_pos": "noun",
+                    "evidence_views": {
+                        "sense_label": "living organism with roots",
+                        "gloss_text": "green organism that grows in soil",
+                    },
+                },
+                "shadows": [
+                    {
+                        "sense_id": "fam:plant:fabrica:shadow",
+                        "target_lemma": "fabrica",
+                        "canonical_pos": "noun",
+                        "evidence_views": {
+                            "sense_label": "industrial facility",
+                            "gloss_text": "factory or production site",
+                        },
+                    }
+                ],
+                "cases": [{"sentence": "Workers entered the plant before dawn."}],
+            }
+        ],
+    }
+
+
+def _same_pos_base_batch_payload() -> dict[str, object]:
+    return {
+        "schema_version": 1,
+        "normalization_version": "semantic_evidence_v1",
+        "batch_id": "same-pos-base",
+        "pair": "en-es",
+        "source_type": "external",
+        "source_id": "reverse_aux_example_frames",
+        "source_family": "installed_translation_pack",
+        "rows": [
+            _normalized_row(
+                row_id="plant-active",
+                family_id="fam:plant",
+                relation_type="anchor_cue",
+                trigger="plant",
+                active_target="planta",
+                candidate_target="planta",
+            )
         ],
     }
 

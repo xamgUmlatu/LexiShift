@@ -1,0 +1,4852 @@
+{
+  "candidates": [
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:leave",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "noun": 3,
+        "verb": 14
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "the period of time during which you are absent from work or duty",
+          "example": "a ten day's leave to visit his mother",
+          "members": [
+            "leave",
+            "leave of absence"
+          ],
+          "pos": "noun",
+          "synset_id": "15164090-n"
+        },
+        {
+          "definition": "permission to do something",
+          "example": "she was granted leave to speak",
+          "members": [
+            "leave"
+          ],
+          "pos": "noun",
+          "synset_id": "06702859-n"
+        },
+        {
+          "definition": "the act of departing politely",
+          "example": "he disliked long farewells",
+          "members": [
+            "farewell",
+            "leave",
+            "leave-taking",
+            "parting"
+          ],
+          "pos": "noun",
+          "synset_id": "00053917-n"
+        },
+        {
+          "definition": "go away from a place",
+          "example": "At what time does your train leave?",
+          "members": [
+            "leave",
+            "go forth",
+            "go away"
+          ],
+          "pos": "verb",
+          "synset_id": "02013448-v"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 17,
+      "source_definition_count": 17,
+      "source_example_count": 55,
+      "source_member_count": 44,
+      "trigger": "leave"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:blue",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "adjective": 8,
+        "noun": 7,
+        "verb": 1
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "of the color intermediate between green and violet; having a color similar to that of a clear unclouded sky",
+          "example": "{'source': 'Helen Hunt Jackson', 'text': \"October's bright blue weather\"}",
+          "members": [
+            "blue",
+            "bluish",
+            "blueish"
+          ],
+          "pos": "adjective",
+          "synset_id": "00371931-s"
+        },
+        {
+          "definition": "used to signify the Union forces in the American Civil War (who wore blue uniforms)",
+          "example": "a ragged blue line",
+          "members": [
+            "blue"
+          ],
+          "pos": "adjective",
+          "synset_id": "01610640-s"
+        },
+        {
+          "definition": "filled with melancholy and despondency",
+          "example": "gloomy at the thought of what he had to face",
+          "members": [
+            "gloomy",
+            "grim",
+            "blue",
+            "depressed",
+            "dispirited"
+          ],
+          "pos": "adjective",
+          "synset_id": "00707060-s"
+        },
+        {
+          "definition": "characterized by profanity or cursing",
+          "example": "foul-mouthed and blasphemous",
+          "members": [
+            "blasphemous",
+            "blue",
+            "profane"
+          ],
+          "pos": "adjective",
+          "synset_id": "00426521-s"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 16,
+      "source_definition_count": 16,
+      "source_example_count": 51,
+      "source_member_count": 64,
+      "trigger": "blue"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:black",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "adjective": 14,
+        "noun": 4,
+        "verb": 1
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "being of the achromatic color of maximum darkness; having little or no hue owing to absorption of almost all incident light",
+          "example": "black leather jackets",
+          "members": [
+            "black"
+          ],
+          "pos": "adjective",
+          "synset_id": "00393873-a"
+        },
+        {
+          "definition": "of or belonging to a racial group especially of sub-Saharan African origin",
+          "example": "{'source': 'Martin Luther King Jr.', 'text': 'a great people \u2014 a black people \u2014 \u2026 injected new meaning and dignity into the veins of civilization'}",
+          "members": [
+            "black"
+          ],
+          "pos": "adjective",
+          "synset_id": "00243558-a"
+        },
+        {
+          "definition": "marked by anger or resentment or hostility",
+          "example": "black looks",
+          "members": [
+            "black"
+          ],
+          "pos": "adjective",
+          "synset_id": "00115608-s"
+        },
+        {
+          "definition": "offering little or no hope",
+          "example": "the future looked black",
+          "members": [
+            "black",
+            "bleak",
+            "dim"
+          ],
+          "pos": "adjective",
+          "synset_id": "01232434-s"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 19,
+      "source_definition_count": 19,
+      "source_example_count": 45,
+      "source_member_count": 51,
+      "trigger": "black"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:change",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "noun": 10,
+        "verb": 10
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "an event that occurs when something passes from one state or phase to another",
+          "example": "the change was intended to increase sales",
+          "members": [
+            "change",
+            "alteration",
+            "modification"
+          ],
+          "pos": "noun",
+          "synset_id": "07311046-n"
+        },
+        {
+          "definition": "a relational difference between states; especially between states before and after some event",
+          "example": "he attributed the change to their marriage",
+          "members": [
+            "change"
+          ],
+          "pos": "noun",
+          "synset_id": "13881240-n"
+        },
+        {
+          "definition": "the action of changing something",
+          "example": "the change of government had no impact on the economy",
+          "members": [
+            "change"
+          ],
+          "pos": "noun",
+          "synset_id": "00191991-n"
+        },
+        {
+          "definition": "the result of alteration or modification",
+          "example": "there were marked changes in the lining of the lungs",
+          "members": [
+            "change"
+          ],
+          "pos": "noun",
+          "synset_id": "11432841-n"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 20,
+      "source_definition_count": 20,
+      "source_example_count": 41,
+      "source_member_count": 36,
+      "trigger": "change"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:serve",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "noun": 1,
+        "verb": 15
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "(sports) a stroke that puts the ball in play",
+          "example": "his powerful serves won the game",
+          "members": [
+            "serve",
+            "service"
+          ],
+          "pos": "noun",
+          "synset_id": "00569467-n"
+        },
+        {
+          "definition": "serve a purpose, role, or function",
+          "example": "The tree stump serves as a table",
+          "members": [
+            "serve",
+            "function"
+          ],
+          "pos": "verb",
+          "synset_id": "02676679-v"
+        },
+        {
+          "definition": "do duty or hold offices; serve in a specific function",
+          "example": "He served as head of the department for three years",
+          "members": [
+            "serve"
+          ],
+          "pos": "verb",
+          "synset_id": "01097629-v"
+        },
+        {
+          "definition": "contribute or conduce to",
+          "example": "The scandal served to increase his popularity",
+          "members": [
+            "serve"
+          ],
+          "pos": "verb",
+          "synset_id": "02676187-v"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 16,
+      "source_definition_count": 16,
+      "source_example_count": 41,
+      "source_member_count": 36,
+      "trigger": "serve"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:look",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "noun": 4,
+        "verb": 10
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "the feelings expressed on a person's face",
+          "example": "a sad expression",
+          "members": [
+            "expression",
+            "look",
+            "aspect",
+            "facial expression",
+            "face"
+          ],
+          "pos": "noun",
+          "synset_id": "04687095-n"
+        },
+        {
+          "definition": "the act of directing the eyes toward something and perceiving it visually; look",
+          "example": "he went out to have a look",
+          "members": [
+            "look",
+            "looking",
+            "looking at"
+          ],
+          "pos": "noun",
+          "synset_id": "00878805-n"
+        },
+        {
+          "definition": "physical appearance",
+          "example": "I don't like the looks of this place",
+          "members": [
+            "look"
+          ],
+          "pos": "noun",
+          "synset_id": "04682072-n"
+        },
+        {
+          "definition": "the general atmosphere of a place or situation and the effect that it has on people",
+          "example": "the feel of the city excited him",
+          "members": [
+            "spirit",
+            "tone",
+            "feel",
+            "feeling",
+            "flavor"
+          ],
+          "pos": "noun",
+          "synset_id": "14549784-n"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 14,
+      "source_definition_count": 14,
+      "source_example_count": 41,
+      "source_member_count": 46,
+      "trigger": "look"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:dry",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "adjective": 16,
+        "noun": 1,
+        "verb": 2
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "free from liquid or moisture; lacking natural or normal moisture or depleted of water; or no longer wet",
+          "example": "dry land",
+          "members": [
+            "dry"
+          ],
+          "pos": "adjective",
+          "synset_id": "02562150-a"
+        },
+        {
+          "definition": "humorously sarcastic or mocking",
+          "example": "dry humor",
+          "members": [
+            "dry",
+            "ironic",
+            "ironical",
+            "wry"
+          ],
+          "pos": "adjective",
+          "synset_id": "01269202-s"
+        },
+        {
+          "definition": "lacking moisture or volatile components",
+          "example": "dry paint",
+          "members": [
+            "dry"
+          ],
+          "pos": "adjective",
+          "synset_id": "02566037-a"
+        },
+        {
+          "definition": "opposed to or prohibiting the production and sale of alcoholic beverages",
+          "example": "the dry vote led by preachers and bootleggers",
+          "members": [
+            "dry"
+          ],
+          "pos": "adjective",
+          "synset_id": "02565710-a"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 19,
+      "source_definition_count": 19,
+      "source_example_count": 40,
+      "source_member_count": 27,
+      "trigger": "dry"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:fit",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "adjective": 3,
+        "noun": 4,
+        "verb": 9
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "meeting adequate standards for a purpose",
+          "example": "a fit subject for discussion",
+          "members": [
+            "fit"
+          ],
+          "pos": "adjective",
+          "synset_id": "01024009-a"
+        },
+        {
+          "definition": "(usually followed by \u2018to\u2019 or \u2018for\u2019) on the point of or strongly disposed",
+          "example": "in no fit state to continue",
+          "members": [
+            "fit",
+            "primed",
+            "set"
+          ],
+          "pos": "adjective",
+          "synset_id": "01937602-s"
+        },
+        {
+          "definition": "physically and mentally sound or healthy",
+          "example": "felt relaxed and fit after their holiday",
+          "members": [
+            "fit"
+          ],
+          "pos": "adjective",
+          "synset_id": "01020753-a"
+        },
+        {
+          "definition": "a display of bad temper",
+          "example": "he had a fit",
+          "members": [
+            "fit",
+            "tantrum",
+            "scene",
+            "conniption"
+          ],
+          "pos": "noun",
+          "synset_id": "14429707-n"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 16,
+      "source_definition_count": 16,
+      "source_example_count": 40,
+      "source_member_count": 44,
+      "trigger": "fit"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:low",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "adjective": 10,
+        "adverb": 1,
+        "noun": 3,
+        "verb": 1
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "less than normal in degree or intensity or amount",
+          "example": "low prices",
+          "members": [
+            "low"
+          ],
+          "pos": "adjective",
+          "synset_id": "01215141-a"
+        },
+        {
+          "definition": "being at or having a relatively small elevation or upward extension",
+          "example": "low ceilings",
+          "members": [
+            "low"
+          ],
+          "pos": "adjective",
+          "synset_id": "01209146-a"
+        },
+        {
+          "definition": "very low in volume",
+          "example": "a low murmur",
+          "members": [
+            "low",
+            "low-toned"
+          ],
+          "pos": "adjective",
+          "synset_id": "01458667-s"
+        },
+        {
+          "definition": "unrefined in character",
+          "example": "low comedy",
+          "members": [
+            "low"
+          ],
+          "pos": "adjective",
+          "synset_id": "01957830-s"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 15,
+      "source_definition_count": 15,
+      "source_example_count": 40,
+      "source_member_count": 46,
+      "trigger": "low"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:part",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "adverb": 1,
+        "noun": 13,
+        "verb": 5
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "something determined in relation to something that includes it",
+          "example": "he wanted to feel a part of something bigger than himself",
+          "members": [
+            "part",
+            "portion",
+            "component part",
+            "component",
+            "constituent"
+          ],
+          "pos": "noun",
+          "synset_id": "13831419-n"
+        },
+        {
+          "definition": "something less than the whole of a human artifact",
+          "example": "the rear part of the house",
+          "members": [
+            "part",
+            "portion"
+          ],
+          "pos": "noun",
+          "synset_id": "03898588-n"
+        },
+        {
+          "definition": "a portion of a natural object",
+          "example": "they analyzed the river into three parts",
+          "members": [
+            "part",
+            "piece"
+          ],
+          "pos": "noun",
+          "synset_id": "09408804-n"
+        },
+        {
+          "definition": "that which concerns a person with regard to a particular role or situation",
+          "example": "it requires vigilance on our part",
+          "members": [
+            "part"
+          ],
+          "pos": "noun",
+          "synset_id": "05679818-n"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 19,
+      "source_definition_count": 19,
+      "source_example_count": 39,
+      "source_member_count": 65,
+      "trigger": "part"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:range",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "noun": 9,
+        "verb": 8
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "an area in which something acts or operates or has power or control:",
+          "example": "a piano has a greater range than the human voice",
+          "members": [
+            "scope",
+            "range",
+            "reach",
+            "orbit",
+            "compass"
+          ],
+          "pos": "noun",
+          "synset_id": "05132642-n"
+        },
+        {
+          "definition": "the limits within which something can be effective",
+          "example": "range of motion",
+          "members": [
+            "range",
+            "reach"
+          ],
+          "pos": "noun",
+          "synset_id": "08646496-n"
+        },
+        {
+          "definition": "a large tract of grassy open land on which livestock can graze",
+          "example": "they used to drive the cattle across the open range every spring",
+          "members": [
+            "range"
+          ],
+          "pos": "noun",
+          "synset_id": "08646774-n"
+        },
+        {
+          "definition": "a series of hills or mountains",
+          "example": "the valley was between two ranges of hills",
+          "members": [
+            "range",
+            "mountain range",
+            "range of mountains",
+            "chain",
+            "mountain chain"
+          ],
+          "pos": "noun",
+          "synset_id": "09426609-n"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 17,
+      "source_definition_count": 17,
+      "source_example_count": 38,
+      "source_member_count": 62,
+      "trigger": "range"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:feel",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "noun": 4,
+        "verb": 13
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "an intuitive awareness",
+          "example": "he has a feel for animals",
+          "members": [
+            "feel"
+          ],
+          "pos": "noun",
+          "synset_id": "05685184-n"
+        },
+        {
+          "definition": "the general atmosphere of a place or situation and the effect that it has on people",
+          "example": "the feel of the city excited him",
+          "members": [
+            "spirit",
+            "tone",
+            "feel",
+            "feeling",
+            "flavor"
+          ],
+          "pos": "noun",
+          "synset_id": "14549784-n"
+        },
+        {
+          "definition": "a property perceived by touch",
+          "example": "",
+          "members": [
+            "tactile property",
+            "feel"
+          ],
+          "pos": "noun",
+          "synset_id": "04953730-n"
+        },
+        {
+          "definition": "manual stimulation of the genital area for sexual pleasure",
+          "example": "the girls hated it when he tried to sneak a feel",
+          "members": [
+            "feel"
+          ],
+          "pos": "noun",
+          "synset_id": "00856168-n"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 17,
+      "source_definition_count": 17,
+      "source_example_count": 38,
+      "source_member_count": 30,
+      "trigger": "feel"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:use",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "noun": 7,
+        "verb": 6
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "the act of using",
+          "example": "he warned against the use of narcotic drugs",
+          "members": [
+            "use",
+            "usage",
+            "utilization",
+            "utilisation",
+            "employment"
+          ],
+          "pos": "noun",
+          "synset_id": "00948944-n"
+        },
+        {
+          "definition": "what something is used for",
+          "example": "the function of an auger is to bore holes",
+          "members": [
+            "function",
+            "purpose",
+            "role",
+            "use"
+          ],
+          "pos": "noun",
+          "synset_id": "05156572-n"
+        },
+        {
+          "definition": "a particular service",
+          "example": "he put his knowledge to good use",
+          "members": [
+            "use"
+          ],
+          "pos": "noun",
+          "synset_id": "05157225-n"
+        },
+        {
+          "definition": "(economics) the utilization of economic goods to satisfy needs or in manufacturing",
+          "example": "the consumption of energy has increased steadily",
+          "members": [
+            "consumption",
+            "economic consumption",
+            "usance",
+            "use",
+            "use of goods and services"
+          ],
+          "pos": "noun",
+          "synset_id": "13472977-n"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 13,
+      "source_definition_count": 13,
+      "source_example_count": 38,
+      "source_member_count": 44,
+      "trigger": "use"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:still",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "adjective": 6,
+        "adverb": 4,
+        "noun": 4,
+        "verb": 4
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "not in physical motion",
+          "example": "She remained motionless, yet poised to take flight",
+          "members": [
+            "inactive",
+            "motionless",
+            "static",
+            "still"
+          ],
+          "pos": "adjective",
+          "synset_id": "01568708-s"
+        },
+        {
+          "definition": "marked by absence of sound",
+          "example": "a silent house",
+          "members": [
+            "silent",
+            "soundless",
+            "still"
+          ],
+          "pos": "adjective",
+          "synset_id": "01925827-s"
+        },
+        {
+          "definition": "(of a body of water) free from disturbance by heavy waves",
+          "example": "a ribbon of sand between the angry sea and the placid bay",
+          "members": [
+            "placid",
+            "quiet",
+            "still",
+            "tranquil",
+            "smooth"
+          ],
+          "pos": "adjective",
+          "synset_id": "00303750-s"
+        },
+        {
+          "definition": "used of pictures; of a single or static photograph not presented so as to create the illusion of motion; or representing objects not capable of motion",
+          "example": "a still photograph",
+          "members": [
+            "still"
+          ],
+          "pos": "adjective",
+          "synset_id": "01570144-a"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 18,
+      "source_definition_count": 18,
+      "source_example_count": 37,
+      "source_member_count": 60,
+      "trigger": "still"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:bear",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "noun": 2,
+        "verb": 14
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "massive plantigrade carnivorous or omnivorous mammals with long shaggy coats and strong claws",
+          "example": "",
+          "members": [
+            "bear"
+          ],
+          "pos": "noun",
+          "synset_id": "02134305-n"
+        },
+        {
+          "definition": "an investor with a pessimistic market outlook; an investor who expects prices to fall and so sells now in order to buy later at a lower price",
+          "example": "",
+          "members": [
+            "bear"
+          ],
+          "pos": "noun",
+          "synset_id": "09864599-n"
+        },
+        {
+          "definition": "have",
+          "example": "bear a resemblance",
+          "members": [
+            "bear"
+          ],
+          "pos": "verb",
+          "synset_id": "02636952-v"
+        },
+        {
+          "definition": "maintain (a theory, thoughts, or feelings)",
+          "example": "bear a grudge",
+          "members": [
+            "harbor",
+            "harbour",
+            "hold",
+            "entertain",
+            "nurse"
+          ],
+          "pos": "verb",
+          "synset_id": "01777051-v"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 16,
+      "source_definition_count": 16,
+      "source_example_count": 37,
+      "source_member_count": 61,
+      "trigger": "bear"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:find",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "noun": 2,
+        "verb": 15
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "a productive insight",
+          "example": "",
+          "members": [
+            "discovery",
+            "breakthrough",
+            "find"
+          ],
+          "pos": "noun",
+          "synset_id": "05816226-n"
+        },
+        {
+          "definition": "the act of discovering something",
+          "example": "",
+          "members": [
+            "discovery",
+            "find",
+            "uncovering"
+          ],
+          "pos": "noun",
+          "synset_id": "00043933-n"
+        },
+        {
+          "definition": "come upon, as if by accident; meet with",
+          "example": "We find this idea in Plato",
+          "members": [
+            "find",
+            "happen",
+            "chance",
+            "bump",
+            "encounter"
+          ],
+          "pos": "verb",
+          "synset_id": "02253273-v"
+        },
+        {
+          "definition": "discover or determine the existence, presence, or fact of by perception with the eyes",
+          "example": "She detected high levels of lead in her drinking water",
+          "members": [
+            "detect",
+            "observe",
+            "find",
+            "discover",
+            "notice"
+          ],
+          "pos": "verb",
+          "synset_id": "02158938-v"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 17,
+      "source_definition_count": 17,
+      "source_example_count": 36,
+      "source_member_count": 49,
+      "trigger": "find"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:finish",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "noun": 9,
+        "verb": 6
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "a decorative texture or appearance of a surface (or the substance that gives it that appearance)",
+          "example": "the boat had a metallic finish",
+          "members": [
+            "coating",
+            "finish",
+            "finishing"
+          ],
+          "pos": "noun",
+          "synset_id": "04707990-n"
+        },
+        {
+          "definition": "the temporal end; the concluding time",
+          "example": "the stopping point of each round was signaled by a bell",
+          "members": [
+            "stopping point",
+            "finale",
+            "finis",
+            "finish",
+            "last"
+          ],
+          "pos": "noun",
+          "synset_id": "15292365-n"
+        },
+        {
+          "definition": "a highly developed state of perfection; having a flawless or impeccable quality",
+          "example": "they performed with great polish",
+          "members": [
+            "polish",
+            "refinement",
+            "culture",
+            "cultivation",
+            "finish"
+          ],
+          "pos": "noun",
+          "synset_id": "14483408-n"
+        },
+        {
+          "definition": "the place designated as the end (as of a race or journey)",
+          "example": "a crowd assembled at the finish",
+          "members": [
+            "finish",
+            "destination",
+            "goal"
+          ],
+          "pos": "noun",
+          "synset_id": "08585406-n"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 15,
+      "source_definition_count": 15,
+      "source_example_count": 36,
+      "source_member_count": 44,
+      "trigger": "finish"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:throw",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "noun": 5,
+        "verb": 15
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "the act of throwing (propelling something with a rapid movement of the arm and wrist)",
+          "example": "the catcher made a good throw to second base",
+          "members": [
+            "throw"
+          ],
+          "pos": "noun",
+          "synset_id": "00105359-n"
+        },
+        {
+          "definition": "a single chance or instance",
+          "example": "he couldn't afford $50 a throw",
+          "members": [
+            "throw"
+          ],
+          "pos": "noun",
+          "synset_id": "14509574-n"
+        },
+        {
+          "definition": "the maximum movement available to a pivoted or reciprocating piece by a cam",
+          "example": "",
+          "members": [
+            "throw",
+            "stroke",
+            "cam stroke"
+          ],
+          "pos": "noun",
+          "synset_id": "07365795-n"
+        },
+        {
+          "definition": "bedclothes consisting of a lightweight cloth covering (an afghan or bedspread) that is casually thrown over something",
+          "example": "",
+          "members": [
+            "throw"
+          ],
+          "pos": "noun",
+          "synset_id": "04437105-n"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 20,
+      "source_definition_count": 20,
+      "source_example_count": 35,
+      "source_member_count": 52,
+      "trigger": "throw"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:rough",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "adjective": 14,
+        "adverb": 2,
+        "noun": 1,
+        "verb": 1
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "having or caused by an irregular surface",
+          "example": "trees with rough bark",
+          "members": [
+            "rough",
+            "unsmooth"
+          ],
+          "pos": "adjective",
+          "synset_id": "02246206-a"
+        },
+        {
+          "definition": "(of persons or behavior) lacking refinement or finesse",
+          "example": "she was a diamond in the rough",
+          "members": [
+            "rough"
+          ],
+          "pos": "adjective",
+          "synset_id": "01958019-s"
+        },
+        {
+          "definition": "not quite exact or correct",
+          "example": "the approximate time was 10 o'clock",
+          "members": [
+            "approximate",
+            "approximative",
+            "rough"
+          ],
+          "pos": "adjective",
+          "synset_id": "00919090-s"
+        },
+        {
+          "definition": "full of hardship or trials",
+          "example": "the rocky road to success",
+          "members": [
+            "rocky",
+            "rough"
+          ],
+          "pos": "adjective",
+          "synset_id": "00751523-s"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 18,
+      "source_definition_count": 18,
+      "source_example_count": 35,
+      "source_member_count": 43,
+      "trigger": "rough"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:plain",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "adjective": 7,
+        "adverb": 1,
+        "noun": 2,
+        "verb": 1
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "clearly revealed to the mind or the senses or judgment",
+          "example": "the effects of the drought are apparent to anyone who sees the parched fields",
+          "members": [
+            "apparent",
+            "evident",
+            "manifest",
+            "palpable",
+            "patent"
+          ],
+          "pos": "adjective",
+          "synset_id": "01622528-s"
+        },
+        {
+          "definition": "not elaborate or elaborated; simple",
+          "example": "plain food",
+          "members": [
+            "plain"
+          ],
+          "pos": "adjective",
+          "synset_id": "01796420-a"
+        },
+        {
+          "definition": "lacking patterns especially in color",
+          "example": "",
+          "members": [
+            "plain",
+            "unpatterned"
+          ],
+          "pos": "adjective",
+          "synset_id": "01790415-a"
+        },
+        {
+          "definition": "not mixed with extraneous elements",
+          "example": "plain water",
+          "members": [
+            "plain",
+            "sheer",
+            "unmingled",
+            "unmixed"
+          ],
+          "pos": "adjective",
+          "synset_id": "01913300-s"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 11,
+      "source_definition_count": 11,
+      "source_example_count": 35,
+      "source_member_count": 43,
+      "trigger": "plain"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:control",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "noun": 11,
+        "verb": 9
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "power to direct or determine",
+          "example": "under control",
+          "members": [
+            "control"
+          ],
+          "pos": "noun",
+          "synset_id": "05203643-n"
+        },
+        {
+          "definition": "a relation of constraint of one entity (thing or person or group) by another",
+          "example": "measures for the control of disease",
+          "members": [
+            "control"
+          ],
+          "pos": "noun",
+          "synset_id": "13849418-n"
+        },
+        {
+          "definition": "(physiology) regulation or maintenance of a function or action or reflex etc",
+          "example": "the timing and control of his movements were unimpaired",
+          "members": [
+            "control"
+          ],
+          "pos": "noun",
+          "synset_id": "00832109-n"
+        },
+        {
+          "definition": "a standard against which other conditions can be compared in a scientific experiment",
+          "example": "the control condition was inappropriate for the conclusions he wished to draw",
+          "members": [
+            "control condition",
+            "control"
+          ],
+          "pos": "noun",
+          "synset_id": "05806577-n"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 20,
+      "source_definition_count": 20,
+      "source_example_count": 34,
+      "source_member_count": 50,
+      "trigger": "control"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:upset",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "adjective": 5,
+        "noun": 6,
+        "verb": 6
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "afflicted with or marked by anxious uneasiness or trouble or grief",
+          "example": "too upset to say anything",
+          "members": [
+            "disquieted",
+            "distressed",
+            "disturbed",
+            "upset",
+            "worried"
+          ],
+          "pos": "adjective",
+          "synset_id": "02466219-s"
+        },
+        {
+          "definition": "thrown into a state of disarray or confusion",
+          "example": "troops fleeing in broken ranks",
+          "members": [
+            "broken",
+            "confused",
+            "disordered",
+            "upset"
+          ],
+          "pos": "adjective",
+          "synset_id": "01673499-s"
+        },
+        {
+          "definition": "used of an unexpected defeat of a team favored to win",
+          "example": "the Bills' upset victory over the Houston Oilers",
+          "members": [
+            "upset"
+          ],
+          "pos": "adjective",
+          "synset_id": "00934664-s"
+        },
+        {
+          "definition": "mildly physically distressed",
+          "example": "an upset stomach",
+          "members": [
+            "upset"
+          ],
+          "pos": "adjective",
+          "synset_id": "02557987-s"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 17,
+      "source_definition_count": 17,
+      "source_example_count": 34,
+      "source_member_count": 48,
+      "trigger": "upset"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:home",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "adjective": 3,
+        "adverb": 3,
+        "noun": 9,
+        "verb": 2
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "used of your own ground",
+          "example": "a home game",
+          "members": [
+            "home"
+          ],
+          "pos": "adjective",
+          "synset_id": "01222498-a"
+        },
+        {
+          "definition": "relating to or being where one lives or where one's roots are",
+          "example": "my home town",
+          "members": [
+            "home"
+          ],
+          "pos": "adjective",
+          "synset_id": "02753598-a"
+        },
+        {
+          "definition": "inside the country",
+          "example": "the British Home Office has broader responsibilities than the United States Department of the Interior",
+          "members": [
+            "home",
+            "interior",
+            "internal",
+            "national"
+          ],
+          "pos": "adjective",
+          "synset_id": "01042014-s"
+        },
+        {
+          "definition": "where you live at a particular time",
+          "example": "deliver the package to my home",
+          "members": [
+            "home",
+            "place"
+          ],
+          "pos": "noun",
+          "synset_id": "08577045-n"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 17,
+      "source_definition_count": 17,
+      "source_example_count": 34,
+      "source_member_count": 36,
+      "trigger": "home"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:fast",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "adjective": 10,
+        "adverb": 2,
+        "noun": 1,
+        "verb": 2
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "acting or moving or capable of acting or moving quickly",
+          "example": "fast film",
+          "members": [
+            "fast"
+          ],
+          "pos": "adjective",
+          "synset_id": "00979699-a"
+        },
+        {
+          "definition": "(used of timepieces) indicating a time ahead of or later than the correct time",
+          "example": "my watch is fast",
+          "members": [
+            "fast"
+          ],
+          "pos": "adjective",
+          "synset_id": "00986764-a"
+        },
+        {
+          "definition": "at a rapid tempo",
+          "example": "the band played a fast fox trot",
+          "members": [
+            "fast"
+          ],
+          "pos": "adjective",
+          "synset_id": "00985009-a"
+        },
+        {
+          "definition": "(of surfaces) conducive to rapid speeds",
+          "example": "a fast road",
+          "members": [
+            "fast"
+          ],
+          "pos": "adjective",
+          "synset_id": "02245246-s"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 15,
+      "source_definition_count": 15,
+      "source_example_count": 34,
+      "source_member_count": 32,
+      "trigger": "fast"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:piece",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "noun": 13,
+        "verb": 5
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "a separate part of a whole",
+          "example": "an important piece of the evidence",
+          "members": [
+            "piece"
+          ],
+          "pos": "noun",
+          "synset_id": "03938441-n"
+        },
+        {
+          "definition": "an item that is an instance of some type",
+          "example": "he designed a new piece of equipment",
+          "members": [
+            "piece",
+            "part"
+          ],
+          "pos": "noun",
+          "synset_id": "03938737-n"
+        },
+        {
+          "definition": "a portion of a natural object",
+          "example": "they analyzed the river into three parts",
+          "members": [
+            "part",
+            "piece"
+          ],
+          "pos": "noun",
+          "synset_id": "09408804-n"
+        },
+        {
+          "definition": "a musical work that has been created",
+          "example": "the composition is written in four movements",
+          "members": [
+            "musical composition",
+            "opus",
+            "composition",
+            "piece",
+            "piece of music"
+          ],
+          "pos": "noun",
+          "synset_id": "07051211-n"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 18,
+      "source_definition_count": 18,
+      "source_example_count": 33,
+      "source_member_count": 44,
+      "trigger": "piece"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:train",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "noun": 6,
+        "verb": 11
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "public transport provided by a line of railway cars coupled together and drawn by a locomotive",
+          "example": "express trains don't stop at Princeton Junction",
+          "members": [
+            "train",
+            "railroad train"
+          ],
+          "pos": "noun",
+          "synset_id": "04475240-n"
+        },
+        {
+          "definition": "a sequentially ordered set of things or events or ideas in which each successive member is related to the preceding",
+          "example": "a string of islands",
+          "members": [
+            "string",
+            "train"
+          ],
+          "pos": "noun",
+          "synset_id": "08476659-n"
+        },
+        {
+          "definition": "a procession (of wagons or mules or camels) traveling together in single file",
+          "example": "we were part of a caravan of almost a thousand camels",
+          "members": [
+            "caravan",
+            "train",
+            "wagon train"
+          ],
+          "pos": "noun",
+          "synset_id": "08444586-n"
+        },
+        {
+          "definition": "a series of consequences wrought by an event",
+          "example": "it led to a train of disasters",
+          "members": [
+            "train"
+          ],
+          "pos": "noun",
+          "synset_id": "07309535-n"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 17,
+      "source_definition_count": 17,
+      "source_example_count": 33,
+      "source_member_count": 46,
+      "trigger": "train"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:land",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "noun": 10,
+        "verb": 7
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "the land on which real estate is located",
+          "example": "he built the house on land leased from the city",
+          "members": [
+            "land"
+          ],
+          "pos": "noun",
+          "synset_id": "13270947-n"
+        },
+        {
+          "definition": "material in the top layer of the surface of the earth in which plants can grow (especially with reference to its quality or use)",
+          "example": "the land had never been plowed",
+          "members": [
+            "land",
+            "ground",
+            "soil"
+          ],
+          "pos": "noun",
+          "synset_id": "09358146-n"
+        },
+        {
+          "definition": "territory over which rule or control is exercised",
+          "example": "his domain extended into Europe",
+          "members": [
+            "domain",
+            "demesne",
+            "land"
+          ],
+          "pos": "noun",
+          "synset_id": "08574028-n"
+        },
+        {
+          "definition": "the solid part of the earth's surface",
+          "example": "the plane turned away from the sea and moved back over land",
+          "members": [
+            "land",
+            "dry land",
+            "earth",
+            "ground",
+            "solid ground"
+          ],
+          "pos": "noun",
+          "synset_id": "09357302-n"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 17,
+      "source_definition_count": 17,
+      "source_example_count": 33,
+      "source_member_count": 51,
+      "trigger": "land"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:mean",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "adjective": 8,
+        "noun": 1,
+        "verb": 7
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "approximating the statistical norm or average or expected value",
+          "example": "the average income in New England is below that of the nation",
+          "members": [
+            "average",
+            "mean"
+          ],
+          "pos": "adjective",
+          "synset_id": "01598728-s"
+        },
+        {
+          "definition": "characterized by malice",
+          "example": "a hateful thing to do",
+          "members": [
+            "hateful",
+            "mean"
+          ],
+          "pos": "adjective",
+          "synset_id": "01592194-s"
+        },
+        {
+          "definition": "having or showing an ignoble lack of honor or morality",
+          "example": "{'source': 'Edmund Burke', 'text': 'that liberal obedience without which your army would be a base rabble'}",
+          "members": [
+            "base",
+            "mean",
+            "meanspirited"
+          ],
+          "pos": "adjective",
+          "synset_id": "01594057-s"
+        },
+        {
+          "definition": "marked by poverty befitting a beggar",
+          "example": "a beggarly existence in the slums",
+          "members": [
+            "beggarly",
+            "mean"
+          ],
+          "pos": "adjective",
+          "synset_id": "02033096-s"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 16,
+      "source_definition_count": 16,
+      "source_example_count": 33,
+      "source_member_count": 42,
+      "trigger": "mean"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:think",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "noun": 1,
+        "verb": 13
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "an instance of deliberate thinking",
+          "example": "I need to give it a good think",
+          "members": [
+            "think"
+          ],
+          "pos": "noun",
+          "synset_id": "05794377-n"
+        },
+        {
+          "definition": "judge or regard; look upon; judge",
+          "example": "I think he is very smart",
+          "members": [
+            "think",
+            "believe",
+            "consider",
+            "conceive"
+          ],
+          "pos": "verb",
+          "synset_id": "00691086-v"
+        },
+        {
+          "definition": "expect, believe, or suppose",
+          "example": "I imagine she earned a lot of money with her new novel",
+          "members": [
+            "think",
+            "opine",
+            "suppose",
+            "imagine",
+            "reckon"
+          ],
+          "pos": "verb",
+          "synset_id": "00633399-v"
+        },
+        {
+          "definition": "use or exercise the mind or one's power of reason in order to make inferences, decisions, or arrive at a solution or judgments",
+          "example": "I've been thinking all day and getting nowhere",
+          "members": [
+            "think",
+            "cogitate",
+            "cerebrate"
+          ],
+          "pos": "verb",
+          "synset_id": "00630153-v"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 14,
+      "source_definition_count": 14,
+      "source_example_count": 33,
+      "source_member_count": 32,
+      "trigger": "think"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:cool",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "adjective": 7,
+        "noun": 2,
+        "verb": 3
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "neither warm nor very cold; giving relief from heat",
+          "example": "a cool autumn day",
+          "members": [
+            "cool"
+          ],
+          "pos": "adjective",
+          "synset_id": "02540350-a"
+        },
+        {
+          "definition": "marked by calm self-control (especially in trying circumstances); unemotional",
+          "example": "play it cool",
+          "members": [
+            "cool",
+            "coolheaded",
+            "nerveless"
+          ],
+          "pos": "adjective",
+          "synset_id": "00532977-s"
+        },
+        {
+          "definition": "inducing the impression of coolness; used especially of greens and blues and violets when referring to color",
+          "example": "cool greens and blues and violets",
+          "members": [
+            "cool"
+          ],
+          "pos": "adjective",
+          "synset_id": "02542621-a"
+        },
+        {
+          "definition": "psychologically cool and unenthusiastic; unfriendly or unresponsive or showing dislike",
+          "example": "relations were cool and polite",
+          "members": [
+            "cool"
+          ],
+          "pos": "adjective",
+          "synset_id": "02541827-a"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 12,
+      "source_definition_count": 12,
+      "source_example_count": 33,
+      "source_member_count": 30,
+      "trigger": "cool"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:fair",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "adjective": 10,
+        "adverb": 2,
+        "noun": 4,
+        "verb": 1
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "free from favoritism or self-interest or bias or deception; conforming with established standards or rules",
+          "example": "a fair referee",
+          "members": [
+            "fair",
+            "just"
+          ],
+          "pos": "adjective",
+          "synset_id": "00959321-a"
+        },
+        {
+          "definition": "not excessive or extreme",
+          "example": "a fairish income",
+          "members": [
+            "fair",
+            "fairish",
+            "reasonable"
+          ],
+          "pos": "adjective",
+          "synset_id": "01536380-s"
+        },
+        {
+          "definition": "very pleasing to the eye",
+          "example": "my bonny lass",
+          "members": [
+            "bonny",
+            "bonnie",
+            "comely",
+            "fair",
+            "sightly"
+          ],
+          "pos": "adjective",
+          "synset_id": "00220032-s"
+        },
+        {
+          "definition": "(of a baseball) hit between the foul lines",
+          "example": "he hit a fair ball over the third base bag",
+          "members": [
+            "fair"
+          ],
+          "pos": "adjective",
+          "synset_id": "00958816-a"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 17,
+      "source_definition_count": 17,
+      "source_example_count": 31,
+      "source_member_count": 37,
+      "trigger": "fair"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:show",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "noun": 3,
+        "verb": 12
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "an act or social event involving a public performance or entertainment",
+          "example": "a remarkable show of skill",
+          "members": [
+            "show"
+          ],
+          "pos": "noun",
+          "synset_id": "00521313-n"
+        },
+        {
+          "definition": "something intended to communicate a particular impression",
+          "example": "made a display of strength",
+          "members": [
+            "display",
+            "show"
+          ],
+          "pos": "noun",
+          "synset_id": "06892571-n"
+        },
+        {
+          "definition": "pretending that something is the case in order to make a good impression",
+          "example": "they try to keep up appearances",
+          "members": [
+            "appearance",
+            "show"
+          ],
+          "pos": "noun",
+          "synset_id": "00756620-n"
+        },
+        {
+          "definition": "give an exhibition of to an interested audience",
+          "example": "She shows her dogs frequently",
+          "members": [
+            "show",
+            "demo",
+            "exhibit",
+            "present",
+            "demonstrate"
+          ],
+          "pos": "verb",
+          "synset_id": "02153218-v"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 15,
+      "source_definition_count": 15,
+      "source_example_count": 31,
+      "source_member_count": 42,
+      "trigger": "show"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:advance",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "adjective": 2,
+        "noun": 6,
+        "verb": 12
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "being ahead of time or need",
+          "example": "gave advance warning",
+          "members": [
+            "advance",
+            "beforehand"
+          ],
+          "pos": "adjective",
+          "synset_id": "00817484-s"
+        },
+        {
+          "definition": "situated ahead or going before",
+          "example": "an advance party",
+          "members": [
+            "advance",
+            "advanced",
+            "in advance"
+          ],
+          "pos": "adjective",
+          "synset_id": "00199975-s"
+        },
+        {
+          "definition": "a movement forward",
+          "example": "he listened for the progress of the troops",
+          "members": [
+            "progress",
+            "progression",
+            "advance"
+          ],
+          "pos": "noun",
+          "synset_id": "07459865-n"
+        },
+        {
+          "definition": "a change for the better; progress in development",
+          "example": "",
+          "members": [
+            "improvement",
+            "betterment",
+            "advance"
+          ],
+          "pos": "noun",
+          "synset_id": "07371988-n"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 20,
+      "source_definition_count": 20,
+      "source_example_count": 30,
+      "source_member_count": 71,
+      "trigger": "advance"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:hang",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "noun": 3,
+        "verb": 15
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "a special way of doing something",
+          "example": "he had a bent for it",
+          "members": [
+            "bent",
+            "knack",
+            "hang"
+          ],
+          "pos": "noun",
+          "synset_id": "05632037-n"
+        },
+        {
+          "definition": "the way a garment hangs",
+          "example": "he adjusted the hang of his coat",
+          "members": [
+            "hang"
+          ],
+          "pos": "noun",
+          "synset_id": "04939014-n"
+        },
+        {
+          "definition": "a gymnastic exercise performed on the rings or horizontal bar or parallel bars when the gymnast's weight is supported by the arms",
+          "example": "",
+          "members": [
+            "hang"
+          ],
+          "pos": "noun",
+          "synset_id": "00437279-n"
+        },
+        {
+          "definition": "be suspended or hanging",
+          "example": "The flag hung on the wall",
+          "members": [
+            "hang"
+          ],
+          "pos": "verb",
+          "synset_id": "01484705-v"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 18,
+      "source_definition_count": 18,
+      "source_example_count": 30,
+      "source_member_count": 29,
+      "trigger": "hang"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:end",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "noun": 14,
+        "verb": 4
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "either extremity of something that has length",
+          "example": "the end of the pier",
+          "members": [
+            "end",
+            "terminal"
+          ],
+          "pos": "noun",
+          "synset_id": "08583557-n"
+        },
+        {
+          "definition": "the point in time at which something ends",
+          "example": "the end of the year",
+          "members": [
+            "end",
+            "ending"
+          ],
+          "pos": "noun",
+          "synset_id": "15291722-n"
+        },
+        {
+          "definition": "the final stage or concluding parts of an event or occurrence",
+          "example": "the end was exciting",
+          "members": [
+            "end",
+            "last"
+          ],
+          "pos": "noun",
+          "synset_id": "07306517-n"
+        },
+        {
+          "definition": "the state of affairs that a plan is intended to achieve and that (when achieved) terminates behavior intended to achieve it",
+          "example": "the ends justify the means",
+          "members": [
+            "goal",
+            "end"
+          ],
+          "pos": "noun",
+          "synset_id": "05989760-n"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 18,
+      "source_definition_count": 18,
+      "source_example_count": 30,
+      "source_member_count": 37,
+      "trigger": "end"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:true",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "adjective": 12,
+        "adverb": 1,
+        "noun": 1,
+        "verb": 1
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "consistent with fact or reality; not false",
+          "example": "the story is true",
+          "members": [
+            "true"
+          ],
+          "pos": "adjective",
+          "synset_id": "02469730-a"
+        },
+        {
+          "definition": "accurately placed or thrown",
+          "example": "his aim was true",
+          "members": [
+            "true",
+            "dead on target"
+          ],
+          "pos": "adjective",
+          "synset_id": "00023157-s"
+        },
+        {
+          "definition": "devoted (sometimes fanatically) to a cause or concept or truth",
+          "example": "true believers bonded together against all who disagreed with them",
+          "members": [
+            "true"
+          ],
+          "pos": "adjective",
+          "synset_id": "00962719-s"
+        },
+        {
+          "definition": "expressing or given to expressing the truth",
+          "example": "a true statement",
+          "members": [
+            "truthful",
+            "true"
+          ],
+          "pos": "adjective",
+          "synset_id": "01228271-a"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 15,
+      "source_definition_count": 15,
+      "source_example_count": 30,
+      "source_member_count": 30,
+      "trigger": "true"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:render",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "noun": 1,
+        "verb": 13
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "a substance similar to stucco but exclusively applied to masonry walls",
+          "example": "",
+          "members": [
+            "render"
+          ],
+          "pos": "noun",
+          "synset_id": "15084893-n"
+        },
+        {
+          "definition": "cause to become",
+          "example": "The shot rendered her immobile",
+          "members": [
+            "render"
+          ],
+          "pos": "verb",
+          "synset_id": "00120483-v"
+        },
+        {
+          "definition": "give something useful or necessary to",
+          "example": "We provided the room with an electrical heater",
+          "members": [
+            "supply",
+            "provide",
+            "render",
+            "furnish",
+            "offer"
+          ],
+          "pos": "verb",
+          "synset_id": "02332196-v"
+        },
+        {
+          "definition": "give an interpretation or rendition of",
+          "example": "The pianist rendered the Beethoven sonata beautifully",
+          "members": [
+            "interpret",
+            "render"
+          ],
+          "pos": "verb",
+          "synset_id": "01736053-v"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 14,
+      "source_definition_count": 14,
+      "source_example_count": 30,
+      "source_member_count": 40,
+      "trigger": "render"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:reach",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "noun": 4,
+        "verb": 9
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "the limits within which something can be effective",
+          "example": "range of motion",
+          "members": [
+            "range",
+            "reach"
+          ],
+          "pos": "noun",
+          "synset_id": "08646496-n"
+        },
+        {
+          "definition": "an area in which something acts or operates or has power or control:",
+          "example": "a piano has a greater range than the human voice",
+          "members": [
+            "scope",
+            "range",
+            "reach",
+            "orbit",
+            "compass"
+          ],
+          "pos": "noun",
+          "synset_id": "05132642-n"
+        },
+        {
+          "definition": "the act of physically reaching or thrusting out",
+          "example": "",
+          "members": [
+            "reach",
+            "reaching",
+            "stretch"
+          ],
+          "pos": "noun",
+          "synset_id": "00342069-n"
+        },
+        {
+          "definition": "the limit of capability",
+          "example": "within the compass of education",
+          "members": [
+            "compass",
+            "range",
+            "reach",
+            "grasp"
+          ],
+          "pos": "noun",
+          "synset_id": "05631411-n"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 13,
+      "source_definition_count": 13,
+      "source_example_count": 30,
+      "source_member_count": 50,
+      "trigger": "reach"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:rank",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "adjective": 5,
+        "noun": 5,
+        "verb": 3
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "very fertile; producing profuse growth",
+          "example": "rank earth",
+          "members": [
+            "rank"
+          ],
+          "pos": "adjective",
+          "synset_id": "01005657-s"
+        },
+        {
+          "definition": "very offensive in smell or taste",
+          "example": "a rank cigar",
+          "members": [
+            "rank"
+          ],
+          "pos": "adjective",
+          "synset_id": "01631230-s"
+        },
+        {
+          "definition": "conspicuously and outrageously bad or reprehensible",
+          "example": "a crying shame",
+          "members": [
+            "crying",
+            "egregious",
+            "flagrant",
+            "glaring",
+            "gross"
+          ],
+          "pos": "adjective",
+          "synset_id": "00582390-s"
+        },
+        {
+          "definition": "complete and without restriction or qualification; sometimes used informally as intensifiers",
+          "example": "absolute freedom",
+          "members": [
+            "absolute",
+            "downright",
+            "out-and-out",
+            "rank",
+            "right-down"
+          ],
+          "pos": "adjective",
+          "synset_id": "00522835-s"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 13,
+      "source_definition_count": 13,
+      "source_example_count": 30,
+      "source_member_count": 34,
+      "trigger": "rank"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:like",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "adjective": 4,
+        "noun": 2,
+        "verb": 5
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "resembling or similar; having the same or some of the same characteristics; often used in combination",
+          "example": "suits of like design",
+          "members": [
+            "like",
+            "similar"
+          ],
+          "pos": "adjective",
+          "synset_id": "01412553-a"
+        },
+        {
+          "definition": "equal in amount or value",
+          "example": "like amounts",
+          "members": [
+            "like",
+            "same"
+          ],
+          "pos": "adjective",
+          "synset_id": "01413922-a"
+        },
+        {
+          "definition": "having the same or similar characteristics",
+          "example": "all politicians are alike",
+          "members": [
+            "alike",
+            "similar",
+            "like"
+          ],
+          "pos": "adjective",
+          "synset_id": "01413463-a"
+        },
+        {
+          "definition": "conforming in every respect",
+          "example": "boxes with corresponding dimensions",
+          "members": [
+            "comparable",
+            "corresponding",
+            "like"
+          ],
+          "pos": "adjective",
+          "synset_id": "02070958-s"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 11,
+      "source_definition_count": 11,
+      "source_example_count": 30,
+      "source_member_count": 22,
+      "trigger": "like"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:gross",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "adjective": 7,
+        "noun": 2,
+        "verb": 1
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "before any deductions",
+          "example": "gross income",
+          "members": [
+            "gross"
+          ],
+          "pos": "adjective",
+          "synset_id": "01587229-a"
+        },
+        {
+          "definition": "lacking fine distinctions or detail",
+          "example": "the gross details of the structure appear reasonable",
+          "members": [
+            "gross"
+          ],
+          "pos": "adjective",
+          "synset_id": "01106001-s"
+        },
+        {
+          "definition": "repellently fat",
+          "example": "a bald porcine old man",
+          "members": [
+            "gross",
+            "porcine"
+          ],
+          "pos": "adjective",
+          "synset_id": "00991162-s"
+        },
+        {
+          "definition": "visible to the naked eye (especially of rocks and anatomical features)",
+          "example": "",
+          "members": [
+            "megascopic",
+            "gross"
+          ],
+          "pos": "adjective",
+          "synset_id": "02526492-s"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 10,
+      "source_definition_count": 10,
+      "source_example_count": 30,
+      "source_member_count": 37,
+      "trigger": "gross"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:cast",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "noun": 9,
+        "verb": 11
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "the actors in a play",
+          "example": "",
+          "members": [
+            "cast",
+            "cast of characters",
+            "dramatis personae"
+          ],
+          "pos": "noun",
+          "synset_id": "08254784-n"
+        },
+        {
+          "definition": "container into which liquid is poured to create a given shape when it hardens",
+          "example": "",
+          "members": [
+            "mold",
+            "mould",
+            "cast"
+          ],
+          "pos": "noun",
+          "synset_id": "03784903-n"
+        },
+        {
+          "definition": "the distinctive form in which a thing is made",
+          "example": "pottery of this cast was found throughout the region",
+          "members": [
+            "cast",
+            "mold",
+            "mould",
+            "stamp"
+          ],
+          "pos": "noun",
+          "synset_id": "13936581-n"
+        },
+        {
+          "definition": "the visual appearance of something or someone",
+          "example": "the delicate cast of his features",
+          "members": [
+            "form",
+            "shape",
+            "cast"
+          ],
+          "pos": "noun",
+          "synset_id": "04684871-n"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 20,
+      "source_definition_count": 20,
+      "source_example_count": 29,
+      "source_member_count": 83,
+      "trigger": "cast"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:level",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "adjective": 5,
+        "noun": 8,
+        "verb": 6
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "having a surface without slope, tilt in which no part is higher or lower than another",
+          "example": "a flat desk",
+          "members": [
+            "flat",
+            "level",
+            "plane"
+          ],
+          "pos": "adjective",
+          "synset_id": "00913184-s"
+        },
+        {
+          "definition": "not showing abrupt variations",
+          "example": "spoke in a level voice",
+          "members": [
+            "level",
+            "unwavering"
+          ],
+          "pos": "adjective",
+          "synset_id": "02310218-s"
+        },
+        {
+          "definition": "being on a precise horizontal plane",
+          "example": "a billiard table must be level",
+          "members": [
+            "level"
+          ],
+          "pos": "adjective",
+          "synset_id": "01235977-s"
+        },
+        {
+          "definition": "oriented at right angles to the plumb",
+          "example": "the picture is level",
+          "members": [
+            "level"
+          ],
+          "pos": "adjective",
+          "synset_id": "00914205-s"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 19,
+      "source_definition_count": 19,
+      "source_example_count": 29,
+      "source_member_count": 50,
+      "trigger": "level"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:fix",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "noun": 5,
+        "verb": 13
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "informal terms for a difficult situation",
+          "example": "he got into a terrible fix",
+          "members": [
+            "fix",
+            "hole",
+            "jam",
+            "mess",
+            "muddle"
+          ],
+          "pos": "noun",
+          "synset_id": "14432893-n"
+        },
+        {
+          "definition": "something craved, especially an intravenous injection of a narcotic drug",
+          "example": "she needed a fix of chocolate",
+          "members": [
+            "fix"
+          ],
+          "pos": "noun",
+          "synset_id": "00324088-n"
+        },
+        {
+          "definition": "the act of putting something in working order again",
+          "example": "",
+          "members": [
+            "repair",
+            "fix",
+            "fixing",
+            "fixture",
+            "mend"
+          ],
+          "pos": "noun",
+          "synset_id": "00267650-n"
+        },
+        {
+          "definition": "an exemption granted after influence (e.g., money) is brought to bear",
+          "example": "collusion resulted in tax fixes for gamblers",
+          "members": [
+            "fix"
+          ],
+          "pos": "noun",
+          "synset_id": "00215015-n"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 18,
+      "source_definition_count": 18,
+      "source_example_count": 29,
+      "source_member_count": 70,
+      "trigger": "fix"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:offer",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "noun": 3,
+        "verb": 13
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "the verbal act of offering",
+          "example": "a generous offer of assistance",
+          "members": [
+            "offer",
+            "offering"
+          ],
+          "pos": "noun",
+          "synset_id": "07199736-n"
+        },
+        {
+          "definition": "something offered (as a proposal or bid)",
+          "example": "noteworthy new offerings for investors included several index funds",
+          "members": [
+            "offer",
+            "offering"
+          ],
+          "pos": "noun",
+          "synset_id": "07179197-n"
+        },
+        {
+          "definition": "a usually brief attempt",
+          "example": "he took a crack at it",
+          "members": [
+            "crack",
+            "fling",
+            "go",
+            "pass",
+            "whirl"
+          ],
+          "pos": "noun",
+          "synset_id": "00788715-n"
+        },
+        {
+          "definition": "give something useful or necessary to",
+          "example": "We provided the room with an electrical heater",
+          "members": [
+            "supply",
+            "provide",
+            "render",
+            "furnish",
+            "offer"
+          ],
+          "pos": "verb",
+          "synset_id": "02332196-v"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 16,
+      "source_definition_count": 16,
+      "source_example_count": 29,
+      "source_member_count": 39,
+      "trigger": "offer"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:act",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "noun": 5,
+        "verb": 9
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "a legal document codifying the result of deliberations of a committee or society or legislative body",
+          "example": "",
+          "members": [
+            "act",
+            "enactment"
+          ],
+          "pos": "noun",
+          "synset_id": "06544086-n"
+        },
+        {
+          "definition": "something that people do or cause to happen",
+          "example": "",
+          "members": [
+            "act",
+            "deed",
+            "human action",
+            "human activity"
+          ],
+          "pos": "noun",
+          "synset_id": "00030657-n"
+        },
+        {
+          "definition": "a subdivision of a play or opera or ballet",
+          "example": "",
+          "members": [
+            "act"
+          ],
+          "pos": "noun",
+          "synset_id": "07022756-n"
+        },
+        {
+          "definition": "a short performance that is part of a longer program",
+          "example": "he did his act three times every evening",
+          "members": [
+            "act",
+            "routine",
+            "number",
+            "turn",
+            "bit"
+          ],
+          "pos": "noun",
+          "synset_id": "06905066-n"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 14,
+      "source_definition_count": 14,
+      "source_example_count": 29,
+      "source_member_count": 41,
+      "trigger": "act"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:full",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "adjective": 8,
+        "adverb": 1,
+        "noun": 1,
+        "verb": 3
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "containing as much or as many as is possible or normal",
+          "example": "a full glass",
+          "members": [
+            "full"
+          ],
+          "pos": "adjective",
+          "synset_id": "01086845-a"
+        },
+        {
+          "definition": "constituting the full quantity or extent; complete",
+          "example": "an entire town devastated by an earthquake",
+          "members": [
+            "entire",
+            "full",
+            "total"
+          ],
+          "pos": "adjective",
+          "synset_id": "00517305-s"
+        },
+        {
+          "definition": "complete in extent or degree and in every particular",
+          "example": "a full game",
+          "members": [
+            "full",
+            "total"
+          ],
+          "pos": "adjective",
+          "synset_id": "00524974-s"
+        },
+        {
+          "definition": "filled to satisfaction with food or drink",
+          "example": "a full stomach",
+          "members": [
+            "full",
+            "replete"
+          ],
+          "pos": "adjective",
+          "synset_id": "02308182-s"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 13,
+      "source_definition_count": 13,
+      "source_example_count": 29,
+      "source_member_count": 27,
+      "trigger": "full"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:pay",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "noun": 1,
+        "verb": 11
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "something that remunerates",
+          "example": "wages were paid by cash",
+          "members": [
+            "wage",
+            "pay",
+            "earnings",
+            "remuneration",
+            "salary"
+          ],
+          "pos": "noun",
+          "synset_id": "13300285-n"
+        },
+        {
+          "definition": "give money, usually in exchange for goods or services",
+          "example": "I paid four dollars for this sandwich",
+          "members": [
+            "pay"
+          ],
+          "pos": "verb",
+          "synset_id": "02256551-v"
+        },
+        {
+          "definition": "convey, as of a compliment, regards, attention, etc.; bestow",
+          "example": "Don't pay him any mind",
+          "members": [
+            "give",
+            "pay"
+          ],
+          "pos": "verb",
+          "synset_id": "01062366-v"
+        },
+        {
+          "definition": "cancel or discharge a debt",
+          "example": "pay up, please!",
+          "members": [
+            "pay up",
+            "ante up",
+            "pay"
+          ],
+          "pos": "verb",
+          "synset_id": "02257739-v"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 12,
+      "source_definition_count": 12,
+      "source_example_count": 29,
+      "source_member_count": 26,
+      "trigger": "pay"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:know",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "noun": 1,
+        "verb": 10
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "the fact of being aware of information that is known to few people",
+          "example": "he is always in the know",
+          "members": [
+            "know"
+          ],
+          "pos": "noun",
+          "synset_id": "05813020-n"
+        },
+        {
+          "definition": "be cognizant or aware of a fact or a specific piece of information; possess knowledge or information about",
+          "example": "I know that the President lied to the people",
+          "members": [
+            "know",
+            "cognize",
+            "cognise"
+          ],
+          "pos": "verb",
+          "synset_id": "00596016-v"
+        },
+        {
+          "definition": "know how to do or perform something",
+          "example": "She knows how to knit",
+          "members": [
+            "know"
+          ],
+          "pos": "verb",
+          "synset_id": "00597330-v"
+        },
+        {
+          "definition": "be familiar or acquainted with a person or an object",
+          "example": "She doesn't know this composer",
+          "members": [
+            "know"
+          ],
+          "pos": "verb",
+          "synset_id": "00595732-v"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 11,
+      "source_definition_count": 11,
+      "source_example_count": 29,
+      "source_member_count": 42,
+      "trigger": "know"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:rest",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "noun": 7,
+        "verb": 11
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "something left after other parts have been taken away",
+          "example": "there was no remainder",
+          "members": [
+            "remainder",
+            "balance",
+            "residual",
+            "residue",
+            "residuum"
+          ],
+          "pos": "noun",
+          "synset_id": "13833030-n"
+        },
+        {
+          "definition": "freedom from activity (work or strain or responsibility)",
+          "example": "took his repose by the swimming pool",
+          "members": [
+            "rest",
+            "ease",
+            "repose",
+            "relaxation"
+          ],
+          "pos": "noun",
+          "synset_id": "01066072-n"
+        },
+        {
+          "definition": "a pause for relaxation",
+          "example": "people actually accomplish more when they take time for short rests",
+          "members": [
+            "respite",
+            "rest",
+            "relief",
+            "rest period"
+          ],
+          "pos": "noun",
+          "synset_id": "15299060-n"
+        },
+        {
+          "definition": "a state of inaction",
+          "example": "a body will continue in a state of rest until acted upon",
+          "members": [
+            "rest"
+          ],
+          "pos": "noun",
+          "synset_id": "14035972-n"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 18,
+      "source_definition_count": 18,
+      "source_example_count": 28,
+      "source_member_count": 44,
+      "trigger": "rest"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:present",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "adjective": 2,
+        "noun": 3,
+        "verb": 13
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "temporal sense; intermediate between past and future; now existing or happening or in consideration",
+          "example": "the present leader",
+          "members": [
+            "present"
+          ],
+          "pos": "adjective",
+          "synset_id": "01735600-a"
+        },
+        {
+          "definition": "being or existing in a specified place",
+          "example": "the murderer is present in this room",
+          "members": [
+            "present"
+          ],
+          "pos": "adjective",
+          "synset_id": "01852337-a"
+        },
+        {
+          "definition": "the period of time that is happening now; any continuous stretch of time including the moment of speech",
+          "example": "that is enough for the present",
+          "members": [
+            "present",
+            "nowadays"
+          ],
+          "pos": "noun",
+          "synset_id": "15144478-n"
+        },
+        {
+          "definition": "something presented as a gift",
+          "example": "his tie was a present from his wife",
+          "members": [
+            "present"
+          ],
+          "pos": "noun",
+          "synset_id": "13289865-n"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 18,
+      "source_definition_count": 18,
+      "source_example_count": 28,
+      "source_member_count": 40,
+      "trigger": "present"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:walk",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "noun": 7,
+        "verb": 10
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "the act of traveling by foot",
+          "example": "walking is a healthy form of exercise",
+          "members": [
+            "walk",
+            "walking"
+          ],
+          "pos": "noun",
+          "synset_id": "00284412-n"
+        },
+        {
+          "definition": "(baseball) an advance to first base by a batter who receives four balls",
+          "example": "he worked the pitcher for a base on balls",
+          "members": [
+            "base on balls",
+            "walk",
+            "pass"
+          ],
+          "pos": "noun",
+          "synset_id": "00128106-n"
+        },
+        {
+          "definition": "manner of walking",
+          "example": "he had a funny walk",
+          "members": [
+            "walk",
+            "manner of walking"
+          ],
+          "pos": "noun",
+          "synset_id": "05010255-n"
+        },
+        {
+          "definition": "the act of walking somewhere",
+          "example": "he took a walk after lunch",
+          "members": [
+            "walk"
+          ],
+          "pos": "noun",
+          "synset_id": "00285642-n"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 17,
+      "source_definition_count": 17,
+      "source_example_count": 28,
+      "source_member_count": 25,
+      "trigger": "walk"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:waste",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "adjective": 1,
+        "noun": 5,
+        "verb": 10
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "located in a dismal or remote area; desolate",
+          "example": "a desert island",
+          "members": [
+            "godforsaken",
+            "waste",
+            "wild"
+          ],
+          "pos": "adjective",
+          "synset_id": "01245976-s"
+        },
+        {
+          "definition": "any materials unused and rejected as worthless or unwanted",
+          "example": "they collect the waste once a week",
+          "members": [
+            "waste",
+            "waste material",
+            "waste matter",
+            "waste product"
+          ],
+          "pos": "noun",
+          "synset_id": "14880414-n"
+        },
+        {
+          "definition": "useless or profitless activity; using or expending or consuming thoughtlessly or carelessly",
+          "example": "if the effort brings no compensating gain, it is a waste",
+          "members": [
+            "waste",
+            "wastefulness",
+            "dissipation"
+          ],
+          "pos": "noun",
+          "synset_id": "00743943-n"
+        },
+        {
+          "definition": "the trait of wasting resources",
+          "example": "a life characterized by thriftlessness and waste",
+          "members": [
+            "thriftlessness",
+            "waste",
+            "wastefulness"
+          ],
+          "pos": "noun",
+          "synset_id": "04902159-n"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 16,
+      "source_definition_count": 16,
+      "source_example_count": 28,
+      "source_member_count": 51,
+      "trigger": "waste"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:issue",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "noun": 11,
+        "verb": 5
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "an important question that is in dispute and must be settled",
+          "example": "the issue could be settled by requiring public education for everyone",
+          "members": [
+            "issue"
+          ],
+          "pos": "noun",
+          "synset_id": "05822776-n"
+        },
+        {
+          "definition": "one of a series published periodically",
+          "example": "she found an old issue of the magazine in her dentist's waiting room",
+          "members": [
+            "issue",
+            "number"
+          ],
+          "pos": "noun",
+          "synset_id": "06609182-n"
+        },
+        {
+          "definition": "some situation or event that is thought about",
+          "example": "he kept drifting off the topic",
+          "members": [
+            "topic",
+            "subject",
+            "issue",
+            "matter"
+          ],
+          "pos": "noun",
+          "synset_id": "05822417-n"
+        },
+        {
+          "definition": "the act of providing an item for general use or for official purposes (usually in quantity)",
+          "example": "a new issue of stamps",
+          "members": [
+            "issue",
+            "issuing",
+            "issuance"
+          ],
+          "pos": "noun",
+          "synset_id": "01062158-n"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 16,
+      "source_definition_count": 16,
+      "source_example_count": 28,
+      "source_member_count": 57,
+      "trigger": "issue"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:stay",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "noun": 5,
+        "verb": 9
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "continuing or remaining in a place or state",
+          "example": "they had a nice stay in Paris",
+          "members": [
+            "stay"
+          ],
+          "pos": "noun",
+          "synset_id": "01055541-n"
+        },
+        {
+          "definition": "the state of inactivity following an interruption",
+          "example": "the negotiations were in arrest",
+          "members": [
+            "arrest",
+            "check",
+            "halt",
+            "hitch",
+            "stay"
+          ],
+          "pos": "noun",
+          "synset_id": "14034398-n"
+        },
+        {
+          "definition": "a judicial order forbidding some action until an event occurs or the order is lifted",
+          "example": "the Supreme Court has the power to stay an injunction pending an appeal to the whole Court",
+          "members": [
+            "stay"
+          ],
+          "pos": "noun",
+          "synset_id": "06554258-n"
+        },
+        {
+          "definition": "a thin strip of metal or bone that is used to stiffen a garment (e.g. a corset)",
+          "example": "",
+          "members": [
+            "stay"
+          ],
+          "pos": "noun",
+          "synset_id": "04314757-n"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 14,
+      "source_definition_count": 14,
+      "source_example_count": 28,
+      "source_member_count": 39,
+      "trigger": "stay"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:firm",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "adjective": 10,
+        "adverb": 1,
+        "noun": 1,
+        "verb": 2
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "marked by firm determination or resolution; not shakable",
+          "example": "firm convictions",
+          "members": [
+            "firm",
+            "steadfast",
+            "steady",
+            "stiff",
+            "unbendable"
+          ],
+          "pos": "adjective",
+          "synset_id": "01997735-s"
+        },
+        {
+          "definition": "not soft or yielding to pressure",
+          "example": "a firm mattress",
+          "members": [
+            "firm",
+            "solid"
+          ],
+          "pos": "adjective",
+          "synset_id": "01155243-s"
+        },
+        {
+          "definition": "strong and sure",
+          "example": "a firm grasp",
+          "members": [
+            "firm",
+            "strong"
+          ],
+          "pos": "adjective",
+          "synset_id": "00845738-s"
+        },
+        {
+          "definition": "not subject to revision or change",
+          "example": "a firm contract",
+          "members": [
+            "firm"
+          ],
+          "pos": "adjective",
+          "synset_id": "02137652-s"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 14,
+      "source_definition_count": 14,
+      "source_example_count": 28,
+      "source_member_count": 37,
+      "trigger": "firm"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:even",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "adjective": 6,
+        "adverb": 4,
+        "noun": 1,
+        "verb": 3
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "divisible by two",
+          "example": "",
+          "members": [
+            "even"
+          ],
+          "pos": "adjective",
+          "synset_id": "00916501-a"
+        },
+        {
+          "definition": "equal in degree or extent or amount; or equally matched or balanced",
+          "example": "even amounts of butter and sugar",
+          "members": [
+            "even",
+            "fifty-fifty"
+          ],
+          "pos": "adjective",
+          "synset_id": "00894463-s"
+        },
+        {
+          "definition": "being level or straight or regular and without variation as e.g. in shape or texture; or being in the same plane or at the same height as something else (i.e. even with)",
+          "example": "an even application of varnish",
+          "members": [
+            "even"
+          ],
+          "pos": "adjective",
+          "synset_id": "00912628-a"
+        },
+        {
+          "definition": "symmetrically arranged",
+          "example": "even features",
+          "members": [
+            "even",
+            "regular"
+          ],
+          "pos": "adjective",
+          "synset_id": "02381088-s"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 14,
+      "source_definition_count": 14,
+      "source_example_count": 28,
+      "source_member_count": 29,
+      "trigger": "even"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:wrong",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "adjective": 9,
+        "adverb": 1,
+        "noun": 2,
+        "verb": 1
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "not correct; not in conformity with fact or truth",
+          "example": "an incorrect calculation",
+          "members": [
+            "incorrect",
+            "wrong"
+          ],
+          "pos": "adjective",
+          "synset_id": "00635278-a"
+        },
+        {
+          "definition": "contrary to conscience or morality or law",
+          "example": "it is wrong for the rich to take advantage of the poor",
+          "members": [
+            "wrong"
+          ],
+          "pos": "adjective",
+          "synset_id": "02042744-a"
+        },
+        {
+          "definition": "not appropriate for a purpose or occasion",
+          "example": "said all the wrong things",
+          "members": [
+            "improper",
+            "wrong"
+          ],
+          "pos": "adjective",
+          "synset_id": "00137256-s"
+        },
+        {
+          "definition": "not functioning properly",
+          "example": "something is amiss",
+          "members": [
+            "amiss",
+            "awry",
+            "haywire",
+            "wrong"
+          ],
+          "pos": "adjective",
+          "synset_id": "01096064-s"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 13,
+      "source_definition_count": 13,
+      "source_example_count": 28,
+      "source_member_count": 29,
+      "trigger": "wrong"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:meet",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "adjective": 1,
+        "noun": 1,
+        "verb": 11
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "being precisely fitting and right",
+          "example": "it is only meet that she should be seated first",
+          "members": [
+            "fitting",
+            "meet"
+          ],
+          "pos": "adjective",
+          "synset_id": "01373068-s"
+        },
+        {
+          "definition": "a meeting at which a number of athletic contests are held",
+          "example": "",
+          "members": [
+            "meet",
+            "sports meeting"
+          ],
+          "pos": "noun",
+          "synset_id": "07482986-n"
+        },
+        {
+          "definition": "come together",
+          "example": "I'll probably see you at the meeting",
+          "members": [
+            "meet",
+            "run into",
+            "encounter",
+            "run across",
+            "come across"
+          ],
+          "pos": "verb",
+          "synset_id": "02026953-v"
+        },
+        {
+          "definition": "get together socially or for a specific purpose",
+          "example": "",
+          "members": [
+            "meet",
+            "get together"
+          ],
+          "pos": "verb",
+          "synset_id": "02492581-v"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 13,
+      "source_definition_count": 13,
+      "source_example_count": 28,
+      "source_member_count": 41,
+      "trigger": "meet"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:fine",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "adjective": 6,
+        "adverb": 2,
+        "noun": 1,
+        "verb": 2
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "being satisfactory or in satisfactory condition",
+          "example": "an all-right movie",
+          "members": [
+            "all right",
+            "fine",
+            "o.k.",
+            "ok",
+            "okay"
+          ],
+          "pos": "adjective",
+          "synset_id": "02088253-s"
+        },
+        {
+          "definition": "minutely precise especially in differences in meaning",
+          "example": "a fine distinction",
+          "members": [
+            "fine"
+          ],
+          "pos": "adjective",
+          "synset_id": "01843987-s"
+        },
+        {
+          "definition": "thin in thickness or diameter",
+          "example": "a fine film of oil",
+          "members": [
+            "fine"
+          ],
+          "pos": "adjective",
+          "synset_id": "02422827-s"
+        },
+        {
+          "definition": "characterized by elegance or refinement or accomplishment",
+          "example": "fine wine",
+          "members": [
+            "fine"
+          ],
+          "pos": "adjective",
+          "synset_id": "00853589-s"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 11,
+      "source_definition_count": 11,
+      "source_example_count": 28,
+      "source_member_count": 28,
+      "trigger": "fine"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:stretch",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "adjective": 2,
+        "noun": 7,
+        "verb": 11
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "having an elongated seating area",
+          "example": "a stretch limousine",
+          "members": [
+            "stretch"
+          ],
+          "pos": "adjective",
+          "synset_id": "01438766-s"
+        },
+        {
+          "definition": "easily stretched",
+          "example": "stretch hosiery",
+          "members": [
+            "stretch"
+          ],
+          "pos": "adjective",
+          "synset_id": "00848666-s"
+        },
+        {
+          "definition": "a large and unbroken expanse or distance",
+          "example": "a stretch of highway",
+          "members": [
+            "stretch"
+          ],
+          "pos": "noun",
+          "synset_id": "09472094-n"
+        },
+        {
+          "definition": "the act of physically reaching or thrusting out",
+          "example": "",
+          "members": [
+            "reach",
+            "reaching",
+            "stretch"
+          ],
+          "pos": "noun",
+          "synset_id": "00342069-n"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 20,
+      "source_definition_count": 20,
+      "source_example_count": 27,
+      "source_member_count": 39,
+      "trigger": "stretch"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:rule",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "noun": 12,
+        "verb": 8
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "a principle or condition that customarily governs behavior",
+          "example": "it was his rule to take a walk before breakfast",
+          "members": [
+            "rule",
+            "regulation"
+          ],
+          "pos": "noun",
+          "synset_id": "05854581-n"
+        },
+        {
+          "definition": "something regarded as a normative example",
+          "example": "the convention of not naming the main character",
+          "members": [
+            "convention",
+            "normal",
+            "pattern",
+            "rule",
+            "formula"
+          ],
+          "pos": "noun",
+          "synset_id": "05675457-n"
+        },
+        {
+          "definition": "prescribed guide for conduct or action",
+          "example": "",
+          "members": [
+            "rule",
+            "prescript"
+          ],
+          "pos": "noun",
+          "synset_id": "06664987-n"
+        },
+        {
+          "definition": "(linguistics) a rule describing (or prescribing) a linguistic practice",
+          "example": "",
+          "members": [
+            "rule",
+            "linguistic rule"
+          ],
+          "pos": "noun",
+          "synset_id": "07274440-n"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 20,
+      "source_definition_count": 20,
+      "source_example_count": 27,
+      "source_member_count": 44,
+      "trigger": "rule"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:ride",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "noun": 2,
+        "verb": 14
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "a journey in a vehicle (usually an automobile)",
+          "example": "he took the family for a drive in his new car",
+          "members": [
+            "drive",
+            "ride"
+          ],
+          "pos": "noun",
+          "synset_id": "00308457-n"
+        },
+        {
+          "definition": "a mechanical device that you ride for amusement or excitement",
+          "example": "",
+          "members": [
+            "ride"
+          ],
+          "pos": "noun",
+          "synset_id": "04095909-n"
+        },
+        {
+          "definition": "sit and travel on the back of animal, usually while controlling its motions",
+          "example": "She never sat a horse!",
+          "members": [
+            "ride",
+            "sit"
+          ],
+          "pos": "verb",
+          "synset_id": "01961388-v"
+        },
+        {
+          "definition": "be carried or travel on or in a vehicle",
+          "example": "I ride to work in a bus",
+          "members": [
+            "ride"
+          ],
+          "pos": "verb",
+          "synset_id": "01959843-v"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 16,
+      "source_definition_count": 16,
+      "source_example_count": 27,
+      "source_member_count": 36,
+      "trigger": "ride"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:sign",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "adjective": 1,
+        "noun": 11,
+        "verb": 8
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "used of the language of the deaf",
+          "example": "",
+          "members": [
+            "gestural",
+            "sign",
+            "signed",
+            "sign-language"
+          ],
+          "pos": "adjective",
+          "synset_id": "00500206-s"
+        },
+        {
+          "definition": "a perceptible indication of something not immediately apparent (as a visible clue that something has happened)",
+          "example": "he showed signs of strain",
+          "members": [
+            "sign",
+            "mark"
+          ],
+          "pos": "noun",
+          "synset_id": "06659006-n"
+        },
+        {
+          "definition": "a public display of a message",
+          "example": "he posted signs in all the shop windows",
+          "members": [
+            "sign"
+          ],
+          "pos": "noun",
+          "synset_id": "06806088-n"
+        },
+        {
+          "definition": "any nonverbal action or gesture that encodes a message",
+          "example": "signals from the boat suddenly stopped",
+          "members": [
+            "signal",
+            "signaling",
+            "sign",
+            "signalling"
+          ],
+          "pos": "noun",
+          "synset_id": "06804229-n"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 20,
+      "source_definition_count": 20,
+      "source_example_count": 26,
+      "source_member_count": 46,
+      "trigger": "sign"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:score",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "noun": 11,
+        "verb": 7
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "a number or letter indicating quality (especially of a student's performance)",
+          "example": "she made good marks in algebra",
+          "members": [
+            "mark",
+            "grade",
+            "score"
+          ],
+          "pos": "noun",
+          "synset_id": "05745098-n"
+        },
+        {
+          "definition": "a written form of a musical composition; parts for different instruments appear on separate staves on large pages",
+          "example": "he studied the score of the sonata",
+          "members": [
+            "score",
+            "musical score"
+          ],
+          "pos": "noun",
+          "synset_id": "06828572-n"
+        },
+        {
+          "definition": "a number that expresses the accomplishment of a team or an individual in a game or contest",
+          "example": "the score was 7 to 0",
+          "members": [
+            "score"
+          ],
+          "pos": "noun",
+          "synset_id": "13615828-n"
+        },
+        {
+          "definition": "a set of twenty members",
+          "example": "a score were sent out but only one returned",
+          "members": [
+            "score"
+          ],
+          "pos": "noun",
+          "synset_id": "08289573-n"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 18,
+      "source_definition_count": 18,
+      "source_example_count": 26,
+      "source_member_count": 35,
+      "trigger": "score"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:crash",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "noun": 5,
+        "verb": 13
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "a loud resonant repeating noise",
+          "example": "he could hear the clang of distant bells",
+          "members": [
+            "clang",
+            "clangor",
+            "clangour",
+            "clangoring",
+            "clank"
+          ],
+          "pos": "noun",
+          "synset_id": "07394744-n"
+        },
+        {
+          "definition": "a serious accident (usually involving one or more vehicles)",
+          "example": "they are still investigating the crash of the TWA plane",
+          "members": [
+            "crash",
+            "wreck"
+          ],
+          "pos": "noun",
+          "synset_id": "07316568-n"
+        },
+        {
+          "definition": "a sudden large decline of business or the prices of stocks (especially one that causes additional failures)",
+          "example": "",
+          "members": [
+            "crash",
+            "collapse"
+          ],
+          "pos": "noun",
+          "synset_id": "07493085-n"
+        },
+        {
+          "definition": "the act of colliding with something",
+          "example": "his crash through the window",
+          "members": [
+            "crash",
+            "smash"
+          ],
+          "pos": "noun",
+          "synset_id": "00127056-n"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 18,
+      "source_definition_count": 18,
+      "source_example_count": 26,
+      "source_member_count": 36,
+      "trigger": "crash"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:white",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "adjective": 12,
+        "noun": 4,
+        "verb": 1
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "being of the achromatic color of maximum lightness; having little or no hue owing to reflection of almost all incident light",
+          "example": "as white as fresh snow",
+          "members": [
+            "white"
+          ],
+          "pos": "adjective",
+          "synset_id": "00394166-a"
+        },
+        {
+          "definition": "of or belonging to a racial group having light skin coloration",
+          "example": "voting patterns within the white population",
+          "members": [
+            "white"
+          ],
+          "pos": "adjective",
+          "synset_id": "00244146-a"
+        },
+        {
+          "definition": "free from moral blemish or impurity; unsullied",
+          "example": "in shining white armor",
+          "members": [
+            "white"
+          ],
+          "pos": "adjective",
+          "synset_id": "01911414-s"
+        },
+        {
+          "definition": "marked by the presence of snow",
+          "example": "a white Christmas",
+          "members": [
+            "white",
+            "snowy"
+          ],
+          "pos": "adjective",
+          "synset_id": "01702684-s"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 17,
+      "source_definition_count": 17,
+      "source_example_count": 26,
+      "source_member_count": 35,
+      "trigger": "white"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:trim",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "adjective": 4,
+        "noun": 4,
+        "verb": 9
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "thin and fit",
+          "example": "the spare figure of a marathon runner",
+          "members": [
+            "spare",
+            "trim"
+          ],
+          "pos": "adjective",
+          "synset_id": "00994531-s"
+        },
+        {
+          "definition": "characterized by order and neatness; free from disorder",
+          "example": "even the barn was shipshape",
+          "members": [
+            "shipshape",
+            "trim",
+            "well-kept"
+          ],
+          "pos": "adjective",
+          "synset_id": "02432422-s"
+        },
+        {
+          "definition": "neat and smart in appearance",
+          "example": "a clean-cut and well-bred young man",
+          "members": [
+            "clean-cut",
+            "trig",
+            "trim"
+          ],
+          "pos": "adjective",
+          "synset_id": "02431847-s"
+        },
+        {
+          "definition": "severely simple in line or design",
+          "example": "a neat tailored suit",
+          "members": [
+            "tailored",
+            "trim"
+          ],
+          "pos": "adjective",
+          "synset_id": "01798494-s"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 17,
+      "source_definition_count": 17,
+      "source_example_count": 26,
+      "source_member_count": 46,
+      "trigger": "trim"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:squeeze",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "noun": 8,
+        "verb": 9
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "the act of gripping and pressing firmly",
+          "example": "he gave her cheek a playful squeeze",
+          "members": [
+            "squeeze",
+            "squeezing"
+          ],
+          "pos": "noun",
+          "synset_id": "00357849-n"
+        },
+        {
+          "definition": "a state in which there is a short supply of cash to lend to businesses and consumers and interest rates are high",
+          "example": "",
+          "members": [
+            "credit crunch",
+            "liquidity crisis",
+            "squeeze"
+          ],
+          "pos": "noun",
+          "synset_id": "14512496-n"
+        },
+        {
+          "definition": "a situation in which increased costs cannot be passed on to the customer",
+          "example": "increased expenses put a squeeze on profits",
+          "members": [
+            "squeeze"
+          ],
+          "pos": "noun",
+          "synset_id": "13348525-n"
+        },
+        {
+          "definition": "(slang) a person's girlfriend or boyfriend",
+          "example": "she was his main squeeze",
+          "members": [
+            "squeeze"
+          ],
+          "pos": "noun",
+          "synset_id": "10663023-n"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 17,
+      "source_definition_count": 17,
+      "source_example_count": 26,
+      "source_member_count": 55,
+      "trigger": "squeeze"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:foul",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "adjective": 8,
+        "noun": 1,
+        "verb": 7
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "highly offensive; arousing aversion or disgust",
+          "example": "a disgusting smell",
+          "members": [
+            "disgusting",
+            "disgustful",
+            "distasteful",
+            "foul",
+            "loathly"
+          ],
+          "pos": "adjective",
+          "synset_id": "01630074-s"
+        },
+        {
+          "definition": "offensively malodorous",
+          "example": "a foul odor",
+          "members": [
+            "fetid",
+            "foetid",
+            "foul",
+            "foul-smelling",
+            "funky"
+          ],
+          "pos": "adjective",
+          "synset_id": "01057333-s"
+        },
+        {
+          "definition": "violating accepted standards or rules",
+          "example": "a dirty fighter",
+          "members": [
+            "cheating",
+            "dirty",
+            "foul",
+            "unsporting",
+            "unsportsmanlike"
+          ],
+          "pos": "adjective",
+          "synset_id": "00960933-s"
+        },
+        {
+          "definition": "(of a baseball) not hit between the foul lines",
+          "example": "",
+          "members": [
+            "foul"
+          ],
+          "pos": "adjective",
+          "synset_id": "00959105-a"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 16,
+      "source_definition_count": 16,
+      "source_example_count": 26,
+      "source_member_count": 62,
+      "trigger": "foul"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:push",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "noun": 5,
+        "verb": 10
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "the act of applying force in order to move something away",
+          "example": "he gave the door a hard push",
+          "members": [
+            "push",
+            "pushing"
+          ],
+          "pos": "noun",
+          "synset_id": "00113132-n"
+        },
+        {
+          "definition": "the force used in pushing",
+          "example": "the push of the water on the walls of the tank",
+          "members": [
+            "push",
+            "thrust"
+          ],
+          "pos": "noun",
+          "synset_id": "11518603-n"
+        },
+        {
+          "definition": "enterprising or ambitious drive",
+          "example": "Europeans often laugh at American energy",
+          "members": [
+            "energy",
+            "push",
+            "get-up-and-go"
+          ],
+          "pos": "noun",
+          "synset_id": "04843914-n"
+        },
+        {
+          "definition": "an electrical switch operated by pressing",
+          "example": "the elevator was operated by push buttons",
+          "members": [
+            "push button",
+            "push",
+            "button"
+          ],
+          "pos": "noun",
+          "synset_id": "04033499-n"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 15,
+      "source_definition_count": 15,
+      "source_example_count": 26,
+      "source_member_count": 37,
+      "trigger": "push"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:answer",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "noun": 5,
+        "verb": 10
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "a statement (either spoken or written) that is made to reply to a question or request or criticism or accusation",
+          "example": "I waited several days for his answer",
+          "members": [
+            "answer",
+            "reply",
+            "response"
+          ],
+          "pos": "noun",
+          "synset_id": "06758700-n"
+        },
+        {
+          "definition": "a statement that solves a problem or explains how to solve the problem",
+          "example": "they were trying to find a peaceful solution",
+          "members": [
+            "solution",
+            "answer",
+            "result",
+            "resolution",
+            "solvent"
+          ],
+          "pos": "noun",
+          "synset_id": "06756201-n"
+        },
+        {
+          "definition": "the speech act of replying to a question",
+          "example": "",
+          "members": [
+            "answer"
+          ],
+          "pos": "noun",
+          "synset_id": "07215187-n"
+        },
+        {
+          "definition": "the principal pleading by the defendant in response to plaintiff's complaint; in criminal law it consists of the defendant's plea of \u2018guilty\u2019 or \u2018not guilty\u2019 (or nolo contendere); in civil law it must contain denials of all allegations in the plaintiff's complaint that the defendant hopes to controvert and it can contain affirmative defenses or counterclaims",
+          "example": "",
+          "members": [
+            "answer"
+          ],
+          "pos": "noun",
+          "synset_id": "06572245-n"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 15,
+      "source_definition_count": 15,
+      "source_example_count": 26,
+      "source_member_count": 27,
+      "trigger": "answer"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:air",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "noun": 9,
+        "verb": 6
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "a mixture of gases (especially oxygen) required for breathing; the stuff that the wind consists of",
+          "example": "air pollution",
+          "members": [
+            "air"
+          ],
+          "pos": "noun",
+          "synset_id": "14865437-n"
+        },
+        {
+          "definition": "the region above the ground",
+          "example": "her hand stopped in mid air",
+          "members": [
+            "air"
+          ],
+          "pos": "noun",
+          "synset_id": "08670889-n"
+        },
+        {
+          "definition": "a distinctive but intangible quality surrounding a person or thing",
+          "example": "an air of mystery",
+          "members": [
+            "air",
+            "aura",
+            "atmosphere"
+          ],
+          "pos": "noun",
+          "synset_id": "04734472-n"
+        },
+        {
+          "definition": "a slight wind (usually refreshing)",
+          "example": "the breeze was cooled by the lake",
+          "members": [
+            "breeze",
+            "zephyr",
+            "gentle wind",
+            "air"
+          ],
+          "pos": "noun",
+          "synset_id": "11451868-n"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 15,
+      "source_definition_count": 15,
+      "source_example_count": 26,
+      "source_member_count": 42,
+      "trigger": "air"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:quiet",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "adjective": 6,
+        "adverb": 1,
+        "noun": 4,
+        "verb": 2
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "characterized by an absence or near absence of agitation or activity",
+          "example": "a quiet life",
+          "members": [
+            "quiet"
+          ],
+          "pos": "adjective",
+          "synset_id": "01929162-a"
+        },
+        {
+          "definition": "free of noise or uproar; or making little if any sound",
+          "example": "a quiet audience at the concert",
+          "members": [
+            "quiet"
+          ],
+          "pos": "adjective",
+          "synset_id": "01925383-a"
+        },
+        {
+          "definition": "not showy or obtrusive",
+          "example": "clothes in quiet good taste",
+          "members": [
+            "quiet",
+            "restrained"
+          ],
+          "pos": "adjective",
+          "synset_id": "01855098-s"
+        },
+        {
+          "definition": "in a softened tone",
+          "example": "hushed voices",
+          "members": [
+            "hushed",
+            "muted",
+            "subdued",
+            "quiet"
+          ],
+          "pos": "adjective",
+          "synset_id": "01458319-s"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 13,
+      "source_definition_count": 13,
+      "source_example_count": 26,
+      "source_member_count": 45,
+      "trigger": "quiet"
+    },
+    {
+      "archetype": "wordnet_noun_verb_cross_pos",
+      "candidate_id": "en-es:wordnet-non-v10-candidate:say",
+      "complexity_band": "broad",
+      "cross_pos": true,
+      "noun_verb": true,
+      "pos_counts": {
+        "noun": 1,
+        "verb": 11
+      },
+      "recommended_next_action": "construct_translation_family",
+      "recommended_wave_role": "candidate_source_probe",
+      "same_pos_polysemy": true,
+      "sample_synsets": [
+        {
+          "definition": "the chance to speak",
+          "example": "let him have his say",
+          "members": [
+            "say"
+          ],
+          "pos": "noun",
+          "synset_id": "14509110-n"
+        },
+        {
+          "definition": "express in words",
+          "example": "He said that he wanted to marry her",
+          "members": [
+            "state",
+            "say",
+            "tell"
+          ],
+          "pos": "verb",
+          "synset_id": "01011267-v"
+        },
+        {
+          "definition": "report or maintain",
+          "example": "He alleged that he was the victim of a crime",
+          "members": [
+            "allege",
+            "aver",
+            "say"
+          ],
+          "pos": "verb",
+          "synset_id": "01018011-v"
+        },
+        {
+          "definition": "express a supposition",
+          "example": "Let us say that he did not tell the truth",
+          "members": [
+            "suppose",
+            "say"
+          ],
+          "pos": "verb",
+          "synset_id": "00919271-v"
+        }
+      ],
+      "score": 16.1,
+      "sense_count": 12,
+      "source_definition_count": 12,
+      "source_example_count": 26,
+      "source_member_count": 26,
+      "trigger": "say"
+    }
+  ],
+  "decision": "inventory_candidates_found",
+  "generated_at": "2026-04-27T21:58:48Z",
+  "inventory_id": "semantic_non_v10_inventory_candidates_en_es",
+  "limitations": [
+    "english_headword_inventory_only_no_spanish_target_family_yet",
+    "wordnet_polysemy_is_a_source_availability_prior_not_user_frequency",
+    "requires downstream translation_target_shadow_construction_before_admission"
+  ],
+  "next_steps": [
+    "select a bounded wave from the ranked candidates without editing the current seed slice",
+    "construct active/shadow Spanish target families for the selected wave",
+    "run WordNet definition-preferred source extraction and the source-admission cycle",
+    "evaluate new held-out rows and rerun failure-class mining before algorithm changes"
+  ],
+  "pair": "en-es",
+  "schema_version": 1,
+  "source": {
+    "existing_inventory_jsons": [
+      "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing/semantic_family_inventory_en_es_v10.json",
+      "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_routing/semantic_source_non_v10_probe_queue_en_es_v1.json"
+    ],
+    "existing_trigger_count": 27,
+    "limit": 75,
+    "min_score": 5.0,
+    "source_family": "english_wordnet",
+    "source_file_count": 72,
+    "wordnet_dir": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/english-wordnet-2025-json"
+  },
+  "status": "ok",
+  "summary": {
+    "candidate_count": 75,
+    "cross_pos_candidate_count": 75,
+    "noun_verb_candidate_count": 75,
+    "same_pos_polysemy_candidate_count": 75,
+    "top_score": 16.1,
+    "with_definitions_count": 75,
+    "with_examples_count": 75
+  }
+}

@@ -1,0 +1,1203 @@
+{
+  "schema_version": 1,
+  "normalization_version": "semantic_evidence_v1",
+  "batch_id": "en-es:wordnet-example-frames:wordnet-plant-active-related-heldout-v1-20260425a:filtered:filtered:filtered",
+  "pair": "en-es",
+  "source_type": "external",
+  "source_id": "wordnet_example_frames",
+  "source_family": "external_sense_graph",
+  "roles": [
+    "cue_generation",
+    "discrimination"
+  ],
+  "generated_at": "2026-04-25T03:12:44Z",
+  "ingested_at": "2026-04-25T03:12:44Z",
+  "review_state": "review",
+  "model_id": "not_applicable",
+  "prompt_version": "wordnet-example-frames-v1",
+  "row_count": 12,
+  "rows": [
+    {
+      "evidence_id": "evidence:04180b5fe7b492e65ddfeda2ff3c91d5f6ab576b",
+      "dedupe_key": "dedupe:a8761dddb3cfe3fce45df44afc3d1b239e42669b",
+      "batch_id": "en-es:wordnet-example-frames:wordnet-plant-active-related-heldout-v1-20260425a",
+      "row_id": "en-es-sentence-veto-plant-planta:active-wordnet-definition-2",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "wordnet_example_frames",
+      "source_family": "external_sense_graph",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "plant",
+      "normalized_trigger": "plant",
+      "active_target": "planta",
+      "normalized_active_target": "planta",
+      "candidate_target": "planta",
+      "normalized_candidate_target": "planta",
+      "is_multiword": false,
+      "evidence_text": "photosynthetic or plant constituent of plankton; mainly unicellular algae",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "wordnet_example_frames",
+        "source_family": "external_sense_graph",
+        "batch_id": "en-es:wordnet-example-frames:wordnet-plant-active-related-heldout-v1-20260425a",
+        "row_id": "en-es-sentence-veto-plant-planta:active-wordnet-definition-2",
+        "model_id": "not_applicable",
+        "prompt_version": "wordnet-example-frames-v1",
+        "generated_at": "2026-04-25T03:12:44Z",
+        "ingested_at": "2026-04-25T03:12:44Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "plant%1:03:00:::hyponym:01386537-n",
+          "wordnet_synset_id": "01386537-n",
+          "wordnet_link_score": 0.15,
+          "wordnet_link_overlap": [
+            "liv",
+            "organism"
+          ],
+          "wordnet_source_relation": "direct_hyponym",
+          "wordnet_relation_path": [
+            "00017402-n",
+            "01386537-n"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "candidate_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "plant%1:03:00:::hyponym:01386537-n",
+        "wordnet_synset_id": "01386537-n",
+        "wordnet_link_score": 0.15,
+        "wordnet_link_overlap": [
+          "liv",
+          "organism"
+        ],
+        "wordnet_evidence_kind": "definition",
+        "wordnet_source_relation": "direct_hyponym",
+        "wordnet_relation_path": [
+          "00017402-n",
+          "01386537-n"
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:eb577e7429c19ceb90f8be7d7e4edd8058549791",
+      "dedupe_key": "dedupe:a8761dddb3cfe3fce45df44afc3d1b239e42669b",
+      "batch_id": "en-es:wordnet-example-frames:wordnet-plant-active-related-heldout-v1-20260425a",
+      "row_id": "en-es-sentence-veto-plant-planta:active-wordnet-definition-3",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "wordnet_example_frames",
+      "source_family": "external_sense_graph",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "plant",
+      "normalized_trigger": "plant",
+      "active_target": "planta",
+      "normalized_active_target": "planta",
+      "candidate_target": "planta",
+      "normalized_candidate_target": "planta",
+      "is_multiword": false,
+      "evidence_text": "microscopic plants; bacteria are often considered to be microflora",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "wordnet_example_frames",
+        "source_family": "external_sense_graph",
+        "batch_id": "en-es:wordnet-example-frames:wordnet-plant-active-related-heldout-v1-20260425a",
+        "row_id": "en-es-sentence-veto-plant-planta:active-wordnet-definition-3",
+        "model_id": "not_applicable",
+        "prompt_version": "wordnet-example-frames-v1",
+        "generated_at": "2026-04-25T03:12:44Z",
+        "ingested_at": "2026-04-25T03:12:44Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "plant%1:03:00:::hyponym:11550459-n",
+          "wordnet_synset_id": "11550459-n",
+          "wordnet_link_score": 0.15,
+          "wordnet_link_overlap": [
+            "liv",
+            "organism"
+          ],
+          "wordnet_source_relation": "direct_hyponym",
+          "wordnet_relation_path": [
+            "00017402-n",
+            "11550459-n"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "candidate_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "plant%1:03:00:::hyponym:11550459-n",
+        "wordnet_synset_id": "11550459-n",
+        "wordnet_link_score": 0.15,
+        "wordnet_link_overlap": [
+          "liv",
+          "organism"
+        ],
+        "wordnet_evidence_kind": "definition",
+        "wordnet_source_relation": "direct_hyponym",
+        "wordnet_relation_path": [
+          "00017402-n",
+          "11550459-n"
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:c0b7ceb2db94d2a29119227848b3b995074eb4b3",
+      "dedupe_key": "dedupe:a8761dddb3cfe3fce45df44afc3d1b239e42669b",
+      "batch_id": "en-es:wordnet-example-frames:wordnet-plant-active-related-heldout-v1-20260425a",
+      "row_id": "en-es-sentence-veto-plant-planta:active-wordnet-definition-4",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "wordnet_example_frames",
+      "source_family": "external_sense_graph",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "plant",
+      "normalized_trigger": "plant",
+      "active_target": "planta",
+      "normalized_active_target": "planta",
+      "candidate_target": "planta",
+      "normalized_candidate_target": "planta",
+      "is_multiword": false,
+      "evidence_text": "a cultivated plant that is grown commercially on a large scale",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "wordnet_example_frames",
+        "source_family": "external_sense_graph",
+        "batch_id": "en-es:wordnet-example-frames:wordnet-plant-active-related-heldout-v1-20260425a",
+        "row_id": "en-es-sentence-veto-plant-planta:active-wordnet-definition-4",
+        "model_id": "not_applicable",
+        "prompt_version": "wordnet-example-frames-v1",
+        "generated_at": "2026-04-25T03:12:44Z",
+        "ingested_at": "2026-04-25T03:12:44Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "plant%1:03:00:::hyponym:11550963-n",
+          "wordnet_synset_id": "11550963-n",
+          "wordnet_link_score": 0.15,
+          "wordnet_link_overlap": [
+            "liv",
+            "organism"
+          ],
+          "wordnet_source_relation": "direct_hyponym",
+          "wordnet_relation_path": [
+            "00017402-n",
+            "11550963-n"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "candidate_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "plant%1:03:00:::hyponym:11550963-n",
+        "wordnet_synset_id": "11550963-n",
+        "wordnet_link_score": 0.15,
+        "wordnet_link_overlap": [
+          "liv",
+          "organism"
+        ],
+        "wordnet_evidence_kind": "definition",
+        "wordnet_source_relation": "direct_hyponym",
+        "wordnet_relation_path": [
+          "00017402-n",
+          "11550963-n"
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:46592448677e7328655e10c4bcf09087d701ae8f",
+      "dedupe_key": "dedupe:a8761dddb3cfe3fce45df44afc3d1b239e42669b",
+      "batch_id": "en-es:wordnet-example-frames:wordnet-plant-active-related-heldout-v1-20260425a",
+      "row_id": "en-es-sentence-veto-plant-planta:active-wordnet-definition-5",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "wordnet_example_frames",
+      "source_family": "external_sense_graph",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "plant",
+      "normalized_trigger": "plant",
+      "active_target": "planta",
+      "normalized_active_target": "planta",
+      "candidate_target": "planta",
+      "normalized_candidate_target": "planta",
+      "is_multiword": false,
+      "evidence_text": "an organism that produces its own food by photosynthesis",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "wordnet_example_frames",
+        "source_family": "external_sense_graph",
+        "batch_id": "en-es:wordnet-example-frames:wordnet-plant-active-related-heldout-v1-20260425a",
+        "row_id": "en-es-sentence-veto-plant-planta:active-wordnet-definition-5",
+        "model_id": "not_applicable",
+        "prompt_version": "wordnet-example-frames-v1",
+        "generated_at": "2026-04-25T03:12:44Z",
+        "ingested_at": "2026-04-25T03:12:44Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "plant%1:03:00:::hyponym:11551311-n",
+          "wordnet_synset_id": "11551311-n",
+          "wordnet_link_score": 0.15,
+          "wordnet_link_overlap": [
+            "liv",
+            "organism"
+          ],
+          "wordnet_source_relation": "direct_hyponym",
+          "wordnet_relation_path": [
+            "00017402-n",
+            "11551311-n"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "candidate_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "plant%1:03:00:::hyponym:11551311-n",
+        "wordnet_synset_id": "11551311-n",
+        "wordnet_link_score": 0.15,
+        "wordnet_link_overlap": [
+          "liv",
+          "organism"
+        ],
+        "wordnet_evidence_kind": "definition",
+        "wordnet_source_relation": "direct_hyponym",
+        "wordnet_relation_path": [
+          "00017402-n",
+          "11551311-n"
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:31959d93526380105c7d372ce74f36ddd26a77f5",
+      "dedupe_key": "dedupe:a8761dddb3cfe3fce45df44afc3d1b239e42669b",
+      "batch_id": "en-es:wordnet-example-frames:wordnet-plant-active-related-heldout-v1-20260425a",
+      "row_id": "en-es-sentence-veto-plant-planta:active-wordnet-definition-6",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "wordnet_example_frames",
+      "source_family": "external_sense_graph",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "plant",
+      "normalized_trigger": "plant",
+      "active_target": "planta",
+      "normalized_active_target": "planta",
+      "candidate_target": "planta",
+      "normalized_candidate_target": "planta",
+      "is_multiword": false,
+      "evidence_text": "a plant that does not bear flowers",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "wordnet_example_frames",
+        "source_family": "external_sense_graph",
+        "batch_id": "en-es:wordnet-example-frames:wordnet-plant-active-related-heldout-v1-20260425a",
+        "row_id": "en-es-sentence-veto-plant-planta:active-wordnet-definition-6",
+        "model_id": "not_applicable",
+        "prompt_version": "wordnet-example-frames-v1",
+        "generated_at": "2026-04-25T03:12:44Z",
+        "ingested_at": "2026-04-25T03:12:44Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "plant%1:03:00:::hyponym:11551441-n",
+          "wordnet_synset_id": "11551441-n",
+          "wordnet_link_score": 0.15,
+          "wordnet_link_overlap": [
+            "liv",
+            "organism"
+          ],
+          "wordnet_source_relation": "direct_hyponym",
+          "wordnet_relation_path": [
+            "00017402-n",
+            "11551441-n"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "candidate_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "plant%1:03:00:::hyponym:11551441-n",
+        "wordnet_synset_id": "11551441-n",
+        "wordnet_link_score": 0.15,
+        "wordnet_link_overlap": [
+          "liv",
+          "organism"
+        ],
+        "wordnet_evidence_kind": "definition",
+        "wordnet_source_relation": "direct_hyponym",
+        "wordnet_relation_path": [
+          "00017402-n",
+          "11551441-n"
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:18fbc2ce3c3a1829739258fa8c914019bd6c08e9",
+      "dedupe_key": "dedupe:a8761dddb3cfe3fce45df44afc3d1b239e42669b",
+      "batch_id": "en-es:wordnet-example-frames:wordnet-plant-active-related-heldout-v1-20260425a",
+      "row_id": "en-es-sentence-veto-plant-planta:active-wordnet-definition-7",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "wordnet_example_frames",
+      "source_family": "external_sense_graph",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "plant",
+      "normalized_trigger": "plant",
+      "active_target": "planta",
+      "normalized_active_target": "planta",
+      "candidate_target": "planta",
+      "normalized_candidate_target": "planta",
+      "is_multiword": false,
+      "evidence_text": "a young plant or a small plant",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "wordnet_example_frames",
+        "source_family": "external_sense_graph",
+        "batch_id": "en-es:wordnet-example-frames:wordnet-plant-active-related-heldout-v1-20260425a",
+        "row_id": "en-es-sentence-veto-plant-planta:active-wordnet-definition-7",
+        "model_id": "not_applicable",
+        "prompt_version": "wordnet-example-frames-v1",
+        "generated_at": "2026-04-25T03:12:44Z",
+        "ingested_at": "2026-04-25T03:12:44Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "plant%1:03:00:::hyponym:11551541-n",
+          "wordnet_synset_id": "11551541-n",
+          "wordnet_link_score": 0.15,
+          "wordnet_link_overlap": [
+            "liv",
+            "organism"
+          ],
+          "wordnet_source_relation": "direct_hyponym",
+          "wordnet_relation_path": [
+            "00017402-n",
+            "11551541-n"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "candidate_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "plant%1:03:00:::hyponym:11551541-n",
+        "wordnet_synset_id": "11551541-n",
+        "wordnet_link_score": 0.15,
+        "wordnet_link_overlap": [
+          "liv",
+          "organism"
+        ],
+        "wordnet_evidence_kind": "definition",
+        "wordnet_source_relation": "direct_hyponym",
+        "wordnet_relation_path": [
+          "00017402-n",
+          "11551541-n"
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:920b73abab9e7df08a05fb158956abc4faafdb80",
+      "dedupe_key": "dedupe:a8761dddb3cfe3fce45df44afc3d1b239e42669b",
+      "batch_id": "en-es:wordnet-example-frames:wordnet-plant-active-related-heldout-v1-20260425a",
+      "row_id": "en-es-sentence-veto-plant-planta:active-wordnet-definition-8",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "wordnet_example_frames",
+      "source_family": "external_sense_graph",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "plant",
+      "normalized_trigger": "plant",
+      "active_target": "planta",
+      "normalized_active_target": "planta",
+      "candidate_target": "planta",
+      "normalized_candidate_target": "planta",
+      "is_multiword": false,
+      "evidence_text": "a wild uncultivated plant (especially a wild apple or crabapple tree)",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "wordnet_example_frames",
+        "source_family": "external_sense_graph",
+        "batch_id": "en-es:wordnet-example-frames:wordnet-plant-active-related-heldout-v1-20260425a",
+        "row_id": "en-es-sentence-veto-plant-planta:active-wordnet-definition-8",
+        "model_id": "not_applicable",
+        "prompt_version": "wordnet-example-frames-v1",
+        "generated_at": "2026-04-25T03:12:44Z",
+        "ingested_at": "2026-04-25T03:12:44Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "plant%1:03:00:::hyponym:11551644-n",
+          "wordnet_synset_id": "11551644-n",
+          "wordnet_link_score": 0.15,
+          "wordnet_link_overlap": [
+            "liv",
+            "organism"
+          ],
+          "wordnet_source_relation": "direct_hyponym",
+          "wordnet_relation_path": [
+            "00017402-n",
+            "11551644-n"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "candidate_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "plant%1:03:00:::hyponym:11551644-n",
+        "wordnet_synset_id": "11551644-n",
+        "wordnet_link_score": 0.15,
+        "wordnet_link_overlap": [
+          "liv",
+          "organism"
+        ],
+        "wordnet_evidence_kind": "definition",
+        "wordnet_source_relation": "direct_hyponym",
+        "wordnet_relation_path": [
+          "00017402-n",
+          "11551644-n"
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:2aa9f752f2c201033a882af946663b04c3a1bc1e",
+      "dedupe_key": "dedupe:a8761dddb3cfe3fce45df44afc3d1b239e42669b",
+      "batch_id": "en-es:wordnet-example-frames:wordnet-plant-active-related-heldout-v1-20260425a",
+      "row_id": "en-es-sentence-veto-plant-planta:active-wordnet-definition-9",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "wordnet_example_frames",
+      "source_family": "external_sense_graph",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "plant",
+      "normalized_trigger": "plant",
+      "active_target": "planta",
+      "normalized_active_target": "planta",
+      "candidate_target": "planta",
+      "normalized_candidate_target": "planta",
+      "is_multiword": false,
+      "evidence_text": "any plant grown for its beauty or ornamental value",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "wordnet_example_frames",
+        "source_family": "external_sense_graph",
+        "batch_id": "en-es:wordnet-example-frames:wordnet-plant-active-related-heldout-v1-20260425a",
+        "row_id": "en-es-sentence-veto-plant-planta:active-wordnet-definition-9",
+        "model_id": "not_applicable",
+        "prompt_version": "wordnet-example-frames-v1",
+        "generated_at": "2026-04-25T03:12:44Z",
+        "ingested_at": "2026-04-25T03:12:44Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "plant%1:03:00:::hyponym:11556538-n",
+          "wordnet_synset_id": "11556538-n",
+          "wordnet_link_score": 0.15,
+          "wordnet_link_overlap": [
+            "liv",
+            "organism"
+          ],
+          "wordnet_source_relation": "direct_hyponym",
+          "wordnet_relation_path": [
+            "00017402-n",
+            "11556538-n"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "candidate_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "plant%1:03:00:::hyponym:11556538-n",
+        "wordnet_synset_id": "11556538-n",
+        "wordnet_link_score": 0.15,
+        "wordnet_link_overlap": [
+          "liv",
+          "organism"
+        ],
+        "wordnet_evidence_kind": "definition",
+        "wordnet_source_relation": "direct_hyponym",
+        "wordnet_relation_path": [
+          "00017402-n",
+          "11556538-n"
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:4a1a3b111b7ee90168e0033630da1381f9cb8c43",
+      "dedupe_key": "dedupe:a8761dddb3cfe3fce45df44afc3d1b239e42669b",
+      "batch_id": "en-es:wordnet-example-frames:wordnet-plant-active-related-heldout-v1-20260425a",
+      "row_id": "en-es-sentence-veto-plant-planta:active-wordnet-definition-10",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "wordnet_example_frames",
+      "source_family": "external_sense_graph",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "plant",
+      "normalized_trigger": "plant",
+      "active_target": "planta",
+      "normalized_active_target": "planta",
+      "candidate_target": "planta",
+      "normalized_candidate_target": "planta",
+      "is_multiword": false,
+      "evidence_text": "a plant suitable for growing in a flowerpot (especially indoors)",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "wordnet_example_frames",
+        "source_family": "external_sense_graph",
+        "batch_id": "en-es:wordnet-example-frames:wordnet-plant-active-related-heldout-v1-20260425a",
+        "row_id": "en-es-sentence-veto-plant-planta:active-wordnet-definition-10",
+        "model_id": "not_applicable",
+        "prompt_version": "wordnet-example-frames-v1",
+        "generated_at": "2026-04-25T03:12:44Z",
+        "ingested_at": "2026-04-25T03:12:44Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "plant%1:03:00:::hyponym:11556681-n",
+          "wordnet_synset_id": "11556681-n",
+          "wordnet_link_score": 0.15,
+          "wordnet_link_overlap": [
+            "liv",
+            "organism"
+          ],
+          "wordnet_source_relation": "direct_hyponym",
+          "wordnet_relation_path": [
+            "00017402-n",
+            "11556681-n"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "candidate_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "plant%1:03:00:::hyponym:11556681-n",
+        "wordnet_synset_id": "11556681-n",
+        "wordnet_link_score": 0.15,
+        "wordnet_link_overlap": [
+          "liv",
+          "organism"
+        ],
+        "wordnet_evidence_kind": "definition",
+        "wordnet_source_relation": "direct_hyponym",
+        "wordnet_relation_path": [
+          "00017402-n",
+          "11556681-n"
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:c26eb844fe7739939a3528eb2b1cd39bd66c4d86",
+      "dedupe_key": "dedupe:a8761dddb3cfe3fce45df44afc3d1b239e42669b",
+      "batch_id": "en-es:wordnet-example-frames:wordnet-plant-active-related-heldout-v1-20260425a",
+      "row_id": "en-es-sentence-veto-plant-planta:active-wordnet-definition-11",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "wordnet_example_frames",
+      "source_family": "external_sense_graph",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "plant",
+      "normalized_trigger": "plant",
+      "active_target": "planta",
+      "normalized_active_target": "planta",
+      "candidate_target": "planta",
+      "normalized_candidate_target": "planta",
+      "is_multiword": false,
+      "evidence_text": "any flowerless plant such as a fern (pteridophyte) or moss (bryophyte) in which growth occurs only at the tip of the main stem",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "wordnet_example_frames",
+        "source_family": "external_sense_graph",
+        "batch_id": "en-es:wordnet-example-frames:wordnet-plant-active-related-heldout-v1-20260425a",
+        "row_id": "en-es-sentence-veto-plant-planta:active-wordnet-definition-11",
+        "model_id": "not_applicable",
+        "prompt_version": "wordnet-example-frames-v1",
+        "generated_at": "2026-04-25T03:12:44Z",
+        "ingested_at": "2026-04-25T03:12:44Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "plant%1:03:00:::hyponym:11556820-n",
+          "wordnet_synset_id": "11556820-n",
+          "wordnet_link_score": 0.15,
+          "wordnet_link_overlap": [
+            "liv",
+            "organism"
+          ],
+          "wordnet_source_relation": "direct_hyponym",
+          "wordnet_relation_path": [
+            "00017402-n",
+            "11556820-n"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "candidate_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "plant%1:03:00:::hyponym:11556820-n",
+        "wordnet_synset_id": "11556820-n",
+        "wordnet_link_score": 0.15,
+        "wordnet_link_overlap": [
+          "liv",
+          "organism"
+        ],
+        "wordnet_evidence_kind": "definition",
+        "wordnet_source_relation": "direct_hyponym",
+        "wordnet_relation_path": [
+          "00017402-n",
+          "11556820-n"
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:a9bc5933a7d9801881fd0b2313f517082794879a",
+      "dedupe_key": "dedupe:a8761dddb3cfe3fce45df44afc3d1b239e42669b",
+      "batch_id": "en-es:wordnet-example-frames:wordnet-plant-active-related-heldout-v1-20260425a",
+      "row_id": "en-es-sentence-veto-plant-planta:active-wordnet-definition-12",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "wordnet_example_frames",
+      "source_family": "external_sense_graph",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "plant",
+      "normalized_trigger": "plant",
+      "active_target": "planta",
+      "normalized_active_target": "planta",
+      "candidate_target": "planta",
+      "normalized_candidate_target": "planta",
+      "is_multiword": false,
+      "evidence_text": "a plant that reproduces or is reproduced by apomixis",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "wordnet_example_frames",
+        "source_family": "external_sense_graph",
+        "batch_id": "en-es:wordnet-example-frames:wordnet-plant-active-related-heldout-v1-20260425a",
+        "row_id": "en-es-sentence-veto-plant-planta:active-wordnet-definition-12",
+        "model_id": "not_applicable",
+        "prompt_version": "wordnet-example-frames-v1",
+        "generated_at": "2026-04-25T03:12:44Z",
+        "ingested_at": "2026-04-25T03:12:44Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "plant%1:03:00:::hyponym:11557018-n",
+          "wordnet_synset_id": "11557018-n",
+          "wordnet_link_score": 0.15,
+          "wordnet_link_overlap": [
+            "liv",
+            "organism"
+          ],
+          "wordnet_source_relation": "direct_hyponym",
+          "wordnet_relation_path": [
+            "00017402-n",
+            "11557018-n"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "candidate_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "plant%1:03:00:::hyponym:11557018-n",
+        "wordnet_synset_id": "11557018-n",
+        "wordnet_link_score": 0.15,
+        "wordnet_link_overlap": [
+          "liv",
+          "organism"
+        ],
+        "wordnet_evidence_kind": "definition",
+        "wordnet_source_relation": "direct_hyponym",
+        "wordnet_relation_path": [
+          "00017402-n",
+          "11557018-n"
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:d8172d46564b7de46d543982300a6f78902fcbdf",
+      "dedupe_key": "dedupe:3c56c3ca4c183c4958e5a3d1b037c128bf12d549",
+      "batch_id": "en-es:wordnet-example-frames:wordnet-plant-active-related-heldout-v1-20260425a",
+      "row_id": "en-es-sentence-veto-plant-planta:shadow-en-es-sentence-veto-plant-fabrica-shadow-wordnet-definition-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "wordnet_example_frames",
+      "source_family": "external_sense_graph",
+      "roles": [
+        "discrimination"
+      ],
+      "relation_type": "shadow_candidate",
+      "trigger": "plant",
+      "normalized_trigger": "plant",
+      "active_target": "planta",
+      "normalized_active_target": "planta",
+      "candidate_target": "fábrica",
+      "normalized_candidate_target": "fábrica",
+      "is_multiword": false,
+      "evidence_text": "buildings for carrying on industrial labor",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "wordnet_example_frames",
+        "source_family": "external_sense_graph",
+        "batch_id": "en-es:wordnet-example-frames:wordnet-plant-active-related-heldout-v1-20260425a",
+        "row_id": "en-es-sentence-veto-plant-planta:shadow-en-es-sentence-veto-plant-fabrica-shadow-wordnet-definition-1",
+        "model_id": "not_applicable",
+        "prompt_version": "wordnet-example-frames-v1",
+        "generated_at": "2026-04-25T03:12:44Z",
+        "ingested_at": "2026-04-25T03:12:44Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:fabrica:shadow",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "plant%1:06:01::",
+          "wordnet_synset_id": "03963198-n",
+          "wordnet_link_score": 0.1429,
+          "wordnet_link_overlap": [
+            "industrial"
+          ],
+          "wordnet_source_relation": "direct",
+          "wordnet_relation_path": []
+        }
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "candidate_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+        "example_bucket": "shadow",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "plant%1:06:01::",
+        "wordnet_synset_id": "03963198-n",
+        "wordnet_link_score": 0.1429,
+        "wordnet_link_overlap": [
+          "industrial"
+        ],
+        "wordnet_evidence_kind": "definition",
+        "wordnet_source_relation": "direct",
+        "wordnet_relation_path": []
+      }
+    }
+  ],
+  "provenance": {
+    "source_type": "external",
+    "source_id": "wordnet_example_frames",
+    "source_family": "external_sense_graph",
+    "batch_id": "en-es:wordnet-example-frames:wordnet-plant-active-related-heldout-v1-20260425a",
+    "model_id": "not_applicable",
+    "prompt_version": "wordnet-example-frames-v1",
+    "generated_at": "2026-04-25T03:12:44Z",
+    "ingested_at": "2026-04-25T03:12:44Z",
+    "normalization_version": "semantic_evidence_v1",
+    "upstream": {
+      "dataset_id": "en_es_sentence_veto_v10",
+      "source_scope": "family_keys",
+      "source_note": "local English WordNet definitions/examples linked to dataset senses",
+      "min_link_score": 0.12,
+      "evidence_mode": "definition_preferred",
+      "max_rows_per_sense": 12,
+      "include_related_hyponyms": true,
+      "max_related_rows_per_sense": 20,
+      "related_hyponym_roles": "active",
+      "family_rows": [
+        {
+          "family_id": "en-es:sentence-veto:plant:planta",
+          "trigger": "plant",
+          "active_target": "planta",
+          "role": "target",
+          "active_wordnet_count": 12,
+          "shadow_wordnet_count": 2,
+          "phrase_control_example_count": 0,
+          "row_count": 14,
+          "link_rows": [
+            {
+              "sense_id": "en-es:sentence-veto:plant:planta:active",
+              "target_lemma": "planta",
+              "canonical_pos": "noun",
+              "relation_type": "anchor_cue",
+              "linked": true,
+              "best_wordnet_sense_id": "plant%1:03:00::",
+              "best_wordnet_synset_id": "00017402-n",
+              "best_link_score": 0.2,
+              "best_overlap": [
+                "liv",
+                "organism"
+              ],
+              "candidate_count": 21
+            },
+            {
+              "sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+              "target_lemma": "fábrica",
+              "canonical_pos": "noun",
+              "relation_type": "shadow_candidate",
+              "linked": true,
+              "best_wordnet_sense_id": "plant%1:06:01::",
+              "best_wordnet_synset_id": "03963198-n",
+              "best_link_score": 0.1429,
+              "best_overlap": [
+                "industrial"
+              ],
+              "candidate_count": 1
+            }
+          ]
+        }
+      ]
+    },
+    "leakage_audit": {
+      "status": "ok",
+      "removed_row_count": 0,
+      "leakage_hit_count": 0,
+      "duplicate_hit_count": 0,
+      "jaccard_threshold": 0.75,
+      "duplicate_jaccard_threshold": 0.92,
+      "min_contained_tokens": 5,
+      "min_duplicate_tokens": 4
+    }
+  }
+}

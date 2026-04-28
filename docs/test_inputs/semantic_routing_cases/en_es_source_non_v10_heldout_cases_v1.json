@@ -1,0 +1,178 @@
+{
+  "schema_version": 1,
+  "pair": "en-es",
+  "dataset_id": "en_es_source_non_v10_heldout_cases_v1",
+  "base_dataset": "docs/test_inputs/semantic_routing_cases/en_es_source_non_v10_probe_v1.json",
+  "description": "Held-out non-v10 source-backed probe cases for the first external-source expansion slice.",
+  "case_scope": "non_v10_source_probe",
+  "families": [
+    {
+      "family_id": "en-es:sentence-veto:rock:roca",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-heldout:v1:rock:001",
+          "sentence": "A flat rock marked the edge of the campsite.",
+          "source_phrase": "rock",
+          "gold_winner": "en-es:sentence-veto:rock:roca:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-heldout:v1:rock:002",
+          "sentence": "The blast could rock nearby windows.",
+          "source_phrase": "rock",
+          "gold_winner": "en-es:sentence-veto:rock:sacudir:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_heldout", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:draft:borrador",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-heldout:v1:draft:001",
+          "sentence": "The final draft arrived before noon.",
+          "source_phrase": "draft",
+          "gold_winner": "en-es:sentence-veto:draft:borrador:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-heldout:v1:draft:002",
+          "sentence": "Officials could draft more nurses during the crisis.",
+          "source_phrase": "draft",
+          "gold_winner": "en-es:sentence-veto:draft:reclutar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_heldout", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:case:caso",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-heldout:v1:case:001",
+          "sentence": "The fraud case drew national attention.",
+          "source_phrase": "case",
+          "gold_winner": "en-es:sentence-veto:case:caso:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-heldout:v1:case:002",
+          "sentence": "The violin case rested beside the chair.",
+          "source_phrase": "case",
+          "gold_winner": "en-es:sentence-veto:case:estuche:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_heldout", "semantic_shadow", "alternate_noun"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:scale:escala",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-heldout:v1:scale:001",
+          "sentence": "The pain scale helped nurses compare symptoms.",
+          "source_phrase": "scale",
+          "gold_winner": "en-es:sentence-veto:scale:escala:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-heldout:v1:scale:002",
+          "sentence": "Rescuers may scale the cliff before dawn.",
+          "source_phrase": "scale",
+          "gold_winner": "en-es:sentence-veto:scale:escalar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_heldout", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:line:linea",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-heldout:v1:line:001",
+          "sentence": "The line on the chart rose sharply.",
+          "source_phrase": "line",
+          "gold_winner": "en-es:sentence-veto:line:linea:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-heldout:v1:line:002",
+          "sentence": "Workers can line the tunnel with concrete.",
+          "source_phrase": "line",
+          "gold_winner": "en-es:sentence-veto:line:forrar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_heldout", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:point:punto",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-heldout:v1:point:001",
+          "sentence": "Her last point changed the debate.",
+          "source_phrase": "point",
+          "gold_winner": "en-es:sentence-veto:point:punto:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-heldout:v1:point:002",
+          "sentence": "Guides may point out hazards on the route.",
+          "source_phrase": "point",
+          "gold_winner": "en-es:sentence-veto:point:senalar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_heldout", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:ring:anillo",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-heldout:v1:ring:001",
+          "sentence": "A gold ring lay inside the box.",
+          "source_phrase": "ring",
+          "gold_winner": "en-es:sentence-veto:ring:anillo:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-heldout:v1:ring:002",
+          "sentence": "Church bells can ring through the square.",
+          "source_phrase": "ring",
+          "gold_winner": "en-es:sentence-veto:ring:sonar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_heldout", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:date:fecha",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-heldout:v1:date:001",
+          "sentence": "The meeting date changed twice.",
+          "source_phrase": "date",
+          "gold_winner": "en-es:sentence-veto:date:fecha:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-heldout:v1:date:002",
+          "sentence": "Scientists can date the fossil with newer tools.",
+          "source_phrase": "date",
+          "gold_winner": "en-es:sentence-veto:date:fechar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_heldout", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    }
+  ]
+}

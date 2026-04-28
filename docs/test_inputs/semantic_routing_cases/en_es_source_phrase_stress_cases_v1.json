@@ -1,0 +1,257 @@
+{
+  "schema_version": 1,
+  "pair": "en-es",
+  "dataset_id": "en_es_source_phrase_stress_cases_v1",
+  "base_dataset": "docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v10.json",
+  "description": "Fresh phrase/no-winner stress cases for the en-es semantic source lane. These rows were added after the phrase challenge v1 repair to check whether the pattern policy generalizes beyond the cases that drove that repair.",
+  "case_scope": "phrase_no_winner_only",
+  "families": [
+    {
+      "family_id": "en-es:sentence-veto:ball:pelota",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-stress:v1:ball:001",
+          "sentence": "The grant set the ball rolling for the renovation.",
+          "source_phrase": "ball",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_stress_v1", "phrase_no_winner", "idiom"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:bank:banco",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-stress:v1:bank:001",
+          "sentence": "Analysts may bank upon stronger sales next quarter.",
+          "source_phrase": "bank",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_stress_v1", "phrase_no_winner", "verb_phrase"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-stress:v1:plant:001",
+          "sentence": "The spy tried to plant false evidence in the office.",
+          "source_phrase": "plant",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_stress_v1", "phrase_no_winner", "verb_phrase"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-stress:v1:cell:001",
+          "sentence": "The outage blocked cell data across the valley.",
+          "source_phrase": "cell",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_stress_v1", "phrase_no_winner", "compound"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:spring:primavera",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-stress:v1:spring:001",
+          "sentence": "Hidden fees can spring from the fine print.",
+          "source_phrase": "spring",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_stress_v1", "phrase_no_winner", "verb_phrase"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:seal:sello",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-stress:v1:seal:001",
+          "sentence": "Crews should seal in heat before winter.",
+          "source_phrase": "seal",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_stress_v1", "phrase_no_winner", "phrasal_verb"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:file:archivo",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-stress:v1:file:001",
+          "sentence": "Tourists file through the narrow gate at noon.",
+          "source_phrase": "file",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_stress_v1", "phrase_no_winner", "verb_phrase"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:match:partido",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-stress:v1:match:001",
+          "sentence": "These curtains match the wallpaper exactly.",
+          "source_phrase": "match",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_stress_v1", "phrase_no_winner", "verb_phrase"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:board:tablero",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-stress:v1:board:001",
+          "sentence": "The crew had to board up the windows.",
+          "source_phrase": "board",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_stress_v1", "phrase_no_winner", "phrasal_verb"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:table:mesa",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-stress:v1:table:001",
+          "sentence": "The committee voted to table every amendment.",
+          "source_phrase": "table",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_stress_v1", "phrase_no_winner", "verb_phrase"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:branch:sucursal",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-stress:v1:branch:001",
+          "sentence": "The discussion may branch away from logistics.",
+          "source_phrase": "branch",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_stress_v1", "phrase_no_winner", "phrasal_verb"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:park:parque",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-stress:v1:park:001",
+          "sentence": "Drivers had to park along the access road.",
+          "source_phrase": "park",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_stress_v1", "phrase_no_winner", "verb_phrase"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:drink:bebida",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-stress:v1:drink:001",
+          "sentence": "Readers stopped to drink in every detail.",
+          "source_phrase": "drink",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_stress_v1", "phrase_no_winner", "idiom"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:play:obra",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-stress:v1:play:001",
+          "sentence": "Small mistakes can play against the proposal.",
+          "source_phrase": "play",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_stress_v1", "phrase_no_winner", "verb_phrase"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:watch:reloj",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-stress:v1:watch:001",
+          "sentence": "Editors must watch for repeated errors.",
+          "source_phrase": "watch",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_stress_v1", "phrase_no_winner", "verb_phrase"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:check:cheque",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-stress:v1:check:001",
+          "sentence": "Please check over the invoice totals.",
+          "source_phrase": "check",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_stress_v1", "phrase_no_winner", "phrasal_verb"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:order:pedido",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-stress:v1:order:001",
+          "sentence": "Supervisors may order around the trainees.",
+          "source_phrase": "order",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_stress_v1", "phrase_no_winner", "verb_phrase"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:trip:viaje",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-stress:v1:trip:001",
+          "sentence": "Loose cables can trip up visitors.",
+          "source_phrase": "trip",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_stress_v1", "phrase_no_winner", "phrasal_verb"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:report:informe",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-stress:v1:report:001",
+          "sentence": "Managers should report out after lunch.",
+          "source_phrase": "report",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_stress_v1", "phrase_no_winner", "phrasal_verb"]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-04-25T20:35:47Z",
+  "status": "ok",
+  "batch_id": "en-es:example-frame-composite:reverse-aux-wordnet-wiktextract-wordnet-active-related-plant-cell-depth3-heldout-v2-policy-v1",
+  "source_id": "reverse_aux_wordnet_wiktextract_wordnet_active_related_plant_cell_depth3_heldout_v2_policy",
+  "summary": {
+    "component_count": 2,
+    "row_count": 133,
+    "family_count": 19,
+    "relation_counts": {
+      "anchor_cue": 95,
+      "shadow_candidate": 38
+    }
+  },
+  "component_batches": [
+    {
+      "component_index": 1,
+      "batch_id": "en-es:example-frame-composite:reverse-aux-wordnet-wiktextract-wordnet-active-related-plant-heldout-clean-v1:sense-admitted",
+      "source_id": "reverse_aux_wordnet_wiktextract_wordnet_active_related_plant_heldout_clean",
+      "source_type": "internal",
+      "source_family": "internal_rulegen_artifact",
+      "input_row_count": 79,
+      "accepted_row_count": 79,
+      "duplicate_row_count": 0
+    },
+    {
+      "component_index": 2,
+      "batch_id": "en-es:wordnet-example-frames:en-es-wordnet-cell-active-related-depth3-heldout-v2-20260425a:candidate-admitted:filtered",
+      "source_id": "wordnet_example_frames_candidate_admitted",
+      "source_type": "external",
+      "source_family": "external_sense_graph",
+      "input_row_count": 54,
+      "accepted_row_count": 54,
+      "duplicate_row_count": 0
+    }
+  ]
+}

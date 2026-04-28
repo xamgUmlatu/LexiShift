@@ -1,0 +1,178 @@
+{
+  "schema_version": 1,
+  "pair": "en-es",
+  "dataset_id": "en_es_source_non_v10_wave2_selected_heldout_cases_v1",
+  "base_dataset": "docs/test_outputs/experiments/semantic_non_v10_wave_drafts/en_es_source_non_v10_wave2_admission_selected_v1_dataset.json",
+  "description": "Independent active/shadow held-out validation cases for the admission-selected non-v10 wave2 draft.",
+  "case_scope": "non_v10_wave2_admission_selected_active_shadow",
+  "families": [
+    {
+      "family_id": "en-es:sentence-veto:look:aspecto",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave2-heldout:v1:look:001",
+          "sentence": "The look of the lobby changed after the renovation.",
+          "source_phrase": "look",
+          "gold_winner": "en-es:sentence-veto:look:aspecto:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave2_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave2-heldout:v1:look:002",
+          "sentence": "Those clouds look darker before a storm.",
+          "source_phrase": "look",
+          "gold_winner": "en-es:sentence-veto:look:aspecto:parecer:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave2_heldout", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:use:uso",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave2-heldout:v1:use:001",
+          "sentence": "The safe use of the machine requires training.",
+          "source_phrase": "use",
+          "gold_winner": "en-es:sentence-veto:use:uso:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave2_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave2-heldout:v1:use:002",
+          "sentence": "They use the spare room for storage.",
+          "source_phrase": "use",
+          "gold_winner": "en-es:sentence-veto:use:uso:usar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave2_heldout", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:train:tren",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave2-heldout:v1:train:001",
+          "sentence": "The night train stopped outside the city.",
+          "source_phrase": "train",
+          "gold_winner": "en-es:sentence-veto:train:tren:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave2_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave2-heldout:v1:train:002",
+          "sentence": "Volunteers train new guides every spring.",
+          "source_phrase": "train",
+          "gold_winner": "en-es:sentence-veto:train:tren:adiestrar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave2_heldout", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:land:tierra",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave2-heldout:v1:land:001",
+          "sentence": "Dry land appeared beyond the marsh.",
+          "source_phrase": "land",
+          "gold_winner": "en-es:sentence-veto:land:tierra:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave2_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave2-heldout:v1:land:002",
+          "sentence": "The ferry will land at the harbor before noon.",
+          "source_phrase": "land",
+          "gold_winner": "en-es:sentence-veto:land:tierra:atracar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave2_heldout", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:offer:oferta",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave2-heldout:v1:offer:001",
+          "sentence": "The job offer arrived before the deadline.",
+          "source_phrase": "offer",
+          "gold_winner": "en-es:sentence-veto:offer:oferta:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave2_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave2-heldout:v1:offer:002",
+          "sentence": "Local schools offer evening classes for adults.",
+          "source_phrase": "offer",
+          "gold_winner": "en-es:sentence-veto:offer:oferta:ofrecer:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave2_heldout", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:rest:reposo",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave2-heldout:v1:rest:001",
+          "sentence": "The doctor recommended two days of rest.",
+          "source_phrase": "rest",
+          "gold_winner": "en-es:sentence-veto:rest:reposo:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave2_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave2-heldout:v1:rest:002",
+          "sentence": "Workers rest beside the road after lunch.",
+          "source_phrase": "rest",
+          "gold_winner": "en-es:sentence-veto:rest:reposo:descansar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave2_heldout", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:sign:se-al",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave2-heldout:v1:sign:001",
+          "sentence": "A warning sign stood beside the bridge.",
+          "source_phrase": "sign",
+          "gold_winner": "en-es:sentence-veto:sign:se-al:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave2_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave2-heldout:v1:sign:002",
+          "sentence": "Please sign the contract before Friday.",
+          "source_phrase": "sign",
+          "gold_winner": "en-es:sentence-veto:sign:se-al:firmar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave2_heldout", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:answer:respuesta",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave2-heldout:v1:answer:001",
+          "sentence": "Her answer surprised the review panel.",
+          "source_phrase": "answer",
+          "gold_winner": "en-es:sentence-veto:answer:respuesta:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave2_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave2-heldout:v1:answer:002",
+          "sentence": "Please answer every message before noon.",
+          "source_phrase": "answer",
+          "gold_winner": "en-es:sentence-veto:answer:respuesta:responder:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave2_heldout", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    }
+  ]
+}

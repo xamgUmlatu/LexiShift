@@ -160,6 +160,79 @@ class SemanticRoutingRuntimeScoringTests(unittest.TestCase):
         self.assertEqual(signals.matched_phrase_pattern, "")
         self.assertEqual(signals.phrase_reason_code, "")
 
+    def test_extract_runtime_phrase_control_signals_detects_subject_object_frame(self) -> None:
+        signals = extract_runtime_phrase_control_signals(
+            "Those numbers match the totals on the receipt.",
+            source_phrase="match",
+            family_pos_tags=("noun", "noun"),
+        )
+        self.assertTrue(signals.phrase_preemption_hit)
+        self.assertEqual(signals.matched_phrase_pattern, "numbers match the")
+        self.assertEqual(signals.phrase_reason_code, "subject_trigger_object_frame")
+
+    def test_extract_runtime_phrase_control_signals_detects_subject_particle_frame(self) -> None:
+        signals = extract_runtime_phrase_control_signals(
+            "Customers file past the window each morning.",
+            source_phrase="file",
+            family_pos_tags=("noun", "noun"),
+        )
+        self.assertTrue(signals.phrase_preemption_hit)
+        self.assertEqual(signals.matched_phrase_pattern, "file past")
+        self.assertEqual(signals.phrase_reason_code, "trigger_particle_frame")
+        self.assertIn("subject_trigger_particle_frame", signals.signal_codes)
+
+    def test_extract_runtime_phrase_control_signals_detects_ball_rolling_idiom(self) -> None:
+        signals = extract_runtime_phrase_control_signals(
+            "The mayor tried to keep the ball rolling after the vote.",
+            source_phrase="ball",
+            family_pos_tags=("noun", "noun"),
+        )
+        self.assertTrue(signals.phrase_preemption_hit)
+        self.assertEqual(signals.matched_phrase_pattern, "keep the ball rolling")
+        self.assertEqual(signals.phrase_reason_code, "idiom_progressive_object_frame")
+
+    def test_extract_runtime_phrase_control_signals_skips_literal_ball_rolling_frame(self) -> None:
+        signals = extract_runtime_phrase_control_signals(
+            "She saw the ball rolling down the hill.",
+            source_phrase="ball",
+            family_pos_tags=("noun", "noun"),
+        )
+        self.assertFalse(signals.phrase_preemption_hit)
+        self.assertEqual(signals.matched_phrase_pattern, "")
+        self.assertEqual(signals.phrase_reason_code, "")
+
+    def test_extract_runtime_phrase_control_signals_detects_rest_of_frame(self) -> None:
+        signals = extract_runtime_phrase_control_signals(
+            "The rest of the team arrived after dinner.",
+            source_phrase="rest",
+            family_pos_tags=("noun",),
+        )
+        self.assertTrue(signals.phrase_preemption_hit)
+        self.assertEqual(signals.matched_phrase_pattern, "the rest of")
+        self.assertEqual(signals.phrase_reason_code, "alternate_noun_of_phrase_frame")
+
+    def test_extract_runtime_phrase_control_signals_skips_plain_rest_noun_frame(self) -> None:
+        signals = extract_runtime_phrase_control_signals(
+            "The doctor recommended two days of rest.",
+            source_phrase="rest",
+            family_pos_tags=("noun",),
+        )
+        self.assertFalse(signals.phrase_preemption_hit)
+        self.assertEqual(signals.matched_phrase_pattern, "")
+        self.assertEqual(signals.phrase_reason_code, "")
+
+    def test_extract_runtime_phrase_control_signals_skips_active_cell_preposition_frame(
+        self,
+    ) -> None:
+        signals = extract_runtime_phrase_control_signals(
+            "Each cell in the tissue absorbed the dye.",
+            source_phrase="cell",
+            family_pos_tags=("noun", "noun"),
+        )
+        self.assertFalse(signals.phrase_preemption_hit)
+        self.assertEqual(signals.matched_phrase_pattern, "")
+        self.assertEqual(signals.phrase_reason_code, "")
+
     def test_evaluate_runtime_veto_case_applies_noun_family_frame_guard(self) -> None:
         backend = RuntimeSimilarityBackend(scorer_id="tfidf_cosine")
         active_sense = {

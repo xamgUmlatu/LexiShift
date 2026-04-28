@@ -29,6 +29,7 @@ Verification:
 Sequencing note:
 
 - this doc explains the shipped runtime seam, the remaining readiness boundary, and the current research posture
+- `docs/rulegen/semantic_sentence_veto_algorithm.md` owns the cohesive end-to-end algorithm explanation that connects runtime eligibility, scoring math, phrase preemption, active rescue, and current matrix findings
 - `docs/rulegen/semantic_routing_implementation_roadmap.md` owns the near-term implementation order
 - `docs/rulegen/semantic_routing_en_es_publish_checklist.md` owns the first controlled browser-extension `en-es` launch runbook
 - `docs/rulegen/semantic_routing_generalization_evaluation_plan.md` and `docs/rulegen/semantic_shadow_testing_architecture.md` own the broader blocker-generation evaluation and research workflow

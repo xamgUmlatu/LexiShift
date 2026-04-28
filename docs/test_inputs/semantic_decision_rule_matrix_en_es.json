@@ -1,0 +1,370 @@
+{
+  "schema_version": 1,
+  "matrix_id": "en_es_semantic_decision_rule_matrix_v1",
+  "description": "No-spend offline comparison matrix for decomposed en-es semantic-veto decision rules. The incumbent active-minus-strongest-shadow rule is a control, not a settled optimum.",
+  "dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v10.json",
+  "defaults": {
+    "window_tokens": 4,
+    "mask_token": "___",
+    "min_active_score": 0.0,
+    "min_margin": 0.0,
+    "ratio_threshold": 1.01,
+    "softmax_threshold": 0.5,
+    "softmax_temperature": 8.0,
+    "pairwise_min_win_rate": 0.75,
+    "shadow_veto_threshold": 0.0,
+    "top_k": 2,
+    "phrase_guard_pos_scope": "family_all",
+    "evidence_control": "normal",
+    "split_modulo": 4,
+    "locked_eval_remainders": [
+      0
+    ],
+    "source_weights": {
+      "all_evidence": 1.0,
+      "sense_label": 0.8,
+      "definition": 1.0,
+      "qualifier": 0.6,
+      "auxiliary": 0.5,
+      "target_lemma": 0.25
+    }
+  },
+  "rows": [
+    {
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "label": "Incumbent semantic shape control",
+      "category": "control",
+      "is_control": true,
+      "scorer_id": "sentence_transformer_cosine",
+      "context_view": "masked_sentence",
+      "sense_representation": "all_evidence_text",
+      "aggregation_rule": "single_concatenated_text",
+      "decision_rule": "active_minus_strongest_shadow",
+      "phrase_handling": "phrase_override",
+      "threshold_sensitivity": true
+    },
+    {
+      "config_id": "control_tfidf_masked_all_margin_phrase_override",
+      "label": "Lexical control matching v2-style scorer",
+      "category": "control",
+      "scorer_id": "tfidf_cosine",
+      "context_view": "masked_sentence",
+      "sense_representation": "all_evidence_text",
+      "aggregation_rule": "single_concatenated_text",
+      "decision_rule": "active_minus_strongest_shadow",
+      "phrase_handling": "phrase_override",
+      "min_active_score": 0.05
+    },
+    {
+      "config_id": "scorer_token_masked_all_margin",
+      "label": "Token Jaccard scorer control",
+      "category": "scorer",
+      "scorer_id": "token_jaccard",
+      "context_view": "masked_sentence",
+      "sense_representation": "all_evidence_text",
+      "aggregation_rule": "single_concatenated_text",
+      "decision_rule": "active_minus_strongest_shadow",
+      "phrase_handling": "phrase_override"
+    },
+    {
+      "config_id": "context_raw_sentence_tfidf_all_margin",
+      "label": "Raw sentence context",
+      "category": "context",
+      "scorer_id": "tfidf_cosine",
+      "context_view": "raw_sentence",
+      "sense_representation": "all_evidence_text",
+      "aggregation_rule": "single_concatenated_text",
+      "decision_rule": "active_minus_strongest_shadow",
+      "phrase_handling": "phrase_override"
+    },
+    {
+      "config_id": "context_raw_window_tfidf_all_margin",
+      "label": "Raw window context",
+      "category": "context",
+      "scorer_id": "tfidf_cosine",
+      "context_view": "raw_window",
+      "sense_representation": "all_evidence_text",
+      "aggregation_rule": "single_concatenated_text",
+      "decision_rule": "active_minus_strongest_shadow",
+      "phrase_handling": "phrase_override"
+    },
+    {
+      "config_id": "context_masked_window_tfidf_all_margin",
+      "label": "Masked window context",
+      "category": "context",
+      "scorer_id": "tfidf_cosine",
+      "context_view": "masked_window",
+      "sense_representation": "all_evidence_text",
+      "aggregation_rule": "single_concatenated_text",
+      "decision_rule": "active_minus_strongest_shadow",
+      "phrase_handling": "phrase_override"
+    },
+    {
+      "config_id": "repr_sense_label_tfidf_margin",
+      "label": "Sense-label evidence",
+      "category": "sense_representation",
+      "scorer_id": "tfidf_cosine",
+      "context_view": "masked_sentence",
+      "sense_representation": "sense_label",
+      "aggregation_rule": "single_concatenated_text",
+      "decision_rule": "active_minus_strongest_shadow",
+      "phrase_handling": "phrase_override"
+    },
+    {
+      "config_id": "repr_gloss_text_tfidf_margin",
+      "label": "Gloss evidence",
+      "category": "sense_representation",
+      "scorer_id": "tfidf_cosine",
+      "context_view": "masked_sentence",
+      "sense_representation": "gloss_text",
+      "aggregation_rule": "single_concatenated_text",
+      "decision_rule": "active_minus_strongest_shadow",
+      "phrase_handling": "phrase_override"
+    },
+    {
+      "config_id": "repr_sense_gloss_bundle_tfidf_margin",
+      "label": "Sense-gloss bundle evidence",
+      "category": "sense_representation",
+      "scorer_id": "tfidf_cosine",
+      "context_view": "masked_sentence",
+      "sense_representation": "sense_gloss_bundle",
+      "aggregation_rule": "single_concatenated_text",
+      "decision_rule": "active_minus_strongest_shadow",
+      "phrase_handling": "phrase_override"
+    },
+    {
+      "config_id": "repr_separate_rows_tfidf_max_margin",
+      "label": "Separate rows, max aggregation",
+      "category": "aggregation",
+      "scorer_id": "tfidf_cosine",
+      "context_view": "masked_sentence",
+      "sense_representation": "definition_and_example_rows_separate",
+      "aggregation_rule": "max_row_score",
+      "decision_rule": "active_minus_strongest_shadow",
+      "phrase_handling": "phrase_override"
+    },
+    {
+      "config_id": "repr_separate_rows_tfidf_mean_margin",
+      "label": "Separate rows, mean aggregation",
+      "category": "aggregation",
+      "scorer_id": "tfidf_cosine",
+      "context_view": "masked_sentence",
+      "sense_representation": "definition_and_example_rows_separate",
+      "aggregation_rule": "mean_row_score",
+      "decision_rule": "active_minus_strongest_shadow",
+      "phrase_handling": "phrase_override"
+    },
+    {
+      "config_id": "repr_separate_rows_tfidf_topk_margin",
+      "label": "Separate rows, top-k mean",
+      "category": "aggregation",
+      "scorer_id": "tfidf_cosine",
+      "context_view": "masked_sentence",
+      "sense_representation": "definition_and_example_rows_separate",
+      "aggregation_rule": "top_k_mean",
+      "decision_rule": "active_minus_strongest_shadow",
+      "phrase_handling": "phrase_override"
+    },
+    {
+      "config_id": "repr_separate_rows_tfidf_weighted_topk_margin",
+      "label": "Separate rows, source-weighted top-k",
+      "category": "aggregation",
+      "scorer_id": "tfidf_cosine",
+      "context_view": "masked_sentence",
+      "sense_representation": "definition_and_example_rows_separate",
+      "aggregation_rule": "source_weighted_top_k",
+      "decision_rule": "active_minus_strongest_shadow",
+      "phrase_handling": "phrase_override",
+      "source_dropout": true,
+      "threshold_sensitivity": true
+    },
+    {
+      "config_id": "repr_separate_rows_tfidf_definition_agreement_margin",
+      "label": "Separate rows, definition/support agreement",
+      "category": "aggregation",
+      "scorer_id": "tfidf_cosine",
+      "context_view": "masked_sentence",
+      "sense_representation": "definition_and_example_rows_separate",
+      "aggregation_rule": "definition_example_agreement",
+      "decision_rule": "active_minus_strongest_shadow",
+      "phrase_handling": "phrase_override"
+    },
+    {
+      "config_id": "decision_ratio_weighted_topk",
+      "label": "Active-to-shadow ratio decision",
+      "category": "decision_rule",
+      "scorer_id": "tfidf_cosine",
+      "context_view": "masked_sentence",
+      "sense_representation": "definition_and_example_rows_separate",
+      "aggregation_rule": "source_weighted_top_k",
+      "decision_rule": "active_ratio_strongest_shadow",
+      "phrase_handling": "phrase_override",
+      "ratio_threshold": 1.03,
+      "threshold_sensitivity": true,
+      "threshold_grid": [
+        {
+          "threshold_label": "ratio_1_00",
+          "ratio_threshold": 1.0
+        },
+        {
+          "threshold_label": "ratio_1_03",
+          "ratio_threshold": 1.03
+        },
+        {
+          "threshold_label": "ratio_1_08",
+          "ratio_threshold": 1.08
+        }
+      ]
+    },
+    {
+      "config_id": "decision_softmax_weighted_topk",
+      "label": "Softmax active probability decision",
+      "category": "decision_rule",
+      "scorer_id": "tfidf_cosine",
+      "context_view": "masked_sentence",
+      "sense_representation": "definition_and_example_rows_separate",
+      "aggregation_rule": "source_weighted_top_k",
+      "decision_rule": "softmax_probability",
+      "phrase_handling": "phrase_override",
+      "softmax_threshold": 0.55,
+      "threshold_sensitivity": true,
+      "threshold_grid": [
+        {
+          "threshold_label": "softmax_0_50",
+          "softmax_threshold": 0.5
+        },
+        {
+          "threshold_label": "softmax_0_55",
+          "softmax_threshold": 0.55
+        },
+        {
+          "threshold_label": "softmax_0_65",
+          "softmax_threshold": 0.65
+        }
+      ]
+    },
+    {
+      "config_id": "decision_pairwise_all_weighted_topk",
+      "label": "Pairwise active beats every shadow",
+      "category": "decision_rule",
+      "scorer_id": "tfidf_cosine",
+      "context_view": "masked_sentence",
+      "sense_representation": "definition_and_example_rows_separate",
+      "aggregation_rule": "source_weighted_top_k",
+      "decision_rule": "pairwise_active_beats_all_shadows",
+      "phrase_handling": "phrase_override"
+    },
+    {
+      "config_id": "decision_pairwise_most_weighted_topk",
+      "label": "Pairwise active beats most shadows",
+      "category": "decision_rule",
+      "scorer_id": "tfidf_cosine",
+      "context_view": "masked_sentence",
+      "sense_representation": "definition_and_example_rows_separate",
+      "aggregation_rule": "source_weighted_top_k",
+      "decision_rule": "pairwise_active_beats_most_shadows",
+      "phrase_handling": "phrase_override",
+      "pairwise_min_win_rate": 0.75
+    },
+    {
+      "config_id": "phrase_semantic_only_weighted_topk",
+      "label": "Semantic-only phrase control ablation",
+      "category": "phrase_handling",
+      "scorer_id": "tfidf_cosine",
+      "context_view": "masked_sentence",
+      "sense_representation": "definition_and_example_rows_separate",
+      "aggregation_rule": "source_weighted_top_k",
+      "decision_rule": "active_minus_strongest_shadow",
+      "phrase_handling": "semantic_only"
+    },
+    {
+      "config_id": "phrase_first_weighted_topk",
+      "label": "Phrase-first preemption",
+      "category": "phrase_handling",
+      "scorer_id": "tfidf_cosine",
+      "context_view": "masked_sentence",
+      "sense_representation": "definition_and_example_rows_separate",
+      "aggregation_rule": "source_weighted_top_k",
+      "decision_rule": "active_minus_strongest_shadow",
+      "phrase_handling": "phrase_first"
+    },
+    {
+      "config_id": "phrase_as_shadow_weighted_topk",
+      "label": "Phrase as pseudo-shadow",
+      "category": "phrase_handling",
+      "scorer_id": "tfidf_cosine",
+      "context_view": "masked_sentence",
+      "sense_representation": "definition_and_example_rows_separate",
+      "aggregation_rule": "source_weighted_top_k",
+      "decision_rule": "active_minus_strongest_shadow",
+      "phrase_handling": "phrase_as_shadow",
+      "phrase_shadow_score": 1.0
+    },
+    {
+      "config_id": "negative_active_only_over_replace",
+      "label": "Negative control: active-only source",
+      "category": "negative_control",
+      "expected_failure_mode": "over_replace",
+      "scorer_id": "tfidf_cosine",
+      "context_view": "masked_sentence",
+      "sense_representation": "all_evidence_text",
+      "aggregation_rule": "single_concatenated_text",
+      "decision_rule": "active_minus_strongest_shadow",
+      "phrase_handling": "semantic_only",
+      "evidence_control": "active_only_source"
+    },
+    {
+      "config_id": "negative_no_shadow_over_replace",
+      "label": "Negative control: no-shadow competition",
+      "category": "negative_control",
+      "expected_failure_mode": "over_replace",
+      "scorer_id": "tfidf_cosine",
+      "context_view": "masked_sentence",
+      "sense_representation": "all_evidence_text",
+      "aggregation_rule": "single_concatenated_text",
+      "decision_rule": "active_minus_strongest_shadow",
+      "phrase_handling": "phrase_override",
+      "evidence_control": "no_shadow_competition"
+    },
+    {
+      "config_id": "negative_shadow_only_over_abstain",
+      "label": "Negative control: shadow-only source",
+      "category": "negative_control",
+      "expected_failure_mode": "over_abstain",
+      "scorer_id": "tfidf_cosine",
+      "context_view": "masked_sentence",
+      "sense_representation": "all_evidence_text",
+      "aggregation_rule": "single_concatenated_text",
+      "decision_rule": "shadow_veto_only",
+      "phrase_handling": "semantic_only",
+      "evidence_control": "shadow_only_source",
+      "shadow_veto_threshold": 0.0
+    },
+    {
+      "config_id": "negative_shuffled_labels_collapse",
+      "label": "Negative control: shuffled active/shadow labels",
+      "category": "negative_control",
+      "expected_failure_mode": "collapse",
+      "scorer_id": "tfidf_cosine",
+      "context_view": "masked_sentence",
+      "sense_representation": "all_evidence_text",
+      "aggregation_rule": "single_concatenated_text",
+      "decision_rule": "active_minus_strongest_shadow",
+      "phrase_handling": "phrase_override",
+      "evidence_control": "shuffled_labels"
+    },
+    {
+      "config_id": "negative_target_lemma_lexical_leakage",
+      "label": "Negative control: target-lemma-only evidence",
+      "category": "negative_control",
+      "expected_failure_mode": "lexical_leakage",
+      "scorer_id": "tfidf_cosine",
+      "context_view": "masked_sentence",
+      "sense_representation": "target_lemma_only",
+      "aggregation_rule": "single_concatenated_text",
+      "decision_rule": "active_minus_strongest_shadow",
+      "phrase_handling": "phrase_override",
+      "evidence_control": "target_lemma_only"
+    }
+  ]
+}

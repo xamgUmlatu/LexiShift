@@ -1,0 +1,374 @@
+{
+  "additional_heldouts": [
+    {
+      "case_count": 8,
+      "decision": "heldout_pass",
+      "decision_accuracy": 1.0,
+      "delta_vs_empty_baseline": {
+        "decision_accuracy_delta": 0.0,
+        "false_abstain_delta": 0,
+        "harmful_replace_delta": 0,
+        "replace_recall_delta": 0.0
+      },
+      "false_abstain_case_ids": [],
+      "false_abstain_count": 0,
+      "family_count": 8,
+      "family_ids": [
+        "en-es:sentence-veto:answer:respuesta",
+        "en-es:sentence-veto:land:tierra",
+        "en-es:sentence-veto:look:aspecto",
+        "en-es:sentence-veto:offer:oferta",
+        "en-es:sentence-veto:rest:reposo",
+        "en-es:sentence-veto:sign:se-al",
+        "en-es:sentence-veto:train:tren",
+        "en-es:sentence-veto:use:uso"
+      ],
+      "gold_abstain_cases": 8,
+      "gold_replace_cases": 0,
+      "harmful_replace_case_ids": [],
+      "harmful_replace_count": 0,
+      "heldout_case_scope": "non_v10_wave2_admission_selected_phrase_no_winner",
+      "heldout_dataset_id": "en_es_source_non_v10_wave2_selected_phrase_cases_v1",
+      "label": "semantic_source_non_v10_wave2_selected_phrase_margin005_validation_latest",
+      "replace_recall": 0.0,
+      "status": "ok"
+    }
+  ],
+  "comparator_admissions": [
+    {
+      "decision": "analysis_only",
+      "families_total": 8,
+      "final_admitted_row_count": 27,
+      "heldout_validation": {
+        "blocks_offline_semantic_promotion": false,
+        "case_count": 0,
+        "decision": "not_provided",
+        "decision_accuracy": 0.0,
+        "false_abstain_count": 0,
+        "family_count": 0,
+        "harmful_replace_count": 0,
+        "passed": false,
+        "provided": false,
+        "replace_recall": 0.0,
+        "status": "not_provided"
+      },
+      "label": "semantic_source_admission_cycle_wordnet_def_ex_non_v10_wave2_draft_latest",
+      "leakage_rejected_row_count": 0,
+      "phrase_contract_complete_family_count": 0,
+      "phrase_gap_family_keys": [
+        "en-es:sentence-veto:end:fin",
+        "en-es:sentence-veto:land:tierra",
+        "en-es:sentence-veto:look:aspecto",
+        "en-es:sentence-veto:offer:oferta",
+        "en-es:sentence-veto:quiet:silencio",
+        "en-es:sentence-veto:sign:se-a",
+        "en-es:sentence-veto:train:tren",
+        "en-es:sentence-veto:use:uso"
+      ],
+      "role": "comparator",
+      "seed_decision_accuracy": 0.0,
+      "seed_false_abstain_case_ids": [],
+      "seed_false_abstain_count": 0,
+      "seed_harmful_replace_case_ids": [],
+      "seed_harmful_replace_count": 0,
+      "seed_replace_recall": 0.0,
+      "semantic_contract_complete_family_count": 7,
+      "semantic_gap_family_keys": [
+        "en-es:sentence-veto:end:fin"
+      ],
+      "sense_rejected_row_count": 7,
+      "sense_rejection_reason_counts": {
+        "competitor_sense_not_lower": 7
+      },
+      "status": "review"
+    }
+  ],
+  "decision": "seed_pass_expand_inventory",
+  "failure_classes": [
+    {
+      "artifact": "semantic_source_admission_cycle_wordnet_def_ex_non_v10_wave2_selected_latest",
+      "blocks_semantic_promotion": false,
+      "class_id": "primary_sense_reject",
+      "count": 8,
+      "family_tokens": [
+        "competitor_sense_not_lower"
+      ],
+      "ids": [
+        "competitor_sense_not_lower:8"
+      ],
+      "label": "primary sense rejected rows",
+      "tracked_residual": true
+    },
+    {
+      "artifact": "semantic_source_admission_cycle_wordnet_def_ex_non_v10_wave2_selected_latest",
+      "blocks_semantic_promotion": false,
+      "class_id": "primary_phrase_contract_gap",
+      "count": 8,
+      "family_tokens": [
+        "answer",
+        "land",
+        "look",
+        "offer",
+        "rest",
+        "sign",
+        "train",
+        "use"
+      ],
+      "ids": [
+        "en-es:sentence-veto:answer:respuesta",
+        "en-es:sentence-veto:land:tierra",
+        "en-es:sentence-veto:look:aspecto",
+        "en-es:sentence-veto:offer:oferta",
+        "en-es:sentence-veto:rest:reposo",
+        "en-es:sentence-veto:sign:se-al",
+        "en-es:sentence-veto:train:tren",
+        "en-es:sentence-veto:use:uso"
+      ],
+      "label": "primary phrase contract gap",
+      "tracked_residual": true
+    },
+    {
+      "artifact": "semantic_source_admission_cycle_wordnet_def_ex_non_v10_wave2_draft_latest",
+      "blocks_semantic_promotion": false,
+      "class_id": "comparator_sense_reject",
+      "count": 7,
+      "family_tokens": [
+        "competitor_sense_not_lower"
+      ],
+      "ids": [
+        "competitor_sense_not_lower:7"
+      ],
+      "label": "comparator sense rejected rows",
+      "tracked_residual": true
+    },
+    {
+      "artifact": "semantic_source_admission_cycle_wordnet_def_ex_non_v10_wave2_draft_latest",
+      "blocks_semantic_promotion": false,
+      "class_id": "comparator_semantic_contract_gap",
+      "count": 1,
+      "family_tokens": [
+        "end"
+      ],
+      "ids": [
+        "en-es:sentence-veto:end:fin"
+      ],
+      "label": "comparator semantic contract gap",
+      "tracked_residual": true
+    },
+    {
+      "artifact": "semantic_source_admission_cycle_wordnet_def_ex_non_v10_wave2_draft_latest",
+      "blocks_semantic_promotion": false,
+      "class_id": "comparator_phrase_contract_gap",
+      "count": 8,
+      "family_tokens": [
+        "end",
+        "land",
+        "look",
+        "offer",
+        "quiet",
+        "sign",
+        "train",
+        "use"
+      ],
+      "ids": [
+        "en-es:sentence-veto:end:fin",
+        "en-es:sentence-veto:land:tierra",
+        "en-es:sentence-veto:look:aspecto",
+        "en-es:sentence-veto:offer:oferta",
+        "en-es:sentence-veto:quiet:silencio",
+        "en-es:sentence-veto:sign:se-a",
+        "en-es:sentence-veto:train:tren",
+        "en-es:sentence-veto:use:uso"
+      ],
+      "label": "comparator phrase contract gap",
+      "tracked_residual": true
+    }
+  ],
+  "generated_at": "2026-04-27T22:53:48Z",
+  "leverage": {
+    "best_comparator_false_abstain_delta": 0,
+    "best_comparator_label": "semantic_source_admission_cycle_wordnet_def_ex_non_v10_wave2_draft_latest",
+    "best_comparator_sense_reject_delta": 1,
+    "case_breadth_gap": 176,
+    "case_breadth_target": 200,
+    "family_breadth_gap": 42,
+    "family_breadth_target": 50,
+    "generalization_signals": [
+      "no_heldout_harmful_replacements",
+      "no_heldout_false_abstains"
+    ],
+    "heldout_case_count": 24,
+    "heldout_cases_per_admitted_row": 0.8,
+    "heldout_cases_per_policy_delta": null,
+    "heldout_false_abstain_count": 0,
+    "heldout_family_count": 8,
+    "heldout_harmful_replace_count": 0,
+    "heldout_suite_count": 2,
+    "manual_overfit_reasons": [
+      "family_inventory_below_broad_threshold",
+      "heldout_cases_below_broad_threshold",
+      "phrase_contract_not_yet_sourced"
+    ],
+    "manual_overfit_risk": "medium",
+    "policy_delta_count": 0,
+    "primary_admitted_row_count": 30,
+    "source_family_count": 8,
+    "source_row_count": 38,
+    "source_rows_per_family": 4.75
+  },
+  "margin_sweep": {
+    "blockers_by_margin": {},
+    "decision": "margin_candidate_found",
+    "passing_margins": [
+      0.0,
+      0.001,
+      0.005,
+      0.01,
+      0.02,
+      0.05
+    ],
+    "recommended_min_margin": 0.0,
+    "row_count": 12,
+    "status": "ok",
+    "suite_count": 2
+  },
+  "next_steps": [
+    "build automatic non-v10 inventory candidate generation instead of tuning this small slice further",
+    "run WordNet definition-preferred extraction across the expanded inventory and rerun admission",
+    "use this mining report to separate reusable failure clusters from one-off manual cases",
+    "keep phrase containment as a tracked residual lane until source data or policy exists for it"
+  ],
+  "primary_admission": {
+    "decision": "analysis_only",
+    "families_total": 8,
+    "final_admitted_row_count": 30,
+    "heldout_validation": {
+      "blocks_offline_semantic_promotion": false,
+      "case_count": 16,
+      "decision": "heldout_pass",
+      "decision_accuracy": 1.0,
+      "false_abstain_count": 0,
+      "family_count": 8,
+      "harmful_replace_count": 0,
+      "passed": true,
+      "provided": true,
+      "replace_recall": 1.0,
+      "status": "ok"
+    },
+    "label": "semantic_source_admission_cycle_wordnet_def_ex_non_v10_wave2_selected_latest",
+    "leakage_rejected_row_count": 0,
+    "phrase_contract_complete_family_count": 0,
+    "phrase_gap_family_keys": [
+      "en-es:sentence-veto:answer:respuesta",
+      "en-es:sentence-veto:land:tierra",
+      "en-es:sentence-veto:look:aspecto",
+      "en-es:sentence-veto:offer:oferta",
+      "en-es:sentence-veto:rest:reposo",
+      "en-es:sentence-veto:sign:se-al",
+      "en-es:sentence-veto:train:tren",
+      "en-es:sentence-veto:use:uso"
+    ],
+    "role": "primary",
+    "seed_decision_accuracy": 0.0,
+    "seed_false_abstain_case_ids": [],
+    "seed_false_abstain_count": 0,
+    "seed_harmful_replace_case_ids": [],
+    "seed_harmful_replace_count": 0,
+    "seed_replace_recall": 0.0,
+    "semantic_contract_complete_family_count": 8,
+    "semantic_gap_family_keys": [],
+    "sense_rejected_row_count": 8,
+    "sense_rejection_reason_counts": {
+      "competitor_sense_not_lower": 8
+    },
+    "status": "ok"
+  },
+  "primary_heldout": {
+    "case_count": 16,
+    "decision": "heldout_pass",
+    "decision_accuracy": 1.0,
+    "delta_vs_empty_baseline": {
+      "decision_accuracy_delta": 0.5,
+      "false_abstain_delta": -8,
+      "harmful_replace_delta": 0,
+      "replace_recall_delta": 1.0
+    },
+    "false_abstain_case_ids": [],
+    "false_abstain_count": 0,
+    "family_count": 8,
+    "family_ids": [
+      "en-es:sentence-veto:answer:respuesta",
+      "en-es:sentence-veto:land:tierra",
+      "en-es:sentence-veto:look:aspecto",
+      "en-es:sentence-veto:offer:oferta",
+      "en-es:sentence-veto:rest:reposo",
+      "en-es:sentence-veto:sign:se-al",
+      "en-es:sentence-veto:train:tren",
+      "en-es:sentence-veto:use:uso"
+    ],
+    "gold_abstain_cases": 8,
+    "gold_replace_cases": 8,
+    "harmful_replace_case_ids": [],
+    "harmful_replace_count": 0,
+    "heldout_case_scope": "non_v10_wave2_admission_selected_active_shadow",
+    "heldout_dataset_id": "en_es_source_non_v10_wave2_selected_heldout_cases_v1",
+    "label": "semantic_source_non_v10_wave2_selected_heldout_margin005_validation_latest",
+    "replace_recall": 1.0,
+    "status": "ok"
+  },
+  "quality_gate": {
+    "blockers": [],
+    "distance": "breadth_and_residual_tracking",
+    "heldout_clean": true,
+    "promotion_readiness": "ready_for_broader_breadth",
+    "tracked_residuals": [
+      "sense_filter_rejects",
+      "phrase_contract_gap",
+      "insufficient_family_breadth",
+      "insufficient_case_breadth"
+    ]
+  },
+  "schema_version": 1,
+  "source_reports": [
+    {
+      "evidence_mode": "definition_and_example",
+      "families_with_active_wordnet": 8,
+      "families_with_phrase_control_examples": 0,
+      "families_with_shadow_wordnet": 8,
+      "label": "semantic_wordnet_def_ex_non_v10_wave2_selected_latest",
+      "missing_active_family_keys": [],
+      "missing_shadow_family_keys": [],
+      "row_count": 38,
+      "source_family_count": 8,
+      "target_families_with_active_wordnet": 8,
+      "target_families_with_shadow_wordnet": 8,
+      "target_family_count": 8
+    },
+    {
+      "evidence_mode": "definition_and_example",
+      "families_with_active_wordnet": 8,
+      "families_with_phrase_control_examples": 0,
+      "families_with_shadow_wordnet": 8,
+      "label": "semantic_wordnet_def_ex_non_v10_wave2_draft_latest",
+      "missing_active_family_keys": [],
+      "missing_shadow_family_keys": [],
+      "row_count": 34,
+      "source_family_count": 8,
+      "target_families_with_active_wordnet": 8,
+      "target_families_with_shadow_wordnet": 8,
+      "target_family_count": 8
+    }
+  ],
+  "status": "review",
+  "summary": {
+    "blocking_failure_class_count": 0,
+    "failure_class_count": 5,
+    "heldout_suite_count": 2,
+    "manual_overfit_risk": "medium",
+    "primary_admission_label": "semantic_source_admission_cycle_wordnet_def_ex_non_v10_wave2_selected_latest",
+    "primary_heldout_label": "semantic_source_non_v10_wave2_selected_heldout_margin005_validation_latest",
+    "promotion_readiness": "ready_for_broader_breadth",
+    "quality_gate_distance": "breadth_and_residual_tracking",
+    "tracked_residual_class_count": 5
+  }
+}

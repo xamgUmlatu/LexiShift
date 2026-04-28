@@ -26,15 +26,26 @@ class SemanticLlmExampleFrameContractTests(unittest.TestCase):
 
         self.assertEqual(report["status"], "ok")
         self.assertTrue(report["summary"]["contract_complete"])
+        self.assertTrue(report["summary"]["semantic_contract_complete"])
+        self.assertTrue(report["summary"]["phrase_containment_contract_complete"])
         self.assertEqual(report["summary"]["contract_complete_family_count"], 1)
+        self.assertEqual(report["summary"]["semantic_contract_complete_family_count"], 1)
+        self.assertEqual(
+            report["summary"]["phrase_containment_contract_complete_family_count"],
+            1,
+        )
         family = report["family_rows"][0]
         self.assertEqual(family["active_example_count"], 1)
         self.assertEqual(family["shadow_example_count"], 1)
         self.assertEqual(family["phrase_control_example_count"], 1)
+        self.assertTrue(family["semantic_contract_complete"])
+        self.assertTrue(family["phrase_containment_contract_complete"])
         self.assertEqual(family["missing_requirements"], [])
 
         markdown = render_example_frame_contract_markdown(report)
         self.assertIn("Semantic Example-Frame Contract", markdown)
+        self.assertIn("Semantic complete families", markdown)
+        self.assertIn("Phrase-containment complete families", markdown)
         self.assertIn("Complete families", markdown)
 
     def test_contract_report_flags_active_only_prompt_batches(self) -> None:
@@ -45,6 +56,8 @@ class SemanticLlmExampleFrameContractTests(unittest.TestCase):
 
         self.assertEqual(report["status"], "review")
         self.assertFalse(report["summary"]["contract_complete"])
+        self.assertFalse(report["summary"]["semantic_contract_complete"])
+        self.assertFalse(report["summary"]["phrase_containment_contract_complete"])
         self.assertEqual(report["summary"]["missing_shadow_family_keys"], ["fam:check"])
         self.assertEqual(
             report["summary"]["missing_phrase_control_family_keys"],
@@ -53,6 +66,61 @@ class SemanticLlmExampleFrameContractTests(unittest.TestCase):
         self.assertEqual(
             report["family_rows"][0]["missing_requirements"],
             ["shadow_examples", "phrase_control_examples"],
+        )
+
+    def test_contract_report_splits_semantic_and_phrase_obligations(self) -> None:
+        report = build_example_frame_contract_report(
+            _active_shadow_normalized_batch(),
+            generated_at="2026-04-25T12:00:00Z",
+        )
+
+        self.assertEqual(report["status"], "review")
+        self.assertFalse(report["summary"]["contract_complete"])
+        self.assertTrue(report["summary"]["semantic_contract_complete"])
+        self.assertFalse(report["summary"]["phrase_containment_contract_complete"])
+        self.assertEqual(report["summary"]["semantic_contract_complete_family_count"], 1)
+        self.assertEqual(
+            report["summary"]["phrase_containment_contract_complete_family_count"],
+            0,
+        )
+        self.assertEqual(report["summary"]["semantic_gap_family_keys"], [])
+        self.assertEqual(
+            report["summary"]["phrase_containment_gap_family_keys"],
+            ["fam:check"],
+        )
+        family = report["family_rows"][0]
+        self.assertTrue(family["semantic_contract_complete"])
+        self.assertFalse(family["phrase_containment_contract_complete"])
+        self.assertEqual(family["semantic_missing_requirements"], [])
+        self.assertEqual(
+            family["phrase_containment_missing_requirements"],
+            ["phrase_control_examples"],
+        )
+
+        markdown = render_example_frame_contract_markdown(report)
+        self.assertIn("Semantic complete families: `1` / `1`", markdown)
+        self.assertIn("Phrase-containment complete families: `0` / `1`", markdown)
+        self.assertIn("Combined status: `review`", markdown)
+
+    def test_contract_report_rejects_phrase_rows_without_containment_role(self) -> None:
+        report = build_example_frame_contract_report(
+            _phrase_without_containment_role_normalized_batch(),
+            generated_at="2026-04-25T12:00:00Z",
+        )
+
+        self.assertEqual(report["status"], "review")
+        self.assertTrue(report["summary"]["semantic_contract_complete"])
+        self.assertFalse(report["summary"]["phrase_containment_contract_complete"])
+        self.assertEqual(report["summary"]["missing_phrase_control_family_keys"], [])
+        self.assertEqual(report["summary"]["phrase_role_issue_family_keys"], ["fam:check"])
+        self.assertEqual(
+            report["summary"]["phrase_containment_gap_family_keys"],
+            ["fam:check"],
+        )
+        family = report["family_rows"][0]
+        self.assertEqual(
+            family["phrase_containment_missing_requirements"],
+            ["phrase_containment_role"],
         )
 
     def test_contract_report_can_require_missing_expected_families(self) -> None:
@@ -64,8 +132,15 @@ class SemanticLlmExampleFrameContractTests(unittest.TestCase):
 
         self.assertEqual(report["status"], "review")
         self.assertFalse(report["summary"]["contract_complete"])
+        self.assertFalse(report["summary"]["semantic_contract_complete"])
+        self.assertFalse(report["summary"]["phrase_containment_contract_complete"])
         self.assertEqual(report["summary"]["families_total"], 2)
         self.assertEqual(report["summary"]["contract_complete_family_count"], 1)
+        self.assertEqual(report["summary"]["semantic_contract_complete_family_count"], 1)
+        self.assertEqual(
+            report["summary"]["phrase_containment_contract_complete_family_count"],
+            1,
+        )
         self.assertEqual(report["summary"]["missing_active_family_keys"], ["fam:order"])
         self.assertEqual(report["summary"]["missing_shadow_family_keys"], ["fam:order"])
         self.assertEqual(
@@ -194,6 +269,54 @@ def _active_only_normalized_batch() -> dict[str, object]:
             }
         ],
     }
+
+
+def _active_shadow_normalized_batch() -> dict[str, object]:
+    batch = _active_only_normalized_batch()
+    rows_obj = batch["rows"]
+    assert isinstance(rows_obj, list)
+    rows = [dict(row) for row in rows_obj]
+    shadow = dict(rows[0])
+    shadow.update(
+        {
+            "evidence_id": "evidence:2",
+            "dedupe_key": "dedupe:2",
+            "row_id": "shadow",
+            "roles": ["discrimination"],
+            "relation_type": "shadow_candidate",
+            "candidate_target": "revisar",
+            "normalized_candidate_target": "revisar",
+            "evidence_text": "They will check the records carefully tonight.",
+        }
+    )
+    rows.append(shadow)
+    batch["rows"] = rows
+    batch["row_count"] = len(rows)
+    return batch
+
+
+def _phrase_without_containment_role_normalized_batch() -> dict[str, object]:
+    batch = _active_shadow_normalized_batch()
+    rows_obj = batch["rows"]
+    assert isinstance(rows_obj, list)
+    rows = [dict(row) for row in rows_obj]
+    phrase = dict(rows[0])
+    phrase.update(
+        {
+            "evidence_id": "evidence:3",
+            "dedupe_key": "dedupe:3",
+            "row_id": "phrase",
+            "roles": ["discrimination"],
+            "relation_type": "phrase_control_example",
+            "candidate_target": "phrase_control",
+            "normalized_candidate_target": "phrase_control",
+            "evidence_text": "Please check in at the front desk.",
+        }
+    )
+    rows.append(phrase)
+    batch["rows"] = rows
+    batch["row_count"] = len(rows)
+    return batch
 
 
 if __name__ == "__main__":

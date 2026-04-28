@@ -11,6 +11,8 @@ Related inputs:
 - `docs/rulegen/semantic_routing_data_update_lifecycle.md`
 - `docs/rulegen/semantic_llm_generation_queueing_plan.md`
 - `docs/rulegen/semantic_llm_prompt_bakeoff_plan.md`
+- `docs/rulegen/semantic_source_admission_program.md`
+- `docs/rulegen/semantic_en_es_expansion_opportunity_roadmap.md`
 - `docs/rulegen/semantic_feedback_promotion_flow.md`
 - `docs/rulegen/semantic_shadow_testing_architecture.md`
 - `docs/rulegen/semantic_routing_runtime_readiness.md`
@@ -33,6 +35,12 @@ The intended operating model is:
 - normalize aggressively,
 - ablate ruthlessly,
 - publish narrowly.
+
+The step-by-step source-admission execution plan now lives in
+`docs/rulegen/semantic_source_admission_program.md`. Use this source-intake
+plan for source-family strategy and approval posture; use the source-admission
+program for the concrete operator checklist, split-contract work, and
+promotion-gate sequence.
 
 ## Core design rules
 
@@ -209,10 +217,10 @@ The current source contract now has the row shape needed by the prototype-admiss
 - `docs/test_outputs/semantic_llm_example_frame_contract_expanded_latest.md` is the positive full-`v10` fixture read: `19 / 19` families complete
 - `docs/test_outputs/semantic_llm_example_frame_contract_overlap_latest.md` preserves the old overlap target batch as a negative read: `0 / 6` families complete because all six families still lack shadow and phrase-control example rows
 - `docs/test_outputs/semantic_reverse_aux_example_frame_contract_latest.md` preserves the real external-source reverse-aux read as `review`: `0 / 8` families complete because the source has active text for all six target families, shadow text for four target families, and no phrase-control examples
-- `scripts/testing/semantic_llm_example_frame_generation_plan_en_es.py` turns that required-family contract gap into a no-spend, exact missing-row request plan
-- `docs/test_outputs/semantic_llm_example_frame_generation_plan_latest.md` plans exactly `11` rows: `1` active example for `play`, `2` shadow examples for `plant`/`check`, and `8` phrase-control examples across the frozen queue
+- `scripts/testing/semantic_llm_example_frame_generation_plan_en_es.py` turns that required-family contract gap into a no-spend candidate-generation plan
+- `docs/test_outputs/semantic_llm_example_frame_generation_plan_latest.md` now plans `20` active/shadow semantic candidates by default: `10` same-POS `plant` shadow candidates, `5` `check` shadow candidates, and `5` `play` active candidates across the frozen queue; phrase-control generation remains explicit opt-in
 - the plan deliberately keeps reviewed sentence-veto case text and translation targets out of prompt input; prompts use the English trigger, active/shadow sense labels and glosses, and queue role/archetype/notes while internal row previews retain target ids for normalization
-- `scripts/testing/semantic_llm_example_frame_generation_run_en_es.py` has now executed that plan live with append-only journaling and explicit spend guards
+- `scripts/testing/semantic_llm_example_frame_generation_run_en_es.py` executed the earlier one-shot missing-row plan live with append-only journaling and explicit spend guards
 - `docs/test_outputs/semantic_llm_example_frame_generation_run_latest.md` shows the live run accepted and normalized `11 / 11` rows (`3382` input tokens / `358` output tokens)
 - `scripts/testing/semantic_example_frame_batch_merge_en_es.py` merged those rows with reverse-aux into `24` composite rows: `8` active, `8` shadow, and `8` phrase-control examples
 - `docs/test_outputs/semantic_llm_example_frame_generation_contract_latest.md` shows the merged batch is structurally complete: `8 / 8` required families
@@ -257,6 +265,21 @@ Current read:
   - `docs/test_outputs/semantic_reverse_aux_prototype_admission_probe_latest.md`
   - the direct prototype read is only `67.5%` decision accuracy / `50.0%` replace recall / `5` harmful / `8` false abstains because phrase-control examples are absent and `plant`/`check` lack shadow-side auxiliary rows
   - the next generated/source batch should fill exactly those missing shadow and phrase-control rows before any runtime claim
+- the broader reverse-aux all-`v10` adapter scope is now implemented and admitted through the source cycle:
+  - `docs/test_outputs/semantic_reverse_aux_example_frame_batch_all_v10_latest.md`
+  - `docs/test_outputs/semantic_source_admission_cycle_reverse_aux_all_v10_latest.md`
+  - it extracts `35` real external rows across all `19` families, with active aux coverage for `18 / 19` and shadow aux coverage for `17 / 19`
+  - admission rejects `3` sense-ambiguous rows and leaves only `14 / 19` semantic-contract-complete families, with phrase coverage still `0 / 19`
+  - downstream best is `90.5%` decision accuracy / `86.8%` replace recall / `4` harmful / `5` false abstains, so this is the current non-manual source floor and residual map rather than a promotion candidate
+- the current best non-manual composite source lane combines reverse aux, local WordNet, and raw Wiktextract residual examples:
+  - `scripts/testing/semantic_wordnet_example_frame_batch_en_es.py`
+  - `scripts/testing/semantic_wiktextract_example_frame_batch_en_es.py`
+  - `docs/test_outputs/semantic_wordnet_example_frame_batch_all_v10_latest.md`
+  - `docs/test_outputs/semantic_wiktextract_plant_example_frame_batch_latest.md`
+  - `docs/test_outputs/semantic_source_admission_cycle_reverse_aux_wordnet_wiktextract_plant_latest.md`
+  - WordNet entry sentence frames close the `report` shadow gap; raw Wiktextract plant examples close the final active `plant` false-abstain gap
+  - the source-admission cycle now reports `promotion_candidate`: leakage rejects `0`, sense rejects `0`, semantic contract is `19 / 19`, and the best full-`v10` ablation is `100.0%` decision accuracy / `100.0%` replace recall / `0` harmful / `0` false abstains
+  - phrase-control source coverage remains `0 / 19`; the source-admission cycle now splits offline semantic promotion from phrase containment, but runtime publication is still blocked on phrase-source policy
 
 ### Experiment discipline
 

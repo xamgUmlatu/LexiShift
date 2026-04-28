@@ -89,6 +89,39 @@ class SemanticLlmPrototypeAdmissionProbeTests(unittest.TestCase):
         )
         self.assertEqual(phrase_guard["summary"]["harmful_replace_count"], 0)
 
+    def test_prototype_admission_probe_excludes_loader_only_cases(self) -> None:
+        queue_payload, dataset_payload = _sample_inputs()
+        dataset_payload["families"][0]["cases"].append(
+            {
+                "case_id": "check:loader:001",
+                "sentence": "The word check is being checked for bank draft.",
+                "source_phrase": "check",
+                "gold_winner": "fam:check:active",
+                "gold_decision": "replace",
+                "slice_tags": ["loader_only", "not_quality_evaluation"],
+            }
+        )
+
+        report = build_prototype_admission_report(
+            queue_payload=queue_payload,
+            dataset_payload=dataset_payload,
+            scorer_id="tfidf_cosine",
+            min_active_score=0.0,
+            min_margin=0.0,
+            generated_at="2026-04-25T12:00:00Z",
+        )
+
+        active_guard = next(
+            row
+            for row in report["configurations"]
+            if row["config_id"] == "prototype_reviewed_examples_active_guard"
+        )
+        self.assertEqual(active_guard["summary"]["cases_total"], 2)
+        self.assertNotIn(
+            "check:loader:001",
+            {str(row.get("case_id") or "") for row in active_guard["row_results"]},
+        )
+
     def test_prototype_admission_probe_can_use_evidence_batch_rows(self) -> None:
         queue_payload, dataset_payload = _sample_inputs()
         bundle = build_reviewed_example_frame_bundle(
@@ -174,6 +207,32 @@ class SemanticLlmPrototypeAdmissionProbeTests(unittest.TestCase):
         self.assertEqual(rows["check:001"]["surface_pos_signal"], "active_noun_frame")
         self.assertEqual(rows["check:002"]["predicted_decision"], "abstain")
 
+    def test_surface_pos_rescue_does_not_override_strongest_noun_shadow(self) -> None:
+        queue_payload, dataset_payload = _mixed_shadow_inputs()
+        report = build_prototype_admission_report(
+            queue_payload=queue_payload,
+            dataset_payload=dataset_payload,
+            evidence_batch_payload=_mixed_shadow_evidence_batch(),
+            scorer_id="token_jaccard",
+            min_active_score=0.0,
+            min_margin=0.5,
+            generated_at="2026-04-25T12:00:00Z",
+        )
+
+        surface_guard = next(
+            row
+            for row in report["configurations"]
+            if row["config_id"] == "prototype_reviewed_examples_surface_pos_rescue_guard"
+        )
+        rows = {row["case_id"]: row for row in surface_guard["row_results"]}
+        self.assertEqual(rows["case:002"]["surface_pos_signal"], "active_noun_frame")
+        self.assertFalse(rows["case:002"]["active_rescue_applied"])
+        self.assertEqual(
+            rows["case:002"]["surface_pos_rescue_blocked_reason"],
+            "strongest_shadow_not_verb_like",
+        )
+        self.assertEqual(rows["case:002"]["predicted_decision"], "abstain")
+
 
 def _sample_inputs() -> tuple[dict[str, object], dict[str, object]]:
     queue_payload = {
@@ -246,6 +305,110 @@ def _normalized_evidence_batch() -> dict[str, object]:
                 "trigger": "check",
                 "evidence_text": "The rain check is valid next week.",
                 "metadata": {"family_id": "fam:check"},
+            },
+        ],
+    }
+
+
+def _mixed_shadow_inputs() -> tuple[dict[str, object], dict[str, object]]:
+    family_id = "fam:case"
+    active_id = f"{family_id}:active"
+    container_id = f"{family_id}:container"
+    inspect_id = f"{family_id}:inspect"
+    return (
+        {
+            "queue_id": "semantic_prompt_bakeoff_test_mixed_shadow",
+            "families": [
+                {
+                    "family_id": family_id,
+                    "trigger": "case",
+                    "role": "target",
+                    "likely_bucket": "needs_cue_data",
+                }
+            ],
+        },
+        {
+            "schema_version": 1,
+            "pair": "en-es",
+            "dataset_id": "en_es_sentence_veto_mixed_shadow_test",
+            "families": [
+                {
+                    "family_id": family_id,
+                    "trigger": "case",
+                    "active": {
+                        "sense_id": active_id,
+                        "target_lemma": "caso",
+                        "canonical_pos": "noun",
+                        "evidence_views": {"all_evidence_text": "legal court matter"},
+                    },
+                    "shadows": [
+                        {
+                            "sense_id": container_id,
+                            "target_lemma": "estuche",
+                            "canonical_pos": "noun",
+                            "evidence_views": {"all_evidence_text": "container box shelf"},
+                        },
+                        {
+                            "sense_id": inspect_id,
+                            "target_lemma": "vigilar",
+                            "canonical_pos": "verb",
+                            "evidence_views": {"all_evidence_text": "inspect house rob"},
+                        },
+                    ],
+                    "cases": [
+                        {
+                            "case_id": "case:001",
+                            "sentence": "The court case resumed after lunch.",
+                            "source_phrase": "case",
+                            "gold_winner": active_id,
+                            "gold_decision": "replace",
+                        },
+                        {
+                            "case_id": "case:002",
+                            "sentence": "The case on the shelf was empty.",
+                            "source_phrase": "case",
+                            "gold_winner": container_id,
+                            "gold_decision": "abstain",
+                        },
+                    ],
+                }
+            ],
+        },
+    )
+
+
+def _mixed_shadow_evidence_batch() -> dict[str, object]:
+    return {
+        "schema_version": 1,
+        "source_id": "test_mixed_shadow_evidence",
+        "batch_id": "test-mixed-shadow",
+        "rows": [
+            {
+                "relation_type": "anchor_cue",
+                "trigger": "case",
+                "evidence_text": "legal court matter",
+                "metadata": {
+                    "family_id": "fam:case",
+                    "active_sense_id": "fam:case:active",
+                },
+            },
+            {
+                "relation_type": "shadow_candidate",
+                "trigger": "case",
+                "evidence_text": "container shelf empty",
+                "metadata": {
+                    "family_id": "fam:case",
+                    "candidate_sense_id": "fam:case:container",
+                },
+            },
+            {
+                "relation_type": "shadow_candidate",
+                "trigger": "case",
+                "evidence_text": "inspect house rob",
+                "metadata": {
+                    "family_id": "fam:case",
+                    "candidate_sense_id": "fam:case:inspect",
+                },
             },
         ],
     }

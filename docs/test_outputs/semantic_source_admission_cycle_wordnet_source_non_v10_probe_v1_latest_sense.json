@@ -1,0 +1,741 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-04-26T03:21:02Z",
+  "status": "review",
+  "batch_id": "en-es:source-admission-cycle:wordnet-source-non-v10-probe-v1-20260426a",
+  "admitted_batch_id": "en-es:source-admission-cycle:wordnet-source-non-v10-probe-v1-20260426a:sense-admitted",
+  "summary": {
+    "input_row_count": 18,
+    "semantic_input_row_count": 18,
+    "semantic_admitted_row_count": 14,
+    "semantic_rejected_row_count": 4,
+    "non_semantic_passthrough_row_count": 0,
+    "admitted_row_count": 14,
+    "scorers": [
+      "sentence_transformer_cosine"
+    ],
+    "evidence_view": "all_evidence_text",
+    "min_intended_score": 0.5,
+    "min_margin": 0.0,
+    "rejection_reason_counts": {
+      "competitor_sense_not_lower": 4
+    }
+  },
+  "row_results": [
+    {
+      "row_id": "en-es-sentence-veto-rock-roca:active-wordnet-example-1",
+      "family_id": "en-es:sentence-veto:rock:roca",
+      "relation_type": "anchor_cue",
+      "evidence_text": "he threw a rock at me",
+      "admission_status": "rejected",
+      "reason_code": "competitor_sense_not_lower",
+      "intended_sense_id": "en-es:sentence-veto:rock:roca:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:rock:sacudir:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:rock:roca:active",
+        "intended_score": 0.68905,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:rock:sacudir:shadow",
+        "strongest_competitor_score": 0.698032,
+        "margin": -0.008982
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:rock:roca:active",
+          "intended_score": 0.68905,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:rock:sacudir:shadow",
+          "strongest_competitor_score": 0.698032,
+          "margin": -0.008982
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-rock-roca:shadow-en-es-sentence-veto-rock-sacudir-shadow-wordnet-example-1",
+      "family_id": "en-es:sentence-veto:rock:roca",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "rock the cradle",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:rock:sacudir:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:rock:roca:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:rock:sacudir:shadow",
+        "intended_score": 0.70931,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:rock:roca:active",
+        "strongest_competitor_score": 0.689496,
+        "margin": 0.019814
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:rock:sacudir:shadow",
+          "intended_score": 0.70931,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:rock:roca:active",
+          "strongest_competitor_score": 0.689496,
+          "margin": 0.019814
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-draft-borrador:active-wordnet-example-1",
+      "family_id": "en-es:sentence-veto:draft:borrador",
+      "relation_type": "anchor_cue",
+      "evidence_text": "a preliminary draft",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:draft:borrador:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:draft:reclutar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:draft:borrador:active",
+        "intended_score": 0.834191,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:draft:reclutar:shadow",
+        "strongest_competitor_score": 0.731656,
+        "margin": 0.102535
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:draft:borrador:active",
+          "intended_score": 0.834191,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:draft:reclutar:shadow",
+          "strongest_competitor_score": 0.731656,
+          "margin": 0.102535
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-draft-borrador:shadow-en-es-sentence-veto-draft-reclutar-shadow-wordnet-definition-1",
+      "family_id": "en-es:sentence-veto:draft:borrador",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "engage somebody to enter the army",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:draft:reclutar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:draft:borrador:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:draft:reclutar:shadow",
+        "intended_score": 0.858748,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:draft:borrador:active",
+        "strongest_competitor_score": 0.55004,
+        "margin": 0.308708
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:draft:reclutar:shadow",
+          "intended_score": 0.858748,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:draft:borrador:active",
+          "strongest_competitor_score": 0.55004,
+          "margin": 0.308708
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-case-caso:active-wordnet-example-1",
+      "family_id": "en-es:sentence-veto:case:caso",
+      "relation_type": "anchor_cue",
+      "evidence_text": "the family brought suit against the landlord",
+      "admission_status": "rejected",
+      "reason_code": "competitor_sense_not_lower",
+      "intended_sense_id": "en-es:sentence-veto:case:caso:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:case:estuche:shadow",
+        "en-es:sentence-veto:case:vigilar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:case:caso:active",
+        "intended_score": 0.638299,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:case:vigilar:shadow",
+        "strongest_competitor_score": 0.641316,
+        "margin": -0.003017
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:case:caso:active",
+          "intended_score": 0.638299,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:case:vigilar:shadow",
+          "strongest_competitor_score": 0.641316,
+          "margin": -0.003017
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-case-caso:shadow-en-es-sentence-veto-case-estuche-shadow-wordnet-example-1",
+      "family_id": "en-es:sentence-veto:case:caso",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "the musicians left their instrument cases backstage",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:case:estuche:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:case:caso:active",
+        "en-es:sentence-veto:case:vigilar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:case:estuche:shadow",
+        "intended_score": 0.659707,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:case:caso:active",
+        "strongest_competitor_score": 0.587997,
+        "margin": 0.07171
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:case:estuche:shadow",
+          "intended_score": 0.659707,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:case:caso:active",
+          "strongest_competitor_score": 0.587997,
+          "margin": 0.07171
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-case-caso:shadow-en-es-sentence-veto-case-vigilar-shadow-wordnet-example-1",
+      "family_id": "en-es:sentence-veto:case:caso",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "The men cased the house",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:case:vigilar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:case:caso:active",
+        "en-es:sentence-veto:case:estuche:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:case:vigilar:shadow",
+        "intended_score": 0.687808,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:case:caso:active",
+        "strongest_competitor_score": 0.65159,
+        "margin": 0.036218
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:case:vigilar:shadow",
+          "intended_score": 0.687808,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:case:caso:active",
+          "strongest_competitor_score": 0.65159,
+          "margin": 0.036218
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-scale-escala:active-wordnet-example-1",
+      "family_id": "en-es:sentence-veto:scale:escala",
+      "relation_type": "anchor_cue",
+      "evidence_text": "judging on a scale of 1 to 10",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:scale:escala:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:scale:escalar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:scale:escala:active",
+        "intended_score": 0.745812,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:scale:escalar:shadow",
+        "strongest_competitor_score": 0.610265,
+        "margin": 0.135547
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:scale:escala:active",
+          "intended_score": 0.745812,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:scale:escalar:shadow",
+          "strongest_competitor_score": 0.610265,
+          "margin": 0.135547
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-scale-escala:shadow-en-es-sentence-veto-scale-escalar-shadow-wordnet-example-1",
+      "family_id": "en-es:sentence-veto:scale:escala",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "The troops scaled the walls of the fort",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:scale:escalar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:scale:escala:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:scale:escalar:shadow",
+        "intended_score": 0.669556,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:scale:escala:active",
+        "strongest_competitor_score": 0.523635,
+        "margin": 0.145921
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:scale:escalar:shadow",
+          "intended_score": 0.669556,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:scale:escala:active",
+          "strongest_competitor_score": 0.523635,
+          "margin": 0.145921
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-line-linea:active-wordnet-example-1",
+      "family_id": "en-es:sentence-veto:line:linea",
+      "relation_type": "anchor_cue",
+      "evidence_text": "the letter consisted of three short lines",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:line:linea:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:line:forrar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:line:linea:active",
+        "intended_score": 0.762627,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:line:forrar:shadow",
+        "strongest_competitor_score": 0.676016,
+        "margin": 0.086611
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:line:linea:active",
+          "intended_score": 0.762627,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:line:forrar:shadow",
+          "strongest_competitor_score": 0.676016,
+          "margin": 0.086611
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-line-linea:shadow-en-es-sentence-veto-line-forrar-shadow-wordnet-example-1",
+      "family_id": "en-es:sentence-veto:line:linea",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "line the gloves",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:line:forrar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:line:linea:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:line:forrar:shadow",
+        "intended_score": 0.684331,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:line:linea:active",
+        "strongest_competitor_score": 0.642124,
+        "margin": 0.042207
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:line:forrar:shadow",
+          "intended_score": 0.684331,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:line:linea:active",
+          "strongest_competitor_score": 0.642124,
+          "margin": 0.042207
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-point-punto:active-wordnet-example-1",
+      "family_id": "en-es:sentence-veto:point:punto",
+      "relation_type": "anchor_cue",
+      "evidence_text": "get to the point",
+      "admission_status": "rejected",
+      "reason_code": "competitor_sense_not_lower",
+      "intended_sense_id": "en-es:sentence-veto:point:punto:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:point:senalar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:point:punto:active",
+        "intended_score": 0.726964,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:point:senalar:shadow",
+        "strongest_competitor_score": 0.727076,
+        "margin": -0.000112
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:point:punto:active",
+          "intended_score": 0.726964,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:point:senalar:shadow",
+          "strongest_competitor_score": 0.727076,
+          "margin": -0.000112
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-point-punto:shadow-en-es-sentence-veto-point-senalar-shadow-wordnet-example-1",
+      "family_id": "en-es:sentence-veto:point:punto",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "I showed the customer the glove section",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:point:senalar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:point:punto:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:point:senalar:shadow",
+        "intended_score": 0.614734,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:point:punto:active",
+        "strongest_competitor_score": 0.592416,
+        "margin": 0.022318
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:point:senalar:shadow",
+          "intended_score": 0.614734,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:point:punto:active",
+          "strongest_competitor_score": 0.592416,
+          "margin": 0.022318
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-ring-anillo:active-wordnet-example-1",
+      "family_id": "en-es:sentence-veto:ring:anillo",
+      "relation_type": "anchor_cue",
+      "evidence_text": "she had rings on every finger",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:ring:anillo:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:ring:sonar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:ring:anillo:active",
+        "intended_score": 0.751945,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:ring:sonar:shadow",
+        "strongest_competitor_score": 0.597428,
+        "margin": 0.154517
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:ring:anillo:active",
+          "intended_score": 0.751945,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:ring:sonar:shadow",
+          "strongest_competitor_score": 0.597428,
+          "margin": 0.154517
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-ring-anillo:shadow-en-es-sentence-veto-ring-sonar-shadow-wordnet-example-1",
+      "family_id": "en-es:sentence-veto:ring:anillo",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "the bells rang",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:ring:sonar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:ring:anillo:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:ring:sonar:shadow",
+        "intended_score": 0.779588,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:ring:anillo:active",
+        "strongest_competitor_score": 0.594657,
+        "margin": 0.184931
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:ring:sonar:shadow",
+          "intended_score": 0.779588,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:ring:anillo:active",
+          "strongest_competitor_score": 0.594657,
+          "margin": 0.184931
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-date-fecha:active-wordnet-example-1",
+      "family_id": "en-es:sentence-veto:date:fecha",
+      "relation_type": "anchor_cue",
+      "evidence_text": "he tried to memorizes all the dates for his history class",
+      "admission_status": "rejected",
+      "reason_code": "competitor_sense_not_lower",
+      "intended_sense_id": "en-es:sentence-veto:date:fecha:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:date:datil:shadow",
+        "en-es:sentence-veto:date:fechar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:date:fecha:active",
+        "intended_score": 0.65645,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:date:fechar:shadow",
+        "strongest_competitor_score": 0.665607,
+        "margin": -0.009157
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:date:fecha:active",
+          "intended_score": 0.65645,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:date:fechar:shadow",
+          "strongest_competitor_score": 0.665607,
+          "margin": -0.009157
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-date-fecha:shadow-en-es-sentence-veto-date-datil-shadow-wordnet-definition-1",
+      "family_id": "en-es:sentence-veto:date:fecha",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "sweet edible fruit of the date palm with a single long woody seed",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:date:datil:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:date:fecha:active",
+        "en-es:sentence-veto:date:fechar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:date:datil:shadow",
+        "intended_score": 0.878204,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:date:fechar:shadow",
+        "strongest_competitor_score": 0.535009,
+        "margin": 0.343195
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:date:datil:shadow",
+          "intended_score": 0.878204,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:date:fechar:shadow",
+          "strongest_competitor_score": 0.535009,
+          "margin": 0.343195
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-date-fecha:shadow-en-es-sentence-veto-date-fechar-shadow-wordnet-example-1",
+      "family_id": "en-es:sentence-veto:date:fecha",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "Scientists often cannot date precisely archeological or prehistorical findings",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:date:fechar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:date:fecha:active",
+        "en-es:sentence-veto:date:datil:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:date:fechar:shadow",
+        "intended_score": 0.79553,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:date:datil:shadow",
+        "strongest_competitor_score": 0.58012,
+        "margin": 0.215411
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:date:fechar:shadow",
+          "intended_score": 0.79553,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:date:datil:shadow",
+          "strongest_competitor_score": 0.58012,
+          "margin": 0.215411
+        }
+      ]
+    }
+  ],
+  "rejected_rows": [
+    {
+      "row_id": "en-es-sentence-veto-rock-roca:active-wordnet-example-1",
+      "family_id": "en-es:sentence-veto:rock:roca",
+      "relation_type": "anchor_cue",
+      "evidence_text": "he threw a rock at me",
+      "admission_status": "rejected",
+      "reason_code": "competitor_sense_not_lower",
+      "intended_sense_id": "en-es:sentence-veto:rock:roca:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:rock:sacudir:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:rock:roca:active",
+        "intended_score": 0.68905,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:rock:sacudir:shadow",
+        "strongest_competitor_score": 0.698032,
+        "margin": -0.008982
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:rock:roca:active",
+          "intended_score": 0.68905,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:rock:sacudir:shadow",
+          "strongest_competitor_score": 0.698032,
+          "margin": -0.008982
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-case-caso:active-wordnet-example-1",
+      "family_id": "en-es:sentence-veto:case:caso",
+      "relation_type": "anchor_cue",
+      "evidence_text": "the family brought suit against the landlord",
+      "admission_status": "rejected",
+      "reason_code": "competitor_sense_not_lower",
+      "intended_sense_id": "en-es:sentence-veto:case:caso:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:case:estuche:shadow",
+        "en-es:sentence-veto:case:vigilar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:case:caso:active",
+        "intended_score": 0.638299,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:case:vigilar:shadow",
+        "strongest_competitor_score": 0.641316,
+        "margin": -0.003017
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:case:caso:active",
+          "intended_score": 0.638299,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:case:vigilar:shadow",
+          "strongest_competitor_score": 0.641316,
+          "margin": -0.003017
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-point-punto:active-wordnet-example-1",
+      "family_id": "en-es:sentence-veto:point:punto",
+      "relation_type": "anchor_cue",
+      "evidence_text": "get to the point",
+      "admission_status": "rejected",
+      "reason_code": "competitor_sense_not_lower",
+      "intended_sense_id": "en-es:sentence-veto:point:punto:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:point:senalar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:point:punto:active",
+        "intended_score": 0.726964,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:point:senalar:shadow",
+        "strongest_competitor_score": 0.727076,
+        "margin": -0.000112
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:point:punto:active",
+          "intended_score": 0.726964,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:point:senalar:shadow",
+          "strongest_competitor_score": 0.727076,
+          "margin": -0.000112
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-date-fecha:active-wordnet-example-1",
+      "family_id": "en-es:sentence-veto:date:fecha",
+      "relation_type": "anchor_cue",
+      "evidence_text": "he tried to memorizes all the dates for his history class",
+      "admission_status": "rejected",
+      "reason_code": "competitor_sense_not_lower",
+      "intended_sense_id": "en-es:sentence-veto:date:fecha:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:date:datil:shadow",
+        "en-es:sentence-veto:date:fechar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:date:fecha:active",
+        "intended_score": 0.65645,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:date:fechar:shadow",
+        "strongest_competitor_score": 0.665607,
+        "margin": -0.009157
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:date:fecha:active",
+          "intended_score": 0.65645,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:date:fechar:shadow",
+          "strongest_competitor_score": 0.665607,
+          "margin": -0.009157
+        }
+      ]
+    }
+  ],
+  "recommendation": "Use the admitted batch only as an analysis artifact. Replace or quarantine rejected active/shadow rows before any promotion-candidate merge."
+}

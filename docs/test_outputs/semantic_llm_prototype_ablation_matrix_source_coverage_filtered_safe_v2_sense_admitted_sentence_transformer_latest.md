@@ -1,0 +1,81 @@
+# en-es Semantic LLM Prototype Ablation Matrix
+
+- Status: `ok`
+- Generated: `2026-04-25T00:53:53Z`
+- Queue: `semantic_prompt_bakeoff_en_es_v10`
+- Runtime dataset: `en_es_sentence_veto_v10`
+- Decision contract: `binary_replace_or_abstain`
+- Matrix rows: `20`
+- Prototype report runs: `4`
+
+## Best Rows
+
+| Source | Scope | Scorer | Context | Active | Margin | Shape | Cases | Harmful | False Abstain | Recall | Accuracy |
+| --- | --- | --- | --- | ---: | ---: | --- | ---: | ---: | ---: | ---: | ---: |
+| `custom_1` | `all_dataset_families` | `sentence_transformer_cosine` | `masked_sentence` | 0.0 | 0.0 | `active_shadow_phrase_semantic_prototypes` | 95 | 1 | 9 | 76.3% | 89.5% |
+| `custom_1` | `all_dataset_families` | `sentence_transformer_cosine` | `masked_sentence` | 0.0 | 0.0 | `active_shadow_phrase_semantic_prototypes` | 95 | 1 | 9 | 76.3% | 89.5% |
+
+## Candidate Source Rows
+
+| Source | Scope | Scorer | Context | Active | Margin | Shape | Cases | Harmful | False Abstain | Recall | Accuracy |
+| --- | --- | --- | --- | ---: | ---: | --- | ---: | ---: | ---: | ---: | ---: |
+| `custom_1` | `all_dataset_families` | `sentence_transformer_cosine` | `masked_sentence` | 0.0 | 0.0 | `active_shadow_phrase_semantic_prototypes` | 95 | 1 | 9 | 76.3% | 89.5% |
+| `custom_1` | `all_dataset_families` | `sentence_transformer_cosine` | `masked_sentence` | 0.0 | 0.0 | `active_shadow_phrase_semantic_prototypes` | 95 | 1 | 9 | 76.3% | 89.5% |
+
+## Best by Source Mode
+
+| Source | Scope | Scorer | Context | Active | Margin | Shape | Cases | Harmful | False Abstain | Recall | Accuracy |
+| --- | --- | --- | --- | ---: | ---: | --- | ---: | ---: | ---: | ---: | ---: |
+| `custom_1` | `all_dataset_families` | `sentence_transformer_cosine` | `masked_sentence` | 0.0 | 0.0 | `active_shadow_phrase_semantic_prototypes` | 95 | 1 | 9 | 76.3% | 89.5% |
+
+## Candidate by Decision Shape
+
+| Source | Scope | Scorer | Context | Active | Margin | Shape | Cases | Harmful | False Abstain | Recall | Accuracy |
+| --- | --- | --- | --- | ---: | ---: | --- | ---: | ---: | ---: | ---: | ---: |
+| `custom_1` | `all_dataset_families` | `sentence_transformer_cosine` | `masked_sentence` | 0.0 | 0.05 | `active_shadow_active_pos_guard` | 95 | 3 | 10 | 73.7% | 86.3% |
+| `custom_1` | `all_dataset_families` | `sentence_transformer_cosine` | `masked_sentence` | 0.0 | 0.0 | `active_shadow_containment_surface_pos` | 95 | 2 | 0 | 100.0% | 97.9% |
+| `custom_1` | `all_dataset_families` | `sentence_transformer_cosine` | `masked_sentence` | 0.0 | 0.05 | `active_shadow_family_pos_guard` | 95 | 5 | 10 | 73.7% | 84.2% |
+| `custom_1` | `all_dataset_families` | `sentence_transformer_cosine` | `masked_sentence` | 0.0 | 0.05 | `active_shadow_phrase_containment` | 95 | 3 | 10 | 73.7% | 86.3% |
+| `custom_1` | `all_dataset_families` | `sentence_transformer_cosine` | `masked_sentence` | 0.0 | 0.0 | `active_shadow_phrase_semantic_prototypes` | 95 | 1 | 9 | 76.3% | 89.5% |
+
+## Candidate by Context View
+
+| Source | Scope | Scorer | Context | Active | Margin | Shape | Cases | Harmful | False Abstain | Recall | Accuracy |
+| --- | --- | --- | --- | ---: | ---: | --- | ---: | ---: | ---: | ---: | ---: |
+| `custom_1` | `all_dataset_families` | `sentence_transformer_cosine` | `masked_sentence` | 0.0 | 0.0 | `active_shadow_phrase_semantic_prototypes` | 95 | 1 | 9 | 76.3% | 89.5% |
+
+## Top Matrix Rows
+
+| Source | Scope | Scorer | Context | Active | Margin | Shape | Cases | Harmful | False Abstain | Recall | Accuracy |
+| --- | --- | --- | --- | ---: | ---: | --- | ---: | ---: | ---: | ---: | ---: |
+| `custom_1` | `all_dataset_families` | `sentence_transformer_cosine` | `masked_sentence` | 0.0 | 0.0 | `active_shadow_phrase_semantic_prototypes` | 95 | 1 | 9 | 76.3% | 89.5% |
+| `custom_1` | `all_dataset_families` | `sentence_transformer_cosine` | `masked_sentence` | 0.35 | 0.0 | `active_shadow_phrase_semantic_prototypes` | 95 | 1 | 9 | 76.3% | 89.5% |
+| `custom_1` | `all_dataset_families` | `sentence_transformer_cosine` | `masked_sentence` | 0.0 | 0.05 | `active_shadow_phrase_semantic_prototypes` | 95 | 1 | 12 | 68.4% | 86.3% |
+| `custom_1` | `all_dataset_families` | `sentence_transformer_cosine` | `masked_sentence` | 0.35 | 0.05 | `active_shadow_phrase_semantic_prototypes` | 95 | 1 | 12 | 68.4% | 86.3% |
+| `custom_1` | `all_dataset_families` | `sentence_transformer_cosine` | `masked_sentence` | 0.0 | 0.0 | `active_shadow_containment_surface_pos` | 95 | 2 | 0 | 100.0% | 97.9% |
+| `custom_1` | `all_dataset_families` | `sentence_transformer_cosine` | `masked_sentence` | 0.35 | 0.0 | `active_shadow_containment_surface_pos` | 95 | 2 | 0 | 100.0% | 97.9% |
+| `custom_1` | `all_dataset_families` | `sentence_transformer_cosine` | `masked_sentence` | 0.0 | 0.05 | `active_shadow_containment_surface_pos` | 95 | 2 | 1 | 97.4% | 96.8% |
+| `custom_1` | `all_dataset_families` | `sentence_transformer_cosine` | `masked_sentence` | 0.35 | 0.05 | `active_shadow_containment_surface_pos` | 95 | 2 | 1 | 97.4% | 96.8% |
+| `custom_1` | `all_dataset_families` | `sentence_transformer_cosine` | `masked_sentence` | 0.0 | 0.05 | `active_shadow_active_pos_guard` | 95 | 3 | 10 | 73.7% | 86.3% |
+| `custom_1` | `all_dataset_families` | `sentence_transformer_cosine` | `masked_sentence` | 0.0 | 0.05 | `active_shadow_phrase_containment` | 95 | 3 | 10 | 73.7% | 86.3% |
+| `custom_1` | `all_dataset_families` | `sentence_transformer_cosine` | `masked_sentence` | 0.35 | 0.05 | `active_shadow_active_pos_guard` | 95 | 3 | 10 | 73.7% | 86.3% |
+| `custom_1` | `all_dataset_families` | `sentence_transformer_cosine` | `masked_sentence` | 0.35 | 0.05 | `active_shadow_phrase_containment` | 95 | 3 | 10 | 73.7% | 86.3% |
+| `custom_1` | `all_dataset_families` | `sentence_transformer_cosine` | `masked_sentence` | 0.0 | 0.0 | `active_shadow_active_pos_guard` | 95 | 4 | 5 | 86.8% | 90.5% |
+| `custom_1` | `all_dataset_families` | `sentence_transformer_cosine` | `masked_sentence` | 0.0 | 0.0 | `active_shadow_phrase_containment` | 95 | 4 | 5 | 86.8% | 90.5% |
+| `custom_1` | `all_dataset_families` | `sentence_transformer_cosine` | `masked_sentence` | 0.35 | 0.0 | `active_shadow_active_pos_guard` | 95 | 4 | 5 | 86.8% | 90.5% |
+| `custom_1` | `all_dataset_families` | `sentence_transformer_cosine` | `masked_sentence` | 0.35 | 0.0 | `active_shadow_phrase_containment` | 95 | 4 | 5 | 86.8% | 90.5% |
+| `custom_1` | `all_dataset_families` | `sentence_transformer_cosine` | `masked_sentence` | 0.0 | 0.05 | `active_shadow_family_pos_guard` | 95 | 5 | 10 | 73.7% | 84.2% |
+| `custom_1` | `all_dataset_families` | `sentence_transformer_cosine` | `masked_sentence` | 0.35 | 0.05 | `active_shadow_family_pos_guard` | 95 | 5 | 10 | 73.7% | 84.2% |
+| `custom_1` | `all_dataset_families` | `sentence_transformer_cosine` | `masked_sentence` | 0.0 | 0.0 | `active_shadow_family_pos_guard` | 95 | 8 | 5 | 86.8% | 86.3% |
+| `custom_1` | `all_dataset_families` | `sentence_transformer_cosine` | `masked_sentence` | 0.35 | 0.0 | `active_shadow_family_pos_guard` | 95 | 8 | 5 | 86.8% | 86.3% |
+
+## Assumption Audit
+
+- best_candidate_source_row: `custom_1` / `all_dataset_families` / `sentence_transformer_cosine` / `masked_sentence` / `active_shadow_phrase_semantic_prototypes` -> 1 harmful, 9 false abstain, 76.3% recall
+- best_without_surface_pos_row: `custom_1` / `all_dataset_families` / `sentence_transformer_cosine` / `masked_sentence` / `active_shadow_phrase_semantic_prototypes` -> 1 harmful, 9 false abstain, 76.3% recall
+- best_viable_without_surface_pos_row: `custom_1` / `all_dataset_families` / `sentence_transformer_cosine` / `masked_sentence` / `active_shadow_phrase_semantic_prototypes` -> 1 harmful, 9 false abstain, 76.3% recall
+- best_without_phrase_control_row: `custom_1` / `all_dataset_families` / `sentence_transformer_cosine` / `masked_sentence` / `active_shadow_active_pos_guard` -> 3 harmful, 10 false abstain, 73.7% recall
+
+## Recommendation
+
+- candidate source rows still leak harmful replacements; the current best still depends on the richer guard stack.

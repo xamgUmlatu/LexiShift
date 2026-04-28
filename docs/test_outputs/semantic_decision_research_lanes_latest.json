@@ -1,0 +1,421 @@
+{
+  "generated_at": "2026-04-28T21:40:08Z",
+  "issues": [],
+  "lane_count": 14,
+  "lane_set_id": "en_es_semantic_decision_research_lanes_v1",
+  "lanes": [
+    {
+      "artifacts": [
+        "scripts/testing/semantic_decision_rule_matrix_en_es.py",
+        "docs/test_outputs/semantic_active_score_surface_bakeoff_en_es_latest.md",
+        "docs/test_inputs/semantic_context_conditioned_evidence_bakeoff_en_es.json",
+        "docs/test_outputs/semantic_context_conditioned_evidence_bakeoff_en_es_latest.md"
+      ],
+      "changes": [
+        "similarity",
+        "a",
+        "aggregation"
+      ],
+      "current_read": "A bounded sentence-transformer source-row subset in the context-conditioned bakeoff ranked active cases better, but introduced harmful replacements and had no zero-harm candidate. The fair separate definition/example row sweep is still unswept.",
+      "lane_id": "sentence_transformer_row_level_evidence",
+      "next_action": "Run a dedicated sentence-transformer row-level bakeoff that compares definition/example rows, source rows, source-plus-definition rows, max/top-k/source-weighted aggregation, and stricter safety thresholds with the same negative controls.",
+      "primary_axis": "scorer_x_row_level_evidence",
+      "promotion_status": "unswept",
+      "state": "harness_ready_unswept"
+    },
+    {
+      "artifacts": [
+        "scripts/testing/semantic_decision_rule_matrix_en_es.py",
+        "docs/test_outputs/semantic_active_score_surface_bakeoff_en_es_latest.md"
+      ],
+      "changes": [
+        "aggregation",
+        "source_confidence"
+      ],
+      "current_read": "Source-weighted top-k and source dropout exist, but agreement-count and minimum independent source-family agreement have not been implemented as first-class bakeoff rows.",
+      "lane_id": "source_family_agreement",
+      "next_action": "Implement source-family agreement aggregators only after the evidence rows carry reliable source-family labels.",
+      "primary_axis": "aggregation_and_source_confidence",
+      "promotion_status": "partial_unswept",
+      "state": "harness_partial"
+    },
+    {
+      "artifacts": [
+        "docs/rulegen/semantic_sentence_veto_algorithm.md",
+        "docs/rulegen/semantic_decision_rule_comparison_plan.md"
+      ],
+      "changes": [
+        "c",
+        "aggregation"
+      ],
+      "current_read": "Individual context views have been tested, but no composed multi-context score surface has been fairly swept.",
+      "lane_id": "multi_context_scoring",
+      "next_action": "After context-conditioned evidence selection, add multi-context rows that combine masked sentence, raw window, before/after frame, and phrase-risk views.",
+      "primary_axis": "dynamic_c",
+      "promotion_status": "unswept",
+      "state": "idea_recorded"
+    },
+    {
+      "artifacts": [
+        "docs/rulegen/semantic_decision_rule_comparison_plan.md",
+        "docs/rulegen/semantic_sentence_veto_algorithm.md"
+      ],
+      "changes": [
+        "phrase_handling",
+        "decision_rule"
+      ],
+      "current_read": "Phrase override remains the control. A separate phrase classifier is recorded but not implemented or swept.",
+      "lane_id": "separate_phrase_classifier",
+      "next_action": "Do not implement before phrase/no-winner coverage expands beyond the current handcrafted-looking slice.",
+      "primary_axis": "phrase_no_winner_handling",
+      "promotion_status": "unswept",
+      "state": "idea_recorded"
+    },
+    {
+      "artifacts": [
+        "docs/test_outputs/semantic_source_failure_class_mining_latest.md",
+        "docs/test_outputs/semantic_non_v10_wave_admission_sweep_wave32_anypos_latest.md",
+        "docs/test_outputs/semantic_non_v10_source_support_conversion_wave4_anypos_supported_probe_latest.md"
+      ],
+      "changes": [
+        "source_coverage",
+        "evaluation_breadth"
+      ],
+      "current_read": "Automatic non-v10 source-supported waves are promising but still need broader held-out proof and phrase-contract coverage before runtime-quality claims.",
+      "lane_id": "non_v10_breadth_validation",
+      "next_action": "Continue broad held-out expansion and source-support conversion audits in the source-admission program.",
+      "primary_axis": "heldout_breadth",
+      "promotion_status": "analysis_only",
+      "state": "active_source_program"
+    },
+    {
+      "artifacts": [
+        "docs/rulegen/semantic_source_admission_program.md",
+        "docs/test_outputs/semantic_phrasing_order_surface_bakeoff_en_es_latest.md",
+        "docs/test_inputs/semantic_context_conditioned_evidence_bakeoff_en_es.json",
+        "docs/test_outputs/semantic_context_conditioned_evidence_bakeoff_en_es_latest.md",
+        "scripts/testing/semantic_source_row_alignment_audit_en_es.py",
+        "docs/test_outputs/semantic_source_row_alignment_audit_en_es_latest.md",
+        "scripts/testing/semantic_source_frame_gap_plan_en_es.py",
+        "docs/test_outputs/semantic_source_frame_gap_plan_en_es_latest.md",
+        "docs/test_outputs/semantic_source_frame_gap_generation_safety_latest.md",
+        "docs/test_outputs/semantic_source_frame_gap_generation_run_latest.md",
+        "docs/test_outputs/semantic_source_admission_cycle_def_example_plus_llm_aligned_frame_gap_latest.md",
+        "docs/test_outputs/semantic_source_row_alignment_audit_def_example_plus_llm_aligned_frame_gap_v2_latest.md",
+        "docs/test_outputs/semantic_source_frame_gap_plan_def_example_plus_llm_aligned_v2_en_es_latest.md",
+        "docs/test_outputs/semantic_source_frame_gap_generation_safety_v2_latest.md",
+        "docs/test_outputs/semantic_source_frame_gap_generation_run_v2_latest.md",
+        "docs/test_outputs/semantic_source_admission_cycle_def_example_plus_llm_aligned_frame_gap_v2_latest.md",
+        "docs/test_outputs/semantic_source_heldout_validation_def_example_plus_llm_aligned_frame_gap_v2_latest.md",
+        "docs/test_inputs/semantic_source_scope_margin_bakeoff_en_es.json",
+        "docs/test_outputs/semantic_source_scope_margin_bakeoff_en_es_latest.md"
+      ],
+      "changes": [
+        "a",
+        "source_coverage",
+        "phrase_handling"
+      ],
+      "current_read": "The source-row loader and context selector exist, and the source-frame gap plan has now been executed under spend caps. The first live aligned-frame run generated 97 rows; strict leakage/duplicate and sense admission kept 36. Merged into the prior 87-row source control, the frozen source-admission ablation improved to 0 harmful / 1 false abstain, but active/shadow held-out v2 still had 1 false abstain. A prompt-process fix added aligned-sentence-frame-v2 diversity frames; the follow-up 5-row board-shadow micro-run admitted 3 rows and made all 19 active/shadow families selector-ready. The source-scope margin bakeoff then showed a stronger way to use source rows: add them to the incumbent definition/example row surface. Combined LLM-v2 plus WordNet-reference additive rows reached 0 harmful / 37 false abstains across four suites, versus 0 / 44 for the no-source row control.",
+      "lane_id": "real_source_aligned_phrasing_rows",
+      "next_action": "Do not promote yet. Treat additive source evidence as the leading research candidate and test companion negative controls, broader heldout, source-family agreement, calibrated aggregation, and additive context selection before a runtime-policy claim.",
+      "primary_axis": "source_evidence_representation",
+      "promotion_status": "source_work_needed",
+      "state": "active_source_program"
+    },
+    {
+      "artifacts": [
+        "docs/test_inputs/semantic_active_score_surface_bakeoff_en_es.json",
+        "docs/test_outputs/semantic_active_score_surface_bakeoff_en_es_latest.md"
+      ],
+      "changes": [
+        "a",
+        "aggregation"
+      ],
+      "current_read": "Separate evidence rows with max row or top-k aggregation are the current best no-spend control: 0 harmful replacements and 45 false abstains.",
+      "lane_id": "active_score_row_level_tfidf",
+      "next_action": "Use as incumbent for the next context-conditioned and sentence-transformer row-level sweeps.",
+      "primary_axis": "active_score_surface",
+      "promotion_status": "research_control_only",
+      "state": "swept_promising_control"
+    },
+    {
+      "artifacts": [
+        "scripts/testing/semantic_decision_rule_matrix_en_es.py",
+        "docs/test_inputs/semantic_source_scope_margin_bakeoff_en_es.json",
+        "docs/test_outputs/semantic_source_scope_margin_bakeoff_en_es_latest.md",
+        "docs/test_inputs/semantic_cell_failure_trace_en_es.json",
+        "docs/test_outputs/semantic_cell_failure_trace_en_es_latest.md",
+        "docs/test_inputs/semantic_cell_failure_trace_reference_en_es.json",
+        "docs/test_outputs/semantic_cell_failure_trace_reference_en_es_latest.md"
+      ],
+      "changes": [
+        "a",
+        "source_coverage",
+        "aggregation"
+      ],
+      "current_read": "Per-row source evidence scopes now let the matrix compare no-source, LLM-v2 source, WordNet-reference source, and combined-source rows in one artifact. The additive `definition_example_plus_source_rows_separate` surface with combined LLM-v2 plus WordNet-reference rows is the current best no-spend research candidate: 0 harmful / 37 false abstains across frozen v10, source-heldout v2, phrase-heldout v2, and phrase challenge. The no-source row control was 0 / 44; source-heldout v2 improved from 0 / 17 to 0 / 12. The cell trace shows this is source representation progress: LLM-v2 lacked red-blood-cell active evidence, while the existing WordNet-reference lane supplied it.",
+      "lane_id": "additive_source_evidence_surface",
+      "next_action": "Do not change production policy yet. Run companion negative controls and broader held-out validation for the additive surface, then test source-family agreement, calibrated row weighting, and additive context-selected variants against this candidate.",
+      "primary_axis": "source_evidence_representation",
+      "promotion_status": "research_candidate_only",
+      "state": "swept_promising_control"
+    },
+    {
+      "artifacts": [
+        "docs/rulegen/semantic_sentence_veto_algorithm.md",
+        "docs/rulegen/semantic_decision_rule_comparison_plan.md",
+        "docs/test_inputs/semantic_context_conditioned_evidence_bakeoff_en_es.json",
+        "docs/test_outputs/semantic_context_conditioned_evidence_bakeoff_en_es_latest.md",
+        "docs/test_inputs/semantic_context_conditioned_evidence_llm_aligned_v2_bakeoff_en_es.json",
+        "docs/test_outputs/semantic_context_conditioned_evidence_llm_aligned_v2_bakeoff_en_es_latest.md",
+        "docs/test_inputs/semantic_source_scope_margin_bakeoff_en_es.json",
+        "docs/test_outputs/semantic_source_scope_margin_bakeoff_en_es_latest.md"
+      ],
+      "changes": [
+        "a",
+        "c",
+        "aggregation"
+      ],
+      "current_read": "The first context-conditioned sweep loaded 87 admitted source rows and did not beat the separate-row max control: best source-plus-definition selectors over-abstained at 53 false abstains and pure source-row selectors at 55. After live aligned-frame generation plus strict admission, the v2 selector-ready composite has 126 rows and all 19 active/shadow families are selector-ready. The best source-plus-definition selector improved to 0 harmful / 47 false abstains, while pure source-row selectors are 0 / 48. A later source-scope bakeoff showed the stronger current surface is additive source evidence over the row-level control, not context selection by itself.",
+      "lane_id": "context_conditioned_evidence_selection",
+      "next_action": "Keep the selector machinery as research infrastructure, but do not promote it. Re-test context selection only after additive source evidence, source-family agreement, or calibrated row aggregation has a stronger row surface to select from.",
+      "primary_axis": "dynamic_a",
+      "promotion_status": "not_promotable",
+      "state": "swept_inconclusive"
+    },
+    {
+      "artifacts": [
+        "docs/test_inputs/semantic_decision_family_bakeoff_en_es.json",
+        "docs/test_outputs/semantic_decision_family_bakeoff_en_es_latest.md",
+        "docs/test_outputs/semantic_decision_suite_confirmation_en_es_latest.md"
+      ],
+      "changes": [
+        "decision_rule",
+        "thresholds"
+      ],
+      "current_read": "Margin, ratio, softmax, and pairwise variants often tie on final YES/NO decisions under the fixed source surface. No final decision family is promotable yet.",
+      "lane_id": "final_decision_rule_family_bakeoff",
+      "next_action": "Keep as the promotion gate after stronger c/a/source candidates emerge.",
+      "primary_axis": "final_decision_rule",
+      "promotion_status": "not_promotable",
+      "state": "swept_inconclusive"
+    },
+    {
+      "artifacts": [
+        "docs/test_inputs/semantic_phrasing_order_surface_bakeoff_en_es.json",
+        "docs/test_outputs/semantic_phrasing_order_surface_bakeoff_en_es_latest.md"
+      ],
+      "changes": [
+        "c",
+        "a"
+      ],
+      "current_read": "Synthetic order/frame labels over existing gloss evidence did not beat row-level evidence. Best phrase/frame rows stayed safe but over-abstained.",
+      "lane_id": "phrasing_order_surface_tfidf",
+      "next_action": "Retest phrasing with real source/example rows and context-conditioned evidence selection rather than declaring order/frame irrelevant.",
+      "primary_axis": "phrasing_order_surface",
+      "promotion_status": "tested_form_rejected",
+      "state": "swept_negative"
+    },
+    {
+      "artifacts": [
+        "docs/rulegen/semantic_decision_rule_comparison_plan.md"
+      ],
+      "changes": [
+        "similarity"
+      ],
+      "current_read": "Documented as a possible second-lane scorer, but not worth implementing until row-level and context-conditioned controls identify the target failure class.",
+      "lane_id": "cross_encoder_similarity",
+      "next_action": "Revisit only if no-spend and sentence-transformer row-level sweeps leave a specific same-POS ambiguity unresolved.",
+      "primary_axis": "higher_cost_scorer",
+      "promotion_status": "unswept",
+      "state": "parked_second_lane"
+    },
+    {
+      "artifacts": [
+        "docs/rulegen/semantic_decision_rule_comparison_plan.md"
+      ],
+      "changes": [
+        "similarity"
+      ],
+      "current_read": "Documented as a possible way to avoid adjacent-but-wrong senses, but no entailment harness exists yet.",
+      "lane_id": "entailment_score",
+      "next_action": "Revisit after row-level evidence reveals failures that look like semantic adjacency rather than source sparsity.",
+      "primary_axis": "higher_cost_scorer",
+      "promotion_status": "unswept",
+      "state": "parked_second_lane"
+    },
+    {
+      "artifacts": [
+        "docs/rulegen/semantic_decision_rule_comparison_plan.md"
+      ],
+      "changes": [
+        "decision_rule",
+        "calibration",
+        "feature_bundle"
+      ],
+      "current_read": "Documented but intentionally deferred because the current held-out surface is too small for a credible learned promotion claim.",
+      "lane_id": "learned_classifier_or_reranker",
+      "next_action": "Require broader locked evaluation and family leave-one-out before implementation.",
+      "primary_axis": "learned_decision_layer",
+      "promotion_status": "unswept",
+      "state": "parked_second_lane"
+    }
+  ],
+  "ledger_path": "docs/test_inputs/semantic_decision_research_lanes_en_es.json",
+  "methodology_rules": [
+    "Do not use a generic done state.",
+    "Do not mark a lane swept without a reproducible manifest or generated artifact.",
+    "Do not mark a lane promotable from discovery data alone.",
+    "Do not collapse source-coverage work, score-surface work, final decision-rule work, and phrase/no-winner work into one metric.",
+    "Keep negative controls visible for every candidate family.",
+    "Keep phrase/no-winner behavior visible separately from active-vs-shadow scoring.",
+    "Record whether the lane changes c, a, similarity, aggregation, final decision, source coverage, phrase handling, or runtime policy.",
+    "Production runtime policy remains unchanged until a candidate beats the incumbent on frozen and held-out suites."
+  ],
+  "next_lanes": [
+    {
+      "artifacts": [
+        "scripts/testing/semantic_decision_rule_matrix_en_es.py",
+        "docs/test_outputs/semantic_active_score_surface_bakeoff_en_es_latest.md",
+        "docs/test_inputs/semantic_context_conditioned_evidence_bakeoff_en_es.json",
+        "docs/test_outputs/semantic_context_conditioned_evidence_bakeoff_en_es_latest.md"
+      ],
+      "changes": [
+        "similarity",
+        "a",
+        "aggregation"
+      ],
+      "current_read": "A bounded sentence-transformer source-row subset in the context-conditioned bakeoff ranked active cases better, but introduced harmful replacements and had no zero-harm candidate. The fair separate definition/example row sweep is still unswept.",
+      "lane_id": "sentence_transformer_row_level_evidence",
+      "next_action": "Run a dedicated sentence-transformer row-level bakeoff that compares definition/example rows, source rows, source-plus-definition rows, max/top-k/source-weighted aggregation, and stricter safety thresholds with the same negative controls.",
+      "primary_axis": "scorer_x_row_level_evidence",
+      "promotion_status": "unswept",
+      "state": "harness_ready_unswept"
+    }
+  ],
+  "schema_version": 1,
+  "state_counts": {
+    "active_source_program": 2,
+    "harness_partial": 1,
+    "harness_ready_unswept": 1,
+    "idea_recorded": 2,
+    "parked_second_lane": 3,
+    "swept_inconclusive": 2,
+    "swept_negative": 1,
+    "swept_promising_control": 2
+  },
+  "status": "ok",
+  "unswept_or_partial_lanes": [
+    {
+      "artifacts": [
+        "scripts/testing/semantic_decision_rule_matrix_en_es.py",
+        "docs/test_outputs/semantic_active_score_surface_bakeoff_en_es_latest.md",
+        "docs/test_inputs/semantic_context_conditioned_evidence_bakeoff_en_es.json",
+        "docs/test_outputs/semantic_context_conditioned_evidence_bakeoff_en_es_latest.md"
+      ],
+      "changes": [
+        "similarity",
+        "a",
+        "aggregation"
+      ],
+      "current_read": "A bounded sentence-transformer source-row subset in the context-conditioned bakeoff ranked active cases better, but introduced harmful replacements and had no zero-harm candidate. The fair separate definition/example row sweep is still unswept.",
+      "lane_id": "sentence_transformer_row_level_evidence",
+      "next_action": "Run a dedicated sentence-transformer row-level bakeoff that compares definition/example rows, source rows, source-plus-definition rows, max/top-k/source-weighted aggregation, and stricter safety thresholds with the same negative controls.",
+      "primary_axis": "scorer_x_row_level_evidence",
+      "promotion_status": "unswept",
+      "state": "harness_ready_unswept"
+    },
+    {
+      "artifacts": [
+        "scripts/testing/semantic_decision_rule_matrix_en_es.py",
+        "docs/test_outputs/semantic_active_score_surface_bakeoff_en_es_latest.md"
+      ],
+      "changes": [
+        "aggregation",
+        "source_confidence"
+      ],
+      "current_read": "Source-weighted top-k and source dropout exist, but agreement-count and minimum independent source-family agreement have not been implemented as first-class bakeoff rows.",
+      "lane_id": "source_family_agreement",
+      "next_action": "Implement source-family agreement aggregators only after the evidence rows carry reliable source-family labels.",
+      "primary_axis": "aggregation_and_source_confidence",
+      "promotion_status": "partial_unswept",
+      "state": "harness_partial"
+    },
+    {
+      "artifacts": [
+        "docs/rulegen/semantic_sentence_veto_algorithm.md",
+        "docs/rulegen/semantic_decision_rule_comparison_plan.md"
+      ],
+      "changes": [
+        "c",
+        "aggregation"
+      ],
+      "current_read": "Individual context views have been tested, but no composed multi-context score surface has been fairly swept.",
+      "lane_id": "multi_context_scoring",
+      "next_action": "After context-conditioned evidence selection, add multi-context rows that combine masked sentence, raw window, before/after frame, and phrase-risk views.",
+      "primary_axis": "dynamic_c",
+      "promotion_status": "unswept",
+      "state": "idea_recorded"
+    },
+    {
+      "artifacts": [
+        "docs/rulegen/semantic_decision_rule_comparison_plan.md",
+        "docs/rulegen/semantic_sentence_veto_algorithm.md"
+      ],
+      "changes": [
+        "phrase_handling",
+        "decision_rule"
+      ],
+      "current_read": "Phrase override remains the control. A separate phrase classifier is recorded but not implemented or swept.",
+      "lane_id": "separate_phrase_classifier",
+      "next_action": "Do not implement before phrase/no-winner coverage expands beyond the current handcrafted-looking slice.",
+      "primary_axis": "phrase_no_winner_handling",
+      "promotion_status": "unswept",
+      "state": "idea_recorded"
+    },
+    {
+      "artifacts": [
+        "docs/rulegen/semantic_decision_rule_comparison_plan.md"
+      ],
+      "changes": [
+        "similarity"
+      ],
+      "current_read": "Documented as a possible second-lane scorer, but not worth implementing until row-level and context-conditioned controls identify the target failure class.",
+      "lane_id": "cross_encoder_similarity",
+      "next_action": "Revisit only if no-spend and sentence-transformer row-level sweeps leave a specific same-POS ambiguity unresolved.",
+      "primary_axis": "higher_cost_scorer",
+      "promotion_status": "unswept",
+      "state": "parked_second_lane"
+    },
+    {
+      "artifacts": [
+        "docs/rulegen/semantic_decision_rule_comparison_plan.md"
+      ],
+      "changes": [
+        "similarity"
+      ],
+      "current_read": "Documented as a possible way to avoid adjacent-but-wrong senses, but no entailment harness exists yet.",
+      "lane_id": "entailment_score",
+      "next_action": "Revisit after row-level evidence reveals failures that look like semantic adjacency rather than source sparsity.",
+      "primary_axis": "higher_cost_scorer",
+      "promotion_status": "unswept",
+      "state": "parked_second_lane"
+    },
+    {
+      "artifacts": [
+        "docs/rulegen/semantic_decision_rule_comparison_plan.md"
+      ],
+      "changes": [
+        "decision_rule",
+        "calibration",
+        "feature_bundle"
+      ],
+      "current_read": "Documented but intentionally deferred because the current held-out surface is too small for a credible learned promotion claim.",
+      "lane_id": "learned_classifier_or_reranker",
+      "next_action": "Require broader locked evaluation and family leave-one-out before implementation.",
+      "primary_axis": "learned_decision_layer",
+      "promotion_status": "unswept",
+      "state": "parked_second_lane"
+    }
+  ]
+}

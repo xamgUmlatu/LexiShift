@@ -52,6 +52,8 @@ SOURCE_ID = "reverse_aux_example_frames"
 SOURCE_FAMILY = "installed_translation_pack"
 PROMPT_VERSION = "reverse-aux-example-frames-v1"
 _SLUG_RE = re.compile(r"[^a-z0-9]+")
+DEFAULT_SCOPE = "prompt_queue"
+SUPPORTED_SCOPES = frozenset({"prompt_queue", "all_dataset_families"})
 
 
 def _parse_args() -> argparse.Namespace:
@@ -67,6 +69,15 @@ def _parse_args() -> argparse.Namespace:
     parser.add_argument("--data-root", type=Path, default=Path(resolve_data_root()))
     parser.add_argument("--reverse-translation-dict", type=Path, default=None)
     parser.add_argument("--run-id", default=DEFAULT_RUN_ID)
+    parser.add_argument(
+        "--scope",
+        choices=sorted(SUPPORTED_SCOPES),
+        default=DEFAULT_SCOPE,
+        help=(
+            "`prompt_queue` preserves the original queue-only probe; "
+            "`all_dataset_families` extracts reverse-aux rows for every dataset family."
+        ),
+    )
     parser.add_argument("--intake-batch-out", type=Path, default=DEFAULT_INTAKE_OUT)
     parser.add_argument("--normalized-batch-out", type=Path, default=DEFAULT_NORMALIZED_OUT)
     parser.add_argument("--json-out", type=Path, default=DEFAULT_JSON_OUT)
@@ -82,13 +93,19 @@ def build_reverse_aux_example_frame_bundle(
     data_root: Path,
     reverse_pack: TranslationPackRef | None,
     run_id: str = DEFAULT_RUN_ID,
+    scope: str = DEFAULT_SCOPE,
     generated_at: str | None = None,
 ) -> dict[str, object]:
     if generated_at is None:
         generated_at = (
             datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
         )
-    subset_dataset, family_roles = build_queue_subset_dataset(dataset_payload, queue_payload)
+    source_scope = _normalize_scope(scope)
+    subset_dataset, family_roles = _build_source_dataset(
+        queue_payload=queue_payload,
+        dataset_payload=dataset_payload,
+        scope=source_scope,
+    )
     missing_resources = []
     if reverse_pack is None or not reverse_pack.path.exists():
         missing_resources.append("reverse_translation_pack")
@@ -102,6 +119,7 @@ def build_reverse_aux_example_frame_bundle(
             family_roles=family_roles,
             reverse_records_by_trigger=reverse_records_by_trigger,
             run_id=run_id,
+            source_scope=source_scope,
             generated_at=generated_at,
         )
         family_rows = list(
@@ -122,6 +140,7 @@ def build_reverse_aux_example_frame_bundle(
         missing_resources=missing_resources,
         generated_at=generated_at,
         run_id=run_id,
+        source_scope=source_scope,
     )
     return {
         "intake_batch": intake_batch,
@@ -136,6 +155,7 @@ def _build_intake_batch(
     family_roles: Mapping[str, str],
     reverse_records_by_trigger: Mapping[str, Sequence[TranslationGlossRecord]],
     run_id: str,
+    source_scope: str = DEFAULT_SCOPE,
     generated_at: str,
 ) -> dict[str, object]:
     items: list[dict[str, object]] = []
@@ -143,13 +163,14 @@ def _build_intake_batch(
     for family in subset_dataset.get("families", ()):
         if not isinstance(family, Mapping):
             continue
+        role = str(family_roles.get(str(family.get("family_id") or "").strip()) or "target")
         family_items = _build_family_items(
             family,
-            role=str(family_roles.get(str(family.get("family_id") or "").strip()) or "target"),
+            role=role,
             reverse_records_by_trigger=reverse_records_by_trigger,
         )
         items.extend(family_items)
-        family_rows.append(_family_summary_row(family, family_items))
+        family_rows.append(_family_summary_row(family, family_items, role=role))
     return {
         "schema_version": 1,
         "batch_id": f"en-es:reverse-aux-example-frames:{run_id}",
@@ -165,6 +186,7 @@ def _build_intake_batch(
         "prompt_version": PROMPT_VERSION,
         "provenance": {
             "dataset_id": str(subset_dataset.get("dataset_id") or "").strip(),
+            "source_scope": source_scope,
             "source_note": "installed reverse-pack auxiliary sense text, no LLM or reviewed examples",
             "family_rows": family_rows,
         },
@@ -271,6 +293,8 @@ def _item(
 def _family_summary_row(
     family: Mapping[str, object],
     items: Sequence[Mapping[str, object]],
+    *,
+    role: str,
 ) -> dict[str, object]:
     active_count = sum(1 for item in items if str(item.get("relation_type") or "") == "anchor_cue")
     shadow_count = sum(
@@ -281,6 +305,7 @@ def _family_summary_row(
         "family_id": str(family.get("family_id") or "").strip(),
         "trigger": str(family.get("trigger") or "").strip(),
         "active_target": str(active.get("target_lemma") or "").strip(),
+        "role": role,
         "active_aux_count": active_count,
         "shadow_aux_count": shadow_count,
         "phrase_control_example_count": 0,
@@ -299,23 +324,16 @@ def _build_report(
     missing_resources: Sequence[str],
     generated_at: str,
     run_id: str,
+    source_scope: str,
 ) -> dict[str, object]:
     queue_families = [
         family for family in queue_payload.get("families", ()) if isinstance(family, Mapping)
     ]
-    queue_roles = {
-        str(family.get("family_id") or "").strip(): str(family.get("role") or "").strip()
-        for family in queue_families
-        if str(family.get("family_id") or "").strip()
-    }
-    target_rows = [
-        row
-        for row in family_rows
-        if str(queue_roles.get(str(row.get("family_id") or "").strip()) or "target") == "target"
-    ]
+    target_rows = [row for row in family_rows if str(row.get("role") or "target") == "target"]
     summary = {
         "queue_family_count": len(queue_families),
-        "target_family_count": sum(1 for role in queue_roles.values() if role == "target"),
+        "source_family_count": len(family_rows),
+        "target_family_count": len(target_rows),
         "row_count": int(normalized_batch.get("row_count") or 0)
         if isinstance(normalized_batch, Mapping)
         else 0,
@@ -341,6 +359,7 @@ def _build_report(
         "queue_id": str(queue_payload.get("queue_id") or "").strip(),
         "dataset_id": str(dataset_payload.get("dataset_id") or "").strip(),
         "run_id": run_id,
+        "source_scope": source_scope,
         "batch_id": str(normalized_batch.get("batch_id") or "").strip()
         if isinstance(normalized_batch, Mapping)
         else "",
@@ -367,18 +386,20 @@ def render_reverse_aux_example_frame_batch_markdown(report: Mapping[str, object]
         f"- Generated: `{report.get('generated_at', '')}`",
         f"- Batch: `{report.get('batch_id', '')}`",
         f"- Source: `{report.get('source_id', '')}` / `{report.get('source_family', '')}`",
+        f"- Scope: `{report.get('source_scope', '')}`",
         f"- Rows: `{summary.get('row_count', 0)}`",
         "",
         "## Coverage",
         "",
         f"- Queue families: `{summary.get('queue_family_count', 0)}`",
+        f"- Source families: `{summary.get('source_family_count', 0)}`",
         f"- Target families: `{summary.get('target_family_count', 0)}`",
         f"- Target families with active reverse aux: `{summary.get('target_families_with_active_aux', 0)}`",
         f"- Target families with shadow reverse aux: `{summary.get('target_families_with_shadow_aux', 0)}`",
         f"- Families with phrase-control examples: `{summary.get('families_with_phrase_control_examples', 0)}`",
         "",
-        "| Family | Active Aux | Shadow Aux | Phrase Control | Rows |",
-        "| --- | ---: | ---: | ---: | ---: |",
+        "| Family | Role | Active Aux | Shadow Aux | Phrase Control | Rows |",
+        "| --- | --- | ---: | ---: | ---: | ---: |",
     ]
     for row in report.get("family_rows", ()):
         if not isinstance(row, Mapping):
@@ -388,6 +409,7 @@ def render_reverse_aux_example_frame_batch_markdown(report: Mapping[str, object]
             + " | ".join(
                 [
                     f"`{row.get('family_id', '')}`",
+                    f"`{row.get('role', '')}`",
                     str(row.get("active_aux_count", 0)),
                     str(row.get("shadow_aux_count", 0)),
                     str(row.get("phrase_control_example_count", 0)),
@@ -419,6 +441,47 @@ def _build_recommendation(
     )
 
 
+def _build_source_dataset(
+    *,
+    queue_payload: Mapping[str, object],
+    dataset_payload: Mapping[str, object],
+    scope: str,
+) -> tuple[dict[str, object], dict[str, str]]:
+    if scope == "prompt_queue":
+        return build_queue_subset_dataset(dataset_payload, queue_payload)
+    if scope == "all_dataset_families":
+        family_roles = {
+            str(family.get("family_id") or "").strip(): "target"
+            for family in dataset_payload.get("families", ())
+            if isinstance(family, Mapping) and str(family.get("family_id") or "").strip()
+        }
+        return dict(dataset_payload), family_roles
+    raise ValueError(f"unsupported source scope: {scope}")
+
+
+def _normalize_scope(value: str) -> str:
+    text = str(value or "").strip() or DEFAULT_SCOPE
+    if text not in SUPPORTED_SCOPES:
+        raise ValueError(f"unsupported source scope: {text}")
+    return text
+
+
+def _source_triggers(
+    *,
+    queue_payload: Mapping[str, object],
+    dataset_payload: Mapping[str, object],
+    scope: str,
+) -> list[str]:
+    source_payload = dataset_payload if scope == "all_dataset_families" else queue_payload
+    return sorted(
+        {
+            str(item.get("trigger") or "").strip()
+            for item in source_payload.get("families", ())
+            if isinstance(item, Mapping) and str(item.get("trigger") or "").strip()
+        }
+    )
+
+
 def _sense_hint(sense: Mapping[str, object], *, note: str) -> dict[str, object]:
     return {
         "provider": "sentence_veto_dataset",
@@ -447,6 +510,7 @@ def main() -> int:
     args = _parse_args()
     queue_payload = _load_json(args.queue_json)
     dataset_payload = load_sentence_veto_dataset(args.dataset)
+    source_scope = _normalize_scope(str(args.scope or "").strip() or DEFAULT_SCOPE)
     helper_paths = build_helper_paths(Path(args.data_root))
     _forward_pack, reverse_pack = resolve_pair_translation_packs(
         helper_paths,
@@ -455,12 +519,10 @@ def main() -> int:
     )
     reverse_records_by_trigger: dict[str, Sequence[TranslationGlossRecord]] = {}
     if reverse_pack is not None and reverse_pack.path.exists():
-        triggers = sorted(
-            {
-                str(item.get("trigger") or "").strip()
-                for item in queue_payload.get("families", ())
-                if isinstance(item, Mapping) and str(item.get("trigger") or "").strip()
-            }
+        triggers = _source_triggers(
+            queue_payload=queue_payload,
+            dataset_payload=dataset_payload,
+            scope=source_scope,
         )
         reverse_records_by_trigger = load_translation_gloss_records_ordered(
             reverse_pack.path,
@@ -475,6 +537,7 @@ def main() -> int:
         data_root=Path(args.data_root),
         reverse_pack=reverse_pack,
         run_id=str(args.run_id or "").strip() or DEFAULT_RUN_ID,
+        scope=source_scope,
     )
     if isinstance(bundle.get("intake_batch"), Mapping):
         _write_json(args.intake_batch_out, bundle["intake_batch"])

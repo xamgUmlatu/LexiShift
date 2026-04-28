@@ -1,0 +1,795 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-04-28T20:57:49Z",
+  "source_id": "llm_aligned_sentence_frame_rows",
+  "prompt_version": "aligned-sentence-frame-v1",
+  "selected_model_id": "gpt-5.4-mini",
+  "summary": {
+    "selected_request_count": 97,
+    "estimated_input_tokens": 36260,
+    "expected_output_tokens": 4850,
+    "max_output_tokens": 17460,
+    "estimated_cost_expected": 0.04902,
+    "estimated_cost_ceiling": 0.105765
+  },
+  "request_rows": [
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-ball-pelota:en-es-sentence-veto-ball-baile-shadow:candidate-01",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:ball:pelota",
+      "estimated_input_tokens": 375,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-ball-pelota:en-es-sentence-veto-ball-baile-shadow:candidate-02",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:ball:pelota",
+      "estimated_input_tokens": 375,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-ball-pelota:en-es-sentence-veto-ball-baile-shadow:candidate-03",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:ball:pelota",
+      "estimated_input_tokens": 375,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-ball-pelota:en-es-sentence-veto-ball-baile-shadow:candidate-04",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:ball:pelota",
+      "estimated_input_tokens": 375,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-ball-pelota:en-es-sentence-veto-ball-baile-shadow:candidate-05",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:ball:pelota",
+      "estimated_input_tokens": 375,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-plant-planta:en-es-sentence-veto-plant-planta-active:candidate-01",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "estimated_input_tokens": 375,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-plant-planta:en-es-sentence-veto-plant-planta-active:candidate-02",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "estimated_input_tokens": 375,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-plant-planta:en-es-sentence-veto-plant-planta-active:candidate-03",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "estimated_input_tokens": 375,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-plant-planta:en-es-sentence-veto-plant-planta-active:candidate-04",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "estimated_input_tokens": 375,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-plant-planta:en-es-sentence-veto-plant-planta-active:candidate-05",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "estimated_input_tokens": 375,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-cell-celula:en-es-sentence-veto-cell-celula-active:candidate-01",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "estimated_input_tokens": 370,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-cell-celula:en-es-sentence-veto-cell-celula-active:candidate-02",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "estimated_input_tokens": 370,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-cell-celula:en-es-sentence-veto-cell-celula-active:candidate-03",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "estimated_input_tokens": 370,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-cell-celula:en-es-sentence-veto-cell-celula-active:candidate-04",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "estimated_input_tokens": 370,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-cell-celula:en-es-sentence-veto-cell-celula-active:candidate-05",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "estimated_input_tokens": 370,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-cell-celula:en-es-sentence-veto-cell-celda-shadow:candidate-01",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "estimated_input_tokens": 364,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-cell-celula:en-es-sentence-veto-cell-celda-shadow:candidate-02",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "estimated_input_tokens": 364,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-cell-celula:en-es-sentence-veto-cell-celda-shadow:candidate-03",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "estimated_input_tokens": 364,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-cell-celula:en-es-sentence-veto-cell-celda-shadow:candidate-04",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "estimated_input_tokens": 364,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-cell-celula:en-es-sentence-veto-cell-celda-shadow:candidate-05",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "estimated_input_tokens": 364,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-spring-primavera:en-es-sentence-veto-spring-resorte-shadow:candidate-01",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:spring:primavera",
+      "estimated_input_tokens": 379,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-spring-primavera:en-es-sentence-veto-spring-resorte-shadow:candidate-02",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:spring:primavera",
+      "estimated_input_tokens": 379,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-spring-primavera:en-es-sentence-veto-spring-resorte-shadow:candidate-03",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:spring:primavera",
+      "estimated_input_tokens": 379,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-spring-primavera:en-es-sentence-veto-spring-resorte-shadow:candidate-04",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:spring:primavera",
+      "estimated_input_tokens": 379,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-spring-primavera:en-es-sentence-veto-spring-resorte-shadow:candidate-05",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:spring:primavera",
+      "estimated_input_tokens": 379,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-seal-sello:en-es-sentence-veto-seal-sello-active:candidate-01",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:seal:sello",
+      "estimated_input_tokens": 369,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-seal-sello:en-es-sentence-veto-seal-sello-active:candidate-02",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:seal:sello",
+      "estimated_input_tokens": 369,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-seal-sello:en-es-sentence-veto-seal-sello-active:candidate-03",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:seal:sello",
+      "estimated_input_tokens": 369,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-seal-sello:en-es-sentence-veto-seal-sello-active:candidate-04",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:seal:sello",
+      "estimated_input_tokens": 369,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-seal-sello:en-es-sentence-veto-seal-sello-active:candidate-05",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:seal:sello",
+      "estimated_input_tokens": 369,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-seal-sello:en-es-sentence-veto-seal-foca-shadow:candidate-01",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:seal:sello",
+      "estimated_input_tokens": 365,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-seal-sello:en-es-sentence-veto-seal-foca-shadow:candidate-02",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:seal:sello",
+      "estimated_input_tokens": 365,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-seal-sello:en-es-sentence-veto-seal-foca-shadow:candidate-03",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:seal:sello",
+      "estimated_input_tokens": 365,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-seal-sello:en-es-sentence-veto-seal-foca-shadow:candidate-04",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:seal:sello",
+      "estimated_input_tokens": 365,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-seal-sello:en-es-sentence-veto-seal-foca-shadow:candidate-05",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:seal:sello",
+      "estimated_input_tokens": 365,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-file-archivo:en-es-sentence-veto-file-archivo-active:candidate-01",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:file:archivo",
+      "estimated_input_tokens": 368,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-file-archivo:en-es-sentence-veto-file-archivo-active:candidate-02",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:file:archivo",
+      "estimated_input_tokens": 368,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-file-archivo:en-es-sentence-veto-file-archivo-active:candidate-03",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:file:archivo",
+      "estimated_input_tokens": 368,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-file-archivo:en-es-sentence-veto-file-archivo-active:candidate-04",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:file:archivo",
+      "estimated_input_tokens": 368,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-file-archivo:en-es-sentence-veto-file-archivo-active:candidate-05",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:file:archivo",
+      "estimated_input_tokens": 368,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-file-archivo:en-es-sentence-veto-file-lima-shadow:candidate-01",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:file:archivo",
+      "estimated_input_tokens": 372,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-file-archivo:en-es-sentence-veto-file-lima-shadow:candidate-02",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:file:archivo",
+      "estimated_input_tokens": 372,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-file-archivo:en-es-sentence-veto-file-lima-shadow:candidate-03",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:file:archivo",
+      "estimated_input_tokens": 372,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-file-archivo:en-es-sentence-veto-file-lima-shadow:candidate-04",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:file:archivo",
+      "estimated_input_tokens": 372,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-file-archivo:en-es-sentence-veto-file-lima-shadow:candidate-05",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:file:archivo",
+      "estimated_input_tokens": 372,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-match-partido:en-es-sentence-veto-match-partido-active:candidate-01",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:match:partido",
+      "estimated_input_tokens": 372,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-match-partido:en-es-sentence-veto-match-partido-active:candidate-02",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:match:partido",
+      "estimated_input_tokens": 372,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-match-partido:en-es-sentence-veto-match-partido-active:candidate-03",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:match:partido",
+      "estimated_input_tokens": 372,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-match-partido:en-es-sentence-veto-match-partido-active:candidate-04",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:match:partido",
+      "estimated_input_tokens": 372,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-match-partido:en-es-sentence-veto-match-partido-active:candidate-05",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:match:partido",
+      "estimated_input_tokens": 372,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-match-partido:en-es-sentence-veto-match-cerilla-shadow:candidate-01",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:match:partido",
+      "estimated_input_tokens": 369,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-match-partido:en-es-sentence-veto-match-cerilla-shadow:candidate-02",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:match:partido",
+      "estimated_input_tokens": 369,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-match-partido:en-es-sentence-veto-match-cerilla-shadow:candidate-03",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:match:partido",
+      "estimated_input_tokens": 369,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-match-partido:en-es-sentence-veto-match-cerilla-shadow:candidate-04",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:match:partido",
+      "estimated_input_tokens": 369,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-match-partido:en-es-sentence-veto-match-cerilla-shadow:candidate-05",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:match:partido",
+      "estimated_input_tokens": 369,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-board-tablero:en-es-sentence-veto-board-tablero-active:candidate-01",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:board:tablero",
+      "estimated_input_tokens": 384,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-board-tablero:en-es-sentence-veto-board-tablero-active:candidate-02",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:board:tablero",
+      "estimated_input_tokens": 384,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-board-tablero:en-es-sentence-veto-board-tablero-active:candidate-03",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:board:tablero",
+      "estimated_input_tokens": 384,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-board-tablero:en-es-sentence-veto-board-tablero-active:candidate-04",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:board:tablero",
+      "estimated_input_tokens": 384,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-board-tablero:en-es-sentence-veto-board-tablero-active:candidate-05",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:board:tablero",
+      "estimated_input_tokens": 384,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-board-tablero:en-es-sentence-veto-board-junta-shadow:candidate-01",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:board:tablero",
+      "estimated_input_tokens": 386,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-board-tablero:en-es-sentence-veto-board-junta-shadow:candidate-02",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:board:tablero",
+      "estimated_input_tokens": 386,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-board-tablero:en-es-sentence-veto-board-junta-shadow:candidate-03",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:board:tablero",
+      "estimated_input_tokens": 386,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-board-tablero:en-es-sentence-veto-board-junta-shadow:candidate-04",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:board:tablero",
+      "estimated_input_tokens": 386,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-board-tablero:en-es-sentence-veto-board-junta-shadow:candidate-05",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:board:tablero",
+      "estimated_input_tokens": 386,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-branch-sucursal:en-es-sentence-veto-branch-rama-shadow:candidate-01",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:branch:sucursal",
+      "estimated_input_tokens": 370,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-branch-sucursal:en-es-sentence-veto-branch-rama-shadow:candidate-02",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:branch:sucursal",
+      "estimated_input_tokens": 370,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-branch-sucursal:en-es-sentence-veto-branch-rama-shadow:candidate-03",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:branch:sucursal",
+      "estimated_input_tokens": 370,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-branch-sucursal:en-es-sentence-veto-branch-rama-shadow:candidate-04",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:branch:sucursal",
+      "estimated_input_tokens": 370,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-branch-sucursal:en-es-sentence-veto-branch-rama-shadow:candidate-05",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:branch:sucursal",
+      "estimated_input_tokens": 370,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-drink-bebida:en-es-sentence-veto-drink-bebida-active:candidate-01",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:drink:bebida",
+      "estimated_input_tokens": 369,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-drink-bebida:en-es-sentence-veto-drink-bebida-active:candidate-02",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:drink:bebida",
+      "estimated_input_tokens": 369,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-drink-bebida:en-es-sentence-veto-drink-bebida-active:candidate-03",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:drink:bebida",
+      "estimated_input_tokens": 369,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-drink-bebida:en-es-sentence-veto-drink-beber-shadow:candidate-01",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:drink:bebida",
+      "estimated_input_tokens": 369,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-drink-bebida:en-es-sentence-veto-drink-beber-shadow:candidate-02",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:drink:bebida",
+      "estimated_input_tokens": 369,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-drink-bebida:en-es-sentence-veto-drink-beber-shadow:candidate-03",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:drink:bebida",
+      "estimated_input_tokens": 369,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-play-obra:en-es-sentence-veto-play-obra-active:candidate-01",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:play:obra",
+      "estimated_input_tokens": 371,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-play-obra:en-es-sentence-veto-play-obra-active:candidate-02",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:play:obra",
+      "estimated_input_tokens": 371,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-play-obra:en-es-sentence-veto-play-obra-active:candidate-03",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:play:obra",
+      "estimated_input_tokens": 371,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-play-obra:en-es-sentence-veto-play-jugar-shadow:candidate-01",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:play:obra",
+      "estimated_input_tokens": 367,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-play-obra:en-es-sentence-veto-play-jugar-shadow:candidate-02",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:play:obra",
+      "estimated_input_tokens": 367,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-play-obra:en-es-sentence-veto-play-jugar-shadow:candidate-03",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:play:obra",
+      "estimated_input_tokens": 367,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-watch-reloj:en-es-sentence-veto-watch-reloj-active:candidate-01",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:watch:reloj",
+      "estimated_input_tokens": 380,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-watch-reloj:en-es-sentence-veto-watch-reloj-active:candidate-02",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:watch:reloj",
+      "estimated_input_tokens": 380,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-watch-reloj:en-es-sentence-veto-watch-reloj-active:candidate-03",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:watch:reloj",
+      "estimated_input_tokens": 380,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-watch-reloj:en-es-sentence-veto-watch-vigilar-shadow:candidate-01",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:watch:reloj",
+      "estimated_input_tokens": 384,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-watch-reloj:en-es-sentence-veto-watch-vigilar-shadow:candidate-02",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:watch:reloj",
+      "estimated_input_tokens": 384,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-watch-reloj:en-es-sentence-veto-watch-vigilar-shadow:candidate-03",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:watch:reloj",
+      "estimated_input_tokens": 384,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-trip-viaje:en-es-sentence-veto-trip-viaje-shadow:candidate-01",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:trip:viaje",
+      "estimated_input_tokens": 365,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-trip-viaje:en-es-sentence-veto-trip-viaje-shadow:candidate-02",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:trip:viaje",
+      "estimated_input_tokens": 365,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-trip-viaje:en-es-sentence-veto-trip-viaje-shadow:candidate-03",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:trip:viaje",
+      "estimated_input_tokens": 365,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-report-informe:en-es-sentence-veto-report-informe-active:candidate-01",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:report:informe",
+      "estimated_input_tokens": 395,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-report-informe:en-es-sentence-veto-report-informe-active:candidate-02",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:report:informe",
+      "estimated_input_tokens": 395,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:active_example:en-es-sentence-veto-report-informe:en-es-sentence-veto-report-informe-active:candidate-03",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:report:informe",
+      "estimated_input_tokens": 395,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-report-informe:en-es-sentence-veto-report-informar-shadow:candidate-01",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:report:informe",
+      "estimated_input_tokens": 390,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-report-informe:en-es-sentence-veto-report-informar-shadow:candidate-02",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:report:informe",
+      "estimated_input_tokens": 390,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-report-informe:en-es-sentence-veto-report-informar-shadow:candidate-03",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:report:informe",
+      "estimated_input_tokens": 390,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    }
+  ],
+  "plan_json": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/semantic_source_frame_gap_plan_en_es_latest.json",
+  "pricing_source": "https://openai.com/api/pricing/"
+}

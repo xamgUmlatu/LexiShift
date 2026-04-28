@@ -3,7 +3,11 @@ from __future__ import annotations
 from typing import Mapping, Sequence
 
 from lexishift_core.rulegen.semantic_evidence import normalize_llm_intake_batch
-from lexishift_core.rulegen.semantic_routing_runtime_scoring import build_runtime_context_views
+from lexishift_core.rulegen.semantic_routing_runtime_scoring import (
+    DEFAULT_SENTENCE_VETO_CONTEXT_WINDOW_TOKENS,
+    DEFAULT_SENTENCE_VETO_MASK_TOKEN,
+    build_runtime_context_views,
+)
 from semantic_routing_sentence_veto_helpers import _normalize_string_list
 
 
@@ -104,19 +108,38 @@ def row_roles(row: Mapping[str, object]) -> set[str]:
 def active_examples_for_family(
     family: Mapping[str, object],
     lookup: Mapping[str, Mapping[str, object]] | None,
+    *,
+    context_view: str = "masked_sentence",
+    window_tokens: int = DEFAULT_SENTENCE_VETO_CONTEXT_WINDOW_TOKENS,
+    mask_token: str = DEFAULT_SENTENCE_VETO_MASK_TOKEN,
 ) -> list[str]:
     if lookup is None:
         active = family.get("active") if isinstance(family.get("active"), Mapping) else {}
-        return reviewed_examples_for_sense(family, sense_id=sense_id(active))
+        return reviewed_examples_for_sense(
+            family,
+            sense_id=sense_id(active),
+            context_view=context_view,
+            window_tokens=window_tokens,
+            mask_token=mask_token,
+        )
     return _lookup_text_list(family, lookup, "active_examples")
 
 
 def phrase_examples_for_family(
     family: Mapping[str, object],
     lookup: Mapping[str, Mapping[str, object]] | None,
+    *,
+    context_view: str = "masked_sentence",
+    window_tokens: int = DEFAULT_SENTENCE_VETO_CONTEXT_WINDOW_TOKENS,
+    mask_token: str = DEFAULT_SENTENCE_VETO_MASK_TOKEN,
 ) -> list[str]:
     if lookup is None:
-        return reviewed_phrase_examples_for_family(family)
+        return reviewed_phrase_examples_for_family(
+            family,
+            context_view=context_view,
+            window_tokens=window_tokens,
+            mask_token=mask_token,
+        )
     return _lookup_text_list(family, lookup, "phrase_examples")
 
 
@@ -125,9 +148,18 @@ def shadow_examples_for_sense(
     *,
     sense_id: str,
     lookup: Mapping[str, Mapping[str, object]] | None,
+    context_view: str = "masked_sentence",
+    window_tokens: int = DEFAULT_SENTENCE_VETO_CONTEXT_WINDOW_TOKENS,
+    mask_token: str = DEFAULT_SENTENCE_VETO_MASK_TOKEN,
 ) -> list[str]:
     if lookup is None:
-        return reviewed_examples_for_sense(family, sense_id=sense_id)
+        return reviewed_examples_for_sense(
+            family,
+            sense_id=sense_id,
+            context_view=context_view,
+            window_tokens=window_tokens,
+            mask_token=mask_token,
+        )
     family_entry = lookup.get(_dataset_family_key(family))
     if not isinstance(family_entry, Mapping):
         return []
@@ -144,6 +176,10 @@ def shadow_example_pairs_for_family(
     family: Mapping[str, object],
     shadows: Sequence[Mapping[str, object]],
     lookup: Mapping[str, Mapping[str, object]] | None,
+    *,
+    context_view: str = "masked_sentence",
+    window_tokens: int = DEFAULT_SENTENCE_VETO_CONTEXT_WINDOW_TOKENS,
+    mask_token: str = DEFAULT_SENTENCE_VETO_MASK_TOKEN,
 ) -> list[tuple[Mapping[str, object], str]]:
     pairs: list[tuple[Mapping[str, object], str]] = []
     for shadow in shadows:
@@ -151,6 +187,9 @@ def shadow_example_pairs_for_family(
             family,
             sense_id=sense_id(shadow),
             lookup=lookup,
+            context_view=context_view,
+            window_tokens=window_tokens,
+            mask_token=mask_token,
         )
         pairs.extend((shadow, example) for example in examples)
     return pairs
@@ -160,6 +199,9 @@ def reviewed_examples_for_sense(
     family: Mapping[str, object],
     *,
     sense_id: str,
+    context_view: str = "masked_sentence",
+    window_tokens: int = DEFAULT_SENTENCE_VETO_CONTEXT_WINDOW_TOKENS,
+    mask_token: str = DEFAULT_SENTENCE_VETO_MASK_TOKEN,
 ) -> list[str]:
     examples: list[str] = []
     trigger = str(family.get("trigger") or "").strip()
@@ -170,13 +212,25 @@ def reviewed_examples_for_sense(
             continue
         if "phrase_control" in _normalize_string_list(case.get("slice_tags")):
             continue
-        example = case_context_text(case, trigger=trigger)
+        example = case_context_text(
+            case,
+            trigger=trigger,
+            context_view=context_view,
+            window_tokens=window_tokens,
+            mask_token=mask_token,
+        )
         if example and example not in examples:
             examples.append(example)
     return examples[:2]
 
 
-def reviewed_phrase_examples_for_family(family: Mapping[str, object]) -> list[str]:
+def reviewed_phrase_examples_for_family(
+    family: Mapping[str, object],
+    *,
+    context_view: str = "masked_sentence",
+    window_tokens: int = DEFAULT_SENTENCE_VETO_CONTEXT_WINDOW_TOKENS,
+    mask_token: str = DEFAULT_SENTENCE_VETO_MASK_TOKEN,
+) -> list[str]:
     examples: list[str] = []
     trigger = str(family.get("trigger") or "").strip()
     for case in family.get("cases", ()):
@@ -187,18 +241,36 @@ def reviewed_phrase_examples_for_family(family: Mapping[str, object]) -> list[st
             and str(case.get("gold_winner") or "").strip() != "none"
         ):
             continue
-        example = case_context_text(case, trigger=trigger)
+        example = case_context_text(
+            case,
+            trigger=trigger,
+            context_view=context_view,
+            window_tokens=window_tokens,
+            mask_token=mask_token,
+        )
         if example and example not in examples:
             examples.append(example)
     return examples[:2]
 
 
-def case_context_text(case: Mapping[str, object], *, trigger: str) -> str:
+def case_context_text(
+    case: Mapping[str, object],
+    *,
+    trigger: str,
+    context_view: str = "masked_sentence",
+    window_tokens: int = DEFAULT_SENTENCE_VETO_CONTEXT_WINDOW_TOKENS,
+    mask_token: str = DEFAULT_SENTENCE_VETO_MASK_TOKEN,
+) -> str:
     context_views = build_runtime_context_views(
         str(case.get("sentence") or "").strip(),
         source_phrase=str(case.get("source_phrase") or trigger).strip(),
+        mask_token=mask_token,
+        window_tokens=window_tokens,
     )
-    return str(context_views.get("masked_sentence") or "").strip()
+    resolved_context_view = str(context_view or "").strip() or "masked_sentence"
+    return str(
+        context_views.get(resolved_context_view) or context_views.get("masked_sentence") or ""
+    ).strip()
 
 
 def sense_id(sense: Mapping[str, object]) -> str:

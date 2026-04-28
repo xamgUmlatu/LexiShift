@@ -1,0 +1,173 @@
+{
+  "schema_version": 1,
+  "matrix_id": "en_es_semantic_decision_family_bakeoff_v1",
+  "description": "No-spend offline bakeoff for structurally similar active-vs-shadow scalar decision families. Evidence, scorer, aggregation, context, and phrase handling are held fixed so each family gets a fair threshold sweep without trampling source or representation results.",
+  "include_case_results": false,
+  "dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v10.json",
+  "defaults": {
+    "scorer_id": "tfidf_cosine",
+    "context_view": "masked_sentence",
+    "sense_representation": "all_evidence_text",
+    "aggregation_rule": "single_concatenated_text",
+    "phrase_handling": "phrase_override",
+    "window_tokens": 4,
+    "mask_token": "___",
+    "min_active_score": 0.0,
+    "min_margin": 0.0,
+    "ratio_threshold": 1.0,
+    "softmax_threshold": 0.5,
+    "softmax_temperature": 8.0,
+    "pairwise_min_win_rate": 0.75,
+    "top_k": 2,
+    "phrase_guard_pos_scope": "family_all",
+    "evidence_control": "normal",
+    "split_modulo": 4,
+    "locked_eval_remainders": [
+      0
+    ]
+  },
+  "rows": [
+    {
+      "config_id": "scalar_control_margin_a005_m0",
+      "label": "Fixed scalar-control row for the bakeoff",
+      "category": "control",
+      "algorithm_family": "control_margin",
+      "is_control": true,
+      "decision_rule": "active_minus_strongest_shadow",
+      "min_active_score": 0.05,
+      "min_margin": 0.0
+    },
+    {
+      "config_id": "family_margin",
+      "label": "Margin family: active score minus strongest shadow",
+      "category": "family_bakeoff",
+      "algorithm_family": "margin",
+      "decision_rule": "active_minus_strongest_shadow",
+      "parameter_grid": {
+        "min_active_score": [
+          0.0,
+          0.02,
+          0.05,
+          0.1,
+          0.2,
+          0.35
+        ],
+        "min_margin": [
+          0.0,
+          0.005,
+          0.01,
+          0.02,
+          0.05,
+          0.1
+        ]
+      }
+    },
+    {
+      "config_id": "family_ratio",
+      "label": "Ratio family: active score divided by strongest shadow",
+      "category": "family_bakeoff",
+      "algorithm_family": "ratio",
+      "decision_rule": "active_ratio_strongest_shadow",
+      "parameter_grid": {
+        "min_active_score": [
+          0.0,
+          0.02,
+          0.05,
+          0.1,
+          0.2,
+          0.35
+        ],
+        "ratio_threshold": [
+          1.0,
+          1.01,
+          1.03,
+          1.05,
+          1.08,
+          1.12,
+          1.2
+        ]
+      }
+    },
+    {
+      "config_id": "family_softmax",
+      "label": "Softmax family: active probability among active and shadow scores",
+      "category": "family_bakeoff",
+      "algorithm_family": "softmax_probability",
+      "decision_rule": "softmax_probability",
+      "parameter_grid": {
+        "min_active_score": [
+          0.0,
+          0.02,
+          0.05,
+          0.1,
+          0.2
+        ],
+        "softmax_threshold": [
+          0.5,
+          0.52,
+          0.55,
+          0.6,
+          0.65,
+          0.7
+        ],
+        "softmax_temperature": [
+          4.0,
+          8.0,
+          12.0
+        ]
+      }
+    },
+    {
+      "config_id": "family_pairwise_all",
+      "label": "Pairwise-all family: active beats every shadow by margin",
+      "category": "family_bakeoff",
+      "algorithm_family": "pairwise_all",
+      "decision_rule": "pairwise_active_beats_all_shadows",
+      "parameter_grid": {
+        "min_active_score": [
+          0.0,
+          0.02,
+          0.05,
+          0.1,
+          0.2,
+          0.35
+        ],
+        "min_margin": [
+          0.0,
+          0.005,
+          0.01,
+          0.02,
+          0.05,
+          0.1
+        ]
+      }
+    },
+    {
+      "config_id": "family_pairwise_most",
+      "label": "Pairwise-most family: active may lose some shadow comparisons",
+      "category": "family_bakeoff",
+      "algorithm_family": "pairwise_most",
+      "decision_rule": "pairwise_active_beats_most_shadows",
+      "parameter_grid": {
+        "min_active_score": [
+          0.0,
+          0.05,
+          0.1,
+          0.2
+        ],
+        "min_margin": [
+          0.0,
+          0.005,
+          0.02,
+          0.05
+        ],
+        "pairwise_min_win_rate": [
+          0.5,
+          0.67,
+          0.75,
+          1.0
+        ]
+      }
+    }
+  ]
+}

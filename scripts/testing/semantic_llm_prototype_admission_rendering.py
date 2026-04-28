@@ -13,6 +13,7 @@ def render_prototype_admission_markdown(report: Mapping[str, object]) -> str:
         f"- Queue: `{report.get('queue_id', '')}`",
         f"- Runtime dataset: `{report.get('dataset_id', '')}`",
         f"- Scorer: `{report.get('scorer_id', '')}`",
+        f"- Context view: `{report.get('context_view', '')}`",
         f"- Decision contract: `{report.get('decision_contract', '')}`",
         f"- Runtime publishable: `{report.get('runtime_publishable', False)}`",
         "",

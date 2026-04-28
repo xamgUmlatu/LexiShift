@@ -1,0 +1,413 @@
+{
+  "schema_version": 1,
+  "status": "ok",
+  "decision": "reference_lane_frozen",
+  "generated_at": "2026-04-25T23:58:54Z",
+  "pair": "en-es",
+  "lane_id": "en_es_semantic_source_reference_lane_v1",
+  "configured_lane": {
+    "source_mode": "cycle_merged",
+    "scorer_id": "sentence_transformer_cosine",
+    "context_view": "masked_sentence",
+    "min_active_score": 0.0,
+    "min_margin": 0.0,
+    "decision_shape": "active_shadow_containment_surface_pos"
+  },
+  "phrase_policy_candidate_lane": {
+    "source_mode": "promotion_candidate_composite",
+    "scorer_id": "sentence_transformer_cosine",
+    "context_view": "masked_sentence",
+    "min_active_score": 0.0,
+    "min_margin": 0.005,
+    "decision_shape": "active_shadow_containment_surface_pos"
+  },
+  "artifacts": {
+    "source_cycle_json": "docs/test_outputs/semantic_source_admission_cycle_wordnet_active_related_plant_cell_depth3_heldout_v2_policy_latest.json",
+    "heldout_validation_json": "docs/test_outputs/semantic_source_heldout_validation_v2_latest.json",
+    "phrase_heldout_validation_json": "docs/test_outputs/semantic_source_phrase_heldout_v2_margin005_validation_latest.json",
+    "admitted_evidence_batch_json": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-wordnet-active-related-plant-cell-depth3-heldout-v2-policy-v1-20260425a_cycle_sense_admitted_normalized_evidence.json",
+    "heldout_cases_json": "docs/test_inputs/semantic_routing_cases/en_es_source_heldout_cases_v2.json",
+    "phrase_heldout_cases_json": "docs/test_inputs/semantic_routing_cases/en_es_source_phrase_heldout_cases_v2.json"
+  },
+  "known_non_runtime_blockers": [
+    "runtime_phrase_source_policy",
+    "runtime_packaging_feasibility",
+    "broader_heldout_breadth"
+  ],
+  "summary": {
+    "check_count": 59,
+    "failed_check_count": 0,
+    "source_cycle_status": "ok",
+    "source_cycle_decision": "promotion_candidate",
+    "heldout_status": "ok",
+    "heldout_decision": "heldout_pass",
+    "phrase_heldout_status": "ok",
+    "phrase_heldout_decision": "heldout_pass",
+    "evidence_row_count": 133
+  },
+  "checks": [
+    {
+      "check_id": "source_cycle.status",
+      "status": "ok",
+      "actual": "ok",
+      "expected": "ok"
+    },
+    {
+      "check_id": "source_cycle.decision",
+      "status": "ok",
+      "actual": "promotion_candidate",
+      "expected": "promotion_candidate"
+    },
+    {
+      "check_id": "source_cycle.offline_promotion_lane",
+      "status": "ok",
+      "actual": "semantic_active_shadow",
+      "expected": "semantic_active_shadow"
+    },
+    {
+      "check_id": "source_cycle.offline_semantic_lane_status",
+      "status": "ok",
+      "actual": "promotion_candidate",
+      "expected": "promotion_candidate"
+    },
+    {
+      "check_id": "source_cycle.runtime_publication_status",
+      "status": "ok",
+      "actual": "blocked",
+      "expected": "blocked"
+    },
+    {
+      "check_id": "source_cycle.runtime_publication_blockers",
+      "status": "ok",
+      "actual": [
+        "runtime_phrase_source_policy",
+        "broader_heldout_breadth",
+        "runtime_packaging_feasibility"
+      ],
+      "expected": [
+        "runtime_phrase_source_policy",
+        "broader_heldout_breadth",
+        "runtime_packaging_feasibility"
+      ]
+    },
+    {
+      "check_id": "source_cycle.heldout_validation_status",
+      "status": "ok",
+      "actual": "ok",
+      "expected": "ok"
+    },
+    {
+      "check_id": "source_cycle.heldout_validation_decision",
+      "status": "ok",
+      "actual": "heldout_pass",
+      "expected": "heldout_pass"
+    },
+    {
+      "check_id": "source_cycle.heldout_validation_passed",
+      "status": "ok",
+      "actual": true,
+      "expected": true
+    },
+    {
+      "check_id": "source_cycle.leakage_rejected_row_count",
+      "status": "ok",
+      "actual": 0,
+      "expected": 0
+    },
+    {
+      "check_id": "source_cycle.sense_rejected_row_count",
+      "status": "ok",
+      "actual": 0,
+      "expected": 0
+    },
+    {
+      "check_id": "source_cycle.final_admitted_row_count",
+      "status": "ok",
+      "actual": 133,
+      "expected": 133
+    },
+    {
+      "check_id": "source_cycle.families_total",
+      "status": "ok",
+      "actual": 19,
+      "expected": 19
+    },
+    {
+      "check_id": "source_cycle.semantic_contract_complete_family_count",
+      "status": "ok",
+      "actual": 19,
+      "expected": 19
+    },
+    {
+      "check_id": "source_cycle.phrase_contract_complete_family_count",
+      "status": "ok",
+      "actual": 0,
+      "expected": 0
+    },
+    {
+      "check_id": "source_cycle.best_ablation_cases_total",
+      "status": "ok",
+      "actual": 95,
+      "expected": 95
+    },
+    {
+      "check_id": "source_cycle.best_ablation_harmful_replace_count",
+      "status": "ok",
+      "actual": 0,
+      "expected": 0
+    },
+    {
+      "check_id": "source_cycle.best_ablation_false_abstain_count",
+      "status": "ok",
+      "actual": 0,
+      "expected": 0
+    },
+    {
+      "check_id": "source_cycle.best_ablation_replace_recall",
+      "status": "ok",
+      "actual": 1.0,
+      "expected": 1.0
+    },
+    {
+      "check_id": "source_cycle.best_ablation_decision_accuracy",
+      "status": "ok",
+      "actual": 1.0,
+      "expected": 1.0
+    },
+    {
+      "check_id": "source_cycle.configured_lane.source_mode",
+      "status": "ok",
+      "actual": "cycle_merged",
+      "expected": "cycle_merged"
+    },
+    {
+      "check_id": "source_cycle.configured_lane.scorer_id",
+      "status": "ok",
+      "actual": "sentence_transformer_cosine",
+      "expected": "sentence_transformer_cosine"
+    },
+    {
+      "check_id": "source_cycle.configured_lane.context_view",
+      "status": "ok",
+      "actual": "masked_sentence",
+      "expected": "masked_sentence"
+    },
+    {
+      "check_id": "source_cycle.configured_lane.min_active_score",
+      "status": "ok",
+      "actual": 0.0,
+      "expected": 0.0
+    },
+    {
+      "check_id": "source_cycle.configured_lane.min_margin",
+      "status": "ok",
+      "actual": 0.0,
+      "expected": 0.0
+    },
+    {
+      "check_id": "source_cycle.configured_lane.decision_shape",
+      "status": "ok",
+      "actual": "active_shadow_containment_surface_pos",
+      "expected": "active_shadow_containment_surface_pos"
+    },
+    {
+      "check_id": "heldout.status",
+      "status": "ok",
+      "actual": "ok",
+      "expected": "ok"
+    },
+    {
+      "check_id": "heldout.decision",
+      "status": "ok",
+      "actual": "heldout_pass",
+      "expected": "heldout_pass"
+    },
+    {
+      "check_id": "heldout.family_count",
+      "status": "ok",
+      "actual": 19,
+      "expected": 19
+    },
+    {
+      "check_id": "heldout.case_count",
+      "status": "ok",
+      "actual": 38,
+      "expected": 38
+    },
+    {
+      "check_id": "heldout.harmful_replace_count",
+      "status": "ok",
+      "actual": 0,
+      "expected": 0
+    },
+    {
+      "check_id": "heldout.false_abstain_count",
+      "status": "ok",
+      "actual": 0,
+      "expected": 0
+    },
+    {
+      "check_id": "heldout.replace_recall",
+      "status": "ok",
+      "actual": 1.0,
+      "expected": 1.0
+    },
+    {
+      "check_id": "heldout.decision_accuracy",
+      "status": "ok",
+      "actual": 1.0,
+      "expected": 1.0
+    },
+    {
+      "check_id": "heldout.configured_lane.scorer_id",
+      "status": "ok",
+      "actual": "sentence_transformer_cosine",
+      "expected": "sentence_transformer_cosine"
+    },
+    {
+      "check_id": "heldout.configured_lane.context_view",
+      "status": "ok",
+      "actual": "masked_sentence",
+      "expected": "masked_sentence"
+    },
+    {
+      "check_id": "heldout.configured_lane.min_active_score",
+      "status": "ok",
+      "actual": 0.0,
+      "expected": 0.0
+    },
+    {
+      "check_id": "heldout.configured_lane.min_margin",
+      "status": "ok",
+      "actual": 0.0,
+      "expected": 0.0
+    },
+    {
+      "check_id": "heldout.configured_lane.decision_shape",
+      "status": "ok",
+      "actual": "active_shadow_containment_surface_pos",
+      "expected": "active_shadow_containment_surface_pos"
+    },
+    {
+      "check_id": "phrase_heldout.status",
+      "status": "ok",
+      "actual": "ok",
+      "expected": "ok"
+    },
+    {
+      "check_id": "phrase_heldout.decision",
+      "status": "ok",
+      "actual": "heldout_pass",
+      "expected": "heldout_pass"
+    },
+    {
+      "check_id": "phrase_heldout.family_count",
+      "status": "ok",
+      "actual": 19,
+      "expected": 19
+    },
+    {
+      "check_id": "phrase_heldout.case_count",
+      "status": "ok",
+      "actual": 38,
+      "expected": 38
+    },
+    {
+      "check_id": "phrase_heldout.harmful_replace_count",
+      "status": "ok",
+      "actual": 0,
+      "expected": 0
+    },
+    {
+      "check_id": "phrase_heldout.false_abstain_count",
+      "status": "ok",
+      "actual": 0,
+      "expected": 0
+    },
+    {
+      "check_id": "phrase_heldout.replace_recall",
+      "status": "ok",
+      "actual": 0.0,
+      "expected": 0.0
+    },
+    {
+      "check_id": "phrase_heldout.decision_accuracy",
+      "status": "ok",
+      "actual": 1.0,
+      "expected": 1.0
+    },
+    {
+      "check_id": "phrase_heldout.configured_lane.scorer_id",
+      "status": "ok",
+      "actual": "sentence_transformer_cosine",
+      "expected": "sentence_transformer_cosine"
+    },
+    {
+      "check_id": "phrase_heldout.configured_lane.context_view",
+      "status": "ok",
+      "actual": "masked_sentence",
+      "expected": "masked_sentence"
+    },
+    {
+      "check_id": "phrase_heldout.configured_lane.min_active_score",
+      "status": "ok",
+      "actual": 0.0,
+      "expected": 0.0
+    },
+    {
+      "check_id": "phrase_heldout.configured_lane.min_margin",
+      "status": "ok",
+      "actual": 0.005,
+      "expected": 0.005
+    },
+    {
+      "check_id": "phrase_heldout.configured_lane.decision_shape",
+      "status": "ok",
+      "actual": "active_shadow_containment_surface_pos",
+      "expected": "active_shadow_containment_surface_pos"
+    },
+    {
+      "check_id": "evidence.source_id",
+      "status": "ok",
+      "actual": "reverse_aux_wordnet_wiktextract_wordnet_active_related_plant_cell_depth3_heldout_v2_policy",
+      "expected": "reverse_aux_wordnet_wiktextract_wordnet_active_related_plant_cell_depth3_heldout_v2_policy"
+    },
+    {
+      "check_id": "evidence.batch_id",
+      "status": "ok",
+      "actual": "en-es:example-frame-composite:reverse-aux-wordnet-wiktextract-wordnet-active-related-plant-cell-depth3-heldout-v2-policy-v1:sense-admitted",
+      "expected": "en-es:example-frame-composite:reverse-aux-wordnet-wiktextract-wordnet-active-related-plant-cell-depth3-heldout-v2-policy-v1:sense-admitted"
+    },
+    {
+      "check_id": "evidence.row_count",
+      "status": "ok",
+      "actual": 133,
+      "expected": 133
+    },
+    {
+      "check_id": "evidence.relation_type.anchor_cue",
+      "status": "ok",
+      "actual": 95,
+      "expected": 95
+    },
+    {
+      "check_id": "evidence.relation_type.shadow_candidate",
+      "status": "ok",
+      "actual": 38,
+      "expected": 38
+    },
+    {
+      "check_id": "evidence.plant_active_related_wordnet_min_count",
+      "status": "ok",
+      "actual": 11,
+      "expected": ">= 1"
+    },
+    {
+      "check_id": "evidence.cell_active_related_wordnet_depth2_plus_min_count",
+      "status": "ok",
+      "actual": 26,
+      "expected": ">= 1"
+    }
+  ],
+  "failed_checks": []
+}

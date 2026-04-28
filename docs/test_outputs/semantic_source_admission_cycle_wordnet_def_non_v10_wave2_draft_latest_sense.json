@@ -1,0 +1,640 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-04-27T22:25:03Z",
+  "status": "review",
+  "batch_id": "en-es:wordnet-def-non-v10-wave2-draft-v1:source-admission-cycle",
+  "admitted_batch_id": "en-es:wordnet-def-non-v10-wave2-draft-v1:source-admission-cycle:sense-admitted",
+  "summary": {
+    "input_row_count": 17,
+    "semantic_input_row_count": 17,
+    "semantic_admitted_row_count": 15,
+    "semantic_rejected_row_count": 2,
+    "non_semantic_passthrough_row_count": 0,
+    "admitted_row_count": 15,
+    "scorers": [
+      "sentence_transformer_cosine"
+    ],
+    "evidence_view": "all_evidence_text",
+    "min_intended_score": 0.5,
+    "min_margin": 0.0,
+    "rejection_reason_counts": {
+      "competitor_sense_not_lower": 2
+    }
+  },
+  "row_results": [
+    {
+      "row_id": "en-es-sentence-veto-look-aspecto:active-wordnet-definition-1",
+      "family_id": "en-es:sentence-veto:look:aspecto",
+      "relation_type": "anchor_cue",
+      "evidence_text": "physical appearance",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:look:aspecto:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:look:aspecto:parecer:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:look:aspecto:active",
+        "intended_score": 0.838882,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:look:aspecto:parecer:shadow",
+        "strongest_competitor_score": 0.657853,
+        "margin": 0.181028
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:look:aspecto:active",
+          "intended_score": 0.838882,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:look:aspecto:parecer:shadow",
+          "strongest_competitor_score": 0.657853,
+          "margin": 0.181028
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-look-aspecto:shadow-en-es-sentence-veto-look-aspecto-parecer-shadow-wordnet-definition-1",
+      "family_id": "en-es:sentence-veto:look:aspecto",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "give a certain impression of being something or having a certain aspect",
+      "admission_status": "rejected",
+      "reason_code": "competitor_sense_not_lower",
+      "intended_sense_id": "en-es:sentence-veto:look:aspecto:parecer:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:look:aspecto:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:look:aspecto:parecer:shadow",
+        "intended_score": 0.737194,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:look:aspecto:active",
+        "strongest_competitor_score": 0.812901,
+        "margin": -0.075707
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:look:aspecto:parecer:shadow",
+          "intended_score": 0.737194,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:look:aspecto:active",
+          "strongest_competitor_score": 0.812901,
+          "margin": -0.075707
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-use-uso:active-wordnet-definition-1",
+      "family_id": "en-es:sentence-veto:use:uso",
+      "relation_type": "anchor_cue",
+      "evidence_text": "the act of using",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:use:uso:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:use:uso:usar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:use:uso:active",
+        "intended_score": 0.88625,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:use:uso:usar:shadow",
+        "strongest_competitor_score": 0.8197,
+        "margin": 0.066549
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:use:uso:active",
+          "intended_score": 0.88625,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:use:uso:usar:shadow",
+          "strongest_competitor_score": 0.8197,
+          "margin": 0.066549
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-use-uso:shadow-en-es-sentence-veto-use-uso-usar-shadow-wordnet-definition-1",
+      "family_id": "en-es:sentence-veto:use:uso",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "avail oneself to",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:use:uso:usar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:use:uso:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:use:uso:usar:shadow",
+        "intended_score": 0.696134,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:use:uso:active",
+        "strongest_competitor_score": 0.677366,
+        "margin": 0.018768
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:use:uso:usar:shadow",
+          "intended_score": 0.696134,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:use:uso:active",
+          "strongest_competitor_score": 0.677366,
+          "margin": 0.018768
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-train-tren:active-wordnet-definition-1",
+      "family_id": "en-es:sentence-veto:train:tren",
+      "relation_type": "anchor_cue",
+      "evidence_text": "public transport provided by a line of railway cars coupled together and drawn by a locomotive",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:train:tren:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:train:tren:adiestrar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:train:tren:active",
+        "intended_score": 0.808922,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:train:tren:adiestrar:shadow",
+        "strongest_competitor_score": 0.583997,
+        "margin": 0.224925
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:train:tren:active",
+          "intended_score": 0.808922,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:train:tren:adiestrar:shadow",
+          "strongest_competitor_score": 0.583997,
+          "margin": 0.224925
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-train-tren:shadow-en-es-sentence-veto-train-tren-adiestrar-shadow-wordnet-definition-1",
+      "family_id": "en-es:sentence-veto:train:tren",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "develop (a child's or animal's) behavior by instruction and practice; especially to teach self-control",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:train:tren:adiestrar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:train:tren:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:train:tren:adiestrar:shadow",
+        "intended_score": 0.728292,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:train:tren:active",
+        "strongest_competitor_score": 0.540038,
+        "margin": 0.188253
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:train:tren:adiestrar:shadow",
+          "intended_score": 0.728292,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:train:tren:active",
+          "strongest_competitor_score": 0.540038,
+          "margin": 0.188253
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-land-tierra:active-wordnet-definition-1",
+      "family_id": "en-es:sentence-veto:land:tierra",
+      "relation_type": "anchor_cue",
+      "evidence_text": "the solid part of the earth's surface",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:land:tierra:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:land:tierra:pa-s:shadow",
+        "en-es:sentence-veto:land:tierra:atracar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:land:tierra:active",
+        "intended_score": 0.753535,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:land:tierra:atracar:shadow",
+        "strongest_competitor_score": 0.647228,
+        "margin": 0.106307
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:land:tierra:active",
+          "intended_score": 0.753535,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:land:tierra:atracar:shadow",
+          "strongest_competitor_score": 0.647228,
+          "margin": 0.106307
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-land-tierra:shadow-en-es-sentence-veto-land-tierra-pa-s-shadow-wordnet-definition-1",
+      "family_id": "en-es:sentence-veto:land:tierra",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "extensive landed property (especially in the country) retained by the owner for their own use",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:land:tierra:pa-s:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:land:tierra:active",
+        "en-es:sentence-veto:land:tierra:atracar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:land:tierra:pa-s:shadow",
+        "intended_score": 0.680544,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:land:tierra:atracar:shadow",
+        "strongest_competitor_score": 0.641199,
+        "margin": 0.039346
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:land:tierra:pa-s:shadow",
+          "intended_score": 0.680544,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:land:tierra:atracar:shadow",
+          "strongest_competitor_score": 0.641199,
+          "margin": 0.039346
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-land-tierra:shadow-en-es-sentence-veto-land-tierra-atracar-shadow-wordnet-definition-1",
+      "family_id": "en-es:sentence-veto:land:tierra",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "arrive on shore",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:land:tierra:atracar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:land:tierra:active",
+        "en-es:sentence-veto:land:tierra:pa-s:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:land:tierra:atracar:shadow",
+        "intended_score": 0.739516,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:land:tierra:active",
+        "strongest_competitor_score": 0.588643,
+        "margin": 0.150873
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:land:tierra:atracar:shadow",
+          "intended_score": 0.739516,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:land:tierra:active",
+          "strongest_competitor_score": 0.588643,
+          "margin": 0.150873
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-end-fin:active-wordnet-definition-1",
+      "family_id": "en-es:sentence-veto:end:fin",
+      "relation_type": "anchor_cue",
+      "evidence_text": "the final stage or concluding parts of an event or occurrence",
+      "admission_status": "rejected",
+      "reason_code": "competitor_sense_not_lower",
+      "intended_sense_id": "en-es:sentence-veto:end:fin:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:end:fin:acabar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:end:fin:active",
+        "intended_score": 0.733842,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:end:fin:acabar:shadow",
+        "strongest_competitor_score": 0.777175,
+        "margin": -0.043333
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:end:fin:active",
+          "intended_score": 0.733842,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:end:fin:acabar:shadow",
+          "strongest_competitor_score": 0.777175,
+          "margin": -0.043333
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-end-fin:shadow-en-es-sentence-veto-end-fin-acabar-shadow-wordnet-definition-1",
+      "family_id": "en-es:sentence-veto:end:fin",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "have an end, in a temporal, spatial, or quantitative sense; either spatial or metaphorical",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:end:fin:acabar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:end:fin:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:end:fin:acabar:shadow",
+        "intended_score": 0.793802,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:end:fin:active",
+        "strongest_competitor_score": 0.776358,
+        "margin": 0.017444
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:end:fin:acabar:shadow",
+          "intended_score": 0.793802,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:end:fin:active",
+          "strongest_competitor_score": 0.776358,
+          "margin": 0.017444
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-offer-oferta:active-wordnet-definition-1",
+      "family_id": "en-es:sentence-veto:offer:oferta",
+      "relation_type": "anchor_cue",
+      "evidence_text": "something offered (as a proposal or bid)",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:offer:oferta:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:offer:oferta:ofrecer:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:offer:oferta:active",
+        "intended_score": 0.880141,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:offer:oferta:ofrecer:shadow",
+        "strongest_competitor_score": 0.852399,
+        "margin": 0.027742
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:offer:oferta:active",
+          "intended_score": 0.880141,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:offer:oferta:ofrecer:shadow",
+          "strongest_competitor_score": 0.852399,
+          "margin": 0.027742
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-offer-oferta:shadow-en-es-sentence-veto-offer-oferta-ofrecer-shadow-wordnet-definition-1",
+      "family_id": "en-es:sentence-veto:offer:oferta",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "propose a payment",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:offer:oferta:ofrecer:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:offer:oferta:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:offer:oferta:ofrecer:shadow",
+        "intended_score": 0.733595,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:offer:oferta:active",
+        "strongest_competitor_score": 0.721749,
+        "margin": 0.011845
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:offer:oferta:ofrecer:shadow",
+          "intended_score": 0.733595,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:offer:oferta:active",
+          "strongest_competitor_score": 0.721749,
+          "margin": 0.011845
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-sign-se-a:active-wordnet-definition-1",
+      "family_id": "en-es:sentence-veto:sign:se-a",
+      "relation_type": "anchor_cue",
+      "evidence_text": "a fundamental linguistic unit linking a signifier to that which is signified",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:sign:se-a:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:sign:se-a:firmar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:sign:se-a:active",
+        "intended_score": 0.859146,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:sign:se-a:firmar:shadow",
+        "strongest_competitor_score": 0.728317,
+        "margin": 0.130829
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:sign:se-a:active",
+          "intended_score": 0.859146,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:sign:se-a:firmar:shadow",
+          "strongest_competitor_score": 0.728317,
+          "margin": 0.130829
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-sign-se-a:shadow-en-es-sentence-veto-sign-se-a-firmar-shadow-wordnet-definition-1",
+      "family_id": "en-es:sentence-veto:sign:se-a",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "mark with one's signature; write one's name (on)",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:sign:se-a:firmar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:sign:se-a:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:sign:se-a:firmar:shadow",
+        "intended_score": 0.803717,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:sign:se-a:active",
+        "strongest_competitor_score": 0.678334,
+        "margin": 0.125384
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:sign:se-a:firmar:shadow",
+          "intended_score": 0.803717,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:sign:se-a:active",
+          "strongest_competitor_score": 0.678334,
+          "margin": 0.125384
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-quiet-silencio:active-wordnet-definition-1",
+      "family_id": "en-es:sentence-veto:quiet:silencio",
+      "relation_type": "anchor_cue",
+      "evidence_text": "the absence of sound",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:quiet:silencio:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:quiet:silencio:calmar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:quiet:silencio:active",
+        "intended_score": 0.882524,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:quiet:silencio:calmar:shadow",
+        "strongest_competitor_score": 0.709216,
+        "margin": 0.173308
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:quiet:silencio:active",
+          "intended_score": 0.882524,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:quiet:silencio:calmar:shadow",
+          "strongest_competitor_score": 0.709216,
+          "margin": 0.173308
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-quiet-silencio:shadow-en-es-sentence-veto-quiet-silencio-calmar-shadow-wordnet-definition-1",
+      "family_id": "en-es:sentence-veto:quiet:silencio",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "become quiet or quieter",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:quiet:silencio:calmar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:quiet:silencio:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:quiet:silencio:calmar:shadow",
+        "intended_score": 0.825766,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:quiet:silencio:active",
+        "strongest_competitor_score": 0.813863,
+        "margin": 0.011903
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:quiet:silencio:calmar:shadow",
+          "intended_score": 0.825766,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:quiet:silencio:active",
+          "strongest_competitor_score": 0.813863,
+          "margin": 0.011903
+        }
+      ]
+    }
+  ],
+  "rejected_rows": [
+    {
+      "row_id": "en-es-sentence-veto-look-aspecto:shadow-en-es-sentence-veto-look-aspecto-parecer-shadow-wordnet-definition-1",
+      "family_id": "en-es:sentence-veto:look:aspecto",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "give a certain impression of being something or having a certain aspect",
+      "admission_status": "rejected",
+      "reason_code": "competitor_sense_not_lower",
+      "intended_sense_id": "en-es:sentence-veto:look:aspecto:parecer:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:look:aspecto:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:look:aspecto:parecer:shadow",
+        "intended_score": 0.737194,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:look:aspecto:active",
+        "strongest_competitor_score": 0.812901,
+        "margin": -0.075707
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:look:aspecto:parecer:shadow",
+          "intended_score": 0.737194,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:look:aspecto:active",
+          "strongest_competitor_score": 0.812901,
+          "margin": -0.075707
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-end-fin:active-wordnet-definition-1",
+      "family_id": "en-es:sentence-veto:end:fin",
+      "relation_type": "anchor_cue",
+      "evidence_text": "the final stage or concluding parts of an event or occurrence",
+      "admission_status": "rejected",
+      "reason_code": "competitor_sense_not_lower",
+      "intended_sense_id": "en-es:sentence-veto:end:fin:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:end:fin:acabar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:end:fin:active",
+        "intended_score": 0.733842,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:end:fin:acabar:shadow",
+        "strongest_competitor_score": 0.777175,
+        "margin": -0.043333
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:end:fin:active",
+          "intended_score": 0.733842,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:end:fin:acabar:shadow",
+          "strongest_competitor_score": 0.777175,
+          "margin": -0.043333
+        }
+      ]
+    }
+  ],
+  "recommendation": "Use the admitted batch only as an analysis artifact. Replace or quarantine rejected active/shadow rows before any promotion-candidate merge."
+}

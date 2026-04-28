@@ -1,0 +1,182 @@
+{
+  "schema_version": 1,
+  "pair": "en-es",
+  "dataset_id": "en_es_source_heldout_cases_v1",
+  "base_dataset": "docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v10.json",
+  "description": "Seed non-benchmark active/shadow semantic validation cases for the current en-es source-admission promotion-candidate lane. Phrase-control rows are intentionally excluded so phrase-source policy remains a separate runtime/publication blocker.",
+  "case_scope": "semantic_active_shadow_only",
+  "families": [
+    {
+      "family_id": "en-es:sentence-veto:bank:banco",
+      "cases": [
+        {
+          "case_id": "en-es:source-heldout:v1:bank:001",
+          "sentence": "The small bank lends money to local shops.",
+          "source_phrase": "bank",
+          "gold_winner": "en-es:sentence-veto:bank:banco:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "source_heldout_v1",
+            "semantic_active"
+          ]
+        },
+        {
+          "case_id": "en-es:source-heldout:v1:bank:002",
+          "sentence": "The canoe scraped the stony bank after the storm.",
+          "source_phrase": "bank",
+          "gold_winner": "en-es:sentence-veto:bank:orilla:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "source_heldout_v1",
+            "semantic_shadow"
+          ]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "cases": [
+        {
+          "case_id": "en-es:source-heldout:v1:plant:001",
+          "sentence": "The plant in the clay pot grew new leaves.",
+          "source_phrase": "plant",
+          "gold_winner": "en-es:sentence-veto:plant:planta:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "source_heldout_v1",
+            "semantic_active",
+            "same_pos"
+          ]
+        },
+        {
+          "case_id": "en-es:source-heldout:v1:plant:002",
+          "sentence": "The assembly plant added workers for the late shift.",
+          "source_phrase": "plant",
+          "gold_winner": "en-es:sentence-veto:plant:fabrica:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "source_heldout_v1",
+            "semantic_shadow",
+            "same_pos"
+          ]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "cases": [
+        {
+          "case_id": "en-es:source-heldout:v1:cell:001",
+          "sentence": "Each cell in the tissue contained a visible nucleus.",
+          "source_phrase": "cell",
+          "gold_winner": "en-es:sentence-veto:cell:celula:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "source_heldout_v1",
+            "semantic_active",
+            "same_pos"
+          ]
+        },
+        {
+          "case_id": "en-es:source-heldout:v1:cell:002",
+          "sentence": "The prisoner waited alone in the narrow cell.",
+          "source_phrase": "cell",
+          "gold_winner": "en-es:sentence-veto:cell:celda:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "source_heldout_v1",
+            "semantic_shadow",
+            "same_pos"
+          ]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:play:obra",
+      "cases": [
+        {
+          "case_id": "en-es:source-heldout:v1:play:001",
+          "sentence": "The comedy play opened at the downtown theater.",
+          "source_phrase": "play",
+          "gold_winner": "en-es:sentence-veto:play:obra:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "source_heldout_v1",
+            "semantic_active",
+            "cross_pos"
+          ]
+        },
+        {
+          "case_id": "en-es:source-heldout:v1:play:002",
+          "sentence": "Children play soccer in the park after school.",
+          "source_phrase": "play",
+          "gold_winner": "en-es:sentence-veto:play:jugar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "source_heldout_v1",
+            "semantic_shadow",
+            "cross_pos"
+          ]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:check:cheque",
+      "cases": [
+        {
+          "case_id": "en-es:source-heldout:v1:check:001",
+          "sentence": "She wrote a check to pay the rent.",
+          "source_phrase": "check",
+          "gold_winner": "en-es:sentence-veto:check:cheque:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "source_heldout_v1",
+            "semantic_active",
+            "cross_pos"
+          ]
+        },
+        {
+          "case_id": "en-es:source-heldout:v1:check:002",
+          "sentence": "Auditors check the figures before publication.",
+          "source_phrase": "check",
+          "gold_winner": "en-es:sentence-veto:check:revisar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "source_heldout_v1",
+            "semantic_shadow",
+            "cross_pos"
+          ]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:report:informe",
+      "cases": [
+        {
+          "case_id": "en-es:source-heldout:v1:report:001",
+          "sentence": "The quarterly report summarized the investigation findings.",
+          "source_phrase": "report",
+          "gold_winner": "en-es:sentence-veto:report:informe:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "source_heldout_v1",
+            "semantic_active",
+            "cross_pos"
+          ]
+        },
+        {
+          "case_id": "en-es:source-heldout:v1:report:002",
+          "sentence": "Journalists report the election results at night.",
+          "source_phrase": "report",
+          "gold_winner": "en-es:sentence-veto:report:informar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "source_heldout_v1",
+            "semantic_shadow",
+            "cross_pos"
+          ]
+        }
+      ]
+    }
+  ]
+}

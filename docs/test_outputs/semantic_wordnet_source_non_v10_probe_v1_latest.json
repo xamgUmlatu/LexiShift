@@ -1,0 +1,445 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-04-26T03:20:39Z",
+  "status": "ok",
+  "pair": "en-es",
+  "queue_id": "semantic_source_non_v10_probe_en_es_v1",
+  "dataset_id": "en_es_source_non_v10_probe_v1",
+  "run_id": "wordnet-source-non-v10-probe-v1-20260426a",
+  "source_scope": "all_dataset_families",
+  "batch_id": "en-es:wordnet-example-frames:wordnet-source-non-v10-probe-v1-20260426a",
+  "source_type": "external",
+  "source_id": "wordnet_example_frames",
+  "source_family": "external_sense_graph",
+  "resource_status": {
+    "data_root": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift",
+    "wordnet_dir": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/english-wordnet-2025-json",
+    "wordnet_dir_exists": true,
+    "wordnet_source_file_count": 72,
+    "wordnet_entry_count": 127311,
+    "wordnet_synset_count": 107519,
+    "missing_resources": []
+  },
+  "summary": {
+    "queue_family_count": 8,
+    "source_family_count": 8,
+    "target_family_count": 8,
+    "row_count": 18,
+    "families_with_active_wordnet": 8,
+    "families_with_shadow_wordnet": 8,
+    "target_families_with_active_wordnet": 8,
+    "target_families_with_shadow_wordnet": 8,
+    "families_with_phrase_control_examples": 0,
+    "missing_active_family_keys": [],
+    "missing_shadow_family_keys": [],
+    "min_link_score": 0.12,
+    "evidence_mode": "example_preferred"
+  },
+  "family_rows": [
+    {
+      "family_id": "en-es:sentence-veto:rock:roca",
+      "trigger": "rock",
+      "active_target": "roca",
+      "role": "target",
+      "active_wordnet_count": 1,
+      "shadow_wordnet_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:rock:roca:active",
+          "target_lemma": "roca",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_wordnet_sense_id": "rock%1:17:01::",
+          "best_wordnet_synset_id": "09438954-n",
+          "best_link_score": 0.7143,
+          "best_overlap": [
+            "hard",
+            "lump",
+            "matter",
+            "mineral",
+            "stone"
+          ],
+          "candidate_count": 3
+        },
+        {
+          "sense_id": "en-es:sentence-veto:rock:sacudir:shadow",
+          "target_lemma": "sacudir",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_wordnet_sense_id": "rock%2:38:06::",
+          "best_wordnet_synset_id": "01880021-v",
+          "best_link_score": 0.5556,
+          "best_overlap": [
+            "back",
+            "cause",
+            "forth",
+            "move",
+            "sway"
+          ],
+          "candidate_count": 2
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:draft:borrador",
+      "trigger": "draft",
+      "active_target": "borrador",
+      "role": "target",
+      "active_wordnet_count": 1,
+      "shadow_wordnet_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:draft:borrador:active",
+          "target_lemma": "borrador",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_wordnet_sense_id": "draft%1:10:00::",
+          "best_wordnet_synset_id": "06402605-n",
+          "best_link_score": 0.5556,
+          "best_overlap": [
+            "copy",
+            "preliminary",
+            "version",
+            "work",
+            "written"
+          ],
+          "candidate_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:draft:reclutar:shadow",
+          "target_lemma": "reclutar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_wordnet_sense_id": "draft%2:33:00::",
+          "best_wordnet_synset_id": "01099911-v",
+          "best_link_score": 0.375,
+          "best_overlap": [
+            "enlist",
+            "enter",
+            "muster"
+          ],
+          "candidate_count": 1
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:case:caso",
+      "trigger": "case",
+      "active_target": "caso",
+      "role": "target",
+      "active_wordnet_count": 1,
+      "shadow_wordnet_count": 2,
+      "phrase_control_example_count": 0,
+      "row_count": 3,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:case:caso:active",
+          "target_lemma": "caso",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_wordnet_sense_id": "case%1:04:00::",
+          "best_wordnet_synset_id": "01185144-n",
+          "best_link_score": 0.4,
+          "best_overlap": [
+            "court",
+            "lawsuit",
+            "legal",
+            "proceed"
+          ],
+          "candidate_count": 2
+        },
+        {
+          "sense_id": "en-es:sentence-veto:case:estuche:shadow",
+          "target_lemma": "estuche",
+          "canonical_pos": "noun",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_wordnet_sense_id": "case%1:06:00::",
+          "best_wordnet_synset_id": "02978156-n",
+          "best_link_score": 0.7143,
+          "best_overlap": [
+            "carry",
+            "container",
+            "instrument",
+            "object",
+            "portable"
+          ],
+          "candidate_count": 4
+        },
+        {
+          "sense_id": "en-es:sentence-veto:case:vigilar:shadow",
+          "target_lemma": "vigilar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_wordnet_sense_id": "case%2:39:00::",
+          "best_wordnet_synset_id": "02170426-v",
+          "best_link_score": 0.3333,
+          "best_overlap": [
+            "house",
+            "look",
+            "rob"
+          ],
+          "candidate_count": 1
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:scale:escala",
+      "trigger": "scale",
+      "active_target": "escala",
+      "role": "target",
+      "active_wordnet_count": 1,
+      "shadow_wordnet_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:scale:escala:active",
+          "target_lemma": "escala",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_wordnet_sense_id": "scale%1:24:03::",
+          "best_wordnet_synset_id": "13872501-n",
+          "best_link_score": 0.6667,
+          "best_overlap": [
+            "graduat",
+            "measurement",
+            "order",
+            "reference",
+            "sery",
+            "standard"
+          ],
+          "candidate_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:scale:escalar:shadow",
+          "target_lemma": "escalar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_wordnet_sense_id": "scale%2:40:00::",
+          "best_wordnet_synset_id": "02211818-v",
+          "best_link_score": 0.1667,
+          "best_overlap": [
+            "wall"
+          ],
+          "candidate_count": 3
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:line:linea",
+      "trigger": "line",
+      "active_target": "linea",
+      "role": "target",
+      "active_wordnet_count": 1,
+      "shadow_wordnet_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:line:linea:active",
+          "target_lemma": "linea",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_wordnet_sense_id": "line%1:10:02::",
+          "best_wordnet_synset_id": "07025650-n",
+          "best_link_score": 0.5,
+          "best_overlap": [
+            "page",
+            "row",
+            "text",
+            "word",
+            "written"
+          ],
+          "candidate_count": 2
+        },
+        {
+          "sense_id": "en-es:sentence-veto:line:forrar:shadow",
+          "target_lemma": "forrar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_wordnet_sense_id": "line%2:35:00::",
+          "best_wordnet_synset_id": "01273348-v",
+          "best_link_score": 0.2857,
+          "best_overlap": [
+            "cover",
+            "interior"
+          ],
+          "candidate_count": 2
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:point:punto",
+      "trigger": "point",
+      "active_target": "punto",
+      "role": "target",
+      "active_wordnet_count": 1,
+      "shadow_wordnet_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:point:punto:active",
+          "target_lemma": "punto",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_wordnet_sense_id": "point%1:10:01::",
+          "best_wordnet_synset_id": "06619161-n",
+          "best_link_score": 0.2222,
+          "best_overlap": [
+            "essential",
+            "mean"
+          ],
+          "candidate_count": 3
+        },
+        {
+          "sense_id": "en-es:sentence-veto:point:senalar:shadow",
+          "target_lemma": "senalar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_wordnet_sense_id": "point%2:32:00::",
+          "best_wordnet_synset_id": "00925764-v",
+          "best_link_score": 0.6667,
+          "best_overlap": [
+            "direction",
+            "indicate",
+            "place",
+            "show"
+          ],
+          "candidate_count": 6
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:ring:anillo",
+      "trigger": "ring",
+      "active_target": "anillo",
+      "role": "target",
+      "active_wordnet_count": 1,
+      "shadow_wordnet_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:ring:anillo:active",
+          "target_lemma": "anillo",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_wordnet_sense_id": "ring%1:06:00::",
+          "best_wordnet_synset_id": "04099721-n",
+          "best_link_score": 0.6667,
+          "best_overlap": [
+            "band",
+            "finger",
+            "jewelry",
+            "metal",
+            "preciou",
+            "worn"
+          ],
+          "candidate_count": 2
+        },
+        {
+          "sense_id": "en-es:sentence-veto:ring:sonar:shadow",
+          "target_lemma": "sonar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_wordnet_sense_id": "ring%2:39:00::",
+          "best_wordnet_synset_id": "02185344-v",
+          "best_link_score": 0.5714,
+          "best_overlap": [
+            "bell",
+            "loudly",
+            "peal",
+            "sound"
+          ],
+          "candidate_count": 3
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:date:fecha",
+      "trigger": "date",
+      "active_target": "fecha",
+      "role": "target",
+      "active_wordnet_count": 1,
+      "shadow_wordnet_count": 2,
+      "phrase_control_example_count": 0,
+      "row_count": 3,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:date:fecha:active",
+          "target_lemma": "fecha",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_wordnet_sense_id": "date%1:28:03::",
+          "best_wordnet_synset_id": "15185626-n",
+          "best_link_score": 0.5556,
+          "best_overlap": [
+            "calendar",
+            "day",
+            "event",
+            "month",
+            "year"
+          ],
+          "candidate_count": 3
+        },
+        {
+          "sense_id": "en-es:sentence-veto:date:datil:shadow",
+          "target_lemma": "datil",
+          "canonical_pos": "noun",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_wordnet_sense_id": "date%1:13:00::",
+          "best_wordnet_synset_id": "07781049-n",
+          "best_link_score": 0.7143,
+          "best_overlap": [
+            "edible",
+            "fruit",
+            "palm",
+            "seed",
+            "sweet"
+          ],
+          "candidate_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:date:fechar:shadow",
+          "target_lemma": "fechar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_wordnet_sense_id": "date%2:31:00::",
+          "best_wordnet_synset_id": "00620873-v",
+          "best_link_score": 0.4444,
+          "best_overlap": [
+            "assign",
+            "determine",
+            "finding",
+            "probable"
+          ],
+          "candidate_count": 1
+        }
+      ]
+    }
+  ],
+  "recommendation": "This adapter is a real local source pass for active/shadow semantic evidence, but it intentionally does not solve phrase containment. Run the source-admission cycle before using it as a challenger, and treat missing/low-score links as source gaps rather than generated coverage."
+}

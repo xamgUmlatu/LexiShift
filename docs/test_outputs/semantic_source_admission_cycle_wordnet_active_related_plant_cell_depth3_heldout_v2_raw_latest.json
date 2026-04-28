@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-04-25T05:28:03Z",
+  "status": "review",
+  "decision": "analysis_only",
+  "policy": {
+    "offline_promotion_lane": "semantic_active_shadow",
+    "offline_semantic_lane_status": "analysis_only",
+    "runtime_publication_status": "not_assessed",
+    "runtime_publication_blockers": [],
+    "contract_lanes": {
+      "semantic_active_shadow": {
+        "status": "ok",
+        "blocks_offline_semantic_promotion": false
+      },
+      "phrase_containment": {
+        "status": "review",
+        "blocks_offline_semantic_promotion": false,
+        "blocks_runtime_publication_until_policy_decision": true
+      },
+      "combined_legacy_contract": {
+        "status": "review",
+        "blocks_offline_semantic_promotion": false
+      },
+      "held_out_seed_validation": {
+        "status": "ok",
+        "decision": "heldout_pass",
+        "blocks_offline_semantic_promotion": false,
+        "blocks_runtime_publication_until_broader_breadth": true
+      }
+    }
+  },
+  "summary": {
+    "leakage_status": "review",
+    "leakage_rejected_row_count": 29,
+    "sense_status": "review",
+    "sense_rejected_row_count": 3,
+    "pre_sense_merged_row_count": 136,
+    "final_admitted_row_count": 133,
+    "contract_status": "review",
+    "semantic_gate_status": "ok",
+    "phrase_contract_status": "review",
+    "combined_contract_status": "review",
+    "families_total": 19,
+    "semantic_contract_complete_family_count": 19,
+    "phrase_contract_complete_family_count": 0,
+    "heldout_validation": {
+      "provided": true,
+      "passed": true,
+      "status": "ok",
+      "decision": "heldout_pass",
+      "case_count": 38,
+      "family_count": 19,
+      "harmful_replace_count": 0,
+      "false_abstain_count": 0,
+      "replace_recall": 1.0,
+      "decision_accuracy": 1.0,
+      "blocks_offline_semantic_promotion": false
+    },
+    "best_ablation_row": {
+      "matrix_id": "cycle_merged:all_dataset_families:sentence_transformer_cosine:masked_sentence:a=0.00:m=0.00:prototype_reviewed_examples_surface_pos_rescue_guard",
+      "source_mode": "cycle_merged",
+      "source_class": "candidate_source",
+      "scope": "all_dataset_families",
+      "scorer_id": "sentence_transformer_cosine",
+      "context_view": "masked_sentence",
+      "min_active_score": 0.0,
+      "min_margin": 0.0,
+      "decision_shape": "active_shadow_containment_surface_pos",
+      "cases_total": 95,
+      "harmful_replace_count": 0,
+      "false_abstain_count": 0,
+      "replace_recall": 1.0,
+      "decision_accuracy": 1.0,
+      "objective_score": 0.0,
+      "source_coverage": {
+        "families_total": 19,
+        "active_covered_families": 19,
+        "any_shadow_covered_families": 19,
+        "all_shadow_covered_families": 19,
+        "phrase_covered_families": 0,
+        "contract_complete_families": 0
+      },
+      "harmful_replace_case_ids": [],
+      "false_abstain_case_ids": []
+    }
+  },
+  "residuals": {
+    "semantic_gap_family_keys": [],
+    "phrase_containment_gap_family_keys": [
+      "en-es:sentence-veto:ball:pelota",
+      "en-es:sentence-veto:bank:banco",
+      "en-es:sentence-veto:board:tablero",
+      "en-es:sentence-veto:branch:sucursal",
+      "en-es:sentence-veto:cell:celula",
+      "en-es:sentence-veto:check:cheque",
+      "en-es:sentence-veto:drink:bebida",
+      "en-es:sentence-veto:file:archivo",
+      "en-es:sentence-veto:match:partido",
+      "en-es:sentence-veto:order:pedido",
+      "en-es:sentence-veto:park:parque",
+      "en-es:sentence-veto:plant:planta",
+      "en-es:sentence-veto:play:obra",
+      "en-es:sentence-veto:report:informe",
+      "en-es:sentence-veto:seal:sello",
+      "en-es:sentence-veto:spring:primavera",
+      "en-es:sentence-veto:table:mesa",
+      "en-es:sentence-veto:trip:viaje",
+      "en-es:sentence-veto:watch:reloj"
+    ],
+    "harmful_replace_case_ids": [],
+    "false_abstain_case_ids": []
+  },
+  "artifacts": {
+    "heldout_validation_json": "docs/test_outputs/semantic_source_heldout_validation_v2_latest.json",
+    "leakage_json": "docs/test_outputs/semantic_source_admission_cycle_wordnet_active_related_plant_cell_depth3_heldout_v2_raw_latest_leakage.json",
+    "leakage_markdown": "docs/test_outputs/semantic_source_admission_cycle_wordnet_active_related_plant_cell_depth3_heldout_v2_raw_latest_leakage.md",
+    "sense_json": "docs/test_outputs/semantic_source_admission_cycle_wordnet_active_related_plant_cell_depth3_heldout_v2_raw_latest_sense.json",
+    "sense_markdown": "docs/test_outputs/semantic_source_admission_cycle_wordnet_active_related_plant_cell_depth3_heldout_v2_raw_latest_sense.md",
+    "merge_json": "docs/test_outputs/semantic_source_admission_cycle_wordnet_active_related_plant_cell_depth3_heldout_v2_raw_latest_merge.json",
+    "merge_markdown": "docs/test_outputs/semantic_source_admission_cycle_wordnet_active_related_plant_cell_depth3_heldout_v2_raw_latest_merge.md",
+    "contract_json": "docs/test_outputs/semantic_source_admission_cycle_wordnet_active_related_plant_cell_depth3_heldout_v2_raw_latest_contract.json",
+    "contract_markdown": "docs/test_outputs/semantic_source_admission_cycle_wordnet_active_related_plant_cell_depth3_heldout_v2_raw_latest_contract.md",
+    "ablation_json": "docs/test_outputs/semantic_source_admission_cycle_wordnet_active_related_plant_cell_depth3_heldout_v2_raw_latest_ablation.json",
+    "ablation_markdown": "docs/test_outputs/semantic_source_admission_cycle_wordnet_active_related_plant_cell_depth3_heldout_v2_raw_latest_ablation.md",
+    "candidate_admitted_batch_json": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-wordnet-cell-active-related-depth3-heldout-v2-20260425a_admitted_delta_normalized_evidence.json"
+  }
+}

@@ -1,0 +1,4477 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-04-25T05:28:03Z",
+  "status": "review",
+  "batch_id": "en-es:example-frame-composite:reverse-aux-wordnet-wiktextract-wordnet-active-related-plant-cell-depth3-heldout-v2-raw-v1",
+  "admitted_batch_id": "en-es:example-frame-composite:reverse-aux-wordnet-wiktextract-wordnet-active-related-plant-cell-depth3-heldout-v2-raw-v1:sense-admitted",
+  "summary": {
+    "input_row_count": 136,
+    "semantic_input_row_count": 136,
+    "semantic_admitted_row_count": 133,
+    "semantic_rejected_row_count": 3,
+    "non_semantic_passthrough_row_count": 0,
+    "admitted_row_count": 133,
+    "scorers": [
+      "sentence_transformer_cosine"
+    ],
+    "evidence_view": "all_evidence_text",
+    "min_intended_score": 0.5,
+    "min_margin": 0.0,
+    "rejection_reason_counts": {
+      "competitor_sense_not_lower": 3
+    }
+  },
+  "row_results": [
+    {
+      "row_id": "en-es-sentence-veto-ball-pelota:active-reverse-aux",
+      "family_id": "en-es:sentence-veto:ball:pelota",
+      "relation_type": "anchor_cue",
+      "evidence_text": "object, generally spherical, used for playing games",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:ball:pelota:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:ball:baile:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:ball:pelota:active",
+        "intended_score": 0.915835,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:ball:baile:shadow",
+        "strongest_competitor_score": 0.533241,
+        "margin": 0.382594
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:ball:pelota:active",
+          "intended_score": 0.915835,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:ball:baile:shadow",
+          "strongest_competitor_score": 0.533241,
+          "margin": 0.382594
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-ball-pelota:shadow-en-es-sentence-veto-ball-baile-shadow-reverse-aux",
+      "family_id": "en-es:sentence-veto:ball:pelota",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "formal dance",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:ball:baile:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:ball:pelota:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:ball:baile:shadow",
+        "intended_score": 0.875357,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:ball:pelota:active",
+        "strongest_competitor_score": 0.528529,
+        "margin": 0.346828
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:ball:baile:shadow",
+          "intended_score": 0.875357,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:ball:pelota:active",
+          "strongest_competitor_score": 0.528529,
+          "margin": 0.346828
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-bank-banco:active-reverse-aux",
+      "family_id": "en-es:sentence-veto:bank:banco",
+      "relation_type": "anchor_cue",
+      "evidence_text": "institution",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:bank:banco:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:bank:orilla:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:bank:banco:active",
+        "intended_score": 0.7108,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:bank:orilla:shadow",
+        "strongest_competitor_score": 0.582042,
+        "margin": 0.128758
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:bank:banco:active",
+          "intended_score": 0.7108,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:bank:orilla:shadow",
+          "strongest_competitor_score": 0.582042,
+          "margin": 0.128758
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-bank-banco:shadow-en-es-sentence-veto-bank-orilla-shadow-reverse-aux",
+      "family_id": "en-es:sentence-veto:bank:banco",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "edge of river or lake",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:bank:orilla:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:bank:banco:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:bank:orilla:shadow",
+        "intended_score": 0.944147,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:bank:banco:active",
+        "strongest_competitor_score": 0.599013,
+        "margin": 0.345134
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:bank:orilla:shadow",
+          "intended_score": 0.944147,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:bank:banco:active",
+          "strongest_competitor_score": 0.599013,
+          "margin": 0.345134
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:active-reverse-aux",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "relation_type": "anchor_cue",
+      "evidence_text": "organism capable of photosynthesis",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:plant:fabrica:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "intended_score": 0.757429,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+        "strongest_competitor_score": 0.602862,
+        "margin": 0.154567
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+          "intended_score": 0.757429,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+          "strongest_competitor_score": 0.602862,
+          "margin": 0.154567
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:shadow-en-es-sentence-veto-cell-celda-shadow-reverse-aux",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "component of an electrical battery",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celula:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "intended_score": 0.603793,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "strongest_competitor_score": 0.602323,
+        "margin": 0.00147
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "intended_score": 0.603793,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "strongest_competitor_score": 0.602323,
+          "margin": 0.00147
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-spring-primavera:active-reverse-aux",
+      "family_id": "en-es:sentence-veto:spring:primavera",
+      "relation_type": "anchor_cue",
+      "evidence_text": "season between winter and summer in temperate climates",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:spring:primavera:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:spring:resorte:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:spring:primavera:active",
+        "intended_score": 0.8902,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:spring:resorte:shadow",
+        "strongest_competitor_score": 0.533007,
+        "margin": 0.357193
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:spring:primavera:active",
+          "intended_score": 0.8902,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:spring:resorte:shadow",
+          "strongest_competitor_score": 0.533007,
+          "margin": 0.357193
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-spring-primavera:shadow-en-es-sentence-veto-spring-resorte-shadow-reverse-aux",
+      "family_id": "en-es:sentence-veto:spring:primavera",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "device made of flexible material",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:spring:resorte:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:spring:primavera:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:spring:resorte:shadow",
+        "intended_score": 0.772817,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:spring:primavera:active",
+        "strongest_competitor_score": 0.460625,
+        "margin": 0.312192
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:spring:resorte:shadow",
+          "intended_score": 0.772817,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:spring:primavera:active",
+          "strongest_competitor_score": 0.460625,
+          "margin": 0.312192
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-seal-sello:active-reverse-aux",
+      "family_id": "en-es:sentence-veto:seal:sello",
+      "relation_type": "anchor_cue",
+      "evidence_text": "stamp used to impress a design on a soft substance",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:seal:sello:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:seal:foca:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:seal:sello:active",
+        "intended_score": 0.802517,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:seal:foca:shadow",
+        "strongest_competitor_score": 0.553107,
+        "margin": 0.24941
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:seal:sello:active",
+          "intended_score": 0.802517,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:seal:foca:shadow",
+          "strongest_competitor_score": 0.553107,
+          "margin": 0.24941
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-seal-sello:shadow-en-es-sentence-veto-seal-foca-shadow-reverse-aux",
+      "family_id": "en-es:sentence-veto:seal:sello",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "pinniped",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:seal:foca:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:seal:sello:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:seal:foca:shadow",
+        "intended_score": 0.627874,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:seal:sello:active",
+        "strongest_competitor_score": 0.599574,
+        "margin": 0.028301
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:seal:foca:shadow",
+          "intended_score": 0.627874,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:seal:sello:active",
+          "strongest_competitor_score": 0.599574,
+          "margin": 0.028301
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-file-archivo:active-reverse-aux",
+      "family_id": "en-es:sentence-veto:file:archivo",
+      "relation_type": "anchor_cue",
+      "evidence_text": "collection of papers",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:file:archivo:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:file:lima:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:file:archivo:active",
+        "intended_score": 0.686918,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:file:lima:shadow",
+        "strongest_competitor_score": 0.611212,
+        "margin": 0.075706
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:file:archivo:active",
+          "intended_score": 0.686918,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:file:lima:shadow",
+          "strongest_competitor_score": 0.611212,
+          "margin": 0.075706
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-file-archivo:shadow-en-es-sentence-veto-file-lima-shadow-reverse-aux",
+      "family_id": "en-es:sentence-veto:file:archivo",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "cutting or smoothing tool",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:file:lima:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:file:archivo:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:file:lima:shadow",
+        "intended_score": 0.771225,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:file:archivo:active",
+        "strongest_competitor_score": 0.581883,
+        "margin": 0.189342
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:file:lima:shadow",
+          "intended_score": 0.771225,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:file:archivo:active",
+          "strongest_competitor_score": 0.581883,
+          "margin": 0.189342
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-match-partido:active-reverse-aux",
+      "family_id": "en-es:sentence-veto:match:partido",
+      "relation_type": "anchor_cue",
+      "evidence_text": "sporting event",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:match:partido:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:match:cerilla:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:match:partido:active",
+        "intended_score": 0.878525,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:match:cerilla:shadow",
+        "strongest_competitor_score": 0.569519,
+        "margin": 0.309007
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:match:partido:active",
+          "intended_score": 0.878525,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:match:cerilla:shadow",
+          "strongest_competitor_score": 0.569519,
+          "margin": 0.309007
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-match-partido:shadow-en-es-sentence-veto-match-cerilla-shadow-reverse-aux",
+      "family_id": "en-es:sentence-veto:match:partido",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "device to make fire",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:match:cerilla:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:match:partido:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:match:cerilla:shadow",
+        "intended_score": 0.822741,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:match:partido:active",
+        "strongest_competitor_score": 0.547326,
+        "margin": 0.275415
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:match:cerilla:shadow",
+          "intended_score": 0.822741,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:match:partido:active",
+          "strongest_competitor_score": 0.547326,
+          "margin": 0.275415
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-board-tablero:active-reverse-aux",
+      "family_id": "en-es:sentence-veto:board:tablero",
+      "relation_type": "anchor_cue",
+      "evidence_text": "long, wide and thin piece of wood or other material",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:board:tablero:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:board:junta:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:board:tablero:active",
+        "intended_score": 0.678741,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:board:junta:shadow",
+        "strongest_competitor_score": 0.512069,
+        "margin": 0.166672
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:board:tablero:active",
+          "intended_score": 0.678741,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:board:junta:shadow",
+          "strongest_competitor_score": 0.512069,
+          "margin": 0.166672
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-board-tablero:shadow-en-es-sentence-veto-board-junta-shadow-reverse-aux",
+      "family_id": "en-es:sentence-veto:board:tablero",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "managing committee",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:board:junta:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:board:tablero:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:board:junta:shadow",
+        "intended_score": 0.881841,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:board:tablero:active",
+        "strongest_competitor_score": 0.585659,
+        "margin": 0.296183
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:board:junta:shadow",
+          "intended_score": 0.881841,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:board:tablero:active",
+          "strongest_competitor_score": 0.585659,
+          "margin": 0.296183
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-table-mesa:active-reverse-aux",
+      "family_id": "en-es:sentence-veto:table:mesa",
+      "relation_type": "anchor_cue",
+      "evidence_text": "item of furniture",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:table:mesa:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:table:tabla:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:table:mesa:active",
+        "intended_score": 0.799156,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:table:tabla:shadow",
+        "strongest_competitor_score": 0.552041,
+        "margin": 0.247115
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:table:mesa:active",
+          "intended_score": 0.799156,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:table:tabla:shadow",
+          "strongest_competitor_score": 0.552041,
+          "margin": 0.247115
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-table-mesa:shadow-en-es-sentence-veto-table-tabla-shadow-reverse-aux",
+      "family_id": "en-es:sentence-veto:table:mesa",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "grid of data in rows and columns",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:table:tabla:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:table:mesa:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:table:tabla:shadow",
+        "intended_score": 0.827119,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:table:mesa:active",
+        "strongest_competitor_score": 0.572995,
+        "margin": 0.254124
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:table:tabla:shadow",
+          "intended_score": 0.827119,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:table:mesa:active",
+          "strongest_competitor_score": 0.572995,
+          "margin": 0.254124
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-branch-sucursal:active-reverse-aux",
+      "family_id": "en-es:sentence-veto:branch:sucursal",
+      "relation_type": "anchor_cue",
+      "evidence_text": "location of an organization with several locations",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:branch:sucursal:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:branch:rama:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:branch:sucursal:active",
+        "intended_score": 0.763753,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:branch:rama:shadow",
+        "strongest_competitor_score": 0.49622,
+        "margin": 0.267533
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:branch:sucursal:active",
+          "intended_score": 0.763753,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:branch:rama:shadow",
+          "strongest_competitor_score": 0.49622,
+          "margin": 0.267533
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-branch-sucursal:shadow-en-es-sentence-veto-branch-rama-shadow-reverse-aux",
+      "family_id": "en-es:sentence-veto:branch:sucursal",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "woody part of a tree arising from the trunk",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:branch:rama:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:branch:sucursal:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:branch:rama:shadow",
+        "intended_score": 0.92264,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:branch:sucursal:active",
+        "strongest_competitor_score": 0.598898,
+        "margin": 0.323742
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:branch:rama:shadow",
+          "intended_score": 0.92264,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:branch:sucursal:active",
+          "strongest_competitor_score": 0.598898,
+          "margin": 0.323742
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-park-parque:active-reverse-aux",
+      "family_id": "en-es:sentence-veto:park:parque",
+      "relation_type": "anchor_cue",
+      "evidence_text": "ground for preservation of game, etc.",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:park:parque:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:park:aparcar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:park:parque:active",
+        "intended_score": 0.696015,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:park:aparcar:shadow",
+        "strongest_competitor_score": 0.694213,
+        "margin": 0.001802
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:park:parque:active",
+          "intended_score": 0.696015,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:park:aparcar:shadow",
+          "strongest_competitor_score": 0.694213,
+          "margin": 0.001802
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-park-parque:shadow-en-es-sentence-veto-park-aparcar-shadow-reverse-aux",
+      "family_id": "en-es:sentence-veto:park:parque",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "bring (a vehicle) to a halt",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:park:aparcar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:park:parque:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:park:aparcar:shadow",
+        "intended_score": 0.768738,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:park:parque:active",
+        "strongest_competitor_score": 0.562437,
+        "margin": 0.206301
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:park:aparcar:shadow",
+          "intended_score": 0.768738,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:park:parque:active",
+          "strongest_competitor_score": 0.562437,
+          "margin": 0.206301
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-drink-bebida:active-reverse-aux",
+      "family_id": "en-es:sentence-veto:drink:bebida",
+      "relation_type": "anchor_cue",
+      "evidence_text": "served beverage",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:drink:bebida:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:drink:beber:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:drink:bebida:active",
+        "intended_score": 0.859067,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:drink:beber:shadow",
+        "strongest_competitor_score": 0.833587,
+        "margin": 0.025479
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:drink:bebida:active",
+          "intended_score": 0.859067,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:drink:beber:shadow",
+          "strongest_competitor_score": 0.833587,
+          "margin": 0.025479
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-drink-bebida:shadow-en-es-sentence-veto-drink-beber-shadow-reverse-aux",
+      "family_id": "en-es:sentence-veto:drink:bebida",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "consume liquid through the mouth",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:drink:beber:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:drink:bebida:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:drink:beber:shadow",
+        "intended_score": 0.855378,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:drink:bebida:active",
+        "strongest_competitor_score": 0.747516,
+        "margin": 0.107862
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:drink:beber:shadow",
+          "intended_score": 0.855378,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:drink:bebida:active",
+          "strongest_competitor_score": 0.747516,
+          "margin": 0.107862
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-play-obra:shadow-en-es-sentence-veto-play-jugar-shadow-reverse-aux",
+      "family_id": "en-es:sentence-veto:play:obra",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "act in a manner such that one has fun",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:play:jugar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:play:obra:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:play:jugar:shadow",
+        "intended_score": 0.744288,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:play:obra:active",
+        "strongest_competitor_score": 0.688412,
+        "margin": 0.055876
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:play:jugar:shadow",
+          "intended_score": 0.744288,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:play:obra:active",
+          "strongest_competitor_score": 0.688412,
+          "margin": 0.055876
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-watch-reloj:active-reverse-aux",
+      "family_id": "en-es:sentence-veto:watch:reloj",
+      "relation_type": "anchor_cue",
+      "evidence_text": "portable or wearable timepiece",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:watch:reloj:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:watch:vigilar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:watch:reloj:active",
+        "intended_score": 0.887223,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:watch:vigilar:shadow",
+        "strongest_competitor_score": 0.681104,
+        "margin": 0.206119
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:watch:reloj:active",
+          "intended_score": 0.887223,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:watch:vigilar:shadow",
+          "strongest_competitor_score": 0.681104,
+          "margin": 0.206119
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-watch-reloj:shadow-en-es-sentence-veto-watch-vigilar-shadow-reverse-aux",
+      "family_id": "en-es:sentence-veto:watch:reloj",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "to attend or guard",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:watch:vigilar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:watch:reloj:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:watch:vigilar:shadow",
+        "intended_score": 0.69878,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:watch:reloj:active",
+        "strongest_competitor_score": 0.576733,
+        "margin": 0.122047
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:watch:vigilar:shadow",
+          "intended_score": 0.69878,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:watch:reloj:active",
+          "strongest_competitor_score": 0.576733,
+          "margin": 0.122047
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-order-pedido:active-reverse-aux",
+      "family_id": "en-es:sentence-veto:order:pedido",
+      "relation_type": "anchor_cue",
+      "evidence_text": "request for some product or service",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:order:pedido:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:order:ordenar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:order:pedido:active",
+        "intended_score": 0.728485,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:order:ordenar:shadow",
+        "strongest_competitor_score": 0.651,
+        "margin": 0.077485
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:order:pedido:active",
+          "intended_score": 0.728485,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:order:ordenar:shadow",
+          "strongest_competitor_score": 0.651,
+          "margin": 0.077485
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-order-pedido:shadow-en-es-sentence-veto-order-ordenar-shadow-reverse-aux",
+      "family_id": "en-es:sentence-veto:order:pedido",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "to set in (any) order",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:order:ordenar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:order:pedido:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:order:ordenar:shadow",
+        "intended_score": 0.776653,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:order:pedido:active",
+        "strongest_competitor_score": 0.772987,
+        "margin": 0.003666
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:order:ordenar:shadow",
+          "intended_score": 0.776653,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:order:pedido:active",
+          "strongest_competitor_score": 0.772987,
+          "margin": 0.003666
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-trip-viaje:active-reverse-aux",
+      "family_id": "en-es:sentence-veto:trip:viaje",
+      "relation_type": "anchor_cue",
+      "evidence_text": "journey",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:trip:viaje:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:trip:viaje:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:trip:viaje:active",
+        "intended_score": 0.796856,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:trip:viaje:shadow",
+        "strongest_competitor_score": 0.716424,
+        "margin": 0.080432
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:trip:viaje:active",
+          "intended_score": 0.796856,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:trip:viaje:shadow",
+          "strongest_competitor_score": 0.716424,
+          "margin": 0.080432
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-trip-viaje:shadow-en-es-sentence-veto-trip-viaje-shadow-reverse-aux",
+      "family_id": "en-es:sentence-veto:trip:viaje",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "stumble or misstep",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:trip:viaje:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:trip:viaje:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:trip:viaje:shadow",
+        "intended_score": 0.87398,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:trip:viaje:active",
+        "strongest_competitor_score": 0.725214,
+        "margin": 0.148766
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:trip:viaje:shadow",
+          "intended_score": 0.87398,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:trip:viaje:active",
+          "strongest_competitor_score": 0.725214,
+          "margin": 0.148766
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-report-informe:active-reverse-aux",
+      "family_id": "en-es:sentence-veto:report:informe",
+      "relation_type": "anchor_cue",
+      "evidence_text": "information describing events",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:report:informe:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:report:informar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:report:informe:active",
+        "intended_score": 0.734216,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:report:informar:shadow",
+        "strongest_competitor_score": 0.725876,
+        "margin": 0.00834
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:report:informe:active",
+          "intended_score": 0.734216,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:report:informar:shadow",
+          "strongest_competitor_score": 0.725876,
+          "margin": 0.00834
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-ball-pelota:active-wordnet-example-1",
+      "family_id": "en-es:sentence-veto:ball:pelota",
+      "relation_type": "anchor_cue",
+      "evidence_text": "he played with his rubber ball in the bathtub",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:ball:pelota:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:ball:baile:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:ball:pelota:active",
+        "intended_score": 0.717063,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:ball:baile:shadow",
+        "strongest_competitor_score": 0.457043,
+        "margin": 0.26002
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:ball:pelota:active",
+          "intended_score": 0.717063,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:ball:baile:shadow",
+          "strongest_competitor_score": 0.457043,
+          "margin": 0.26002
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-ball-pelota:shadow-en-es-sentence-veto-ball-baile-shadow-wordnet-definition-1",
+      "family_id": "en-es:sentence-veto:ball:pelota",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "a lavish dance requiring formal attire",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:ball:baile:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:ball:pelota:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:ball:baile:shadow",
+        "intended_score": 0.846452,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:ball:pelota:active",
+        "strongest_competitor_score": 0.50441,
+        "margin": 0.342042
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:ball:baile:shadow",
+          "intended_score": 0.846452,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:ball:pelota:active",
+          "strongest_competitor_score": 0.50441,
+          "margin": 0.342042
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-bank-banco:active-wordnet-example-1",
+      "family_id": "en-es:sentence-veto:bank:banco",
+      "relation_type": "anchor_cue",
+      "evidence_text": "he cashed a check at the bank",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:bank:banco:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:bank:orilla:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:bank:banco:active",
+        "intended_score": 0.686075,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:bank:orilla:shadow",
+        "strongest_competitor_score": 0.53072,
+        "margin": 0.155356
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:bank:banco:active",
+          "intended_score": 0.686075,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:bank:orilla:shadow",
+          "strongest_competitor_score": 0.53072,
+          "margin": 0.155356
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-bank-banco:shadow-en-es-sentence-veto-bank-orilla-shadow-wordnet-example-1",
+      "family_id": "en-es:sentence-veto:bank:banco",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "they pulled the canoe up on the bank",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:bank:orilla:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:bank:banco:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:bank:orilla:shadow",
+        "intended_score": 0.642293,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:bank:banco:active",
+        "strongest_competitor_score": 0.576837,
+        "margin": 0.065456
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:bank:orilla:shadow",
+          "intended_score": 0.642293,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:bank:banco:active",
+          "strongest_competitor_score": 0.576837,
+          "margin": 0.065456
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:active-wordnet-definition-1",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "relation_type": "anchor_cue",
+      "evidence_text": "(botany) a living organism lacking the power of locomotion",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:plant:fabrica:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "intended_score": 0.793795,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+        "strongest_competitor_score": 0.578141,
+        "margin": 0.215654
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+          "intended_score": 0.793795,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+          "strongest_competitor_score": 0.578141,
+          "margin": 0.215654
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:shadow-en-es-sentence-veto-plant-fabrica-shadow-wordnet-example-1",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "they built a large plant to manufacture automobiles",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:plant:planta:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+        "intended_score": 0.732263,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "strongest_competitor_score": 0.627551,
+        "margin": 0.104712
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+          "intended_score": 0.732263,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:plant:planta:active",
+          "strongest_competitor_score": 0.627551,
+          "margin": 0.104712
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-1",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "(biology) the basic structural and functional unit of all organisms; they may exist as independent units of life (as in monads) or may form colonies or tissues as in higher plants and animals",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.839799,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.612962,
+        "margin": 0.226837
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.839799,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.612962,
+          "margin": 0.226837
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:shadow-en-es-sentence-veto-cell-celda-shadow-wordnet-definition-1",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "a room where a prisoner is kept",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celula:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "intended_score": 0.900928,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "strongest_competitor_score": 0.552405,
+        "margin": 0.348523
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "intended_score": 0.900928,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "strongest_competitor_score": 0.552405,
+          "margin": 0.348523
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-spring-primavera:active-wordnet-example-1",
+      "family_id": "en-es:sentence-veto:spring:primavera",
+      "relation_type": "anchor_cue",
+      "evidence_text": "the emerging buds were a sure sign of spring",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:spring:primavera:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:spring:resorte:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:spring:primavera:active",
+        "intended_score": 0.780113,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:spring:resorte:shadow",
+        "strongest_competitor_score": 0.564708,
+        "margin": 0.215404
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:spring:primavera:active",
+          "intended_score": 0.780113,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:spring:resorte:shadow",
+          "strongest_competitor_score": 0.564708,
+          "margin": 0.215404
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-seal-sello:active-wordnet-definition-1",
+      "family_id": "en-es:sentence-veto:seal:sello",
+      "relation_type": "anchor_cue",
+      "evidence_text": "fastener consisting of a resinous composition that is plastic when warm; used for sealing documents and parcels and letters",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:seal:sello:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:seal:foca:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:seal:sello:active",
+        "intended_score": 0.733594,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:seal:foca:shadow",
+        "strongest_competitor_score": 0.582178,
+        "margin": 0.151416
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:seal:sello:active",
+          "intended_score": 0.733594,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:seal:foca:shadow",
+          "strongest_competitor_score": 0.582178,
+          "margin": 0.151416
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-seal-sello:shadow-en-es-sentence-veto-seal-foca-shadow-wordnet-definition-1",
+      "family_id": "en-es:sentence-veto:seal:sello",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "any of numerous marine mammals that come on shore to breed; chiefly of cold regions",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:seal:foca:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:seal:sello:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:seal:foca:shadow",
+        "intended_score": 0.821216,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:seal:sello:active",
+        "strongest_competitor_score": 0.511395,
+        "margin": 0.309821
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:seal:foca:shadow",
+          "intended_score": 0.821216,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:seal:sello:active",
+          "strongest_competitor_score": 0.511395,
+          "margin": 0.309821
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-file-archivo:active-wordnet-definition-1",
+      "family_id": "en-es:sentence-veto:file:archivo",
+      "relation_type": "anchor_cue",
+      "evidence_text": "a set of related records (either written or electronic) kept together",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:file:archivo:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:file:lima:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:file:archivo:active",
+        "intended_score": 0.7528,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:file:lima:shadow",
+        "strongest_competitor_score": 0.5717,
+        "margin": 0.1811
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:file:archivo:active",
+          "intended_score": 0.7528,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:file:lima:shadow",
+          "strongest_competitor_score": 0.5717,
+          "margin": 0.1811
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-file-archivo:shadow-en-es-sentence-veto-file-lima-shadow-wordnet-definition-1",
+      "family_id": "en-es:sentence-veto:file:archivo",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "a steel hand tool with small sharp teeth on some or all of its surfaces; used for smoothing wood or metal",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:file:lima:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:file:archivo:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:file:lima:shadow",
+        "intended_score": 0.801925,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:file:archivo:active",
+        "strongest_competitor_score": 0.51003,
+        "margin": 0.291895
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:file:lima:shadow",
+          "intended_score": 0.801925,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:file:archivo:active",
+          "strongest_competitor_score": 0.51003,
+          "margin": 0.291895
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-board-tablero:active-wordnet-example-1",
+      "family_id": "en-es:sentence-veto:board:tablero",
+      "relation_type": "anchor_cue",
+      "evidence_text": "he checked the instrument panel",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:board:tablero:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:board:junta:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:board:tablero:active",
+        "intended_score": 0.629247,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:board:junta:shadow",
+        "strongest_competitor_score": 0.548264,
+        "margin": 0.080983
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:board:tablero:active",
+          "intended_score": 0.629247,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:board:junta:shadow",
+          "strongest_competitor_score": 0.548264,
+          "margin": 0.080983
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-table-mesa:active-wordnet-example-1",
+      "family_id": "en-es:sentence-veto:table:mesa",
+      "relation_type": "anchor_cue",
+      "evidence_text": "it was a sturdy table",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:table:mesa:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:table:tabla:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:table:mesa:active",
+        "intended_score": 0.780977,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:table:tabla:shadow",
+        "strongest_competitor_score": 0.694819,
+        "margin": 0.086158
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:table:mesa:active",
+          "intended_score": 0.780977,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:table:tabla:shadow",
+          "strongest_competitor_score": 0.694819,
+          "margin": 0.086158
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-table-mesa:shadow-en-es-sentence-veto-table-tabla-shadow-wordnet-example-1",
+      "family_id": "en-es:sentence-veto:table:mesa",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "see table 1",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:table:tabla:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:table:mesa:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:table:tabla:shadow",
+        "intended_score": 0.767711,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:table:mesa:active",
+        "strongest_competitor_score": 0.711198,
+        "margin": 0.056514
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:table:tabla:shadow",
+          "intended_score": 0.767711,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:table:mesa:active",
+          "strongest_competitor_score": 0.711198,
+          "margin": 0.056514
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-branch-sucursal:active-wordnet-example-1",
+      "family_id": "en-es:sentence-veto:branch:sucursal",
+      "relation_type": "anchor_cue",
+      "evidence_text": "a branch of Congress",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:branch:sucursal:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:branch:rama:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:branch:sucursal:active",
+        "intended_score": 0.678255,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:branch:rama:shadow",
+        "strongest_competitor_score": 0.653577,
+        "margin": 0.024678
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:branch:sucursal:active",
+          "intended_score": 0.678255,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:branch:rama:shadow",
+          "strongest_competitor_score": 0.653577,
+          "margin": 0.024678
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-branch-sucursal:shadow-en-es-sentence-veto-branch-rama-shadow-wordnet-example-1",
+      "family_id": "en-es:sentence-veto:branch:sucursal",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "the arm of the record player",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:branch:rama:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:branch:sucursal:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:branch:rama:shadow",
+        "intended_score": 0.600695,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:branch:sucursal:active",
+        "strongest_competitor_score": 0.544909,
+        "margin": 0.055786
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:branch:rama:shadow",
+          "intended_score": 0.600695,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:branch:sucursal:active",
+          "strongest_competitor_score": 0.544909,
+          "margin": 0.055786
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-park-parque:active-wordnet-example-1",
+      "family_id": "en-es:sentence-veto:park:parque",
+      "relation_type": "anchor_cue",
+      "evidence_text": "they went for a walk in the park",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:park:parque:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:park:aparcar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:park:parque:active",
+        "intended_score": 0.708869,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:park:aparcar:shadow",
+        "strongest_competitor_score": 0.614492,
+        "margin": 0.094378
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:park:parque:active",
+          "intended_score": 0.708869,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:park:aparcar:shadow",
+          "strongest_competitor_score": 0.614492,
+          "margin": 0.094378
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-park-parque:shadow-en-es-sentence-veto-park-aparcar-shadow-wordnet-example-1",
+      "family_id": "en-es:sentence-veto:park:parque",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "park the car in the yard",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:park:aparcar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:park:parque:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:park:aparcar:shadow",
+        "intended_score": 0.801559,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:park:parque:active",
+        "strongest_competitor_score": 0.706796,
+        "margin": 0.094763
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:park:aparcar:shadow",
+          "intended_score": 0.801559,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:park:parque:active",
+          "strongest_competitor_score": 0.706796,
+          "margin": 0.094763
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-drink-bebida:shadow-en-es-sentence-veto-drink-beber-shadow-wordnet-entry_sentence-1",
+      "family_id": "en-es:sentence-veto:drink:bebida",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "They drink",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:drink:beber:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:drink:bebida:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:drink:beber:shadow",
+        "intended_score": 0.8078,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:drink:bebida:active",
+        "strongest_competitor_score": 0.803275,
+        "margin": 0.004524
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:drink:beber:shadow",
+          "intended_score": 0.8078,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:drink:bebida:active",
+          "strongest_competitor_score": 0.803275,
+          "margin": 0.004524
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-play-obra:active-wordnet-example-1",
+      "family_id": "en-es:sentence-veto:play:obra",
+      "relation_type": "anchor_cue",
+      "evidence_text": "he wrote several plays but only one was produced on Broadway",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:play:obra:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:play:jugar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:play:obra:active",
+        "intended_score": 0.73637,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:play:jugar:shadow",
+        "strongest_competitor_score": 0.5239,
+        "margin": 0.21247
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:play:obra:active",
+          "intended_score": 0.73637,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:play:jugar:shadow",
+          "strongest_competitor_score": 0.5239,
+          "margin": 0.21247
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-watch-reloj:active-wordnet-definition-1",
+      "family_id": "en-es:sentence-veto:watch:reloj",
+      "relation_type": "anchor_cue",
+      "evidence_text": "a small portable timepiece",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:watch:reloj:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:watch:vigilar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:watch:reloj:active",
+        "intended_score": 0.883077,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:watch:vigilar:shadow",
+        "strongest_competitor_score": 0.651452,
+        "margin": 0.231625
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:watch:reloj:active",
+          "intended_score": 0.883077,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:watch:vigilar:shadow",
+          "strongest_competitor_score": 0.651452,
+          "margin": 0.231625
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-watch-reloj:shadow-en-es-sentence-veto-watch-vigilar-shadow-wordnet-entry_sentence-1",
+      "family_id": "en-es:sentence-veto:watch:reloj",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "The children watch the ball",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:watch:vigilar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:watch:reloj:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:watch:vigilar:shadow",
+        "intended_score": 0.581561,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:watch:reloj:active",
+        "strongest_competitor_score": 0.561298,
+        "margin": 0.020263
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:watch:vigilar:shadow",
+          "intended_score": 0.581561,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:watch:reloj:active",
+          "strongest_competitor_score": 0.561298,
+          "margin": 0.020263
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-check-cheque:active-wordnet-example-1",
+      "family_id": "en-es:sentence-veto:check:cheque",
+      "relation_type": "anchor_cue",
+      "evidence_text": "he paid all his bills by check",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:check:cheque:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:check:revisar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:check:cheque:active",
+        "intended_score": 0.759088,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:check:revisar:shadow",
+        "strongest_competitor_score": 0.610032,
+        "margin": 0.149056
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:check:cheque:active",
+          "intended_score": 0.759088,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:check:revisar:shadow",
+          "strongest_competitor_score": 0.610032,
+          "margin": 0.149056
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-check-cheque:shadow-en-es-sentence-veto-check-revisar-shadow-wordnet-example-1",
+      "family_id": "en-es:sentence-veto:check:cheque",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "check the spelling of this word",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:check:revisar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:check:cheque:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:check:revisar:shadow",
+        "intended_score": 0.737139,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:check:cheque:active",
+        "strongest_competitor_score": 0.61226,
+        "margin": 0.124879
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:check:revisar:shadow",
+          "intended_score": 0.737139,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:check:cheque:active",
+          "strongest_competitor_score": 0.61226,
+          "margin": 0.124879
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-order-pedido:active-wordnet-example-1",
+      "family_id": "en-es:sentence-veto:order:pedido",
+      "relation_type": "anchor_cue",
+      "evidence_text": "IBM received an order for a hundred computers",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:order:pedido:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:order:ordenar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:order:pedido:active",
+        "intended_score": 0.622374,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:order:ordenar:shadow",
+        "strongest_competitor_score": 0.600815,
+        "margin": 0.021559
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:order:pedido:active",
+          "intended_score": 0.622374,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:order:ordenar:shadow",
+          "strongest_competitor_score": 0.600815,
+          "margin": 0.021559
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-order-pedido:shadow-en-es-sentence-veto-order-ordenar-shadow-wordnet-entry_sentence-1",
+      "family_id": "en-es:sentence-veto:order:pedido",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "They order him to write the letter",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:order:ordenar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:order:pedido:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:order:ordenar:shadow",
+        "intended_score": 0.682852,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:order:pedido:active",
+        "strongest_competitor_score": 0.661466,
+        "margin": 0.021386
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:order:ordenar:shadow",
+          "intended_score": 0.682852,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:order:pedido:active",
+          "strongest_competitor_score": 0.661466,
+          "margin": 0.021386
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-trip-viaje:active-wordnet-example-1",
+      "family_id": "en-es:sentence-veto:trip:viaje",
+      "relation_type": "anchor_cue",
+      "evidence_text": "he took a trip to the shopping center",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:trip:viaje:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:trip:viaje:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:trip:viaje:active",
+        "intended_score": 0.617176,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:trip:viaje:shadow",
+        "strongest_competitor_score": 0.601194,
+        "margin": 0.015981
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:trip:viaje:active",
+          "intended_score": 0.617176,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:trip:viaje:shadow",
+          "strongest_competitor_score": 0.601194,
+          "margin": 0.015981
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-trip-viaje:shadow-en-es-sentence-veto-trip-viaje-shadow-wordnet-example-1",
+      "family_id": "en-es:sentence-veto:trip:viaje",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "The questions on the test tripped him up",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:trip:viaje:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:trip:viaje:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:trip:viaje:shadow",
+        "intended_score": 0.571606,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:trip:viaje:active",
+        "strongest_competitor_score": 0.50359,
+        "margin": 0.068016
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:trip:viaje:shadow",
+          "intended_score": 0.571606,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:trip:viaje:active",
+          "strongest_competitor_score": 0.50359,
+          "margin": 0.068016
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-report-informe:active-wordnet-example-1",
+      "family_id": "en-es:sentence-veto:report:informe",
+      "relation_type": "anchor_cue",
+      "evidence_text": "this accords with the recent study by Hill and Dale",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:report:informe:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:report:informar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:report:informe:active",
+        "intended_score": 0.642296,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:report:informar:shadow",
+        "strongest_competitor_score": 0.544478,
+        "margin": 0.097818
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:report:informe:active",
+          "intended_score": 0.642296,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:report:informar:shadow",
+          "strongest_competitor_score": 0.544478,
+          "margin": 0.097818
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-report-informe:shadow-en-es-sentence-veto-report-informar-shadow-wordnet-entry_sentence-1",
+      "family_id": "en-es:sentence-veto:report:informe",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "They report the information to them",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:report:informar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:report:informe:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:report:informar:shadow",
+        "intended_score": 0.749054,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:report:informe:active",
+        "strongest_competitor_score": 0.730529,
+        "margin": 0.018525
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:report:informar:shadow",
+          "intended_score": 0.749054,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:report:informe:active",
+          "strongest_competitor_score": 0.730529,
+          "margin": 0.018525
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:active-en-es-sentence-veto-plant-planta-active-wiktextract-example-1",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "relation_type": "anchor_cue",
+      "evidence_text": "The garden had a couple of trees, and a cluster of colourful plants around the border.",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:plant:fabrica:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "intended_score": 0.66313,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+        "strongest_competitor_score": 0.57963,
+        "margin": 0.083501
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+          "intended_score": 0.66313,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+          "strongest_competitor_score": 0.57963,
+          "margin": 0.083501
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:shadow-en-es-sentence-veto-plant-fabrica-shadow-wiktextract-example-1",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "The company has production plants in three countries.",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:plant:planta:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+        "intended_score": 0.772206,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "strongest_competitor_score": 0.592864,
+        "margin": 0.179342
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+          "intended_score": 0.772206,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:plant:planta:active",
+          "strongest_competitor_score": 0.592864,
+          "margin": 0.179342
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:shadow-en-es-sentence-veto-plant-fabrica-shadow-wiktextract-example-2",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "My dad worked at the plant for 27 years.",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:plant:planta:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+        "intended_score": 0.612041,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "strongest_competitor_score": 0.609081,
+        "margin": 0.00296
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+          "intended_score": 0.612041,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:plant:planta:active",
+          "strongest_competitor_score": 0.609081,
+          "margin": 0.00296
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:active-wordnet-definition-2",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "relation_type": "anchor_cue",
+      "evidence_text": "photosynthetic or plant constituent of plankton; mainly unicellular algae",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:plant:fabrica:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "intended_score": 0.743943,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+        "strongest_competitor_score": 0.556301,
+        "margin": 0.187642
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+          "intended_score": 0.743943,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+          "strongest_competitor_score": 0.556301,
+          "margin": 0.187642
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:active-wordnet-definition-3",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "relation_type": "anchor_cue",
+      "evidence_text": "microscopic plants; bacteria are often considered to be microflora",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:plant:fabrica:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "intended_score": 0.756156,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+        "strongest_competitor_score": 0.624597,
+        "margin": 0.131558
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+          "intended_score": 0.756156,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+          "strongest_competitor_score": 0.624597,
+          "margin": 0.131558
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:active-wordnet-definition-4",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "relation_type": "anchor_cue",
+      "evidence_text": "a cultivated plant that is grown commercially on a large scale",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:plant:fabrica:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "intended_score": 0.752387,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+        "strongest_competitor_score": 0.705656,
+        "margin": 0.046731
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+          "intended_score": 0.752387,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+          "strongest_competitor_score": 0.705656,
+          "margin": 0.046731
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:active-wordnet-definition-5",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "relation_type": "anchor_cue",
+      "evidence_text": "an organism that produces its own food by photosynthesis",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:plant:fabrica:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "intended_score": 0.750592,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+        "strongest_competitor_score": 0.614182,
+        "margin": 0.13641
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+          "intended_score": 0.750592,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+          "strongest_competitor_score": 0.614182,
+          "margin": 0.13641
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:active-wordnet-definition-6",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "relation_type": "anchor_cue",
+      "evidence_text": "a plant that does not bear flowers",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:plant:fabrica:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "intended_score": 0.761121,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+        "strongest_competitor_score": 0.585289,
+        "margin": 0.175832
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+          "intended_score": 0.761121,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+          "strongest_competitor_score": 0.585289,
+          "margin": 0.175832
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:active-wordnet-definition-7",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "relation_type": "anchor_cue",
+      "evidence_text": "a young plant or a small plant",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:plant:fabrica:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "intended_score": 0.805063,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+        "strongest_competitor_score": 0.66776,
+        "margin": 0.137303
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+          "intended_score": 0.805063,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+          "strongest_competitor_score": 0.66776,
+          "margin": 0.137303
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:active-wordnet-definition-8",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "relation_type": "anchor_cue",
+      "evidence_text": "a wild uncultivated plant (especially a wild apple or crabapple tree)",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:plant:fabrica:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "intended_score": 0.768756,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+        "strongest_competitor_score": 0.605896,
+        "margin": 0.16286
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+          "intended_score": 0.768756,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+          "strongest_competitor_score": 0.605896,
+          "margin": 0.16286
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:active-wordnet-definition-9",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "relation_type": "anchor_cue",
+      "evidence_text": "any plant grown for its beauty or ornamental value",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:plant:fabrica:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "intended_score": 0.772843,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+        "strongest_competitor_score": 0.639886,
+        "margin": 0.132958
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+          "intended_score": 0.772843,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+          "strongest_competitor_score": 0.639886,
+          "margin": 0.132958
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:active-wordnet-definition-10",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "relation_type": "anchor_cue",
+      "evidence_text": "a plant suitable for growing in a flowerpot (especially indoors)",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:plant:fabrica:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "intended_score": 0.752548,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+        "strongest_competitor_score": 0.686158,
+        "margin": 0.06639
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+          "intended_score": 0.752548,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+          "strongest_competitor_score": 0.686158,
+          "margin": 0.06639
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:active-wordnet-definition-11",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "relation_type": "anchor_cue",
+      "evidence_text": "any flowerless plant such as a fern (pteridophyte) or moss (bryophyte) in which growth occurs only at the tip of the main stem",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:plant:fabrica:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "intended_score": 0.756649,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+        "strongest_competitor_score": 0.593381,
+        "margin": 0.163268
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+          "intended_score": 0.756649,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+          "strongest_competitor_score": 0.593381,
+          "margin": 0.163268
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:active-wordnet-definition-12",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "relation_type": "anchor_cue",
+      "evidence_text": "a plant that reproduces or is reproduced by apomixis",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:plant:fabrica:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "intended_score": 0.776937,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+        "strongest_competitor_score": 0.632999,
+        "margin": 0.143938
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:plant:planta:active",
+          "intended_score": 0.776937,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+          "strongest_competitor_score": 0.632999,
+          "margin": 0.143938
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:shadow-en-es-sentence-veto-plant-fabrica-shadow-wordnet-definition-1",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "buildings for carrying on industrial labor",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:plant:planta:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+        "intended_score": 0.784221,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "strongest_competitor_score": 0.582076,
+        "margin": 0.202146
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+          "intended_score": 0.784221,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:plant:planta:active",
+          "strongest_competitor_score": 0.582076,
+          "margin": 0.202146
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-2",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "a small unit serving as part of or as the nucleus of a larger political movement",
+      "admission_status": "rejected",
+      "reason_code": "competitor_sense_not_lower",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.667993,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.691692,
+        "margin": -0.0237
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.667993,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.691692,
+          "margin": -0.0237
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-3",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "small room in which a monk or nun lives",
+      "admission_status": "rejected",
+      "reason_code": "competitor_sense_not_lower",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.623825,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.706228,
+        "margin": -0.082404
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.623825,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.706228,
+          "margin": -0.082404
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-4",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "a cell or organism in which genetic recombination has occurred",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.742999,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.531173,
+        "margin": 0.211826
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.742999,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.531173,
+          "margin": 0.211826
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-5",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "any cell resulting from cleavage of a fertilized egg",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.695689,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.537433,
+        "margin": 0.158256
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.695689,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.537433,
+          "margin": 0.158256
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-6",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "any cell or one-celled organism equipped with a flagellum",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.81535,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.555976,
+        "margin": 0.259374
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.81535,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.555976,
+          "margin": 0.259374
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-7",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "any of several elongated, threadlike cells (especially a muscle fiber or a nerve fiber)",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.751884,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.539875,
+        "margin": 0.212008
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.751884,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.539875,
+          "margin": 0.212008
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-8",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "specialized cells in the liver that destroy bacteria, foreign proteins, and worn-out blood cells",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.733841,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.520156,
+        "margin": 0.213685
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.733841,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.520156,
+          "margin": 0.213685
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-9",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "a cell that produces insulin in the isles of Langerhans in the pancreas",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.652086,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.54194,
+        "margin": 0.110146
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.652086,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.54194,
+          "margin": 0.110146
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-example-10",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "somatic cells are produced from preexisting cells",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.76626,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.54221,
+        "margin": 0.22405
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.76626,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.54221,
+          "margin": 0.22405
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-11",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "any of the cells of a plant or animal except the reproductive cells; a cell that does not participate in the production of gametes",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.810695,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.541485,
+        "margin": 0.269209
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.810695,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.541485,
+          "margin": 0.269209
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-12",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "a mass of undifferentiated cells from which an organ or body part develops",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.827781,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.580255,
+        "margin": 0.247526
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.827781,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.580255,
+          "margin": 0.247526
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-13",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "(genetics) the diploid cell resulting from the union of a haploid spermatozoon and ovum (including the organism that develops from that cell)",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.715153,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.502603,
+        "margin": 0.21255
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.715153,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.502603,
+          "margin": 0.21255
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-14",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "a cell resulting from parthenogenesis",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.754227,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.551341,
+        "margin": 0.202886
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.754227,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.551341,
+          "margin": 0.202886
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-15",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "a cell of an embryo",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.806302,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.584253,
+        "margin": 0.222049
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.806302,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.584253,
+          "margin": 0.222049
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-16",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "a cell without a nucleus (as an erythrocyte)",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.814336,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.589075,
+        "margin": 0.225261
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.814336,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.589075,
+          "margin": 0.225261
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-17",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "a spermatozoon or an ovum; a cell responsible for transmitting DNA to the next generation",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.724931,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.547505,
+        "margin": 0.177426
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.724931,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.547505,
+          "margin": 0.177426
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-18",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "an immature animal or plant cell that develops into a gamete by meiosis",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.763689,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.54412,
+        "margin": 0.219569
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.763689,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.54412,
+          "margin": 0.219569
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-19",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "a small cell containing little cytoplasm that is produced along with the oocyte and later discarded",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.795126,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.571955,
+        "margin": 0.223171
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.795126,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.571955,
+          "margin": 0.223171
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-20",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "a cell in the testes that secretes the hormone testosterone",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.683067,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.499234,
+        "margin": 0.183834
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.683067,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.499234,
+          "margin": 0.183834
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-21",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "elongated cells found in the seminiferous tubules of the testis; apparently they nourish the spermatids",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.716877,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.52131,
+        "margin": 0.195567
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.716877,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.52131,
+          "margin": 0.195567
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-example-24",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "anthrax grows by dividing into two daughter cells that are generally identical",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.715022,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.519531,
+        "margin": 0.19549
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.715022,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.519531,
+          "margin": 0.19549
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-25",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "a cell formed by the division or budding of another cell",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.791771,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.638492,
+        "margin": 0.153279
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.791771,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.638492,
+          "margin": 0.153279
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-example-26",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "a sperm cell develops from a sperm mother cell",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.717629,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.533234,
+        "margin": 0.184395
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.717629,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.533234,
+          "margin": 0.184395
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-27",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "cell from which another cell of an organism (usually of a different sort) develops",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.834508,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.55961,
+        "margin": 0.274899
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.834508,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.55961,
+          "margin": 0.274899
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-28",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "one of a string of thick walled vegetative resting cells formed by some algae and fungi",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.777119,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.589233,
+        "margin": 0.187885
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.777119,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.589233,
+          "margin": 0.187885
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-29",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "a body that resembles a spore but is not an endospore; produced by some bacteria",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.730052,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.528618,
+        "margin": 0.201434
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.730052,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.528618,
+          "margin": 0.201434
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-30",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "any of the flagellated cells in sponges having a collar of cytoplasm around the flagellum; they maintain a flow of water through the body",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.754409,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.555624,
+        "margin": 0.198785
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.754409,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.555624,
+          "margin": 0.198785
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-31",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "an elongated contractile cell that forms the muscles of the body",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.7387,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.552413,
+        "margin": 0.186287
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.7387,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.552413,
+          "margin": 0.186287
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-32",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "a threadlike extension of a nerve cell",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.736259,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.579003,
+        "margin": 0.157256
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.736259,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.579003,
+          "margin": 0.157256
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-34",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "one of the closely packed cells forming the epithelium",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.782432,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.601079,
+        "margin": 0.181353
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.782432,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.601079,
+          "margin": 0.181353
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-37",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "either of two types of cells (erythrocytes and leukocytes) and sometimes including platelets",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.769115,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.537422,
+        "margin": 0.231693
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.769115,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.537422,
+          "margin": 0.231693
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-38",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "a cell that engulfs and digests debris and invading microorganisms",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.779589,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.601289,
+        "margin": 0.1783
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.779589,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.601289,
+          "margin": 0.1783
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-40",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "cells composed of fat",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.750883,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.529891,
+        "margin": 0.220993
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.750883,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.529891,
+          "margin": 0.220993
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-41",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "any cell that covers the nerve fibers in the peripheral nervous system and forms the myelin sheath",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.700278,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.538861,
+        "margin": 0.161417
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.700278,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.538861,
+          "margin": 0.161417
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-45",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "a large connective tissue cell that contains histamine and heparin and serotonin which are released in allergic reactions or in response to injury or inflammation",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.65424,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.487404,
+        "margin": 0.166835
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.65424,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.487404,
+          "margin": 0.166835
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-46",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "an undifferentiated cell whose daughter cells may differentiate into other cell types (such as blood cells)",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.798335,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.573982,
+        "margin": 0.224352
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.798335,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.573982,
+          "margin": 0.224352
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-47",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "any cell that has a specific receptor for an antigen or antibody or hormone or drug, or is the focus of contact by a virus or phagocyte or nerve fiber etc.",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.721325,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.528664,
+        "margin": 0.19266
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.721325,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.528664,
+          "margin": 0.19266
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-48",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "(genetics) an organism having two different alleles of a particular gene and so giving rise to varying offspring",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.680424,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.473995,
+        "margin": 0.20643
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.680424,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.473995,
+          "margin": 0.20643
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-50",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "an undifferentiated embryonic cell",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.790539,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.562907,
+        "margin": 0.227631
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.790539,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.562907,
+          "margin": 0.227631
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-51",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "a cell from which tooth enamel develops",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.732065,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.562988,
+        "margin": 0.169077
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.732065,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.562988,
+          "margin": 0.169077
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-53",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "a nucleated cell in bone marrow from which red blood cells develop",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.710501,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.509187,
+        "margin": 0.201314
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.710501,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.509187,
+          "margin": 0.201314
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-56",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "a mature sexual reproductive cell having a single set of unpaired chromosomes",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.716366,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.524909,
+        "margin": 0.191457
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.716366,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.524909,
+          "margin": 0.191457
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-61",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "cells of the smooth muscles",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.750151,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.54832,
+        "margin": 0.201831
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.750151,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.54832,
+          "margin": 0.201831
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-62",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "a nerve fiber encased in a sheath of myelin",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.662499,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.502176,
+        "margin": 0.160323
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.662499,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.502176,
+          "margin": 0.160323
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-63",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "a nerve fiber that terminates on a muscle or gland and stimulates contraction or secretion",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.635641,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.499761,
+        "margin": 0.13588
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.635641,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.499761,
+          "margin": 0.13588
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-64",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "long nerve fiber that conducts away from the cell body of the neuron",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.686358,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.527701,
+        "margin": 0.158657
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.686358,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.527701,
+          "margin": 0.158657
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-example-68",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "{'source': 'https://en.wikipedia.org', 'text': 'The term neurofibril refers to a bundle of neurofilaments.'}",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.641174,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.540038,
+        "margin": 0.101136
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.641174,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.540038,
+          "margin": 0.101136
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-72",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "an epithelial cell that is shaped like a column; some have cilia",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.742598,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.57248,
+        "margin": 0.170118
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.742598,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.57248,
+          "margin": 0.170118
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-75",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "a sensory epithelial cell present in the organ of Corti",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.693948,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.516475,
+        "margin": 0.177474
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.693948,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.516475,
+          "margin": 0.177474
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-77",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "an epithelial cell in a taste bud that activates sensory fibers of the facial nerve or the glossopharyngeal nerve or the vagus nerve",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.684324,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.490463,
+        "margin": 0.193861
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.684324,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.490463,
+          "margin": 0.193861
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-79",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "a large bone marrow cell; regarded as the source of blood platelets",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.697446,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.502544,
+        "margin": 0.194902
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.697446,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.502544,
+          "margin": 0.194902
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-80",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "cell that functions in the breakdown and resorption of bone tissue",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.740493,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.537,
+        "margin": 0.203493
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.740493,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.537,
+          "margin": 0.203493
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:shadow-en-es-sentence-veto-cell-celda-shadow-wordnet-definition-2",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "small room in which a monk or nun lives",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celula:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "intended_score": 0.706228,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "strongest_competitor_score": 0.623825,
+        "margin": 0.082404
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "intended_score": 0.706228,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "strongest_competitor_score": 0.623825,
+          "margin": 0.082404
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:shadow-en-es-sentence-veto-cell-celda-shadow-wordnet-example-3",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "the cells of a honeycomb",
+      "admission_status": "rejected",
+      "reason_code": "competitor_sense_not_lower",
+      "intended_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celula:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "intended_score": 0.577662,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "strongest_competitor_score": 0.785997,
+        "margin": -0.208335
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "intended_score": 0.577662,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "strongest_competitor_score": 0.785997,
+          "margin": -0.208335
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:shadow-en-es-sentence-veto-cell-celda-shadow-wordnet-definition-4",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "any small compartment",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celula:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "intended_score": 0.75022,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "strongest_competitor_score": 0.682716,
+        "margin": 0.067503
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "intended_score": 0.75022,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "strongest_competitor_score": 0.682716,
+          "margin": 0.067503
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:shadow-en-es-sentence-veto-cell-celda-shadow-wordnet-definition-5",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "a small unit serving as part of or as the nucleus of a larger political movement",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celula:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "intended_score": 0.691692,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "strongest_competitor_score": 0.667993,
+        "margin": 0.0237
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "intended_score": 0.691692,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "strongest_competitor_score": 0.667993,
+          "margin": 0.0237
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:shadow-en-es-sentence-veto-cell-celda-shadow-wordnet-definition-6",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "a hand-held mobile radiotelephone for use in an area divided into small sections, each with its own short-range transmitter/receiver",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celula:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "intended_score": 0.619674,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "strongest_competitor_score": 0.608728,
+        "margin": 0.010946
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "intended_score": 0.619674,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "strongest_competitor_score": 0.608728,
+          "margin": 0.010946
+        }
+      ]
+    }
+  ],
+  "rejected_rows": [
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-2",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "a small unit serving as part of or as the nucleus of a larger political movement",
+      "admission_status": "rejected",
+      "reason_code": "competitor_sense_not_lower",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.667993,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.691692,
+        "margin": -0.0237
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.667993,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.691692,
+          "margin": -0.0237
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:active-wordnet-definition-3",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "anchor_cue",
+      "evidence_text": "small room in which a monk or nun lives",
+      "admission_status": "rejected",
+      "reason_code": "competitor_sense_not_lower",
+      "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celda:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "intended_score": 0.623825,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "strongest_competitor_score": 0.706228,
+        "margin": -0.082404
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "intended_score": 0.623825,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "strongest_competitor_score": 0.706228,
+          "margin": -0.082404
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cell-celula:shadow-en-es-sentence-veto-cell-celda-shadow-wordnet-example-3",
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "the cells of a honeycomb",
+      "admission_status": "rejected",
+      "reason_code": "competitor_sense_not_lower",
+      "intended_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cell:celula:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+        "intended_score": 0.577662,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celula:active",
+        "strongest_competitor_score": 0.785997,
+        "margin": -0.208335
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "intended_score": 0.577662,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cell:celula:active",
+          "strongest_competitor_score": 0.785997,
+          "margin": -0.208335
+        }
+      ]
+    }
+  ],
+  "recommendation": "Use the admitted batch only as an analysis artifact. Replace or quarantine rejected active/shadow rows before any promotion-candidate merge."
+}

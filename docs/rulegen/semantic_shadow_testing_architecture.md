@@ -9,6 +9,7 @@ Source-of-truth: current semantic-shadow testing workflow; implementation truth 
 
 Routing note:
 
+- use `docs/rulegen/semantic_sentence_veto_algorithm.md` for the cohesive end-to-end algorithm model
 - use `docs/rulegen/semantic_routing_publication_contract.md` and `docs/rulegen/semantic_routing_runtime_readiness.md` for current shipped contract truth
 - use `docs/rulegen/semantic_routing_en_es_publish_checklist.md` for launch/runbook steps
 - use this document for research harness structure, experiment lanes, and evidence interpretation only
@@ -136,6 +137,7 @@ Purpose:
 Primary files:
 - `core/lexishift_core/rulegen/semantic_routing_runtime_scoring.py`
 - `core/tests/rulegen/test_semantic_routing_runtime_scoring.py`
+- `docs/rulegen/semantic_decision_rule_comparison_plan.md`
 - `scripts/testing/semantic_routing_sentence_veto_harness.py`
 - `scripts/testing/semantic_routing_sentence_veto_sweep.py`
 - `scripts/testing/semantic_routing_sentence_veto_ladder.py`
@@ -164,6 +166,11 @@ Interpretation rule:
 - this layer does not prove that automatic shadow mining is solved
 - it answers the narrower question: given a fixed competition set, how good is the runtime scorer and gate
 - on the current `v10` slice, it also seeds the first pre-prompt family queue by separating phrase-risk guardrail families from cue-like weak-active-support residue
+- the current active-minus-strongest-shadow rule is the control, not a settled
+  optimum; decision-rule work should follow the decomposition in
+  `docs/rulegen/semantic_decision_rule_comparison_plan.md` so context
+  representation, source representation, scoring, aggregation, classification,
+  and phrase handling are tested separately.
 
 ### 9. Cluster-aware confidence-bound read
 
