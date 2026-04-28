@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-04-28T22:34:17Z",
-  "status": "ok",
+  "generated_at": "2026-04-28T23:32:17Z",
+  "status": "review",
   "decision": "analysis_only",
   "policy": {
     "offline_promotion_lane": "semantic_active_shadow",
@@ -23,9 +23,9 @@
         "blocks_offline_semantic_promotion": false
       },
       "held_out_seed_validation": {
-        "status": "not_provided",
-        "decision": "not_provided",
-        "blocks_offline_semantic_promotion": false,
+        "status": "review",
+        "decision": "heldout_review",
+        "blocks_offline_semantic_promotion": true,
         "blocks_runtime_publication_until_broader_breadth": false
       }
     }
@@ -45,17 +45,17 @@
     "semantic_contract_complete_family_count": 16,
     "phrase_contract_complete_family_count": 0,
     "heldout_validation": {
-      "provided": false,
+      "provided": true,
       "passed": false,
-      "status": "not_provided",
-      "decision": "not_provided",
-      "case_count": 0,
-      "family_count": 0,
-      "harmful_replace_count": 0,
+      "status": "review",
+      "decision": "heldout_review",
+      "case_count": 32,
+      "family_count": 16,
+      "harmful_replace_count": 1,
       "false_abstain_count": 0,
-      "replace_recall": 0.0,
-      "decision_accuracy": 0.0,
-      "blocks_offline_semantic_promotion": false
+      "replace_recall": 1.0,
+      "decision_accuracy": 0.9688,
+      "blocks_offline_semantic_promotion": true
     },
     "best_ablation_row": {}
   },
@@ -83,14 +83,15 @@
     "false_abstain_case_ids": []
   },
   "artifacts": {
-    "leakage_json": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/semantic_source_admission_cycle_non_v10_wave5_source_portfolio_latest_leakage.json",
-    "leakage_markdown": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/semantic_source_admission_cycle_non_v10_wave5_source_portfolio_latest_leakage.md",
-    "sense_json": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/semantic_source_admission_cycle_non_v10_wave5_source_portfolio_latest_sense.json",
-    "sense_markdown": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/semantic_source_admission_cycle_non_v10_wave5_source_portfolio_latest_sense.md",
-    "merge_json": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/semantic_source_admission_cycle_non_v10_wave5_source_portfolio_latest_merge.json",
-    "merge_markdown": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/semantic_source_admission_cycle_non_v10_wave5_source_portfolio_latest_merge.md",
-    "contract_json": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/semantic_source_admission_cycle_non_v10_wave5_source_portfolio_latest_contract.json",
-    "contract_markdown": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/semantic_source_admission_cycle_non_v10_wave5_source_portfolio_latest_contract.md",
-    "candidate_admitted_batch_json": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/experiments/semantic_example_frame_batches/en-es-wordnet-source-portfolio-non-v10-wave5-anypos-v1-latest_admitted_delta_normalized_evidence.json"
+    "heldout_validation_json": "docs/test_outputs/semantic_source_non_v10_wave5_portfolio_heldout_margin005_validation_latest.json",
+    "leakage_json": "docs/test_outputs/semantic_source_admission_cycle_non_v10_wave5_source_portfolio_latest_leakage.json",
+    "leakage_markdown": "docs/test_outputs/semantic_source_admission_cycle_non_v10_wave5_source_portfolio_latest_leakage.md",
+    "sense_json": "docs/test_outputs/semantic_source_admission_cycle_non_v10_wave5_source_portfolio_latest_sense.json",
+    "sense_markdown": "docs/test_outputs/semantic_source_admission_cycle_non_v10_wave5_source_portfolio_latest_sense.md",
+    "merge_json": "docs/test_outputs/semantic_source_admission_cycle_non_v10_wave5_source_portfolio_latest_merge.json",
+    "merge_markdown": "docs/test_outputs/semantic_source_admission_cycle_non_v10_wave5_source_portfolio_latest_merge.md",
+    "contract_json": "docs/test_outputs/semantic_source_admission_cycle_non_v10_wave5_source_portfolio_latest_contract.json",
+    "contract_markdown": "docs/test_outputs/semantic_source_admission_cycle_non_v10_wave5_source_portfolio_latest_contract.md",
+    "candidate_admitted_batch_json": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-wordnet-source-portfolio-non-v10-wave5-anypos-v1-latest_admitted_delta_normalized_evidence.json"
   }
 }

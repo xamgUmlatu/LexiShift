@@ -221,10 +221,12 @@
         "docs/test_outputs/semantic_non_v10_source_portfolio_wave5_anypos_latest.md",
         "docs/test_outputs/semantic_source_admission_cycle_non_v10_wave5_source_portfolio_latest.md",
         "docs/test_outputs/semantic_source_non_v10_wave5_portfolio_heldout_margin005_validation_latest.md",
-        "docs/test_outputs/semantic_source_non_v10_wave5_portfolio_phrase_margin005_validation_latest.md"
+        "docs/test_outputs/semantic_source_non_v10_wave5_portfolio_phrase_margin005_validation_latest.md",
+        "docs/test_outputs/semantic_source_margin_policy_sweep_non_v10_wave5_portfolio_latest.md",
+        "docs/test_outputs/semantic_source_failure_class_mining_non_v10_wave5_portfolio_latest.md"
       ],
-      "current_read": "Automatic non-v10 source-supported waves are promising but still need broader held-out proof and phrase-contract coverage before runtime-quality claims. The wave64 any-POS supported sweep found a 16-family semantic source portfolio, and the materialized portfolio passes the source-admission cycle with 51 final admitted rows, 0 leakage rejects, 0 sense rejects, and semantic contract coverage 16 / 16. The first independent held-out suites block promotion: active/shadow is 2 harmful / 3 false abstains across 32 cases, and phrase/no-winner is 3 harmful across 16 cases. A no-write margin sensitivity check showed this is not a simple threshold issue.",
-      "next_action": "Classify and fix reusable blocker classes before breadth expansion: source-evidence gaps for active false abstains, surface/POS or sense-family errors for active/shadow harmful replacements, and phrase/no-winner containment for fast/present/end-style failures. Do not tune directly on these held-out cases or claim promotion from this portfolio yet.",
+      "current_read": "Automatic non-v10 source-supported waves are promising but still need broader held-out proof and phrase-contract coverage before runtime-quality claims. The wave64 any-POS supported sweep found a 16-family semantic source portfolio, and the materialized portfolio passes source admission with 51 final admitted rows, 0 leakage rejects, 0 sense rejects, and semantic contract coverage 16 / 16. A syntax candidate that exposes local trigger context outside noun-only phrase guard and limits modifier rescue to near ties improves the frozen wave5 held-out suites: active/shadow is now 1 harmful / 0 false abstains across 32 cases, and phrase/no-winner is now 1 harmful across 16 cases. A current wave5 margin sweep finds no scalar margin that passes both suites, so the remaining blockers are present-as-time-noun and end-table compound/no-winner handling rather than threshold selection. Phrase source coverage remains 0 / 16.",
+      "next_action": "Do not promote yet. Fix the two remaining reusable blocker classes without tuning thresholds: review the present family/sense boundary and add or generate source-backed compound/phrase no-winner evidence for end-table-style cases. Then rerun admission, both held-out validations, failure-class mining, and a margin/policy sweep before any breadth expansion claim.",
       "promotion_status": "analysis_only"
     },
     {

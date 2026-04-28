@@ -61,6 +61,64 @@ class SemanticLlmSurfacePosSupportTests(unittest.TestCase):
             ),
             "active_noun_frame",
         )
+        self.assertEqual(
+            surface_pos_signal(
+                active_sense=_active_noun(),
+                shadow_examples=[(_shadow_verb(), "create by training and teaching")],
+                preceding_token="morning",
+                following_token="left",
+            ),
+            "active_noun_frame",
+        )
+
+    def test_adjective_modifier_frames_are_active_frames(self) -> None:
+        self.assertEqual(
+            surface_pos_signal(
+                active_sense=_active_adjective(),
+                shadow_examples=[(_shadow_verb(), "remove moisture from clothes")],
+                preceding_token="the",
+                following_token="towel",
+            ),
+            "active_modifier_frame",
+        )
+        self.assertEqual(
+            surface_pos_signal(
+                active_sense=_active_adjective(),
+                shadow_examples=[(_shadow_noun(), "the period happening now")],
+                preceding_token="the",
+                following_token="policy",
+            ),
+            "active_modifier_frame",
+        )
+
+    def test_non_verb_active_in_clear_verb_frames_is_shadow_frame(self) -> None:
+        self.assertEqual(
+            surface_pos_signal(
+                active_sense=_active_adjective(),
+                shadow_examples=[(_shadow_noun(), "the current moment")],
+                preceding_token="will",
+                following_token="the",
+            ),
+            "shadow_verb_frame",
+        )
+        self.assertEqual(
+            surface_pos_signal(
+                active_sense=_active_noun(),
+                shadow_examples=[(_shadow_noun(), "a pause for relaxation")],
+                preceding_token="workers",
+                following_token="after",
+            ),
+            "shadow_verb_frame",
+        )
+        self.assertEqual(
+            surface_pos_signal(
+                active_sense=_active_adjective(),
+                shadow_examples=[(_shadow_verb(), "abstain from food")],
+                preceding_token="held",
+                following_token="to",
+            ),
+            "shadow_verb_frame",
+        )
 
     def test_subject_verb_frames_remain_shadow_frames(self) -> None:
         self.assertEqual(
@@ -105,6 +163,14 @@ class SemanticLlmSurfacePosSupportTests(unittest.TestCase):
 
 def _active_noun() -> dict[str, object]:
     return {"sense_id": "active", "canonical_pos": "noun"}
+
+
+def _active_adjective() -> dict[str, object]:
+    return {"sense_id": "active", "canonical_pos": "adjective"}
+
+
+def _shadow_noun() -> dict[str, object]:
+    return {"sense_id": "shadow", "canonical_pos": "noun"}
 
 
 def _shadow_verb() -> dict[str, object]:

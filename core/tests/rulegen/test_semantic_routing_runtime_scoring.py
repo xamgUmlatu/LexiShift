@@ -233,6 +233,32 @@ class SemanticRoutingRuntimeScoringTests(unittest.TestCase):
         self.assertEqual(signals.matched_phrase_pattern, "")
         self.assertEqual(signals.phrase_reason_code, "")
 
+    def test_extract_runtime_phrase_control_signals_exposes_tokens_when_pos_guard_disabled(
+        self,
+    ) -> None:
+        signals = extract_runtime_phrase_control_signals(
+            "The dry towel hung beside the sink.",
+            source_phrase="dry",
+            family_pos_tags=("adjective",),
+        )
+        self.assertFalse(signals.phrase_preemption_hit)
+        self.assertEqual(signals.preceding_token, "the")
+        self.assertEqual(signals.following_token, "towel")
+        self.assertEqual(signals.family_pos_tags, ("adjective",))
+
+    def test_extract_runtime_phrase_control_signals_exposes_tokens_for_mixed_pos_family(
+        self,
+    ) -> None:
+        signals = extract_runtime_phrase_control_signals(
+            "Workers rest after lunch in the shade.",
+            source_phrase="rest",
+            family_pos_tags=("noun", "verb"),
+        )
+        self.assertFalse(signals.phrase_preemption_hit)
+        self.assertEqual(signals.preceding_token, "workers")
+        self.assertEqual(signals.following_token, "after")
+        self.assertEqual(signals.family_pos_tags, ("noun", "verb"))
+
     def test_evaluate_runtime_veto_case_applies_noun_family_frame_guard(self) -> None:
         backend = RuntimeSimilarityBackend(scorer_id="tfidf_cosine")
         active_sense = {

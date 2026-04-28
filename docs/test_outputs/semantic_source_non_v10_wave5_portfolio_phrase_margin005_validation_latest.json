@@ -2,7 +2,7 @@
   "schema_version": 1,
   "status": "review",
   "decision": "heldout_review",
-  "generated_at": "2026-04-28T22:37:52Z",
+  "generated_at": "2026-04-28T23:29:41Z",
   "pair": "en-es",
   "base_dataset_id": "en_es_source_non_v10_wave5_anypos_ranked_slate_selected_v1",
   "heldout_dataset_id": "en_es_source_non_v10_wave5_portfolio_phrase_cases_v1",
@@ -29,20 +29,18 @@
     "gold_abstain_cases": 16,
     "max_harmful": 0,
     "max_false_abstain": 0,
-    "harmful_replace_count": 3,
+    "harmful_replace_count": 1,
     "false_abstain_count": 0,
     "harmful_replace_case_ids": [
-      "en-es:source-non-v10-wave5-portfolio-phrase:v1:fast:001",
-      "en-es:source-non-v10-wave5-portfolio-phrase:v1:present:001",
       "en-es:source-non-v10-wave5-portfolio-phrase:v1:end:001"
     ],
     "false_abstain_case_ids": [],
     "replace_recall": 0.0,
-    "decision_accuracy": 0.8125,
+    "decision_accuracy": 0.9375,
     "delta_vs_empty_baseline": {
       "replace_recall_delta": 0.0,
-      "decision_accuracy_delta": -0.1875,
-      "harmful_replace_delta": 3,
+      "decision_accuracy_delta": -0.0625,
+      "harmful_replace_delta": 1,
       "false_abstain_delta": 0
     }
   },
@@ -234,12 +232,12 @@
     "cases_total": 16,
     "gold_replace_cases": 0,
     "gold_abstain_cases": 16,
-    "decision_accuracy": 0.8125,
+    "decision_accuracy": 0.9375,
     "replace_precision": 0.0,
     "replace_recall": 0.0,
-    "harmful_replace_rate": 0.1875,
+    "harmful_replace_rate": 0.0625,
     "false_abstain_rate": 0.0,
-    "harmful_replace_count": 3,
+    "harmful_replace_count": 1,
     "false_abstain_count": 0,
     "phrase_preemption_hit_count": 6,
     "phrase_containment_hit_count": 0,
@@ -253,12 +251,10 @@
       "contract_complete_families": 0
     },
     "harmful_replace_case_ids": [
-      "en-es:source-non-v10-wave5-portfolio-phrase:v1:fast:001",
-      "en-es:source-non-v10-wave5-portfolio-phrase:v1:present:001",
       "en-es:source-non-v10-wave5-portfolio-phrase:v1:end:001"
     ],
     "false_abstain_case_ids": [],
-    "objective_score": 3001.1875
+    "objective_score": 1001.0625
   },
   "empty_baseline_row": {
     "matrix_id": "empty_batch:all_dataset_families:sentence_transformer_cosine:masked_sentence:a=0.00:m=0.01:prototype_reviewed_examples_surface_pos_rescue_guard",
@@ -311,7 +307,7 @@
   "matrix_report": {
     "schema_version": 1,
     "status": "ok",
-    "generated_at": "2026-04-28T22:37:52Z",
+    "generated_at": "2026-04-28T23:29:41Z",
     "pair": "en-es",
     "queue_id": "en_es_source_non_v10_wave5_portfolio_phrase_cases_v1_source_heldout_validation",
     "dataset_id": "en_es_source_non_v10_wave5_portfolio_phrase_cases_v1",
@@ -380,11 +376,11 @@
       "min_margin": 0.005,
       "decision_shape": "active_shadow_containment_surface_pos",
       "cases_total": 16,
-      "harmful_replace_count": 3,
+      "harmful_replace_count": 1,
       "false_abstain_count": 0,
       "replace_recall": 0.0,
-      "decision_accuracy": 0.8125,
-      "objective_score": 3001.1875,
+      "decision_accuracy": 0.9375,
+      "objective_score": 1001.0625,
       "source_coverage": {
         "families_total": 16,
         "active_covered_families": 16,
@@ -394,8 +390,6 @@
         "contract_complete_families": 0
       },
       "harmful_replace_case_ids": [
-        "en-es:source-non-v10-wave5-portfolio-phrase:v1:fast:001",
-        "en-es:source-non-v10-wave5-portfolio-phrase:v1:present:001",
         "en-es:source-non-v10-wave5-portfolio-phrase:v1:end:001"
       ],
       "false_abstain_case_ids": []
@@ -439,11 +433,11 @@
         "min_margin": 0.005,
         "decision_shape": "active_shadow_containment_surface_pos",
         "cases_total": 16,
-        "harmful_replace_count": 3,
+        "harmful_replace_count": 1,
         "false_abstain_count": 0,
         "replace_recall": 0.0,
-        "decision_accuracy": 0.8125,
-        "objective_score": 3001.1875,
+        "decision_accuracy": 0.9375,
+        "objective_score": 1001.0625,
         "source_coverage": {
           "families_total": 16,
           "active_covered_families": 16,
@@ -453,8 +447,6 @@
           "contract_complete_families": 0
         },
         "harmful_replace_case_ids": [
-          "en-es:source-non-v10-wave5-portfolio-phrase:v1:fast:001",
-          "en-es:source-non-v10-wave5-portfolio-phrase:v1:present:001",
           "en-es:source-non-v10-wave5-portfolio-phrase:v1:end:001"
         ],
         "false_abstain_case_ids": []
@@ -696,11 +688,11 @@
         "min_margin": 0.005,
         "decision_shape": "active_shadow_containment_surface_pos",
         "cases_total": 16,
-        "harmful_replace_count": 3,
+        "harmful_replace_count": 1,
         "false_abstain_count": 0,
         "replace_recall": 0.0,
-        "decision_accuracy": 0.8125,
-        "objective_score": 3001.1875,
+        "decision_accuracy": 0.9375,
+        "objective_score": 1001.0625,
         "source_coverage": {
           "families_total": 16,
           "active_covered_families": 16,
@@ -710,8 +702,6 @@
           "contract_complete_families": 0
         },
         "harmful_replace_case_ids": [
-          "en-es:source-non-v10-wave5-portfolio-phrase:v1:fast:001",
-          "en-es:source-non-v10-wave5-portfolio-phrase:v1:present:001",
           "en-es:source-non-v10-wave5-portfolio-phrase:v1:end:001"
         ],
         "false_abstain_case_ids": []
@@ -761,11 +751,11 @@
         "min_margin": 0.005,
         "decision_shape": "active_shadow_containment_surface_pos",
         "cases_total": 16,
-        "harmful_replace_count": 3,
+        "harmful_replace_count": 1,
         "false_abstain_count": 0,
         "replace_recall": 0.0,
-        "decision_accuracy": 0.8125,
-        "objective_score": 3001.1875,
+        "decision_accuracy": 0.9375,
+        "objective_score": 1001.0625,
         "source_coverage": {
           "families_total": 16,
           "active_covered_families": 16,
@@ -775,8 +765,6 @@
           "contract_complete_families": 0
         },
         "harmful_replace_case_ids": [
-          "en-es:source-non-v10-wave5-portfolio-phrase:v1:fast:001",
-          "en-es:source-non-v10-wave5-portfolio-phrase:v1:present:001",
           "en-es:source-non-v10-wave5-portfolio-phrase:v1:end:001"
         ],
         "false_abstain_case_ids": []
@@ -891,11 +879,11 @@
         "min_margin": 0.005,
         "decision_shape": "active_shadow_containment_surface_pos",
         "cases_total": 16,
-        "harmful_replace_count": 3,
+        "harmful_replace_count": 1,
         "false_abstain_count": 0,
         "replace_recall": 0.0,
-        "decision_accuracy": 0.8125,
-        "objective_score": 3001.1875,
+        "decision_accuracy": 0.9375,
+        "objective_score": 1001.0625,
         "source_coverage": {
           "families_total": 16,
           "active_covered_families": 16,
@@ -905,8 +893,6 @@
           "contract_complete_families": 0
         },
         "harmful_replace_case_ids": [
-          "en-es:source-non-v10-wave5-portfolio-phrase:v1:fast:001",
-          "en-es:source-non-v10-wave5-portfolio-phrase:v1:present:001",
           "en-es:source-non-v10-wave5-portfolio-phrase:v1:end:001"
         ],
         "false_abstain_case_ids": []
@@ -924,11 +910,11 @@
         "min_margin": 0.005,
         "decision_shape": "active_shadow_containment_surface_pos",
         "cases_total": 16,
-        "harmful_replace_count": 3,
+        "harmful_replace_count": 1,
         "false_abstain_count": 0,
         "replace_recall": 0.0,
-        "decision_accuracy": 0.8125,
-        "objective_score": 3001.1875,
+        "decision_accuracy": 0.9375,
+        "objective_score": 1001.0625,
         "source_coverage": {
           "families_total": 16,
           "active_covered_families": 16,
@@ -938,8 +924,6 @@
           "contract_complete_families": 0
         },
         "harmful_replace_case_ids": [
-          "en-es:source-non-v10-wave5-portfolio-phrase:v1:fast:001",
-          "en-es:source-non-v10-wave5-portfolio-phrase:v1:present:001",
           "en-es:source-non-v10-wave5-portfolio-phrase:v1:end:001"
         ],
         "false_abstain_case_ids": []
@@ -958,11 +942,11 @@
         "min_margin": 0.005,
         "decision_shape": "active_shadow_containment_surface_pos",
         "cases_total": 16,
-        "harmful_replace_count": 3,
+        "harmful_replace_count": 1,
         "false_abstain_count": 0,
         "replace_recall": 0.0,
-        "decision_accuracy": 0.8125,
-        "objective_score": 3001.1875,
+        "decision_accuracy": 0.9375,
+        "objective_score": 1001.0625,
         "source_coverage": {
           "families_total": 16,
           "active_covered_families": 16,
@@ -972,8 +956,6 @@
           "contract_complete_families": 0
         },
         "harmful_replace_case_ids": [
-          "en-es:source-non-v10-wave5-portfolio-phrase:v1:fast:001",
-          "en-es:source-non-v10-wave5-portfolio-phrase:v1:present:001",
           "en-es:source-non-v10-wave5-portfolio-phrase:v1:end:001"
         ],
         "false_abstain_case_ids": []
@@ -1343,12 +1325,12 @@
         "cases_total": 16,
         "gold_replace_cases": 0,
         "gold_abstain_cases": 16,
-        "decision_accuracy": 0.8125,
+        "decision_accuracy": 0.9375,
         "replace_precision": 0.0,
         "replace_recall": 0.0,
-        "harmful_replace_rate": 0.1875,
+        "harmful_replace_rate": 0.0625,
         "false_abstain_rate": 0.0,
-        "harmful_replace_count": 3,
+        "harmful_replace_count": 1,
         "false_abstain_count": 0,
         "phrase_preemption_hit_count": 6,
         "phrase_containment_hit_count": 0,
@@ -1362,12 +1344,10 @@
           "contract_complete_families": 0
         },
         "harmful_replace_case_ids": [
-          "en-es:source-non-v10-wave5-portfolio-phrase:v1:fast:001",
-          "en-es:source-non-v10-wave5-portfolio-phrase:v1:present:001",
           "en-es:source-non-v10-wave5-portfolio-phrase:v1:end:001"
         ],
         "false_abstain_case_ids": [],
-        "objective_score": 3001.1875
+        "objective_score": 1001.0625
       },
       {
         "matrix_id": "promotion_candidate_composite:all_dataset_families:sentence_transformer_cosine:masked_sentence:a=0.00:m=0.01:prototype_reviewed_examples_active_guard",

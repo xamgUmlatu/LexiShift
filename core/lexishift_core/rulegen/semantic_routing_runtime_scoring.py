@@ -284,19 +284,6 @@ def extract_runtime_phrase_control_signals(
             following_token="",
             family_pos_tags=normalized_family_pos_tags,
         )
-    if not normalized_family_pos_tags or any(
-        tag not in _NOUN_LIKE_POS_TAGS for tag in normalized_family_pos_tags
-    ):
-        return RuntimePhraseControlSignals(
-            phrase_preemption_hit=False,
-            matched_phrase_pattern="",
-            phrase_reason_code="",
-            signal_codes=(),
-            preceding_token="",
-            following_token="",
-            family_pos_tags=normalized_family_pos_tags,
-        )
-
     tokens = normalized_sentence.split()
     phrase_tokens = normalized_source_phrase.split()
     match = _find_phrase_token_span(tokens, phrase_tokens)
@@ -317,6 +304,19 @@ def extract_runtime_phrase_control_signals(
         _normalize_surface_token(tokens[start_index - 2]) if start_index > 1 else ""
     )
     following_token = _normalize_surface_token(tokens[end_index]) if end_index < len(tokens) else ""
+
+    if not normalized_family_pos_tags or any(
+        tag not in _NOUN_LIKE_POS_TAGS for tag in normalized_family_pos_tags
+    ):
+        return RuntimePhraseControlSignals(
+            phrase_preemption_hit=False,
+            matched_phrase_pattern="",
+            phrase_reason_code="",
+            signal_codes=(),
+            preceding_token=preceding_token,
+            following_token=following_token,
+            family_pos_tags=normalized_family_pos_tags,
+        )
 
     signal_codes: list[str] = []
     matched_phrase_pattern = ""

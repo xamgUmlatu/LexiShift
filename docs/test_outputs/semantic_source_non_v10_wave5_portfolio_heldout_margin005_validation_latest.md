@@ -2,7 +2,7 @@
 
 - Status: `review`
 - Decision: `heldout_review`
-- Generated: `2026-04-28T22:37:52Z`
+- Generated: `2026-04-28T23:29:41Z`
 - Base dataset: `en_es_source_non_v10_wave5_anypos_ranked_slate_selected_v1`
 - Held-out dataset: `en_es_source_non_v10_wave5_portfolio_heldout_cases_v1`
 - Case scope: `non_v10_wave5_source_portfolio_active_shadow`
@@ -14,16 +14,16 @@
 - Cases: `32`
 - Gold replacements: `16`
 - Gold abstains: `16`
-- Harmful replacements: `2` / max `0`
-- False abstains: `3` / max `0`
-- Replace recall: `81.2%`
-- Decision accuracy: `84.4%`
+- Harmful replacements: `1` / max `0`
+- False abstains: `0` / max `0`
+- Replace recall: `100.0%`
+- Decision accuracy: `96.9%`
 
 ## Configured Row
 
 | Source | Scorer | Context | Shape | Cases | Harmful | False Abstain | Recall | Accuracy |
 | --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: |
-| `promotion_candidate_composite` | `sentence_transformer_cosine` | `masked_sentence` | `active_shadow_containment_surface_pos` | 32 | 2 | 3 | 81.2% | 84.4% |
+| `promotion_candidate_composite` | `sentence_transformer_cosine` | `masked_sentence` | `active_shadow_containment_surface_pos` | 32 | 1 | 0 | 100.0% | 96.9% |
 
 ## Empty Baseline Comparator
 
@@ -54,8 +54,8 @@
 
 ## Failure Cases
 
-- Harmful replace cases: `en-es:source-non-v10-wave5-portfolio-heldout:v1:present:002, en-es:source-non-v10-wave5-portfolio-heldout:v1:rest:002`
-- False abstain cases: `en-es:source-non-v10-wave5-portfolio-heldout:v1:dry:001, en-es:source-non-v10-wave5-portfolio-heldout:v1:train:001, en-es:source-non-v10-wave5-portfolio-heldout:v1:present:001`
+- Harmful replace cases: `en-es:source-non-v10-wave5-portfolio-heldout:v1:present:002`
+- False abstain cases: `none`
 
 ## Limitations
 

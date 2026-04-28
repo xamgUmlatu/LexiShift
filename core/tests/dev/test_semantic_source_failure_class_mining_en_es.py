@@ -173,6 +173,34 @@ class SemanticSourceFailureClassMiningTests(unittest.TestCase):
         self.assertIn("insufficient_family_breadth", report["quality_gate"]["tracked_residuals"])
         self.assertIn("phrase_suite", render_source_failure_class_mining_markdown(report))
 
+    def test_portfolio_materialization_report_counts_as_source_breadth(self) -> None:
+        report = build_source_failure_class_mining_report(
+            primary_admission_payload=_admission_report(),
+            primary_heldout_payload=_heldout_report(),
+            source_report_payloads=[
+                {
+                    "schema_version": 1,
+                    "decision": "source_portfolio_materialized",
+                    "summary": {
+                        "selected_family_count": 16,
+                        "materialized_family_count": 16,
+                        "candidate_row_count": 51,
+                        "final_admitted_row_count": 51,
+                        "semantic_contract_complete_family_count": 16,
+                        "phrase_contract_complete_family_count": 0,
+                    },
+                }
+            ],
+            generated_at="2026-04-26T00:00:00Z",
+        )
+
+        self.assertEqual(report["leverage"]["source_row_count"], 51)
+        self.assertEqual(report["leverage"]["source_family_count"], 16)
+        source_row = report["source_reports"][0]
+        self.assertEqual(source_row["evidence_mode"], "source_portfolio_materialized")
+        self.assertEqual(source_row["target_families_with_active_wordnet"], 16)
+        self.assertEqual(source_row["families_with_phrase_control_examples"], 0)
+
 
 def _admission_report(
     *,

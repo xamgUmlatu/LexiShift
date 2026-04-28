@@ -308,24 +308,48 @@ def _heldout_row(*, label: str, payload: Mapping[str, object]) -> dict[str, obje
 
 def _source_report_row(*, label: str, payload: Mapping[str, object]) -> dict[str, object]:
     summary = _as_mapping(payload.get("summary"))
+    source_family_count = int(
+        summary.get("source_family_count")
+        or summary.get("materialized_family_count")
+        or summary.get("selected_family_count")
+        or 0
+    )
+    target_family_count = int(
+        summary.get("target_family_count")
+        or summary.get("selected_family_count")
+        or summary.get("materialized_family_count")
+        or 0
+    )
+    row_count = int(
+        summary.get("row_count")
+        or summary.get("final_admitted_row_count")
+        or summary.get("candidate_row_count")
+        or 0
+    )
+    semantic_complete_count = int(summary.get("semantic_contract_complete_family_count") or 0)
+    phrase_complete_count = int(summary.get("phrase_contract_complete_family_count") or 0)
     return {
         "label": str(label or "").strip(),
-        "evidence_mode": str(summary.get("evidence_mode") or "").strip(),
-        "source_family_count": int(summary.get("source_family_count") or 0),
-        "target_family_count": int(summary.get("target_family_count") or 0),
-        "row_count": int(summary.get("row_count") or 0),
-        "families_with_active_wordnet": int(summary.get("families_with_active_wordnet") or 0),
-        "families_with_shadow_wordnet": int(summary.get("families_with_shadow_wordnet") or 0),
+        "evidence_mode": str(summary.get("evidence_mode") or payload.get("decision") or "").strip(),
+        "source_family_count": source_family_count,
+        "target_family_count": target_family_count,
+        "row_count": row_count,
+        "families_with_active_wordnet": int(
+            summary.get("families_with_active_wordnet") or semantic_complete_count
+        ),
+        "families_with_shadow_wordnet": int(
+            summary.get("families_with_shadow_wordnet") or semantic_complete_count
+        ),
         "target_families_with_active_wordnet": int(
-            summary.get("target_families_with_active_wordnet") or 0
+            summary.get("target_families_with_active_wordnet") or semantic_complete_count
         ),
         "target_families_with_shadow_wordnet": int(
-            summary.get("target_families_with_shadow_wordnet") or 0
+            summary.get("target_families_with_shadow_wordnet") or semantic_complete_count
         ),
         "missing_active_family_keys": list(_as_sequence(summary.get("missing_active_family_keys"))),
         "missing_shadow_family_keys": list(_as_sequence(summary.get("missing_shadow_family_keys"))),
         "families_with_phrase_control_examples": int(
-            summary.get("families_with_phrase_control_examples") or 0
+            summary.get("families_with_phrase_control_examples") or phrase_complete_count
         ),
     }
 

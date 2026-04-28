@@ -233,6 +233,82 @@ class SemanticLlmPrototypeAdmissionProbeTests(unittest.TestCase):
         )
         self.assertEqual(rows["case:002"]["predicted_decision"], "abstain")
 
+    def test_surface_pos_rescue_handles_active_adjective_modifier_frame(self) -> None:
+        queue_payload, dataset_payload, evidence_batch = _adjective_surface_inputs()
+        report = build_prototype_admission_report(
+            queue_payload=queue_payload,
+            dataset_payload=dataset_payload,
+            evidence_batch_payload=evidence_batch,
+            scorer_id="token_jaccard",
+            min_active_score=0.0,
+            min_margin=0.5,
+            generated_at="2026-04-25T12:00:00Z",
+        )
+
+        surface_guard = next(
+            row
+            for row in report["configurations"]
+            if row["config_id"] == "prototype_reviewed_examples_surface_pos_rescue_guard"
+        )
+        rows = {row["case_id"]: row for row in surface_guard["row_results"]}
+        self.assertEqual(rows["present:001"]["surface_pos_signal"], "active_modifier_frame")
+        self.assertTrue(rows["present:001"]["active_rescue_applied"])
+        self.assertEqual(
+            rows["present:001"]["active_rescue_reason_code"],
+            "surface_pos_active_modifier_frame_rescue",
+        )
+        self.assertEqual(rows["present:001"]["predicted_decision"], "replace")
+
+    def test_surface_pos_rescue_preempts_non_verb_active_in_verb_frame(self) -> None:
+        queue_payload, dataset_payload, evidence_batch = _adjective_surface_inputs()
+        report = build_prototype_admission_report(
+            queue_payload=queue_payload,
+            dataset_payload=dataset_payload,
+            evidence_batch_payload=evidence_batch,
+            scorer_id="token_jaccard",
+            min_active_score=0.0,
+            min_margin=-1.0,
+            generated_at="2026-04-25T12:00:00Z",
+        )
+
+        surface_guard = next(
+            row
+            for row in report["configurations"]
+            if row["config_id"] == "prototype_reviewed_examples_surface_pos_rescue_guard"
+        )
+        rows = {row["case_id"]: row for row in surface_guard["row_results"]}
+        self.assertEqual(rows["present:002"]["surface_pos_signal"], "shadow_verb_frame")
+        self.assertTrue(rows["present:002"]["surface_pos_preemption_applied"])
+        self.assertEqual(rows["present:002"]["predicted_decision"], "abstain")
+
+    def test_surface_pos_rescue_does_not_override_strong_negative_modifier_score(
+        self,
+    ) -> None:
+        queue_payload, dataset_payload, evidence_batch = _low_margin_modifier_inputs()
+        report = build_prototype_admission_report(
+            queue_payload=queue_payload,
+            dataset_payload=dataset_payload,
+            evidence_batch_payload=evidence_batch,
+            scorer_id="token_jaccard",
+            min_active_score=0.0,
+            min_margin=0.5,
+            generated_at="2026-04-25T12:00:00Z",
+        )
+
+        surface_guard = next(
+            row
+            for row in report["configurations"]
+            if row["config_id"] == "prototype_reviewed_examples_surface_pos_rescue_guard"
+        )
+        rows = {row["case_id"]: row for row in surface_guard["row_results"]}
+        self.assertEqual(rows["mean:001"]["surface_pos_signal"], "active_modifier_frame")
+        self.assertFalse(rows["mean:001"]["active_rescue_applied"])
+        self.assertEqual(
+            rows["mean:001"]["surface_pos_rescue_blocked_reason"],
+            "active_modifier_margin_below_floor",
+        )
+        self.assertEqual(rows["mean:001"]["predicted_decision"], "abstain")
+
 
 def _sample_inputs() -> tuple[dict[str, object], dict[str, object]]:
     queue_payload = {
@@ -308,6 +384,167 @@ def _normalized_evidence_batch() -> dict[str, object]:
             },
         ],
     }
+
+
+def _adjective_surface_inputs() -> tuple[dict[str, object], dict[str, object], dict[str, object]]:
+    family_id = "fam:present"
+    active_id = f"{family_id}:active"
+    shadow_id = f"{family_id}:shadow"
+    queue_payload = {
+        "queue_id": "semantic_prompt_bakeoff_test_adjective_surface",
+        "families": [
+            {
+                "family_id": family_id,
+                "trigger": "present",
+                "role": "target",
+                "likely_bucket": "needs_cue_data",
+            }
+        ],
+    }
+    dataset_payload = {
+        "schema_version": 1,
+        "pair": "en-es",
+        "dataset_id": "en_es_sentence_veto_adjective_surface_test",
+        "families": [
+            {
+                "family_id": family_id,
+                "trigger": "present",
+                "active": {
+                    "sense_id": active_id,
+                    "target_lemma": "presente",
+                    "canonical_pos": "adjective",
+                    "evidence_views": {"all_evidence_text": "current policy now existing"},
+                },
+                "shadows": [
+                    {
+                        "sense_id": shadow_id,
+                        "target_lemma": "actual",
+                        "canonical_pos": "noun",
+                        "evidence_views": {"all_evidence_text": "the current moment"},
+                    }
+                ],
+                "cases": [
+                    {
+                        "case_id": "present:001",
+                        "sentence": "The present policy ends in June.",
+                        "source_phrase": "present",
+                        "gold_winner": active_id,
+                        "gold_decision": "replace",
+                    },
+                    {
+                        "case_id": "present:002",
+                        "sentence": "The host will present the award after dinner.",
+                        "source_phrase": "present",
+                        "gold_winner": "none",
+                        "gold_decision": "abstain",
+                    },
+                ],
+            }
+        ],
+    }
+    evidence_batch = {
+        "schema_version": 1,
+        "source_id": "test_adjective_surface_evidence",
+        "batch_id": "test-adjective-surface",
+        "rows": [
+            {
+                "relation_type": "anchor_cue",
+                "trigger": "present",
+                "evidence_text": "present policy current",
+                "metadata": {
+                    "family_id": family_id,
+                    "active_sense_id": active_id,
+                },
+            },
+            {
+                "relation_type": "shadow_candidate",
+                "trigger": "present",
+                "evidence_text": "present moment now",
+                "metadata": {
+                    "family_id": family_id,
+                    "candidate_sense_id": shadow_id,
+                },
+            },
+        ],
+    }
+    return queue_payload, dataset_payload, evidence_batch
+
+
+def _low_margin_modifier_inputs() -> tuple[dict[str, object], dict[str, object], dict[str, object]]:
+    family_id = "fam:mean"
+    active_id = f"{family_id}:active"
+    shadow_id = f"{family_id}:shadow"
+    queue_payload = {
+        "queue_id": "semantic_prompt_bakeoff_test_low_margin_modifier",
+        "families": [
+            {
+                "family_id": family_id,
+                "trigger": "mean",
+                "role": "target",
+                "likely_bucket": "needs_cue_data",
+            }
+        ],
+    }
+    dataset_payload = {
+        "schema_version": 1,
+        "pair": "en-es",
+        "dataset_id": "en_es_sentence_veto_low_margin_modifier_test",
+        "families": [
+            {
+                "family_id": family_id,
+                "trigger": "mean",
+                "active": {
+                    "sense_id": active_id,
+                    "target_lemma": "medio",
+                    "canonical_pos": "adjective",
+                    "evidence_views": {"all_evidence_text": "statistical average value"},
+                },
+                "shadows": [
+                    {
+                        "sense_id": shadow_id,
+                        "target_lemma": "querer decir",
+                        "canonical_pos": "verb",
+                        "evidence_views": {"all_evidence_text": "trick play guest"},
+                    }
+                ],
+                "cases": [
+                    {
+                        "case_id": "mean:001",
+                        "sentence": "That was a mean trick to play on a guest.",
+                        "source_phrase": "mean",
+                        "gold_winner": "none",
+                        "gold_decision": "abstain",
+                    }
+                ],
+            }
+        ],
+    }
+    evidence_batch = {
+        "schema_version": 1,
+        "source_id": "test_low_margin_modifier_evidence",
+        "batch_id": "test-low-margin-modifier",
+        "rows": [
+            {
+                "relation_type": "anchor_cue",
+                "trigger": "mean",
+                "evidence_text": "statistical average expected value",
+                "metadata": {
+                    "family_id": family_id,
+                    "active_sense_id": active_id,
+                },
+            },
+            {
+                "relation_type": "shadow_candidate",
+                "trigger": "mean",
+                "evidence_text": "mean trick play guest",
+                "metadata": {
+                    "family_id": family_id,
+                    "candidate_sense_id": shadow_id,
+                },
+            },
+        ],
+    }
+    return queue_payload, dataset_payload, evidence_batch
 
 
 def _mixed_shadow_inputs() -> tuple[dict[str, object], dict[str, object]]:

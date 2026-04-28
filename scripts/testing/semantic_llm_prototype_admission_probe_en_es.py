@@ -78,6 +78,7 @@ from semantic_llm_surface_pos_support import (  # noqa: E402
 DEFAULT_JSON_OUT = TEST_OUTPUTS_ROOT / "semantic_llm_prototype_admission_probe_latest.json"
 DEFAULT_MARKDOWN_OUT = TEST_OUTPUTS_ROOT / "semantic_llm_prototype_admission_probe_latest.md"
 DEFAULT_PROTOTYPE_CONTEXT_VIEW = "masked_sentence"
+ACTIVE_MODIFIER_RESCUE_MARGIN_FLOOR = -0.05
 PROTOTYPE_CONFIGS: tuple[tuple[str, str, str, bool, bool, bool], ...] = (
     (
         "prototype_reviewed_examples_family_guard",
@@ -633,12 +634,23 @@ def _score_case(
     active_rescue_applied = False
     surface_pos_preemption_applied = False
     surface_pos_rescue_blocked_reason = ""
-    if surface_pos_signal == "active_noun_frame" and predicted_decision != "replace":
-        if not active_noun_rescue_shadow_context_is_verb_like(
-            strongest_shadow_sense=shadow_sense,
-            shadow_examples=shadow_examples,
+    if surface_pos_signal in {"active_noun_frame", "active_modifier_frame"} and (
+        predicted_decision != "replace"
+    ):
+        if not active_examples:
+            surface_pos_rescue_blocked_reason = "missing_active_examples"
+        elif surface_pos_signal == "active_noun_frame" and not (
+            active_noun_rescue_shadow_context_is_verb_like(
+                strongest_shadow_sense=shadow_sense,
+                shadow_examples=shadow_examples,
+            )
         ):
             surface_pos_rescue_blocked_reason = "strongest_shadow_not_verb_like"
+        elif (
+            surface_pos_signal == "active_modifier_frame"
+            and float(margin) < ACTIVE_MODIFIER_RESCUE_MARGIN_FLOOR
+        ):
+            surface_pos_rescue_blocked_reason = "active_modifier_margin_below_floor"
         else:
             predicted_decision = "replace"
             predicted_winner = active_sense_id
@@ -685,7 +697,7 @@ def _score_case(
         "phrase_reason_code": phrase_signals.phrase_reason_code,
         "active_rescue_applied": active_rescue_applied,
         "active_rescue_reason_code": (
-            "surface_pos_active_noun_frame_rescue" if active_rescue_applied else ""
+            f"surface_pos_{surface_pos_signal}_rescue" if active_rescue_applied else ""
         ),
         "surface_pos_rescue_blocked_reason": surface_pos_rescue_blocked_reason,
         "surface_pos_signal": surface_pos_signal,
