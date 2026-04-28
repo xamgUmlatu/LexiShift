@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-28T22:33:21Z",
+  "generated_at": "2026-04-28T22:41:51Z",
   "issues": [],
   "lane_count": 14,
   "lane_set_id": "en_es_semantic_decision_research_lanes_v1",
@@ -59,15 +59,17 @@
         "docs/test_outputs/semantic_non_v10_source_support_conversion_wave4_anypos_supported_probe_latest.md",
         "docs/test_outputs/semantic_non_v10_wave_admission_sweep_wave64_anypos_latest.md",
         "docs/test_outputs/semantic_non_v10_source_portfolio_wave5_anypos_latest.md",
-        "docs/test_outputs/semantic_source_admission_cycle_non_v10_wave5_source_portfolio_latest.md"
+        "docs/test_outputs/semantic_source_admission_cycle_non_v10_wave5_source_portfolio_latest.md",
+        "docs/test_outputs/semantic_source_non_v10_wave5_portfolio_heldout_margin005_validation_latest.md",
+        "docs/test_outputs/semantic_source_non_v10_wave5_portfolio_phrase_margin005_validation_latest.md"
       ],
       "changes": [
         "source_coverage",
         "evaluation_breadth"
       ],
-      "current_read": "Automatic non-v10 source-supported waves are promising but still need broader held-out proof and phrase-contract coverage before runtime-quality claims. The wave64 any-POS supported sweep found a 16-family semantic source portfolio, and the materialized portfolio now passes the source-admission cycle with 51 final admitted rows, 0 leakage rejects, 0 sense rejects, and semantic contract coverage 16 / 16. It remains analysis-only because phrase containment is 0 / 16 and no independent held-out cases exist for these selected families yet.",
+      "current_read": "Automatic non-v10 source-supported waves are promising but still need broader held-out proof and phrase-contract coverage before runtime-quality claims. The wave64 any-POS supported sweep found a 16-family semantic source portfolio, and the materialized portfolio passes the source-admission cycle with 51 final admitted rows, 0 leakage rejects, 0 sense rejects, and semantic contract coverage 16 / 16. The first independent held-out suites block promotion: active/shadow is 2 harmful / 3 false abstains across 32 cases, and phrase/no-winner is 3 harmful across 16 cases. A no-write margin sensitivity check showed this is not a simple threshold issue.",
       "lane_id": "non_v10_breadth_validation",
-      "next_action": "Add independent active/shadow and phrase/no-winner held-out cases for the materialized 16-family portfolio, then validate against the exact admitted source batch before any promotion or scorer comparison claim.",
+      "next_action": "Classify and fix reusable blocker classes before breadth expansion: source-evidence gaps for active false abstains, surface/POS or sense-family errors for active/shadow harmful replacements, and phrase/no-winner containment for fast/present/end-style failures. Do not tune directly on these held-out cases or claim promotion from this portfolio yet.",
       "primary_axis": "heldout_breadth",
       "promotion_status": "analysis_only",
       "state": "active_source_program"
