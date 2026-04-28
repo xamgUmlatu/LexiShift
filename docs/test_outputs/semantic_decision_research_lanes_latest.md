@@ -1,7 +1,7 @@
 # Semantic Decision Research Lanes
 
 - Status: `ok`
-- Generated: `2026-04-28T21:40:08Z`
+- Generated: `2026-04-28T22:00:21Z`
 - Ledger: `docs/test_inputs/semantic_decision_research_lanes_en_es.json`
 - Lane count: `14`
 
@@ -20,18 +20,13 @@
 
 - No methodology issues detected.
 
-## Next Lanes
-
-- `sentence_transformer_row_level_evidence` (harness_ready_unswept): Run a dedicated sentence-transformer row-level bakeoff that compares definition/example rows, source rows, source-plus-definition rows, max/top-k/source-weighted aggregation, and stricter safety thresholds with the same negative controls.
-
 ## State Counts
 
 - `active_source_program`: `2`
 - `harness_partial`: `1`
-- `harness_ready_unswept`: `1`
 - `idea_recorded`: `2`
 - `parked_second_lane`: `3`
-- `swept_inconclusive`: `2`
+- `swept_inconclusive`: `3`
 - `swept_negative`: `1`
 - `swept_promising_control`: `2`
 
@@ -39,7 +34,6 @@
 
 | Lane | State | Axis | Promotion | Current Read | Next Action |
 | --- | --- | --- | --- | --- | --- |
-| sentence_transformer_row_level_evidence | harness_ready_unswept | scorer_x_row_level_evidence | unswept | A bounded sentence-transformer source-row subset in the context-conditioned bakeoff ranked active cases better, but introduced harmful replacements and had no zero-harm candidate. The fair separate definition/example row sweep is still unswept. | Run a dedicated sentence-transformer row-level bakeoff that compares definition/example rows, source rows, source-plus-definition rows, max/top-k/source-weighted aggregation, and stricter safety thresholds with the same negative controls. |
 | source_family_agreement | harness_partial | aggregation_and_source_confidence | partial_unswept | Source-weighted top-k and source dropout exist, but agreement-count and minimum independent source-family agreement have not been implemented as first-class bakeoff rows. | Implement source-family agreement aggregators only after the evidence rows carry reliable source-family labels. |
 | multi_context_scoring | idea_recorded | dynamic_c | unswept | Individual context views have been tested, but no composed multi-context score surface has been fairly swept. | After context-conditioned evidence selection, add multi-context rows that combine masked sentence, raw window, before/after frame, and phrase-risk views. |
 | separate_phrase_classifier | idea_recorded | phrase_no_winner_handling | unswept | Phrase override remains the control. A separate phrase classifier is recorded but not implemented or swept. | Do not implement before phrase/no-winner coverage expands beyond the current handcrafted-looking slice. |
@@ -49,6 +43,7 @@
 | additive_source_evidence_surface | swept_promising_control | source_evidence_representation | research_candidate_only | Per-row source evidence scopes now let the matrix compare no-source, LLM-v2 source, WordNet-reference source, and combined-source rows in one artifact. The additive `definition_example_plus_source_rows_separate` surface with combined LLM-v2 plus WordNet-reference rows is the current best no-spend research candidate: 0 harmful / 37 false abstains across frozen v10, source-heldout v2, phrase-heldout v2, and phrase challenge. The no-source row control was 0 / 44; source-heldout v2 improved from 0 / 17 to 0 / 12. The cell trace shows this is source representation progress: LLM-v2 lacked red-blood-cell active evidence, while the existing WordNet-reference lane supplied it. | Do not change production policy yet. Run companion negative controls and broader held-out validation for the additive surface, then test source-family agreement, calibrated row weighting, and additive context-selected variants against this candidate. |
 | context_conditioned_evidence_selection | swept_inconclusive | dynamic_a | not_promotable | The first context-conditioned sweep loaded 87 admitted source rows and did not beat the separate-row max control: best source-plus-definition selectors over-abstained at 53 false abstains and pure source-row selectors at 55. After live aligned-frame generation plus strict admission, the v2 selector-ready composite has 126 rows and all 19 active/shadow families are selector-ready. The best source-plus-definition selector improved to 0 harmful / 47 false abstains, while pure source-row selectors are 0 / 48. A later source-scope bakeoff showed the stronger current surface is additive source evidence over the row-level control, not context selection by itself. | Keep the selector machinery as research infrastructure, but do not promote it. Re-test context selection only after additive source evidence, source-family agreement, or calibrated row aggregation has a stronger row surface to select from. |
 | final_decision_rule_family_bakeoff | swept_inconclusive | final_decision_rule | not_promotable | Margin, ratio, softmax, and pairwise variants often tie on final YES/NO decisions under the fixed source surface. No final decision family is promotable yet. | Keep as the promotion gate after stronger c/a/source candidates emerge. |
+| sentence_transformer_row_level_evidence | swept_inconclusive | scorer_x_row_level_evidence | not_promotable | The dedicated sentence-transformer row-level bakeoff is now swept across frozen v10, source-heldout v2, phrase-heldout v2, and phrase challenge. The best additive-source top-k row tied the sentence-transformer definition/example control at 1 harmful / 31 false abstains, while all five negative controls failed as expected. The scorer has useful rank signal, but this row-level form is not promotable because it does not clear zero harm or beat the no-source sentence-transformer control. | Do not promote this scorer swap. Keep the artifact as a diagnostic comparison, and only revisit sentence-transformer row-level scoring with a richer guard stack, source-family agreement, or case-level calibration after the TF-IDF additive/source-coverage path has a stronger zero-harm candidate. |
 | phrasing_order_surface_tfidf | swept_negative | phrasing_order_surface | tested_form_rejected | Synthetic order/frame labels over existing gloss evidence did not beat row-level evidence. Best phrase/frame rows stayed safe but over-abstained. | Retest phrasing with real source/example rows and context-conditioned evidence selection rather than declaring order/frame irrelevant. |
 | cross_encoder_similarity | parked_second_lane | higher_cost_scorer | unswept | Documented as a possible second-lane scorer, but not worth implementing until row-level and context-conditioned controls identify the target failure class. | Revisit only if no-spend and sentence-transformer row-level sweeps leave a specific same-POS ambiguity unresolved. |
 | entailment_score | parked_second_lane | higher_cost_scorer | unswept | Documented as a possible way to avoid adjacent-but-wrong senses, but no entailment harness exists yet. | Revisit after row-level evidence reveals failures that look like semantic adjacency rather than source sparsity. |

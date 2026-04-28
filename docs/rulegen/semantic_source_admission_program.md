@@ -69,6 +69,7 @@ Verification:
 - `docs/test_outputs/semantic_llm_example_frame_source_coverage_filtered_safe_v2_contract_latest.md`
 - `docs/test_outputs/semantic_llm_example_frame_generation_plan_latest.md`
 - `docs/test_outputs/semantic_source_scope_margin_bakeoff_en_es_latest.md`
+- `docs/test_outputs/semantic_sentence_transformer_row_level_bakeoff_en_es_latest.md`
 Related planning:
 - `docs/rulegen/semantic_sentence_veto_algorithm.md`
 - `docs/rulegen/semantic_decision_rule_comparison_plan.md`
@@ -115,6 +116,7 @@ Latest no-spend decision-surface result:
 - source rows are most useful as additive evidence over the incumbent definition/example row surface
 - combined LLM-v2 plus WordNet-reference additive rows reached `0` harmful replacements and `37` false abstains across frozen v10, source-heldout v2, phrase-heldout v2, and phrase challenge
 - the no-source row control on the same suites was `0` harmful replacements and `44` false abstains
+- the dedicated sentence-transformer row-level bakeoff did not improve this result: its best additive-source row tied the sentence-transformer no-source control at `1` harmful replacement and `31` false abstains, while its negative controls all failed as expected
 - production policy remains unchanged until this candidate passes companion negative controls and broader held-out validation
 
 ## Non-Goals

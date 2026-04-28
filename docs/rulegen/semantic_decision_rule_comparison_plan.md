@@ -18,6 +18,7 @@ Current executable manifests:
 - `docs/test_inputs/semantic_phrasing_order_surface_bakeoff_en_es.json`
 - `docs/test_inputs/semantic_context_conditioned_evidence_bakeoff_en_es.json`
 - `docs/test_inputs/semantic_source_scope_margin_bakeoff_en_es.json`
+- `docs/test_inputs/semantic_sentence_transformer_row_level_bakeoff_en_es.json`
 Current process ledger:
 - `docs/test_inputs/semantic_decision_research_lanes_en_es.json`
 - `docs/test_outputs/semantic_decision_research_lanes_latest.md`
@@ -896,6 +897,14 @@ Current known findings:
   as a replacement for those rows. The earlier source-plus-definition surface
   omitted the incumbent auxiliary/example rows and therefore understated the
   value of source coverage.
+- The dedicated sentence-transformer row-level bakeoff in
+  `docs/test_outputs/semantic_sentence_transformer_row_level_bakeoff_en_es_latest.md`
+  tested the same additive source surface with a semantic scorer and its own
+  thresholds. It is not promotable: the best additive-source top-k row tied the
+  sentence-transformer definition/example control at `1` harmful replacement
+  and `31` false abstains, with the harmful case isolated to source-heldout v2.
+  The negative controls all failed as expected, so the result is a real
+  negative/inconclusive scorer finding rather than a harness failure.
 
 Findings to fill after broader representation/source matrices:
 
@@ -921,7 +930,9 @@ Findings to fill after broader representation/source matrices:
 - best scoring function:
   TF-IDF remains the most useful no-spend control for surface iteration;
   sentence-transformer fixed and source-row probes ranked active cases better
-  but introduced harmful replacements under the tested thresholds.
+  but introduced harmful replacements under the tested thresholds. The
+  dedicated row-level sentence-transformer bakeoff did not beat its own
+  no-source control and is not a promotion candidate in the tested form.
 - best aggregation rule:
   `max_row_score` currently leads the additive source-evidence surface. Earlier
   fixed-source controls also favored `max_row_score` or `top_k_mean`; source

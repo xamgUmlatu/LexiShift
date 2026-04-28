@@ -1,28 +1,9 @@
 {
-  "generated_at": "2026-04-28T21:40:08Z",
+  "generated_at": "2026-04-28T22:00:21Z",
   "issues": [],
   "lane_count": 14,
   "lane_set_id": "en_es_semantic_decision_research_lanes_v1",
   "lanes": [
-    {
-      "artifacts": [
-        "scripts/testing/semantic_decision_rule_matrix_en_es.py",
-        "docs/test_outputs/semantic_active_score_surface_bakeoff_en_es_latest.md",
-        "docs/test_inputs/semantic_context_conditioned_evidence_bakeoff_en_es.json",
-        "docs/test_outputs/semantic_context_conditioned_evidence_bakeoff_en_es_latest.md"
-      ],
-      "changes": [
-        "similarity",
-        "a",
-        "aggregation"
-      ],
-      "current_read": "A bounded sentence-transformer source-row subset in the context-conditioned bakeoff ranked active cases better, but introduced harmful replacements and had no zero-harm candidate. The fair separate definition/example row sweep is still unswept.",
-      "lane_id": "sentence_transformer_row_level_evidence",
-      "next_action": "Run a dedicated sentence-transformer row-level bakeoff that compares definition/example rows, source rows, source-plus-definition rows, max/top-k/source-weighted aggregation, and stricter safety thresholds with the same negative controls.",
-      "primary_axis": "scorer_x_row_level_evidence",
-      "promotion_status": "unswept",
-      "state": "harness_ready_unswept"
-    },
     {
       "artifacts": [
         "scripts/testing/semantic_decision_rule_matrix_en_es.py",
@@ -202,6 +183,27 @@
     },
     {
       "artifacts": [
+        "scripts/testing/semantic_decision_rule_matrix_en_es.py",
+        "docs/test_outputs/semantic_active_score_surface_bakeoff_en_es_latest.md",
+        "docs/test_inputs/semantic_context_conditioned_evidence_bakeoff_en_es.json",
+        "docs/test_outputs/semantic_context_conditioned_evidence_bakeoff_en_es_latest.md",
+        "docs/test_inputs/semantic_sentence_transformer_row_level_bakeoff_en_es.json",
+        "docs/test_outputs/semantic_sentence_transformer_row_level_bakeoff_en_es_latest.md"
+      ],
+      "changes": [
+        "similarity",
+        "a",
+        "aggregation"
+      ],
+      "current_read": "The dedicated sentence-transformer row-level bakeoff is now swept across frozen v10, source-heldout v2, phrase-heldout v2, and phrase challenge. The best additive-source top-k row tied the sentence-transformer definition/example control at 1 harmful / 31 false abstains, while all five negative controls failed as expected. The scorer has useful rank signal, but this row-level form is not promotable because it does not clear zero harm or beat the no-source sentence-transformer control.",
+      "lane_id": "sentence_transformer_row_level_evidence",
+      "next_action": "Do not promote this scorer swap. Keep the artifact as a diagnostic comparison, and only revisit sentence-transformer row-level scoring with a richer guard stack, source-family agreement, or case-level calibration after the TF-IDF additive/source-coverage path has a stronger zero-harm candidate.",
+      "primary_axis": "scorer_x_row_level_evidence",
+      "promotion_status": "not_promotable",
+      "state": "swept_inconclusive"
+    },
+    {
+      "artifacts": [
         "docs/test_inputs/semantic_phrasing_order_surface_bakeoff_en_es.json",
         "docs/test_outputs/semantic_phrasing_order_surface_bakeoff_en_es_latest.md"
       ],
@@ -272,59 +274,19 @@
     "Record whether the lane changes c, a, similarity, aggregation, final decision, source coverage, phrase handling, or runtime policy.",
     "Production runtime policy remains unchanged until a candidate beats the incumbent on frozen and held-out suites."
   ],
-  "next_lanes": [
-    {
-      "artifacts": [
-        "scripts/testing/semantic_decision_rule_matrix_en_es.py",
-        "docs/test_outputs/semantic_active_score_surface_bakeoff_en_es_latest.md",
-        "docs/test_inputs/semantic_context_conditioned_evidence_bakeoff_en_es.json",
-        "docs/test_outputs/semantic_context_conditioned_evidence_bakeoff_en_es_latest.md"
-      ],
-      "changes": [
-        "similarity",
-        "a",
-        "aggregation"
-      ],
-      "current_read": "A bounded sentence-transformer source-row subset in the context-conditioned bakeoff ranked active cases better, but introduced harmful replacements and had no zero-harm candidate. The fair separate definition/example row sweep is still unswept.",
-      "lane_id": "sentence_transformer_row_level_evidence",
-      "next_action": "Run a dedicated sentence-transformer row-level bakeoff that compares definition/example rows, source rows, source-plus-definition rows, max/top-k/source-weighted aggregation, and stricter safety thresholds with the same negative controls.",
-      "primary_axis": "scorer_x_row_level_evidence",
-      "promotion_status": "unswept",
-      "state": "harness_ready_unswept"
-    }
-  ],
+  "next_lanes": [],
   "schema_version": 1,
   "state_counts": {
     "active_source_program": 2,
     "harness_partial": 1,
-    "harness_ready_unswept": 1,
     "idea_recorded": 2,
     "parked_second_lane": 3,
-    "swept_inconclusive": 2,
+    "swept_inconclusive": 3,
     "swept_negative": 1,
     "swept_promising_control": 2
   },
   "status": "ok",
   "unswept_or_partial_lanes": [
-    {
-      "artifacts": [
-        "scripts/testing/semantic_decision_rule_matrix_en_es.py",
-        "docs/test_outputs/semantic_active_score_surface_bakeoff_en_es_latest.md",
-        "docs/test_inputs/semantic_context_conditioned_evidence_bakeoff_en_es.json",
-        "docs/test_outputs/semantic_context_conditioned_evidence_bakeoff_en_es_latest.md"
-      ],
-      "changes": [
-        "similarity",
-        "a",
-        "aggregation"
-      ],
-      "current_read": "A bounded sentence-transformer source-row subset in the context-conditioned bakeoff ranked active cases better, but introduced harmful replacements and had no zero-harm candidate. The fair separate definition/example row sweep is still unswept.",
-      "lane_id": "sentence_transformer_row_level_evidence",
-      "next_action": "Run a dedicated sentence-transformer row-level bakeoff that compares definition/example rows, source rows, source-plus-definition rows, max/top-k/source-weighted aggregation, and stricter safety thresholds with the same negative controls.",
-      "primary_axis": "scorer_x_row_level_evidence",
-      "promotion_status": "unswept",
-      "state": "harness_ready_unswept"
-    },
     {
       "artifacts": [
         "scripts/testing/semantic_decision_rule_matrix_en_es.py",
