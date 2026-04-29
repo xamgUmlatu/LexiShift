@@ -70,6 +70,15 @@ class SemanticLlmSurfacePosSupportTests(unittest.TestCase):
             ),
             "active_noun_frame",
         )
+        self.assertEqual(
+            surface_pos_signal(
+                active_sense=_active_noun(),
+                shadow_examples=[(_shadow_verb(), "indicate demonstrate")],
+                preceding_token="late",
+                following_token="sold",
+            ),
+            "active_noun_frame",
+        )
 
     def test_adjective_modifier_frames_are_active_frames(self) -> None:
         self.assertEqual(
@@ -89,6 +98,17 @@ class SemanticLlmSurfacePosSupportTests(unittest.TestCase):
                 following_token="policy",
             ),
             "active_modifier_frame",
+        )
+
+    def test_adjective_nominal_frames_are_not_active_modifier_frames(self) -> None:
+        self.assertEqual(
+            surface_pos_signal(
+                active_sense=_active_adjective(),
+                shadow_examples=[(_shadow_verb(), "disturb stability")],
+                preceding_token="an",
+                following_token="in",
+            ),
+            "non_active_nominal_frame",
         )
 
     def test_non_verb_active_in_clear_verb_frames_is_shadow_frame(self) -> None:

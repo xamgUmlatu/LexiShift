@@ -114,6 +114,7 @@ def build_source_heldout_validation_report(
         source_payload_overrides={DEFAULT_SOURCE_MODE: evidence_batch_payload},
         window_tokens=window_tokens,
         mask_token=mask_token,
+        include_row_results=True,
         generated_at=generated_at,
     )
     rows = [row for row in matrix_report.get("rows", ()) if isinstance(row, Mapping)]
@@ -142,6 +143,8 @@ def build_source_heldout_validation_report(
         max_harmful=max_harmful,
         max_false_abstain=max_false_abstain,
     )
+    configured_case_results = _case_results(configured_row)
+    failure_case_results = _failure_case_results(configured_case_results)
     return {
         "schema_version": 1,
         "status": summary["status"],
@@ -169,6 +172,8 @@ def build_source_heldout_validation_report(
         "empty_baseline_row": (
             dict(empty_baseline_row) if isinstance(empty_baseline_row, Mapping) else None
         ),
+        "configured_case_results": configured_case_results,
+        "failure_case_results": failure_case_results,
         "matrix_report": matrix_report,
         "limitations": [
             "bounded_non_benchmark_slice_not_full_en_es_proof",
@@ -264,6 +269,8 @@ def render_source_heldout_validation_markdown(report: Mapping[str, object]) -> s
         f"- Harmful replace cases: `{', '.join(summary.get('harmful_replace_case_ids', ())) or 'none'}`",
         f"- False abstain cases: `{', '.join(summary.get('false_abstain_case_ids', ())) or 'none'}`",
         "",
+        _failure_case_table(report.get("failure_case_results", ())),
+        "",
         "## Limitations",
         "",
     ]
@@ -271,6 +278,50 @@ def render_source_heldout_validation_markdown(report: Mapping[str, object]) -> s
     lines.extend(["", "## Next Steps", ""])
     lines.extend(f"- {item}" for item in report.get("next_steps", ()))
     return "\n".join(lines) + "\n"
+
+
+def _case_results(row: Mapping[str, object] | None) -> list[dict[str, object]]:
+    if not isinstance(row, Mapping):
+        return []
+    return [dict(result) for result in row.get("row_results", ()) if isinstance(result, Mapping)]
+
+
+def _failure_case_results(rows: Sequence[Mapping[str, object]]) -> list[dict[str, object]]:
+    failures: list[dict[str, object]] = []
+    for row in rows:
+        predicted = str(row.get("predicted_decision") or "").strip()
+        gold = str(row.get("gold_decision") or "").strip()
+        if predicted == gold:
+            continue
+        failures.append(
+            {
+                "case_id": str(row.get("case_id") or "").strip(),
+                "family_id": str(row.get("family_id") or "").strip(),
+                "sentence": str(row.get("sentence") or "").strip(),
+                "gold_decision": gold,
+                "predicted_decision": predicted,
+                "gold_winner": str(row.get("gold_winner") or "").strip(),
+                "predicted_winner": str(row.get("predicted_winner") or "").strip(),
+                "active_score": row.get("active_score"),
+                "strongest_shadow_score": row.get("strongest_shadow_score"),
+                "margin": row.get("margin"),
+                "active_evidence_text": str(row.get("active_evidence_text") or "").strip(),
+                "strongest_shadow_evidence_text": str(
+                    row.get("strongest_shadow_evidence_text") or ""
+                ).strip(),
+                "phrase_preemption_hit": bool(row.get("phrase_preemption_hit")),
+                "matched_phrase_pattern": str(row.get("matched_phrase_pattern") or "").strip(),
+                "phrase_containment_hit": bool(row.get("phrase_containment_hit")),
+                "phrase_containment_pattern": str(
+                    row.get("phrase_containment_pattern") or ""
+                ).strip(),
+                "surface_pos_signal": str(row.get("surface_pos_signal") or "").strip(),
+                "surface_pos_rescue_blocked_reason": str(
+                    row.get("surface_pos_rescue_blocked_reason") or ""
+                ).strip(),
+            }
+        )
+    return failures
 
 
 def _next_steps_for_case_scope(
@@ -518,6 +569,42 @@ def _heldout_family_rows(dataset_payload: Mapping[str, object]) -> list[dict[str
     return rows
 
 
+def _failure_case_table(rows: object) -> str:
+    materialized = [
+        row
+        for row in _as_sequence(rows)
+        if isinstance(row, Mapping) and str(row.get("case_id") or "").strip()
+    ]
+    if not materialized:
+        return "No configured-lane failure case details."
+    lines = [
+        "| Case | Gold | Predicted | Active | Shadow | Margin | Active Evidence | Shadow Evidence | Signals |",
+        "| --- | --- | --- | ---: | ---: | ---: | --- | --- | --- |",
+    ]
+    for row in materialized:
+        signals = ", ".join(
+            item
+            for item in (
+                "phrase_preempt" if row.get("phrase_preemption_hit") else "",
+                str(row.get("matched_phrase_pattern") or "").strip(),
+                "phrase_containment" if row.get("phrase_containment_hit") else "",
+                str(row.get("phrase_containment_pattern") or "").strip(),
+                str(row.get("surface_pos_signal") or "").strip(),
+                str(row.get("surface_pos_rescue_blocked_reason") or "").strip(),
+            )
+            if item
+        )
+        lines.append(
+            f"| `{row.get('case_id', '')}` | `{row.get('gold_decision', '')}` | "
+            f"`{row.get('predicted_decision', '')}` | `{row.get('active_score', '')}` | "
+            f"`{row.get('strongest_shadow_score', '')}` | `{row.get('margin', '')}` | "
+            f"{_md_text(row.get('active_evidence_text'))} | "
+            f"{_md_text(row.get('strongest_shadow_evidence_text'))} | "
+            f"{_md_text(signals)} |"
+        )
+    return "\n".join(lines)
+
+
 def _row_table(rows: Sequence[object], *, empty_label: str) -> str:
     materialized = [row for row in rows if isinstance(row, Mapping) and row]
     if not materialized:
@@ -574,6 +661,19 @@ def _family_table(rows: object) -> str:
 
 def _as_mapping(value: object) -> Mapping[str, object]:
     return value if isinstance(value, Mapping) else {}
+
+
+def _as_sequence(value: object) -> Sequence[object]:
+    if isinstance(value, Sequence) and not isinstance(value, (str, bytes, bytearray)):
+        return value
+    return ()
+
+
+def _md_text(value: object) -> str:
+    text = str(value or "").strip()
+    if not text:
+        return "`none`"
+    return text.replace("|", "\\|")
 
 
 def _load_json(path: Path) -> dict[str, object]:

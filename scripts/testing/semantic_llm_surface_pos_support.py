@@ -100,6 +100,7 @@ NOUN_FRAME_FOLLOWING_IRREGULAR_PREDICATE_TOKENS = frozenset(
         "rose",
         "sang",
         "sat",
+        "sold",
         "stood",
         "swam",
         "took",
@@ -136,6 +137,11 @@ def surface_pos_signal(
         active_pos=active_pos,
     ):
         return "shadow_verb_frame"
+    if active_pos in ADJECTIVE_LIKE_POS_TAGS and _looks_like_non_active_nominal_frame(
+        preceding=preceding,
+        following=following,
+    ):
+        return "non_active_nominal_frame"
     if active_pos in ADJECTIVE_LIKE_POS_TAGS and _looks_like_active_modifier_frame(
         preceding=preceding,
         following=following,
@@ -217,3 +223,14 @@ def _looks_like_active_modifier_frame(*, preceding: str, following: str) -> bool
     if _looks_like_noun_subject_predicate(following):
         return False
     return True
+
+
+def _looks_like_non_active_nominal_frame(*, preceding: str, following: str) -> bool:
+    if preceding not in NOUN_FRAME_PRECEDING_TOKENS:
+        return False
+    if not following:
+        return True
+    return (
+        following in VERB_FRAME_FOLLOWING_PREPOSITION_TOKENS
+        and following not in NOUN_FRAME_PREPOSITIONAL_COMPLEMENT_TOKENS
+    )

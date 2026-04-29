@@ -144,6 +144,7 @@ def build_prototype_ablation_matrix_report(
     source_payload_overrides: Mapping[str, Mapping[str, object]] | None = None,
     window_tokens: int = DEFAULT_SENTENCE_VETO_CONTEXT_WINDOW_TOKENS,
     mask_token: str = DEFAULT_SENTENCE_VETO_MASK_TOKEN,
+    include_row_results: bool = False,
     generated_at: str | None = None,
 ) -> dict[str, object]:
     if generated_at is None:
@@ -205,6 +206,7 @@ def build_prototype_ablation_matrix_report(
                                             report=report,
                                             config=config,
                                             coverage=coverage,
+                                            include_row_results=include_row_results,
                                         )
                                     )
 
@@ -265,6 +267,7 @@ def _matrix_row(
     report: Mapping[str, object],
     config: Mapping[str, object],
     coverage: Mapping[str, object],
+    include_row_results: bool = False,
 ) -> dict[str, object]:
     summary = config.get("summary") if isinstance(config.get("summary"), Mapping) else {}
     row = {
@@ -315,6 +318,10 @@ def _matrix_row(
         "harmful_replace_case_ids": list(config.get("harmful_replace_case_ids") or ()),
         "false_abstain_case_ids": list(config.get("false_abstain_case_ids") or ()),
     }
+    if include_row_results:
+        row["row_results"] = [
+            dict(result) for result in config.get("row_results", ()) if isinstance(result, Mapping)
+        ]
     row["objective_score"] = _objective_score(row)
     return row
 

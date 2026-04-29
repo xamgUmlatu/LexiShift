@@ -1,0 +1,218 @@
+{
+  "schema_version": 1,
+  "pair": "en-es",
+  "dataset_id": "en_es_source_non_v10_wave6_wiktextract_supported_phrase_cases_v1",
+  "base_dataset": "docs/test_outputs/experiments/semantic_non_v10_wave_drafts/en_es_source_non_v10_wave6_anypos_wiktextract_supported_v1_dataset.json",
+  "description": "Independent phrase/no-winner abstain cases for the Wiktextract-supported non-v10 wave6 source lane.",
+  "case_scope": "non_v10_wave6_wiktextract_supported_phrase_no_winner",
+  "families": [
+    {
+      "family_id": "en-es:sentence-veto:leave:permiso",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-phrase:v1:leave:001",
+          "sentence": "The editor will leave out the final chapter.",
+          "source_phrase": "leave",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_phrase", "phrase_no_winner", "phrasal_verb"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:black:oscuro",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-phrase:v1:black:001",
+          "sentence": "The accountant said the store was in the black.",
+          "source_phrase": "black",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_phrase", "phrase_no_winner", "idiom"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:serve:servicio",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-phrase:v1:serve:001",
+          "sentence": "That rumor will serve to confuse voters.",
+          "source_phrase": "serve",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_phrase", "phrase_no_winner", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:low:bajo",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-phrase:v1:low:001",
+          "sentence": "The critic gave the film a low rating.",
+          "source_phrase": "low",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_phrase", "phrase_no_winner", "alternate_adjective"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:part:parte",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-phrase:v1:part:001",
+          "sentence": "The actor refused to part with the old script.",
+          "source_phrase": "part",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_phrase", "phrase_no_winner", "phrasal_verb"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:feel:talento",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-phrase:v1:feel:001",
+          "sentence": "The room has a cold feel.",
+          "source_phrase": "feel",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_phrase", "phrase_no_winner", "alternate_noun"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:still:quietud",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-phrase:v1:still:001",
+          "sentence": "The team is still waiting for approval.",
+          "source_phrase": "still",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_phrase", "phrase_no_winner", "alternate_adverb"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:bear:bajista",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-phrase:v1:bear:001",
+          "sentence": "The bear wandered near the campsite.",
+          "source_phrase": "bear",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_phrase", "phrase_no_winner", "alternate_noun"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:finish:meta",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-phrase:v1:finish:001",
+          "sentence": "The cold will finish off the seedlings.",
+          "source_phrase": "finish",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_phrase", "phrase_no_winner", "phrasal_verb"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:throw:lanzamiento",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-phrase:v1:throw:001",
+          "sentence": "The election could throw off the schedule.",
+          "source_phrase": "throw",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_phrase", "phrase_no_winner", "phrasal_verb"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:upset:disgustado",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-phrase:v1:upset:001",
+          "sentence": "The tennis player scored an upset in the final.",
+          "source_phrase": "upset",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_phrase", "phrase_no_winner", "alternate_noun"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:piece:trozo",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-phrase:v1:piece:001",
+          "sentence": "The reporter wrote a long piece on housing.",
+          "source_phrase": "piece",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_phrase", "phrase_no_winner", "alternate_noun"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:fair:pastel",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-phrase:v1:fair:001",
+          "sentence": "The judge made a fair decision.",
+          "source_phrase": "fair",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_phrase", "phrase_no_winner", "alternate_adjective"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:show:espect-culo",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-phrase:v1:show:001",
+          "sentence": "She did not show up at the meeting.",
+          "source_phrase": "show",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_phrase", "phrase_no_winner", "phrasal_verb"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:advance:avance",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-phrase:v1:advance:001",
+          "sentence": "The team booked tickets in advance.",
+          "source_phrase": "advance",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_phrase", "phrase_no_winner", "idiom"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:rank:rancio",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-phrase:v1:rank:001",
+          "sentence": "The department will rank the proposals tomorrow.",
+          "source_phrase": "rank",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_phrase", "phrase_no_winner", "verb_frame"]
+        }
+      ]
+    }
+  ]
+}

@@ -656,6 +656,11 @@ def _score_case(
             predicted_winner = active_sense_id
             predicted_winner_type = "active"
             active_rescue_applied = True
+    elif surface_pos_signal == "non_active_nominal_frame" and predicted_decision == "replace":
+        predicted_decision = "abstain"
+        predicted_winner = "surface_pos_non_active_nominal_frame"
+        predicted_winner_type = "none"
+        surface_pos_preemption_applied = True
     elif surface_pos_signal == "shadow_verb_frame" and predicted_decision == "replace":
         predicted_decision = "abstain"
         if strongest_shadow_id:

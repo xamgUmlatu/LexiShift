@@ -54,12 +54,16 @@ class SemanticSourceHeldoutValidationTests(unittest.TestCase):
         self.assertEqual(report["configured_row"]["scorer_id"], "token_jaccard")
         self.assertEqual(report["configured_row"]["cases_total"], 2)
         self.assertEqual(report["empty_baseline_row"]["source_mode"], "empty_batch")
+        self.assertEqual(len(report["configured_case_results"]), 2)
+        self.assertEqual(report["failure_case_results"], [])
+        self.assertIn("row_results", report["configured_row"])
         self.assertIn("delta_vs_empty_baseline", report["summary"])
 
         markdown = render_source_heldout_validation_markdown(report)
         self.assertIn("Semantic Source Held-out Validation", markdown)
         self.assertIn("Family Coverage", markdown)
         self.assertIn("heldout_pass", markdown)
+        self.assertIn("No configured-lane failure case details", markdown)
 
     def test_heldout_validation_accepts_no_winner_phrase_cases(self) -> None:
         dataset = build_heldout_sentence_dataset(

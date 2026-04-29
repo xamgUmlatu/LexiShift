@@ -281,6 +281,28 @@ class SemanticLlmPrototypeAdmissionProbeTests(unittest.TestCase):
         self.assertTrue(rows["present:002"]["surface_pos_preemption_applied"])
         self.assertEqual(rows["present:002"]["predicted_decision"], "abstain")
 
+    def test_surface_pos_preempts_adjective_used_as_nominal(self) -> None:
+        queue_payload, dataset_payload, evidence_batch = _adjective_nominal_inputs()
+        report = build_prototype_admission_report(
+            queue_payload=queue_payload,
+            dataset_payload=dataset_payload,
+            evidence_batch_payload=evidence_batch,
+            scorer_id="token_jaccard",
+            min_active_score=0.0,
+            min_margin=-1.0,
+            generated_at="2026-04-25T12:00:00Z",
+        )
+
+        surface_guard = next(
+            row
+            for row in report["configurations"]
+            if row["config_id"] == "prototype_reviewed_examples_surface_pos_rescue_guard"
+        )
+        rows = {row["case_id"]: row for row in surface_guard["row_results"]}
+        self.assertEqual(rows["upset:001"]["surface_pos_signal"], "non_active_nominal_frame")
+        self.assertTrue(rows["upset:001"]["surface_pos_preemption_applied"])
+        self.assertEqual(rows["upset:001"]["predicted_decision"], "abstain")
+
     def test_surface_pos_rescue_does_not_override_strong_negative_modifier_score(
         self,
     ) -> None:
@@ -537,6 +559,83 @@ def _low_margin_modifier_inputs() -> tuple[dict[str, object], dict[str, object],
                 "relation_type": "shadow_candidate",
                 "trigger": "mean",
                 "evidence_text": "mean trick play guest",
+                "metadata": {
+                    "family_id": family_id,
+                    "candidate_sense_id": shadow_id,
+                },
+            },
+        ],
+    }
+    return queue_payload, dataset_payload, evidence_batch
+
+
+def _adjective_nominal_inputs() -> tuple[dict[str, object], dict[str, object], dict[str, object]]:
+    family_id = "fam:upset"
+    active_id = f"{family_id}:active"
+    shadow_id = f"{family_id}:shadow"
+    queue_payload = {
+        "queue_id": "semantic_prompt_bakeoff_test_adjective_nominal",
+        "families": [
+            {
+                "family_id": family_id,
+                "trigger": "upset",
+                "role": "target",
+                "likely_bucket": "needs_cue_data",
+            }
+        ],
+    }
+    dataset_payload = {
+        "schema_version": 1,
+        "pair": "en-es",
+        "dataset_id": "en_es_sentence_veto_adjective_nominal_test",
+        "families": [
+            {
+                "family_id": family_id,
+                "trigger": "upset",
+                "active": {
+                    "sense_id": active_id,
+                    "target_lemma": "disgustado",
+                    "canonical_pos": "adjective",
+                    "evidence_views": {"all_evidence_text": "distressed unhappy"},
+                },
+                "shadows": [
+                    {
+                        "sense_id": shadow_id,
+                        "target_lemma": "trastrocar",
+                        "canonical_pos": "verb",
+                        "evidence_views": {"all_evidence_text": "disturb disrupt"},
+                    }
+                ],
+                "cases": [
+                    {
+                        "case_id": "upset:001",
+                        "sentence": "The player scored an upset in the final.",
+                        "source_phrase": "upset",
+                        "gold_winner": "none",
+                        "gold_decision": "abstain",
+                    }
+                ],
+            }
+        ],
+    }
+    evidence_batch = {
+        "schema_version": 1,
+        "source_id": "test_adjective_nominal_evidence",
+        "batch_id": "test-adjective-nominal",
+        "rows": [
+            {
+                "relation_type": "anchor_cue",
+                "trigger": "upset",
+                "evidence_text": "upset final",
+                "metadata": {
+                    "family_id": family_id,
+                    "active_sense_id": active_id,
+                },
+            },
+            {
+                "relation_type": "shadow_candidate",
+                "trigger": "upset",
+                "evidence_text": "disturb disrupt",
                 "metadata": {
                     "family_id": family_id,
                     "candidate_sense_id": shadow_id,
