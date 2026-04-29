@@ -97,6 +97,67 @@ diagnostic reporters surface health and evidence only; source-admission and
 research harnesses can produce candidate evidence, but they do not alter this
 path unless a runtime policy change is made separately.
 
+## Research Harness Map
+
+This map is for choosing the right harness. It does not rank candidates.
+
+Decision-rule and representation harnesses:
+
+- `scripts/testing/semantic_decision_rule_matrix_en_es.py`: compares context
+  representation, evidence scope, scorer, aggregation, final YES/NO rule,
+  phrase handling, and negative controls from explicit manifests.
+- `scripts/testing/semantic_llm_prototype_admission_probe_en_es.py`: probes
+  prototype evidence plus phrase containment, phrase prototype, and surface-POS
+  guard variants on a queue or all-family slice.
+- `scripts/testing/semantic_llm_prototype_ablation_matrix_en_es.py`: separates
+  source-mode, scorer, context-view, threshold, and guard-shape effects for
+  prototype lanes.
+- `scripts/testing/semantic_source_margin_policy_sweep_en_es.py`: sweeps
+  scalar active/shadow and phrase-prototype margins over fixed evidence and
+  held-out suites.
+- `scripts/testing/semantic_surface_pos_rescue_policy_sweep_en_es.py`: replays
+  fixed score traces to test deterministic surface-POS rescue gates; it does
+  not rescore evidence and is not runtime policy.
+
+Source-admission and evidence harnesses:
+
+- `scripts/testing/semantic_source_admission_cycle_en_es.py`: runs leakage,
+  duplicate, merge, final sense-admission, source-contract, and optional
+  ablation checks for a candidate evidence batch.
+- `scripts/testing/semantic_source_heldout_validation_en_es.py`: validates one
+  configured evidence batch and decision shape against a locked active/shadow
+  or phrase/no-winner held-out suite.
+- `scripts/testing/semantic_source_row_alignment_audit_en_es.py`: checks
+  whether admitted source rows are trigger-adjacent and selector-ready enough
+  for context-conditioned or additive source experiments.
+- `scripts/testing/semantic_source_frame_gap_plan_en_es.py`: converts row
+  alignment gaps into explicit source-frame generation slots; it is planning,
+  not accepted evidence.
+- `scripts/testing/semantic_phrase_policy_signal_audit_en_es.py`: checks
+  phrase-control signal firing without source evidence or semantic scoring.
+- `scripts/testing/semantic_non_v10_wave_admission_sweep_en_es.py`: builds and
+  admission-sweeps automatic non-v10 candidate waves. Pair it with inventory
+  candidate, wave-builder, source-support conversion, Wiktextract support,
+  held-out validation, and failure-mining artifacts before any breadth claim.
+- `scripts/testing/semantic_translation_sense_evidence_batch_en_es.py`: builds
+  normalized evidence from source-backed translation-sense text.
+- `scripts/testing/semantic_wordnet_alternate_sense_phrase_evidence_en_es.py`:
+  builds alternate-sense phrase/no-winner containment rows from WordNet.
+- `scripts/testing/semantic_authorization_frame_evidence_en_es.py`: builds
+  deterministic authorization-frame rows for source-backed permission-like
+  senses.
+
+Diagnostics and ledgers:
+
+- `docs/test_inputs/semantic_decision_research_lanes_en_es.json` plus
+  `scripts/testing/semantic_decision_research_lanes_summary.py`: tracks research
+  lane state without collapsing everything into a generic done/completed state.
+- `scripts/testing/semantic_source_failure_class_mining_en_es.py`: reads
+  admission, held-out, source, and margin artifacts to expose reusable failure
+  classes, breadth gaps, and overfit risk.
+- `scripts/testing/semantic_veto_system_registry_summary.py`: audits this
+  reconciliation registry; it is not a semantic decision harness.
+
 ## Next-Agent Handoff
 
 Start here. This is the canonical handoff for the reconciliation workstream.
@@ -104,10 +165,12 @@ Start here. This is the canonical handoff for the reconciliation workstream.
 Current state:
 
 - Workstream status: active.
-- Active pass: `runtime_path`; the core browser/helper YES/NO path is now
-  mapped in this document and the registry, including bootstrap, settings,
-  helper-cache, transport, background bridge, native dispatch, helper use case,
-  policy, scoring, and final DOM rendering surfaces.
+- Parked pass: `runtime_path`; the core browser/helper YES/NO path is mapped in
+  this document and the registry, including bootstrap, settings, helper-cache,
+  transport, background bridge, native dispatch, helper use case, policy,
+  scoring, and final DOM rendering surfaces.
+- Active pass: `research_harness`; current work is classifying active harnesses
+  by the question they answer.
 - Current candidate remains research-only:
   `wave6_auth_frame_raw_sentence_surface_pos_rescue`.
 - Runtime policy change: none.
@@ -122,12 +185,13 @@ Read in this order:
 
 First task:
 
-- Continue the `runtime_path` pass only if another runtime-adjacent surface is
-  discovered.
-- Otherwise move to the next queued reconciliation pass and keep the runtime
-  map stable unless code changes.
-- Keep nearby research or diagnostic files non-runtime in the registry.
-- Do not make a runtime policy change during this pass.
+- Continue the `research_harness` pass.
+- Keep final-rule matrices, source-admission wrappers, held-out validators,
+  source adapters, replay sweeps, diagnostics, and ledgers separate.
+- Do not interpret a clean source-admission, margin-sweep, or replay artifact as
+  runtime promotion.
+- Reopen `runtime_path` only if runtime code changes or an unmapped runtime
+  surface is discovered.
 
 Recommended first validation:
 

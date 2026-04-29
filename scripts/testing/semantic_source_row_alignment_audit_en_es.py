@@ -9,9 +9,11 @@ from pathlib import Path
 import re
 from typing import Mapping, Sequence
 
-from semantic_decision_rule_matrix_en_es import (  # noqa: E402
+from lexishift_core.rulegen.semantic_routing_runtime_scoring import (  # noqa: E402
     DEFAULT_SENTENCE_VETO_CONTEXT_WINDOW_TOKENS,
     DEFAULT_SENTENCE_VETO_MASK_TOKEN,
+)
+from semantic_decision_rule_matrix_context import (  # noqa: E402
     _build_matrix_context_views,
 )
 

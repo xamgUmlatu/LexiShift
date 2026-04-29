@@ -1,9 +1,9 @@
 # Semantic Veto System Registry
 
 - Status: `ok`
-- Generated: `2026-04-29T17:23:30Z`
+- Generated: `2026-04-29T19:26:35Z`
 - Registry: `/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_veto_system_registry_en_es.json`
-- Entries: `38`
+- Entries: `45`
 - Passes: `7`
 
 ## Current Candidate
@@ -23,20 +23,19 @@
 
 ## Next Passes
 
-- `runtime_path` (in_progress): Trace the actual production YES/NO path and label nearby non-runtime tools.
+- `research_harness` (in_progress): Map each active harness to the exact question it answers.
 - `archive_consolidation` (queued_next): Demote or label old artifacts after surviving value is migrated.
 - `assumptions` (queued_next): Turn hidden candidate assumptions into explicit evidence-linked rows.
 - `best_candidate` (queued_next): Reduce the project to one current candidate, one control, one blocker list, and one next breadth test.
 - `data_artifacts` (queued_next): Separate frozen inputs, generated source rows, latest reports, and historical outputs.
 - `overfit_leakage` (queued_next): Search specifically for test-shaped behavior and leakage.
-- `research_harness` (queued_next): Map each active harness to the exact question it answers.
 
 ## Counts
 
 ### Entry States
 - `current_candidate`: `5`
 - `current_reference`: `4`
-- `current_research`: `5`
+- `current_research`: `12`
 - `current_runtime`: `16`
 - `diagnostic_only`: `1`
 - `generated_evidence`: `5`
@@ -44,12 +43,12 @@
 
 ### Components
 - `candidate_wave6`: `8`
-- `decision_research`: `4`
-- `diagnostics`: `2`
+- `decision_research`: `7`
+- `diagnostics`: `3`
 - `evaluation_data`: `3`
 - `process_governance`: `2`
 - `runtime_path`: `16`
-- `source_admission`: `3`
+- `source_admission`: `6`
 
 ## Risk Rows
 
@@ -78,9 +77,16 @@
 | wave6_wiktextract_dataset | current_candidate | evaluation_data | Lives under test_outputs/experiments, so registry must keep its role explicit. | data_artifacts |
 | decision_research_lanes_ledger | current_research | decision_research | Can grow without enough component-level classification unless paired with this registry. | research_harness |
 | decision_rule_matrix_harness | current_research | decision_research | Multiple axes can be confused if result rows are summarized too aggressively. | research_harness |
+| phrase_policy_signal_audit_harness | current_research | decision_research | Signal-only pass results do not validate translation targets, source evidence, or final replace/abstain decisions. | research_harness |
+| prototype_ablation_matrix_harness | current_research | decision_research | A good ablation row is not an admitted source batch and can hide leakage or held-out failures. | research_harness |
+| prototype_admission_probe_harness | current_research | decision_research | Prototype guard wins can be overread if the evaluation scope is prompt-queue sized or if source provenance is not separated. | research_harness |
 | source_margin_policy_sweep | current_research | decision_research | Policy grids can be overread as promotion if not validated on locked heldout suites. | research_harness |
+| source_failure_class_mining_harness | current_research | diagnostics | Failure-class mining summarizes evidence; it does not independently validate a candidate or change promotion state. | research_harness |
 | heldout_validation_harness | current_research | source_admission | A clean active/shadow suite can hide phrase/no-winner harm if not paired with phrase validation. | data_artifacts |
+| non_v10_wave_admission_sweep_harness | current_research | source_admission | Admission-selected waves are discovery artifacts until source support conversion, held-out validation, phrase validation, and failure mining pass. | research_harness |
 | source_admission_cycle_harness | current_research | source_admission | Skipping heldout validation can make analysis-only admission look stronger than it is. | research_harness |
+| source_frame_gap_plan_harness | current_research | source_admission | A frame-gap plan can be mistaken for accepted evidence if the later generation, leakage, sense admission, and held-out checks are skipped. | research_harness |
+| source_row_alignment_audit_harness | current_research | source_admission | Selector-ready row counts can be mistaken for downstream decision quality if not paired with admission and held-out validation. | research_harness |
 | alternate_sense_phrase_adapter | supporting_current | candidate_wave6 | Phrase rows must not become broad semantic competitors without a dedicated ablation. | assumptions |
 | translation_sense_adapter | supporting_current | candidate_wave6 | Translation-sense text must stay source-backed and not target-lemma-derived. | overfit_leakage |
 | decision_rule_comparison_plan | current_reference | decision_research | Can be bypassed if source work is described as decision-rule proof. | assumptions |
@@ -120,10 +126,17 @@
 | wave6_phrase_heldout | current_candidate | evaluation_data | docs/test_inputs/semantic_routing_cases/en_es_source_non_v10_wave6_wiktextract_supported_phrase_cases_v1.json | Current phrase/no-winner heldout suite. |
 | wave6_wiktextract_dataset | current_candidate | evaluation_data | docs/test_outputs/experiments/semantic_non_v10_wave_drafts/en_es_source_non_v10_wave6_anypos_wiktextract_supported_v1_dataset.json | Current candidate source input. |
 | decision_research_lanes_ledger | current_research | decision_research | docs/test_inputs/semantic_decision_research_lanes_en_es.json | Current research-lane state ledger. |
-| decision_rule_matrix_harness | current_research | decision_research | scripts/testing/semantic_decision_rule_matrix_en_es.py | Research matrix, not runtime policy. |
-| source_margin_policy_sweep | current_research | decision_research | scripts/testing/semantic_source_margin_policy_sweep_en_es.py | Score-surface research and context-view comparisons. |
+| decision_rule_matrix_harness | current_research | decision_research | scripts/testing/semantic_decision_rule_matrix_en_es.py | Final-rule and representation matrix; not source admission and not runtime policy. |
+| phrase_policy_signal_audit_harness | current_research | decision_research | scripts/testing/semantic_phrase_policy_signal_audit_en_es.py | Signal-only phrase/no-winner audit before promoting phrase cases into end-to-end held-out suites. |
+| prototype_ablation_matrix_harness | current_research | decision_research | scripts/testing/semantic_llm_prototype_ablation_matrix_en_es.py | No-spend ablation matrix for source/scorer/context/guard separation. |
+| prototype_admission_probe_harness | current_research | decision_research | scripts/testing/semantic_llm_prototype_admission_probe_en_es.py | Mechanism probe for prototype evidence and guard shapes before broader matrix or admission-cycle interpretation. |
+| source_margin_policy_sweep | current_research | decision_research | scripts/testing/semantic_source_margin_policy_sweep_en_es.py | Score-surface and threshold research; not source admission and not runtime policy. |
+| source_failure_class_mining_harness | current_research | diagnostics | scripts/testing/semantic_source_failure_class_mining_en_es.py | Anti-handcrafting diagnostic before interpreting a clean seed or wave result as promotion evidence. |
 | heldout_validation_harness | current_research | source_admission | scripts/testing/semantic_source_heldout_validation_en_es.py | Active/shadow and phrase/no-winner candidate validation. |
-| source_admission_cycle_harness | current_research | source_admission | scripts/testing/semantic_source_admission_cycle_en_es.py | Canonical source-admission wrapper for candidate batches. |
+| non_v10_wave_admission_sweep_harness | current_research | source_admission | scripts/testing/semantic_non_v10_wave_admission_sweep_en_es.py | Breadth and source-support discovery surface for non-v10 waves. |
+| source_admission_cycle_harness | current_research | source_admission | scripts/testing/semantic_source_admission_cycle_en_es.py | Canonical admission wrapper for source rows before held-out validation. |
+| source_frame_gap_plan_harness | current_research | source_admission | scripts/testing/semantic_source_frame_gap_plan_en_es.py | Generation-planning surface; not generated evidence and not admission by itself. |
+| source_row_alignment_audit_harness | current_research | source_admission | scripts/testing/semantic_source_row_alignment_audit_en_es.py | Source-row quality audit before frame-gap planning and context-conditioned evidence tests. |
 | alternate_sense_phrase_adapter | supporting_current | candidate_wave6 | scripts/testing/semantic_wordnet_alternate_sense_phrase_evidence_en_es.py | Wave6 phrase/no-winner coverage foundation. |
 | translation_sense_adapter | supporting_current | candidate_wave6 | scripts/testing/semantic_translation_sense_evidence_batch_en_es.py | Wave6 selected-sense source coverage foundation. |
 | decision_rule_comparison_plan | current_reference | decision_research | docs/rulegen/semantic_decision_rule_comparison_plan.md | Methodology guardrail before changing decision rules. |
