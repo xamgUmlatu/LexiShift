@@ -1,6 +1,6 @@
 {
   "component_counts": {
-    "candidate_wave6": 8,
+    "candidate_wave6": 9,
     "decision_research": 7,
     "diagnostics": 3,
     "evaluation_data": 3,
@@ -31,6 +31,43 @@
     ],
     "runtime_policy_change": "none"
   },
+  "data_artifact_lanes": [
+    {
+      "control_artifacts": [
+        "wave6_alt_phrase_raw_sentence_control"
+      ],
+      "durable_inputs": [
+        "wave6_wiktextract_dataset",
+        "wave6_active_shadow_heldout",
+        "wave6_phrase_heldout"
+      ],
+      "generated_reports": [
+        "auth_frame_admission_report",
+        "auth_frame_active_shadow_validation",
+        "auth_frame_phrase_validation",
+        "auth_frame_rescue_replay_report",
+        "auth_frame_failure_mining"
+      ],
+      "lane_id": "wave6_auth_frame_raw_sentence_surface_pos_rescue",
+      "local_artifact_cracks": [
+        "Several generator scripts and latest reports are local experiment artifacts in this worktree; commit or regenerate them before treating the lane as fresh-checkout runnable.",
+        "The base dataset lives under test_outputs/experiments even though it is a current candidate input.",
+        "Rescue replay is over fixed traces and still needs scorer-backed runtime policy validation before promotion."
+      ],
+      "purpose": "Rerun map for the current wave6 auth-frame raw-sentence surface-POS rescue candidate; not runtime promotion evidence.",
+      "rerun_order": [
+        "translation_sense_adapter",
+        "alternate_sense_phrase_adapter",
+        "authorization_frame_adapter",
+        "auth_frame_admission_report",
+        "auth_frame_active_shadow_validation",
+        "auth_frame_phrase_validation",
+        "auth_frame_rescue_replay_report",
+        "auth_frame_failure_mining"
+      ],
+      "status": "current_research_candidate"
+    }
+  ],
   "entries": [
     {
       "artifact_id": "extension_active_rules_runtime",
@@ -698,6 +735,22 @@
       ]
     },
     {
+      "artifact_id": "wave6_alt_phrase_raw_sentence_control",
+      "component": "candidate_wave6",
+      "current_use": "Control/comparator for the auth-frame candidate delta.",
+      "next_audit_pass": "data_artifacts",
+      "owner_doc": "docs/rulegen/semantic_decision_rule_comparison_plan.md",
+      "path": "docs/test_outputs/semantic_source_non_v10_wave6_alt_phrase_semantic_surface_pos_raw_sentence_heldout_margin000_phrase002_validation_latest.md",
+      "risk": "Control rows can be mistaken for the current candidate if the auth-frame admission and rescue replay reports are omitted.",
+      "role": "Generated control evidence for the raw-sentence surface-POS lane before authorization-frame rows are added.",
+      "state": "generated_evidence",
+      "title": "Wave6 alternate-phrase raw-sentence control reports",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_source_non_v10_wave6_alt_phrase_semantic_surface_pos_raw_sentence_phrase_margin000_phrase002_validation_latest.md",
+        "docs/test_outputs/semantic_surface_pos_rescue_policy_sweep_non_v10_wave6_raw_sentence_latest.md"
+      ]
+    },
+    {
       "artifact_id": "auth_frame_failure_mining",
       "component": "diagnostics",
       "current_use": "Keeps promotion posture at review despite clean active/shadow result.",
@@ -728,21 +781,22 @@
       ]
     }
   ],
-  "entry_count": 45,
-  "generated_at": "2026-04-29T19:26:35Z",
+  "entry_count": 46,
+  "generated_at": "2026-04-29T19:46:04Z",
   "issues": [],
   "next_passes": [
     {
       "cracks_to_watch": [
-        "one harness using a different input lane than its name implies",
-        "final decision-rule and active-score experiments being mixed",
-        "negative controls omitted from candidate claims"
+        "latest artifact pointing at stale source input",
+        "discovery rows blended into locked eval",
+        "missing input hashes or unclear dataset ids"
       ],
-      "lens": "Map each active harness to the exact question it answers.",
-      "pass_id": "research_harness",
+      "lens": "Separate frozen inputs, generated source rows, latest reports, and historical outputs.",
+      "pass_id": "data_artifacts",
       "primary_outputs": [
-        "harness rows grouped by decision axis",
-        "duplicate or superseded harness rows labeled explicitly"
+        "current candidate rerun inputs",
+        "control and comparator artifacts",
+        "artifact scope and breadth notes"
       ],
       "state": "in_progress"
     },
@@ -786,21 +840,6 @@
         "current candidate row",
         "current control row",
         "promotion blocker list"
-      ],
-      "state": "queued_next"
-    },
-    {
-      "cracks_to_watch": [
-        "latest artifact pointing at stale source input",
-        "discovery rows blended into locked eval",
-        "missing input hashes or unclear dataset ids"
-      ],
-      "lens": "Separate frozen inputs, generated source rows, latest reports, and historical outputs.",
-      "pass_id": "data_artifacts",
-      "primary_outputs": [
-        "current candidate rerun inputs",
-        "control and comparator artifacts",
-        "artifact scope and breadth notes"
       ],
       "state": "queued_next"
     },
@@ -824,21 +863,22 @@
   "pass_count": 7,
   "pass_state_counts": {
     "in_progress": 1,
-    "parked": 1,
-    "queued_next": 5
+    "parked": 2,
+    "queued_next": 4
   },
   "passes": [
     {
       "cracks_to_watch": [
-        "one harness using a different input lane than its name implies",
-        "final decision-rule and active-score experiments being mixed",
-        "negative controls omitted from candidate claims"
+        "latest artifact pointing at stale source input",
+        "discovery rows blended into locked eval",
+        "missing input hashes or unclear dataset ids"
       ],
-      "lens": "Map each active harness to the exact question it answers.",
-      "pass_id": "research_harness",
+      "lens": "Separate frozen inputs, generated source rows, latest reports, and historical outputs.",
+      "pass_id": "data_artifacts",
       "primary_outputs": [
-        "harness rows grouped by decision axis",
-        "duplicate or superseded harness rows labeled explicitly"
+        "current candidate rerun inputs",
+        "control and comparator artifacts",
+        "artifact scope and breadth notes"
       ],
       "state": "in_progress"
     },
@@ -887,21 +927,6 @@
     },
     {
       "cracks_to_watch": [
-        "latest artifact pointing at stale source input",
-        "discovery rows blended into locked eval",
-        "missing input hashes or unclear dataset ids"
-      ],
-      "lens": "Separate frozen inputs, generated source rows, latest reports, and historical outputs.",
-      "pass_id": "data_artifacts",
-      "primary_outputs": [
-        "current candidate rerun inputs",
-        "control and comparator artifacts",
-        "artifact scope and breadth notes"
-      ],
-      "state": "queued_next"
-    },
-    {
-      "cracks_to_watch": [
         "browser sentence text inside evidence rows",
         "Spanish target lemma leakage",
         "threshold selected on the same heldout suite used for promotion",
@@ -915,6 +940,20 @@
         "negative control requirements"
       ],
       "state": "queued_next"
+    },
+    {
+      "cracks_to_watch": [
+        "one harness using a different input lane than its name implies",
+        "final decision-rule and active-score experiments being mixed",
+        "negative controls omitted from candidate claims"
+      ],
+      "lens": "Map each active harness to the exact question it answers.",
+      "pass_id": "research_harness",
+      "primary_outputs": [
+        "harness rows grouped by decision axis",
+        "duplicate or superseded harness rows labeled explicitly"
+      ],
+      "state": "parked"
     },
     {
       "cracks_to_watch": [
@@ -1601,6 +1640,22 @@
       ]
     },
     {
+      "artifact_id": "wave6_alt_phrase_raw_sentence_control",
+      "component": "candidate_wave6",
+      "current_use": "Control/comparator for the auth-frame candidate delta.",
+      "next_audit_pass": "data_artifacts",
+      "owner_doc": "docs/rulegen/semantic_decision_rule_comparison_plan.md",
+      "path": "docs/test_outputs/semantic_source_non_v10_wave6_alt_phrase_semantic_surface_pos_raw_sentence_heldout_margin000_phrase002_validation_latest.md",
+      "risk": "Control rows can be mistaken for the current candidate if the auth-frame admission and rescue replay reports are omitted.",
+      "role": "Generated control evidence for the raw-sentence surface-POS lane before authorization-frame rows are added.",
+      "state": "generated_evidence",
+      "title": "Wave6 alternate-phrase raw-sentence control reports",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_source_non_v10_wave6_alt_phrase_semantic_surface_pos_raw_sentence_phrase_margin000_phrase002_validation_latest.md",
+        "docs/test_outputs/semantic_surface_pos_rescue_policy_sweep_non_v10_wave6_raw_sentence_latest.md"
+      ]
+    },
+    {
       "artifact_id": "auth_frame_failure_mining",
       "component": "diagnostics",
       "current_use": "Keeps promotion posture at review despite clean active/shadow result.",
@@ -1638,7 +1693,7 @@
     "current_research": 12,
     "current_runtime": 16,
     "diagnostic_only": 1,
-    "generated_evidence": 5,
+    "generated_evidence": 6,
     "supporting_current": 2
   },
   "status": "ok"

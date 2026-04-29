@@ -117,6 +117,9 @@ def build_semantic_veto_system_registry_report(
             sorted(Counter(_text(row.get("state")) for row in passes).items())
         ),
         "current_candidate": dict(_as_mapping(registry.get("current_candidate"))),
+        "data_artifact_lanes": [
+            _public_data_lane(row) for row in _mapping_rows(registry.get("data_artifact_lanes"))
+        ],
         "issues": issues,
         "next_passes": [
             _public_pass(row)
@@ -188,6 +191,34 @@ def render_markdown(report: Mapping[str, object]) -> str:
     lines.append("### Components")
     for component, count in sorted((_as_mapping(report.get("component_counts"))).items()):
         lines.append(f"- `{component}`: `{count}`")
+
+    data_lanes = _mapping_rows(report.get("data_artifact_lanes"))
+    if data_lanes:
+        lines.extend(["", "## Data Artifact Lanes", ""])
+        lines.append(
+            "| Lane | Status | Durable Inputs | Generated Reports | Control Artifacts | Cracks |"
+        )
+        lines.append("| --- | --- | --- | --- | --- | --- |")
+        for row in data_lanes:
+            lines.append(
+                "| "
+                + " | ".join(
+                    [
+                        _escape_md(str(row.get("lane_id") or "")),
+                        _escape_md(str(row.get("status") or "")),
+                        _escape_md(_join_inline(row.get("durable_inputs"))),
+                        _escape_md(_join_inline(row.get("generated_reports"))),
+                        _escape_md(_join_inline(row.get("control_artifacts"))),
+                        _escape_md(_join_inline(row.get("local_artifact_cracks"))),
+                    ]
+                )
+                + " |"
+            )
+        lines.extend(["", "### Data Rerun Order", ""])
+        for row in data_lanes:
+            lines.append(
+                f"- `{row.get('lane_id', '')}`: " + _escape_md(_join_inline(row.get("rerun_order")))
+            )
 
     lines.extend(["", "## Risk Rows", ""])
     lines.append("| Artifact | State | Component | Risk | Next Pass |")
@@ -301,6 +332,25 @@ def _audit_registry(
                 _issue(artifact_id, "error", "Candidate entry needs verification artifacts.")
             )
 
+    known_entries = {str(row.get("artifact_id") or "") for row in entries}
+    for lane in _mapping_rows(registry.get("data_artifact_lanes")):
+        lane_id = _text(lane.get("lane_id"))
+        if not lane_id:
+            issues.append(_issue("data_artifact_lanes", "error", "A lane row is missing lane_id."))
+            continue
+        if not lane.get("durable_inputs"):
+            issues.append(_issue(lane_id, "warning", "Data lane has no durable inputs."))
+        for key in ("durable_inputs", "generated_reports", "control_artifacts", "rerun_order"):
+            for artifact_id in lane.get(key) or ():
+                if str(artifact_id) not in known_entries:
+                    issues.append(
+                        _issue(
+                            lane_id,
+                            "error",
+                            f"Unknown artifact_id {artifact_id!r} in data lane {key}.",
+                        )
+                    )
+
     candidate = _as_mapping(registry.get("current_candidate"))
     production_status = _text(candidate.get("production_status"))
     if production_status in FORBIDDEN_PROMOTION_STATES:
@@ -346,6 +396,19 @@ def _public_entry(row: Mapping[str, object]) -> dict[str, object]:
     }
 
 
+def _public_data_lane(row: Mapping[str, object]) -> dict[str, object]:
+    return {
+        "lane_id": _text(row.get("lane_id")),
+        "status": _text(row.get("status")),
+        "purpose": _text(row.get("purpose")),
+        "durable_inputs": [str(value) for value in row.get("durable_inputs") or ()],
+        "generated_reports": [str(value) for value in row.get("generated_reports") or ()],
+        "control_artifacts": [str(value) for value in row.get("control_artifacts") or ()],
+        "local_artifact_cracks": [str(value) for value in row.get("local_artifact_cracks") or ()],
+        "rerun_order": [str(value) for value in row.get("rerun_order") or ()],
+    }
+
+
 def _issue(subject: str, severity: str, message: str) -> dict[str, object]:
     return {
         "subject": subject,
@@ -366,6 +429,12 @@ def _mapping_rows(value: object) -> list[Mapping[str, object]]:
 
 def _as_mapping(value: object) -> Mapping[str, object]:
     return value if isinstance(value, Mapping) else {}
+
+
+def _join_inline(value: object) -> str:
+    if isinstance(value, Sequence) and not isinstance(value, (str, bytes)):
+        return ", ".join(f"`{item}`" for item in value)
+    return ""
 
 
 def _text(value: object) -> str:

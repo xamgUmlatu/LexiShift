@@ -33,9 +33,11 @@ class SemanticVetoSystemRegistrySummaryTests(unittest.TestCase):
         self.assertEqual(report["entry_count"], 1)
         self.assertEqual(report["pass_count"], 1)
         self.assertEqual(report["state_counts"]["current_reference"], 1)
+        self.assertEqual(report["data_artifact_lanes"][0]["lane_id"], "candidate_v1_lane")
         markdown = render_markdown(report)
         self.assertIn("Semantic Veto System Registry", markdown)
         self.assertIn("candidate_v1", markdown)
+        self.assertIn("Data Artifact Lanes", markdown)
 
     def test_registry_report_flags_missing_candidate_evidence(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -92,6 +94,18 @@ def _registry_json(
         '    "current_result": {"active_shadow_false_abstains": 0},\n'
         '    "promotion_blockers": ["breadth"]\n'
         "  },\n"
+        '  "data_artifact_lanes": [\n'
+        "    {\n"
+        '      "lane_id": "candidate_v1_lane",\n'
+        '      "status": "current_research_candidate",\n'
+        '      "purpose": "Test lane.",\n'
+        '      "durable_inputs": ["entry_1"],\n'
+        '      "generated_reports": ["entry_1"],\n'
+        '      "control_artifacts": ["entry_1"],\n'
+        '      "local_artifact_cracks": ["local report"],\n'
+        '      "rerun_order": ["entry_1"]\n'
+        "    }\n"
+        "  ],\n"
         '  "entries": [\n'
         "    {\n"
         '      "artifact_id": "entry_1",\n'

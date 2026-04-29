@@ -158,6 +158,59 @@ Diagnostics and ledgers:
 - `scripts/testing/semantic_veto_system_registry_summary.py`: audits this
   reconciliation registry; it is not a semantic decision harness.
 
+## Data Artifact Map
+
+This map is for rerunning or interpreting the current lane without borrowing a
+stale artifact by accident. It does not make the lane promotion-ready.
+
+Current lane:
+
+- `wave6_auth_frame_raw_sentence_surface_pos_rescue`
+
+Durable inputs:
+
+- `wave6_wiktextract_dataset`: selected source-backed wave6 dataset. This is a
+  current input even though its path is under `docs/test_outputs/experiments`.
+- `wave6_active_shadow_heldout`: locked 38-row active/shadow heldout suite.
+- `wave6_phrase_heldout`: locked 16-row phrase/no-winner heldout suite.
+
+Generated reports for the current lane:
+
+- `auth_frame_admission_report`: source admission, leakage, merge, contract, and
+  sense-admission report for the auth-frame candidate batch.
+- `auth_frame_active_shadow_validation`: raw-sentence active/shadow validation,
+  currently `0` harmful and `0` false abstains over `38` cases.
+- `auth_frame_phrase_validation`: raw-sentence phrase/no-winner validation before
+  rescue replay, preserving the unrescued phrase harm signal.
+- `auth_frame_rescue_replay_report`: fixed-trace rescue replay over active/shadow
+  plus phrase/no-winner suites; replay only, not runtime policy.
+- `auth_frame_failure_mining`: generated failure-class and breadth-risk ledger.
+
+Control/comparator:
+
+- `wave6_alt_phrase_raw_sentence_control`: raw-sentence surface-POS lane before
+  authorization-frame rows. Use this as the control for auth-frame deltas.
+
+Rerun order:
+
+1. translation-sense evidence adapter
+2. alternate-sense phrase adapter
+3. authorization-frame adapter
+4. auth-frame source-admission cycle
+5. active/shadow heldout validation
+6. phrase/no-winner heldout validation
+7. rescue replay over fixed traces
+8. failure-class mining
+
+Cracks preserved by this pass:
+
+- Several generator scripts and latest reports are local experiment artifacts in
+  this worktree. Commit or regenerate them before treating this lane as
+  fresh-checkout runnable.
+- The base dataset is a current candidate input under `test_outputs/experiments`,
+  so the registry must keep its role explicit.
+- Rescue replay is evidence over fixed traces, not scorer-backed runtime policy.
+
 ## Next-Agent Handoff
 
 Start here. This is the canonical handoff for the reconciliation workstream.
@@ -169,8 +222,10 @@ Current state:
   this document and the registry, including bootstrap, settings, helper-cache,
   transport, background bridge, native dispatch, helper use case, policy,
   scoring, and final DOM rendering surfaces.
-- Active pass: `research_harness`; current work is classifying active harnesses
-  by the question they answer.
+- Parked pass: `research_harness`; active harnesses are classified by the
+  question they answer.
+- Active pass: `data_artifacts`; current work is keeping the current candidate
+  inputs, generated reports, control artifacts, and rerun order explicit.
 - Current candidate remains research-only:
   `wave6_auth_frame_raw_sentence_surface_pos_rescue`.
 - Runtime policy change: none.
@@ -185,13 +240,12 @@ Read in this order:
 
 First task:
 
-- Continue the `research_harness` pass.
-- Keep final-rule matrices, source-admission wrappers, held-out validators,
-  source adapters, replay sweeps, diagnostics, and ledgers separate.
-- Do not interpret a clean source-admission, margin-sweep, or replay artifact as
-  runtime promotion.
-- Reopen `runtime_path` only if runtime code changes or an unmapped runtime
-  surface is discovered.
+- Continue the `data_artifacts` pass.
+- Keep durable inputs, generated evidence, control artifacts, and local
+  uncommitted experiment outputs separate.
+- Do not treat generated reports under `latest` names as architecture authority.
+- Reopen `research_harness` only if a new active harness appears or an existing
+  harness changes question/role.
 
 Recommended first validation:
 

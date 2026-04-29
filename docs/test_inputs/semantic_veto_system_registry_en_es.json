@@ -42,7 +42,7 @@
     },
     {
       "pass_id": "research_harness",
-      "state": "in_progress",
+      "state": "parked",
       "lens": "Map each active harness to the exact question it answers.",
       "primary_outputs": [
         "harness rows grouped by decision axis",
@@ -56,7 +56,7 @@
     },
     {
       "pass_id": "data_artifacts",
-      "state": "queued_next",
+      "state": "in_progress",
       "lens": "Separate frozen inputs, generated source rows, latest reports, and historical outputs.",
       "primary_outputs": [
         "current candidate rerun inputs",
@@ -152,6 +152,43 @@
       "phrase/no-winner safety must stay visible separately from active/shadow scoring"
     ]
   },
+  "data_artifact_lanes": [
+    {
+      "lane_id": "wave6_auth_frame_raw_sentence_surface_pos_rescue",
+      "status": "current_research_candidate",
+      "purpose": "Rerun map for the current wave6 auth-frame raw-sentence surface-POS rescue candidate; not runtime promotion evidence.",
+      "durable_inputs": [
+        "wave6_wiktextract_dataset",
+        "wave6_active_shadow_heldout",
+        "wave6_phrase_heldout"
+      ],
+      "generated_reports": [
+        "auth_frame_admission_report",
+        "auth_frame_active_shadow_validation",
+        "auth_frame_phrase_validation",
+        "auth_frame_rescue_replay_report",
+        "auth_frame_failure_mining"
+      ],
+      "control_artifacts": [
+        "wave6_alt_phrase_raw_sentence_control"
+      ],
+      "local_artifact_cracks": [
+        "Several generator scripts and latest reports are local experiment artifacts in this worktree; commit or regenerate them before treating the lane as fresh-checkout runnable.",
+        "The base dataset lives under test_outputs/experiments even though it is a current candidate input.",
+        "Rescue replay is over fixed traces and still needs scorer-backed runtime policy validation before promotion."
+      ],
+      "rerun_order": [
+        "translation_sense_adapter",
+        "alternate_sense_phrase_adapter",
+        "authorization_frame_adapter",
+        "auth_frame_admission_report",
+        "auth_frame_active_shadow_validation",
+        "auth_frame_phrase_validation",
+        "auth_frame_rescue_replay_report",
+        "auth_frame_failure_mining"
+      ]
+    }
+  ],
   "entries": [
     {
       "artifact_id": "runtime_scoring_code",
@@ -756,6 +793,22 @@
       "next_audit_pass": "data_artifacts",
       "verification_artifacts": [
         "docs/test_outputs/semantic_source_non_v10_wave6_auth_frame_surface_pos_raw_sentence_phrase_margin000_phrase002_validation_latest.md"
+      ]
+    },
+    {
+      "artifact_id": "wave6_alt_phrase_raw_sentence_control",
+      "title": "Wave6 alternate-phrase raw-sentence control reports",
+      "component": "candidate_wave6",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_source_non_v10_wave6_alt_phrase_semantic_surface_pos_raw_sentence_heldout_margin000_phrase002_validation_latest.md",
+      "role": "Generated control evidence for the raw-sentence surface-POS lane before authorization-frame rows are added.",
+      "owner_doc": "docs/rulegen/semantic_decision_rule_comparison_plan.md",
+      "current_use": "Control/comparator for the auth-frame candidate delta.",
+      "risk": "Control rows can be mistaken for the current candidate if the auth-frame admission and rescue replay reports are omitted.",
+      "next_audit_pass": "data_artifacts",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_source_non_v10_wave6_alt_phrase_semantic_surface_pos_raw_sentence_phrase_margin000_phrase002_validation_latest.md",
+        "docs/test_outputs/semantic_surface_pos_rescue_policy_sweep_non_v10_wave6_raw_sentence_latest.md"
       ]
     },
     {
