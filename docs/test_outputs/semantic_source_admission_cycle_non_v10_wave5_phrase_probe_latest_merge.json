@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-04-29T00:12:29Z",
+  "status": "ok",
+  "batch_id": "en-es:wordnet-source-portfolio:non-v10-wave5-phrase-probe-cycle",
+  "source_id": "wordnet_phrase_control_non_v10_wave5_portfolio_probe",
+  "summary": {
+    "component_count": 2,
+    "row_count": 58,
+    "family_count": 16,
+    "relation_counts": {
+      "anchor_cue": 26,
+      "shadow_candidate": 25,
+      "phrase_control_example": 7
+    }
+  },
+  "component_batches": [
+    {
+      "component_index": 1,
+      "batch_id": "en-es:wordnet-source-portfolio:non-v10-wave5-anypos-v1:cycle:sense-admitted",
+      "source_id": "wordnet_source_portfolio_non_v10_wave5_anypos_v1",
+      "source_type": "internal",
+      "source_family": "internal_rulegen_artifact",
+      "input_row_count": 51,
+      "accepted_row_count": 51,
+      "duplicate_row_count": 0
+    },
+    {
+      "component_index": 2,
+      "batch_id": "en-es:wordnet-phrase-control:non-v10-wave5-portfolio-v1:filtered",
+      "source_id": "wordnet_phrase_control_non_v10_wave5_portfolio_v1",
+      "source_type": "external",
+      "source_family": "external_sense_graph",
+      "input_row_count": 7,
+      "accepted_row_count": 7,
+      "duplicate_row_count": 0
+    }
+  ]
+}

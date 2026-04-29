@@ -1,35 +1,35 @@
 # en-es Semantic Source Held-out Validation
 
-- Status: `review`
-- Decision: `heldout_review`
-- Generated: `2026-04-28T23:29:41Z`
+- Status: `ok`
+- Decision: `heldout_pass`
+- Generated: `2026-04-29T00:13:03Z`
 - Base dataset: `en_es_source_non_v10_wave5_anypos_ranked_slate_selected_v1`
 - Held-out dataset: `en_es_source_non_v10_wave5_portfolio_heldout_cases_v1`
 - Case scope: `non_v10_wave5_source_portfolio_active_shadow`
-- Evidence batch: `en-es:wordnet-source-portfolio:non-v10-wave5-anypos-v1:cycle:sense-admitted`
+- Evidence batch: `en-es:wordnet-source-portfolio:non-v10-wave5-phrase-probe-cycle:sense-admitted`
 
 ## Summary
 
 - Families: `16`
 - Cases: `32`
-- Gold replacements: `16`
-- Gold abstains: `16`
-- Harmful replacements: `1` / max `0`
+- Gold replacements: `17`
+- Gold abstains: `15`
+- Harmful replacements: `0` / max `0`
 - False abstains: `0` / max `0`
 - Replace recall: `100.0%`
-- Decision accuracy: `96.9%`
+- Decision accuracy: `100.0%`
 
 ## Configured Row
 
 | Source | Scorer | Context | Shape | Cases | Harmful | False Abstain | Recall | Accuracy |
 | --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: |
-| `promotion_candidate_composite` | `sentence_transformer_cosine` | `masked_sentence` | `active_shadow_containment_surface_pos` | 32 | 1 | 0 | 100.0% | 96.9% |
+| `promotion_candidate_composite` | `sentence_transformer_cosine` | `masked_sentence` | `active_shadow_containment_surface_pos` | 32 | 0 | 0 | 100.0% | 100.0% |
 
 ## Empty Baseline Comparator
 
 | Source | Scorer | Context | Shape | Cases | Harmful | False Abstain | Recall | Accuracy |
 | --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: |
-| `empty_batch` | `sentence_transformer_cosine` | `masked_sentence` | `active_shadow_containment_surface_pos` | 32 | 0 | 16 | 0.0% | 50.0% |
+| `empty_batch` | `sentence_transformer_cosine` | `masked_sentence` | `active_shadow_containment_surface_pos` | 32 | 0 | 17 | 0.0% | 46.9% |
 
 ## Family Coverage
 
@@ -43,7 +43,7 @@
 | `en-es:sentence-veto:land:tierra` | `land` | 2 | 1 | 1 |
 | `en-es:sentence-veto:mean:medio` | `mean` | 2 | 1 | 1 |
 | `en-es:sentence-veto:offer:oferta` | `offer` | 2 | 1 | 1 |
-| `en-es:sentence-veto:present:presente` | `present` | 2 | 1 | 1 |
+| `en-es:sentence-veto:present:presente` | `present` | 2 | 2 | 0 |
 | `en-es:sentence-veto:sign:se-al` | `sign` | 2 | 1 | 1 |
 | `en-es:sentence-veto:quiet:silencio` | `quiet` | 2 | 1 | 1 |
 | `en-es:sentence-veto:change:cambio` | `change` | 2 | 1 | 1 |
@@ -54,7 +54,7 @@
 
 ## Failure Cases
 
-- Harmful replace cases: `en-es:source-non-v10-wave5-portfolio-heldout:v1:present:002`
+- Harmful replace cases: `none`
 - False abstain cases: `none`
 
 ## Limitations

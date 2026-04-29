@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-28T23:36:54Z",
+  "generated_at": "2026-04-29T00:23:50Z",
   "issues": [],
   "lane_count": 14,
   "lane_set_id": "en_es_semantic_decision_research_lanes_v1",
@@ -60,18 +60,24 @@
         "docs/test_outputs/semantic_non_v10_wave_admission_sweep_wave64_anypos_latest.md",
         "docs/test_outputs/semantic_non_v10_source_portfolio_wave5_anypos_latest.md",
         "docs/test_outputs/semantic_source_admission_cycle_non_v10_wave5_source_portfolio_latest.md",
+        "docs/test_outputs/semantic_wordnet_phrase_control_non_v10_wave5_portfolio_latest.md",
+        "docs/test_outputs/semantic_source_admission_cycle_non_v10_wave5_phrase_probe_latest.md",
         "docs/test_outputs/semantic_source_non_v10_wave5_portfolio_heldout_margin005_validation_latest.md",
         "docs/test_outputs/semantic_source_non_v10_wave5_portfolio_phrase_margin005_validation_latest.md",
         "docs/test_outputs/semantic_source_margin_policy_sweep_non_v10_wave5_portfolio_latest.md",
-        "docs/test_outputs/semantic_source_failure_class_mining_non_v10_wave5_portfolio_latest.md"
+        "docs/test_outputs/semantic_source_failure_class_mining_non_v10_wave5_portfolio_latest.md",
+        "docs/test_outputs/semantic_non_v10_inventory_candidates_wave6_available_latest.md",
+        "docs/test_outputs/semantic_non_v10_wave_admission_sweep_wave6_anypos_supported_latest.md",
+        "docs/test_outputs/semantic_non_v10_wave_admission_sweep_wave6_anypos_unsupported_latest.md",
+        "docs/test_outputs/semantic_non_v10_source_support_conversion_wave6_anypos_latest.md"
       ],
       "changes": [
         "source_coverage",
         "evaluation_breadth"
       ],
-      "current_read": "Automatic non-v10 source-supported waves are promising but still need broader held-out proof and phrase-contract coverage before runtime-quality claims. The wave64 any-POS supported sweep found a 16-family semantic source portfolio, and the materialized portfolio passes source admission with 51 final admitted rows, 0 leakage rejects, 0 sense rejects, and semantic contract coverage 16 / 16. A syntax candidate that exposes local trigger context outside noun-only phrase guard and limits modifier rescue to near ties improves the frozen wave5 held-out suites: active/shadow is now 1 harmful / 0 false abstains across 32 cases, and phrase/no-winner is now 1 harmful across 16 cases. A current wave5 margin sweep finds no scalar margin that passes both suites, so the remaining blockers are present-as-time-noun and end-table compound/no-winner handling rather than threshold selection. Phrase source coverage remains 0 / 16.",
+      "current_read": "Automatic non-v10 source-supported waves are promising but still need broader held-out proof and phrase-contract coverage before runtime-quality claims. The wave5 materialized portfolio passes source admission with 51 final admitted rows, 0 leakage rejects, 0 sense rejects, and semantic contract coverage 16 / 16. The former active/shadow blocker `present:002` is now treated as a same-visible-target active case because the source portfolio already contains the current-time noun sense for visible replacement `presente`. A WordNet phrase-control miner adds 7 containment-only rows across 7 / 16 phrase cases, including `end tables placed conveniently` for the former `end:001` no-winner blocker. With that phrase-expanded evidence batch, the frozen wave5 active/shadow and phrase/no-winner held-out suites now both pass at 0 harmful replacements / 0 false abstains. The next breadth screen excluded 43 already-studied triggers and still found 100 candidates. On that fresh list, the supported-source wave6 sweep reaches only 6 / 16 admission-selected families, while the paired forward-only upper-bound sweep reaches 55 / 64 semantic coverage and a 16 / 16 selected control wave. The conversion audit shows 0 / 16 selected upper-bound families are fully supported and only 13 / 38 selected senses already have support, so the current bottleneck is source-support conversion rather than another scorer tweak.",
       "lane_id": "non_v10_breadth_validation",
-      "next_action": "Do not promote yet. Fix the two remaining reusable blocker classes without tuning thresholds: review the present family/sense boundary and add or generate source-backed compound/phrase no-winner evidence for end-table-style cases. Then rerun admission, both held-out validations, failure-class mining, and a margin/policy sweep before any breadth expansion claim.",
+      "next_action": "Do not promote yet. Preserve wave5 as a seed-pass lane and use wave6 as the next conversion target: add reviewed, reverse-side, FreeDict, Wiktextract, or another documented support source for the selected forward-only active/shadow senses, then rerun extraction, admission, support-conversion audit, and fresh independent held-out suites. Keep the 9 remaining wave5 phrase-contract gaps visible and treat the current margin 0 candidate as current-suite evidence only.",
       "primary_axis": "heldout_breadth",
       "promotion_status": "analysis_only",
       "state": "active_source_program"

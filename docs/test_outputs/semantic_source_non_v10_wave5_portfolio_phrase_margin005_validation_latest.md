@@ -1,12 +1,12 @@
 # en-es Semantic Source Held-out Validation
 
-- Status: `review`
-- Decision: `heldout_review`
-- Generated: `2026-04-28T23:29:41Z`
+- Status: `ok`
+- Decision: `heldout_pass`
+- Generated: `2026-04-29T00:13:03Z`
 - Base dataset: `en_es_source_non_v10_wave5_anypos_ranked_slate_selected_v1`
 - Held-out dataset: `en_es_source_non_v10_wave5_portfolio_phrase_cases_v1`
 - Case scope: `non_v10_wave5_source_portfolio_phrase_no_winner`
-- Evidence batch: `en-es:wordnet-source-portfolio:non-v10-wave5-anypos-v1:cycle:sense-admitted`
+- Evidence batch: `en-es:wordnet-source-portfolio:non-v10-wave5-phrase-probe-cycle:sense-admitted`
 
 ## Summary
 
@@ -14,16 +14,16 @@
 - Cases: `16`
 - Gold replacements: `0`
 - Gold abstains: `16`
-- Harmful replacements: `1` / max `0`
+- Harmful replacements: `0` / max `0`
 - False abstains: `0` / max `0`
 - Replace recall: `0.0%`
-- Decision accuracy: `93.8%`
+- Decision accuracy: `100.0%`
 
 ## Configured Row
 
 | Source | Scorer | Context | Shape | Cases | Harmful | False Abstain | Recall | Accuracy |
 | --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: |
-| `promotion_candidate_composite` | `sentence_transformer_cosine` | `masked_sentence` | `active_shadow_containment_surface_pos` | 16 | 1 | 0 | 0.0% | 93.8% |
+| `promotion_candidate_composite` | `sentence_transformer_cosine` | `masked_sentence` | `active_shadow_containment_surface_pos` | 16 | 0 | 0 | 0.0% | 100.0% |
 
 ## Empty Baseline Comparator
 
@@ -54,7 +54,7 @@
 
 ## Failure Cases
 
-- Harmful replace cases: `en-es:source-non-v10-wave5-portfolio-phrase:v1:end:001`
+- Harmful replace cases: `none`
 - False abstain cases: `none`
 
 ## Limitations

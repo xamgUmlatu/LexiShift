@@ -19,6 +19,7 @@ for candidate in (str(CORE_ROOT), str(SCRIPT_ROOT)):
 from lexishift_core.helper.paths import resolve_data_root  # noqa: E402
 from lexishift_core.rulegen.semantic_evidence import normalize_llm_intake_batch  # noqa: E402
 from semantic_example_frame_source_adapter_support import (  # noqa: E402
+    active_visible_alias_senses as _active_visible_alias_senses,
     all_family_dataset as _all_family_dataset,
     sense_hint as _base_sense_hint,
     sense_id as _sense_id,
@@ -313,38 +314,57 @@ def _build_family_items(
     active = family.get("active") if isinstance(family.get("active"), Mapping) else {}
     items: list[dict[str, object]] = []
     link_rows: list[dict[str, object]] = []
-    active_candidates = wordnet_index.candidates_for_sense(
-        trigger=trigger,
-        sense=active,
-        min_link_score=min_link_score,
-        include_related_hyponyms=include_related_hyponyms,
-        max_related_candidates=max_related_rows_per_sense,
-        related_hyponym_depth=related_hyponym_depth,
-    )
-    link_rows.append(_link_row(active, active_candidates, relation_type="anchor_cue"))
-    for index, (candidate, evidence_kind, evidence_text) in enumerate(
-        _candidate_evidence_rows(
-            active_candidates,
-            evidence_mode=evidence_mode,
-            max_rows_per_sense=max_rows_per_sense,
-        ),
-        start=1,
-    ):
-        items.append(
-            _item(
-                family=family,
-                role=role,
-                active_sense=active,
-                candidate_sense=active,
-                relation_type="anchor_cue",
-                wordnet_candidate=candidate,
-                evidence_kind=evidence_kind,
-                evidence_text=evidence_text,
-                row_suffix=f"active-wordnet-{evidence_kind}-{index}",
-                roles=["cue_generation", "discrimination"],
-                example_bucket="active",
+    active_source_senses = [
+        ("active", active, {}),
+        *(
+            (
+                f"active-visible-alias-{alias_index}",
+                alias_sense,
+                {
+                    "active_visible_alias_sense_id": _sense_id(alias_sense),
+                    "active_visible_alias_target": str(
+                        alias_sense.get("target_lemma") or ""
+                    ).strip(),
+                    "active_visible_alias_pos": str(alias_sense.get("canonical_pos") or "").strip(),
+                },
             )
+            for alias_index, alias_sense in enumerate(_active_visible_alias_senses(active), start=1)
+        ),
+    ]
+    for source_label, source_sense, extra_metadata in active_source_senses:
+        active_candidates = wordnet_index.candidates_for_sense(
+            trigger=trigger,
+            sense=source_sense,
+            min_link_score=min_link_score,
+            include_related_hyponyms=include_related_hyponyms,
+            max_related_candidates=max_related_rows_per_sense,
+            related_hyponym_depth=related_hyponym_depth,
         )
+        link_rows.append(_link_row(source_sense, active_candidates, relation_type="anchor_cue"))
+        for index, (candidate, evidence_kind, evidence_text) in enumerate(
+            _candidate_evidence_rows(
+                active_candidates,
+                evidence_mode=evidence_mode,
+                max_rows_per_sense=max_rows_per_sense,
+            ),
+            start=1,
+        ):
+            items.append(
+                _item(
+                    family=family,
+                    role=role,
+                    active_sense=active,
+                    candidate_sense=active,
+                    relation_type="anchor_cue",
+                    wordnet_candidate=candidate,
+                    evidence_kind=evidence_kind,
+                    evidence_text=evidence_text,
+                    row_suffix=f"{source_label}-wordnet-{evidence_kind}-{index}",
+                    roles=["cue_generation", "discrimination"],
+                    example_bucket="active",
+                    extra_metadata=extra_metadata,
+                )
+            )
     for shadow in family.get("shadows", ()):
         if not isinstance(shadow, Mapping):
             continue
@@ -398,8 +418,27 @@ def _item(
     row_suffix: str,
     roles: Sequence[str],
     example_bucket: str,
+    extra_metadata: Mapping[str, object] | None = None,
 ) -> dict[str, object]:
     family_id = str(family.get("family_id") or "").strip()
+    metadata = {
+        "family_id": family_id,
+        "queue_role": role,
+        "active_sense_id": _sense_id(active_sense),
+        "candidate_sense_id": _sense_id(candidate_sense),
+        "example_bucket": example_bucket,
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": wordnet_candidate.sense_id,
+        "wordnet_synset_id": wordnet_candidate.synset_id,
+        "wordnet_sense_rank": wordnet_candidate.sense_rank,
+        "wordnet_link_score": wordnet_candidate.score,
+        "wordnet_link_overlap": list(wordnet_candidate.overlap_tokens),
+        "wordnet_evidence_kind": evidence_kind,
+        "wordnet_source_relation": wordnet_candidate.source_relation,
+        "wordnet_relation_path": list(wordnet_candidate.relation_path),
+    }
+    if extra_metadata:
+        metadata.update(dict(extra_metadata))
     return {
         "row_id": f"{_slug(family_id)}:{row_suffix}",
         "relation_type": relation_type,
@@ -419,22 +458,7 @@ def _item(
         "promotion_state": "proposed",
         "runtime_publishable": False,
         "roles": list(roles),
-        "metadata": {
-            "family_id": family_id,
-            "queue_role": role,
-            "active_sense_id": _sense_id(active_sense),
-            "candidate_sense_id": _sense_id(candidate_sense),
-            "example_bucket": example_bucket,
-            "source_view": "wordnet_synset",
-            "wordnet_sense_id": wordnet_candidate.sense_id,
-            "wordnet_synset_id": wordnet_candidate.synset_id,
-            "wordnet_sense_rank": wordnet_candidate.sense_rank,
-            "wordnet_link_score": wordnet_candidate.score,
-            "wordnet_link_overlap": list(wordnet_candidate.overlap_tokens),
-            "wordnet_evidence_kind": evidence_kind,
-            "wordnet_source_relation": wordnet_candidate.source_relation,
-            "wordnet_relation_path": list(wordnet_candidate.relation_path),
-        },
+        "metadata": metadata,
     }
 
 

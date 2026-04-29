@@ -20,11 +20,15 @@ for candidate in (str(CORE_ROOT), str(Path(__file__).resolve().parent)):
 from lexishift_core.helper.paths import resolve_data_root  # noqa: E402
 from semantic_example_frame_source_adapter_support import slug as _slug  # noqa: E402
 from semantic_non_v10_wave_builder_support import (  # noqa: E402
+    active_visible_target_aliases as _active_visible_target_aliases,
     alternate_same_pos as _alternate_same_pos,
     eligible_rows as _eligible_rows,
+    evidence_views as _evidence_views,
     missing_shape_reason as _missing_shape_reason,
     reason_counts as _reason_counts,
     selected_active_shadow_pair as _selected_active_shadow_pair,
+    source_summary as _source_summary,
+    temporary_sense_for_link as _temporary_sense_for_link,
     translation_sort_key as _translation_sort_key,
 )
 from semantic_wordnet_source_adapter_support import WordNetIndex  # noqa: E402
@@ -282,6 +286,7 @@ def _draft_family_for_candidate(
     active_target = str(active_row.get("translation") or "").strip()
     family_id = f"en-es:sentence-veto:{trigger}:{_slug(active_target)}"
     active_sense_id = f"{family_id}:active"
+    active_visible_aliases = _active_visible_target_aliases(active_row, translations)
     active_payload = {
         **_sense_payload(
             family_id=family_id,
@@ -289,6 +294,7 @@ def _draft_family_for_candidate(
             row=active_row,
             sense_role="active",
             suffix="active",
+            visible_alias_rows=active_visible_aliases,
         ),
         "sense_id": active_sense_id,
     }
@@ -330,6 +336,7 @@ def _draft_family_for_candidate(
         "has_reverse_support": has_reverse,
         "has_freedict_support": has_freedict,
         "has_wordnet_link_support": has_wordnet,
+        "active_visible_target_alias_count": len(active_visible_aliases),
         "review_state": "draft_needs_target_review",
         "active": active_payload,
         "shadows": shadows,
@@ -367,28 +374,38 @@ def _sense_payload(
     row: Mapping[str, object],
     sense_role: str,
     suffix: str,
+    visible_alias_rows: Sequence[Mapping[str, object]] = (),
 ) -> dict[str, object]:
     target = str(row.get("translation") or "").strip()
     canonical_pos = str(row.get("canonical_pos") or "").strip()
     sense_text = str(row.get("sense_text") or "").strip()
-    evidence = _evidence_views(trigger=trigger, target=target, row=row)
+    evidence = _evidence_views(
+        trigger=trigger,
+        target=target,
+        row=row,
+        visible_alias_rows=visible_alias_rows,
+    )
+    metadata = {
+        "sense_role": sense_role,
+        "translation_rank": int(row.get("rank") or 0),
+        "translation_pos": str(row.get("pos") or "").strip(),
+        "translation_sense_text": sense_text,
+        "support_sources": list(row.get("support_sources") or ()),
+        "reverse_support": bool(row.get("reverse_support")),
+        "freedict_support": bool(row.get("freedict_support")),
+        "wordnet_linked": bool(row.get("wordnet_linked")),
+        "best_wordnet_link_score": float(row.get("best_wordnet_link_score") or 0.0),
+        "best_wordnet_overlap": list(row.get("best_wordnet_overlap") or ()),
+    }
+    alias_summaries = [_source_summary(alias) for alias in visible_alias_rows]
+    if alias_summaries:
+        metadata["visible_target_aliases"] = alias_summaries
     return {
         "sense_id": f"{family_id}:{_slug(target)}:{suffix}",
         "target_lemma": target,
         "canonical_pos": canonical_pos,
         "evidence_views": evidence,
-        "metadata": {
-            "sense_role": sense_role,
-            "translation_rank": int(row.get("rank") or 0),
-            "translation_pos": str(row.get("pos") or "").strip(),
-            "translation_sense_text": sense_text,
-            "support_sources": list(row.get("support_sources") or ()),
-            "reverse_support": bool(row.get("reverse_support")),
-            "freedict_support": bool(row.get("freedict_support")),
-            "wordnet_linked": bool(row.get("wordnet_linked")),
-            "best_wordnet_link_score": float(row.get("best_wordnet_link_score") or 0.0),
-            "best_wordnet_overlap": list(row.get("best_wordnet_overlap") or ()),
-        },
+        "metadata": metadata,
     }
 
 
@@ -415,24 +432,6 @@ def _loader_only_cases(
             ],
         }
     ]
-
-
-def _evidence_views(*, trigger: str, target: str, row: Mapping[str, object]) -> dict[str, object]:
-    pos = str(row.get("canonical_pos") or "").strip()
-    sense_text = str(row.get("sense_text") or "").strip()
-    raw_glosses = [str(item) for item in row.get("raw_glosses") or () if str(item or "").strip()]
-    gloss_text = sense_text or " | ".join(raw_glosses)
-    label = f"{trigger} {pos} sense"
-    if gloss_text:
-        label = f"{trigger} {pos} sense: {gloss_text}"
-    return {
-        "sense_label": label,
-        "gloss_text": gloss_text,
-        "sense_gloss_bundle": f"{label} | {gloss_text}".strip(" |"),
-        "all_evidence_text": " | ".join(
-            item for item in (target, label, gloss_text, *raw_glosses[:2]) if item
-        ),
-    }
 
 
 def _translation_rows(
@@ -538,31 +537,6 @@ def _annotate_wordnet_links(
                 materialized["best_wordnet_synset_id"] = best.synset_id
         annotated.append(materialized)
     return sorted(annotated, key=_translation_sort_key)
-
-
-def _temporary_sense_for_link(row: Mapping[str, object], *, trigger: str) -> dict[str, object]:
-    return {
-        "target_lemma": str(row.get("translation") or "").strip(),
-        "canonical_pos": str(row.get("canonical_pos") or "").strip(),
-        "evidence_views": _evidence_views(
-            trigger=trigger,
-            target=str(row.get("translation") or "").strip(),
-            row=row,
-        ),
-    }
-
-
-def _source_summary(row: Mapping[str, object]) -> dict[str, object]:
-    return {
-        "translation": str(row.get("translation") or "").strip(),
-        "canonical_pos": str(row.get("canonical_pos") or "").strip(),
-        "rank": int(row.get("rank") or 0),
-        "sense_text": str(row.get("sense_text") or "").strip(),
-        "support_sources": list(row.get("support_sources") or ()),
-        "wordnet_linked": bool(row.get("wordnet_linked")),
-        "best_wordnet_link_score": float(row.get("best_wordnet_link_score") or 0.0),
-        "best_wordnet_overlap": list(row.get("best_wordnet_overlap") or ()),
-    }
 
 
 def _draft_dataset(

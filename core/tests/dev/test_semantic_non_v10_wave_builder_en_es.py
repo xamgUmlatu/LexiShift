@@ -127,6 +127,31 @@ class SemanticNonV10WaveBuilderTests(unittest.TestCase):
             "missing_distinct_noun_or_verb_translation",
         )
 
+    def test_wave_builder_records_same_visible_active_aliases(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            forward = Path(tmp_dir) / "wiktionary-en-es.sqlite"
+            _create_forward_db(forward, include_adjective=True, same_visible_adjective=True)
+
+            report = build_non_v10_wave_draft_report(
+                candidate_payload=_candidate_payload(),
+                wiktionary_en_es_sqlite=forward,
+                wave_id="source_non_v10_wave_test",
+                wave_size=1,
+                max_sense_count=20,
+                require_translation_support=False,
+                generated_at="2026-04-28T00:00:00Z",
+            )
+
+        family = report["selected_families"][0]
+        self.assertEqual(family["active"]["target_lemma"], "permiso")
+        self.assertEqual(family["active_visible_target_alias_count"], 1)
+        aliases = family["active"]["metadata"]["visible_target_aliases"]
+        self.assertEqual(aliases[0]["canonical_pos"], "adjective")
+        self.assertIn(
+            "same-visible-target",
+            family["active"]["evidence_views"]["all_evidence_text"],
+        )
+
 
 def _candidate_payload() -> dict[str, object]:
     return {
@@ -150,6 +175,7 @@ def _create_forward_db(
     include_verb: bool = True,
     include_adjective: bool = False,
     same_target_shadow: bool = False,
+    same_visible_adjective: bool = False,
     include_alternate_noun: bool = True,
 ) -> None:
     conn = sqlite3.connect(path)
@@ -232,6 +258,7 @@ def _create_forward_db(
             )
         )
     if include_adjective:
+        adjective_target = "permiso" if same_visible_adjective else "libre"
         rows.append(
             (
                 4,
@@ -239,8 +266,8 @@ def _create_forward_db(
                 1,
                 "leave",
                 "leave",
-                "libre",
-                "libre",
+                adjective_target,
+                adjective_target,
                 "adjective",
                 '["not constrained"]',
             )
@@ -274,7 +301,11 @@ def _create_forward_db(
     if not same_target_shadow:
         entry_rows.append(("leave", "leave", verb_target, verb_target, 3, "verb", 3, 1))
     if include_adjective:
-        entry_rows.append(("leave", "leave", "libre", "libre", 4, "adjective", 4, 1))
+        adjective_target = "permiso" if same_visible_adjective else "libre"
+        if not same_visible_adjective:
+            entry_rows.append(
+                ("leave", "leave", adjective_target, adjective_target, 4, "adjective", 4, 1)
+            )
     conn.executemany(
         """
         INSERT INTO entries

@@ -189,9 +189,10 @@
           "case_id": "en-es:source-non-v10-wave5-portfolio-heldout:v1:present:002",
           "sentence": "The present is all we can control.",
           "source_phrase": "present",
-          "gold_winner": "en-es:sentence-veto:present:presente:actual:shadow",
-          "gold_decision": "abstain",
-          "slice_tags": ["non_v10_wave5_portfolio_heldout", "semantic_shadow", "alternate_noun"]
+          "gold_winner": "en-es:sentence-veto:present:presente:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave5_portfolio_heldout", "semantic_active", "same_visible_target_alias"],
+          "notes": "Source portfolio translation candidates include a noun current-time row for the same visible replacement `presente`; under the UX contract this is a replace case, not a harmful shadow case."
         }
       ]
     },

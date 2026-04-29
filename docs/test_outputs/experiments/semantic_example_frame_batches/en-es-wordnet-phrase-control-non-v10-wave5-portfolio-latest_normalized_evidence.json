@@ -1,0 +1,497 @@
+{
+  "batch_id": "en-es:wordnet-phrase-control:non-v10-wave5-portfolio-v1",
+  "generated_at": "2026-04-29T00:12:06Z",
+  "ingested_at": "2026-04-29T00:12:06Z",
+  "model_id": "none",
+  "normalization_version": "semantic_evidence_manual_v1",
+  "pair": "en-es",
+  "prompt_version": "wordnet-phrase-control-miner-v1",
+  "provenance": {
+    "failure_driven": true,
+    "method": "wordnet_example_phrase_containment_probe"
+  },
+  "review_state": "source_mined_phrase_probe",
+  "roles": [
+    "phrase_containment"
+  ],
+  "row_count": 7,
+  "rows": [
+    {
+      "active_sense_hint": {
+        "canonical_pos": "noun",
+        "locator_kind": "sense_id",
+        "note": "phrase_control_anchor",
+        "provider": "sentence_veto_dataset",
+        "target_key": "en-es:sentence-veto:use:uso:active"
+      },
+      "active_target": "uso",
+      "batch_id": "en-es:wordnet-phrase-control:non-v10-wave5-portfolio-v1",
+      "candidate_sense_hint": {
+        "canonical_pos": "n",
+        "locator_kind": "synset_id",
+        "note": "wordnet_phrase_control_example",
+        "provider": "wordnet_en_json",
+        "target_key": "00880949-n"
+      },
+      "candidate_target": "phrase_control",
+      "dedupe_key": "dedupe:07be4a3808a3c2ef42c377364c2f56a71d468e1d",
+      "evidence_id": "semantic-evidence:76f55eec72f7f1a43b0d839e38a2f73e18be94fe",
+      "evidence_text": "we had to wait for the inspection before we could use the elevator",
+      "is_multiword": true,
+      "linkage_status": "partially_linked",
+      "metadata": {
+        "active_sense_id": "en-es:sentence-veto:use:uso:active",
+        "candidate_sense_id": "phrase_control",
+        "case_id": "en-es:source-non-v10-wave5-portfolio-phrase:v1:use:001",
+        "example_bucket": "phrase_control",
+        "family_id": "en-es:sentence-veto:use:uso",
+        "phrase_containment_pattern": "could use",
+        "phrase_containment_reason_code": "example_phrase_left_containment",
+        "source_view": "wordnet_synset_example",
+        "wordnet_members": [
+          "inspection",
+          "review"
+        ],
+        "wordnet_source_file_count": 72,
+        "wordnet_synset_id": "00880949-n"
+      },
+      "normalized_active_target": "uso",
+      "normalized_candidate_target": "phrase_control",
+      "normalized_trigger": "use",
+      "pair": "en-es",
+      "promotion_state": "proposed",
+      "provenance": {
+        "batch_id": "en-es:wordnet-phrase-control:non-v10-wave5-portfolio-v1",
+        "generated_at": "2026-04-29T00:12:06Z",
+        "ingested_at": "2026-04-29T00:12:06Z",
+        "model_id": "none",
+        "normalization_version": "semantic_evidence_manual_v1",
+        "prompt_version": "wordnet-phrase-control-miner-v1",
+        "row_id": "en-es-sentence-veto-use-uso:phrase-control-wordnet-could-use",
+        "source_family": "external_sense_graph",
+        "source_id": "wordnet_phrase_control_non_v10_wave5_portfolio_v1",
+        "source_type": "external"
+      },
+      "relation_type": "phrase_control_example",
+      "review_state": "source_mined_phrase_probe",
+      "roles": [
+        "phrase_containment"
+      ],
+      "row_id": "en-es-sentence-veto-use-uso:phrase-control-wordnet-could-use",
+      "runtime_publishable": false,
+      "source_family": "external_sense_graph",
+      "source_id": "wordnet_phrase_control_non_v10_wave5_portfolio_v1",
+      "source_type": "external",
+      "trigger": "use"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "adjective",
+        "locator_kind": "sense_id",
+        "note": "phrase_control_anchor",
+        "provider": "sentence_veto_dataset",
+        "target_key": "en-es:sentence-veto:fast:r-pido:active"
+      },
+      "active_target": "r\u00e1pido",
+      "batch_id": "en-es:wordnet-phrase-control:non-v10-wave5-portfolio-v1",
+      "candidate_sense_hint": {
+        "canonical_pos": "r",
+        "locator_kind": "synset_id",
+        "note": "wordnet_phrase_control_example",
+        "provider": "wordnet_en_json",
+        "target_key": "00086892-r"
+      },
+      "candidate_target": "phrase_control",
+      "dedupe_key": "dedupe:f4f5e08d44bf8d48bac67fc5b4e648b0668314a3",
+      "evidence_id": "semantic-evidence:1daf48b09fb96c0ba30aaed3694c5364d9c8b8fc",
+      "evidence_text": "held fast to the rope",
+      "is_multiword": true,
+      "linkage_status": "partially_linked",
+      "metadata": {
+        "active_sense_id": "en-es:sentence-veto:fast:r-pido:active",
+        "candidate_sense_id": "phrase_control",
+        "case_id": "en-es:source-non-v10-wave5-portfolio-phrase:v1:fast:001",
+        "example_bucket": "phrase_control",
+        "family_id": "en-es:sentence-veto:fast:r-pido",
+        "phrase_containment_pattern": "held fast to",
+        "phrase_containment_reason_code": "example_phrase_trigram_containment",
+        "source_view": "wordnet_synset_example",
+        "wordnet_members": [
+          "fast",
+          "tight"
+        ],
+        "wordnet_source_file_count": 72,
+        "wordnet_synset_id": "00086892-r"
+      },
+      "normalized_active_target": "r\u00e1pido",
+      "normalized_candidate_target": "phrase_control",
+      "normalized_trigger": "fast",
+      "pair": "en-es",
+      "promotion_state": "proposed",
+      "provenance": {
+        "batch_id": "en-es:wordnet-phrase-control:non-v10-wave5-portfolio-v1",
+        "generated_at": "2026-04-29T00:12:06Z",
+        "ingested_at": "2026-04-29T00:12:06Z",
+        "model_id": "none",
+        "normalization_version": "semantic_evidence_manual_v1",
+        "prompt_version": "wordnet-phrase-control-miner-v1",
+        "row_id": "en-es-sentence-veto-fast-r-pido:phrase-control-wordnet-held-fast-to",
+        "source_family": "external_sense_graph",
+        "source_id": "wordnet_phrase_control_non_v10_wave5_portfolio_v1",
+        "source_type": "external"
+      },
+      "relation_type": "phrase_control_example",
+      "review_state": "source_mined_phrase_probe",
+      "roles": [
+        "phrase_containment"
+      ],
+      "row_id": "en-es-sentence-veto-fast-r-pido:phrase-control-wordnet-held-fast-to",
+      "runtime_publishable": false,
+      "source_family": "external_sense_graph",
+      "source_id": "wordnet_phrase_control_non_v10_wave5_portfolio_v1",
+      "source_type": "external",
+      "trigger": "fast"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "noun",
+        "locator_kind": "sense_id",
+        "note": "phrase_control_anchor",
+        "provider": "sentence_veto_dataset",
+        "target_key": "en-es:sentence-veto:land:tierra:active"
+      },
+      "active_target": "tierra",
+      "batch_id": "en-es:wordnet-phrase-control:non-v10-wave5-portfolio-v1",
+      "candidate_sense_hint": {
+        "canonical_pos": "s",
+        "locator_kind": "synset_id",
+        "note": "wordnet_phrase_control_example",
+        "provider": "wordnet_en_json",
+        "target_key": "00249118-s"
+      },
+      "candidate_target": "phrase_control",
+      "dedupe_key": "dedupe:b3d5155e856eb27f38d1c7ebdbb41c7ddb4012ba",
+      "evidence_id": "semantic-evidence:cc1db3e78c7ec4c4c5dd1de7eca42d081d6b2872",
+      "evidence_text": "went after the collaborators with a sanguinary fury that drenched the land with blood",
+      "is_multiword": true,
+      "linkage_status": "partially_linked",
+      "metadata": {
+        "active_sense_id": "en-es:sentence-veto:land:tierra:active",
+        "candidate_sense_id": "phrase_control",
+        "case_id": "en-es:source-non-v10-wave5-portfolio-phrase:v1:land:001",
+        "example_bucket": "phrase_control",
+        "family_id": "en-es:sentence-veto:land:tierra",
+        "phrase_containment_pattern": "land with",
+        "phrase_containment_reason_code": "example_phrase_right_containment",
+        "source_view": "wordnet_synset_example",
+        "wordnet_members": [
+          "bloodthirsty",
+          "bloody-minded",
+          "sanguinary"
+        ],
+        "wordnet_source_file_count": 72,
+        "wordnet_synset_id": "00249118-s"
+      },
+      "normalized_active_target": "tierra",
+      "normalized_candidate_target": "phrase_control",
+      "normalized_trigger": "land",
+      "pair": "en-es",
+      "promotion_state": "proposed",
+      "provenance": {
+        "batch_id": "en-es:wordnet-phrase-control:non-v10-wave5-portfolio-v1",
+        "generated_at": "2026-04-29T00:12:06Z",
+        "ingested_at": "2026-04-29T00:12:06Z",
+        "model_id": "none",
+        "normalization_version": "semantic_evidence_manual_v1",
+        "prompt_version": "wordnet-phrase-control-miner-v1",
+        "row_id": "en-es-sentence-veto-land-tierra:phrase-control-wordnet-land-with",
+        "source_family": "external_sense_graph",
+        "source_id": "wordnet_phrase_control_non_v10_wave5_portfolio_v1",
+        "source_type": "external"
+      },
+      "relation_type": "phrase_control_example",
+      "review_state": "source_mined_phrase_probe",
+      "roles": [
+        "phrase_containment"
+      ],
+      "row_id": "en-es-sentence-veto-land-tierra:phrase-control-wordnet-land-with",
+      "runtime_publishable": false,
+      "source_family": "external_sense_graph",
+      "source_id": "wordnet_phrase_control_non_v10_wave5_portfolio_v1",
+      "source_type": "external",
+      "trigger": "land"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "noun",
+        "locator_kind": "sense_id",
+        "note": "phrase_control_anchor",
+        "provider": "sentence_veto_dataset",
+        "target_key": "en-es:sentence-veto:change:cambio:active"
+      },
+      "active_target": "cambio",
+      "batch_id": "en-es:wordnet-phrase-control:non-v10-wave5-portfolio-v1",
+      "candidate_sense_hint": {
+        "canonical_pos": "n",
+        "locator_kind": "synset_id",
+        "note": "wordnet_phrase_control_example",
+        "provider": "wordnet_en_json",
+        "target_key": "05150805-n"
+      },
+      "candidate_target": "phrase_control",
+      "dedupe_key": "dedupe:a2e78f919e04bc9d799bc09a5ba54591e29ce32d",
+      "evidence_id": "semantic-evidence:e40a28077f74d78648b80248dc0b5a9dda7975ee",
+      "evidence_text": "a change for the better",
+      "is_multiword": true,
+      "linkage_status": "partially_linked",
+      "metadata": {
+        "active_sense_id": "en-es:sentence-veto:change:cambio:active",
+        "candidate_sense_id": "phrase_control",
+        "case_id": "en-es:source-non-v10-wave5-portfolio-phrase:v1:change:001",
+        "example_bucket": "phrase_control",
+        "family_id": "en-es:sentence-veto:change:cambio",
+        "phrase_containment_pattern": "change for",
+        "phrase_containment_reason_code": "example_phrase_right_containment",
+        "source_view": "wordnet_synset_example",
+        "wordnet_members": [
+          "better"
+        ],
+        "wordnet_source_file_count": 72,
+        "wordnet_synset_id": "05150805-n"
+      },
+      "normalized_active_target": "cambio",
+      "normalized_candidate_target": "phrase_control",
+      "normalized_trigger": "change",
+      "pair": "en-es",
+      "promotion_state": "proposed",
+      "provenance": {
+        "batch_id": "en-es:wordnet-phrase-control:non-v10-wave5-portfolio-v1",
+        "generated_at": "2026-04-29T00:12:06Z",
+        "ingested_at": "2026-04-29T00:12:06Z",
+        "model_id": "none",
+        "normalization_version": "semantic_evidence_manual_v1",
+        "prompt_version": "wordnet-phrase-control-miner-v1",
+        "row_id": "en-es-sentence-veto-change-cambio:phrase-control-wordnet-change-for",
+        "source_family": "external_sense_graph",
+        "source_id": "wordnet_phrase_control_non_v10_wave5_portfolio_v1",
+        "source_type": "external"
+      },
+      "relation_type": "phrase_control_example",
+      "review_state": "source_mined_phrase_probe",
+      "roles": [
+        "phrase_containment"
+      ],
+      "row_id": "en-es-sentence-veto-change-cambio:phrase-control-wordnet-change-for",
+      "runtime_publishable": false,
+      "source_family": "external_sense_graph",
+      "source_id": "wordnet_phrase_control_non_v10_wave5_portfolio_v1",
+      "source_type": "external",
+      "trigger": "change"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "noun",
+        "locator_kind": "sense_id",
+        "note": "phrase_control_anchor",
+        "provider": "sentence_veto_dataset",
+        "target_key": "en-es:sentence-veto:rest:reposo:active"
+      },
+      "active_target": "reposo",
+      "batch_id": "en-es:wordnet-phrase-control:non-v10-wave5-portfolio-v1",
+      "candidate_sense_hint": {
+        "canonical_pos": "r",
+        "locator_kind": "synset_id",
+        "note": "wordnet_phrase_control_example",
+        "provider": "wordnet_en_json",
+        "target_key": "00338017-r"
+      },
+      "candidate_target": "phrase_control",
+      "dedupe_key": "dedupe:126124926b3a392617eefc40088587cb6684910e",
+      "evidence_id": "semantic-evidence:a8a64bc8a84f7e2c81b8b44c5c74e5c74b10aa32",
+      "evidence_text": "a seduction on my part would land us with the necessity to rise, bathe and dress, chat falsely about this and that, and emerge into the rest of the evening as though nothing had happened",
+      "is_multiword": true,
+      "linkage_status": "partially_linked",
+      "metadata": {
+        "active_sense_id": "en-es:sentence-veto:rest:reposo:active",
+        "candidate_sense_id": "phrase_control",
+        "case_id": "en-es:source-non-v10-wave5-portfolio-phrase:v1:rest:001",
+        "example_bucket": "phrase_control",
+        "family_id": "en-es:sentence-veto:rest:reposo",
+        "phrase_containment_pattern": "rest of",
+        "phrase_containment_reason_code": "example_phrase_right_containment",
+        "source_view": "wordnet_synset_example",
+        "wordnet_members": [
+          "falsely"
+        ],
+        "wordnet_source_file_count": 72,
+        "wordnet_synset_id": "00338017-r"
+      },
+      "normalized_active_target": "reposo",
+      "normalized_candidate_target": "phrase_control",
+      "normalized_trigger": "rest",
+      "pair": "en-es",
+      "promotion_state": "proposed",
+      "provenance": {
+        "batch_id": "en-es:wordnet-phrase-control:non-v10-wave5-portfolio-v1",
+        "generated_at": "2026-04-29T00:12:06Z",
+        "ingested_at": "2026-04-29T00:12:06Z",
+        "model_id": "none",
+        "normalization_version": "semantic_evidence_manual_v1",
+        "prompt_version": "wordnet-phrase-control-miner-v1",
+        "row_id": "en-es-sentence-veto-rest-reposo:phrase-control-wordnet-rest-of",
+        "source_family": "external_sense_graph",
+        "source_id": "wordnet_phrase_control_non_v10_wave5_portfolio_v1",
+        "source_type": "external"
+      },
+      "relation_type": "phrase_control_example",
+      "review_state": "source_mined_phrase_probe",
+      "roles": [
+        "phrase_containment"
+      ],
+      "row_id": "en-es-sentence-veto-rest-reposo:phrase-control-wordnet-rest-of",
+      "runtime_publishable": false,
+      "source_family": "external_sense_graph",
+      "source_id": "wordnet_phrase_control_non_v10_wave5_portfolio_v1",
+      "source_type": "external",
+      "trigger": "rest"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "noun",
+        "locator_kind": "sense_id",
+        "note": "phrase_control_anchor",
+        "provider": "sentence_veto_dataset",
+        "target_key": "en-es:sentence-veto:answer:respuesta:active"
+      },
+      "active_target": "respuesta",
+      "batch_id": "en-es:wordnet-phrase-control:non-v10-wave5-portfolio-v1",
+      "candidate_sense_hint": {
+        "canonical_pos": "v",
+        "locator_kind": "synset_id",
+        "note": "wordnet_phrase_control_example",
+        "provider": "wordnet_en_json",
+        "target_key": "02751892-v"
+      },
+      "candidate_target": "phrase_control",
+      "dedupe_key": "dedupe:2221ea71c3b7289907fb4cced4c0b482025bbf08",
+      "evidence_id": "semantic-evidence:dea911cb87ae4a35c20c1af06b796a6672a751fc",
+      "evidence_text": "She must answer for her actions",
+      "is_multiword": true,
+      "linkage_status": "partially_linked",
+      "metadata": {
+        "active_sense_id": "en-es:sentence-veto:answer:respuesta:active",
+        "candidate_sense_id": "phrase_control",
+        "case_id": "en-es:source-non-v10-wave5-portfolio-phrase:v1:answer:001",
+        "example_bucket": "phrase_control",
+        "family_id": "en-es:sentence-veto:answer:respuesta",
+        "phrase_containment_pattern": "must answer for",
+        "phrase_containment_reason_code": "example_phrase_trigram_containment",
+        "source_view": "wordnet_synset_example",
+        "wordnet_members": [
+          "answer"
+        ],
+        "wordnet_source_file_count": 72,
+        "wordnet_synset_id": "02751892-v"
+      },
+      "normalized_active_target": "respuesta",
+      "normalized_candidate_target": "phrase_control",
+      "normalized_trigger": "answer",
+      "pair": "en-es",
+      "promotion_state": "proposed",
+      "provenance": {
+        "batch_id": "en-es:wordnet-phrase-control:non-v10-wave5-portfolio-v1",
+        "generated_at": "2026-04-29T00:12:06Z",
+        "ingested_at": "2026-04-29T00:12:06Z",
+        "model_id": "none",
+        "normalization_version": "semantic_evidence_manual_v1",
+        "prompt_version": "wordnet-phrase-control-miner-v1",
+        "row_id": "en-es-sentence-veto-answer-respuesta:phrase-control-wordnet-must-answer-for",
+        "source_family": "external_sense_graph",
+        "source_id": "wordnet_phrase_control_non_v10_wave5_portfolio_v1",
+        "source_type": "external"
+      },
+      "relation_type": "phrase_control_example",
+      "review_state": "source_mined_phrase_probe",
+      "roles": [
+        "phrase_containment"
+      ],
+      "row_id": "en-es-sentence-veto-answer-respuesta:phrase-control-wordnet-must-answer-for",
+      "runtime_publishable": false,
+      "source_family": "external_sense_graph",
+      "source_id": "wordnet_phrase_control_non_v10_wave5_portfolio_v1",
+      "source_type": "external",
+      "trigger": "answer"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "noun",
+        "locator_kind": "sense_id",
+        "note": "phrase_control_anchor",
+        "provider": "sentence_veto_dataset",
+        "target_key": "en-es:sentence-veto:end:fin:active"
+      },
+      "active_target": "fin",
+      "batch_id": "en-es:wordnet-phrase-control:non-v10-wave5-portfolio-v1",
+      "candidate_sense_hint": {
+        "canonical_pos": "s",
+        "locator_kind": "synset_id",
+        "note": "wordnet_phrase_control_example",
+        "provider": "wordnet_en_json",
+        "target_key": "01686137-s"
+      },
+      "candidate_target": "phrase_control",
+      "dedupe_key": "dedupe:0071e3acd626df7d0dc2f4481f641783c6eba721",
+      "evidence_id": "semantic-evidence:ad6f12af437a89010f2c1f82d77e76b8d0363c20",
+      "evidence_text": "end tables placed conveniently",
+      "is_multiword": true,
+      "linkage_status": "partially_linked",
+      "metadata": {
+        "active_sense_id": "en-es:sentence-veto:end:fin:active",
+        "candidate_sense_id": "phrase_control",
+        "case_id": "en-es:source-non-v10-wave5-portfolio-phrase:v1:end:001",
+        "example_bucket": "phrase_control",
+        "family_id": "en-es:sentence-veto:end:fin",
+        "phrase_containment_pattern": "end tables",
+        "phrase_containment_reason_code": "example_phrase_right_containment",
+        "source_view": "wordnet_synset_example",
+        "wordnet_members": [
+          "placed"
+        ],
+        "wordnet_source_file_count": 72,
+        "wordnet_synset_id": "01686137-s"
+      },
+      "normalized_active_target": "fin",
+      "normalized_candidate_target": "phrase_control",
+      "normalized_trigger": "end",
+      "pair": "en-es",
+      "promotion_state": "proposed",
+      "provenance": {
+        "batch_id": "en-es:wordnet-phrase-control:non-v10-wave5-portfolio-v1",
+        "generated_at": "2026-04-29T00:12:06Z",
+        "ingested_at": "2026-04-29T00:12:06Z",
+        "model_id": "none",
+        "normalization_version": "semantic_evidence_manual_v1",
+        "prompt_version": "wordnet-phrase-control-miner-v1",
+        "row_id": "en-es-sentence-veto-end-fin:phrase-control-wordnet-end-tables",
+        "source_family": "external_sense_graph",
+        "source_id": "wordnet_phrase_control_non_v10_wave5_portfolio_v1",
+        "source_type": "external"
+      },
+      "relation_type": "phrase_control_example",
+      "review_state": "source_mined_phrase_probe",
+      "roles": [
+        "phrase_containment"
+      ],
+      "row_id": "en-es-sentence-veto-end-fin:phrase-control-wordnet-end-tables",
+      "runtime_publishable": false,
+      "source_family": "external_sense_graph",
+      "source_id": "wordnet_phrase_control_non_v10_wave5_portfolio_v1",
+      "source_type": "external",
+      "trigger": "end"
+    }
+  ],
+  "schema_version": 1,
+  "source_family": "external_sense_graph",
+  "source_id": "wordnet_phrase_control_non_v10_wave5_portfolio_v1",
+  "source_type": "external"
+}

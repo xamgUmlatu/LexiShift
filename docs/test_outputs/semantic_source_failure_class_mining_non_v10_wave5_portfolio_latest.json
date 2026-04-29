@@ -2,12 +2,12 @@
   "additional_heldouts": [
     {
       "case_count": 16,
-      "decision": "heldout_review",
-      "decision_accuracy": 0.9375,
+      "decision": "heldout_pass",
+      "decision_accuracy": 1.0,
       "delta_vs_empty_baseline": {
-        "decision_accuracy_delta": -0.0625,
+        "decision_accuracy_delta": 0.0,
         "false_abstain_delta": 0,
-        "harmful_replace_delta": 1,
+        "harmful_replace_delta": 0,
         "replace_recall_delta": 0.0
       },
       "false_abstain_case_ids": [],
@@ -33,43 +33,49 @@
       ],
       "gold_abstain_cases": 16,
       "gold_replace_cases": 0,
-      "harmful_replace_case_ids": [
-        "en-es:source-non-v10-wave5-portfolio-phrase:v1:end:001"
-      ],
-      "harmful_replace_count": 1,
+      "harmful_replace_case_ids": [],
+      "harmful_replace_count": 0,
       "heldout_case_scope": "non_v10_wave5_source_portfolio_phrase_no_winner",
       "heldout_dataset_id": "en_es_source_non_v10_wave5_portfolio_phrase_cases_v1",
       "label": "semantic_source_non_v10_wave5_portfolio_phrase_margin005_validation_latest",
       "replace_recall": 0.0,
-      "status": "review"
+      "status": "ok"
     }
   ],
   "comparator_admissions": [
     {
       "decision": "analysis_only",
-      "families_total": 8,
-      "final_admitted_row_count": 30,
+      "families_total": 16,
+      "final_admitted_row_count": 51,
       "heldout_validation": {
-        "blocks_offline_semantic_promotion": false,
-        "case_count": 16,
-        "decision": "heldout_pass",
-        "decision_accuracy": 1.0,
+        "blocks_offline_semantic_promotion": true,
+        "case_count": 32,
+        "decision": "heldout_review",
+        "decision_accuracy": 0.9688,
         "false_abstain_count": 0,
-        "family_count": 8,
-        "harmful_replace_count": 0,
-        "passed": true,
+        "family_count": 16,
+        "harmful_replace_count": 1,
+        "passed": false,
         "provided": true,
         "replace_recall": 1.0,
-        "status": "ok"
+        "status": "review"
       },
-      "label": "semantic_source_admission_cycle_wordnet_def_ex_non_v10_wave2_selected_latest",
+      "label": "semantic_source_admission_cycle_non_v10_wave5_source_portfolio_latest",
       "leakage_rejected_row_count": 0,
       "phrase_contract_complete_family_count": 0,
       "phrase_gap_family_keys": [
         "en-es:sentence-veto:answer:respuesta",
+        "en-es:sentence-veto:change:cambio",
+        "en-es:sentence-veto:dry:seco",
+        "en-es:sentence-veto:end:fin",
+        "en-es:sentence-veto:fast:r-pido",
         "en-es:sentence-veto:land:tierra",
         "en-es:sentence-veto:look:aspecto",
+        "en-es:sentence-veto:mean:medio",
         "en-es:sentence-veto:offer:oferta",
+        "en-es:sentence-veto:plain:llano",
+        "en-es:sentence-veto:present:presente",
+        "en-es:sentence-veto:quiet:silencio",
         "en-es:sentence-veto:rest:reposo",
         "en-es:sentence-veto:sign:se-al",
         "en-es:sentence-veto:train:tren",
@@ -82,49 +88,49 @@
       "seed_harmful_replace_case_ids": [],
       "seed_harmful_replace_count": 0,
       "seed_replace_recall": 0.0,
-      "semantic_contract_complete_family_count": 8,
+      "semantic_contract_complete_family_count": 16,
       "semantic_gap_family_keys": [],
-      "sense_rejected_row_count": 8,
-      "sense_rejection_reason_counts": {
-        "competitor_sense_not_lower": 8
-      },
-      "status": "ok"
+      "sense_rejected_row_count": 0,
+      "sense_rejection_reason_counts": {},
+      "status": "review"
     }
   ],
-  "decision": "fix_blocking_failure_classes",
+  "decision": "seed_pass_expand_inventory",
   "failure_classes": [
     {
-      "artifact": "semantic_source_non_v10_wave5_portfolio_heldout_margin005_validation_latest",
-      "blocks_semantic_promotion": true,
-      "class_id": "heldout_harmful_replace",
-      "count": 1,
+      "artifact": "semantic_source_admission_cycle_non_v10_wave5_phrase_probe_latest",
+      "blocks_semantic_promotion": false,
+      "class_id": "primary_phrase_contract_gap",
+      "count": 9,
       "family_tokens": [
-        "present"
+        "dry",
+        "look",
+        "mean",
+        "offer",
+        "plain",
+        "present",
+        "quiet",
+        "sign",
+        "train"
       ],
       "ids": [
-        "en-es:source-non-v10-wave5-portfolio-heldout:v1:present:002"
+        "en-es:sentence-veto:dry:seco",
+        "en-es:sentence-veto:look:aspecto",
+        "en-es:sentence-veto:mean:medio",
+        "en-es:sentence-veto:offer:oferta",
+        "en-es:sentence-veto:plain:llano",
+        "en-es:sentence-veto:present:presente",
+        "en-es:sentence-veto:quiet:silencio",
+        "en-es:sentence-veto:sign:se-al",
+        "en-es:sentence-veto:train:tren"
       ],
-      "label": "Held-out harmful replacement",
-      "tracked_residual": false
-    },
-    {
-      "artifact": "semantic_source_non_v10_wave5_portfolio_phrase_margin005_validation_latest",
-      "blocks_semantic_promotion": true,
-      "class_id": "additional_heldout_1_harmful_replace",
-      "count": 1,
-      "family_tokens": [
-        "end"
-      ],
-      "ids": [
-        "en-es:source-non-v10-wave5-portfolio-phrase:v1:end:001"
-      ],
-      "label": "Held-out harmful replacement",
-      "tracked_residual": false
+      "label": "primary phrase contract gap",
+      "tracked_residual": true
     },
     {
       "artifact": "semantic_source_admission_cycle_non_v10_wave5_source_portfolio_latest",
       "blocks_semantic_promotion": false,
-      "class_id": "primary_phrase_contract_gap",
+      "class_id": "comparator_phrase_contract_gap",
       "count": 16,
       "family_tokens": [
         "answer",
@@ -162,48 +168,6 @@
         "en-es:sentence-veto:train:tren",
         "en-es:sentence-veto:use:uso"
       ],
-      "label": "primary phrase contract gap",
-      "tracked_residual": true
-    },
-    {
-      "artifact": "semantic_source_admission_cycle_wordnet_def_ex_non_v10_wave2_selected_latest",
-      "blocks_semantic_promotion": false,
-      "class_id": "comparator_sense_reject",
-      "count": 8,
-      "family_tokens": [
-        "competitor_sense_not_lower"
-      ],
-      "ids": [
-        "competitor_sense_not_lower:8"
-      ],
-      "label": "comparator sense rejected rows",
-      "tracked_residual": true
-    },
-    {
-      "artifact": "semantic_source_admission_cycle_wordnet_def_ex_non_v10_wave2_selected_latest",
-      "blocks_semantic_promotion": false,
-      "class_id": "comparator_phrase_contract_gap",
-      "count": 8,
-      "family_tokens": [
-        "answer",
-        "land",
-        "look",
-        "offer",
-        "rest",
-        "sign",
-        "train",
-        "use"
-      ],
-      "ids": [
-        "en-es:sentence-veto:answer:respuesta",
-        "en-es:sentence-veto:land:tierra",
-        "en-es:sentence-veto:look:aspecto",
-        "en-es:sentence-veto:offer:oferta",
-        "en-es:sentence-veto:rest:reposo",
-        "en-es:sentence-veto:sign:se-al",
-        "en-es:sentence-veto:train:tren",
-        "en-es:sentence-veto:use:uso"
-      ],
       "label": "comparator phrase contract gap",
       "tracked_residual": true
     },
@@ -211,54 +175,41 @@
       "artifact": "semantic_source_margin_policy_sweep",
       "blocks_semantic_promotion": false,
       "class_id": "margin_policy_blockers",
-      "count": 17,
+      "count": 5,
       "family_tokens": [
-        "end",
         "present",
         "rest"
       ],
       "ids": [
-        "0:wave5_active:harmful:en-es:source-non-v10-wave5-portfolio-heldout:v1:present:002",
-        "0:wave5_phrase:harmful:en-es:source-non-v10-wave5-portfolio-phrase:v1:end:001",
-        "0.001:wave5_active:harmful:en-es:source-non-v10-wave5-portfolio-heldout:v1:present:002",
-        "0.001:wave5_phrase:harmful:en-es:source-non-v10-wave5-portfolio-phrase:v1:end:001",
-        "0.005:wave5_active:harmful:en-es:source-non-v10-wave5-portfolio-heldout:v1:present:002",
-        "0.005:wave5_phrase:harmful:en-es:source-non-v10-wave5-portfolio-phrase:v1:end:001",
-        "0.01:wave5_active:harmful:en-es:source-non-v10-wave5-portfolio-heldout:v1:present:002",
-        "0.01:wave5_phrase:harmful:en-es:source-non-v10-wave5-portfolio-phrase:v1:end:001",
-        "0.02:wave5_active:harmful:en-es:source-non-v10-wave5-portfolio-heldout:v1:present:002",
-        "0.02:wave5_phrase:harmful:en-es:source-non-v10-wave5-portfolio-phrase:v1:end:001",
-        "0.05:wave5_active:harmful:en-es:source-non-v10-wave5-portfolio-heldout:v1:present:002",
         "0.05:wave5_active:false_abstain:en-es:source-non-v10-wave5-portfolio-heldout:v1:rest:001",
-        "0.05:wave5_phrase:harmful:en-es:source-non-v10-wave5-portfolio-phrase:v1:end:001",
+        "0.08:wave5_active:false_abstain:en-es:source-non-v10-wave5-portfolio-heldout:v1:present:002",
         "0.08:wave5_active:false_abstain:en-es:source-non-v10-wave5-portfolio-heldout:v1:rest:001",
-        "0.08:wave5_phrase:harmful:en-es:source-non-v10-wave5-portfolio-phrase:v1:end:001",
-        "0.1:wave5_active:false_abstain:en-es:source-non-v10-wave5-portfolio-heldout:v1:rest:001",
-        "0.1:wave5_phrase:harmful:en-es:source-non-v10-wave5-portfolio-phrase:v1:end:001"
+        "0.1:wave5_active:false_abstain:en-es:source-non-v10-wave5-portfolio-heldout:v1:present:002",
+        "0.1:wave5_active:false_abstain:en-es:source-non-v10-wave5-portfolio-heldout:v1:rest:001"
       ],
       "label": "margin policy blocker",
       "tracked_residual": true
     }
   ],
-  "generated_at": "2026-04-28T23:37:01Z",
+  "generated_at": "2026-04-29T00:16:20Z",
   "leverage": {
     "best_comparator_false_abstain_delta": 0,
-    "best_comparator_label": "semantic_source_admission_cycle_wordnet_def_ex_non_v10_wave2_selected_latest",
-    "best_comparator_sense_reject_delta": -8,
+    "best_comparator_label": "semantic_source_admission_cycle_non_v10_wave5_source_portfolio_latest",
+    "best_comparator_sense_reject_delta": 0,
     "case_breadth_gap": 152,
     "case_breadth_target": 200,
     "family_breadth_gap": 34,
     "family_breadth_target": 50,
     "generalization_signals": [
-      "no_heldout_false_abstains",
-      "source_mode_reduced_sense_rejects"
+      "no_heldout_harmful_replacements",
+      "no_heldout_false_abstains"
     ],
     "heldout_case_count": 48,
-    "heldout_cases_per_admitted_row": 0.9412,
+    "heldout_cases_per_admitted_row": 0.8276,
     "heldout_cases_per_policy_delta": null,
     "heldout_false_abstain_count": 0,
     "heldout_family_count": 16,
-    "heldout_harmful_replace_count": 2,
+    "heldout_harmful_replace_count": 0,
     "heldout_suite_count": 2,
     "manual_overfit_reasons": [
       "family_inventory_below_broad_threshold",
@@ -267,225 +218,98 @@
     ],
     "manual_overfit_risk": "medium",
     "policy_delta_count": 0,
-    "primary_admitted_row_count": 51,
+    "primary_admitted_row_count": 58,
     "source_family_count": 16,
     "source_row_count": 51,
     "source_rows_per_family": 3.1875
   },
   "margin_sweep": {
     "blockers_by_margin": {
-      "0": [
-        {
-          "false_abstain_case_ids": [],
-          "false_abstain_count": 0,
-          "harmful_replace_case_ids": [
-            "en-es:source-non-v10-wave5-portfolio-heldout:v1:present:002"
-          ],
-          "harmful_replace_count": 1,
-          "suite_id": "wave5_active"
-        },
-        {
-          "false_abstain_case_ids": [],
-          "false_abstain_count": 0,
-          "harmful_replace_case_ids": [
-            "en-es:source-non-v10-wave5-portfolio-phrase:v1:end:001"
-          ],
-          "harmful_replace_count": 1,
-          "suite_id": "wave5_phrase"
-        }
-      ],
-      "0.001": [
-        {
-          "false_abstain_case_ids": [],
-          "false_abstain_count": 0,
-          "harmful_replace_case_ids": [
-            "en-es:source-non-v10-wave5-portfolio-heldout:v1:present:002"
-          ],
-          "harmful_replace_count": 1,
-          "suite_id": "wave5_active"
-        },
-        {
-          "false_abstain_case_ids": [],
-          "false_abstain_count": 0,
-          "harmful_replace_case_ids": [
-            "en-es:source-non-v10-wave5-portfolio-phrase:v1:end:001"
-          ],
-          "harmful_replace_count": 1,
-          "suite_id": "wave5_phrase"
-        }
-      ],
-      "0.005": [
-        {
-          "false_abstain_case_ids": [],
-          "false_abstain_count": 0,
-          "harmful_replace_case_ids": [
-            "en-es:source-non-v10-wave5-portfolio-heldout:v1:present:002"
-          ],
-          "harmful_replace_count": 1,
-          "suite_id": "wave5_active"
-        },
-        {
-          "false_abstain_case_ids": [],
-          "false_abstain_count": 0,
-          "harmful_replace_case_ids": [
-            "en-es:source-non-v10-wave5-portfolio-phrase:v1:end:001"
-          ],
-          "harmful_replace_count": 1,
-          "suite_id": "wave5_phrase"
-        }
-      ],
-      "0.01": [
-        {
-          "false_abstain_case_ids": [],
-          "false_abstain_count": 0,
-          "harmful_replace_case_ids": [
-            "en-es:source-non-v10-wave5-portfolio-heldout:v1:present:002"
-          ],
-          "harmful_replace_count": 1,
-          "suite_id": "wave5_active"
-        },
-        {
-          "false_abstain_case_ids": [],
-          "false_abstain_count": 0,
-          "harmful_replace_case_ids": [
-            "en-es:source-non-v10-wave5-portfolio-phrase:v1:end:001"
-          ],
-          "harmful_replace_count": 1,
-          "suite_id": "wave5_phrase"
-        }
-      ],
-      "0.02": [
-        {
-          "false_abstain_case_ids": [],
-          "false_abstain_count": 0,
-          "harmful_replace_case_ids": [
-            "en-es:source-non-v10-wave5-portfolio-heldout:v1:present:002"
-          ],
-          "harmful_replace_count": 1,
-          "suite_id": "wave5_active"
-        },
-        {
-          "false_abstain_case_ids": [],
-          "false_abstain_count": 0,
-          "harmful_replace_case_ids": [
-            "en-es:source-non-v10-wave5-portfolio-phrase:v1:end:001"
-          ],
-          "harmful_replace_count": 1,
-          "suite_id": "wave5_phrase"
-        }
-      ],
       "0.05": [
         {
           "false_abstain_case_ids": [
             "en-es:source-non-v10-wave5-portfolio-heldout:v1:rest:001"
           ],
           "false_abstain_count": 1,
-          "harmful_replace_case_ids": [
-            "en-es:source-non-v10-wave5-portfolio-heldout:v1:present:002"
-          ],
-          "harmful_replace_count": 1,
+          "harmful_replace_case_ids": [],
+          "harmful_replace_count": 0,
           "suite_id": "wave5_active"
-        },
-        {
-          "false_abstain_case_ids": [],
-          "false_abstain_count": 0,
-          "harmful_replace_case_ids": [
-            "en-es:source-non-v10-wave5-portfolio-phrase:v1:end:001"
-          ],
-          "harmful_replace_count": 1,
-          "suite_id": "wave5_phrase"
         }
       ],
       "0.08": [
         {
           "false_abstain_case_ids": [
+            "en-es:source-non-v10-wave5-portfolio-heldout:v1:present:002",
             "en-es:source-non-v10-wave5-portfolio-heldout:v1:rest:001"
           ],
-          "false_abstain_count": 1,
+          "false_abstain_count": 2,
           "harmful_replace_case_ids": [],
           "harmful_replace_count": 0,
           "suite_id": "wave5_active"
-        },
-        {
-          "false_abstain_case_ids": [],
-          "false_abstain_count": 0,
-          "harmful_replace_case_ids": [
-            "en-es:source-non-v10-wave5-portfolio-phrase:v1:end:001"
-          ],
-          "harmful_replace_count": 1,
-          "suite_id": "wave5_phrase"
         }
       ],
       "0.1": [
         {
           "false_abstain_case_ids": [
+            "en-es:source-non-v10-wave5-portfolio-heldout:v1:present:002",
             "en-es:source-non-v10-wave5-portfolio-heldout:v1:rest:001"
           ],
-          "false_abstain_count": 1,
+          "false_abstain_count": 2,
           "harmful_replace_case_ids": [],
           "harmful_replace_count": 0,
           "suite_id": "wave5_active"
-        },
-        {
-          "false_abstain_case_ids": [],
-          "false_abstain_count": 0,
-          "harmful_replace_case_ids": [
-            "en-es:source-non-v10-wave5-portfolio-phrase:v1:end:001"
-          ],
-          "harmful_replace_count": 1,
-          "suite_id": "wave5_phrase"
         }
       ]
     },
-    "decision": "margin_review",
-    "passing_margins": [],
-    "recommended_min_margin": null,
+    "decision": "margin_candidate_found",
+    "passing_margins": [
+      0.0,
+      0.001,
+      0.005,
+      0.01,
+      0.02
+    ],
+    "recommended_min_margin": 0.0,
     "row_count": 16,
-    "status": "review",
+    "status": "ok",
     "suite_count": 2
   },
   "next_steps": [
-    "resolve blocking semantic-risk classes before claiming source expansion",
-    "rerun admission, held-out validation, margin sweep, and this mining harness",
-    "only expand breadth after harmful replacements and semantic contract gaps are clean"
+    "build automatic non-v10 inventory candidate generation instead of tuning this small slice further",
+    "run WordNet definition-preferred extraction across the expanded inventory and rerun admission",
+    "use this mining report to separate reusable failure clusters from one-off manual cases",
+    "keep phrase containment as a tracked residual lane until source data or policy exists for it"
   ],
   "primary_admission": {
     "decision": "analysis_only",
     "families_total": 16,
-    "final_admitted_row_count": 51,
+    "final_admitted_row_count": 58,
     "heldout_validation": {
-      "blocks_offline_semantic_promotion": true,
-      "case_count": 32,
-      "decision": "heldout_review",
-      "decision_accuracy": 0.9688,
+      "blocks_offline_semantic_promotion": false,
+      "case_count": 0,
+      "decision": "not_provided",
+      "decision_accuracy": 0.0,
       "false_abstain_count": 0,
-      "family_count": 16,
-      "harmful_replace_count": 1,
+      "family_count": 0,
+      "harmful_replace_count": 0,
       "passed": false,
-      "provided": true,
-      "replace_recall": 1.0,
-      "status": "review"
+      "provided": false,
+      "replace_recall": 0.0,
+      "status": "not_provided"
     },
-    "label": "semantic_source_admission_cycle_non_v10_wave5_source_portfolio_latest",
+    "label": "semantic_source_admission_cycle_non_v10_wave5_phrase_probe_latest",
     "leakage_rejected_row_count": 0,
-    "phrase_contract_complete_family_count": 0,
+    "phrase_contract_complete_family_count": 7,
     "phrase_gap_family_keys": [
-      "en-es:sentence-veto:answer:respuesta",
-      "en-es:sentence-veto:change:cambio",
       "en-es:sentence-veto:dry:seco",
-      "en-es:sentence-veto:end:fin",
-      "en-es:sentence-veto:fast:r-pido",
-      "en-es:sentence-veto:land:tierra",
       "en-es:sentence-veto:look:aspecto",
       "en-es:sentence-veto:mean:medio",
       "en-es:sentence-veto:offer:oferta",
       "en-es:sentence-veto:plain:llano",
       "en-es:sentence-veto:present:presente",
       "en-es:sentence-veto:quiet:silencio",
-      "en-es:sentence-veto:rest:reposo",
       "en-es:sentence-veto:sign:se-al",
-      "en-es:sentence-veto:train:tren",
-      "en-es:sentence-veto:use:uso"
+      "en-es:sentence-veto:train:tren"
     ],
     "role": "primary",
     "seed_decision_accuracy": 0.0,
@@ -498,16 +322,16 @@
     "semantic_gap_family_keys": [],
     "sense_rejected_row_count": 0,
     "sense_rejection_reason_counts": {},
-    "status": "review"
+    "status": "ok"
   },
   "primary_heldout": {
     "case_count": 32,
-    "decision": "heldout_review",
-    "decision_accuracy": 0.9688,
+    "decision": "heldout_pass",
+    "decision_accuracy": 1.0,
     "delta_vs_empty_baseline": {
-      "decision_accuracy_delta": 0.4688,
-      "false_abstain_delta": -16,
-      "harmful_replace_delta": 1,
+      "decision_accuracy_delta": 0.5312,
+      "false_abstain_delta": -17,
+      "harmful_replace_delta": 0,
       "replace_recall_delta": 1.0
     },
     "false_abstain_case_ids": [],
@@ -531,25 +355,21 @@
       "en-es:sentence-veto:train:tren",
       "en-es:sentence-veto:use:uso"
     ],
-    "gold_abstain_cases": 16,
-    "gold_replace_cases": 16,
-    "harmful_replace_case_ids": [
-      "en-es:source-non-v10-wave5-portfolio-heldout:v1:present:002"
-    ],
-    "harmful_replace_count": 1,
+    "gold_abstain_cases": 15,
+    "gold_replace_cases": 17,
+    "harmful_replace_case_ids": [],
+    "harmful_replace_count": 0,
     "heldout_case_scope": "non_v10_wave5_source_portfolio_active_shadow",
     "heldout_dataset_id": "en_es_source_non_v10_wave5_portfolio_heldout_cases_v1",
     "label": "semantic_source_non_v10_wave5_portfolio_heldout_margin005_validation_latest",
     "replace_recall": 1.0,
-    "status": "review"
+    "status": "ok"
   },
   "quality_gate": {
-    "blockers": [
-      "heldout_harmful_replace"
-    ],
-    "distance": "semantic_risk_blockers",
-    "heldout_clean": false,
-    "promotion_readiness": "blocked",
+    "blockers": [],
+    "distance": "breadth_and_residual_tracking",
+    "heldout_clean": true,
+    "promotion_readiness": "ready_for_broader_breadth",
     "tracked_residuals": [
       "phrase_contract_gap",
       "insufficient_family_breadth",
@@ -571,18 +391,32 @@
       "target_families_with_active_wordnet": 16,
       "target_families_with_shadow_wordnet": 16,
       "target_family_count": 16
+    },
+    {
+      "evidence_mode": "phrase_control_rows_mined",
+      "families_with_active_wordnet": 0,
+      "families_with_phrase_control_examples": 7,
+      "families_with_shadow_wordnet": 0,
+      "label": "semantic_wordnet_phrase_control_non_v10_wave5_portfolio_latest",
+      "missing_active_family_keys": [],
+      "missing_shadow_family_keys": [],
+      "row_count": 7,
+      "source_family_count": 7,
+      "target_families_with_active_wordnet": 0,
+      "target_families_with_shadow_wordnet": 0,
+      "target_family_count": 16
     }
   ],
   "status": "review",
   "summary": {
-    "blocking_failure_class_count": 2,
-    "failure_class_count": 6,
+    "blocking_failure_class_count": 0,
+    "failure_class_count": 3,
     "heldout_suite_count": 2,
     "manual_overfit_risk": "medium",
-    "primary_admission_label": "semantic_source_admission_cycle_non_v10_wave5_source_portfolio_latest",
+    "primary_admission_label": "semantic_source_admission_cycle_non_v10_wave5_phrase_probe_latest",
     "primary_heldout_label": "semantic_source_non_v10_wave5_portfolio_heldout_margin005_validation_latest",
-    "promotion_readiness": "blocked",
-    "quality_gate_distance": "semantic_risk_blockers",
-    "tracked_residual_class_count": 4
+    "promotion_readiness": "ready_for_broader_breadth",
+    "quality_gate_distance": "breadth_and_residual_tracking",
+    "tracked_residual_class_count": 3
   }
 }

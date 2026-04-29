@@ -71,7 +71,9 @@ def match_phrase_containment_examples(
         phrase_examples=phrase_examples,
     ):
         if pattern.preceding_token and pattern.following_token:
-            if preceding == pattern.preceding_token and following == pattern.following_token:
+            if _marker_tokens_match(preceding, pattern.preceding_token) and _marker_tokens_match(
+                following, pattern.following_token
+            ):
                 return PhraseContainmentMatch(
                     hit=True,
                     example_text=pattern.example_text,
@@ -79,14 +81,14 @@ def match_phrase_containment_examples(
                     reason_code="example_phrase_trigram_containment",
                 )
             continue
-        if pattern.preceding_token and preceding == pattern.preceding_token:
+        if pattern.preceding_token and _marker_tokens_match(preceding, pattern.preceding_token):
             return PhraseContainmentMatch(
                 hit=True,
                 example_text=pattern.example_text,
                 pattern_text=pattern.pattern_text,
                 reason_code="example_phrase_left_containment",
             )
-        if pattern.following_token and following == pattern.following_token:
+        if pattern.following_token and _marker_tokens_match(following, pattern.following_token):
             return PhraseContainmentMatch(
                 hit=True,
                 example_text=pattern.example_text,
@@ -158,6 +160,21 @@ def _phrase_containment_patterns(
 def _format_phrase_pattern(*, preceding: str, source_phrase: str, following: str) -> str:
     pieces = [piece for piece in (preceding, source_phrase, following) if piece]
     return " ".join(pieces)
+
+
+def _marker_tokens_match(left: str, right: str) -> bool:
+    if left == right:
+        return True
+    return _singular_marker(left) == _singular_marker(right)
+
+
+def _singular_marker(value: str) -> str:
+    normalized = str(value or "").strip().lower()
+    if len(normalized) > 4 and normalized.endswith("ies"):
+        return f"{normalized[:-3]}y"
+    if len(normalized) > 3 and normalized.endswith("s") and not normalized.endswith("ss"):
+        return normalized[:-1]
+    return normalized
 
 
 def _find_phrase_span(

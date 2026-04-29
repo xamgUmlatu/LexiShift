@@ -137,6 +137,49 @@ def sense_id(sense: Mapping[str, object]) -> str:
     return str(sense.get("sense_id") or "").strip()
 
 
+def active_visible_alias_senses(active_sense: Mapping[str, object]) -> list[dict[str, object]]:
+    metadata = active_sense.get("metadata")
+    if not isinstance(metadata, Mapping):
+        return []
+    aliases = metadata.get("visible_target_aliases")
+    if not isinstance(aliases, Sequence) or isinstance(aliases, (str, bytes)):
+        return []
+    active_id = sense_id(active_sense)
+    trigger_label = str(active_sense.get("target_lemma") or "").strip()
+    alias_senses: list[dict[str, object]] = []
+    for index, alias in enumerate(aliases, start=1):
+        if not isinstance(alias, Mapping):
+            continue
+        target = str(alias.get("translation") or active_sense.get("target_lemma") or "").strip()
+        canonical_pos = str(alias.get("canonical_pos") or "").strip()
+        sense_text = str(alias.get("sense_text") or "").strip()
+        if not target or not canonical_pos or not sense_text:
+            continue
+        label = f"{trigger_label} same-visible {canonical_pos} sense: {sense_text}"
+        alias_senses.append(
+            {
+                "sense_id": f"{active_id}:visible-alias:{index}:{slug(canonical_pos)}",
+                "target_lemma": target,
+                "canonical_pos": canonical_pos,
+                "evidence_views": {
+                    "sense_label": label,
+                    "gloss_text": sense_text,
+                    "sense_gloss_bundle": f"{label} | {sense_text}",
+                    "all_evidence_text": f"{target} | {label} | {sense_text}",
+                },
+                "metadata": {
+                    "sense_role": "active_visible_target_alias",
+                    "source_active_sense_id": active_id,
+                    "support_sources": list(alias.get("support_sources") or ()),
+                    "wordnet_linked": bool(alias.get("wordnet_linked")),
+                    "best_wordnet_link_score": float(alias.get("best_wordnet_link_score") or 0.0),
+                    "best_wordnet_overlap": list(alias.get("best_wordnet_overlap") or ()),
+                },
+            }
+        )
+    return alias_senses
+
+
 def slug(value: object) -> str:
     text = str(value or "").strip().lower()
     return SLUG_RE.sub("-", text).strip("-") or "row"
