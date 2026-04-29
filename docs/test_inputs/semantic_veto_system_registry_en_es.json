@@ -1,0 +1,743 @@
+{
+  "schema_version": 1,
+  "registry_id": "en_es_semantic_veto_system_registry_v1",
+  "last_updated": "2026-04-30",
+  "purpose": "Machine-readable reconciliation map for the en-es semantic sentence-veto runtime, research harnesses, candidate artifacts, and follow-up audit passes.",
+  "state_definitions": {
+    "current_runtime": "Participates in the browser/helper YES/NO decision path today.",
+    "current_reference": "Maintained reference or process doc for current work.",
+    "current_research": "Active research harness or ledger used to evaluate candidates.",
+    "current_candidate": "Part of the single current research candidate stack, not runtime-promoted.",
+    "supporting_current": "Supports the current candidate or current interpretation but is not itself the candidate.",
+    "generated_evidence": "Generated or rendered artifact used as evidence, not authority by itself.",
+    "diagnostic_only": "Useful for investigation or negative controls, not promotion authority.",
+    "historical_reference": "Still useful context but not current steering truth.",
+    "queued_audit": "Known important surface that must be classified in a later pass.",
+    "superseded": "Preserved for audit history but replaced by a newer lane."
+  },
+  "component_definitions": {
+    "runtime_path": "Actual browser/helper semantic-admission decision path.",
+    "source_admission": "Evidence generation, normalization, leakage checks, source merge, and sense admission.",
+    "decision_research": "Context/evidence/scorer/aggregation/final-rule research matrices.",
+    "candidate_wave6": "Current wave6 auth-frame plus raw-sentence plus rescue replay candidate.",
+    "evaluation_data": "Frozen datasets, heldout cases, phrase/no-winner cases, and queues.",
+    "diagnostics": "Failure mining, summary renderers, and crack-finding tools.",
+    "process_governance": "Docs and ledgers that coordinate many-turn work.",
+    "historical_or_seed": "Seed-pass lanes and older artifacts that should not silently steer current promotion."
+  },
+  "pass_checklist": [
+    {
+      "pass_id": "runtime_path",
+      "state": "in_progress",
+      "lens": "Trace the actual production YES/NO path and label nearby non-runtime tools.",
+      "primary_outputs": [
+        "registry entries with current_runtime or current_research state",
+        "short runtime path diagram in semantic_veto_reconciliation_workstream.md"
+      ],
+      "cracks_to_watch": [
+        "research policy mistaken for runtime default",
+        "named policy docs drifting from code",
+        "fallback behavior obscuring semantic abstain behavior"
+      ]
+    },
+    {
+      "pass_id": "research_harness",
+      "state": "queued_next",
+      "lens": "Map each active harness to the exact question it answers.",
+      "primary_outputs": [
+        "harness rows grouped by decision axis",
+        "duplicate or superseded harness rows labeled explicitly"
+      ],
+      "cracks_to_watch": [
+        "one harness using a different input lane than its name implies",
+        "final decision-rule and active-score experiments being mixed",
+        "negative controls omitted from candidate claims"
+      ]
+    },
+    {
+      "pass_id": "data_artifacts",
+      "state": "queued_next",
+      "lens": "Separate frozen inputs, generated source rows, latest reports, and historical outputs.",
+      "primary_outputs": [
+        "current candidate rerun inputs",
+        "control and comparator artifacts",
+        "artifact scope and breadth notes"
+      ],
+      "cracks_to_watch": [
+        "latest artifact pointing at stale source input",
+        "discovery rows blended into locked eval",
+        "missing input hashes or unclear dataset ids"
+      ]
+    },
+    {
+      "pass_id": "assumptions",
+      "state": "queued_next",
+      "lens": "Turn hidden candidate assumptions into explicit evidence-linked rows.",
+      "primary_outputs": [
+        "assumption ledger entries for context, evidence, scorer, guard, and thresholds",
+        "queued tests for unproven assumptions"
+      ],
+      "cracks_to_watch": [
+        "raw_sentence treated as universally better",
+        "rescue gates treated as safe outside tested phrase suites",
+        "source class frames growing without source-backed triggers"
+      ]
+    },
+    {
+      "pass_id": "overfit_leakage",
+      "state": "queued_next",
+      "lens": "Search specifically for test-shaped behavior and leakage.",
+      "primary_outputs": [
+        "candidate overfit risk row",
+        "case-shaped template audit",
+        "negative control requirements"
+      ],
+      "cracks_to_watch": [
+        "browser sentence text inside evidence rows",
+        "Spanish target lemma leakage",
+        "threshold selected on the same heldout suite used for promotion",
+        "templates shaped to one case instead of source class"
+      ]
+    },
+    {
+      "pass_id": "best_candidate",
+      "state": "queued_next",
+      "lens": "Reduce the project to one current candidate, one control, one blocker list, and one next breadth test.",
+      "primary_outputs": [
+        "current candidate row",
+        "current control row",
+        "promotion blocker list"
+      ],
+      "cracks_to_watch": [
+        "multiple candidates described as current",
+        "phrase/no-winner behavior hidden inside active/shadow metrics",
+        "promotion criteria moving after results are known"
+      ]
+    },
+    {
+      "pass_id": "archive_consolidation",
+      "state": "queued_next",
+      "lens": "Demote or label old artifacts after surviving value is migrated.",
+      "primary_outputs": [
+        "historical_reference and superseded rows",
+        "follow-up cleanup queue"
+      ],
+      "cracks_to_watch": [
+        "deleting artifacts before preserving their lesson",
+        "old latest artifacts retaining steering power",
+        "docs citing generated outputs as authority"
+      ]
+    }
+  ],
+  "current_candidate": {
+    "candidate_id": "wave6_auth_frame_raw_sentence_surface_pos_rescue",
+    "production_status": "research_only",
+    "runtime_policy_change": "none",
+    "control": "wave6 alternate-phrase semantic surface-POS raw-sentence lane before authorization-frame rows",
+    "candidate_summary": "Translation-sense plus alternate-sense phrase evidence, raw-sentence context, semantic phrase prototypes, surface-POS rescue/preemption, deterministic source-backed authorization-frame rows, and replayed rescue gates.",
+    "current_result": {
+      "active_shadow_cases": 38,
+      "active_shadow_harmful_replacements": 0,
+      "active_shadow_false_abstains": 0,
+      "active_shadow_replace_recall": 1.0,
+      "active_shadow_decision_accuracy": 1.0,
+      "phrase_no_winner_cases": 16,
+      "unrescued_phrase_harmful_replacements": 2,
+      "rescue_replay_passing_policy_count": 12
+    },
+    "promotion_blockers": [
+      "bounded to 16 families and 54 heldout cases",
+      "rescue replay is not yet runtime policy",
+      "broader semantic-class adapter breadth is untested",
+      "phrase/no-winner safety must stay visible separately from active/shadow scoring"
+    ]
+  },
+  "entries": [
+    {
+      "artifact_id": "runtime_scoring_code",
+      "title": "Runtime semantic scoring implementation",
+      "component": "runtime_path",
+      "state": "current_runtime",
+      "path": "core/lexishift_core/rulegen/semantic_routing_runtime_scoring.py",
+      "role": "Computes context views, evidence similarities, active-vs-shadow margins, phrase preemption, and rescue behavior for runtime decisioning.",
+      "owner_doc": "docs/rulegen/semantic_sentence_veto_algorithm.md",
+      "current_use": "Production code path when semantic admission is active.",
+      "risk": "Runtime behavior can drift from research lanes if policy ids or context/evidence views are confused.",
+      "next_audit_pass": "runtime_path",
+      "verification_artifacts": [
+        "core/tests/rulegen/test_semantic_routing_runtime_scoring.py"
+      ]
+    },
+    {
+      "artifact_id": "runtime_policy_code",
+      "title": "Runtime semantic policy registry",
+      "component": "runtime_path",
+      "state": "current_runtime",
+      "path": "core/lexishift_core/rulegen/semantic_routing_runtime_policy.py",
+      "role": "Defines named production semantic decision policies and pair defaults.",
+      "owner_doc": "docs/rulegen/semantic_sentence_veto_algorithm.md",
+      "current_use": "Production policy resolution; not automatically changed by research artifacts.",
+      "risk": "Research candidates can be mistaken for pair defaults.",
+      "next_audit_pass": "runtime_path",
+      "verification_artifacts": [
+        "core/tests/rulegen/test_semantic_routing_runtime_policy.py"
+      ]
+    },
+    {
+      "artifact_id": "extension_manifest_runtime_order",
+      "title": "Extension manifest runtime order",
+      "component": "runtime_path",
+      "state": "current_runtime",
+      "path": "apps/chrome-extension/manifest.json",
+      "role": "Declares nativeMessaging permission, background service worker, and content-script load order for helper transport, semantic runtime modules, diagnostics, settings, and content bootstrap.",
+      "owner_doc": "docs/rulegen/semantic_sentence_veto_algorithm.md",
+      "current_use": "Ensures semantic runtime modules and the native-message bridge are available before content_script.js boots.",
+      "risk": "Script-order drift can make the semantic gate unavailable or force browser matches down fallback paths before policy scoring.",
+      "next_audit_pass": "runtime_path",
+      "verification_artifacts": [
+        "core/tests/architecture/test_extension_structure.py"
+      ]
+    },
+    {
+      "artifact_id": "extension_content_script_bootstrap",
+      "title": "Extension content-script runtime bootstrap",
+      "component": "runtime_path",
+      "state": "current_runtime",
+      "path": "apps/chrome-extension/content_script.js",
+      "role": "Constructs the helper client, helper rules runtime, active-rules runtime, semantic gate runtime, DOM scan runtime, settings pipeline, and runtime action loop.",
+      "owner_doc": "docs/rulegen/semantic_sentence_veto_algorithm.md",
+      "current_use": "Top-level browser runtime wiring that connects semantic readiness, per-text admission, and DOM replacement rendering.",
+      "risk": "Bootstrap wiring drift can disconnect tested runtime modules or bypass semantic admission entirely.",
+      "next_audit_pass": "runtime_path",
+      "verification_artifacts": [
+        "core/tests/architecture/test_extension_structure.py",
+        "core/tests/dev/test_extension_helper_rule_confidence_contract.py",
+        "core/tests/dev/test_extension_semantic_gate_runtime_contract.py"
+      ]
+    },
+    {
+      "artifact_id": "extension_apply_settings_pipeline",
+      "title": "Extension apply-settings semantic propagation",
+      "component": "runtime_path",
+      "state": "current_runtime",
+      "path": "apps/chrome-extension/content/runtime/apply_settings_pipeline.js",
+      "role": "Runs active-rules resolution, writes semantic admission capability and fallback policy into current settings, and invokes runtime apply actions.",
+      "owner_doc": "docs/rulegen/semantic_sentence_veto_algorithm.md",
+      "current_use": "Settings propagation surface that determines whether the semantic gate sees srsSemanticAdmissionEnabled and the selected fallback policy.",
+      "risk": "A propagation mismatch can make ready semantic coverage look inactive, or can apply the wrong fallback policy in the browser gate.",
+      "next_audit_pass": "runtime_path",
+      "verification_artifacts": [
+        "core/tests/architecture/test_extension_structure.py",
+        "core/tests/dev/test_extension_helper_rule_confidence_contract.py",
+        "core/tests/dev/test_extension_semantic_gate_runtime_contract.py"
+      ]
+    },
+    {
+      "artifact_id": "extension_active_rules_runtime",
+      "title": "Extension active-rules semantic readiness gate",
+      "component": "runtime_path",
+      "state": "current_runtime",
+      "path": "apps/chrome-extension/content/runtime/rules/active_rules_runtime.js",
+      "role": "Resolves active SRS-origin rules, checks ready semantic-admission coverage, resolves semantic inventory availability, and exposes whether semantic admission is active for the scan runtime.",
+      "owner_doc": "docs/rulegen/semantic_sentence_veto_algorithm.md",
+      "current_use": "Browser-side readiness gate before any semantic YES/NO batch is attempted.",
+      "risk": "A ready-rule or inventory availability mismatch can make semantic gating silently fall back before policy scoring runs.",
+      "next_audit_pass": "runtime_path",
+      "verification_artifacts": [
+        "core/tests/dev/test_extension_helper_rule_confidence_contract.py"
+      ]
+    },
+    {
+      "artifact_id": "extension_semantic_gate_runtime",
+      "title": "Extension semantic gate runtime",
+      "component": "runtime_path",
+      "state": "current_runtime",
+      "path": "apps/chrome-extension/content/runtime/semantic/semantic_gate_runtime.js",
+      "role": "Builds semantic-admission request batches from browser matches, applies fallback/debug decisions, and filters retained matches to effective replace decisions.",
+      "owner_doc": "docs/rulegen/semantic_sentence_veto_algorithm.md",
+      "current_use": "Browser-visible YES/NO gate between lexical match selection and replacement rendering.",
+      "risk": "Fallback defaults, inventory errors, or debug overrides can be mistaken for policy decisions if the decision_source is ignored.",
+      "next_audit_pass": "runtime_path",
+      "verification_artifacts": [
+        "core/tests/dev/test_extension_semantic_gate_runtime_contract.py"
+      ]
+    },
+    {
+      "artifact_id": "extension_replacement_renderer",
+      "title": "Extension replacement renderer",
+      "component": "runtime_path",
+      "state": "current_runtime",
+      "path": "apps/chrome-extension/content/processing/replacements.js",
+      "role": "Calls the semantic gate after lexical match filtering and renders only retained replacement spans into the DOM.",
+      "owner_doc": "docs/rulegen/semantic_sentence_veto_algorithm.md",
+      "current_use": "Final browser-side point where an abstained semantic match stays as source text and a replace decision becomes visible DOM.",
+      "risk": "The DOM outcome can be misread if filtered-out matches are not distinguished from no lexical match.",
+      "next_audit_pass": "runtime_path",
+      "verification_artifacts": [
+        "core/tests/dev/test_extension_replacements_contract.py",
+        "core/tests/dev/test_extension_semantic_gate_runtime_contract.py"
+      ]
+    },
+    {
+      "artifact_id": "extension_helper_rules_runtime",
+      "title": "Extension helper rules runtime",
+      "component": "runtime_path",
+      "state": "current_runtime",
+      "path": "apps/chrome-extension/content/runtime/rules/helper_rules_runtime.js",
+      "role": "Fetches helper rules, helper or cached semantic inventory, and helper semantic-admission batch responses for the content runtime.",
+      "owner_doc": "docs/rulegen/semantic_sentence_veto_algorithm.md",
+      "current_use": "Browser-to-helper bridge used by active-rules readiness and semantic batch admission.",
+      "risk": "Helper transport errors and helper-cache fallbacks can change whether browser matches reach policy scoring.",
+      "next_audit_pass": "runtime_path",
+      "verification_artifacts": [
+        "core/tests/dev/test_extension_helper_error_surface_contract.py",
+        "core/tests/dev/test_extension_semantic_gate_runtime_contract.py"
+      ]
+    },
+    {
+      "artifact_id": "extension_helper_semantic_cache",
+      "title": "Extension helper semantic inventory cache",
+      "component": "runtime_path",
+      "state": "current_runtime",
+      "path": "apps/chrome-extension/shared/helper/helper_cache.js",
+      "role": "Persists and reloads helper semantic inventory by pair/profile for helper-cache readiness fallback.",
+      "owner_doc": "docs/rulegen/semantic_sentence_veto_algorithm.md",
+      "current_use": "Cached inventory surface that can keep semantic scoring available when the helper inventory request falls back to helper-cache.",
+      "risk": "Stale or profile-mismatched cached inventory can make semantic admission appear available with outdated evidence.",
+      "next_audit_pass": "runtime_path",
+      "verification_artifacts": [
+        "core/tests/architecture/test_extension_structure.py",
+        "core/tests/dev/test_extension_srs_runtime_diagnostics_contract.py"
+      ]
+    },
+    {
+      "artifact_id": "extension_helper_transport",
+      "title": "Extension helper transport bridge",
+      "component": "runtime_path",
+      "state": "current_runtime",
+      "path": "apps/chrome-extension/shared/helper/helper_transport_extension.js",
+      "role": "Sends content-runtime helper requests through chrome.runtime messaging to the background native-message bridge.",
+      "owner_doc": "docs/rulegen/semantic_sentence_veto_algorithm.md",
+      "current_use": "Content-to-background transport layer for get_semantic_inventory and semantic_admit_batch requests.",
+      "risk": "Bridge timeouts or unavailable runtime messaging surface as helper errors and semantic fallback decisions.",
+      "next_audit_pass": "runtime_path",
+      "verification_artifacts": [
+        "core/tests/dev/test_extension_helper_error_localization_contract.py",
+        "core/tests/dev/test_extension_helper_error_surface_contract.py"
+      ]
+    },
+    {
+      "artifact_id": "extension_helper_client",
+      "title": "Extension helper client",
+      "component": "runtime_path",
+      "state": "current_runtime",
+      "path": "apps/chrome-extension/shared/helper/helper_client.js",
+      "role": "Sends native-helper messages for semantic inventory lookup and semantic_admit_batch requests.",
+      "owner_doc": "docs/rulegen/semantic_sentence_veto_algorithm.md",
+      "current_use": "Shared transport client beneath the browser semantic inventory and admission calls.",
+      "risk": "Transport-level failures surface as fallback decisions rather than semantic policy outcomes.",
+      "next_audit_pass": "runtime_path",
+      "verification_artifacts": [
+        "core/tests/dev/test_extension_helper_error_surface_contract.py",
+        "core/tests/dev/test_extension_helper_status_profile_contract.py"
+      ]
+    },
+    {
+      "artifact_id": "extension_background_native_bridge",
+      "title": "Extension background native-message bridge",
+      "component": "runtime_path",
+      "state": "current_runtime",
+      "path": "apps/chrome-extension/background.js",
+      "role": "Receives helper bridge requests from content scripts and forwards them to the native helper host.",
+      "owner_doc": "docs/rulegen/semantic_sentence_veto_algorithm.md",
+      "current_use": "Background service-worker bridge between extension runtime messaging and native helper requests.",
+      "risk": "Native host unavailability, timeout, or permission failures become helper errors that trigger semantic fallback instead of policy scoring.",
+      "next_audit_pass": "runtime_path",
+      "verification_artifacts": [
+        "core/tests/dev/test_extension_helper_error_localization_contract.py"
+      ]
+    },
+    {
+      "artifact_id": "native_helper_semantic_dispatch",
+      "title": "Native helper semantic dispatch",
+      "component": "runtime_path",
+      "state": "current_runtime",
+      "path": "scripts/helper/lexishift_native_host.py",
+      "role": "Routes extension native messages for get_semantic_inventory and semantic_admit_batch into helper engine use cases.",
+      "owner_doc": "docs/rulegen/semantic_sentence_veto_algorithm.md",
+      "current_use": "Native-message dispatch point between the extension transport and Python helper runtime.",
+      "risk": "A dispatch mismatch can make browser-side semantic readiness look available while admission requests fail.",
+      "next_audit_pass": "runtime_path",
+      "verification_artifacts": [
+        "core/tests/dev/test_helper_translation_dict_entrypoints.py"
+      ]
+    },
+    {
+      "artifact_id": "helper_semantic_admission_use_case",
+      "title": "Helper semantic admission use case",
+      "component": "runtime_path",
+      "state": "current_runtime",
+      "path": "core/lexishift_core/helper/use_cases/semantic_admission.py",
+      "role": "Validates semantic-admission request batches, loads the profile semantic inventory, and delegates response construction to the runtime policy layer.",
+      "owner_doc": "docs/rulegen/semantic_sentence_veto_algorithm.md",
+      "current_use": "Python helper entrypoint for browser semantic_admit_batch requests.",
+      "risk": "Inventory profile or pair mismatches here force fallback decisions before scoring.",
+      "next_audit_pass": "runtime_path",
+      "verification_artifacts": [
+        "core/tests/helper/test_helper_engine.py",
+        "core/tests/dev/test_helper_translation_dict_entrypoints.py"
+      ]
+    },
+    {
+      "artifact_id": "helper_engine_semantic_entrypoint",
+      "title": "Helper engine semantic entrypoint",
+      "component": "runtime_path",
+      "state": "current_runtime",
+      "path": "core/lexishift_core/helper/engine.py",
+      "role": "Exposes load_semantic_inventory and semantic_admit_batch through the helper engine API.",
+      "owner_doc": "docs/rulegen/semantic_sentence_veto_algorithm.md",
+      "current_use": "Runtime helper API surface reached by the native host and helper CLI layers.",
+      "risk": "Engine-level routing drift can disconnect tested use cases from the native-helper surface.",
+      "next_audit_pass": "runtime_path",
+      "verification_artifacts": [
+        "core/tests/helper/test_helper_engine.py"
+      ]
+    },
+    {
+      "artifact_id": "runtime_diagnostics_semantic_surfaces",
+      "title": "Semantic runtime diagnostics surfaces",
+      "component": "diagnostics",
+      "state": "diagnostic_only",
+      "path": "core/lexishift_core/helper/use_cases/runtime_diagnostics.py",
+      "role": "Reports semantic inventory, semantic-admission pointer, and publication-manifest health for operators.",
+      "owner_doc": "docs/rulegen/semantic_routing_runtime_readiness.md",
+      "current_use": "Diagnostic evidence only; it does not decide browser replace or abstain outcomes.",
+      "risk": "Diagnostic pass/fail wording can be mistaken for the actual semantic gate decision path.",
+      "next_audit_pass": "runtime_path",
+      "verification_artifacts": [
+        "core/tests/helper/test_helper_engine.py"
+      ]
+    },
+    {
+      "artifact_id": "semantic_sentence_veto_algorithm_doc",
+      "title": "Semantic sentence-veto algorithm reference",
+      "component": "process_governance",
+      "state": "current_reference",
+      "path": "docs/rulegen/semantic_sentence_veto_algorithm.md",
+      "role": "Human reference for the end-to-end algorithm and runtime/research separation.",
+      "owner_doc": "docs/developer/documentation_governance.md",
+      "current_use": "Primary algorithm map before runtime-path audits.",
+      "risk": "Can become stale if code defaults change without doc update.",
+      "next_audit_pass": "runtime_path",
+      "verification_artifacts": [
+        "core/lexishift_core/rulegen/semantic_routing_runtime_scoring.py",
+        "core/lexishift_core/rulegen/semantic_routing_runtime_policy.py"
+      ]
+    },
+    {
+      "artifact_id": "source_admission_program_doc",
+      "title": "Semantic source admission program",
+      "component": "source_admission",
+      "state": "current_reference",
+      "path": "docs/rulegen/semantic_source_admission_program.md",
+      "role": "Planning and operating model for source coverage, leakage checks, sense admission, and promotion gating.",
+      "owner_doc": "docs/rulegen/semantic_sentence_veto_algorithm.md",
+      "current_use": "Source-admission orientation and constraints.",
+      "risk": "Long evidence list can obscure the current best candidate.",
+      "next_audit_pass": "research_harness",
+      "verification_artifacts": [
+        "scripts/testing/semantic_source_admission_cycle_en_es.py"
+      ]
+    },
+    {
+      "artifact_id": "decision_rule_comparison_plan",
+      "title": "Semantic decision rule comparison plan",
+      "component": "decision_research",
+      "state": "current_reference",
+      "path": "docs/rulegen/semantic_decision_rule_comparison_plan.md",
+      "role": "Separates final YES/NO rules from context, evidence, scorer, aggregation, and phrase experiments.",
+      "owner_doc": "docs/rulegen/semantic_sentence_veto_algorithm.md",
+      "current_use": "Methodology guardrail before changing decision rules.",
+      "risk": "Can be bypassed if source work is described as decision-rule proof.",
+      "next_audit_pass": "assumptions",
+      "verification_artifacts": [
+        "docs/test_inputs/semantic_decision_research_lanes_en_es.json"
+      ]
+    },
+    {
+      "artifact_id": "decision_research_lanes_ledger",
+      "title": "Semantic decision research lanes ledger",
+      "component": "decision_research",
+      "state": "current_research",
+      "path": "docs/test_inputs/semantic_decision_research_lanes_en_es.json",
+      "role": "Tracks research lane states without collapsing them into a generic complete state.",
+      "owner_doc": "docs/rulegen/semantic_decision_rule_comparison_plan.md",
+      "current_use": "Current research-lane state ledger.",
+      "risk": "Can grow without enough component-level classification unless paired with this registry.",
+      "next_audit_pass": "research_harness",
+      "verification_artifacts": [
+        "scripts/testing/semantic_decision_research_lanes_summary.py",
+        "docs/test_outputs/semantic_decision_research_lanes_latest.md"
+      ]
+    },
+    {
+      "artifact_id": "decision_rule_matrix_harness",
+      "title": "Decision rule matrix harness",
+      "component": "decision_research",
+      "state": "current_research",
+      "path": "scripts/testing/semantic_decision_rule_matrix_en_es.py",
+      "role": "Compares context, evidence, scorer, aggregation, phrase handling, and final decision rule families.",
+      "owner_doc": "docs/rulegen/semantic_decision_rule_comparison_plan.md",
+      "current_use": "Research matrix, not runtime policy.",
+      "risk": "Multiple axes can be confused if result rows are summarized too aggressively.",
+      "next_audit_pass": "research_harness",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_decision_rule_matrix_en_es.py"
+      ]
+    },
+    {
+      "artifact_id": "source_admission_cycle_harness",
+      "title": "Source admission cycle harness",
+      "component": "source_admission",
+      "state": "current_research",
+      "path": "scripts/testing/semantic_source_admission_cycle_en_es.py",
+      "role": "Runs leakage audit, merge, final sense admission, contract reporting, and optional ablation for candidate evidence batches.",
+      "owner_doc": "docs/rulegen/semantic_source_admission_program.md",
+      "current_use": "Canonical source-admission wrapper for candidate batches.",
+      "risk": "Skipping heldout validation can make analysis-only admission look stronger than it is.",
+      "next_audit_pass": "research_harness",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_source_admission_cycle_en_es.py"
+      ]
+    },
+    {
+      "artifact_id": "heldout_validation_harness",
+      "title": "Semantic source heldout validation harness",
+      "component": "source_admission",
+      "state": "current_research",
+      "path": "scripts/testing/semantic_source_heldout_validation_en_es.py",
+      "role": "Builds heldout sentence datasets and evaluates a configured evidence batch and decision shape.",
+      "owner_doc": "docs/rulegen/semantic_source_admission_program.md",
+      "current_use": "Active/shadow and phrase/no-winner candidate validation.",
+      "risk": "A clean active/shadow suite can hide phrase/no-winner harm if not paired with phrase validation.",
+      "next_audit_pass": "data_artifacts",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_source_heldout_validation_en_es.py"
+      ]
+    },
+    {
+      "artifact_id": "source_margin_policy_sweep",
+      "title": "Semantic source margin policy sweep",
+      "component": "decision_research",
+      "state": "current_research",
+      "path": "scripts/testing/semantic_source_margin_policy_sweep_en_es.py",
+      "role": "Sweeps margin, phrase margin, context view, and decision shape over candidate evidence.",
+      "owner_doc": "docs/rulegen/semantic_decision_rule_comparison_plan.md",
+      "current_use": "Score-surface research and context-view comparisons.",
+      "risk": "Policy grids can be overread as promotion if not validated on locked heldout suites.",
+      "next_audit_pass": "research_harness",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_source_margin_policy_sweep_en_es.py"
+      ]
+    },
+    {
+      "artifact_id": "surface_pos_rescue_sweep",
+      "title": "Surface-POS rescue replay sweep",
+      "component": "candidate_wave6",
+      "state": "current_candidate",
+      "path": "scripts/testing/semantic_surface_pos_rescue_policy_sweep_en_es.py",
+      "role": "Replays fixed active/shadow and phrase/no-winner traces while sweeping deterministic rescue gates.",
+      "owner_doc": "docs/rulegen/semantic_decision_rule_comparison_plan.md",
+      "current_use": "Current wave6 combined-suite rescue candidate exploration.",
+      "risk": "Replay-only candidate can be mistaken for runtime policy.",
+      "next_audit_pass": "best_candidate",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_surface_pos_rescue_policy_sweep_en_es.py",
+        "docs/test_outputs/semantic_surface_pos_rescue_policy_sweep_non_v10_wave6_auth_frame_raw_sentence_latest.md"
+      ]
+    },
+    {
+      "artifact_id": "authorization_frame_adapter",
+      "title": "Authorization-frame evidence adapter",
+      "component": "candidate_wave6",
+      "state": "current_candidate",
+      "path": "scripts/testing/semantic_authorization_frame_evidence_en_es.py",
+      "role": "Emits generic authorization evidence rows when a selected sense has source-backed permission-like gloss or translation-sense text.",
+      "owner_doc": "docs/rulegen/semantic_decision_rule_comparison_plan.md",
+      "current_use": "Current source-backed semantic-class repair for permission-like senses.",
+      "risk": "Template expansion could become case-shaped if not source-triggered and heldout-checked.",
+      "next_audit_pass": "overfit_leakage",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_authorization_frame_evidence_en_es.py",
+        "docs/test_outputs/semantic_authorization_frame_evidence_non_v10_wave6_wiktextract_supported_latest.md"
+      ]
+    },
+    {
+      "artifact_id": "translation_sense_adapter",
+      "title": "Wiktextract translation-sense evidence adapter",
+      "component": "candidate_wave6",
+      "state": "supporting_current",
+      "path": "scripts/testing/semantic_translation_sense_evidence_batch_en_es.py",
+      "role": "Converts source-backed translation-sense text into normalized evidence rows.",
+      "owner_doc": "docs/rulegen/semantic_decision_rule_comparison_plan.md",
+      "current_use": "Wave6 selected-sense source coverage foundation.",
+      "risk": "Translation-sense text must stay source-backed and not target-lemma-derived.",
+      "next_audit_pass": "overfit_leakage",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_translation_sense_evidence_batch_en_es.py",
+        "docs/test_outputs/semantic_translation_sense_evidence_non_v10_wave6_wiktextract_supported_latest.md"
+      ]
+    },
+    {
+      "artifact_id": "alternate_sense_phrase_adapter",
+      "title": "WordNet alternate-sense phrase evidence adapter",
+      "component": "candidate_wave6",
+      "state": "supporting_current",
+      "path": "scripts/testing/semantic_wordnet_alternate_sense_phrase_evidence_en_es.py",
+      "role": "Adds phrase-control rows for alternate senses so phrase/no-winner behavior stays separately visible.",
+      "owner_doc": "docs/rulegen/semantic_decision_rule_comparison_plan.md",
+      "current_use": "Wave6 phrase/no-winner coverage foundation.",
+      "risk": "Phrase rows must not become broad semantic competitors without a dedicated ablation.",
+      "next_audit_pass": "assumptions",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_wordnet_alternate_sense_phrase_evidence_en_es.py",
+        "docs/test_outputs/semantic_wordnet_alternate_sense_phrase_non_v10_wave6_wiktextract_supported_latest.md"
+      ]
+    },
+    {
+      "artifact_id": "wave6_wiktextract_dataset",
+      "title": "Wave6 Wiktextract-supported source dataset",
+      "component": "evaluation_data",
+      "state": "current_candidate",
+      "path": "docs/test_outputs/experiments/semantic_non_v10_wave_drafts/en_es_source_non_v10_wave6_anypos_wiktextract_supported_v1_dataset.json",
+      "role": "Base selected-family dataset for the current wave6 source-backed candidate.",
+      "owner_doc": "docs/rulegen/semantic_decision_rule_comparison_plan.md",
+      "current_use": "Current candidate source input.",
+      "risk": "Lives under test_outputs/experiments, so registry must keep its role explicit.",
+      "next_audit_pass": "data_artifacts",
+      "verification_artifacts": [
+        "docs/test_inputs/semantic_routing_cases/en_es_source_non_v10_wave6_wiktextract_supported_heldout_cases_v1.json"
+      ]
+    },
+    {
+      "artifact_id": "wave6_active_shadow_heldout",
+      "title": "Wave6 active/shadow heldout cases",
+      "component": "evaluation_data",
+      "state": "current_candidate",
+      "path": "docs/test_inputs/semantic_routing_cases/en_es_source_non_v10_wave6_wiktextract_supported_heldout_cases_v1.json",
+      "role": "Locked active/shadow validation cases for the current wave6 candidate.",
+      "owner_doc": "docs/rulegen/semantic_decision_rule_comparison_plan.md",
+      "current_use": "Current active/shadow heldout suite.",
+      "risk": "Thresholds chosen on this suite would not be independent promotion evidence.",
+      "next_audit_pass": "data_artifacts",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_source_non_v10_wave6_auth_frame_surface_pos_raw_sentence_heldout_margin000_phrase002_validation_latest.md"
+      ]
+    },
+    {
+      "artifact_id": "wave6_phrase_heldout",
+      "title": "Wave6 phrase/no-winner heldout cases",
+      "component": "evaluation_data",
+      "state": "current_candidate",
+      "path": "docs/test_inputs/semantic_routing_cases/en_es_source_non_v10_wave6_wiktextract_supported_phrase_cases_v1.json",
+      "role": "Locked phrase/no-winner validation cases for the current wave6 candidate.",
+      "owner_doc": "docs/rulegen/semantic_decision_rule_comparison_plan.md",
+      "current_use": "Current phrase/no-winner heldout suite.",
+      "risk": "Must stay visible separately from active/shadow metrics.",
+      "next_audit_pass": "data_artifacts",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_source_non_v10_wave6_auth_frame_surface_pos_raw_sentence_phrase_margin000_phrase002_validation_latest.md"
+      ]
+    },
+    {
+      "artifact_id": "auth_frame_admission_report",
+      "title": "Authorization-frame admission report",
+      "component": "candidate_wave6",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_source_admission_cycle_auth_frame_non_v10_wave6_wiktextract_supported_latest.md",
+      "role": "Generated evidence that the authorization-frame candidate passes leakage, merge, contract, and sense-admission checks.",
+      "owner_doc": "docs/rulegen/semantic_decision_rule_comparison_plan.md",
+      "current_use": "Evidence for current candidate source-admission status.",
+      "risk": "Admission report is analysis-only without heldout validation.",
+      "next_audit_pass": "data_artifacts",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_source_admission_cycle_auth_frame_non_v10_wave6_wiktextract_supported_latest.json"
+      ]
+    },
+    {
+      "artifact_id": "auth_frame_active_shadow_validation",
+      "title": "Auth-frame raw-sentence active/shadow validation",
+      "component": "candidate_wave6",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_source_non_v10_wave6_auth_frame_surface_pos_raw_sentence_heldout_margin000_phrase002_validation_latest.md",
+      "role": "Generated heldout evidence for the current active/shadow candidate lane.",
+      "owner_doc": "docs/rulegen/semantic_decision_rule_comparison_plan.md",
+      "current_use": "Current measured active/shadow result: 0 harmful and 0 false abstains on 38 cases.",
+      "risk": "Breadth is too small for promotion.",
+      "next_audit_pass": "best_candidate",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_source_non_v10_wave6_auth_frame_surface_pos_raw_sentence_heldout_margin000_phrase002_validation_latest.json"
+      ]
+    },
+    {
+      "artifact_id": "auth_frame_phrase_validation",
+      "title": "Auth-frame raw-sentence phrase/no-winner validation",
+      "component": "candidate_wave6",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_source_non_v10_wave6_auth_frame_surface_pos_raw_sentence_phrase_margin000_phrase002_validation_latest.md",
+      "role": "Generated phrase/no-winner evidence before rescue replay.",
+      "owner_doc": "docs/rulegen/semantic_decision_rule_comparison_plan.md",
+      "current_use": "Shows unrescued phrase/no-winner harm remains visible.",
+      "risk": "Can be misread as candidate failure if rescue replay context is omitted.",
+      "next_audit_pass": "best_candidate",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_surface_pos_rescue_policy_sweep_non_v10_wave6_auth_frame_raw_sentence_latest.md"
+      ]
+    },
+    {
+      "artifact_id": "auth_frame_rescue_replay_report",
+      "title": "Auth-frame rescue replay report",
+      "component": "candidate_wave6",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_surface_pos_rescue_policy_sweep_non_v10_wave6_auth_frame_raw_sentence_latest.md",
+      "role": "Generated combined-suite replay evidence for rescue-gate policies over fixed traces.",
+      "owner_doc": "docs/rulegen/semantic_decision_rule_comparison_plan.md",
+      "current_use": "Current combined active/shadow plus phrase/no-winner rescue candidate evidence.",
+      "risk": "Replay policy has not been promoted to runtime implementation.",
+      "next_audit_pass": "best_candidate",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_surface_pos_rescue_policy_sweep_non_v10_wave6_auth_frame_raw_sentence_latest.json"
+      ]
+    },
+    {
+      "artifact_id": "auth_frame_failure_mining",
+      "title": "Auth-frame failure-class mining report",
+      "component": "diagnostics",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_source_failure_class_mining_non_v10_wave6_auth_frame_latest.md",
+      "role": "Generated overfit/breadth and blocker summary for the current candidate.",
+      "owner_doc": "docs/rulegen/semantic_decision_rule_comparison_plan.md",
+      "current_use": "Keeps promotion posture at review despite clean active/shadow result.",
+      "risk": "Uses unrescued phrase validation as a blocking heldout unless interpreted with rescue replay.",
+      "next_audit_pass": "overfit_leakage",
+      "verification_artifacts": [
+        "scripts/testing/semantic_source_failure_class_mining_en_es.py"
+      ]
+    },
+    {
+      "artifact_id": "semantic_veto_reconciliation_workstream",
+      "title": "Semantic veto reconciliation workstream",
+      "component": "process_governance",
+      "state": "current_reference",
+      "path": "docs/rulegen/semantic_veto_reconciliation_workstream.md",
+      "role": "Many-turn operating plan for shaping the semantic-veto work without losing track of current truth.",
+      "owner_doc": "docs/developer/documentation_governance.md",
+      "current_use": "Top-level reconciliation entrypoint.",
+      "risk": "Must stay concise enough to guide later turns.",
+      "next_audit_pass": "runtime_path",
+      "verification_artifacts": [
+        "scripts/testing/semantic_veto_system_registry_summary.py"
+      ]
+    }
+  ]
+}
