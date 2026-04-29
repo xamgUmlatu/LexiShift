@@ -1,4 +1,88 @@
 {
+  "action_items": [
+    {
+      "action": "Make the current wave6 lane fresh-checkout runnable, or explicitly demote local-only latest reports to provisional evidence.",
+      "action_id": "materialize_current_wave6_lane",
+      "evidence_needed": "Tracked generator scripts or a deterministic rerun command chain for every artifact in the lane rerun order.",
+      "pass_id": "data_artifacts",
+      "priority": "P0",
+      "promotion_impact": "Prevents local experiment outputs from being mistaken for durable current-candidate evidence.",
+      "source_artifacts": [
+        "wave6_auth_frame_raw_sentence_surface_pos_rescue",
+        "translation_sense_adapter",
+        "alternate_sense_phrase_adapter",
+        "authorization_frame_adapter",
+        "auth_frame_admission_report",
+        "auth_frame_active_shadow_validation",
+        "auth_frame_phrase_validation",
+        "auth_frame_rescue_replay_report"
+      ],
+      "status": "active",
+      "validation": "Run the registry audit, focused semantic harness tests for the lane scripts, and doc-reference checks from a clean checkout state."
+    },
+    {
+      "action": "Run the recommended rescue policy through scorer-backed heldout validation before any runtime-policy or promotion claim.",
+      "action_id": "scorer_backed_rescue_policy_confirmation",
+      "evidence_needed": "Non-replay active/shadow and phrase/no-winner validation artifacts for the recommended rescue policy.",
+      "pass_id": "best_candidate",
+      "priority": "P1",
+      "promotion_impact": "Separates fixed-trace replay evidence from an implementable semantic decision policy.",
+      "source_artifacts": [
+        "auth_frame_rescue_replay_report",
+        "surface_pos_rescue_sweep",
+        "wave6_active_shadow_heldout",
+        "wave6_phrase_heldout"
+      ],
+      "status": "queued",
+      "validation": "Run the relevant heldout validation tests plus the registry audit after recording the new artifacts."
+    },
+    {
+      "action": "Audit authorization-frame evidence for source-triggered class behavior rather than browser-case or target-lemma shaping.",
+      "action_id": "source_trigger_overfit_audit",
+      "evidence_needed": "Rows showing the source gloss or translation-sense trigger that allowed each emitted authorization frame, plus negative examples.",
+      "pass_id": "overfit_leakage",
+      "priority": "P1",
+      "promotion_impact": "Keeps the current candidate from relying on case-shaped templates.",
+      "source_artifacts": [
+        "authorization_frame_adapter",
+        "auth_frame_admission_report",
+        "auth_frame_failure_mining"
+      ],
+      "status": "queued",
+      "validation": "Run adapter tests, source-admission leakage reports, and targeted grep/audit checks for browser sentence text and Spanish target lemmas."
+    },
+    {
+      "action": "Convert the current candidate assumptions into explicit tested, untested, and rejected rows.",
+      "action_id": "assumption_ledger_seed",
+      "evidence_needed": "Rows for raw-sentence context, phrase-prototype margin, source-triggered authorization frames, and rescue-gate constraints.",
+      "pass_id": "assumptions",
+      "priority": "P2",
+      "promotion_impact": "Makes future changes explainable without treating today\u2019s best lane as folklore.",
+      "source_artifacts": [
+        "wave6_auth_frame_raw_sentence_surface_pos_rescue",
+        "wave6_alt_phrase_raw_sentence_control",
+        "auth_frame_active_shadow_validation",
+        "auth_frame_phrase_validation"
+      ],
+      "status": "queued",
+      "validation": "Regenerate the registry summary and confirm each assumption links to an artifact or a queued test."
+    },
+    {
+      "action": "Define the next breadth test before tuning the current 16-family wave further.",
+      "action_id": "breadth_expansion_gate",
+      "evidence_needed": "A named next wave or expanded locked heldout suite with source-detectable semantic classes beyond the current authorization-frame case.",
+      "pass_id": "best_candidate",
+      "priority": "P2",
+      "promotion_impact": "Moves from seed-lane quality to broader semantic-veto confidence.",
+      "source_artifacts": [
+        "auth_frame_failure_mining",
+        "wave6_wiktextract_dataset",
+        "non_v10_wave_admission_sweep_harness"
+      ],
+      "status": "queued",
+      "validation": "Run source admission, active/shadow heldout, phrase/no-winner heldout, failure mining, and the registry audit for the expanded lane."
+    }
+  ],
   "component_counts": {
     "candidate_wave6": 9,
     "decision_research": 7,
@@ -782,7 +866,7 @@
     }
   ],
   "entry_count": 46,
-  "generated_at": "2026-04-29T19:46:04Z",
+  "generated_at": "2026-04-29T20:23:30Z",
   "issues": [],
   "next_passes": [
     {

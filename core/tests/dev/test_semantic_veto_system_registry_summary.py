@@ -34,10 +34,12 @@ class SemanticVetoSystemRegistrySummaryTests(unittest.TestCase):
         self.assertEqual(report["pass_count"], 1)
         self.assertEqual(report["state_counts"]["current_reference"], 1)
         self.assertEqual(report["data_artifact_lanes"][0]["lane_id"], "candidate_v1_lane")
+        self.assertEqual(report["action_items"][0]["action_id"], "action_1")
         markdown = render_markdown(report)
         self.assertIn("Semantic Veto System Registry", markdown)
         self.assertIn("candidate_v1", markdown)
         self.assertIn("Data Artifact Lanes", markdown)
+        self.assertIn("Action Items", markdown)
 
     def test_registry_report_flags_missing_candidate_evidence(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -104,6 +106,19 @@ def _registry_json(
         '      "control_artifacts": ["entry_1"],\n'
         '      "local_artifact_cracks": ["local report"],\n'
         '      "rerun_order": ["entry_1"]\n'
+        "    }\n"
+        "  ],\n"
+        '  "action_items": [\n'
+        "    {\n"
+        '      "action_id": "action_1",\n'
+        '      "priority": "P1",\n'
+        '      "status": "queued",\n'
+        '      "pass_id": "runtime_path",\n'
+        '      "source_artifacts": ["entry_1"],\n'
+        '      "action": "Do the thing.",\n'
+        '      "evidence_needed": "Evidence.",\n'
+        '      "validation": "Validation.",\n'
+        '      "promotion_impact": "Impact."\n'
         "    }\n"
         "  ],\n"
         '  "entries": [\n'

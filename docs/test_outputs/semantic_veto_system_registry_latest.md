@@ -1,7 +1,7 @@
 # Semantic Veto System Registry
 
 - Status: `ok`
-- Generated: `2026-04-29T19:46:04Z`
+- Generated: `2026-04-29T20:23:30Z`
 - Registry: `/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_veto_system_registry_en_es.json`
 - Entries: `46`
 - Passes: `7`
@@ -28,6 +28,16 @@
 - `assumptions` (queued_next): Turn hidden candidate assumptions into explicit evidence-linked rows.
 - `best_candidate` (queued_next): Reduce the project to one current candidate, one control, one blocker list, and one next breadth test.
 - `overfit_leakage` (queued_next): Search specifically for test-shaped behavior and leakage.
+
+## Action Items
+
+| Priority | Status | Action | Pass | Source | Evidence Needed | Validation |
+| --- | --- | --- | --- | --- | --- | --- |
+| P0 | active | Make the current wave6 lane fresh-checkout runnable, or explicitly demote local-only latest reports to provisional evidence. | data_artifacts | `wave6_auth_frame_raw_sentence_surface_pos_rescue`, `translation_sense_adapter`, `alternate_sense_phrase_adapter`, `authorization_frame_adapter`, `auth_frame_admission_report`, `auth_frame_active_shadow_validation`, `auth_frame_phrase_validation`, `auth_frame_rescue_replay_report` | Tracked generator scripts or a deterministic rerun command chain for every artifact in the lane rerun order. | Run the registry audit, focused semantic harness tests for the lane scripts, and doc-reference checks from a clean checkout state. |
+| P1 | queued | Run the recommended rescue policy through scorer-backed heldout validation before any runtime-policy or promotion claim. | best_candidate | `auth_frame_rescue_replay_report`, `surface_pos_rescue_sweep`, `wave6_active_shadow_heldout`, `wave6_phrase_heldout` | Non-replay active/shadow and phrase/no-winner validation artifacts for the recommended rescue policy. | Run the relevant heldout validation tests plus the registry audit after recording the new artifacts. |
+| P1 | queued | Audit authorization-frame evidence for source-triggered class behavior rather than browser-case or target-lemma shaping. | overfit_leakage | `authorization_frame_adapter`, `auth_frame_admission_report`, `auth_frame_failure_mining` | Rows showing the source gloss or translation-sense trigger that allowed each emitted authorization frame, plus negative examples. | Run adapter tests, source-admission leakage reports, and targeted grep/audit checks for browser sentence text and Spanish target lemmas. |
+| P2 | queued | Convert the current candidate assumptions into explicit tested, untested, and rejected rows. | assumptions | `wave6_auth_frame_raw_sentence_surface_pos_rescue`, `wave6_alt_phrase_raw_sentence_control`, `auth_frame_active_shadow_validation`, `auth_frame_phrase_validation` | Rows for raw-sentence context, phrase-prototype margin, source-triggered authorization frames, and rescue-gate constraints. | Regenerate the registry summary and confirm each assumption links to an artifact or a queued test. |
+| P2 | queued | Define the next breadth test before tuning the current 16-family wave further. | best_candidate | `auth_frame_failure_mining`, `wave6_wiktextract_dataset`, `non_v10_wave_admission_sweep_harness` | A named next wave or expanded locked heldout suite with source-detectable semantic classes beyond the current authorization-frame case. | Run source admission, active/shadow heldout, phrase/no-winner heldout, failure mining, and the registry audit for the expanded lane. |
 
 ## Counts
 

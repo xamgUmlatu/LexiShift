@@ -211,6 +211,24 @@ Cracks preserved by this pass:
   so the registry must keep its role explicit.
 - Rescue replay is evidence over fixed traces, not scorer-backed runtime policy.
 
+## Action Ledger
+
+Action items live in `docs/test_inputs/semantic_veto_system_registry_en_es.json`
+and render into `docs/test_outputs/semantic_veto_system_registry_latest.md`.
+Each row has a priority, status, owning pass, source artifacts, evidence needed,
+validation, and promotion impact.
+
+Current highest-priority actions:
+
+- `P0` `materialize_current_wave6_lane`: make the current wave6 lane
+  fresh-checkout runnable, or demote local-only latest reports to provisional
+  evidence.
+- `P1` `scorer_backed_rescue_policy_confirmation`: run the recommended rescue
+  policy through scorer-backed heldout validation before any runtime-policy or
+  promotion claim.
+- `P1` `source_trigger_overfit_audit`: verify authorization-frame evidence is
+  source-triggered class behavior, not browser-case or target-lemma shaping.
+
 ## Next-Agent Handoff
 
 Start here. This is the canonical handoff for the reconciliation workstream.
@@ -226,6 +244,7 @@ Current state:
   question they answer.
 - Active pass: `data_artifacts`; current work is keeping the current candidate
   inputs, generated reports, control artifacts, and rerun order explicit.
+- Action ledger: active; start with `materialize_current_wave6_lane`.
 - Current candidate remains research-only:
   `wave6_auth_frame_raw_sentence_surface_pos_rescue`.
 - Runtime policy change: none.
@@ -241,6 +260,7 @@ Read in this order:
 First task:
 
 - Continue the `data_artifacts` pass.
+- Keep action items updated as cracks are discovered or resolved.
 - Keep durable inputs, generated evidence, control artifacts, and local
   uncommitted experiment outputs separate.
 - Do not treat generated reports under `latest` names as architecture authority.

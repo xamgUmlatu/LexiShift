@@ -47,6 +47,18 @@ CURRENT_STATES = {
     "supporting_current",
 }
 FORBIDDEN_PROMOTION_STATES = {"runtime_ready", "promoted", "default_on"}
+ACTION_STATUS_ORDER = {
+    "active": 0,
+    "queued": 1,
+    "blocked": 2,
+    "done": 3,
+}
+ACTION_PRIORITY_ORDER = {
+    "P0": 0,
+    "P1": 1,
+    "P2": 2,
+    "P3": 3,
+}
 
 
 def main() -> int:
@@ -120,6 +132,9 @@ def build_semantic_veto_system_registry_report(
         "data_artifact_lanes": [
             _public_data_lane(row) for row in _mapping_rows(registry.get("data_artifact_lanes"))
         ],
+        "action_items": [
+            _public_action_item(row) for row in _sorted_action_items(registry.get("action_items"))
+        ],
         "issues": issues,
         "next_passes": [
             _public_pass(row)
@@ -180,8 +195,32 @@ def render_markdown(report: Mapping[str, object]) -> str:
     lines.extend(["", "## Next Passes", ""])
     for row in _mapping_rows(report.get("next_passes")):
         lines.append(
-            f"- `{row.get('pass_id', '')}` ({row.get('state', '')}): " f"{row.get('lens', '')}"
+            f"- `{row.get('pass_id', '')}` ({row.get('state', '')}): {row.get('lens', '')}"
         )
+
+    action_items = _mapping_rows(report.get("action_items"))
+    if action_items:
+        lines.extend(["", "## Action Items", ""])
+        lines.append(
+            "| Priority | Status | Action | Pass | Source | Evidence Needed | Validation |"
+        )
+        lines.append("| --- | --- | --- | --- | --- | --- | --- |")
+        for row in action_items:
+            lines.append(
+                "| "
+                + " | ".join(
+                    [
+                        _escape_md(str(row.get("priority") or "")),
+                        _escape_md(str(row.get("status") or "")),
+                        _escape_md(str(row.get("action") or "")),
+                        _escape_md(str(row.get("pass_id") or "")),
+                        _escape_md(_join_inline(row.get("source_artifacts"))),
+                        _escape_md(str(row.get("evidence_needed") or "")),
+                        _escape_md(str(row.get("validation") or "")),
+                    ]
+                )
+                + " |"
+            )
 
     lines.extend(["", "## Counts", ""])
     lines.append("### Entry States")
@@ -333,6 +372,9 @@ def _audit_registry(
             )
 
     known_entries = {str(row.get("artifact_id") or "") for row in entries}
+    lane_ids = {
+        _text(row.get("lane_id")) for row in _mapping_rows(registry.get("data_artifact_lanes"))
+    }
     for lane in _mapping_rows(registry.get("data_artifact_lanes")):
         lane_id = _text(lane.get("lane_id"))
         if not lane_id:
@@ -350,6 +392,41 @@ def _audit_registry(
                             f"Unknown artifact_id {artifact_id!r} in data lane {key}.",
                         )
                     )
+
+    known_action_refs = known_entries | lane_ids | pass_ids
+    seen_actions: set[str] = set()
+    for item in _mapping_rows(registry.get("action_items")):
+        action_id = _text(item.get("action_id"))
+        if not action_id:
+            issues.append(_issue("action_items", "error", "An action item is missing action_id."))
+            continue
+        if action_id in seen_actions:
+            issues.append(_issue(action_id, "error", "Duplicate action_id."))
+        seen_actions.add(action_id)
+        status = _text(item.get("status"))
+        priority = _text(item.get("priority"))
+        if status not in ACTION_STATUS_ORDER:
+            issues.append(_issue(action_id, "error", f"Unsupported action status {status!r}."))
+        if priority not in ACTION_PRIORITY_ORDER:
+            issues.append(_issue(action_id, "error", f"Unsupported action priority {priority!r}."))
+        pass_id = _text(item.get("pass_id"))
+        if pass_id and pass_id not in pass_ids:
+            issues.append(_issue(action_id, "error", f"Unknown action pass_id {pass_id!r}."))
+        if not _text(item.get("action")):
+            issues.append(_issue(action_id, "error", "Action item is missing action."))
+        if not _text(item.get("evidence_needed")):
+            issues.append(_issue(action_id, "warning", "Action item lacks evidence_needed."))
+        if not _text(item.get("validation")):
+            issues.append(_issue(action_id, "warning", "Action item lacks validation."))
+        for artifact_id in item.get("source_artifacts") or ():
+            if str(artifact_id) not in known_action_refs:
+                issues.append(
+                    _issue(
+                        action_id,
+                        "error",
+                        f"Unknown source_artifact {artifact_id!r} in action item.",
+                    )
+                )
 
     candidate = _as_mapping(registry.get("current_candidate"))
     production_status = _text(candidate.get("production_status"))
@@ -409,6 +486,20 @@ def _public_data_lane(row: Mapping[str, object]) -> dict[str, object]:
     }
 
 
+def _public_action_item(row: Mapping[str, object]) -> dict[str, object]:
+    return {
+        "action_id": _text(row.get("action_id")),
+        "priority": _text(row.get("priority")),
+        "status": _text(row.get("status")),
+        "pass_id": _text(row.get("pass_id")),
+        "source_artifacts": [str(value) for value in row.get("source_artifacts") or ()],
+        "action": _text(row.get("action")),
+        "evidence_needed": _text(row.get("evidence_needed")),
+        "validation": _text(row.get("validation")),
+        "promotion_impact": _text(row.get("promotion_impact")),
+    }
+
+
 def _issue(subject: str, severity: str, message: str) -> dict[str, object]:
     return {
         "subject": subject,
@@ -425,6 +516,17 @@ def _mapping_rows(value: object) -> list[Mapping[str, object]]:
     if isinstance(value, Sequence) and not isinstance(value, (str, bytes)):
         return [row for row in value if isinstance(row, Mapping)]
     return []
+
+
+def _sorted_action_items(value: object) -> list[Mapping[str, object]]:
+    return sorted(
+        _mapping_rows(value),
+        key=lambda row: (
+            ACTION_PRIORITY_ORDER.get(_text(row.get("priority")), 99),
+            ACTION_STATUS_ORDER.get(_text(row.get("status")), 99),
+            _text(row.get("action_id")),
+        ),
+    )
 
 
 def _as_mapping(value: object) -> Mapping[str, object]:
