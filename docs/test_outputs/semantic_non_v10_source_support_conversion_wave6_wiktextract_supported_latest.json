@@ -1,0 +1,257 @@
+{
+  "schema_version": 1,
+  "status": "ok",
+  "decision": "selected_wave_source_supported",
+  "generated_at": "2026-04-29T01:27:43Z",
+  "pair": "en-es",
+  "dataset_id": "en_es_source_non_v10_wave6_anypos_unsupported_upper_bound_selected_v1",
+  "translation_support_mode": "forward_only_plus_wiktextract_translation_support",
+  "summary": {
+    "family_count": 16,
+    "fully_supported_family_count": 16,
+    "candidate_swap_review_family_count": 0,
+    "needs_reviewed_source_support_family_count": 0,
+    "selected_sense_count": 38,
+    "supported_sense_count": 38,
+    "unsupported_sense_count": 0,
+    "unsupported_active_count": 0,
+    "unsupported_shadow_count": 0,
+    "unsupported_rows_with_same_pos_supported_alternative": 0,
+    "family_state_counts": {
+      "already_supported": 16
+    },
+    "unsupported_row_state_counts": {},
+    "support_work_item_count": 0,
+    "candidate_swap_work_item_count": 0,
+    "reviewed_source_work_item_count": 0
+  },
+  "families": [
+    {
+      "family_id": "en-es:sentence-veto:leave:permiso",
+      "trigger": "leave",
+      "support_state": "already_supported",
+      "selected_sense_count": 3,
+      "supported_sense_count": 3,
+      "unsupported_sense_count": 0,
+      "active_target": "permiso",
+      "shadow_targets": [
+        "excedencia",
+        "dejar"
+      ],
+      "unsupported_senses": []
+    },
+    {
+      "family_id": "en-es:sentence-veto:black:oscuro",
+      "trigger": "black",
+      "support_state": "already_supported",
+      "selected_sense_count": 2,
+      "supported_sense_count": 2,
+      "unsupported_sense_count": 0,
+      "active_target": "oscuro",
+      "shadow_targets": [
+        "negro"
+      ],
+      "unsupported_senses": []
+    },
+    {
+      "family_id": "en-es:sentence-veto:serve:servicio",
+      "trigger": "serve",
+      "support_state": "already_supported",
+      "selected_sense_count": 2,
+      "supported_sense_count": 2,
+      "unsupported_sense_count": 0,
+      "active_target": "servicio",
+      "shadow_targets": [
+        "servir"
+      ],
+      "unsupported_senses": []
+    },
+    {
+      "family_id": "en-es:sentence-veto:low:bajo",
+      "trigger": "low",
+      "support_state": "already_supported",
+      "selected_sense_count": 2,
+      "supported_sense_count": 2,
+      "unsupported_sense_count": 0,
+      "active_target": "bajo",
+      "shadow_targets": [
+        "decaído"
+      ],
+      "unsupported_senses": []
+    },
+    {
+      "family_id": "en-es:sentence-veto:part:parte",
+      "trigger": "part",
+      "support_state": "already_supported",
+      "selected_sense_count": 3,
+      "supported_sense_count": 3,
+      "unsupported_sense_count": 0,
+      "active_target": "parte",
+      "shadow_targets": [
+        "papel",
+        "repartir"
+      ],
+      "unsupported_senses": []
+    },
+    {
+      "family_id": "en-es:sentence-veto:feel:talento",
+      "trigger": "feel",
+      "support_state": "already_supported",
+      "selected_sense_count": 2,
+      "supported_sense_count": 2,
+      "unsupported_sense_count": 0,
+      "active_target": "talento",
+      "shadow_targets": [
+        "sentir"
+      ],
+      "unsupported_senses": []
+    },
+    {
+      "family_id": "en-es:sentence-veto:still:quietud",
+      "trigger": "still",
+      "support_state": "already_supported",
+      "selected_sense_count": 3,
+      "supported_sense_count": 3,
+      "unsupported_sense_count": 0,
+      "active_target": "quietud",
+      "shadow_targets": [
+        "alambique",
+        "aquietar"
+      ],
+      "unsupported_senses": []
+    },
+    {
+      "family_id": "en-es:sentence-veto:bear:bajista",
+      "trigger": "bear",
+      "support_state": "already_supported",
+      "selected_sense_count": 2,
+      "supported_sense_count": 2,
+      "unsupported_sense_count": 0,
+      "active_target": "bajista",
+      "shadow_targets": [
+        "llevar"
+      ],
+      "unsupported_senses": []
+    },
+    {
+      "family_id": "en-es:sentence-veto:finish:meta",
+      "trigger": "finish",
+      "support_state": "already_supported",
+      "selected_sense_count": 3,
+      "supported_sense_count": 3,
+      "unsupported_sense_count": 0,
+      "active_target": "meta",
+      "shadow_targets": [
+        "acabado",
+        "acabar"
+      ],
+      "unsupported_senses": []
+    },
+    {
+      "family_id": "en-es:sentence-veto:throw:lanzamiento",
+      "trigger": "throw",
+      "support_state": "already_supported",
+      "selected_sense_count": 2,
+      "supported_sense_count": 2,
+      "unsupported_sense_count": 0,
+      "active_target": "lanzamiento",
+      "shadow_targets": [
+        "lanzar"
+      ],
+      "unsupported_senses": []
+    },
+    {
+      "family_id": "en-es:sentence-veto:upset:disgustado",
+      "trigger": "upset",
+      "support_state": "already_supported",
+      "selected_sense_count": 2,
+      "supported_sense_count": 2,
+      "unsupported_sense_count": 0,
+      "active_target": "disgustado",
+      "shadow_targets": [
+        "trastrocar"
+      ],
+      "unsupported_senses": []
+    },
+    {
+      "family_id": "en-es:sentence-veto:piece:trozo",
+      "trigger": "piece",
+      "support_state": "already_supported",
+      "selected_sense_count": 3,
+      "supported_sense_count": 3,
+      "unsupported_sense_count": 0,
+      "active_target": "trozo",
+      "shadow_targets": [
+        "ficha",
+        "montar"
+      ],
+      "unsupported_senses": []
+    },
+    {
+      "family_id": "en-es:sentence-veto:fair:pastel",
+      "trigger": "fair",
+      "support_state": "already_supported",
+      "selected_sense_count": 2,
+      "supported_sense_count": 2,
+      "unsupported_sense_count": 0,
+      "active_target": "pastel",
+      "shadow_targets": [
+        "feria de muestras"
+      ],
+      "unsupported_senses": []
+    },
+    {
+      "family_id": "en-es:sentence-veto:show:espect-culo",
+      "trigger": "show",
+      "support_state": "already_supported",
+      "selected_sense_count": 2,
+      "supported_sense_count": 2,
+      "unsupported_sense_count": 0,
+      "active_target": "espectáculo",
+      "shadow_targets": [
+        "demostrar"
+      ],
+      "unsupported_senses": []
+    },
+    {
+      "family_id": "en-es:sentence-veto:advance:avance",
+      "trigger": "advance",
+      "support_state": "already_supported",
+      "selected_sense_count": 3,
+      "supported_sense_count": 3,
+      "unsupported_sense_count": 0,
+      "active_target": "avance",
+      "shadow_targets": [
+        "adelanto",
+        "avanzar"
+      ],
+      "unsupported_senses": []
+    },
+    {
+      "family_id": "en-es:sentence-veto:rank:rancio",
+      "trigger": "rank",
+      "support_state": "already_supported",
+      "selected_sense_count": 2,
+      "supported_sense_count": 2,
+      "unsupported_sense_count": 0,
+      "active_target": "rancio",
+      "shadow_targets": [
+        "fila"
+      ],
+      "unsupported_senses": []
+    }
+  ],
+  "support_worklist": [],
+  "limitations": [
+    "conversion_audit_does_not_change_selected_family_targets",
+    "same_pos_alternatives_require_review_and_re_admission_before_use",
+    "forward_only_rows_are_not_promotion_evidence_without_source_support",
+    "phrase_containment_coverage_is_out_of_scope_for_this_audit"
+  ],
+  "next_steps": [
+    "rerun the supported admission sweep and add independent held-out validation"
+  ],
+  "artifacts": {
+    "dataset_json": "docs/test_outputs/experiments/semantic_non_v10_wave_drafts/en_es_source_non_v10_wave6_anypos_wiktextract_supported_v1_dataset.json"
+  }
+}

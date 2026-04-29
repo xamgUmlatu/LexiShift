@@ -2,7 +2,7 @@
   "schema_version": 1,
   "status": "review",
   "decision": "support_conversion_needed",
-  "generated_at": "2026-04-29T00:22:49Z",
+  "generated_at": "2026-04-29T01:14:30Z",
   "pair": "en-es",
   "dataset_id": "en_es_source_non_v10_wave6_anypos_unsupported_upper_bound_selected_v1",
   "translation_support_mode": "forward_only_upper_bound",
@@ -23,7 +23,10 @@
     "unsupported_row_state_counts": {
       "candidate_swap_review_available": 2,
       "needs_reviewed_source_support": 23
-    }
+    },
+    "support_work_item_count": 25,
+    "candidate_swap_work_item_count": 2,
+    "reviewed_source_work_item_count": 23
   },
   "families": [
     {
@@ -745,6 +748,1026 @@
           "same_pos_supported_alternatives": [],
           "conversion_state": "needs_reviewed_source_support"
         }
+      ]
+    }
+  ],
+  "support_worklist": [
+    {
+      "work_item_id": "en-es:source-support:black:active:oscuro",
+      "priority_rank": 0,
+      "family_id": "en-es:sentence-veto:black:oscuro",
+      "trigger": "black",
+      "role": "active",
+      "target_lemma": "oscuro",
+      "canonical_pos": "adjective",
+      "sense_id": "en-es:sentence-veto:black:oscuro:active",
+      "translation_sense_text": "without light",
+      "translation_rank": 2,
+      "wordnet_linked": true,
+      "best_wordnet_link_score": 0.2,
+      "conversion_state": "needs_reviewed_source_support",
+      "candidate_swap_options": [],
+      "source_lanes": [
+        "reverse_wiktionary_or_freedict_support",
+        "wiktextract_sense_or_translation_example",
+        "reviewed_dictionary_or_example_frame_source"
+      ],
+      "source_query": {
+        "english_trigger": "black",
+        "spanish_target": "oscuro",
+        "canonical_pos": "adjective",
+        "sense_text": "without light",
+        "query_terms": [
+          "black",
+          "oscuro",
+          "black oscuro",
+          "without light"
+        ]
+      },
+      "acceptance_checks": [
+        "source links the English trigger sense to the Spanish target or a reviewed same-POS substitute",
+        "source evidence does not copy any held-out sentence",
+        "row passes leakage/duplicate audit before merge",
+        "row passes final composite sense-discrimination admission"
+      ]
+    },
+    {
+      "work_item_id": "en-es:source-support:fair:active:pastel",
+      "priority_rank": 0,
+      "family_id": "en-es:sentence-veto:fair:pastel",
+      "trigger": "fair",
+      "role": "active",
+      "target_lemma": "pastel",
+      "canonical_pos": "adjective",
+      "sense_id": "en-es:sentence-veto:fair:pastel:active",
+      "translation_sense_text": "light in color or pale",
+      "translation_rank": 3,
+      "wordnet_linked": true,
+      "best_wordnet_link_score": 0.5,
+      "conversion_state": "needs_reviewed_source_support",
+      "candidate_swap_options": [],
+      "source_lanes": [
+        "reverse_wiktionary_or_freedict_support",
+        "wiktextract_sense_or_translation_example",
+        "reviewed_dictionary_or_example_frame_source"
+      ],
+      "source_query": {
+        "english_trigger": "fair",
+        "spanish_target": "pastel",
+        "canonical_pos": "adjective",
+        "sense_text": "light in color or pale",
+        "query_terms": [
+          "fair",
+          "pastel",
+          "fair pastel",
+          "light in color or pale"
+        ]
+      },
+      "acceptance_checks": [
+        "source links the English trigger sense to the Spanish target or a reviewed same-POS substitute",
+        "source evidence does not copy any held-out sentence",
+        "row passes leakage/duplicate audit before merge",
+        "row passes final composite sense-discrimination admission"
+      ]
+    },
+    {
+      "work_item_id": "en-es:source-support:feel:active:talento",
+      "priority_rank": 0,
+      "family_id": "en-es:sentence-veto:feel:talento",
+      "trigger": "feel",
+      "role": "active",
+      "target_lemma": "talento",
+      "canonical_pos": "noun",
+      "sense_id": "en-es:sentence-veto:feel:talento:active",
+      "translation_sense_text": "intuitive ability",
+      "translation_rank": 10,
+      "wordnet_linked": true,
+      "best_wordnet_link_score": 0.2,
+      "conversion_state": "needs_reviewed_source_support",
+      "candidate_swap_options": [],
+      "source_lanes": [
+        "reverse_wiktionary_or_freedict_support",
+        "wiktextract_sense_or_translation_example",
+        "reviewed_dictionary_or_example_frame_source"
+      ],
+      "source_query": {
+        "english_trigger": "feel",
+        "spanish_target": "talento",
+        "canonical_pos": "noun",
+        "sense_text": "intuitive ability",
+        "query_terms": [
+          "feel",
+          "talento",
+          "feel talento",
+          "intuitive ability"
+        ]
+      },
+      "acceptance_checks": [
+        "source links the English trigger sense to the Spanish target or a reviewed same-POS substitute",
+        "source evidence does not copy any held-out sentence",
+        "row passes leakage/duplicate audit before merge",
+        "row passes final composite sense-discrimination admission"
+      ]
+    },
+    {
+      "work_item_id": "en-es:source-support:finish:active:meta",
+      "priority_rank": 0,
+      "family_id": "en-es:sentence-veto:finish:meta",
+      "trigger": "finish",
+      "role": "active",
+      "target_lemma": "meta",
+      "canonical_pos": "noun",
+      "sense_id": "en-es:sentence-veto:finish:meta:active",
+      "translation_sense_text": "end",
+      "translation_rank": 1,
+      "wordnet_linked": true,
+      "best_wordnet_link_score": 0.25,
+      "conversion_state": "needs_reviewed_source_support",
+      "candidate_swap_options": [],
+      "source_lanes": [
+        "reverse_wiktionary_or_freedict_support",
+        "wiktextract_sense_or_translation_example",
+        "reviewed_dictionary_or_example_frame_source"
+      ],
+      "source_query": {
+        "english_trigger": "finish",
+        "spanish_target": "meta",
+        "canonical_pos": "noun",
+        "sense_text": "end",
+        "query_terms": [
+          "finish",
+          "meta",
+          "finish meta",
+          "end"
+        ]
+      },
+      "acceptance_checks": [
+        "source links the English trigger sense to the Spanish target or a reviewed same-POS substitute",
+        "source evidence does not copy any held-out sentence",
+        "row passes leakage/duplicate audit before merge",
+        "row passes final composite sense-discrimination admission"
+      ]
+    },
+    {
+      "work_item_id": "en-es:source-support:leave:active:permiso",
+      "priority_rank": 0,
+      "family_id": "en-es:sentence-veto:leave:permiso",
+      "trigger": "leave",
+      "role": "active",
+      "target_lemma": "permiso",
+      "canonical_pos": "noun",
+      "sense_id": "en-es:sentence-veto:leave:permiso:active",
+      "translation_sense_text": "permission to be absent",
+      "translation_rank": 13,
+      "wordnet_linked": true,
+      "best_wordnet_link_score": 0.2,
+      "conversion_state": "needs_reviewed_source_support",
+      "candidate_swap_options": [],
+      "source_lanes": [
+        "reverse_wiktionary_or_freedict_support",
+        "wiktextract_sense_or_translation_example",
+        "reviewed_dictionary_or_example_frame_source"
+      ],
+      "source_query": {
+        "english_trigger": "leave",
+        "spanish_target": "permiso",
+        "canonical_pos": "noun",
+        "sense_text": "permission to be absent",
+        "query_terms": [
+          "leave",
+          "permiso",
+          "leave permiso",
+          "permission to be absent"
+        ]
+      },
+      "acceptance_checks": [
+        "source links the English trigger sense to the Spanish target or a reviewed same-POS substitute",
+        "source evidence does not copy any held-out sentence",
+        "row passes leakage/duplicate audit before merge",
+        "row passes final composite sense-discrimination admission"
+      ]
+    },
+    {
+      "work_item_id": "en-es:source-support:rank:active:rancio",
+      "priority_rank": 0,
+      "family_id": "en-es:sentence-veto:rank:rancio",
+      "trigger": "rank",
+      "role": "active",
+      "target_lemma": "rancio",
+      "canonical_pos": "adjective",
+      "sense_id": "en-es:sentence-veto:rank:rancio:active",
+      "translation_sense_text": "having a very strong and bad odor",
+      "translation_rank": 1,
+      "wordnet_linked": true,
+      "best_wordnet_link_score": 0.1429,
+      "conversion_state": "needs_reviewed_source_support",
+      "candidate_swap_options": [],
+      "source_lanes": [
+        "reverse_wiktionary_or_freedict_support",
+        "wiktextract_sense_or_translation_example",
+        "reviewed_dictionary_or_example_frame_source"
+      ],
+      "source_query": {
+        "english_trigger": "rank",
+        "spanish_target": "rancio",
+        "canonical_pos": "adjective",
+        "sense_text": "having a very strong and bad odor",
+        "query_terms": [
+          "rank",
+          "rancio",
+          "rank rancio",
+          "having a very strong and bad odor"
+        ]
+      },
+      "acceptance_checks": [
+        "source links the English trigger sense to the Spanish target or a reviewed same-POS substitute",
+        "source evidence does not copy any held-out sentence",
+        "row passes leakage/duplicate audit before merge",
+        "row passes final composite sense-discrimination admission"
+      ]
+    },
+    {
+      "work_item_id": "en-es:source-support:serve:active:servicio",
+      "priority_rank": 0,
+      "family_id": "en-es:sentence-veto:serve:servicio",
+      "trigger": "serve",
+      "role": "active",
+      "target_lemma": "servicio",
+      "canonical_pos": "noun",
+      "sense_id": "en-es:sentence-veto:serve:servicio:active",
+      "translation_sense_text": "sports: act of putting the ball or shuttlecock in play",
+      "translation_rank": 1,
+      "wordnet_linked": true,
+      "best_wordnet_link_score": 0.3333,
+      "conversion_state": "needs_reviewed_source_support",
+      "candidate_swap_options": [],
+      "source_lanes": [
+        "reverse_wiktionary_or_freedict_support",
+        "wiktextract_sense_or_translation_example",
+        "reviewed_dictionary_or_example_frame_source"
+      ],
+      "source_query": {
+        "english_trigger": "serve",
+        "spanish_target": "servicio",
+        "canonical_pos": "noun",
+        "sense_text": "sports: act of putting the ball or shuttlecock in play",
+        "query_terms": [
+          "serve",
+          "servicio",
+          "serve servicio",
+          "sports: act of putting the ball or shuttlecock in play"
+        ]
+      },
+      "acceptance_checks": [
+        "source links the English trigger sense to the Spanish target or a reviewed same-POS substitute",
+        "source evidence does not copy any held-out sentence",
+        "row passes leakage/duplicate audit before merge",
+        "row passes final composite sense-discrimination admission"
+      ]
+    },
+    {
+      "work_item_id": "en-es:source-support:show:active:espectáculo",
+      "priority_rank": 0,
+      "family_id": "en-es:sentence-veto:show:espect-culo",
+      "trigger": "show",
+      "role": "active",
+      "target_lemma": "espectáculo",
+      "canonical_pos": "noun",
+      "sense_id": "en-es:sentence-veto:show:espect-culo:active",
+      "translation_sense_text": "entertainment",
+      "translation_rank": 4,
+      "wordnet_linked": true,
+      "best_wordnet_link_score": 0.2,
+      "conversion_state": "needs_reviewed_source_support",
+      "candidate_swap_options": [],
+      "source_lanes": [
+        "reverse_wiktionary_or_freedict_support",
+        "wiktextract_sense_or_translation_example",
+        "reviewed_dictionary_or_example_frame_source"
+      ],
+      "source_query": {
+        "english_trigger": "show",
+        "spanish_target": "espectáculo",
+        "canonical_pos": "noun",
+        "sense_text": "entertainment",
+        "query_terms": [
+          "show",
+          "espectáculo",
+          "show espectáculo",
+          "entertainment"
+        ]
+      },
+      "acceptance_checks": [
+        "source links the English trigger sense to the Spanish target or a reviewed same-POS substitute",
+        "source evidence does not copy any held-out sentence",
+        "row passes leakage/duplicate audit before merge",
+        "row passes final composite sense-discrimination admission"
+      ]
+    },
+    {
+      "work_item_id": "en-es:source-support:still:active:quietud",
+      "priority_rank": 0,
+      "family_id": "en-es:sentence-veto:still:quietud",
+      "trigger": "still",
+      "role": "active",
+      "target_lemma": "quietud",
+      "canonical_pos": "noun",
+      "sense_id": "en-es:sentence-veto:still:quietud:active",
+      "translation_sense_text": "period of calm or silence",
+      "translation_rank": 9,
+      "wordnet_linked": true,
+      "best_wordnet_link_score": 0.1667,
+      "conversion_state": "needs_reviewed_source_support",
+      "candidate_swap_options": [],
+      "source_lanes": [
+        "reverse_wiktionary_or_freedict_support",
+        "wiktextract_sense_or_translation_example",
+        "reviewed_dictionary_or_example_frame_source"
+      ],
+      "source_query": {
+        "english_trigger": "still",
+        "spanish_target": "quietud",
+        "canonical_pos": "noun",
+        "sense_text": "period of calm or silence",
+        "query_terms": [
+          "still",
+          "quietud",
+          "still quietud",
+          "period of calm or silence"
+        ]
+      },
+      "acceptance_checks": [
+        "source links the English trigger sense to the Spanish target or a reviewed same-POS substitute",
+        "source evidence does not copy any held-out sentence",
+        "row passes leakage/duplicate audit before merge",
+        "row passes final composite sense-discrimination admission"
+      ]
+    },
+    {
+      "work_item_id": "en-es:source-support:throw:active:lanzamiento",
+      "priority_rank": 0,
+      "family_id": "en-es:sentence-veto:throw:lanzamiento",
+      "trigger": "throw",
+      "role": "active",
+      "target_lemma": "lanzamiento",
+      "canonical_pos": "noun",
+      "sense_id": "en-es:sentence-veto:throw:lanzamiento:active",
+      "translation_sense_text": "flight of a thrown object",
+      "translation_rank": 8,
+      "wordnet_linked": true,
+      "best_wordnet_link_score": 0.1667,
+      "conversion_state": "needs_reviewed_source_support",
+      "candidate_swap_options": [],
+      "source_lanes": [
+        "reverse_wiktionary_or_freedict_support",
+        "wiktextract_sense_or_translation_example",
+        "reviewed_dictionary_or_example_frame_source"
+      ],
+      "source_query": {
+        "english_trigger": "throw",
+        "spanish_target": "lanzamiento",
+        "canonical_pos": "noun",
+        "sense_text": "flight of a thrown object",
+        "query_terms": [
+          "throw",
+          "lanzamiento",
+          "throw lanzamiento",
+          "flight of a thrown object"
+        ]
+      },
+      "acceptance_checks": [
+        "source links the English trigger sense to the Spanish target or a reviewed same-POS substitute",
+        "source evidence does not copy any held-out sentence",
+        "row passes leakage/duplicate audit before merge",
+        "row passes final composite sense-discrimination admission"
+      ]
+    },
+    {
+      "work_item_id": "en-es:source-support:advance:shadow:adelanto",
+      "priority_rank": 1,
+      "family_id": "en-es:sentence-veto:advance:avance",
+      "trigger": "advance",
+      "role": "shadow",
+      "target_lemma": "adelanto",
+      "canonical_pos": "noun",
+      "sense_id": "en-es:sentence-veto:advance:avance:adelanto:shadow",
+      "translation_sense_text": "amount of money",
+      "translation_rank": 8,
+      "wordnet_linked": true,
+      "best_wordnet_link_score": 0.2,
+      "conversion_state": "candidate_swap_review_available",
+      "candidate_swap_options": [
+        {
+          "translation": "progreso",
+          "canonical_pos": "noun",
+          "rank": 7,
+          "sense_text": "forward move",
+          "reverse_support": false,
+          "freedict_support": true,
+          "support_sources": [
+            "wiktionary_en_es",
+            "freedict_es_en"
+          ],
+          "best_wordnet_link_score": 0.2
+        }
+      ],
+      "source_lanes": [
+        "review_same_pos_supported_target_swap",
+        "reverse_wiktionary_or_freedict_support",
+        "wiktextract_sense_or_translation_example",
+        "reviewed_dictionary_or_example_frame_source"
+      ],
+      "source_query": {
+        "english_trigger": "advance",
+        "spanish_target": "adelanto",
+        "canonical_pos": "noun",
+        "sense_text": "amount of money",
+        "query_terms": [
+          "advance",
+          "adelanto",
+          "advance adelanto",
+          "amount of money"
+        ]
+      },
+      "acceptance_checks": [
+        "source links the English trigger sense to the Spanish target or a reviewed same-POS substitute",
+        "source evidence does not copy any held-out sentence",
+        "row passes leakage/duplicate audit before merge",
+        "row passes final composite sense-discrimination admission"
+      ]
+    },
+    {
+      "work_item_id": "en-es:source-support:piece:shadow:ficha",
+      "priority_rank": 1,
+      "family_id": "en-es:sentence-veto:piece:trozo",
+      "trigger": "piece",
+      "role": "shadow",
+      "target_lemma": "ficha",
+      "canonical_pos": "noun",
+      "sense_id": "en-es:sentence-veto:piece:trozo:ficha:shadow",
+      "translation_sense_text": "chess: figure other than pawn; similar counter in other games",
+      "translation_rank": 5,
+      "wordnet_linked": true,
+      "best_wordnet_link_score": 0.2222,
+      "conversion_state": "candidate_swap_review_available",
+      "candidate_swap_options": [
+        {
+          "translation": "pieza",
+          "canonical_pos": "noun",
+          "rank": 1,
+          "sense_text": "part of a larger whole",
+          "reverse_support": false,
+          "freedict_support": true,
+          "support_sources": [
+            "wiktionary_en_es",
+            "freedict_es_en"
+          ],
+          "best_wordnet_link_score": 0.3333
+        },
+        {
+          "translation": "pedazo",
+          "canonical_pos": "noun",
+          "rank": 2,
+          "sense_text": "part of a larger whole",
+          "reverse_support": false,
+          "freedict_support": true,
+          "support_sources": [
+            "wiktionary_en_es",
+            "freedict_es_en"
+          ],
+          "best_wordnet_link_score": 0.3333
+        }
+      ],
+      "source_lanes": [
+        "review_same_pos_supported_target_swap",
+        "reverse_wiktionary_or_freedict_support",
+        "wiktextract_sense_or_translation_example",
+        "reviewed_dictionary_or_example_frame_source"
+      ],
+      "source_query": {
+        "english_trigger": "piece",
+        "spanish_target": "ficha",
+        "canonical_pos": "noun",
+        "sense_text": "chess: figure other than pawn; similar counter in other games",
+        "query_terms": [
+          "piece",
+          "ficha",
+          "piece ficha",
+          "chess: figure other than pawn; similar counter in other games"
+        ]
+      },
+      "acceptance_checks": [
+        "source links the English trigger sense to the Spanish target or a reviewed same-POS substitute",
+        "source evidence does not copy any held-out sentence",
+        "row passes leakage/duplicate audit before merge",
+        "row passes final composite sense-discrimination admission"
+      ]
+    },
+    {
+      "work_item_id": "en-es:source-support:advance:shadow:avanzar",
+      "priority_rank": 2,
+      "family_id": "en-es:sentence-veto:advance:avance",
+      "trigger": "advance",
+      "role": "shadow",
+      "target_lemma": "avanzar",
+      "canonical_pos": "verb",
+      "sense_id": "en-es:sentence-veto:advance:avance:avanzar:shadow",
+      "translation_sense_text": "to bring forward; to move towards the front; to make to go on",
+      "translation_rank": 1,
+      "wordnet_linked": true,
+      "best_wordnet_link_score": 0.3333,
+      "conversion_state": "needs_reviewed_source_support",
+      "candidate_swap_options": [],
+      "source_lanes": [
+        "reverse_wiktionary_or_freedict_support",
+        "wiktextract_sense_or_translation_example",
+        "reviewed_dictionary_or_example_frame_source"
+      ],
+      "source_query": {
+        "english_trigger": "advance",
+        "spanish_target": "avanzar",
+        "canonical_pos": "verb",
+        "sense_text": "to bring forward; to move towards the front; to make to go on",
+        "query_terms": [
+          "advance",
+          "avanzar",
+          "advance avanzar",
+          "to bring forward; to move towards the front; to make to go on"
+        ]
+      },
+      "acceptance_checks": [
+        "source links the English trigger sense to the Spanish target or a reviewed same-POS substitute",
+        "source evidence does not copy any held-out sentence",
+        "row passes leakage/duplicate audit before merge",
+        "row passes final composite sense-discrimination admission"
+      ]
+    },
+    {
+      "work_item_id": "en-es:source-support:bear:shadow:llevar",
+      "priority_rank": 2,
+      "family_id": "en-es:sentence-veto:bear:bajista",
+      "trigger": "bear",
+      "role": "shadow",
+      "target_lemma": "llevar",
+      "canonical_pos": "verb",
+      "sense_id": "en-es:sentence-veto:bear:bajista:llevar:shadow",
+      "translation_sense_text": "to carry",
+      "translation_rank": 6,
+      "wordnet_linked": true,
+      "best_wordnet_link_score": 0.25,
+      "conversion_state": "needs_reviewed_source_support",
+      "candidate_swap_options": [],
+      "source_lanes": [
+        "reverse_wiktionary_or_freedict_support",
+        "wiktextract_sense_or_translation_example",
+        "reviewed_dictionary_or_example_frame_source"
+      ],
+      "source_query": {
+        "english_trigger": "bear",
+        "spanish_target": "llevar",
+        "canonical_pos": "verb",
+        "sense_text": "to carry",
+        "query_terms": [
+          "bear",
+          "llevar",
+          "bear llevar",
+          "to carry"
+        ]
+      },
+      "acceptance_checks": [
+        "source links the English trigger sense to the Spanish target or a reviewed same-POS substitute",
+        "source evidence does not copy any held-out sentence",
+        "row passes leakage/duplicate audit before merge",
+        "row passes final composite sense-discrimination admission"
+      ]
+    },
+    {
+      "work_item_id": "en-es:source-support:fair:shadow:feria-de-muestras",
+      "priority_rank": 2,
+      "family_id": "en-es:sentence-veto:fair:pastel",
+      "trigger": "fair",
+      "role": "shadow",
+      "target_lemma": "feria de muestras",
+      "canonical_pos": "noun",
+      "sense_id": "en-es:sentence-veto:fair:pastel:feria-de-muestras:shadow",
+      "translation_sense_text": "professional event, trade fair",
+      "translation_rank": 10,
+      "wordnet_linked": true,
+      "best_wordnet_link_score": 0.1429,
+      "conversion_state": "needs_reviewed_source_support",
+      "candidate_swap_options": [],
+      "source_lanes": [
+        "reverse_wiktionary_or_freedict_support",
+        "wiktextract_sense_or_translation_example",
+        "reviewed_dictionary_or_example_frame_source"
+      ],
+      "source_query": {
+        "english_trigger": "fair",
+        "spanish_target": "feria de muestras",
+        "canonical_pos": "noun",
+        "sense_text": "professional event, trade fair",
+        "query_terms": [
+          "fair",
+          "feria de muestras",
+          "fair feria de muestras",
+          "professional event, trade fair"
+        ]
+      },
+      "acceptance_checks": [
+        "source links the English trigger sense to the Spanish target or a reviewed same-POS substitute",
+        "source evidence does not copy any held-out sentence",
+        "row passes leakage/duplicate audit before merge",
+        "row passes final composite sense-discrimination admission"
+      ]
+    },
+    {
+      "work_item_id": "en-es:source-support:finish:shadow:acabado",
+      "priority_rank": 2,
+      "family_id": "en-es:sentence-veto:finish:meta",
+      "trigger": "finish",
+      "role": "shadow",
+      "target_lemma": "acabado",
+      "canonical_pos": "noun",
+      "sense_id": "en-es:sentence-veto:finish:meta:acabado:shadow",
+      "translation_sense_text": "protective coating",
+      "translation_rank": 3,
+      "wordnet_linked": true,
+      "best_wordnet_link_score": 0.2,
+      "conversion_state": "needs_reviewed_source_support",
+      "candidate_swap_options": [],
+      "source_lanes": [
+        "reverse_wiktionary_or_freedict_support",
+        "wiktextract_sense_or_translation_example",
+        "reviewed_dictionary_or_example_frame_source"
+      ],
+      "source_query": {
+        "english_trigger": "finish",
+        "spanish_target": "acabado",
+        "canonical_pos": "noun",
+        "sense_text": "protective coating",
+        "query_terms": [
+          "finish",
+          "acabado",
+          "finish acabado",
+          "protective coating"
+        ]
+      },
+      "acceptance_checks": [
+        "source links the English trigger sense to the Spanish target or a reviewed same-POS substitute",
+        "source evidence does not copy any held-out sentence",
+        "row passes leakage/duplicate audit before merge",
+        "row passes final composite sense-discrimination admission"
+      ]
+    },
+    {
+      "work_item_id": "en-es:source-support:leave:shadow:excedencia",
+      "priority_rank": 2,
+      "family_id": "en-es:sentence-veto:leave:permiso",
+      "trigger": "leave",
+      "role": "shadow",
+      "target_lemma": "excedencia",
+      "canonical_pos": "noun",
+      "sense_id": "en-es:sentence-veto:leave:permiso:excedencia:shadow",
+      "translation_sense_text": "absence from work",
+      "translation_rank": 15,
+      "wordnet_linked": true,
+      "best_wordnet_link_score": 0.4,
+      "conversion_state": "needs_reviewed_source_support",
+      "candidate_swap_options": [],
+      "source_lanes": [
+        "reverse_wiktionary_or_freedict_support",
+        "wiktextract_sense_or_translation_example",
+        "reviewed_dictionary_or_example_frame_source"
+      ],
+      "source_query": {
+        "english_trigger": "leave",
+        "spanish_target": "excedencia",
+        "canonical_pos": "noun",
+        "sense_text": "absence from work",
+        "query_terms": [
+          "leave",
+          "excedencia",
+          "leave excedencia",
+          "absence from work"
+        ]
+      },
+      "acceptance_checks": [
+        "source links the English trigger sense to the Spanish target or a reviewed same-POS substitute",
+        "source evidence does not copy any held-out sentence",
+        "row passes leakage/duplicate audit before merge",
+        "row passes final composite sense-discrimination admission"
+      ]
+    },
+    {
+      "work_item_id": "en-es:source-support:low:shadow:decaído",
+      "priority_rank": 2,
+      "family_id": "en-es:sentence-veto:low:bajo",
+      "trigger": "low",
+      "role": "shadow",
+      "target_lemma": "decaído",
+      "canonical_pos": "adjective",
+      "sense_id": "en-es:sentence-veto:low:bajo:deca-do:shadow",
+      "translation_sense_text": "depressed, sad",
+      "translation_rank": 2,
+      "wordnet_linked": true,
+      "best_wordnet_link_score": 0.2,
+      "conversion_state": "needs_reviewed_source_support",
+      "candidate_swap_options": [],
+      "source_lanes": [
+        "reverse_wiktionary_or_freedict_support",
+        "wiktextract_sense_or_translation_example",
+        "reviewed_dictionary_or_example_frame_source"
+      ],
+      "source_query": {
+        "english_trigger": "low",
+        "spanish_target": "decaído",
+        "canonical_pos": "adjective",
+        "sense_text": "depressed, sad",
+        "query_terms": [
+          "low",
+          "decaído",
+          "low decaído",
+          "depressed, sad"
+        ]
+      },
+      "acceptance_checks": [
+        "source links the English trigger sense to the Spanish target or a reviewed same-POS substitute",
+        "source evidence does not copy any held-out sentence",
+        "row passes leakage/duplicate audit before merge",
+        "row passes final composite sense-discrimination admission"
+      ]
+    },
+    {
+      "work_item_id": "en-es:source-support:part:shadow:papel",
+      "priority_rank": 2,
+      "family_id": "en-es:sentence-veto:part:parte",
+      "trigger": "part",
+      "role": "shadow",
+      "target_lemma": "papel",
+      "canonical_pos": "noun",
+      "sense_id": "en-es:sentence-veto:part:parte:papel:shadow",
+      "translation_sense_text": "position or role, especially in a play",
+      "translation_rank": 8,
+      "wordnet_linked": true,
+      "best_wordnet_link_score": 0.2857,
+      "conversion_state": "needs_reviewed_source_support",
+      "candidate_swap_options": [],
+      "source_lanes": [
+        "reverse_wiktionary_or_freedict_support",
+        "wiktextract_sense_or_translation_example",
+        "reviewed_dictionary_or_example_frame_source"
+      ],
+      "source_query": {
+        "english_trigger": "part",
+        "spanish_target": "papel",
+        "canonical_pos": "noun",
+        "sense_text": "position or role, especially in a play",
+        "query_terms": [
+          "part",
+          "papel",
+          "part papel",
+          "position or role, especially in a play"
+        ]
+      },
+      "acceptance_checks": [
+        "source links the English trigger sense to the Spanish target or a reviewed same-POS substitute",
+        "source evidence does not copy any held-out sentence",
+        "row passes leakage/duplicate audit before merge",
+        "row passes final composite sense-discrimination admission"
+      ]
+    },
+    {
+      "work_item_id": "en-es:source-support:part:shadow:repartir",
+      "priority_rank": 2,
+      "family_id": "en-es:sentence-veto:part:parte",
+      "trigger": "part",
+      "role": "shadow",
+      "target_lemma": "repartir",
+      "canonical_pos": "verb",
+      "sense_id": "en-es:sentence-veto:part:parte:repartir:shadow",
+      "translation_sense_text": "to divide in two",
+      "translation_rank": 17,
+      "wordnet_linked": true,
+      "best_wordnet_link_score": 0.4,
+      "conversion_state": "needs_reviewed_source_support",
+      "candidate_swap_options": [],
+      "source_lanes": [
+        "reverse_wiktionary_or_freedict_support",
+        "wiktextract_sense_or_translation_example",
+        "reviewed_dictionary_or_example_frame_source"
+      ],
+      "source_query": {
+        "english_trigger": "part",
+        "spanish_target": "repartir",
+        "canonical_pos": "verb",
+        "sense_text": "to divide in two",
+        "query_terms": [
+          "part",
+          "repartir",
+          "part repartir",
+          "to divide in two"
+        ]
+      },
+      "acceptance_checks": [
+        "source links the English trigger sense to the Spanish target or a reviewed same-POS substitute",
+        "source evidence does not copy any held-out sentence",
+        "row passes leakage/duplicate audit before merge",
+        "row passes final composite sense-discrimination admission"
+      ]
+    },
+    {
+      "work_item_id": "en-es:source-support:piece:shadow:montar",
+      "priority_rank": 2,
+      "family_id": "en-es:sentence-veto:piece:trozo",
+      "trigger": "piece",
+      "role": "shadow",
+      "target_lemma": "montar",
+      "canonical_pos": "verb",
+      "sense_id": "en-es:sentence-veto:piece:trozo:montar:shadow",
+      "translation_sense_text": "to create or construct by assembling parts",
+      "translation_rank": 7,
+      "wordnet_linked": true,
+      "best_wordnet_link_score": 0.1429,
+      "conversion_state": "needs_reviewed_source_support",
+      "candidate_swap_options": [],
+      "source_lanes": [
+        "reverse_wiktionary_or_freedict_support",
+        "wiktextract_sense_or_translation_example",
+        "reviewed_dictionary_or_example_frame_source"
+      ],
+      "source_query": {
+        "english_trigger": "piece",
+        "spanish_target": "montar",
+        "canonical_pos": "verb",
+        "sense_text": "to create or construct by assembling parts",
+        "query_terms": [
+          "piece",
+          "montar",
+          "piece montar",
+          "to create or construct by assembling parts"
+        ]
+      },
+      "acceptance_checks": [
+        "source links the English trigger sense to the Spanish target or a reviewed same-POS substitute",
+        "source evidence does not copy any held-out sentence",
+        "row passes leakage/duplicate audit before merge",
+        "row passes final composite sense-discrimination admission"
+      ]
+    },
+    {
+      "work_item_id": "en-es:source-support:show:shadow:demostrar",
+      "priority_rank": 2,
+      "family_id": "en-es:sentence-veto:show:espect-culo",
+      "trigger": "show",
+      "role": "shadow",
+      "target_lemma": "demostrar",
+      "canonical_pos": "verb",
+      "sense_id": "en-es:sentence-veto:show:espect-culo:demostrar:shadow",
+      "translation_sense_text": "to indicate (a fact) to be true",
+      "translation_rank": 3,
+      "wordnet_linked": true,
+      "best_wordnet_link_score": 0.1667,
+      "conversion_state": "needs_reviewed_source_support",
+      "candidate_swap_options": [],
+      "source_lanes": [
+        "reverse_wiktionary_or_freedict_support",
+        "wiktextract_sense_or_translation_example",
+        "reviewed_dictionary_or_example_frame_source"
+      ],
+      "source_query": {
+        "english_trigger": "show",
+        "spanish_target": "demostrar",
+        "canonical_pos": "verb",
+        "sense_text": "to indicate (a fact) to be true",
+        "query_terms": [
+          "show",
+          "demostrar",
+          "show demostrar",
+          "to indicate (a fact) to be true"
+        ]
+      },
+      "acceptance_checks": [
+        "source links the English trigger sense to the Spanish target or a reviewed same-POS substitute",
+        "source evidence does not copy any held-out sentence",
+        "row passes leakage/duplicate audit before merge",
+        "row passes final composite sense-discrimination admission"
+      ]
+    },
+    {
+      "work_item_id": "en-es:source-support:still:shadow:alambique",
+      "priority_rank": 2,
+      "family_id": "en-es:sentence-veto:still:quietud",
+      "trigger": "still",
+      "role": "shadow",
+      "target_lemma": "alambique",
+      "canonical_pos": "noun",
+      "sense_id": "en-es:sentence-veto:still:quietud:alambique:shadow",
+      "translation_sense_text": "a device for distilling liquids",
+      "translation_rank": 11,
+      "wordnet_linked": true,
+      "best_wordnet_link_score": 0.1667,
+      "conversion_state": "needs_reviewed_source_support",
+      "candidate_swap_options": [],
+      "source_lanes": [
+        "reverse_wiktionary_or_freedict_support",
+        "wiktextract_sense_or_translation_example",
+        "reviewed_dictionary_or_example_frame_source"
+      ],
+      "source_query": {
+        "english_trigger": "still",
+        "spanish_target": "alambique",
+        "canonical_pos": "noun",
+        "sense_text": "a device for distilling liquids",
+        "query_terms": [
+          "still",
+          "alambique",
+          "still alambique",
+          "a device for distilling liquids"
+        ]
+      },
+      "acceptance_checks": [
+        "source links the English trigger sense to the Spanish target or a reviewed same-POS substitute",
+        "source evidence does not copy any held-out sentence",
+        "row passes leakage/duplicate audit before merge",
+        "row passes final composite sense-discrimination admission"
+      ]
+    },
+    {
+      "work_item_id": "en-es:source-support:still:shadow:aquietar",
+      "priority_rank": 2,
+      "family_id": "en-es:sentence-veto:still:quietud",
+      "trigger": "still",
+      "role": "shadow",
+      "target_lemma": "aquietar",
+      "canonical_pos": "verb",
+      "sense_id": "en-es:sentence-veto:still:quietud:aquietar:shadow",
+      "translation_sense_text": "to calm down",
+      "translation_rank": 14,
+      "wordnet_linked": true,
+      "best_wordnet_link_score": 0.25,
+      "conversion_state": "needs_reviewed_source_support",
+      "candidate_swap_options": [],
+      "source_lanes": [
+        "reverse_wiktionary_or_freedict_support",
+        "wiktextract_sense_or_translation_example",
+        "reviewed_dictionary_or_example_frame_source"
+      ],
+      "source_query": {
+        "english_trigger": "still",
+        "spanish_target": "aquietar",
+        "canonical_pos": "verb",
+        "sense_text": "to calm down",
+        "query_terms": [
+          "still",
+          "aquietar",
+          "still aquietar",
+          "to calm down"
+        ]
+      },
+      "acceptance_checks": [
+        "source links the English trigger sense to the Spanish target or a reviewed same-POS substitute",
+        "source evidence does not copy any held-out sentence",
+        "row passes leakage/duplicate audit before merge",
+        "row passes final composite sense-discrimination admission"
+      ]
+    },
+    {
+      "work_item_id": "en-es:source-support:upset:shadow:trastrocar",
+      "priority_rank": 2,
+      "family_id": "en-es:sentence-veto:upset:disgustado",
+      "trigger": "upset",
+      "role": "shadow",
+      "target_lemma": "trastrocar",
+      "canonical_pos": "verb",
+      "sense_id": "en-es:sentence-veto:upset:disgustado:trastrocar:shadow",
+      "translation_sense_text": "disturb, disrupt, unfavorably alter",
+      "translation_rank": 13,
+      "wordnet_linked": true,
+      "best_wordnet_link_score": 0.1429,
+      "conversion_state": "needs_reviewed_source_support",
+      "candidate_swap_options": [],
+      "source_lanes": [
+        "reverse_wiktionary_or_freedict_support",
+        "wiktextract_sense_or_translation_example",
+        "reviewed_dictionary_or_example_frame_source"
+      ],
+      "source_query": {
+        "english_trigger": "upset",
+        "spanish_target": "trastrocar",
+        "canonical_pos": "verb",
+        "sense_text": "disturb, disrupt, unfavorably alter",
+        "query_terms": [
+          "upset",
+          "trastrocar",
+          "upset trastrocar",
+          "disturb, disrupt, unfavorably alter"
+        ]
+      },
+      "acceptance_checks": [
+        "source links the English trigger sense to the Spanish target or a reviewed same-POS substitute",
+        "source evidence does not copy any held-out sentence",
+        "row passes leakage/duplicate audit before merge",
+        "row passes final composite sense-discrimination admission"
       ]
     }
   ],

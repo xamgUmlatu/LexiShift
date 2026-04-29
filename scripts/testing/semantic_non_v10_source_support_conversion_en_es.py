@@ -68,6 +68,7 @@ def build_source_support_conversion_report(
     fully_supported_count = int(family_state_counts.get("already_supported", 0))
     needs_review_count = int(family_state_counts.get("needs_reviewed_source_support", 0))
     convertible_count = int(family_state_counts.get("candidate_swap_review_available", 0))
+    support_worklist = _support_worklist(families)
     return {
         "schema_version": 1,
         "status": "ok" if fully_supported_count == len(families) and families else "review",
@@ -105,8 +106,20 @@ def build_source_support_conversion_report(
             ),
             "family_state_counts": family_state_counts,
             "unsupported_row_state_counts": row_state_counts,
+            "support_work_item_count": len(support_worklist),
+            "candidate_swap_work_item_count": sum(
+                1
+                for row in support_worklist
+                if row.get("conversion_state") == "candidate_swap_review_available"
+            ),
+            "reviewed_source_work_item_count": sum(
+                1
+                for row in support_worklist
+                if row.get("conversion_state") == "needs_reviewed_source_support"
+            ),
         },
         "families": families,
+        "support_worklist": support_worklist,
         "limitations": [
             "conversion_audit_does_not_change_selected_family_targets",
             "same_pos_alternatives_require_review_and_re_admission_before_use",
@@ -145,6 +158,10 @@ def render_source_support_conversion_markdown(report: Mapping[str, object]) -> s
         "## Unsupported Sense Details",
         "",
         _unsupported_table(report.get("families", ())),
+        "",
+        "## Support Acquisition Worklist",
+        "",
+        _support_worklist_table(report.get("support_worklist", ())),
         "",
         "## Limitations",
         "",
@@ -224,15 +241,21 @@ def _sense_support_row(sense: Mapping[str, object], *, role: str) -> dict[str, o
     metadata = _as_mapping(sense.get("metadata"))
     reverse_support = bool(metadata.get("reverse_support"))
     freedict_support = bool(metadata.get("freedict_support"))
+    wiktextract_support = bool(metadata.get("wiktextract_translation_support"))
+    reviewed_support = bool(metadata.get("reviewed_translation_support"))
     support_sources = list(metadata.get("support_sources") or ())
     return {
         "role": role,
         "sense_id": str(sense.get("sense_id") or "").strip(),
         "target_lemma": str(sense.get("target_lemma") or "").strip(),
         "canonical_pos": str(sense.get("canonical_pos") or "").strip(),
-        "has_translation_support": reverse_support or freedict_support,
+        "has_translation_support": (
+            reverse_support or freedict_support or wiktextract_support or reviewed_support
+        ),
         "reverse_support": reverse_support,
         "freedict_support": freedict_support,
+        "wiktextract_translation_support": wiktextract_support,
+        "reviewed_translation_support": reviewed_support,
         "support_sources": support_sources,
         "translation_rank": int(metadata.get("translation_rank") or 0),
         "translation_sense_text": str(metadata.get("translation_sense_text") or "").strip(),
@@ -274,6 +297,136 @@ def _candidate_summary(row: Mapping[str, object]) -> dict[str, object]:
         "support_sources": list(row.get("support_sources") or ()),
         "best_wordnet_link_score": float(row.get("best_wordnet_link_score") or 0.0),
     }
+
+
+def _support_worklist(families: Sequence[Mapping[str, object]]) -> list[dict[str, object]]:
+    rows: list[dict[str, object]] = []
+    for family in families:
+        family_id = str(family.get("family_id") or "").strip()
+        trigger = str(family.get("trigger") or "").strip()
+        for sense in family.get("unsupported_senses", ()):
+            if not isinstance(sense, Mapping):
+                continue
+            rows.append(_support_work_item(family_id=family_id, trigger=trigger, sense=sense))
+    return sorted(
+        rows,
+        key=lambda row: (
+            _int_or_default(row.get("priority_rank"), default=999),
+            str(row.get("trigger") or ""),
+            str(row.get("role") or ""),
+            str(row.get("target_lemma") or ""),
+        ),
+    )
+
+
+def _support_work_item(
+    *,
+    family_id: str,
+    trigger: str,
+    sense: Mapping[str, object],
+) -> dict[str, object]:
+    conversion_state = str(sense.get("conversion_state") or "").strip()
+    source_lanes = _source_lanes_for_conversion_state(conversion_state)
+    target = str(sense.get("target_lemma") or "").strip()
+    role = str(sense.get("role") or "").strip()
+    return {
+        "work_item_id": ":".join(
+            item
+            for item in (
+                "en-es",
+                "source-support",
+                _slug(trigger),
+                role,
+                _slug(target),
+            )
+            if item
+        ),
+        "priority_rank": _priority_rank(sense),
+        "family_id": family_id,
+        "trigger": trigger,
+        "role": role,
+        "target_lemma": target,
+        "canonical_pos": str(sense.get("canonical_pos") or "").strip(),
+        "sense_id": str(sense.get("sense_id") or "").strip(),
+        "translation_sense_text": str(sense.get("translation_sense_text") or "").strip(),
+        "translation_rank": int(sense.get("translation_rank") or 0),
+        "wordnet_linked": bool(sense.get("wordnet_linked")),
+        "best_wordnet_link_score": float(sense.get("best_wordnet_link_score") or 0.0),
+        "conversion_state": conversion_state,
+        "candidate_swap_options": list(sense.get("same_pos_supported_alternatives") or ()),
+        "source_lanes": source_lanes,
+        "source_query": _source_query(trigger=trigger, target=target, sense=sense),
+        "acceptance_checks": [
+            "source links the English trigger sense to the Spanish target or a reviewed same-POS substitute",
+            "source evidence does not copy any held-out sentence",
+            "row passes leakage/duplicate audit before merge",
+            "row passes final composite sense-discrimination admission",
+        ],
+    }
+
+
+def _priority_rank(sense: Mapping[str, object]) -> int:
+    if str(sense.get("role") or "") == "active":
+        return 0
+    if str(sense.get("conversion_state") or "") == "candidate_swap_review_available":
+        return 1
+    return 2
+
+
+def _source_lanes_for_conversion_state(conversion_state: str) -> list[str]:
+    lanes = []
+    if conversion_state == "candidate_swap_review_available":
+        lanes.append("review_same_pos_supported_target_swap")
+    lanes.extend(
+        [
+            "reverse_wiktionary_or_freedict_support",
+            "wiktextract_sense_or_translation_example",
+            "reviewed_dictionary_or_example_frame_source",
+        ]
+    )
+    return lanes
+
+
+def _source_query(*, trigger: str, target: str, sense: Mapping[str, object]) -> dict[str, object]:
+    return {
+        "english_trigger": trigger,
+        "spanish_target": target,
+        "canonical_pos": str(sense.get("canonical_pos") or "").strip(),
+        "sense_text": str(sense.get("translation_sense_text") or "").strip(),
+        "query_terms": [
+            item
+            for item in (
+                trigger,
+                target,
+                f"{trigger} {target}",
+                str(sense.get("translation_sense_text") or "").strip(),
+            )
+            if item
+        ],
+    }
+
+
+def _support_worklist_table(rows: object) -> str:
+    entries = [row for row in _as_sequence(rows) if isinstance(row, Mapping)]
+    if not entries:
+        return "No support acquisition work items."
+    lines = [
+        "| Priority | Trigger | Role | Target | State | Source lanes |",
+        "| ---: | --- | --- | --- | --- | --- |",
+    ]
+    for row in entries:
+        lanes = ", ".join(str(item) for item in row.get("source_lanes") or ())
+        lines.append(
+            f"| `{row.get('priority_rank', '')}` | `{row.get('trigger', '')}` | "
+            f"`{row.get('role', '')}` | `{row.get('target_lemma', '')}` | "
+            f"`{row.get('conversion_state', '')}` | `{lanes}` |"
+        )
+    return "\n".join(lines)
+
+
+def _slug(value: object) -> str:
+    text = _normalize_text(value)
+    return "".join(ch if ch.isalnum() else "-" for ch in text).strip("-") or "item"
 
 
 def _family_table(rows: object) -> str:
@@ -360,6 +513,13 @@ def _count_by_key(rows: Sequence[Mapping[str, object]], key: str) -> dict[str, i
 
 def _normalize_text(value: object) -> str:
     return str(value or "").strip().lower()
+
+
+def _int_or_default(value: object, *, default: int) -> int:
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return default
 
 
 def _load_json(path: Path) -> dict[str, object]:

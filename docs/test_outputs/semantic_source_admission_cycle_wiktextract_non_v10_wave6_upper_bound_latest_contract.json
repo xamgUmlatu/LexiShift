@@ -1,0 +1,704 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-04-29T01:18:56Z",
+  "status": "review",
+  "pair": "en-es",
+  "batch_path": "",
+  "batch_id": "en-es:wiktextract-non-v10-wave6-upper-bound:source-admission-cycle-latest:sense-admitted",
+  "source_id": "wiktextract_non_v10_wave6_upper_bound",
+  "prompt_version": "example-frame-composite-v1",
+  "model_id": "mixed",
+  "row_count": 21,
+  "contract": {
+    "required_relation_sets": {
+      "active_examples": [
+        "anchor_cue"
+      ],
+      "shadow_examples": [
+        "bridge_candidate",
+        "shadow_candidate"
+      ],
+      "phrase_control_examples": [
+        "phrase_control_example"
+      ]
+    },
+    "required_batch_role_for_phrase_rows": "phrase_containment",
+    "runtime_publishable_required": false,
+    "required_family_keys": [
+      "en-es:sentence-veto:leave:permiso",
+      "en-es:sentence-veto:black:oscuro",
+      "en-es:sentence-veto:serve:servicio",
+      "en-es:sentence-veto:low:bajo",
+      "en-es:sentence-veto:part:parte",
+      "en-es:sentence-veto:feel:talento",
+      "en-es:sentence-veto:still:quietud",
+      "en-es:sentence-veto:bear:bajista",
+      "en-es:sentence-veto:finish:meta",
+      "en-es:sentence-veto:throw:lanzamiento",
+      "en-es:sentence-veto:upset:disgustado",
+      "en-es:sentence-veto:piece:trozo",
+      "en-es:sentence-veto:fair:pastel",
+      "en-es:sentence-veto:show:espect-culo",
+      "en-es:sentence-veto:advance:avance",
+      "en-es:sentence-veto:rank:rancio"
+    ]
+  },
+  "summary": {
+    "families_total": 16,
+    "semantic_contract_complete_family_count": 2,
+    "semantic_contract_complete": false,
+    "phrase_containment_contract_complete_family_count": 0,
+    "phrase_containment_contract_complete": false,
+    "contract_complete_family_count": 0,
+    "contract_complete": false,
+    "missing_active_family_keys": [
+      "en-es:sentence-veto:bear:bajista",
+      "en-es:sentence-veto:black:oscuro",
+      "en-es:sentence-veto:fair:pastel",
+      "en-es:sentence-veto:feel:talento",
+      "en-es:sentence-veto:finish:meta",
+      "en-es:sentence-veto:leave:permiso",
+      "en-es:sentence-veto:low:bajo",
+      "en-es:sentence-veto:rank:rancio",
+      "en-es:sentence-veto:upset:disgustado"
+    ],
+    "missing_shadow_family_keys": [
+      "en-es:sentence-veto:advance:avance",
+      "en-es:sentence-veto:black:oscuro",
+      "en-es:sentence-veto:fair:pastel",
+      "en-es:sentence-veto:low:bajo",
+      "en-es:sentence-veto:piece:trozo",
+      "en-es:sentence-veto:serve:servicio",
+      "en-es:sentence-veto:show:espect-culo",
+      "en-es:sentence-veto:throw:lanzamiento"
+    ],
+    "semantic_gap_family_keys": [
+      "en-es:sentence-veto:bear:bajista",
+      "en-es:sentence-veto:black:oscuro",
+      "en-es:sentence-veto:fair:pastel",
+      "en-es:sentence-veto:feel:talento",
+      "en-es:sentence-veto:finish:meta",
+      "en-es:sentence-veto:leave:permiso",
+      "en-es:sentence-veto:low:bajo",
+      "en-es:sentence-veto:rank:rancio",
+      "en-es:sentence-veto:upset:disgustado",
+      "en-es:sentence-veto:advance:avance",
+      "en-es:sentence-veto:piece:trozo",
+      "en-es:sentence-veto:serve:servicio",
+      "en-es:sentence-veto:show:espect-culo",
+      "en-es:sentence-veto:throw:lanzamiento"
+    ],
+    "missing_phrase_control_family_keys": [
+      "en-es:sentence-veto:advance:avance",
+      "en-es:sentence-veto:bear:bajista",
+      "en-es:sentence-veto:black:oscuro",
+      "en-es:sentence-veto:fair:pastel",
+      "en-es:sentence-veto:feel:talento",
+      "en-es:sentence-veto:finish:meta",
+      "en-es:sentence-veto:leave:permiso",
+      "en-es:sentence-veto:low:bajo",
+      "en-es:sentence-veto:part:parte",
+      "en-es:sentence-veto:piece:trozo",
+      "en-es:sentence-veto:rank:rancio",
+      "en-es:sentence-veto:serve:servicio",
+      "en-es:sentence-veto:show:espect-culo",
+      "en-es:sentence-veto:still:quietud",
+      "en-es:sentence-veto:throw:lanzamiento",
+      "en-es:sentence-veto:upset:disgustado"
+    ],
+    "phrase_role_issue_family_keys": [],
+    "phrase_containment_gap_family_keys": [
+      "en-es:sentence-veto:advance:avance",
+      "en-es:sentence-veto:bear:bajista",
+      "en-es:sentence-veto:black:oscuro",
+      "en-es:sentence-veto:fair:pastel",
+      "en-es:sentence-veto:feel:talento",
+      "en-es:sentence-veto:finish:meta",
+      "en-es:sentence-veto:leave:permiso",
+      "en-es:sentence-veto:low:bajo",
+      "en-es:sentence-veto:part:parte",
+      "en-es:sentence-veto:piece:trozo",
+      "en-es:sentence-veto:rank:rancio",
+      "en-es:sentence-veto:serve:servicio",
+      "en-es:sentence-veto:show:espect-culo",
+      "en-es:sentence-veto:still:quietud",
+      "en-es:sentence-veto:throw:lanzamiento",
+      "en-es:sentence-veto:upset:disgustado"
+    ],
+    "runtime_publishable_issue_family_keys": [],
+    "semantic_contract": {
+      "complete_family_count": 2,
+      "complete": false,
+      "gap_family_keys": [
+        "en-es:sentence-veto:bear:bajista",
+        "en-es:sentence-veto:black:oscuro",
+        "en-es:sentence-veto:fair:pastel",
+        "en-es:sentence-veto:feel:talento",
+        "en-es:sentence-veto:finish:meta",
+        "en-es:sentence-veto:leave:permiso",
+        "en-es:sentence-veto:low:bajo",
+        "en-es:sentence-veto:rank:rancio",
+        "en-es:sentence-veto:upset:disgustado",
+        "en-es:sentence-veto:advance:avance",
+        "en-es:sentence-veto:piece:trozo",
+        "en-es:sentence-veto:serve:servicio",
+        "en-es:sentence-veto:show:espect-culo",
+        "en-es:sentence-veto:throw:lanzamiento"
+      ],
+      "missing_active_family_keys": [
+        "en-es:sentence-veto:bear:bajista",
+        "en-es:sentence-veto:black:oscuro",
+        "en-es:sentence-veto:fair:pastel",
+        "en-es:sentence-veto:feel:talento",
+        "en-es:sentence-veto:finish:meta",
+        "en-es:sentence-veto:leave:permiso",
+        "en-es:sentence-veto:low:bajo",
+        "en-es:sentence-veto:rank:rancio",
+        "en-es:sentence-veto:upset:disgustado"
+      ],
+      "missing_shadow_family_keys": [
+        "en-es:sentence-veto:advance:avance",
+        "en-es:sentence-veto:black:oscuro",
+        "en-es:sentence-veto:fair:pastel",
+        "en-es:sentence-veto:low:bajo",
+        "en-es:sentence-veto:piece:trozo",
+        "en-es:sentence-veto:serve:servicio",
+        "en-es:sentence-veto:show:espect-culo",
+        "en-es:sentence-veto:throw:lanzamiento"
+      ]
+    },
+    "phrase_containment_contract": {
+      "complete_family_count": 0,
+      "complete": false,
+      "gap_family_keys": [
+        "en-es:sentence-veto:advance:avance",
+        "en-es:sentence-veto:bear:bajista",
+        "en-es:sentence-veto:black:oscuro",
+        "en-es:sentence-veto:fair:pastel",
+        "en-es:sentence-veto:feel:talento",
+        "en-es:sentence-veto:finish:meta",
+        "en-es:sentence-veto:leave:permiso",
+        "en-es:sentence-veto:low:bajo",
+        "en-es:sentence-veto:part:parte",
+        "en-es:sentence-veto:piece:trozo",
+        "en-es:sentence-veto:rank:rancio",
+        "en-es:sentence-veto:serve:servicio",
+        "en-es:sentence-veto:show:espect-culo",
+        "en-es:sentence-veto:still:quietud",
+        "en-es:sentence-veto:throw:lanzamiento",
+        "en-es:sentence-veto:upset:disgustado"
+      ],
+      "missing_phrase_control_family_keys": [
+        "en-es:sentence-veto:advance:avance",
+        "en-es:sentence-veto:bear:bajista",
+        "en-es:sentence-veto:black:oscuro",
+        "en-es:sentence-veto:fair:pastel",
+        "en-es:sentence-veto:feel:talento",
+        "en-es:sentence-veto:finish:meta",
+        "en-es:sentence-veto:leave:permiso",
+        "en-es:sentence-veto:low:bajo",
+        "en-es:sentence-veto:part:parte",
+        "en-es:sentence-veto:piece:trozo",
+        "en-es:sentence-veto:rank:rancio",
+        "en-es:sentence-veto:serve:servicio",
+        "en-es:sentence-veto:show:espect-culo",
+        "en-es:sentence-veto:still:quietud",
+        "en-es:sentence-veto:throw:lanzamiento",
+        "en-es:sentence-veto:upset:disgustado"
+      ],
+      "phrase_role_issue_family_keys": []
+    },
+    "combined_contract": {
+      "complete_family_count": 0,
+      "complete": false,
+      "runtime_publishable_issue_family_keys": []
+    }
+  },
+  "family_rows": [
+    {
+      "family_key": "en-es:sentence-veto:advance:avance",
+      "family_id": "en-es:sentence-veto:advance:avance",
+      "trigger": "advance",
+      "active_target": "avance",
+      "active_example_count": 2,
+      "shadow_example_count": 0,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "semantic_contract_complete": false,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "shadow_examples",
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [
+        "shadow_examples"
+      ],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [
+        "en-es-sentence-veto-advance-avance:active-en-es-sentence-veto-advance-avance-active-wiktextract-example-1",
+        "en-es-sentence-veto-advance-avance:active-en-es-sentence-veto-advance-avance-active-wiktextract-example-2"
+      ],
+      "shadow_row_ids": [],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:bear:bajista",
+      "family_id": "en-es:sentence-veto:bear:bajista",
+      "trigger": "bear",
+      "active_target": "bajista",
+      "active_example_count": 0,
+      "shadow_example_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 1,
+      "semantic_contract_complete": false,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "active_examples",
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [
+        "active_examples"
+      ],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-bear-bajista:shadow-en-es-sentence-veto-bear-bajista-llevar-shadow-wiktextract-example-1"
+      ],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:black:oscuro",
+      "family_id": "",
+      "trigger": "",
+      "active_target": "",
+      "active_example_count": 0,
+      "shadow_example_count": 0,
+      "phrase_control_example_count": 0,
+      "row_count": 0,
+      "semantic_contract_complete": false,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "active_examples",
+        "shadow_examples",
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [
+        "active_examples",
+        "shadow_examples"
+      ],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [],
+      "shadow_row_ids": [],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:fair:pastel",
+      "family_id": "",
+      "trigger": "",
+      "active_target": "",
+      "active_example_count": 0,
+      "shadow_example_count": 0,
+      "phrase_control_example_count": 0,
+      "row_count": 0,
+      "semantic_contract_complete": false,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "active_examples",
+        "shadow_examples",
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [
+        "active_examples",
+        "shadow_examples"
+      ],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [],
+      "shadow_row_ids": [],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:feel:talento",
+      "family_id": "en-es:sentence-veto:feel:talento",
+      "trigger": "feel",
+      "active_target": "talento",
+      "active_example_count": 0,
+      "shadow_example_count": 2,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "semantic_contract_complete": false,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "active_examples",
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [
+        "active_examples"
+      ],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-feel-talento:shadow-en-es-sentence-veto-feel-talento-sentir-shadow-wiktextract-example-1",
+        "en-es-sentence-veto-feel-talento:shadow-en-es-sentence-veto-feel-talento-sentir-shadow-wiktextract-example-2"
+      ],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:finish:meta",
+      "family_id": "en-es:sentence-veto:finish:meta",
+      "trigger": "finish",
+      "active_target": "meta",
+      "active_example_count": 0,
+      "shadow_example_count": 2,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "semantic_contract_complete": false,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "active_examples",
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [
+        "active_examples"
+      ],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-finish-meta:shadow-en-es-sentence-veto-finish-meta-acabado-shadow-wiktextract-example-1",
+        "en-es-sentence-veto-finish-meta:shadow-en-es-sentence-veto-finish-meta-acabar-shadow-wiktextract-example-1"
+      ],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:leave:permiso",
+      "family_id": "en-es:sentence-veto:leave:permiso",
+      "trigger": "leave",
+      "active_target": "permiso",
+      "active_example_count": 0,
+      "shadow_example_count": 2,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "semantic_contract_complete": false,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "active_examples",
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [
+        "active_examples"
+      ],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-leave-permiso:shadow-en-es-sentence-veto-leave-permiso-excedencia-shadow-wiktextract-example-1",
+        "en-es-sentence-veto-leave-permiso:shadow-en-es-sentence-veto-leave-permiso-dejar-shadow-wiktextract-example-1"
+      ],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:low:bajo",
+      "family_id": "",
+      "trigger": "",
+      "active_target": "",
+      "active_example_count": 0,
+      "shadow_example_count": 0,
+      "phrase_control_example_count": 0,
+      "row_count": 0,
+      "semantic_contract_complete": false,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "active_examples",
+        "shadow_examples",
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [
+        "active_examples",
+        "shadow_examples"
+      ],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [],
+      "shadow_row_ids": [],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:part:parte",
+      "family_id": "en-es:sentence-veto:part:parte",
+      "trigger": "part",
+      "active_target": "parte",
+      "active_example_count": 1,
+      "shadow_example_count": 2,
+      "phrase_control_example_count": 0,
+      "row_count": 3,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [
+        "en-es-sentence-veto-part-parte:active-en-es-sentence-veto-part-parte-active-wiktextract-example-1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-part-parte:shadow-en-es-sentence-veto-part-parte-papel-shadow-wiktextract-example-1",
+        "en-es-sentence-veto-part-parte:shadow-en-es-sentence-veto-part-parte-repartir-shadow-wiktextract-example-1"
+      ],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:piece:trozo",
+      "family_id": "en-es:sentence-veto:piece:trozo",
+      "trigger": "piece",
+      "active_target": "trozo",
+      "active_example_count": 2,
+      "shadow_example_count": 0,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "semantic_contract_complete": false,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "shadow_examples",
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [
+        "shadow_examples"
+      ],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [
+        "en-es-sentence-veto-piece-trozo:active-en-es-sentence-veto-piece-trozo-active-wiktextract-example-1",
+        "en-es-sentence-veto-piece-trozo:active-en-es-sentence-veto-piece-trozo-active-wiktextract-example-2"
+      ],
+      "shadow_row_ids": [],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:rank:rancio",
+      "family_id": "en-es:sentence-veto:rank:rancio",
+      "trigger": "rank",
+      "active_target": "rancio",
+      "active_example_count": 0,
+      "shadow_example_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 1,
+      "semantic_contract_complete": false,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "active_examples",
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [
+        "active_examples"
+      ],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-rank-rancio:shadow-en-es-sentence-veto-rank-rancio-fila-shadow-wiktextract-example-1"
+      ],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:serve:servicio",
+      "family_id": "en-es:sentence-veto:serve:servicio",
+      "trigger": "serve",
+      "active_target": "servicio",
+      "active_example_count": 1,
+      "shadow_example_count": 0,
+      "phrase_control_example_count": 0,
+      "row_count": 1,
+      "semantic_contract_complete": false,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "shadow_examples",
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [
+        "shadow_examples"
+      ],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [
+        "en-es-sentence-veto-serve-servicio:active-en-es-sentence-veto-serve-servicio-active-wiktextract-example-1"
+      ],
+      "shadow_row_ids": [],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:show:espect-culo",
+      "family_id": "en-es:sentence-veto:show:espect-culo",
+      "trigger": "show",
+      "active_target": "espectáculo",
+      "active_example_count": 1,
+      "shadow_example_count": 0,
+      "phrase_control_example_count": 0,
+      "row_count": 1,
+      "semantic_contract_complete": false,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "shadow_examples",
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [
+        "shadow_examples"
+      ],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [
+        "en-es-sentence-veto-show-espect-culo:active-en-es-sentence-veto-show-espect-culo-active-wiktextract-example-1"
+      ],
+      "shadow_row_ids": [],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:still:quietud",
+      "family_id": "en-es:sentence-veto:still:quietud",
+      "trigger": "still",
+      "active_target": "quietud",
+      "active_example_count": 1,
+      "shadow_example_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [
+        "en-es-sentence-veto-still-quietud:active-en-es-sentence-veto-still-quietud-active-wiktextract-example-1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-still-quietud:shadow-en-es-sentence-veto-still-quietud-aquietar-shadow-wiktextract-example-1"
+      ],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:throw:lanzamiento",
+      "family_id": "en-es:sentence-veto:throw:lanzamiento",
+      "trigger": "throw",
+      "active_target": "lanzamiento",
+      "active_example_count": 1,
+      "shadow_example_count": 0,
+      "phrase_control_example_count": 0,
+      "row_count": 1,
+      "semantic_contract_complete": false,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "shadow_examples",
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [
+        "shadow_examples"
+      ],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [
+        "en-es-sentence-veto-throw-lanzamiento:active-en-es-sentence-veto-throw-lanzamiento-active-wiktextract-example-1"
+      ],
+      "shadow_row_ids": [],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:upset:disgustado",
+      "family_id": "en-es:sentence-veto:upset:disgustado",
+      "trigger": "upset",
+      "active_target": "disgustado",
+      "active_example_count": 0,
+      "shadow_example_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 1,
+      "semantic_contract_complete": false,
+      "phrase_containment_contract_complete": false,
+      "contract_complete": false,
+      "missing_requirements": [
+        "active_examples",
+        "phrase_control_examples"
+      ],
+      "semantic_missing_requirements": [
+        "active_examples"
+      ],
+      "phrase_containment_missing_requirements": [
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-upset-disgustado:shadow-en-es-sentence-veto-upset-disgustado-trastrocar-shadow-wiktextract-example-1"
+      ],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    }
+  ],
+  "recommendation": "Do not treat this batch as promotion-relevant for prototype admission. Semantic gaps: active=9, shadow=8. Phrase containment gaps: phrase_control=16. Generate or ingest admitted active/shadow rows first, and keep phrase rows on the containment-only path."
+}

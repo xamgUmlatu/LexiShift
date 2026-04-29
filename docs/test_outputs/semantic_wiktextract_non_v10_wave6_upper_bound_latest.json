@@ -1,0 +1,683 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-04-29T01:18:39Z",
+  "status": "ok",
+  "pair": "en-es",
+  "dataset_id": "en_es_source_non_v10_wave6_anypos_unsupported_upper_bound_selected_v1",
+  "run_id": "wiktextract-non-v10-wave6-upper-bound-v1-latest",
+  "source_scope": "all_dataset_families",
+  "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+  "source_type": "external",
+  "source_id": "wiktextract_example_frames",
+  "source_family": "external_example_corpus",
+  "resource_status": {
+    "data_root": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift",
+    "raw_wiktextract_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/raw-wiktextract-data.jsonl.gz",
+    "raw_wiktextract_exists": true
+  },
+  "summary": {
+    "queue_family_count": 16,
+    "source_family_count": 16,
+    "target_family_count": 16,
+    "row_count": 28,
+    "families_with_active_examples": 9,
+    "families_with_shadow_examples": 10,
+    "families_with_phrase_control_examples": 0,
+    "min_link_score": 0.12
+  },
+  "family_rows": [
+    {
+      "family_id": "en-es:sentence-veto:leave:permiso",
+      "trigger": "leave",
+      "active_target": "permiso",
+      "role": "target",
+      "active_example_count": 1,
+      "shadow_example_count": 2,
+      "phrase_control_example_count": 0,
+      "row_count": 3,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:leave:permiso:active",
+          "target_lemma": "permiso",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_link_score": 0.4,
+          "best_overlap": [
+            "absent",
+            "permission"
+          ],
+          "sense_index": 0
+        },
+        {
+          "sense_id": "en-es:sentence-veto:leave:permiso:excedencia:shadow",
+          "target_lemma": "excedencia",
+          "canonical_pos": "noun",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_link_score": 0.2,
+          "best_overlap": [
+            "work"
+          ],
+          "sense_index": 0
+        },
+        {
+          "sense_id": "en-es:sentence-veto:leave:permiso:dejar:shadow",
+          "target_lemma": "dejar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_link_score": 0.6,
+          "best_overlap": [
+            "available",
+            "away",
+            "cause",
+            "deplet",
+            "refrain",
+            "remain"
+          ],
+          "sense_index": 0
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:black:oscuro",
+      "trigger": "black",
+      "active_target": "oscuro",
+      "role": "target",
+      "active_example_count": 0,
+      "shadow_example_count": 0,
+      "phrase_control_example_count": 0,
+      "row_count": 0,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:black:oscuro:active",
+          "target_lemma": "oscuro",
+          "canonical_pos": "adjective",
+          "relation_type": "anchor_cue",
+          "linked": false,
+          "best_link_score": 0.0,
+          "best_overlap": [],
+          "sense_index": null
+        },
+        {
+          "sense_id": "en-es:sentence-veto:black:oscuro:negro:shadow",
+          "target_lemma": "negro",
+          "canonical_pos": "noun",
+          "relation_type": "shadow_candidate",
+          "linked": false,
+          "best_link_score": 0.0,
+          "best_overlap": [],
+          "sense_index": null
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:serve:servicio",
+      "trigger": "serve",
+      "active_target": "servicio",
+      "role": "target",
+      "active_example_count": 1,
+      "shadow_example_count": 0,
+      "phrase_control_example_count": 0,
+      "row_count": 1,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:serve:servicio:active",
+          "target_lemma": "servicio",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_link_score": 0.6667,
+          "best_overlap": [
+            "act",
+            "ball",
+            "play",
+            "putt",
+            "shuttlecock",
+            "sport"
+          ],
+          "sense_index": 0
+        },
+        {
+          "sense_id": "en-es:sentence-veto:serve:servicio:servir:shadow",
+          "target_lemma": "servir",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "linked": false,
+          "best_link_score": 0.0,
+          "best_overlap": [],
+          "sense_index": null
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:low:bajo",
+      "trigger": "low",
+      "active_target": "bajo",
+      "role": "target",
+      "active_example_count": 0,
+      "shadow_example_count": 0,
+      "phrase_control_example_count": 0,
+      "row_count": 0,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:low:bajo:active",
+          "target_lemma": "bajo",
+          "canonical_pos": "adverb",
+          "relation_type": "anchor_cue",
+          "linked": false,
+          "best_link_score": 0.0,
+          "best_overlap": [],
+          "sense_index": null
+        },
+        {
+          "sense_id": "en-es:sentence-veto:low:bajo:deca-do:shadow",
+          "target_lemma": "decaído",
+          "canonical_pos": "adjective",
+          "relation_type": "shadow_candidate",
+          "linked": false,
+          "best_link_score": 0.0,
+          "best_overlap": [],
+          "sense_index": null
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:part:parte",
+      "trigger": "part",
+      "active_target": "parte",
+      "role": "target",
+      "active_example_count": 2,
+      "shadow_example_count": 2,
+      "phrase_control_example_count": 0,
+      "row_count": 4,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:part:parte:active",
+          "target_lemma": "parte",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_link_score": 0.4,
+          "best_overlap": [
+            "fraction",
+            "whole"
+          ],
+          "sense_index": 0
+        },
+        {
+          "sense_id": "en-es:sentence-veto:part:parte:papel:shadow",
+          "target_lemma": "papel",
+          "canonical_pos": "noun",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_link_score": 0.5714,
+          "best_overlap": [
+            "especially",
+            "play",
+            "position",
+            "role"
+          ],
+          "sense_index": 12
+        },
+        {
+          "sense_id": "en-es:sentence-veto:part:parte:repartir:shadow",
+          "target_lemma": "repartir",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_link_score": 0.4,
+          "best_overlap": [
+            "divide",
+            "two"
+          ],
+          "sense_index": 2
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:feel:talento",
+      "trigger": "feel",
+      "active_target": "talento",
+      "role": "target",
+      "active_example_count": 1,
+      "shadow_example_count": 2,
+      "phrase_control_example_count": 0,
+      "row_count": 3,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:feel:talento:active",
+          "target_lemma": "talento",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_link_score": 0.4,
+          "best_overlap": [
+            "ability",
+            "intuitive"
+          ],
+          "sense_index": 5
+        },
+        {
+          "sense_id": "en-es:sentence-veto:feel:talento:sentir:shadow",
+          "target_lemma": "sentir",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_link_score": 0.6,
+          "best_overlap": [
+            "sense",
+            "touch",
+            "transitive"
+          ],
+          "sense_index": 0
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:still:quietud",
+      "trigger": "still",
+      "active_target": "quietud",
+      "role": "target",
+      "active_example_count": 1,
+      "shadow_example_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:still:quietud:active",
+          "target_lemma": "quietud",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_link_score": 0.5,
+          "best_overlap": [
+            "calm",
+            "period",
+            "silence"
+          ],
+          "sense_index": 0
+        },
+        {
+          "sense_id": "en-es:sentence-veto:still:quietud:alambique:shadow",
+          "target_lemma": "alambique",
+          "canonical_pos": "noun",
+          "relation_type": "shadow_candidate",
+          "linked": false,
+          "best_link_score": 0.0,
+          "best_overlap": [],
+          "sense_index": null
+        },
+        {
+          "sense_id": "en-es:sentence-veto:still:quietud:aquietar:shadow",
+          "target_lemma": "aquietar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_link_score": 0.25,
+          "best_overlap": [
+            "calm"
+          ],
+          "sense_index": 0
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:bear:bajista",
+      "trigger": "bear",
+      "active_target": "bajista",
+      "role": "target",
+      "active_example_count": 0,
+      "shadow_example_count": 2,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:bear:bajista:active",
+          "target_lemma": "bajista",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": false,
+          "best_link_score": 0.0,
+          "best_overlap": [],
+          "sense_index": null
+        },
+        {
+          "sense_id": "en-es:sentence-veto:bear:bajista:llevar:shadow",
+          "target_lemma": "llevar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_link_score": 0.25,
+          "best_overlap": [
+            "carry"
+          ],
+          "sense_index": 0
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:finish:meta",
+      "trigger": "finish",
+      "active_target": "meta",
+      "role": "target",
+      "active_example_count": 0,
+      "shadow_example_count": 2,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:finish:meta:active",
+          "target_lemma": "meta",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": false,
+          "best_link_score": 0.0,
+          "best_overlap": [],
+          "sense_index": null
+        },
+        {
+          "sense_id": "en-es:sentence-veto:finish:meta:acabado:shadow",
+          "target_lemma": "acabado",
+          "canonical_pos": "noun",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_link_score": 0.4,
+          "best_overlap": [
+            "coat",
+            "protective"
+          ],
+          "sense_index": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:finish:meta:acabar:shadow",
+          "target_lemma": "acabar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_link_score": 0.25,
+          "best_overlap": [
+            "complete"
+          ],
+          "sense_index": 0
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:throw:lanzamiento",
+      "trigger": "throw",
+      "active_target": "lanzamiento",
+      "role": "target",
+      "active_example_count": 1,
+      "shadow_example_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:throw:lanzamiento:active",
+          "target_lemma": "lanzamiento",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_link_score": 0.1667,
+          "best_overlap": [
+            "thrown"
+          ],
+          "sense_index": 3
+        },
+        {
+          "sense_id": "en-es:sentence-veto:throw:lanzamiento:lanzar:shadow",
+          "target_lemma": "lanzar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_link_score": 0.375,
+          "best_overlap": [
+            "air",
+            "object",
+            "rapidly"
+          ],
+          "sense_index": 0
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:upset:disgustado",
+      "trigger": "upset",
+      "active_target": "disgustado",
+      "role": "target",
+      "active_example_count": 0,
+      "shadow_example_count": 2,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:upset:disgustado:active",
+          "target_lemma": "disgustado",
+          "canonical_pos": "adjective",
+          "relation_type": "anchor_cue",
+          "linked": false,
+          "best_link_score": 0.0,
+          "best_overlap": [],
+          "sense_index": null
+        },
+        {
+          "sense_id": "en-es:sentence-veto:upset:disgustado:trastrocar:shadow",
+          "target_lemma": "trastrocar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_link_score": 0.4286,
+          "best_overlap": [
+            "alter",
+            "disrupt",
+            "disturb"
+          ],
+          "sense_index": 1
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:piece:trozo",
+      "trigger": "piece",
+      "active_target": "trozo",
+      "role": "target",
+      "active_example_count": 2,
+      "shadow_example_count": 0,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:piece:trozo:active",
+          "target_lemma": "trozo",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_link_score": 0.5,
+          "best_overlap": [
+            "larger",
+            "part",
+            "whole"
+          ],
+          "sense_index": 0
+        },
+        {
+          "sense_id": "en-es:sentence-veto:piece:trozo:ficha:shadow",
+          "target_lemma": "ficha",
+          "canonical_pos": "noun",
+          "relation_type": "shadow_candidate",
+          "linked": false,
+          "best_link_score": 0.0,
+          "best_overlap": [],
+          "sense_index": null
+        },
+        {
+          "sense_id": "en-es:sentence-veto:piece:trozo:montar:shadow",
+          "target_lemma": "montar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "linked": false,
+          "best_link_score": 0.0,
+          "best_overlap": [],
+          "sense_index": null
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:fair:pastel",
+      "trigger": "fair",
+      "active_target": "pastel",
+      "role": "target",
+      "active_example_count": 0,
+      "shadow_example_count": 0,
+      "phrase_control_example_count": 0,
+      "row_count": 0,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:fair:pastel:active",
+          "target_lemma": "pastel",
+          "canonical_pos": "adjective",
+          "relation_type": "anchor_cue",
+          "linked": false,
+          "best_link_score": 0.0,
+          "best_overlap": [],
+          "sense_index": null
+        },
+        {
+          "sense_id": "en-es:sentence-veto:fair:pastel:feria-de-muestras:shadow",
+          "target_lemma": "feria de muestras",
+          "canonical_pos": "noun",
+          "relation_type": "shadow_candidate",
+          "linked": false,
+          "best_link_score": 0.0,
+          "best_overlap": [],
+          "sense_index": null
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:show:espect-culo",
+      "trigger": "show",
+      "active_target": "espectáculo",
+      "role": "target",
+      "active_example_count": 1,
+      "shadow_example_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:show:espect-culo:active",
+          "target_lemma": "espectáculo",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_link_score": 0.2,
+          "best_overlap": [
+            "entertainment"
+          ],
+          "sense_index": 0
+        },
+        {
+          "sense_id": "en-es:sentence-veto:show:espect-culo:demostrar:shadow",
+          "target_lemma": "demostrar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_link_score": 0.5,
+          "best_overlap": [
+            "fact",
+            "indicate",
+            "true"
+          ],
+          "sense_index": 2
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:advance:avance",
+      "trigger": "advance",
+      "active_target": "avance",
+      "role": "target",
+      "active_example_count": 2,
+      "shadow_example_count": 0,
+      "phrase_control_example_count": 0,
+      "row_count": 2,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:advance:avance:active",
+          "target_lemma": "avance",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_link_score": 0.4,
+          "best_overlap": [
+            "forward",
+            "move"
+          ],
+          "sense_index": 0
+        },
+        {
+          "sense_id": "en-es:sentence-veto:advance:avance:adelanto:shadow",
+          "target_lemma": "adelanto",
+          "canonical_pos": "noun",
+          "relation_type": "shadow_candidate",
+          "linked": false,
+          "best_link_score": 0.0,
+          "best_overlap": [],
+          "sense_index": null
+        },
+        {
+          "sense_id": "en-es:sentence-veto:advance:avance:avanzar:shadow",
+          "target_lemma": "avanzar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "linked": false,
+          "best_link_score": 0.0,
+          "best_overlap": [],
+          "sense_index": null
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:rank:rancio",
+      "trigger": "rank",
+      "active_target": "rancio",
+      "role": "target",
+      "active_example_count": 0,
+      "shadow_example_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 1,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:rank:rancio:active",
+          "target_lemma": "rancio",
+          "canonical_pos": "adjective",
+          "relation_type": "anchor_cue",
+          "linked": false,
+          "best_link_score": 0.0,
+          "best_overlap": [],
+          "sense_index": null
+        },
+        {
+          "sense_id": "en-es:sentence-veto:rank:rancio:fila:shadow",
+          "target_lemma": "fila",
+          "canonical_pos": "noun",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_link_score": 0.6667,
+          "best_overlap": [
+            "grid",
+            "organiz",
+            "pattern",
+            "people",
+            "row",
+            "thing"
+          ],
+          "sense_index": 0
+        }
+      ]
+    }
+  ],
+  "recommendation": "Use this adapter for residual source-example coverage, then rerun the source-admission cycle against the composite source batch."
+}

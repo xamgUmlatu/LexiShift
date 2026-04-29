@@ -3,7 +3,7 @@
 - Status: `review`
 - Decision: `support_conversion_needed`
 - Dataset: `en_es_source_non_v10_wave6_anypos_unsupported_upper_bound_selected_v1`
-- Generated: `2026-04-29T00:22:49Z`
+- Generated: `2026-04-29T01:14:30Z`
 - Translation support mode: `forward_only_upper_bound`
 - Families: `16`
 - Fully supported families: `0`
@@ -62,6 +62,36 @@
 | `advance` | `shadow` | `adelanto` | `noun` | `candidate_swap_review_available` | `progreso (7)` |
 | `advance` | `shadow` | `avanzar` | `verb` | `needs_reviewed_source_support` | `none` |
 | `rank` | `active` | `rancio` | `adjective` | `needs_reviewed_source_support` | `none` |
+
+## Support Acquisition Worklist
+
+| Priority | Trigger | Role | Target | State | Source lanes |
+| ---: | --- | --- | --- | --- | --- |
+| `0` | `black` | `active` | `oscuro` | `needs_reviewed_source_support` | `reverse_wiktionary_or_freedict_support, wiktextract_sense_or_translation_example, reviewed_dictionary_or_example_frame_source` |
+| `0` | `fair` | `active` | `pastel` | `needs_reviewed_source_support` | `reverse_wiktionary_or_freedict_support, wiktextract_sense_or_translation_example, reviewed_dictionary_or_example_frame_source` |
+| `0` | `feel` | `active` | `talento` | `needs_reviewed_source_support` | `reverse_wiktionary_or_freedict_support, wiktextract_sense_or_translation_example, reviewed_dictionary_or_example_frame_source` |
+| `0` | `finish` | `active` | `meta` | `needs_reviewed_source_support` | `reverse_wiktionary_or_freedict_support, wiktextract_sense_or_translation_example, reviewed_dictionary_or_example_frame_source` |
+| `0` | `leave` | `active` | `permiso` | `needs_reviewed_source_support` | `reverse_wiktionary_or_freedict_support, wiktextract_sense_or_translation_example, reviewed_dictionary_or_example_frame_source` |
+| `0` | `rank` | `active` | `rancio` | `needs_reviewed_source_support` | `reverse_wiktionary_or_freedict_support, wiktextract_sense_or_translation_example, reviewed_dictionary_or_example_frame_source` |
+| `0` | `serve` | `active` | `servicio` | `needs_reviewed_source_support` | `reverse_wiktionary_or_freedict_support, wiktextract_sense_or_translation_example, reviewed_dictionary_or_example_frame_source` |
+| `0` | `show` | `active` | `espectáculo` | `needs_reviewed_source_support` | `reverse_wiktionary_or_freedict_support, wiktextract_sense_or_translation_example, reviewed_dictionary_or_example_frame_source` |
+| `0` | `still` | `active` | `quietud` | `needs_reviewed_source_support` | `reverse_wiktionary_or_freedict_support, wiktextract_sense_or_translation_example, reviewed_dictionary_or_example_frame_source` |
+| `0` | `throw` | `active` | `lanzamiento` | `needs_reviewed_source_support` | `reverse_wiktionary_or_freedict_support, wiktextract_sense_or_translation_example, reviewed_dictionary_or_example_frame_source` |
+| `1` | `advance` | `shadow` | `adelanto` | `candidate_swap_review_available` | `review_same_pos_supported_target_swap, reverse_wiktionary_or_freedict_support, wiktextract_sense_or_translation_example, reviewed_dictionary_or_example_frame_source` |
+| `1` | `piece` | `shadow` | `ficha` | `candidate_swap_review_available` | `review_same_pos_supported_target_swap, reverse_wiktionary_or_freedict_support, wiktextract_sense_or_translation_example, reviewed_dictionary_or_example_frame_source` |
+| `2` | `advance` | `shadow` | `avanzar` | `needs_reviewed_source_support` | `reverse_wiktionary_or_freedict_support, wiktextract_sense_or_translation_example, reviewed_dictionary_or_example_frame_source` |
+| `2` | `bear` | `shadow` | `llevar` | `needs_reviewed_source_support` | `reverse_wiktionary_or_freedict_support, wiktextract_sense_or_translation_example, reviewed_dictionary_or_example_frame_source` |
+| `2` | `fair` | `shadow` | `feria de muestras` | `needs_reviewed_source_support` | `reverse_wiktionary_or_freedict_support, wiktextract_sense_or_translation_example, reviewed_dictionary_or_example_frame_source` |
+| `2` | `finish` | `shadow` | `acabado` | `needs_reviewed_source_support` | `reverse_wiktionary_or_freedict_support, wiktextract_sense_or_translation_example, reviewed_dictionary_or_example_frame_source` |
+| `2` | `leave` | `shadow` | `excedencia` | `needs_reviewed_source_support` | `reverse_wiktionary_or_freedict_support, wiktextract_sense_or_translation_example, reviewed_dictionary_or_example_frame_source` |
+| `2` | `low` | `shadow` | `decaído` | `needs_reviewed_source_support` | `reverse_wiktionary_or_freedict_support, wiktextract_sense_or_translation_example, reviewed_dictionary_or_example_frame_source` |
+| `2` | `part` | `shadow` | `papel` | `needs_reviewed_source_support` | `reverse_wiktionary_or_freedict_support, wiktextract_sense_or_translation_example, reviewed_dictionary_or_example_frame_source` |
+| `2` | `part` | `shadow` | `repartir` | `needs_reviewed_source_support` | `reverse_wiktionary_or_freedict_support, wiktextract_sense_or_translation_example, reviewed_dictionary_or_example_frame_source` |
+| `2` | `piece` | `shadow` | `montar` | `needs_reviewed_source_support` | `reverse_wiktionary_or_freedict_support, wiktextract_sense_or_translation_example, reviewed_dictionary_or_example_frame_source` |
+| `2` | `show` | `shadow` | `demostrar` | `needs_reviewed_source_support` | `reverse_wiktionary_or_freedict_support, wiktextract_sense_or_translation_example, reviewed_dictionary_or_example_frame_source` |
+| `2` | `still` | `shadow` | `alambique` | `needs_reviewed_source_support` | `reverse_wiktionary_or_freedict_support, wiktextract_sense_or_translation_example, reviewed_dictionary_or_example_frame_source` |
+| `2` | `still` | `shadow` | `aquietar` | `needs_reviewed_source_support` | `reverse_wiktionary_or_freedict_support, wiktextract_sense_or_translation_example, reviewed_dictionary_or_example_frame_source` |
+| `2` | `upset` | `shadow` | `trastrocar` | `needs_reviewed_source_support` | `reverse_wiktionary_or_freedict_support, wiktextract_sense_or_translation_example, reviewed_dictionary_or_example_frame_source` |
 
 ## Limitations
 

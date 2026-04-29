@@ -1,0 +1,2709 @@
+{
+  "schema_version": 1,
+  "normalization_version": "semantic_evidence_v1",
+  "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+  "pair": "en-es",
+  "source_type": "external",
+  "source_id": "wiktextract_example_frames",
+  "source_family": "external_example_corpus",
+  "roles": [
+    "cue_generation",
+    "discrimination"
+  ],
+  "generated_at": "2026-04-29T01:18:39Z",
+  "ingested_at": "2026-04-29T01:18:39Z",
+  "review_state": "unreviewed",
+  "model_id": "not_applicable",
+  "prompt_version": "wiktextract-example-frames-v1",
+  "row_count": 28,
+  "rows": [
+    {
+      "evidence_id": "evidence:bfc251480b1831fae688095ff904e7f25fb587bf",
+      "dedupe_key": "dedupe:5aa0917132f26322a4fadbddb59e293e225a7c47",
+      "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+      "row_id": "en-es-sentence-veto-leave-permiso:active-en-es-sentence-veto-leave-permiso-active-wiktextract-example-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "wiktextract_example_frames",
+      "source_family": "external_example_corpus",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "leave",
+      "normalized_trigger": "leave",
+      "active_target": "permiso",
+      "normalized_active_target": "permiso",
+      "candidate_target": "permiso",
+      "normalized_candidate_target": "permiso",
+      "is_multiword": false,
+      "evidence_text": "I've just been given three weeks' leave by my boss — I don't think I still have some leave owing to me.",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "wiktextract_example_frames",
+        "source_family": "external_example_corpus",
+        "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+        "row_id": "en-es-sentence-veto-leave-permiso:active-en-es-sentence-veto-leave-permiso-active-wiktextract-example-1",
+        "model_id": "not_applicable",
+        "prompt_version": "wiktextract-example-frames-v1",
+        "generated_at": "2026-04-29T01:18:39Z",
+        "ingested_at": "2026-04-29T01:18:39Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:leave:permiso:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:leave:permiso:active",
+        "canonical_pos": "noun",
+        "note": "wiktextract_linked_candidate"
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:leave:permiso",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:leave:permiso:active",
+        "candidate_sense_id": "en-es:sentence-veto:leave:permiso:active",
+        "example_bucket": "active",
+        "source_view": "raw_wiktextract_example",
+        "wiktextract_record_pos": "noun",
+        "wiktextract_sense_index": 0,
+        "wiktextract_link_score": 0.4,
+        "wiktextract_link_overlap": [
+          "absent",
+          "permission"
+        ],
+        "wiktextract_example_type": "example"
+      }
+    },
+    {
+      "evidence_id": "evidence:15a980aa7b1929971c4a54e737bd955d14ab130f",
+      "dedupe_key": "dedupe:ef5ffd26ca4956962f51c98f390d39707c9ab579",
+      "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+      "row_id": "en-es-sentence-veto-leave-permiso:shadow-en-es-sentence-veto-leave-permiso-excedencia-shadow-wiktextract-example-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "wiktextract_example_frames",
+      "source_family": "external_example_corpus",
+      "roles": [
+        "discrimination"
+      ],
+      "relation_type": "shadow_candidate",
+      "trigger": "leave",
+      "normalized_trigger": "leave",
+      "active_target": "permiso",
+      "normalized_active_target": "permiso",
+      "candidate_target": "excedencia",
+      "normalized_candidate_target": "excedencia",
+      "is_multiword": false,
+      "evidence_text": "I've just been given three weeks' leave by my boss — I don't think I still have some leave owing to me.",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "wiktextract_example_frames",
+        "source_family": "external_example_corpus",
+        "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+        "row_id": "en-es-sentence-veto-leave-permiso:shadow-en-es-sentence-veto-leave-permiso-excedencia-shadow-wiktextract-example-1",
+        "model_id": "not_applicable",
+        "prompt_version": "wiktextract-example-frames-v1",
+        "generated_at": "2026-04-29T01:18:39Z",
+        "ingested_at": "2026-04-29T01:18:39Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:leave:permiso:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:leave:permiso:excedencia:shadow",
+        "canonical_pos": "noun",
+        "note": "wiktextract_linked_candidate"
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:leave:permiso",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:leave:permiso:active",
+        "candidate_sense_id": "en-es:sentence-veto:leave:permiso:excedencia:shadow",
+        "example_bucket": "shadow",
+        "source_view": "raw_wiktextract_example",
+        "wiktextract_record_pos": "noun",
+        "wiktextract_sense_index": 0,
+        "wiktextract_link_score": 0.2,
+        "wiktextract_link_overlap": [
+          "work"
+        ],
+        "wiktextract_example_type": "example"
+      }
+    },
+    {
+      "evidence_id": "evidence:db02243d3d84370a77307bb157f7180e318771bb",
+      "dedupe_key": "dedupe:da01a2ba560292c71c01c166e5a78c2747ce05b0",
+      "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+      "row_id": "en-es-sentence-veto-leave-permiso:shadow-en-es-sentence-veto-leave-permiso-dejar-shadow-wiktextract-example-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "wiktextract_example_frames",
+      "source_family": "external_example_corpus",
+      "roles": [
+        "discrimination"
+      ],
+      "relation_type": "shadow_candidate",
+      "trigger": "leave",
+      "normalized_trigger": "leave",
+      "active_target": "permiso",
+      "normalized_active_target": "permiso",
+      "candidate_target": "dejar",
+      "normalized_candidate_target": "dejar",
+      "is_multiword": false,
+      "evidence_text": "The ants did not leave so much as a crumb of bread.",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "wiktextract_example_frames",
+        "source_family": "external_example_corpus",
+        "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+        "row_id": "en-es-sentence-veto-leave-permiso:shadow-en-es-sentence-veto-leave-permiso-dejar-shadow-wiktextract-example-1",
+        "model_id": "not_applicable",
+        "prompt_version": "wiktextract-example-frames-v1",
+        "generated_at": "2026-04-29T01:18:39Z",
+        "ingested_at": "2026-04-29T01:18:39Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:leave:permiso:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:leave:permiso:dejar:shadow",
+        "canonical_pos": "verb",
+        "note": "wiktextract_linked_candidate"
+      },
+      "candidate_pos": "verb",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:leave:permiso",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:leave:permiso:active",
+        "candidate_sense_id": "en-es:sentence-veto:leave:permiso:dejar:shadow",
+        "example_bucket": "shadow",
+        "source_view": "raw_wiktextract_example",
+        "wiktextract_record_pos": "verb",
+        "wiktextract_sense_index": 0,
+        "wiktextract_link_score": 0.6,
+        "wiktextract_link_overlap": [
+          "available",
+          "away",
+          "cause",
+          "deplet",
+          "refrain",
+          "remain"
+        ],
+        "wiktextract_example_type": "example"
+      }
+    },
+    {
+      "evidence_id": "evidence:955253b3c1127ed96de66938fdcc1f788a42bfe5",
+      "dedupe_key": "dedupe:af0efd25904b4da9282f388e4bcfd6aa3ae7c728",
+      "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+      "row_id": "en-es-sentence-veto-serve-servicio:active-en-es-sentence-veto-serve-servicio-active-wiktextract-example-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "wiktextract_example_frames",
+      "source_family": "external_example_corpus",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "serve",
+      "normalized_trigger": "serve",
+      "active_target": "servicio",
+      "normalized_active_target": "servicio",
+      "candidate_target": "servicio",
+      "normalized_candidate_target": "servicio",
+      "is_multiword": false,
+      "evidence_text": "Whose serve is it?",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "wiktextract_example_frames",
+        "source_family": "external_example_corpus",
+        "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+        "row_id": "en-es-sentence-veto-serve-servicio:active-en-es-sentence-veto-serve-servicio-active-wiktextract-example-1",
+        "model_id": "not_applicable",
+        "prompt_version": "wiktextract-example-frames-v1",
+        "generated_at": "2026-04-29T01:18:39Z",
+        "ingested_at": "2026-04-29T01:18:39Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:serve:servicio:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:serve:servicio:active",
+        "canonical_pos": "noun",
+        "note": "wiktextract_linked_candidate"
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:serve:servicio",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:serve:servicio:active",
+        "candidate_sense_id": "en-es:sentence-veto:serve:servicio:active",
+        "example_bucket": "active",
+        "source_view": "raw_wiktextract_example",
+        "wiktextract_record_pos": "noun",
+        "wiktextract_sense_index": 0,
+        "wiktextract_link_score": 0.6667,
+        "wiktextract_link_overlap": [
+          "act",
+          "ball",
+          "play",
+          "putt",
+          "shuttlecock",
+          "sport"
+        ],
+        "wiktextract_example_type": "example"
+      }
+    },
+    {
+      "evidence_id": "evidence:1bafded8240a9d5c47c06686d9b6cff2e5edcdd6",
+      "dedupe_key": "dedupe:247288176929b356af5d1631ec91fbd077e74305",
+      "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+      "row_id": "en-es-sentence-veto-part-parte:active-en-es-sentence-veto-part-parte-active-wiktextract-example-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "wiktextract_example_frames",
+      "source_family": "external_example_corpus",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "part",
+      "normalized_trigger": "part",
+      "active_target": "parte",
+      "normalized_active_target": "parte",
+      "candidate_target": "parte",
+      "normalized_candidate_target": "parte",
+      "is_multiword": false,
+      "evidence_text": "Gaul is divided into three parts.",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "wiktextract_example_frames",
+        "source_family": "external_example_corpus",
+        "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+        "row_id": "en-es-sentence-veto-part-parte:active-en-es-sentence-veto-part-parte-active-wiktextract-example-1",
+        "model_id": "not_applicable",
+        "prompt_version": "wiktextract-example-frames-v1",
+        "generated_at": "2026-04-29T01:18:39Z",
+        "ingested_at": "2026-04-29T01:18:39Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:part:parte:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:part:parte:active",
+        "canonical_pos": "noun",
+        "note": "wiktextract_linked_candidate"
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:part:parte",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:part:parte:active",
+        "candidate_sense_id": "en-es:sentence-veto:part:parte:active",
+        "example_bucket": "active",
+        "source_view": "raw_wiktextract_example",
+        "wiktextract_record_pos": "noun",
+        "wiktextract_sense_index": 0,
+        "wiktextract_link_score": 0.4,
+        "wiktextract_link_overlap": [
+          "fraction",
+          "whole"
+        ],
+        "wiktextract_example_type": "example"
+      }
+    },
+    {
+      "evidence_id": "evidence:1e196d64070b0ff42d25fd304b9119fb212a83c9",
+      "dedupe_key": "dedupe:247288176929b356af5d1631ec91fbd077e74305",
+      "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+      "row_id": "en-es-sentence-veto-part-parte:active-en-es-sentence-veto-part-parte-active-wiktextract-example-2",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "wiktextract_example_frames",
+      "source_family": "external_example_corpus",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "part",
+      "normalized_trigger": "part",
+      "active_target": "parte",
+      "normalized_active_target": "parte",
+      "candidate_target": "parte",
+      "normalized_candidate_target": "parte",
+      "is_multiword": false,
+      "evidence_text": "I was in Australia part of last year.",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "wiktextract_example_frames",
+        "source_family": "external_example_corpus",
+        "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+        "row_id": "en-es-sentence-veto-part-parte:active-en-es-sentence-veto-part-parte-active-wiktextract-example-2",
+        "model_id": "not_applicable",
+        "prompt_version": "wiktextract-example-frames-v1",
+        "generated_at": "2026-04-29T01:18:39Z",
+        "ingested_at": "2026-04-29T01:18:39Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:part:parte:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:part:parte:active",
+        "canonical_pos": "noun",
+        "note": "wiktextract_linked_candidate"
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:part:parte",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:part:parte:active",
+        "candidate_sense_id": "en-es:sentence-veto:part:parte:active",
+        "example_bucket": "active",
+        "source_view": "raw_wiktextract_example",
+        "wiktextract_record_pos": "noun",
+        "wiktextract_sense_index": 0,
+        "wiktextract_link_score": 0.4,
+        "wiktextract_link_overlap": [
+          "fraction",
+          "whole"
+        ],
+        "wiktextract_example_type": "example"
+      }
+    },
+    {
+      "evidence_id": "evidence:8378789eaf6a330d17aff11a78a45daf4b0a4582",
+      "dedupe_key": "dedupe:74ddc8c73ee34fce2f82eab6dc5b832fc17f9cb1",
+      "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+      "row_id": "en-es-sentence-veto-part-parte:shadow-en-es-sentence-veto-part-parte-papel-shadow-wiktextract-example-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "wiktextract_example_frames",
+      "source_family": "external_example_corpus",
+      "roles": [
+        "discrimination"
+      ],
+      "relation_type": "shadow_candidate",
+      "trigger": "part",
+      "normalized_trigger": "part",
+      "active_target": "parte",
+      "normalized_active_target": "parte",
+      "candidate_target": "papel",
+      "normalized_candidate_target": "papel",
+      "is_multiword": false,
+      "evidence_text": "We all have a part to play.",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "wiktextract_example_frames",
+        "source_family": "external_example_corpus",
+        "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+        "row_id": "en-es-sentence-veto-part-parte:shadow-en-es-sentence-veto-part-parte-papel-shadow-wiktextract-example-1",
+        "model_id": "not_applicable",
+        "prompt_version": "wiktextract-example-frames-v1",
+        "generated_at": "2026-04-29T01:18:39Z",
+        "ingested_at": "2026-04-29T01:18:39Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:part:parte:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:part:parte:papel:shadow",
+        "canonical_pos": "noun",
+        "note": "wiktextract_linked_candidate"
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:part:parte",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:part:parte:active",
+        "candidate_sense_id": "en-es:sentence-veto:part:parte:papel:shadow",
+        "example_bucket": "shadow",
+        "source_view": "raw_wiktextract_example",
+        "wiktextract_record_pos": "noun",
+        "wiktextract_sense_index": 12,
+        "wiktextract_link_score": 0.5714,
+        "wiktextract_link_overlap": [
+          "especially",
+          "play",
+          "position",
+          "role"
+        ],
+        "wiktextract_example_type": "example"
+      }
+    },
+    {
+      "evidence_id": "evidence:fffe8aa4481cb17b768c33f32a34e20b0bc0a4f6",
+      "dedupe_key": "dedupe:05ff26512e9a119c36a0083796a9dec55a6026e5",
+      "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+      "row_id": "en-es-sentence-veto-part-parte:shadow-en-es-sentence-veto-part-parte-repartir-shadow-wiktextract-example-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "wiktextract_example_frames",
+      "source_family": "external_example_corpus",
+      "roles": [
+        "discrimination"
+      ],
+      "relation_type": "shadow_candidate",
+      "trigger": "part",
+      "normalized_trigger": "part",
+      "active_target": "parte",
+      "normalized_active_target": "parte",
+      "candidate_target": "repartir",
+      "normalized_candidate_target": "repartir",
+      "is_multiword": false,
+      "evidence_text": "to part the curtains",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "wiktextract_example_frames",
+        "source_family": "external_example_corpus",
+        "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+        "row_id": "en-es-sentence-veto-part-parte:shadow-en-es-sentence-veto-part-parte-repartir-shadow-wiktextract-example-1",
+        "model_id": "not_applicable",
+        "prompt_version": "wiktextract-example-frames-v1",
+        "generated_at": "2026-04-29T01:18:39Z",
+        "ingested_at": "2026-04-29T01:18:39Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:part:parte:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:part:parte:repartir:shadow",
+        "canonical_pos": "verb",
+        "note": "wiktextract_linked_candidate"
+      },
+      "candidate_pos": "verb",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:part:parte",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:part:parte:active",
+        "candidate_sense_id": "en-es:sentence-veto:part:parte:repartir:shadow",
+        "example_bucket": "shadow",
+        "source_view": "raw_wiktextract_example",
+        "wiktextract_record_pos": "verb",
+        "wiktextract_sense_index": 2,
+        "wiktextract_link_score": 0.4,
+        "wiktextract_link_overlap": [
+          "divide",
+          "two"
+        ],
+        "wiktextract_example_type": "example"
+      }
+    },
+    {
+      "evidence_id": "evidence:8d357cf8f1ad2af2076013bec92b82b949786455",
+      "dedupe_key": "dedupe:9e5e60d493b235298ac96abf8aea2275d4ad1eac",
+      "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+      "row_id": "en-es-sentence-veto-feel-talento:active-en-es-sentence-veto-feel-talento-active-wiktextract-example-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "wiktextract_example_frames",
+      "source_family": "external_example_corpus",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "feel",
+      "normalized_trigger": "feel",
+      "active_target": "talento",
+      "normalized_active_target": "talento",
+      "candidate_target": "talento",
+      "normalized_candidate_target": "talento",
+      "is_multiword": false,
+      "evidence_text": "She has a feel for music.",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "wiktextract_example_frames",
+        "source_family": "external_example_corpus",
+        "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+        "row_id": "en-es-sentence-veto-feel-talento:active-en-es-sentence-veto-feel-talento-active-wiktextract-example-1",
+        "model_id": "not_applicable",
+        "prompt_version": "wiktextract-example-frames-v1",
+        "generated_at": "2026-04-29T01:18:39Z",
+        "ingested_at": "2026-04-29T01:18:39Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:feel:talento:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:feel:talento:active",
+        "canonical_pos": "noun",
+        "note": "wiktextract_linked_candidate"
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:feel:talento",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:feel:talento:active",
+        "candidate_sense_id": "en-es:sentence-veto:feel:talento:active",
+        "example_bucket": "active",
+        "source_view": "raw_wiktextract_example",
+        "wiktextract_record_pos": "noun",
+        "wiktextract_sense_index": 5,
+        "wiktextract_link_score": 0.4,
+        "wiktextract_link_overlap": [
+          "ability",
+          "intuitive"
+        ],
+        "wiktextract_example_type": "example"
+      }
+    },
+    {
+      "evidence_id": "evidence:8a11c0c2a26e4fb69927c301038375b8affa002d",
+      "dedupe_key": "dedupe:ffef16f4b2fc5587eccc64fab32718d47f51ce0b",
+      "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+      "row_id": "en-es-sentence-veto-feel-talento:shadow-en-es-sentence-veto-feel-talento-sentir-shadow-wiktextract-example-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "wiktextract_example_frames",
+      "source_family": "external_example_corpus",
+      "roles": [
+        "discrimination"
+      ],
+      "relation_type": "shadow_candidate",
+      "trigger": "feel",
+      "normalized_trigger": "feel",
+      "active_target": "talento",
+      "normalized_active_target": "talento",
+      "candidate_target": "sentir",
+      "normalized_candidate_target": "sentir",
+      "is_multiword": false,
+      "evidence_text": "You can feel a heartbeat if you put your fingers on your breast.",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "wiktextract_example_frames",
+        "source_family": "external_example_corpus",
+        "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+        "row_id": "en-es-sentence-veto-feel-talento:shadow-en-es-sentence-veto-feel-talento-sentir-shadow-wiktextract-example-1",
+        "model_id": "not_applicable",
+        "prompt_version": "wiktextract-example-frames-v1",
+        "generated_at": "2026-04-29T01:18:39Z",
+        "ingested_at": "2026-04-29T01:18:39Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:feel:talento:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:feel:talento:sentir:shadow",
+        "canonical_pos": "verb",
+        "note": "wiktextract_linked_candidate"
+      },
+      "candidate_pos": "verb",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:feel:talento",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:feel:talento:active",
+        "candidate_sense_id": "en-es:sentence-veto:feel:talento:sentir:shadow",
+        "example_bucket": "shadow",
+        "source_view": "raw_wiktextract_example",
+        "wiktextract_record_pos": "verb",
+        "wiktextract_sense_index": 0,
+        "wiktextract_link_score": 0.6,
+        "wiktextract_link_overlap": [
+          "sense",
+          "touch",
+          "transitive"
+        ],
+        "wiktextract_example_type": "example"
+      }
+    },
+    {
+      "evidence_id": "evidence:2a0a47297d222cbdb281d13be5a5c99d7713abe7",
+      "dedupe_key": "dedupe:ffef16f4b2fc5587eccc64fab32718d47f51ce0b",
+      "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+      "row_id": "en-es-sentence-veto-feel-talento:shadow-en-es-sentence-veto-feel-talento-sentir-shadow-wiktextract-example-2",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "wiktextract_example_frames",
+      "source_family": "external_example_corpus",
+      "roles": [
+        "discrimination"
+      ],
+      "relation_type": "shadow_candidate",
+      "trigger": "feel",
+      "normalized_trigger": "feel",
+      "active_target": "talento",
+      "normalized_active_target": "talento",
+      "candidate_target": "sentir",
+      "normalized_candidate_target": "sentir",
+      "is_multiword": false,
+      "evidence_text": "I did feel a complete fool after stumbling on the same rock again.",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "wiktextract_example_frames",
+        "source_family": "external_example_corpus",
+        "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+        "row_id": "en-es-sentence-veto-feel-talento:shadow-en-es-sentence-veto-feel-talento-sentir-shadow-wiktextract-example-2",
+        "model_id": "not_applicable",
+        "prompt_version": "wiktextract-example-frames-v1",
+        "generated_at": "2026-04-29T01:18:39Z",
+        "ingested_at": "2026-04-29T01:18:39Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:feel:talento:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:feel:talento:sentir:shadow",
+        "canonical_pos": "verb",
+        "note": "wiktextract_linked_candidate"
+      },
+      "candidate_pos": "verb",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:feel:talento",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:feel:talento:active",
+        "candidate_sense_id": "en-es:sentence-veto:feel:talento:sentir:shadow",
+        "example_bucket": "shadow",
+        "source_view": "raw_wiktextract_example",
+        "wiktextract_record_pos": "verb",
+        "wiktextract_sense_index": 0,
+        "wiktextract_link_score": 0.6,
+        "wiktextract_link_overlap": [
+          "sense",
+          "touch",
+          "transitive"
+        ],
+        "wiktextract_example_type": "example"
+      }
+    },
+    {
+      "evidence_id": "evidence:de31884a20b9d2a078f183fdc0de20cf0bfaf732",
+      "dedupe_key": "dedupe:793f4e4b2bb2faf1afdfeaa19558396d162b3d31",
+      "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+      "row_id": "en-es-sentence-veto-still-quietud:active-en-es-sentence-veto-still-quietud-active-wiktextract-example-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "wiktextract_example_frames",
+      "source_family": "external_example_corpus",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "still",
+      "normalized_trigger": "still",
+      "active_target": "quietud",
+      "normalized_active_target": "quietud",
+      "candidate_target": "quietud",
+      "normalized_candidate_target": "quietud",
+      "is_multiword": false,
+      "evidence_text": "the still of the night",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "wiktextract_example_frames",
+        "source_family": "external_example_corpus",
+        "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+        "row_id": "en-es-sentence-veto-still-quietud:active-en-es-sentence-veto-still-quietud-active-wiktextract-example-1",
+        "model_id": "not_applicable",
+        "prompt_version": "wiktextract-example-frames-v1",
+        "generated_at": "2026-04-29T01:18:39Z",
+        "ingested_at": "2026-04-29T01:18:39Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:still:quietud:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:still:quietud:active",
+        "canonical_pos": "noun",
+        "note": "wiktextract_linked_candidate"
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:still:quietud",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:still:quietud:active",
+        "candidate_sense_id": "en-es:sentence-veto:still:quietud:active",
+        "example_bucket": "active",
+        "source_view": "raw_wiktextract_example",
+        "wiktextract_record_pos": "noun",
+        "wiktextract_sense_index": 0,
+        "wiktextract_link_score": 0.5,
+        "wiktextract_link_overlap": [
+          "calm",
+          "period",
+          "silence"
+        ],
+        "wiktextract_example_type": "example"
+      }
+    },
+    {
+      "evidence_id": "evidence:d29e4172475380a62440f2a3aab89543c8d82ccb",
+      "dedupe_key": "dedupe:2deee03111776f75d78cb7ee3d76d40507565aff",
+      "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+      "row_id": "en-es-sentence-veto-still-quietud:shadow-en-es-sentence-veto-still-quietud-aquietar-shadow-wiktextract-example-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "wiktextract_example_frames",
+      "source_family": "external_example_corpus",
+      "roles": [
+        "discrimination"
+      ],
+      "relation_type": "shadow_candidate",
+      "trigger": "still",
+      "normalized_trigger": "still",
+      "active_target": "quietud",
+      "normalized_active_target": "quietud",
+      "candidate_target": "aquietar",
+      "normalized_candidate_target": "aquietar",
+      "is_multiword": false,
+      "evidence_text": "to still the raging sea",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "wiktextract_example_frames",
+        "source_family": "external_example_corpus",
+        "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+        "row_id": "en-es-sentence-veto-still-quietud:shadow-en-es-sentence-veto-still-quietud-aquietar-shadow-wiktextract-example-1",
+        "model_id": "not_applicable",
+        "prompt_version": "wiktextract-example-frames-v1",
+        "generated_at": "2026-04-29T01:18:39Z",
+        "ingested_at": "2026-04-29T01:18:39Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:still:quietud:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:still:quietud:aquietar:shadow",
+        "canonical_pos": "verb",
+        "note": "wiktextract_linked_candidate"
+      },
+      "candidate_pos": "verb",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:still:quietud",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:still:quietud:active",
+        "candidate_sense_id": "en-es:sentence-veto:still:quietud:aquietar:shadow",
+        "example_bucket": "shadow",
+        "source_view": "raw_wiktextract_example",
+        "wiktextract_record_pos": "verb",
+        "wiktextract_sense_index": 0,
+        "wiktextract_link_score": 0.25,
+        "wiktextract_link_overlap": [
+          "calm"
+        ],
+        "wiktextract_example_type": "example"
+      }
+    },
+    {
+      "evidence_id": "evidence:1de69744bc61c149f711a3a4ff2fd152363bb424",
+      "dedupe_key": "dedupe:2f2200b75ff62c8fcee58c37521ead5cf1e3d9ff",
+      "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+      "row_id": "en-es-sentence-veto-bear-bajista:shadow-en-es-sentence-veto-bear-bajista-llevar-shadow-wiktextract-example-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "wiktextract_example_frames",
+      "source_family": "external_example_corpus",
+      "roles": [
+        "discrimination"
+      ],
+      "relation_type": "shadow_candidate",
+      "trigger": "bear",
+      "normalized_trigger": "bear",
+      "active_target": "bajista",
+      "normalized_active_target": "bajista",
+      "candidate_target": "llevar",
+      "normalized_candidate_target": "llevar",
+      "is_multiword": false,
+      "evidence_text": "They came bearing gifts.",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "wiktextract_example_frames",
+        "source_family": "external_example_corpus",
+        "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+        "row_id": "en-es-sentence-veto-bear-bajista:shadow-en-es-sentence-veto-bear-bajista-llevar-shadow-wiktextract-example-1",
+        "model_id": "not_applicable",
+        "prompt_version": "wiktextract-example-frames-v1",
+        "generated_at": "2026-04-29T01:18:39Z",
+        "ingested_at": "2026-04-29T01:18:39Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:bear:bajista:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:bear:bajista:llevar:shadow",
+        "canonical_pos": "verb",
+        "note": "wiktextract_linked_candidate"
+      },
+      "candidate_pos": "verb",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:bear:bajista",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:bear:bajista:active",
+        "candidate_sense_id": "en-es:sentence-veto:bear:bajista:llevar:shadow",
+        "example_bucket": "shadow",
+        "source_view": "raw_wiktextract_example",
+        "wiktextract_record_pos": "verb",
+        "wiktextract_sense_index": 0,
+        "wiktextract_link_score": 0.25,
+        "wiktextract_link_overlap": [
+          "carry"
+        ],
+        "wiktextract_example_type": "example"
+      }
+    },
+    {
+      "evidence_id": "evidence:358960c281cf29f7bee2fa3ed43c72f7133879f0",
+      "dedupe_key": "dedupe:2f2200b75ff62c8fcee58c37521ead5cf1e3d9ff",
+      "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+      "row_id": "en-es-sentence-veto-bear-bajista:shadow-en-es-sentence-veto-bear-bajista-llevar-shadow-wiktextract-example-2",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "wiktextract_example_frames",
+      "source_family": "external_example_corpus",
+      "roles": [
+        "discrimination"
+      ],
+      "relation_type": "shadow_candidate",
+      "trigger": "bear",
+      "normalized_trigger": "bear",
+      "active_target": "bajista",
+      "normalized_active_target": "bajista",
+      "candidate_target": "llevar",
+      "normalized_candidate_target": "llevar",
+      "is_multiword": false,
+      "evidence_text": "Judging from the look on his face, he wasn't bearing good news.",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "wiktextract_example_frames",
+        "source_family": "external_example_corpus",
+        "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+        "row_id": "en-es-sentence-veto-bear-bajista:shadow-en-es-sentence-veto-bear-bajista-llevar-shadow-wiktextract-example-2",
+        "model_id": "not_applicable",
+        "prompt_version": "wiktextract-example-frames-v1",
+        "generated_at": "2026-04-29T01:18:39Z",
+        "ingested_at": "2026-04-29T01:18:39Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:bear:bajista:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:bear:bajista:llevar:shadow",
+        "canonical_pos": "verb",
+        "note": "wiktextract_linked_candidate"
+      },
+      "candidate_pos": "verb",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:bear:bajista",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:bear:bajista:active",
+        "candidate_sense_id": "en-es:sentence-veto:bear:bajista:llevar:shadow",
+        "example_bucket": "shadow",
+        "source_view": "raw_wiktextract_example",
+        "wiktextract_record_pos": "verb",
+        "wiktextract_sense_index": 0,
+        "wiktextract_link_score": 0.25,
+        "wiktextract_link_overlap": [
+          "carry"
+        ],
+        "wiktextract_example_type": "example"
+      }
+    },
+    {
+      "evidence_id": "evidence:99cfe593e657f512e5766da438c3e37749aebd32",
+      "dedupe_key": "dedupe:b0d677530efab81adae3370aae1e0683b19b8cc6",
+      "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+      "row_id": "en-es-sentence-veto-finish-meta:shadow-en-es-sentence-veto-finish-meta-acabado-shadow-wiktextract-example-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "wiktextract_example_frames",
+      "source_family": "external_example_corpus",
+      "roles": [
+        "discrimination"
+      ],
+      "relation_type": "shadow_candidate",
+      "trigger": "finish",
+      "normalized_trigger": "finish",
+      "active_target": "meta",
+      "normalized_active_target": "meta",
+      "candidate_target": "acabado",
+      "normalized_candidate_target": "acabado",
+      "is_multiword": false,
+      "evidence_text": "The car's finish was so shiny and new.",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "wiktextract_example_frames",
+        "source_family": "external_example_corpus",
+        "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+        "row_id": "en-es-sentence-veto-finish-meta:shadow-en-es-sentence-veto-finish-meta-acabado-shadow-wiktextract-example-1",
+        "model_id": "not_applicable",
+        "prompt_version": "wiktextract-example-frames-v1",
+        "generated_at": "2026-04-29T01:18:39Z",
+        "ingested_at": "2026-04-29T01:18:39Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:finish:meta:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:finish:meta:acabado:shadow",
+        "canonical_pos": "noun",
+        "note": "wiktextract_linked_candidate"
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:finish:meta",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:finish:meta:active",
+        "candidate_sense_id": "en-es:sentence-veto:finish:meta:acabado:shadow",
+        "example_bucket": "shadow",
+        "source_view": "raw_wiktextract_example",
+        "wiktextract_record_pos": "noun",
+        "wiktextract_sense_index": 1,
+        "wiktextract_link_score": 0.4,
+        "wiktextract_link_overlap": [
+          "coat",
+          "protective"
+        ],
+        "wiktextract_example_type": "example"
+      }
+    },
+    {
+      "evidence_id": "evidence:04d7a854345eea1ffbe0073fa479b5352a6185a4",
+      "dedupe_key": "dedupe:1eaea2b1ec07fe3179715fd991cae2313dafb9d5",
+      "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+      "row_id": "en-es-sentence-veto-finish-meta:shadow-en-es-sentence-veto-finish-meta-acabar-shadow-wiktextract-example-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "wiktextract_example_frames",
+      "source_family": "external_example_corpus",
+      "roles": [
+        "discrimination"
+      ],
+      "relation_type": "shadow_candidate",
+      "trigger": "finish",
+      "normalized_trigger": "finish",
+      "active_target": "meta",
+      "normalized_active_target": "meta",
+      "candidate_target": "acabar",
+      "normalized_candidate_target": "acabar",
+      "is_multiword": false,
+      "evidence_text": "Be sure to finish your homework before you go to bed!",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "wiktextract_example_frames",
+        "source_family": "external_example_corpus",
+        "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+        "row_id": "en-es-sentence-veto-finish-meta:shadow-en-es-sentence-veto-finish-meta-acabar-shadow-wiktextract-example-1",
+        "model_id": "not_applicable",
+        "prompt_version": "wiktextract-example-frames-v1",
+        "generated_at": "2026-04-29T01:18:39Z",
+        "ingested_at": "2026-04-29T01:18:39Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:finish:meta:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:finish:meta:acabar:shadow",
+        "canonical_pos": "verb",
+        "note": "wiktextract_linked_candidate"
+      },
+      "candidate_pos": "verb",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:finish:meta",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:finish:meta:active",
+        "candidate_sense_id": "en-es:sentence-veto:finish:meta:acabar:shadow",
+        "example_bucket": "shadow",
+        "source_view": "raw_wiktextract_example",
+        "wiktextract_record_pos": "verb",
+        "wiktextract_sense_index": 0,
+        "wiktextract_link_score": 0.25,
+        "wiktextract_link_overlap": [
+          "complete"
+        ],
+        "wiktextract_example_type": "example"
+      }
+    },
+    {
+      "evidence_id": "evidence:b3f15019ba3d150d55299552479b8ae2a2922c7e",
+      "dedupe_key": "dedupe:6a6dd5649465218153fc964125afc251e7966657",
+      "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+      "row_id": "en-es-sentence-veto-throw-lanzamiento:active-en-es-sentence-veto-throw-lanzamiento-active-wiktextract-example-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "wiktextract_example_frames",
+      "source_family": "external_example_corpus",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "throw",
+      "normalized_trigger": "throw",
+      "active_target": "lanzamiento",
+      "normalized_active_target": "lanzamiento",
+      "candidate_target": "lanzamiento",
+      "normalized_candidate_target": "lanzamiento",
+      "is_multiword": false,
+      "evidence_text": "a stone's throw",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "wiktextract_example_frames",
+        "source_family": "external_example_corpus",
+        "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+        "row_id": "en-es-sentence-veto-throw-lanzamiento:active-en-es-sentence-veto-throw-lanzamiento-active-wiktextract-example-1",
+        "model_id": "not_applicable",
+        "prompt_version": "wiktextract-example-frames-v1",
+        "generated_at": "2026-04-29T01:18:39Z",
+        "ingested_at": "2026-04-29T01:18:39Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:throw:lanzamiento:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:throw:lanzamiento:active",
+        "canonical_pos": "noun",
+        "note": "wiktextract_linked_candidate"
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:throw:lanzamiento",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:throw:lanzamiento:active",
+        "candidate_sense_id": "en-es:sentence-veto:throw:lanzamiento:active",
+        "example_bucket": "active",
+        "source_view": "raw_wiktextract_example",
+        "wiktextract_record_pos": "noun",
+        "wiktextract_sense_index": 3,
+        "wiktextract_link_score": 0.1667,
+        "wiktextract_link_overlap": [
+          "thrown"
+        ],
+        "wiktextract_example_type": "example"
+      }
+    },
+    {
+      "evidence_id": "evidence:bb8c38225d1df3e775569620817d8c66eed38d13",
+      "dedupe_key": "dedupe:133d365020df5b51a06d46dee427cdfc089556b9",
+      "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+      "row_id": "en-es-sentence-veto-throw-lanzamiento:shadow-en-es-sentence-veto-throw-lanzamiento-lanzar-shadow-wiktextract-example-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "wiktextract_example_frames",
+      "source_family": "external_example_corpus",
+      "roles": [
+        "discrimination"
+      ],
+      "relation_type": "shadow_candidate",
+      "trigger": "throw",
+      "normalized_trigger": "throw",
+      "active_target": "lanzamiento",
+      "normalized_active_target": "lanzamiento",
+      "candidate_target": "lanzar",
+      "normalized_candidate_target": "lanzar",
+      "is_multiword": false,
+      "evidence_text": "throw a shoe; throw a javelin; the horse threw its rider",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "wiktextract_example_frames",
+        "source_family": "external_example_corpus",
+        "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+        "row_id": "en-es-sentence-veto-throw-lanzamiento:shadow-en-es-sentence-veto-throw-lanzamiento-lanzar-shadow-wiktextract-example-1",
+        "model_id": "not_applicable",
+        "prompt_version": "wiktextract-example-frames-v1",
+        "generated_at": "2026-04-29T01:18:39Z",
+        "ingested_at": "2026-04-29T01:18:39Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:throw:lanzamiento:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:throw:lanzamiento:lanzar:shadow",
+        "canonical_pos": "verb",
+        "note": "wiktextract_linked_candidate"
+      },
+      "candidate_pos": "verb",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:throw:lanzamiento",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:throw:lanzamiento:active",
+        "candidate_sense_id": "en-es:sentence-veto:throw:lanzamiento:lanzar:shadow",
+        "example_bucket": "shadow",
+        "source_view": "raw_wiktextract_example",
+        "wiktextract_record_pos": "verb",
+        "wiktextract_sense_index": 0,
+        "wiktextract_link_score": 0.375,
+        "wiktextract_link_overlap": [
+          "air",
+          "object",
+          "rapidly"
+        ],
+        "wiktextract_example_type": "example"
+      }
+    },
+    {
+      "evidence_id": "evidence:15b6e3a926cffb8912a223d4c208350f015b88da",
+      "dedupe_key": "dedupe:c35628a03a962ca4860283d0b637472129dd8f56",
+      "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+      "row_id": "en-es-sentence-veto-upset-disgustado:shadow-en-es-sentence-veto-upset-disgustado-trastrocar-shadow-wiktextract-example-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "wiktextract_example_frames",
+      "source_family": "external_example_corpus",
+      "roles": [
+        "discrimination"
+      ],
+      "relation_type": "shadow_candidate",
+      "trigger": "upset",
+      "normalized_trigger": "upset",
+      "active_target": "disgustado",
+      "normalized_active_target": "disgustado",
+      "candidate_target": "trastrocar",
+      "normalized_candidate_target": "trastrocar",
+      "is_multiword": false,
+      "evidence_text": "Introducing a foreign species can upset the ecological balance.",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "wiktextract_example_frames",
+        "source_family": "external_example_corpus",
+        "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+        "row_id": "en-es-sentence-veto-upset-disgustado:shadow-en-es-sentence-veto-upset-disgustado-trastrocar-shadow-wiktextract-example-1",
+        "model_id": "not_applicable",
+        "prompt_version": "wiktextract-example-frames-v1",
+        "generated_at": "2026-04-29T01:18:39Z",
+        "ingested_at": "2026-04-29T01:18:39Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:upset:disgustado:active",
+        "canonical_pos": "adjective",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:upset:disgustado:trastrocar:shadow",
+        "canonical_pos": "verb",
+        "note": "wiktextract_linked_candidate"
+      },
+      "candidate_pos": "verb",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:upset:disgustado",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:upset:disgustado:active",
+        "candidate_sense_id": "en-es:sentence-veto:upset:disgustado:trastrocar:shadow",
+        "example_bucket": "shadow",
+        "source_view": "raw_wiktextract_example",
+        "wiktextract_record_pos": "verb",
+        "wiktextract_sense_index": 1,
+        "wiktextract_link_score": 0.4286,
+        "wiktextract_link_overlap": [
+          "alter",
+          "disrupt",
+          "disturb"
+        ],
+        "wiktextract_example_type": "example"
+      }
+    },
+    {
+      "evidence_id": "evidence:08cbbebb9df3e6f042a5e868d2dea150245098b5",
+      "dedupe_key": "dedupe:c35628a03a962ca4860283d0b637472129dd8f56",
+      "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+      "row_id": "en-es-sentence-veto-upset-disgustado:shadow-en-es-sentence-veto-upset-disgustado-trastrocar-shadow-wiktextract-example-2",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "wiktextract_example_frames",
+      "source_family": "external_example_corpus",
+      "roles": [
+        "discrimination"
+      ],
+      "relation_type": "shadow_candidate",
+      "trigger": "upset",
+      "normalized_trigger": "upset",
+      "active_target": "disgustado",
+      "normalized_active_target": "disgustado",
+      "candidate_target": "trastrocar",
+      "normalized_candidate_target": "trastrocar",
+      "is_multiword": false,
+      "evidence_text": "The fatty meat upset his stomach.",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "wiktextract_example_frames",
+        "source_family": "external_example_corpus",
+        "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+        "row_id": "en-es-sentence-veto-upset-disgustado:shadow-en-es-sentence-veto-upset-disgustado-trastrocar-shadow-wiktextract-example-2",
+        "model_id": "not_applicable",
+        "prompt_version": "wiktextract-example-frames-v1",
+        "generated_at": "2026-04-29T01:18:39Z",
+        "ingested_at": "2026-04-29T01:18:39Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:upset:disgustado:active",
+        "canonical_pos": "adjective",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:upset:disgustado:trastrocar:shadow",
+        "canonical_pos": "verb",
+        "note": "wiktextract_linked_candidate"
+      },
+      "candidate_pos": "verb",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:upset:disgustado",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:upset:disgustado:active",
+        "candidate_sense_id": "en-es:sentence-veto:upset:disgustado:trastrocar:shadow",
+        "example_bucket": "shadow",
+        "source_view": "raw_wiktextract_example",
+        "wiktextract_record_pos": "verb",
+        "wiktextract_sense_index": 1,
+        "wiktextract_link_score": 0.4286,
+        "wiktextract_link_overlap": [
+          "alter",
+          "disrupt",
+          "disturb"
+        ],
+        "wiktextract_example_type": "example"
+      }
+    },
+    {
+      "evidence_id": "evidence:0fb240ac984c482bc1d6130cc661e6611fa7e9bd",
+      "dedupe_key": "dedupe:5b2ab00b96cfa7a2d90749c8cb0f33cd32cbbdad",
+      "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+      "row_id": "en-es-sentence-veto-piece-trozo:active-en-es-sentence-veto-piece-trozo-active-wiktextract-example-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "wiktextract_example_frames",
+      "source_family": "external_example_corpus",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "piece",
+      "normalized_trigger": "piece",
+      "active_target": "trozo",
+      "normalized_active_target": "trozo",
+      "candidate_target": "trozo",
+      "normalized_candidate_target": "trozo",
+      "is_multiword": false,
+      "evidence_text": "I’d like another piece of pie.",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "wiktextract_example_frames",
+        "source_family": "external_example_corpus",
+        "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+        "row_id": "en-es-sentence-veto-piece-trozo:active-en-es-sentence-veto-piece-trozo-active-wiktextract-example-1",
+        "model_id": "not_applicable",
+        "prompt_version": "wiktextract-example-frames-v1",
+        "generated_at": "2026-04-29T01:18:39Z",
+        "ingested_at": "2026-04-29T01:18:39Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:piece:trozo:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:piece:trozo:active",
+        "canonical_pos": "noun",
+        "note": "wiktextract_linked_candidate"
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:piece:trozo",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:piece:trozo:active",
+        "candidate_sense_id": "en-es:sentence-veto:piece:trozo:active",
+        "example_bucket": "active",
+        "source_view": "raw_wiktextract_example",
+        "wiktextract_record_pos": "noun",
+        "wiktextract_sense_index": 0,
+        "wiktextract_link_score": 0.5,
+        "wiktextract_link_overlap": [
+          "larger",
+          "part",
+          "whole"
+        ],
+        "wiktextract_example_type": "example"
+      }
+    },
+    {
+      "evidence_id": "evidence:c714a6801d84b9a7c7dd89efee9a48bea8d25f3c",
+      "dedupe_key": "dedupe:5b2ab00b96cfa7a2d90749c8cb0f33cd32cbbdad",
+      "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+      "row_id": "en-es-sentence-veto-piece-trozo:active-en-es-sentence-veto-piece-trozo-active-wiktextract-example-2",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "wiktextract_example_frames",
+      "source_family": "external_example_corpus",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "piece",
+      "normalized_trigger": "piece",
+      "active_target": "trozo",
+      "normalized_active_target": "trozo",
+      "candidate_target": "trozo",
+      "normalized_candidate_target": "trozo",
+      "is_multiword": false,
+      "evidence_text": "I've lost a piece of this jigsaw puzzle.",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "wiktextract_example_frames",
+        "source_family": "external_example_corpus",
+        "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+        "row_id": "en-es-sentence-veto-piece-trozo:active-en-es-sentence-veto-piece-trozo-active-wiktextract-example-2",
+        "model_id": "not_applicable",
+        "prompt_version": "wiktextract-example-frames-v1",
+        "generated_at": "2026-04-29T01:18:39Z",
+        "ingested_at": "2026-04-29T01:18:39Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:piece:trozo:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:piece:trozo:active",
+        "canonical_pos": "noun",
+        "note": "wiktextract_linked_candidate"
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:piece:trozo",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:piece:trozo:active",
+        "candidate_sense_id": "en-es:sentence-veto:piece:trozo:active",
+        "example_bucket": "active",
+        "source_view": "raw_wiktextract_example",
+        "wiktextract_record_pos": "noun",
+        "wiktextract_sense_index": 0,
+        "wiktextract_link_score": 0.5,
+        "wiktextract_link_overlap": [
+          "larger",
+          "part",
+          "whole"
+        ],
+        "wiktextract_example_type": "example"
+      }
+    },
+    {
+      "evidence_id": "evidence:9b25801f3e99dacd9ac0c3c22a90c63b90cd7166",
+      "dedupe_key": "dedupe:a7e50045c7e7016af85205fb66ccf7dce0af17aa",
+      "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+      "row_id": "en-es-sentence-veto-show-espect-culo:active-en-es-sentence-veto-show-espect-culo-active-wiktextract-example-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "wiktextract_example_frames",
+      "source_family": "external_example_corpus",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "show",
+      "normalized_trigger": "show",
+      "active_target": "espectáculo",
+      "normalized_active_target": "espectáculo",
+      "candidate_target": "espectáculo",
+      "normalized_candidate_target": "espectáculo",
+      "is_multiword": false,
+      "evidence_text": "There were a thousand people at the show.",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "wiktextract_example_frames",
+        "source_family": "external_example_corpus",
+        "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+        "row_id": "en-es-sentence-veto-show-espect-culo:active-en-es-sentence-veto-show-espect-culo-active-wiktextract-example-1",
+        "model_id": "not_applicable",
+        "prompt_version": "wiktextract-example-frames-v1",
+        "generated_at": "2026-04-29T01:18:39Z",
+        "ingested_at": "2026-04-29T01:18:39Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:show:espect-culo:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:show:espect-culo:active",
+        "canonical_pos": "noun",
+        "note": "wiktextract_linked_candidate"
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:show:espect-culo",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:show:espect-culo:active",
+        "candidate_sense_id": "en-es:sentence-veto:show:espect-culo:active",
+        "example_bucket": "active",
+        "source_view": "raw_wiktextract_example",
+        "wiktextract_record_pos": "noun",
+        "wiktextract_sense_index": 0,
+        "wiktextract_link_score": 0.2,
+        "wiktextract_link_overlap": [
+          "entertainment"
+        ],
+        "wiktextract_example_type": "example"
+      }
+    },
+    {
+      "evidence_id": "evidence:dc439826bb6b1f05deee0501c8d9961623669edd",
+      "dedupe_key": "dedupe:043c294ac543f54a55244106fa303fe067c3e0aa",
+      "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+      "row_id": "en-es-sentence-veto-show-espect-culo:shadow-en-es-sentence-veto-show-espect-culo-demostrar-shadow-wiktextract-example-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "wiktextract_example_frames",
+      "source_family": "external_example_corpus",
+      "roles": [
+        "discrimination"
+      ],
+      "relation_type": "shadow_candidate",
+      "trigger": "show",
+      "normalized_trigger": "show",
+      "active_target": "espectáculo",
+      "normalized_active_target": "espectáculo",
+      "candidate_target": "demostrar",
+      "normalized_candidate_target": "demostrar",
+      "is_multiword": false,
+      "evidence_text": "2018, VOA Learning English > China's Melting Glacier Brings Visitors, Adds to Climate Concerns A report this year in the Journal of Geophysical Research showed that the glacier has lost 60 percent of its mass.",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "wiktextract_example_frames",
+        "source_family": "external_example_corpus",
+        "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+        "row_id": "en-es-sentence-veto-show-espect-culo:shadow-en-es-sentence-veto-show-espect-culo-demostrar-shadow-wiktextract-example-1",
+        "model_id": "not_applicable",
+        "prompt_version": "wiktextract-example-frames-v1",
+        "generated_at": "2026-04-29T01:18:39Z",
+        "ingested_at": "2026-04-29T01:18:39Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:show:espect-culo:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:show:espect-culo:demostrar:shadow",
+        "canonical_pos": "verb",
+        "note": "wiktextract_linked_candidate"
+      },
+      "candidate_pos": "verb",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:show:espect-culo",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:show:espect-culo:active",
+        "candidate_sense_id": "en-es:sentence-veto:show:espect-culo:demostrar:shadow",
+        "example_bucket": "shadow",
+        "source_view": "raw_wiktextract_example",
+        "wiktextract_record_pos": "verb",
+        "wiktextract_sense_index": 2,
+        "wiktextract_link_score": 0.5,
+        "wiktextract_link_overlap": [
+          "fact",
+          "indicate",
+          "true"
+        ],
+        "wiktextract_example_type": "example"
+      }
+    },
+    {
+      "evidence_id": "evidence:8cb8a65017cc2f0a488b229a11cfdb1742c73783",
+      "dedupe_key": "dedupe:fa13f891175bf81360a7131cfbe384ce6822f4f7",
+      "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+      "row_id": "en-es-sentence-veto-advance-avance:active-en-es-sentence-veto-advance-avance-active-wiktextract-example-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "wiktextract_example_frames",
+      "source_family": "external_example_corpus",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "advance",
+      "normalized_trigger": "advance",
+      "active_target": "avance",
+      "normalized_active_target": "avance",
+      "candidate_target": "avance",
+      "normalized_candidate_target": "avance",
+      "is_multiword": false,
+      "evidence_text": "an advance in health or knowledge",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "wiktextract_example_frames",
+        "source_family": "external_example_corpus",
+        "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+        "row_id": "en-es-sentence-veto-advance-avance:active-en-es-sentence-veto-advance-avance-active-wiktextract-example-1",
+        "model_id": "not_applicable",
+        "prompt_version": "wiktextract-example-frames-v1",
+        "generated_at": "2026-04-29T01:18:39Z",
+        "ingested_at": "2026-04-29T01:18:39Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:advance:avance:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:advance:avance:active",
+        "canonical_pos": "noun",
+        "note": "wiktextract_linked_candidate"
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:advance:avance",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:advance:avance:active",
+        "candidate_sense_id": "en-es:sentence-veto:advance:avance:active",
+        "example_bucket": "active",
+        "source_view": "raw_wiktextract_example",
+        "wiktextract_record_pos": "noun",
+        "wiktextract_sense_index": 0,
+        "wiktextract_link_score": 0.4,
+        "wiktextract_link_overlap": [
+          "forward",
+          "move"
+        ],
+        "wiktextract_example_type": "example"
+      }
+    },
+    {
+      "evidence_id": "evidence:2480a113998df895d67ab0b392f8b08a327d88c6",
+      "dedupe_key": "dedupe:fa13f891175bf81360a7131cfbe384ce6822f4f7",
+      "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+      "row_id": "en-es-sentence-veto-advance-avance:active-en-es-sentence-veto-advance-avance-active-wiktextract-example-2",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "wiktextract_example_frames",
+      "source_family": "external_example_corpus",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "advance",
+      "normalized_trigger": "advance",
+      "active_target": "avance",
+      "normalized_active_target": "avance",
+      "candidate_target": "avance",
+      "normalized_candidate_target": "avance",
+      "is_multiword": false,
+      "evidence_text": "an advance in rank or office",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "wiktextract_example_frames",
+        "source_family": "external_example_corpus",
+        "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+        "row_id": "en-es-sentence-veto-advance-avance:active-en-es-sentence-veto-advance-avance-active-wiktextract-example-2",
+        "model_id": "not_applicable",
+        "prompt_version": "wiktextract-example-frames-v1",
+        "generated_at": "2026-04-29T01:18:39Z",
+        "ingested_at": "2026-04-29T01:18:39Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:advance:avance:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:advance:avance:active",
+        "canonical_pos": "noun",
+        "note": "wiktextract_linked_candidate"
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:advance:avance",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:advance:avance:active",
+        "candidate_sense_id": "en-es:sentence-veto:advance:avance:active",
+        "example_bucket": "active",
+        "source_view": "raw_wiktextract_example",
+        "wiktextract_record_pos": "noun",
+        "wiktextract_sense_index": 0,
+        "wiktextract_link_score": 0.4,
+        "wiktextract_link_overlap": [
+          "forward",
+          "move"
+        ],
+        "wiktextract_example_type": "example"
+      }
+    },
+    {
+      "evidence_id": "evidence:531888ed83a454e76272781bed368695b5360f72",
+      "dedupe_key": "dedupe:049c88c5eee33ec2a0bda92466108b5d5824a0f1",
+      "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+      "row_id": "en-es-sentence-veto-rank-rancio:shadow-en-es-sentence-veto-rank-rancio-fila-shadow-wiktextract-example-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "wiktextract_example_frames",
+      "source_family": "external_example_corpus",
+      "roles": [
+        "discrimination"
+      ],
+      "relation_type": "shadow_candidate",
+      "trigger": "rank",
+      "normalized_trigger": "rank",
+      "active_target": "rancio",
+      "normalized_active_target": "rancio",
+      "candidate_target": "fila",
+      "normalized_candidate_target": "fila",
+      "is_multiword": false,
+      "evidence_text": "The front rank kneeled to reload while the second rank fired over their heads.",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "wiktextract_example_frames",
+        "source_family": "external_example_corpus",
+        "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+        "row_id": "en-es-sentence-veto-rank-rancio:shadow-en-es-sentence-veto-rank-rancio-fila-shadow-wiktextract-example-1",
+        "model_id": "not_applicable",
+        "prompt_version": "wiktextract-example-frames-v1",
+        "generated_at": "2026-04-29T01:18:39Z",
+        "ingested_at": "2026-04-29T01:18:39Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:rank:rancio:active",
+        "canonical_pos": "adjective",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:rank:rancio:fila:shadow",
+        "canonical_pos": "noun",
+        "note": "wiktextract_linked_candidate"
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:rank:rancio",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:rank:rancio:active",
+        "candidate_sense_id": "en-es:sentence-veto:rank:rancio:fila:shadow",
+        "example_bucket": "shadow",
+        "source_view": "raw_wiktextract_example",
+        "wiktextract_record_pos": "noun",
+        "wiktextract_sense_index": 0,
+        "wiktextract_link_score": 0.6667,
+        "wiktextract_link_overlap": [
+          "grid",
+          "organiz",
+          "pattern",
+          "people",
+          "row",
+          "thing"
+        ],
+        "wiktextract_example_type": "example"
+      }
+    }
+  ],
+  "provenance": {
+    "source_type": "external",
+    "source_id": "wiktextract_example_frames",
+    "source_family": "external_example_corpus",
+    "batch_id": "en-es:wiktextract-example-frames:wiktextract-non-v10-wave6-upper-bound-v1-latest",
+    "model_id": "not_applicable",
+    "prompt_version": "wiktextract-example-frames-v1",
+    "generated_at": "2026-04-29T01:18:39Z",
+    "ingested_at": "2026-04-29T01:18:39Z",
+    "normalization_version": "semantic_evidence_v1",
+    "upstream": {
+      "dataset_id": "en_es_source_non_v10_wave6_anypos_unsupported_upper_bound_selected_v1",
+      "source_scope": "all_dataset_families",
+      "source_note": "local raw Wiktextract English examples linked to dataset senses",
+      "min_link_score": 0.12,
+      "max_examples_per_sense": 2,
+      "family_rows": [
+        {
+          "family_id": "en-es:sentence-veto:leave:permiso",
+          "trigger": "leave",
+          "active_target": "permiso",
+          "role": "target",
+          "active_example_count": 1,
+          "shadow_example_count": 2,
+          "phrase_control_example_count": 0,
+          "row_count": 3,
+          "link_rows": [
+            {
+              "sense_id": "en-es:sentence-veto:leave:permiso:active",
+              "target_lemma": "permiso",
+              "canonical_pos": "noun",
+              "relation_type": "anchor_cue",
+              "linked": true,
+              "best_link_score": 0.4,
+              "best_overlap": [
+                "absent",
+                "permission"
+              ],
+              "sense_index": 0
+            },
+            {
+              "sense_id": "en-es:sentence-veto:leave:permiso:excedencia:shadow",
+              "target_lemma": "excedencia",
+              "canonical_pos": "noun",
+              "relation_type": "shadow_candidate",
+              "linked": true,
+              "best_link_score": 0.2,
+              "best_overlap": [
+                "work"
+              ],
+              "sense_index": 0
+            },
+            {
+              "sense_id": "en-es:sentence-veto:leave:permiso:dejar:shadow",
+              "target_lemma": "dejar",
+              "canonical_pos": "verb",
+              "relation_type": "shadow_candidate",
+              "linked": true,
+              "best_link_score": 0.6,
+              "best_overlap": [
+                "available",
+                "away",
+                "cause",
+                "deplet",
+                "refrain",
+                "remain"
+              ],
+              "sense_index": 0
+            }
+          ]
+        },
+        {
+          "family_id": "en-es:sentence-veto:black:oscuro",
+          "trigger": "black",
+          "active_target": "oscuro",
+          "role": "target",
+          "active_example_count": 0,
+          "shadow_example_count": 0,
+          "phrase_control_example_count": 0,
+          "row_count": 0,
+          "link_rows": [
+            {
+              "sense_id": "en-es:sentence-veto:black:oscuro:active",
+              "target_lemma": "oscuro",
+              "canonical_pos": "adjective",
+              "relation_type": "anchor_cue",
+              "linked": false,
+              "best_link_score": 0.0,
+              "best_overlap": [],
+              "sense_index": null
+            },
+            {
+              "sense_id": "en-es:sentence-veto:black:oscuro:negro:shadow",
+              "target_lemma": "negro",
+              "canonical_pos": "noun",
+              "relation_type": "shadow_candidate",
+              "linked": false,
+              "best_link_score": 0.0,
+              "best_overlap": [],
+              "sense_index": null
+            }
+          ]
+        },
+        {
+          "family_id": "en-es:sentence-veto:serve:servicio",
+          "trigger": "serve",
+          "active_target": "servicio",
+          "role": "target",
+          "active_example_count": 1,
+          "shadow_example_count": 0,
+          "phrase_control_example_count": 0,
+          "row_count": 1,
+          "link_rows": [
+            {
+              "sense_id": "en-es:sentence-veto:serve:servicio:active",
+              "target_lemma": "servicio",
+              "canonical_pos": "noun",
+              "relation_type": "anchor_cue",
+              "linked": true,
+              "best_link_score": 0.6667,
+              "best_overlap": [
+                "act",
+                "ball",
+                "play",
+                "putt",
+                "shuttlecock",
+                "sport"
+              ],
+              "sense_index": 0
+            },
+            {
+              "sense_id": "en-es:sentence-veto:serve:servicio:servir:shadow",
+              "target_lemma": "servir",
+              "canonical_pos": "verb",
+              "relation_type": "shadow_candidate",
+              "linked": false,
+              "best_link_score": 0.0,
+              "best_overlap": [],
+              "sense_index": null
+            }
+          ]
+        },
+        {
+          "family_id": "en-es:sentence-veto:low:bajo",
+          "trigger": "low",
+          "active_target": "bajo",
+          "role": "target",
+          "active_example_count": 0,
+          "shadow_example_count": 0,
+          "phrase_control_example_count": 0,
+          "row_count": 0,
+          "link_rows": [
+            {
+              "sense_id": "en-es:sentence-veto:low:bajo:active",
+              "target_lemma": "bajo",
+              "canonical_pos": "adverb",
+              "relation_type": "anchor_cue",
+              "linked": false,
+              "best_link_score": 0.0,
+              "best_overlap": [],
+              "sense_index": null
+            },
+            {
+              "sense_id": "en-es:sentence-veto:low:bajo:deca-do:shadow",
+              "target_lemma": "decaído",
+              "canonical_pos": "adjective",
+              "relation_type": "shadow_candidate",
+              "linked": false,
+              "best_link_score": 0.0,
+              "best_overlap": [],
+              "sense_index": null
+            }
+          ]
+        },
+        {
+          "family_id": "en-es:sentence-veto:part:parte",
+          "trigger": "part",
+          "active_target": "parte",
+          "role": "target",
+          "active_example_count": 2,
+          "shadow_example_count": 2,
+          "phrase_control_example_count": 0,
+          "row_count": 4,
+          "link_rows": [
+            {
+              "sense_id": "en-es:sentence-veto:part:parte:active",
+              "target_lemma": "parte",
+              "canonical_pos": "noun",
+              "relation_type": "anchor_cue",
+              "linked": true,
+              "best_link_score": 0.4,
+              "best_overlap": [
+                "fraction",
+                "whole"
+              ],
+              "sense_index": 0
+            },
+            {
+              "sense_id": "en-es:sentence-veto:part:parte:papel:shadow",
+              "target_lemma": "papel",
+              "canonical_pos": "noun",
+              "relation_type": "shadow_candidate",
+              "linked": true,
+              "best_link_score": 0.5714,
+              "best_overlap": [
+                "especially",
+                "play",
+                "position",
+                "role"
+              ],
+              "sense_index": 12
+            },
+            {
+              "sense_id": "en-es:sentence-veto:part:parte:repartir:shadow",
+              "target_lemma": "repartir",
+              "canonical_pos": "verb",
+              "relation_type": "shadow_candidate",
+              "linked": true,
+              "best_link_score": 0.4,
+              "best_overlap": [
+                "divide",
+                "two"
+              ],
+              "sense_index": 2
+            }
+          ]
+        },
+        {
+          "family_id": "en-es:sentence-veto:feel:talento",
+          "trigger": "feel",
+          "active_target": "talento",
+          "role": "target",
+          "active_example_count": 1,
+          "shadow_example_count": 2,
+          "phrase_control_example_count": 0,
+          "row_count": 3,
+          "link_rows": [
+            {
+              "sense_id": "en-es:sentence-veto:feel:talento:active",
+              "target_lemma": "talento",
+              "canonical_pos": "noun",
+              "relation_type": "anchor_cue",
+              "linked": true,
+              "best_link_score": 0.4,
+              "best_overlap": [
+                "ability",
+                "intuitive"
+              ],
+              "sense_index": 5
+            },
+            {
+              "sense_id": "en-es:sentence-veto:feel:talento:sentir:shadow",
+              "target_lemma": "sentir",
+              "canonical_pos": "verb",
+              "relation_type": "shadow_candidate",
+              "linked": true,
+              "best_link_score": 0.6,
+              "best_overlap": [
+                "sense",
+                "touch",
+                "transitive"
+              ],
+              "sense_index": 0
+            }
+          ]
+        },
+        {
+          "family_id": "en-es:sentence-veto:still:quietud",
+          "trigger": "still",
+          "active_target": "quietud",
+          "role": "target",
+          "active_example_count": 1,
+          "shadow_example_count": 1,
+          "phrase_control_example_count": 0,
+          "row_count": 2,
+          "link_rows": [
+            {
+              "sense_id": "en-es:sentence-veto:still:quietud:active",
+              "target_lemma": "quietud",
+              "canonical_pos": "noun",
+              "relation_type": "anchor_cue",
+              "linked": true,
+              "best_link_score": 0.5,
+              "best_overlap": [
+                "calm",
+                "period",
+                "silence"
+              ],
+              "sense_index": 0
+            },
+            {
+              "sense_id": "en-es:sentence-veto:still:quietud:alambique:shadow",
+              "target_lemma": "alambique",
+              "canonical_pos": "noun",
+              "relation_type": "shadow_candidate",
+              "linked": false,
+              "best_link_score": 0.0,
+              "best_overlap": [],
+              "sense_index": null
+            },
+            {
+              "sense_id": "en-es:sentence-veto:still:quietud:aquietar:shadow",
+              "target_lemma": "aquietar",
+              "canonical_pos": "verb",
+              "relation_type": "shadow_candidate",
+              "linked": true,
+              "best_link_score": 0.25,
+              "best_overlap": [
+                "calm"
+              ],
+              "sense_index": 0
+            }
+          ]
+        },
+        {
+          "family_id": "en-es:sentence-veto:bear:bajista",
+          "trigger": "bear",
+          "active_target": "bajista",
+          "role": "target",
+          "active_example_count": 0,
+          "shadow_example_count": 2,
+          "phrase_control_example_count": 0,
+          "row_count": 2,
+          "link_rows": [
+            {
+              "sense_id": "en-es:sentence-veto:bear:bajista:active",
+              "target_lemma": "bajista",
+              "canonical_pos": "noun",
+              "relation_type": "anchor_cue",
+              "linked": false,
+              "best_link_score": 0.0,
+              "best_overlap": [],
+              "sense_index": null
+            },
+            {
+              "sense_id": "en-es:sentence-veto:bear:bajista:llevar:shadow",
+              "target_lemma": "llevar",
+              "canonical_pos": "verb",
+              "relation_type": "shadow_candidate",
+              "linked": true,
+              "best_link_score": 0.25,
+              "best_overlap": [
+                "carry"
+              ],
+              "sense_index": 0
+            }
+          ]
+        },
+        {
+          "family_id": "en-es:sentence-veto:finish:meta",
+          "trigger": "finish",
+          "active_target": "meta",
+          "role": "target",
+          "active_example_count": 0,
+          "shadow_example_count": 2,
+          "phrase_control_example_count": 0,
+          "row_count": 2,
+          "link_rows": [
+            {
+              "sense_id": "en-es:sentence-veto:finish:meta:active",
+              "target_lemma": "meta",
+              "canonical_pos": "noun",
+              "relation_type": "anchor_cue",
+              "linked": false,
+              "best_link_score": 0.0,
+              "best_overlap": [],
+              "sense_index": null
+            },
+            {
+              "sense_id": "en-es:sentence-veto:finish:meta:acabado:shadow",
+              "target_lemma": "acabado",
+              "canonical_pos": "noun",
+              "relation_type": "shadow_candidate",
+              "linked": true,
+              "best_link_score": 0.4,
+              "best_overlap": [
+                "coat",
+                "protective"
+              ],
+              "sense_index": 1
+            },
+            {
+              "sense_id": "en-es:sentence-veto:finish:meta:acabar:shadow",
+              "target_lemma": "acabar",
+              "canonical_pos": "verb",
+              "relation_type": "shadow_candidate",
+              "linked": true,
+              "best_link_score": 0.25,
+              "best_overlap": [
+                "complete"
+              ],
+              "sense_index": 0
+            }
+          ]
+        },
+        {
+          "family_id": "en-es:sentence-veto:throw:lanzamiento",
+          "trigger": "throw",
+          "active_target": "lanzamiento",
+          "role": "target",
+          "active_example_count": 1,
+          "shadow_example_count": 1,
+          "phrase_control_example_count": 0,
+          "row_count": 2,
+          "link_rows": [
+            {
+              "sense_id": "en-es:sentence-veto:throw:lanzamiento:active",
+              "target_lemma": "lanzamiento",
+              "canonical_pos": "noun",
+              "relation_type": "anchor_cue",
+              "linked": true,
+              "best_link_score": 0.1667,
+              "best_overlap": [
+                "thrown"
+              ],
+              "sense_index": 3
+            },
+            {
+              "sense_id": "en-es:sentence-veto:throw:lanzamiento:lanzar:shadow",
+              "target_lemma": "lanzar",
+              "canonical_pos": "verb",
+              "relation_type": "shadow_candidate",
+              "linked": true,
+              "best_link_score": 0.375,
+              "best_overlap": [
+                "air",
+                "object",
+                "rapidly"
+              ],
+              "sense_index": 0
+            }
+          ]
+        },
+        {
+          "family_id": "en-es:sentence-veto:upset:disgustado",
+          "trigger": "upset",
+          "active_target": "disgustado",
+          "role": "target",
+          "active_example_count": 0,
+          "shadow_example_count": 2,
+          "phrase_control_example_count": 0,
+          "row_count": 2,
+          "link_rows": [
+            {
+              "sense_id": "en-es:sentence-veto:upset:disgustado:active",
+              "target_lemma": "disgustado",
+              "canonical_pos": "adjective",
+              "relation_type": "anchor_cue",
+              "linked": false,
+              "best_link_score": 0.0,
+              "best_overlap": [],
+              "sense_index": null
+            },
+            {
+              "sense_id": "en-es:sentence-veto:upset:disgustado:trastrocar:shadow",
+              "target_lemma": "trastrocar",
+              "canonical_pos": "verb",
+              "relation_type": "shadow_candidate",
+              "linked": true,
+              "best_link_score": 0.4286,
+              "best_overlap": [
+                "alter",
+                "disrupt",
+                "disturb"
+              ],
+              "sense_index": 1
+            }
+          ]
+        },
+        {
+          "family_id": "en-es:sentence-veto:piece:trozo",
+          "trigger": "piece",
+          "active_target": "trozo",
+          "role": "target",
+          "active_example_count": 2,
+          "shadow_example_count": 0,
+          "phrase_control_example_count": 0,
+          "row_count": 2,
+          "link_rows": [
+            {
+              "sense_id": "en-es:sentence-veto:piece:trozo:active",
+              "target_lemma": "trozo",
+              "canonical_pos": "noun",
+              "relation_type": "anchor_cue",
+              "linked": true,
+              "best_link_score": 0.5,
+              "best_overlap": [
+                "larger",
+                "part",
+                "whole"
+              ],
+              "sense_index": 0
+            },
+            {
+              "sense_id": "en-es:sentence-veto:piece:trozo:ficha:shadow",
+              "target_lemma": "ficha",
+              "canonical_pos": "noun",
+              "relation_type": "shadow_candidate",
+              "linked": false,
+              "best_link_score": 0.0,
+              "best_overlap": [],
+              "sense_index": null
+            },
+            {
+              "sense_id": "en-es:sentence-veto:piece:trozo:montar:shadow",
+              "target_lemma": "montar",
+              "canonical_pos": "verb",
+              "relation_type": "shadow_candidate",
+              "linked": false,
+              "best_link_score": 0.0,
+              "best_overlap": [],
+              "sense_index": null
+            }
+          ]
+        },
+        {
+          "family_id": "en-es:sentence-veto:fair:pastel",
+          "trigger": "fair",
+          "active_target": "pastel",
+          "role": "target",
+          "active_example_count": 0,
+          "shadow_example_count": 0,
+          "phrase_control_example_count": 0,
+          "row_count": 0,
+          "link_rows": [
+            {
+              "sense_id": "en-es:sentence-veto:fair:pastel:active",
+              "target_lemma": "pastel",
+              "canonical_pos": "adjective",
+              "relation_type": "anchor_cue",
+              "linked": false,
+              "best_link_score": 0.0,
+              "best_overlap": [],
+              "sense_index": null
+            },
+            {
+              "sense_id": "en-es:sentence-veto:fair:pastel:feria-de-muestras:shadow",
+              "target_lemma": "feria de muestras",
+              "canonical_pos": "noun",
+              "relation_type": "shadow_candidate",
+              "linked": false,
+              "best_link_score": 0.0,
+              "best_overlap": [],
+              "sense_index": null
+            }
+          ]
+        },
+        {
+          "family_id": "en-es:sentence-veto:show:espect-culo",
+          "trigger": "show",
+          "active_target": "espectáculo",
+          "role": "target",
+          "active_example_count": 1,
+          "shadow_example_count": 1,
+          "phrase_control_example_count": 0,
+          "row_count": 2,
+          "link_rows": [
+            {
+              "sense_id": "en-es:sentence-veto:show:espect-culo:active",
+              "target_lemma": "espectáculo",
+              "canonical_pos": "noun",
+              "relation_type": "anchor_cue",
+              "linked": true,
+              "best_link_score": 0.2,
+              "best_overlap": [
+                "entertainment"
+              ],
+              "sense_index": 0
+            },
+            {
+              "sense_id": "en-es:sentence-veto:show:espect-culo:demostrar:shadow",
+              "target_lemma": "demostrar",
+              "canonical_pos": "verb",
+              "relation_type": "shadow_candidate",
+              "linked": true,
+              "best_link_score": 0.5,
+              "best_overlap": [
+                "fact",
+                "indicate",
+                "true"
+              ],
+              "sense_index": 2
+            }
+          ]
+        },
+        {
+          "family_id": "en-es:sentence-veto:advance:avance",
+          "trigger": "advance",
+          "active_target": "avance",
+          "role": "target",
+          "active_example_count": 2,
+          "shadow_example_count": 0,
+          "phrase_control_example_count": 0,
+          "row_count": 2,
+          "link_rows": [
+            {
+              "sense_id": "en-es:sentence-veto:advance:avance:active",
+              "target_lemma": "avance",
+              "canonical_pos": "noun",
+              "relation_type": "anchor_cue",
+              "linked": true,
+              "best_link_score": 0.4,
+              "best_overlap": [
+                "forward",
+                "move"
+              ],
+              "sense_index": 0
+            },
+            {
+              "sense_id": "en-es:sentence-veto:advance:avance:adelanto:shadow",
+              "target_lemma": "adelanto",
+              "canonical_pos": "noun",
+              "relation_type": "shadow_candidate",
+              "linked": false,
+              "best_link_score": 0.0,
+              "best_overlap": [],
+              "sense_index": null
+            },
+            {
+              "sense_id": "en-es:sentence-veto:advance:avance:avanzar:shadow",
+              "target_lemma": "avanzar",
+              "canonical_pos": "verb",
+              "relation_type": "shadow_candidate",
+              "linked": false,
+              "best_link_score": 0.0,
+              "best_overlap": [],
+              "sense_index": null
+            }
+          ]
+        },
+        {
+          "family_id": "en-es:sentence-veto:rank:rancio",
+          "trigger": "rank",
+          "active_target": "rancio",
+          "role": "target",
+          "active_example_count": 0,
+          "shadow_example_count": 1,
+          "phrase_control_example_count": 0,
+          "row_count": 1,
+          "link_rows": [
+            {
+              "sense_id": "en-es:sentence-veto:rank:rancio:active",
+              "target_lemma": "rancio",
+              "canonical_pos": "adjective",
+              "relation_type": "anchor_cue",
+              "linked": false,
+              "best_link_score": 0.0,
+              "best_overlap": [],
+              "sense_index": null
+            },
+            {
+              "sense_id": "en-es:sentence-veto:rank:rancio:fila:shadow",
+              "target_lemma": "fila",
+              "canonical_pos": "noun",
+              "relation_type": "shadow_candidate",
+              "linked": true,
+              "best_link_score": 0.6667,
+              "best_overlap": [
+                "grid",
+                "organiz",
+                "pattern",
+                "people",
+                "row",
+                "thing"
+              ],
+              "sense_index": 0
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

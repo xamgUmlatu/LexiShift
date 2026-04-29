@@ -1,0 +1,1167 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-04-29T01:18:56Z",
+  "status": "review",
+  "batch_id": "en-es:wiktextract-non-v10-wave6-upper-bound:source-admission-cycle-latest",
+  "admitted_batch_id": "en-es:wiktextract-non-v10-wave6-upper-bound:source-admission-cycle-latest:sense-admitted",
+  "summary": {
+    "input_row_count": 28,
+    "semantic_input_row_count": 28,
+    "semantic_admitted_row_count": 21,
+    "semantic_rejected_row_count": 7,
+    "non_semantic_passthrough_row_count": 0,
+    "admitted_row_count": 21,
+    "scorers": [
+      "sentence_transformer_cosine"
+    ],
+    "evidence_view": "all_evidence_text",
+    "min_intended_score": 0.5,
+    "min_margin": 0.0,
+    "rejection_reason_counts": {
+      "competitor_sense_not_lower": 5,
+      "weak_intended_similarity": 2
+    }
+  },
+  "row_results": [
+    {
+      "row_id": "en-es-sentence-veto-leave-permiso:active-en-es-sentence-veto-leave-permiso-active-wiktextract-example-1",
+      "family_id": "en-es:sentence-veto:leave:permiso",
+      "relation_type": "anchor_cue",
+      "evidence_text": "I've just been given three weeks' leave by my boss — I don't think I still have some leave owing to me.",
+      "admission_status": "rejected",
+      "reason_code": "competitor_sense_not_lower",
+      "intended_sense_id": "en-es:sentence-veto:leave:permiso:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:leave:permiso:excedencia:shadow",
+        "en-es:sentence-veto:leave:permiso:dejar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:leave:permiso:active",
+        "intended_score": 0.614652,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:leave:permiso:excedencia:shadow",
+        "strongest_competitor_score": 0.690764,
+        "margin": -0.076112
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:leave:permiso:active",
+          "intended_score": 0.614652,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:leave:permiso:excedencia:shadow",
+          "strongest_competitor_score": 0.690764,
+          "margin": -0.076112
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-leave-permiso:shadow-en-es-sentence-veto-leave-permiso-excedencia-shadow-wiktextract-example-1",
+      "family_id": "en-es:sentence-veto:leave:permiso",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "I've just been given three weeks' leave by my boss — I don't think I still have some leave owing to me.",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:leave:permiso:excedencia:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:leave:permiso:active",
+        "en-es:sentence-veto:leave:permiso:dejar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:leave:permiso:excedencia:shadow",
+        "intended_score": 0.690764,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:leave:permiso:dejar:shadow",
+        "strongest_competitor_score": 0.641098,
+        "margin": 0.049666
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:leave:permiso:excedencia:shadow",
+          "intended_score": 0.690764,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:leave:permiso:dejar:shadow",
+          "strongest_competitor_score": 0.641098,
+          "margin": 0.049666
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-leave-permiso:shadow-en-es-sentence-veto-leave-permiso-dejar-shadow-wiktextract-example-1",
+      "family_id": "en-es:sentence-veto:leave:permiso",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "The ants did not leave so much as a crumb of bread.",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:leave:permiso:dejar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:leave:permiso:active",
+        "en-es:sentence-veto:leave:permiso:excedencia:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:leave:permiso:dejar:shadow",
+        "intended_score": 0.613031,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:leave:permiso:excedencia:shadow",
+        "strongest_competitor_score": 0.606731,
+        "margin": 0.0063
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:leave:permiso:dejar:shadow",
+          "intended_score": 0.613031,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:leave:permiso:excedencia:shadow",
+          "strongest_competitor_score": 0.606731,
+          "margin": 0.0063
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-serve-servicio:active-en-es-sentence-veto-serve-servicio-active-wiktextract-example-1",
+      "family_id": "en-es:sentence-veto:serve:servicio",
+      "relation_type": "anchor_cue",
+      "evidence_text": "Whose serve is it?",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:serve:servicio:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:serve:servicio:servir:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:serve:servicio:active",
+        "intended_score": 0.713928,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:serve:servicio:servir:shadow",
+        "strongest_competitor_score": 0.665636,
+        "margin": 0.048292
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:serve:servicio:active",
+          "intended_score": 0.713928,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:serve:servicio:servir:shadow",
+          "strongest_competitor_score": 0.665636,
+          "margin": 0.048292
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-part-parte:active-en-es-sentence-veto-part-parte-active-wiktextract-example-1",
+      "family_id": "en-es:sentence-veto:part:parte",
+      "relation_type": "anchor_cue",
+      "evidence_text": "Gaul is divided into three parts.",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:part:parte:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:part:parte:papel:shadow",
+        "en-es:sentence-veto:part:parte:repartir:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:part:parte:active",
+        "intended_score": 0.644559,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:part:parte:repartir:shadow",
+        "strongest_competitor_score": 0.61094,
+        "margin": 0.033619
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:part:parte:active",
+          "intended_score": 0.644559,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:part:parte:repartir:shadow",
+          "strongest_competitor_score": 0.61094,
+          "margin": 0.033619
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-part-parte:active-en-es-sentence-veto-part-parte-active-wiktextract-example-2",
+      "family_id": "en-es:sentence-veto:part:parte",
+      "relation_type": "anchor_cue",
+      "evidence_text": "I was in Australia part of last year.",
+      "admission_status": "rejected",
+      "reason_code": "weak_intended_similarity",
+      "intended_sense_id": "en-es:sentence-veto:part:parte:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:part:parte:papel:shadow",
+        "en-es:sentence-veto:part:parte:repartir:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:part:parte:active",
+        "intended_score": 0.499987,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:part:parte:repartir:shadow",
+        "strongest_competitor_score": 0.500847,
+        "margin": -0.00086
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:part:parte:active",
+          "intended_score": 0.499987,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:part:parte:repartir:shadow",
+          "strongest_competitor_score": 0.500847,
+          "margin": -0.00086
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-part-parte:shadow-en-es-sentence-veto-part-parte-papel-shadow-wiktextract-example-1",
+      "family_id": "en-es:sentence-veto:part:parte",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "We all have a part to play.",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:part:parte:papel:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:part:parte:active",
+        "en-es:sentence-veto:part:parte:repartir:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:part:parte:papel:shadow",
+        "intended_score": 0.712131,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:part:parte:active",
+        "strongest_competitor_score": 0.657296,
+        "margin": 0.054836
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:part:parte:papel:shadow",
+          "intended_score": 0.712131,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:part:parte:active",
+          "strongest_competitor_score": 0.657296,
+          "margin": 0.054836
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-part-parte:shadow-en-es-sentence-veto-part-parte-repartir-shadow-wiktextract-example-1",
+      "family_id": "en-es:sentence-veto:part:parte",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "to part the curtains",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:part:parte:repartir:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:part:parte:active",
+        "en-es:sentence-veto:part:parte:papel:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:part:parte:repartir:shadow",
+        "intended_score": 0.660974,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:part:parte:active",
+        "strongest_competitor_score": 0.6529,
+        "margin": 0.008074
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:part:parte:repartir:shadow",
+          "intended_score": 0.660974,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:part:parte:active",
+          "strongest_competitor_score": 0.6529,
+          "margin": 0.008074
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-feel-talento:active-en-es-sentence-veto-feel-talento-active-wiktextract-example-1",
+      "family_id": "en-es:sentence-veto:feel:talento",
+      "relation_type": "anchor_cue",
+      "evidence_text": "She has a feel for music.",
+      "admission_status": "rejected",
+      "reason_code": "competitor_sense_not_lower",
+      "intended_sense_id": "en-es:sentence-veto:feel:talento:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:feel:talento:sentir:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:feel:talento:active",
+        "intended_score": 0.596261,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:feel:talento:sentir:shadow",
+        "strongest_competitor_score": 0.613261,
+        "margin": -0.017
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:feel:talento:active",
+          "intended_score": 0.596261,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:feel:talento:sentir:shadow",
+          "strongest_competitor_score": 0.613261,
+          "margin": -0.017
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-feel-talento:shadow-en-es-sentence-veto-feel-talento-sentir-shadow-wiktextract-example-1",
+      "family_id": "en-es:sentence-veto:feel:talento",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "You can feel a heartbeat if you put your fingers on your breast.",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:feel:talento:sentir:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:feel:talento:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:feel:talento:sentir:shadow",
+        "intended_score": 0.653446,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:feel:talento:active",
+        "strongest_competitor_score": 0.576506,
+        "margin": 0.07694
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:feel:talento:sentir:shadow",
+          "intended_score": 0.653446,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:feel:talento:active",
+          "strongest_competitor_score": 0.576506,
+          "margin": 0.07694
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-feel-talento:shadow-en-es-sentence-veto-feel-talento-sentir-shadow-wiktextract-example-2",
+      "family_id": "en-es:sentence-veto:feel:talento",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "I did feel a complete fool after stumbling on the same rock again.",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:feel:talento:sentir:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:feel:talento:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:feel:talento:sentir:shadow",
+        "intended_score": 0.570738,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:feel:talento:active",
+        "strongest_competitor_score": 0.536681,
+        "margin": 0.034058
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:feel:talento:sentir:shadow",
+          "intended_score": 0.570738,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:feel:talento:active",
+          "strongest_competitor_score": 0.536681,
+          "margin": 0.034058
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-still-quietud:active-en-es-sentence-veto-still-quietud-active-wiktextract-example-1",
+      "family_id": "en-es:sentence-veto:still:quietud",
+      "relation_type": "anchor_cue",
+      "evidence_text": "the still of the night",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:still:quietud:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:still:quietud:alambique:shadow",
+        "en-es:sentence-veto:still:quietud:aquietar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:still:quietud:active",
+        "intended_score": 0.684981,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:still:quietud:aquietar:shadow",
+        "strongest_competitor_score": 0.659236,
+        "margin": 0.025745
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:still:quietud:active",
+          "intended_score": 0.684981,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:still:quietud:aquietar:shadow",
+          "strongest_competitor_score": 0.659236,
+          "margin": 0.025745
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-still-quietud:shadow-en-es-sentence-veto-still-quietud-aquietar-shadow-wiktextract-example-1",
+      "family_id": "en-es:sentence-veto:still:quietud",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "to still the raging sea",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:still:quietud:aquietar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:still:quietud:active",
+        "en-es:sentence-veto:still:quietud:alambique:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:still:quietud:aquietar:shadow",
+        "intended_score": 0.670976,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:still:quietud:alambique:shadow",
+        "strongest_competitor_score": 0.652488,
+        "margin": 0.018488
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:still:quietud:aquietar:shadow",
+          "intended_score": 0.670976,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:still:quietud:alambique:shadow",
+          "strongest_competitor_score": 0.652488,
+          "margin": 0.018488
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-bear-bajista:shadow-en-es-sentence-veto-bear-bajista-llevar-shadow-wiktextract-example-1",
+      "family_id": "en-es:sentence-veto:bear:bajista",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "They came bearing gifts.",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:bear:bajista:llevar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:bear:bajista:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:bear:bajista:llevar:shadow",
+        "intended_score": 0.630384,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:bear:bajista:active",
+        "strongest_competitor_score": 0.591602,
+        "margin": 0.038782
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:bear:bajista:llevar:shadow",
+          "intended_score": 0.630384,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:bear:bajista:active",
+          "strongest_competitor_score": 0.591602,
+          "margin": 0.038782
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-bear-bajista:shadow-en-es-sentence-veto-bear-bajista-llevar-shadow-wiktextract-example-2",
+      "family_id": "en-es:sentence-veto:bear:bajista",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "Judging from the look on his face, he wasn't bearing good news.",
+      "admission_status": "rejected",
+      "reason_code": "competitor_sense_not_lower",
+      "intended_sense_id": "en-es:sentence-veto:bear:bajista:llevar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:bear:bajista:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:bear:bajista:llevar:shadow",
+        "intended_score": 0.507502,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:bear:bajista:active",
+        "strongest_competitor_score": 0.549247,
+        "margin": -0.041745
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:bear:bajista:llevar:shadow",
+          "intended_score": 0.507502,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:bear:bajista:active",
+          "strongest_competitor_score": 0.549247,
+          "margin": -0.041745
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-finish-meta:shadow-en-es-sentence-veto-finish-meta-acabado-shadow-wiktextract-example-1",
+      "family_id": "en-es:sentence-veto:finish:meta",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "The car's finish was so shiny and new.",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:finish:meta:acabado:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:finish:meta:active",
+        "en-es:sentence-veto:finish:meta:acabar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:finish:meta:acabado:shadow",
+        "intended_score": 0.634845,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:finish:meta:active",
+        "strongest_competitor_score": 0.58269,
+        "margin": 0.052155
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:finish:meta:acabado:shadow",
+          "intended_score": 0.634845,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:finish:meta:active",
+          "strongest_competitor_score": 0.58269,
+          "margin": 0.052155
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-finish-meta:shadow-en-es-sentence-veto-finish-meta-acabar-shadow-wiktextract-example-1",
+      "family_id": "en-es:sentence-veto:finish:meta",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "Be sure to finish your homework before you go to bed!",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:finish:meta:acabar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:finish:meta:active",
+        "en-es:sentence-veto:finish:meta:acabado:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:finish:meta:acabar:shadow",
+        "intended_score": 0.682275,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:finish:meta:active",
+        "strongest_competitor_score": 0.626825,
+        "margin": 0.05545
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:finish:meta:acabar:shadow",
+          "intended_score": 0.682275,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:finish:meta:active",
+          "strongest_competitor_score": 0.626825,
+          "margin": 0.05545
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-throw-lanzamiento:active-en-es-sentence-veto-throw-lanzamiento-active-wiktextract-example-1",
+      "family_id": "en-es:sentence-veto:throw:lanzamiento",
+      "relation_type": "anchor_cue",
+      "evidence_text": "a stone's throw",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:throw:lanzamiento:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:throw:lanzamiento:lanzar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:throw:lanzamiento:active",
+        "intended_score": 0.78165,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:throw:lanzamiento:lanzar:shadow",
+        "strongest_competitor_score": 0.71861,
+        "margin": 0.06304
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:throw:lanzamiento:active",
+          "intended_score": 0.78165,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:throw:lanzamiento:lanzar:shadow",
+          "strongest_competitor_score": 0.71861,
+          "margin": 0.06304
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-throw-lanzamiento:shadow-en-es-sentence-veto-throw-lanzamiento-lanzar-shadow-wiktextract-example-1",
+      "family_id": "en-es:sentence-veto:throw:lanzamiento",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "throw a shoe; throw a javelin; the horse threw its rider",
+      "admission_status": "rejected",
+      "reason_code": "competitor_sense_not_lower",
+      "intended_sense_id": "en-es:sentence-veto:throw:lanzamiento:lanzar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:throw:lanzamiento:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:throw:lanzamiento:lanzar:shadow",
+        "intended_score": 0.736011,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:throw:lanzamiento:active",
+        "strongest_competitor_score": 0.766312,
+        "margin": -0.030301
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:throw:lanzamiento:lanzar:shadow",
+          "intended_score": 0.736011,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:throw:lanzamiento:active",
+          "strongest_competitor_score": 0.766312,
+          "margin": -0.030301
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-upset-disgustado:shadow-en-es-sentence-veto-upset-disgustado-trastrocar-shadow-wiktextract-example-1",
+      "family_id": "en-es:sentence-veto:upset:disgustado",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "Introducing a foreign species can upset the ecological balance.",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:upset:disgustado:trastrocar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:upset:disgustado:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:upset:disgustado:trastrocar:shadow",
+        "intended_score": 0.602159,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:upset:disgustado:active",
+        "strongest_competitor_score": 0.561729,
+        "margin": 0.04043
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:upset:disgustado:trastrocar:shadow",
+          "intended_score": 0.602159,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:upset:disgustado:active",
+          "strongest_competitor_score": 0.561729,
+          "margin": 0.04043
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-upset-disgustado:shadow-en-es-sentence-veto-upset-disgustado-trastrocar-shadow-wiktextract-example-2",
+      "family_id": "en-es:sentence-veto:upset:disgustado",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "The fatty meat upset his stomach.",
+      "admission_status": "rejected",
+      "reason_code": "competitor_sense_not_lower",
+      "intended_sense_id": "en-es:sentence-veto:upset:disgustado:trastrocar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:upset:disgustado:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:upset:disgustado:trastrocar:shadow",
+        "intended_score": 0.572382,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:upset:disgustado:active",
+        "strongest_competitor_score": 0.609368,
+        "margin": -0.036986
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:upset:disgustado:trastrocar:shadow",
+          "intended_score": 0.572382,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:upset:disgustado:active",
+          "strongest_competitor_score": 0.609368,
+          "margin": -0.036986
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-piece-trozo:active-en-es-sentence-veto-piece-trozo-active-wiktextract-example-1",
+      "family_id": "en-es:sentence-veto:piece:trozo",
+      "relation_type": "anchor_cue",
+      "evidence_text": "I’d like another piece of pie.",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:piece:trozo:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:piece:trozo:ficha:shadow",
+        "en-es:sentence-veto:piece:trozo:montar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:piece:trozo:active",
+        "intended_score": 0.618178,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:piece:trozo:ficha:shadow",
+        "strongest_competitor_score": 0.616056,
+        "margin": 0.002122
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:piece:trozo:active",
+          "intended_score": 0.618178,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:piece:trozo:ficha:shadow",
+          "strongest_competitor_score": 0.616056,
+          "margin": 0.002122
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-piece-trozo:active-en-es-sentence-veto-piece-trozo-active-wiktextract-example-2",
+      "family_id": "en-es:sentence-veto:piece:trozo",
+      "relation_type": "anchor_cue",
+      "evidence_text": "I've lost a piece of this jigsaw puzzle.",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:piece:trozo:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:piece:trozo:ficha:shadow",
+        "en-es:sentence-veto:piece:trozo:montar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:piece:trozo:active",
+        "intended_score": 0.684444,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:piece:trozo:montar:shadow",
+        "strongest_competitor_score": 0.646227,
+        "margin": 0.038217
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:piece:trozo:active",
+          "intended_score": 0.684444,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:piece:trozo:montar:shadow",
+          "strongest_competitor_score": 0.646227,
+          "margin": 0.038217
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-show-espect-culo:active-en-es-sentence-veto-show-espect-culo-active-wiktextract-example-1",
+      "family_id": "en-es:sentence-veto:show:espect-culo",
+      "relation_type": "anchor_cue",
+      "evidence_text": "There were a thousand people at the show.",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:show:espect-culo:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:show:espect-culo:demostrar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:show:espect-culo:active",
+        "intended_score": 0.661731,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:show:espect-culo:demostrar:shadow",
+        "strongest_competitor_score": 0.553601,
+        "margin": 0.10813
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:show:espect-culo:active",
+          "intended_score": 0.661731,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:show:espect-culo:demostrar:shadow",
+          "strongest_competitor_score": 0.553601,
+          "margin": 0.10813
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-show-espect-culo:shadow-en-es-sentence-veto-show-espect-culo-demostrar-shadow-wiktextract-example-1",
+      "family_id": "en-es:sentence-veto:show:espect-culo",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "2018, VOA Learning English > China's Melting Glacier Brings Visitors, Adds to Climate Concerns A report this year in the Journal of Geophysical Research showed that the glacier has lost 60 percent of its mass.",
+      "admission_status": "rejected",
+      "reason_code": "weak_intended_similarity",
+      "intended_sense_id": "en-es:sentence-veto:show:espect-culo:demostrar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:show:espect-culo:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:show:espect-culo:demostrar:shadow",
+        "intended_score": 0.494388,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:show:espect-culo:active",
+        "strongest_competitor_score": 0.510187,
+        "margin": -0.015799
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:show:espect-culo:demostrar:shadow",
+          "intended_score": 0.494388,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:show:espect-culo:active",
+          "strongest_competitor_score": 0.510187,
+          "margin": -0.015799
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-advance-avance:active-en-es-sentence-veto-advance-avance-active-wiktextract-example-1",
+      "family_id": "en-es:sentence-veto:advance:avance",
+      "relation_type": "anchor_cue",
+      "evidence_text": "an advance in health or knowledge",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:advance:avance:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:advance:avance:adelanto:shadow",
+        "en-es:sentence-veto:advance:avance:avanzar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:advance:avance:active",
+        "intended_score": 0.69444,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:advance:avance:avanzar:shadow",
+        "strongest_competitor_score": 0.64961,
+        "margin": 0.044829
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:advance:avance:active",
+          "intended_score": 0.69444,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:advance:avance:avanzar:shadow",
+          "strongest_competitor_score": 0.64961,
+          "margin": 0.044829
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-advance-avance:active-en-es-sentence-veto-advance-avance-active-wiktextract-example-2",
+      "family_id": "en-es:sentence-veto:advance:avance",
+      "relation_type": "anchor_cue",
+      "evidence_text": "an advance in rank or office",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:advance:avance:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:advance:avance:adelanto:shadow",
+        "en-es:sentence-veto:advance:avance:avanzar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:advance:avance:active",
+        "intended_score": 0.721605,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:advance:avance:avanzar:shadow",
+        "strongest_competitor_score": 0.683837,
+        "margin": 0.037767
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:advance:avance:active",
+          "intended_score": 0.721605,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:advance:avance:avanzar:shadow",
+          "strongest_competitor_score": 0.683837,
+          "margin": 0.037767
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-rank-rancio:shadow-en-es-sentence-veto-rank-rancio-fila-shadow-wiktextract-example-1",
+      "family_id": "en-es:sentence-veto:rank:rancio",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "The front rank kneeled to reload while the second rank fired over their heads.",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:rank:rancio:fila:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:rank:rancio:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:rank:rancio:fila:shadow",
+        "intended_score": 0.590866,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:rank:rancio:active",
+        "strongest_competitor_score": 0.543226,
+        "margin": 0.04764
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:rank:rancio:fila:shadow",
+          "intended_score": 0.590866,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:rank:rancio:active",
+          "strongest_competitor_score": 0.543226,
+          "margin": 0.04764
+        }
+      ]
+    }
+  ],
+  "rejected_rows": [
+    {
+      "row_id": "en-es-sentence-veto-leave-permiso:active-en-es-sentence-veto-leave-permiso-active-wiktextract-example-1",
+      "family_id": "en-es:sentence-veto:leave:permiso",
+      "relation_type": "anchor_cue",
+      "evidence_text": "I've just been given three weeks' leave by my boss — I don't think I still have some leave owing to me.",
+      "admission_status": "rejected",
+      "reason_code": "competitor_sense_not_lower",
+      "intended_sense_id": "en-es:sentence-veto:leave:permiso:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:leave:permiso:excedencia:shadow",
+        "en-es:sentence-veto:leave:permiso:dejar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:leave:permiso:active",
+        "intended_score": 0.614652,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:leave:permiso:excedencia:shadow",
+        "strongest_competitor_score": 0.690764,
+        "margin": -0.076112
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:leave:permiso:active",
+          "intended_score": 0.614652,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:leave:permiso:excedencia:shadow",
+          "strongest_competitor_score": 0.690764,
+          "margin": -0.076112
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-part-parte:active-en-es-sentence-veto-part-parte-active-wiktextract-example-2",
+      "family_id": "en-es:sentence-veto:part:parte",
+      "relation_type": "anchor_cue",
+      "evidence_text": "I was in Australia part of last year.",
+      "admission_status": "rejected",
+      "reason_code": "weak_intended_similarity",
+      "intended_sense_id": "en-es:sentence-veto:part:parte:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:part:parte:papel:shadow",
+        "en-es:sentence-veto:part:parte:repartir:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:part:parte:active",
+        "intended_score": 0.499987,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:part:parte:repartir:shadow",
+        "strongest_competitor_score": 0.500847,
+        "margin": -0.00086
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:part:parte:active",
+          "intended_score": 0.499987,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:part:parte:repartir:shadow",
+          "strongest_competitor_score": 0.500847,
+          "margin": -0.00086
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-feel-talento:active-en-es-sentence-veto-feel-talento-active-wiktextract-example-1",
+      "family_id": "en-es:sentence-veto:feel:talento",
+      "relation_type": "anchor_cue",
+      "evidence_text": "She has a feel for music.",
+      "admission_status": "rejected",
+      "reason_code": "competitor_sense_not_lower",
+      "intended_sense_id": "en-es:sentence-veto:feel:talento:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:feel:talento:sentir:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:feel:talento:active",
+        "intended_score": 0.596261,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:feel:talento:sentir:shadow",
+        "strongest_competitor_score": 0.613261,
+        "margin": -0.017
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:feel:talento:active",
+          "intended_score": 0.596261,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:feel:talento:sentir:shadow",
+          "strongest_competitor_score": 0.613261,
+          "margin": -0.017
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-bear-bajista:shadow-en-es-sentence-veto-bear-bajista-llevar-shadow-wiktextract-example-2",
+      "family_id": "en-es:sentence-veto:bear:bajista",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "Judging from the look on his face, he wasn't bearing good news.",
+      "admission_status": "rejected",
+      "reason_code": "competitor_sense_not_lower",
+      "intended_sense_id": "en-es:sentence-veto:bear:bajista:llevar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:bear:bajista:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:bear:bajista:llevar:shadow",
+        "intended_score": 0.507502,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:bear:bajista:active",
+        "strongest_competitor_score": 0.549247,
+        "margin": -0.041745
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:bear:bajista:llevar:shadow",
+          "intended_score": 0.507502,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:bear:bajista:active",
+          "strongest_competitor_score": 0.549247,
+          "margin": -0.041745
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-throw-lanzamiento:shadow-en-es-sentence-veto-throw-lanzamiento-lanzar-shadow-wiktextract-example-1",
+      "family_id": "en-es:sentence-veto:throw:lanzamiento",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "throw a shoe; throw a javelin; the horse threw its rider",
+      "admission_status": "rejected",
+      "reason_code": "competitor_sense_not_lower",
+      "intended_sense_id": "en-es:sentence-veto:throw:lanzamiento:lanzar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:throw:lanzamiento:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:throw:lanzamiento:lanzar:shadow",
+        "intended_score": 0.736011,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:throw:lanzamiento:active",
+        "strongest_competitor_score": 0.766312,
+        "margin": -0.030301
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:throw:lanzamiento:lanzar:shadow",
+          "intended_score": 0.736011,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:throw:lanzamiento:active",
+          "strongest_competitor_score": 0.766312,
+          "margin": -0.030301
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-upset-disgustado:shadow-en-es-sentence-veto-upset-disgustado-trastrocar-shadow-wiktextract-example-2",
+      "family_id": "en-es:sentence-veto:upset:disgustado",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "The fatty meat upset his stomach.",
+      "admission_status": "rejected",
+      "reason_code": "competitor_sense_not_lower",
+      "intended_sense_id": "en-es:sentence-veto:upset:disgustado:trastrocar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:upset:disgustado:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:upset:disgustado:trastrocar:shadow",
+        "intended_score": 0.572382,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:upset:disgustado:active",
+        "strongest_competitor_score": 0.609368,
+        "margin": -0.036986
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:upset:disgustado:trastrocar:shadow",
+          "intended_score": 0.572382,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:upset:disgustado:active",
+          "strongest_competitor_score": 0.609368,
+          "margin": -0.036986
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-show-espect-culo:shadow-en-es-sentence-veto-show-espect-culo-demostrar-shadow-wiktextract-example-1",
+      "family_id": "en-es:sentence-veto:show:espect-culo",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "2018, VOA Learning English > China's Melting Glacier Brings Visitors, Adds to Climate Concerns A report this year in the Journal of Geophysical Research showed that the glacier has lost 60 percent of its mass.",
+      "admission_status": "rejected",
+      "reason_code": "weak_intended_similarity",
+      "intended_sense_id": "en-es:sentence-veto:show:espect-culo:demostrar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:show:espect-culo:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:show:espect-culo:demostrar:shadow",
+        "intended_score": 0.494388,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:show:espect-culo:active",
+        "strongest_competitor_score": 0.510187,
+        "margin": -0.015799
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:show:espect-culo:demostrar:shadow",
+          "intended_score": 0.494388,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:show:espect-culo:active",
+          "strongest_competitor_score": 0.510187,
+          "margin": -0.015799
+        }
+      ]
+    }
+  ],
+  "recommendation": "Use the admitted batch only as an analysis artifact. Replace or quarantine rejected active/shadow rows before any promotion-candidate merge."
+}

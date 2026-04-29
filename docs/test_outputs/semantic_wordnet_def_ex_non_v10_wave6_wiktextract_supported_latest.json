@@ -1,0 +1,833 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-04-29T01:27:54Z",
+  "status": "ok",
+  "pair": "en-es",
+  "queue_id": "semantic_source_non_v10_wave6_anypos_unsupported_upper_bound_selected_queue_en_es_v1",
+  "dataset_id": "en_es_source_non_v10_wave6_anypos_unsupported_upper_bound_selected_v1",
+  "run_id": "wordnet-def-ex-non-v10-wave6-wiktextract-supported-v1-latest",
+  "source_scope": "all_dataset_families",
+  "batch_id": "en-es:wordnet-example-frames:wordnet-def-ex-non-v10-wave6-wiktextract-supported-v1-latest",
+  "source_type": "external",
+  "source_id": "wordnet_example_frames",
+  "source_family": "external_sense_graph",
+  "resource_status": {
+    "data_root": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift",
+    "wordnet_dir": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/english-wordnet-2025-json",
+    "wordnet_dir_exists": true,
+    "wordnet_source_file_count": 72,
+    "wordnet_entry_count": 127311,
+    "wordnet_synset_count": 107519,
+    "missing_resources": []
+  },
+  "summary": {
+    "queue_family_count": 16,
+    "source_family_count": 16,
+    "target_family_count": 16,
+    "row_count": 72,
+    "families_with_active_wordnet": 16,
+    "families_with_shadow_wordnet": 16,
+    "target_families_with_active_wordnet": 16,
+    "target_families_with_shadow_wordnet": 16,
+    "families_with_phrase_control_examples": 0,
+    "missing_active_family_keys": [],
+    "missing_shadow_family_keys": [],
+    "min_link_score": 0.12,
+    "evidence_mode": "definition_and_example"
+  },
+  "family_rows": [
+    {
+      "family_id": "en-es:sentence-veto:leave:permiso",
+      "trigger": "leave",
+      "active_target": "permiso",
+      "role": "target",
+      "active_wordnet_count": 2,
+      "shadow_wordnet_count": 4,
+      "phrase_control_example_count": 0,
+      "row_count": 6,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:leave:permiso:active",
+          "target_lemma": "permiso",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_wordnet_sense_id": "leave%1:28:00::",
+          "best_wordnet_synset_id": "15164090-n",
+          "best_wordnet_sense_rank": 1,
+          "best_link_score": 0.2,
+          "best_overlap": [
+            "absent"
+          ],
+          "candidate_count": 2
+        },
+        {
+          "sense_id": "en-es:sentence-veto:leave:permiso:excedencia:shadow",
+          "target_lemma": "excedencia",
+          "canonical_pos": "noun",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_wordnet_sense_id": "leave%1:28:00::",
+          "best_wordnet_synset_id": "15164090-n",
+          "best_wordnet_sense_rank": 1,
+          "best_link_score": 0.4,
+          "best_overlap": [
+            "absence",
+            "work"
+          ],
+          "candidate_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:leave:permiso:dejar:shadow",
+          "target_lemma": "dejar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_wordnet_sense_id": "leave%2:42:01::",
+          "best_wordnet_synset_id": "02727313-v",
+          "best_wordnet_sense_rank": 6,
+          "best_link_score": 0.2,
+          "best_overlap": [
+            "cause",
+            "remain"
+          ],
+          "candidate_count": 1
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:black:oscuro",
+      "trigger": "black",
+      "active_target": "oscuro",
+      "role": "target",
+      "active_wordnet_count": 2,
+      "shadow_wordnet_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 3,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:black:oscuro:active",
+          "target_lemma": "oscuro",
+          "canonical_pos": "adjective",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_wordnet_sense_id": "black%3:00:01::",
+          "best_wordnet_synset_id": "00393873-a",
+          "best_wordnet_sense_rank": 1,
+          "best_link_score": 0.2,
+          "best_overlap": [
+            "light"
+          ],
+          "candidate_count": 3
+        },
+        {
+          "sense_id": "en-es:sentence-veto:black:oscuro:negro:shadow",
+          "target_lemma": "negro",
+          "canonical_pos": "noun",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_wordnet_sense_id": "black%1:07:00::",
+          "best_wordnet_synset_id": "04967454-n",
+          "best_wordnet_sense_rank": 1,
+          "best_link_score": 0.2,
+          "best_overlap": [
+            "color"
+          ],
+          "candidate_count": 1
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:serve:servicio",
+      "trigger": "serve",
+      "active_target": "servicio",
+      "role": "target",
+      "active_wordnet_count": 2,
+      "shadow_wordnet_count": 2,
+      "phrase_control_example_count": 0,
+      "row_count": 4,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:serve:servicio:active",
+          "target_lemma": "servicio",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_wordnet_sense_id": "serve%1:04:00::",
+          "best_wordnet_synset_id": "00569467-n",
+          "best_wordnet_sense_rank": 1,
+          "best_link_score": 0.3333,
+          "best_overlap": [
+            "ball",
+            "play",
+            "sport"
+          ],
+          "candidate_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:serve:servicio:servir:shadow",
+          "target_lemma": "servir",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_wordnet_sense_id": "serve%2:41:01::",
+          "best_wordnet_synset_id": "02546367-v",
+          "best_wordnet_sense_rank": 10,
+          "best_link_score": 0.25,
+          "best_overlap": [
+            "work"
+          ],
+          "candidate_count": 1
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:low:bajo",
+      "trigger": "low",
+      "active_target": "bajo",
+      "role": "target",
+      "active_wordnet_count": 2,
+      "shadow_wordnet_count": 2,
+      "phrase_control_example_count": 0,
+      "row_count": 4,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:low:bajo:active",
+          "target_lemma": "bajo",
+          "canonical_pos": "adverb",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_wordnet_sense_id": "low%4:02:00::",
+          "best_wordnet_synset_id": "00395053-r",
+          "best_wordnet_sense_rank": 1,
+          "best_link_score": 0.2,
+          "best_overlap": [
+            "ground",
+            "position"
+          ],
+          "candidate_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:low:bajo:active:visible-alias:1:adjective",
+          "target_lemma": "bajo",
+          "canonical_pos": "adjective",
+          "relation_type": "anchor_cue",
+          "linked": false,
+          "best_wordnet_sense_id": "",
+          "best_wordnet_synset_id": "",
+          "best_wordnet_sense_rank": 0,
+          "best_link_score": 0.0,
+          "best_overlap": [],
+          "candidate_count": 0
+        },
+        {
+          "sense_id": "en-es:sentence-veto:low:bajo:deca-do:shadow",
+          "target_lemma": "decaído",
+          "canonical_pos": "adjective",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_wordnet_sense_id": "low%5:00:00:dejected:00",
+          "best_wordnet_synset_id": "00707060-s",
+          "best_wordnet_sense_rank": 10,
+          "best_link_score": 0.2,
+          "best_overlap": [
+            "depress"
+          ],
+          "candidate_count": 1
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:part:parte",
+      "trigger": "part",
+      "active_target": "parte",
+      "role": "target",
+      "active_wordnet_count": 2,
+      "shadow_wordnet_count": 4,
+      "phrase_control_example_count": 0,
+      "row_count": 6,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:part:parte:active",
+          "target_lemma": "parte",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_wordnet_sense_id": "part%1:06:00::",
+          "best_wordnet_synset_id": "03898588-n",
+          "best_wordnet_sense_rank": 2,
+          "best_link_score": 0.2,
+          "best_overlap": [
+            "whole"
+          ],
+          "candidate_count": 2
+        },
+        {
+          "sense_id": "en-es:sentence-veto:part:parte:papel:shadow",
+          "target_lemma": "papel",
+          "canonical_pos": "noun",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_wordnet_sense_id": "part%1:04:01::",
+          "best_wordnet_synset_id": "00721817-n",
+          "best_wordnet_sense_rank": 6,
+          "best_link_score": 0.2857,
+          "best_overlap": [
+            "play",
+            "role"
+          ],
+          "candidate_count": 3
+        },
+        {
+          "sense_id": "en-es:sentence-veto:part:parte:repartir:shadow",
+          "target_lemma": "repartir",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_wordnet_sense_id": "part%2:35:00::",
+          "best_wordnet_synset_id": "01560556-v",
+          "best_wordnet_sense_rank": 4,
+          "best_link_score": 0.4,
+          "best_overlap": [
+            "divide",
+            "two"
+          ],
+          "candidate_count": 2
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:feel:talento",
+      "trigger": "feel",
+      "active_target": "talento",
+      "role": "target",
+      "active_wordnet_count": 2,
+      "shadow_wordnet_count": 2,
+      "phrase_control_example_count": 0,
+      "row_count": 4,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:feel:talento:active",
+          "target_lemma": "talento",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_wordnet_sense_id": "feel%1:09:00::",
+          "best_wordnet_synset_id": "05685184-n",
+          "best_wordnet_sense_rank": 1,
+          "best_link_score": 0.2,
+          "best_overlap": [
+            "intuitive"
+          ],
+          "candidate_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:feel:talento:sentir:shadow",
+          "target_lemma": "sentir",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_wordnet_sense_id": "feel%2:39:00::",
+          "best_wordnet_synset_id": "02110460-v",
+          "best_wordnet_sense_rank": 3,
+          "best_link_score": 0.2,
+          "best_overlap": [
+            "sense"
+          ],
+          "candidate_count": 2
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:still:quietud",
+      "trigger": "still",
+      "active_target": "quietud",
+      "role": "target",
+      "active_wordnet_count": 2,
+      "shadow_wordnet_count": 3,
+      "phrase_control_example_count": 0,
+      "row_count": 5,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:still:quietud:active",
+          "target_lemma": "quietud",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_wordnet_sense_id": "still%1:07:00::",
+          "best_wordnet_synset_id": "04989727-n",
+          "best_wordnet_sense_rank": 2,
+          "best_link_score": 0.1667,
+          "best_overlap": [
+            "silence"
+          ],
+          "candidate_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:still:quietud:alambique:shadow",
+          "target_lemma": "alambique",
+          "canonical_pos": "noun",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_wordnet_sense_id": "still%1:06:00::",
+          "best_wordnet_synset_id": "04326120-n",
+          "best_wordnet_sense_rank": 3,
+          "best_link_score": 0.1667,
+          "best_overlap": [
+            "liquid"
+          ],
+          "candidate_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:still:quietud:aquietar:shadow",
+          "target_lemma": "aquietar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_wordnet_sense_id": "still%2:37:00::",
+          "best_wordnet_synset_id": "01768652-v",
+          "best_wordnet_sense_rank": 1,
+          "best_link_score": 0.25,
+          "best_overlap": [
+            "calm"
+          ],
+          "candidate_count": 2
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:bear:bajista",
+      "trigger": "bear",
+      "active_target": "bajista",
+      "role": "target",
+      "active_wordnet_count": 1,
+      "shadow_wordnet_count": 2,
+      "phrase_control_example_count": 0,
+      "row_count": 3,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:bear:bajista:active",
+          "target_lemma": "bajista",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_wordnet_sense_id": "bear%1:18:00::",
+          "best_wordnet_synset_id": "09864599-n",
+          "best_wordnet_sense_rank": 2,
+          "best_link_score": 0.5,
+          "best_overlap": [
+            "fall",
+            "investor",
+            "pric",
+            "sell"
+          ],
+          "candidate_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:bear:bajista:llevar:shadow",
+          "target_lemma": "llevar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_wordnet_sense_id": "bear%2:42:14::",
+          "best_wordnet_synset_id": "02706727-v",
+          "best_wordnet_sense_rank": 8,
+          "best_link_score": 0.25,
+          "best_overlap": [
+            "carry"
+          ],
+          "candidate_count": 4
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:finish:meta",
+      "trigger": "finish",
+      "active_target": "meta",
+      "role": "target",
+      "active_wordnet_count": 2,
+      "shadow_wordnet_count": 4,
+      "phrase_control_example_count": 0,
+      "row_count": 6,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:finish:meta:active",
+          "target_lemma": "meta",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_wordnet_sense_id": "finish%1:28:00::",
+          "best_wordnet_synset_id": "15292365-n",
+          "best_wordnet_sense_rank": 2,
+          "best_link_score": 0.25,
+          "best_overlap": [
+            "end"
+          ],
+          "candidate_count": 3
+        },
+        {
+          "sense_id": "en-es:sentence-veto:finish:meta:acabado:shadow",
+          "target_lemma": "acabado",
+          "canonical_pos": "noun",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_wordnet_sense_id": "finish%1:07:00::",
+          "best_wordnet_synset_id": "04707990-n",
+          "best_wordnet_sense_rank": 1,
+          "best_link_score": 0.2,
+          "best_overlap": [
+            "coat"
+          ],
+          "candidate_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:finish:meta:acabar:shadow",
+          "target_lemma": "acabar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_wordnet_sense_id": "finish%2:30:02::",
+          "best_wordnet_synset_id": "00485097-v",
+          "best_wordnet_sense_rank": 1,
+          "best_link_score": 0.25,
+          "best_overlap": [
+            "complete"
+          ],
+          "candidate_count": 2
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:throw:lanzamiento",
+      "trigger": "throw",
+      "active_target": "lanzamiento",
+      "role": "target",
+      "active_wordnet_count": 2,
+      "shadow_wordnet_count": 2,
+      "phrase_control_example_count": 0,
+      "row_count": 4,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:throw:lanzamiento:active",
+          "target_lemma": "lanzamiento",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_wordnet_sense_id": "throw%1:06:00::",
+          "best_wordnet_synset_id": "04437105-n",
+          "best_wordnet_sense_rank": 4,
+          "best_link_score": 0.1667,
+          "best_overlap": [
+            "thrown"
+          ],
+          "candidate_count": 2
+        },
+        {
+          "sense_id": "en-es:sentence-veto:throw:lanzamiento:lanzar:shadow",
+          "target_lemma": "lanzar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_wordnet_sense_id": "throw%2:35:00::",
+          "best_wordnet_synset_id": "01511000-v",
+          "best_wordnet_sense_rank": 1,
+          "best_link_score": 0.125,
+          "best_overlap": [
+            "air"
+          ],
+          "candidate_count": 6
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:upset:disgustado",
+      "trigger": "upset",
+      "active_target": "disgustado",
+      "role": "target",
+      "active_wordnet_count": 2,
+      "shadow_wordnet_count": 2,
+      "phrase_control_example_count": 0,
+      "row_count": 4,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:upset:disgustado:active",
+          "target_lemma": "disgustado",
+          "canonical_pos": "adjective",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_wordnet_sense_id": "upset%5:00:00:troubled:00",
+          "best_wordnet_synset_id": "02466219-s",
+          "best_wordnet_sense_rank": 1,
+          "best_link_score": 0.1667,
+          "best_overlap": [
+            "distress"
+          ],
+          "candidate_count": 2
+        },
+        {
+          "sense_id": "en-es:sentence-veto:upset:disgustado:trastrocar:shadow",
+          "target_lemma": "trastrocar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_wordnet_sense_id": "upset%2:30:00::",
+          "best_wordnet_synset_id": "00522376-v",
+          "best_wordnet_sense_rank": 1,
+          "best_link_score": 0.1429,
+          "best_overlap": [
+            "disturb"
+          ],
+          "candidate_count": 2
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:piece:trozo",
+      "trigger": "piece",
+      "active_target": "trozo",
+      "role": "target",
+      "active_wordnet_count": 2,
+      "shadow_wordnet_count": 4,
+      "phrase_control_example_count": 0,
+      "row_count": 6,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:piece:trozo:active",
+          "target_lemma": "trozo",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_wordnet_sense_id": "piece%1:06:00::",
+          "best_wordnet_synset_id": "03938441-n",
+          "best_wordnet_sense_rank": 1,
+          "best_link_score": 0.3333,
+          "best_overlap": [
+            "part",
+            "whole"
+          ],
+          "candidate_count": 4
+        },
+        {
+          "sense_id": "en-es:sentence-veto:piece:trozo:ficha:shadow",
+          "target_lemma": "ficha",
+          "canonical_pos": "noun",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_wordnet_sense_id": "piece%1:06:02::",
+          "best_wordnet_synset_id": "03721866-n",
+          "best_wordnet_sense_rank": 13,
+          "best_link_score": 0.2222,
+          "best_overlap": [
+            "ches",
+            "gam"
+          ],
+          "candidate_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:piece:trozo:montar:shadow",
+          "target_lemma": "montar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_wordnet_sense_id": "piece%2:36:00::",
+          "best_wordnet_synset_id": "01660471-v",
+          "best_wordnet_sense_rank": 2,
+          "best_link_score": 0.1429,
+          "best_overlap": [
+            "create"
+          ],
+          "candidate_count": 1
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:fair:pastel",
+      "trigger": "fair",
+      "active_target": "pastel",
+      "role": "target",
+      "active_wordnet_count": 2,
+      "shadow_wordnet_count": 2,
+      "phrase_control_example_count": 0,
+      "row_count": 4,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:fair:pastel:active",
+          "target_lemma": "pastel",
+          "canonical_pos": "adjective",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_wordnet_sense_id": "fair%5:00:00:blond:00",
+          "best_wordnet_synset_id": "00244911-s",
+          "best_wordnet_sense_rank": 10,
+          "best_link_score": 0.5,
+          "best_overlap": [
+            "color",
+            "light",
+            "pale"
+          ],
+          "candidate_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:fair:pastel:feria-de-muestras:shadow",
+          "target_lemma": "feria de muestras",
+          "canonical_pos": "noun",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_wordnet_sense_id": "fair%1:14:01::",
+          "best_wordnet_synset_id": "08425514-n",
+          "best_wordnet_sense_rank": 2,
+          "best_link_score": 0.1429,
+          "best_overlap": [
+            "trade"
+          ],
+          "candidate_count": 1
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:show:espect-culo",
+      "trigger": "show",
+      "active_target": "espectáculo",
+      "role": "target",
+      "active_wordnet_count": 2,
+      "shadow_wordnet_count": 2,
+      "phrase_control_example_count": 0,
+      "row_count": 4,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:show:espect-culo:active",
+          "target_lemma": "espectáculo",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_wordnet_sense_id": "show%1:04:00::",
+          "best_wordnet_synset_id": "00521313-n",
+          "best_wordnet_sense_rank": 1,
+          "best_link_score": 0.2,
+          "best_overlap": [
+            "entertainment"
+          ],
+          "candidate_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:show:espect-culo:demostrar:shadow",
+          "target_lemma": "demostrar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_wordnet_sense_id": "show%2:32:01::",
+          "best_wordnet_synset_id": "00925764-v",
+          "best_wordnet_sense_rank": 7,
+          "best_link_score": 0.1667,
+          "best_overlap": [
+            "indicate"
+          ],
+          "candidate_count": 2
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:advance:avance",
+      "trigger": "advance",
+      "active_target": "avance",
+      "role": "target",
+      "active_wordnet_count": 2,
+      "shadow_wordnet_count": 3,
+      "phrase_control_example_count": 0,
+      "row_count": 5,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:advance:avance:active",
+          "target_lemma": "avance",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_wordnet_sense_id": "advance%1:11:00::",
+          "best_wordnet_synset_id": "07459865-n",
+          "best_wordnet_sense_rank": 1,
+          "best_link_score": 0.2,
+          "best_overlap": [
+            "forward"
+          ],
+          "candidate_count": 2
+        },
+        {
+          "sense_id": "en-es:sentence-veto:advance:avance:adelanto:shadow",
+          "target_lemma": "adelanto",
+          "canonical_pos": "noun",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_wordnet_sense_id": "advance%1:21:00::",
+          "best_wordnet_synset_id": "13397064-n",
+          "best_wordnet_sense_rank": 5,
+          "best_link_score": 0.2,
+          "best_overlap": [
+            "amount"
+          ],
+          "candidate_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:advance:avance:avanzar:shadow",
+          "target_lemma": "avanzar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_wordnet_sense_id": "advance%2:38:00::",
+          "best_wordnet_synset_id": "01996535-v",
+          "best_wordnet_sense_rank": 1,
+          "best_link_score": 0.3333,
+          "best_overlap": [
+            "forward",
+            "move",
+            "sense"
+          ],
+          "candidate_count": 4
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:rank:rancio",
+      "trigger": "rank",
+      "active_target": "rancio",
+      "role": "target",
+      "active_wordnet_count": 2,
+      "shadow_wordnet_count": 2,
+      "phrase_control_example_count": 0,
+      "row_count": 4,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:rank:rancio:active",
+          "target_lemma": "rancio",
+          "canonical_pos": "adjective",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_wordnet_sense_id": "rank%5:00:00:conspicuous:00",
+          "best_wordnet_synset_id": "00582390-s",
+          "best_wordnet_sense_rank": 3,
+          "best_link_score": 0.1429,
+          "best_overlap": [
+            "bad"
+          ],
+          "candidate_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:rank:rancio:fila:shadow",
+          "target_lemma": "fila",
+          "canonical_pos": "noun",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_wordnet_sense_id": "rank%1:14:00::",
+          "best_wordnet_synset_id": "08448952-n",
+          "best_wordnet_sense_rank": 1,
+          "best_link_score": 0.2222,
+          "best_overlap": [
+            "people",
+            "row"
+          ],
+          "candidate_count": 1
+        }
+      ]
+    }
+  ],
+  "recommendation": "This adapter is a real local source pass for active/shadow semantic evidence, but it intentionally does not solve phrase containment. Run the source-admission cycle before using it as a challenger, and treat missing/low-score links as source gaps rather than generated coverage."
+}

@@ -33,6 +33,12 @@ class SemanticNonV10SourceSupportConversionTests(unittest.TestCase):
         unsupported = report["families"][1]["unsupported_senses"][0]
         self.assertEqual(unsupported["target_lemma"], "feria")
         self.assertEqual(unsupported["conversion_state"], "needs_reviewed_source_support")
+        self.assertEqual(report["summary"]["support_work_item_count"], 1)
+        work_item = report["support_worklist"][0]
+        self.assertEqual(work_item["trigger"], "change")
+        self.assertEqual(work_item["target_lemma"], "feria")
+        self.assertEqual(work_item["source_query"]["spanish_target"], "feria")
+        self.assertIn("wiktextract_sense_or_translation_example", work_item["source_lanes"])
 
     def test_conversion_audit_surfaces_same_pos_supported_alternatives(self) -> None:
         payload = _dataset_payload()
@@ -57,12 +63,16 @@ class SemanticNonV10SourceSupportConversionTests(unittest.TestCase):
         )
 
         self.assertEqual(report["summary"]["candidate_swap_review_family_count"], 1)
+        self.assertEqual(report["summary"]["candidate_swap_work_item_count"], 1)
         unsupported = report["families"][1]["unsupported_senses"][0]
         self.assertEqual(unsupported["conversion_state"], "candidate_swap_review_available")
         self.assertEqual(
             unsupported["same_pos_supported_alternatives"][0]["translation"],
             "cambio",
         )
+        work_item = report["support_worklist"][0]
+        self.assertIn("review_same_pos_supported_target_swap", work_item["source_lanes"])
+        self.assertEqual(work_item["candidate_swap_options"][0]["translation"], "cambio")
 
     def test_conversion_audit_rejects_alternative_that_duplicates_family_target(self) -> None:
         payload = _dataset_payload()
@@ -99,9 +109,24 @@ class SemanticNonV10SourceSupportConversionTests(unittest.TestCase):
         markdown = render_source_support_conversion_markdown(report)
 
         self.assertIn("Source Support Conversion Audit", markdown)
+        self.assertIn("Support Acquisition Worklist", markdown)
         self.assertIn("Translation support mode: `forward_only_upper_bound`", markdown)
         self.assertIn("`change`", markdown)
         self.assertIn("`needs_reviewed_source_support`", markdown)
+
+    def test_conversion_audit_counts_wiktextract_translation_support(self) -> None:
+        payload = _dataset_payload()
+        active = payload["families"][1]["active"]
+        active["metadata"]["wiktextract_translation_support"] = True
+        active["metadata"]["support_sources"].append("wiktextract_en_es_translation_table")
+
+        report = build_source_support_conversion_report(
+            dataset_payload=payload,
+            generated_at="2026-04-28T00:00:00Z",
+        )
+
+        self.assertEqual(report["summary"]["fully_supported_family_count"], 2)
+        self.assertEqual(report["summary"]["support_work_item_count"], 0)
 
 
 def _dataset_payload() -> dict[str, object]:
