@@ -1,0 +1,371 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-04-30T03:34:51Z",
+  "status": "ok",
+  "decision": "candidate_batch_ready",
+  "pair": "en-es",
+  "dataset_id": "en_es_source_non_v10_wave6_anypos_unsupported_upper_bound_selected_v1",
+  "run_id": "wordnet-alternate-sense-phrase-non-v10-wave6-wiktextract-supported-v1-latest",
+  "batch_id": "en-es:wordnet-alternate-sense-phrase:wordnet-alternate-sense-phrase-non-v10-wave6-wiktextract-supported-v1-latest",
+  "source_type": "external",
+  "source_id": "wordnet_alternate_sense_phrase",
+  "source_family": "external_sense_graph",
+  "resource_status": {
+    "wordnet_source_file_count": 72,
+    "wordnet_entry_count": 127311,
+    "wordnet_synset_count": 107519
+  },
+  "summary": {
+    "family_count": 16,
+    "source_family_count": 16,
+    "target_family_count": 16,
+    "families_with_rows": 16,
+    "candidate_sense_count": 272,
+    "active_like_skip_count": 34,
+    "row_count": 189,
+    "max_rows_per_family": 12,
+    "active_overlap_skip": 0.34,
+    "active_reference_overlap_skip": 0.5
+  },
+  "family_rows": [
+    {
+      "family_id": "en-es:sentence-veto:leave:permiso",
+      "trigger": "leave",
+      "candidate_sense_count": 17,
+      "active_like_skip_count": 2,
+      "row_count": 12,
+      "emitted_synset_ids": [
+        "00053917-n",
+        "02013448-v",
+        "00615374-v",
+        "02735289-v",
+        "00136799-v",
+        "02019450-v",
+        "02727313-v",
+        "02641740-v",
+        "02388582-v",
+        "02361226-v",
+        "02233837-v",
+        "02736010-v"
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:black:oscuro",
+      "trigger": "black",
+      "candidate_sense_count": 19,
+      "active_like_skip_count": 4,
+      "row_count": 12,
+      "emitted_synset_ids": [
+        "04967454-n",
+        "02849498-n",
+        "02849379-n",
+        "00243558-a",
+        "00115608-s",
+        "01232434-s",
+        "01135435-s",
+        "00397357-s",
+        "00274934-s",
+        "02086637-s",
+        "01710794-s",
+        "01405584-s"
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:serve:servicio",
+      "trigger": "serve",
+      "candidate_sense_count": 16,
+      "active_like_skip_count": 2,
+      "row_count": 12,
+      "emitted_synset_ids": [
+        "02676679-v",
+        "01097629-v",
+        "02676187-v",
+        "02546948-v",
+        "01183592-v",
+        "01182648-v",
+        "02599263-v",
+        "02676367-v",
+        "02714981-v",
+        "02546367-v",
+        "01441318-v",
+        "02675578-v"
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:low:bajo",
+      "trigger": "low",
+      "candidate_sense_count": 15,
+      "active_like_skip_count": 1,
+      "row_count": 12,
+      "emitted_synset_ids": [
+        "14544431-n",
+        "05104968-n",
+        "03354857-n",
+        "01215141-a",
+        "01209146-a",
+        "01458667-s",
+        "01957830-s",
+        "01218092-a",
+        "00907967-s",
+        "02348528-s",
+        "02344737-s",
+        "01899370-s"
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:part:parte",
+      "trigger": "part",
+      "candidate_sense_count": 19,
+      "active_like_skip_count": 2,
+      "row_count": 12,
+      "emitted_synset_ids": [
+        "13831419-n",
+        "09408804-n",
+        "05679818-n",
+        "08647614-n",
+        "00721817-n",
+        "05937794-n",
+        "13306199-n",
+        "05263841-n",
+        "07044205-n",
+        "00789119-n",
+        "03938737-n",
+        "00008102-r"
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:feel:talento",
+      "trigger": "feel",
+      "candidate_sense_count": 17,
+      "active_like_skip_count": 2,
+      "row_count": 12,
+      "emitted_synset_ids": [
+        "14549784-n",
+        "04953730-n",
+        "00856168-n",
+        "01775456-v",
+        "00717144-v",
+        "02110460-v",
+        "00105712-v",
+        "00692071-v",
+        "02115034-v",
+        "02736346-v",
+        "01212242-v",
+        "01212916-v"
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:still:quietud",
+      "trigger": "still",
+      "candidate_sense_count": 18,
+      "active_like_skip_count": 2,
+      "row_count": 12,
+      "emitted_synset_ids": [
+        "04326386-n",
+        "04326120-n",
+        "03217532-n",
+        "01568708-s",
+        "00303750-s",
+        "01570144-a",
+        "02285234-a",
+        "01244473-s",
+        "00031700-r",
+        "00027761-r",
+        "00018101-r",
+        "00469307-r"
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:bear:bajista",
+      "trigger": "bear",
+      "candidate_sense_count": 16,
+      "active_like_skip_count": 1,
+      "row_count": 12,
+      "emitted_synset_ids": [
+        "02134305-n",
+        "02636952-v",
+        "01777051-v",
+        "00056644-v",
+        "00670017-v",
+        "01435234-v",
+        "01655681-v",
+        "02306786-v",
+        "02706727-v",
+        "02296669-v",
+        "00047462-v",
+        "02307200-v"
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:finish:meta",
+      "trigger": "finish",
+      "candidate_sense_count": 15,
+      "active_like_skip_count": 6,
+      "row_count": 9,
+      "emitted_synset_ids": [
+        "04707990-n",
+        "14483408-n",
+        "07367976-n",
+        "07347762-n",
+        "05725694-n",
+        "00211367-n",
+        "01268553-v",
+        "01199335-v",
+        "00352617-v"
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:throw:lanzamiento",
+      "trigger": "throw",
+      "candidate_sense_count": 20,
+      "active_like_skip_count": 1,
+      "row_count": 12,
+      "emitted_synset_ids": [
+        "00105359-n",
+        "14509574-n",
+        "07365795-n",
+        "01248165-n",
+        "01511000-v",
+        "02101482-v",
+        "01516062-v",
+        "01501904-v",
+        "01062189-v",
+        "01512805-v",
+        "01636439-v",
+        "02101619-v"
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:upset:disgustado",
+      "trigger": "upset",
+      "candidate_sense_count": 17,
+      "active_like_skip_count": 1,
+      "row_count": 12,
+      "emitted_synset_ids": [
+        "14426686-n",
+        "00555887-n",
+        "14075885-n",
+        "04522739-n",
+        "00349138-n",
+        "00068990-n",
+        "01673499-s",
+        "00934664-s",
+        "02557987-s",
+        "02476989-s",
+        "00522376-v",
+        "01793821-v"
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:piece:trozo",
+      "trigger": "piece",
+      "candidate_sense_count": 18,
+      "active_like_skip_count": 1,
+      "row_count": 12,
+      "emitted_synset_ids": [
+        "03938737-n",
+        "09408804-n",
+        "07051211-n",
+        "07324075-n",
+        "06280049-n",
+        "03348699-n",
+        "07670276-n",
+        "05092096-n",
+        "03844055-n",
+        "15271164-n",
+        "13307547-n",
+        "03721866-n"
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:fair:pastel",
+      "trigger": "fair",
+      "candidate_sense_count": 17,
+      "active_like_skip_count": 1,
+      "row_count": 12,
+      "emitted_synset_ids": [
+        "00520389-n",
+        "08425514-n",
+        "08425224-n",
+        "01120503-n",
+        "00959321-a",
+        "01536380-s",
+        "00220032-s",
+        "00958816-a",
+        "01677616-s",
+        "01487649-s",
+        "01407924-s",
+        "00961664-s"
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:show:espect-culo",
+      "trigger": "show",
+      "candidate_sense_count": 15,
+      "active_like_skip_count": 1,
+      "row_count": 12,
+      "emitted_synset_ids": [
+        "06892571-n",
+        "00756620-n",
+        "02153218-v",
+        "00666706-v",
+        "01017253-v",
+        "02141597-v",
+        "01690851-v",
+        "00945869-v",
+        "00925764-v",
+        "02144017-v",
+        "00924838-v",
+        "00925278-v"
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:advance:avance",
+      "trigger": "advance",
+      "candidate_sense_count": 20,
+      "active_like_skip_count": 6,
+      "row_count": 12,
+      "emitted_synset_ids": [
+        "07371988-n",
+        "07179000-n",
+        "13397064-n",
+        "00365086-n",
+        "00817484-s",
+        "00199975-s",
+        "02560630-v",
+        "01113439-v",
+        "00249545-v",
+        "00559448-v",
+        "02402779-v",
+        "02288794-v"
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:rank:rancio",
+      "trigger": "rank",
+      "candidate_sense_count": 13,
+      "active_like_skip_count": 1,
+      "row_count": 12,
+      "emitted_synset_ids": [
+        "08448952-n",
+        "14453411-n",
+        "08415136-n",
+        "13970595-n",
+        "08417922-n",
+        "01005657-s",
+        "01631230-s",
+        "00522835-s",
+        "00016173-s",
+        "00661773-v",
+        "00659723-v",
+        "02679633-v"
+      ]
+    }
+  ],
+  "limitations": [
+    "wordnet_alternate_senses_are_no_winner_prototypes_not_runtime_policy",
+    "active_like_filter_is_token_based_and_requires_heldout_validation",
+    "phrase_semantic_prototype_guard_must_be_swept_separately_from_scalar_margin",
+    "runtime_publishable=false_until_admission_and_heldout_validation"
+  ]
+}

@@ -163,6 +163,8 @@
         "wave6_phrase_heldout"
       ],
       "generated_reports": [
+        "translation_sense_admission_report",
+        "alternate_sense_phrase_admission_report",
         "auth_frame_admission_report",
         "auth_frame_active_shadow_validation",
         "auth_frame_phrase_validation",
@@ -173,13 +175,16 @@
         "wave6_alt_phrase_raw_sentence_control"
       ],
       "local_artifact_cracks": [
-        "Several generator scripts and latest reports are local experiment artifacts in this worktree; commit or regenerate them before treating the lane as fresh-checkout runnable.",
+        "Latest reports are generated evidence; rerun the full lane chain before updating promotion claims.",
         "The base dataset lives under test_outputs/experiments even though it is a current candidate input.",
         "Rescue replay is over fixed traces and still needs scorer-backed runtime policy validation before promotion."
       ],
       "rerun_order": [
         "translation_sense_adapter",
+        "translation_sense_admission_report",
         "alternate_sense_phrase_adapter",
+        "alternate_sense_phrase_admission_report",
+        "wave6_alt_phrase_raw_sentence_control",
         "authorization_frame_adapter",
         "auth_frame_admission_report",
         "auth_frame_active_shadow_validation",
@@ -193,12 +198,15 @@
     {
       "action_id": "materialize_current_wave6_lane",
       "priority": "P0",
-      "status": "active",
+      "status": "done",
       "pass_id": "data_artifacts",
       "source_artifacts": [
         "wave6_auth_frame_raw_sentence_surface_pos_rescue",
         "translation_sense_adapter",
+        "translation_sense_admission_report",
         "alternate_sense_phrase_adapter",
+        "alternate_sense_phrase_admission_report",
+        "current_wave6_rerun_chain_runbook",
         "authorization_frame_adapter",
         "auth_frame_admission_report",
         "auth_frame_active_shadow_validation",
@@ -206,8 +214,8 @@
         "auth_frame_rescue_replay_report"
       ],
       "action": "Make the current wave6 lane fresh-checkout runnable, or explicitly demote local-only latest reports to provisional evidence.",
-      "evidence_needed": "Tracked generator scripts or a deterministic rerun command chain for every artifact in the lane rerun order.",
-      "validation": "Run the registry audit, focused semantic harness tests for the lane scripts, and doc-reference checks from a clean checkout state.",
+      "evidence_needed": "Tracked generator scripts, deterministic rerun chain, and regenerated 2026-04-30 latest artifacts for every artifact in the lane rerun order.",
+      "validation": "Focused semantic harness tests passed; lane artifacts were regenerated through failure mining; registry audit and doc-reference checks must stay clean before commit.",
       "promotion_impact": "Prevents local experiment outputs from being mistaken for durable current-candidate evidence."
     },
     {
@@ -835,6 +843,38 @@
       ]
     },
     {
+      "artifact_id": "translation_sense_admission_report",
+      "title": "Wave6 translation-sense source-admission report",
+      "component": "source_admission",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_source_admission_cycle_translation_sense_non_v10_wave6_wiktextract_supported_latest.md",
+      "role": "Records the admitted translation-sense plus WordNet base composite used before alternate-sense phrase extraction.",
+      "owner_doc": "docs/rulegen/semantic_source_admission_program.md",
+      "current_use": "Intermediate current-lane composite; required before alternate-sense phrase adapter output can be reproduced from a fresh checkout.",
+      "risk": "Semantic active/shadow contract is complete, but phrase contract remains review until alternate-sense phrase rows are added.",
+      "next_audit_pass": "data_artifacts",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_source_admission_cycle_translation_sense_non_v10_wave6_wiktextract_supported_latest.json",
+        "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-translation-sense-non-v10-wave6-wiktextract-supported-v1-latest_cycle_sense_admitted_normalized_evidence.json"
+      ]
+    },
+    {
+      "artifact_id": "alternate_sense_phrase_admission_report",
+      "title": "Wave6 alternate-sense phrase source-admission report",
+      "component": "source_admission",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_source_admission_cycle_alt_phrase_non_v10_wave6_wiktextract_supported_latest.md",
+      "role": "Records the admitted alternate-sense phrase composite used as the raw-sentence control and auth-frame base.",
+      "owner_doc": "docs/rulegen/semantic_source_admission_program.md",
+      "current_use": "Intermediate current-lane control composite; auth-frame admission layers deterministic authorization rows on top of it.",
+      "risk": "Leakage audit remains review because some alternate-sense phrase rows are filtered; do not treat raw adapter output as the admitted composite.",
+      "next_audit_pass": "data_artifacts",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_source_admission_cycle_alt_phrase_non_v10_wave6_wiktextract_supported_latest.json",
+        "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-wordnet-alternate-sense-phrase-non-v10-wave6-wiktextract-supported-v1-latest_cycle_sense_admitted_normalized_evidence.json"
+      ]
+    },
+    {
       "artifact_id": "wave6_wiktextract_dataset",
       "title": "Wave6 Wiktextract-supported source dataset",
       "component": "evaluation_data",
@@ -983,6 +1023,21 @@
       "next_audit_pass": "runtime_path",
       "verification_artifacts": [
         "scripts/testing/semantic_veto_system_registry_summary.py"
+      ]
+    },
+    {
+      "artifact_id": "current_wave6_rerun_chain_runbook",
+      "title": "Current wave6 rerun chain runbook",
+      "component": "process_governance",
+      "state": "current_reference",
+      "path": "docs/rulegen/semantic_veto_current_wave6_rerun_chain.md",
+      "role": "Copy-pasteable command chain for rebuilding the current wave6 auth-frame raw-sentence rescue lane from tracked inputs.",
+      "owner_doc": "docs/developer/documentation_governance.md",
+      "current_use": "Fresh-checkout reproducibility reference for the current data-artifact lane.",
+      "risk": "Must be updated whenever the lane rerun order or output filenames change.",
+      "next_audit_pass": "data_artifacts",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_system_registry_latest.md"
       ]
     }
   ]

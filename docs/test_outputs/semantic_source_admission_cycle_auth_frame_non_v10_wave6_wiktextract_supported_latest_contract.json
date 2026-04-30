@@ -1,0 +1,752 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-04-30T03:36:15Z",
+  "status": "ok",
+  "pair": "en-es",
+  "batch_path": "",
+  "batch_id": "en-es:wordnet-translation-alt-phrase-plus-auth-frame:non-v10-wave6-wiktextract-supported-v1:cycle:sense-admitted:sense-admitted",
+  "source_id": "wordnet_translation_alt_phrase_auth_frame_non_v10_wave6_wiktextract_supported_v1",
+  "prompt_version": "example-frame-composite-v1",
+  "model_id": "mixed",
+  "row_count": 284,
+  "contract": {
+    "required_relation_sets": {
+      "active_examples": [
+        "anchor_cue"
+      ],
+      "shadow_examples": [
+        "bridge_candidate",
+        "shadow_candidate"
+      ],
+      "phrase_control_examples": [
+        "phrase_control_example"
+      ]
+    },
+    "required_batch_role_for_phrase_rows": "phrase_containment",
+    "runtime_publishable_required": false,
+    "required_family_keys": [
+      "en-es:sentence-veto:leave:permiso",
+      "en-es:sentence-veto:black:oscuro",
+      "en-es:sentence-veto:serve:servicio",
+      "en-es:sentence-veto:low:bajo",
+      "en-es:sentence-veto:part:parte",
+      "en-es:sentence-veto:feel:talento",
+      "en-es:sentence-veto:still:quietud",
+      "en-es:sentence-veto:bear:bajista",
+      "en-es:sentence-veto:finish:meta",
+      "en-es:sentence-veto:throw:lanzamiento",
+      "en-es:sentence-veto:upset:disgustado",
+      "en-es:sentence-veto:piece:trozo",
+      "en-es:sentence-veto:fair:pastel",
+      "en-es:sentence-veto:show:espect-culo",
+      "en-es:sentence-veto:advance:avance",
+      "en-es:sentence-veto:rank:rancio"
+    ]
+  },
+  "summary": {
+    "families_total": 16,
+    "semantic_contract_complete_family_count": 16,
+    "semantic_contract_complete": true,
+    "phrase_containment_contract_complete_family_count": 16,
+    "phrase_containment_contract_complete": true,
+    "contract_complete_family_count": 16,
+    "contract_complete": true,
+    "missing_active_family_keys": [],
+    "missing_shadow_family_keys": [],
+    "semantic_gap_family_keys": [],
+    "missing_phrase_control_family_keys": [],
+    "phrase_role_issue_family_keys": [],
+    "phrase_containment_gap_family_keys": [],
+    "runtime_publishable_issue_family_keys": [],
+    "semantic_contract": {
+      "complete_family_count": 16,
+      "complete": true,
+      "gap_family_keys": [],
+      "missing_active_family_keys": [],
+      "missing_shadow_family_keys": []
+    },
+    "phrase_containment_contract": {
+      "complete_family_count": 16,
+      "complete": true,
+      "gap_family_keys": [],
+      "missing_phrase_control_family_keys": [],
+      "phrase_role_issue_family_keys": []
+    },
+    "combined_contract": {
+      "complete_family_count": 16,
+      "complete": true,
+      "runtime_publishable_issue_family_keys": []
+    }
+  },
+  "family_rows": [
+    {
+      "family_key": "en-es:sentence-veto:advance:avance",
+      "family_id": "en-es:sentence-veto:advance:avance",
+      "trigger": "advance",
+      "active_target": "avance",
+      "active_example_count": 3,
+      "shadow_example_count": 3,
+      "phrase_control_example_count": 12,
+      "row_count": 18,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": true,
+      "contract_complete": true,
+      "missing_requirements": [],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [],
+      "active_row_ids": [
+        "en-es-sentence-veto-advance-avance:active-wordnet-definition-1",
+        "en-es-sentence-veto-advance-avance:active-wordnet-example-2",
+        "en-es-sentence-veto-advance-avance:active-en-es-sentence-veto-advance-avance-active-translation-sense-1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-advance-avance:shadow-en-es-sentence-veto-advance-avance-adelanto-shadow-wordnet-definition-1",
+        "en-es-sentence-veto-advance-avance:shadow-en-es-sentence-veto-advance-avance-adelanto-shadow-translation-sense-1",
+        "en-es-sentence-veto-advance-avance:shadow-en-es-sentence-veto-advance-avance-avanzar-shadow-translation-sense-1"
+      ],
+      "phrase_control_row_ids": [
+        "en-es-sentence-veto-advance-avance:phrase-control-wordnet-alt-07371988-n",
+        "en-es-sentence-veto-advance-avance:phrase-control-wordnet-alt-07179000-n",
+        "en-es-sentence-veto-advance-avance:phrase-control-wordnet-alt-13397064-n",
+        "en-es-sentence-veto-advance-avance:phrase-control-wordnet-alt-00365086-n",
+        "en-es-sentence-veto-advance-avance:phrase-control-wordnet-alt-00817484-s",
+        "en-es-sentence-veto-advance-avance:phrase-control-wordnet-alt-00199975-s",
+        "en-es-sentence-veto-advance-avance:phrase-control-wordnet-alt-02560630-v",
+        "en-es-sentence-veto-advance-avance:phrase-control-wordnet-alt-01113439-v",
+        "en-es-sentence-veto-advance-avance:phrase-control-wordnet-alt-00249545-v",
+        "en-es-sentence-veto-advance-avance:phrase-control-wordnet-alt-00559448-v",
+        "en-es-sentence-veto-advance-avance:phrase-control-wordnet-alt-02402779-v",
+        "en-es-sentence-veto-advance-avance:phrase-control-wordnet-alt-02288794-v"
+      ],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:bear:bajista",
+      "family_id": "en-es:sentence-veto:bear:bajista",
+      "trigger": "bear",
+      "active_target": "bajista",
+      "active_example_count": 2,
+      "shadow_example_count": 3,
+      "phrase_control_example_count": 12,
+      "row_count": 17,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": true,
+      "contract_complete": true,
+      "missing_requirements": [],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [],
+      "active_row_ids": [
+        "en-es-sentence-veto-bear-bajista:active-wordnet-definition-1",
+        "en-es-sentence-veto-bear-bajista:active-en-es-sentence-veto-bear-bajista-active-translation-sense-1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-bear-bajista:shadow-en-es-sentence-veto-bear-bajista-llevar-shadow-wordnet-definition-1",
+        "en-es-sentence-veto-bear-bajista:shadow-en-es-sentence-veto-bear-bajista-llevar-shadow-wordnet-example-2",
+        "en-es-sentence-veto-bear-bajista:shadow-en-es-sentence-veto-bear-bajista-llevar-shadow-translation-sense-1"
+      ],
+      "phrase_control_row_ids": [
+        "en-es-sentence-veto-bear-bajista:phrase-control-wordnet-alt-02134305-n",
+        "en-es-sentence-veto-bear-bajista:phrase-control-wordnet-alt-02636952-v",
+        "en-es-sentence-veto-bear-bajista:phrase-control-wordnet-alt-01777051-v",
+        "en-es-sentence-veto-bear-bajista:phrase-control-wordnet-alt-00056644-v",
+        "en-es-sentence-veto-bear-bajista:phrase-control-wordnet-alt-00670017-v",
+        "en-es-sentence-veto-bear-bajista:phrase-control-wordnet-alt-01435234-v",
+        "en-es-sentence-veto-bear-bajista:phrase-control-wordnet-alt-01655681-v",
+        "en-es-sentence-veto-bear-bajista:phrase-control-wordnet-alt-02306786-v",
+        "en-es-sentence-veto-bear-bajista:phrase-control-wordnet-alt-02706727-v",
+        "en-es-sentence-veto-bear-bajista:phrase-control-wordnet-alt-02296669-v",
+        "en-es-sentence-veto-bear-bajista:phrase-control-wordnet-alt-00047462-v",
+        "en-es-sentence-veto-bear-bajista:phrase-control-wordnet-alt-02307200-v"
+      ],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:black:oscuro",
+      "family_id": "en-es:sentence-veto:black:oscuro",
+      "trigger": "black",
+      "active_target": "oscuro",
+      "active_example_count": 2,
+      "shadow_example_count": 2,
+      "phrase_control_example_count": 12,
+      "row_count": 16,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": true,
+      "contract_complete": true,
+      "missing_requirements": [],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [],
+      "active_row_ids": [
+        "en-es-sentence-veto-black-oscuro:active-wordnet-definition-1",
+        "en-es-sentence-veto-black-oscuro:active-en-es-sentence-veto-black-oscuro-active-translation-sense-1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-black-oscuro:shadow-en-es-sentence-veto-black-oscuro-negro-shadow-wordnet-definition-1",
+        "en-es-sentence-veto-black-oscuro:shadow-en-es-sentence-veto-black-oscuro-negro-shadow-translation-sense-1"
+      ],
+      "phrase_control_row_ids": [
+        "en-es-sentence-veto-black-oscuro:phrase-control-wordnet-alt-04967454-n",
+        "en-es-sentence-veto-black-oscuro:phrase-control-wordnet-alt-02849498-n",
+        "en-es-sentence-veto-black-oscuro:phrase-control-wordnet-alt-02849379-n",
+        "en-es-sentence-veto-black-oscuro:phrase-control-wordnet-alt-00243558-a",
+        "en-es-sentence-veto-black-oscuro:phrase-control-wordnet-alt-00115608-s",
+        "en-es-sentence-veto-black-oscuro:phrase-control-wordnet-alt-01232434-s",
+        "en-es-sentence-veto-black-oscuro:phrase-control-wordnet-alt-01135435-s",
+        "en-es-sentence-veto-black-oscuro:phrase-control-wordnet-alt-00397357-s",
+        "en-es-sentence-veto-black-oscuro:phrase-control-wordnet-alt-00274934-s",
+        "en-es-sentence-veto-black-oscuro:phrase-control-wordnet-alt-02086637-s",
+        "en-es-sentence-veto-black-oscuro:phrase-control-wordnet-alt-01710794-s",
+        "en-es-sentence-veto-black-oscuro:phrase-control-wordnet-alt-01405584-s"
+      ],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:fair:pastel",
+      "family_id": "en-es:sentence-veto:fair:pastel",
+      "trigger": "fair",
+      "active_target": "pastel",
+      "active_example_count": 3,
+      "shadow_example_count": 3,
+      "phrase_control_example_count": 12,
+      "row_count": 18,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": true,
+      "contract_complete": true,
+      "missing_requirements": [],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [],
+      "active_row_ids": [
+        "en-es-sentence-veto-fair-pastel:active-wordnet-definition-1",
+        "en-es-sentence-veto-fair-pastel:active-wordnet-example-2",
+        "en-es-sentence-veto-fair-pastel:active-en-es-sentence-veto-fair-pastel-active-translation-sense-1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-fair-pastel:shadow-en-es-sentence-veto-fair-pastel-feria-de-muestras-shadow-wordnet-definition-1",
+        "en-es-sentence-veto-fair-pastel:shadow-en-es-sentence-veto-fair-pastel-feria-de-muestras-shadow-wordnet-example-2",
+        "en-es-sentence-veto-fair-pastel:shadow-en-es-sentence-veto-fair-pastel-feria-de-muestras-shadow-translation-sense-1"
+      ],
+      "phrase_control_row_ids": [
+        "en-es-sentence-veto-fair-pastel:phrase-control-wordnet-alt-00520389-n",
+        "en-es-sentence-veto-fair-pastel:phrase-control-wordnet-alt-08425514-n",
+        "en-es-sentence-veto-fair-pastel:phrase-control-wordnet-alt-08425224-n",
+        "en-es-sentence-veto-fair-pastel:phrase-control-wordnet-alt-01120503-n",
+        "en-es-sentence-veto-fair-pastel:phrase-control-wordnet-alt-00959321-a",
+        "en-es-sentence-veto-fair-pastel:phrase-control-wordnet-alt-01536380-s",
+        "en-es-sentence-veto-fair-pastel:phrase-control-wordnet-alt-00220032-s",
+        "en-es-sentence-veto-fair-pastel:phrase-control-wordnet-alt-00958816-a",
+        "en-es-sentence-veto-fair-pastel:phrase-control-wordnet-alt-01677616-s",
+        "en-es-sentence-veto-fair-pastel:phrase-control-wordnet-alt-01487649-s",
+        "en-es-sentence-veto-fair-pastel:phrase-control-wordnet-alt-01407924-s",
+        "en-es-sentence-veto-fair-pastel:phrase-control-wordnet-alt-00961664-s"
+      ],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:feel:talento",
+      "family_id": "en-es:sentence-veto:feel:talento",
+      "trigger": "feel",
+      "active_target": "talento",
+      "active_example_count": 3,
+      "shadow_example_count": 3,
+      "phrase_control_example_count": 11,
+      "row_count": 17,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": true,
+      "contract_complete": true,
+      "missing_requirements": [],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [],
+      "active_row_ids": [
+        "en-es-sentence-veto-feel-talento:active-wordnet-definition-1",
+        "en-es-sentence-veto-feel-talento:active-wordnet-example-2",
+        "en-es-sentence-veto-feel-talento:active-en-es-sentence-veto-feel-talento-active-translation-sense-1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-feel-talento:shadow-en-es-sentence-veto-feel-talento-sentir-shadow-wordnet-definition-1",
+        "en-es-sentence-veto-feel-talento:shadow-en-es-sentence-veto-feel-talento-sentir-shadow-wordnet-example-2",
+        "en-es-sentence-veto-feel-talento:shadow-en-es-sentence-veto-feel-talento-sentir-shadow-translation-sense-1"
+      ],
+      "phrase_control_row_ids": [
+        "en-es-sentence-veto-feel-talento:phrase-control-wordnet-alt-14549784-n",
+        "en-es-sentence-veto-feel-talento:phrase-control-wordnet-alt-04953730-n",
+        "en-es-sentence-veto-feel-talento:phrase-control-wordnet-alt-00856168-n",
+        "en-es-sentence-veto-feel-talento:phrase-control-wordnet-alt-01775456-v",
+        "en-es-sentence-veto-feel-talento:phrase-control-wordnet-alt-00717144-v",
+        "en-es-sentence-veto-feel-talento:phrase-control-wordnet-alt-02110460-v",
+        "en-es-sentence-veto-feel-talento:phrase-control-wordnet-alt-00105712-v",
+        "en-es-sentence-veto-feel-talento:phrase-control-wordnet-alt-00692071-v",
+        "en-es-sentence-veto-feel-talento:phrase-control-wordnet-alt-02736346-v",
+        "en-es-sentence-veto-feel-talento:phrase-control-wordnet-alt-01212242-v",
+        "en-es-sentence-veto-feel-talento:phrase-control-wordnet-alt-01212916-v"
+      ],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:finish:meta",
+      "family_id": "en-es:sentence-veto:finish:meta",
+      "trigger": "finish",
+      "active_target": "meta",
+      "active_example_count": 2,
+      "shadow_example_count": 6,
+      "phrase_control_example_count": 9,
+      "row_count": 17,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": true,
+      "contract_complete": true,
+      "missing_requirements": [],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [],
+      "active_row_ids": [
+        "en-es-sentence-veto-finish-meta:active-wordnet-definition-1",
+        "en-es-sentence-veto-finish-meta:active-en-es-sentence-veto-finish-meta-active-translation-sense-1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-finish-meta:shadow-en-es-sentence-veto-finish-meta-acabado-shadow-wordnet-definition-1",
+        "en-es-sentence-veto-finish-meta:shadow-en-es-sentence-veto-finish-meta-acabado-shadow-wordnet-example-2",
+        "en-es-sentence-veto-finish-meta:shadow-en-es-sentence-veto-finish-meta-acabar-shadow-wordnet-definition-1",
+        "en-es-sentence-veto-finish-meta:shadow-en-es-sentence-veto-finish-meta-acabar-shadow-wordnet-entry_sentence-2",
+        "en-es-sentence-veto-finish-meta:shadow-en-es-sentence-veto-finish-meta-acabado-shadow-translation-sense-1",
+        "en-es-sentence-veto-finish-meta:shadow-en-es-sentence-veto-finish-meta-acabar-shadow-translation-sense-1"
+      ],
+      "phrase_control_row_ids": [
+        "en-es-sentence-veto-finish-meta:phrase-control-wordnet-alt-04707990-n",
+        "en-es-sentence-veto-finish-meta:phrase-control-wordnet-alt-14483408-n",
+        "en-es-sentence-veto-finish-meta:phrase-control-wordnet-alt-07367976-n",
+        "en-es-sentence-veto-finish-meta:phrase-control-wordnet-alt-07347762-n",
+        "en-es-sentence-veto-finish-meta:phrase-control-wordnet-alt-05725694-n",
+        "en-es-sentence-veto-finish-meta:phrase-control-wordnet-alt-00211367-n",
+        "en-es-sentence-veto-finish-meta:phrase-control-wordnet-alt-01268553-v",
+        "en-es-sentence-veto-finish-meta:phrase-control-wordnet-alt-01199335-v",
+        "en-es-sentence-veto-finish-meta:phrase-control-wordnet-alt-00352617-v"
+      ],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:leave:permiso",
+      "family_id": "en-es:sentence-veto:leave:permiso",
+      "trigger": "leave",
+      "active_target": "permiso",
+      "active_example_count": 7,
+      "shadow_example_count": 5,
+      "phrase_control_example_count": 11,
+      "row_count": 23,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": true,
+      "contract_complete": true,
+      "missing_requirements": [],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [],
+      "active_row_ids": [
+        "en-es-sentence-veto-leave-permiso:active-wordnet-example-2",
+        "en-es-sentence-veto-leave-permiso:active-en-es-sentence-veto-leave-permiso-active-translation-sense-1",
+        "en-es-sentence-veto-leave-permiso:active-en-es-sentence-veto-leave-permiso-active-authorization-frame-1",
+        "en-es-sentence-veto-leave-permiso:active-en-es-sentence-veto-leave-permiso-active-authorization-frame-2",
+        "en-es-sentence-veto-leave-permiso:active-en-es-sentence-veto-leave-permiso-active-authorization-frame-3",
+        "en-es-sentence-veto-leave-permiso:active-en-es-sentence-veto-leave-permiso-active-authorization-frame-4",
+        "en-es-sentence-veto-leave-permiso:active-en-es-sentence-veto-leave-permiso-active-authorization-frame-5"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-leave-permiso:shadow-en-es-sentence-veto-leave-permiso-excedencia-shadow-wordnet-definition-1",
+        "en-es-sentence-veto-leave-permiso:shadow-en-es-sentence-veto-leave-permiso-dejar-shadow-wordnet-definition-1",
+        "en-es-sentence-veto-leave-permiso:shadow-en-es-sentence-veto-leave-permiso-dejar-shadow-wordnet-example-2",
+        "en-es-sentence-veto-leave-permiso:shadow-en-es-sentence-veto-leave-permiso-excedencia-shadow-translation-sense-1",
+        "en-es-sentence-veto-leave-permiso:shadow-en-es-sentence-veto-leave-permiso-dejar-shadow-translation-sense-1"
+      ],
+      "phrase_control_row_ids": [
+        "en-es-sentence-veto-leave-permiso:phrase-control-wordnet-alt-00053917-n",
+        "en-es-sentence-veto-leave-permiso:phrase-control-wordnet-alt-02013448-v",
+        "en-es-sentence-veto-leave-permiso:phrase-control-wordnet-alt-00615374-v",
+        "en-es-sentence-veto-leave-permiso:phrase-control-wordnet-alt-02735289-v",
+        "en-es-sentence-veto-leave-permiso:phrase-control-wordnet-alt-00136799-v",
+        "en-es-sentence-veto-leave-permiso:phrase-control-wordnet-alt-02019450-v",
+        "en-es-sentence-veto-leave-permiso:phrase-control-wordnet-alt-02727313-v",
+        "en-es-sentence-veto-leave-permiso:phrase-control-wordnet-alt-02641740-v",
+        "en-es-sentence-veto-leave-permiso:phrase-control-wordnet-alt-02388582-v",
+        "en-es-sentence-veto-leave-permiso:phrase-control-wordnet-alt-02233837-v",
+        "en-es-sentence-veto-leave-permiso:phrase-control-wordnet-alt-02736010-v"
+      ],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:low:bajo",
+      "family_id": "en-es:sentence-veto:low:bajo",
+      "trigger": "low",
+      "active_target": "bajo",
+      "active_example_count": 2,
+      "shadow_example_count": 3,
+      "phrase_control_example_count": 12,
+      "row_count": 17,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": true,
+      "contract_complete": true,
+      "missing_requirements": [],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [],
+      "active_row_ids": [
+        "en-es-sentence-veto-low-bajo:active-wordnet-definition-1",
+        "en-es-sentence-veto-low-bajo:active-en-es-sentence-veto-low-bajo-active-translation-sense-1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-low-bajo:shadow-en-es-sentence-veto-low-bajo-deca-do-shadow-wordnet-definition-1",
+        "en-es-sentence-veto-low-bajo:shadow-en-es-sentence-veto-low-bajo-deca-do-shadow-wordnet-example-2",
+        "en-es-sentence-veto-low-bajo:shadow-en-es-sentence-veto-low-bajo-deca-do-shadow-translation-sense-1"
+      ],
+      "phrase_control_row_ids": [
+        "en-es-sentence-veto-low-bajo:phrase-control-wordnet-alt-14544431-n",
+        "en-es-sentence-veto-low-bajo:phrase-control-wordnet-alt-05104968-n",
+        "en-es-sentence-veto-low-bajo:phrase-control-wordnet-alt-03354857-n",
+        "en-es-sentence-veto-low-bajo:phrase-control-wordnet-alt-01215141-a",
+        "en-es-sentence-veto-low-bajo:phrase-control-wordnet-alt-01209146-a",
+        "en-es-sentence-veto-low-bajo:phrase-control-wordnet-alt-01458667-s",
+        "en-es-sentence-veto-low-bajo:phrase-control-wordnet-alt-01957830-s",
+        "en-es-sentence-veto-low-bajo:phrase-control-wordnet-alt-01218092-a",
+        "en-es-sentence-veto-low-bajo:phrase-control-wordnet-alt-00907967-s",
+        "en-es-sentence-veto-low-bajo:phrase-control-wordnet-alt-02348528-s",
+        "en-es-sentence-veto-low-bajo:phrase-control-wordnet-alt-02344737-s",
+        "en-es-sentence-veto-low-bajo:phrase-control-wordnet-alt-01899370-s"
+      ],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:part:parte",
+      "family_id": "en-es:sentence-veto:part:parte",
+      "trigger": "part",
+      "active_target": "parte",
+      "active_example_count": 3,
+      "shadow_example_count": 6,
+      "phrase_control_example_count": 11,
+      "row_count": 20,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": true,
+      "contract_complete": true,
+      "missing_requirements": [],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [],
+      "active_row_ids": [
+        "en-es-sentence-veto-part-parte:active-wordnet-definition-1",
+        "en-es-sentence-veto-part-parte:active-wordnet-example-2",
+        "en-es-sentence-veto-part-parte:active-en-es-sentence-veto-part-parte-active-translation-sense-1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-part-parte:shadow-en-es-sentence-veto-part-parte-papel-shadow-wordnet-definition-1",
+        "en-es-sentence-veto-part-parte:shadow-en-es-sentence-veto-part-parte-papel-shadow-wordnet-example-2",
+        "en-es-sentence-veto-part-parte:shadow-en-es-sentence-veto-part-parte-repartir-shadow-wordnet-definition-1",
+        "en-es-sentence-veto-part-parte:shadow-en-es-sentence-veto-part-parte-repartir-shadow-wordnet-example-2",
+        "en-es-sentence-veto-part-parte:shadow-en-es-sentence-veto-part-parte-papel-shadow-translation-sense-1",
+        "en-es-sentence-veto-part-parte:shadow-en-es-sentence-veto-part-parte-repartir-shadow-translation-sense-1"
+      ],
+      "phrase_control_row_ids": [
+        "en-es-sentence-veto-part-parte:phrase-control-wordnet-alt-13831419-n",
+        "en-es-sentence-veto-part-parte:phrase-control-wordnet-alt-09408804-n",
+        "en-es-sentence-veto-part-parte:phrase-control-wordnet-alt-05679818-n",
+        "en-es-sentence-veto-part-parte:phrase-control-wordnet-alt-08647614-n",
+        "en-es-sentence-veto-part-parte:phrase-control-wordnet-alt-00721817-n",
+        "en-es-sentence-veto-part-parte:phrase-control-wordnet-alt-05937794-n",
+        "en-es-sentence-veto-part-parte:phrase-control-wordnet-alt-05263841-n",
+        "en-es-sentence-veto-part-parte:phrase-control-wordnet-alt-07044205-n",
+        "en-es-sentence-veto-part-parte:phrase-control-wordnet-alt-00789119-n",
+        "en-es-sentence-veto-part-parte:phrase-control-wordnet-alt-03938737-n",
+        "en-es-sentence-veto-part-parte:phrase-control-wordnet-alt-00008102-r"
+      ],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:piece:trozo",
+      "family_id": "en-es:sentence-veto:piece:trozo",
+      "trigger": "piece",
+      "active_target": "trozo",
+      "active_example_count": 3,
+      "shadow_example_count": 6,
+      "phrase_control_example_count": 11,
+      "row_count": 20,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": true,
+      "contract_complete": true,
+      "missing_requirements": [],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [],
+      "active_row_ids": [
+        "en-es-sentence-veto-piece-trozo:active-wordnet-definition-1",
+        "en-es-sentence-veto-piece-trozo:active-wordnet-example-2",
+        "en-es-sentence-veto-piece-trozo:active-en-es-sentence-veto-piece-trozo-active-translation-sense-1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-piece-trozo:shadow-en-es-sentence-veto-piece-trozo-ficha-shadow-wordnet-definition-1",
+        "en-es-sentence-veto-piece-trozo:shadow-en-es-sentence-veto-piece-trozo-ficha-shadow-wordnet-example-2",
+        "en-es-sentence-veto-piece-trozo:shadow-en-es-sentence-veto-piece-trozo-montar-shadow-wordnet-definition-1",
+        "en-es-sentence-veto-piece-trozo:shadow-en-es-sentence-veto-piece-trozo-montar-shadow-wordnet-example-2",
+        "en-es-sentence-veto-piece-trozo:shadow-en-es-sentence-veto-piece-trozo-ficha-shadow-translation-sense-1",
+        "en-es-sentence-veto-piece-trozo:shadow-en-es-sentence-veto-piece-trozo-montar-shadow-translation-sense-1"
+      ],
+      "phrase_control_row_ids": [
+        "en-es-sentence-veto-piece-trozo:phrase-control-wordnet-alt-03938737-n",
+        "en-es-sentence-veto-piece-trozo:phrase-control-wordnet-alt-09408804-n",
+        "en-es-sentence-veto-piece-trozo:phrase-control-wordnet-alt-07051211-n",
+        "en-es-sentence-veto-piece-trozo:phrase-control-wordnet-alt-06280049-n",
+        "en-es-sentence-veto-piece-trozo:phrase-control-wordnet-alt-03348699-n",
+        "en-es-sentence-veto-piece-trozo:phrase-control-wordnet-alt-07670276-n",
+        "en-es-sentence-veto-piece-trozo:phrase-control-wordnet-alt-05092096-n",
+        "en-es-sentence-veto-piece-trozo:phrase-control-wordnet-alt-03844055-n",
+        "en-es-sentence-veto-piece-trozo:phrase-control-wordnet-alt-15271164-n",
+        "en-es-sentence-veto-piece-trozo:phrase-control-wordnet-alt-13307547-n",
+        "en-es-sentence-veto-piece-trozo:phrase-control-wordnet-alt-03721866-n"
+      ],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:rank:rancio",
+      "family_id": "en-es:sentence-veto:rank:rancio",
+      "trigger": "rank",
+      "active_target": "rancio",
+      "active_example_count": 3,
+      "shadow_example_count": 2,
+      "phrase_control_example_count": 11,
+      "row_count": 16,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": true,
+      "contract_complete": true,
+      "missing_requirements": [],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [],
+      "active_row_ids": [
+        "en-es-sentence-veto-rank-rancio:active-wordnet-definition-1",
+        "en-es-sentence-veto-rank-rancio:active-wordnet-example-2",
+        "en-es-sentence-veto-rank-rancio:active-en-es-sentence-veto-rank-rancio-active-translation-sense-1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-rank-rancio:shadow-en-es-sentence-veto-rank-rancio-fila-shadow-wordnet-definition-1",
+        "en-es-sentence-veto-rank-rancio:shadow-en-es-sentence-veto-rank-rancio-fila-shadow-translation-sense-1"
+      ],
+      "phrase_control_row_ids": [
+        "en-es-sentence-veto-rank-rancio:phrase-control-wordnet-alt-08448952-n",
+        "en-es-sentence-veto-rank-rancio:phrase-control-wordnet-alt-14453411-n",
+        "en-es-sentence-veto-rank-rancio:phrase-control-wordnet-alt-08415136-n",
+        "en-es-sentence-veto-rank-rancio:phrase-control-wordnet-alt-13970595-n",
+        "en-es-sentence-veto-rank-rancio:phrase-control-wordnet-alt-01005657-s",
+        "en-es-sentence-veto-rank-rancio:phrase-control-wordnet-alt-01631230-s",
+        "en-es-sentence-veto-rank-rancio:phrase-control-wordnet-alt-00522835-s",
+        "en-es-sentence-veto-rank-rancio:phrase-control-wordnet-alt-00016173-s",
+        "en-es-sentence-veto-rank-rancio:phrase-control-wordnet-alt-00661773-v",
+        "en-es-sentence-veto-rank-rancio:phrase-control-wordnet-alt-00659723-v",
+        "en-es-sentence-veto-rank-rancio:phrase-control-wordnet-alt-02679633-v"
+      ],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:serve:servicio",
+      "family_id": "en-es:sentence-veto:serve:servicio",
+      "trigger": "serve",
+      "active_target": "servicio",
+      "active_example_count": 3,
+      "shadow_example_count": 3,
+      "phrase_control_example_count": 12,
+      "row_count": 18,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": true,
+      "contract_complete": true,
+      "missing_requirements": [],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [],
+      "active_row_ids": [
+        "en-es-sentence-veto-serve-servicio:active-wordnet-definition-1",
+        "en-es-sentence-veto-serve-servicio:active-wordnet-example-2",
+        "en-es-sentence-veto-serve-servicio:active-en-es-sentence-veto-serve-servicio-active-translation-sense-1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-serve-servicio:shadow-en-es-sentence-veto-serve-servicio-servir-shadow-wordnet-definition-1",
+        "en-es-sentence-veto-serve-servicio:shadow-en-es-sentence-veto-serve-servicio-servir-shadow-wordnet-entry_sentence-2",
+        "en-es-sentence-veto-serve-servicio:shadow-en-es-sentence-veto-serve-servicio-servir-shadow-translation-sense-1"
+      ],
+      "phrase_control_row_ids": [
+        "en-es-sentence-veto-serve-servicio:phrase-control-wordnet-alt-02676679-v",
+        "en-es-sentence-veto-serve-servicio:phrase-control-wordnet-alt-01097629-v",
+        "en-es-sentence-veto-serve-servicio:phrase-control-wordnet-alt-02676187-v",
+        "en-es-sentence-veto-serve-servicio:phrase-control-wordnet-alt-02546948-v",
+        "en-es-sentence-veto-serve-servicio:phrase-control-wordnet-alt-01183592-v",
+        "en-es-sentence-veto-serve-servicio:phrase-control-wordnet-alt-01182648-v",
+        "en-es-sentence-veto-serve-servicio:phrase-control-wordnet-alt-02599263-v",
+        "en-es-sentence-veto-serve-servicio:phrase-control-wordnet-alt-02676367-v",
+        "en-es-sentence-veto-serve-servicio:phrase-control-wordnet-alt-02714981-v",
+        "en-es-sentence-veto-serve-servicio:phrase-control-wordnet-alt-02546367-v",
+        "en-es-sentence-veto-serve-servicio:phrase-control-wordnet-alt-01441318-v",
+        "en-es-sentence-veto-serve-servicio:phrase-control-wordnet-alt-02675578-v"
+      ],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:show:espect-culo",
+      "family_id": "en-es:sentence-veto:show:espect-culo",
+      "trigger": "show",
+      "active_target": "espectáculo",
+      "active_example_count": 3,
+      "shadow_example_count": 3,
+      "phrase_control_example_count": 9,
+      "row_count": 15,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": true,
+      "contract_complete": true,
+      "missing_requirements": [],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [],
+      "active_row_ids": [
+        "en-es-sentence-veto-show-espect-culo:active-wordnet-definition-1",
+        "en-es-sentence-veto-show-espect-culo:active-wordnet-example-2",
+        "en-es-sentence-veto-show-espect-culo:active-en-es-sentence-veto-show-espect-culo-active-translation-sense-1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-show-espect-culo:shadow-en-es-sentence-veto-show-espect-culo-demostrar-shadow-wordnet-definition-1",
+        "en-es-sentence-veto-show-espect-culo:shadow-en-es-sentence-veto-show-espect-culo-demostrar-shadow-wordnet-example-2",
+        "en-es-sentence-veto-show-espect-culo:shadow-en-es-sentence-veto-show-espect-culo-demostrar-shadow-translation-sense-1"
+      ],
+      "phrase_control_row_ids": [
+        "en-es-sentence-veto-show-espect-culo:phrase-control-wordnet-alt-06892571-n",
+        "en-es-sentence-veto-show-espect-culo:phrase-control-wordnet-alt-00756620-n",
+        "en-es-sentence-veto-show-espect-culo:phrase-control-wordnet-alt-02153218-v",
+        "en-es-sentence-veto-show-espect-culo:phrase-control-wordnet-alt-00666706-v",
+        "en-es-sentence-veto-show-espect-culo:phrase-control-wordnet-alt-01017253-v",
+        "en-es-sentence-veto-show-espect-culo:phrase-control-wordnet-alt-02141597-v",
+        "en-es-sentence-veto-show-espect-culo:phrase-control-wordnet-alt-01690851-v",
+        "en-es-sentence-veto-show-espect-culo:phrase-control-wordnet-alt-00924838-v",
+        "en-es-sentence-veto-show-espect-culo:phrase-control-wordnet-alt-00925278-v"
+      ],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:still:quietud",
+      "family_id": "en-es:sentence-veto:still:quietud",
+      "trigger": "still",
+      "active_target": "quietud",
+      "active_example_count": 3,
+      "shadow_example_count": 5,
+      "phrase_control_example_count": 12,
+      "row_count": 20,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": true,
+      "contract_complete": true,
+      "missing_requirements": [],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [],
+      "active_row_ids": [
+        "en-es-sentence-veto-still-quietud:active-wordnet-definition-1",
+        "en-es-sentence-veto-still-quietud:active-wordnet-example-2",
+        "en-es-sentence-veto-still-quietud:active-en-es-sentence-veto-still-quietud-active-translation-sense-1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-still-quietud:shadow-en-es-sentence-veto-still-quietud-alambique-shadow-wordnet-definition-1",
+        "en-es-sentence-veto-still-quietud:shadow-en-es-sentence-veto-still-quietud-aquietar-shadow-wordnet-definition-1",
+        "en-es-sentence-veto-still-quietud:shadow-en-es-sentence-veto-still-quietud-aquietar-shadow-wordnet-example-2",
+        "en-es-sentence-veto-still-quietud:shadow-en-es-sentence-veto-still-quietud-alambique-shadow-translation-sense-1",
+        "en-es-sentence-veto-still-quietud:shadow-en-es-sentence-veto-still-quietud-aquietar-shadow-translation-sense-1"
+      ],
+      "phrase_control_row_ids": [
+        "en-es-sentence-veto-still-quietud:phrase-control-wordnet-alt-04326386-n",
+        "en-es-sentence-veto-still-quietud:phrase-control-wordnet-alt-04326120-n",
+        "en-es-sentence-veto-still-quietud:phrase-control-wordnet-alt-03217532-n",
+        "en-es-sentence-veto-still-quietud:phrase-control-wordnet-alt-01568708-s",
+        "en-es-sentence-veto-still-quietud:phrase-control-wordnet-alt-00303750-s",
+        "en-es-sentence-veto-still-quietud:phrase-control-wordnet-alt-01570144-a",
+        "en-es-sentence-veto-still-quietud:phrase-control-wordnet-alt-02285234-a",
+        "en-es-sentence-veto-still-quietud:phrase-control-wordnet-alt-01244473-s",
+        "en-es-sentence-veto-still-quietud:phrase-control-wordnet-alt-00031700-r",
+        "en-es-sentence-veto-still-quietud:phrase-control-wordnet-alt-00027761-r",
+        "en-es-sentence-veto-still-quietud:phrase-control-wordnet-alt-00018101-r",
+        "en-es-sentence-veto-still-quietud:phrase-control-wordnet-alt-00469307-r"
+      ],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:throw:lanzamiento",
+      "family_id": "en-es:sentence-veto:throw:lanzamiento",
+      "trigger": "throw",
+      "active_target": "lanzamiento",
+      "active_example_count": 2,
+      "shadow_example_count": 2,
+      "phrase_control_example_count": 11,
+      "row_count": 15,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": true,
+      "contract_complete": true,
+      "missing_requirements": [],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [],
+      "active_row_ids": [
+        "en-es-sentence-veto-throw-lanzamiento:active-wordnet-definition-1",
+        "en-es-sentence-veto-throw-lanzamiento:active-en-es-sentence-veto-throw-lanzamiento-active-translation-sense-1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-throw-lanzamiento:shadow-en-es-sentence-veto-throw-lanzamiento-lanzar-shadow-wordnet-definition-1",
+        "en-es-sentence-veto-throw-lanzamiento:shadow-en-es-sentence-veto-throw-lanzamiento-lanzar-shadow-translation-sense-1"
+      ],
+      "phrase_control_row_ids": [
+        "en-es-sentence-veto-throw-lanzamiento:phrase-control-wordnet-alt-00105359-n",
+        "en-es-sentence-veto-throw-lanzamiento:phrase-control-wordnet-alt-14509574-n",
+        "en-es-sentence-veto-throw-lanzamiento:phrase-control-wordnet-alt-07365795-n",
+        "en-es-sentence-veto-throw-lanzamiento:phrase-control-wordnet-alt-01248165-n",
+        "en-es-sentence-veto-throw-lanzamiento:phrase-control-wordnet-alt-01511000-v",
+        "en-es-sentence-veto-throw-lanzamiento:phrase-control-wordnet-alt-02101482-v",
+        "en-es-sentence-veto-throw-lanzamiento:phrase-control-wordnet-alt-01516062-v",
+        "en-es-sentence-veto-throw-lanzamiento:phrase-control-wordnet-alt-01501904-v",
+        "en-es-sentence-veto-throw-lanzamiento:phrase-control-wordnet-alt-01062189-v",
+        "en-es-sentence-veto-throw-lanzamiento:phrase-control-wordnet-alt-01512805-v",
+        "en-es-sentence-veto-throw-lanzamiento:phrase-control-wordnet-alt-02101619-v"
+      ],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:upset:disgustado",
+      "family_id": "en-es:sentence-veto:upset:disgustado",
+      "trigger": "upset",
+      "active_target": "disgustado",
+      "active_example_count": 3,
+      "shadow_example_count": 2,
+      "phrase_control_example_count": 12,
+      "row_count": 17,
+      "semantic_contract_complete": true,
+      "phrase_containment_contract_complete": true,
+      "contract_complete": true,
+      "missing_requirements": [],
+      "semantic_missing_requirements": [],
+      "phrase_containment_missing_requirements": [],
+      "active_row_ids": [
+        "en-es-sentence-veto-upset-disgustado:active-wordnet-definition-1",
+        "en-es-sentence-veto-upset-disgustado:active-wordnet-example-2",
+        "en-es-sentence-veto-upset-disgustado:active-en-es-sentence-veto-upset-disgustado-active-translation-sense-1"
+      ],
+      "shadow_row_ids": [
+        "en-es-sentence-veto-upset-disgustado:shadow-en-es-sentence-veto-upset-disgustado-trastrocar-shadow-wordnet-definition-1",
+        "en-es-sentence-veto-upset-disgustado:shadow-en-es-sentence-veto-upset-disgustado-trastrocar-shadow-translation-sense-1"
+      ],
+      "phrase_control_row_ids": [
+        "en-es-sentence-veto-upset-disgustado:phrase-control-wordnet-alt-14426686-n",
+        "en-es-sentence-veto-upset-disgustado:phrase-control-wordnet-alt-00555887-n",
+        "en-es-sentence-veto-upset-disgustado:phrase-control-wordnet-alt-14075885-n",
+        "en-es-sentence-veto-upset-disgustado:phrase-control-wordnet-alt-04522739-n",
+        "en-es-sentence-veto-upset-disgustado:phrase-control-wordnet-alt-00349138-n",
+        "en-es-sentence-veto-upset-disgustado:phrase-control-wordnet-alt-00068990-n",
+        "en-es-sentence-veto-upset-disgustado:phrase-control-wordnet-alt-01673499-s",
+        "en-es-sentence-veto-upset-disgustado:phrase-control-wordnet-alt-00934664-s",
+        "en-es-sentence-veto-upset-disgustado:phrase-control-wordnet-alt-02557987-s",
+        "en-es-sentence-veto-upset-disgustado:phrase-control-wordnet-alt-02476989-s",
+        "en-es-sentence-veto-upset-disgustado:phrase-control-wordnet-alt-00522376-v",
+        "en-es-sentence-veto-upset-disgustado:phrase-control-wordnet-alt-01793821-v"
+      ],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    }
+  ],
+  "recommendation": "This batch satisfies the no-spend example-frame source contract: every family has active, shadow, and phrase-control evidence while remaining non-publishable."
+}

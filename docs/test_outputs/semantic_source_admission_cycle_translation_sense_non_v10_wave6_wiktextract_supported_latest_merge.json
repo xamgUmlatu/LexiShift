@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-04-30T03:34:35Z",
+  "status": "ok",
+  "batch_id": "en-es:wordnet-plus-translation-sense:non-v10-wave6-wiktextract-supported-v1:cycle",
+  "source_id": "wordnet_plus_translation_sense_non_v10_wave6_wiktextract_supported_v1",
+  "summary": {
+    "component_count": 2,
+    "row_count": 99,
+    "family_count": 16,
+    "relation_counts": {
+      "anchor_cue": 42,
+      "shadow_candidate": 57
+    }
+  },
+  "component_batches": [
+    {
+      "component_index": 1,
+      "batch_id": "en-es:wordnet-def-ex-non-v10-wave6-wiktextract-supported:source-admission-cycle-latest:sense-admitted",
+      "source_id": "wordnet_def_ex_non_v10_wave6_wiktextract_supported",
+      "source_type": "internal",
+      "source_family": "internal_rulegen_artifact",
+      "input_row_count": 61,
+      "accepted_row_count": 61,
+      "duplicate_row_count": 0
+    },
+    {
+      "component_index": 2,
+      "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest:filtered",
+      "source_id": "translation_sense_evidence",
+      "source_type": "external",
+      "source_family": "external_structured_dictionary_dump",
+      "input_row_count": 38,
+      "accepted_row_count": 38,
+      "duplicate_row_count": 0
+    }
+  ]
+}

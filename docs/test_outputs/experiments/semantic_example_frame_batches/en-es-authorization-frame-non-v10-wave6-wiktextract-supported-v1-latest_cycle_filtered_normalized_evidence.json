@@ -1,0 +1,878 @@
+{
+  "schema_version": 1,
+  "normalization_version": "semantic_evidence_v1",
+  "batch_id": "en-es:authorization-frame-evidence:authorization-frame-non-v10-wave6-wiktextract-supported-v1-latest:filtered",
+  "pair": "en-es",
+  "source_type": "internal",
+  "source_id": "authorization_frame_evidence",
+  "source_family": "internal_rulegen_artifact",
+  "roles": [
+    "cue_generation",
+    "discrimination"
+  ],
+  "generated_at": "2026-04-30T03:34:14Z",
+  "ingested_at": "2026-04-30T03:34:14Z",
+  "review_state": "unreviewed",
+  "model_id": "not_applicable",
+  "prompt_version": "authorization-frame-evidence-v1",
+  "row_count": 5,
+  "rows": [
+    {
+      "evidence_id": "evidence:ba86d9b1e77c1b979ba31953931a4147668687a4",
+      "dedupe_key": "dedupe:5aa0917132f26322a4fadbddb59e293e225a7c47",
+      "batch_id": "en-es:authorization-frame-evidence:authorization-frame-non-v10-wave6-wiktextract-supported-v1-latest",
+      "row_id": "en-es-sentence-veto-leave-permiso:active-en-es-sentence-veto-leave-permiso-active-authorization-frame-1",
+      "pair": "en-es",
+      "source_type": "internal",
+      "source_id": "authorization_frame_evidence",
+      "source_family": "internal_rulegen_artifact",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "leave",
+      "normalized_trigger": "leave",
+      "active_target": "permiso",
+      "normalized_active_target": "permiso",
+      "candidate_target": "permiso",
+      "normalized_candidate_target": "permiso",
+      "is_multiword": false,
+      "evidence_text": "official permission granted",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "internal",
+        "source_id": "authorization_frame_evidence",
+        "source_family": "internal_rulegen_artifact",
+        "batch_id": "en-es:authorization-frame-evidence:authorization-frame-non-v10-wave6-wiktextract-supported-v1-latest",
+        "row_id": "en-es-sentence-veto-leave-permiso:active-en-es-sentence-veto-leave-permiso-active-authorization-frame-1",
+        "model_id": "not_applicable",
+        "prompt_version": "authorization-frame-evidence-v1",
+        "generated_at": "2026-04-30T03:34:14Z",
+        "ingested_at": "2026-04-30T03:34:14Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:leave:permiso:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:leave:permiso:active",
+        "canonical_pos": "noun",
+        "note": "authorization_semantic_class_candidate",
+        "metadata": {
+          "semantic_class_id": "permission_authorization",
+          "source_view": "source_backed_gloss_or_translation_sense",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:leave:permiso",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:leave:permiso:active",
+        "candidate_sense_id": "en-es:sentence-veto:leave:permiso:active",
+        "example_bucket": "active",
+        "semantic_class_id": "permission_authorization",
+        "source_view": "authorization_frame_template",
+        "source_match_text": "leave noun sense: permission to be absent | permission to be absent | leave noun sense: permission to be absent | permission to be absent | permission to be absent | permission to be absent",
+        "template_index": 1,
+        "template_count": 5
+      }
+    },
+    {
+      "evidence_id": "evidence:5d2fdc108a77debbabd63af0bbca97be47ea8752",
+      "dedupe_key": "dedupe:5aa0917132f26322a4fadbddb59e293e225a7c47",
+      "batch_id": "en-es:authorization-frame-evidence:authorization-frame-non-v10-wave6-wiktextract-supported-v1-latest",
+      "row_id": "en-es-sentence-veto-leave-permiso:active-en-es-sentence-veto-leave-permiso-active-authorization-frame-2",
+      "pair": "en-es",
+      "source_type": "internal",
+      "source_id": "authorization_frame_evidence",
+      "source_family": "internal_rulegen_artifact",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "leave",
+      "normalized_trigger": "leave",
+      "active_target": "permiso",
+      "normalized_active_target": "permiso",
+      "candidate_target": "permiso",
+      "normalized_candidate_target": "permiso",
+      "is_multiword": false,
+      "evidence_text": "approved permission request",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "internal",
+        "source_id": "authorization_frame_evidence",
+        "source_family": "internal_rulegen_artifact",
+        "batch_id": "en-es:authorization-frame-evidence:authorization-frame-non-v10-wave6-wiktextract-supported-v1-latest",
+        "row_id": "en-es-sentence-veto-leave-permiso:active-en-es-sentence-veto-leave-permiso-active-authorization-frame-2",
+        "model_id": "not_applicable",
+        "prompt_version": "authorization-frame-evidence-v1",
+        "generated_at": "2026-04-30T03:34:14Z",
+        "ingested_at": "2026-04-30T03:34:14Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:leave:permiso:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:leave:permiso:active",
+        "canonical_pos": "noun",
+        "note": "authorization_semantic_class_candidate",
+        "metadata": {
+          "semantic_class_id": "permission_authorization",
+          "source_view": "source_backed_gloss_or_translation_sense",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:leave:permiso",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:leave:permiso:active",
+        "candidate_sense_id": "en-es:sentence-veto:leave:permiso:active",
+        "example_bucket": "active",
+        "semantic_class_id": "permission_authorization",
+        "source_view": "authorization_frame_template",
+        "source_match_text": "leave noun sense: permission to be absent | permission to be absent | leave noun sense: permission to be absent | permission to be absent | permission to be absent | permission to be absent",
+        "template_index": 2,
+        "template_count": 5
+      }
+    },
+    {
+      "evidence_id": "evidence:86167524a554bed48e80610ea0b3bf5dfc73473c",
+      "dedupe_key": "dedupe:5aa0917132f26322a4fadbddb59e293e225a7c47",
+      "batch_id": "en-es:authorization-frame-evidence:authorization-frame-non-v10-wave6-wiktextract-supported-v1-latest",
+      "row_id": "en-es-sentence-veto-leave-permiso:active-en-es-sentence-veto-leave-permiso-active-authorization-frame-3",
+      "pair": "en-es",
+      "source_type": "internal",
+      "source_id": "authorization_frame_evidence",
+      "source_family": "internal_rulegen_artifact",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "leave",
+      "normalized_trigger": "leave",
+      "active_target": "permiso",
+      "normalized_active_target": "permiso",
+      "candidate_target": "permiso",
+      "normalized_candidate_target": "permiso",
+      "is_multiword": false,
+      "evidence_text": "request for permission was approved",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "internal",
+        "source_id": "authorization_frame_evidence",
+        "source_family": "internal_rulegen_artifact",
+        "batch_id": "en-es:authorization-frame-evidence:authorization-frame-non-v10-wave6-wiktextract-supported-v1-latest",
+        "row_id": "en-es-sentence-veto-leave-permiso:active-en-es-sentence-veto-leave-permiso-active-authorization-frame-3",
+        "model_id": "not_applicable",
+        "prompt_version": "authorization-frame-evidence-v1",
+        "generated_at": "2026-04-30T03:34:14Z",
+        "ingested_at": "2026-04-30T03:34:14Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:leave:permiso:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:leave:permiso:active",
+        "canonical_pos": "noun",
+        "note": "authorization_semantic_class_candidate",
+        "metadata": {
+          "semantic_class_id": "permission_authorization",
+          "source_view": "source_backed_gloss_or_translation_sense",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:leave:permiso",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:leave:permiso:active",
+        "candidate_sense_id": "en-es:sentence-veto:leave:permiso:active",
+        "example_bucket": "active",
+        "semantic_class_id": "permission_authorization",
+        "source_view": "authorization_frame_template",
+        "source_match_text": "leave noun sense: permission to be absent | permission to be absent | leave noun sense: permission to be absent | permission to be absent | permission to be absent | permission to be absent",
+        "template_index": 3,
+        "template_count": 5
+      }
+    },
+    {
+      "evidence_id": "evidence:6357aa19271a779820e0a5469d94177563f785f4",
+      "dedupe_key": "dedupe:5aa0917132f26322a4fadbddb59e293e225a7c47",
+      "batch_id": "en-es:authorization-frame-evidence:authorization-frame-non-v10-wave6-wiktextract-supported-v1-latest",
+      "row_id": "en-es-sentence-veto-leave-permiso:active-en-es-sentence-veto-leave-permiso-active-authorization-frame-4",
+      "pair": "en-es",
+      "source_type": "internal",
+      "source_id": "authorization_frame_evidence",
+      "source_family": "internal_rulegen_artifact",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "leave",
+      "normalized_trigger": "leave",
+      "active_target": "permiso",
+      "normalized_active_target": "permiso",
+      "candidate_target": "permiso",
+      "normalized_candidate_target": "permiso",
+      "is_multiword": false,
+      "evidence_text": "authorization granted",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "internal",
+        "source_id": "authorization_frame_evidence",
+        "source_family": "internal_rulegen_artifact",
+        "batch_id": "en-es:authorization-frame-evidence:authorization-frame-non-v10-wave6-wiktextract-supported-v1-latest",
+        "row_id": "en-es-sentence-veto-leave-permiso:active-en-es-sentence-veto-leave-permiso-active-authorization-frame-4",
+        "model_id": "not_applicable",
+        "prompt_version": "authorization-frame-evidence-v1",
+        "generated_at": "2026-04-30T03:34:14Z",
+        "ingested_at": "2026-04-30T03:34:14Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:leave:permiso:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:leave:permiso:active",
+        "canonical_pos": "noun",
+        "note": "authorization_semantic_class_candidate",
+        "metadata": {
+          "semantic_class_id": "permission_authorization",
+          "source_view": "source_backed_gloss_or_translation_sense",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:leave:permiso",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:leave:permiso:active",
+        "candidate_sense_id": "en-es:sentence-veto:leave:permiso:active",
+        "example_bucket": "active",
+        "semantic_class_id": "permission_authorization",
+        "source_view": "authorization_frame_template",
+        "source_match_text": "leave noun sense: permission to be absent | permission to be absent | leave noun sense: permission to be absent | permission to be absent | permission to be absent | permission to be absent",
+        "template_index": 4,
+        "template_count": 5
+      }
+    },
+    {
+      "evidence_id": "evidence:5c1a42c705216d655b766aba8b7a95fd80f9607c",
+      "dedupe_key": "dedupe:5aa0917132f26322a4fadbddb59e293e225a7c47",
+      "batch_id": "en-es:authorization-frame-evidence:authorization-frame-non-v10-wave6-wiktextract-supported-v1-latest",
+      "row_id": "en-es-sentence-veto-leave-permiso:active-en-es-sentence-veto-leave-permiso-active-authorization-frame-5",
+      "pair": "en-es",
+      "source_type": "internal",
+      "source_id": "authorization_frame_evidence",
+      "source_family": "internal_rulegen_artifact",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "leave",
+      "normalized_trigger": "leave",
+      "active_target": "permiso",
+      "normalized_active_target": "permiso",
+      "candidate_target": "permiso",
+      "normalized_candidate_target": "permiso",
+      "is_multiword": false,
+      "evidence_text": "consent granted by an authority",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "internal",
+        "source_id": "authorization_frame_evidence",
+        "source_family": "internal_rulegen_artifact",
+        "batch_id": "en-es:authorization-frame-evidence:authorization-frame-non-v10-wave6-wiktextract-supported-v1-latest",
+        "row_id": "en-es-sentence-veto-leave-permiso:active-en-es-sentence-veto-leave-permiso-active-authorization-frame-5",
+        "model_id": "not_applicable",
+        "prompt_version": "authorization-frame-evidence-v1",
+        "generated_at": "2026-04-30T03:34:14Z",
+        "ingested_at": "2026-04-30T03:34:14Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:leave:permiso:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:leave:permiso:active",
+        "canonical_pos": "noun",
+        "note": "authorization_semantic_class_candidate",
+        "metadata": {
+          "semantic_class_id": "permission_authorization",
+          "source_view": "source_backed_gloss_or_translation_sense",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:leave:permiso",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:leave:permiso:active",
+        "candidate_sense_id": "en-es:sentence-veto:leave:permiso:active",
+        "example_bucket": "active",
+        "semantic_class_id": "permission_authorization",
+        "source_view": "authorization_frame_template",
+        "source_match_text": "leave noun sense: permission to be absent | permission to be absent | leave noun sense: permission to be absent | permission to be absent | permission to be absent | permission to be absent",
+        "template_index": 5,
+        "template_count": 5
+      }
+    }
+  ],
+  "provenance": {
+    "source_type": "internal",
+    "source_id": "authorization_frame_evidence",
+    "source_family": "internal_rulegen_artifact",
+    "batch_id": "en-es:authorization-frame-evidence:authorization-frame-non-v10-wave6-wiktextract-supported-v1-latest",
+    "model_id": "not_applicable",
+    "prompt_version": "authorization-frame-evidence-v1",
+    "generated_at": "2026-04-30T03:34:14Z",
+    "ingested_at": "2026-04-30T03:34:14Z",
+    "normalization_version": "semantic_evidence_v1",
+    "upstream": {
+      "dataset_id": "en_es_source_non_v10_wave6_anypos_unsupported_upper_bound_selected_v1",
+      "semantic_class_id": "permission_authorization",
+      "source_note": "Deterministic English frame rows emitted only when a selected sense's source-backed English gloss or translation-sense text is permission/authorization-like. Spanish target lemmas are excluded from evidence_text.",
+      "templates": [
+        "official permission granted",
+        "approved permission request",
+        "request for permission was approved",
+        "authorization granted",
+        "consent granted by an authority"
+      ],
+      "family_rows": [
+        {
+          "family_id": "en-es:sentence-veto:leave:permiso",
+          "trigger": "leave",
+          "selected_sense_count": 3,
+          "matching_sense_count": 1,
+          "row_count": 5,
+          "active_row_count": 5,
+          "shadow_row_count": 0,
+          "sense_rows": [
+            {
+              "sense_id": "en-es:sentence-veto:leave:permiso:active",
+              "relation_type": "anchor_cue",
+              "matched": true,
+              "canonical_pos": "noun",
+              "target_lemma": "permiso"
+            },
+            {
+              "sense_id": "en-es:sentence-veto:leave:permiso:excedencia:shadow",
+              "relation_type": "shadow_candidate",
+              "matched": false,
+              "canonical_pos": "noun",
+              "target_lemma": "excedencia"
+            },
+            {
+              "sense_id": "en-es:sentence-veto:leave:permiso:dejar:shadow",
+              "relation_type": "shadow_candidate",
+              "matched": false,
+              "canonical_pos": "verb",
+              "target_lemma": "dejar"
+            }
+          ]
+        },
+        {
+          "family_id": "en-es:sentence-veto:black:oscuro",
+          "trigger": "black",
+          "selected_sense_count": 2,
+          "matching_sense_count": 0,
+          "row_count": 0,
+          "active_row_count": 0,
+          "shadow_row_count": 0,
+          "sense_rows": [
+            {
+              "sense_id": "en-es:sentence-veto:black:oscuro:active",
+              "relation_type": "anchor_cue",
+              "matched": false,
+              "canonical_pos": "adjective",
+              "target_lemma": "oscuro"
+            },
+            {
+              "sense_id": "en-es:sentence-veto:black:oscuro:negro:shadow",
+              "relation_type": "shadow_candidate",
+              "matched": false,
+              "canonical_pos": "noun",
+              "target_lemma": "negro"
+            }
+          ]
+        },
+        {
+          "family_id": "en-es:sentence-veto:serve:servicio",
+          "trigger": "serve",
+          "selected_sense_count": 2,
+          "matching_sense_count": 0,
+          "row_count": 0,
+          "active_row_count": 0,
+          "shadow_row_count": 0,
+          "sense_rows": [
+            {
+              "sense_id": "en-es:sentence-veto:serve:servicio:active",
+              "relation_type": "anchor_cue",
+              "matched": false,
+              "canonical_pos": "noun",
+              "target_lemma": "servicio"
+            },
+            {
+              "sense_id": "en-es:sentence-veto:serve:servicio:servir:shadow",
+              "relation_type": "shadow_candidate",
+              "matched": false,
+              "canonical_pos": "verb",
+              "target_lemma": "servir"
+            }
+          ]
+        },
+        {
+          "family_id": "en-es:sentence-veto:low:bajo",
+          "trigger": "low",
+          "selected_sense_count": 2,
+          "matching_sense_count": 0,
+          "row_count": 0,
+          "active_row_count": 0,
+          "shadow_row_count": 0,
+          "sense_rows": [
+            {
+              "sense_id": "en-es:sentence-veto:low:bajo:active",
+              "relation_type": "anchor_cue",
+              "matched": false,
+              "canonical_pos": "adverb",
+              "target_lemma": "bajo"
+            },
+            {
+              "sense_id": "en-es:sentence-veto:low:bajo:deca-do:shadow",
+              "relation_type": "shadow_candidate",
+              "matched": false,
+              "canonical_pos": "adjective",
+              "target_lemma": "decaído"
+            }
+          ]
+        },
+        {
+          "family_id": "en-es:sentence-veto:part:parte",
+          "trigger": "part",
+          "selected_sense_count": 3,
+          "matching_sense_count": 0,
+          "row_count": 0,
+          "active_row_count": 0,
+          "shadow_row_count": 0,
+          "sense_rows": [
+            {
+              "sense_id": "en-es:sentence-veto:part:parte:active",
+              "relation_type": "anchor_cue",
+              "matched": false,
+              "canonical_pos": "noun",
+              "target_lemma": "parte"
+            },
+            {
+              "sense_id": "en-es:sentence-veto:part:parte:papel:shadow",
+              "relation_type": "shadow_candidate",
+              "matched": false,
+              "canonical_pos": "noun",
+              "target_lemma": "papel"
+            },
+            {
+              "sense_id": "en-es:sentence-veto:part:parte:repartir:shadow",
+              "relation_type": "shadow_candidate",
+              "matched": false,
+              "canonical_pos": "verb",
+              "target_lemma": "repartir"
+            }
+          ]
+        },
+        {
+          "family_id": "en-es:sentence-veto:feel:talento",
+          "trigger": "feel",
+          "selected_sense_count": 2,
+          "matching_sense_count": 0,
+          "row_count": 0,
+          "active_row_count": 0,
+          "shadow_row_count": 0,
+          "sense_rows": [
+            {
+              "sense_id": "en-es:sentence-veto:feel:talento:active",
+              "relation_type": "anchor_cue",
+              "matched": false,
+              "canonical_pos": "noun",
+              "target_lemma": "talento"
+            },
+            {
+              "sense_id": "en-es:sentence-veto:feel:talento:sentir:shadow",
+              "relation_type": "shadow_candidate",
+              "matched": false,
+              "canonical_pos": "verb",
+              "target_lemma": "sentir"
+            }
+          ]
+        },
+        {
+          "family_id": "en-es:sentence-veto:still:quietud",
+          "trigger": "still",
+          "selected_sense_count": 3,
+          "matching_sense_count": 0,
+          "row_count": 0,
+          "active_row_count": 0,
+          "shadow_row_count": 0,
+          "sense_rows": [
+            {
+              "sense_id": "en-es:sentence-veto:still:quietud:active",
+              "relation_type": "anchor_cue",
+              "matched": false,
+              "canonical_pos": "noun",
+              "target_lemma": "quietud"
+            },
+            {
+              "sense_id": "en-es:sentence-veto:still:quietud:alambique:shadow",
+              "relation_type": "shadow_candidate",
+              "matched": false,
+              "canonical_pos": "noun",
+              "target_lemma": "alambique"
+            },
+            {
+              "sense_id": "en-es:sentence-veto:still:quietud:aquietar:shadow",
+              "relation_type": "shadow_candidate",
+              "matched": false,
+              "canonical_pos": "verb",
+              "target_lemma": "aquietar"
+            }
+          ]
+        },
+        {
+          "family_id": "en-es:sentence-veto:bear:bajista",
+          "trigger": "bear",
+          "selected_sense_count": 2,
+          "matching_sense_count": 0,
+          "row_count": 0,
+          "active_row_count": 0,
+          "shadow_row_count": 0,
+          "sense_rows": [
+            {
+              "sense_id": "en-es:sentence-veto:bear:bajista:active",
+              "relation_type": "anchor_cue",
+              "matched": false,
+              "canonical_pos": "noun",
+              "target_lemma": "bajista"
+            },
+            {
+              "sense_id": "en-es:sentence-veto:bear:bajista:llevar:shadow",
+              "relation_type": "shadow_candidate",
+              "matched": false,
+              "canonical_pos": "verb",
+              "target_lemma": "llevar"
+            }
+          ]
+        },
+        {
+          "family_id": "en-es:sentence-veto:finish:meta",
+          "trigger": "finish",
+          "selected_sense_count": 3,
+          "matching_sense_count": 0,
+          "row_count": 0,
+          "active_row_count": 0,
+          "shadow_row_count": 0,
+          "sense_rows": [
+            {
+              "sense_id": "en-es:sentence-veto:finish:meta:active",
+              "relation_type": "anchor_cue",
+              "matched": false,
+              "canonical_pos": "noun",
+              "target_lemma": "meta"
+            },
+            {
+              "sense_id": "en-es:sentence-veto:finish:meta:acabado:shadow",
+              "relation_type": "shadow_candidate",
+              "matched": false,
+              "canonical_pos": "noun",
+              "target_lemma": "acabado"
+            },
+            {
+              "sense_id": "en-es:sentence-veto:finish:meta:acabar:shadow",
+              "relation_type": "shadow_candidate",
+              "matched": false,
+              "canonical_pos": "verb",
+              "target_lemma": "acabar"
+            }
+          ]
+        },
+        {
+          "family_id": "en-es:sentence-veto:throw:lanzamiento",
+          "trigger": "throw",
+          "selected_sense_count": 2,
+          "matching_sense_count": 0,
+          "row_count": 0,
+          "active_row_count": 0,
+          "shadow_row_count": 0,
+          "sense_rows": [
+            {
+              "sense_id": "en-es:sentence-veto:throw:lanzamiento:active",
+              "relation_type": "anchor_cue",
+              "matched": false,
+              "canonical_pos": "noun",
+              "target_lemma": "lanzamiento"
+            },
+            {
+              "sense_id": "en-es:sentence-veto:throw:lanzamiento:lanzar:shadow",
+              "relation_type": "shadow_candidate",
+              "matched": false,
+              "canonical_pos": "verb",
+              "target_lemma": "lanzar"
+            }
+          ]
+        },
+        {
+          "family_id": "en-es:sentence-veto:upset:disgustado",
+          "trigger": "upset",
+          "selected_sense_count": 2,
+          "matching_sense_count": 0,
+          "row_count": 0,
+          "active_row_count": 0,
+          "shadow_row_count": 0,
+          "sense_rows": [
+            {
+              "sense_id": "en-es:sentence-veto:upset:disgustado:active",
+              "relation_type": "anchor_cue",
+              "matched": false,
+              "canonical_pos": "adjective",
+              "target_lemma": "disgustado"
+            },
+            {
+              "sense_id": "en-es:sentence-veto:upset:disgustado:trastrocar:shadow",
+              "relation_type": "shadow_candidate",
+              "matched": false,
+              "canonical_pos": "verb",
+              "target_lemma": "trastrocar"
+            }
+          ]
+        },
+        {
+          "family_id": "en-es:sentence-veto:piece:trozo",
+          "trigger": "piece",
+          "selected_sense_count": 3,
+          "matching_sense_count": 0,
+          "row_count": 0,
+          "active_row_count": 0,
+          "shadow_row_count": 0,
+          "sense_rows": [
+            {
+              "sense_id": "en-es:sentence-veto:piece:trozo:active",
+              "relation_type": "anchor_cue",
+              "matched": false,
+              "canonical_pos": "noun",
+              "target_lemma": "trozo"
+            },
+            {
+              "sense_id": "en-es:sentence-veto:piece:trozo:ficha:shadow",
+              "relation_type": "shadow_candidate",
+              "matched": false,
+              "canonical_pos": "noun",
+              "target_lemma": "ficha"
+            },
+            {
+              "sense_id": "en-es:sentence-veto:piece:trozo:montar:shadow",
+              "relation_type": "shadow_candidate",
+              "matched": false,
+              "canonical_pos": "verb",
+              "target_lemma": "montar"
+            }
+          ]
+        },
+        {
+          "family_id": "en-es:sentence-veto:fair:pastel",
+          "trigger": "fair",
+          "selected_sense_count": 2,
+          "matching_sense_count": 0,
+          "row_count": 0,
+          "active_row_count": 0,
+          "shadow_row_count": 0,
+          "sense_rows": [
+            {
+              "sense_id": "en-es:sentence-veto:fair:pastel:active",
+              "relation_type": "anchor_cue",
+              "matched": false,
+              "canonical_pos": "adjective",
+              "target_lemma": "pastel"
+            },
+            {
+              "sense_id": "en-es:sentence-veto:fair:pastel:feria-de-muestras:shadow",
+              "relation_type": "shadow_candidate",
+              "matched": false,
+              "canonical_pos": "noun",
+              "target_lemma": "feria de muestras"
+            }
+          ]
+        },
+        {
+          "family_id": "en-es:sentence-veto:show:espect-culo",
+          "trigger": "show",
+          "selected_sense_count": 2,
+          "matching_sense_count": 0,
+          "row_count": 0,
+          "active_row_count": 0,
+          "shadow_row_count": 0,
+          "sense_rows": [
+            {
+              "sense_id": "en-es:sentence-veto:show:espect-culo:active",
+              "relation_type": "anchor_cue",
+              "matched": false,
+              "canonical_pos": "noun",
+              "target_lemma": "espectáculo"
+            },
+            {
+              "sense_id": "en-es:sentence-veto:show:espect-culo:demostrar:shadow",
+              "relation_type": "shadow_candidate",
+              "matched": false,
+              "canonical_pos": "verb",
+              "target_lemma": "demostrar"
+            }
+          ]
+        },
+        {
+          "family_id": "en-es:sentence-veto:advance:avance",
+          "trigger": "advance",
+          "selected_sense_count": 3,
+          "matching_sense_count": 0,
+          "row_count": 0,
+          "active_row_count": 0,
+          "shadow_row_count": 0,
+          "sense_rows": [
+            {
+              "sense_id": "en-es:sentence-veto:advance:avance:active",
+              "relation_type": "anchor_cue",
+              "matched": false,
+              "canonical_pos": "noun",
+              "target_lemma": "avance"
+            },
+            {
+              "sense_id": "en-es:sentence-veto:advance:avance:adelanto:shadow",
+              "relation_type": "shadow_candidate",
+              "matched": false,
+              "canonical_pos": "noun",
+              "target_lemma": "adelanto"
+            },
+            {
+              "sense_id": "en-es:sentence-veto:advance:avance:avanzar:shadow",
+              "relation_type": "shadow_candidate",
+              "matched": false,
+              "canonical_pos": "verb",
+              "target_lemma": "avanzar"
+            }
+          ]
+        },
+        {
+          "family_id": "en-es:sentence-veto:rank:rancio",
+          "trigger": "rank",
+          "selected_sense_count": 2,
+          "matching_sense_count": 0,
+          "row_count": 0,
+          "active_row_count": 0,
+          "shadow_row_count": 0,
+          "sense_rows": [
+            {
+              "sense_id": "en-es:sentence-veto:rank:rancio:active",
+              "relation_type": "anchor_cue",
+              "matched": false,
+              "canonical_pos": "adjective",
+              "target_lemma": "rancio"
+            },
+            {
+              "sense_id": "en-es:sentence-veto:rank:rancio:fila:shadow",
+              "relation_type": "shadow_candidate",
+              "matched": false,
+              "canonical_pos": "noun",
+              "target_lemma": "fila"
+            }
+          ]
+        }
+      ]
+    },
+    "leakage_audit": {
+      "status": "ok",
+      "removed_row_count": 0,
+      "leakage_hit_count": 0,
+      "duplicate_hit_count": 0,
+      "jaccard_threshold": 0.75,
+      "duplicate_jaccard_threshold": 0.92,
+      "min_contained_tokens": 5,
+      "min_duplicate_tokens": 4
+    }
+  }
+}

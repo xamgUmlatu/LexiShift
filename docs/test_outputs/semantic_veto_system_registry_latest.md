@@ -1,9 +1,9 @@
 # Semantic Veto System Registry
 
 - Status: `ok`
-- Generated: `2026-04-29T20:23:30Z`
+- Generated: `2026-04-30T03:39:37Z`
 - Registry: `/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_veto_system_registry_en_es.json`
-- Entries: `46`
+- Entries: `49`
 - Passes: `7`
 
 ## Current Candidate
@@ -33,7 +33,7 @@
 
 | Priority | Status | Action | Pass | Source | Evidence Needed | Validation |
 | --- | --- | --- | --- | --- | --- | --- |
-| P0 | active | Make the current wave6 lane fresh-checkout runnable, or explicitly demote local-only latest reports to provisional evidence. | data_artifacts | `wave6_auth_frame_raw_sentence_surface_pos_rescue`, `translation_sense_adapter`, `alternate_sense_phrase_adapter`, `authorization_frame_adapter`, `auth_frame_admission_report`, `auth_frame_active_shadow_validation`, `auth_frame_phrase_validation`, `auth_frame_rescue_replay_report` | Tracked generator scripts or a deterministic rerun command chain for every artifact in the lane rerun order. | Run the registry audit, focused semantic harness tests for the lane scripts, and doc-reference checks from a clean checkout state. |
+| P0 | done | Make the current wave6 lane fresh-checkout runnable, or explicitly demote local-only latest reports to provisional evidence. | data_artifacts | `wave6_auth_frame_raw_sentence_surface_pos_rescue`, `translation_sense_adapter`, `translation_sense_admission_report`, `alternate_sense_phrase_adapter`, `alternate_sense_phrase_admission_report`, `current_wave6_rerun_chain_runbook`, `authorization_frame_adapter`, `auth_frame_admission_report`, `auth_frame_active_shadow_validation`, `auth_frame_phrase_validation`, `auth_frame_rescue_replay_report` | Tracked generator scripts, deterministic rerun chain, and regenerated 2026-04-30 latest artifacts for every artifact in the lane rerun order. | Focused semantic harness tests passed; lane artifacts were regenerated through failure mining; registry audit and doc-reference checks must stay clean before commit. |
 | P1 | queued | Run the recommended rescue policy through scorer-backed heldout validation before any runtime-policy or promotion claim. | best_candidate | `auth_frame_rescue_replay_report`, `surface_pos_rescue_sweep`, `wave6_active_shadow_heldout`, `wave6_phrase_heldout` | Non-replay active/shadow and phrase/no-winner validation artifacts for the recommended rescue policy. | Run the relevant heldout validation tests plus the registry audit after recording the new artifacts. |
 | P1 | queued | Audit authorization-frame evidence for source-triggered class behavior rather than browser-case or target-lemma shaping. | overfit_leakage | `authorization_frame_adapter`, `auth_frame_admission_report`, `auth_frame_failure_mining` | Rows showing the source gloss or translation-sense trigger that allowed each emitted authorization frame, plus negative examples. | Run adapter tests, source-admission leakage reports, and targeted grep/audit checks for browser sentence text and Spanish target lemmas. |
 | P2 | queued | Convert the current candidate assumptions into explicit tested, untested, and rejected rows. | assumptions | `wave6_auth_frame_raw_sentence_surface_pos_rescue`, `wave6_alt_phrase_raw_sentence_control`, `auth_frame_active_shadow_validation`, `auth_frame_phrase_validation` | Rows for raw-sentence context, phrase-prototype margin, source-triggered authorization frames, and rescue-gate constraints. | Regenerate the registry summary and confirm each assumption links to an artifact or a queued test. |
@@ -43,11 +43,11 @@
 
 ### Entry States
 - `current_candidate`: `5`
-- `current_reference`: `4`
+- `current_reference`: `5`
 - `current_research`: `12`
 - `current_runtime`: `16`
 - `diagnostic_only`: `1`
-- `generated_evidence`: `6`
+- `generated_evidence`: `8`
 - `supporting_current`: `2`
 
 ### Components
@@ -55,19 +55,19 @@
 - `decision_research`: `7`
 - `diagnostics`: `3`
 - `evaluation_data`: `3`
-- `process_governance`: `2`
+- `process_governance`: `3`
 - `runtime_path`: `16`
-- `source_admission`: `6`
+- `source_admission`: `8`
 
 ## Data Artifact Lanes
 
 | Lane | Status | Durable Inputs | Generated Reports | Control Artifacts | Cracks |
 | --- | --- | --- | --- | --- | --- |
-| wave6_auth_frame_raw_sentence_surface_pos_rescue | current_research_candidate | `wave6_wiktextract_dataset`, `wave6_active_shadow_heldout`, `wave6_phrase_heldout` | `auth_frame_admission_report`, `auth_frame_active_shadow_validation`, `auth_frame_phrase_validation`, `auth_frame_rescue_replay_report`, `auth_frame_failure_mining` | `wave6_alt_phrase_raw_sentence_control` | `Several generator scripts and latest reports are local experiment artifacts in this worktree; commit or regenerate them before treating the lane as fresh-checkout runnable.`, `The base dataset lives under test_outputs/experiments even though it is a current candidate input.`, `Rescue replay is over fixed traces and still needs scorer-backed runtime policy validation before promotion.` |
+| wave6_auth_frame_raw_sentence_surface_pos_rescue | current_research_candidate | `wave6_wiktextract_dataset`, `wave6_active_shadow_heldout`, `wave6_phrase_heldout` | `translation_sense_admission_report`, `alternate_sense_phrase_admission_report`, `auth_frame_admission_report`, `auth_frame_active_shadow_validation`, `auth_frame_phrase_validation`, `auth_frame_rescue_replay_report`, `auth_frame_failure_mining` | `wave6_alt_phrase_raw_sentence_control` | `Latest reports are generated evidence; rerun the full lane chain before updating promotion claims.`, `The base dataset lives under test_outputs/experiments even though it is a current candidate input.`, `Rescue replay is over fixed traces and still needs scorer-backed runtime policy validation before promotion.` |
 
 ### Data Rerun Order
 
-- `wave6_auth_frame_raw_sentence_surface_pos_rescue`: `translation_sense_adapter`, `alternate_sense_phrase_adapter`, `authorization_frame_adapter`, `auth_frame_admission_report`, `auth_frame_active_shadow_validation`, `auth_frame_phrase_validation`, `auth_frame_rescue_replay_report`, `auth_frame_failure_mining`
+- `wave6_auth_frame_raw_sentence_surface_pos_rescue`: `translation_sense_adapter`, `translation_sense_admission_report`, `alternate_sense_phrase_adapter`, `alternate_sense_phrase_admission_report`, `wave6_alt_phrase_raw_sentence_control`, `authorization_frame_adapter`, `auth_frame_admission_report`, `auth_frame_active_shadow_validation`, `auth_frame_phrase_validation`, `auth_frame_rescue_replay_report`, `auth_frame_failure_mining`
 
 ## Risk Rows
 
@@ -109,6 +109,7 @@
 | alternate_sense_phrase_adapter | supporting_current | candidate_wave6 | Phrase rows must not become broad semantic competitors without a dedicated ablation. | assumptions |
 | translation_sense_adapter | supporting_current | candidate_wave6 | Translation-sense text must stay source-backed and not target-lemma-derived. | overfit_leakage |
 | decision_rule_comparison_plan | current_reference | decision_research | Can be bypassed if source work is described as decision-rule proof. | assumptions |
+| current_wave6_rerun_chain_runbook | current_reference | process_governance | Must be updated whenever the lane rerun order or output filenames change. | data_artifacts |
 | semantic_sentence_veto_algorithm_doc | current_reference | process_governance | Can become stale if code defaults change without doc update. | runtime_path |
 | semantic_veto_reconciliation_workstream | current_reference | process_governance | Must stay concise enough to guide later turns. | runtime_path |
 | source_admission_program_doc | current_reference | source_admission | Long evidence list can obscure the current best candidate. | research_harness |
@@ -118,6 +119,8 @@
 | auth_frame_rescue_replay_report | generated_evidence | candidate_wave6 | Replay policy has not been promoted to runtime implementation. | best_candidate |
 | wave6_alt_phrase_raw_sentence_control | generated_evidence | candidate_wave6 | Control rows can be mistaken for the current candidate if the auth-frame admission and rescue replay reports are omitted. | data_artifacts |
 | auth_frame_failure_mining | generated_evidence | diagnostics | Uses unrescued phrase validation as a blocking heldout unless interpreted with rescue replay. | overfit_leakage |
+| alternate_sense_phrase_admission_report | generated_evidence | source_admission | Leakage audit remains review because some alternate-sense phrase rows are filtered; do not treat raw adapter output as the admitted composite. | data_artifacts |
+| translation_sense_admission_report | generated_evidence | source_admission | Semantic active/shadow contract is complete, but phrase contract remains review until alternate-sense phrase rows are added. | data_artifacts |
 | runtime_diagnostics_semantic_surfaces | diagnostic_only | diagnostics | Diagnostic pass/fail wording can be mistaken for the actual semantic gate decision path. | runtime_path |
 
 ## Entries
@@ -160,6 +163,7 @@
 | alternate_sense_phrase_adapter | supporting_current | candidate_wave6 | scripts/testing/semantic_wordnet_alternate_sense_phrase_evidence_en_es.py | Wave6 phrase/no-winner coverage foundation. |
 | translation_sense_adapter | supporting_current | candidate_wave6 | scripts/testing/semantic_translation_sense_evidence_batch_en_es.py | Wave6 selected-sense source coverage foundation. |
 | decision_rule_comparison_plan | current_reference | decision_research | docs/rulegen/semantic_decision_rule_comparison_plan.md | Methodology guardrail before changing decision rules. |
+| current_wave6_rerun_chain_runbook | current_reference | process_governance | docs/rulegen/semantic_veto_current_wave6_rerun_chain.md | Fresh-checkout reproducibility reference for the current data-artifact lane. |
 | semantic_sentence_veto_algorithm_doc | current_reference | process_governance | docs/rulegen/semantic_sentence_veto_algorithm.md | Primary algorithm map before runtime-path audits. |
 | semantic_veto_reconciliation_workstream | current_reference | process_governance | docs/rulegen/semantic_veto_reconciliation_workstream.md | Top-level reconciliation entrypoint. |
 | source_admission_program_doc | current_reference | source_admission | docs/rulegen/semantic_source_admission_program.md | Source-admission orientation and constraints. |
@@ -169,4 +173,6 @@
 | auth_frame_rescue_replay_report | generated_evidence | candidate_wave6 | docs/test_outputs/semantic_surface_pos_rescue_policy_sweep_non_v10_wave6_auth_frame_raw_sentence_latest.md | Current combined active/shadow plus phrase/no-winner rescue candidate evidence. |
 | wave6_alt_phrase_raw_sentence_control | generated_evidence | candidate_wave6 | docs/test_outputs/semantic_source_non_v10_wave6_alt_phrase_semantic_surface_pos_raw_sentence_heldout_margin000_phrase002_validation_latest.md | Control/comparator for the auth-frame candidate delta. |
 | auth_frame_failure_mining | generated_evidence | diagnostics | docs/test_outputs/semantic_source_failure_class_mining_non_v10_wave6_auth_frame_latest.md | Keeps promotion posture at review despite clean active/shadow result. |
+| alternate_sense_phrase_admission_report | generated_evidence | source_admission | docs/test_outputs/semantic_source_admission_cycle_alt_phrase_non_v10_wave6_wiktextract_supported_latest.md | Intermediate current-lane control composite; auth-frame admission layers deterministic authorization rows on top of it. |
+| translation_sense_admission_report | generated_evidence | source_admission | docs/test_outputs/semantic_source_admission_cycle_translation_sense_non_v10_wave6_wiktextract_supported_latest.md | Intermediate current-lane composite; required before alternate-sense phrase adapter output can be reproduced from a fresh checkout. |
 | runtime_diagnostics_semantic_surfaces | diagnostic_only | diagnostics | core/lexishift_core/helper/use_cases/runtime_diagnostics.py | Diagnostic evidence only; it does not decide browser replace or abstain outcomes. |

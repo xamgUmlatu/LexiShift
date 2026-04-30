@@ -1,0 +1,4297 @@
+{
+  "schema_version": 1,
+  "normalization_version": "semantic_evidence_v1",
+  "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+  "pair": "en-es",
+  "source_type": "external",
+  "source_id": "translation_sense_evidence",
+  "source_family": "external_structured_dictionary_dump",
+  "roles": [
+    "cue_generation",
+    "discrimination"
+  ],
+  "generated_at": "2026-04-30T03:34:14Z",
+  "ingested_at": "2026-04-30T03:34:14Z",
+  "review_state": "unreviewed",
+  "model_id": "not_applicable",
+  "prompt_version": "translation-sense-evidence-v1",
+  "row_count": 38,
+  "rows": [
+    {
+      "evidence_id": "evidence:adaef2631df656dd9c812650ca2940f366ed19d4",
+      "dedupe_key": "dedupe:5aa0917132f26322a4fadbddb59e293e225a7c47",
+      "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+      "row_id": "en-es-sentence-veto-leave-permiso:active-en-es-sentence-veto-leave-permiso-active-translation-sense-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "translation_sense_evidence",
+      "source_family": "external_structured_dictionary_dump",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "leave",
+      "normalized_trigger": "leave",
+      "active_target": "permiso",
+      "normalized_active_target": "permiso",
+      "candidate_target": "permiso",
+      "normalized_candidate_target": "permiso",
+      "is_multiword": false,
+      "evidence_text": "leave noun sense: permission to be absent",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "translation_sense_evidence",
+        "source_family": "external_structured_dictionary_dump",
+        "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+        "row_id": "en-es-sentence-veto-leave-permiso:active-en-es-sentence-veto-leave-permiso-active-translation-sense-1",
+        "model_id": "not_applicable",
+        "prompt_version": "translation-sense-evidence-v1",
+        "generated_at": "2026-04-30T03:34:14Z",
+        "ingested_at": "2026-04-30T03:34:14Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:leave:permiso:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:leave:permiso:active",
+        "canonical_pos": "noun",
+        "note": "translation_sense_linked_candidate",
+        "metadata": {
+          "source_view": "translation_sense_text",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:leave:permiso",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:leave:permiso:active",
+        "candidate_sense_id": "en-es:sentence-veto:leave:permiso:active",
+        "example_bucket": "active",
+        "source_view": "translation_sense_text",
+        "translation_sense_text": "permission to be absent",
+        "translation_support_sources": [
+          "wiktionary_en_es",
+          "wiktextract_en_es_translation_table"
+        ],
+        "wiktextract_translation_support": true,
+        "wiktextract_translation_support_match_count": 1,
+        "wiktextract_translation_support_matches": [
+          {
+            "record_word": "leave",
+            "record_pos": "noun",
+            "translation_word": "permiso",
+            "translation_sense": "permission to be absent",
+            "translation_tags": [
+              "masculine"
+            ],
+            "sense_overlap": [
+              "absent",
+              "permission"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:68bf10e98ecca394209ed4fbedfc250ee5eb32a9",
+      "dedupe_key": "dedupe:ef5ffd26ca4956962f51c98f390d39707c9ab579",
+      "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+      "row_id": "en-es-sentence-veto-leave-permiso:shadow-en-es-sentence-veto-leave-permiso-excedencia-shadow-translation-sense-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "translation_sense_evidence",
+      "source_family": "external_structured_dictionary_dump",
+      "roles": [
+        "discrimination"
+      ],
+      "relation_type": "shadow_candidate",
+      "trigger": "leave",
+      "normalized_trigger": "leave",
+      "active_target": "permiso",
+      "normalized_active_target": "permiso",
+      "candidate_target": "excedencia",
+      "normalized_candidate_target": "excedencia",
+      "is_multiword": false,
+      "evidence_text": "leave noun sense: absence from work",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "translation_sense_evidence",
+        "source_family": "external_structured_dictionary_dump",
+        "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+        "row_id": "en-es-sentence-veto-leave-permiso:shadow-en-es-sentence-veto-leave-permiso-excedencia-shadow-translation-sense-1",
+        "model_id": "not_applicable",
+        "prompt_version": "translation-sense-evidence-v1",
+        "generated_at": "2026-04-30T03:34:14Z",
+        "ingested_at": "2026-04-30T03:34:14Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:leave:permiso:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:leave:permiso:excedencia:shadow",
+        "canonical_pos": "noun",
+        "note": "translation_sense_linked_candidate",
+        "metadata": {
+          "source_view": "translation_sense_text",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:leave:permiso",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:leave:permiso:active",
+        "candidate_sense_id": "en-es:sentence-veto:leave:permiso:excedencia:shadow",
+        "example_bucket": "shadow",
+        "source_view": "translation_sense_text",
+        "translation_sense_text": "absence from work",
+        "translation_support_sources": [
+          "wiktionary_en_es",
+          "wiktextract_en_es_translation_table"
+        ],
+        "wiktextract_translation_support": true,
+        "wiktextract_translation_support_match_count": 1,
+        "wiktextract_translation_support_matches": [
+          {
+            "record_word": "leave",
+            "record_pos": "noun",
+            "translation_word": "excedencia",
+            "translation_sense": "absence from work",
+            "translation_tags": [
+              "feminine"
+            ],
+            "sense_overlap": [
+              "absence",
+              "work"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:26ce75f65ee8370dec222e9aa1fcd6fc34f24c26",
+      "dedupe_key": "dedupe:da01a2ba560292c71c01c166e5a78c2747ce05b0",
+      "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+      "row_id": "en-es-sentence-veto-leave-permiso:shadow-en-es-sentence-veto-leave-permiso-dejar-shadow-translation-sense-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "translation_sense_evidence",
+      "source_family": "external_structured_dictionary_dump",
+      "roles": [
+        "discrimination"
+      ],
+      "relation_type": "shadow_candidate",
+      "trigger": "leave",
+      "normalized_trigger": "leave",
+      "active_target": "permiso",
+      "normalized_active_target": "permiso",
+      "candidate_target": "dejar",
+      "normalized_candidate_target": "dejar",
+      "is_multiword": false,
+      "evidence_text": "leave verb sense: to cause to remain as available, not take away, refrain from depleting",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "translation_sense_evidence",
+        "source_family": "external_structured_dictionary_dump",
+        "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+        "row_id": "en-es-sentence-veto-leave-permiso:shadow-en-es-sentence-veto-leave-permiso-dejar-shadow-translation-sense-1",
+        "model_id": "not_applicable",
+        "prompt_version": "translation-sense-evidence-v1",
+        "generated_at": "2026-04-30T03:34:14Z",
+        "ingested_at": "2026-04-30T03:34:14Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:leave:permiso:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:leave:permiso:dejar:shadow",
+        "canonical_pos": "verb",
+        "note": "translation_sense_linked_candidate",
+        "metadata": {
+          "source_view": "translation_sense_text",
+          "support_sources": [
+            "wiktionary_en_es",
+            "freedict_es_en",
+            "wiktextract_en_es_translation_table"
+          ]
+        }
+      },
+      "candidate_pos": "verb",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:leave:permiso",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:leave:permiso:active",
+        "candidate_sense_id": "en-es:sentence-veto:leave:permiso:dejar:shadow",
+        "example_bucket": "shadow",
+        "source_view": "translation_sense_text",
+        "translation_sense_text": "to cause to remain as available, not take away, refrain from depleting",
+        "translation_support_sources": [
+          "wiktionary_en_es",
+          "freedict_es_en",
+          "wiktextract_en_es_translation_table"
+        ],
+        "wiktextract_translation_support": true,
+        "wiktextract_translation_support_match_count": 5,
+        "wiktextract_translation_support_matches": [
+          {
+            "record_word": "leave",
+            "record_pos": "verb",
+            "translation_word": "dejar",
+            "translation_sense": "to cause to remain as available, not take away, refrain from depleting",
+            "translation_tags": [],
+            "sense_overlap": [
+              "available",
+              "away",
+              "cause",
+              "deplet",
+              "refrain",
+              "remain",
+              "take"
+            ]
+          },
+          {
+            "record_word": "leave",
+            "record_pos": "verb",
+            "translation_word": "dejar",
+            "translation_sense": "to transfer possession after death",
+            "translation_tags": [],
+            "sense_overlap": []
+          },
+          {
+            "record_word": "leave",
+            "record_pos": "verb",
+            "translation_word": "dejar",
+            "translation_sense": "to give (something) to someone; to deliver (something) to a repository; to deposit",
+            "translation_tags": [],
+            "sense_overlap": []
+          },
+          {
+            "record_word": "leave",
+            "record_pos": "verb",
+            "translation_word": "dejar",
+            "translation_sense": "to transfer responsibility or attention",
+            "translation_tags": [],
+            "sense_overlap": []
+          },
+          {
+            "record_word": "leave",
+            "record_pos": "verb",
+            "translation_word": "dejar",
+            "translation_sense": "to depart from, end one's connection or affiliation with",
+            "translation_tags": [],
+            "sense_overlap": []
+          }
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:6bd5aa86ce6dbdb0b834b4530456428745c021ef",
+      "dedupe_key": "dedupe:5cb8a284c7659765f194df7ff997fd6ba1cf9cdc",
+      "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+      "row_id": "en-es-sentence-veto-black-oscuro:active-en-es-sentence-veto-black-oscuro-active-translation-sense-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "translation_sense_evidence",
+      "source_family": "external_structured_dictionary_dump",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "black",
+      "normalized_trigger": "black",
+      "active_target": "oscuro",
+      "normalized_active_target": "oscuro",
+      "candidate_target": "oscuro",
+      "normalized_candidate_target": "oscuro",
+      "is_multiword": false,
+      "evidence_text": "black adjective sense: without light",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "translation_sense_evidence",
+        "source_family": "external_structured_dictionary_dump",
+        "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+        "row_id": "en-es-sentence-veto-black-oscuro:active-en-es-sentence-veto-black-oscuro-active-translation-sense-1",
+        "model_id": "not_applicable",
+        "prompt_version": "translation-sense-evidence-v1",
+        "generated_at": "2026-04-30T03:34:14Z",
+        "ingested_at": "2026-04-30T03:34:14Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:black:oscuro:active",
+        "canonical_pos": "adjective",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:black:oscuro:active",
+        "canonical_pos": "adjective",
+        "note": "translation_sense_linked_candidate",
+        "metadata": {
+          "source_view": "translation_sense_text",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ]
+        }
+      },
+      "candidate_pos": "adjective",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:black:oscuro",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:black:oscuro:active",
+        "candidate_sense_id": "en-es:sentence-veto:black:oscuro:active",
+        "example_bucket": "active",
+        "source_view": "translation_sense_text",
+        "translation_sense_text": "without light",
+        "translation_support_sources": [
+          "wiktionary_en_es",
+          "wiktextract_en_es_translation_table"
+        ],
+        "wiktextract_translation_support": true,
+        "wiktextract_translation_support_match_count": 1,
+        "wiktextract_translation_support_matches": [
+          {
+            "record_word": "black",
+            "record_pos": "adj",
+            "translation_word": "oscuro",
+            "translation_sense": "without light",
+            "translation_tags": [],
+            "sense_overlap": [
+              "light",
+              "without"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:9d866684d5e0df979aa2cc4a76c0dd91de5bbf28",
+      "dedupe_key": "dedupe:9fe4b04cdfe9aa5e4f2ae6a737bbeb59ec1d7292",
+      "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+      "row_id": "en-es-sentence-veto-black-oscuro:shadow-en-es-sentence-veto-black-oscuro-negro-shadow-translation-sense-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "translation_sense_evidence",
+      "source_family": "external_structured_dictionary_dump",
+      "roles": [
+        "discrimination"
+      ],
+      "relation_type": "shadow_candidate",
+      "trigger": "black",
+      "normalized_trigger": "black",
+      "active_target": "oscuro",
+      "normalized_active_target": "oscuro",
+      "candidate_target": "negro",
+      "normalized_candidate_target": "negro",
+      "is_multiword": false,
+      "evidence_text": "black noun sense: colour/color",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "translation_sense_evidence",
+        "source_family": "external_structured_dictionary_dump",
+        "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+        "row_id": "en-es-sentence-veto-black-oscuro:shadow-en-es-sentence-veto-black-oscuro-negro-shadow-translation-sense-1",
+        "model_id": "not_applicable",
+        "prompt_version": "translation-sense-evidence-v1",
+        "generated_at": "2026-04-30T03:34:14Z",
+        "ingested_at": "2026-04-30T03:34:14Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:black:oscuro:active",
+        "canonical_pos": "adjective",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:black:oscuro:negro:shadow",
+        "canonical_pos": "noun",
+        "note": "translation_sense_linked_candidate",
+        "metadata": {
+          "source_view": "translation_sense_text",
+          "support_sources": [
+            "wiktionary_en_es",
+            "freedict_es_en",
+            "wiktextract_en_es_translation_table"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:black:oscuro",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:black:oscuro:active",
+        "candidate_sense_id": "en-es:sentence-veto:black:oscuro:negro:shadow",
+        "example_bucket": "shadow",
+        "source_view": "translation_sense_text",
+        "translation_sense_text": "colour/color",
+        "translation_support_sources": [
+          "wiktionary_en_es",
+          "freedict_es_en",
+          "wiktextract_en_es_translation_table"
+        ],
+        "wiktextract_translation_support": true,
+        "wiktextract_translation_support_match_count": 2,
+        "wiktextract_translation_support_matches": [
+          {
+            "record_word": "black",
+            "record_pos": "noun",
+            "translation_word": "negro",
+            "translation_sense": "colour/color",
+            "translation_tags": [
+              "masculine"
+            ],
+            "sense_overlap": [
+              "color",
+              "colour"
+            ]
+          },
+          {
+            "record_word": "black",
+            "record_pos": "noun",
+            "translation_word": "negro",
+            "translation_sense": "dark-skinned person — see also Negro",
+            "translation_tags": [
+              "masculine"
+            ],
+            "sense_overlap": [
+              "negro"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:36df1af4e960e12b72e8622080108d2101accb5c",
+      "dedupe_key": "dedupe:af0efd25904b4da9282f388e4bcfd6aa3ae7c728",
+      "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+      "row_id": "en-es-sentence-veto-serve-servicio:active-en-es-sentence-veto-serve-servicio-active-translation-sense-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "translation_sense_evidence",
+      "source_family": "external_structured_dictionary_dump",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "serve",
+      "normalized_trigger": "serve",
+      "active_target": "servicio",
+      "normalized_active_target": "servicio",
+      "candidate_target": "servicio",
+      "normalized_candidate_target": "servicio",
+      "is_multiword": false,
+      "evidence_text": "serve noun sense: sports: act of putting the ball or shuttlecock in play",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "translation_sense_evidence",
+        "source_family": "external_structured_dictionary_dump",
+        "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+        "row_id": "en-es-sentence-veto-serve-servicio:active-en-es-sentence-veto-serve-servicio-active-translation-sense-1",
+        "model_id": "not_applicable",
+        "prompt_version": "translation-sense-evidence-v1",
+        "generated_at": "2026-04-30T03:34:14Z",
+        "ingested_at": "2026-04-30T03:34:14Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:serve:servicio:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:serve:servicio:active",
+        "canonical_pos": "noun",
+        "note": "translation_sense_linked_candidate",
+        "metadata": {
+          "source_view": "translation_sense_text",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:serve:servicio",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:serve:servicio:active",
+        "candidate_sense_id": "en-es:sentence-veto:serve:servicio:active",
+        "example_bucket": "active",
+        "source_view": "translation_sense_text",
+        "translation_sense_text": "sports: act of putting the ball or shuttlecock in play",
+        "translation_support_sources": [
+          "wiktionary_en_es",
+          "wiktextract_en_es_translation_table"
+        ],
+        "wiktextract_translation_support": true,
+        "wiktextract_translation_support_match_count": 1,
+        "wiktextract_translation_support_matches": [
+          {
+            "record_word": "serve",
+            "record_pos": "noun",
+            "translation_word": "servicio",
+            "translation_sense": "sports: act of putting the ball or shuttlecock in play",
+            "translation_tags": [
+              "masculine"
+            ],
+            "sense_overlap": [
+              "act",
+              "ball",
+              "play",
+              "putt",
+              "shuttlecock",
+              "sport"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:39346d70256d19c93272b98bbac4b77818f074a1",
+      "dedupe_key": "dedupe:ab96471a40d65e39f37fb33fe06067691253d473",
+      "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+      "row_id": "en-es-sentence-veto-serve-servicio:shadow-en-es-sentence-veto-serve-servicio-servir-shadow-translation-sense-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "translation_sense_evidence",
+      "source_family": "external_structured_dictionary_dump",
+      "roles": [
+        "discrimination"
+      ],
+      "relation_type": "shadow_candidate",
+      "trigger": "serve",
+      "normalized_trigger": "serve",
+      "active_target": "servicio",
+      "normalized_active_target": "servicio",
+      "candidate_target": "servir",
+      "normalized_candidate_target": "servir",
+      "is_multiword": false,
+      "evidence_text": "serve verb sense: to work for",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "translation_sense_evidence",
+        "source_family": "external_structured_dictionary_dump",
+        "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+        "row_id": "en-es-sentence-veto-serve-servicio:shadow-en-es-sentence-veto-serve-servicio-servir-shadow-translation-sense-1",
+        "model_id": "not_applicable",
+        "prompt_version": "translation-sense-evidence-v1",
+        "generated_at": "2026-04-30T03:34:14Z",
+        "ingested_at": "2026-04-30T03:34:14Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:serve:servicio:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:serve:servicio:servir:shadow",
+        "canonical_pos": "verb",
+        "note": "translation_sense_linked_candidate",
+        "metadata": {
+          "source_view": "translation_sense_text",
+          "support_sources": [
+            "wiktionary_en_es",
+            "freedict_es_en",
+            "wiktextract_en_es_translation_table"
+          ]
+        }
+      },
+      "candidate_pos": "verb",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:serve:servicio",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:serve:servicio:active",
+        "candidate_sense_id": "en-es:sentence-veto:serve:servicio:servir:shadow",
+        "example_bucket": "shadow",
+        "source_view": "translation_sense_text",
+        "translation_sense_text": "to work for",
+        "translation_support_sources": [
+          "wiktionary_en_es",
+          "freedict_es_en",
+          "wiktextract_en_es_translation_table"
+        ],
+        "wiktextract_translation_support": true,
+        "wiktextract_translation_support_match_count": 12,
+        "wiktextract_translation_support_matches": [
+          {
+            "record_word": "serve",
+            "record_pos": "verb",
+            "translation_word": "servir",
+            "translation_sense": "to work for",
+            "translation_tags": [],
+            "sense_overlap": [
+              "work"
+            ]
+          },
+          {
+            "record_word": "serve",
+            "record_pos": "verb",
+            "translation_word": "servir",
+            "translation_sense": "religion: to obey and worship",
+            "translation_tags": [],
+            "sense_overlap": []
+          },
+          {
+            "record_word": "serve",
+            "record_pos": "verb",
+            "translation_word": "servir",
+            "translation_sense": "to be subordinate to",
+            "translation_tags": [],
+            "sense_overlap": []
+          },
+          {
+            "record_word": "serve",
+            "record_pos": "verb",
+            "translation_word": "servir",
+            "translation_sense": "to be suitor to",
+            "translation_tags": [],
+            "sense_overlap": []
+          },
+          {
+            "record_word": "serve",
+            "record_pos": "verb",
+            "translation_word": "servir",
+            "translation_sense": "to attend, supply the wants of",
+            "translation_tags": [],
+            "sense_overlap": []
+          },
+          {
+            "record_word": "serve",
+            "record_pos": "verb",
+            "translation_word": "servir",
+            "translation_sense": "to bring food to",
+            "translation_tags": [],
+            "sense_overlap": []
+          },
+          {
+            "record_word": "serve",
+            "record_pos": "verb",
+            "translation_word": "servir",
+            "translation_sense": "to perform duties",
+            "translation_tags": [],
+            "sense_overlap": []
+          },
+          {
+            "record_word": "serve",
+            "record_pos": "verb",
+            "translation_word": "servir",
+            "translation_sense": "to treat (someone)",
+            "translation_tags": [],
+            "sense_overlap": []
+          },
+          {
+            "record_word": "serve",
+            "record_pos": "verb",
+            "translation_word": "servir",
+            "translation_sense": "to spend time (of punishment)",
+            "translation_tags": [],
+            "sense_overlap": []
+          },
+          {
+            "record_word": "serve",
+            "record_pos": "verb",
+            "translation_word": "servir",
+            "translation_sense": "sports: to lead off with first delivery (of the ball)",
+            "translation_tags": [],
+            "sense_overlap": []
+          },
+          {
+            "record_word": "serve",
+            "record_pos": "verb",
+            "translation_word": "servir",
+            "translation_sense": "to be a servant",
+            "translation_tags": [],
+            "sense_overlap": []
+          },
+          {
+            "record_word": "serve",
+            "record_pos": "verb",
+            "translation_word": "servir",
+            "translation_sense": "to be of use",
+            "translation_tags": [],
+            "sense_overlap": []
+          }
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:8a52580ced641a7d87a3c09b6e05278ac8c0d6a1",
+      "dedupe_key": "dedupe:0f60369a2f5b019ddfeb102c90cd1afe5030197a",
+      "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+      "row_id": "en-es-sentence-veto-low-bajo:active-en-es-sentence-veto-low-bajo-active-translation-sense-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "translation_sense_evidence",
+      "source_family": "external_structured_dictionary_dump",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "low",
+      "normalized_trigger": "low",
+      "active_target": "bajo",
+      "normalized_active_target": "bajo",
+      "candidate_target": "bajo",
+      "normalized_candidate_target": "bajo",
+      "is_multiword": false,
+      "evidence_text": "low adverb sense: close to the ground",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "translation_sense_evidence",
+        "source_family": "external_structured_dictionary_dump",
+        "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+        "row_id": "en-es-sentence-veto-low-bajo:active-en-es-sentence-veto-low-bajo-active-translation-sense-1",
+        "model_id": "not_applicable",
+        "prompt_version": "translation-sense-evidence-v1",
+        "generated_at": "2026-04-30T03:34:14Z",
+        "ingested_at": "2026-04-30T03:34:14Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:low:bajo:active",
+        "canonical_pos": "adverb",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:low:bajo:active",
+        "canonical_pos": "adverb",
+        "note": "translation_sense_linked_candidate",
+        "metadata": {
+          "source_view": "translation_sense_text",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktionary_es_en",
+            "freedict_es_en",
+            "wiktextract_en_es_translation_table"
+          ]
+        }
+      },
+      "candidate_pos": "adverb",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:low:bajo",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:low:bajo:active",
+        "candidate_sense_id": "en-es:sentence-veto:low:bajo:active",
+        "example_bucket": "active",
+        "source_view": "translation_sense_text",
+        "translation_sense_text": "close to the ground",
+        "translation_support_sources": [
+          "wiktionary_en_es",
+          "wiktionary_es_en",
+          "freedict_es_en",
+          "wiktextract_en_es_translation_table"
+        ],
+        "wiktextract_translation_support": true,
+        "wiktextract_translation_support_match_count": 3,
+        "wiktextract_translation_support_matches": [
+          {
+            "record_word": "low",
+            "record_pos": "adv",
+            "translation_word": "bajo",
+            "translation_sense": "close to the ground",
+            "translation_tags": [],
+            "sense_overlap": [
+              "close",
+              "ground"
+            ]
+          },
+          {
+            "record_word": "low",
+            "record_pos": "adv",
+            "translation_word": "bajo",
+            "translation_sense": "at a lower frequency",
+            "translation_tags": [],
+            "sense_overlap": []
+          },
+          {
+            "record_word": "low",
+            "record_pos": "adv",
+            "translation_word": "bajo",
+            "translation_sense": "with a low voice or sound",
+            "translation_tags": [],
+            "sense_overlap": []
+          }
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:54965f017c83d3da864c66b82194b98a263c22d1",
+      "dedupe_key": "dedupe:50debebdf4bc9b5ab1bd0e4ef6592cd57ba3ce6a",
+      "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+      "row_id": "en-es-sentence-veto-low-bajo:shadow-en-es-sentence-veto-low-bajo-deca-do-shadow-translation-sense-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "translation_sense_evidence",
+      "source_family": "external_structured_dictionary_dump",
+      "roles": [
+        "discrimination"
+      ],
+      "relation_type": "shadow_candidate",
+      "trigger": "low",
+      "normalized_trigger": "low",
+      "active_target": "bajo",
+      "normalized_active_target": "bajo",
+      "candidate_target": "decaído",
+      "normalized_candidate_target": "decaído",
+      "is_multiword": false,
+      "evidence_text": "low adjective sense: depressed, sad",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "translation_sense_evidence",
+        "source_family": "external_structured_dictionary_dump",
+        "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+        "row_id": "en-es-sentence-veto-low-bajo:shadow-en-es-sentence-veto-low-bajo-deca-do-shadow-translation-sense-1",
+        "model_id": "not_applicable",
+        "prompt_version": "translation-sense-evidence-v1",
+        "generated_at": "2026-04-30T03:34:14Z",
+        "ingested_at": "2026-04-30T03:34:14Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:low:bajo:active",
+        "canonical_pos": "adverb",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:low:bajo:deca-do:shadow",
+        "canonical_pos": "adjective",
+        "note": "translation_sense_linked_candidate",
+        "metadata": {
+          "source_view": "translation_sense_text",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ]
+        }
+      },
+      "candidate_pos": "adjective",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:low:bajo",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:low:bajo:active",
+        "candidate_sense_id": "en-es:sentence-veto:low:bajo:deca-do:shadow",
+        "example_bucket": "shadow",
+        "source_view": "translation_sense_text",
+        "translation_sense_text": "depressed, sad",
+        "translation_support_sources": [
+          "wiktionary_en_es",
+          "wiktextract_en_es_translation_table"
+        ],
+        "wiktextract_translation_support": true,
+        "wiktextract_translation_support_match_count": 1,
+        "wiktextract_translation_support_matches": [
+          {
+            "record_word": "low",
+            "record_pos": "adj",
+            "translation_word": "decaído",
+            "translation_sense": "depressed, sad",
+            "translation_tags": [],
+            "sense_overlap": [
+              "depress",
+              "sad"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:044054e5263de054c77bbc766c9e06d8c4d76a88",
+      "dedupe_key": "dedupe:247288176929b356af5d1631ec91fbd077e74305",
+      "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+      "row_id": "en-es-sentence-veto-part-parte:active-en-es-sentence-veto-part-parte-active-translation-sense-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "translation_sense_evidence",
+      "source_family": "external_structured_dictionary_dump",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "part",
+      "normalized_trigger": "part",
+      "active_target": "parte",
+      "normalized_active_target": "parte",
+      "candidate_target": "parte",
+      "normalized_candidate_target": "parte",
+      "is_multiword": false,
+      "evidence_text": "part noun sense: fraction of a whole",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "translation_sense_evidence",
+        "source_family": "external_structured_dictionary_dump",
+        "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+        "row_id": "en-es-sentence-veto-part-parte:active-en-es-sentence-veto-part-parte-active-translation-sense-1",
+        "model_id": "not_applicable",
+        "prompt_version": "translation-sense-evidence-v1",
+        "generated_at": "2026-04-30T03:34:14Z",
+        "ingested_at": "2026-04-30T03:34:14Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:part:parte:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:part:parte:active",
+        "canonical_pos": "noun",
+        "note": "translation_sense_linked_candidate",
+        "metadata": {
+          "source_view": "translation_sense_text",
+          "support_sources": [
+            "wiktionary_en_es",
+            "freedict_es_en",
+            "wiktextract_en_es_translation_table"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:part:parte",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:part:parte:active",
+        "candidate_sense_id": "en-es:sentence-veto:part:parte:active",
+        "example_bucket": "active",
+        "source_view": "translation_sense_text",
+        "translation_sense_text": "fraction of a whole",
+        "translation_support_sources": [
+          "wiktionary_en_es",
+          "freedict_es_en",
+          "wiktextract_en_es_translation_table"
+        ],
+        "wiktextract_translation_support": true,
+        "wiktextract_translation_support_match_count": 2,
+        "wiktextract_translation_support_matches": [
+          {
+            "record_word": "part",
+            "record_pos": "noun",
+            "translation_word": "parte",
+            "translation_sense": "fraction of a whole",
+            "translation_tags": [
+              "feminine"
+            ],
+            "sense_overlap": [
+              "fraction",
+              "whole"
+            ]
+          },
+          {
+            "record_word": "part",
+            "record_pos": "noun",
+            "translation_word": "parte",
+            "translation_sense": "group inside a larger group",
+            "translation_tags": [
+              "feminine"
+            ],
+            "sense_overlap": []
+          }
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:352d1cefdcc6c67af4125e6261703aee39c8451f",
+      "dedupe_key": "dedupe:74ddc8c73ee34fce2f82eab6dc5b832fc17f9cb1",
+      "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+      "row_id": "en-es-sentence-veto-part-parte:shadow-en-es-sentence-veto-part-parte-papel-shadow-translation-sense-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "translation_sense_evidence",
+      "source_family": "external_structured_dictionary_dump",
+      "roles": [
+        "discrimination"
+      ],
+      "relation_type": "shadow_candidate",
+      "trigger": "part",
+      "normalized_trigger": "part",
+      "active_target": "parte",
+      "normalized_active_target": "parte",
+      "candidate_target": "papel",
+      "normalized_candidate_target": "papel",
+      "is_multiword": false,
+      "evidence_text": "part noun sense: position or role, especially in a play",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "translation_sense_evidence",
+        "source_family": "external_structured_dictionary_dump",
+        "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+        "row_id": "en-es-sentence-veto-part-parte:shadow-en-es-sentence-veto-part-parte-papel-shadow-translation-sense-1",
+        "model_id": "not_applicable",
+        "prompt_version": "translation-sense-evidence-v1",
+        "generated_at": "2026-04-30T03:34:14Z",
+        "ingested_at": "2026-04-30T03:34:14Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:part:parte:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:part:parte:papel:shadow",
+        "canonical_pos": "noun",
+        "note": "translation_sense_linked_candidate",
+        "metadata": {
+          "source_view": "translation_sense_text",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:part:parte",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:part:parte:active",
+        "candidate_sense_id": "en-es:sentence-veto:part:parte:papel:shadow",
+        "example_bucket": "shadow",
+        "source_view": "translation_sense_text",
+        "translation_sense_text": "position or role, especially in a play",
+        "translation_support_sources": [
+          "wiktionary_en_es",
+          "wiktextract_en_es_translation_table"
+        ],
+        "wiktextract_translation_support": true,
+        "wiktextract_translation_support_match_count": 1,
+        "wiktextract_translation_support_matches": [
+          {
+            "record_word": "part",
+            "record_pos": "noun",
+            "translation_word": "papel",
+            "translation_sense": "position or role, especially in a play",
+            "translation_tags": [
+              "masculine"
+            ],
+            "sense_overlap": [
+              "especially",
+              "play",
+              "position",
+              "role"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:a05922c2c1c7d39d04161e9091f140adb75889f1",
+      "dedupe_key": "dedupe:05ff26512e9a119c36a0083796a9dec55a6026e5",
+      "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+      "row_id": "en-es-sentence-veto-part-parte:shadow-en-es-sentence-veto-part-parte-repartir-shadow-translation-sense-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "translation_sense_evidence",
+      "source_family": "external_structured_dictionary_dump",
+      "roles": [
+        "discrimination"
+      ],
+      "relation_type": "shadow_candidate",
+      "trigger": "part",
+      "normalized_trigger": "part",
+      "active_target": "parte",
+      "normalized_active_target": "parte",
+      "candidate_target": "repartir",
+      "normalized_candidate_target": "repartir",
+      "is_multiword": false,
+      "evidence_text": "part verb sense: to divide in two",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "translation_sense_evidence",
+        "source_family": "external_structured_dictionary_dump",
+        "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+        "row_id": "en-es-sentence-veto-part-parte:shadow-en-es-sentence-veto-part-parte-repartir-shadow-translation-sense-1",
+        "model_id": "not_applicable",
+        "prompt_version": "translation-sense-evidence-v1",
+        "generated_at": "2026-04-30T03:34:14Z",
+        "ingested_at": "2026-04-30T03:34:14Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:part:parte:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:part:parte:repartir:shadow",
+        "canonical_pos": "verb",
+        "note": "translation_sense_linked_candidate",
+        "metadata": {
+          "source_view": "translation_sense_text",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ]
+        }
+      },
+      "candidate_pos": "verb",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:part:parte",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:part:parte:active",
+        "candidate_sense_id": "en-es:sentence-veto:part:parte:repartir:shadow",
+        "example_bucket": "shadow",
+        "source_view": "translation_sense_text",
+        "translation_sense_text": "to divide in two",
+        "translation_support_sources": [
+          "wiktionary_en_es",
+          "wiktextract_en_es_translation_table"
+        ],
+        "wiktextract_translation_support": true,
+        "wiktextract_translation_support_match_count": 1,
+        "wiktextract_translation_support_matches": [
+          {
+            "record_word": "part",
+            "record_pos": "verb",
+            "translation_word": "repartir",
+            "translation_sense": "to divide in two",
+            "translation_tags": [],
+            "sense_overlap": [
+              "divide",
+              "two"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:5eecef204b309ba02e6e3ace4f99ecc3b7d162ee",
+      "dedupe_key": "dedupe:9e5e60d493b235298ac96abf8aea2275d4ad1eac",
+      "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+      "row_id": "en-es-sentence-veto-feel-talento:active-en-es-sentence-veto-feel-talento-active-translation-sense-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "translation_sense_evidence",
+      "source_family": "external_structured_dictionary_dump",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "feel",
+      "normalized_trigger": "feel",
+      "active_target": "talento",
+      "normalized_active_target": "talento",
+      "candidate_target": "talento",
+      "normalized_candidate_target": "talento",
+      "is_multiword": false,
+      "evidence_text": "feel noun sense: intuitive ability",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "translation_sense_evidence",
+        "source_family": "external_structured_dictionary_dump",
+        "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+        "row_id": "en-es-sentence-veto-feel-talento:active-en-es-sentence-veto-feel-talento-active-translation-sense-1",
+        "model_id": "not_applicable",
+        "prompt_version": "translation-sense-evidence-v1",
+        "generated_at": "2026-04-30T03:34:14Z",
+        "ingested_at": "2026-04-30T03:34:14Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:feel:talento:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:feel:talento:active",
+        "canonical_pos": "noun",
+        "note": "translation_sense_linked_candidate",
+        "metadata": {
+          "source_view": "translation_sense_text",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:feel:talento",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:feel:talento:active",
+        "candidate_sense_id": "en-es:sentence-veto:feel:talento:active",
+        "example_bucket": "active",
+        "source_view": "translation_sense_text",
+        "translation_sense_text": "intuitive ability",
+        "translation_support_sources": [
+          "wiktionary_en_es",
+          "wiktextract_en_es_translation_table"
+        ],
+        "wiktextract_translation_support": true,
+        "wiktextract_translation_support_match_count": 1,
+        "wiktextract_translation_support_matches": [
+          {
+            "record_word": "feel",
+            "record_pos": "noun",
+            "translation_word": "talento",
+            "translation_sense": "intuitive ability",
+            "translation_tags": [
+              "masculine"
+            ],
+            "sense_overlap": [
+              "ability",
+              "intuitive"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:b3da3e57dc168292094805f95ed270c19dccecb8",
+      "dedupe_key": "dedupe:ffef16f4b2fc5587eccc64fab32718d47f51ce0b",
+      "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+      "row_id": "en-es-sentence-veto-feel-talento:shadow-en-es-sentence-veto-feel-talento-sentir-shadow-translation-sense-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "translation_sense_evidence",
+      "source_family": "external_structured_dictionary_dump",
+      "roles": [
+        "discrimination"
+      ],
+      "relation_type": "shadow_candidate",
+      "trigger": "feel",
+      "normalized_trigger": "feel",
+      "active_target": "talento",
+      "normalized_active_target": "talento",
+      "candidate_target": "sentir",
+      "normalized_candidate_target": "sentir",
+      "is_multiword": false,
+      "evidence_text": "feel verb sense: transitive: to sense by touch",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "translation_sense_evidence",
+        "source_family": "external_structured_dictionary_dump",
+        "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+        "row_id": "en-es-sentence-veto-feel-talento:shadow-en-es-sentence-veto-feel-talento-sentir-shadow-translation-sense-1",
+        "model_id": "not_applicable",
+        "prompt_version": "translation-sense-evidence-v1",
+        "generated_at": "2026-04-30T03:34:14Z",
+        "ingested_at": "2026-04-30T03:34:14Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:feel:talento:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:feel:talento:sentir:shadow",
+        "canonical_pos": "verb",
+        "note": "translation_sense_linked_candidate",
+        "metadata": {
+          "source_view": "translation_sense_text",
+          "support_sources": [
+            "wiktionary_en_es",
+            "freedict_es_en",
+            "wiktextract_en_es_translation_table"
+          ]
+        }
+      },
+      "candidate_pos": "verb",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:feel:talento",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:feel:talento:active",
+        "candidate_sense_id": "en-es:sentence-veto:feel:talento:sentir:shadow",
+        "example_bucket": "shadow",
+        "source_view": "translation_sense_text",
+        "translation_sense_text": "transitive: to sense by touch",
+        "translation_support_sources": [
+          "wiktionary_en_es",
+          "freedict_es_en",
+          "wiktextract_en_es_translation_table"
+        ],
+        "wiktextract_translation_support": true,
+        "wiktextract_translation_support_match_count": 3,
+        "wiktextract_translation_support_matches": [
+          {
+            "record_word": "feel",
+            "record_pos": "verb",
+            "translation_word": "sentir",
+            "translation_sense": "transitive: to sense by touch",
+            "translation_tags": [],
+            "sense_overlap": [
+              "sense",
+              "touch",
+              "transitive"
+            ]
+          },
+          {
+            "record_word": "feel",
+            "record_pos": "verb",
+            "translation_word": "sentir",
+            "translation_sense": "transitive: to experience an emotion or other mental state about",
+            "translation_tags": [],
+            "sense_overlap": [
+              "transitive"
+            ]
+          },
+          {
+            "record_word": "feel",
+            "record_pos": "verb",
+            "translation_word": "sentir",
+            "translation_sense": "transitive: to think or believe",
+            "translation_tags": [],
+            "sense_overlap": [
+              "transitive"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:6bb704bc36a8bcb99f51daad2f78c0dbaab717ce",
+      "dedupe_key": "dedupe:793f4e4b2bb2faf1afdfeaa19558396d162b3d31",
+      "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+      "row_id": "en-es-sentence-veto-still-quietud:active-en-es-sentence-veto-still-quietud-active-translation-sense-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "translation_sense_evidence",
+      "source_family": "external_structured_dictionary_dump",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "still",
+      "normalized_trigger": "still",
+      "active_target": "quietud",
+      "normalized_active_target": "quietud",
+      "candidate_target": "quietud",
+      "normalized_candidate_target": "quietud",
+      "is_multiword": false,
+      "evidence_text": "still noun sense: period of calm or silence",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "translation_sense_evidence",
+        "source_family": "external_structured_dictionary_dump",
+        "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+        "row_id": "en-es-sentence-veto-still-quietud:active-en-es-sentence-veto-still-quietud-active-translation-sense-1",
+        "model_id": "not_applicable",
+        "prompt_version": "translation-sense-evidence-v1",
+        "generated_at": "2026-04-30T03:34:14Z",
+        "ingested_at": "2026-04-30T03:34:14Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:still:quietud:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:still:quietud:active",
+        "canonical_pos": "noun",
+        "note": "translation_sense_linked_candidate",
+        "metadata": {
+          "source_view": "translation_sense_text",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:still:quietud",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:still:quietud:active",
+        "candidate_sense_id": "en-es:sentence-veto:still:quietud:active",
+        "example_bucket": "active",
+        "source_view": "translation_sense_text",
+        "translation_sense_text": "period of calm or silence",
+        "translation_support_sources": [
+          "wiktionary_en_es",
+          "wiktextract_en_es_translation_table"
+        ],
+        "wiktextract_translation_support": true,
+        "wiktextract_translation_support_match_count": 1,
+        "wiktextract_translation_support_matches": [
+          {
+            "record_word": "still",
+            "record_pos": "noun",
+            "translation_word": "quietud",
+            "translation_sense": "period of calm or silence",
+            "translation_tags": [
+              "feminine"
+            ],
+            "sense_overlap": [
+              "calm",
+              "period",
+              "silence"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:9716e1c1ee146ade063ec8beb9670635f17c2942",
+      "dedupe_key": "dedupe:5df63519576806fe5f6b14063b1253fa7800912d",
+      "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+      "row_id": "en-es-sentence-veto-still-quietud:shadow-en-es-sentence-veto-still-quietud-alambique-shadow-translation-sense-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "translation_sense_evidence",
+      "source_family": "external_structured_dictionary_dump",
+      "roles": [
+        "discrimination"
+      ],
+      "relation_type": "shadow_candidate",
+      "trigger": "still",
+      "normalized_trigger": "still",
+      "active_target": "quietud",
+      "normalized_active_target": "quietud",
+      "candidate_target": "alambique",
+      "normalized_candidate_target": "alambique",
+      "is_multiword": false,
+      "evidence_text": "still noun sense: a device for distilling liquids",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "translation_sense_evidence",
+        "source_family": "external_structured_dictionary_dump",
+        "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+        "row_id": "en-es-sentence-veto-still-quietud:shadow-en-es-sentence-veto-still-quietud-alambique-shadow-translation-sense-1",
+        "model_id": "not_applicable",
+        "prompt_version": "translation-sense-evidence-v1",
+        "generated_at": "2026-04-30T03:34:14Z",
+        "ingested_at": "2026-04-30T03:34:14Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:still:quietud:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:still:quietud:alambique:shadow",
+        "canonical_pos": "noun",
+        "note": "translation_sense_linked_candidate",
+        "metadata": {
+          "source_view": "translation_sense_text",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:still:quietud",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:still:quietud:active",
+        "candidate_sense_id": "en-es:sentence-veto:still:quietud:alambique:shadow",
+        "example_bucket": "shadow",
+        "source_view": "translation_sense_text",
+        "translation_sense_text": "a device for distilling liquids",
+        "translation_support_sources": [
+          "wiktionary_en_es",
+          "wiktextract_en_es_translation_table"
+        ],
+        "wiktextract_translation_support": true,
+        "wiktextract_translation_support_match_count": 1,
+        "wiktextract_translation_support_matches": [
+          {
+            "record_word": "still",
+            "record_pos": "noun",
+            "translation_word": "alambique",
+            "translation_sense": "a device for distilling liquids",
+            "translation_tags": [
+              "masculine"
+            ],
+            "sense_overlap": [
+              "device",
+              "distill",
+              "liquid"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:1fc43ced78c05e1f393560d6cf8149b48fb6330d",
+      "dedupe_key": "dedupe:2deee03111776f75d78cb7ee3d76d40507565aff",
+      "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+      "row_id": "en-es-sentence-veto-still-quietud:shadow-en-es-sentence-veto-still-quietud-aquietar-shadow-translation-sense-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "translation_sense_evidence",
+      "source_family": "external_structured_dictionary_dump",
+      "roles": [
+        "discrimination"
+      ],
+      "relation_type": "shadow_candidate",
+      "trigger": "still",
+      "normalized_trigger": "still",
+      "active_target": "quietud",
+      "normalized_active_target": "quietud",
+      "candidate_target": "aquietar",
+      "normalized_candidate_target": "aquietar",
+      "is_multiword": false,
+      "evidence_text": "still verb sense: to calm down",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "translation_sense_evidence",
+        "source_family": "external_structured_dictionary_dump",
+        "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+        "row_id": "en-es-sentence-veto-still-quietud:shadow-en-es-sentence-veto-still-quietud-aquietar-shadow-translation-sense-1",
+        "model_id": "not_applicable",
+        "prompt_version": "translation-sense-evidence-v1",
+        "generated_at": "2026-04-30T03:34:14Z",
+        "ingested_at": "2026-04-30T03:34:14Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:still:quietud:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:still:quietud:aquietar:shadow",
+        "canonical_pos": "verb",
+        "note": "translation_sense_linked_candidate",
+        "metadata": {
+          "source_view": "translation_sense_text",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ]
+        }
+      },
+      "candidate_pos": "verb",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:still:quietud",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:still:quietud:active",
+        "candidate_sense_id": "en-es:sentence-veto:still:quietud:aquietar:shadow",
+        "example_bucket": "shadow",
+        "source_view": "translation_sense_text",
+        "translation_sense_text": "to calm down",
+        "translation_support_sources": [
+          "wiktionary_en_es",
+          "wiktextract_en_es_translation_table"
+        ],
+        "wiktextract_translation_support": true,
+        "wiktextract_translation_support_match_count": 1,
+        "wiktextract_translation_support_matches": [
+          {
+            "record_word": "still",
+            "record_pos": "verb",
+            "translation_word": "aquietar",
+            "translation_sense": "to calm down",
+            "translation_tags": [],
+            "sense_overlap": [
+              "calm"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:a216bf10d0adb49f6fde6455567a6fd6a1375981",
+      "dedupe_key": "dedupe:272451623c36a308b5d90c7418983d843ee3f682",
+      "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+      "row_id": "en-es-sentence-veto-bear-bajista:active-en-es-sentence-veto-bear-bajista-active-translation-sense-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "translation_sense_evidence",
+      "source_family": "external_structured_dictionary_dump",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "bear",
+      "normalized_trigger": "bear",
+      "active_target": "bajista",
+      "normalized_active_target": "bajista",
+      "candidate_target": "bajista",
+      "normalized_candidate_target": "bajista",
+      "is_multiword": false,
+      "evidence_text": "bear noun sense: investor who sells in anticipation of falling prices",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "translation_sense_evidence",
+        "source_family": "external_structured_dictionary_dump",
+        "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+        "row_id": "en-es-sentence-veto-bear-bajista:active-en-es-sentence-veto-bear-bajista-active-translation-sense-1",
+        "model_id": "not_applicable",
+        "prompt_version": "translation-sense-evidence-v1",
+        "generated_at": "2026-04-30T03:34:14Z",
+        "ingested_at": "2026-04-30T03:34:14Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:bear:bajista:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:bear:bajista:active",
+        "canonical_pos": "noun",
+        "note": "translation_sense_linked_candidate",
+        "metadata": {
+          "source_view": "translation_sense_text",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktionary_es_en",
+            "wiktextract_en_es_translation_table"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:bear:bajista",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:bear:bajista:active",
+        "candidate_sense_id": "en-es:sentence-veto:bear:bajista:active",
+        "example_bucket": "active",
+        "source_view": "translation_sense_text",
+        "translation_sense_text": "investor who sells in anticipation of falling prices",
+        "translation_support_sources": [
+          "wiktionary_en_es",
+          "wiktionary_es_en",
+          "wiktextract_en_es_translation_table"
+        ],
+        "wiktextract_translation_support": true,
+        "wiktextract_translation_support_match_count": 1,
+        "wiktextract_translation_support_matches": [
+          {
+            "record_word": "bear",
+            "record_pos": "noun",
+            "translation_word": "bajista",
+            "translation_sense": "investor who sells in anticipation of falling prices",
+            "translation_tags": [
+              "feminine",
+              "masculine"
+            ],
+            "sense_overlap": [
+              "anticipation",
+              "fall",
+              "investor",
+              "pric",
+              "sell"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:6b3c7ae6d2f72b6d97a70ec05a25c330a01c88f3",
+      "dedupe_key": "dedupe:2f2200b75ff62c8fcee58c37521ead5cf1e3d9ff",
+      "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+      "row_id": "en-es-sentence-veto-bear-bajista:shadow-en-es-sentence-veto-bear-bajista-llevar-shadow-translation-sense-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "translation_sense_evidence",
+      "source_family": "external_structured_dictionary_dump",
+      "roles": [
+        "discrimination"
+      ],
+      "relation_type": "shadow_candidate",
+      "trigger": "bear",
+      "normalized_trigger": "bear",
+      "active_target": "bajista",
+      "normalized_active_target": "bajista",
+      "candidate_target": "llevar",
+      "normalized_candidate_target": "llevar",
+      "is_multiword": false,
+      "evidence_text": "bear verb sense: to carry",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "translation_sense_evidence",
+        "source_family": "external_structured_dictionary_dump",
+        "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+        "row_id": "en-es-sentence-veto-bear-bajista:shadow-en-es-sentence-veto-bear-bajista-llevar-shadow-translation-sense-1",
+        "model_id": "not_applicable",
+        "prompt_version": "translation-sense-evidence-v1",
+        "generated_at": "2026-04-30T03:34:14Z",
+        "ingested_at": "2026-04-30T03:34:14Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:bear:bajista:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:bear:bajista:llevar:shadow",
+        "canonical_pos": "verb",
+        "note": "translation_sense_linked_candidate",
+        "metadata": {
+          "source_view": "translation_sense_text",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ]
+        }
+      },
+      "candidate_pos": "verb",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:bear:bajista",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:bear:bajista:active",
+        "candidate_sense_id": "en-es:sentence-veto:bear:bajista:llevar:shadow",
+        "example_bucket": "shadow",
+        "source_view": "translation_sense_text",
+        "translation_sense_text": "to carry",
+        "translation_support_sources": [
+          "wiktionary_en_es",
+          "wiktextract_en_es_translation_table"
+        ],
+        "wiktextract_translation_support": true,
+        "wiktextract_translation_support_match_count": 2,
+        "wiktextract_translation_support_matches": [
+          {
+            "record_word": "bear",
+            "record_pos": "verb",
+            "translation_word": "llevar",
+            "translation_sense": "to carry",
+            "translation_tags": [],
+            "sense_overlap": [
+              "carry"
+            ]
+          },
+          {
+            "record_word": "bear",
+            "record_pos": "verb",
+            "translation_word": "llevar",
+            "translation_sense": "to be equipped with",
+            "translation_tags": [],
+            "sense_overlap": []
+          }
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:d72cea232b89b0385f382190d8e156b1ca5b0d08",
+      "dedupe_key": "dedupe:b5ef9f80455aca5c8b6903dc15d43762a914f8b1",
+      "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+      "row_id": "en-es-sentence-veto-finish-meta:active-en-es-sentence-veto-finish-meta-active-translation-sense-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "translation_sense_evidence",
+      "source_family": "external_structured_dictionary_dump",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "finish",
+      "normalized_trigger": "finish",
+      "active_target": "meta",
+      "normalized_active_target": "meta",
+      "candidate_target": "meta",
+      "normalized_candidate_target": "meta",
+      "is_multiword": false,
+      "evidence_text": "finish noun sense: end",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "translation_sense_evidence",
+        "source_family": "external_structured_dictionary_dump",
+        "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+        "row_id": "en-es-sentence-veto-finish-meta:active-en-es-sentence-veto-finish-meta-active-translation-sense-1",
+        "model_id": "not_applicable",
+        "prompt_version": "translation-sense-evidence-v1",
+        "generated_at": "2026-04-30T03:34:14Z",
+        "ingested_at": "2026-04-30T03:34:14Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:finish:meta:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:finish:meta:active",
+        "canonical_pos": "noun",
+        "note": "translation_sense_linked_candidate",
+        "metadata": {
+          "source_view": "translation_sense_text",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:finish:meta",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:finish:meta:active",
+        "candidate_sense_id": "en-es:sentence-veto:finish:meta:active",
+        "example_bucket": "active",
+        "source_view": "translation_sense_text",
+        "translation_sense_text": "end",
+        "translation_support_sources": [
+          "wiktionary_en_es",
+          "wiktextract_en_es_translation_table"
+        ],
+        "wiktextract_translation_support": true,
+        "wiktextract_translation_support_match_count": 1,
+        "wiktextract_translation_support_matches": [
+          {
+            "record_word": "finish",
+            "record_pos": "noun",
+            "translation_word": "meta",
+            "translation_sense": "end",
+            "translation_tags": [
+              "feminine"
+            ],
+            "sense_overlap": [
+              "end"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:eb71ffc9143a155168fdd8b0c03b9b2f6bbbfde7",
+      "dedupe_key": "dedupe:b0d677530efab81adae3370aae1e0683b19b8cc6",
+      "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+      "row_id": "en-es-sentence-veto-finish-meta:shadow-en-es-sentence-veto-finish-meta-acabado-shadow-translation-sense-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "translation_sense_evidence",
+      "source_family": "external_structured_dictionary_dump",
+      "roles": [
+        "discrimination"
+      ],
+      "relation_type": "shadow_candidate",
+      "trigger": "finish",
+      "normalized_trigger": "finish",
+      "active_target": "meta",
+      "normalized_active_target": "meta",
+      "candidate_target": "acabado",
+      "normalized_candidate_target": "acabado",
+      "is_multiword": false,
+      "evidence_text": "finish noun sense: protective coating",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "translation_sense_evidence",
+        "source_family": "external_structured_dictionary_dump",
+        "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+        "row_id": "en-es-sentence-veto-finish-meta:shadow-en-es-sentence-veto-finish-meta-acabado-shadow-translation-sense-1",
+        "model_id": "not_applicable",
+        "prompt_version": "translation-sense-evidence-v1",
+        "generated_at": "2026-04-30T03:34:14Z",
+        "ingested_at": "2026-04-30T03:34:14Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:finish:meta:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:finish:meta:acabado:shadow",
+        "canonical_pos": "noun",
+        "note": "translation_sense_linked_candidate",
+        "metadata": {
+          "source_view": "translation_sense_text",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:finish:meta",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:finish:meta:active",
+        "candidate_sense_id": "en-es:sentence-veto:finish:meta:acabado:shadow",
+        "example_bucket": "shadow",
+        "source_view": "translation_sense_text",
+        "translation_sense_text": "protective coating",
+        "translation_support_sources": [
+          "wiktionary_en_es",
+          "wiktextract_en_es_translation_table"
+        ],
+        "wiktextract_translation_support": true,
+        "wiktextract_translation_support_match_count": 1,
+        "wiktextract_translation_support_matches": [
+          {
+            "record_word": "finish",
+            "record_pos": "noun",
+            "translation_word": "acabado",
+            "translation_sense": "protective coating",
+            "translation_tags": [
+              "masculine"
+            ],
+            "sense_overlap": [
+              "coat",
+              "protective"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:dcf65ae004e465cf6fbfd4350a4d11883a73f1e0",
+      "dedupe_key": "dedupe:1eaea2b1ec07fe3179715fd991cae2313dafb9d5",
+      "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+      "row_id": "en-es-sentence-veto-finish-meta:shadow-en-es-sentence-veto-finish-meta-acabar-shadow-translation-sense-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "translation_sense_evidence",
+      "source_family": "external_structured_dictionary_dump",
+      "roles": [
+        "discrimination"
+      ],
+      "relation_type": "shadow_candidate",
+      "trigger": "finish",
+      "normalized_trigger": "finish",
+      "active_target": "meta",
+      "normalized_active_target": "meta",
+      "candidate_target": "acabar",
+      "normalized_candidate_target": "acabar",
+      "is_multiword": false,
+      "evidence_text": "finish verb sense: to complete",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "translation_sense_evidence",
+        "source_family": "external_structured_dictionary_dump",
+        "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+        "row_id": "en-es-sentence-veto-finish-meta:shadow-en-es-sentence-veto-finish-meta-acabar-shadow-translation-sense-1",
+        "model_id": "not_applicable",
+        "prompt_version": "translation-sense-evidence-v1",
+        "generated_at": "2026-04-30T03:34:14Z",
+        "ingested_at": "2026-04-30T03:34:14Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:finish:meta:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:finish:meta:acabar:shadow",
+        "canonical_pos": "verb",
+        "note": "translation_sense_linked_candidate",
+        "metadata": {
+          "source_view": "translation_sense_text",
+          "support_sources": [
+            "wiktionary_en_es",
+            "freedict_es_en",
+            "wiktextract_en_es_translation_table"
+          ]
+        }
+      },
+      "candidate_pos": "verb",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:finish:meta",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:finish:meta:active",
+        "candidate_sense_id": "en-es:sentence-veto:finish:meta:acabar:shadow",
+        "example_bucket": "shadow",
+        "source_view": "translation_sense_text",
+        "translation_sense_text": "to complete",
+        "translation_support_sources": [
+          "wiktionary_en_es",
+          "freedict_es_en",
+          "wiktextract_en_es_translation_table"
+        ],
+        "wiktextract_translation_support": true,
+        "wiktextract_translation_support_match_count": 2,
+        "wiktextract_translation_support_matches": [
+          {
+            "record_word": "finish",
+            "record_pos": "verb",
+            "translation_word": "acabar",
+            "translation_sense": "to complete",
+            "translation_tags": [],
+            "sense_overlap": [
+              "complete"
+            ]
+          },
+          {
+            "record_word": "finish",
+            "record_pos": "verb",
+            "translation_word": "acabar",
+            "translation_sense": "to come to an end",
+            "translation_tags": [],
+            "sense_overlap": []
+          }
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:3dc93402ecedade0b6035db5219732c57b631f7e",
+      "dedupe_key": "dedupe:6a6dd5649465218153fc964125afc251e7966657",
+      "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+      "row_id": "en-es-sentence-veto-throw-lanzamiento:active-en-es-sentence-veto-throw-lanzamiento-active-translation-sense-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "translation_sense_evidence",
+      "source_family": "external_structured_dictionary_dump",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "throw",
+      "normalized_trigger": "throw",
+      "active_target": "lanzamiento",
+      "normalized_active_target": "lanzamiento",
+      "candidate_target": "lanzamiento",
+      "normalized_candidate_target": "lanzamiento",
+      "is_multiword": false,
+      "evidence_text": "throw noun sense: flight of a thrown object",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "translation_sense_evidence",
+        "source_family": "external_structured_dictionary_dump",
+        "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+        "row_id": "en-es-sentence-veto-throw-lanzamiento:active-en-es-sentence-veto-throw-lanzamiento-active-translation-sense-1",
+        "model_id": "not_applicable",
+        "prompt_version": "translation-sense-evidence-v1",
+        "generated_at": "2026-04-30T03:34:14Z",
+        "ingested_at": "2026-04-30T03:34:14Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:throw:lanzamiento:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:throw:lanzamiento:active",
+        "canonical_pos": "noun",
+        "note": "translation_sense_linked_candidate",
+        "metadata": {
+          "source_view": "translation_sense_text",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:throw:lanzamiento",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:throw:lanzamiento:active",
+        "candidate_sense_id": "en-es:sentence-veto:throw:lanzamiento:active",
+        "example_bucket": "active",
+        "source_view": "translation_sense_text",
+        "translation_sense_text": "flight of a thrown object",
+        "translation_support_sources": [
+          "wiktionary_en_es",
+          "wiktextract_en_es_translation_table"
+        ],
+        "wiktextract_translation_support": true,
+        "wiktextract_translation_support_match_count": 1,
+        "wiktextract_translation_support_matches": [
+          {
+            "record_word": "throw",
+            "record_pos": "noun",
+            "translation_word": "lanzamiento",
+            "translation_sense": "flight of a thrown object",
+            "translation_tags": [
+              "masculine"
+            ],
+            "sense_overlap": [
+              "flight",
+              "object",
+              "thrown"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:e00d1931af247608c346983b0fe469bc01f6b756",
+      "dedupe_key": "dedupe:133d365020df5b51a06d46dee427cdfc089556b9",
+      "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+      "row_id": "en-es-sentence-veto-throw-lanzamiento:shadow-en-es-sentence-veto-throw-lanzamiento-lanzar-shadow-translation-sense-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "translation_sense_evidence",
+      "source_family": "external_structured_dictionary_dump",
+      "roles": [
+        "discrimination"
+      ],
+      "relation_type": "shadow_candidate",
+      "trigger": "throw",
+      "normalized_trigger": "throw",
+      "active_target": "lanzamiento",
+      "normalized_active_target": "lanzamiento",
+      "candidate_target": "lanzar",
+      "normalized_candidate_target": "lanzar",
+      "is_multiword": false,
+      "evidence_text": "throw verb sense: to cause an object to move rapidly through the air",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "translation_sense_evidence",
+        "source_family": "external_structured_dictionary_dump",
+        "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+        "row_id": "en-es-sentence-veto-throw-lanzamiento:shadow-en-es-sentence-veto-throw-lanzamiento-lanzar-shadow-translation-sense-1",
+        "model_id": "not_applicable",
+        "prompt_version": "translation-sense-evidence-v1",
+        "generated_at": "2026-04-30T03:34:14Z",
+        "ingested_at": "2026-04-30T03:34:14Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:throw:lanzamiento:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:throw:lanzamiento:lanzar:shadow",
+        "canonical_pos": "verb",
+        "note": "translation_sense_linked_candidate",
+        "metadata": {
+          "source_view": "translation_sense_text",
+          "support_sources": [
+            "wiktionary_en_es",
+            "freedict_es_en",
+            "wiktextract_en_es_translation_table"
+          ]
+        }
+      },
+      "candidate_pos": "verb",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:throw:lanzamiento",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:throw:lanzamiento:active",
+        "candidate_sense_id": "en-es:sentence-veto:throw:lanzamiento:lanzar:shadow",
+        "example_bucket": "shadow",
+        "source_view": "translation_sense_text",
+        "translation_sense_text": "to cause an object to move rapidly through the air",
+        "translation_support_sources": [
+          "wiktionary_en_es",
+          "freedict_es_en",
+          "wiktextract_en_es_translation_table"
+        ],
+        "wiktextract_translation_support": true,
+        "wiktextract_translation_support_match_count": 1,
+        "wiktextract_translation_support_matches": [
+          {
+            "record_word": "throw",
+            "record_pos": "verb",
+            "translation_word": "lanzar",
+            "translation_sense": "to cause an object to move rapidly through the air",
+            "translation_tags": [],
+            "sense_overlap": [
+              "air",
+              "cause",
+              "move",
+              "object",
+              "rapidly"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:ca353c87deeaae1dbce6416a4e49ef68fe181021",
+      "dedupe_key": "dedupe:747ed8f346eb0ff524bc1fc807f8b8b846823efb",
+      "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+      "row_id": "en-es-sentence-veto-upset-disgustado:active-en-es-sentence-veto-upset-disgustado-active-translation-sense-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "translation_sense_evidence",
+      "source_family": "external_structured_dictionary_dump",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "upset",
+      "normalized_trigger": "upset",
+      "active_target": "disgustado",
+      "normalized_active_target": "disgustado",
+      "candidate_target": "disgustado",
+      "normalized_candidate_target": "disgustado",
+      "is_multiword": false,
+      "evidence_text": "upset adjective sense: angry, distressed, unhappy",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "translation_sense_evidence",
+        "source_family": "external_structured_dictionary_dump",
+        "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+        "row_id": "en-es-sentence-veto-upset-disgustado:active-en-es-sentence-veto-upset-disgustado-active-translation-sense-1",
+        "model_id": "not_applicable",
+        "prompt_version": "translation-sense-evidence-v1",
+        "generated_at": "2026-04-30T03:34:14Z",
+        "ingested_at": "2026-04-30T03:34:14Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:upset:disgustado:active",
+        "canonical_pos": "adjective",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:upset:disgustado:active",
+        "canonical_pos": "adjective",
+        "note": "translation_sense_linked_candidate",
+        "metadata": {
+          "source_view": "translation_sense_text",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktionary_es_en",
+            "wiktextract_en_es_translation_table"
+          ]
+        }
+      },
+      "candidate_pos": "adjective",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:upset:disgustado",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:upset:disgustado:active",
+        "candidate_sense_id": "en-es:sentence-veto:upset:disgustado:active",
+        "example_bucket": "active",
+        "source_view": "translation_sense_text",
+        "translation_sense_text": "angry, distressed, unhappy",
+        "translation_support_sources": [
+          "wiktionary_en_es",
+          "wiktionary_es_en",
+          "wiktextract_en_es_translation_table"
+        ],
+        "wiktextract_translation_support": true,
+        "wiktextract_translation_support_match_count": 1,
+        "wiktextract_translation_support_matches": [
+          {
+            "record_word": "upset",
+            "record_pos": "adj",
+            "translation_word": "disgustado",
+            "translation_sense": "angry, distressed, unhappy",
+            "translation_tags": [],
+            "sense_overlap": [
+              "angry",
+              "distress",
+              "unhappy"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:b55b0adffb4fce413e0badd7f61d60e9c9e2da3c",
+      "dedupe_key": "dedupe:c35628a03a962ca4860283d0b637472129dd8f56",
+      "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+      "row_id": "en-es-sentence-veto-upset-disgustado:shadow-en-es-sentence-veto-upset-disgustado-trastrocar-shadow-translation-sense-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "translation_sense_evidence",
+      "source_family": "external_structured_dictionary_dump",
+      "roles": [
+        "discrimination"
+      ],
+      "relation_type": "shadow_candidate",
+      "trigger": "upset",
+      "normalized_trigger": "upset",
+      "active_target": "disgustado",
+      "normalized_active_target": "disgustado",
+      "candidate_target": "trastrocar",
+      "normalized_candidate_target": "trastrocar",
+      "is_multiword": false,
+      "evidence_text": "upset verb sense: disturb, disrupt, unfavorably alter",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "translation_sense_evidence",
+        "source_family": "external_structured_dictionary_dump",
+        "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+        "row_id": "en-es-sentence-veto-upset-disgustado:shadow-en-es-sentence-veto-upset-disgustado-trastrocar-shadow-translation-sense-1",
+        "model_id": "not_applicable",
+        "prompt_version": "translation-sense-evidence-v1",
+        "generated_at": "2026-04-30T03:34:14Z",
+        "ingested_at": "2026-04-30T03:34:14Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:upset:disgustado:active",
+        "canonical_pos": "adjective",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:upset:disgustado:trastrocar:shadow",
+        "canonical_pos": "verb",
+        "note": "translation_sense_linked_candidate",
+        "metadata": {
+          "source_view": "translation_sense_text",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ]
+        }
+      },
+      "candidate_pos": "verb",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:upset:disgustado",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:upset:disgustado:active",
+        "candidate_sense_id": "en-es:sentence-veto:upset:disgustado:trastrocar:shadow",
+        "example_bucket": "shadow",
+        "source_view": "translation_sense_text",
+        "translation_sense_text": "disturb, disrupt, unfavorably alter",
+        "translation_support_sources": [
+          "wiktionary_en_es",
+          "wiktextract_en_es_translation_table"
+        ],
+        "wiktextract_translation_support": true,
+        "wiktextract_translation_support_match_count": 1,
+        "wiktextract_translation_support_matches": [
+          {
+            "record_word": "upset",
+            "record_pos": "verb",
+            "translation_word": "trastrocar",
+            "translation_sense": "disturb, disrupt, unfavorably alter",
+            "translation_tags": [],
+            "sense_overlap": [
+              "alter",
+              "disrupt",
+              "disturb",
+              "unfavorably"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:6a1b30d18e80131b534d295fbcaf3111ea8cd133",
+      "dedupe_key": "dedupe:5b2ab00b96cfa7a2d90749c8cb0f33cd32cbbdad",
+      "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+      "row_id": "en-es-sentence-veto-piece-trozo:active-en-es-sentence-veto-piece-trozo-active-translation-sense-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "translation_sense_evidence",
+      "source_family": "external_structured_dictionary_dump",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "piece",
+      "normalized_trigger": "piece",
+      "active_target": "trozo",
+      "normalized_active_target": "trozo",
+      "candidate_target": "trozo",
+      "normalized_candidate_target": "trozo",
+      "is_multiword": false,
+      "evidence_text": "piece noun sense: part of a larger whole",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "translation_sense_evidence",
+        "source_family": "external_structured_dictionary_dump",
+        "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+        "row_id": "en-es-sentence-veto-piece-trozo:active-en-es-sentence-veto-piece-trozo-active-translation-sense-1",
+        "model_id": "not_applicable",
+        "prompt_version": "translation-sense-evidence-v1",
+        "generated_at": "2026-04-30T03:34:14Z",
+        "ingested_at": "2026-04-30T03:34:14Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:piece:trozo:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:piece:trozo:active",
+        "canonical_pos": "noun",
+        "note": "translation_sense_linked_candidate",
+        "metadata": {
+          "source_view": "translation_sense_text",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktionary_es_en",
+            "wiktextract_en_es_translation_table"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:piece:trozo",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:piece:trozo:active",
+        "candidate_sense_id": "en-es:sentence-veto:piece:trozo:active",
+        "example_bucket": "active",
+        "source_view": "translation_sense_text",
+        "translation_sense_text": "part of a larger whole",
+        "translation_support_sources": [
+          "wiktionary_en_es",
+          "wiktionary_es_en",
+          "wiktextract_en_es_translation_table"
+        ],
+        "wiktextract_translation_support": true,
+        "wiktextract_translation_support_match_count": 1,
+        "wiktextract_translation_support_matches": [
+          {
+            "record_word": "piece",
+            "record_pos": "noun",
+            "translation_word": "trozo",
+            "translation_sense": "part of a larger whole",
+            "translation_tags": [
+              "masculine"
+            ],
+            "sense_overlap": [
+              "larger",
+              "part",
+              "whole"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:4f839881b1d8e43401cd02b0f48124442c17d127",
+      "dedupe_key": "dedupe:f8a70ba764f64943e73b44f6fe1d023ede0e4d16",
+      "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+      "row_id": "en-es-sentence-veto-piece-trozo:shadow-en-es-sentence-veto-piece-trozo-ficha-shadow-translation-sense-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "translation_sense_evidence",
+      "source_family": "external_structured_dictionary_dump",
+      "roles": [
+        "discrimination"
+      ],
+      "relation_type": "shadow_candidate",
+      "trigger": "piece",
+      "normalized_trigger": "piece",
+      "active_target": "trozo",
+      "normalized_active_target": "trozo",
+      "candidate_target": "ficha",
+      "normalized_candidate_target": "ficha",
+      "is_multiword": false,
+      "evidence_text": "piece noun sense: chess: figure other than pawn; similar counter in other games",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "translation_sense_evidence",
+        "source_family": "external_structured_dictionary_dump",
+        "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+        "row_id": "en-es-sentence-veto-piece-trozo:shadow-en-es-sentence-veto-piece-trozo-ficha-shadow-translation-sense-1",
+        "model_id": "not_applicable",
+        "prompt_version": "translation-sense-evidence-v1",
+        "generated_at": "2026-04-30T03:34:14Z",
+        "ingested_at": "2026-04-30T03:34:14Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:piece:trozo:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:piece:trozo:ficha:shadow",
+        "canonical_pos": "noun",
+        "note": "translation_sense_linked_candidate",
+        "metadata": {
+          "source_view": "translation_sense_text",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:piece:trozo",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:piece:trozo:active",
+        "candidate_sense_id": "en-es:sentence-veto:piece:trozo:ficha:shadow",
+        "example_bucket": "shadow",
+        "source_view": "translation_sense_text",
+        "translation_sense_text": "chess: figure other than pawn; similar counter in other games",
+        "translation_support_sources": [
+          "wiktionary_en_es",
+          "wiktextract_en_es_translation_table"
+        ],
+        "wiktextract_translation_support": true,
+        "wiktextract_translation_support_match_count": 1,
+        "wiktextract_translation_support_matches": [
+          {
+            "record_word": "piece",
+            "record_pos": "noun",
+            "translation_word": "ficha",
+            "translation_sense": "chess: figure other than pawn; similar counter in other games",
+            "translation_tags": [],
+            "sense_overlap": [
+              "ches",
+              "counter",
+              "figure",
+              "gam",
+              "pawn",
+              "similar"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:9b717072980baf7025aa590558b27852faddae86",
+      "dedupe_key": "dedupe:344edfc87d0c0bb33f0b8691535e306df41b6ec7",
+      "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+      "row_id": "en-es-sentence-veto-piece-trozo:shadow-en-es-sentence-veto-piece-trozo-montar-shadow-translation-sense-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "translation_sense_evidence",
+      "source_family": "external_structured_dictionary_dump",
+      "roles": [
+        "discrimination"
+      ],
+      "relation_type": "shadow_candidate",
+      "trigger": "piece",
+      "normalized_trigger": "piece",
+      "active_target": "trozo",
+      "normalized_active_target": "trozo",
+      "candidate_target": "montar",
+      "normalized_candidate_target": "montar",
+      "is_multiword": false,
+      "evidence_text": "piece verb sense: to create or construct by assembling parts",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "translation_sense_evidence",
+        "source_family": "external_structured_dictionary_dump",
+        "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+        "row_id": "en-es-sentence-veto-piece-trozo:shadow-en-es-sentence-veto-piece-trozo-montar-shadow-translation-sense-1",
+        "model_id": "not_applicable",
+        "prompt_version": "translation-sense-evidence-v1",
+        "generated_at": "2026-04-30T03:34:14Z",
+        "ingested_at": "2026-04-30T03:34:14Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:piece:trozo:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:piece:trozo:montar:shadow",
+        "canonical_pos": "verb",
+        "note": "translation_sense_linked_candidate",
+        "metadata": {
+          "source_view": "translation_sense_text",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ]
+        }
+      },
+      "candidate_pos": "verb",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:piece:trozo",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:piece:trozo:active",
+        "candidate_sense_id": "en-es:sentence-veto:piece:trozo:montar:shadow",
+        "example_bucket": "shadow",
+        "source_view": "translation_sense_text",
+        "translation_sense_text": "to create or construct by assembling parts",
+        "translation_support_sources": [
+          "wiktionary_en_es",
+          "wiktextract_en_es_translation_table"
+        ],
+        "wiktextract_translation_support": true,
+        "wiktextract_translation_support_match_count": 1,
+        "wiktextract_translation_support_matches": [
+          {
+            "record_word": "piece",
+            "record_pos": "verb",
+            "translation_word": "montar",
+            "translation_sense": "to create or construct by assembling parts",
+            "translation_tags": [],
+            "sense_overlap": [
+              "assembl",
+              "construct",
+              "create",
+              "part"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:7a7fa66cef98e6c567eab8281adb6fea0a81e07f",
+      "dedupe_key": "dedupe:13ba6028b00b3bbee64641921cb2888028a3f9f2",
+      "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+      "row_id": "en-es-sentence-veto-fair-pastel:active-en-es-sentence-veto-fair-pastel-active-translation-sense-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "translation_sense_evidence",
+      "source_family": "external_structured_dictionary_dump",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "fair",
+      "normalized_trigger": "fair",
+      "active_target": "pastel",
+      "normalized_active_target": "pastel",
+      "candidate_target": "pastel",
+      "normalized_candidate_target": "pastel",
+      "is_multiword": false,
+      "evidence_text": "fair adjective sense: light in color or pale",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "translation_sense_evidence",
+        "source_family": "external_structured_dictionary_dump",
+        "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+        "row_id": "en-es-sentence-veto-fair-pastel:active-en-es-sentence-veto-fair-pastel-active-translation-sense-1",
+        "model_id": "not_applicable",
+        "prompt_version": "translation-sense-evidence-v1",
+        "generated_at": "2026-04-30T03:34:14Z",
+        "ingested_at": "2026-04-30T03:34:14Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:fair:pastel:active",
+        "canonical_pos": "adjective",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:fair:pastel:active",
+        "canonical_pos": "adjective",
+        "note": "translation_sense_linked_candidate",
+        "metadata": {
+          "source_view": "translation_sense_text",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ]
+        }
+      },
+      "candidate_pos": "adjective",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:fair:pastel",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:fair:pastel:active",
+        "candidate_sense_id": "en-es:sentence-veto:fair:pastel:active",
+        "example_bucket": "active",
+        "source_view": "translation_sense_text",
+        "translation_sense_text": "light in color or pale",
+        "translation_support_sources": [
+          "wiktionary_en_es",
+          "wiktextract_en_es_translation_table"
+        ],
+        "wiktextract_translation_support": true,
+        "wiktextract_translation_support_match_count": 1,
+        "wiktextract_translation_support_matches": [
+          {
+            "record_word": "fair",
+            "record_pos": "adj",
+            "translation_word": "pastel",
+            "translation_sense": "light in color or pale",
+            "translation_tags": [],
+            "sense_overlap": [
+              "color",
+              "light",
+              "pale"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:6d5e34fd55bcceddb662810d6d2218983bd342e9",
+      "dedupe_key": "dedupe:28124604d2cb3f020a220de035b099060b094bb2",
+      "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+      "row_id": "en-es-sentence-veto-fair-pastel:shadow-en-es-sentence-veto-fair-pastel-feria-de-muestras-shadow-translation-sense-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "translation_sense_evidence",
+      "source_family": "external_structured_dictionary_dump",
+      "roles": [
+        "discrimination"
+      ],
+      "relation_type": "shadow_candidate",
+      "trigger": "fair",
+      "normalized_trigger": "fair",
+      "active_target": "pastel",
+      "normalized_active_target": "pastel",
+      "candidate_target": "feria de muestras",
+      "normalized_candidate_target": "feria de muestras",
+      "is_multiword": true,
+      "evidence_text": "fair noun sense: professional event, trade fair",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "translation_sense_evidence",
+        "source_family": "external_structured_dictionary_dump",
+        "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+        "row_id": "en-es-sentence-veto-fair-pastel:shadow-en-es-sentence-veto-fair-pastel-feria-de-muestras-shadow-translation-sense-1",
+        "model_id": "not_applicable",
+        "prompt_version": "translation-sense-evidence-v1",
+        "generated_at": "2026-04-30T03:34:14Z",
+        "ingested_at": "2026-04-30T03:34:14Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:fair:pastel:active",
+        "canonical_pos": "adjective",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:fair:pastel:feria-de-muestras:shadow",
+        "canonical_pos": "noun",
+        "note": "translation_sense_linked_candidate",
+        "metadata": {
+          "source_view": "translation_sense_text",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:fair:pastel",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:fair:pastel:active",
+        "candidate_sense_id": "en-es:sentence-veto:fair:pastel:feria-de-muestras:shadow",
+        "example_bucket": "shadow",
+        "source_view": "translation_sense_text",
+        "translation_sense_text": "professional event, trade fair",
+        "translation_support_sources": [
+          "wiktionary_en_es",
+          "wiktextract_en_es_translation_table"
+        ],
+        "wiktextract_translation_support": true,
+        "wiktextract_translation_support_match_count": 1,
+        "wiktextract_translation_support_matches": [
+          {
+            "record_word": "fair",
+            "record_pos": "noun",
+            "translation_word": "feria de muestras",
+            "translation_sense": "professional event, trade fair",
+            "translation_tags": [
+              "feminine"
+            ],
+            "sense_overlap": [
+              "event",
+              "professional",
+              "trade"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:65048264385693138e8114b5eb0a01b2daaf92a7",
+      "dedupe_key": "dedupe:a7e50045c7e7016af85205fb66ccf7dce0af17aa",
+      "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+      "row_id": "en-es-sentence-veto-show-espect-culo:active-en-es-sentence-veto-show-espect-culo-active-translation-sense-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "translation_sense_evidence",
+      "source_family": "external_structured_dictionary_dump",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "show",
+      "normalized_trigger": "show",
+      "active_target": "espectáculo",
+      "normalized_active_target": "espectáculo",
+      "candidate_target": "espectáculo",
+      "normalized_candidate_target": "espectáculo",
+      "is_multiword": false,
+      "evidence_text": "show noun sense: entertainment",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "translation_sense_evidence",
+        "source_family": "external_structured_dictionary_dump",
+        "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+        "row_id": "en-es-sentence-veto-show-espect-culo:active-en-es-sentence-veto-show-espect-culo-active-translation-sense-1",
+        "model_id": "not_applicable",
+        "prompt_version": "translation-sense-evidence-v1",
+        "generated_at": "2026-04-30T03:34:14Z",
+        "ingested_at": "2026-04-30T03:34:14Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:show:espect-culo:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:show:espect-culo:active",
+        "canonical_pos": "noun",
+        "note": "translation_sense_linked_candidate",
+        "metadata": {
+          "source_view": "translation_sense_text",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:show:espect-culo",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:show:espect-culo:active",
+        "candidate_sense_id": "en-es:sentence-veto:show:espect-culo:active",
+        "example_bucket": "active",
+        "source_view": "translation_sense_text",
+        "translation_sense_text": "entertainment",
+        "translation_support_sources": [
+          "wiktionary_en_es",
+          "wiktextract_en_es_translation_table"
+        ],
+        "wiktextract_translation_support": true,
+        "wiktextract_translation_support_match_count": 1,
+        "wiktextract_translation_support_matches": [
+          {
+            "record_word": "show",
+            "record_pos": "noun",
+            "translation_word": "espectáculo",
+            "translation_sense": "entertainment",
+            "translation_tags": [
+              "masculine"
+            ],
+            "sense_overlap": [
+              "entertainment"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:26e8d5fb4fb90411700edc89264d3846a9aac8bb",
+      "dedupe_key": "dedupe:043c294ac543f54a55244106fa303fe067c3e0aa",
+      "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+      "row_id": "en-es-sentence-veto-show-espect-culo:shadow-en-es-sentence-veto-show-espect-culo-demostrar-shadow-translation-sense-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "translation_sense_evidence",
+      "source_family": "external_structured_dictionary_dump",
+      "roles": [
+        "discrimination"
+      ],
+      "relation_type": "shadow_candidate",
+      "trigger": "show",
+      "normalized_trigger": "show",
+      "active_target": "espectáculo",
+      "normalized_active_target": "espectáculo",
+      "candidate_target": "demostrar",
+      "normalized_candidate_target": "demostrar",
+      "is_multiword": false,
+      "evidence_text": "show verb sense: to indicate (a fact) to be true",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "translation_sense_evidence",
+        "source_family": "external_structured_dictionary_dump",
+        "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+        "row_id": "en-es-sentence-veto-show-espect-culo:shadow-en-es-sentence-veto-show-espect-culo-demostrar-shadow-translation-sense-1",
+        "model_id": "not_applicable",
+        "prompt_version": "translation-sense-evidence-v1",
+        "generated_at": "2026-04-30T03:34:14Z",
+        "ingested_at": "2026-04-30T03:34:14Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:show:espect-culo:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:show:espect-culo:demostrar:shadow",
+        "canonical_pos": "verb",
+        "note": "translation_sense_linked_candidate",
+        "metadata": {
+          "source_view": "translation_sense_text",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ]
+        }
+      },
+      "candidate_pos": "verb",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:show:espect-culo",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:show:espect-culo:active",
+        "candidate_sense_id": "en-es:sentence-veto:show:espect-culo:demostrar:shadow",
+        "example_bucket": "shadow",
+        "source_view": "translation_sense_text",
+        "translation_sense_text": "to indicate (a fact) to be true",
+        "translation_support_sources": [
+          "wiktionary_en_es",
+          "wiktextract_en_es_translation_table"
+        ],
+        "wiktextract_translation_support": true,
+        "wiktextract_translation_support_match_count": 1,
+        "wiktextract_translation_support_matches": [
+          {
+            "record_word": "show",
+            "record_pos": "verb",
+            "translation_word": "demostrar",
+            "translation_sense": "to indicate (a fact) to be true",
+            "translation_tags": [],
+            "sense_overlap": [
+              "fact",
+              "indicate",
+              "true"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:cb5116028dbcc0f0850b3e7e60bce58e9a45ed90",
+      "dedupe_key": "dedupe:fa13f891175bf81360a7131cfbe384ce6822f4f7",
+      "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+      "row_id": "en-es-sentence-veto-advance-avance:active-en-es-sentence-veto-advance-avance-active-translation-sense-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "translation_sense_evidence",
+      "source_family": "external_structured_dictionary_dump",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "advance",
+      "normalized_trigger": "advance",
+      "active_target": "avance",
+      "normalized_active_target": "avance",
+      "candidate_target": "avance",
+      "normalized_candidate_target": "avance",
+      "is_multiword": false,
+      "evidence_text": "advance noun sense: forward move",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "translation_sense_evidence",
+        "source_family": "external_structured_dictionary_dump",
+        "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+        "row_id": "en-es-sentence-veto-advance-avance:active-en-es-sentence-veto-advance-avance-active-translation-sense-1",
+        "model_id": "not_applicable",
+        "prompt_version": "translation-sense-evidence-v1",
+        "generated_at": "2026-04-30T03:34:14Z",
+        "ingested_at": "2026-04-30T03:34:14Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:advance:avance:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:advance:avance:active",
+        "canonical_pos": "noun",
+        "note": "translation_sense_linked_candidate",
+        "metadata": {
+          "source_view": "translation_sense_text",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktionary_es_en",
+            "wiktextract_en_es_translation_table"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:advance:avance",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:advance:avance:active",
+        "candidate_sense_id": "en-es:sentence-veto:advance:avance:active",
+        "example_bucket": "active",
+        "source_view": "translation_sense_text",
+        "translation_sense_text": "forward move",
+        "translation_support_sources": [
+          "wiktionary_en_es",
+          "wiktionary_es_en",
+          "wiktextract_en_es_translation_table"
+        ],
+        "wiktextract_translation_support": true,
+        "wiktextract_translation_support_match_count": 2,
+        "wiktextract_translation_support_matches": [
+          {
+            "record_word": "advance",
+            "record_pos": "noun",
+            "translation_word": "avance",
+            "translation_sense": "forward move",
+            "translation_tags": [
+              "masculine"
+            ],
+            "sense_overlap": [
+              "forward",
+              "move"
+            ]
+          },
+          {
+            "record_word": "advance",
+            "record_pos": "noun",
+            "translation_word": "avance",
+            "translation_sense": "amount of money",
+            "translation_tags": [
+              "masculine"
+            ],
+            "sense_overlap": []
+          }
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:b7db227b721f3c9f0a958c0b8fc73727fc4b7fcb",
+      "dedupe_key": "dedupe:bad985a172592cfabf9cb6b1e2817c1253c73ff0",
+      "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+      "row_id": "en-es-sentence-veto-advance-avance:shadow-en-es-sentence-veto-advance-avance-adelanto-shadow-translation-sense-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "translation_sense_evidence",
+      "source_family": "external_structured_dictionary_dump",
+      "roles": [
+        "discrimination"
+      ],
+      "relation_type": "shadow_candidate",
+      "trigger": "advance",
+      "normalized_trigger": "advance",
+      "active_target": "avance",
+      "normalized_active_target": "avance",
+      "candidate_target": "adelanto",
+      "normalized_candidate_target": "adelanto",
+      "is_multiword": false,
+      "evidence_text": "advance noun sense: amount of money",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "translation_sense_evidence",
+        "source_family": "external_structured_dictionary_dump",
+        "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+        "row_id": "en-es-sentence-veto-advance-avance:shadow-en-es-sentence-veto-advance-avance-adelanto-shadow-translation-sense-1",
+        "model_id": "not_applicable",
+        "prompt_version": "translation-sense-evidence-v1",
+        "generated_at": "2026-04-30T03:34:14Z",
+        "ingested_at": "2026-04-30T03:34:14Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:advance:avance:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:advance:avance:adelanto:shadow",
+        "canonical_pos": "noun",
+        "note": "translation_sense_linked_candidate",
+        "metadata": {
+          "source_view": "translation_sense_text",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:advance:avance",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:advance:avance:active",
+        "candidate_sense_id": "en-es:sentence-veto:advance:avance:adelanto:shadow",
+        "example_bucket": "shadow",
+        "source_view": "translation_sense_text",
+        "translation_sense_text": "amount of money",
+        "translation_support_sources": [
+          "wiktionary_en_es",
+          "wiktextract_en_es_translation_table"
+        ],
+        "wiktextract_translation_support": true,
+        "wiktextract_translation_support_match_count": 1,
+        "wiktextract_translation_support_matches": [
+          {
+            "record_word": "advance",
+            "record_pos": "noun",
+            "translation_word": "adelanto",
+            "translation_sense": "amount of money",
+            "translation_tags": [
+              "masculine"
+            ],
+            "sense_overlap": [
+              "amount",
+              "money"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:e9b074b76374a8c8bebed40458075a4b44dabeb8",
+      "dedupe_key": "dedupe:7479e342bb51db7dd492804119a7b1feaf6cb2db",
+      "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+      "row_id": "en-es-sentence-veto-advance-avance:shadow-en-es-sentence-veto-advance-avance-avanzar-shadow-translation-sense-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "translation_sense_evidence",
+      "source_family": "external_structured_dictionary_dump",
+      "roles": [
+        "discrimination"
+      ],
+      "relation_type": "shadow_candidate",
+      "trigger": "advance",
+      "normalized_trigger": "advance",
+      "active_target": "avance",
+      "normalized_active_target": "avance",
+      "candidate_target": "avanzar",
+      "normalized_candidate_target": "avanzar",
+      "is_multiword": false,
+      "evidence_text": "advance verb sense: to bring forward; to move towards the front; to make to go on",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "translation_sense_evidence",
+        "source_family": "external_structured_dictionary_dump",
+        "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+        "row_id": "en-es-sentence-veto-advance-avance:shadow-en-es-sentence-veto-advance-avance-avanzar-shadow-translation-sense-1",
+        "model_id": "not_applicable",
+        "prompt_version": "translation-sense-evidence-v1",
+        "generated_at": "2026-04-30T03:34:14Z",
+        "ingested_at": "2026-04-30T03:34:14Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:advance:avance:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:advance:avance:avanzar:shadow",
+        "canonical_pos": "verb",
+        "note": "translation_sense_linked_candidate",
+        "metadata": {
+          "source_view": "translation_sense_text",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ]
+        }
+      },
+      "candidate_pos": "verb",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:advance:avance",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:advance:avance:active",
+        "candidate_sense_id": "en-es:sentence-veto:advance:avance:avanzar:shadow",
+        "example_bucket": "shadow",
+        "source_view": "translation_sense_text",
+        "translation_sense_text": "to bring forward; to move towards the front; to make to go on",
+        "translation_support_sources": [
+          "wiktionary_en_es",
+          "wiktextract_en_es_translation_table"
+        ],
+        "wiktextract_translation_support": true,
+        "wiktextract_translation_support_match_count": 1,
+        "wiktextract_translation_support_matches": [
+          {
+            "record_word": "advance",
+            "record_pos": "verb",
+            "translation_word": "avanzar",
+            "translation_sense": "to bring forward; to move towards the front; to make to go on",
+            "translation_tags": [],
+            "sense_overlap": [
+              "bring",
+              "forward",
+              "front",
+              "make",
+              "move",
+              "toward"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:6c014946b030fe090b3a53adb02e9b9feebbcf94",
+      "dedupe_key": "dedupe:e633475e384799d1b3009bcb78774f5ad8849c54",
+      "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+      "row_id": "en-es-sentence-veto-rank-rancio:active-en-es-sentence-veto-rank-rancio-active-translation-sense-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "translation_sense_evidence",
+      "source_family": "external_structured_dictionary_dump",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "rank",
+      "normalized_trigger": "rank",
+      "active_target": "rancio",
+      "normalized_active_target": "rancio",
+      "candidate_target": "rancio",
+      "normalized_candidate_target": "rancio",
+      "is_multiword": false,
+      "evidence_text": "rank adjective sense: having a very strong and bad odor",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "translation_sense_evidence",
+        "source_family": "external_structured_dictionary_dump",
+        "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+        "row_id": "en-es-sentence-veto-rank-rancio:active-en-es-sentence-veto-rank-rancio-active-translation-sense-1",
+        "model_id": "not_applicable",
+        "prompt_version": "translation-sense-evidence-v1",
+        "generated_at": "2026-04-30T03:34:14Z",
+        "ingested_at": "2026-04-30T03:34:14Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:rank:rancio:active",
+        "canonical_pos": "adjective",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:rank:rancio:active",
+        "canonical_pos": "adjective",
+        "note": "translation_sense_linked_candidate",
+        "metadata": {
+          "source_view": "translation_sense_text",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ]
+        }
+      },
+      "candidate_pos": "adjective",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:rank:rancio",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:rank:rancio:active",
+        "candidate_sense_id": "en-es:sentence-veto:rank:rancio:active",
+        "example_bucket": "active",
+        "source_view": "translation_sense_text",
+        "translation_sense_text": "having a very strong and bad odor",
+        "translation_support_sources": [
+          "wiktionary_en_es",
+          "wiktextract_en_es_translation_table"
+        ],
+        "wiktextract_translation_support": true,
+        "wiktextract_translation_support_match_count": 1,
+        "wiktextract_translation_support_matches": [
+          {
+            "record_word": "rank",
+            "record_pos": "adj",
+            "translation_word": "rancio",
+            "translation_sense": "having a very strong and bad odor",
+            "translation_tags": [],
+            "sense_overlap": [
+              "bad",
+              "hav",
+              "odor",
+              "strong"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:f82fa502d38c5876844ed0ec9609f1353b8c9fe8",
+      "dedupe_key": "dedupe:049c88c5eee33ec2a0bda92466108b5d5824a0f1",
+      "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+      "row_id": "en-es-sentence-veto-rank-rancio:shadow-en-es-sentence-veto-rank-rancio-fila-shadow-translation-sense-1",
+      "pair": "en-es",
+      "source_type": "external",
+      "source_id": "translation_sense_evidence",
+      "source_family": "external_structured_dictionary_dump",
+      "roles": [
+        "discrimination"
+      ],
+      "relation_type": "shadow_candidate",
+      "trigger": "rank",
+      "normalized_trigger": "rank",
+      "active_target": "rancio",
+      "normalized_active_target": "rancio",
+      "candidate_target": "fila",
+      "normalized_candidate_target": "fila",
+      "is_multiword": false,
+      "evidence_text": "rank noun sense: row of people or things organized in a grid pattern",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "external",
+        "source_id": "translation_sense_evidence",
+        "source_family": "external_structured_dictionary_dump",
+        "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+        "row_id": "en-es-sentence-veto-rank-rancio:shadow-en-es-sentence-veto-rank-rancio-fila-shadow-translation-sense-1",
+        "model_id": "not_applicable",
+        "prompt_version": "translation-sense-evidence-v1",
+        "generated_at": "2026-04-30T03:34:14Z",
+        "ingested_at": "2026-04-30T03:34:14Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:rank:rancio:active",
+        "canonical_pos": "adjective",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:rank:rancio:fila:shadow",
+        "canonical_pos": "noun",
+        "note": "translation_sense_linked_candidate",
+        "metadata": {
+          "source_view": "translation_sense_text",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktionary_es_en",
+            "freedict_es_en",
+            "wiktextract_en_es_translation_table"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:rank:rancio",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:rank:rancio:active",
+        "candidate_sense_id": "en-es:sentence-veto:rank:rancio:fila:shadow",
+        "example_bucket": "shadow",
+        "source_view": "translation_sense_text",
+        "translation_sense_text": "row of people or things organized in a grid pattern",
+        "translation_support_sources": [
+          "wiktionary_en_es",
+          "wiktionary_es_en",
+          "freedict_es_en",
+          "wiktextract_en_es_translation_table"
+        ],
+        "wiktextract_translation_support": true,
+        "wiktextract_translation_support_match_count": 2,
+        "wiktextract_translation_support_matches": [
+          {
+            "record_word": "rank",
+            "record_pos": "noun",
+            "translation_word": "fila",
+            "translation_sense": "row of people or things organized in a grid pattern",
+            "translation_tags": [
+              "feminine"
+            ],
+            "sense_overlap": [
+              "grid",
+              "organiz",
+              "pattern",
+              "people",
+              "row",
+              "thing"
+            ]
+          },
+          {
+            "record_word": "rank",
+            "record_pos": "noun",
+            "translation_word": "fila",
+            "translation_sense": "chess: one of the horizontal lines of squares",
+            "translation_tags": [
+              "feminine"
+            ],
+            "sense_overlap": []
+          }
+        ]
+      }
+    }
+  ],
+  "provenance": {
+    "source_type": "external",
+    "source_id": "translation_sense_evidence",
+    "source_family": "external_structured_dictionary_dump",
+    "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+    "model_id": "not_applicable",
+    "prompt_version": "translation-sense-evidence-v1",
+    "generated_at": "2026-04-30T03:34:14Z",
+    "ingested_at": "2026-04-30T03:34:14Z",
+    "normalization_version": "semantic_evidence_v1",
+    "upstream": {
+      "dataset_id": "en_es_source_non_v10_wave6_anypos_unsupported_upper_bound_selected_v1",
+      "source_note": "English sense text from supported translation-table rows; Spanish target lemmas are excluded from evidence_text.",
+      "family_rows": [
+        {
+          "family_id": "en-es:sentence-veto:leave:permiso",
+          "trigger": "leave",
+          "active_row_count": 1,
+          "shadow_row_count": 2,
+          "skipped_sense_count": 0,
+          "row_count": 3,
+          "senses": [
+            {
+              "sense_id": "en-es:sentence-veto:leave:permiso:active",
+              "target_lemma": "permiso",
+              "canonical_pos": "noun",
+              "relation_type": "anchor_cue",
+              "translation_sense_text": "permission to be absent",
+              "source_supported": true,
+              "support_match_count": 1
+            },
+            {
+              "sense_id": "en-es:sentence-veto:leave:permiso:excedencia:shadow",
+              "target_lemma": "excedencia",
+              "canonical_pos": "noun",
+              "relation_type": "shadow_candidate",
+              "translation_sense_text": "absence from work",
+              "source_supported": true,
+              "support_match_count": 1
+            },
+            {
+              "sense_id": "en-es:sentence-veto:leave:permiso:dejar:shadow",
+              "target_lemma": "dejar",
+              "canonical_pos": "verb",
+              "relation_type": "shadow_candidate",
+              "translation_sense_text": "to cause to remain as available, not take away, refrain from depleting",
+              "source_supported": true,
+              "support_match_count": 5
+            }
+          ]
+        },
+        {
+          "family_id": "en-es:sentence-veto:black:oscuro",
+          "trigger": "black",
+          "active_row_count": 1,
+          "shadow_row_count": 1,
+          "skipped_sense_count": 0,
+          "row_count": 2,
+          "senses": [
+            {
+              "sense_id": "en-es:sentence-veto:black:oscuro:active",
+              "target_lemma": "oscuro",
+              "canonical_pos": "adjective",
+              "relation_type": "anchor_cue",
+              "translation_sense_text": "without light",
+              "source_supported": true,
+              "support_match_count": 1
+            },
+            {
+              "sense_id": "en-es:sentence-veto:black:oscuro:negro:shadow",
+              "target_lemma": "negro",
+              "canonical_pos": "noun",
+              "relation_type": "shadow_candidate",
+              "translation_sense_text": "colour/color",
+              "source_supported": true,
+              "support_match_count": 2
+            }
+          ]
+        },
+        {
+          "family_id": "en-es:sentence-veto:serve:servicio",
+          "trigger": "serve",
+          "active_row_count": 1,
+          "shadow_row_count": 1,
+          "skipped_sense_count": 0,
+          "row_count": 2,
+          "senses": [
+            {
+              "sense_id": "en-es:sentence-veto:serve:servicio:active",
+              "target_lemma": "servicio",
+              "canonical_pos": "noun",
+              "relation_type": "anchor_cue",
+              "translation_sense_text": "sports: act of putting the ball or shuttlecock in play",
+              "source_supported": true,
+              "support_match_count": 1
+            },
+            {
+              "sense_id": "en-es:sentence-veto:serve:servicio:servir:shadow",
+              "target_lemma": "servir",
+              "canonical_pos": "verb",
+              "relation_type": "shadow_candidate",
+              "translation_sense_text": "to work for",
+              "source_supported": true,
+              "support_match_count": 12
+            }
+          ]
+        },
+        {
+          "family_id": "en-es:sentence-veto:low:bajo",
+          "trigger": "low",
+          "active_row_count": 1,
+          "shadow_row_count": 1,
+          "skipped_sense_count": 0,
+          "row_count": 2,
+          "senses": [
+            {
+              "sense_id": "en-es:sentence-veto:low:bajo:active",
+              "target_lemma": "bajo",
+              "canonical_pos": "adverb",
+              "relation_type": "anchor_cue",
+              "translation_sense_text": "close to the ground",
+              "source_supported": true,
+              "support_match_count": 3
+            },
+            {
+              "sense_id": "en-es:sentence-veto:low:bajo:deca-do:shadow",
+              "target_lemma": "decaído",
+              "canonical_pos": "adjective",
+              "relation_type": "shadow_candidate",
+              "translation_sense_text": "depressed, sad",
+              "source_supported": true,
+              "support_match_count": 1
+            }
+          ]
+        },
+        {
+          "family_id": "en-es:sentence-veto:part:parte",
+          "trigger": "part",
+          "active_row_count": 1,
+          "shadow_row_count": 2,
+          "skipped_sense_count": 0,
+          "row_count": 3,
+          "senses": [
+            {
+              "sense_id": "en-es:sentence-veto:part:parte:active",
+              "target_lemma": "parte",
+              "canonical_pos": "noun",
+              "relation_type": "anchor_cue",
+              "translation_sense_text": "fraction of a whole",
+              "source_supported": true,
+              "support_match_count": 2
+            },
+            {
+              "sense_id": "en-es:sentence-veto:part:parte:papel:shadow",
+              "target_lemma": "papel",
+              "canonical_pos": "noun",
+              "relation_type": "shadow_candidate",
+              "translation_sense_text": "position or role, especially in a play",
+              "source_supported": true,
+              "support_match_count": 1
+            },
+            {
+              "sense_id": "en-es:sentence-veto:part:parte:repartir:shadow",
+              "target_lemma": "repartir",
+              "canonical_pos": "verb",
+              "relation_type": "shadow_candidate",
+              "translation_sense_text": "to divide in two",
+              "source_supported": true,
+              "support_match_count": 1
+            }
+          ]
+        },
+        {
+          "family_id": "en-es:sentence-veto:feel:talento",
+          "trigger": "feel",
+          "active_row_count": 1,
+          "shadow_row_count": 1,
+          "skipped_sense_count": 0,
+          "row_count": 2,
+          "senses": [
+            {
+              "sense_id": "en-es:sentence-veto:feel:talento:active",
+              "target_lemma": "talento",
+              "canonical_pos": "noun",
+              "relation_type": "anchor_cue",
+              "translation_sense_text": "intuitive ability",
+              "source_supported": true,
+              "support_match_count": 1
+            },
+            {
+              "sense_id": "en-es:sentence-veto:feel:talento:sentir:shadow",
+              "target_lemma": "sentir",
+              "canonical_pos": "verb",
+              "relation_type": "shadow_candidate",
+              "translation_sense_text": "transitive: to sense by touch",
+              "source_supported": true,
+              "support_match_count": 3
+            }
+          ]
+        },
+        {
+          "family_id": "en-es:sentence-veto:still:quietud",
+          "trigger": "still",
+          "active_row_count": 1,
+          "shadow_row_count": 2,
+          "skipped_sense_count": 0,
+          "row_count": 3,
+          "senses": [
+            {
+              "sense_id": "en-es:sentence-veto:still:quietud:active",
+              "target_lemma": "quietud",
+              "canonical_pos": "noun",
+              "relation_type": "anchor_cue",
+              "translation_sense_text": "period of calm or silence",
+              "source_supported": true,
+              "support_match_count": 1
+            },
+            {
+              "sense_id": "en-es:sentence-veto:still:quietud:alambique:shadow",
+              "target_lemma": "alambique",
+              "canonical_pos": "noun",
+              "relation_type": "shadow_candidate",
+              "translation_sense_text": "a device for distilling liquids",
+              "source_supported": true,
+              "support_match_count": 1
+            },
+            {
+              "sense_id": "en-es:sentence-veto:still:quietud:aquietar:shadow",
+              "target_lemma": "aquietar",
+              "canonical_pos": "verb",
+              "relation_type": "shadow_candidate",
+              "translation_sense_text": "to calm down",
+              "source_supported": true,
+              "support_match_count": 1
+            }
+          ]
+        },
+        {
+          "family_id": "en-es:sentence-veto:bear:bajista",
+          "trigger": "bear",
+          "active_row_count": 1,
+          "shadow_row_count": 1,
+          "skipped_sense_count": 0,
+          "row_count": 2,
+          "senses": [
+            {
+              "sense_id": "en-es:sentence-veto:bear:bajista:active",
+              "target_lemma": "bajista",
+              "canonical_pos": "noun",
+              "relation_type": "anchor_cue",
+              "translation_sense_text": "investor who sells in anticipation of falling prices",
+              "source_supported": true,
+              "support_match_count": 1
+            },
+            {
+              "sense_id": "en-es:sentence-veto:bear:bajista:llevar:shadow",
+              "target_lemma": "llevar",
+              "canonical_pos": "verb",
+              "relation_type": "shadow_candidate",
+              "translation_sense_text": "to carry",
+              "source_supported": true,
+              "support_match_count": 2
+            }
+          ]
+        },
+        {
+          "family_id": "en-es:sentence-veto:finish:meta",
+          "trigger": "finish",
+          "active_row_count": 1,
+          "shadow_row_count": 2,
+          "skipped_sense_count": 0,
+          "row_count": 3,
+          "senses": [
+            {
+              "sense_id": "en-es:sentence-veto:finish:meta:active",
+              "target_lemma": "meta",
+              "canonical_pos": "noun",
+              "relation_type": "anchor_cue",
+              "translation_sense_text": "end",
+              "source_supported": true,
+              "support_match_count": 1
+            },
+            {
+              "sense_id": "en-es:sentence-veto:finish:meta:acabado:shadow",
+              "target_lemma": "acabado",
+              "canonical_pos": "noun",
+              "relation_type": "shadow_candidate",
+              "translation_sense_text": "protective coating",
+              "source_supported": true,
+              "support_match_count": 1
+            },
+            {
+              "sense_id": "en-es:sentence-veto:finish:meta:acabar:shadow",
+              "target_lemma": "acabar",
+              "canonical_pos": "verb",
+              "relation_type": "shadow_candidate",
+              "translation_sense_text": "to complete",
+              "source_supported": true,
+              "support_match_count": 2
+            }
+          ]
+        },
+        {
+          "family_id": "en-es:sentence-veto:throw:lanzamiento",
+          "trigger": "throw",
+          "active_row_count": 1,
+          "shadow_row_count": 1,
+          "skipped_sense_count": 0,
+          "row_count": 2,
+          "senses": [
+            {
+              "sense_id": "en-es:sentence-veto:throw:lanzamiento:active",
+              "target_lemma": "lanzamiento",
+              "canonical_pos": "noun",
+              "relation_type": "anchor_cue",
+              "translation_sense_text": "flight of a thrown object",
+              "source_supported": true,
+              "support_match_count": 1
+            },
+            {
+              "sense_id": "en-es:sentence-veto:throw:lanzamiento:lanzar:shadow",
+              "target_lemma": "lanzar",
+              "canonical_pos": "verb",
+              "relation_type": "shadow_candidate",
+              "translation_sense_text": "to cause an object to move rapidly through the air",
+              "source_supported": true,
+              "support_match_count": 1
+            }
+          ]
+        },
+        {
+          "family_id": "en-es:sentence-veto:upset:disgustado",
+          "trigger": "upset",
+          "active_row_count": 1,
+          "shadow_row_count": 1,
+          "skipped_sense_count": 0,
+          "row_count": 2,
+          "senses": [
+            {
+              "sense_id": "en-es:sentence-veto:upset:disgustado:active",
+              "target_lemma": "disgustado",
+              "canonical_pos": "adjective",
+              "relation_type": "anchor_cue",
+              "translation_sense_text": "angry, distressed, unhappy",
+              "source_supported": true,
+              "support_match_count": 1
+            },
+            {
+              "sense_id": "en-es:sentence-veto:upset:disgustado:trastrocar:shadow",
+              "target_lemma": "trastrocar",
+              "canonical_pos": "verb",
+              "relation_type": "shadow_candidate",
+              "translation_sense_text": "disturb, disrupt, unfavorably alter",
+              "source_supported": true,
+              "support_match_count": 1
+            }
+          ]
+        },
+        {
+          "family_id": "en-es:sentence-veto:piece:trozo",
+          "trigger": "piece",
+          "active_row_count": 1,
+          "shadow_row_count": 2,
+          "skipped_sense_count": 0,
+          "row_count": 3,
+          "senses": [
+            {
+              "sense_id": "en-es:sentence-veto:piece:trozo:active",
+              "target_lemma": "trozo",
+              "canonical_pos": "noun",
+              "relation_type": "anchor_cue",
+              "translation_sense_text": "part of a larger whole",
+              "source_supported": true,
+              "support_match_count": 1
+            },
+            {
+              "sense_id": "en-es:sentence-veto:piece:trozo:ficha:shadow",
+              "target_lemma": "ficha",
+              "canonical_pos": "noun",
+              "relation_type": "shadow_candidate",
+              "translation_sense_text": "chess: figure other than pawn; similar counter in other games",
+              "source_supported": true,
+              "support_match_count": 1
+            },
+            {
+              "sense_id": "en-es:sentence-veto:piece:trozo:montar:shadow",
+              "target_lemma": "montar",
+              "canonical_pos": "verb",
+              "relation_type": "shadow_candidate",
+              "translation_sense_text": "to create or construct by assembling parts",
+              "source_supported": true,
+              "support_match_count": 1
+            }
+          ]
+        },
+        {
+          "family_id": "en-es:sentence-veto:fair:pastel",
+          "trigger": "fair",
+          "active_row_count": 1,
+          "shadow_row_count": 1,
+          "skipped_sense_count": 0,
+          "row_count": 2,
+          "senses": [
+            {
+              "sense_id": "en-es:sentence-veto:fair:pastel:active",
+              "target_lemma": "pastel",
+              "canonical_pos": "adjective",
+              "relation_type": "anchor_cue",
+              "translation_sense_text": "light in color or pale",
+              "source_supported": true,
+              "support_match_count": 1
+            },
+            {
+              "sense_id": "en-es:sentence-veto:fair:pastel:feria-de-muestras:shadow",
+              "target_lemma": "feria de muestras",
+              "canonical_pos": "noun",
+              "relation_type": "shadow_candidate",
+              "translation_sense_text": "professional event, trade fair",
+              "source_supported": true,
+              "support_match_count": 1
+            }
+          ]
+        },
+        {
+          "family_id": "en-es:sentence-veto:show:espect-culo",
+          "trigger": "show",
+          "active_row_count": 1,
+          "shadow_row_count": 1,
+          "skipped_sense_count": 0,
+          "row_count": 2,
+          "senses": [
+            {
+              "sense_id": "en-es:sentence-veto:show:espect-culo:active",
+              "target_lemma": "espectáculo",
+              "canonical_pos": "noun",
+              "relation_type": "anchor_cue",
+              "translation_sense_text": "entertainment",
+              "source_supported": true,
+              "support_match_count": 1
+            },
+            {
+              "sense_id": "en-es:sentence-veto:show:espect-culo:demostrar:shadow",
+              "target_lemma": "demostrar",
+              "canonical_pos": "verb",
+              "relation_type": "shadow_candidate",
+              "translation_sense_text": "to indicate (a fact) to be true",
+              "source_supported": true,
+              "support_match_count": 1
+            }
+          ]
+        },
+        {
+          "family_id": "en-es:sentence-veto:advance:avance",
+          "trigger": "advance",
+          "active_row_count": 1,
+          "shadow_row_count": 2,
+          "skipped_sense_count": 0,
+          "row_count": 3,
+          "senses": [
+            {
+              "sense_id": "en-es:sentence-veto:advance:avance:active",
+              "target_lemma": "avance",
+              "canonical_pos": "noun",
+              "relation_type": "anchor_cue",
+              "translation_sense_text": "forward move",
+              "source_supported": true,
+              "support_match_count": 2
+            },
+            {
+              "sense_id": "en-es:sentence-veto:advance:avance:adelanto:shadow",
+              "target_lemma": "adelanto",
+              "canonical_pos": "noun",
+              "relation_type": "shadow_candidate",
+              "translation_sense_text": "amount of money",
+              "source_supported": true,
+              "support_match_count": 1
+            },
+            {
+              "sense_id": "en-es:sentence-veto:advance:avance:avanzar:shadow",
+              "target_lemma": "avanzar",
+              "canonical_pos": "verb",
+              "relation_type": "shadow_candidate",
+              "translation_sense_text": "to bring forward; to move towards the front; to make to go on",
+              "source_supported": true,
+              "support_match_count": 1
+            }
+          ]
+        },
+        {
+          "family_id": "en-es:sentence-veto:rank:rancio",
+          "trigger": "rank",
+          "active_row_count": 1,
+          "shadow_row_count": 1,
+          "skipped_sense_count": 0,
+          "row_count": 2,
+          "senses": [
+            {
+              "sense_id": "en-es:sentence-veto:rank:rancio:active",
+              "target_lemma": "rancio",
+              "canonical_pos": "adjective",
+              "relation_type": "anchor_cue",
+              "translation_sense_text": "having a very strong and bad odor",
+              "source_supported": true,
+              "support_match_count": 1
+            },
+            {
+              "sense_id": "en-es:sentence-veto:rank:rancio:fila:shadow",
+              "target_lemma": "fila",
+              "canonical_pos": "noun",
+              "relation_type": "shadow_candidate",
+              "translation_sense_text": "row of people or things organized in a grid pattern",
+              "source_supported": true,
+              "support_match_count": 2
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
