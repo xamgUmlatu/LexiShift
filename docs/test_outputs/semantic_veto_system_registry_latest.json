@@ -24,22 +24,21 @@
       "validation": "Focused semantic harness tests passed; lane artifacts were regenerated through failure mining; registry audit and doc-reference checks must stay clean before commit."
     },
     {
-      "action": "Target the residual wave7 blockers as separate failure classes: gross quantity shadow evidence, fix repair-overlap, even phrase-preemption, meet adjective-vs-meeting phrase control, and phrase/no-winner rescue leakage.",
-      "action_id": "wave7_residual_guard_and_shadow_evidence",
-      "evidence_needed": "Current residual evidence shows `gross:002` harmful, `fix:001`, `even:001`, and `meet:001` false abstains, plus 6 phrase/no-winner harmful replacements. `even` is a strong-active phrase-preemption false positive, while `fix` and `meet` are shadow/phrase semantic-overlap problems rather than missing class coverage.",
+      "action": "Implement the smallest targeted evidence or guard patch justified by the residual blocker probe, without collapsing shadow evidence repair, phrase preemption, phrase-control overlap, and phrase/no-winner rescue leakage into one scalar threshold.",
+      "action_id": "wave7_targeted_guard_and_evidence_patch",
+      "evidence_needed": "The probe routes residuals into four remediation lanes: shadow evidence repair for `gross` and `fix`, phrase-preemption guard for `even`, overlap evidence repair for `meet`, and phrase/no-winner rescue guard for `cast`, `wrong`, `stretch`, `score`, `squeeze`, and `foul`.",
       "pass_id": "best_candidate",
       "priority": "P1",
-      "promotion_impact": "Prevents the next pass from treating the remaining blockers as one threshold problem; wave7 stays blocked until both active/source and phrase/no-winner harms pass together.",
+      "promotion_impact": "Keeps wave7 research-only while turning the next remediation step into a tested guard/evidence patch instead of a broad threshold search.",
       "source_artifacts": [
+        "wave7_residual_blocker_probe",
         "wave7_phrase_control_triage_active_shadow_validation",
         "wave7_phrase_control_triage_phrase_validation",
         "wave7_phrase_control_rescue_sweep",
-        "wave7_phrase_control_no_surface_margin_sweep",
-        "wave7_failure_mining",
-        "source_class_frame_adapter"
+        "wave7_phrase_control_no_surface_margin_sweep"
       ],
       "status": "queued",
-      "validation": "Run a targeted blocker harness or focused heldout rerun before changing scalar policy; only then rerun phrase-control admission, both heldout suites, rescue sweep, no-surface margin sweep, failure mining, registry summary, focused tests, doc-reference checks, and git diff whitespace checks."
+      "validation": "After any patch, rerun both wave7 phrase-control heldout suites, rescue sweep, no-surface margin sweep, failure mining, residual blocker probe, registry summary, focused tests, doc-reference checks, and git diff whitespace checks."
     },
     {
       "action": "Continue the integrity audit before more wave7 research: verify current-looking latest artifacts, dirty generated outputs, and methodology docs are classified as runtime truth, current candidate evidence, generated evidence, historical context, superseded, or queued follow-up.",
@@ -180,6 +179,25 @@
       "validation": "Phrase-control triage admission and heldout reports were generated, rescue and no-surface margin sweeps were generated, registry summary was regenerated, and focused registry/doc checks must stay clean before commit."
     },
     {
+      "action": "Target the residual wave7 blockers as separate failure classes: gross quantity shadow evidence, fix repair-overlap, even phrase-preemption, meet adjective-vs-meeting phrase control, and phrase/no-winner rescue leakage.",
+      "action_id": "wave7_residual_guard_and_shadow_evidence",
+      "evidence_needed": "Targeted blocker probe classifies 10 residual cases into 6 failure classes: `gross` quantity shadow evidence underweighted, `fix` shadow overlap, `even` phrase-preemption overreach, `meet` phrase-control overlap, and 6 phrase/no-winner surface-rescue leaks split by dominant vs close phrase-control evidence.",
+      "pass_id": "best_candidate",
+      "priority": "P1",
+      "promotion_impact": "Prevents the next pass from treating the remaining blockers as one threshold problem; wave7 stays blocked until both active/source and phrase/no-winner harms pass together.",
+      "source_artifacts": [
+        "wave7_phrase_control_triage_active_shadow_validation",
+        "wave7_phrase_control_triage_phrase_validation",
+        "wave7_phrase_control_rescue_sweep",
+        "wave7_phrase_control_no_surface_margin_sweep",
+        "wave7_failure_mining",
+        "wave7_residual_blocker_probe",
+        "source_class_frame_adapter"
+      ],
+      "status": "done",
+      "validation": "Generated `wave7_residual_blocker_probe`, confirmed the focused unit test, and kept scalar policy blocked because the rescue sweep and no-surface margin sweep still have 0 combined passing policies."
+    },
+    {
       "action": "Execute wave7_source_class_breadth_v1 before treating the current wave6 candidate as promotion-quality evidence.",
       "action_id": "wave7_source_class_breadth_execution",
       "evidence_needed": "Wave7 was executed with 16 fully supported families, 23 split non-authorization source-class buckets, 32 active/shadow cases, and 16 phrase/no-winner cases; the gate still failed with heldout harmful replacements and false abstains recorded in failure mining.",
@@ -293,7 +311,7 @@
   "component_counts": {
     "candidate_wave6": 11,
     "decision_research": 8,
-    "diagnostics": 6,
+    "diagnostics": 7,
     "evaluation_data": 7,
     "historical_or_seed": 7,
     "process_governance": 10,
@@ -310,7 +328,7 @@
       "active_shadow_false_abstains": 0,
       "active_shadow_harmful_replacements": 0,
       "active_shadow_replace_recall": 1.0,
-      "latest_breadth_gate_false_abstains": 5,
+      "latest_breadth_gate_false_abstains": 3,
       "latest_breadth_gate_harmful_replacements": 7,
       "latest_breadth_gate_status": "executed_failed",
       "next_breadth_gate": "wave7_source_class_breadth_v1",
@@ -1352,6 +1370,23 @@
       ]
     },
     {
+      "artifact_id": "wave7_residual_blocker_probe",
+      "component": "diagnostics",
+      "current_use": "Records 10 residual cases split into 6 failure classes across shadow evidence, phrase preemption, phrase-control overlap, and phrase/no-winner rescue leakage; no existing rescue or no-surface margin policy passes.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_reconciliation_workstream.md",
+      "path": "docs/test_outputs/semantic_wave7_residual_blocker_probe_wave7_source_class_breadth_v1_phrase_control_triage_latest.md",
+      "risk": "Diagnostic classification is not a runtime policy change and does not rescore evidence.",
+      "role": "Fixed-trace diagnostic that classifies the residual wave7 phrase-control triage blockers before scalar rescue or margin tuning.",
+      "state": "generated_evidence",
+      "title": "Wave7 residual blocker probe",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_wave7_residual_blocker_probe_wave7_source_class_breadth_v1_phrase_control_triage_latest.json",
+        "scripts/testing/semantic_wave7_residual_blocker_probe_en_es.py",
+        "core/tests/dev/test_semantic_wave7_residual_blocker_probe_en_es.py"
+      ]
+    },
+    {
       "artifact_id": "wave7_supported_dataset",
       "component": "evaluation_data",
       "current_use": "Executed wave7 breadth-gate base dataset.",
@@ -1674,8 +1709,8 @@
       ]
     }
   ],
-  "entry_count": 84,
-  "generated_at": "2026-04-30T19:23:14Z",
+  "entry_count": 85,
+  "generated_at": "2026-04-30T19:56:08Z",
   "issues": [],
   "next_passes": [],
   "pass_count": 7,
@@ -2766,6 +2801,23 @@
       ]
     },
     {
+      "artifact_id": "wave7_residual_blocker_probe",
+      "component": "diagnostics",
+      "current_use": "Records 10 residual cases split into 6 failure classes across shadow evidence, phrase preemption, phrase-control overlap, and phrase/no-winner rescue leakage; no existing rescue or no-surface margin policy passes.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_reconciliation_workstream.md",
+      "path": "docs/test_outputs/semantic_wave7_residual_blocker_probe_wave7_source_class_breadth_v1_phrase_control_triage_latest.md",
+      "risk": "Diagnostic classification is not a runtime policy change and does not rescore evidence.",
+      "role": "Fixed-trace diagnostic that classifies the residual wave7 phrase-control triage blockers before scalar rescue or margin tuning.",
+      "state": "generated_evidence",
+      "title": "Wave7 residual blocker probe",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_wave7_residual_blocker_probe_wave7_source_class_breadth_v1_phrase_control_triage_latest.json",
+        "scripts/testing/semantic_wave7_residual_blocker_probe_en_es.py",
+        "core/tests/dev/test_semantic_wave7_residual_blocker_probe_en_es.py"
+      ]
+    },
+    {
       "artifact_id": "wave7_supported_dataset",
       "component": "evaluation_data",
       "current_use": "Executed wave7 breadth-gate base dataset.",
@@ -2989,7 +3041,7 @@
     "current_research": 14,
     "current_runtime": 16,
     "diagnostic_only": 1,
-    "generated_evidence": 24,
+    "generated_evidence": 25,
     "historical_reference": 5,
     "superseded": 2,
     "supporting_current": 2

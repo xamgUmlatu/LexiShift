@@ -185,6 +185,9 @@ Diagnostics and ledgers:
 - `scripts/testing/semantic_source_failure_class_mining_en_es.py`: reads
   admission, held-out, source, and margin artifacts to expose reusable failure
   classes, breadth gaps, and overfit risk.
+- `scripts/testing/semantic_wave7_residual_blocker_probe_en_es.py`: reads the
+  wave7 phrase-control triage heldout reports plus rescue and margin sweeps to
+  classify the remaining blockers before any scalar policy tuning.
 - `scripts/testing/semantic_veto_system_registry_summary.py`: audits this
   reconciliation registry; it is not a semantic decision harness.
 
@@ -287,6 +290,10 @@ Wave7 phrase-control triage:
   quantity-vs-disgust selection plus `fix`, `even`, and `meet` false abstains;
   phrase/no-winner still has `6` harmful replacements, and neither rescue nor
   no-surface scalar margin policies produce a combined pass.
+- Residual blocker probe:
+  `docs/test_outputs/semantic_wave7_residual_blocker_probe_wave7_source_class_breadth_v1_phrase_control_triage_latest.md`
+  classifies those `10` residuals into `6` failure classes and preserves the
+  next remediation as targeted guard/evidence work, not global scalar tuning.
 
 ## Action Ledger
 
@@ -323,9 +330,12 @@ Current highest-priority actions:
 - `P1` `wave7_active_signal_and_rescue_split`: done; source-class evidence was
   split from broad buckets into source-specific classes, fixing `like` and
   `full` false abstains while preserving the remaining wave7 blockers.
-- `P1` `wave7_residual_guard_and_shadow_evidence`: queued; isolate `gross`,
-  `fix`, `even`, and `meet` with a targeted shadow-evidence and phrase-guard
-  pass before any more scalar rescue or margin tuning.
+- `P1` `wave7_residual_guard_and_shadow_evidence`: done; the residual blocker
+  probe split `gross`, `fix`, `even`, `meet`, and the 6 phrase/no-winner harms
+  into separate remediation lanes before any scalar rescue or margin tuning.
+- `P1` `wave7_targeted_guard_and_evidence_patch`: queued; implement the
+  smallest guard or evidence patch justified by the residual blocker probe and
+  rerun both heldout suites plus rescue/no-surface diagnostics.
 - `P1` `scorer_backed_rescue_policy_confirmation`: done; the recommended rescue
   policy passes scorer-backed offline validation over the current 54-row suite.
 - `P1` `source_trigger_overfit_audit`: done; authorization-frame evidence is
@@ -368,13 +378,17 @@ Integrity audit lane:
 
 Research lane:
 
-- Completed action: `wave7_active_signal_and_rescue_split`.
-- Result: broad source-class buckets were split into source-specific classes,
-  fixing `like` and `full` false abstains, but wave7 remains blocked by
-  residual `gross`, `fix`, `even`, and `meet` failures plus phrase/no-winner
-  rescue leakage.
-- Next queued action: `wave7_residual_guard_and_shadow_evidence`.
+- Completed action: `wave7_residual_guard_and_shadow_evidence`.
+- Result: the residual blocker probe classifies `10` current failures into `6`
+  failure classes: `gross` quantity shadow evidence underweighted, `fix` shadow
+  overlap, `even` phrase-preemption overreach on a strong active, `meet`
+  phrase-control overlap, and phrase/no-winner rescue leakage split into
+  dominant vs close phrase-control evidence. The rescue sweep and no-surface
+  margin sweep still have `0` combined passing policies, so this remains a
+  targeted guard/evidence problem rather than one scalar threshold problem.
+- Next queued action: `wave7_targeted_guard_and_evidence_patch`.
 - Starting artifacts:
+  `docs/test_outputs/semantic_wave7_residual_blocker_probe_wave7_source_class_breadth_v1_phrase_control_triage_latest.md`,
   `docs/test_outputs/semantic_source_admission_cycle_wave7_source_class_breadth_v1_phrase_control_triage_latest.md`,
   `docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout_validation_latest.md`,
   `docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase_validation_latest.md`,
@@ -411,13 +425,15 @@ Current state:
   classified in `docs/rulegen/semantic_veto_local_output_disposition.md`.
 - Action ledger: reconciliation passes are parked; the next substantive
   semantic-veto work is the research-only
-  `wave7_residual_guard_and_shadow_evidence` unless a new audit crack appears.
-- Parked research lane: `wave7_residual_guard_and_shadow_evidence` is queued
-  and must not be lost, but it is not an audit task.
+  `wave7_targeted_guard_and_evidence_patch` unless a new audit crack appears.
+- Parked research lane: `wave7_residual_guard_and_shadow_evidence` is complete
+  as a diagnostic pass; `wave7_targeted_guard_and_evidence_patch` is queued and
+  must not be lost, but it is not an audit task.
 - Current candidate remains research-only:
   `wave6_auth_frame_raw_sentence_surface_pos_rescue`.
 - Next breadth gate: `wave7_source_class_breadth_v1`.
 - Latest blocker reports:
+  `docs/test_outputs/semantic_wave7_residual_blocker_probe_wave7_source_class_breadth_v1_phrase_control_triage_latest.md`,
   `docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout_validation_latest.md`,
   `docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase_validation_latest.md`,
   and
@@ -443,14 +459,15 @@ Read in this order:
 
 First task:
 
-- Execute `wave7_residual_guard_and_shadow_evidence` only if the user wants to
+- Execute `wave7_targeted_guard_and_evidence_patch` only if the user wants to
   continue research remediation; otherwise open a new explicit audit pass before
   changing artifact authority.
+- Start from the residual blocker probe, not from a global threshold sweep.
 - Keep action items updated as cracks are discovered or resolved.
 - Keep durable inputs, generated evidence, control artifacts, and local
   uncommitted experiment outputs separate.
 - Do not treat generated reports under `latest` names as architecture authority.
-- Do not advance `wave7_residual_guard_and_shadow_evidence` unless the user
+- Do not advance `wave7_targeted_guard_and_evidence_patch` unless the user
   explicitly switches from auditing to research remediation.
 - Reopen a reconciliation pass only if a new active harness appears, runtime
   policy changes, or another old artifact starts steering current decisions.
@@ -461,6 +478,7 @@ Recommended first validation:
 python3 scripts/testing/semantic_veto_system_registry_summary.py --fail-on-issue
 
 PYTHONPATH=apps/gui/src:core python3 -m pytest \
+  core/tests/dev/test_semantic_wave7_residual_blocker_probe_en_es.py \
   core/tests/dev/test_semantic_veto_system_registry_summary.py
 
 python3 scripts/dev/check_doc_references.py
