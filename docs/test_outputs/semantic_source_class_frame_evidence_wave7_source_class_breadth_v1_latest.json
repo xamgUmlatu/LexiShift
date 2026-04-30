@@ -2,7 +2,7 @@
   "schema_version": 1,
   "status": "ok",
   "decision": "source_class_frame_rows_ready",
-  "generated_at": "2026-04-30T18:03:40Z",
+  "generated_at": "2026-04-30T19:15:50Z",
   "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_unsupported_selected",
   "run_id": "source-class-frame-non-v10-wave7-source-class-breadth-v1-latest",
   "batch_id": "en-es:source-class-frame-evidence:source-class-frame-non-v10-wave7-source-class-breadth-v1-latest",
@@ -13,22 +13,22 @@
     "family_count": 16,
     "target_family_count": 14,
     "selected_sense_count": 37,
-    "matching_sense_count": 25,
-    "matching_class_count": 7,
-    "row_count": 75,
-    "active_row_count": 36,
-    "shadow_row_count": 39
+    "matching_sense_count": 29,
+    "matching_class_count": 23,
+    "row_count": 87,
+    "active_row_count": 42,
+    "shadow_row_count": 45
   },
   "class_rows": [
     {
-      "semantic_class_id": "affective_response",
-      "matching_sense_count": 3,
-      "row_count": 9
+      "semantic_class_id": "attraction_appeal",
+      "matching_sense_count": 1,
+      "row_count": 3
     },
     {
       "semantic_class_id": "collision_malfunction",
-      "matching_sense_count": 4,
-      "row_count": 12
+      "matching_sense_count": 3,
+      "row_count": 9
     },
     {
       "semantic_class_id": "commercial_organization",
@@ -36,24 +36,104 @@
       "row_count": 3
     },
     {
-      "semantic_class_id": "correctness_suitability",
+      "semantic_class_id": "difficult_situation",
       "matching_sense_count": 2,
       "row_count": 6
     },
     {
-      "semantic_class_id": "difficulty_constraint",
+      "semantic_class_id": "dirtying_pollution",
+      "matching_sense_count": 1,
+      "row_count": 3
+    },
+    {
+      "semantic_class_id": "disgust_repulsion",
+      "matching_sense_count": 1,
+      "row_count": 3
+    },
+    {
+      "semantic_class_id": "evening_time",
+      "matching_sense_count": 1,
+      "row_count": 3
+    },
+    {
+      "semantic_class_id": "full_capacity",
+      "matching_sense_count": 1,
+      "row_count": 3
+    },
+    {
+      "semantic_class_id": "incorrectness",
+      "matching_sense_count": 1,
+      "row_count": 3
+    },
+    {
+      "semantic_class_id": "location_determination",
+      "matching_sense_count": 1,
+      "row_count": 3
+    },
+    {
+      "semantic_class_id": "meeting_encounter",
+      "matching_sense_count": 1,
+      "row_count": 3
+    },
+    {
+      "semantic_class_id": "moulded_object",
+      "matching_sense_count": 1,
+      "row_count": 3
+    },
+    {
+      "semantic_class_id": "preference_interest",
+      "matching_sense_count": 1,
+      "row_count": 3
+    },
+    {
+      "semantic_class_id": "quantity_dozen_count",
+      "matching_sense_count": 1,
+      "row_count": 3
+    },
+    {
+      "semantic_class_id": "repair_mending",
+      "matching_sense_count": 1,
+      "row_count": 3
+    },
+    {
+      "semantic_class_id": "secure_fixing",
+      "matching_sense_count": 1,
+      "row_count": 3
+    },
+    {
+      "semantic_class_id": "sports_points_scoring",
       "matching_sense_count": 3,
       "row_count": 9
     },
     {
-      "semantic_class_id": "physical_manipulation",
-      "matching_sense_count": 8,
-      "row_count": 24
+      "semantic_class_id": "sports_rule_offense",
+      "matching_sense_count": 1,
+      "row_count": 3
     },
     {
-      "semantic_class_id": "sports_points_offense",
-      "matching_sense_count": 4,
-      "row_count": 12
+      "semantic_class_id": "stretching_lengthening",
+      "matching_sense_count": 2,
+      "row_count": 6
+    },
+    {
+      "semantic_class_id": "suitability",
+      "matching_sense_count": 1,
+      "row_count": 3
+    },
+    {
+      "semantic_class_id": "textile_fulling",
+      "matching_sense_count": 1,
+      "row_count": 3
+    },
+    {
+      "semantic_class_id": "throwing_motion",
+      "matching_sense_count": 1,
+      "row_count": 3
+    },
+    {
+      "semantic_class_id": "tight_physical_fit",
+      "matching_sense_count": 1,
+      "row_count": 3
     }
   ],
   "family_rows": [
@@ -71,7 +151,7 @@
           "relation_type": "anchor_cue",
           "matched": true,
           "semantic_class_ids": [
-            "affective_response"
+            "preference_interest"
           ],
           "canonical_pos": "noun",
           "target_lemma": "gustos",
@@ -87,7 +167,7 @@
           "relation_type": "shadow_candidate",
           "matched": true,
           "semantic_class_ids": [
-            "affective_response"
+            "attraction_appeal"
           ],
           "canonical_pos": "verb",
           "target_lemma": "atraer",
@@ -104,17 +184,17 @@
       "family_id": "en-es:sentence-veto:gross:repulsivo",
       "trigger": "gross",
       "selected_sense_count": 2,
-      "matching_sense_count": 1,
-      "row_count": 3,
+      "matching_sense_count": 2,
+      "row_count": 6,
       "active_row_count": 3,
-      "shadow_row_count": 0,
+      "shadow_row_count": 3,
       "sense_rows": [
         {
           "sense_id": "en-es:sentence-veto:gross:repulsivo:active",
           "relation_type": "anchor_cue",
           "matched": true,
           "semantic_class_ids": [
-            "affective_response"
+            "disgust_repulsion"
           ],
           "canonical_pos": "adjective",
           "target_lemma": "repulsivo",
@@ -128,8 +208,10 @@
         {
           "sense_id": "en-es:sentence-veto:gross:repulsivo:gruesa:shadow",
           "relation_type": "shadow_candidate",
-          "matched": false,
-          "semantic_class_ids": [],
+          "matched": true,
+          "semantic_class_ids": [
+            "quantity_dozen_count"
+          ],
           "canonical_pos": "noun",
           "target_lemma": "gruesa",
           "support_sources": [
@@ -155,7 +237,7 @@
           "relation_type": "anchor_cue",
           "matched": true,
           "semantic_class_ids": [
-            "physical_manipulation"
+            "throwing_motion"
           ],
           "canonical_pos": "noun",
           "target_lemma": "lanzamiento",
@@ -171,7 +253,7 @@
           "relation_type": "shadow_candidate",
           "matched": true,
           "semantic_class_ids": [
-            "physical_manipulation"
+            "moulded_object"
           ],
           "canonical_pos": "noun",
           "target_lemma": "molde",
@@ -202,17 +284,17 @@
       "family_id": "en-es:sentence-veto:fix:aprieto",
       "trigger": "fix",
       "selected_sense_count": 3,
-      "matching_sense_count": 1,
-      "row_count": 3,
+      "matching_sense_count": 3,
+      "row_count": 9,
       "active_row_count": 3,
-      "shadow_row_count": 0,
+      "shadow_row_count": 6,
       "sense_rows": [
         {
           "sense_id": "en-es:sentence-veto:fix:aprieto:active",
           "relation_type": "anchor_cue",
           "matched": true,
           "semantic_class_ids": [
-            "difficulty_constraint"
+            "difficult_situation"
           ],
           "canonical_pos": "noun",
           "target_lemma": "aprieto",
@@ -226,8 +308,10 @@
         {
           "sense_id": "en-es:sentence-veto:fix:aprieto:localizaci-n:shadow",
           "relation_type": "shadow_candidate",
-          "matched": false,
-          "semantic_class_ids": [],
+          "matched": true,
+          "semantic_class_ids": [
+            "location_determination"
+          ],
           "canonical_pos": "noun",
           "target_lemma": "localización",
           "support_sources": [
@@ -240,8 +324,10 @@
         {
           "sense_id": "en-es:sentence-veto:fix:aprieto:reparar:shadow",
           "relation_type": "shadow_candidate",
-          "matched": false,
-          "semantic_class_ids": [],
+          "matched": true,
+          "semantic_class_ids": [
+            "repair_mending"
+          ],
           "canonical_pos": "verb",
           "target_lemma": "reparar",
           "support_sources": [
@@ -258,16 +344,18 @@
       "family_id": "en-es:sentence-veto:full:lleno",
       "trigger": "full",
       "selected_sense_count": 2,
-      "matching_sense_count": 1,
-      "row_count": 3,
-      "active_row_count": 0,
+      "matching_sense_count": 2,
+      "row_count": 6,
+      "active_row_count": 3,
       "shadow_row_count": 3,
       "sense_rows": [
         {
           "sense_id": "en-es:sentence-veto:full:lleno:active",
           "relation_type": "anchor_cue",
-          "matched": false,
-          "semantic_class_ids": [],
+          "matched": true,
+          "semantic_class_ids": [
+            "full_capacity"
+          ],
           "canonical_pos": "adjective",
           "target_lemma": "lleno",
           "support_sources": [
@@ -284,7 +372,7 @@
           "relation_type": "shadow_candidate",
           "matched": true,
           "semantic_class_ids": [
-            "physical_manipulation"
+            "textile_fulling"
           ],
           "canonical_pos": "verb",
           "target_lemma": "abatanar",
@@ -328,7 +416,7 @@
           "relation_type": "shadow_candidate",
           "matched": true,
           "semantic_class_ids": [
-            "physical_manipulation"
+            "secure_fixing"
           ],
           "canonical_pos": "verb",
           "target_lemma": "afirmar",
@@ -337,6 +425,47 @@
             "wiktextract_en_es_translation_table"
           ],
           "source_match_text": "firm verb sense: to make firm or strong | to make firm or strong | firm verb sense: to make firm or strong | to make firm or strong | to make firm or strong | to make firm or strong | to fix securely",
+          "target_lemma_in_source_match_text": false
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:even:tarde",
+      "trigger": "even",
+      "selected_sense_count": 2,
+      "matching_sense_count": 1,
+      "row_count": 3,
+      "active_row_count": 3,
+      "shadow_row_count": 0,
+      "sense_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:even:tarde:active",
+          "relation_type": "anchor_cue",
+          "matched": true,
+          "semantic_class_ids": [
+            "evening_time"
+          ],
+          "canonical_pos": "noun",
+          "target_lemma": "tarde",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ],
+          "source_match_text": "even noun sense: Evening of the day | Evening of the day | even noun sense: Evening of the day | Evening of the day | Evening of the day | Evening of the day",
+          "target_lemma_in_source_match_text": false
+        },
+        {
+          "sense_id": "en-es:sentence-veto:even:tarde:allanar:shadow",
+          "relation_type": "shadow_candidate",
+          "matched": false,
+          "semantic_class_ids": [],
+          "canonical_pos": "verb",
+          "target_lemma": "allanar",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ],
+          "source_match_text": "even verb sense: to make even | to make even | even verb sense: to make even | to make even | to make even | to make even",
           "target_lemma_in_source_match_text": false
         }
       ]
@@ -355,7 +484,7 @@
           "relation_type": "anchor_cue",
           "matched": true,
           "semantic_class_ids": [
-            "correctness_suitability"
+            "incorrectness"
           ],
           "canonical_pos": "adjective",
           "target_lemma": "incorrecto",
@@ -396,7 +525,7 @@
           "relation_type": "anchor_cue",
           "matched": true,
           "semantic_class_ids": [
-            "correctness_suitability"
+            "suitability"
           ],
           "canonical_pos": "adjective",
           "target_lemma": "adecuado",
@@ -412,7 +541,7 @@
           "relation_type": "shadow_candidate",
           "matched": true,
           "semantic_class_ids": [
-            "collision_malfunction"
+            "meeting_encounter"
           ],
           "canonical_pos": "verb",
           "target_lemma": "encontrar",
@@ -440,7 +569,7 @@
           "relation_type": "anchor_cue",
           "matched": true,
           "semantic_class_ids": [
-            "physical_manipulation"
+            "stretching_lengthening"
           ],
           "canonical_pos": "noun",
           "target_lemma": "estirón",
@@ -457,7 +586,7 @@
           "relation_type": "shadow_candidate",
           "matched": true,
           "semantic_class_ids": [
-            "physical_manipulation"
+            "stretching_lengthening"
           ],
           "canonical_pos": "verb",
           "target_lemma": "estirar",
@@ -484,7 +613,7 @@
           "relation_type": "anchor_cue",
           "matched": true,
           "semantic_class_ids": [
-            "sports_points_offense"
+            "sports_points_scoring"
           ],
           "canonical_pos": "noun",
           "target_lemma": "tantos",
@@ -501,7 +630,7 @@
           "relation_type": "shadow_candidate",
           "matched": true,
           "semantic_class_ids": [
-            "sports_points_offense"
+            "sports_points_scoring"
           ],
           "canonical_pos": "noun",
           "target_lemma": "marcador",
@@ -517,7 +646,7 @@
           "relation_type": "shadow_candidate",
           "matched": true,
           "semantic_class_ids": [
-            "sports_points_offense"
+            "sports_points_scoring"
           ],
           "canonical_pos": "verb",
           "target_lemma": "anotar",
@@ -590,47 +719,6 @@
       ]
     },
     {
-      "family_id": "en-es:sentence-veto:trim:compensador",
-      "trigger": "trim",
-      "selected_sense_count": 2,
-      "matching_sense_count": 1,
-      "row_count": 3,
-      "active_row_count": 0,
-      "shadow_row_count": 3,
-      "sense_rows": [
-        {
-          "sense_id": "en-es:sentence-veto:trim:compensador:active",
-          "relation_type": "anchor_cue",
-          "matched": false,
-          "semantic_class_ids": [],
-          "canonical_pos": "noun",
-          "target_lemma": "compensador",
-          "support_sources": [
-            "wiktionary_en_es",
-            "wiktextract_en_es_translation_table"
-          ],
-          "source_match_text": "trim noun sense: the mechanism used to trim an aircraft | the mechanism used to trim an aircraft | trim noun sense: the mechanism used to trim an aircraft | the mechanism used to trim an aircraft | the mechanism used to trim an aircraft | the mechanism used to trim an aircraft",
-          "target_lemma_in_source_match_text": false
-        },
-        {
-          "sense_id": "en-es:sentence-veto:trim:compensador:recortar:shadow",
-          "relation_type": "shadow_candidate",
-          "matched": true,
-          "semantic_class_ids": [
-            "physical_manipulation"
-          ],
-          "canonical_pos": "verb",
-          "target_lemma": "recortar",
-          "support_sources": [
-            "wiktionary_en_es",
-            "wiktextract_en_es_translation_table"
-          ],
-          "source_match_text": "trim verb sense: to reduce slightly | to reduce slightly | trim verb sense: to reduce slightly | to reduce slightly | to reduce slightly | to reduce slightly",
-          "target_lemma_in_source_match_text": false
-        }
-      ]
-    },
-    {
       "family_id": "en-es:sentence-veto:squeeze:crisis",
       "trigger": "squeeze",
       "selected_sense_count": 2,
@@ -644,7 +732,7 @@
           "relation_type": "anchor_cue",
           "matched": true,
           "semantic_class_ids": [
-            "difficulty_constraint"
+            "difficult_situation"
           ],
           "canonical_pos": "noun",
           "target_lemma": "crisis",
@@ -660,7 +748,7 @@
           "relation_type": "shadow_candidate",
           "matched": true,
           "semantic_class_ids": [
-            "difficulty_constraint"
+            "tight_physical_fit"
           ],
           "canonical_pos": "verb",
           "target_lemma": "apretujar",
@@ -687,7 +775,7 @@
           "relation_type": "anchor_cue",
           "matched": true,
           "semantic_class_ids": [
-            "sports_points_offense"
+            "sports_rule_offense"
           ],
           "canonical_pos": "noun",
           "target_lemma": "falta",
@@ -703,7 +791,7 @@
           "relation_type": "shadow_candidate",
           "matched": true,
           "semantic_class_ids": [
-            "physical_manipulation"
+            "dirtying_pollution"
           ],
           "canonical_pos": "verb",
           "target_lemma": "ensuciar",

@@ -1,16 +1,16 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-04-30T18:16:15Z",
+  "generated_at": "2026-04-30T19:16:51Z",
   "status": "ok",
   "batch_id": "en-es:wave7-source-class-breadth-v1:phrase-control-triage:cycle",
   "admitted_batch_id": "en-es:wave7-source-class-breadth-v1:phrase-control-triage:cycle:sense-admitted",
   "summary": {
-    "input_row_count": 307,
-    "semantic_input_row_count": 134,
-    "semantic_admitted_row_count": 134,
+    "input_row_count": 324,
+    "semantic_input_row_count": 151,
+    "semantic_admitted_row_count": 151,
     "semantic_rejected_row_count": 0,
     "non_semantic_passthrough_row_count": 173,
-    "admitted_row_count": 307,
+    "admitted_row_count": 324,
     "scorers": [
       "sentence_transformer_cosine"
     ],
@@ -3001,10 +3001,10 @@
       ]
     },
     {
-      "row_id": "en-es-sentence-veto-like-gustos:active-en-es-sentence-veto-like-gustos-active-affective-response-frame-1",
+      "row_id": "en-es-sentence-veto-like-gustos:active-en-es-sentence-veto-like-gustos-active-preference-interest-frame-1",
       "family_id": "en-es:sentence-veto:like:gustos",
       "relation_type": "anchor_cue",
-      "evidence_text": "personal preference or liking",
+      "evidence_text": "personal likes or preferences",
       "admission_status": "admitted",
       "reason_code": "sense_discrimination_passed",
       "intended_sense_id": "en-es:sentence-veto:like:gustos:active",
@@ -3015,28 +3015,28 @@
         "scorer_id": "sentence_transformer_cosine",
         "passes": true,
         "intended_sense_id": "en-es:sentence-veto:like:gustos:active",
-        "intended_score": 0.731411,
+        "intended_score": 0.745163,
         "strongest_competitor_sense_id": "en-es:sentence-veto:like:gustos:atraer:shadow",
-        "strongest_competitor_score": 0.701143,
-        "margin": 0.030268
+        "strongest_competitor_score": 0.680889,
+        "margin": 0.064273
       },
       "scorer_results": [
         {
           "scorer_id": "sentence_transformer_cosine",
           "passes": true,
           "intended_sense_id": "en-es:sentence-veto:like:gustos:active",
-          "intended_score": 0.731411,
+          "intended_score": 0.745163,
           "strongest_competitor_sense_id": "en-es:sentence-veto:like:gustos:atraer:shadow",
-          "strongest_competitor_score": 0.701143,
-          "margin": 0.030268
+          "strongest_competitor_score": 0.680889,
+          "margin": 0.064273
         }
       ]
     },
     {
-      "row_id": "en-es-sentence-veto-like-gustos:active-en-es-sentence-veto-like-gustos-active-affective-response-frame-3",
+      "row_id": "en-es-sentence-veto-like-gustos:active-en-es-sentence-veto-like-gustos-active-preference-interest-frame-2",
       "family_id": "en-es:sentence-veto:like:gustos",
       "relation_type": "anchor_cue",
-      "evidence_text": "causes disgust or repulsion",
+      "evidence_text": "things a person likes",
       "admission_status": "admitted",
       "reason_code": "sense_discrimination_passed",
       "intended_sense_id": "en-es:sentence-veto:like:gustos:active",
@@ -3047,28 +3047,60 @@
         "scorer_id": "sentence_transformer_cosine",
         "passes": true,
         "intended_sense_id": "en-es:sentence-veto:like:gustos:active",
-        "intended_score": 0.641799,
+        "intended_score": 0.804115,
         "strongest_competitor_sense_id": "en-es:sentence-veto:like:gustos:atraer:shadow",
-        "strongest_competitor_score": 0.617113,
-        "margin": 0.024686
+        "strongest_competitor_score": 0.687326,
+        "margin": 0.116789
       },
       "scorer_results": [
         {
           "scorer_id": "sentence_transformer_cosine",
           "passes": true,
           "intended_sense_id": "en-es:sentence-veto:like:gustos:active",
-          "intended_score": 0.641799,
+          "intended_score": 0.804115,
           "strongest_competitor_sense_id": "en-es:sentence-veto:like:gustos:atraer:shadow",
-          "strongest_competitor_score": 0.617113,
-          "margin": 0.024686
+          "strongest_competitor_score": 0.687326,
+          "margin": 0.116789
         }
       ]
     },
     {
-      "row_id": "en-es-sentence-veto-like-gustos:shadow-en-es-sentence-veto-like-gustos-atraer-shadow-affective-response-frame-2",
+      "row_id": "en-es-sentence-veto-like-gustos:active-en-es-sentence-veto-like-gustos-active-preference-interest-frame-3",
+      "family_id": "en-es:sentence-veto:like:gustos",
+      "relation_type": "anchor_cue",
+      "evidence_text": "a person's tastes or interests",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:like:gustos:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:like:gustos:atraer:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:like:gustos:active",
+        "intended_score": 0.763717,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:like:gustos:atraer:shadow",
+        "strongest_competitor_score": 0.741772,
+        "margin": 0.021945
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:like:gustos:active",
+          "intended_score": 0.763717,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:like:gustos:atraer:shadow",
+          "strongest_competitor_score": 0.741772,
+          "margin": 0.021945
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-like-gustos:shadow-en-es-sentence-veto-like-gustos-atraer-shadow-attraction-appeal-frame-1",
       "family_id": "en-es:sentence-veto:like:gustos",
       "relation_type": "shadow_candidate",
-      "evidence_text": "found attractive or appealing",
+      "evidence_text": "find attractive or appealing",
       "admission_status": "admitted",
       "reason_code": "sense_discrimination_passed",
       "intended_sense_id": "en-es:sentence-veto:like:gustos:atraer:shadow",
@@ -3079,89 +3111,89 @@
         "scorer_id": "sentence_transformer_cosine",
         "passes": true,
         "intended_sense_id": "en-es:sentence-veto:like:gustos:atraer:shadow",
-        "intended_score": 0.844655,
+        "intended_score": 0.871638,
         "strongest_competitor_sense_id": "en-es:sentence-veto:like:gustos:active",
-        "strongest_competitor_score": 0.665815,
-        "margin": 0.17884
+        "strongest_competitor_score": 0.682479,
+        "margin": 0.189159
       },
       "scorer_results": [
         {
           "scorer_id": "sentence_transformer_cosine",
           "passes": true,
           "intended_sense_id": "en-es:sentence-veto:like:gustos:atraer:shadow",
-          "intended_score": 0.844655,
+          "intended_score": 0.871638,
           "strongest_competitor_sense_id": "en-es:sentence-veto:like:gustos:active",
-          "strongest_competitor_score": 0.665815,
-          "margin": 0.17884
+          "strongest_competitor_score": 0.682479,
+          "margin": 0.189159
         }
       ]
     },
     {
-      "row_id": "en-es-sentence-veto-gross-repulsivo:active-en-es-sentence-veto-gross-repulsivo-active-affective-response-frame-1",
-      "family_id": "en-es:sentence-veto:gross:repulsivo",
-      "relation_type": "anchor_cue",
-      "evidence_text": "personal preference or liking",
+      "row_id": "en-es-sentence-veto-like-gustos:shadow-en-es-sentence-veto-like-gustos-atraer-shadow-attraction-appeal-frame-2",
+      "family_id": "en-es:sentence-veto:like:gustos",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "attracted to someone or something",
       "admission_status": "admitted",
       "reason_code": "sense_discrimination_passed",
-      "intended_sense_id": "en-es:sentence-veto:gross:repulsivo:active",
+      "intended_sense_id": "en-es:sentence-veto:like:gustos:atraer:shadow",
       "competitor_sense_ids": [
-        "en-es:sentence-veto:gross:repulsivo:gruesa:shadow"
+        "en-es:sentence-veto:like:gustos:active"
       ],
       "best_result": {
         "scorer_id": "sentence_transformer_cosine",
         "passes": true,
-        "intended_sense_id": "en-es:sentence-veto:gross:repulsivo:active",
-        "intended_score": 0.683182,
-        "strongest_competitor_sense_id": "en-es:sentence-veto:gross:repulsivo:gruesa:shadow",
-        "strongest_competitor_score": 0.610205,
-        "margin": 0.072977
+        "intended_sense_id": "en-es:sentence-veto:like:gustos:atraer:shadow",
+        "intended_score": 0.799545,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:like:gustos:active",
+        "strongest_competitor_score": 0.720122,
+        "margin": 0.079423
       },
       "scorer_results": [
         {
           "scorer_id": "sentence_transformer_cosine",
           "passes": true,
-          "intended_sense_id": "en-es:sentence-veto:gross:repulsivo:active",
-          "intended_score": 0.683182,
-          "strongest_competitor_sense_id": "en-es:sentence-veto:gross:repulsivo:gruesa:shadow",
-          "strongest_competitor_score": 0.610205,
-          "margin": 0.072977
+          "intended_sense_id": "en-es:sentence-veto:like:gustos:atraer:shadow",
+          "intended_score": 0.799545,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:like:gustos:active",
+          "strongest_competitor_score": 0.720122,
+          "margin": 0.079423
         }
       ]
     },
     {
-      "row_id": "en-es-sentence-veto-gross-repulsivo:active-en-es-sentence-veto-gross-repulsivo-active-affective-response-frame-2",
-      "family_id": "en-es:sentence-veto:gross:repulsivo",
-      "relation_type": "anchor_cue",
-      "evidence_text": "found attractive or appealing",
+      "row_id": "en-es-sentence-veto-like-gustos:shadow-en-es-sentence-veto-like-gustos-atraer-shadow-attraction-appeal-frame-3",
+      "family_id": "en-es:sentence-veto:like:gustos",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "regarded as appealing",
       "admission_status": "admitted",
       "reason_code": "sense_discrimination_passed",
-      "intended_sense_id": "en-es:sentence-veto:gross:repulsivo:active",
+      "intended_sense_id": "en-es:sentence-veto:like:gustos:atraer:shadow",
       "competitor_sense_ids": [
-        "en-es:sentence-veto:gross:repulsivo:gruesa:shadow"
+        "en-es:sentence-veto:like:gustos:active"
       ],
       "best_result": {
         "scorer_id": "sentence_transformer_cosine",
         "passes": true,
-        "intended_sense_id": "en-es:sentence-veto:gross:repulsivo:active",
-        "intended_score": 0.662803,
-        "strongest_competitor_sense_id": "en-es:sentence-veto:gross:repulsivo:gruesa:shadow",
-        "strongest_competitor_score": 0.593645,
-        "margin": 0.069158
+        "intended_sense_id": "en-es:sentence-veto:like:gustos:atraer:shadow",
+        "intended_score": 0.716225,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:like:gustos:active",
+        "strongest_competitor_score": 0.632847,
+        "margin": 0.083378
       },
       "scorer_results": [
         {
           "scorer_id": "sentence_transformer_cosine",
           "passes": true,
-          "intended_sense_id": "en-es:sentence-veto:gross:repulsivo:active",
-          "intended_score": 0.662803,
-          "strongest_competitor_sense_id": "en-es:sentence-veto:gross:repulsivo:gruesa:shadow",
-          "strongest_competitor_score": 0.593645,
-          "margin": 0.069158
+          "intended_sense_id": "en-es:sentence-veto:like:gustos:atraer:shadow",
+          "intended_score": 0.716225,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:like:gustos:active",
+          "strongest_competitor_score": 0.632847,
+          "margin": 0.083378
         }
       ]
     },
     {
-      "row_id": "en-es-sentence-veto-gross-repulsivo:active-en-es-sentence-veto-gross-repulsivo-active-affective-response-frame-3",
+      "row_id": "en-es-sentence-veto-gross-repulsivo:active-en-es-sentence-veto-gross-repulsivo-active-disgust-repulsion-frame-1",
       "family_id": "en-es:sentence-veto:gross:repulsivo",
       "relation_type": "anchor_cue",
       "evidence_text": "causes disgust or repulsion",
@@ -3193,10 +3225,138 @@
       ]
     },
     {
-      "row_id": "en-es-sentence-veto-cast-lanzamiento:active-en-es-sentence-veto-cast-lanzamiento-active-physical-manipulation-frame-1",
+      "row_id": "en-es-sentence-veto-gross-repulsivo:active-en-es-sentence-veto-gross-repulsivo-active-disgust-repulsion-frame-2",
+      "family_id": "en-es:sentence-veto:gross:repulsivo",
+      "relation_type": "anchor_cue",
+      "evidence_text": "repulsive or disgusting",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:gross:repulsivo:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:gross:repulsivo:gruesa:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:gross:repulsivo:active",
+        "intended_score": 0.843249,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:gross:repulsivo:gruesa:shadow",
+        "strongest_competitor_score": 0.641168,
+        "margin": 0.202081
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:gross:repulsivo:active",
+          "intended_score": 0.843249,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:gross:repulsivo:gruesa:shadow",
+          "strongest_competitor_score": 0.641168,
+          "margin": 0.202081
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-gross-repulsivo:active-en-es-sentence-veto-gross-repulsivo-active-disgust-repulsion-frame-3",
+      "family_id": "en-es:sentence-veto:gross:repulsivo",
+      "relation_type": "anchor_cue",
+      "evidence_text": "offensive because it causes disgust",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:gross:repulsivo:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:gross:repulsivo:gruesa:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:gross:repulsivo:active",
+        "intended_score": 0.837124,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:gross:repulsivo:gruesa:shadow",
+        "strongest_competitor_score": 0.602556,
+        "margin": 0.234568
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:gross:repulsivo:active",
+          "intended_score": 0.837124,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:gross:repulsivo:gruesa:shadow",
+          "strongest_competitor_score": 0.602556,
+          "margin": 0.234568
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-gross-repulsivo:shadow-en-es-sentence-veto-gross-repulsivo-gruesa-shadow-quantity-dozen-count-frame-2",
+      "family_id": "en-es:sentence-veto:gross:repulsivo",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "a gross equals twelve dozen",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:gross:repulsivo:gruesa:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:gross:repulsivo:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:gross:repulsivo:gruesa:shadow",
+        "intended_score": 0.855821,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:gross:repulsivo:active",
+        "strongest_competitor_score": 0.612329,
+        "margin": 0.243492
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:gross:repulsivo:gruesa:shadow",
+          "intended_score": 0.855821,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:gross:repulsivo:active",
+          "strongest_competitor_score": 0.612329,
+          "margin": 0.243492
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-gross-repulsivo:shadow-en-es-sentence-veto-gross-repulsivo-gruesa-shadow-quantity-dozen-count-frame-3",
+      "family_id": "en-es:sentence-veto:gross:repulsivo",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "a quantity of twelve dozen units",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:gross:repulsivo:gruesa:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:gross:repulsivo:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:gross:repulsivo:gruesa:shadow",
+        "intended_score": 0.779779,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:gross:repulsivo:active",
+        "strongest_competitor_score": 0.524593,
+        "margin": 0.255186
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:gross:repulsivo:gruesa:shadow",
+          "intended_score": 0.779779,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:gross:repulsivo:active",
+          "strongest_competitor_score": 0.524593,
+          "margin": 0.255186
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cast-lanzamiento:active-en-es-sentence-veto-cast-lanzamiento-active-throwing-motion-frame-1",
       "family_id": "en-es:sentence-veto:cast:lanzamiento",
       "relation_type": "anchor_cue",
-      "evidence_text": "physical manipulation or shaping",
+      "evidence_text": "act of throwing",
       "admission_status": "admitted",
       "reason_code": "sense_discrimination_passed",
       "intended_sense_id": "en-es:sentence-veto:cast:lanzamiento:active",
@@ -3208,28 +3368,28 @@
         "scorer_id": "sentence_transformer_cosine",
         "passes": true,
         "intended_sense_id": "en-es:sentence-veto:cast:lanzamiento:active",
-        "intended_score": 0.756342,
+        "intended_score": 0.90261,
         "strongest_competitor_sense_id": "en-es:sentence-veto:cast:lanzamiento:lanzar:shadow",
-        "strongest_competitor_score": 0.744617,
-        "margin": 0.011725
+        "strongest_competitor_score": 0.682856,
+        "margin": 0.219754
       },
       "scorer_results": [
         {
           "scorer_id": "sentence_transformer_cosine",
           "passes": true,
           "intended_sense_id": "en-es:sentence-veto:cast:lanzamiento:active",
-          "intended_score": 0.756342,
+          "intended_score": 0.90261,
           "strongest_competitor_sense_id": "en-es:sentence-veto:cast:lanzamiento:lanzar:shadow",
-          "strongest_competitor_score": 0.744617,
-          "margin": 0.011725
+          "strongest_competitor_score": 0.682856,
+          "margin": 0.219754
         }
       ]
     },
     {
-      "row_id": "en-es-sentence-veto-cast-lanzamiento:active-en-es-sentence-veto-cast-lanzamiento-active-physical-manipulation-frame-2",
+      "row_id": "en-es-sentence-veto-cast-lanzamiento:active-en-es-sentence-veto-cast-lanzamiento-active-throwing-motion-frame-2",
       "family_id": "en-es:sentence-veto:cast:lanzamiento",
       "relation_type": "anchor_cue",
-      "evidence_text": "movement by pulling or throwing",
+      "evidence_text": "throwing something",
       "admission_status": "admitted",
       "reason_code": "sense_discrimination_passed",
       "intended_sense_id": "en-es:sentence-veto:cast:lanzamiento:active",
@@ -3241,28 +3401,61 @@
         "scorer_id": "sentence_transformer_cosine",
         "passes": true,
         "intended_sense_id": "en-es:sentence-veto:cast:lanzamiento:active",
-        "intended_score": 0.794743,
+        "intended_score": 0.822234,
         "strongest_competitor_sense_id": "en-es:sentence-veto:cast:lanzamiento:lanzar:shadow",
-        "strongest_competitor_score": 0.668203,
-        "margin": 0.12654
+        "strongest_competitor_score": 0.633905,
+        "margin": 0.188329
       },
       "scorer_results": [
         {
           "scorer_id": "sentence_transformer_cosine",
           "passes": true,
           "intended_sense_id": "en-es:sentence-veto:cast:lanzamiento:active",
-          "intended_score": 0.794743,
+          "intended_score": 0.822234,
           "strongest_competitor_sense_id": "en-es:sentence-veto:cast:lanzamiento:lanzar:shadow",
-          "strongest_competitor_score": 0.668203,
-          "margin": 0.12654
+          "strongest_competitor_score": 0.633905,
+          "margin": 0.188329
         }
       ]
     },
     {
-      "row_id": "en-es-sentence-veto-cast-lanzamiento:shadow-en-es-sentence-veto-cast-lanzamiento-molde-shadow-physical-manipulation-frame-3",
+      "row_id": "en-es-sentence-veto-cast-lanzamiento:active-en-es-sentence-veto-cast-lanzamiento-active-throwing-motion-frame-3",
+      "family_id": "en-es:sentence-veto:cast:lanzamiento",
+      "relation_type": "anchor_cue",
+      "evidence_text": "physical throw",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:cast:lanzamiento:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:cast:lanzamiento:molde:shadow",
+        "en-es:sentence-veto:cast:lanzamiento:lanzar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:cast:lanzamiento:active",
+        "intended_score": 0.78411,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cast:lanzamiento:lanzar:shadow",
+        "strongest_competitor_score": 0.588887,
+        "margin": 0.195224
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:cast:lanzamiento:active",
+          "intended_score": 0.78411,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cast:lanzamiento:lanzar:shadow",
+          "strongest_competitor_score": 0.588887,
+          "margin": 0.195224
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-cast-lanzamiento:shadow-en-es-sentence-veto-cast-lanzamiento-molde-shadow-moulded-object-frame-2",
       "family_id": "en-es:sentence-veto:cast:lanzamiento",
       "relation_type": "shadow_candidate",
-      "evidence_text": "changing an object's physical state",
+      "evidence_text": "moulded object",
       "admission_status": "admitted",
       "reason_code": "sense_discrimination_passed",
       "intended_sense_id": "en-es:sentence-veto:cast:lanzamiento:molde:shadow",
@@ -3274,61 +3467,61 @@
         "scorer_id": "sentence_transformer_cosine",
         "passes": true,
         "intended_sense_id": "en-es:sentence-veto:cast:lanzamiento:molde:shadow",
-        "intended_score": 0.657434,
+        "intended_score": 0.750256,
         "strongest_competitor_sense_id": "en-es:sentence-veto:cast:lanzamiento:active",
-        "strongest_competitor_score": 0.63476,
-        "margin": 0.022674
+        "strongest_competitor_score": 0.625329,
+        "margin": 0.124926
       },
       "scorer_results": [
         {
           "scorer_id": "sentence_transformer_cosine",
           "passes": true,
           "intended_sense_id": "en-es:sentence-veto:cast:lanzamiento:molde:shadow",
-          "intended_score": 0.657434,
+          "intended_score": 0.750256,
           "strongest_competitor_sense_id": "en-es:sentence-veto:cast:lanzamiento:active",
-          "strongest_competitor_score": 0.63476,
-          "margin": 0.022674
+          "strongest_competitor_score": 0.625329,
+          "margin": 0.124926
         }
       ]
     },
     {
-      "row_id": "en-es-sentence-veto-fix-aprieto:active-en-es-sentence-veto-fix-aprieto-active-difficulty-constraint-frame-2",
-      "family_id": "en-es:sentence-veto:fix:aprieto",
-      "relation_type": "anchor_cue",
-      "evidence_text": "a constrained or tight position",
+      "row_id": "en-es-sentence-veto-cast-lanzamiento:shadow-en-es-sentence-veto-cast-lanzamiento-molde-shadow-moulded-object-frame-3",
+      "family_id": "en-es:sentence-veto:cast:lanzamiento",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "shape made by a mould",
       "admission_status": "admitted",
       "reason_code": "sense_discrimination_passed",
-      "intended_sense_id": "en-es:sentence-veto:fix:aprieto:active",
+      "intended_sense_id": "en-es:sentence-veto:cast:lanzamiento:molde:shadow",
       "competitor_sense_ids": [
-        "en-es:sentence-veto:fix:aprieto:localizaci-n:shadow",
-        "en-es:sentence-veto:fix:aprieto:reparar:shadow"
+        "en-es:sentence-veto:cast:lanzamiento:active",
+        "en-es:sentence-veto:cast:lanzamiento:lanzar:shadow"
       ],
       "best_result": {
         "scorer_id": "sentence_transformer_cosine",
         "passes": true,
-        "intended_sense_id": "en-es:sentence-veto:fix:aprieto:active",
-        "intended_score": 0.692708,
-        "strongest_competitor_sense_id": "en-es:sentence-veto:fix:aprieto:localizaci-n:shadow",
-        "strongest_competitor_score": 0.691539,
-        "margin": 0.001169
+        "intended_sense_id": "en-es:sentence-veto:cast:lanzamiento:molde:shadow",
+        "intended_score": 0.818828,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:cast:lanzamiento:active",
+        "strongest_competitor_score": 0.62016,
+        "margin": 0.198668
       },
       "scorer_results": [
         {
           "scorer_id": "sentence_transformer_cosine",
           "passes": true,
-          "intended_sense_id": "en-es:sentence-veto:fix:aprieto:active",
-          "intended_score": 0.692708,
-          "strongest_competitor_sense_id": "en-es:sentence-veto:fix:aprieto:localizaci-n:shadow",
-          "strongest_competitor_score": 0.691539,
-          "margin": 0.001169
+          "intended_sense_id": "en-es:sentence-veto:cast:lanzamiento:molde:shadow",
+          "intended_score": 0.818828,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:cast:lanzamiento:active",
+          "strongest_competitor_score": 0.62016,
+          "margin": 0.198668
         }
       ]
     },
     {
-      "row_id": "en-es-sentence-veto-fix-aprieto:active-en-es-sentence-veto-fix-aprieto-active-difficulty-constraint-frame-3",
+      "row_id": "en-es-sentence-veto-fix-aprieto:active-en-es-sentence-veto-fix-aprieto-active-difficult-situation-frame-3",
       "family_id": "en-es:sentence-veto:fix:aprieto",
       "relation_type": "anchor_cue",
-      "evidence_text": "pressure from a difficult constraint",
+      "evidence_text": "a constrained problem situation",
       "admission_status": "admitted",
       "reason_code": "sense_discrimination_passed",
       "intended_sense_id": "en-es:sentence-veto:fix:aprieto:active",
@@ -3340,28 +3533,258 @@
         "scorer_id": "sentence_transformer_cosine",
         "passes": true,
         "intended_sense_id": "en-es:sentence-veto:fix:aprieto:active",
-        "intended_score": 0.661589,
+        "intended_score": 0.734873,
         "strongest_competitor_sense_id": "en-es:sentence-veto:fix:aprieto:reparar:shadow",
-        "strongest_competitor_score": 0.597063,
-        "margin": 0.064526
+        "strongest_competitor_score": 0.643574,
+        "margin": 0.091299
       },
       "scorer_results": [
         {
           "scorer_id": "sentence_transformer_cosine",
           "passes": true,
           "intended_sense_id": "en-es:sentence-veto:fix:aprieto:active",
-          "intended_score": 0.661589,
+          "intended_score": 0.734873,
           "strongest_competitor_sense_id": "en-es:sentence-veto:fix:aprieto:reparar:shadow",
-          "strongest_competitor_score": 0.597063,
-          "margin": 0.064526
+          "strongest_competitor_score": 0.643574,
+          "margin": 0.091299
         }
       ]
     },
     {
-      "row_id": "en-es-sentence-veto-full-lleno:shadow-en-es-sentence-veto-full-lleno-abatanar-shadow-physical-manipulation-frame-1",
+      "row_id": "en-es-sentence-veto-fix-aprieto:shadow-en-es-sentence-veto-fix-aprieto-localizaci-n-shadow-location-determination-frame-1",
+      "family_id": "en-es:sentence-veto:fix:aprieto",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "determination of location",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:fix:aprieto:localizaci-n:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:fix:aprieto:active",
+        "en-es:sentence-veto:fix:aprieto:reparar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:fix:aprieto:localizaci-n:shadow",
+        "intended_score": 0.8342,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:fix:aprieto:active",
+        "strongest_competitor_score": 0.579157,
+        "margin": 0.255043
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:fix:aprieto:localizaci-n:shadow",
+          "intended_score": 0.8342,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:fix:aprieto:active",
+          "strongest_competitor_score": 0.579157,
+          "margin": 0.255043
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-fix-aprieto:shadow-en-es-sentence-veto-fix-aprieto-localizaci-n-shadow-location-determination-frame-2",
+      "family_id": "en-es:sentence-veto:fix:aprieto",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "location fix",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:fix:aprieto:localizaci-n:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:fix:aprieto:active",
+        "en-es:sentence-veto:fix:aprieto:reparar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:fix:aprieto:localizaci-n:shadow",
+        "intended_score": 0.76822,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:fix:aprieto:reparar:shadow",
+        "strongest_competitor_score": 0.625616,
+        "margin": 0.142604
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:fix:aprieto:localizaci-n:shadow",
+          "intended_score": 0.76822,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:fix:aprieto:reparar:shadow",
+          "strongest_competitor_score": 0.625616,
+          "margin": 0.142604
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-fix-aprieto:shadow-en-es-sentence-veto-fix-aprieto-localizaci-n-shadow-location-determination-frame-3",
+      "family_id": "en-es:sentence-veto:fix:aprieto",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "finding where something is",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:fix:aprieto:localizaci-n:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:fix:aprieto:active",
+        "en-es:sentence-veto:fix:aprieto:reparar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:fix:aprieto:localizaci-n:shadow",
+        "intended_score": 0.778557,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:fix:aprieto:active",
+        "strongest_competitor_score": 0.623518,
+        "margin": 0.155039
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:fix:aprieto:localizaci-n:shadow",
+          "intended_score": 0.778557,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:fix:aprieto:active",
+          "strongest_competitor_score": 0.623518,
+          "margin": 0.155039
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-fix-aprieto:shadow-en-es-sentence-veto-fix-aprieto-reparar-shadow-repair-mending-frame-1",
+      "family_id": "en-es:sentence-veto:fix:aprieto",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "mend or repair",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:fix:aprieto:reparar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:fix:aprieto:active",
+        "en-es:sentence-veto:fix:aprieto:localizaci-n:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:fix:aprieto:reparar:shadow",
+        "intended_score": 0.871926,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:fix:aprieto:active",
+        "strongest_competitor_score": 0.655054,
+        "margin": 0.216871
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:fix:aprieto:reparar:shadow",
+          "intended_score": 0.871926,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:fix:aprieto:active",
+          "strongest_competitor_score": 0.655054,
+          "margin": 0.216871
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-fix-aprieto:shadow-en-es-sentence-veto-fix-aprieto-reparar-shadow-repair-mending-frame-2",
+      "family_id": "en-es:sentence-veto:fix:aprieto",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "restore something broken",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:fix:aprieto:reparar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:fix:aprieto:active",
+        "en-es:sentence-veto:fix:aprieto:localizaci-n:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:fix:aprieto:reparar:shadow",
+        "intended_score": 0.745083,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:fix:aprieto:active",
+        "strongest_competitor_score": 0.604915,
+        "margin": 0.140168
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:fix:aprieto:reparar:shadow",
+          "intended_score": 0.745083,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:fix:aprieto:active",
+          "strongest_competitor_score": 0.604915,
+          "margin": 0.140168
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-fix-aprieto:shadow-en-es-sentence-veto-fix-aprieto-reparar-shadow-repair-mending-frame-3",
+      "family_id": "en-es:sentence-veto:fix:aprieto",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "repair by putting parts together",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:fix:aprieto:reparar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:fix:aprieto:active",
+        "en-es:sentence-veto:fix:aprieto:localizaci-n:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:fix:aprieto:reparar:shadow",
+        "intended_score": 0.741347,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:fix:aprieto:active",
+        "strongest_competitor_score": 0.606759,
+        "margin": 0.134588
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:fix:aprieto:reparar:shadow",
+          "intended_score": 0.741347,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:fix:aprieto:active",
+          "strongest_competitor_score": 0.606759,
+          "margin": 0.134588
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-full-lleno:active-en-es-sentence-veto-full-lleno-active-full-capacity-frame-1",
+      "family_id": "en-es:sentence-veto:full:lleno",
+      "relation_type": "anchor_cue",
+      "evidence_text": "filled to maximum capacity",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:full:lleno:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:full:lleno:abatanar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:full:lleno:active",
+        "intended_score": 0.711001,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:full:lleno:abatanar:shadow",
+        "strongest_competitor_score": 0.638456,
+        "margin": 0.072545
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:full:lleno:active",
+          "intended_score": 0.711001,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:full:lleno:abatanar:shadow",
+          "strongest_competitor_score": 0.638456,
+          "margin": 0.072545
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-full-lleno:shadow-en-es-sentence-veto-full-lleno-abatanar-shadow-textile-fulling-frame-1",
       "family_id": "en-es:sentence-veto:full:lleno",
       "relation_type": "shadow_candidate",
-      "evidence_text": "physical manipulation or shaping",
+      "evidence_text": "make cloth denser",
       "admission_status": "admitted",
       "reason_code": "sense_discrimination_passed",
       "intended_sense_id": "en-es:sentence-veto:full:lleno:abatanar:shadow",
@@ -3372,28 +3795,28 @@
         "scorer_id": "sentence_transformer_cosine",
         "passes": true,
         "intended_sense_id": "en-es:sentence-veto:full:lleno:abatanar:shadow",
-        "intended_score": 0.673846,
+        "intended_score": 0.862244,
         "strongest_competitor_sense_id": "en-es:sentence-veto:full:lleno:active",
-        "strongest_competitor_score": 0.641557,
-        "margin": 0.032289
+        "strongest_competitor_score": 0.629571,
+        "margin": 0.232672
       },
       "scorer_results": [
         {
           "scorer_id": "sentence_transformer_cosine",
           "passes": true,
           "intended_sense_id": "en-es:sentence-veto:full:lleno:abatanar:shadow",
-          "intended_score": 0.673846,
+          "intended_score": 0.862244,
           "strongest_competitor_sense_id": "en-es:sentence-veto:full:lleno:active",
-          "strongest_competitor_score": 0.641557,
-          "margin": 0.032289
+          "strongest_competitor_score": 0.629571,
+          "margin": 0.232672
         }
       ]
     },
     {
-      "row_id": "en-es-sentence-veto-full-lleno:shadow-en-es-sentence-veto-full-lleno-abatanar-shadow-physical-manipulation-frame-2",
+      "row_id": "en-es-sentence-veto-full-lleno:shadow-en-es-sentence-veto-full-lleno-abatanar-shadow-textile-fulling-frame-2",
       "family_id": "en-es:sentence-veto:full:lleno",
       "relation_type": "shadow_candidate",
-      "evidence_text": "movement by pulling or throwing",
+      "evidence_text": "thicken cloth",
       "admission_status": "admitted",
       "reason_code": "sense_discrimination_passed",
       "intended_sense_id": "en-es:sentence-veto:full:lleno:abatanar:shadow",
@@ -3404,28 +3827,28 @@
         "scorer_id": "sentence_transformer_cosine",
         "passes": true,
         "intended_sense_id": "en-es:sentence-veto:full:lleno:abatanar:shadow",
-        "intended_score": 0.652113,
+        "intended_score": 0.803805,
         "strongest_competitor_sense_id": "en-es:sentence-veto:full:lleno:active",
-        "strongest_competitor_score": 0.598725,
-        "margin": 0.053388
+        "strongest_competitor_score": 0.622584,
+        "margin": 0.181222
       },
       "scorer_results": [
         {
           "scorer_id": "sentence_transformer_cosine",
           "passes": true,
           "intended_sense_id": "en-es:sentence-veto:full:lleno:abatanar:shadow",
-          "intended_score": 0.652113,
+          "intended_score": 0.803805,
           "strongest_competitor_sense_id": "en-es:sentence-veto:full:lleno:active",
-          "strongest_competitor_score": 0.598725,
-          "margin": 0.053388
+          "strongest_competitor_score": 0.622584,
+          "margin": 0.181222
         }
       ]
     },
     {
-      "row_id": "en-es-sentence-veto-full-lleno:shadow-en-es-sentence-veto-full-lleno-abatanar-shadow-physical-manipulation-frame-3",
+      "row_id": "en-es-sentence-veto-full-lleno:shadow-en-es-sentence-veto-full-lleno-abatanar-shadow-textile-fulling-frame-3",
       "family_id": "en-es:sentence-veto:full:lleno",
       "relation_type": "shadow_candidate",
-      "evidence_text": "changing an object's physical state",
+      "evidence_text": "cleaning and thickening cloth",
       "admission_status": "admitted",
       "reason_code": "sense_discrimination_passed",
       "intended_sense_id": "en-es:sentence-veto:full:lleno:abatanar:shadow",
@@ -3436,20 +3859,20 @@
         "scorer_id": "sentence_transformer_cosine",
         "passes": true,
         "intended_sense_id": "en-es:sentence-veto:full:lleno:abatanar:shadow",
-        "intended_score": 0.563463,
+        "intended_score": 0.804167,
         "strongest_competitor_sense_id": "en-es:sentence-veto:full:lleno:active",
-        "strongest_competitor_score": 0.535229,
-        "margin": 0.028234
+        "strongest_competitor_score": 0.610695,
+        "margin": 0.193472
       },
       "scorer_results": [
         {
           "scorer_id": "sentence_transformer_cosine",
           "passes": true,
           "intended_sense_id": "en-es:sentence-veto:full:lleno:abatanar:shadow",
-          "intended_score": 0.563463,
+          "intended_score": 0.804167,
           "strongest_competitor_sense_id": "en-es:sentence-veto:full:lleno:active",
-          "strongest_competitor_score": 0.535229,
-          "margin": 0.028234
+          "strongest_competitor_score": 0.610695,
+          "margin": 0.193472
         }
       ]
     },
@@ -3550,10 +3973,10 @@
       ]
     },
     {
-      "row_id": "en-es-sentence-veto-firm-firma:shadow-en-es-sentence-veto-firm-firma-afirmar-shadow-physical-manipulation-frame-1",
+      "row_id": "en-es-sentence-veto-firm-firma:shadow-en-es-sentence-veto-firm-firma-afirmar-shadow-secure-fixing-frame-1",
       "family_id": "en-es:sentence-veto:firm:firma",
       "relation_type": "shadow_candidate",
-      "evidence_text": "physical manipulation or shaping",
+      "evidence_text": "fix securely in place",
       "admission_status": "admitted",
       "reason_code": "sense_discrimination_passed",
       "intended_sense_id": "en-es:sentence-veto:firm:firma:afirmar:shadow",
@@ -3564,28 +3987,28 @@
         "scorer_id": "sentence_transformer_cosine",
         "passes": true,
         "intended_sense_id": "en-es:sentence-veto:firm:firma:afirmar:shadow",
-        "intended_score": 0.679701,
+        "intended_score": 0.523359,
         "strongest_competitor_sense_id": "en-es:sentence-veto:firm:firma:active",
-        "strongest_competitor_score": 0.646781,
-        "margin": 0.03292
+        "strongest_competitor_score": 0.490531,
+        "margin": 0.032828
       },
       "scorer_results": [
         {
           "scorer_id": "sentence_transformer_cosine",
           "passes": true,
           "intended_sense_id": "en-es:sentence-veto:firm:firma:afirmar:shadow",
-          "intended_score": 0.679701,
+          "intended_score": 0.523359,
           "strongest_competitor_sense_id": "en-es:sentence-veto:firm:firma:active",
-          "strongest_competitor_score": 0.646781,
-          "margin": 0.03292
+          "strongest_competitor_score": 0.490531,
+          "margin": 0.032828
         }
       ]
     },
     {
-      "row_id": "en-es-sentence-veto-firm-firma:shadow-en-es-sentence-veto-firm-firma-afirmar-shadow-physical-manipulation-frame-2",
+      "row_id": "en-es-sentence-veto-firm-firma:shadow-en-es-sentence-veto-firm-firma-afirmar-shadow-secure-fixing-frame-2",
       "family_id": "en-es:sentence-veto:firm:firma",
       "relation_type": "shadow_candidate",
-      "evidence_text": "movement by pulling or throwing",
+      "evidence_text": "attach firmly",
       "admission_status": "admitted",
       "reason_code": "sense_discrimination_passed",
       "intended_sense_id": "en-es:sentence-veto:firm:firma:afirmar:shadow",
@@ -3596,28 +4019,28 @@
         "scorer_id": "sentence_transformer_cosine",
         "passes": true,
         "intended_sense_id": "en-es:sentence-veto:firm:firma:afirmar:shadow",
-        "intended_score": 0.616475,
+        "intended_score": 0.686469,
         "strongest_competitor_sense_id": "en-es:sentence-veto:firm:firma:active",
-        "strongest_competitor_score": 0.587689,
-        "margin": 0.028786
+        "strongest_competitor_score": 0.568228,
+        "margin": 0.118241
       },
       "scorer_results": [
         {
           "scorer_id": "sentence_transformer_cosine",
           "passes": true,
           "intended_sense_id": "en-es:sentence-veto:firm:firma:afirmar:shadow",
-          "intended_score": 0.616475,
+          "intended_score": 0.686469,
           "strongest_competitor_sense_id": "en-es:sentence-veto:firm:firma:active",
-          "strongest_competitor_score": 0.587689,
-          "margin": 0.028786
+          "strongest_competitor_score": 0.568228,
+          "margin": 0.118241
         }
       ]
     },
     {
-      "row_id": "en-es-sentence-veto-firm-firma:shadow-en-es-sentence-veto-firm-firma-afirmar-shadow-physical-manipulation-frame-3",
+      "row_id": "en-es-sentence-veto-firm-firma:shadow-en-es-sentence-veto-firm-firma-afirmar-shadow-secure-fixing-frame-3",
       "family_id": "en-es:sentence-veto:firm:firma",
       "relation_type": "shadow_candidate",
-      "evidence_text": "changing an object's physical state",
+      "evidence_text": "make secure",
       "admission_status": "admitted",
       "reason_code": "sense_discrimination_passed",
       "intended_sense_id": "en-es:sentence-veto:firm:firma:afirmar:shadow",
@@ -3628,57 +4051,89 @@
         "scorer_id": "sentence_transformer_cosine",
         "passes": true,
         "intended_sense_id": "en-es:sentence-veto:firm:firma:afirmar:shadow",
-        "intended_score": 0.542355,
+        "intended_score": 0.617817,
         "strongest_competitor_sense_id": "en-es:sentence-veto:firm:firma:active",
-        "strongest_competitor_score": 0.535882,
-        "margin": 0.006472
+        "strongest_competitor_score": 0.550589,
+        "margin": 0.067228
       },
       "scorer_results": [
         {
           "scorer_id": "sentence_transformer_cosine",
           "passes": true,
           "intended_sense_id": "en-es:sentence-veto:firm:firma:afirmar:shadow",
-          "intended_score": 0.542355,
+          "intended_score": 0.617817,
           "strongest_competitor_sense_id": "en-es:sentence-veto:firm:firma:active",
-          "strongest_competitor_score": 0.535882,
-          "margin": 0.006472
+          "strongest_competitor_score": 0.550589,
+          "margin": 0.067228
         }
       ]
     },
     {
-      "row_id": "en-es-sentence-veto-wrong-incorrecto:active-en-es-sentence-veto-wrong-incorrecto-active-correctness-suitability-frame-1",
-      "family_id": "en-es:sentence-veto:wrong:incorrecto",
+      "row_id": "en-es-sentence-veto-even-tarde:active-en-es-sentence-veto-even-tarde-active-evening-time-frame-2",
+      "family_id": "en-es:sentence-veto:even:tarde",
       "relation_type": "anchor_cue",
-      "evidence_text": "correct or suitable",
+      "evidence_text": "time of evening before nightfall",
       "admission_status": "admitted",
       "reason_code": "sense_discrimination_passed",
-      "intended_sense_id": "en-es:sentence-veto:wrong:incorrecto:active",
+      "intended_sense_id": "en-es:sentence-veto:even:tarde:active",
       "competitor_sense_ids": [
-        "en-es:sentence-veto:wrong:incorrecto:herir:shadow"
+        "en-es:sentence-veto:even:tarde:allanar:shadow"
       ],
       "best_result": {
         "scorer_id": "sentence_transformer_cosine",
         "passes": true,
-        "intended_sense_id": "en-es:sentence-veto:wrong:incorrecto:active",
-        "intended_score": 0.753638,
-        "strongest_competitor_sense_id": "en-es:sentence-veto:wrong:incorrecto:herir:shadow",
-        "strongest_competitor_score": 0.687718,
-        "margin": 0.06592
+        "intended_sense_id": "en-es:sentence-veto:even:tarde:active",
+        "intended_score": 0.838897,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:even:tarde:allanar:shadow",
+        "strongest_competitor_score": 0.547769,
+        "margin": 0.291128
       },
       "scorer_results": [
         {
           "scorer_id": "sentence_transformer_cosine",
           "passes": true,
-          "intended_sense_id": "en-es:sentence-veto:wrong:incorrecto:active",
-          "intended_score": 0.753638,
-          "strongest_competitor_sense_id": "en-es:sentence-veto:wrong:incorrecto:herir:shadow",
-          "strongest_competitor_score": 0.687718,
-          "margin": 0.06592
+          "intended_sense_id": "en-es:sentence-veto:even:tarde:active",
+          "intended_score": 0.838897,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:even:tarde:allanar:shadow",
+          "strongest_competitor_score": 0.547769,
+          "margin": 0.291128
         }
       ]
     },
     {
-      "row_id": "en-es-sentence-veto-wrong-incorrecto:active-en-es-sentence-veto-wrong-incorrecto-active-correctness-suitability-frame-3",
+      "row_id": "en-es-sentence-veto-even-tarde:active-en-es-sentence-veto-even-tarde-active-evening-time-frame-3",
+      "family_id": "en-es:sentence-veto:even:tarde",
+      "relation_type": "anchor_cue",
+      "evidence_text": "time of day called evening",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:even:tarde:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:even:tarde:allanar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:even:tarde:active",
+        "intended_score": 0.875241,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:even:tarde:allanar:shadow",
+        "strongest_competitor_score": 0.565952,
+        "margin": 0.309289
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:even:tarde:active",
+          "intended_score": 0.875241,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:even:tarde:allanar:shadow",
+          "strongest_competitor_score": 0.565952,
+          "margin": 0.309289
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-wrong-incorrecto:active-en-es-sentence-veto-wrong-incorrecto-active-incorrectness-frame-1",
       "family_id": "en-es:sentence-veto:wrong:incorrecto",
       "relation_type": "anchor_cue",
       "evidence_text": "incorrect or improper",
@@ -3710,10 +4165,42 @@
       ]
     },
     {
-      "row_id": "en-es-sentence-veto-meet-adecuado:active-en-es-sentence-veto-meet-adecuado-active-correctness-suitability-frame-1",
+      "row_id": "en-es-sentence-veto-wrong-incorrecto:active-en-es-sentence-veto-wrong-incorrecto-active-incorrectness-frame-2",
+      "family_id": "en-es:sentence-veto:wrong:incorrecto",
+      "relation_type": "anchor_cue",
+      "evidence_text": "not correct",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:wrong:incorrecto:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:wrong:incorrecto:herir:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:wrong:incorrecto:active",
+        "intended_score": 0.806133,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:wrong:incorrecto:herir:shadow",
+        "strongest_competitor_score": 0.742716,
+        "margin": 0.063417
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:wrong:incorrecto:active",
+          "intended_score": 0.806133,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:wrong:incorrecto:herir:shadow",
+          "strongest_competitor_score": 0.742716,
+          "margin": 0.063417
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-meet-adecuado:active-en-es-sentence-veto-meet-adecuado-active-suitability-frame-1",
       "family_id": "en-es:sentence-veto:meet:adecuado",
       "relation_type": "anchor_cue",
-      "evidence_text": "correct or suitable",
+      "evidence_text": "suitable and proper",
       "admission_status": "admitted",
       "reason_code": "sense_discrimination_passed",
       "intended_sense_id": "en-es:sentence-veto:meet:adecuado:active",
@@ -3724,28 +4211,28 @@
         "scorer_id": "sentence_transformer_cosine",
         "passes": true,
         "intended_sense_id": "en-es:sentence-veto:meet:adecuado:active",
-        "intended_score": 0.813209,
+        "intended_score": 0.786071,
         "strongest_competitor_sense_id": "en-es:sentence-veto:meet:adecuado:encontrar:shadow",
-        "strongest_competitor_score": 0.630505,
-        "margin": 0.182704
+        "strongest_competitor_score": 0.597715,
+        "margin": 0.188356
       },
       "scorer_results": [
         {
           "scorer_id": "sentence_transformer_cosine",
           "passes": true,
           "intended_sense_id": "en-es:sentence-veto:meet:adecuado:active",
-          "intended_score": 0.813209,
+          "intended_score": 0.786071,
           "strongest_competitor_sense_id": "en-es:sentence-veto:meet:adecuado:encontrar:shadow",
-          "strongest_competitor_score": 0.630505,
-          "margin": 0.182704
+          "strongest_competitor_score": 0.597715,
+          "margin": 0.188356
         }
       ]
     },
     {
-      "row_id": "en-es-sentence-veto-meet-adecuado:active-en-es-sentence-veto-meet-adecuado-active-correctness-suitability-frame-2",
+      "row_id": "en-es-sentence-veto-meet-adecuado:active-en-es-sentence-veto-meet-adecuado-active-suitability-frame-2",
       "family_id": "en-es:sentence-veto:meet:adecuado",
       "relation_type": "anchor_cue",
-      "evidence_text": "proper for the situation",
+      "evidence_text": "right for the situation",
       "admission_status": "admitted",
       "reason_code": "sense_discrimination_passed",
       "intended_sense_id": "en-es:sentence-veto:meet:adecuado:active",
@@ -3756,28 +4243,28 @@
         "scorer_id": "sentence_transformer_cosine",
         "passes": true,
         "intended_sense_id": "en-es:sentence-veto:meet:adecuado:active",
-        "intended_score": 0.726019,
+        "intended_score": 0.685485,
         "strongest_competitor_sense_id": "en-es:sentence-veto:meet:adecuado:encontrar:shadow",
-        "strongest_competitor_score": 0.697372,
-        "margin": 0.028647
+        "strongest_competitor_score": 0.648811,
+        "margin": 0.036674
       },
       "scorer_results": [
         {
           "scorer_id": "sentence_transformer_cosine",
           "passes": true,
           "intended_sense_id": "en-es:sentence-veto:meet:adecuado:active",
-          "intended_score": 0.726019,
+          "intended_score": 0.685485,
           "strongest_competitor_sense_id": "en-es:sentence-veto:meet:adecuado:encontrar:shadow",
-          "strongest_competitor_score": 0.697372,
-          "margin": 0.028647
+          "strongest_competitor_score": 0.648811,
+          "margin": 0.036674
         }
       ]
     },
     {
-      "row_id": "en-es-sentence-veto-meet-adecuado:active-en-es-sentence-veto-meet-adecuado-active-correctness-suitability-frame-3",
+      "row_id": "en-es-sentence-veto-meet-adecuado:active-en-es-sentence-veto-meet-adecuado-active-suitability-frame-3",
       "family_id": "en-es:sentence-veto:meet:adecuado",
       "relation_type": "anchor_cue",
-      "evidence_text": "incorrect or improper",
+      "evidence_text": "fitting or appropriate",
       "admission_status": "admitted",
       "reason_code": "sense_discrimination_passed",
       "intended_sense_id": "en-es:sentence-veto:meet:adecuado:active",
@@ -3788,28 +4275,28 @@
         "scorer_id": "sentence_transformer_cosine",
         "passes": true,
         "intended_sense_id": "en-es:sentence-veto:meet:adecuado:active",
-        "intended_score": 0.744885,
+        "intended_score": 0.805922,
         "strongest_competitor_sense_id": "en-es:sentence-veto:meet:adecuado:encontrar:shadow",
-        "strongest_competitor_score": 0.667721,
-        "margin": 0.077163
+        "strongest_competitor_score": 0.704759,
+        "margin": 0.101163
       },
       "scorer_results": [
         {
           "scorer_id": "sentence_transformer_cosine",
           "passes": true,
           "intended_sense_id": "en-es:sentence-veto:meet:adecuado:active",
-          "intended_score": 0.744885,
+          "intended_score": 0.805922,
           "strongest_competitor_sense_id": "en-es:sentence-veto:meet:adecuado:encontrar:shadow",
-          "strongest_competitor_score": 0.667721,
-          "margin": 0.077163
+          "strongest_competitor_score": 0.704759,
+          "margin": 0.101163
         }
       ]
     },
     {
-      "row_id": "en-es-sentence-veto-meet-adecuado:shadow-en-es-sentence-veto-meet-adecuado-encontrar-shadow-collision-malfunction-frame-1",
+      "row_id": "en-es-sentence-veto-meet-adecuado:shadow-en-es-sentence-veto-meet-adecuado-encontrar-shadow-meeting-encounter-frame-2",
       "family_id": "en-es:sentence-veto:meet:adecuado",
       "relation_type": "shadow_candidate",
-      "evidence_text": "vehicle accident or collision",
+      "evidence_text": "encounter someone",
       "admission_status": "admitted",
       "reason_code": "sense_discrimination_passed",
       "intended_sense_id": "en-es:sentence-veto:meet:adecuado:encontrar:shadow",
@@ -3820,60 +4307,28 @@
         "scorer_id": "sentence_transformer_cosine",
         "passes": true,
         "intended_sense_id": "en-es:sentence-veto:meet:adecuado:encontrar:shadow",
-        "intended_score": 0.671673,
+        "intended_score": 0.764653,
         "strongest_competitor_sense_id": "en-es:sentence-veto:meet:adecuado:active",
-        "strongest_competitor_score": 0.570446,
-        "margin": 0.101227
+        "strongest_competitor_score": 0.597932,
+        "margin": 0.166721
       },
       "scorer_results": [
         {
           "scorer_id": "sentence_transformer_cosine",
           "passes": true,
           "intended_sense_id": "en-es:sentence-veto:meet:adecuado:encontrar:shadow",
-          "intended_score": 0.671673,
+          "intended_score": 0.764653,
           "strongest_competitor_sense_id": "en-es:sentence-veto:meet:adecuado:active",
-          "strongest_competitor_score": 0.570446,
-          "margin": 0.101227
+          "strongest_competitor_score": 0.597932,
+          "margin": 0.166721
         }
       ]
     },
     {
-      "row_id": "en-es-sentence-veto-meet-adecuado:shadow-en-es-sentence-veto-meet-adecuado-encontrar-shadow-collision-malfunction-frame-2",
-      "family_id": "en-es:sentence-veto:meet:adecuado",
-      "relation_type": "shadow_candidate",
-      "evidence_text": "violent impact or crash",
-      "admission_status": "admitted",
-      "reason_code": "sense_discrimination_passed",
-      "intended_sense_id": "en-es:sentence-veto:meet:adecuado:encontrar:shadow",
-      "competitor_sense_ids": [
-        "en-es:sentence-veto:meet:adecuado:active"
-      ],
-      "best_result": {
-        "scorer_id": "sentence_transformer_cosine",
-        "passes": true,
-        "intended_sense_id": "en-es:sentence-veto:meet:adecuado:encontrar:shadow",
-        "intended_score": 0.643822,
-        "strongest_competitor_sense_id": "en-es:sentence-veto:meet:adecuado:active",
-        "strongest_competitor_score": 0.525765,
-        "margin": 0.118057
-      },
-      "scorer_results": [
-        {
-          "scorer_id": "sentence_transformer_cosine",
-          "passes": true,
-          "intended_sense_id": "en-es:sentence-veto:meet:adecuado:encontrar:shadow",
-          "intended_score": 0.643822,
-          "strongest_competitor_sense_id": "en-es:sentence-veto:meet:adecuado:active",
-          "strongest_competitor_score": 0.525765,
-          "margin": 0.118057
-        }
-      ]
-    },
-    {
-      "row_id": "en-es-sentence-veto-stretch-estir-n:active-en-es-sentence-veto-stretch-estir-n-active-physical-manipulation-frame-1",
+      "row_id": "en-es-sentence-veto-stretch-estir-n:active-en-es-sentence-veto-stretch-estir-n-active-stretching-lengthening-frame-2",
       "family_id": "en-es:sentence-veto:stretch:estir-n",
       "relation_type": "anchor_cue",
-      "evidence_text": "physical manipulation or shaping",
+      "evidence_text": "act of stretching",
       "admission_status": "admitted",
       "reason_code": "sense_discrimination_passed",
       "intended_sense_id": "en-es:sentence-veto:stretch:estir-n:active",
@@ -3884,60 +4339,28 @@
         "scorer_id": "sentence_transformer_cosine",
         "passes": true,
         "intended_sense_id": "en-es:sentence-veto:stretch:estir-n:active",
-        "intended_score": 0.716574,
+        "intended_score": 0.891423,
         "strongest_competitor_sense_id": "en-es:sentence-veto:stretch:estir-n:estirar:shadow",
-        "strongest_competitor_score": 0.69753,
-        "margin": 0.019044
+        "strongest_competitor_score": 0.830367,
+        "margin": 0.061057
       },
       "scorer_results": [
         {
           "scorer_id": "sentence_transformer_cosine",
           "passes": true,
           "intended_sense_id": "en-es:sentence-veto:stretch:estir-n:active",
-          "intended_score": 0.716574,
+          "intended_score": 0.891423,
           "strongest_competitor_sense_id": "en-es:sentence-veto:stretch:estir-n:estirar:shadow",
-          "strongest_competitor_score": 0.69753,
-          "margin": 0.019044
+          "strongest_competitor_score": 0.830367,
+          "margin": 0.061057
         }
       ]
     },
     {
-      "row_id": "en-es-sentence-veto-stretch-estir-n:active-en-es-sentence-veto-stretch-estir-n-active-physical-manipulation-frame-3",
-      "family_id": "en-es:sentence-veto:stretch:estir-n",
-      "relation_type": "anchor_cue",
-      "evidence_text": "changing an object's physical state",
-      "admission_status": "admitted",
-      "reason_code": "sense_discrimination_passed",
-      "intended_sense_id": "en-es:sentence-veto:stretch:estir-n:active",
-      "competitor_sense_ids": [
-        "en-es:sentence-veto:stretch:estir-n:estirar:shadow"
-      ],
-      "best_result": {
-        "scorer_id": "sentence_transformer_cosine",
-        "passes": true,
-        "intended_sense_id": "en-es:sentence-veto:stretch:estir-n:active",
-        "intended_score": 0.587756,
-        "strongest_competitor_sense_id": "en-es:sentence-veto:stretch:estir-n:estirar:shadow",
-        "strongest_competitor_score": 0.583588,
-        "margin": 0.004168
-      },
-      "scorer_results": [
-        {
-          "scorer_id": "sentence_transformer_cosine",
-          "passes": true,
-          "intended_sense_id": "en-es:sentence-veto:stretch:estir-n:active",
-          "intended_score": 0.587756,
-          "strongest_competitor_sense_id": "en-es:sentence-veto:stretch:estir-n:estirar:shadow",
-          "strongest_competitor_score": 0.583588,
-          "margin": 0.004168
-        }
-      ]
-    },
-    {
-      "row_id": "en-es-sentence-veto-stretch-estir-n:shadow-en-es-sentence-veto-stretch-estir-n-estirar-shadow-physical-manipulation-frame-2",
+      "row_id": "en-es-sentence-veto-stretch-estir-n:shadow-en-es-sentence-veto-stretch-estir-n-estirar-shadow-stretching-lengthening-frame-1",
       "family_id": "en-es:sentence-veto:stretch:estir-n",
       "relation_type": "shadow_candidate",
-      "evidence_text": "movement by pulling or throwing",
+      "evidence_text": "lengthen by pulling",
       "admission_status": "admitted",
       "reason_code": "sense_discrimination_passed",
       "intended_sense_id": "en-es:sentence-veto:stretch:estir-n:estirar:shadow",
@@ -3948,28 +4371,60 @@
         "scorer_id": "sentence_transformer_cosine",
         "passes": true,
         "intended_sense_id": "en-es:sentence-veto:stretch:estir-n:estirar:shadow",
-        "intended_score": 0.755674,
+        "intended_score": 0.83868,
         "strongest_competitor_sense_id": "en-es:sentence-veto:stretch:estir-n:active",
-        "strongest_competitor_score": 0.738118,
-        "margin": 0.017556
+        "strongest_competitor_score": 0.718367,
+        "margin": 0.120312
       },
       "scorer_results": [
         {
           "scorer_id": "sentence_transformer_cosine",
           "passes": true,
           "intended_sense_id": "en-es:sentence-veto:stretch:estir-n:estirar:shadow",
-          "intended_score": 0.755674,
+          "intended_score": 0.83868,
           "strongest_competitor_sense_id": "en-es:sentence-veto:stretch:estir-n:active",
-          "strongest_competitor_score": 0.738118,
-          "margin": 0.017556
+          "strongest_competitor_score": 0.718367,
+          "margin": 0.120312
         }
       ]
     },
     {
-      "row_id": "en-es-sentence-veto-score-tantos:active-en-es-sentence-veto-score-tantos-active-sports-points-offense-frame-3",
+      "row_id": "en-es-sentence-veto-stretch-estir-n:shadow-en-es-sentence-veto-stretch-estir-n-estirar-shadow-stretching-lengthening-frame-3",
+      "family_id": "en-es:sentence-veto:stretch:estir-n",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "make something longer by pulling",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:stretch:estir-n:estirar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:stretch:estir-n:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:stretch:estir-n:estirar:shadow",
+        "intended_score": 0.778062,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:stretch:estir-n:active",
+        "strongest_competitor_score": 0.681296,
+        "margin": 0.096766
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:stretch:estir-n:estirar:shadow",
+          "intended_score": 0.778062,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:stretch:estir-n:active",
+          "strongest_competitor_score": 0.681296,
+          "margin": 0.096766
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-score-tantos:active-en-es-sentence-veto-score-tantos-active-sports-points-scoring-frame-3",
       "family_id": "en-es:sentence-veto:score:tantos",
       "relation_type": "anchor_cue",
-      "evidence_text": "competition points and fouls",
+      "evidence_text": "competition points",
       "admission_status": "admitted",
       "reason_code": "sense_discrimination_passed",
       "intended_sense_id": "en-es:sentence-veto:score:tantos:active",
@@ -3981,25 +4436,25 @@
         "scorer_id": "sentence_transformer_cosine",
         "passes": true,
         "intended_sense_id": "en-es:sentence-veto:score:tantos:active",
-        "intended_score": 0.751261,
-        "strongest_competitor_sense_id": "en-es:sentence-veto:score:tantos:anotar:shadow",
-        "strongest_competitor_score": 0.744881,
-        "margin": 0.00638
+        "intended_score": 0.74607,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:score:tantos:marcador:shadow",
+        "strongest_competitor_score": 0.743963,
+        "margin": 0.002108
       },
       "scorer_results": [
         {
           "scorer_id": "sentence_transformer_cosine",
           "passes": true,
           "intended_sense_id": "en-es:sentence-veto:score:tantos:active",
-          "intended_score": 0.751261,
-          "strongest_competitor_sense_id": "en-es:sentence-veto:score:tantos:anotar:shadow",
-          "strongest_competitor_score": 0.744881,
-          "margin": 0.00638
+          "intended_score": 0.74607,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:score:tantos:marcador:shadow",
+          "strongest_competitor_score": 0.743963,
+          "margin": 0.002108
         }
       ]
     },
     {
-      "row_id": "en-es-sentence-veto-score-tantos:shadow-en-es-sentence-veto-score-tantos-anotar-shadow-sports-points-offense-frame-1",
+      "row_id": "en-es-sentence-veto-score-tantos:shadow-en-es-sentence-veto-score-tantos-anotar-shadow-sports-points-scoring-frame-1",
       "family_id": "en-es:sentence-veto:score:tantos",
       "relation_type": "shadow_candidate",
       "evidence_text": "points earned in a game",
@@ -4032,10 +4487,10 @@
       ]
     },
     {
-      "row_id": "en-es-sentence-veto-score-tantos:shadow-en-es-sentence-veto-score-tantos-anotar-shadow-sports-points-offense-frame-2",
+      "row_id": "en-es-sentence-veto-score-tantos:shadow-en-es-sentence-veto-score-tantos-anotar-shadow-sports-points-scoring-frame-2",
       "family_id": "en-es:sentence-veto:score:tantos",
       "relation_type": "shadow_candidate",
-      "evidence_text": "sports scoring or offense",
+      "evidence_text": "sports scoring points",
       "admission_status": "admitted",
       "reason_code": "sense_discrimination_passed",
       "intended_sense_id": "en-es:sentence-veto:score:tantos:anotar:shadow",
@@ -4047,20 +4502,20 @@
         "scorer_id": "sentence_transformer_cosine",
         "passes": true,
         "intended_sense_id": "en-es:sentence-veto:score:tantos:anotar:shadow",
-        "intended_score": 0.804987,
+        "intended_score": 0.79698,
         "strongest_competitor_sense_id": "en-es:sentence-veto:score:tantos:active",
-        "strongest_competitor_score": 0.794578,
-        "margin": 0.010408
+        "strongest_competitor_score": 0.787131,
+        "margin": 0.00985
       },
       "scorer_results": [
         {
           "scorer_id": "sentence_transformer_cosine",
           "passes": true,
           "intended_sense_id": "en-es:sentence-veto:score:tantos:anotar:shadow",
-          "intended_score": 0.804987,
+          "intended_score": 0.79698,
           "strongest_competitor_sense_id": "en-es:sentence-veto:score:tantos:active",
-          "strongest_competitor_score": 0.794578,
-          "margin": 0.010408
+          "strongest_competitor_score": 0.787131,
+          "margin": 0.00985
         }
       ]
     },
@@ -4164,7 +4619,7 @@
       ]
     },
     {
-      "row_id": "en-es-sentence-veto-squeeze-crisis:active-en-es-sentence-veto-squeeze-crisis-active-difficulty-constraint-frame-1",
+      "row_id": "en-es-sentence-veto-squeeze-crisis:active-en-es-sentence-veto-squeeze-crisis-active-difficult-situation-frame-1",
       "family_id": "en-es:sentence-veto:squeeze:crisis",
       "relation_type": "anchor_cue",
       "evidence_text": "a difficult situation or dilemma",
@@ -4196,10 +4651,10 @@
       ]
     },
     {
-      "row_id": "en-es-sentence-veto-squeeze-crisis:active-en-es-sentence-veto-squeeze-crisis-active-difficulty-constraint-frame-2",
+      "row_id": "en-es-sentence-veto-squeeze-crisis:active-en-es-sentence-veto-squeeze-crisis-active-difficult-situation-frame-2",
       "family_id": "en-es:sentence-veto:squeeze:crisis",
       "relation_type": "anchor_cue",
-      "evidence_text": "a constrained or tight position",
+      "evidence_text": "being in a difficult fix",
       "admission_status": "admitted",
       "reason_code": "sense_discrimination_passed",
       "intended_sense_id": "en-es:sentence-veto:squeeze:crisis:active",
@@ -4210,28 +4665,28 @@
         "scorer_id": "sentence_transformer_cosine",
         "passes": true,
         "intended_sense_id": "en-es:sentence-veto:squeeze:crisis:active",
-        "intended_score": 0.820408,
+        "intended_score": 0.762739,
         "strongest_competitor_sense_id": "en-es:sentence-veto:squeeze:crisis:apretujar:shadow",
-        "strongest_competitor_score": 0.773612,
-        "margin": 0.046796
+        "strongest_competitor_score": 0.666698,
+        "margin": 0.09604
       },
       "scorer_results": [
         {
           "scorer_id": "sentence_transformer_cosine",
           "passes": true,
           "intended_sense_id": "en-es:sentence-veto:squeeze:crisis:active",
-          "intended_score": 0.820408,
+          "intended_score": 0.762739,
           "strongest_competitor_sense_id": "en-es:sentence-veto:squeeze:crisis:apretujar:shadow",
-          "strongest_competitor_score": 0.773612,
-          "margin": 0.046796
+          "strongest_competitor_score": 0.666698,
+          "margin": 0.09604
         }
       ]
     },
     {
-      "row_id": "en-es-sentence-veto-squeeze-crisis:active-en-es-sentence-veto-squeeze-crisis-active-difficulty-constraint-frame-3",
+      "row_id": "en-es-sentence-veto-squeeze-crisis:active-en-es-sentence-veto-squeeze-crisis-active-difficult-situation-frame-3",
       "family_id": "en-es:sentence-veto:squeeze:crisis",
       "relation_type": "anchor_cue",
-      "evidence_text": "pressure from a difficult constraint",
+      "evidence_text": "a constrained problem situation",
       "admission_status": "admitted",
       "reason_code": "sense_discrimination_passed",
       "intended_sense_id": "en-es:sentence-veto:squeeze:crisis:active",
@@ -4242,28 +4697,28 @@
         "scorer_id": "sentence_transformer_cosine",
         "passes": true,
         "intended_sense_id": "en-es:sentence-veto:squeeze:crisis:active",
-        "intended_score": 0.76881,
+        "intended_score": 0.802386,
         "strongest_competitor_sense_id": "en-es:sentence-veto:squeeze:crisis:apretujar:shadow",
-        "strongest_competitor_score": 0.697363,
-        "margin": 0.071447
+        "strongest_competitor_score": 0.693079,
+        "margin": 0.109307
       },
       "scorer_results": [
         {
           "scorer_id": "sentence_transformer_cosine",
           "passes": true,
           "intended_sense_id": "en-es:sentence-veto:squeeze:crisis:active",
-          "intended_score": 0.76881,
+          "intended_score": 0.802386,
           "strongest_competitor_sense_id": "en-es:sentence-veto:squeeze:crisis:apretujar:shadow",
-          "strongest_competitor_score": 0.697363,
-          "margin": 0.071447
+          "strongest_competitor_score": 0.693079,
+          "margin": 0.109307
         }
       ]
     },
     {
-      "row_id": "en-es-sentence-veto-foul-falta:active-en-es-sentence-veto-foul-falta-active-sports-points-offense-frame-1",
+      "row_id": "en-es-sentence-veto-foul-falta:active-en-es-sentence-veto-foul-falta-active-sports-rule-offense-frame-1",
       "family_id": "en-es:sentence-veto:foul:falta",
       "relation_type": "anchor_cue",
-      "evidence_text": "points earned in a game",
+      "evidence_text": "sports rule offense",
       "admission_status": "admitted",
       "reason_code": "sense_discrimination_passed",
       "intended_sense_id": "en-es:sentence-veto:foul:falta:active",
@@ -4274,28 +4729,28 @@
         "scorer_id": "sentence_transformer_cosine",
         "passes": true,
         "intended_sense_id": "en-es:sentence-veto:foul:falta:active",
-        "intended_score": 0.72347,
+        "intended_score": 0.863576,
         "strongest_competitor_sense_id": "en-es:sentence-veto:foul:falta:ensuciar:shadow",
-        "strongest_competitor_score": 0.598391,
-        "margin": 0.125079
+        "strongest_competitor_score": 0.612466,
+        "margin": 0.25111
       },
       "scorer_results": [
         {
           "scorer_id": "sentence_transformer_cosine",
           "passes": true,
           "intended_sense_id": "en-es:sentence-veto:foul:falta:active",
-          "intended_score": 0.72347,
+          "intended_score": 0.863576,
           "strongest_competitor_sense_id": "en-es:sentence-veto:foul:falta:ensuciar:shadow",
-          "strongest_competitor_score": 0.598391,
-          "margin": 0.125079
+          "strongest_competitor_score": 0.612466,
+          "margin": 0.25111
         }
       ]
     },
     {
-      "row_id": "en-es-sentence-veto-foul-falta:active-en-es-sentence-veto-foul-falta-active-sports-points-offense-frame-2",
+      "row_id": "en-es-sentence-veto-foul-falta:active-en-es-sentence-veto-foul-falta-active-sports-rule-offense-frame-2",
       "family_id": "en-es:sentence-veto:foul:falta",
       "relation_type": "anchor_cue",
-      "evidence_text": "sports scoring or offense",
+      "evidence_text": "offense in sports",
       "admission_status": "admitted",
       "reason_code": "sense_discrimination_passed",
       "intended_sense_id": "en-es:sentence-veto:foul:falta:active",
@@ -4306,28 +4761,28 @@
         "scorer_id": "sentence_transformer_cosine",
         "passes": true,
         "intended_sense_id": "en-es:sentence-veto:foul:falta:active",
-        "intended_score": 0.873644,
+        "intended_score": 0.902855,
         "strongest_competitor_sense_id": "en-es:sentence-veto:foul:falta:ensuciar:shadow",
-        "strongest_competitor_score": 0.668188,
-        "margin": 0.205456
+        "strongest_competitor_score": 0.648889,
+        "margin": 0.253966
       },
       "scorer_results": [
         {
           "scorer_id": "sentence_transformer_cosine",
           "passes": true,
           "intended_sense_id": "en-es:sentence-veto:foul:falta:active",
-          "intended_score": 0.873644,
+          "intended_score": 0.902855,
           "strongest_competitor_sense_id": "en-es:sentence-veto:foul:falta:ensuciar:shadow",
-          "strongest_competitor_score": 0.668188,
-          "margin": 0.205456
+          "strongest_competitor_score": 0.648889,
+          "margin": 0.253966
         }
       ]
     },
     {
-      "row_id": "en-es-sentence-veto-foul-falta:active-en-es-sentence-veto-foul-falta-active-sports-points-offense-frame-3",
+      "row_id": "en-es-sentence-veto-foul-falta:active-en-es-sentence-veto-foul-falta-active-sports-rule-offense-frame-3",
       "family_id": "en-es:sentence-veto:foul:falta",
       "relation_type": "anchor_cue",
-      "evidence_text": "competition points and fouls",
+      "evidence_text": "rule violation in a sport",
       "admission_status": "admitted",
       "reason_code": "sense_discrimination_passed",
       "intended_sense_id": "en-es:sentence-veto:foul:falta:active",
@@ -4338,20 +4793,116 @@
         "scorer_id": "sentence_transformer_cosine",
         "passes": true,
         "intended_sense_id": "en-es:sentence-veto:foul:falta:active",
-        "intended_score": 0.773013,
+        "intended_score": 0.843394,
         "strongest_competitor_sense_id": "en-es:sentence-veto:foul:falta:ensuciar:shadow",
-        "strongest_competitor_score": 0.617081,
-        "margin": 0.155932
+        "strongest_competitor_score": 0.602212,
+        "margin": 0.241182
       },
       "scorer_results": [
         {
           "scorer_id": "sentence_transformer_cosine",
           "passes": true,
           "intended_sense_id": "en-es:sentence-veto:foul:falta:active",
-          "intended_score": 0.773013,
+          "intended_score": 0.843394,
           "strongest_competitor_sense_id": "en-es:sentence-veto:foul:falta:ensuciar:shadow",
-          "strongest_competitor_score": 0.617081,
-          "margin": 0.155932
+          "strongest_competitor_score": 0.602212,
+          "margin": 0.241182
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-foul-falta:shadow-en-es-sentence-veto-foul-falta-ensuciar-shadow-dirtying-pollution-frame-1",
+      "family_id": "en-es:sentence-veto:foul:falta",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "make dirty or impure",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:foul:falta:ensuciar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:foul:falta:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:foul:falta:ensuciar:shadow",
+        "intended_score": 0.851258,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:foul:falta:active",
+        "strongest_competitor_score": 0.687741,
+        "margin": 0.163517
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:foul:falta:ensuciar:shadow",
+          "intended_score": 0.851258,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:foul:falta:active",
+          "strongest_competitor_score": 0.687741,
+          "margin": 0.163517
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-foul-falta:shadow-en-es-sentence-veto-foul-falta-ensuciar-shadow-dirtying-pollution-frame-2",
+      "family_id": "en-es:sentence-veto:foul:falta",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "pollute or foul something",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:foul:falta:ensuciar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:foul:falta:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:foul:falta:ensuciar:shadow",
+        "intended_score": 0.753577,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:foul:falta:active",
+        "strongest_competitor_score": 0.739618,
+        "margin": 0.013959
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:foul:falta:ensuciar:shadow",
+          "intended_score": 0.753577,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:foul:falta:active",
+          "strongest_competitor_score": 0.739618,
+          "margin": 0.013959
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-foul-falta:shadow-en-es-sentence-veto-foul-falta-ensuciar-shadow-dirtying-pollution-frame-3",
+      "family_id": "en-es:sentence-veto:foul:falta",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "besmirch or dirty",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:foul:falta:ensuciar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:foul:falta:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:foul:falta:ensuciar:shadow",
+        "intended_score": 0.796902,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:foul:falta:active",
+        "strongest_competitor_score": 0.680763,
+        "margin": 0.116139
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:foul:falta:ensuciar:shadow",
+          "intended_score": 0.796902,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:foul:falta:active",
+          "strongest_competitor_score": 0.680763,
+          "margin": 0.116139
         }
       ]
     },
@@ -5481,19 +6032,19 @@
       "scorer_results": []
     },
     {
-      "row_id": "en-es-sentence-veto-score-tantos:phrase-control-wordnet-alt-01114241-v",
+      "row_id": "en-es-sentence-veto-score-tantos:phrase-control-wordnet-alt-01278326-v",
       "family_id": "en-es:sentence-veto:score:tantos",
       "relation_type": "phrase_control_example",
-      "evidence_text": "gain points in a game example: The home team is racking up points",
+      "evidence_text": "make small marks into the surface of example: score the clay before firing it",
       "admission_status": "not_applicable",
       "reason_code": "phrase_containment_not_semantic_competition",
       "scorer_results": []
     },
     {
-      "row_id": "en-es-sentence-veto-score-tantos:phrase-control-wordnet-alt-01278326-v",
+      "row_id": "en-es-sentence-veto-score-tantos:phrase-control-wordnet-alt-01006107-v",
       "family_id": "en-es:sentence-veto:score:tantos",
       "relation_type": "phrase_control_example",
-      "evidence_text": "make small marks into the surface of example: score the clay before firing it",
+      "evidence_text": "make underscoring marks",
       "admission_status": "not_applicable",
       "reason_code": "phrase_containment_not_semantic_competition",
       "scorer_results": []

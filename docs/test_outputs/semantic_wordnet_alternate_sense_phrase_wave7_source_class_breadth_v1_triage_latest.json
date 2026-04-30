@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-04-30T18:15:54Z",
+  "generated_at": "2026-04-30T19:16:37Z",
   "status": "ok",
   "decision": "candidate_batch_ready",
   "pair": "en-es",
@@ -21,7 +21,7 @@
     "target_family_count": 16,
     "families_with_rows": 16,
     "candidate_sense_count": 248,
-    "active_like_skip_count": 33,
+    "active_like_skip_count": 34,
     "row_count": 179,
     "max_rows_per_family": 12,
     "active_overlap_skip": 0.34,
@@ -250,7 +250,7 @@
       "family_id": "en-es:sentence-veto:score:tantos",
       "trigger": "score",
       "candidate_sense_count": 18,
-      "active_like_skip_count": 2,
+      "active_like_skip_count": 3,
       "row_count": 12,
       "emitted_synset_ids": [
         "06828572-n",
@@ -263,8 +263,8 @@
         "07565002-n",
         "00187483-n",
         "00161508-n",
-        "01114241-v",
-        "01278326-v"
+        "01278326-v",
+        "01006107-v"
       ]
     },
     {

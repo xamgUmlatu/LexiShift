@@ -33,7 +33,7 @@ class SemanticSourceClassFrameEvidenceTests(unittest.TestCase):
         self.assertGreaterEqual(
             class_ids,
             {
-                "sports_points_offense",
+                "sports_points_scoring",
                 "collision_malfunction",
                 "commercial_organization",
             },
@@ -64,8 +64,109 @@ class SemanticSourceClassFrameEvidenceTests(unittest.TestCase):
 
         markdown = render_source_class_frame_evidence_markdown(report)
         self.assertIn("Source-Class Frame Evidence Batch", markdown)
-        self.assertIn("sports_points_offense", markdown)
+        self.assertIn("sports_points_scoring", markdown)
         self.assertIn("Source Trigger Audit", markdown)
+
+    def test_splits_overbroad_wave7_source_classes(self) -> None:
+        dataset = _dataset_payload()
+        dataset["families"] = [
+            {
+                "family_id": "fam:gross",
+                "trigger": "gross",
+                "active": _sense(
+                    sense_id="gross:active",
+                    target="repulsivo",
+                    pos="adjective",
+                    text="causing disgust",
+                ),
+                "shadows": [
+                    _sense(
+                        sense_id="gross:shadow",
+                        target="gruesa",
+                        pos="noun",
+                        text="twelve dozen",
+                    )
+                ],
+            },
+            {
+                "family_id": "fam:full",
+                "trigger": "full",
+                "active": _sense(
+                    sense_id="full:active",
+                    target="lleno",
+                    pos="adjective",
+                    text="containing the maximum possible amount",
+                ),
+                "shadows": [
+                    _sense(
+                        sense_id="full:shadow",
+                        target="abatanar",
+                        pos="verb",
+                        text="to make cloth denser",
+                    )
+                ],
+            },
+            {
+                "family_id": "fam:meet",
+                "trigger": "meet",
+                "active": _sense(
+                    sense_id="meet:active",
+                    target="adecuado",
+                    pos="adjective",
+                    text="suitable, right; proper",
+                ),
+                "shadows": [
+                    _sense(
+                        sense_id="meet:shadow",
+                        target="encontrar",
+                        pos="verb",
+                        text="to come face to face with by accident; to encounter",
+                    )
+                ],
+            },
+            {
+                "family_id": "fam:even",
+                "trigger": "even",
+                "active": _sense(
+                    sense_id="even:active",
+                    target="tarde",
+                    pos="noun",
+                    text="Evening of the day",
+                ),
+                "shadows": [
+                    _sense(
+                        sense_id="even:shadow",
+                        target="allanar",
+                        pos="verb",
+                        text="to make even",
+                    )
+                ],
+            },
+        ]
+
+        bundle = build_source_class_frame_evidence_bundle(
+            dataset_payload=dataset,
+            generated_at="2026-05-01T05:30:00Z",
+        )
+
+        rows = bundle["normalized_batch"]["rows"]
+        by_sense = {
+            row["metadata"]["candidate_sense_id"]: set()
+            for row in rows
+            if isinstance(row.get("metadata"), dict)
+        }
+        for row in rows:
+            metadata = row["metadata"]
+            by_sense[metadata["candidate_sense_id"]].add(metadata["semantic_class_id"])
+
+        self.assertIn("disgust_repulsion", by_sense["gross:active"])
+        self.assertIn("quantity_dozen_count", by_sense["gross:shadow"])
+        self.assertIn("full_capacity", by_sense["full:active"])
+        self.assertIn("textile_fulling", by_sense["full:shadow"])
+        self.assertIn("suitability", by_sense["meet:active"])
+        self.assertIn("meeting_encounter", by_sense["meet:shadow"])
+        self.assertNotIn("collision_malfunction", by_sense["meet:shadow"])
+        self.assertIn("evening_time", by_sense["even:active"])
 
     def test_reports_review_when_no_class_matches(self) -> None:
         dataset = _dataset_payload()

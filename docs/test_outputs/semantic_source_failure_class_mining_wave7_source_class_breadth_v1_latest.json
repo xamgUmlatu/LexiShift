@@ -44,7 +44,7 @@
       "harmful_replace_count": 6,
       "heldout_case_scope": "non_v10_wave7_source_class_breadth_phrase_no_winner",
       "heldout_dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_phrase_cases",
-      "label": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_validation_latest",
+      "label": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase_validation_latest",
       "replace_recall": 0.0,
       "status": "review"
     }
@@ -112,7 +112,7 @@
   "decision": "fix_blocking_failure_classes",
   "failure_classes": [
     {
-      "artifact": "semantic_source_non_v10_wave7_source_class_breadth_v1_heldout_validation_latest",
+      "artifact": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout_validation_latest",
       "blocks_semantic_promotion": true,
       "class_id": "heldout_harmful_replace",
       "count": 1,
@@ -126,21 +126,17 @@
       "tracked_residual": false
     },
     {
-      "artifact": "semantic_source_non_v10_wave7_source_class_breadth_v1_heldout_validation_latest",
+      "artifact": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout_validation_latest",
       "blocks_semantic_promotion": false,
       "class_id": "heldout_false_abstain",
-      "count": 5,
+      "count": 3,
       "family_tokens": [
         "even",
         "fix",
-        "full",
-        "like",
         "meet"
       ],
       "ids": [
-        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
       ],
@@ -148,7 +144,7 @@
       "tracked_residual": true
     },
     {
-      "artifact": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_validation_latest",
+      "artifact": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase_validation_latest",
       "blocks_semantic_promotion": true,
       "class_id": "additional_heldout_1_harmful_replace",
       "count": 6,
@@ -175,12 +171,12 @@
       "artifact": "semantic_source_admission_cycle_wave7_source_class_breadth_v1_latest",
       "blocks_semantic_promotion": false,
       "class_id": "primary_sense_reject",
-      "count": 42,
+      "count": 29,
       "family_tokens": [
         "competitor_sense_not_lower"
       ],
       "ids": [
-        "competitor_sense_not_lower:42"
+        "competitor_sense_not_lower:29"
       ],
       "label": "primary sense rejected rows",
       "tracked_residual": true
@@ -346,11 +342,11 @@
       "tracked_residual": true
     }
   ],
-  "generated_at": "2026-04-30T18:07:59Z",
+  "generated_at": "2026-04-30T19:18:43Z",
   "leverage": {
     "best_comparator_false_abstain_delta": -7,
     "best_comparator_label": "semantic_source_admission_cycle_wordnet_source_non_v10_probe_v1_latest",
-    "best_comparator_sense_reject_delta": 38,
+    "best_comparator_sense_reject_delta": 25,
     "case_breadth_gap": 0,
     "case_breadth_target": 48,
     "family_breadth_gap": 0,
@@ -359,9 +355,9 @@
       "source_mode_reduced_seed_false_abstains"
     ],
     "heldout_case_count": 48,
-    "heldout_cases_per_admitted_row": 0.3582,
+    "heldout_cases_per_admitted_row": 0.3179,
     "heldout_cases_per_policy_delta": null,
-    "heldout_false_abstain_count": 5,
+    "heldout_false_abstain_count": 3,
     "heldout_family_count": 16,
     "heldout_harmful_replace_count": 7,
     "heldout_suite_count": 2,
@@ -370,10 +366,10 @@
     ],
     "manual_overfit_risk": "low",
     "policy_delta_count": 0,
-    "primary_admitted_row_count": 134,
+    "primary_admitted_row_count": 151,
     "source_family_count": 16,
-    "source_row_count": 75,
-    "source_rows_per_family": 4.6875
+    "source_row_count": 87,
+    "source_rows_per_family": 5.4375
   },
   "margin_sweep": {
     "blockers_by_margin": {
@@ -464,7 +460,7 @@
   "primary_admission": {
     "decision": "analysis_only",
     "families_total": 16,
-    "final_admitted_row_count": 134,
+    "final_admitted_row_count": 151,
     "heldout_validation": {
       "blocks_offline_semantic_promotion": false,
       "case_count": 0,
@@ -479,7 +475,7 @@
       "status": "not_provided"
     },
     "label": "semantic_source_admission_cycle_wave7_source_class_breadth_v1_latest",
-    "leakage_rejected_row_count": 4,
+    "leakage_rejected_row_count": 12,
     "phrase_contract_complete_family_count": 0,
     "phrase_gap_family_keys": [
       "en-es:sentence-veto:cast:lanzamiento",
@@ -508,30 +504,28 @@
     "seed_replace_recall": 0.0,
     "semantic_contract_complete_family_count": 16,
     "semantic_gap_family_keys": [],
-    "sense_rejected_row_count": 42,
+    "sense_rejected_row_count": 29,
     "sense_rejection_reason_counts": {
-      "competitor_sense_not_lower": 42
+      "competitor_sense_not_lower": 29
     },
     "status": "review"
   },
   "primary_heldout": {
     "case_count": 32,
     "decision": "heldout_review",
-    "decision_accuracy": 0.8125,
+    "decision_accuracy": 0.875,
     "delta_vs_empty_baseline": {
-      "decision_accuracy_delta": 0.3125,
-      "false_abstain_delta": -11,
+      "decision_accuracy_delta": 0.375,
+      "false_abstain_delta": -13,
       "harmful_replace_delta": 1,
-      "replace_recall_delta": 0.6875
+      "replace_recall_delta": 0.8125
     },
     "false_abstain_case_ids": [
-      "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
       "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-      "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
       "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
       "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
     ],
-    "false_abstain_count": 5,
+    "false_abstain_count": 3,
     "family_count": 16,
     "family_ids": [
       "en-es:sentence-veto:cast:lanzamiento",
@@ -559,8 +553,8 @@
     "harmful_replace_count": 1,
     "heldout_case_scope": "non_v10_wave7_source_class_breadth_active_shadow",
     "heldout_dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases",
-    "label": "semantic_source_non_v10_wave7_source_class_breadth_v1_heldout_validation_latest",
-    "replace_recall": 0.6875,
+    "label": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout_validation_latest",
+    "replace_recall": 0.8125,
     "status": "review"
   },
   "quality_gate": {
@@ -600,7 +594,7 @@
       "label": "semantic_source_class_frame_evidence_wave7_source_class_breadth_v1_latest",
       "missing_active_family_keys": [],
       "missing_shadow_family_keys": [],
-      "row_count": 75,
+      "row_count": 87,
       "source_family_count": 0,
       "target_families_with_active_wordnet": 0,
       "target_families_with_shadow_wordnet": 0,
@@ -642,7 +636,7 @@
     "heldout_suite_count": 2,
     "manual_overfit_risk": "low",
     "primary_admission_label": "semantic_source_admission_cycle_wave7_source_class_breadth_v1_latest",
-    "primary_heldout_label": "semantic_source_non_v10_wave7_source_class_breadth_v1_heldout_validation_latest",
+    "primary_heldout_label": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout_validation_latest",
     "promotion_readiness": "blocked",
     "quality_gate_distance": "semantic_risk_blockers",
     "tracked_residual_class_count": 8

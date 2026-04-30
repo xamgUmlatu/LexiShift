@@ -252,15 +252,15 @@ Wave7 breadth gate:
 - Selected wave: 16 fully source-supported families after Wiktextract overlay:
   `like`, `gross`, `cast`, `fix`, `full`, `waste`, `firm`, `even`, `wrong`,
   `meet`, `stretch`, `score`, `crash`, `trim`, `squeeze`, `foul`.
-- Source-class breadth: `7` non-authorization source-detectable classes and
-  `75` deterministic class-frame rows across `25` senses.
+- Source-class breadth: `23` split non-authorization source-detectable
+  classes and `87` deterministic class-frame rows across `29` senses.
 - Heldout floor: `48` locked cases exist: `32` active/shadow cases and `16`
   phrase/no-winner cases.
-- Admission result: `16 / 16` semantic contract, but status `review` due `4`
-  leakage rejects, `42` sense rejects, and an empty phrase contract.
-- Heldout result: active/shadow validation has `1` harmful replacement and `5`
-  false abstains; phrase/no-winner validation has `6` harmful replacements.
-- Rescue validation result: `7` harmful replacements and `5` false abstains
+- Admission result: `16 / 16` semantic contract, but status `review` due `12`
+  leakage rejects, `29` sense rejects, and an empty phrase contract.
+- Heldout result: active/shadow validation has `1` harmful replacement and `3`
+  false abstains; phrase/no-winner validation has `7` harmful replacements.
+- Rescue validation result: `8` harmful replacements and `3` false abstains
   across the combined `48` cases.
 - Failure mining result: promotion readiness `blocked`; blocking classes are
   `heldout_harmful_replace` and `additional_heldout_1_harmful_replace`.
@@ -270,10 +270,11 @@ Wave7 phrase-control triage:
 - Added WordNet alternate-sense phrase/no-winner evidence for the same 16
   families: `179` phrase-control rows across `248` candidate senses.
 - Phrase-control admission now reaches `16 / 16` semantic contract and
-  `16 / 16` phrase contract with `307` final admitted rows, but remains
+  `16 / 16` phrase contract with `324` final admitted rows, but remains
   `review` due leakage review and downstream heldout blockers.
-- Active/shadow heldout remains blocked: `1` harmful replacement and `5` false
-  abstains across `32` cases.
+- Active/shadow heldout remains blocked: `1` harmful replacement and `3` false
+  abstains across `32` cases. The source-class split fixed the previous
+  `like` and `full` false abstains.
 - Phrase/no-winner heldout remains blocked under the current surface-POS shape:
   `6` harmful replacements across `16` cases, even though phrase-control scores
   are now present.
@@ -282,9 +283,10 @@ Wave7 phrase-control triage:
 - No-surface margin sweep found `0` passing combined policies: phrase-only rows
   can pass at several margins, but active/shadow false abstains increase enough
   to block the lane.
-- Current blocker split: active source-signal misses (`gross` harmful plus
-  `like`, `fix`, `full`, `even`, `meet` false abstains) must be separated from
-  phrase rescue-policy interaction before another breadth pass.
+- Current blocker split: residual active/source failures are `gross` harmful
+  quantity-vs-disgust selection plus `fix`, `even`, and `meet` false abstains;
+  phrase/no-winner still has `6` harmful replacements, and neither rescue nor
+  no-surface scalar margin policies produce a combined pass.
 
 ## Action Ledger
 
@@ -318,10 +320,12 @@ Current highest-priority actions:
   draft inputs are preserved as historical/seed support, remaining semantic
   generated-output churn is classified as local-only, and generic repo-health
   outputs are out of semantic-veto scope.
-- `P1` `wave7_active_signal_and_rescue_split`: queued; add active source
-  evidence for false abstains and `gross`, then test a phrase-aware rescue
-  guard without hiding phrase/no-winner harms. This is the parked research
-  lane, not the next integrity-audit task.
+- `P1` `wave7_active_signal_and_rescue_split`: done; source-class evidence was
+  split from broad buckets into source-specific classes, fixing `like` and
+  `full` false abstains while preserving the remaining wave7 blockers.
+- `P1` `wave7_residual_guard_and_shadow_evidence`: queued; isolate `gross`,
+  `fix`, `even`, and `meet` with a targeted shadow-evidence and phrase-guard
+  pass before any more scalar rescue or margin tuning.
 - `P1` `scorer_backed_rescue_policy_confirmation`: done; the recommended rescue
   policy passes scorer-backed offline validation over the current 54-row suite.
 - `P1` `source_trigger_overfit_audit`: done; authorization-frame evidence is
@@ -364,11 +368,12 @@ Integrity audit lane:
 
 Research lane:
 
-- Parked action: `wave7_active_signal_and_rescue_split`.
-- Purpose: preserve the important wave7 finding without letting it consume the
-  rest of the audit. It starts from the phrase-control triage package and tests
-  active source-signal remediation separately from phrase rescue-policy
-  interaction.
+- Completed action: `wave7_active_signal_and_rescue_split`.
+- Result: broad source-class buckets were split into source-specific classes,
+  fixing `like` and `full` false abstains, but wave7 remains blocked by
+  residual `gross`, `fix`, `even`, and `meet` failures plus phrase/no-winner
+  rescue leakage.
+- Next queued action: `wave7_residual_guard_and_shadow_evidence`.
 - Starting artifacts:
   `docs/test_outputs/semantic_source_admission_cycle_wave7_source_class_breadth_v1_phrase_control_triage_latest.md`,
   `docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout_validation_latest.md`,
@@ -406,9 +411,9 @@ Current state:
   classified in `docs/rulegen/semantic_veto_local_output_disposition.md`.
 - Action ledger: reconciliation passes are parked; the next substantive
   semantic-veto work is the research-only
-  `wave7_active_signal_and_rescue_split` unless a new audit crack appears.
-- Parked research lane: `wave7_active_signal_and_rescue_split` remains queued
-  and must not be lost, but it is not the next audit task.
+  `wave7_residual_guard_and_shadow_evidence` unless a new audit crack appears.
+- Parked research lane: `wave7_residual_guard_and_shadow_evidence` is queued
+  and must not be lost, but it is not an audit task.
 - Current candidate remains research-only:
   `wave6_auth_frame_raw_sentence_surface_pos_rescue`.
 - Next breadth gate: `wave7_source_class_breadth_v1`.
@@ -438,14 +443,14 @@ Read in this order:
 
 First task:
 
-- Execute `wave7_active_signal_and_rescue_split` only if the user wants to
-  resume research remediation; otherwise open a new explicit audit pass before
+- Execute `wave7_residual_guard_and_shadow_evidence` only if the user wants to
+  continue research remediation; otherwise open a new explicit audit pass before
   changing artifact authority.
 - Keep action items updated as cracks are discovered or resolved.
 - Keep durable inputs, generated evidence, control artifacts, and local
   uncommitted experiment outputs separate.
 - Do not treat generated reports under `latest` names as architecture authority.
-- Do not advance `wave7_active_signal_and_rescue_split` unless the user
+- Do not advance `wave7_residual_guard_and_shadow_evidence` unless the user
   explicitly switches from auditing to research remediation.
 - Reopen a reconciliation pass only if a new active harness appears, runtime
   policy changes, or another old artifact starts steering current decisions.

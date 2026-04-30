@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-04-30T18:16:15Z",
+  "generated_at": "2026-04-30T19:16:51Z",
   "status": "review",
   "batch_id": "en-es:wordnet-alternate-sense-phrase:wordnet-alternate-sense-phrase-non-v10-wave7-source-class-breadth-v1-triage-latest",
   "filtered_batch_id": "en-es:wordnet-alternate-sense-phrase:wordnet-alternate-sense-phrase-non-v10-wave7-source-class-breadth-v1-triage-latest:filtered",
@@ -2726,27 +2726,6 @@
       "duplicate_common_sequence": "<det> score was"
     },
     {
-      "row_id": "en-es-sentence-veto-score-tantos:phrase-control-wordnet-alt-01114241-v",
-      "family_id": "en-es:sentence-veto:score:tantos",
-      "relation_type": "phrase_control_example",
-      "evidence_text": "gain points in a game example: The home team is racking up points",
-      "leakage_hit": false,
-      "reason_code": "",
-      "matched_case_id": "",
-      "matched_sentence": "",
-      "jaccard": 0.0,
-      "contained": false,
-      "common_sequence_length": 0,
-      "common_sequence": "",
-      "duplicate_hit": false,
-      "duplicate_reason_code": "",
-      "duplicate_matched_batch_id": "en-es:wordnet-alternate-sense-phrase:wordnet-alternate-sense-phrase-non-v10-wave7-source-class-breadth-v1-triage-latest",
-      "duplicate_matched_row_id": "en-es-sentence-veto-score-tantos:phrase-control-wordnet-alt-13615828-n",
-      "duplicate_jaccard": 0.2174,
-      "duplicate_common_sequence_length": 3,
-      "duplicate_common_sequence": "in <det> game"
-    },
-    {
       "row_id": "en-es-sentence-veto-score-tantos:phrase-control-wordnet-alt-01278326-v",
       "family_id": "en-es:sentence-veto:score:tantos",
       "relation_type": "phrase_control_example",
@@ -2766,6 +2745,27 @@
       "duplicate_jaccard": 0.1739,
       "duplicate_common_sequence_length": 1,
       "duplicate_common_sequence": "<det>"
+    },
+    {
+      "row_id": "en-es-sentence-veto-score-tantos:phrase-control-wordnet-alt-01006107-v",
+      "family_id": "en-es:sentence-veto:score:tantos",
+      "relation_type": "phrase_control_example",
+      "evidence_text": "make underscoring marks",
+      "leakage_hit": false,
+      "reason_code": "",
+      "matched_case_id": "",
+      "matched_sentence": "",
+      "jaccard": 0.0,
+      "contained": false,
+      "common_sequence_length": 0,
+      "common_sequence": "",
+      "duplicate_hit": false,
+      "duplicate_reason_code": "",
+      "duplicate_matched_batch_id": "en-es:wordnet-alternate-sense-phrase:wordnet-alternate-sense-phrase-non-v10-wave7-source-class-breadth-v1-triage-latest",
+      "duplicate_matched_row_id": "en-es-sentence-veto-score-tantos:phrase-control-wordnet-alt-01278326-v",
+      "duplicate_jaccard": 0.1429,
+      "duplicate_common_sequence_length": 1,
+      "duplicate_common_sequence": "make"
     },
     {
       "row_id": "en-es-sentence-veto-crash-choque:phrase-control-wordnet-alt-07394744-n",

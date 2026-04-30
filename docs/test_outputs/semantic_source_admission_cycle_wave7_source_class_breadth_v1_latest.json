@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-04-30T18:06:24Z",
+  "generated_at": "2026-04-30T19:16:20Z",
   "status": "review",
   "decision": "analysis_only",
   "policy": {
@@ -32,11 +32,11 @@
   },
   "summary": {
     "leakage_status": "review",
-    "leakage_rejected_row_count": 4,
+    "leakage_rejected_row_count": 12,
     "sense_status": "review",
-    "sense_rejected_row_count": 42,
-    "pre_sense_merged_row_count": 176,
-    "final_admitted_row_count": 134,
+    "sense_rejected_row_count": 29,
+    "pre_sense_merged_row_count": 180,
+    "final_admitted_row_count": 151,
     "contract_status": "review",
     "semantic_gate_status": "ok",
     "phrase_contract_status": "review",

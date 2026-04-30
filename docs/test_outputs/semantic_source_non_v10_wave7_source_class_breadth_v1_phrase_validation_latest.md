@@ -2,7 +2,7 @@
 
 - Status: `review`
 - Decision: `heldout_review`
-- Generated: `2026-04-30T18:06:51Z`
+- Generated: `2026-04-30T19:19:56Z`
 - Base dataset: `en_es_source_non_v10_wave7_source_class_breadth_v1_unsupported_selected`
 - Held-out dataset: `en_es_source_non_v10_wave7_source_class_breadth_v1_phrase_cases`
 - Case scope: `non_v10_wave7_source_class_breadth_phrase_no_winner`
@@ -14,16 +14,16 @@
 - Cases: `16`
 - Gold replacements: `0`
 - Gold abstains: `16`
-- Harmful replacements: `6` / max `0`
+- Harmful replacements: `7` / max `0`
 - False abstains: `0` / max `0`
 - Replace recall: `0.0%`
-- Decision accuracy: `62.5%`
+- Decision accuracy: `56.2%`
 
 ## Configured Row
 
 | Source | Scorer | Context | Margin | Phrase Margin | Shape | Cases | Harmful | False Abstain | Recall | Accuracy |
 | --- | --- | --- | ---: | ---: | --- | ---: | ---: | ---: | ---: | ---: |
-| `promotion_candidate_composite` | `sentence_transformer_cosine` | `raw_sentence` | 0.0 | 0.02 | `active_shadow_phrase_semantic_surface_pos` | 16 | 6 | 0 | 0.0% | 62.5% |
+| `promotion_candidate_composite` | `sentence_transformer_cosine` | `raw_sentence` | 0.0 | 0.02 | `active_shadow_phrase_semantic_surface_pos` | 16 | 7 | 0 | 0.0% | 56.2% |
 
 ## Empty Baseline Comparator
 
@@ -54,12 +54,13 @@
 
 ## Failure Cases
 
-- Harmful replace cases: `en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001, en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001, en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001, en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001, en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001, en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001`
+- Harmful replace cases: `en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001, en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:full:001, en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001, en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001, en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001, en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001, en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001`
 - False abstain cases: `none`
 
 | Case | Gold | Predicted | Active | Shadow | Phrase | Margin | Phrase Lead | Active Evidence | Shadow Evidence | Phrase Evidence | Signals |
 | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | --- | --- | --- | --- |
 | `en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001` | `abstain` | `replace` | `0.5626` | `0.6113` | `0.0` | `-0.0486` | `-0.6113` | cast noun sense: act of throwing | cast verb sense: to perform, bring forth a magical spell or enchantment | `none` | active_noun_frame |
+| `en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:full:001` | `abstain` | `replace` | `0.5631` | `0.5314` | `0.0` | `0.0316` | `-0.5631` | filled to maximum capacity | full the cloth | `none` | `none` |
 | `en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001` | `abstain` | `replace` | `0.679` | `0.6892` | `0.0` | `-0.0102` | `-0.6892` | incorrect or improper | treat unjustly; do wrong to | `none` | active_modifier_frame |
 | `en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001` | `abstain` | `replace` | `0.7496` | `0.7342` | `0.0` | `0.0155` | `-0.7496` | stretch noun sense: act of stretching | become longer by being stretched and pulled | `none` | active_noun_frame |
 | `en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001` | `abstain` | `replace` | `0.7298` | `0.7096` | `0.0` | `0.0202` | `-0.7298` | score noun sense: number of points earned | score noun sense: number of points accrued | `none` | active_noun_frame |

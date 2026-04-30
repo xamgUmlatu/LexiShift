@@ -61,23 +61,53 @@ class SemanticClassDefinition:
 
 SEMANTIC_CLASS_DEFINITIONS = (
     SemanticClassDefinition(
-        class_id="affective_response",
-        description="preference, attraction, disgust, or similar affective evaluation",
-        pattern=re.compile(r"\b(likes?|attractive|disgust|repuls(?:ive|ion))\b", re.I),
+        class_id="preference_interest",
+        description="personal preference, liking, taste, or interest",
+        pattern=re.compile(r"\b(likes|liking|preferences?)\b", re.I),
         templates=(
-            "personal preference or liking",
-            "found attractive or appealing",
-            "causes disgust or repulsion",
+            "personal likes or preferences",
+            "things a person likes",
+            "a person's tastes or interests",
         ),
     ),
     SemanticClassDefinition(
-        class_id="difficulty_constraint",
-        description="difficult position, dilemma, constraint, or tight fit",
-        pattern=re.compile(r"\b(difficult (?:situation|position)|dilemma|tight place)\b", re.I),
+        class_id="attraction_appeal",
+        description="finding someone or something attractive or appealing",
+        pattern=re.compile(r"\b(attractive|appealing)\b", re.I),
+        templates=(
+            "find attractive or appealing",
+            "attracted to someone or something",
+            "regarded as appealing",
+        ),
+    ),
+    SemanticClassDefinition(
+        class_id="disgust_repulsion",
+        description="disgust, repulsion, or repulsive evaluation",
+        pattern=re.compile(r"\b(disgust|repuls(?:ive|ion))\b", re.I),
+        templates=(
+            "causes disgust or repulsion",
+            "repulsive or disgusting",
+            "offensive because it causes disgust",
+        ),
+    ),
+    SemanticClassDefinition(
+        class_id="difficult_situation",
+        description="difficult situation, position, dilemma, or constraint",
+        pattern=re.compile(r"\b(difficult (?:situation|position)|dilemma)\b", re.I),
         templates=(
             "a difficult situation or dilemma",
+            "being in a difficult fix",
+            "a constrained problem situation",
+        ),
+    ),
+    SemanticClassDefinition(
+        class_id="tight_physical_fit",
+        description="physical tight fit or squeezing into a tight place",
+        pattern=re.compile(r"\b(tight (?:place|space)|fit into a tight)\b", re.I),
+        templates=(
+            "fit into a tight place",
             "a constrained or tight position",
-            "pressure from a difficult constraint",
+            "squeezed into a tight space",
         ),
     ),
     SemanticClassDefinition(
@@ -91,30 +121,51 @@ SEMANTIC_CLASS_DEFINITIONS = (
         ),
     ),
     SemanticClassDefinition(
-        class_id="correctness_suitability",
-        description="correctness, propriety, suitability, or rightness",
-        pattern=re.compile(r"\b(incorrect|improper|suitable|right|proper)\b", re.I),
+        class_id="incorrectness",
+        description="incorrectness, wrongness, or impropriety",
+        pattern=re.compile(r"\b(incorrect|improper)\b", re.I),
         templates=(
-            "correct or suitable",
-            "proper for the situation",
             "incorrect or improper",
+            "not correct",
+            "wrong for the situation",
         ),
     ),
     SemanticClassDefinition(
-        class_id="sports_points_offense",
-        description="points, scoring, game scoring, or sports offense",
-        pattern=re.compile(r"\b(points?|game|sports?|offen[cs]e)\b", re.I),
+        class_id="suitability",
+        description="suitability, propriety, rightness, or fittingness",
+        pattern=re.compile(r"\b(suitable|right|proper|fitting)\b", re.I),
+        templates=(
+            "suitable and proper",
+            "right for the situation",
+            "fitting or appropriate",
+        ),
+    ),
+    SemanticClassDefinition(
+        class_id="sports_points_scoring",
+        description="points, scoring, or game scoring",
+        pattern=re.compile(r"\b(points?|scoring|game)\b", re.I),
         templates=(
             "points earned in a game",
-            "sports scoring or offense",
-            "competition points and fouls",
+            "sports scoring points",
+            "competition points",
+        ),
+    ),
+    SemanticClassDefinition(
+        class_id="sports_rule_offense",
+        description="sports offense or rule violation",
+        pattern=re.compile(r"\b(sports?|offen[cs]e)\b", re.I),
+        templates=(
+            "sports rule offense",
+            "offense in sports",
+            "rule violation in a sport",
         ),
     ),
     SemanticClassDefinition(
         class_id="collision_malfunction",
         description="vehicle accident, collision, violent impact, or malfunction",
         pattern=re.compile(
-            r"\b(vehicle accident|accident|computer malfunction|collide|violently|damage|destroy)\b",
+            r"\b(vehicle accident|computer malfunction|collid(?:e|ed|ing)|violently|"
+            r"damage|destroy)\b",
             re.I,
         ),
         templates=(
@@ -124,17 +175,128 @@ SEMANTIC_CLASS_DEFINITIONS = (
         ),
     ),
     SemanticClassDefinition(
-        class_id="physical_manipulation",
-        description="throwing, moulding, stretching, reducing, dirtying, or other physical manipulation",
+        class_id="throwing_motion",
+        description="throwing or casting by physical motion",
+        pattern=re.compile(r"\b(throwing|throw)\b", re.I),
+        templates=(
+            "act of throwing",
+            "throwing something",
+            "physical throw",
+        ),
+    ),
+    SemanticClassDefinition(
+        class_id="moulded_object",
+        description="moulded or molded object shape",
+        pattern=re.compile(r"\b(mould|mold)\b", re.I),
+        templates=(
+            "object made in a mould",
+            "moulded object",
+            "shape made by a mould",
+        ),
+    ),
+    SemanticClassDefinition(
+        class_id="textile_fulling",
+        description="making cloth denser through fulling",
+        pattern=re.compile(r"\b(cloth denser|thickening cloth|cleaning and thickening)\b", re.I),
+        templates=(
+            "make cloth denser",
+            "thicken cloth",
+            "cleaning and thickening cloth",
+        ),
+    ),
+    SemanticClassDefinition(
+        class_id="stretching_lengthening",
+        description="stretching or lengthening by pulling",
+        pattern=re.compile(r"\b(lengthen|pulling|stretching)\b", re.I),
+        templates=(
+            "lengthen by pulling",
+            "act of stretching",
+            "make something longer by pulling",
+        ),
+    ),
+    SemanticClassDefinition(
+        class_id="dirtying_pollution",
+        description="making dirty, besmirching, or polluting",
+        pattern=re.compile(r"\b(make dirty|besmirch|impure|pollut(?:e|ed|ion))\b", re.I),
+        templates=(
+            "make dirty or impure",
+            "pollute or foul something",
+            "besmirch or dirty",
+        ),
+    ),
+    SemanticClassDefinition(
+        class_id="secure_fixing",
+        description="fixing something securely in place",
+        pattern=re.compile(r"\b(fix securely)\b", re.I),
+        templates=(
+            "fix securely in place",
+            "attach firmly",
+            "make secure",
+        ),
+    ),
+    SemanticClassDefinition(
+        class_id="quantity_dozen_count",
+        description="a count equal to twelve dozen",
+        pattern=re.compile(r"\b(twelve dozen)\b", re.I),
+        templates=(
+            "twelve dozen",
+            "a gross equals twelve dozen",
+            "a quantity of twelve dozen units",
+        ),
+    ),
+    SemanticClassDefinition(
+        class_id="full_capacity",
+        description="fullness, maximum capacity, or containing the maximum amount",
         pattern=re.compile(
-            r"\b(throwing|mould|mold|cloth denser|lengthen|pulling|stretching|"
-            r"reduce slightly|make dirty|besmirch|fix securely)\b",
+            r"\b(maximum possible amount|containing as much|as many as is possible)\b",
             re.I,
         ),
         templates=(
-            "physical manipulation or shaping",
-            "movement by pulling or throwing",
-            "changing an object's physical state",
+            "filled to maximum capacity",
+            "containing the maximum possible amount",
+            "full container with no more room",
+        ),
+    ),
+    SemanticClassDefinition(
+        class_id="evening_time",
+        description="evening or latter part of the day",
+        pattern=re.compile(
+            r"\b(evening of the day|latter part of the day|nightfall|evening)\b", re.I
+        ),
+        templates=(
+            "evening or latter part of the day",
+            "time of evening before nightfall",
+            "time of day called evening",
+        ),
+    ),
+    SemanticClassDefinition(
+        class_id="location_determination",
+        description="determining a location",
+        pattern=re.compile(r"\b(determination of location|determination of the place)\b", re.I),
+        templates=(
+            "determination of location",
+            "location fix",
+            "finding where something is",
+        ),
+    ),
+    SemanticClassDefinition(
+        class_id="repair_mending",
+        description="repairing or mending something",
+        pattern=re.compile(r"\b(mend|repair)\b", re.I),
+        templates=(
+            "mend or repair",
+            "restore something broken",
+            "repair by putting parts together",
+        ),
+    ),
+    SemanticClassDefinition(
+        class_id="meeting_encounter",
+        description="meeting, encountering, or coming together",
+        pattern=re.compile(r"\b(come face to face|encounter|come together)\b", re.I),
+        templates=(
+            "come together",
+            "encounter someone",
+            "come face to face",
         ),
     ),
 )

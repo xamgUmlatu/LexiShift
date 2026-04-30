@@ -1,18 +1,18 @@
 # en-es LLM Example-Frame Sense-Discrimination Audit
 
 - Status: `ok`
-- Generated: `2026-04-30T18:16:15Z`
+- Generated: `2026-04-30T19:16:51Z`
 - Batch: `en-es:wave7-source-class-breadth-v1:phrase-control-triage:cycle`
 - Admitted batch: `en-es:wave7-source-class-breadth-v1:phrase-control-triage:cycle:sense-admitted`
 
 ## Summary
 
-- Input rows: `307`
-- Semantic rows: `134`
-- Semantic admitted rows: `134`
+- Input rows: `324`
+- Semantic rows: `151`
+- Semantic admitted rows: `151`
 - Semantic rejected rows: `0`
 - Non-semantic passthrough rows: `173`
-- Admitted rows: `307`
+- Admitted rows: `324`
 - Scorers: `sentence_transformer_cosine`
 - Evidence view: `all_evidence_text`
 - Min intended score: `0.5`

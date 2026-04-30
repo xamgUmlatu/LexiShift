@@ -333,8 +333,8 @@
         "wave6_wiktextract_dataset"
       ],
       "action": "Execute wave7_source_class_breadth_v1 before treating the current wave6 candidate as promotion-quality evidence.",
-      "evidence_needed": "Wave7 was executed with 16 fully supported families, 7 non-authorization source-class buckets, 32 active/shadow cases, and 16 phrase/no-winner cases; the gate failed with heldout harmful replacements and false abstains recorded in failure mining.",
-      "validation": "Admission reached 16/16 semantic contract but status review; scorer-backed rescue validation found 7 harmful replacements and 5 false abstains across 48 locked cases; failure mining records semantic-risk blockers.",
+      "evidence_needed": "Wave7 was executed with 16 fully supported families, 23 split non-authorization source-class buckets, 32 active/shadow cases, and 16 phrase/no-winner cases; the gate still failed with heldout harmful replacements and false abstains recorded in failure mining.",
+      "validation": "Admission reached 16/16 semantic contract but status review; scorer-backed rescue validation found 8 harmful replacements and 3 false abstains across 48 locked cases; failure mining records semantic-risk blockers.",
       "promotion_impact": "Confirms the current wave6 candidate remains research-only and routes the next pass to wave7 blocker triage instead of promotion or runtime-policy work."
     },
     {
@@ -358,16 +358,19 @@
         "wave7_phrase_control_no_surface_margin_sweep"
       ],
       "action": "Triage the wave7 harmful replacements before changing thresholds or claiming breadth success.",
-      "evidence_needed": "Phrase-control triage produced 179 alternate-sense phrase rows, restored 16/16 phrase contract coverage, and kept the same heldout blockers visible: active/shadow has 1 harmful replacement and 5 false abstains, phrase/no-winner has 6 harmful replacements, rescue sweep has 0 passing policies, and no-surface margin sweep has 0 passing combined policies.",
+      "evidence_needed": "Phrase-control triage produced 179 alternate-sense phrase rows, restored 16/16 phrase contract coverage, and kept heldout blockers visible after the source-class split: active/shadow has 1 harmful replacement and 3 false abstains, phrase/no-winner has 6 harmful replacements, rescue sweep has 0 passing policies, and no-surface margin sweep has 0 passing combined policies.",
       "validation": "Phrase-control triage admission and heldout reports were generated, rescue and no-surface margin sweeps were generated, registry summary was regenerated, and focused registry/doc checks must stay clean before commit.",
       "promotion_impact": "Reclassifies the blocker from missing phrase-control evidence to a split between active source-signal misses and phrase rescue-policy interaction."
     },
     {
       "action_id": "wave7_active_signal_and_rescue_split",
       "priority": "P1",
-      "status": "queued",
+      "status": "done",
       "pass_id": "best_candidate",
       "source_artifacts": [
+        "source_class_frame_adapter",
+        "wave7_source_class_frame_report",
+        "wave7_source_admission_report",
         "wave7_phrase_control_triage_admission",
         "wave7_phrase_control_triage_active_shadow_validation",
         "wave7_phrase_control_triage_phrase_validation",
@@ -375,10 +378,28 @@
         "wave7_phrase_control_no_surface_margin_sweep",
         "wave7_failure_mining"
       ],
-      "action": "Design the next wave7 remediation split after phrase-control triage: add active source evidence for false abstains and gross, then test a phrase-aware rescue guard without hiding phrase harms.",
-      "evidence_needed": "No existing replayed rescue policy or no-surface scalar margin passes; phrase-control solves the phrase contract but surface rescue still admits phrase/no-winner harms while active/source cases still miss.",
-      "validation": "Rerun phrase-control admission, active/shadow heldout, phrase/no-winner heldout, rescue sweep, margin sweep, failure mining, registry summary, focused tests, doc-reference checks, and git diff whitespace checks after the remediation candidate.",
-      "promotion_impact": "Keeps wave7 research-only and prevents a rescue-policy tweak from being mistaken for a source-evidence fix."
+      "action": "Split broad source-class evidence into source-specific semantic classes, then rerun phrase-control admission and rescue/margin diagnostics.",
+      "evidence_needed": "Source-class evidence now emits 23 split classes and 87 rows instead of broad mixed buckets. The rerun fixed `like` and `full` false abstains, but active/shadow remains blocked by `gross` harmful plus `fix`, `even`, and `meet` false abstains; phrase/no-winner remains at 6 harmful replacements and no replayed rescue or no-surface scalar margin policy passes.",
+      "validation": "Regenerated source-class, merged evidence, base admission, phrase-control evidence/admission, active/shadow heldout, phrase/no-winner heldout, rescue sweep, no-surface margin sweep, failure mining, and focused source-class tests; registry summary and doc checks must stay clean before commit.",
+      "promotion_impact": "Converts the parked wave7 research lane into a partial source-evidence fix while keeping wave7 blocked and research-only."
+    },
+    {
+      "action_id": "wave7_residual_guard_and_shadow_evidence",
+      "priority": "P1",
+      "status": "queued",
+      "pass_id": "best_candidate",
+      "source_artifacts": [
+        "wave7_phrase_control_triage_active_shadow_validation",
+        "wave7_phrase_control_triage_phrase_validation",
+        "wave7_phrase_control_rescue_sweep",
+        "wave7_phrase_control_no_surface_margin_sweep",
+        "wave7_failure_mining",
+        "source_class_frame_adapter"
+      ],
+      "action": "Target the residual wave7 blockers as separate failure classes: gross quantity shadow evidence, fix repair-overlap, even phrase-preemption, meet adjective-vs-meeting phrase control, and phrase/no-winner rescue leakage.",
+      "evidence_needed": "Current residual evidence shows `gross:002` harmful, `fix:001`, `even:001`, and `meet:001` false abstains, plus 6 phrase/no-winner harmful replacements. `even` is a strong-active phrase-preemption false positive, while `fix` and `meet` are shadow/phrase semantic-overlap problems rather than missing class coverage.",
+      "validation": "Run a targeted blocker harness or focused heldout rerun before changing scalar policy; only then rerun phrase-control admission, both heldout suites, rescue sweep, no-surface margin sweep, failure mining, registry summary, focused tests, doc-reference checks, and git diff whitespace checks.",
+      "promotion_impact": "Prevents the next pass from treating the remaining blockers as one threshold problem; wave7 stays blocked until both active/source and phrase/no-winner harms pass together."
     },
     {
       "action_id": "artifact_authority_stale_latest_audit_continuation",
@@ -399,7 +420,7 @@
         "wave7_phrase_control_no_surface_margin_sweep"
       ],
       "action": "Continue the integrity audit before more wave7 research: verify current-looking latest artifacts, dirty generated outputs, and methodology docs are classified as runtime truth, current candidate evidence, generated evidence, historical context, superseded, or queued follow-up.",
-      "evidence_needed": "Artifact authority audit records that the registry has 27 latest-path entries and none are runtime truth: 21 generated_evidence, 4 historical_reference, and 2 superseded. Dirty methodology docs and local generated outputs are explicitly non-authoritative until follow-up reconciliation.",
+      "evidence_needed": "Artifact authority audit records that the registry has 28 latest-path entries and none are runtime truth: 22 generated_evidence, 4 historical_reference, and 2 superseded. Dirty methodology docs and local generated outputs are explicitly non-authoritative until follow-up reconciliation.",
       "validation": "Registry summary regenerated, focused registry tests passed, doc-reference checks passed, registry JSON parsed, and git diff whitespace checks passed. No new semantic evidence was generated.",
       "promotion_impact": "Keeps the remaining auditing work first while preserving the wave7 research lane as a queued, research-only follow-up."
     },
@@ -1580,9 +1601,9 @@
       "component": "source_admission",
       "state": "generated_evidence",
       "path": "docs/test_outputs/semantic_source_class_frame_evidence_wave7_source_class_breadth_v1_latest.md",
-      "role": "Reports seven non-authorization source-detectable semantic classes and their deterministic frame rows.",
+      "role": "Reports split non-authorization source-detectable semantic classes and their deterministic frame rows.",
       "owner_doc": "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
-      "current_use": "Wave7 source-class breadth evidence input.",
+      "current_use": "Wave7 source-class breadth evidence input: 23 classes, 87 rows, and 29 matching senses after broad-bucket splitting.",
       "risk": "Source-class breadth can look sufficient even when downstream heldout behavior fails.",
       "next_audit_pass": "best_candidate",
       "verification_artifacts": [
@@ -1612,7 +1633,7 @@
       "path": "docs/test_outputs/semantic_source_admission_cycle_wave7_source_class_breadth_v1_latest.md",
       "role": "Admission, leakage, merge, and sense-discrimination report for wave7 evidence.",
       "owner_doc": "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
-      "current_use": "Executed wave7 admission evidence; status is review.",
+      "current_use": "Executed wave7 admission evidence; status is review with 16/16 semantic contract, 12 leakage rejects, and 29 sense rejects.",
       "risk": "The 16/16 semantic contract can be mistaken for a pass despite leakage rejects, phrase gaps, and heldout failures.",
       "next_audit_pass": "best_candidate",
       "verification_artifacts": [
@@ -1627,7 +1648,7 @@
       "path": "docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_heldout_validation_latest.md",
       "role": "Scorer-backed active/shadow heldout validation for wave7.",
       "owner_doc": "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
-      "current_use": "Records 1 harmful replacement and 5 false abstains across 32 active/shadow cases.",
+      "current_use": "Records 1 harmful replacement and 3 false abstains across 32 active/shadow cases after source-class splitting.",
       "risk": "False abstains and one harmful replacement block breadth-gate success.",
       "next_audit_pass": "best_candidate",
       "verification_artifacts": [
@@ -1642,7 +1663,7 @@
       "path": "docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_validation_latest.md",
       "role": "Scorer-backed phrase/no-winner heldout validation for wave7.",
       "owner_doc": "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
-      "current_use": "Records 6 harmful replacements across 16 phrase/no-winner cases.",
+      "current_use": "Records 7 harmful replacements across 16 phrase/no-winner cases without phrase-control triage rows.",
       "risk": "Phrase harms block breadth-gate success and must be classified before tuning.",
       "next_audit_pass": "best_candidate",
       "verification_artifacts": [
@@ -1657,7 +1678,7 @@
       "path": "docs/test_outputs/semantic_surface_pos_rescue_policy_validation_wave7_source_class_breadth_v1_latest.md",
       "role": "Scorer-backed rescue-policy validation over the combined wave7 heldout suites.",
       "owner_doc": "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
-      "current_use": "Records 7 harmful replacements and 5 false abstains across 48 cases.",
+      "current_use": "Records 8 harmful replacements and 3 false abstains across 48 cases after source-class splitting.",
       "risk": "The wave6 rescue posture does not transfer cleanly to wave7 breadth.",
       "next_audit_pass": "best_candidate",
       "verification_artifacts": [
@@ -1703,7 +1724,7 @@
       "path": "docs/test_outputs/semantic_source_admission_cycle_wave7_source_class_breadth_v1_phrase_control_triage_latest.md",
       "role": "Admission, leakage, merge, contract, and sense-discrimination report for wave7 with alternate-sense phrase-control rows added.",
       "owner_doc": "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
-      "current_use": "Restores 16/16 semantic and 16/16 phrase contract coverage with 307 final admitted rows; status remains review due leakage and heldout blockers.",
+      "current_use": "Restores 16/16 semantic and 16/16 phrase contract coverage with 324 final admitted rows; status remains review due leakage and heldout blockers.",
       "risk": "Contract completion alone is not a pass because active/shadow and phrase/no-winner heldouts still fail.",
       "next_audit_pass": "best_candidate",
       "verification_artifacts": [
@@ -1720,7 +1741,7 @@
       "path": "docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout_validation_latest.md",
       "role": "Scorer-backed active/shadow heldout validation after phrase-control rows were admitted.",
       "owner_doc": "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
-      "current_use": "Records the persistent 1 harmful replacement and 5 false abstains across 32 active/shadow cases.",
+      "current_use": "Records 1 harmful replacement and 3 false abstains across 32 active/shadow cases; source-class splitting fixed `like` and `full` false abstains.",
       "risk": "Active evidence misses can be obscured if phrase-control triage is reported as the whole fix.",
       "next_audit_pass": "best_candidate",
       "verification_artifacts": [

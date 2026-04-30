@@ -2,7 +2,7 @@
 
 - Status: `review`
 - Decision: `heldout_review`
-- Generated: `2026-04-30T18:16:43Z`
+- Generated: `2026-04-30T19:17:14Z`
 - Base dataset: `en_es_source_non_v10_wave7_source_class_breadth_v1_unsupported_selected`
 - Held-out dataset: `en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases`
 - Case scope: `non_v10_wave7_source_class_breadth_active_shadow`
@@ -15,15 +15,15 @@
 - Gold replacements: `16`
 - Gold abstains: `16`
 - Harmful replacements: `1` / max `0`
-- False abstains: `5` / max `0`
-- Replace recall: `68.8%`
-- Decision accuracy: `81.2%`
+- False abstains: `3` / max `0`
+- Replace recall: `81.2%`
+- Decision accuracy: `87.5%`
 
 ## Configured Row
 
 | Source | Scorer | Context | Margin | Phrase Margin | Shape | Cases | Harmful | False Abstain | Recall | Accuracy |
 | --- | --- | --- | ---: | ---: | --- | ---: | ---: | ---: | ---: | ---: |
-| `promotion_candidate_composite` | `sentence_transformer_cosine` | `raw_sentence` | 0.0 | 0.02 | `active_shadow_phrase_semantic_surface_pos` | 32 | 1 | 5 | 68.8% | 81.2% |
+| `promotion_candidate_composite` | `sentence_transformer_cosine` | `raw_sentence` | 0.0 | 0.02 | `active_shadow_phrase_semantic_surface_pos` | 32 | 1 | 3 | 81.2% | 87.5% |
 
 ## Empty Baseline Comparator
 
@@ -55,16 +55,14 @@
 ## Failure Cases
 
 - Harmful replace cases: `en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002`
-- False abstain cases: `en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001, en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001, en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001, en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001, en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001`
+- False abstain cases: `en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001, en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001, en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001`
 
 | Case | Gold | Predicted | Active | Shadow | Phrase | Margin | Phrase Lead | Active Evidence | Shadow Evidence | Phrase Evidence | Signals |
 | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | --- | --- | --- | --- |
-| `en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001` | `replace` | `abstain` | `0.5745` | `0.5902` | `0.6025` | `-0.0157` | `0.0123` | personal preference or liking | Sam and Sue like the movie | be fond of example: I like my nephews | `none` |
 | `en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002` | `abstain` | `replace` | `0.6767` | `0.6376` | `0.6307` | `0.0391` | `-0.0461` | gross adjective sense: causing disgust | gross noun sense: twelve dozen | lacking fine distinctions or detail example: the gross details of the structure appear reasonable | active_modifier_frame |
-| `en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001` | `replace` | `abstain` | `0.626` | `0.6948` | `0.7136` | `-0.0687` | `0.0188` | fix noun sense: a difficult situation or dilemma | restore by replacing a part or putting together what is torn or broken | a determination of the place where something is example: he got a good fix on the target | shadow_verb_frame |
-| `en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001` | `replace` | `abstain` | `0.5516` | `0.6309` | `0.6014` | `-0.0794` | `-0.0295` | containing as much or as many as is possible or normal | full the cloth | beat for the purpose of cleaning and thickening example: full the cloth | active_modifier_frame, active_modifier_margin_below_floor |
-| `en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001` | `replace` | `abstain` | `0.7168` | `0.5392` | `0.5687` | `0.1776` | `-0.1481` | he enjoyed the evening light across the lake | even verb sense: to make even | symmetrically arranged example: even features | phrase_preempt, at even the |
-| `en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001` | `replace` | `abstain` | `0.557` | `0.6926` | `0.7272` | `-0.1355` | `0.0347` | proper for the situation | I'll probably see you at the meeting | come together example: I'll probably see you at the meeting | `none` |
+| `en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001` | `replace` | `abstain` | `0.626` | `0.7449` | `0.7136` | `-0.1189` | `-0.0313` | fix noun sense: a difficult situation or dilemma | restore something broken | a determination of the place where something is example: he got a good fix on the target | shadow_verb_frame |
+| `en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001` | `replace` | `abstain` | `0.7265` | `0.5392` | `0.5687` | `0.1873` | `-0.1578` | time of evening before nightfall | even verb sense: to make even | symmetrically arranged example: even features | phrase_preempt, at even the |
+| `en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001` | `replace` | `abstain` | `0.5444` | `0.6926` | `0.7272` | `-0.1481` | `0.0347` | suitable and proper | I'll probably see you at the meeting | come together example: I'll probably see you at the meeting | `none` |
 
 ## Limitations
 

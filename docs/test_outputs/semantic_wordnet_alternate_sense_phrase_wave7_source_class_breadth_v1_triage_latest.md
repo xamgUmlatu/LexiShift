@@ -1,12 +1,12 @@
 # en-es WordNet Alternate-Sense Phrase Evidence
 
 - Status: `ok`
-- Generated: `2026-04-30T18:15:54Z`
+- Generated: `2026-04-30T19:16:37Z`
 - Dataset: `en_es_source_non_v10_wave7_source_class_breadth_v1_unsupported_selected`
 - Batch: `en-es:wordnet-alternate-sense-phrase:wordnet-alternate-sense-phrase-non-v10-wave7-source-class-breadth-v1-triage-latest`
 - Rows: `179`
 - Families with rows: `16` / `16`
-- Skipped active-like senses: `33`
+- Skipped active-like senses: `34`
 
 ## Family Rows
 
@@ -23,7 +23,7 @@
 | `en-es:sentence-veto:wrong:incorrecto` | 13 | 8 | 5 |
 | `en-es:sentence-veto:meet:adecuado` | 13 | 12 | 1 |
 | `en-es:sentence-veto:stretch:estir-n` | 20 | 12 | 1 |
-| `en-es:sentence-veto:score:tantos` | 18 | 12 | 2 |
+| `en-es:sentence-veto:score:tantos` | 18 | 12 | 3 |
 | `en-es:sentence-veto:crash:choque` | 18 | 12 | 2 |
 | `en-es:sentence-veto:trim:compensador` | 17 | 12 | 1 |
 | `en-es:sentence-veto:squeeze:crisis` | 17 | 12 | 1 |
