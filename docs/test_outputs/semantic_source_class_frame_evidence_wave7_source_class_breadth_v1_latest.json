@@ -1,0 +1,725 @@
+{
+  "schema_version": 1,
+  "status": "ok",
+  "decision": "source_class_frame_rows_ready",
+  "generated_at": "2026-04-30T18:03:40Z",
+  "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_unsupported_selected",
+  "run_id": "source-class-frame-non-v10-wave7-source-class-breadth-v1-latest",
+  "batch_id": "en-es:source-class-frame-evidence:source-class-frame-non-v10-wave7-source-class-breadth-v1-latest",
+  "source_id": "source_class_frame_evidence",
+  "source_family": "internal_rulegen_artifact",
+  "prompt_version": "source-class-frame-evidence-v1",
+  "summary": {
+    "family_count": 16,
+    "target_family_count": 14,
+    "selected_sense_count": 37,
+    "matching_sense_count": 25,
+    "matching_class_count": 7,
+    "row_count": 75,
+    "active_row_count": 36,
+    "shadow_row_count": 39
+  },
+  "class_rows": [
+    {
+      "semantic_class_id": "affective_response",
+      "matching_sense_count": 3,
+      "row_count": 9
+    },
+    {
+      "semantic_class_id": "collision_malfunction",
+      "matching_sense_count": 4,
+      "row_count": 12
+    },
+    {
+      "semantic_class_id": "commercial_organization",
+      "matching_sense_count": 1,
+      "row_count": 3
+    },
+    {
+      "semantic_class_id": "correctness_suitability",
+      "matching_sense_count": 2,
+      "row_count": 6
+    },
+    {
+      "semantic_class_id": "difficulty_constraint",
+      "matching_sense_count": 3,
+      "row_count": 9
+    },
+    {
+      "semantic_class_id": "physical_manipulation",
+      "matching_sense_count": 8,
+      "row_count": 24
+    },
+    {
+      "semantic_class_id": "sports_points_offense",
+      "matching_sense_count": 4,
+      "row_count": 12
+    }
+  ],
+  "family_rows": [
+    {
+      "family_id": "en-es:sentence-veto:like:gustos",
+      "trigger": "like",
+      "selected_sense_count": 2,
+      "matching_sense_count": 2,
+      "row_count": 6,
+      "active_row_count": 3,
+      "shadow_row_count": 3,
+      "sense_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:like:gustos:active",
+          "relation_type": "anchor_cue",
+          "matched": true,
+          "semantic_class_ids": [
+            "affective_response"
+          ],
+          "canonical_pos": "noun",
+          "target_lemma": "gustos",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ],
+          "source_match_text": "like noun sense: something that a person likes | something that a person likes | like noun sense: something that a person likes | something that a person likes | something that a person likes | something that a person likes",
+          "target_lemma_in_source_match_text": false
+        },
+        {
+          "sense_id": "en-es:sentence-veto:like:gustos:atraer:shadow",
+          "relation_type": "shadow_candidate",
+          "matched": true,
+          "semantic_class_ids": [
+            "affective_response"
+          ],
+          "canonical_pos": "verb",
+          "target_lemma": "atraer",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ],
+          "source_match_text": "like verb sense: to find attractive | to find attractive | like verb sense: to find attractive | to find attractive | to find attractive | to find attractive",
+          "target_lemma_in_source_match_text": false
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:gross:repulsivo",
+      "trigger": "gross",
+      "selected_sense_count": 2,
+      "matching_sense_count": 1,
+      "row_count": 3,
+      "active_row_count": 3,
+      "shadow_row_count": 0,
+      "sense_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:gross:repulsivo:active",
+          "relation_type": "anchor_cue",
+          "matched": true,
+          "semantic_class_ids": [
+            "affective_response"
+          ],
+          "canonical_pos": "adjective",
+          "target_lemma": "repulsivo",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ],
+          "source_match_text": "gross adjective sense: causing disgust | causing disgust | gross adjective sense: causing disgust | causing disgust | causing disgust | causing disgust",
+          "target_lemma_in_source_match_text": false
+        },
+        {
+          "sense_id": "en-es:sentence-veto:gross:repulsivo:gruesa:shadow",
+          "relation_type": "shadow_candidate",
+          "matched": false,
+          "semantic_class_ids": [],
+          "canonical_pos": "noun",
+          "target_lemma": "gruesa",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ],
+          "source_match_text": "gross noun sense: twelve dozen | twelve dozen | gross noun sense: twelve dozen | twelve dozen | twelve dozen | twelve dozen",
+          "target_lemma_in_source_match_text": false
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:cast:lanzamiento",
+      "trigger": "cast",
+      "selected_sense_count": 3,
+      "matching_sense_count": 2,
+      "row_count": 6,
+      "active_row_count": 3,
+      "shadow_row_count": 3,
+      "sense_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:cast:lanzamiento:active",
+          "relation_type": "anchor_cue",
+          "matched": true,
+          "semantic_class_ids": [
+            "physical_manipulation"
+          ],
+          "canonical_pos": "noun",
+          "target_lemma": "lanzamiento",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ],
+          "source_match_text": "cast noun sense: act of throwing | act of throwing | cast noun sense: act of throwing | act of throwing | act of throwing | act of throwing",
+          "target_lemma_in_source_match_text": false
+        },
+        {
+          "sense_id": "en-es:sentence-veto:cast:lanzamiento:molde:shadow",
+          "relation_type": "shadow_candidate",
+          "matched": true,
+          "semantic_class_ids": [
+            "physical_manipulation"
+          ],
+          "canonical_pos": "noun",
+          "target_lemma": "molde",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ],
+          "source_match_text": "cast noun sense: object made in a mould | object made in a mould | cast noun sense: object made in a mould | object made in a mould | object made in a mould | object made in a mould | mould used to make cast objects",
+          "target_lemma_in_source_match_text": false
+        },
+        {
+          "sense_id": "en-es:sentence-veto:cast:lanzamiento:lanzar:shadow",
+          "relation_type": "shadow_candidate",
+          "matched": false,
+          "semantic_class_ids": [],
+          "canonical_pos": "verb",
+          "target_lemma": "lanzar",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ],
+          "source_match_text": "cast verb sense: to perform, bring forth a magical spell or enchantment | to perform, bring forth a magical spell or enchantment | cast verb sense: to perform, bring forth a magical spell or enchantment | to perform, bring forth a magical spell or enchantment | to perform, bring forth a magical spell or enchantment | to perform, bring forth a magical spell or enchantment | Wicca: to open a circle",
+          "target_lemma_in_source_match_text": false
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:fix:aprieto",
+      "trigger": "fix",
+      "selected_sense_count": 3,
+      "matching_sense_count": 1,
+      "row_count": 3,
+      "active_row_count": 3,
+      "shadow_row_count": 0,
+      "sense_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:fix:aprieto:active",
+          "relation_type": "anchor_cue",
+          "matched": true,
+          "semantic_class_ids": [
+            "difficulty_constraint"
+          ],
+          "canonical_pos": "noun",
+          "target_lemma": "aprieto",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ],
+          "source_match_text": "fix noun sense: a difficult situation or dilemma | a difficult situation or dilemma | fix noun sense: a difficult situation or dilemma | a difficult situation or dilemma | a difficult situation or dilemma | a difficult situation or dilemma",
+          "target_lemma_in_source_match_text": false
+        },
+        {
+          "sense_id": "en-es:sentence-veto:fix:aprieto:localizaci-n:shadow",
+          "relation_type": "shadow_candidate",
+          "matched": false,
+          "semantic_class_ids": [],
+          "canonical_pos": "noun",
+          "target_lemma": "localización",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ],
+          "source_match_text": "fix noun sense: determination of location | determination of location | fix noun sense: determination of location | determination of location | determination of location | determination of location",
+          "target_lemma_in_source_match_text": false
+        },
+        {
+          "sense_id": "en-es:sentence-veto:fix:aprieto:reparar:shadow",
+          "relation_type": "shadow_candidate",
+          "matched": false,
+          "semantic_class_ids": [],
+          "canonical_pos": "verb",
+          "target_lemma": "reparar",
+          "support_sources": [
+            "wiktionary_en_es",
+            "freedict_es_en",
+            "wiktextract_en_es_translation_table"
+          ],
+          "source_match_text": "fix verb sense: to mend or repair | to mend or repair | fix verb sense: to mend or repair | to mend or repair | to mend or repair | to mend or repair",
+          "target_lemma_in_source_match_text": false
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:full:lleno",
+      "trigger": "full",
+      "selected_sense_count": 2,
+      "matching_sense_count": 1,
+      "row_count": 3,
+      "active_row_count": 0,
+      "shadow_row_count": 3,
+      "sense_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:full:lleno:active",
+          "relation_type": "anchor_cue",
+          "matched": false,
+          "semantic_class_ids": [],
+          "canonical_pos": "adjective",
+          "target_lemma": "lleno",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktionary_es_en",
+            "freedict_es_en",
+            "wiktextract_en_es_translation_table"
+          ],
+          "source_match_text": "full adjective sense: containing the maximum possible amount | containing the maximum possible amount | full adjective sense: containing the maximum possible amount | containing the maximum possible amount | containing the maximum possible amount | containing the maximum possible amount | satisfied, in relation to eating",
+          "target_lemma_in_source_match_text": false
+        },
+        {
+          "sense_id": "en-es:sentence-veto:full:lleno:abatanar:shadow",
+          "relation_type": "shadow_candidate",
+          "matched": true,
+          "semantic_class_ids": [
+            "physical_manipulation"
+          ],
+          "canonical_pos": "verb",
+          "target_lemma": "abatanar",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ],
+          "source_match_text": "full verb sense: to make cloth denser | to make cloth denser | full verb sense: to make cloth denser | to make cloth denser | to make cloth denser | to make cloth denser",
+          "target_lemma_in_source_match_text": false
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:firm:firma",
+      "trigger": "firm",
+      "selected_sense_count": 2,
+      "matching_sense_count": 2,
+      "row_count": 6,
+      "active_row_count": 3,
+      "shadow_row_count": 3,
+      "sense_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:firm:firma:active",
+          "relation_type": "anchor_cue",
+          "matched": true,
+          "semantic_class_ids": [
+            "commercial_organization"
+          ],
+          "canonical_pos": "noun",
+          "target_lemma": "firma",
+          "support_sources": [
+            "wiktionary_en_es",
+            "freedict_es_en",
+            "wiktextract_en_es_translation_table"
+          ],
+          "source_match_text": "firm noun sense: business partnership | business partnership | firm noun sense: business partnership | business partnership | business partnership | business partnership | business enterprise, however organized",
+          "target_lemma_in_source_match_text": false
+        },
+        {
+          "sense_id": "en-es:sentence-veto:firm:firma:afirmar:shadow",
+          "relation_type": "shadow_candidate",
+          "matched": true,
+          "semantic_class_ids": [
+            "physical_manipulation"
+          ],
+          "canonical_pos": "verb",
+          "target_lemma": "afirmar",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ],
+          "source_match_text": "firm verb sense: to make firm or strong | to make firm or strong | firm verb sense: to make firm or strong | to make firm or strong | to make firm or strong | to make firm or strong | to fix securely",
+          "target_lemma_in_source_match_text": false
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:wrong:incorrecto",
+      "trigger": "wrong",
+      "selected_sense_count": 2,
+      "matching_sense_count": 1,
+      "row_count": 3,
+      "active_row_count": 3,
+      "shadow_row_count": 0,
+      "sense_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:wrong:incorrecto:active",
+          "relation_type": "anchor_cue",
+          "matched": true,
+          "semantic_class_ids": [
+            "correctness_suitability"
+          ],
+          "canonical_pos": "adjective",
+          "target_lemma": "incorrecto",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ],
+          "source_match_text": "wrong adjective sense: incorrect | incorrect | wrong adjective sense: incorrect | incorrect | incorrect | incorrect | improper",
+          "target_lemma_in_source_match_text": false
+        },
+        {
+          "sense_id": "en-es:sentence-veto:wrong:incorrecto:herir:shadow",
+          "relation_type": "shadow_candidate",
+          "matched": false,
+          "semantic_class_ids": [],
+          "canonical_pos": "verb",
+          "target_lemma": "herir",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ],
+          "source_match_text": "wrong verb sense: to treat unjustly | to treat unjustly | wrong verb sense: to treat unjustly | to treat unjustly | to treat unjustly | to treat unjustly",
+          "target_lemma_in_source_match_text": false
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:meet:adecuado",
+      "trigger": "meet",
+      "selected_sense_count": 2,
+      "matching_sense_count": 2,
+      "row_count": 6,
+      "active_row_count": 3,
+      "shadow_row_count": 3,
+      "sense_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:meet:adecuado:active",
+          "relation_type": "anchor_cue",
+          "matched": true,
+          "semantic_class_ids": [
+            "correctness_suitability"
+          ],
+          "canonical_pos": "adjective",
+          "target_lemma": "adecuado",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ],
+          "source_match_text": "meet adjective sense: ''(archaic in English)'' suitable, right; proper | ''(archaic in English)'' suitable, right; proper | meet adjective sense: ''(archaic in English)'' suitable, right; proper | ''(archaic in English)'' suitable, right; proper | ''(archaic in English)'' suitable, right; proper | ''(archaic in English)'' suitable, right; proper",
+          "target_lemma_in_source_match_text": false
+        },
+        {
+          "sense_id": "en-es:sentence-veto:meet:adecuado:encontrar:shadow",
+          "relation_type": "shadow_candidate",
+          "matched": true,
+          "semantic_class_ids": [
+            "collision_malfunction"
+          ],
+          "canonical_pos": "verb",
+          "target_lemma": "encontrar",
+          "support_sources": [
+            "wiktionary_en_es",
+            "freedict_es_en",
+            "wiktextract_en_es_translation_table"
+          ],
+          "source_match_text": "meet verb sense: to come face to face with by accident; to encounter | to come face to face with by accident; to encounter | meet verb sense: to come face to face with by accident; to encounter | to come face to face with by accident; to encounter | to come face to face with by accident; to encounter | to come face to face with by accident; to encounter",
+          "target_lemma_in_source_match_text": false
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:stretch:estir-n",
+      "trigger": "stretch",
+      "selected_sense_count": 2,
+      "matching_sense_count": 2,
+      "row_count": 6,
+      "active_row_count": 3,
+      "shadow_row_count": 3,
+      "sense_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:stretch:estir-n:active",
+          "relation_type": "anchor_cue",
+          "matched": true,
+          "semantic_class_ids": [
+            "physical_manipulation"
+          ],
+          "canonical_pos": "noun",
+          "target_lemma": "estirón",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktionary_es_en",
+            "wiktextract_en_es_translation_table"
+          ],
+          "source_match_text": "stretch noun sense: act of stretching | act of stretching | stretch noun sense: act of stretching | act of stretching | act of stretching | act of stretching",
+          "target_lemma_in_source_match_text": false
+        },
+        {
+          "sense_id": "en-es:sentence-veto:stretch:estir-n:estirar:shadow",
+          "relation_type": "shadow_candidate",
+          "matched": true,
+          "semantic_class_ids": [
+            "physical_manipulation"
+          ],
+          "canonical_pos": "verb",
+          "target_lemma": "estirar",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ],
+          "source_match_text": "stretch verb sense: to lengthen by pulling | to lengthen by pulling | stretch verb sense: to lengthen by pulling | to lengthen by pulling | to lengthen by pulling | to lengthen by pulling | to extend one’s limbs or body, for example in order to improve the elasticity the muscles",
+          "target_lemma_in_source_match_text": false
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:score:tantos",
+      "trigger": "score",
+      "selected_sense_count": 3,
+      "matching_sense_count": 3,
+      "row_count": 9,
+      "active_row_count": 3,
+      "shadow_row_count": 6,
+      "sense_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:score:tantos:active",
+          "relation_type": "anchor_cue",
+          "matched": true,
+          "semantic_class_ids": [
+            "sports_points_offense"
+          ],
+          "canonical_pos": "noun",
+          "target_lemma": "tantos",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktionary_es_en",
+            "wiktextract_en_es_translation_table"
+          ],
+          "source_match_text": "score noun sense: number of points earned | number of points earned | score noun sense: number of points earned | number of points earned | number of points earned | number of points earned",
+          "target_lemma_in_source_match_text": false
+        },
+        {
+          "sense_id": "en-es:sentence-veto:score:tantos:marcador:shadow",
+          "relation_type": "shadow_candidate",
+          "matched": true,
+          "semantic_class_ids": [
+            "sports_points_offense"
+          ],
+          "canonical_pos": "noun",
+          "target_lemma": "marcador",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ],
+          "source_match_text": "score noun sense: number of points accrued | number of points accrued | score noun sense: number of points accrued | number of points accrued | number of points accrued | number of points accrued",
+          "target_lemma_in_source_match_text": false
+        },
+        {
+          "sense_id": "en-es:sentence-veto:score:tantos:anotar:shadow",
+          "relation_type": "shadow_candidate",
+          "matched": true,
+          "semantic_class_ids": [
+            "sports_points_offense"
+          ],
+          "canonical_pos": "verb",
+          "target_lemma": "anotar",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ],
+          "source_match_text": "score verb sense: to earn points in a game | to earn points in a game | score verb sense: to earn points in a game | to earn points in a game | to earn points in a game | to earn points in a game",
+          "target_lemma_in_source_match_text": false
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:crash:choque",
+      "trigger": "crash",
+      "selected_sense_count": 3,
+      "matching_sense_count": 3,
+      "row_count": 9,
+      "active_row_count": 3,
+      "shadow_row_count": 6,
+      "sense_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:crash:choque:active",
+          "relation_type": "anchor_cue",
+          "matched": true,
+          "semantic_class_ids": [
+            "collision_malfunction"
+          ],
+          "canonical_pos": "noun",
+          "target_lemma": "choque",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ],
+          "source_match_text": "crash noun sense: vehicle accident | vehicle accident | crash noun sense: vehicle accident | vehicle accident | vehicle accident | vehicle accident",
+          "target_lemma_in_source_match_text": false
+        },
+        {
+          "sense_id": "en-es:sentence-veto:crash:choque:fallo:shadow",
+          "relation_type": "shadow_candidate",
+          "matched": true,
+          "semantic_class_ids": [
+            "collision_malfunction"
+          ],
+          "canonical_pos": "noun",
+          "target_lemma": "fallo",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ],
+          "source_match_text": "crash noun sense: computer malfunction | computer malfunction | crash noun sense: computer malfunction | computer malfunction | computer malfunction | computer malfunction",
+          "target_lemma_in_source_match_text": false
+        },
+        {
+          "sense_id": "en-es:sentence-veto:crash:choque:chocar:shadow",
+          "relation_type": "shadow_candidate",
+          "matched": true,
+          "semantic_class_ids": [
+            "collision_malfunction"
+          ],
+          "canonical_pos": "verb",
+          "target_lemma": "chocar",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ],
+          "source_match_text": "crash verb sense: to collide, fall or come down violently | to collide, fall or come down violently | crash verb sense: to collide, fall or come down violently | to collide, fall or come down violently | to collide, fall or come down violently | to collide, fall or come down violently | to severely damage or destroy by causing to collide with something else",
+          "target_lemma_in_source_match_text": false
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:trim:compensador",
+      "trigger": "trim",
+      "selected_sense_count": 2,
+      "matching_sense_count": 1,
+      "row_count": 3,
+      "active_row_count": 0,
+      "shadow_row_count": 3,
+      "sense_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:trim:compensador:active",
+          "relation_type": "anchor_cue",
+          "matched": false,
+          "semantic_class_ids": [],
+          "canonical_pos": "noun",
+          "target_lemma": "compensador",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ],
+          "source_match_text": "trim noun sense: the mechanism used to trim an aircraft | the mechanism used to trim an aircraft | trim noun sense: the mechanism used to trim an aircraft | the mechanism used to trim an aircraft | the mechanism used to trim an aircraft | the mechanism used to trim an aircraft",
+          "target_lemma_in_source_match_text": false
+        },
+        {
+          "sense_id": "en-es:sentence-veto:trim:compensador:recortar:shadow",
+          "relation_type": "shadow_candidate",
+          "matched": true,
+          "semantic_class_ids": [
+            "physical_manipulation"
+          ],
+          "canonical_pos": "verb",
+          "target_lemma": "recortar",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ],
+          "source_match_text": "trim verb sense: to reduce slightly | to reduce slightly | trim verb sense: to reduce slightly | to reduce slightly | to reduce slightly | to reduce slightly",
+          "target_lemma_in_source_match_text": false
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:squeeze:crisis",
+      "trigger": "squeeze",
+      "selected_sense_count": 2,
+      "matching_sense_count": 2,
+      "row_count": 6,
+      "active_row_count": 3,
+      "shadow_row_count": 3,
+      "sense_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:squeeze:crisis:active",
+          "relation_type": "anchor_cue",
+          "matched": true,
+          "semantic_class_ids": [
+            "difficulty_constraint"
+          ],
+          "canonical_pos": "noun",
+          "target_lemma": "crisis",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ],
+          "source_match_text": "squeeze noun sense: difficult position | difficult position | squeeze noun sense: difficult position | difficult position | difficult position | difficult position",
+          "target_lemma_in_source_match_text": false
+        },
+        {
+          "sense_id": "en-es:sentence-veto:squeeze:crisis:apretujar:shadow",
+          "relation_type": "shadow_candidate",
+          "matched": true,
+          "semantic_class_ids": [
+            "difficulty_constraint"
+          ],
+          "canonical_pos": "verb",
+          "target_lemma": "apretujar",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ],
+          "source_match_text": "squeeze verb sense: to fit into a tight place | to fit into a tight place | squeeze verb sense: to fit into a tight place | to fit into a tight place | to fit into a tight place | to fit into a tight place",
+          "target_lemma_in_source_match_text": false
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:foul:falta",
+      "trigger": "foul",
+      "selected_sense_count": 2,
+      "matching_sense_count": 2,
+      "row_count": 6,
+      "active_row_count": 3,
+      "shadow_row_count": 3,
+      "sense_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:foul:falta:active",
+          "relation_type": "anchor_cue",
+          "matched": true,
+          "semantic_class_ids": [
+            "sports_points_offense"
+          ],
+          "canonical_pos": "noun",
+          "target_lemma": "falta",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ],
+          "source_match_text": "foul noun sense: offence in sports | offence in sports | foul noun sense: offence in sports | offence in sports | offence in sports | offence in sports",
+          "target_lemma_in_source_match_text": false
+        },
+        {
+          "sense_id": "en-es:sentence-veto:foul:falta:ensuciar:shadow",
+          "relation_type": "shadow_candidate",
+          "matched": true,
+          "semantic_class_ids": [
+            "physical_manipulation"
+          ],
+          "canonical_pos": "verb",
+          "target_lemma": "ensuciar",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ],
+          "source_match_text": "foul verb sense: make dirty | make dirty | foul verb sense: make dirty | make dirty | make dirty | make dirty | besmirch",
+          "target_lemma_in_source_match_text": false
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "deterministic_semantic_class_frame_not_runtime_policy",
+    "non_authorization_class_templates_require_heldout_validation",
+    "does_not_use_heldout_sentence_text"
+  ]
+}

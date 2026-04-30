@@ -7,8 +7,9 @@ Gate: `wave7_source_class_breadth_v1`
 
 This runbook turns `docs/rulegen/semantic_veto_breadth_expansion_gate.md` into
 an executable artifact map. It does not change runtime policy. The current
-candidate remains `wave6_auth_frame_raw_sentence_surface_pos_rescue` until the
-wave7 artifacts exist and are classified in the registry.
+candidate remains `wave6_auth_frame_raw_sentence_surface_pos_rescue`; the
+executed wave7 breadth gate is a failed breadth probe until its harmful
+replacement classes are triaged and rerun.
 
 ## Preflight
 
@@ -25,25 +26,28 @@ test -f scripts/testing/semantic_wiktextract_translation_support_en_es.py
 test -f scripts/testing/semantic_non_v10_source_support_conversion_en_es.py
 test -f scripts/testing/semantic_translation_sense_evidence_batch_en_es.py
 test -f scripts/testing/semantic_wordnet_example_frame_batch_en_es.py
+test -f scripts/testing/semantic_source_class_frame_evidence_en_es.py
 test -f scripts/testing/semantic_source_admission_cycle_en_es.py
 test -f scripts/testing/semantic_source_heldout_validation_en_es.py
 test -f scripts/testing/semantic_surface_pos_rescue_policy_validation_en_es.py
 test -f scripts/testing/semantic_source_failure_class_mining_en_es.py
+test -f docs/test_inputs/semantic_routing_cases/en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases.json
+test -f docs/test_inputs/semantic_routing_cases/en_es_source_non_v10_wave7_source_class_breadth_v1_phrase_cases.json
 
 python3 -m json.tool \
   docs/test_inputs/semantic_routing/semantic_veto_wave7_exclusion_inventory_en_es.json \
   >/dev/null
 ```
 
-Current setup blockers:
+Current execution result:
 
-- No tracked wave7 active/shadow heldout file exists yet:
-  `docs/test_inputs/semantic_routing_cases/en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases.json`.
-- No tracked wave7 phrase/no-winner heldout file exists yet:
-  `docs/test_inputs/semantic_routing_cases/en_es_source_non_v10_wave7_source_class_breadth_v1_phrase_cases.json`.
-- The only deterministic semantic-class adapter currently registered is the
-  authorization-frame adapter. The breadth gate needs at least three
-  non-authorization source-detectable class buckets before it can pass.
+- Setup blockers are resolved: the heldout files exist, and
+  `semantic_source_class_frame_evidence_en_es.py` produced `7`
+  non-authorization source-detectable semantic-class buckets.
+- The gate did not pass. The scorer-backed rescue validation reports `7`
+  harmful replacements and `5` false abstains across `48` locked cases.
+- `docs/test_outputs/semantic_source_failure_class_mining_wave7_source_class_breadth_v1_latest.md`
+  is the current starting point for blocker triage.
 
 ## Artifact Names
 
@@ -69,6 +73,10 @@ Use these names for the wave7 chain:
   `docs/test_outputs/semantic_wordnet_def_ex_non_v10_wave7_source_class_breadth_v1_latest.{json,md}`
 - Translation-sense evidence:
   `docs/test_outputs/semantic_translation_sense_evidence_non_v10_wave7_source_class_breadth_v1_latest.{json,md}`
+- Source-class frame evidence:
+  `docs/test_outputs/semantic_source_class_frame_evidence_wave7_source_class_breadth_v1_latest.{json,md}`
+- Merged evidence composite:
+  `docs/test_outputs/semantic_example_frame_batch_merge_wave7_source_class_breadth_v1_latest.{json,md}`
 - Source-admission cycle:
   `docs/test_outputs/semantic_source_admission_cycle_wave7_source_class_breadth_v1_latest.{json,md}`
 - Active/shadow heldout validation:
@@ -146,8 +154,9 @@ Stop here if the supported conversion audit is not
 
 ## 4. Evidence Construction
 
-Build the normal WordNet evidence and the translation-sense evidence before
-adding any semantic-class detector rows.
+Build WordNet evidence, translation-sense evidence, and deterministic
+source-class frame evidence. The class detector fires only from source gloss,
+translation-sense, or source example text.
 
 ```bash
 python3 scripts/testing/semantic_wordnet_example_frame_batch_en_es.py \
@@ -172,9 +181,26 @@ python3 scripts/testing/semantic_translation_sense_evidence_batch_en_es.py \
   --markdown-out docs/test_outputs/semantic_translation_sense_evidence_non_v10_wave7_source_class_breadth_v1_latest.md
 ```
 
-Before the gate can pass, add at least three non-authorization source-detectable
-semantic-class detector outputs. The detector must fire only from source gloss,
-translation-sense, or source example text.
+```bash
+python3 scripts/testing/semantic_source_class_frame_evidence_en_es.py \
+  --dataset docs/test_outputs/experiments/semantic_non_v10_wave_drafts/en_es_source_non_v10_wave7_source_class_breadth_v1_wiktextract_supported_dataset.json \
+  --run-id source-class-frame-non-v10-wave7-source-class-breadth-v1-latest \
+  --normalized-batch-out docs/test_outputs/experiments/semantic_example_frame_batches/en-es-source-class-frame-non-v10-wave7-source-class-breadth-v1-latest_normalized_evidence.json \
+  --json-out docs/test_outputs/semantic_source_class_frame_evidence_wave7_source_class_breadth_v1_latest.json \
+  --markdown-out docs/test_outputs/semantic_source_class_frame_evidence_wave7_source_class_breadth_v1_latest.md
+```
+
+```bash
+python3 scripts/testing/semantic_example_frame_batch_merge_en_es.py \
+  --base-batch-json docs/test_outputs/experiments/semantic_example_frame_batches/en-es-wordnet-def-ex-non-v10-wave7-source-class-breadth-v1-latest_normalized_evidence.json \
+  --add-batch-json docs/test_outputs/experiments/semantic_example_frame_batches/en-es-translation-sense-non-v10-wave7-source-class-breadth-v1-latest_normalized_evidence.json \
+  --add-batch-json docs/test_outputs/experiments/semantic_example_frame_batches/en-es-source-class-frame-non-v10-wave7-source-class-breadth-v1-latest_normalized_evidence.json \
+  --batch-id en-es:wave7-source-class-breadth-v1:evidence-composite \
+  --source-id wordnet_translation_sense_source_class_non_v10_wave7_source_class_breadth_v1 \
+  --merged-batch-out docs/test_outputs/experiments/semantic_example_frame_batches/en-es-wave7-source-class-breadth-v1-evidence-composite_normalized_evidence.json \
+  --json-out docs/test_outputs/semantic_example_frame_batch_merge_wave7_source_class_breadth_v1_latest.json \
+  --markdown-out docs/test_outputs/semantic_example_frame_batch_merge_wave7_source_class_breadth_v1_latest.md
+```
 
 ## 5. Admission And Validation
 
@@ -184,11 +210,12 @@ heldout files exist, run source admission and validation:
 ```bash
 python3 scripts/testing/semantic_source_admission_cycle_en_es.py \
   --dataset docs/test_outputs/experiments/semantic_non_v10_wave_drafts/en_es_source_non_v10_wave7_source_class_breadth_v1_wiktextract_supported_dataset.json \
+  --queue-json docs/test_outputs/experiments/semantic_non_v10_wave_drafts/semantic_source_non_v10_wave7_source_class_breadth_v1_unsupported_selected_queue_en_es.json \
   --required-family-json docs/test_outputs/experiments/semantic_non_v10_wave_drafts/en_es_source_non_v10_wave7_source_class_breadth_v1_wiktextract_supported_dataset.json \
-  --base-batch-json docs/test_outputs/experiments/semantic_example_frame_batches/en-es-wordnet-def-ex-non-v10-wave7-source-class-breadth-v1-latest_normalized_evidence.json \
-  --candidate-batch-json docs/test_outputs/experiments/semantic_example_frame_batches/en-es-translation-sense-non-v10-wave7-source-class-breadth-v1-latest_normalized_evidence.json \
-  --batch-id en-es:wordnet-plus-translation-sense:non-v10-wave7-source-class-breadth-v1:cycle \
-  --source-id wordnet_translation_sense_non_v10_wave7_source_class_breadth_v1 \
+  --empty-base \
+  --candidate-batch-json docs/test_outputs/experiments/semantic_example_frame_batches/en-es-wave7-source-class-breadth-v1-evidence-composite_normalized_evidence.json \
+  --batch-id en-es:wordnet-translation-sense-source-class:non-v10-wave7-source-class-breadth-v1:cycle \
+  --source-id wordnet_translation_sense_source_class_non_v10_wave7_source_class_breadth_v1 \
   --skip-ablation \
   --json-out docs/test_outputs/semantic_source_admission_cycle_wave7_source_class_breadth_v1_latest.json \
   --markdown-out docs/test_outputs/semantic_source_admission_cycle_wave7_source_class_breadth_v1_latest.md \
@@ -255,7 +282,12 @@ python3 scripts/testing/semantic_source_failure_class_mining_en_es.py \
   --primary-admission-json docs/test_outputs/semantic_source_admission_cycle_wave7_source_class_breadth_v1_latest.json \
   --primary-heldout-json docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_heldout_validation_latest.json \
   --additional-heldout-json docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_validation_latest.json \
+  --source-report-json docs/test_outputs/semantic_wiktextract_translation_support_wave7_source_class_breadth_v1_latest.json \
+  --source-report-json docs/test_outputs/semantic_source_class_frame_evidence_wave7_source_class_breadth_v1_latest.json \
+  --source-report-json docs/test_outputs/semantic_wordnet_def_ex_non_v10_wave7_source_class_breadth_v1_latest.json \
   --source-report-json docs/test_outputs/semantic_translation_sense_evidence_non_v10_wave7_source_class_breadth_v1_latest.json \
+  --min-broad-family-count 16 \
+  --min-broad-case-count 48 \
   --json-out docs/test_outputs/semantic_source_failure_class_mining_wave7_source_class_breadth_v1_latest.json \
   --markdown-out docs/test_outputs/semantic_source_failure_class_mining_wave7_source_class_breadth_v1_latest.md
 ```

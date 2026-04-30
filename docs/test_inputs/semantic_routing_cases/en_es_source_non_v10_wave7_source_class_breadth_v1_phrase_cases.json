@@ -1,0 +1,218 @@
+{
+  "schema_version": 1,
+  "pair": "en-es",
+  "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_phrase_cases",
+  "base_dataset": "docs/test_outputs/experiments/semantic_non_v10_wave_drafts/en_es_source_non_v10_wave7_source_class_breadth_v1_wiktextract_supported_dataset.json",
+  "description": "Independent phrase/no-winner abstain cases for the non-v10 wave7 source-class breadth gate.",
+  "case_scope": "non_v10_wave7_source_class_breadth_phrase_no_winner",
+  "families": [
+    {
+      "family_id": "en-es:sentence-veto:like:gustos",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:like:001",
+          "sentence": "The speaker used like as a filler in every sentence.",
+          "source_phrase": "like",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave7_source_class_breadth_phrase", "phrase_no_winner", "discourse_marker"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:gross:repulsivo",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:gross:001",
+          "sentence": "The report listed gross revenue before expenses.",
+          "source_phrase": "gross",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave7_source_class_breadth_phrase", "phrase_no_winner", "finance_term"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:cast:lanzamiento",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+          "sentence": "The director praised the cast after rehearsal.",
+          "source_phrase": "cast",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave7_source_class_breadth_phrase", "phrase_no_winner", "alternate_noun"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:fix:aprieto",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:fix:001",
+          "sentence": "He needed a coffee fix before work.",
+          "source_phrase": "fix",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave7_source_class_breadth_phrase", "phrase_no_winner", "alternate_noun"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:full:lleno",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:full:001",
+          "sentence": "The committee met in full on Monday.",
+          "source_phrase": "full",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave7_source_class_breadth_phrase", "phrase_no_winner", "idiom"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:waste:desperdicio",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:waste:001",
+          "sentence": "Do not let the offer go to waste.",
+          "source_phrase": "waste",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave7_source_class_breadth_phrase", "phrase_no_winner", "idiom"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:firm:firma",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:firm:001",
+          "sentence": "The mattress felt firm after delivery.",
+          "source_phrase": "firm",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave7_source_class_breadth_phrase", "phrase_no_winner", "alternate_adjective"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:even:tarde",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:even:001",
+          "sentence": "Even small errors can matter.",
+          "source_phrase": "even",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave7_source_class_breadth_phrase", "phrase_no_winner", "alternate_adverb"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:wrong:incorrecto",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+          "sentence": "He rubbed the organizer the wrong way.",
+          "source_phrase": "wrong",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave7_source_class_breadth_phrase", "phrase_no_winner", "idiom"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:meet:adecuado",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:meet:001",
+          "sentence": "They struggled to make ends meet.",
+          "source_phrase": "meet",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave7_source_class_breadth_phrase", "phrase_no_winner", "idiom"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:stretch:estir-n",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+          "sentence": "That estimate is a stretch.",
+          "source_phrase": "stretch",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave7_source_class_breadth_phrase", "phrase_no_winner", "figurative_noun"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:score:tantos",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+          "sentence": "The composer wrote the score for the film.",
+          "source_phrase": "score",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave7_source_class_breadth_phrase", "phrase_no_winner", "alternate_noun"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:crash:choque",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:crash:001",
+          "sentence": "Can I crash on your couch tonight?",
+          "source_phrase": "crash",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave7_source_class_breadth_phrase", "phrase_no_winner", "colloquial_verb"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:trim:compensador",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:trim:001",
+          "sentence": "The room looked trim and orderly.",
+          "source_phrase": "trim",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave7_source_class_breadth_phrase", "phrase_no_winner", "alternate_adjective"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:squeeze:crisis",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+          "sentence": "The squeeze play surprised the defense.",
+          "source_phrase": "squeeze",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave7_source_class_breadth_phrase", "phrase_no_winner", "sports_idiom"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:foul:falta",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001",
+          "sentence": "The foul weather delayed the ferry.",
+          "source_phrase": "foul",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave7_source_class_breadth_phrase", "phrase_no_winner", "alternate_adjective"]
+        }
+      ]
+    }
+  ]
+}

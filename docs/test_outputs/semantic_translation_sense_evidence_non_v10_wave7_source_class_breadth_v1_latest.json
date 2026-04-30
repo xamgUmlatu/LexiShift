@@ -1,0 +1,526 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-04-30T18:03:56Z",
+  "status": "ok",
+  "decision": "candidate_batch_ready",
+  "pair": "en-es",
+  "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_unsupported_selected",
+  "run_id": "translation-sense-non-v10-wave7-source-class-breadth-v1-latest",
+  "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave7-source-class-breadth-v1-latest",
+  "source_type": "external",
+  "source_id": "translation_sense_evidence",
+  "source_family": "external_structured_dictionary_dump",
+  "summary": {
+    "family_count": 16,
+    "source_family_count": 16,
+    "target_family_count": 16,
+    "selected_sense_count": 37,
+    "source_supported_sense_count": 37,
+    "skipped_sense_count": 0,
+    "row_count": 37,
+    "active_row_count": 16,
+    "shadow_row_count": 21
+  },
+  "family_rows": [
+    {
+      "family_id": "en-es:sentence-veto:like:gustos",
+      "trigger": "like",
+      "active_row_count": 1,
+      "shadow_row_count": 1,
+      "skipped_sense_count": 0,
+      "row_count": 2,
+      "senses": [
+        {
+          "sense_id": "en-es:sentence-veto:like:gustos:active",
+          "target_lemma": "gustos",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "translation_sense_text": "something that a person likes",
+          "source_supported": true,
+          "support_match_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:like:gustos:atraer:shadow",
+          "target_lemma": "atraer",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "translation_sense_text": "to find attractive",
+          "source_supported": true,
+          "support_match_count": 1
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:gross:repulsivo",
+      "trigger": "gross",
+      "active_row_count": 1,
+      "shadow_row_count": 1,
+      "skipped_sense_count": 0,
+      "row_count": 2,
+      "senses": [
+        {
+          "sense_id": "en-es:sentence-veto:gross:repulsivo:active",
+          "target_lemma": "repulsivo",
+          "canonical_pos": "adjective",
+          "relation_type": "anchor_cue",
+          "translation_sense_text": "causing disgust",
+          "source_supported": true,
+          "support_match_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:gross:repulsivo:gruesa:shadow",
+          "target_lemma": "gruesa",
+          "canonical_pos": "noun",
+          "relation_type": "shadow_candidate",
+          "translation_sense_text": "twelve dozen",
+          "source_supported": true,
+          "support_match_count": 1
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:cast:lanzamiento",
+      "trigger": "cast",
+      "active_row_count": 1,
+      "shadow_row_count": 2,
+      "skipped_sense_count": 0,
+      "row_count": 3,
+      "senses": [
+        {
+          "sense_id": "en-es:sentence-veto:cast:lanzamiento:active",
+          "target_lemma": "lanzamiento",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "translation_sense_text": "act of throwing",
+          "source_supported": true,
+          "support_match_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:cast:lanzamiento:molde:shadow",
+          "target_lemma": "molde",
+          "canonical_pos": "noun",
+          "relation_type": "shadow_candidate",
+          "translation_sense_text": "object made in a mould",
+          "source_supported": true,
+          "support_match_count": 2
+        },
+        {
+          "sense_id": "en-es:sentence-veto:cast:lanzamiento:lanzar:shadow",
+          "target_lemma": "lanzar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "translation_sense_text": "to perform, bring forth a magical spell or enchantment",
+          "source_supported": true,
+          "support_match_count": 2
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:fix:aprieto",
+      "trigger": "fix",
+      "active_row_count": 1,
+      "shadow_row_count": 2,
+      "skipped_sense_count": 0,
+      "row_count": 3,
+      "senses": [
+        {
+          "sense_id": "en-es:sentence-veto:fix:aprieto:active",
+          "target_lemma": "aprieto",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "translation_sense_text": "a difficult situation or dilemma",
+          "source_supported": true,
+          "support_match_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:fix:aprieto:localizaci-n:shadow",
+          "target_lemma": "localización",
+          "canonical_pos": "noun",
+          "relation_type": "shadow_candidate",
+          "translation_sense_text": "determination of location",
+          "source_supported": true,
+          "support_match_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:fix:aprieto:reparar:shadow",
+          "target_lemma": "reparar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "translation_sense_text": "to mend or repair",
+          "source_supported": true,
+          "support_match_count": 1
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:full:lleno",
+      "trigger": "full",
+      "active_row_count": 1,
+      "shadow_row_count": 1,
+      "skipped_sense_count": 0,
+      "row_count": 2,
+      "senses": [
+        {
+          "sense_id": "en-es:sentence-veto:full:lleno:active",
+          "target_lemma": "lleno",
+          "canonical_pos": "adjective",
+          "relation_type": "anchor_cue",
+          "translation_sense_text": "containing the maximum possible amount",
+          "source_supported": true,
+          "support_match_count": 2
+        },
+        {
+          "sense_id": "en-es:sentence-veto:full:lleno:abatanar:shadow",
+          "target_lemma": "abatanar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "translation_sense_text": "to make cloth denser",
+          "source_supported": true,
+          "support_match_count": 1
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:waste:desperdicio",
+      "trigger": "waste",
+      "active_row_count": 1,
+      "shadow_row_count": 2,
+      "skipped_sense_count": 0,
+      "row_count": 3,
+      "senses": [
+        {
+          "sense_id": "en-es:sentence-veto:waste:desperdicio:active",
+          "target_lemma": "desperdicio",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "translation_sense_text": "useless by-products, garbage",
+          "source_supported": true,
+          "support_match_count": 2
+        },
+        {
+          "sense_id": "en-es:sentence-veto:waste:desperdicio:bald-o:shadow",
+          "target_lemma": "baldío",
+          "canonical_pos": "noun",
+          "relation_type": "shadow_candidate",
+          "translation_sense_text": "wasteland, desolate region",
+          "source_supported": true,
+          "support_match_count": 2
+        },
+        {
+          "sense_id": "en-es:sentence-veto:waste:desperdicio:malgastar:shadow",
+          "target_lemma": "malgastar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "translation_sense_text": "to squander",
+          "source_supported": true,
+          "support_match_count": 1
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:firm:firma",
+      "trigger": "firm",
+      "active_row_count": 1,
+      "shadow_row_count": 1,
+      "skipped_sense_count": 0,
+      "row_count": 2,
+      "senses": [
+        {
+          "sense_id": "en-es:sentence-veto:firm:firma:active",
+          "target_lemma": "firma",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "translation_sense_text": "business partnership",
+          "source_supported": true,
+          "support_match_count": 2
+        },
+        {
+          "sense_id": "en-es:sentence-veto:firm:firma:afirmar:shadow",
+          "target_lemma": "afirmar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "translation_sense_text": "to make firm or strong",
+          "source_supported": true,
+          "support_match_count": 2
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:even:tarde",
+      "trigger": "even",
+      "active_row_count": 1,
+      "shadow_row_count": 1,
+      "skipped_sense_count": 0,
+      "row_count": 2,
+      "senses": [
+        {
+          "sense_id": "en-es:sentence-veto:even:tarde:active",
+          "target_lemma": "tarde",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "translation_sense_text": "Evening of the day",
+          "source_supported": true,
+          "support_match_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:even:tarde:allanar:shadow",
+          "target_lemma": "allanar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "translation_sense_text": "to make even",
+          "source_supported": true,
+          "support_match_count": 1
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:wrong:incorrecto",
+      "trigger": "wrong",
+      "active_row_count": 1,
+      "shadow_row_count": 1,
+      "skipped_sense_count": 0,
+      "row_count": 2,
+      "senses": [
+        {
+          "sense_id": "en-es:sentence-veto:wrong:incorrecto:active",
+          "target_lemma": "incorrecto",
+          "canonical_pos": "adjective",
+          "relation_type": "anchor_cue",
+          "translation_sense_text": "incorrect",
+          "source_supported": true,
+          "support_match_count": 2
+        },
+        {
+          "sense_id": "en-es:sentence-veto:wrong:incorrecto:herir:shadow",
+          "target_lemma": "herir",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "translation_sense_text": "to treat unjustly",
+          "source_supported": true,
+          "support_match_count": 1
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:meet:adecuado",
+      "trigger": "meet",
+      "active_row_count": 1,
+      "shadow_row_count": 1,
+      "skipped_sense_count": 0,
+      "row_count": 2,
+      "senses": [
+        {
+          "sense_id": "en-es:sentence-veto:meet:adecuado:active",
+          "target_lemma": "adecuado",
+          "canonical_pos": "adjective",
+          "relation_type": "anchor_cue",
+          "translation_sense_text": "''(archaic in English)'' suitable, right; proper",
+          "source_supported": true,
+          "support_match_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:meet:adecuado:encontrar:shadow",
+          "target_lemma": "encontrar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "translation_sense_text": "to come face to face with by accident; to encounter",
+          "source_supported": true,
+          "support_match_count": 1
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:stretch:estir-n",
+      "trigger": "stretch",
+      "active_row_count": 1,
+      "shadow_row_count": 1,
+      "skipped_sense_count": 0,
+      "row_count": 2,
+      "senses": [
+        {
+          "sense_id": "en-es:sentence-veto:stretch:estir-n:active",
+          "target_lemma": "estirón",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "translation_sense_text": "act of stretching",
+          "source_supported": true,
+          "support_match_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:stretch:estir-n:estirar:shadow",
+          "target_lemma": "estirar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "translation_sense_text": "to lengthen by pulling",
+          "source_supported": true,
+          "support_match_count": 2
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:score:tantos",
+      "trigger": "score",
+      "active_row_count": 1,
+      "shadow_row_count": 2,
+      "skipped_sense_count": 0,
+      "row_count": 3,
+      "senses": [
+        {
+          "sense_id": "en-es:sentence-veto:score:tantos:active",
+          "target_lemma": "tantos",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "translation_sense_text": "number of points earned",
+          "source_supported": true,
+          "support_match_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:score:tantos:marcador:shadow",
+          "target_lemma": "marcador",
+          "canonical_pos": "noun",
+          "relation_type": "shadow_candidate",
+          "translation_sense_text": "number of points accrued",
+          "source_supported": true,
+          "support_match_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:score:tantos:anotar:shadow",
+          "target_lemma": "anotar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "translation_sense_text": "to earn points in a game",
+          "source_supported": true,
+          "support_match_count": 1
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:crash:choque",
+      "trigger": "crash",
+      "active_row_count": 1,
+      "shadow_row_count": 2,
+      "skipped_sense_count": 0,
+      "row_count": 3,
+      "senses": [
+        {
+          "sense_id": "en-es:sentence-veto:crash:choque:active",
+          "target_lemma": "choque",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "translation_sense_text": "vehicle accident",
+          "source_supported": true,
+          "support_match_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:crash:choque:fallo:shadow",
+          "target_lemma": "fallo",
+          "canonical_pos": "noun",
+          "relation_type": "shadow_candidate",
+          "translation_sense_text": "computer malfunction",
+          "source_supported": true,
+          "support_match_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:crash:choque:chocar:shadow",
+          "target_lemma": "chocar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "translation_sense_text": "to collide, fall or come down violently",
+          "source_supported": true,
+          "support_match_count": 2
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:trim:compensador",
+      "trigger": "trim",
+      "active_row_count": 1,
+      "shadow_row_count": 1,
+      "skipped_sense_count": 0,
+      "row_count": 2,
+      "senses": [
+        {
+          "sense_id": "en-es:sentence-veto:trim:compensador:active",
+          "target_lemma": "compensador",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "translation_sense_text": "the mechanism used to trim an aircraft",
+          "source_supported": true,
+          "support_match_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:trim:compensador:recortar:shadow",
+          "target_lemma": "recortar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "translation_sense_text": "to reduce slightly",
+          "source_supported": true,
+          "support_match_count": 1
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:squeeze:crisis",
+      "trigger": "squeeze",
+      "active_row_count": 1,
+      "shadow_row_count": 1,
+      "skipped_sense_count": 0,
+      "row_count": 2,
+      "senses": [
+        {
+          "sense_id": "en-es:sentence-veto:squeeze:crisis:active",
+          "target_lemma": "crisis",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "translation_sense_text": "difficult position",
+          "source_supported": true,
+          "support_match_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:squeeze:crisis:apretujar:shadow",
+          "target_lemma": "apretujar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "translation_sense_text": "to fit into a tight place",
+          "source_supported": true,
+          "support_match_count": 1
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:foul:falta",
+      "trigger": "foul",
+      "active_row_count": 1,
+      "shadow_row_count": 1,
+      "skipped_sense_count": 0,
+      "row_count": 2,
+      "senses": [
+        {
+          "sense_id": "en-es:sentence-veto:foul:falta:active",
+          "target_lemma": "falta",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "translation_sense_text": "offence in sports",
+          "source_supported": true,
+          "support_match_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:foul:falta:ensuciar:shadow",
+          "target_lemma": "ensuciar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "translation_sense_text": "make dirty",
+          "source_supported": true,
+          "support_match_count": 2
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "translation_sense_text_is_dictionary_gloss_not_sentence_example",
+    "runtime_publishable=false_until_admission_and_heldout_validation",
+    "does_not_cover_unselected_no_winner_senses",
+    "does_not_add_phrase_containment_examples",
+    "spanish_target_lemmas_are_excluded_from_evidence_text"
+  ]
+}

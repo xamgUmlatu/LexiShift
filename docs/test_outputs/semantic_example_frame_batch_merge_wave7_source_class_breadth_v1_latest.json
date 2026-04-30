@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-04-30T18:04:07Z",
+  "status": "ok",
+  "batch_id": "en-es:wave7-source-class-breadth-v1:evidence-composite",
+  "source_id": "wordnet_translation_sense_source_class_non_v10_wave7_source_class_breadth_v1",
+  "summary": {
+    "component_count": 3,
+    "row_count": 180,
+    "family_count": 16,
+    "relation_counts": {
+      "anchor_cue": 80,
+      "shadow_candidate": 100
+    }
+  },
+  "component_batches": [
+    {
+      "component_index": 1,
+      "batch_id": "en-es:wordnet-example-frames:wordnet-def-ex-non-v10-wave7-source-class-breadth-v1-latest",
+      "source_id": "wordnet_example_frames",
+      "source_type": "external",
+      "source_family": "external_sense_graph",
+      "input_row_count": 68,
+      "accepted_row_count": 68,
+      "duplicate_row_count": 0
+    },
+    {
+      "component_index": 2,
+      "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave7-source-class-breadth-v1-latest",
+      "source_id": "translation_sense_evidence",
+      "source_type": "external",
+      "source_family": "external_structured_dictionary_dump",
+      "input_row_count": 37,
+      "accepted_row_count": 37,
+      "duplicate_row_count": 0
+    },
+    {
+      "component_index": 3,
+      "batch_id": "en-es:source-class-frame-evidence:source-class-frame-non-v10-wave7-source-class-breadth-v1-latest",
+      "source_id": "source_class_frame_evidence",
+      "source_type": "internal",
+      "source_family": "internal_rulegen_artifact",
+      "input_row_count": 75,
+      "accepted_row_count": 75,
+      "duplicate_row_count": 0
+    }
+  ]
+}

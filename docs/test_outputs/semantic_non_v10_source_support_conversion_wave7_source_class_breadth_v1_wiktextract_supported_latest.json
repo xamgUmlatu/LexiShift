@@ -1,0 +1,256 @@
+{
+  "schema_version": 1,
+  "status": "ok",
+  "decision": "selected_wave_source_supported",
+  "generated_at": "2026-04-30T18:00:50Z",
+  "pair": "en-es",
+  "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_unsupported_selected",
+  "translation_support_mode": "forward_only_plus_wiktextract_translation_support",
+  "summary": {
+    "family_count": 16,
+    "fully_supported_family_count": 16,
+    "candidate_swap_review_family_count": 0,
+    "needs_reviewed_source_support_family_count": 0,
+    "selected_sense_count": 37,
+    "supported_sense_count": 37,
+    "unsupported_sense_count": 0,
+    "unsupported_active_count": 0,
+    "unsupported_shadow_count": 0,
+    "unsupported_rows_with_same_pos_supported_alternative": 0,
+    "family_state_counts": {
+      "already_supported": 16
+    },
+    "unsupported_row_state_counts": {},
+    "support_work_item_count": 0,
+    "candidate_swap_work_item_count": 0,
+    "reviewed_source_work_item_count": 0
+  },
+  "families": [
+    {
+      "family_id": "en-es:sentence-veto:like:gustos",
+      "trigger": "like",
+      "support_state": "already_supported",
+      "selected_sense_count": 2,
+      "supported_sense_count": 2,
+      "unsupported_sense_count": 0,
+      "active_target": "gustos",
+      "shadow_targets": [
+        "atraer"
+      ],
+      "unsupported_senses": []
+    },
+    {
+      "family_id": "en-es:sentence-veto:gross:repulsivo",
+      "trigger": "gross",
+      "support_state": "already_supported",
+      "selected_sense_count": 2,
+      "supported_sense_count": 2,
+      "unsupported_sense_count": 0,
+      "active_target": "repulsivo",
+      "shadow_targets": [
+        "gruesa"
+      ],
+      "unsupported_senses": []
+    },
+    {
+      "family_id": "en-es:sentence-veto:cast:lanzamiento",
+      "trigger": "cast",
+      "support_state": "already_supported",
+      "selected_sense_count": 3,
+      "supported_sense_count": 3,
+      "unsupported_sense_count": 0,
+      "active_target": "lanzamiento",
+      "shadow_targets": [
+        "molde",
+        "lanzar"
+      ],
+      "unsupported_senses": []
+    },
+    {
+      "family_id": "en-es:sentence-veto:fix:aprieto",
+      "trigger": "fix",
+      "support_state": "already_supported",
+      "selected_sense_count": 3,
+      "supported_sense_count": 3,
+      "unsupported_sense_count": 0,
+      "active_target": "aprieto",
+      "shadow_targets": [
+        "localización",
+        "reparar"
+      ],
+      "unsupported_senses": []
+    },
+    {
+      "family_id": "en-es:sentence-veto:full:lleno",
+      "trigger": "full",
+      "support_state": "already_supported",
+      "selected_sense_count": 2,
+      "supported_sense_count": 2,
+      "unsupported_sense_count": 0,
+      "active_target": "lleno",
+      "shadow_targets": [
+        "abatanar"
+      ],
+      "unsupported_senses": []
+    },
+    {
+      "family_id": "en-es:sentence-veto:waste:desperdicio",
+      "trigger": "waste",
+      "support_state": "already_supported",
+      "selected_sense_count": 3,
+      "supported_sense_count": 3,
+      "unsupported_sense_count": 0,
+      "active_target": "desperdicio",
+      "shadow_targets": [
+        "baldío",
+        "malgastar"
+      ],
+      "unsupported_senses": []
+    },
+    {
+      "family_id": "en-es:sentence-veto:firm:firma",
+      "trigger": "firm",
+      "support_state": "already_supported",
+      "selected_sense_count": 2,
+      "supported_sense_count": 2,
+      "unsupported_sense_count": 0,
+      "active_target": "firma",
+      "shadow_targets": [
+        "afirmar"
+      ],
+      "unsupported_senses": []
+    },
+    {
+      "family_id": "en-es:sentence-veto:even:tarde",
+      "trigger": "even",
+      "support_state": "already_supported",
+      "selected_sense_count": 2,
+      "supported_sense_count": 2,
+      "unsupported_sense_count": 0,
+      "active_target": "tarde",
+      "shadow_targets": [
+        "allanar"
+      ],
+      "unsupported_senses": []
+    },
+    {
+      "family_id": "en-es:sentence-veto:wrong:incorrecto",
+      "trigger": "wrong",
+      "support_state": "already_supported",
+      "selected_sense_count": 2,
+      "supported_sense_count": 2,
+      "unsupported_sense_count": 0,
+      "active_target": "incorrecto",
+      "shadow_targets": [
+        "herir"
+      ],
+      "unsupported_senses": []
+    },
+    {
+      "family_id": "en-es:sentence-veto:meet:adecuado",
+      "trigger": "meet",
+      "support_state": "already_supported",
+      "selected_sense_count": 2,
+      "supported_sense_count": 2,
+      "unsupported_sense_count": 0,
+      "active_target": "adecuado",
+      "shadow_targets": [
+        "encontrar"
+      ],
+      "unsupported_senses": []
+    },
+    {
+      "family_id": "en-es:sentence-veto:stretch:estir-n",
+      "trigger": "stretch",
+      "support_state": "already_supported",
+      "selected_sense_count": 2,
+      "supported_sense_count": 2,
+      "unsupported_sense_count": 0,
+      "active_target": "estirón",
+      "shadow_targets": [
+        "estirar"
+      ],
+      "unsupported_senses": []
+    },
+    {
+      "family_id": "en-es:sentence-veto:score:tantos",
+      "trigger": "score",
+      "support_state": "already_supported",
+      "selected_sense_count": 3,
+      "supported_sense_count": 3,
+      "unsupported_sense_count": 0,
+      "active_target": "tantos",
+      "shadow_targets": [
+        "marcador",
+        "anotar"
+      ],
+      "unsupported_senses": []
+    },
+    {
+      "family_id": "en-es:sentence-veto:crash:choque",
+      "trigger": "crash",
+      "support_state": "already_supported",
+      "selected_sense_count": 3,
+      "supported_sense_count": 3,
+      "unsupported_sense_count": 0,
+      "active_target": "choque",
+      "shadow_targets": [
+        "fallo",
+        "chocar"
+      ],
+      "unsupported_senses": []
+    },
+    {
+      "family_id": "en-es:sentence-veto:trim:compensador",
+      "trigger": "trim",
+      "support_state": "already_supported",
+      "selected_sense_count": 2,
+      "supported_sense_count": 2,
+      "unsupported_sense_count": 0,
+      "active_target": "compensador",
+      "shadow_targets": [
+        "recortar"
+      ],
+      "unsupported_senses": []
+    },
+    {
+      "family_id": "en-es:sentence-veto:squeeze:crisis",
+      "trigger": "squeeze",
+      "support_state": "already_supported",
+      "selected_sense_count": 2,
+      "supported_sense_count": 2,
+      "unsupported_sense_count": 0,
+      "active_target": "crisis",
+      "shadow_targets": [
+        "apretujar"
+      ],
+      "unsupported_senses": []
+    },
+    {
+      "family_id": "en-es:sentence-veto:foul:falta",
+      "trigger": "foul",
+      "support_state": "already_supported",
+      "selected_sense_count": 2,
+      "supported_sense_count": 2,
+      "unsupported_sense_count": 0,
+      "active_target": "falta",
+      "shadow_targets": [
+        "ensuciar"
+      ],
+      "unsupported_senses": []
+    }
+  ],
+  "support_worklist": [],
+  "limitations": [
+    "conversion_audit_does_not_change_selected_family_targets",
+    "same_pos_alternatives_require_review_and_re_admission_before_use",
+    "forward_only_rows_are_not_promotion_evidence_without_source_support",
+    "phrase_containment_coverage_is_out_of_scope_for_this_audit"
+  ],
+  "next_steps": [
+    "rerun the supported admission sweep and add independent held-out validation"
+  ],
+  "artifacts": {
+    "dataset_json": "docs/test_outputs/experiments/semantic_non_v10_wave_drafts/en_es_source_non_v10_wave7_source_class_breadth_v1_wiktextract_supported_dataset.json"
+  }
+}

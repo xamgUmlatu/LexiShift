@@ -24,24 +24,23 @@
       "validation": "Focused semantic harness tests passed; lane artifacts were regenerated through failure mining; registry audit and doc-reference checks must stay clean before commit."
     },
     {
-      "action": "Execute wave7_source_class_breadth_v1 before treating the current wave6 candidate as promotion-quality evidence.",
-      "action_id": "wave7_source_class_breadth_execution",
-      "evidence_needed": "Blocked until wave7 active/shadow and phrase/no-winner heldout case files exist and at least three non-authorization source-detectable semantic-class detector outputs are available.",
+      "action": "Triage the wave7 harmful replacements before changing thresholds or claiming breadth success.",
+      "action_id": "wave7_blocking_failure_triage",
+      "evidence_needed": "Start with the active/shadow harmful case for gross and phrase/no-winner harmful cases for cast, wrong, stretch, score, squeeze, and foul; keep the five active false abstains for like, fix, full, even, and meet as tracked residuals.",
       "pass_id": "best_candidate",
       "priority": "P1",
-      "promotion_impact": "Moves the work from reconciliation into the next evidence-producing breadth gate.",
+      "promotion_impact": "Keeps the breadth lane evidence-producing while preventing accidental threshold tuning against unclassified harm.",
       "source_artifacts": [
-        "breadth_expansion_gate_plan",
-        "wave7_source_class_breadth_runbook",
-        "wave7_exclusion_inventory",
-        "semantic_veto_assumption_ledger",
-        "semantic_veto_archive_consolidation_ledger",
-        "auth_frame_rescue_policy_validation",
-        "auth_frame_failure_mining",
-        "wave6_wiktextract_dataset"
+        "wave7_failure_mining",
+        "wave7_active_shadow_validation",
+        "wave7_phrase_validation",
+        "wave7_rescue_policy_validation",
+        "wave7_source_admission_report",
+        "wave7_source_class_frame_report",
+        "source_class_frame_adapter"
       ],
-      "status": "blocked",
-      "validation": "Run the breadth gate artifacts named in semantic_veto_wave7_source_class_breadth_runbook.md, then regenerate the registry summary and doc-reference checks."
+      "status": "queued",
+      "validation": "Rerun source-class evidence, admission, heldout validation, rescue validation, failure mining, registry summary, focused tests, doc-reference checks, and git diff whitespace checks after any fix."
     },
     {
       "action": "Run the recommended rescue policy through scorer-backed heldout validation before any runtime-policy or promotion claim.",
@@ -74,6 +73,37 @@
       ],
       "status": "done",
       "validation": "Adapter tests passed; auth-frame branch was regenerated; targeted leakage audit found 0 heldout sentence or Spanish target-lemma violations across 54 heldout sentences."
+    },
+    {
+      "action": "Execute wave7_source_class_breadth_v1 before treating the current wave6 candidate as promotion-quality evidence.",
+      "action_id": "wave7_source_class_breadth_execution",
+      "evidence_needed": "Wave7 was executed with 16 fully supported families, 7 non-authorization source-class buckets, 32 active/shadow cases, and 16 phrase/no-winner cases; the gate failed with heldout harmful replacements and false abstains recorded in failure mining.",
+      "pass_id": "best_candidate",
+      "priority": "P1",
+      "promotion_impact": "Confirms the current wave6 candidate remains research-only and routes the next pass to wave7 blocker triage instead of promotion or runtime-policy work.",
+      "source_artifacts": [
+        "breadth_expansion_gate_plan",
+        "wave7_source_class_breadth_runbook",
+        "wave7_exclusion_inventory",
+        "source_class_frame_adapter",
+        "wave7_supported_dataset",
+        "wave7_source_class_frame_report",
+        "wave7_evidence_composite",
+        "wave7_source_admission_report",
+        "wave7_active_shadow_heldout",
+        "wave7_phrase_heldout",
+        "wave7_active_shadow_validation",
+        "wave7_phrase_validation",
+        "wave7_rescue_policy_validation",
+        "wave7_failure_mining",
+        "semantic_veto_assumption_ledger",
+        "semantic_veto_archive_consolidation_ledger",
+        "auth_frame_rescue_policy_validation",
+        "auth_frame_failure_mining",
+        "wave6_wiktextract_dataset"
+      ],
+      "status": "done",
+      "validation": "Admission reached 16/16 semantic contract but status review; scorer-backed rescue validation found 7 harmful replacements and 5 false abstains across 48 locked cases; failure mining records semantic-risk blockers."
     },
     {
       "action": "Create the wave7 execution runbook, artifact map, and tracked exclusion manifest before running the breadth gate.",
@@ -158,12 +188,12 @@
   "component_counts": {
     "candidate_wave6": 11,
     "decision_research": 7,
-    "diagnostics": 3,
-    "evaluation_data": 4,
+    "diagnostics": 4,
+    "evaluation_data": 7,
     "historical_or_seed": 6,
     "process_governance": 7,
     "runtime_path": 16,
-    "source_admission": 8
+    "source_admission": 15
   },
   "current_candidate": {
     "candidate_id": "wave6_auth_frame_raw_sentence_surface_pos_rescue",
@@ -737,6 +767,22 @@
       ]
     },
     {
+      "artifact_id": "source_class_frame_adapter",
+      "component": "source_admission",
+      "current_use": "Current adapter for the wave7 source-class breadth gate.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
+      "path": "scripts/testing/semantic_source_class_frame_evidence_en_es.py",
+      "risk": "Class templates can add generic evidence that helps or hurts scorer behavior unless heldout failures are mined.",
+      "role": "Builds deterministic non-authorization semantic-class frame rows from source-backed gloss and translation-sense text.",
+      "state": "current_research",
+      "title": "Source-class frame evidence adapter",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_source_class_frame_evidence_en_es.py",
+        "docs/test_outputs/semantic_source_class_frame_evidence_wave7_source_class_breadth_v1_latest.md"
+      ]
+    },
+    {
       "artifact_id": "source_frame_gap_plan_harness",
       "component": "source_admission",
       "current_use": "Generation-planning surface; not generated evidence and not admission by itself.",
@@ -814,6 +860,21 @@
       ]
     },
     {
+      "artifact_id": "wave7_active_shadow_heldout",
+      "component": "evaluation_data",
+      "current_use": "Primary wave7 heldout gate input.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
+      "path": "docs/test_inputs/semantic_routing_cases/en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases.json",
+      "risk": "Changing locked cases after failure mining would erase the measured blocker boundary.",
+      "role": "Locked 32-case active/shadow validation suite for wave7_source_class_breadth_v1.",
+      "state": "current_reference",
+      "title": "Wave7 active/shadow heldout suite",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_heldout_validation_latest.md"
+      ]
+    },
+    {
       "artifact_id": "wave7_exclusion_inventory",
       "component": "evaluation_data",
       "current_use": "Excludes prior v10, seed, wave2, wave5, and wave6 triggers before wave7 inventory selection.",
@@ -826,6 +887,21 @@
       "title": "Wave7 exclusion trigger inventory",
       "verification_artifacts": [
         "scripts/testing/semantic_non_v10_inventory_candidates_en_es.py"
+      ]
+    },
+    {
+      "artifact_id": "wave7_phrase_heldout",
+      "component": "evaluation_data",
+      "current_use": "Phrase/no-winner wave7 heldout gate input.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
+      "path": "docs/test_inputs/semantic_routing_cases/en_es_source_non_v10_wave7_source_class_breadth_v1_phrase_cases.json",
+      "risk": "Phrase harms can be hidden if this suite is treated as optional.",
+      "role": "Locked 16-case phrase/no-winner validation suite for wave7_source_class_breadth_v1.",
+      "state": "current_reference",
+      "title": "Wave7 phrase/no-winner heldout suite",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_validation_latest.md"
       ]
     },
     {
@@ -1059,6 +1135,37 @@
       ]
     },
     {
+      "artifact_id": "wave7_failure_mining",
+      "component": "diagnostics",
+      "current_use": "Current next-pass starting point for wave7 blocker triage.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_reconciliation_workstream.md",
+      "path": "docs/test_outputs/semantic_source_failure_class_mining_wave7_source_class_breadth_v1_latest.md",
+      "risk": "The breadth gate can be misreported as passed if this review result is skipped.",
+      "role": "Classifies wave7 source-admission, heldout, and rescue-validation blockers.",
+      "state": "generated_evidence",
+      "title": "Wave7 failure-class mining",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_source_failure_class_mining_wave7_source_class_breadth_v1_latest.json"
+      ]
+    },
+    {
+      "artifact_id": "wave7_supported_dataset",
+      "component": "evaluation_data",
+      "current_use": "Executed wave7 breadth-gate base dataset.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
+      "path": "docs/test_outputs/experiments/semantic_non_v10_wave_drafts/en_es_source_non_v10_wave7_source_class_breadth_v1_wiktextract_supported_dataset.json",
+      "risk": "Generated experiment output can be mistaken for stable architecture authority.",
+      "role": "Selected 16-family wave7 dataset after Wiktextract support overlay.",
+      "state": "generated_evidence",
+      "title": "Wave7 Wiktextract-supported selected dataset",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_wiktextract_translation_support_wave7_source_class_breadth_v1_latest.md",
+        "docs/test_outputs/semantic_non_v10_source_support_conversion_wave7_source_class_breadth_v1_wiktextract_supported_latest.md"
+      ]
+    },
+    {
       "artifact_id": "alternate_sense_phrase_admission_report",
       "component": "source_admission",
       "current_use": "Intermediate current-lane control composite; auth-frame admission layers deterministic authorization rows on top of it.",
@@ -1088,6 +1195,96 @@
       "verification_artifacts": [
         "docs/test_outputs/semantic_source_admission_cycle_translation_sense_non_v10_wave6_wiktextract_supported_latest.json",
         "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-translation-sense-non-v10-wave6-wiktextract-supported-v1-latest_cycle_sense_admitted_normalized_evidence.json"
+      ]
+    },
+    {
+      "artifact_id": "wave7_active_shadow_validation",
+      "component": "source_admission",
+      "current_use": "Records 1 harmful replacement and 5 false abstains across 32 active/shadow cases.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
+      "path": "docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_heldout_validation_latest.md",
+      "risk": "False abstains and one harmful replacement block breadth-gate success.",
+      "role": "Scorer-backed active/shadow heldout validation for wave7.",
+      "state": "generated_evidence",
+      "title": "Wave7 active/shadow heldout validation",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_heldout_validation_latest.json"
+      ]
+    },
+    {
+      "artifact_id": "wave7_evidence_composite",
+      "component": "source_admission",
+      "current_use": "Candidate evidence batch for wave7 source-admission cycle.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
+      "path": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-wave7-source-class-breadth-v1-evidence-composite_normalized_evidence.json",
+      "risk": "Composite evidence can mask which source family caused a heldout miss unless failure mining stays linked.",
+      "role": "Merged WordNet, translation-sense, and source-class frame evidence used for wave7 admission.",
+      "state": "generated_evidence",
+      "title": "Wave7 merged evidence composite",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_example_frame_batch_merge_wave7_source_class_breadth_v1_latest.md"
+      ]
+    },
+    {
+      "artifact_id": "wave7_phrase_validation",
+      "component": "source_admission",
+      "current_use": "Records 6 harmful replacements across 16 phrase/no-winner cases.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
+      "path": "docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_validation_latest.md",
+      "risk": "Phrase harms block breadth-gate success and must be classified before tuning.",
+      "role": "Scorer-backed phrase/no-winner heldout validation for wave7.",
+      "state": "generated_evidence",
+      "title": "Wave7 phrase/no-winner heldout validation",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_validation_latest.json"
+      ]
+    },
+    {
+      "artifact_id": "wave7_rescue_policy_validation",
+      "component": "source_admission",
+      "current_use": "Records 7 harmful replacements and 5 false abstains across 48 cases.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
+      "path": "docs/test_outputs/semantic_surface_pos_rescue_policy_validation_wave7_source_class_breadth_v1_latest.md",
+      "risk": "The wave6 rescue posture does not transfer cleanly to wave7 breadth.",
+      "role": "Scorer-backed rescue-policy validation over the combined wave7 heldout suites.",
+      "state": "generated_evidence",
+      "title": "Wave7 rescue policy validation",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_surface_pos_rescue_policy_validation_wave7_source_class_breadth_v1_latest.json"
+      ]
+    },
+    {
+      "artifact_id": "wave7_source_admission_report",
+      "component": "source_admission",
+      "current_use": "Executed wave7 admission evidence; status is review.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
+      "path": "docs/test_outputs/semantic_source_admission_cycle_wave7_source_class_breadth_v1_latest.md",
+      "risk": "The 16/16 semantic contract can be mistaken for a pass despite leakage rejects, phrase gaps, and heldout failures.",
+      "role": "Admission, leakage, merge, and sense-discrimination report for wave7 evidence.",
+      "state": "generated_evidence",
+      "title": "Wave7 source-admission report",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_source_failure_class_mining_wave7_source_class_breadth_v1_latest.md"
+      ]
+    },
+    {
+      "artifact_id": "wave7_source_class_frame_report",
+      "component": "source_admission",
+      "current_use": "Wave7 source-class breadth evidence input.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
+      "path": "docs/test_outputs/semantic_source_class_frame_evidence_wave7_source_class_breadth_v1_latest.md",
+      "risk": "Source-class breadth can look sufficient even when downstream heldout behavior fails.",
+      "role": "Reports seven non-authorization source-detectable semantic classes and their deterministic frame rows.",
+      "state": "generated_evidence",
+      "title": "Wave7 source-class frame evidence report",
+      "verification_artifacts": [
+        "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-source-class-frame-non-v10-wave7-source-class-breadth-v1-latest_normalized_evidence.json"
       ]
     },
     {
@@ -1196,8 +1393,8 @@
       ]
     }
   ],
-  "entry_count": 62,
-  "generated_at": "2026-04-30T17:49:39Z",
+  "entry_count": 73,
+  "generated_at": "2026-04-30T18:10:30Z",
   "issues": [],
   "next_passes": [],
   "pass_count": 7,
@@ -1811,6 +2008,22 @@
       ]
     },
     {
+      "artifact_id": "source_class_frame_adapter",
+      "component": "source_admission",
+      "current_use": "Current adapter for the wave7 source-class breadth gate.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
+      "path": "scripts/testing/semantic_source_class_frame_evidence_en_es.py",
+      "risk": "Class templates can add generic evidence that helps or hurts scorer behavior unless heldout failures are mined.",
+      "role": "Builds deterministic non-authorization semantic-class frame rows from source-backed gloss and translation-sense text.",
+      "state": "current_research",
+      "title": "Source-class frame evidence adapter",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_source_class_frame_evidence_en_es.py",
+        "docs/test_outputs/semantic_source_class_frame_evidence_wave7_source_class_breadth_v1_latest.md"
+      ]
+    },
+    {
       "artifact_id": "source_frame_gap_plan_harness",
       "component": "source_admission",
       "current_use": "Generation-planning surface; not generated evidence and not admission by itself.",
@@ -1888,6 +2101,21 @@
       ]
     },
     {
+      "artifact_id": "wave7_active_shadow_heldout",
+      "component": "evaluation_data",
+      "current_use": "Primary wave7 heldout gate input.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
+      "path": "docs/test_inputs/semantic_routing_cases/en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases.json",
+      "risk": "Changing locked cases after failure mining would erase the measured blocker boundary.",
+      "role": "Locked 32-case active/shadow validation suite for wave7_source_class_breadth_v1.",
+      "state": "current_reference",
+      "title": "Wave7 active/shadow heldout suite",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_heldout_validation_latest.md"
+      ]
+    },
+    {
       "artifact_id": "wave7_exclusion_inventory",
       "component": "evaluation_data",
       "current_use": "Excludes prior v10, seed, wave2, wave5, and wave6 triggers before wave7 inventory selection.",
@@ -1900,6 +2128,21 @@
       "title": "Wave7 exclusion trigger inventory",
       "verification_artifacts": [
         "scripts/testing/semantic_non_v10_inventory_candidates_en_es.py"
+      ]
+    },
+    {
+      "artifact_id": "wave7_phrase_heldout",
+      "component": "evaluation_data",
+      "current_use": "Phrase/no-winner wave7 heldout gate input.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
+      "path": "docs/test_inputs/semantic_routing_cases/en_es_source_non_v10_wave7_source_class_breadth_v1_phrase_cases.json",
+      "risk": "Phrase harms can be hidden if this suite is treated as optional.",
+      "role": "Locked 16-case phrase/no-winner validation suite for wave7_source_class_breadth_v1.",
+      "state": "current_reference",
+      "title": "Wave7 phrase/no-winner heldout suite",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_validation_latest.md"
       ]
     },
     {
@@ -2133,6 +2376,37 @@
       ]
     },
     {
+      "artifact_id": "wave7_failure_mining",
+      "component": "diagnostics",
+      "current_use": "Current next-pass starting point for wave7 blocker triage.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_reconciliation_workstream.md",
+      "path": "docs/test_outputs/semantic_source_failure_class_mining_wave7_source_class_breadth_v1_latest.md",
+      "risk": "The breadth gate can be misreported as passed if this review result is skipped.",
+      "role": "Classifies wave7 source-admission, heldout, and rescue-validation blockers.",
+      "state": "generated_evidence",
+      "title": "Wave7 failure-class mining",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_source_failure_class_mining_wave7_source_class_breadth_v1_latest.json"
+      ]
+    },
+    {
+      "artifact_id": "wave7_supported_dataset",
+      "component": "evaluation_data",
+      "current_use": "Executed wave7 breadth-gate base dataset.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
+      "path": "docs/test_outputs/experiments/semantic_non_v10_wave_drafts/en_es_source_non_v10_wave7_source_class_breadth_v1_wiktextract_supported_dataset.json",
+      "risk": "Generated experiment output can be mistaken for stable architecture authority.",
+      "role": "Selected 16-family wave7 dataset after Wiktextract support overlay.",
+      "state": "generated_evidence",
+      "title": "Wave7 Wiktextract-supported selected dataset",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_wiktextract_translation_support_wave7_source_class_breadth_v1_latest.md",
+        "docs/test_outputs/semantic_non_v10_source_support_conversion_wave7_source_class_breadth_v1_wiktextract_supported_latest.md"
+      ]
+    },
+    {
       "artifact_id": "alternate_sense_phrase_admission_report",
       "component": "source_admission",
       "current_use": "Intermediate current-lane control composite; auth-frame admission layers deterministic authorization rows on top of it.",
@@ -2165,6 +2439,96 @@
       ]
     },
     {
+      "artifact_id": "wave7_active_shadow_validation",
+      "component": "source_admission",
+      "current_use": "Records 1 harmful replacement and 5 false abstains across 32 active/shadow cases.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
+      "path": "docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_heldout_validation_latest.md",
+      "risk": "False abstains and one harmful replacement block breadth-gate success.",
+      "role": "Scorer-backed active/shadow heldout validation for wave7.",
+      "state": "generated_evidence",
+      "title": "Wave7 active/shadow heldout validation",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_heldout_validation_latest.json"
+      ]
+    },
+    {
+      "artifact_id": "wave7_evidence_composite",
+      "component": "source_admission",
+      "current_use": "Candidate evidence batch for wave7 source-admission cycle.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
+      "path": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-wave7-source-class-breadth-v1-evidence-composite_normalized_evidence.json",
+      "risk": "Composite evidence can mask which source family caused a heldout miss unless failure mining stays linked.",
+      "role": "Merged WordNet, translation-sense, and source-class frame evidence used for wave7 admission.",
+      "state": "generated_evidence",
+      "title": "Wave7 merged evidence composite",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_example_frame_batch_merge_wave7_source_class_breadth_v1_latest.md"
+      ]
+    },
+    {
+      "artifact_id": "wave7_phrase_validation",
+      "component": "source_admission",
+      "current_use": "Records 6 harmful replacements across 16 phrase/no-winner cases.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
+      "path": "docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_validation_latest.md",
+      "risk": "Phrase harms block breadth-gate success and must be classified before tuning.",
+      "role": "Scorer-backed phrase/no-winner heldout validation for wave7.",
+      "state": "generated_evidence",
+      "title": "Wave7 phrase/no-winner heldout validation",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_validation_latest.json"
+      ]
+    },
+    {
+      "artifact_id": "wave7_rescue_policy_validation",
+      "component": "source_admission",
+      "current_use": "Records 7 harmful replacements and 5 false abstains across 48 cases.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
+      "path": "docs/test_outputs/semantic_surface_pos_rescue_policy_validation_wave7_source_class_breadth_v1_latest.md",
+      "risk": "The wave6 rescue posture does not transfer cleanly to wave7 breadth.",
+      "role": "Scorer-backed rescue-policy validation over the combined wave7 heldout suites.",
+      "state": "generated_evidence",
+      "title": "Wave7 rescue policy validation",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_surface_pos_rescue_policy_validation_wave7_source_class_breadth_v1_latest.json"
+      ]
+    },
+    {
+      "artifact_id": "wave7_source_admission_report",
+      "component": "source_admission",
+      "current_use": "Executed wave7 admission evidence; status is review.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
+      "path": "docs/test_outputs/semantic_source_admission_cycle_wave7_source_class_breadth_v1_latest.md",
+      "risk": "The 16/16 semantic contract can be mistaken for a pass despite leakage rejects, phrase gaps, and heldout failures.",
+      "role": "Admission, leakage, merge, and sense-discrimination report for wave7 evidence.",
+      "state": "generated_evidence",
+      "title": "Wave7 source-admission report",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_source_failure_class_mining_wave7_source_class_breadth_v1_latest.md"
+      ]
+    },
+    {
+      "artifact_id": "wave7_source_class_frame_report",
+      "component": "source_admission",
+      "current_use": "Wave7 source-class breadth evidence input.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
+      "path": "docs/test_outputs/semantic_source_class_frame_evidence_wave7_source_class_breadth_v1_latest.md",
+      "risk": "Source-class breadth can look sufficient even when downstream heldout behavior fails.",
+      "role": "Reports seven non-authorization source-detectable semantic classes and their deterministic frame rows.",
+      "state": "generated_evidence",
+      "title": "Wave7 source-class frame evidence report",
+      "verification_artifacts": [
+        "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-source-class-frame-non-v10-wave7-source-class-breadth-v1-latest_normalized_evidence.json"
+      ]
+    },
+    {
       "artifact_id": "runtime_diagnostics_semantic_surfaces",
       "component": "diagnostics",
       "current_use": "Diagnostic evidence only; it does not decide browser replace or abstain outcomes.",
@@ -2183,11 +2547,11 @@
   "schema_version": 1,
   "state_counts": {
     "current_candidate": 5,
-    "current_reference": 10,
-    "current_research": 13,
+    "current_reference": 12,
+    "current_research": 14,
     "current_runtime": 16,
     "diagnostic_only": 1,
-    "generated_evidence": 9,
+    "generated_evidence": 17,
     "historical_reference": 4,
     "superseded": 2,
     "supporting_current": 2
