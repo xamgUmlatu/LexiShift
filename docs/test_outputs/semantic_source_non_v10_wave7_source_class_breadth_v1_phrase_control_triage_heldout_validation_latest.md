@@ -2,7 +2,7 @@
 
 - Status: `review`
 - Decision: `heldout_review`
-- Generated: `2026-04-30T19:17:14Z`
+- Generated: `2026-04-30T20:47:48Z`
 - Base dataset: `en_es_source_non_v10_wave7_source_class_breadth_v1_unsupported_selected`
 - Held-out dataset: `en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases`
 - Case scope: `non_v10_wave7_source_class_breadth_active_shadow`
@@ -15,15 +15,15 @@
 - Gold replacements: `16`
 - Gold abstains: `16`
 - Harmful replacements: `1` / max `0`
-- False abstains: `3` / max `0`
-- Replace recall: `81.2%`
-- Decision accuracy: `87.5%`
+- False abstains: `2` / max `0`
+- Replace recall: `87.5%`
+- Decision accuracy: `90.6%`
 
 ## Configured Row
 
 | Source | Scorer | Context | Margin | Phrase Margin | Shape | Cases | Harmful | False Abstain | Recall | Accuracy |
 | --- | --- | --- | ---: | ---: | --- | ---: | ---: | ---: | ---: | ---: |
-| `promotion_candidate_composite` | `sentence_transformer_cosine` | `raw_sentence` | 0.0 | 0.02 | `active_shadow_phrase_semantic_surface_pos` | 32 | 1 | 3 | 81.2% | 87.5% |
+| `promotion_candidate_composite` | `sentence_transformer_cosine` | `raw_sentence` | 0.0 | 0.02 | `active_shadow_phrase_semantic_surface_pos` | 32 | 1 | 2 | 87.5% | 90.6% |
 
 ## Empty Baseline Comparator
 
@@ -55,13 +55,12 @@
 ## Failure Cases
 
 - Harmful replace cases: `en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002`
-- False abstain cases: `en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001, en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001, en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001`
+- False abstain cases: `en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001, en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001`
 
 | Case | Gold | Predicted | Active | Shadow | Phrase | Margin | Phrase Lead | Active Evidence | Shadow Evidence | Phrase Evidence | Signals |
 | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | --- | --- | --- | --- |
-| `en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002` | `abstain` | `replace` | `0.6767` | `0.6376` | `0.6307` | `0.0391` | `-0.0461` | gross adjective sense: causing disgust | gross noun sense: twelve dozen | lacking fine distinctions or detail example: the gross details of the structure appear reasonable | active_modifier_frame |
+| `en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002` | `abstain` | `replace` | `0.6767` | `0.7145` | `0.6307` | `-0.0378` | `-0.0839` | gross adjective sense: causing disgust | a gross is a count for ordered goods | lacking fine distinctions or detail example: the gross details of the structure appear reasonable | active_modifier_frame |
 | `en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001` | `replace` | `abstain` | `0.626` | `0.7449` | `0.7136` | `-0.1189` | `-0.0313` | fix noun sense: a difficult situation or dilemma | restore something broken | a determination of the place where something is example: he got a good fix on the target | shadow_verb_frame |
-| `en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001` | `replace` | `abstain` | `0.7265` | `0.5392` | `0.5687` | `0.1873` | `-0.1578` | time of evening before nightfall | even verb sense: to make even | symmetrically arranged example: even features | phrase_preempt, at even the |
 | `en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001` | `replace` | `abstain` | `0.5444` | `0.6926` | `0.7272` | `-0.1481` | `0.0347` | suitable and proper | I'll probably see you at the meeting | come together example: I'll probably see you at the meeting | `none` |
 
 ## Limitations

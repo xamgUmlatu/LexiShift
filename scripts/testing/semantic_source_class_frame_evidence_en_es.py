@@ -97,6 +97,7 @@ SEMANTIC_CLASS_DEFINITIONS = (
         templates=(
             "a difficult situation or dilemma",
             "being in a difficult fix",
+            "a serious fix or predicament",
             "a constrained problem situation",
         ),
     ),
@@ -241,6 +242,7 @@ SEMANTIC_CLASS_DEFINITIONS = (
         templates=(
             "twelve dozen",
             "a gross equals twelve dozen",
+            "a gross is a count for ordered goods",
             "a quantity of twelve dozen units",
         ),
     ),

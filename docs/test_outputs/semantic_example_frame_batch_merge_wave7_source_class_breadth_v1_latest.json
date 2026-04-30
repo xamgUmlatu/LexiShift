@@ -1,16 +1,16 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-04-30T19:16:03Z",
+  "generated_at": "2026-04-30T20:46:53Z",
   "status": "ok",
   "batch_id": "en-es:wave7-source-class-breadth-v1:evidence-composite",
   "source_id": "wordnet_translation_sense_source_class_non_v10_wave7_source_class_breadth_v1",
   "summary": {
     "component_count": 3,
-    "row_count": 192,
+    "row_count": 195,
     "family_count": 16,
     "relation_counts": {
-      "anchor_cue": 86,
-      "shadow_candidate": 106
+      "anchor_cue": 88,
+      "shadow_candidate": 107
     }
   },
   "component_batches": [
@@ -40,8 +40,8 @@
       "source_id": "source_class_frame_evidence",
       "source_type": "internal",
       "source_family": "internal_rulegen_artifact",
-      "input_row_count": 87,
-      "accepted_row_count": 87,
+      "input_row_count": 90,
+      "accepted_row_count": 90,
       "duplicate_row_count": 0
     }
   ]

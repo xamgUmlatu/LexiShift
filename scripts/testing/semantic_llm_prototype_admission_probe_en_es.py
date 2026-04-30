@@ -56,6 +56,7 @@ from semantic_llm_prototype_admission_config import (  # noqa: E402
     ACTIVE_MODIFIER_RESCUE_MARGIN_FLOOR,
     DEFAULT_PHRASE_PROTOTYPE_MARGIN,
     PROTOTYPE_CONFIGS,
+    phrase_preemption_should_apply,
 )
 from semantic_reverse_aux_text_pilot_en_es import build_queue_subset_dataset  # noqa: E402
 from semantic_routing_sentence_veto_helpers import (  # noqa: E402
@@ -596,7 +597,20 @@ def _score_case(
         predicted_decision = "abstain"
         predicted_winner = "phrase_control"
         predicted_winner_type = "none"
-    if phrase_signals.phrase_preemption_hit:
+    phrase_preemption_applied = phrase_preemption_should_apply(
+        phrase_preemption_hit=phrase_signals.phrase_preemption_hit,
+        decision_before_phrase_preemption=predicted_decision,
+        active_score=active_score,
+        strongest_shadow_score=strongest_shadow_score,
+        phrase_control_score=phrase_control_score,
+        phrase_prototype_margin=phrase_prototype_margin,
+    )
+    phrase_preemption_blocked_reason = (
+        "strong_active_margin_dominates_phrase_control"
+        if phrase_signals.phrase_preemption_hit and not phrase_preemption_applied
+        else ""
+    )
+    if phrase_preemption_applied:
         predicted_decision = "abstain"
     surface_pos_signal = (
         build_surface_pos_signal(
@@ -682,6 +696,8 @@ def _score_case(
         "phrase_containment_pattern": phrase_containment_match.pattern_text,
         "phrase_containment_reason_code": phrase_containment_match.reason_code,
         "phrase_preemption_hit": bool(phrase_signals.phrase_preemption_hit),
+        "phrase_preemption_applied": phrase_preemption_applied,
+        "phrase_preemption_blocked_reason": phrase_preemption_blocked_reason,
         "matched_phrase_pattern": phrase_signals.matched_phrase_pattern,
         "phrase_reason_code": phrase_signals.phrase_reason_code,
         "active_rescue_applied": active_rescue_applied,

@@ -111,6 +111,23 @@ class SemanticSurfacePosRescuePolicySweepTests(unittest.TestCase):
         first_blocker = blockers["m=0;p=0.02;rescue_active=0;noun_lead=none;modifier_lead=none"][0]
         self.assertEqual(first_blocker["false_abstain_case_ids"], ["active:noun:leave"])
 
+    def test_sweep_replays_strong_active_phrase_preemption_escape(self) -> None:
+        report = build_surface_pos_rescue_policy_sweep_report(
+            active_report=_strong_active_phrase_preemption_report(),
+            phrase_report=_clean_phrase_report(),
+            min_margins=(0.0,),
+            phrase_prototype_margins=(0.02,),
+            rescue_min_active_scores=(0.0,),
+            noun_max_phrase_leads=(None,),
+            modifier_max_phrase_leads=(None,),
+            generated_at="2026-05-01T12:00:00Z",
+        )
+
+        self.assertEqual(report["status"], "ok")
+        active_row = next(row for row in report["rows"] if row["suite_id"] == "active_shadow")
+        self.assertTrue(active_row["passes"])
+        self.assertEqual(active_row["false_abstain_case_ids"], [])
+
 
 def _active_modifier_report() -> dict[str, object]:
     return {
@@ -148,6 +165,27 @@ def _active_unrescuable_noun_report() -> dict[str, object]:
                 "phrase_control_evidence_text": "go away from a place",
                 "surface_pos_signal": "active_noun_frame",
                 "surface_pos_rescue_blocked_reason": "strongest_shadow_not_verb_like",
+            }
+        ],
+    }
+
+
+def _strong_active_phrase_preemption_report() -> dict[str, object]:
+    return {
+        "status": "review",
+        "heldout_dataset_id": "strong_active_phrase_cases",
+        "heldout_case_scope": "active_shadow",
+        "configured_case_results": [
+            {
+                "case_id": "active:phrase:even",
+                "gold_decision": "replace",
+                "active_score": 0.72,
+                "strongest_shadow_score": 0.54,
+                "phrase_control_score": 0.56,
+                "active_evidence_text": "evening glow before nightfall",
+                "phrase_control_evidence_text": "",
+                "phrase_preemption_hit": True,
+                "surface_pos_signal": "",
             }
         ],
     }

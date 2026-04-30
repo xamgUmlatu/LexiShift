@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-04-30T19:16:20Z",
+  "generated_at": "2026-04-30T20:46:54Z",
   "status": "review",
   "decision": "analysis_only",
   "policy": {
@@ -34,9 +34,9 @@
     "leakage_status": "review",
     "leakage_rejected_row_count": 12,
     "sense_status": "review",
-    "sense_rejected_row_count": 29,
-    "pre_sense_merged_row_count": 180,
-    "final_admitted_row_count": 151,
+    "sense_rejected_row_count": 30,
+    "pre_sense_merged_row_count": 183,
+    "final_admitted_row_count": 153,
     "contract_status": "review",
     "semantic_gate_status": "ok",
     "phrase_contract_status": "review",

@@ -23,26 +23,6 @@
     {
       "case_count": 1,
       "case_ids": [
-        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001"
-      ],
-      "decision_error_types": {
-        "false_abstain": 1
-      },
-      "diagnosis": "Phrase preemption overrides a strong active score.",
-      "failure_class": "phrase_preemption_overreach_on_strong_active",
-      "remediation_hypothesis": "Add a focused preemption guard or scorer-backed rerun for strong-active preposition frames.",
-      "remediation_lane": "phrase_preemption_guard",
-      "scalar_policy_warning": "do_not_treat_as_single_threshold_problem",
-      "suite_ids": [
-        "active_shadow"
-      ],
-      "triggers": [
-        "even"
-      ]
-    },
-    {
-      "case_count": 1,
-      "case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001"
       ],
       "decision_error_types": {
@@ -130,7 +110,7 @@
     }
   ],
   "decision": "targeted_remediation_required",
-  "generated_at": "2026-04-30T19:56:00Z",
+  "generated_at": "2026-04-30T20:54:21Z",
   "limitations": [
     "fixed_trace_probe_not_runtime_policy",
     "does_not_rescore_or_regenerate_evidence",
@@ -138,7 +118,6 @@
   ],
   "next_steps": [
     "Repair or split shadow/active evidence for `gross`, `fix`, and similar overlap cases.",
-    "Design a focused phrase-preemption guard for strong-active cases such as `even`.",
     "Audit phrase-control overlap before letting phrase evidence veto active adjective cases.",
     "Constrain surface-POS rescue against phrase/no-winner rows with dominant or close phrase evidence.",
     "Do not tune one global scalar policy yet; the current sweeps have zero combined passing policies.",
@@ -176,11 +155,11 @@
       "failure_class": "shadow_quantity_evidence_underweighted",
       "family_id": "en-es:sentence-veto:gross:repulsivo",
       "gold_decision": "abstain",
-      "margin": 0.0391,
+      "margin": -0.0378,
       "matched_phrase_pattern": "",
       "phrase_control_evidence_text": "lacking fine distinctions or detail example: the gross details of the structure appear reasonable",
       "phrase_control_score": 0.6307,
-      "phrase_lead_to_best": -0.046,
+      "phrase_lead_to_best": -0.0838,
       "phrase_preemption_hit": false,
       "phrase_prototype_margin": 0.02,
       "predicted_decision": "replace",
@@ -191,8 +170,8 @@
       "report_path": "docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout_validation_latest.json",
       "scalar_policy_warning": "do_not_treat_as_single_threshold_problem",
       "sentence": "The shop ordered a gross of pencils.",
-      "strongest_shadow_evidence_text": "gross noun sense: twelve dozen",
-      "strongest_shadow_score": 0.6376,
+      "strongest_shadow_evidence_text": "a gross is a count for ordered goods",
+      "strongest_shadow_score": 0.7145,
       "suite_id": "active_shadow",
       "surface_pos_rescue_blocked_reason": "",
       "surface_pos_signal": "active_modifier_frame",
@@ -228,37 +207,6 @@
       "surface_pos_rescue_blocked_reason": "",
       "surface_pos_signal": "shadow_verb_frame",
       "trigger": "fix"
-    },
-    {
-      "active_evidence_text": "time of evening before nightfall",
-      "active_score": 0.7265,
-      "case_id": "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
-      "decision_error_type": "false_abstain",
-      "diagnosis": "Phrase preemption overrides a strong active score.",
-      "failure_class": "phrase_preemption_overreach_on_strong_active",
-      "family_id": "en-es:sentence-veto:even:tarde",
-      "gold_decision": "replace",
-      "margin": 0.1873,
-      "matched_phrase_pattern": "at even the",
-      "phrase_control_evidence_text": "symmetrically arranged example: even features",
-      "phrase_control_score": 0.5687,
-      "phrase_lead_to_best": -0.1578,
-      "phrase_preemption_hit": true,
-      "phrase_prototype_margin": 0.02,
-      "predicted_decision": "abstain",
-      "predicted_winner": "en-es:sentence-veto:even:tarde:active",
-      "predicted_winner_type": "active",
-      "remediation_hypothesis": "Add a focused preemption guard or scorer-backed rerun for strong-active preposition frames.",
-      "remediation_lane": "phrase_preemption_guard",
-      "report_path": "docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout_validation_latest.json",
-      "scalar_policy_warning": "do_not_treat_as_single_threshold_problem",
-      "sentence": "At even, the village lamps began to glow.",
-      "strongest_shadow_evidence_text": "even verb sense: to make even",
-      "strongest_shadow_score": 0.5392,
-      "suite_id": "active_shadow",
-      "surface_pos_rescue_blocked_reason": "",
-      "surface_pos_signal": "",
-      "trigger": "even"
     },
     {
       "active_evidence_text": "suitable and proper",
@@ -483,7 +431,7 @@
     "active_report": {
       "case_count": 32,
       "decision": "heldout_review",
-      "false_abstain_count": 3,
+      "false_abstain_count": 2,
       "harmful_replace_count": 1,
       "heldout_case_scope": "non_v10_wave7_source_class_breadth_active_shadow",
       "heldout_dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases",
@@ -503,19 +451,18 @@
   },
   "status": "review",
   "summary": {
-    "active_shadow_failure_count": 4,
+    "active_shadow_failure_count": 3,
     "combined_passing_policy_count": 0,
-    "failure_class_count": 6,
-    "false_abstain_count": 3,
+    "failure_class_count": 5,
+    "false_abstain_count": 2,
     "harmful_replace_count": 7,
     "phrase_no_winner_failure_count": 6,
     "remediation_lanes": [
       "overlap_evidence_repair",
       "phrase_no_winner_rescue_guard",
-      "phrase_preemption_guard",
       "shadow_evidence_repair"
     ],
-    "residual_case_count": 10,
+    "residual_case_count": 9,
     "scalar_policy_pass_available": false
   }
 }

@@ -2,18 +2,18 @@
   "schema_version": 1,
   "status": "review",
   "decision": "rescue_policy_review",
-  "generated_at": "2026-04-30T19:18:09Z",
+  "generated_at": "2026-04-30T20:48:47Z",
   "score_surface": {
     "active_report": {
       "path": "docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout_validation_latest.json",
-      "sha256": "6a6fa0e7065a4ff51f7dd2d417c6e3900a1758c3e047ebd780eb511b4c70bb3b",
+      "sha256": "3a618be2eb336c2618c38162d6400859f905bbd8e0f8e6f222199718a6af78e3",
       "status": "review",
       "heldout_dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases",
       "case_scope": "non_v10_wave7_source_class_breadth_active_shadow"
     },
     "phrase_report": {
       "path": "docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase_validation_latest.json",
-      "sha256": "03ba15e294d3a0651a65f82061deba85a2e2b5050aa02ef4a0d34dbc93653fcb",
+      "sha256": "3d081d5d6493dad0fda20e1b3d52b5e5cca784d6f3e8aa5c6b8f43b058179e8c",
       "status": "review",
       "heldout_dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_phrase_cases",
       "case_scope": "non_v10_wave7_source_class_breadth_phrase_no_winner"
@@ -71,19 +71,19 @@
         "gold_replace_cases": 16,
         "gold_abstain_cases": 16,
         "harmful_replace_count": 1,
-        "false_abstain_count": 3,
+        "false_abstain_count": 2,
         "harmful_replace_case_ids": [
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
         ],
         "false_abstain_case_ids": [
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
         ],
-        "replace_recall": 0.8125,
-        "decision_accuracy": 0.875,
-        "active_rescue_applied_count": 6,
+        "replace_recall": 0.875,
+        "decision_accuracy": 0.9062,
+        "active_rescue_applied_count": 7,
         "active_rescue_case_ids": [
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
@@ -110,19 +110,19 @@
         "gold_replace_cases": 16,
         "gold_abstain_cases": 16,
         "harmful_replace_count": 1,
-        "false_abstain_count": 3,
+        "false_abstain_count": 2,
         "harmful_replace_case_ids": [
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
         ],
         "false_abstain_case_ids": [
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
         ],
-        "replace_recall": 0.8125,
-        "decision_accuracy": 0.875,
-        "active_rescue_applied_count": 6,
+        "replace_recall": 0.875,
+        "decision_accuracy": 0.9062,
+        "active_rescue_applied_count": 7,
         "active_rescue_case_ids": [
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
@@ -149,19 +149,19 @@
         "gold_replace_cases": 16,
         "gold_abstain_cases": 16,
         "harmful_replace_count": 1,
-        "false_abstain_count": 3,
+        "false_abstain_count": 2,
         "harmful_replace_case_ids": [
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
         ],
         "false_abstain_case_ids": [
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
         ],
-        "replace_recall": 0.8125,
-        "decision_accuracy": 0.875,
-        "active_rescue_applied_count": 6,
+        "replace_recall": 0.875,
+        "decision_accuracy": 0.9062,
+        "active_rescue_applied_count": 7,
         "active_rescue_case_ids": [
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
@@ -188,19 +188,19 @@
         "gold_replace_cases": 16,
         "gold_abstain_cases": 16,
         "harmful_replace_count": 1,
-        "false_abstain_count": 3,
+        "false_abstain_count": 2,
         "harmful_replace_case_ids": [
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
         ],
         "false_abstain_case_ids": [
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
         ],
-        "replace_recall": 0.8125,
-        "decision_accuracy": 0.875,
-        "active_rescue_applied_count": 6,
+        "replace_recall": 0.875,
+        "decision_accuracy": 0.9062,
+        "active_rescue_applied_count": 7,
         "active_rescue_case_ids": [
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
@@ -227,19 +227,19 @@
         "gold_replace_cases": 16,
         "gold_abstain_cases": 16,
         "harmful_replace_count": 1,
-        "false_abstain_count": 3,
+        "false_abstain_count": 2,
         "harmful_replace_case_ids": [
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
         ],
         "false_abstain_case_ids": [
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
         ],
-        "replace_recall": 0.8125,
-        "decision_accuracy": 0.875,
-        "active_rescue_applied_count": 6,
+        "replace_recall": 0.875,
+        "decision_accuracy": 0.9062,
+        "active_rescue_applied_count": 7,
         "active_rescue_case_ids": [
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
@@ -266,19 +266,19 @@
         "gold_replace_cases": 16,
         "gold_abstain_cases": 16,
         "harmful_replace_count": 1,
-        "false_abstain_count": 3,
+        "false_abstain_count": 2,
         "harmful_replace_case_ids": [
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
         ],
         "false_abstain_case_ids": [
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
         ],
-        "replace_recall": 0.8125,
-        "decision_accuracy": 0.875,
-        "active_rescue_applied_count": 6,
+        "replace_recall": 0.875,
+        "decision_accuracy": 0.9062,
+        "active_rescue_applied_count": 7,
         "active_rescue_case_ids": [
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
@@ -305,19 +305,19 @@
         "gold_replace_cases": 16,
         "gold_abstain_cases": 16,
         "harmful_replace_count": 1,
-        "false_abstain_count": 3,
+        "false_abstain_count": 2,
         "harmful_replace_case_ids": [
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
         ],
         "false_abstain_case_ids": [
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
         ],
-        "replace_recall": 0.8125,
-        "decision_accuracy": 0.875,
-        "active_rescue_applied_count": 6,
+        "replace_recall": 0.875,
+        "decision_accuracy": 0.9062,
+        "active_rescue_applied_count": 7,
         "active_rescue_case_ids": [
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
@@ -344,19 +344,19 @@
         "gold_replace_cases": 16,
         "gold_abstain_cases": 16,
         "harmful_replace_count": 1,
-        "false_abstain_count": 3,
+        "false_abstain_count": 2,
         "harmful_replace_case_ids": [
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
         ],
         "false_abstain_case_ids": [
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
         ],
-        "replace_recall": 0.8125,
-        "decision_accuracy": 0.875,
-        "active_rescue_applied_count": 6,
+        "replace_recall": 0.875,
+        "decision_accuracy": 0.9062,
+        "active_rescue_applied_count": 7,
         "active_rescue_case_ids": [
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
@@ -383,19 +383,19 @@
         "gold_replace_cases": 16,
         "gold_abstain_cases": 16,
         "harmful_replace_count": 1,
-        "false_abstain_count": 3,
+        "false_abstain_count": 2,
         "harmful_replace_case_ids": [
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
         ],
         "false_abstain_case_ids": [
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
         ],
-        "replace_recall": 0.8125,
-        "decision_accuracy": 0.875,
-        "active_rescue_applied_count": 6,
+        "replace_recall": 0.875,
+        "decision_accuracy": 0.9062,
+        "active_rescue_applied_count": 7,
         "active_rescue_case_ids": [
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
@@ -422,19 +422,19 @@
         "gold_replace_cases": 16,
         "gold_abstain_cases": 16,
         "harmful_replace_count": 1,
-        "false_abstain_count": 3,
+        "false_abstain_count": 2,
         "harmful_replace_case_ids": [
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
         ],
         "false_abstain_case_ids": [
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
         ],
-        "replace_recall": 0.8125,
-        "decision_accuracy": 0.875,
-        "active_rescue_applied_count": 6,
+        "replace_recall": 0.875,
+        "decision_accuracy": 0.9062,
+        "active_rescue_applied_count": 7,
         "active_rescue_case_ids": [
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
@@ -461,19 +461,19 @@
         "gold_replace_cases": 16,
         "gold_abstain_cases": 16,
         "harmful_replace_count": 1,
-        "false_abstain_count": 3,
+        "false_abstain_count": 2,
         "harmful_replace_case_ids": [
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
         ],
         "false_abstain_case_ids": [
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
         ],
-        "replace_recall": 0.8125,
-        "decision_accuracy": 0.875,
-        "active_rescue_applied_count": 6,
+        "replace_recall": 0.875,
+        "decision_accuracy": 0.9062,
+        "active_rescue_applied_count": 7,
         "active_rescue_case_ids": [
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
@@ -500,19 +500,19 @@
         "gold_replace_cases": 16,
         "gold_abstain_cases": 16,
         "harmful_replace_count": 1,
-        "false_abstain_count": 3,
+        "false_abstain_count": 2,
         "harmful_replace_case_ids": [
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
         ],
         "false_abstain_case_ids": [
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
         ],
-        "replace_recall": 0.8125,
-        "decision_accuracy": 0.875,
-        "active_rescue_applied_count": 6,
+        "replace_recall": 0.875,
+        "decision_accuracy": 0.9062,
+        "active_rescue_applied_count": 7,
         "active_rescue_case_ids": [
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
           "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
@@ -530,13 +530,12 @@
         {
           "suite_id": "active_shadow",
           "harmful_replace_count": 1,
-          "false_abstain_count": 3,
+          "false_abstain_count": 2,
           "harmful_replace_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
           ],
           "false_abstain_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
           ]
         },
@@ -559,13 +558,12 @@
         {
           "suite_id": "active_shadow",
           "harmful_replace_count": 1,
-          "false_abstain_count": 4,
+          "false_abstain_count": 3,
           "harmful_replace_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
           ],
           "false_abstain_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
           ]
@@ -588,13 +586,12 @@
         {
           "suite_id": "active_shadow",
           "harmful_replace_count": 1,
-          "false_abstain_count": 3,
+          "false_abstain_count": 2,
           "harmful_replace_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
           ],
           "false_abstain_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
           ]
         },
@@ -617,13 +614,12 @@
         {
           "suite_id": "active_shadow",
           "harmful_replace_count": 1,
-          "false_abstain_count": 3,
+          "false_abstain_count": 2,
           "harmful_replace_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
           ],
           "false_abstain_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
           ]
         },
@@ -646,13 +642,12 @@
         {
           "suite_id": "active_shadow",
           "harmful_replace_count": 1,
-          "false_abstain_count": 3,
+          "false_abstain_count": 2,
           "harmful_replace_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
           ],
           "false_abstain_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
           ]
         },
@@ -675,13 +670,12 @@
         {
           "suite_id": "active_shadow",
           "harmful_replace_count": 1,
-          "false_abstain_count": 3,
+          "false_abstain_count": 2,
           "harmful_replace_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
           ],
           "false_abstain_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
           ]
         },
@@ -704,13 +698,12 @@
         {
           "suite_id": "active_shadow",
           "harmful_replace_count": 1,
-          "false_abstain_count": 4,
+          "false_abstain_count": 3,
           "harmful_replace_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
           ],
           "false_abstain_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
           ]
@@ -733,13 +726,12 @@
         {
           "suite_id": "active_shadow",
           "harmful_replace_count": 1,
-          "false_abstain_count": 3,
+          "false_abstain_count": 2,
           "harmful_replace_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
           ],
           "false_abstain_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
           ]
         },
@@ -762,13 +754,12 @@
         {
           "suite_id": "active_shadow",
           "harmful_replace_count": 1,
-          "false_abstain_count": 3,
+          "false_abstain_count": 2,
           "harmful_replace_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
           ],
           "false_abstain_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
           ]
         },
@@ -791,13 +782,12 @@
         {
           "suite_id": "active_shadow",
           "harmful_replace_count": 1,
-          "false_abstain_count": 3,
+          "false_abstain_count": 2,
           "harmful_replace_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
           ],
           "false_abstain_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
           ]
         },
@@ -820,13 +810,12 @@
         {
           "suite_id": "active_shadow",
           "harmful_replace_count": 1,
-          "false_abstain_count": 3,
+          "false_abstain_count": 2,
           "harmful_replace_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
           ],
           "false_abstain_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
           ]
         },
@@ -849,13 +838,12 @@
         {
           "suite_id": "active_shadow",
           "harmful_replace_count": 1,
-          "false_abstain_count": 4,
+          "false_abstain_count": 3,
           "harmful_replace_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
           ],
           "false_abstain_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
           ]
@@ -878,13 +866,12 @@
         {
           "suite_id": "active_shadow",
           "harmful_replace_count": 1,
-          "false_abstain_count": 3,
+          "false_abstain_count": 2,
           "harmful_replace_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
           ],
           "false_abstain_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
           ]
         },
@@ -907,13 +894,12 @@
         {
           "suite_id": "active_shadow",
           "harmful_replace_count": 1,
-          "false_abstain_count": 3,
+          "false_abstain_count": 2,
           "harmful_replace_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
           ],
           "false_abstain_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
           ]
         },
@@ -936,13 +922,12 @@
         {
           "suite_id": "active_shadow",
           "harmful_replace_count": 1,
-          "false_abstain_count": 3,
+          "false_abstain_count": 2,
           "harmful_replace_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
           ],
           "false_abstain_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
           ]
         },
@@ -965,13 +950,12 @@
         {
           "suite_id": "active_shadow",
           "harmful_replace_count": 1,
-          "false_abstain_count": 3,
+          "false_abstain_count": 2,
           "harmful_replace_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
           ],
           "false_abstain_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
           ]
         },
@@ -994,13 +978,12 @@
         {
           "suite_id": "active_shadow",
           "harmful_replace_count": 1,
-          "false_abstain_count": 4,
+          "false_abstain_count": 3,
           "harmful_replace_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
           ],
           "false_abstain_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
           ]
@@ -1023,13 +1006,12 @@
         {
           "suite_id": "active_shadow",
           "harmful_replace_count": 1,
-          "false_abstain_count": 3,
+          "false_abstain_count": 2,
           "harmful_replace_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
           ],
           "false_abstain_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
           ]
         },
@@ -1052,13 +1034,12 @@
         {
           "suite_id": "active_shadow",
           "harmful_replace_count": 1,
-          "false_abstain_count": 3,
+          "false_abstain_count": 2,
           "harmful_replace_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
           ],
           "false_abstain_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
           ]
         },
@@ -1081,13 +1062,12 @@
         {
           "suite_id": "active_shadow",
           "harmful_replace_count": 1,
-          "false_abstain_count": 3,
+          "false_abstain_count": 2,
           "harmful_replace_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
           ],
           "false_abstain_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
           ]
         },
@@ -1110,14 +1090,13 @@
         {
           "suite_id": "active_shadow",
           "harmful_replace_count": 1,
-          "false_abstain_count": 4,
+          "false_abstain_count": 3,
           "harmful_replace_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
           ],
           "false_abstain_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
           ]
         },
@@ -1139,14 +1118,13 @@
         {
           "suite_id": "active_shadow",
           "harmful_replace_count": 1,
-          "false_abstain_count": 5,
+          "false_abstain_count": 4,
           "harmful_replace_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
           ],
           "false_abstain_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
           ]
@@ -1168,14 +1146,13 @@
         {
           "suite_id": "active_shadow",
           "harmful_replace_count": 1,
-          "false_abstain_count": 4,
+          "false_abstain_count": 3,
           "harmful_replace_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
           ],
           "false_abstain_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
           ]
         },
@@ -1197,14 +1174,13 @@
         {
           "suite_id": "active_shadow",
           "harmful_replace_count": 1,
-          "false_abstain_count": 4,
+          "false_abstain_count": 3,
           "harmful_replace_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
           ],
           "false_abstain_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
           ]
         },
@@ -1226,14 +1202,13 @@
         {
           "suite_id": "active_shadow",
           "harmful_replace_count": 1,
-          "false_abstain_count": 4,
+          "false_abstain_count": 3,
           "harmful_replace_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
           ],
           "false_abstain_case_ids": [
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
             "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
           ]
         },
@@ -1270,19 +1245,19 @@
       "gold_replace_cases": 16,
       "gold_abstain_cases": 16,
       "harmful_replace_count": 1,
-      "false_abstain_count": 3,
+      "false_abstain_count": 2,
       "harmful_replace_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
       ],
       "false_abstain_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
       ],
-      "replace_recall": 0.8125,
-      "decision_accuracy": 0.875,
-      "active_rescue_applied_count": 6,
+      "replace_recall": 0.875,
+      "decision_accuracy": 0.9062,
+      "active_rescue_applied_count": 7,
       "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
@@ -1346,20 +1321,20 @@
       "gold_replace_cases": 16,
       "gold_abstain_cases": 16,
       "harmful_replace_count": 1,
-      "false_abstain_count": 4,
+      "false_abstain_count": 3,
       "harmful_replace_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
       ],
       "false_abstain_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
       ],
-      "replace_recall": 0.75,
-      "decision_accuracy": 0.8438,
-      "active_rescue_applied_count": 5,
+      "replace_recall": 0.8125,
+      "decision_accuracy": 0.875,
+      "active_rescue_applied_count": 6,
       "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
@@ -1423,19 +1398,19 @@
       "gold_replace_cases": 16,
       "gold_abstain_cases": 16,
       "harmful_replace_count": 1,
-      "false_abstain_count": 3,
+      "false_abstain_count": 2,
       "harmful_replace_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
       ],
       "false_abstain_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
       ],
-      "replace_recall": 0.8125,
-      "decision_accuracy": 0.875,
-      "active_rescue_applied_count": 6,
+      "replace_recall": 0.875,
+      "decision_accuracy": 0.9062,
+      "active_rescue_applied_count": 7,
       "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
@@ -1499,19 +1474,19 @@
       "gold_replace_cases": 16,
       "gold_abstain_cases": 16,
       "harmful_replace_count": 1,
-      "false_abstain_count": 3,
+      "false_abstain_count": 2,
       "harmful_replace_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
       ],
       "false_abstain_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
       ],
-      "replace_recall": 0.8125,
-      "decision_accuracy": 0.875,
-      "active_rescue_applied_count": 6,
+      "replace_recall": 0.875,
+      "decision_accuracy": 0.9062,
+      "active_rescue_applied_count": 7,
       "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
@@ -1575,19 +1550,19 @@
       "gold_replace_cases": 16,
       "gold_abstain_cases": 16,
       "harmful_replace_count": 1,
-      "false_abstain_count": 3,
+      "false_abstain_count": 2,
       "harmful_replace_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
       ],
       "false_abstain_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
       ],
-      "replace_recall": 0.8125,
-      "decision_accuracy": 0.875,
-      "active_rescue_applied_count": 6,
+      "replace_recall": 0.875,
+      "decision_accuracy": 0.9062,
+      "active_rescue_applied_count": 7,
       "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
@@ -1651,19 +1626,19 @@
       "gold_replace_cases": 16,
       "gold_abstain_cases": 16,
       "harmful_replace_count": 1,
-      "false_abstain_count": 3,
+      "false_abstain_count": 2,
       "harmful_replace_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
       ],
       "false_abstain_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
       ],
-      "replace_recall": 0.8125,
-      "decision_accuracy": 0.875,
-      "active_rescue_applied_count": 6,
+      "replace_recall": 0.875,
+      "decision_accuracy": 0.9062,
+      "active_rescue_applied_count": 7,
       "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
@@ -1727,20 +1702,20 @@
       "gold_replace_cases": 16,
       "gold_abstain_cases": 16,
       "harmful_replace_count": 1,
-      "false_abstain_count": 4,
+      "false_abstain_count": 3,
       "harmful_replace_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
       ],
       "false_abstain_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
       ],
-      "replace_recall": 0.75,
-      "decision_accuracy": 0.8438,
-      "active_rescue_applied_count": 5,
+      "replace_recall": 0.8125,
+      "decision_accuracy": 0.875,
+      "active_rescue_applied_count": 6,
       "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
@@ -1804,19 +1779,19 @@
       "gold_replace_cases": 16,
       "gold_abstain_cases": 16,
       "harmful_replace_count": 1,
-      "false_abstain_count": 3,
+      "false_abstain_count": 2,
       "harmful_replace_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
       ],
       "false_abstain_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
       ],
-      "replace_recall": 0.8125,
-      "decision_accuracy": 0.875,
-      "active_rescue_applied_count": 6,
+      "replace_recall": 0.875,
+      "decision_accuracy": 0.9062,
+      "active_rescue_applied_count": 7,
       "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
@@ -1880,19 +1855,19 @@
       "gold_replace_cases": 16,
       "gold_abstain_cases": 16,
       "harmful_replace_count": 1,
-      "false_abstain_count": 3,
+      "false_abstain_count": 2,
       "harmful_replace_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
       ],
       "false_abstain_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
       ],
-      "replace_recall": 0.8125,
-      "decision_accuracy": 0.875,
-      "active_rescue_applied_count": 6,
+      "replace_recall": 0.875,
+      "decision_accuracy": 0.9062,
+      "active_rescue_applied_count": 7,
       "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
@@ -1956,19 +1931,19 @@
       "gold_replace_cases": 16,
       "gold_abstain_cases": 16,
       "harmful_replace_count": 1,
-      "false_abstain_count": 3,
+      "false_abstain_count": 2,
       "harmful_replace_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
       ],
       "false_abstain_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
       ],
-      "replace_recall": 0.8125,
-      "decision_accuracy": 0.875,
-      "active_rescue_applied_count": 6,
+      "replace_recall": 0.875,
+      "decision_accuracy": 0.9062,
+      "active_rescue_applied_count": 7,
       "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
@@ -2032,19 +2007,19 @@
       "gold_replace_cases": 16,
       "gold_abstain_cases": 16,
       "harmful_replace_count": 1,
-      "false_abstain_count": 3,
+      "false_abstain_count": 2,
       "harmful_replace_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
       ],
       "false_abstain_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
       ],
-      "replace_recall": 0.8125,
-      "decision_accuracy": 0.875,
-      "active_rescue_applied_count": 6,
+      "replace_recall": 0.875,
+      "decision_accuracy": 0.9062,
+      "active_rescue_applied_count": 7,
       "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
@@ -2108,20 +2083,20 @@
       "gold_replace_cases": 16,
       "gold_abstain_cases": 16,
       "harmful_replace_count": 1,
-      "false_abstain_count": 4,
+      "false_abstain_count": 3,
       "harmful_replace_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
       ],
       "false_abstain_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
       ],
-      "replace_recall": 0.75,
-      "decision_accuracy": 0.8438,
-      "active_rescue_applied_count": 5,
+      "replace_recall": 0.8125,
+      "decision_accuracy": 0.875,
+      "active_rescue_applied_count": 6,
       "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
@@ -2185,19 +2160,19 @@
       "gold_replace_cases": 16,
       "gold_abstain_cases": 16,
       "harmful_replace_count": 1,
-      "false_abstain_count": 3,
+      "false_abstain_count": 2,
       "harmful_replace_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
       ],
       "false_abstain_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
       ],
-      "replace_recall": 0.8125,
-      "decision_accuracy": 0.875,
-      "active_rescue_applied_count": 6,
+      "replace_recall": 0.875,
+      "decision_accuracy": 0.9062,
+      "active_rescue_applied_count": 7,
       "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
@@ -2261,19 +2236,19 @@
       "gold_replace_cases": 16,
       "gold_abstain_cases": 16,
       "harmful_replace_count": 1,
-      "false_abstain_count": 3,
+      "false_abstain_count": 2,
       "harmful_replace_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
       ],
       "false_abstain_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
       ],
-      "replace_recall": 0.8125,
-      "decision_accuracy": 0.875,
-      "active_rescue_applied_count": 6,
+      "replace_recall": 0.875,
+      "decision_accuracy": 0.9062,
+      "active_rescue_applied_count": 7,
       "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
@@ -2337,19 +2312,19 @@
       "gold_replace_cases": 16,
       "gold_abstain_cases": 16,
       "harmful_replace_count": 1,
-      "false_abstain_count": 3,
+      "false_abstain_count": 2,
       "harmful_replace_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
       ],
       "false_abstain_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
       ],
-      "replace_recall": 0.8125,
-      "decision_accuracy": 0.875,
-      "active_rescue_applied_count": 6,
+      "replace_recall": 0.875,
+      "decision_accuracy": 0.9062,
+      "active_rescue_applied_count": 7,
       "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
@@ -2413,19 +2388,19 @@
       "gold_replace_cases": 16,
       "gold_abstain_cases": 16,
       "harmful_replace_count": 1,
-      "false_abstain_count": 3,
+      "false_abstain_count": 2,
       "harmful_replace_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
       ],
       "false_abstain_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
       ],
-      "replace_recall": 0.8125,
-      "decision_accuracy": 0.875,
-      "active_rescue_applied_count": 6,
+      "replace_recall": 0.875,
+      "decision_accuracy": 0.9062,
+      "active_rescue_applied_count": 7,
       "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
@@ -2489,20 +2464,20 @@
       "gold_replace_cases": 16,
       "gold_abstain_cases": 16,
       "harmful_replace_count": 1,
-      "false_abstain_count": 4,
+      "false_abstain_count": 3,
       "harmful_replace_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
       ],
       "false_abstain_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
       ],
-      "replace_recall": 0.75,
-      "decision_accuracy": 0.8438,
-      "active_rescue_applied_count": 5,
+      "replace_recall": 0.8125,
+      "decision_accuracy": 0.875,
+      "active_rescue_applied_count": 6,
       "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
@@ -2566,19 +2541,19 @@
       "gold_replace_cases": 16,
       "gold_abstain_cases": 16,
       "harmful_replace_count": 1,
-      "false_abstain_count": 3,
+      "false_abstain_count": 2,
       "harmful_replace_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
       ],
       "false_abstain_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
       ],
-      "replace_recall": 0.8125,
-      "decision_accuracy": 0.875,
-      "active_rescue_applied_count": 6,
+      "replace_recall": 0.875,
+      "decision_accuracy": 0.9062,
+      "active_rescue_applied_count": 7,
       "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
@@ -2642,19 +2617,19 @@
       "gold_replace_cases": 16,
       "gold_abstain_cases": 16,
       "harmful_replace_count": 1,
-      "false_abstain_count": 3,
+      "false_abstain_count": 2,
       "harmful_replace_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
       ],
       "false_abstain_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
       ],
-      "replace_recall": 0.8125,
-      "decision_accuracy": 0.875,
-      "active_rescue_applied_count": 6,
+      "replace_recall": 0.875,
+      "decision_accuracy": 0.9062,
+      "active_rescue_applied_count": 7,
       "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
@@ -2718,19 +2693,19 @@
       "gold_replace_cases": 16,
       "gold_abstain_cases": 16,
       "harmful_replace_count": 1,
-      "false_abstain_count": 3,
+      "false_abstain_count": 2,
       "harmful_replace_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
       ],
       "false_abstain_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
       ],
-      "replace_recall": 0.8125,
-      "decision_accuracy": 0.875,
-      "active_rescue_applied_count": 6,
+      "replace_recall": 0.875,
+      "decision_accuracy": 0.9062,
+      "active_rescue_applied_count": 7,
       "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
@@ -2794,20 +2769,20 @@
       "gold_replace_cases": 16,
       "gold_abstain_cases": 16,
       "harmful_replace_count": 1,
-      "false_abstain_count": 4,
+      "false_abstain_count": 3,
       "harmful_replace_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
       ],
       "false_abstain_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
       ],
-      "replace_recall": 0.75,
-      "decision_accuracy": 0.8438,
-      "active_rescue_applied_count": 5,
+      "replace_recall": 0.8125,
+      "decision_accuracy": 0.875,
+      "active_rescue_applied_count": 6,
       "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
@@ -2870,21 +2845,21 @@
       "gold_replace_cases": 16,
       "gold_abstain_cases": 16,
       "harmful_replace_count": 1,
-      "false_abstain_count": 5,
+      "false_abstain_count": 4,
       "harmful_replace_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
       ],
       "false_abstain_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
       ],
-      "replace_recall": 0.6875,
-      "decision_accuracy": 0.8125,
-      "active_rescue_applied_count": 4,
+      "replace_recall": 0.75,
+      "decision_accuracy": 0.8438,
+      "active_rescue_applied_count": 5,
       "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
@@ -2946,20 +2921,20 @@
       "gold_replace_cases": 16,
       "gold_abstain_cases": 16,
       "harmful_replace_count": 1,
-      "false_abstain_count": 4,
+      "false_abstain_count": 3,
       "harmful_replace_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
       ],
       "false_abstain_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
       ],
-      "replace_recall": 0.75,
-      "decision_accuracy": 0.8438,
-      "active_rescue_applied_count": 5,
+      "replace_recall": 0.8125,
+      "decision_accuracy": 0.875,
+      "active_rescue_applied_count": 6,
       "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
@@ -3022,20 +2997,20 @@
       "gold_replace_cases": 16,
       "gold_abstain_cases": 16,
       "harmful_replace_count": 1,
-      "false_abstain_count": 4,
+      "false_abstain_count": 3,
       "harmful_replace_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
       ],
       "false_abstain_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
       ],
-      "replace_recall": 0.75,
-      "decision_accuracy": 0.8438,
-      "active_rescue_applied_count": 5,
+      "replace_recall": 0.8125,
+      "decision_accuracy": 0.875,
+      "active_rescue_applied_count": 6,
       "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
@@ -3098,20 +3073,20 @@
       "gold_replace_cases": 16,
       "gold_abstain_cases": 16,
       "harmful_replace_count": 1,
-      "false_abstain_count": 4,
+      "false_abstain_count": 3,
       "harmful_replace_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
       ],
       "false_abstain_case_ids": [
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
-        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
       ],
-      "replace_recall": 0.75,
-      "decision_accuracy": 0.8438,
-      "active_rescue_applied_count": 5,
+      "replace_recall": 0.8125,
+      "decision_accuracy": 0.875,
+      "active_rescue_applied_count": 6,
       "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
         "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",

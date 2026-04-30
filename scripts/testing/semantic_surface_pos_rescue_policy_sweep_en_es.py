@@ -15,8 +15,9 @@ for candidate in (str(PROJECT_ROOT / "core"), str(Path(__file__).resolve().paren
     if candidate not in sys.path:
         sys.path.insert(0, candidate)
 
-from semantic_llm_prototype_admission_probe_en_es import (  # noqa: E402
+from semantic_llm_prototype_admission_config import (  # noqa: E402
     ACTIVE_MODIFIER_RESCUE_MARGIN_FLOOR,
+    phrase_preemption_should_apply,
 )
 
 
@@ -278,7 +279,15 @@ def _replay_decision(
     decision = "replace" if has_active_evidence and margin >= min_margin else "abstain"
     if has_phrase_evidence and phrase_score >= max(active_score, shadow_score) + phrase_margin:
         decision = "abstain"
-    if bool(row.get("phrase_preemption_hit")):
+    phrase_preemption_applied = phrase_preemption_should_apply(
+        phrase_preemption_hit=bool(row.get("phrase_preemption_hit")),
+        decision_before_phrase_preemption=decision,
+        active_score=active_score,
+        strongest_shadow_score=shadow_score,
+        phrase_control_score=phrase_score,
+        phrase_prototype_margin=phrase_margin,
+    )
+    if phrase_preemption_applied:
         decision = "abstain"
 
     signal = str(row.get("surface_pos_signal") or "").strip()

@@ -1,16 +1,16 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-04-30T19:16:51Z",
+  "generated_at": "2026-04-30T20:47:27Z",
   "status": "ok",
   "batch_id": "en-es:wave7-source-class-breadth-v1:phrase-control-triage:cycle",
   "admitted_batch_id": "en-es:wave7-source-class-breadth-v1:phrase-control-triage:cycle:sense-admitted",
   "summary": {
-    "input_row_count": 324,
-    "semantic_input_row_count": 151,
-    "semantic_admitted_row_count": 151,
+    "input_row_count": 326,
+    "semantic_input_row_count": 153,
+    "semantic_admitted_row_count": 153,
     "semantic_rejected_row_count": 0,
     "non_semantic_passthrough_row_count": 173,
-    "admitted_row_count": 324,
+    "admitted_row_count": 326,
     "scorers": [
       "sentence_transformer_cosine"
     ],
@@ -3324,6 +3324,38 @@
       "row_id": "en-es-sentence-veto-gross-repulsivo:shadow-en-es-sentence-veto-gross-repulsivo-gruesa-shadow-quantity-dozen-count-frame-3",
       "family_id": "en-es:sentence-veto:gross:repulsivo",
       "relation_type": "shadow_candidate",
+      "evidence_text": "a gross is a count for ordered goods",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:gross:repulsivo:gruesa:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:gross:repulsivo:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:gross:repulsivo:gruesa:shadow",
+        "intended_score": 0.706451,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:gross:repulsivo:active",
+        "strongest_competitor_score": 0.665146,
+        "margin": 0.041305
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:gross:repulsivo:gruesa:shadow",
+          "intended_score": 0.706451,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:gross:repulsivo:active",
+          "strongest_competitor_score": 0.665146,
+          "margin": 0.041305
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-gross-repulsivo:shadow-en-es-sentence-veto-gross-repulsivo-gruesa-shadow-quantity-dozen-count-frame-4",
+      "family_id": "en-es:sentence-veto:gross:repulsivo",
+      "relation_type": "shadow_candidate",
       "evidence_text": "a quantity of twelve dozen units",
       "admission_status": "admitted",
       "reason_code": "sense_discrimination_passed",
@@ -3518,7 +3550,7 @@
       ]
     },
     {
-      "row_id": "en-es-sentence-veto-fix-aprieto:active-en-es-sentence-veto-fix-aprieto-active-difficult-situation-frame-3",
+      "row_id": "en-es-sentence-veto-fix-aprieto:active-en-es-sentence-veto-fix-aprieto-active-difficult-situation-frame-4",
       "family_id": "en-es:sentence-veto:fix:aprieto",
       "relation_type": "anchor_cue",
       "evidence_text": "a constrained problem situation",
@@ -4684,6 +4716,38 @@
     },
     {
       "row_id": "en-es-sentence-veto-squeeze-crisis:active-en-es-sentence-veto-squeeze-crisis-active-difficult-situation-frame-3",
+      "family_id": "en-es:sentence-veto:squeeze:crisis",
+      "relation_type": "anchor_cue",
+      "evidence_text": "a serious fix or predicament",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:squeeze:crisis:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:squeeze:crisis:apretujar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:squeeze:crisis:active",
+        "intended_score": 0.693066,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:squeeze:crisis:apretujar:shadow",
+        "strongest_competitor_score": 0.583062,
+        "margin": 0.110004
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:squeeze:crisis:active",
+          "intended_score": 0.693066,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:squeeze:crisis:apretujar:shadow",
+          "strongest_competitor_score": 0.583062,
+          "margin": 0.110004
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-squeeze-crisis:active-en-es-sentence-veto-squeeze-crisis-active-difficult-situation-frame-4",
       "family_id": "en-es:sentence-veto:squeeze:crisis",
       "relation_type": "anchor_cue",
       "evidence_text": "a constrained problem situation",

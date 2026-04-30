@@ -1,23 +1,23 @@
 # en-es LLM Example-Frame Sense-Discrimination Audit
 
 - Status: `review`
-- Generated: `2026-04-30T19:16:20Z`
+- Generated: `2026-04-30T20:46:54Z`
 - Batch: `en-es:wordnet-translation-sense-source-class:non-v10-wave7-source-class-breadth-v1:cycle`
 - Admitted batch: `en-es:wordnet-translation-sense-source-class:non-v10-wave7-source-class-breadth-v1:cycle:sense-admitted`
 
 ## Summary
 
-- Input rows: `180`
-- Semantic rows: `180`
-- Semantic admitted rows: `151`
-- Semantic rejected rows: `29`
+- Input rows: `183`
+- Semantic rows: `183`
+- Semantic admitted rows: `153`
+- Semantic rejected rows: `30`
 - Non-semantic passthrough rows: `0`
-- Admitted rows: `151`
+- Admitted rows: `153`
 - Scorers: `sentence_transformer_cosine`
 - Evidence view: `all_evidence_text`
 - Min intended score: `0.5`
 - Min margin: `0.0`
-- Rejection reasons: `{"competitor_sense_not_lower": 29}`
+- Rejection reasons: `{"competitor_sense_not_lower": 30}`
 
 ## Rejected Rows
 
@@ -34,6 +34,7 @@
 | `en-es-sentence-veto-score-tantos:shadow-en-es-sentence-veto-score-tantos-marcador-shadow-wordnet-definition-1` | `en-es:sentence-veto:score:tantos` | `shadow_candidate` | `en-es:sentence-veto:score:tantos:marcador:shadow` | `competitor_sense_not_lower` | `sentence_transformer_cosine` | 0.731542 | 0.753516 | -0.021975 |
 | `en-es-sentence-veto-crash-choque:shadow-en-es-sentence-veto-crash-choque-chocar-shadow-wordnet-entry_sentence-2` | `en-es:sentence-veto:crash:choque` | `shadow_candidate` | `en-es:sentence-veto:crash:choque:chocar:shadow` | `competitor_sense_not_lower` | `sentence_transformer_cosine` | 0.609643 | 0.637073 | -0.02743 |
 | `en-es-sentence-veto-fix-aprieto:active-en-es-sentence-veto-fix-aprieto-active-difficult-situation-frame-2` | `en-es:sentence-veto:fix:aprieto` | `anchor_cue` | `en-es:sentence-veto:fix:aprieto:active` | `competitor_sense_not_lower` | `sentence_transformer_cosine` | 0.737291 | 0.750976 | -0.013685 |
+| `en-es-sentence-veto-fix-aprieto:active-en-es-sentence-veto-fix-aprieto-active-difficult-situation-frame-3` | `en-es:sentence-veto:fix:aprieto` | `anchor_cue` | `en-es:sentence-veto:fix:aprieto:active` | `competitor_sense_not_lower` | `sentence_transformer_cosine` | 0.69824 | 0.731177 | -0.032937 |
 | `en-es-sentence-veto-full-lleno:active-en-es-sentence-veto-full-lleno-active-full-capacity-frame-3` | `en-es:sentence-veto:full:lleno` | `anchor_cue` | `en-es:sentence-veto:full:lleno:active` | `competitor_sense_not_lower` | `sentence_transformer_cosine` | 0.6105 | 0.640133 | -0.029634 |
 | `en-es-sentence-veto-wrong-incorrecto:active-en-es-sentence-veto-wrong-incorrecto-active-incorrectness-frame-3` | `en-es:sentence-veto:wrong:incorrecto` | `anchor_cue` | `en-es:sentence-veto:wrong:incorrecto:active` | `competitor_sense_not_lower` | `sentence_transformer_cosine` | 0.72709 | 0.738464 | -0.011374 |
 | `en-es-sentence-veto-stretch-estir-n:active-en-es-sentence-veto-stretch-estir-n-active-stretching-lengthening-frame-1` | `en-es:sentence-veto:stretch:estir-n` | `anchor_cue` | `en-es:sentence-veto:stretch:estir-n:active` | `competitor_sense_not_lower` | `sentence_transformer_cosine` | 0.718367 | 0.83868 | -0.120312 |

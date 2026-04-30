@@ -1,14 +1,14 @@
 # en-es Source-Class Frame Evidence Batch
 
 - Status: `ok`
-- Generated: `2026-04-30T19:15:50Z`
+- Generated: `2026-04-30T20:46:52Z`
 - Dataset: `en_es_source_non_v10_wave7_source_class_breadth_v1_unsupported_selected`
 - Batch: `en-es:source-class-frame-evidence:source-class-frame-non-v10-wave7-source-class-breadth-v1-latest`
 - Source: `source_class_frame_evidence` / `internal_rulegen_artifact`
 - Matching classes: `23`
 - Matching senses: `29`
-- Rows: `87`
-- Active / shadow rows: `42` / `45`
+- Rows: `90`
+- Active / shadow rows: `44` / `46`
 
 ## Class Coverage
 
@@ -17,7 +17,7 @@
 | `attraction_appeal` | 1 | 3 |
 | `collision_malfunction` | 3 | 9 |
 | `commercial_organization` | 1 | 3 |
-| `difficult_situation` | 2 | 6 |
+| `difficult_situation` | 2 | 8 |
 | `dirtying_pollution` | 1 | 3 |
 | `disgust_repulsion` | 1 | 3 |
 | `evening_time` | 1 | 3 |
@@ -27,7 +27,7 @@
 | `meeting_encounter` | 1 | 3 |
 | `moulded_object` | 1 | 3 |
 | `preference_interest` | 1 | 3 |
-| `quantity_dozen_count` | 1 | 3 |
+| `quantity_dozen_count` | 1 | 4 |
 | `repair_mending` | 1 | 3 |
 | `secure_fixing` | 1 | 3 |
 | `sports_points_scoring` | 3 | 9 |

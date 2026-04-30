@@ -260,6 +260,32 @@ class SemanticLlmPrototypeAdmissionProbeTests(unittest.TestCase):
         self.assertEqual(strict_rows["check:001"]["phrase_prototype_margin"], 0.1)
         self.assertEqual(strict_rows["check:001"]["phrase_prototype_margin_to_best"], 0.0)
 
+    def test_phrase_preemption_does_not_override_strong_active_margin(self) -> None:
+        queue_payload, dataset_payload, evidence_batch = _strong_active_phrase_inputs()
+        report = build_prototype_admission_report(
+            queue_payload=queue_payload,
+            dataset_payload=dataset_payload,
+            evidence_batch_payload=evidence_batch,
+            scorer_id="token_jaccard",
+            min_active_score=0.0,
+            min_margin=0.0,
+            generated_at="2026-05-01T12:00:00Z",
+        )
+
+        active_guard = next(
+            row
+            for row in report["configurations"]
+            if row["config_id"] == "prototype_reviewed_examples_active_guard"
+        )
+        rows = {row["case_id"]: row for row in active_guard["row_results"]}
+        self.assertTrue(rows["even:001"]["phrase_preemption_hit"])
+        self.assertFalse(rows["even:001"]["phrase_preemption_applied"])
+        self.assertEqual(
+            rows["even:001"]["phrase_preemption_blocked_reason"],
+            "strong_active_margin_dominates_phrase_control",
+        )
+        self.assertEqual(rows["even:001"]["predicted_decision"], "replace")
+
     def test_surface_pos_rescue_uses_local_syntax_without_changing_binary_contract(self) -> None:
         queue_payload, dataset_payload = _sample_inputs()
         report = build_prototype_admission_report(
@@ -482,6 +508,85 @@ def _normalized_evidence_batch() -> dict[str, object]:
             },
         ],
     }
+
+
+def _strong_active_phrase_inputs() -> (
+    tuple[dict[str, object], dict[str, object], dict[str, object]]
+):
+    family_id = "fam:even"
+    active_id = f"{family_id}:active"
+    shadow_id = f"{family_id}:shadow"
+    queue_payload = {
+        "queue_id": "semantic_prompt_bakeoff_test_strong_phrase_escape",
+        "families": [
+            {
+                "family_id": family_id,
+                "trigger": "even",
+                "role": "target",
+                "likely_bucket": "needs_cue_data",
+            }
+        ],
+    }
+    dataset_payload = {
+        "schema_version": 1,
+        "pair": "en-es",
+        "dataset_id": "en_es_sentence_veto_strong_phrase_escape_test",
+        "families": [
+            {
+                "family_id": family_id,
+                "trigger": "even",
+                "active": {
+                    "sense_id": active_id,
+                    "target_lemma": "tarde",
+                    "canonical_pos": "noun",
+                    "evidence_views": {"all_evidence_text": "evening glow tonight lamps"},
+                },
+                "shadows": [
+                    {
+                        "sense_id": shadow_id,
+                        "target_lemma": "nivelar",
+                        "canonical_pos": "verb",
+                        "evidence_views": {"all_evidence_text": "make level flat"},
+                    }
+                ],
+                "cases": [
+                    {
+                        "case_id": "even:001",
+                        "sentence": "Will even the evening lamps glow tonight.",
+                        "source_phrase": "even",
+                        "gold_winner": active_id,
+                        "gold_decision": "replace",
+                    }
+                ],
+            }
+        ],
+    }
+    evidence_batch = {
+        "schema_version": 1,
+        "source_id": "test_strong_phrase_escape_evidence",
+        "batch_id": "test-strong-phrase-escape",
+        "rows": [
+            {
+                "relation_type": "anchor_cue",
+                "trigger": "even",
+                "evidence_text": "will evening lamps glow tonight",
+                "metadata": {
+                    "family_id": family_id,
+                    "active_sense_id": active_id,
+                },
+            },
+            {
+                "relation_type": "shadow_candidate",
+                "trigger": "even",
+                "evidence_text": "make level flat",
+                "metadata": {
+                    "family_id": family_id,
+                    "candidate_sense_id": shadow_id,
+                },
+            },
+        ],
+    }
+    return queue_payload, dataset_payload, evidence_batch
 
 
 def _adjective_surface_inputs() -> tuple[dict[str, object], dict[str, object], dict[str, object]]:

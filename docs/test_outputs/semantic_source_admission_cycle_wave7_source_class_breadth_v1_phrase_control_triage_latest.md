@@ -2,14 +2,14 @@
 
 - Status: `review`
 - Decision: `analysis_only`
-- Generated: `2026-04-30T19:16:51Z`
+- Generated: `2026-04-30T20:47:27Z`
 
 ## Gate Summary
 
 - Leakage rejected rows: `6`
 - Sense rejected rows: `0`
-- Pre-sense merged rows: `324`
-- Final admitted rows: `324`
+- Pre-sense merged rows: `326`
+- Final admitted rows: `326`
 - Semantic contract: `16` / `16`
 - Phrase contract: `16` / `16`
 - Combined contract status: `ok`

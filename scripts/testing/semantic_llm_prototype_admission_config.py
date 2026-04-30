@@ -3,6 +3,7 @@ from __future__ import annotations
 
 DEFAULT_PHRASE_PROTOTYPE_MARGIN = 0.0
 ACTIVE_MODIFIER_RESCUE_MARGIN_FLOOR = -0.05
+STRONG_ACTIVE_PHRASE_PREEMPTION_MARGIN_FLOOR = 0.10
 PROTOTYPE_CONFIGS: tuple[tuple[str, str, str, bool, bool, bool], ...] = (
     (
         "prototype_reviewed_examples_family_guard",
@@ -53,3 +54,29 @@ PROTOTYPE_CONFIGS: tuple[tuple[str, str, str, bool, bool, bool], ...] = (
         True,
     ),
 )
+
+
+def phrase_preemption_should_apply(
+    *,
+    phrase_preemption_hit: bool,
+    decision_before_phrase_preemption: str,
+    active_score: float,
+    strongest_shadow_score: float,
+    phrase_control_score: float,
+    phrase_prototype_margin: float,
+    strong_active_margin_floor: float = STRONG_ACTIVE_PHRASE_PREEMPTION_MARGIN_FLOOR,
+) -> bool:
+    if not phrase_preemption_hit:
+        return False
+    if str(decision_before_phrase_preemption or "").strip() != "replace":
+        return True
+    active_margin = float(active_score) - float(strongest_shadow_score)
+    phrase_lead = float(phrase_control_score) - max(
+        float(active_score),
+        float(strongest_shadow_score),
+    )
+    if active_margin >= float(strong_active_margin_floor) and phrase_lead < float(
+        phrase_prototype_margin
+    ):
+        return False
+    return True

@@ -1,16 +1,16 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-04-30T19:16:20Z",
+  "generated_at": "2026-04-30T20:46:54Z",
   "status": "review",
   "batch_id": "en-es:wordnet-translation-sense-source-class:non-v10-wave7-source-class-breadth-v1:cycle",
   "admitted_batch_id": "en-es:wordnet-translation-sense-source-class:non-v10-wave7-source-class-breadth-v1:cycle:sense-admitted",
   "summary": {
-    "input_row_count": 180,
-    "semantic_input_row_count": 180,
-    "semantic_admitted_row_count": 151,
-    "semantic_rejected_row_count": 29,
+    "input_row_count": 183,
+    "semantic_input_row_count": 183,
+    "semantic_admitted_row_count": 153,
+    "semantic_rejected_row_count": 30,
     "non_semantic_passthrough_row_count": 0,
-    "admitted_row_count": 151,
+    "admitted_row_count": 153,
     "scorers": [
       "sentence_transformer_cosine"
     ],
@@ -18,7 +18,7 @@
     "min_intended_score": 0.5,
     "min_margin": 0.0,
     "rejection_reason_counts": {
-      "competitor_sense_not_lower": 29
+      "competitor_sense_not_lower": 30
     }
   },
   "row_results": [
@@ -3652,6 +3652,38 @@
       "row_id": "en-es-sentence-veto-gross-repulsivo:shadow-en-es-sentence-veto-gross-repulsivo-gruesa-shadow-quantity-dozen-count-frame-3",
       "family_id": "en-es:sentence-veto:gross:repulsivo",
       "relation_type": "shadow_candidate",
+      "evidence_text": "a gross is a count for ordered goods",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:gross:repulsivo:gruesa:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:gross:repulsivo:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:gross:repulsivo:gruesa:shadow",
+        "intended_score": 0.706451,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:gross:repulsivo:active",
+        "strongest_competitor_score": 0.665146,
+        "margin": 0.041305
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:gross:repulsivo:gruesa:shadow",
+          "intended_score": 0.706451,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:gross:repulsivo:active",
+          "strongest_competitor_score": 0.665146,
+          "margin": 0.041305
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-gross-repulsivo:shadow-en-es-sentence-veto-gross-repulsivo-gruesa-shadow-quantity-dozen-count-frame-4",
+      "family_id": "en-es:sentence-veto:gross:repulsivo",
+      "relation_type": "shadow_candidate",
       "evidence_text": "a quantity of twelve dozen units",
       "admission_status": "admitted",
       "reason_code": "sense_discrimination_passed",
@@ -3880,6 +3912,39 @@
     },
     {
       "row_id": "en-es-sentence-veto-fix-aprieto:active-en-es-sentence-veto-fix-aprieto-active-difficult-situation-frame-3",
+      "family_id": "en-es:sentence-veto:fix:aprieto",
+      "relation_type": "anchor_cue",
+      "evidence_text": "a serious fix or predicament",
+      "admission_status": "rejected",
+      "reason_code": "competitor_sense_not_lower",
+      "intended_sense_id": "en-es:sentence-veto:fix:aprieto:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:fix:aprieto:localizaci-n:shadow",
+        "en-es:sentence-veto:fix:aprieto:reparar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:fix:aprieto:active",
+        "intended_score": 0.69824,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:fix:aprieto:reparar:shadow",
+        "strongest_competitor_score": 0.731177,
+        "margin": -0.032937
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:fix:aprieto:active",
+          "intended_score": 0.69824,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:fix:aprieto:reparar:shadow",
+          "strongest_competitor_score": 0.731177,
+          "margin": -0.032937
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-fix-aprieto:active-en-es-sentence-veto-fix-aprieto-active-difficult-situation-frame-4",
       "family_id": "en-es:sentence-veto:fix:aprieto",
       "relation_type": "anchor_cue",
       "evidence_text": "a constrained problem situation",
@@ -5603,6 +5668,38 @@
       "row_id": "en-es-sentence-veto-squeeze-crisis:active-en-es-sentence-veto-squeeze-crisis-active-difficult-situation-frame-3",
       "family_id": "en-es:sentence-veto:squeeze:crisis",
       "relation_type": "anchor_cue",
+      "evidence_text": "a serious fix or predicament",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:squeeze:crisis:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:squeeze:crisis:apretujar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:squeeze:crisis:active",
+        "intended_score": 0.693066,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:squeeze:crisis:apretujar:shadow",
+        "strongest_competitor_score": 0.583062,
+        "margin": 0.110004
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:squeeze:crisis:active",
+          "intended_score": 0.693066,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:squeeze:crisis:apretujar:shadow",
+          "strongest_competitor_score": 0.583062,
+          "margin": 0.110004
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-squeeze-crisis:active-en-es-sentence-veto-squeeze-crisis-active-difficult-situation-frame-4",
+      "family_id": "en-es:sentence-veto:squeeze:crisis",
+      "relation_type": "anchor_cue",
       "evidence_text": "a constrained problem situation",
       "admission_status": "admitted",
       "reason_code": "sense_discrimination_passed",
@@ -6213,6 +6310,39 @@
           "strongest_competitor_sense_id": "en-es:sentence-veto:fix:aprieto:reparar:shadow",
           "strongest_competitor_score": 0.750976,
           "margin": -0.013685
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-fix-aprieto:active-en-es-sentence-veto-fix-aprieto-active-difficult-situation-frame-3",
+      "family_id": "en-es:sentence-veto:fix:aprieto",
+      "relation_type": "anchor_cue",
+      "evidence_text": "a serious fix or predicament",
+      "admission_status": "rejected",
+      "reason_code": "competitor_sense_not_lower",
+      "intended_sense_id": "en-es:sentence-veto:fix:aprieto:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:fix:aprieto:localizaci-n:shadow",
+        "en-es:sentence-veto:fix:aprieto:reparar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": false,
+        "intended_sense_id": "en-es:sentence-veto:fix:aprieto:active",
+        "intended_score": 0.69824,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:fix:aprieto:reparar:shadow",
+        "strongest_competitor_score": 0.731177,
+        "margin": -0.032937
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": false,
+          "intended_sense_id": "en-es:sentence-veto:fix:aprieto:active",
+          "intended_score": 0.69824,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:fix:aprieto:reparar:shadow",
+          "strongest_competitor_score": 0.731177,
+          "margin": -0.032937
         }
       ]
     },

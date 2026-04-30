@@ -107,6 +107,24 @@ class SemanticSourceClassFrameEvidenceTests(unittest.TestCase):
                 ],
             },
             {
+                "family_id": "fam:fix",
+                "trigger": "fix",
+                "active": _sense(
+                    sense_id="fix:active",
+                    target="aprieto",
+                    pos="noun",
+                    text="a difficult situation or dilemma",
+                ),
+                "shadows": [
+                    _sense(
+                        sense_id="fix:shadow",
+                        target="reparar",
+                        pos="verb",
+                        text="mend or repair",
+                    )
+                ],
+            },
+            {
                 "family_id": "fam:meet",
                 "trigger": "meet",
                 "active": _sense(
@@ -155,6 +173,7 @@ class SemanticSourceClassFrameEvidenceTests(unittest.TestCase):
             for row in rows
             if isinstance(row.get("metadata"), dict)
         }
+        evidence_texts = {row["evidence_text"] for row in rows}
         for row in rows:
             metadata = row["metadata"]
             by_sense[metadata["candidate_sense_id"]].add(metadata["semantic_class_id"])
@@ -163,10 +182,14 @@ class SemanticSourceClassFrameEvidenceTests(unittest.TestCase):
         self.assertIn("quantity_dozen_count", by_sense["gross:shadow"])
         self.assertIn("full_capacity", by_sense["full:active"])
         self.assertIn("textile_fulling", by_sense["full:shadow"])
+        self.assertIn("difficult_situation", by_sense["fix:active"])
+        self.assertIn("repair_mending", by_sense["fix:shadow"])
         self.assertIn("suitability", by_sense["meet:active"])
         self.assertIn("meeting_encounter", by_sense["meet:shadow"])
         self.assertNotIn("collision_malfunction", by_sense["meet:shadow"])
         self.assertIn("evening_time", by_sense["even:active"])
+        self.assertIn("a gross is a count for ordered goods", evidence_texts)
+        self.assertIn("a serious fix or predicament", evidence_texts)
 
     def test_reports_review_when_no_class_matches(self) -> None:
         dataset = _dataset_payload()

@@ -10,12 +10,12 @@
     "cue_generation",
     "discrimination"
   ],
-  "generated_at": "2026-04-30T19:16:03Z",
-  "ingested_at": "2026-04-30T19:16:03Z",
+  "generated_at": "2026-04-30T20:46:53Z",
+  "ingested_at": "2026-04-30T20:46:53Z",
   "review_state": "review",
   "model_id": "mixed",
   "prompt_version": "example-frame-composite-v1",
-  "row_count": 180,
+  "row_count": 183,
   "rows": [
     {
       "evidence_id": "evidence:db59f20d4679d736b696ef86c9f2ae9f43283a63",
@@ -9210,8 +9210,8 @@
         "row_id": "en-es-sentence-veto-like-gustos:active-en-es-sentence-veto-like-gustos-active-preference-interest-frame-1",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -9287,8 +9287,8 @@
         "row_id": "en-es-sentence-veto-like-gustos:active-en-es-sentence-veto-like-gustos-active-preference-interest-frame-2",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -9364,8 +9364,8 @@
         "row_id": "en-es-sentence-veto-like-gustos:active-en-es-sentence-veto-like-gustos-active-preference-interest-frame-3",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -9440,8 +9440,8 @@
         "row_id": "en-es-sentence-veto-like-gustos:shadow-en-es-sentence-veto-like-gustos-atraer-shadow-attraction-appeal-frame-1",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -9516,8 +9516,8 @@
         "row_id": "en-es-sentence-veto-like-gustos:shadow-en-es-sentence-veto-like-gustos-atraer-shadow-attraction-appeal-frame-2",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -9592,8 +9592,8 @@
         "row_id": "en-es-sentence-veto-like-gustos:shadow-en-es-sentence-veto-like-gustos-atraer-shadow-attraction-appeal-frame-3",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -9669,8 +9669,8 @@
         "row_id": "en-es-sentence-veto-gross-repulsivo:active-en-es-sentence-veto-gross-repulsivo-active-disgust-repulsion-frame-1",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -9746,8 +9746,8 @@
         "row_id": "en-es-sentence-veto-gross-repulsivo:active-en-es-sentence-veto-gross-repulsivo-active-disgust-repulsion-frame-2",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -9823,8 +9823,8 @@
         "row_id": "en-es-sentence-veto-gross-repulsivo:active-en-es-sentence-veto-gross-repulsivo-active-disgust-repulsion-frame-3",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -9899,8 +9899,8 @@
         "row_id": "en-es-sentence-veto-gross-repulsivo:shadow-en-es-sentence-veto-gross-repulsivo-gruesa-shadow-quantity-dozen-count-frame-2",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -9939,7 +9939,7 @@
         "source_view": "source_class_frame_template",
         "source_match_text": "gross noun sense: twelve dozen | twelve dozen | gross noun sense: twelve dozen | twelve dozen | twelve dozen | twelve dozen",
         "template_index": 2,
-        "template_count": 3
+        "template_count": 4
       }
     },
     {
@@ -9962,7 +9962,7 @@
       "candidate_target": "gruesa",
       "normalized_candidate_target": "gruesa",
       "is_multiword": false,
-      "evidence_text": "a quantity of twelve dozen units",
+      "evidence_text": "a gross is a count for ordered goods",
       "review_state": "unreviewed",
       "promotion_state": "proposed",
       "linkage_status": "partially_linked",
@@ -9975,8 +9975,8 @@
         "row_id": "en-es-sentence-veto-gross-repulsivo:shadow-en-es-sentence-veto-gross-repulsivo-gruesa-shadow-quantity-dozen-count-frame-3",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -10015,7 +10015,83 @@
         "source_view": "source_class_frame_template",
         "source_match_text": "gross noun sense: twelve dozen | twelve dozen | gross noun sense: twelve dozen | twelve dozen | twelve dozen | twelve dozen",
         "template_index": 3,
-        "template_count": 3
+        "template_count": 4
+      }
+    },
+    {
+      "evidence_id": "evidence:405c9b8131d725ed73420595d15003f1f4221668",
+      "dedupe_key": "dedupe:1d17dc5e5c610a7dbb89c429d77dd306e1b511f1",
+      "batch_id": "en-es:source-class-frame-evidence:source-class-frame-non-v10-wave7-source-class-breadth-v1-latest",
+      "row_id": "en-es-sentence-veto-gross-repulsivo:shadow-en-es-sentence-veto-gross-repulsivo-gruesa-shadow-quantity-dozen-count-frame-4",
+      "pair": "en-es",
+      "source_type": "internal",
+      "source_id": "source_class_frame_evidence",
+      "source_family": "internal_rulegen_artifact",
+      "roles": [
+        "discrimination"
+      ],
+      "relation_type": "shadow_candidate",
+      "trigger": "gross",
+      "normalized_trigger": "gross",
+      "active_target": "repulsivo",
+      "normalized_active_target": "repulsivo",
+      "candidate_target": "gruesa",
+      "normalized_candidate_target": "gruesa",
+      "is_multiword": false,
+      "evidence_text": "a quantity of twelve dozen units",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "internal",
+        "source_id": "source_class_frame_evidence",
+        "source_family": "internal_rulegen_artifact",
+        "batch_id": "en-es:source-class-frame-evidence:source-class-frame-non-v10-wave7-source-class-breadth-v1-latest",
+        "row_id": "en-es-sentence-veto-gross-repulsivo:shadow-en-es-sentence-veto-gross-repulsivo-gruesa-shadow-quantity-dozen-count-frame-4",
+        "model_id": "not_applicable",
+        "prompt_version": "source-class-frame-evidence-v1",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:gross:repulsivo:active",
+        "canonical_pos": "adjective",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:gross:repulsivo:gruesa:shadow",
+        "canonical_pos": "noun",
+        "note": "source_semantic_class_candidate",
+        "metadata": {
+          "semantic_class_id": "quantity_dozen_count",
+          "source_view": "source_backed_gloss_or_translation_sense",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:gross:repulsivo",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:gross:repulsivo:active",
+        "candidate_sense_id": "en-es:sentence-veto:gross:repulsivo:gruesa:shadow",
+        "example_bucket": "shadow",
+        "semantic_class_id": "quantity_dozen_count",
+        "semantic_class_description": "a count equal to twelve dozen",
+        "source_view": "source_class_frame_template",
+        "source_match_text": "gross noun sense: twelve dozen | twelve dozen | gross noun sense: twelve dozen | twelve dozen | twelve dozen | twelve dozen",
+        "template_index": 4,
+        "template_count": 4
       }
     },
     {
@@ -10052,8 +10128,8 @@
         "row_id": "en-es-sentence-veto-cast-lanzamiento:active-en-es-sentence-veto-cast-lanzamiento-active-throwing-motion-frame-1",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -10129,8 +10205,8 @@
         "row_id": "en-es-sentence-veto-cast-lanzamiento:active-en-es-sentence-veto-cast-lanzamiento-active-throwing-motion-frame-2",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -10206,8 +10282,8 @@
         "row_id": "en-es-sentence-veto-cast-lanzamiento:active-en-es-sentence-veto-cast-lanzamiento-active-throwing-motion-frame-3",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -10282,8 +10358,8 @@
         "row_id": "en-es-sentence-veto-cast-lanzamiento:shadow-en-es-sentence-veto-cast-lanzamiento-molde-shadow-moulded-object-frame-2",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -10358,8 +10434,8 @@
         "row_id": "en-es-sentence-veto-cast-lanzamiento:shadow-en-es-sentence-veto-cast-lanzamiento-molde-shadow-moulded-object-frame-3",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -10435,8 +10511,8 @@
         "row_id": "en-es-sentence-veto-fix-aprieto:active-en-es-sentence-veto-fix-aprieto-active-difficult-situation-frame-2",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -10475,7 +10551,7 @@
         "source_view": "source_class_frame_template",
         "source_match_text": "fix noun sense: a difficult situation or dilemma | a difficult situation or dilemma | fix noun sense: a difficult situation or dilemma | a difficult situation or dilemma | a difficult situation or dilemma | a difficult situation or dilemma",
         "template_index": 2,
-        "template_count": 3
+        "template_count": 4
       }
     },
     {
@@ -10499,7 +10575,7 @@
       "candidate_target": "aprieto",
       "normalized_candidate_target": "aprieto",
       "is_multiword": false,
-      "evidence_text": "a constrained problem situation",
+      "evidence_text": "a serious fix or predicament",
       "review_state": "unreviewed",
       "promotion_state": "proposed",
       "linkage_status": "partially_linked",
@@ -10512,8 +10588,8 @@
         "row_id": "en-es-sentence-veto-fix-aprieto:active-en-es-sentence-veto-fix-aprieto-active-difficult-situation-frame-3",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -10552,7 +10628,84 @@
         "source_view": "source_class_frame_template",
         "source_match_text": "fix noun sense: a difficult situation or dilemma | a difficult situation or dilemma | fix noun sense: a difficult situation or dilemma | a difficult situation or dilemma | a difficult situation or dilemma | a difficult situation or dilemma",
         "template_index": 3,
-        "template_count": 3
+        "template_count": 4
+      }
+    },
+    {
+      "evidence_id": "evidence:676795ea300c7e7b2b0e1e362ca8237e412c1965",
+      "dedupe_key": "dedupe:7d52939ac4207c8d74a1541f05393f7f30d76e4a",
+      "batch_id": "en-es:source-class-frame-evidence:source-class-frame-non-v10-wave7-source-class-breadth-v1-latest",
+      "row_id": "en-es-sentence-veto-fix-aprieto:active-en-es-sentence-veto-fix-aprieto-active-difficult-situation-frame-4",
+      "pair": "en-es",
+      "source_type": "internal",
+      "source_id": "source_class_frame_evidence",
+      "source_family": "internal_rulegen_artifact",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "fix",
+      "normalized_trigger": "fix",
+      "active_target": "aprieto",
+      "normalized_active_target": "aprieto",
+      "candidate_target": "aprieto",
+      "normalized_candidate_target": "aprieto",
+      "is_multiword": false,
+      "evidence_text": "a constrained problem situation",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "internal",
+        "source_id": "source_class_frame_evidence",
+        "source_family": "internal_rulegen_artifact",
+        "batch_id": "en-es:source-class-frame-evidence:source-class-frame-non-v10-wave7-source-class-breadth-v1-latest",
+        "row_id": "en-es-sentence-veto-fix-aprieto:active-en-es-sentence-veto-fix-aprieto-active-difficult-situation-frame-4",
+        "model_id": "not_applicable",
+        "prompt_version": "source-class-frame-evidence-v1",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:fix:aprieto:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:fix:aprieto:active",
+        "canonical_pos": "noun",
+        "note": "source_semantic_class_candidate",
+        "metadata": {
+          "semantic_class_id": "difficult_situation",
+          "source_view": "source_backed_gloss_or_translation_sense",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:fix:aprieto",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:fix:aprieto:active",
+        "candidate_sense_id": "en-es:sentence-veto:fix:aprieto:active",
+        "example_bucket": "active",
+        "semantic_class_id": "difficult_situation",
+        "semantic_class_description": "difficult situation, position, dilemma, or constraint",
+        "source_view": "source_class_frame_template",
+        "source_match_text": "fix noun sense: a difficult situation or dilemma | a difficult situation or dilemma | fix noun sense: a difficult situation or dilemma | a difficult situation or dilemma | a difficult situation or dilemma | a difficult situation or dilemma",
+        "template_index": 4,
+        "template_count": 4
       }
     },
     {
@@ -10588,8 +10741,8 @@
         "row_id": "en-es-sentence-veto-fix-aprieto:shadow-en-es-sentence-veto-fix-aprieto-localizaci-n-shadow-location-determination-frame-1",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -10664,8 +10817,8 @@
         "row_id": "en-es-sentence-veto-fix-aprieto:shadow-en-es-sentence-veto-fix-aprieto-localizaci-n-shadow-location-determination-frame-2",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -10740,8 +10893,8 @@
         "row_id": "en-es-sentence-veto-fix-aprieto:shadow-en-es-sentence-veto-fix-aprieto-localizaci-n-shadow-location-determination-frame-3",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -10816,8 +10969,8 @@
         "row_id": "en-es-sentence-veto-fix-aprieto:shadow-en-es-sentence-veto-fix-aprieto-reparar-shadow-repair-mending-frame-1",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -10893,8 +11046,8 @@
         "row_id": "en-es-sentence-veto-fix-aprieto:shadow-en-es-sentence-veto-fix-aprieto-reparar-shadow-repair-mending-frame-2",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -10970,8 +11123,8 @@
         "row_id": "en-es-sentence-veto-fix-aprieto:shadow-en-es-sentence-veto-fix-aprieto-reparar-shadow-repair-mending-frame-3",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -11048,8 +11201,8 @@
         "row_id": "en-es-sentence-veto-full-lleno:active-en-es-sentence-veto-full-lleno-active-full-capacity-frame-1",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -11127,8 +11280,8 @@
         "row_id": "en-es-sentence-veto-full-lleno:active-en-es-sentence-veto-full-lleno-active-full-capacity-frame-3",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -11205,8 +11358,8 @@
         "row_id": "en-es-sentence-veto-full-lleno:shadow-en-es-sentence-veto-full-lleno-abatanar-shadow-textile-fulling-frame-1",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -11281,8 +11434,8 @@
         "row_id": "en-es-sentence-veto-full-lleno:shadow-en-es-sentence-veto-full-lleno-abatanar-shadow-textile-fulling-frame-2",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -11357,8 +11510,8 @@
         "row_id": "en-es-sentence-veto-full-lleno:shadow-en-es-sentence-veto-full-lleno-abatanar-shadow-textile-fulling-frame-3",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -11434,8 +11587,8 @@
         "row_id": "en-es-sentence-veto-firm-firma:active-en-es-sentence-veto-firm-firma-active-commercial-organization-frame-1",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -11512,8 +11665,8 @@
         "row_id": "en-es-sentence-veto-firm-firma:active-en-es-sentence-veto-firm-firma-active-commercial-organization-frame-2",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -11590,8 +11743,8 @@
         "row_id": "en-es-sentence-veto-firm-firma:active-en-es-sentence-veto-firm-firma-active-commercial-organization-frame-3",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -11667,8 +11820,8 @@
         "row_id": "en-es-sentence-veto-firm-firma:shadow-en-es-sentence-veto-firm-firma-afirmar-shadow-secure-fixing-frame-1",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -11743,8 +11896,8 @@
         "row_id": "en-es-sentence-veto-firm-firma:shadow-en-es-sentence-veto-firm-firma-afirmar-shadow-secure-fixing-frame-2",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -11819,8 +11972,8 @@
         "row_id": "en-es-sentence-veto-firm-firma:shadow-en-es-sentence-veto-firm-firma-afirmar-shadow-secure-fixing-frame-3",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -11896,8 +12049,8 @@
         "row_id": "en-es-sentence-veto-even-tarde:active-en-es-sentence-veto-even-tarde-active-evening-time-frame-2",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -11973,8 +12126,8 @@
         "row_id": "en-es-sentence-veto-even-tarde:active-en-es-sentence-veto-even-tarde-active-evening-time-frame-3",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -12050,8 +12203,8 @@
         "row_id": "en-es-sentence-veto-wrong-incorrecto:active-en-es-sentence-veto-wrong-incorrecto-active-incorrectness-frame-1",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -12127,8 +12280,8 @@
         "row_id": "en-es-sentence-veto-wrong-incorrecto:active-en-es-sentence-veto-wrong-incorrecto-active-incorrectness-frame-2",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -12204,8 +12357,8 @@
         "row_id": "en-es-sentence-veto-wrong-incorrecto:active-en-es-sentence-veto-wrong-incorrecto-active-incorrectness-frame-3",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -12281,8 +12434,8 @@
         "row_id": "en-es-sentence-veto-meet-adecuado:active-en-es-sentence-veto-meet-adecuado-active-suitability-frame-1",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -12358,8 +12511,8 @@
         "row_id": "en-es-sentence-veto-meet-adecuado:active-en-es-sentence-veto-meet-adecuado-active-suitability-frame-2",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -12435,8 +12588,8 @@
         "row_id": "en-es-sentence-veto-meet-adecuado:active-en-es-sentence-veto-meet-adecuado-active-suitability-frame-3",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -12511,8 +12664,8 @@
         "row_id": "en-es-sentence-veto-meet-adecuado:shadow-en-es-sentence-veto-meet-adecuado-encontrar-shadow-meeting-encounter-frame-2",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -12589,8 +12742,8 @@
         "row_id": "en-es-sentence-veto-stretch-estir-n:active-en-es-sentence-veto-stretch-estir-n-active-stretching-lengthening-frame-1",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -12667,8 +12820,8 @@
         "row_id": "en-es-sentence-veto-stretch-estir-n:active-en-es-sentence-veto-stretch-estir-n-active-stretching-lengthening-frame-2",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -12745,8 +12898,8 @@
         "row_id": "en-es-sentence-veto-stretch-estir-n:active-en-es-sentence-veto-stretch-estir-n-active-stretching-lengthening-frame-3",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -12822,8 +12975,8 @@
         "row_id": "en-es-sentence-veto-stretch-estir-n:shadow-en-es-sentence-veto-stretch-estir-n-estirar-shadow-stretching-lengthening-frame-1",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -12898,8 +13051,8 @@
         "row_id": "en-es-sentence-veto-stretch-estir-n:shadow-en-es-sentence-veto-stretch-estir-n-estirar-shadow-stretching-lengthening-frame-2",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -12974,8 +13127,8 @@
         "row_id": "en-es-sentence-veto-stretch-estir-n:shadow-en-es-sentence-veto-stretch-estir-n-estirar-shadow-stretching-lengthening-frame-3",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -13051,8 +13204,8 @@
         "row_id": "en-es-sentence-veto-score-tantos:active-en-es-sentence-veto-score-tantos-active-sports-points-scoring-frame-1",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -13129,8 +13282,8 @@
         "row_id": "en-es-sentence-veto-score-tantos:active-en-es-sentence-veto-score-tantos-active-sports-points-scoring-frame-2",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -13207,8 +13360,8 @@
         "row_id": "en-es-sentence-veto-score-tantos:active-en-es-sentence-veto-score-tantos-active-sports-points-scoring-frame-3",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -13284,8 +13437,8 @@
         "row_id": "en-es-sentence-veto-score-tantos:shadow-en-es-sentence-veto-score-tantos-marcador-shadow-sports-points-scoring-frame-1",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -13360,8 +13513,8 @@
         "row_id": "en-es-sentence-veto-score-tantos:shadow-en-es-sentence-veto-score-tantos-marcador-shadow-sports-points-scoring-frame-2",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -13436,8 +13589,8 @@
         "row_id": "en-es-sentence-veto-score-tantos:shadow-en-es-sentence-veto-score-tantos-marcador-shadow-sports-points-scoring-frame-3",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -13512,8 +13665,8 @@
         "row_id": "en-es-sentence-veto-score-tantos:shadow-en-es-sentence-veto-score-tantos-anotar-shadow-sports-points-scoring-frame-1",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -13588,8 +13741,8 @@
         "row_id": "en-es-sentence-veto-score-tantos:shadow-en-es-sentence-veto-score-tantos-anotar-shadow-sports-points-scoring-frame-2",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -13664,8 +13817,8 @@
         "row_id": "en-es-sentence-veto-score-tantos:shadow-en-es-sentence-veto-score-tantos-anotar-shadow-sports-points-scoring-frame-3",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -13741,8 +13894,8 @@
         "row_id": "en-es-sentence-veto-crash-choque:active-en-es-sentence-veto-crash-choque-active-collision-malfunction-frame-1",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -13818,8 +13971,8 @@
         "row_id": "en-es-sentence-veto-crash-choque:active-en-es-sentence-veto-crash-choque-active-collision-malfunction-frame-2",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -13895,8 +14048,8 @@
         "row_id": "en-es-sentence-veto-crash-choque:active-en-es-sentence-veto-crash-choque-active-collision-malfunction-frame-3",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -13971,8 +14124,8 @@
         "row_id": "en-es-sentence-veto-crash-choque:shadow-en-es-sentence-veto-crash-choque-fallo-shadow-collision-malfunction-frame-1",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -14047,8 +14200,8 @@
         "row_id": "en-es-sentence-veto-crash-choque:shadow-en-es-sentence-veto-crash-choque-fallo-shadow-collision-malfunction-frame-2",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -14123,8 +14276,8 @@
         "row_id": "en-es-sentence-veto-crash-choque:shadow-en-es-sentence-veto-crash-choque-fallo-shadow-collision-malfunction-frame-3",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -14199,8 +14352,8 @@
         "row_id": "en-es-sentence-veto-crash-choque:shadow-en-es-sentence-veto-crash-choque-chocar-shadow-collision-malfunction-frame-1",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -14275,8 +14428,8 @@
         "row_id": "en-es-sentence-veto-crash-choque:shadow-en-es-sentence-veto-crash-choque-chocar-shadow-collision-malfunction-frame-2",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -14351,8 +14504,8 @@
         "row_id": "en-es-sentence-veto-crash-choque:shadow-en-es-sentence-veto-crash-choque-chocar-shadow-collision-malfunction-frame-3",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -14428,8 +14581,8 @@
         "row_id": "en-es-sentence-veto-squeeze-crisis:active-en-es-sentence-veto-squeeze-crisis-active-difficult-situation-frame-1",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -14468,7 +14621,7 @@
         "source_view": "source_class_frame_template",
         "source_match_text": "squeeze noun sense: difficult position | difficult position | squeeze noun sense: difficult position | difficult position | difficult position | difficult position",
         "template_index": 1,
-        "template_count": 3
+        "template_count": 4
       }
     },
     {
@@ -14505,8 +14658,8 @@
         "row_id": "en-es-sentence-veto-squeeze-crisis:active-en-es-sentence-veto-squeeze-crisis-active-difficult-situation-frame-2",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -14545,7 +14698,7 @@
         "source_view": "source_class_frame_template",
         "source_match_text": "squeeze noun sense: difficult position | difficult position | squeeze noun sense: difficult position | difficult position | difficult position | difficult position",
         "template_index": 2,
-        "template_count": 3
+        "template_count": 4
       }
     },
     {
@@ -14569,7 +14722,7 @@
       "candidate_target": "crisis",
       "normalized_candidate_target": "crisis",
       "is_multiword": false,
-      "evidence_text": "a constrained problem situation",
+      "evidence_text": "a serious fix or predicament",
       "review_state": "unreviewed",
       "promotion_state": "proposed",
       "linkage_status": "partially_linked",
@@ -14582,8 +14735,8 @@
         "row_id": "en-es-sentence-veto-squeeze-crisis:active-en-es-sentence-veto-squeeze-crisis-active-difficult-situation-frame-3",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -14622,7 +14775,84 @@
         "source_view": "source_class_frame_template",
         "source_match_text": "squeeze noun sense: difficult position | difficult position | squeeze noun sense: difficult position | difficult position | difficult position | difficult position",
         "template_index": 3,
-        "template_count": 3
+        "template_count": 4
+      }
+    },
+    {
+      "evidence_id": "evidence:2d7d0ca22b55ff07cb9ac260660e1bf0869845e4",
+      "dedupe_key": "dedupe:973a29ac4f1f016932af53d0f58aae82ba7feb20",
+      "batch_id": "en-es:source-class-frame-evidence:source-class-frame-non-v10-wave7-source-class-breadth-v1-latest",
+      "row_id": "en-es-sentence-veto-squeeze-crisis:active-en-es-sentence-veto-squeeze-crisis-active-difficult-situation-frame-4",
+      "pair": "en-es",
+      "source_type": "internal",
+      "source_id": "source_class_frame_evidence",
+      "source_family": "internal_rulegen_artifact",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "squeeze",
+      "normalized_trigger": "squeeze",
+      "active_target": "crisis",
+      "normalized_active_target": "crisis",
+      "candidate_target": "crisis",
+      "normalized_candidate_target": "crisis",
+      "is_multiword": false,
+      "evidence_text": "a constrained problem situation",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "internal",
+        "source_id": "source_class_frame_evidence",
+        "source_family": "internal_rulegen_artifact",
+        "batch_id": "en-es:source-class-frame-evidence:source-class-frame-non-v10-wave7-source-class-breadth-v1-latest",
+        "row_id": "en-es-sentence-veto-squeeze-crisis:active-en-es-sentence-veto-squeeze-crisis-active-difficult-situation-frame-4",
+        "model_id": "not_applicable",
+        "prompt_version": "source-class-frame-evidence-v1",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
+        "normalization_version": "semantic_evidence_v1",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:squeeze:crisis:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:squeeze:crisis:active",
+        "canonical_pos": "noun",
+        "note": "source_semantic_class_candidate",
+        "metadata": {
+          "semantic_class_id": "difficult_situation",
+          "source_view": "source_backed_gloss_or_translation_sense",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "example_count": 1,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:squeeze:crisis",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:squeeze:crisis:active",
+        "candidate_sense_id": "en-es:sentence-veto:squeeze:crisis:active",
+        "example_bucket": "active",
+        "semantic_class_id": "difficult_situation",
+        "semantic_class_description": "difficult situation, position, dilemma, or constraint",
+        "source_view": "source_class_frame_template",
+        "source_match_text": "squeeze noun sense: difficult position | difficult position | squeeze noun sense: difficult position | difficult position | difficult position | difficult position",
+        "template_index": 4,
+        "template_count": 4
       }
     },
     {
@@ -14658,8 +14888,8 @@
         "row_id": "en-es-sentence-veto-squeeze-crisis:shadow-en-es-sentence-veto-squeeze-crisis-apretujar-shadow-tight-physical-fit-frame-2",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -14735,8 +14965,8 @@
         "row_id": "en-es-sentence-veto-foul-falta:active-en-es-sentence-veto-foul-falta-active-sports-rule-offense-frame-1",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -14812,8 +15042,8 @@
         "row_id": "en-es-sentence-veto-foul-falta:active-en-es-sentence-veto-foul-falta-active-sports-rule-offense-frame-2",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -14889,8 +15119,8 @@
         "row_id": "en-es-sentence-veto-foul-falta:active-en-es-sentence-veto-foul-falta-active-sports-rule-offense-frame-3",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -14965,8 +15195,8 @@
         "row_id": "en-es-sentence-veto-foul-falta:shadow-en-es-sentence-veto-foul-falta-ensuciar-shadow-dirtying-pollution-frame-1",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -15041,8 +15271,8 @@
         "row_id": "en-es-sentence-veto-foul-falta:shadow-en-es-sentence-veto-foul-falta-ensuciar-shadow-dirtying-pollution-frame-2",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -15117,8 +15347,8 @@
         "row_id": "en-es-sentence-veto-foul-falta:shadow-en-es-sentence-veto-foul-falta-ensuciar-shadow-dirtying-pollution-frame-3",
         "model_id": "not_applicable",
         "prompt_version": "source-class-frame-evidence-v1",
-        "generated_at": "2026-04-30T19:15:50Z",
-        "ingested_at": "2026-04-30T19:15:50Z",
+        "generated_at": "2026-04-30T20:46:52Z",
+        "ingested_at": "2026-04-30T20:46:52Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -15189,8 +15419,8 @@
         "source_id": "source_class_frame_evidence",
         "source_type": "internal",
         "source_family": "internal_rulegen_artifact",
-        "input_row_count": 87,
-        "accepted_row_count": 87,
+        "input_row_count": 90,
+        "accepted_row_count": 90,
         "duplicate_row_count": 0
       }
     ],

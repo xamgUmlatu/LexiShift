@@ -5,6 +5,7 @@ from typing import Mapping
 
 from semantic_llm_prototype_admission_config import (
     ACTIVE_MODIFIER_RESCUE_MARGIN_FLOOR,
+    phrase_preemption_should_apply,
 )
 
 
@@ -86,7 +87,15 @@ def replay_semantic_policy_decision(
         phrase_prototype_margin
     ):
         predicted = "abstain"
-    if bool(row.get("phrase_preemption_hit")):
+    phrase_preemption_applied = phrase_preemption_should_apply(
+        phrase_preemption_hit=bool(row.get("phrase_preemption_hit")),
+        decision_before_phrase_preemption=predicted,
+        active_score=active_score,
+        strongest_shadow_score=shadow_score,
+        phrase_control_score=phrase_score,
+        phrase_prototype_margin=phrase_prototype_margin,
+    )
+    if phrase_preemption_applied:
         predicted = "abstain"
     active_rescue_applied = False
     if use_surface_pos:

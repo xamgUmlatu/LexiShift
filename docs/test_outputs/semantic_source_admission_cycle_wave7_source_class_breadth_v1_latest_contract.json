@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-04-30T19:16:20Z",
+  "generated_at": "2026-04-30T20:46:54Z",
   "status": "review",
   "pair": "en-es",
   "batch_path": "",
@@ -8,7 +8,7 @@
   "source_id": "wordnet_translation_sense_source_class_non_v10_wave7_source_class_breadth_v1",
   "prompt_version": "example-frame-composite-v1",
   "model_id": "mixed",
-  "row_count": 151,
+  "row_count": 153,
   "contract": {
     "required_relation_sets": {
       "active_examples": [
@@ -318,7 +318,7 @@
       "active_row_ids": [
         "en-es-sentence-veto-fix-aprieto:active-wordnet-definition-1",
         "en-es-sentence-veto-fix-aprieto:active-en-es-sentence-veto-fix-aprieto-active-translation-sense-1",
-        "en-es-sentence-veto-fix-aprieto:active-en-es-sentence-veto-fix-aprieto-active-difficult-situation-frame-3"
+        "en-es-sentence-veto-fix-aprieto:active-en-es-sentence-veto-fix-aprieto-active-difficult-situation-frame-4"
       ],
       "shadow_row_ids": [
         "en-es-sentence-veto-fix-aprieto:shadow-en-es-sentence-veto-fix-aprieto-localizaci-n-shadow-wordnet-definition-1",
@@ -417,9 +417,9 @@
       "trigger": "gross",
       "active_target": "repulsivo",
       "active_example_count": 5,
-      "shadow_example_count": 4,
+      "shadow_example_count": 5,
       "phrase_control_example_count": 0,
-      "row_count": 9,
+      "row_count": 10,
       "semantic_contract_complete": true,
       "phrase_containment_contract_complete": false,
       "contract_complete": false,
@@ -441,7 +441,8 @@
         "en-es-sentence-veto-gross-repulsivo:shadow-en-es-sentence-veto-gross-repulsivo-gruesa-shadow-wordnet-definition-1",
         "en-es-sentence-veto-gross-repulsivo:shadow-en-es-sentence-veto-gross-repulsivo-gruesa-shadow-translation-sense-1",
         "en-es-sentence-veto-gross-repulsivo:shadow-en-es-sentence-veto-gross-repulsivo-gruesa-shadow-quantity-dozen-count-frame-2",
-        "en-es-sentence-veto-gross-repulsivo:shadow-en-es-sentence-veto-gross-repulsivo-gruesa-shadow-quantity-dozen-count-frame-3"
+        "en-es-sentence-veto-gross-repulsivo:shadow-en-es-sentence-veto-gross-repulsivo-gruesa-shadow-quantity-dozen-count-frame-3",
+        "en-es-sentence-veto-gross-repulsivo:shadow-en-es-sentence-veto-gross-repulsivo-gruesa-shadow-quantity-dozen-count-frame-4"
       ],
       "phrase_control_row_ids": [],
       "phrase_rows_missing_role": [],
@@ -563,10 +564,10 @@
       "family_id": "en-es:sentence-veto:squeeze:crisis",
       "trigger": "squeeze",
       "active_target": "crisis",
-      "active_example_count": 5,
+      "active_example_count": 6,
       "shadow_example_count": 3,
       "phrase_control_example_count": 0,
-      "row_count": 8,
+      "row_count": 9,
       "semantic_contract_complete": true,
       "phrase_containment_contract_complete": false,
       "contract_complete": false,
@@ -582,7 +583,8 @@
         "en-es-sentence-veto-squeeze-crisis:active-en-es-sentence-veto-squeeze-crisis-active-translation-sense-1",
         "en-es-sentence-veto-squeeze-crisis:active-en-es-sentence-veto-squeeze-crisis-active-difficult-situation-frame-1",
         "en-es-sentence-veto-squeeze-crisis:active-en-es-sentence-veto-squeeze-crisis-active-difficult-situation-frame-2",
-        "en-es-sentence-veto-squeeze-crisis:active-en-es-sentence-veto-squeeze-crisis-active-difficult-situation-frame-3"
+        "en-es-sentence-veto-squeeze-crisis:active-en-es-sentence-veto-squeeze-crisis-active-difficult-situation-frame-3",
+        "en-es-sentence-veto-squeeze-crisis:active-en-es-sentence-veto-squeeze-crisis-active-difficult-situation-frame-4"
       ],
       "shadow_row_ids": [
         "en-es-sentence-veto-squeeze-crisis:shadow-en-es-sentence-veto-squeeze-crisis-apretujar-shadow-wordnet-definition-1",

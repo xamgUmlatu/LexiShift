@@ -1,7 +1,7 @@
 # en-es WordNet Alternate-Sense Phrase Evidence
 
 - Status: `ok`
-- Generated: `2026-04-30T19:16:37Z`
+- Generated: `2026-04-30T20:47:26Z`
 - Dataset: `en_es_source_non_v10_wave7_source_class_breadth_v1_unsupported_selected`
 - Batch: `en-es:wordnet-alternate-sense-phrase:wordnet-alternate-sense-phrase-non-v10-wave7-source-class-breadth-v1-triage-latest`
 - Rows: `179`

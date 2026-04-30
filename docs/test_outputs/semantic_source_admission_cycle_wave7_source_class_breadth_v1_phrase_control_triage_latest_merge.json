@@ -1,16 +1,16 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-04-30T19:16:51Z",
+  "generated_at": "2026-04-30T20:47:27Z",
   "status": "ok",
   "batch_id": "en-es:wave7-source-class-breadth-v1:phrase-control-triage:cycle",
   "source_id": "wordnet_alt_phrase_wave7_source_class_breadth_v1_triage",
   "summary": {
     "component_count": 2,
-    "row_count": 324,
+    "row_count": 326,
     "family_count": 16,
     "relation_counts": {
-      "anchor_cue": 69,
-      "shadow_candidate": 82,
+      "anchor_cue": 70,
+      "shadow_candidate": 83,
       "phrase_control_example": 173
     }
   },
@@ -21,8 +21,8 @@
       "source_id": "wordnet_translation_sense_source_class_non_v10_wave7_source_class_breadth_v1",
       "source_type": "internal",
       "source_family": "internal_rulegen_artifact",
-      "input_row_count": 151,
-      "accepted_row_count": 151,
+      "input_row_count": 153,
+      "accepted_row_count": 153,
       "duplicate_row_count": 0
     },
     {

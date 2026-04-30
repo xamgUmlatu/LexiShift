@@ -256,7 +256,7 @@ Wave7 breadth gate:
   `like`, `gross`, `cast`, `fix`, `full`, `waste`, `firm`, `even`, `wrong`,
   `meet`, `stretch`, `score`, `crash`, `trim`, `squeeze`, `foul`.
 - Source-class breadth: `23` split non-authorization source-detectable
-  classes and `87` deterministic class-frame rows across `29` senses.
+  classes and `90` deterministic class-frame rows across `29` senses.
 - Heldout floor: `48` locked cases exist: `32` active/shadow cases and `16`
   phrase/no-winner cases.
 - Admission result: `16 / 16` semantic contract, but status `review` due `12`
@@ -273,27 +273,29 @@ Wave7 phrase-control triage:
 - Added WordNet alternate-sense phrase/no-winner evidence for the same 16
   families: `179` phrase-control rows across `248` candidate senses.
 - Phrase-control admission now reaches `16 / 16` semantic contract and
-  `16 / 16` phrase contract with `324` final admitted rows, but remains
+  `16 / 16` phrase contract with `326` final admitted rows, but remains
   `review` due leakage review and downstream heldout blockers.
-- Active/shadow heldout remains blocked: `1` harmful replacement and `3` false
+- Active/shadow heldout remains blocked: `1` harmful replacement and `2` false
   abstains across `32` cases. The source-class split fixed the previous
-  `like` and `full` false abstains.
+  `like` and `full` false abstains; the targeted phrase-preemption guard fixed
+  the previous `even` false abstain.
 - Phrase/no-winner heldout remains blocked under the current surface-POS shape:
   `6` harmful replacements across `16` cases, even though phrase-control scores
   are now present.
 - Rescue sweep over the phrase-control triage traces found `0` passing policies
   across `25` replayed rescue policies.
-- No-surface margin sweep found `0` passing combined policies: phrase-only rows
-  can pass at several margins, but active/shadow false abstains increase enough
-  to block the lane.
+- No-surface margin sweep found `0` passing combined policies when run with the
+  no-surface prototype decision shape: phrase-only rows can pass at several
+  margins, but active/shadow false abstains increase enough to block the lane.
 - Current blocker split: residual active/source failures are `gross` harmful
-  quantity-vs-disgust selection plus `fix`, `even`, and `meet` false abstains;
+  quantity-vs-disgust selection plus `fix` and `meet` false abstains;
   phrase/no-winner still has `6` harmful replacements, and neither rescue nor
   no-surface scalar margin policies produce a combined pass.
 - Residual blocker probe:
   `docs/test_outputs/semantic_wave7_residual_blocker_probe_wave7_source_class_breadth_v1_phrase_control_triage_latest.md`
-  classifies those `10` residuals into `6` failure classes and preserves the
-  next remediation as targeted guard/evidence work, not global scalar tuning.
+  classifies the remaining `9` residuals into `5` failure classes and preserves
+  the next remediation as targeted shadow/overlap evidence plus phrase/no-winner
+  rescue-guard work, not global scalar tuning.
 
 ## Action Ledger
 
@@ -333,9 +335,14 @@ Current highest-priority actions:
 - `P1` `wave7_residual_guard_and_shadow_evidence`: done; the residual blocker
   probe split `gross`, `fix`, `even`, `meet`, and the 6 phrase/no-winner harms
   into separate remediation lanes before any scalar rescue or margin tuning.
-- `P1` `wave7_targeted_guard_and_evidence_patch`: queued; implement the
-  smallest guard or evidence patch justified by the residual blocker probe and
-  rerun both heldout suites plus rescue/no-surface diagnostics.
+- `P1` `wave7_targeted_guard_and_evidence_patch`: done; added a research-only
+  strong-active phrase-preemption guard plus targeted `gross`/`fix`
+  source-class templates, regenerated the wave7 phrase-control chain, and fixed
+  the `even` false abstain while leaving `gross`, `fix`, `meet`, and the 6
+  phrase/no-winner harms blocked.
+- `P1` `wave7_shadow_overlap_and_phrase_rescue_followup`: queued; repair the
+  remaining measured blocker classes without treating the lane as a global
+  threshold problem.
 - `P1` `scorer_backed_rescue_policy_confirmation`: done; the recommended rescue
   policy passes scorer-backed offline validation over the current 54-row suite.
 - `P1` `source_trigger_overfit_audit`: done; authorization-frame evidence is
@@ -378,15 +385,17 @@ Integrity audit lane:
 
 Research lane:
 
-- Completed action: `wave7_residual_guard_and_shadow_evidence`.
-- Result: the residual blocker probe classifies `10` current failures into `6`
-  failure classes: `gross` quantity shadow evidence underweighted, `fix` shadow
-  overlap, `even` phrase-preemption overreach on a strong active, `meet`
-  phrase-control overlap, and phrase/no-winner rescue leakage split into
+- Completed action: `wave7_targeted_guard_and_evidence_patch`.
+- Result: the targeted guard patch resolved the `even` phrase-preemption false
+  abstain and reduced active/shadow false abstains from `3` to `2`. The refreshed
+  residual blocker probe now classifies `9` current failures into `5` failure
+  classes: `gross` quantity shadow evidence underweighted, `fix` shadow overlap,
+  `meet` phrase-control overlap, and phrase/no-winner rescue leakage split into
   dominant vs close phrase-control evidence. The rescue sweep and no-surface
   margin sweep still have `0` combined passing policies, so this remains a
-  targeted guard/evidence problem rather than one scalar threshold problem.
-- Next queued action: `wave7_targeted_guard_and_evidence_patch`.
+  targeted evidence/rescue-guard problem rather than one scalar threshold
+  problem.
+- Next queued action: `wave7_shadow_overlap_and_phrase_rescue_followup`.
 - Starting artifacts:
   `docs/test_outputs/semantic_wave7_residual_blocker_probe_wave7_source_class_breadth_v1_phrase_control_triage_latest.md`,
   `docs/test_outputs/semantic_source_admission_cycle_wave7_source_class_breadth_v1_phrase_control_triage_latest.md`,
@@ -425,10 +434,11 @@ Current state:
   classified in `docs/rulegen/semantic_veto_local_output_disposition.md`.
 - Action ledger: reconciliation passes are parked; the next substantive
   semantic-veto work is the research-only
-  `wave7_targeted_guard_and_evidence_patch` unless a new audit crack appears.
-- Parked research lane: `wave7_residual_guard_and_shadow_evidence` is complete
-  as a diagnostic pass; `wave7_targeted_guard_and_evidence_patch` is queued and
-  must not be lost, but it is not an audit task.
+  `wave7_shadow_overlap_and_phrase_rescue_followup` unless a new audit crack
+  appears.
+- Parked research lane: `wave7_targeted_guard_and_evidence_patch` is complete
+  as a partial remediation pass; `wave7_shadow_overlap_and_phrase_rescue_followup`
+  is queued and must not be lost, but it is not an audit task.
 - Current candidate remains research-only:
   `wave6_auth_frame_raw_sentence_surface_pos_rescue`.
 - Next breadth gate: `wave7_source_class_breadth_v1`.
@@ -459,15 +469,15 @@ Read in this order:
 
 First task:
 
-- Execute `wave7_targeted_guard_and_evidence_patch` only if the user wants to
-  continue research remediation; otherwise open a new explicit audit pass before
-  changing artifact authority.
+- Execute `wave7_shadow_overlap_and_phrase_rescue_followup` only if the user
+  wants to continue research remediation; otherwise open a new explicit audit
+  pass before changing artifact authority.
 - Start from the residual blocker probe, not from a global threshold sweep.
 - Keep action items updated as cracks are discovered or resolved.
 - Keep durable inputs, generated evidence, control artifacts, and local
   uncommitted experiment outputs separate.
 - Do not treat generated reports under `latest` names as architecture authority.
-- Do not advance `wave7_targeted_guard_and_evidence_patch` unless the user
+- Do not advance `wave7_shadow_overlap_and_phrase_rescue_followup` unless the user
   explicitly switches from auditing to research remediation.
 - Reopen a reconciliation pass only if a new active harness appears, runtime
   policy changes, or another old artifact starts steering current decisions.

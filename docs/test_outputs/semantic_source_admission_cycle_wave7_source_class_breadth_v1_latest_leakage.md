@@ -1,17 +1,17 @@
 # en-es LLM Example-Frame Leakage Audit
 
 - Status: `review`
-- Generated: `2026-04-30T19:16:20Z`
+- Generated: `2026-04-30T20:46:54Z`
 - Batch: `en-es:wave7-source-class-breadth-v1:evidence-composite`
 - Filtered batch: `en-es:wave7-source-class-breadth-v1:evidence-composite:filtered`
 
 ## Summary
 
-- Input rows: `192`
+- Input rows: `195`
 - Leakage hits: `0`
 - Duplicate hits: `12`
 - Rejected rows: `12`
-- Kept rows: `180`
+- Kept rows: `183`
 - Jaccard threshold: `0.75`
 - Duplicate jaccard threshold: `0.92`
 - Min contained tokens: `5`
