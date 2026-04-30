@@ -383,11 +383,12 @@
     {
       "action_id": "artifact_authority_stale_latest_audit_continuation",
       "priority": "P1",
-      "status": "queued",
+      "status": "done",
       "pass_id": "data_artifacts",
       "source_artifacts": [
         "semantic_veto_reconciliation_workstream",
         "semantic_veto_system_registry",
+        "semantic_veto_artifact_authority_audit",
         "semantic_veto_archive_consolidation_ledger",
         "decision_research_lanes_ledger",
         "source_admission_program_doc",
@@ -398,9 +399,43 @@
         "wave7_phrase_control_no_surface_margin_sweep"
       ],
       "action": "Continue the integrity audit before more wave7 research: verify current-looking latest artifacts, dirty generated outputs, and methodology docs are classified as runtime truth, current candidate evidence, generated evidence, historical context, superseded, or queued follow-up.",
-      "evidence_needed": "The registry currently has 27 latest-path entries classified as generated_evidence, historical_reference, or superseded; uncommitted latest outputs remain non-authoritative until an audit pass either classifies, regenerates, commits, or explicitly leaves them out of scope.",
-      "validation": "Regenerate the registry summary, run focused registry tests, run doc-reference checks, validate registry JSON, and run git diff whitespace checks; avoid new semantic evidence generation unless the user explicitly switches to the research lane.",
+      "evidence_needed": "Artifact authority audit records that the registry has 27 latest-path entries and none are runtime truth: 21 generated_evidence, 4 historical_reference, and 2 superseded. Dirty methodology docs and local generated outputs are explicitly non-authoritative until follow-up reconciliation.",
+      "validation": "Registry summary regenerated, focused registry tests passed, doc-reference checks passed, registry JSON parsed, and git diff whitespace checks passed. No new semantic evidence was generated.",
       "promotion_impact": "Keeps the remaining auditing work first while preserving the wave7 research lane as a queued, research-only follow-up."
+    },
+    {
+      "action_id": "semantic_methodology_doc_dirty_state_reconcile",
+      "priority": "P1",
+      "status": "queued",
+      "pass_id": "research_harness",
+      "source_artifacts": [
+        "semantic_veto_artifact_authority_audit",
+        "semantic_sentence_veto_algorithm_doc",
+        "source_admission_program_doc",
+        "decision_rule_comparison_plan",
+        "decision_research_lanes_ledger"
+      ],
+      "action": "Review the dirty semantic-veto methodology docs and decision-lane ledger, then commit the intended current-reference updates or split research-only wording into explicit queued rows.",
+      "evidence_needed": "Dirty docs currently add reconciliation links and wave6 source/guard findings; they must be checked against registry state and generated artifacts before they become canonical.",
+      "validation": "Regenerate decision research lane summary if the ledger is kept, regenerate registry summary if classifications change, run doc-reference checks, validate JSON, and run git diff whitespace checks.",
+      "promotion_impact": "Prevents methodology docs from silently promoting research findings ahead of the registry."
+    },
+    {
+      "action_id": "local_semantic_latest_output_disposition",
+      "priority": "P1",
+      "status": "queued",
+      "pass_id": "archive_consolidation",
+      "source_artifacts": [
+        "semantic_veto_artifact_authority_audit",
+        "semantic_veto_archive_consolidation_ledger",
+        "wave5_source_portfolio_failure_mining",
+        "wave6_wiktextract_supported_initial_failure_mining",
+        "wave6_wiktextract_supported_initial_validation"
+      ],
+      "action": "Classify dirty and untracked semantic generated outputs as commit, archive, regenerate, or out-of-scope local output without letting them steer current claims.",
+      "evidence_needed": "Dirty wave5 source-portfolio sidecars, dirty wave5 normalized evidence, untracked wave2-wave5 draft datasets, and untracked wave6 margin/heldout/rescue outputs remain local generated output state.",
+      "validation": "Update archive or registry rows only for artifacts intentionally preserved, rerun registry summary and doc-reference checks, validate JSON, and keep unrelated project-health/rulegen benchmark outputs out of semantic-veto authority.",
+      "promotion_impact": "Removes stale-output ambiguity before future agents evaluate promotion or runtime-policy claims."
     },
     {
       "action_id": "wave7_source_class_breadth_setup",
@@ -1221,6 +1256,22 @@
       "owner_doc": "docs/rulegen/semantic_veto_reconciliation_workstream.md",
       "current_use": "Primary source for action state, artifact authority, and rendered handoff summary.",
       "risk": "If action state drifts, agents can follow research remediation before finishing integrity audits.",
+      "next_audit_pass": "data_artifacts",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_system_registry_latest.md",
+        "scripts/testing/semantic_veto_system_registry_summary.py"
+      ]
+    },
+    {
+      "artifact_id": "semantic_veto_artifact_authority_audit",
+      "title": "Semantic veto artifact authority audit",
+      "component": "process_governance",
+      "state": "current_reference",
+      "path": "docs/rulegen/semantic_veto_artifact_authority_audit.md",
+      "role": "Integrity-audit snapshot that classifies registered latest artifacts, dirty generated outputs, and parked research lanes.",
+      "owner_doc": "docs/rulegen/semantic_veto_reconciliation_workstream.md",
+      "current_use": "Current handoff guardrail for continuing auditing before more wave7 research remediation.",
+      "risk": "Must be updated when dirty output disposition or methodology-doc reconciliation changes artifact authority.",
       "next_audit_pass": "data_artifacts",
       "verification_artifacts": [
         "docs/test_outputs/semantic_veto_system_registry_latest.md",

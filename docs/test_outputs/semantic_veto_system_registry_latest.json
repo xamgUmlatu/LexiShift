@@ -24,26 +24,38 @@
       "validation": "Focused semantic harness tests passed; lane artifacts were regenerated through failure mining; registry audit and doc-reference checks must stay clean before commit."
     },
     {
-      "action": "Continue the integrity audit before more wave7 research: verify current-looking latest artifacts, dirty generated outputs, and methodology docs are classified as runtime truth, current candidate evidence, generated evidence, historical context, superseded, or queued follow-up.",
-      "action_id": "artifact_authority_stale_latest_audit_continuation",
-      "evidence_needed": "The registry currently has 27 latest-path entries classified as generated_evidence, historical_reference, or superseded; uncommitted latest outputs remain non-authoritative until an audit pass either classifies, regenerates, commits, or explicitly leaves them out of scope.",
-      "pass_id": "data_artifacts",
+      "action": "Classify dirty and untracked semantic generated outputs as commit, archive, regenerate, or out-of-scope local output without letting them steer current claims.",
+      "action_id": "local_semantic_latest_output_disposition",
+      "evidence_needed": "Dirty wave5 source-portfolio sidecars, dirty wave5 normalized evidence, untracked wave2-wave5 draft datasets, and untracked wave6 margin/heldout/rescue outputs remain local generated output state.",
+      "pass_id": "archive_consolidation",
       "priority": "P1",
-      "promotion_impact": "Keeps the remaining auditing work first while preserving the wave7 research lane as a queued, research-only follow-up.",
+      "promotion_impact": "Removes stale-output ambiguity before future agents evaluate promotion or runtime-policy claims.",
       "source_artifacts": [
-        "semantic_veto_reconciliation_workstream",
-        "semantic_veto_system_registry",
+        "semantic_veto_artifact_authority_audit",
         "semantic_veto_archive_consolidation_ledger",
-        "decision_research_lanes_ledger",
-        "source_admission_program_doc",
-        "decision_rule_comparison_plan",
-        "semantic_sentence_veto_algorithm_doc",
-        "wave7_phrase_control_triage_admission",
-        "wave7_phrase_control_rescue_sweep",
-        "wave7_phrase_control_no_surface_margin_sweep"
+        "wave5_source_portfolio_failure_mining",
+        "wave6_wiktextract_supported_initial_failure_mining",
+        "wave6_wiktextract_supported_initial_validation"
       ],
       "status": "queued",
-      "validation": "Regenerate the registry summary, run focused registry tests, run doc-reference checks, validate registry JSON, and run git diff whitespace checks; avoid new semantic evidence generation unless the user explicitly switches to the research lane."
+      "validation": "Update archive or registry rows only for artifacts intentionally preserved, rerun registry summary and doc-reference checks, validate JSON, and keep unrelated project-health/rulegen benchmark outputs out of semantic-veto authority."
+    },
+    {
+      "action": "Review the dirty semantic-veto methodology docs and decision-lane ledger, then commit the intended current-reference updates or split research-only wording into explicit queued rows.",
+      "action_id": "semantic_methodology_doc_dirty_state_reconcile",
+      "evidence_needed": "Dirty docs currently add reconciliation links and wave6 source/guard findings; they must be checked against registry state and generated artifacts before they become canonical.",
+      "pass_id": "research_harness",
+      "priority": "P1",
+      "promotion_impact": "Prevents methodology docs from silently promoting research findings ahead of the registry.",
+      "source_artifacts": [
+        "semantic_veto_artifact_authority_audit",
+        "semantic_sentence_veto_algorithm_doc",
+        "source_admission_program_doc",
+        "decision_rule_comparison_plan",
+        "decision_research_lanes_ledger"
+      ],
+      "status": "queued",
+      "validation": "Regenerate decision research lane summary if the ledger is kept, regenerate registry summary if classifications change, run doc-reference checks, validate JSON, and run git diff whitespace checks."
     },
     {
       "action": "Design the next wave7 remediation split after phrase-control triage: add active source evidence for false abstains and gross, then test a phrase-aware rescue guard without hiding phrase harms.",
@@ -62,6 +74,29 @@
       ],
       "status": "queued",
       "validation": "Rerun phrase-control admission, active/shadow heldout, phrase/no-winner heldout, rescue sweep, margin sweep, failure mining, registry summary, focused tests, doc-reference checks, and git diff whitespace checks after the remediation candidate."
+    },
+    {
+      "action": "Continue the integrity audit before more wave7 research: verify current-looking latest artifacts, dirty generated outputs, and methodology docs are classified as runtime truth, current candidate evidence, generated evidence, historical context, superseded, or queued follow-up.",
+      "action_id": "artifact_authority_stale_latest_audit_continuation",
+      "evidence_needed": "Artifact authority audit records that the registry has 27 latest-path entries and none are runtime truth: 21 generated_evidence, 4 historical_reference, and 2 superseded. Dirty methodology docs and local generated outputs are explicitly non-authoritative until follow-up reconciliation.",
+      "pass_id": "data_artifacts",
+      "priority": "P1",
+      "promotion_impact": "Keeps the remaining auditing work first while preserving the wave7 research lane as a queued, research-only follow-up.",
+      "source_artifacts": [
+        "semantic_veto_reconciliation_workstream",
+        "semantic_veto_system_registry",
+        "semantic_veto_artifact_authority_audit",
+        "semantic_veto_archive_consolidation_ledger",
+        "decision_research_lanes_ledger",
+        "source_admission_program_doc",
+        "decision_rule_comparison_plan",
+        "semantic_sentence_veto_algorithm_doc",
+        "wave7_phrase_control_triage_admission",
+        "wave7_phrase_control_rescue_sweep",
+        "wave7_phrase_control_no_surface_margin_sweep"
+      ],
+      "status": "done",
+      "validation": "Registry summary regenerated, focused registry tests passed, doc-reference checks passed, registry JSON parsed, and git diff whitespace checks passed. No new semantic evidence was generated."
     },
     {
       "action": "Run the recommended rescue policy through scorer-backed heldout validation before any runtime-policy or promotion claim.",
@@ -237,7 +272,7 @@
     "diagnostics": 6,
     "evaluation_data": 7,
     "historical_or_seed": 6,
-    "process_governance": 8,
+    "process_governance": 9,
     "runtime_path": 16,
     "source_admission": 19
   },
@@ -1016,6 +1051,22 @@
       ]
     },
     {
+      "artifact_id": "semantic_veto_artifact_authority_audit",
+      "component": "process_governance",
+      "current_use": "Current handoff guardrail for continuing auditing before more wave7 research remediation.",
+      "next_audit_pass": "data_artifacts",
+      "owner_doc": "docs/rulegen/semantic_veto_reconciliation_workstream.md",
+      "path": "docs/rulegen/semantic_veto_artifact_authority_audit.md",
+      "risk": "Must be updated when dirty output disposition or methodology-doc reconciliation changes artifact authority.",
+      "role": "Integrity-audit snapshot that classifies registered latest artifacts, dirty generated outputs, and parked research lanes.",
+      "state": "current_reference",
+      "title": "Semantic veto artifact authority audit",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_system_registry_latest.md",
+        "scripts/testing/semantic_veto_system_registry_summary.py"
+      ]
+    },
+    {
       "artifact_id": "semantic_veto_assumption_ledger",
       "component": "process_governance",
       "current_use": "Current assumption ledger for the wave6 auth-frame raw-sentence rescue candidate.",
@@ -1551,8 +1602,8 @@
       ]
     }
   ],
-  "entry_count": 80,
-  "generated_at": "2026-04-30T18:29:15Z",
+  "entry_count": 81,
+  "generated_at": "2026-04-30T18:34:55Z",
   "issues": [],
   "next_passes": [],
   "pass_count": 7,
@@ -2366,6 +2417,22 @@
       ]
     },
     {
+      "artifact_id": "semantic_veto_artifact_authority_audit",
+      "component": "process_governance",
+      "current_use": "Current handoff guardrail for continuing auditing before more wave7 research remediation.",
+      "next_audit_pass": "data_artifacts",
+      "owner_doc": "docs/rulegen/semantic_veto_reconciliation_workstream.md",
+      "path": "docs/rulegen/semantic_veto_artifact_authority_audit.md",
+      "risk": "Must be updated when dirty output disposition or methodology-doc reconciliation changes artifact authority.",
+      "role": "Integrity-audit snapshot that classifies registered latest artifacts, dirty generated outputs, and parked research lanes.",
+      "state": "current_reference",
+      "title": "Semantic veto artifact authority audit",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_system_registry_latest.md",
+        "scripts/testing/semantic_veto_system_registry_summary.py"
+      ]
+    },
+    {
       "artifact_id": "semantic_veto_assumption_ledger",
       "component": "process_governance",
       "current_use": "Current assumption ledger for the wave6 auth-frame raw-sentence rescue candidate.",
@@ -2814,7 +2881,7 @@
   "schema_version": 1,
   "state_counts": {
     "current_candidate": 5,
-    "current_reference": 13,
+    "current_reference": 14,
     "current_research": 14,
     "current_runtime": 16,
     "diagnostic_only": 1,

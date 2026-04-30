@@ -4,7 +4,7 @@ Status: active workstream
 Role: Planning / WIP
 Purpose: keep the semantic sentence-veto runtime, research harnesses, data artifacts, and promotion claims aligned while the work spans many turns
 Last updated: 2026-05-01
-Last verified: 2026-05-01 against `semantic_sentence_veto_algorithm.md`, `semantic_source_admission_program.md`, `semantic_decision_rule_comparison_plan.md`, `semantic_veto_assumption_ledger.md`, `semantic_veto_archive_consolidation.md`, and `semantic_veto_system_registry_en_es.json`
+Last verified: 2026-05-01 against `semantic_sentence_veto_algorithm.md`, `semantic_source_admission_program.md`, `semantic_decision_rule_comparison_plan.md`, `semantic_veto_assumption_ledger.md`, `semantic_veto_archive_consolidation.md`, `semantic_veto_artifact_authority_audit.md`, and `semantic_veto_system_registry_en_es.json`
 Source-of-truth: this workstream governs reconciliation process; runtime truth still lives in code, tests, manifests, and generated evidence
 
 ## Why This Exists
@@ -34,6 +34,8 @@ candidate research, diagnostic tools, and historical evidence clearly distinct.
 - Process doc: `docs/rulegen/semantic_veto_reconciliation_workstream.md`
 - Assumption ledger: `docs/rulegen/semantic_veto_assumption_ledger.md`
 - Archive ledger: `docs/rulegen/semantic_veto_archive_consolidation.md`
+- Artifact authority audit:
+  `docs/rulegen/semantic_veto_artifact_authority_audit.md`
 - Wave7 breadth runbook:
   `docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md`
 - Machine registry: `docs/test_inputs/semantic_veto_system_registry_en_es.json`
@@ -302,9 +304,16 @@ Current highest-priority actions:
 - `P1` `wave7_blocking_failure_triage`: done; phrase-control evidence restored
   the phrase contract, but heldout blockers remained and are now split into
   active source-signal misses and phrase rescue-policy interaction.
-- `P1` `artifact_authority_stale_latest_audit_continuation`: queued; continue
-  the original integrity audit by checking current-looking `latest` artifacts,
-  dirty generated outputs, and methodology docs before more wave7 research.
+- `P1` `artifact_authority_stale_latest_audit_continuation`: done; the audit
+  now records that registered `latest` primary paths are generated, historical,
+  or superseded, and that dirty local generated outputs remain
+  non-authoritative until disposition.
+- `P1` `semantic_methodology_doc_dirty_state_reconcile`: queued; review dirty
+  methodology docs and the decision research ledger before treating their
+  wave6 source/guard wording as canonical.
+- `P1` `local_semantic_latest_output_disposition`: queued; classify dirty and
+  untracked semantic generated outputs as commit, archive, regenerate, or
+  out-of-scope local output.
 - `P1` `wave7_active_signal_and_rescue_split`: queued; add active source
   evidence for false abstains and `gross`, then test a phrase-aware rescue
   guard without hiding phrase/no-winner harms. This is the parked research
@@ -328,7 +337,7 @@ This workstream has two live lanes. Keep them separate in future handoffs.
 
 Integrity audit lane:
 
-- First priority: `artifact_authority_stale_latest_audit_continuation`.
+- First priority: `semantic_methodology_doc_dirty_state_reconcile`.
 - Purpose: finish the research-codebase integrity review by checking artifact
   authority, stale `latest` reports, dirty generated outputs, methodology docs,
   and registry classifications.
@@ -337,6 +346,8 @@ Integrity audit lane:
   `historical_reference`, or `superseded`, not runtime truth. Dirty local
   `latest` outputs outside this checkpoint remain non-authoritative until a
   later audit classifies, regenerates, commits, or explicitly excludes them.
+- Latest audit report:
+  `docs/rulegen/semantic_veto_artifact_authority_audit.md`.
 - Rule: do not generate new semantic evidence in this lane unless the user
   explicitly switches back to research.
 
@@ -381,7 +392,7 @@ Current state:
   wave6 precursor, and upper-bound artifacts are labeled historical or
   superseded in `docs/rulegen/semantic_veto_archive_consolidation.md`.
 - Action ledger: reconciliation passes are parked; the next substantive audit
-  work is `artifact_authority_stale_latest_audit_continuation`.
+  work is `semantic_methodology_doc_dirty_state_reconcile`.
 - Parked research lane: `wave7_active_signal_and_rescue_split` remains queued
   and must not be lost, but it is not the next audit task.
 - Current candidate remains research-only:
@@ -398,23 +409,24 @@ Current state:
 Read in this order:
 
 1. `docs/rulegen/semantic_veto_reconciliation_workstream.md`
-2. `docs/test_outputs/semantic_veto_system_registry_latest.md`
-3. `docs/test_inputs/semantic_veto_system_registry_en_es.json`
-4. `docs/rulegen/semantic_veto_archive_consolidation.md`
-5. `docs/rulegen/semantic_veto_assumption_ledger.md`
-6. `docs/rulegen/semantic_sentence_veto_algorithm.md`
-7. `docs/rulegen/semantic_source_admission_program.md`
-8. `docs/rulegen/semantic_decision_rule_comparison_plan.md`
-9. `docs/test_inputs/semantic_decision_research_lanes_en_es.json`
-10. `docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md`
-11. `docs/test_outputs/semantic_source_admission_cycle_wave7_source_class_breadth_v1_phrase_control_triage_latest.md`
+2. `docs/rulegen/semantic_veto_artifact_authority_audit.md`
+3. `docs/test_outputs/semantic_veto_system_registry_latest.md`
+4. `docs/test_inputs/semantic_veto_system_registry_en_es.json`
+5. `docs/rulegen/semantic_veto_archive_consolidation.md`
+6. `docs/rulegen/semantic_veto_assumption_ledger.md`
+7. `docs/rulegen/semantic_sentence_veto_algorithm.md`
+8. `docs/rulegen/semantic_source_admission_program.md`
+9. `docs/rulegen/semantic_decision_rule_comparison_plan.md`
+10. `docs/test_inputs/semantic_decision_research_lanes_en_es.json`
+11. `docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md`
+12. `docs/test_outputs/semantic_source_admission_cycle_wave7_source_class_breadth_v1_phrase_control_triage_latest.md`
 
 First task:
 
-- Execute `artifact_authority_stale_latest_audit_continuation`: continue the
-  integrity audit, starting with current-looking `latest` reports and dirty
-  local generated outputs, and classify each as current evidence, historical
-  context, superseded baseline, queued follow-up, or out-of-scope local output.
+- Execute `semantic_methodology_doc_dirty_state_reconcile`: review the dirty
+  methodology docs and decision research lane ledger, then commit intended
+  current-reference updates or split research-only wording into explicit queued
+  rows.
 - Keep action items updated as cracks are discovered or resolved.
 - Keep durable inputs, generated evidence, control artifacts, and local
   uncommitted experiment outputs separate.
