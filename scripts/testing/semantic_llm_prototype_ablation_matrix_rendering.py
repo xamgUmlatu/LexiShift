@@ -117,8 +117,8 @@ def _row_table(rows: Sequence[object], *, empty_label: str = "No rows.") -> str:
     if not materialized:
         return empty_label
     lines = [
-        "| Source | Scope | Scorer | Context | Active | Margin | Shape | Cases | Harmful | False Abstain | Recall | Accuracy |",
-        "| --- | --- | --- | --- | ---: | ---: | --- | ---: | ---: | ---: | ---: | ---: |",
+        "| Source | Scope | Scorer | Context | Active | Margin | Phrase Margin | Shape | Cases | Harmful | False Abstain | Recall | Accuracy |",
+        "| --- | --- | --- | --- | ---: | ---: | ---: | --- | ---: | ---: | ---: | ---: | ---: |",
     ]
     for row in materialized:
         lines.append(
@@ -131,6 +131,7 @@ def _row_table(rows: Sequence[object], *, empty_label: str = "No rows.") -> str:
                     f"`{row.get('context_view', '')}`",
                     str(row.get("min_active_score", 0.0)),
                     str(row.get("min_margin", 0.0)),
+                    str(row.get("phrase_prototype_margin", 0.0)),
                     f"`{row.get('decision_shape', '')}`",
                     str(row.get("cases_total", 0)),
                     str(row.get("harmful_replace_count", 0)),
@@ -148,6 +149,7 @@ def _inline_row(row: Mapping[str, object]) -> str:
     return (
         f"`{row.get('source_mode', '')}` / `{row.get('scope', '')}` / "
         f"`{row.get('scorer_id', '')}` / `{row.get('context_view', '')}` / "
+        f"p={row.get('phrase_prototype_margin', 0.0)} / "
         f"`{row.get('decision_shape', '')}` -> "
         f"{row.get('harmful_replace_count', 0)} harmful, "
         f"{row.get('false_abstain_count', 0)} false abstain, "

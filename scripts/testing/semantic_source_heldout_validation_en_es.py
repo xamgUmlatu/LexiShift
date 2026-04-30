@@ -22,6 +22,9 @@ from lexishift_core.rulegen.semantic_routing_runtime_scoring import (  # noqa: E
     DEFAULT_SENTENCE_VETO_MASK_TOKEN,
 )
 from semantic_llm_prompt_downstream_en_es import DEFAULT_DATASET_PATH  # noqa: E402
+from semantic_llm_prototype_admission_probe_en_es import (  # noqa: E402
+    DEFAULT_PHRASE_PROTOTYPE_MARGIN,
+)
 from semantic_llm_prototype_ablation_matrix_en_es import (  # noqa: E402
     build_prototype_ablation_matrix_report,
 )
@@ -60,6 +63,15 @@ def _parse_args() -> argparse.Namespace:
     parser.add_argument("--context-view", default=DEFAULT_CONTEXT_VIEW)
     parser.add_argument("--min-active-score", type=float, default=0.0)
     parser.add_argument("--min-margin", type=float, default=0.0)
+    parser.add_argument(
+        "--phrase-prototype-margin",
+        type=float,
+        default=DEFAULT_PHRASE_PROTOTYPE_MARGIN,
+        help=(
+            "Extra dominance margin required before semantic phrase-control prototypes "
+            "can veto active/shadow scoring."
+        ),
+    )
     parser.add_argument("--decision-shape", default=DEFAULT_DECISION_SHAPE)
     parser.add_argument("--max-harmful", type=int, default=0)
     parser.add_argument("--max-false-abstain", type=int, default=0)
@@ -88,6 +100,7 @@ def build_source_heldout_validation_report(
     context_view: str = DEFAULT_CONTEXT_VIEW,
     min_active_score: float = 0.0,
     min_margin: float = 0.0,
+    phrase_prototype_margin: float = DEFAULT_PHRASE_PROTOTYPE_MARGIN,
     decision_shape: str = DEFAULT_DECISION_SHAPE,
     max_harmful: int = 0,
     max_false_abstain: int = 0,
@@ -111,6 +124,7 @@ def build_source_heldout_validation_report(
         context_views=(context_view,),
         min_active_scores=(float(min_active_score),),
         min_margins=(float(min_margin),),
+        phrase_prototype_margins=(float(phrase_prototype_margin),),
         source_payload_overrides={DEFAULT_SOURCE_MODE: evidence_batch_payload},
         window_tokens=window_tokens,
         mask_token=mask_token,
@@ -125,6 +139,7 @@ def build_source_heldout_validation_report(
         context_view=context_view,
         min_active_score=min_active_score,
         min_margin=min_margin,
+        phrase_prototype_margin=phrase_prototype_margin,
         decision_shape=decision_shape,
     )
     empty_baseline_row = _find_matrix_row(
@@ -134,6 +149,7 @@ def build_source_heldout_validation_report(
         context_view=context_view,
         min_active_score=min_active_score,
         min_margin=min_margin,
+        phrase_prototype_margin=phrase_prototype_margin,
         decision_shape=decision_shape,
     )
     summary = _build_validation_summary(
@@ -162,6 +178,7 @@ def build_source_heldout_validation_report(
             "context_view": str(context_view or "").strip(),
             "min_active_score": float(min_active_score),
             "min_margin": float(min_margin),
+            "phrase_prototype_margin": float(phrase_prototype_margin),
             "decision_shape": str(decision_shape or "").strip(),
             "max_harmful": int(max_harmful),
             "max_false_abstain": int(max_false_abstain),
@@ -311,6 +328,12 @@ def _failure_case_results(rows: Sequence[Mapping[str, object]]) -> list[dict[str
                 ).strip(),
                 "phrase_preemption_hit": bool(row.get("phrase_preemption_hit")),
                 "matched_phrase_pattern": str(row.get("matched_phrase_pattern") or "").strip(),
+                "phrase_control_score": row.get("phrase_control_score"),
+                "phrase_prototype_margin": row.get("phrase_prototype_margin"),
+                "phrase_prototype_margin_to_best": row.get("phrase_prototype_margin_to_best"),
+                "phrase_control_evidence_text": str(
+                    row.get("phrase_control_evidence_text") or ""
+                ).strip(),
                 "phrase_containment_hit": bool(row.get("phrase_containment_hit")),
                 "phrase_containment_pattern": str(
                     row.get("phrase_containment_pattern") or ""
@@ -442,6 +465,7 @@ def _find_matrix_row(
     context_view: str,
     min_active_score: float,
     min_margin: float,
+    phrase_prototype_margin: float,
     decision_shape: str,
 ) -> Mapping[str, object] | None:
     for row in rows:
@@ -454,6 +478,11 @@ def _find_matrix_row(
         if abs(float(row.get("min_active_score") or 0.0) - float(min_active_score)) > 1e-9:
             continue
         if abs(float(row.get("min_margin") or 0.0) - float(min_margin)) > 1e-9:
+            continue
+        if (
+            abs(float(row.get("phrase_prototype_margin") or 0.0) - float(phrase_prototype_margin))
+            > 1e-9
+        ):
             continue
         if str(row.get("decision_shape") or "") != decision_shape:
             continue
@@ -578,8 +607,8 @@ def _failure_case_table(rows: object) -> str:
     if not materialized:
         return "No configured-lane failure case details."
     lines = [
-        "| Case | Gold | Predicted | Active | Shadow | Margin | Active Evidence | Shadow Evidence | Signals |",
-        "| --- | --- | --- | ---: | ---: | ---: | --- | --- | --- |",
+        "| Case | Gold | Predicted | Active | Shadow | Phrase | Margin | Phrase Lead | Active Evidence | Shadow Evidence | Phrase Evidence | Signals |",
+        "| --- | --- | --- | ---: | ---: | ---: | ---: | ---: | --- | --- | --- | --- |",
     ]
     for row in materialized:
         signals = ", ".join(
@@ -597,9 +626,12 @@ def _failure_case_table(rows: object) -> str:
         lines.append(
             f"| `{row.get('case_id', '')}` | `{row.get('gold_decision', '')}` | "
             f"`{row.get('predicted_decision', '')}` | `{row.get('active_score', '')}` | "
-            f"`{row.get('strongest_shadow_score', '')}` | `{row.get('margin', '')}` | "
+            f"`{row.get('strongest_shadow_score', '')}` | "
+            f"`{row.get('phrase_control_score', '')}` | `{row.get('margin', '')}` | "
+            f"`{row.get('phrase_prototype_margin_to_best', '')}` | "
             f"{_md_text(row.get('active_evidence_text'))} | "
             f"{_md_text(row.get('strongest_shadow_evidence_text'))} | "
+            f"{_md_text(row.get('phrase_control_evidence_text'))} | "
             f"{_md_text(signals)} |"
         )
     return "\n".join(lines)
@@ -610,8 +642,8 @@ def _row_table(rows: Sequence[object], *, empty_label: str) -> str:
     if not materialized:
         return empty_label
     lines = [
-        "| Source | Scorer | Context | Shape | Cases | Harmful | False Abstain | Recall | Accuracy |",
-        "| --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: |",
+        "| Source | Scorer | Context | Margin | Phrase Margin | Shape | Cases | Harmful | False Abstain | Recall | Accuracy |",
+        "| --- | --- | --- | ---: | ---: | --- | ---: | ---: | ---: | ---: | ---: |",
     ]
     for row in materialized:
         lines.append(
@@ -621,6 +653,8 @@ def _row_table(rows: Sequence[object], *, empty_label: str) -> str:
                     f"`{row.get('source_mode', '')}`",
                     f"`{row.get('scorer_id', '')}`",
                     f"`{row.get('context_view', '')}`",
+                    str(row.get("min_margin", 0.0)),
+                    str(row.get("phrase_prototype_margin", 0.0)),
                     f"`{row.get('decision_shape', '')}`",
                     str(row.get("cases_total", 0)),
                     str(row.get("harmful_replace_count", 0)),
@@ -719,6 +753,7 @@ def main() -> int:
         context_view=args.context_view,
         min_active_score=args.min_active_score,
         min_margin=args.min_margin,
+        phrase_prototype_margin=args.phrase_prototype_margin,
         decision_shape=args.decision_shape,
         max_harmful=max(0, int(args.max_harmful)),
         max_false_abstain=max(0, int(args.max_false_abstain)),

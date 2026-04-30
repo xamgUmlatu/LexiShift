@@ -52,6 +52,7 @@ class SemanticSourceHeldoutValidationTests(unittest.TestCase):
         self.assertEqual(report["summary"]["false_abstain_count"], 0)
         self.assertEqual(report["configured_row"]["source_mode"], "promotion_candidate_composite")
         self.assertEqual(report["configured_row"]["scorer_id"], "token_jaccard")
+        self.assertEqual(report["configured_row"]["phrase_prototype_margin"], 0.0)
         self.assertEqual(report["configured_row"]["cases_total"], 2)
         self.assertEqual(report["empty_baseline_row"]["source_mode"], "empty_batch")
         self.assertEqual(len(report["configured_case_results"]), 2)

@@ -22,12 +22,16 @@ def build_prototype_summary_findings(
     phrase_prototype_guard = _summary_metrics(
         lookup.get("prototype_reviewed_examples_phrase_prototype_guard")
     )
+    phrase_prototype_surface_pos_guard = _summary_metrics(
+        lookup.get("prototype_reviewed_examples_phrase_prototype_surface_pos_guard")
+    )
     return {
         "family_guard_result": family_guard,
         "active_guard_result": active_guard,
         "phrase_containment_guard_result": phrase_containment_guard,
         "surface_pos_rescue_guard_result": surface_pos_rescue_guard,
         "phrase_prototype_guard_result": phrase_prototype_guard,
+        "phrase_prototype_surface_pos_guard_result": phrase_prototype_surface_pos_guard,
         "active_guard_reduces_phrase_leak_without_false_abstain": int(
             active_guard.get("harmful_replace_count") or 0
         )
@@ -52,6 +56,12 @@ def build_prototype_summary_findings(
         <= int(phrase_containment_guard.get("harmful_replace_count") or 0)
         and int(surface_pos_rescue_guard.get("false_abstain_count") or 0)
         < int(phrase_containment_guard.get("false_abstain_count") or 0),
+        "surface_pos_rescue_reduces_phrase_prototype_overreach": int(
+            phrase_prototype_surface_pos_guard.get("harmful_replace_count") or 0
+        )
+        <= int(phrase_prototype_guard.get("harmful_replace_count") or 0)
+        and int(phrase_prototype_surface_pos_guard.get("false_abstain_count") or 0)
+        < int(phrase_prototype_guard.get("false_abstain_count") or 0),
     }
 
 
@@ -102,6 +112,7 @@ def build_prototype_recommendation(report: Mapping[str, object]) -> str:
             [
                 findings.get("surface_pos_rescue_guard_result"),
                 findings.get("phrase_containment_guard_result"),
+                findings.get("phrase_prototype_surface_pos_guard_result"),
             ]
         )
     scope = str(report.get("evaluation_scope") or "").strip()

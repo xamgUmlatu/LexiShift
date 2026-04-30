@@ -37,13 +37,17 @@ class SemanticLlmPrototypeAblationMatrixTests(unittest.TestCase):
 
         self.assertEqual(report["status"], "ok")
         self.assertEqual(report["decision_contract"], "binary_replace_or_abstain")
-        self.assertEqual(report["row_count"], 60)
+        self.assertEqual(report["row_count"], 72)
         self.assertEqual(report["run_report_count"], 12)
         self.assertEqual(
             set(report["best_by_context_view"]),
             {"masked_sentence", "raw_sentence"},
         )
         self.assertIn("active_shadow_phrase_containment", report["best_by_decision_shape"])
+        self.assertIn(
+            "active_shadow_phrase_semantic_surface_pos",
+            report["best_by_decision_shape"],
+        )
         self.assertIn("reviewed_dataset", report["best_by_source_mode"])
         self.assertIn("empty_batch", report["best_by_source_mode"])
         self.assertIn("custom_source", report["best_by_source_mode"])
@@ -100,7 +104,7 @@ class SemanticLlmPrototypeAblationMatrixTests(unittest.TestCase):
                 generated_at="2026-04-25T12:00:00Z",
             )
 
-        self.assertEqual(report["row_count"], 20)
+        self.assertEqual(report["row_count"], 24)
         by_source = {
             row["source_mode"]: row["source_coverage"]
             for row in report["rows"]
@@ -112,6 +116,35 @@ class SemanticLlmPrototypeAblationMatrixTests(unittest.TestCase):
         self.assertEqual(by_source["generated_active_only"]["phrase_covered_families"], 0)
         self.assertEqual(by_source["generated_no_phrase"]["phrase_covered_families"], 0)
         self.assertEqual(by_source["generated_no_shadow"]["any_shadow_covered_families"], 0)
+
+    def test_matrix_sweeps_phrase_prototype_margin_independently(self) -> None:
+        queue_payload, dataset_payload = _sample_inputs()
+        report = build_prototype_ablation_matrix_report(
+            queue_payload=queue_payload,
+            dataset_payload=dataset_payload,
+            source_modes=("custom_source",),
+            source_payload_overrides={"custom_source": _normalized_evidence_batch()},
+            scopes=("prompt_queue",),
+            scorers=("token_jaccard",),
+            context_views=("masked_sentence",),
+            min_active_scores=(0.0,),
+            min_margins=(0.0,),
+            phrase_prototype_margins=(0.0, 0.1),
+            generated_at="2026-04-25T12:00:00Z",
+        )
+
+        self.assertEqual(report["grid"]["phrase_prototype_margins"], [0.0, 0.1])
+        self.assertEqual(report["row_count"], 12)
+        phrase_rows = [
+            row
+            for row in report["rows"]
+            if row["decision_shape"] == "active_shadow_phrase_semantic_prototypes"
+        ]
+        self.assertEqual(
+            {row["phrase_prototype_margin"] for row in phrase_rows},
+            {0.0, 0.1},
+        )
+        self.assertTrue(all(":p=" in row["matrix_id"] for row in phrase_rows))
 
     def test_zero_quality_case_rows_are_not_selected_as_best(self) -> None:
         queue_payload, dataset_payload = _sample_inputs()

@@ -45,10 +45,12 @@ class SemanticLlmPrototypeAdmissionProbeTests(unittest.TestCase):
         self.assertIn("prototype_reviewed_examples_phrase_containment_guard", config_ids)
         self.assertIn("prototype_reviewed_examples_surface_pos_rescue_guard", config_ids)
         self.assertIn("prototype_reviewed_examples_phrase_prototype_guard", config_ids)
+        self.assertIn("prototype_reviewed_examples_phrase_prototype_surface_pos_guard", config_ids)
         self.assertIn("active_guard_result", report["summary_findings"])
         self.assertIn("phrase_containment_guard_result", report["summary_findings"])
         self.assertIn("surface_pos_rescue_guard_result", report["summary_findings"])
         self.assertIn("phrase_prototype_guard_result", report["summary_findings"])
+        self.assertIn("phrase_prototype_surface_pos_guard_result", report["summary_findings"])
         for config in report["configurations"]:
             self.assertTrue(isinstance(config, dict))
             for row in config["row_results"]:
@@ -60,6 +62,10 @@ class SemanticLlmPrototypeAdmissionProbeTests(unittest.TestCase):
         self.assertIn("Prototype reviewed examples, phrase-control containment guard", markdown)
         self.assertIn("Prototype reviewed examples, surface-POS rescue guard", markdown)
         self.assertIn("Prototype reviewed examples, phrase-control prototype guard", markdown)
+        self.assertIn(
+            "Prototype reviewed examples, phrase-control prototype plus surface-POS guard",
+            markdown,
+        )
 
     def test_prototype_admission_probe_can_expand_to_all_dataset_families(self) -> None:
         queue_payload, dataset_payload = _sample_inputs()
@@ -183,6 +189,76 @@ class SemanticLlmPrototypeAdmissionProbeTests(unittest.TestCase):
         self.assertTrue(rows["check:003"]["phrase_containment_hit"])
         self.assertEqual(rows["check:003"]["phrase_containment_pattern"], "rain check")
         self.assertEqual(rows["check:003"]["predicted_decision"], "abstain")
+
+    def test_phrase_prototype_margin_controls_semantic_phrase_veto(self) -> None:
+        queue_payload, dataset_payload = _sample_inputs()
+        evidence_batch = _normalized_evidence_batch()
+        evidence_batch["rows"] = [
+            {
+                "relation_type": "anchor_cue",
+                "trigger": "check",
+                "evidence_text": "signed deposited yesterday",
+                "metadata": {
+                    "family_id": "fam:check",
+                    "active_sense_id": "fam:check:active",
+                },
+            },
+            {
+                "relation_type": "shadow_candidate",
+                "trigger": "check",
+                "evidence_text": "inspect records figures",
+                "metadata": {
+                    "family_id": "fam:check",
+                    "candidate_sense_id": "fam:check:shadow",
+                },
+            },
+            {
+                "relation_type": "phrase_control_example",
+                "trigger": "check",
+                "evidence_text": "signed deposited yesterday",
+                "metadata": {"family_id": "fam:check"},
+            },
+        ]
+
+        permissive = build_prototype_admission_report(
+            queue_payload=queue_payload,
+            dataset_payload=dataset_payload,
+            evidence_batch_payload=evidence_batch,
+            scorer_id="token_jaccard",
+            min_active_score=0.0,
+            min_margin=0.0,
+            phrase_prototype_margin=0.0,
+            generated_at="2026-04-25T12:00:00Z",
+        )
+        strict = build_prototype_admission_report(
+            queue_payload=queue_payload,
+            dataset_payload=dataset_payload,
+            evidence_batch_payload=evidence_batch,
+            scorer_id="token_jaccard",
+            min_active_score=0.0,
+            min_margin=0.0,
+            phrase_prototype_margin=0.1,
+            generated_at="2026-04-25T12:00:00Z",
+        )
+
+        permissive_guard = next(
+            row
+            for row in permissive["configurations"]
+            if row["config_id"] == "prototype_reviewed_examples_phrase_prototype_guard"
+        )
+        strict_guard = next(
+            row
+            for row in strict["configurations"]
+            if row["config_id"] == "prototype_reviewed_examples_phrase_prototype_guard"
+        )
+        permissive_rows = {row["case_id"]: row for row in permissive_guard["row_results"]}
+        strict_rows = {row["case_id"]: row for row in strict_guard["row_results"]}
+
+        self.assertEqual(permissive_rows["check:001"]["predicted_decision"], "abstain")
+        self.assertEqual(permissive_rows["check:001"]["predicted_winner"], "phrase_control")
+        self.assertEqual(strict_rows["check:001"]["predicted_decision"], "replace")
+        self.assertEqual(strict_rows["check:001"]["phrase_prototype_margin"], 0.1)
+        self.assertEqual(strict_rows["check:001"]["phrase_prototype_margin_to_best"], 0.0)
 
     def test_surface_pos_rescue_uses_local_syntax_without_changing_binary_contract(self) -> None:
         queue_payload, dataset_payload = _sample_inputs()

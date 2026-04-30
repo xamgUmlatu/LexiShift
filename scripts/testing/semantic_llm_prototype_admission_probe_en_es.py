@@ -52,6 +52,11 @@ from semantic_llm_prototype_admission_summary import (  # noqa: E402
     build_prototype_recommendation,
     build_prototype_summary_findings,
 )
+from semantic_llm_prototype_admission_config import (  # noqa: E402
+    ACTIVE_MODIFIER_RESCUE_MARGIN_FLOOR,
+    DEFAULT_PHRASE_PROTOTYPE_MARGIN,
+    PROTOTYPE_CONFIGS,
+)
 from semantic_reverse_aux_text_pilot_en_es import build_queue_subset_dataset  # noqa: E402
 from semantic_routing_sentence_veto_helpers import (  # noqa: E402
     _accumulate_sentence_veto_summary,
@@ -78,49 +83,6 @@ from semantic_llm_surface_pos_support import (  # noqa: E402
 DEFAULT_JSON_OUT = TEST_OUTPUTS_ROOT / "semantic_llm_prototype_admission_probe_latest.json"
 DEFAULT_MARKDOWN_OUT = TEST_OUTPUTS_ROOT / "semantic_llm_prototype_admission_probe_latest.md"
 DEFAULT_PROTOTYPE_CONTEXT_VIEW = "masked_sentence"
-ACTIVE_MODIFIER_RESCUE_MARGIN_FLOOR = -0.05
-PROTOTYPE_CONFIGS: tuple[tuple[str, str, str, bool, bool, bool], ...] = (
-    (
-        "prototype_reviewed_examples_family_guard",
-        "Prototype reviewed examples, family phrase guard",
-        "family_all",
-        False,
-        False,
-        False,
-    ),
-    (
-        "prototype_reviewed_examples_active_guard",
-        "Prototype reviewed examples, active phrase guard",
-        "active_only",
-        False,
-        False,
-        False,
-    ),
-    (
-        "prototype_reviewed_examples_phrase_containment_guard",
-        "Prototype reviewed examples, phrase-control containment guard",
-        "active_only",
-        False,
-        True,
-        False,
-    ),
-    (
-        "prototype_reviewed_examples_surface_pos_rescue_guard",
-        "Prototype reviewed examples, surface-POS rescue guard",
-        "active_only",
-        False,
-        True,
-        True,
-    ),
-    (
-        "prototype_reviewed_examples_phrase_prototype_guard",
-        "Prototype reviewed examples, phrase-control prototype guard",
-        "active_only",
-        True,
-        False,
-        False,
-    ),
-)
 
 
 def _parse_args() -> argparse.Namespace:
@@ -152,6 +114,15 @@ def _parse_args() -> argparse.Namespace:
     parser.add_argument("--min-active-score", type=float, default=DEFAULT_MIN_ACTIVE_SCORE)
     parser.add_argument("--min-margin", type=float, default=DEFAULT_MIN_MARGIN)
     parser.add_argument(
+        "--phrase-prototype-margin",
+        type=float,
+        default=DEFAULT_PHRASE_PROTOTYPE_MARGIN,
+        help=(
+            "Extra dominance margin required before semantic phrase-control prototypes "
+            "can veto an active/shadow replacement."
+        ),
+    )
+    parser.add_argument(
         "--window-tokens",
         type=int,
         default=DEFAULT_SENTENCE_VETO_CONTEXT_WINDOW_TOKENS,
@@ -172,6 +143,7 @@ def build_prototype_admission_report(
     context_view: str = DEFAULT_PROTOTYPE_CONTEXT_VIEW,
     min_active_score: float = DEFAULT_MIN_ACTIVE_SCORE,
     min_margin: float = DEFAULT_MIN_MARGIN,
+    phrase_prototype_margin: float = DEFAULT_PHRASE_PROTOTYPE_MARGIN,
     window_tokens: int = DEFAULT_SENTENCE_VETO_CONTEXT_WINDOW_TOKENS,
     mask_token: str = DEFAULT_SENTENCE_VETO_MASK_TOKEN,
     generated_at: str | None = None,
@@ -232,6 +204,7 @@ def build_prototype_admission_report(
             scorer=backend,
             min_active_score=min_active_score,
             min_margin=min_margin,
+            phrase_prototype_margin=phrase_prototype_margin,
             context_options=context_options,
             use_phrase_prototypes=use_phrase_prototypes,
             use_phrase_containment_gate=use_phrase_containment_gate,
@@ -261,6 +234,7 @@ def build_prototype_admission_report(
         "context_view": resolved_context_view,
         "min_active_score": float(min_active_score),
         "min_margin": float(min_margin),
+        "phrase_prototype_margin": float(phrase_prototype_margin),
         "window_tokens": int(window_tokens),
         "mask_token": str(mask_token or "").strip() or DEFAULT_SENTENCE_VETO_MASK_TOKEN,
         "decision_contract": "binary_replace_or_abstain",
@@ -427,6 +401,7 @@ def _run_prototype_config(
     scorer: RuntimeSimilarityBackend,
     min_active_score: float,
     min_margin: float,
+    phrase_prototype_margin: float,
     context_options: Mapping[str, object],
     use_phrase_prototypes: bool,
     use_phrase_containment_gate: bool,
@@ -484,6 +459,7 @@ def _run_prototype_config(
                 scorer=scorer,
                 min_active_score=min_active_score,
                 min_margin=min_margin,
+                phrase_prototype_margin=phrase_prototype_margin,
                 context_options=context_options,
                 use_phrase_prototypes=use_phrase_prototypes,
                 use_phrase_containment_gate=use_phrase_containment_gate,
@@ -506,6 +482,7 @@ def _run_prototype_config(
         "use_phrase_prototypes": bool(use_phrase_prototypes),
         "use_phrase_containment_gate": bool(use_phrase_containment_gate),
         "use_surface_pos_rescue": bool(use_surface_pos_rescue),
+        "phrase_prototype_margin": float(phrase_prototype_margin),
         "phrase_control_evidence_mode": _phrase_control_evidence_mode(
             use_phrase_prototypes=use_phrase_prototypes,
             use_phrase_containment_gate=use_phrase_containment_gate,
@@ -530,6 +507,7 @@ def _score_case(
     scorer: RuntimeSimilarityBackend,
     min_active_score: float,
     min_margin: float,
+    phrase_prototype_margin: float,
     context_options: Mapping[str, object],
     use_phrase_prototypes: bool,
     use_phrase_containment_gate: bool,
@@ -603,7 +581,8 @@ def _score_case(
     if (
         use_phrase_prototypes
         and phrase_examples
-        and phrase_control_score >= max(active_score, strongest_shadow_score)
+        and phrase_control_score
+        >= max(active_score, strongest_shadow_score) + float(phrase_prototype_margin)
     ):
         predicted_decision = "abstain"
         predicted_winner = "phrase_control"
@@ -634,17 +613,18 @@ def _score_case(
     active_rescue_applied = False
     surface_pos_preemption_applied = False
     surface_pos_rescue_blocked_reason = ""
+    surface_pos_noun_shadow_verb_like = False
+    if surface_pos_signal == "active_noun_frame" and active_examples:
+        surface_pos_noun_shadow_verb_like = active_noun_rescue_shadow_context_is_verb_like(
+            strongest_shadow_sense=shadow_sense,
+            shadow_examples=shadow_examples,
+        )
     if surface_pos_signal in {"active_noun_frame", "active_modifier_frame"} and (
         predicted_decision != "replace"
     ):
         if not active_examples:
             surface_pos_rescue_blocked_reason = "missing_active_examples"
-        elif surface_pos_signal == "active_noun_frame" and not (
-            active_noun_rescue_shadow_context_is_verb_like(
-                strongest_shadow_sense=shadow_sense,
-                shadow_examples=shadow_examples,
-            )
-        ):
+        elif surface_pos_signal == "active_noun_frame" and not surface_pos_noun_shadow_verb_like:
             surface_pos_rescue_blocked_reason = "strongest_shadow_not_verb_like"
         elif (
             surface_pos_signal == "active_modifier_frame"
@@ -688,6 +668,10 @@ def _score_case(
         "active_score": _round_float(active_score),
         "strongest_shadow_score": _round_float(strongest_shadow_score),
         "phrase_control_score": _round_float(phrase_control_score),
+        "phrase_prototype_margin": _round_float(phrase_prototype_margin),
+        "phrase_prototype_margin_to_best": _round_float(
+            phrase_control_score - max(active_score, strongest_shadow_score)
+        ),
         "margin": _round_float(margin),
         "strongest_shadow_id": strongest_shadow_id,
         "context_text": context_text,
@@ -705,6 +689,7 @@ def _score_case(
             f"surface_pos_{surface_pos_signal}_rescue" if active_rescue_applied else ""
         ),
         "surface_pos_rescue_blocked_reason": surface_pos_rescue_blocked_reason,
+        "surface_pos_noun_shadow_verb_like": surface_pos_noun_shadow_verb_like,
         "surface_pos_signal": surface_pos_signal,
         "surface_pos_preemption_applied": surface_pos_preemption_applied,
         "slice_tags": _normalize_string_list(case.get("slice_tags")),
@@ -736,6 +721,8 @@ def _phrase_control_evidence_mode(
     use_surface_pos_rescue: bool,
 ) -> str:
     if use_surface_pos_rescue:
+        if use_phrase_prototypes:
+            return "semantic_prototype_competition_plus_surface_pos"
         return "local_containment_patterns_plus_surface_pos"
     if use_phrase_prototypes:
         return "semantic_prototype_competition"
@@ -804,6 +791,7 @@ def main() -> int:
         context_view=str(args.context_view or "").strip() or DEFAULT_PROTOTYPE_CONTEXT_VIEW,
         min_active_score=float(args.min_active_score),
         min_margin=float(args.min_margin),
+        phrase_prototype_margin=float(args.phrase_prototype_margin),
         window_tokens=max(0, int(args.window_tokens)),
         mask_token=str(args.mask_token or "").strip() or DEFAULT_SENTENCE_VETO_MASK_TOKEN,
     )

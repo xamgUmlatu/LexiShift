@@ -30,6 +30,7 @@ from semantic_llm_prompt_downstream_en_es import (  # noqa: E402
 )
 from semantic_llm_prototype_admission_probe_en_es import (  # noqa: E402
     DEFAULT_PROTOTYPE_CONTEXT_VIEW,
+    DEFAULT_PHRASE_PROTOTYPE_MARGIN,
     build_prototype_admission_report,
 )
 from semantic_llm_prototype_ablation_matrix_rendering import (  # noqa: E402
@@ -104,6 +105,14 @@ def _parse_args() -> argparse.Namespace:
         default="0.00,0.05",
         help="Comma-separated active-vs-shadow margin thresholds.",
     )
+    parser.add_argument(
+        "--phrase-prototype-margin-grid",
+        default=f"{DEFAULT_PHRASE_PROTOTYPE_MARGIN:.2f}",
+        help=(
+            "Comma-separated dominance margins required before semantic phrase-control "
+            "prototypes can veto active/shadow scoring."
+        ),
+    )
     parser.add_argument("--reverse-aux-json", type=Path, default=DEFAULT_REVERSE_AUX_EVIDENCE)
     parser.add_argument(
         "--generated-composite-json",
@@ -138,6 +147,7 @@ def build_prototype_ablation_matrix_report(
     context_views: Sequence[str] = SENTENCE_VETO_CONTEXT_VIEWS,
     min_active_scores: Sequence[float] = (0.0, 0.35),
     min_margins: Sequence[float] = (0.0, 0.05),
+    phrase_prototype_margins: Sequence[float] = (DEFAULT_PHRASE_PROTOTYPE_MARGIN,),
     reverse_aux_path: Path = DEFAULT_REVERSE_AUX_EVIDENCE,
     generated_composite_path: Path = DEFAULT_GENERATED_COMPOSITE_EVIDENCE,
     extra_evidence_paths: Sequence[Path] = (),
@@ -160,7 +170,12 @@ def build_prototype_ablation_matrix_report(
     )
     normalized_min_active_scores = [float(value) for value in min_active_scores]
     normalized_min_margins = [float(value) for value in min_margins]
-    if not normalized_min_active_scores or not normalized_min_margins:
+    normalized_phrase_prototype_margins = [float(value) for value in phrase_prototype_margins]
+    if (
+        not normalized_min_active_scores
+        or not normalized_min_margins
+        or not normalized_phrase_prototype_margins
+    ):
         raise ValueError("The ablation matrix requires non-empty threshold grids.")
 
     source_specs, skipped_sources = resolve_source_specs(
@@ -182,33 +197,35 @@ def build_prototype_ablation_matrix_report(
                 for context_view in normalized_context_views:
                     for min_active_score in normalized_min_active_scores:
                         for min_margin in normalized_min_margins:
-                            report = build_prototype_admission_report(
-                                queue_payload=queue_payload,
-                                dataset_payload=dataset_payload,
-                                evidence_batch_payload=source_spec.payload,
-                                all_dataset_families=all_dataset_families,
-                                scorer_id=scorer_id,
-                                context_view=context_view,
-                                min_active_score=min_active_score,
-                                min_margin=min_margin,
-                                window_tokens=window_tokens,
-                                mask_token=mask_token,
-                                generated_at=generated_at,
-                            )
-                            run_reports += 1
-                            coverage = _coverage_summary(report.get("coverage_rows"))
-                            for config in report.get("configurations", ()):
-                                if isinstance(config, Mapping):
-                                    rows.append(
-                                        _matrix_row(
-                                            source_spec=source_spec,
-                                            scope=scope,
-                                            report=report,
-                                            config=config,
-                                            coverage=coverage,
-                                            include_row_results=include_row_results,
+                            for phrase_prototype_margin in normalized_phrase_prototype_margins:
+                                report = build_prototype_admission_report(
+                                    queue_payload=queue_payload,
+                                    dataset_payload=dataset_payload,
+                                    evidence_batch_payload=source_spec.payload,
+                                    all_dataset_families=all_dataset_families,
+                                    scorer_id=scorer_id,
+                                    context_view=context_view,
+                                    min_active_score=min_active_score,
+                                    min_margin=min_margin,
+                                    phrase_prototype_margin=phrase_prototype_margin,
+                                    window_tokens=window_tokens,
+                                    mask_token=mask_token,
+                                    generated_at=generated_at,
+                                )
+                                run_reports += 1
+                                coverage = _coverage_summary(report.get("coverage_rows"))
+                                for config in report.get("configurations", ()):
+                                    if isinstance(config, Mapping):
+                                        rows.append(
+                                            _matrix_row(
+                                                source_spec=source_spec,
+                                                scope=scope,
+                                                report=report,
+                                                config=config,
+                                                coverage=coverage,
+                                                include_row_results=include_row_results,
+                                            )
                                         )
-                                    )
 
     rows.sort(key=_rank_key)
     best_row = _public_row(_select_best(rows))
@@ -232,6 +249,7 @@ def build_prototype_ablation_matrix_report(
             "context_views": normalized_context_views,
             "min_active_scores": normalized_min_active_scores,
             "min_margins": normalized_min_margins,
+            "phrase_prototype_margins": normalized_phrase_prototype_margins,
             "window_tokens": int(window_tokens),
             "mask_token": str(mask_token or "").strip() or DEFAULT_SENTENCE_VETO_MASK_TOKEN,
         },
@@ -276,6 +294,7 @@ def _matrix_row(
             f"{report.get('context_view', DEFAULT_PROTOTYPE_CONTEXT_VIEW)}:"
             f"a={float(report.get('min_active_score') or 0.0):.2f}:"
             f"m={float(report.get('min_margin') or 0.0):.2f}:"
+            f"p={float(report.get('phrase_prototype_margin') or 0.0):.2f}:"
             f"{config.get('config_id', '')}"
         ),
         "source_mode": source_spec.mode,
@@ -291,6 +310,7 @@ def _matrix_row(
         "context_view": str(report.get("context_view") or "").strip(),
         "min_active_score": float(report.get("min_active_score") or 0.0),
         "min_margin": float(report.get("min_margin") or 0.0),
+        "phrase_prototype_margin": float(report.get("phrase_prototype_margin") or 0.0),
         "config_id": str(config.get("config_id") or "").strip(),
         "label": str(config.get("label") or "").strip(),
         "decision_shape": _decision_shape(config),
@@ -362,6 +382,8 @@ def _coverage_summary(value: object) -> dict[str, object]:
 
 
 def _decision_shape(config: Mapping[str, object]) -> str:
+    if bool(config.get("use_phrase_prototypes")) and bool(config.get("use_surface_pos_rescue")):
+        return "active_shadow_phrase_semantic_surface_pos"
     if bool(config.get("use_surface_pos_rescue")):
         return "active_shadow_containment_surface_pos"
     if bool(config.get("use_phrase_prototypes")):
@@ -535,6 +557,7 @@ def _public_row(row: Mapping[str, object] | None) -> dict[str, object] | None:
         "context_view",
         "min_active_score",
         "min_margin",
+        "phrase_prototype_margin",
         "decision_shape",
         "cases_total",
         "harmful_replace_count",
@@ -607,6 +630,7 @@ def main() -> int:
         context_views=_normalize_string_list(args.context_views),
         min_active_scores=_parse_float_grid(args.min_active_grid),
         min_margins=_parse_float_grid(args.min_margin_grid),
+        phrase_prototype_margins=_parse_float_grid(args.phrase_prototype_margin_grid),
         reverse_aux_path=args.reverse_aux_json,
         generated_composite_path=args.generated_composite_json,
         extra_evidence_paths=args.evidence_batch_json,
