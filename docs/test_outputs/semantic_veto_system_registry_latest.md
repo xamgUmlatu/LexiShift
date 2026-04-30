@@ -1,9 +1,9 @@
 # Semantic Veto System Registry
 
 - Status: `ok`
-- Generated: `2026-04-30T17:33:33Z`
+- Generated: `2026-04-30T17:49:39Z`
 - Registry: `/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_veto_system_registry_en_es.json`
-- Entries: `60`
+- Entries: `62`
 - Passes: `7`
 
 ## Current Candidate
@@ -31,9 +31,10 @@
 | Priority | Status | Action | Pass | Source | Evidence Needed | Validation |
 | --- | --- | --- | --- | --- | --- | --- |
 | P0 | done | Make the current wave6 lane fresh-checkout runnable, or explicitly demote local-only latest reports to provisional evidence. | data_artifacts | `wave6_auth_frame_raw_sentence_surface_pos_rescue`, `translation_sense_adapter`, `translation_sense_admission_report`, `alternate_sense_phrase_adapter`, `alternate_sense_phrase_admission_report`, `current_wave6_rerun_chain_runbook`, `authorization_frame_adapter`, `auth_frame_admission_report`, `auth_frame_active_shadow_validation`, `auth_frame_phrase_validation`, `auth_frame_rescue_replay_report` | Tracked generator scripts, deterministic rerun chain, and regenerated 2026-04-30 latest artifacts for every artifact in the lane rerun order. | Focused semantic harness tests passed; lane artifacts were regenerated through failure mining; registry audit and doc-reference checks must stay clean before commit. |
-| P1 | queued | Execute wave7_source_class_breadth_v1 before treating the current wave6 candidate as promotion-quality evidence. | best_candidate | `breadth_expansion_gate_plan`, `semantic_veto_assumption_ledger`, `semantic_veto_archive_consolidation_ledger`, `auth_frame_rescue_policy_validation`, `auth_frame_failure_mining`, `wave6_wiktextract_dataset` | Fresh inventory exclusions, selected dataset and queue, source-support audit, source-admission cycle, active/shadow validation, phrase/no-winner validation, rescue policy validation, and failure-class mining. | Run the breadth gate artifacts named in semantic_veto_breadth_expansion_gate.md, then regenerate the registry summary and doc-reference checks. |
+| P1 | blocked | Execute wave7_source_class_breadth_v1 before treating the current wave6 candidate as promotion-quality evidence. | best_candidate | `breadth_expansion_gate_plan`, `wave7_source_class_breadth_runbook`, `wave7_exclusion_inventory`, `semantic_veto_assumption_ledger`, `semantic_veto_archive_consolidation_ledger`, `auth_frame_rescue_policy_validation`, `auth_frame_failure_mining`, `wave6_wiktextract_dataset` | Blocked until wave7 active/shadow and phrase/no-winner heldout case files exist and at least three non-authorization source-detectable semantic-class detector outputs are available. | Run the breadth gate artifacts named in semantic_veto_wave7_source_class_breadth_runbook.md, then regenerate the registry summary and doc-reference checks. |
 | P1 | done | Run the recommended rescue policy through scorer-backed heldout validation before any runtime-policy or promotion claim. | best_candidate | `auth_frame_rescue_replay_report`, `auth_frame_rescue_policy_validation`, `surface_pos_rescue_sweep`, `wave6_active_shadow_heldout`, `wave6_phrase_heldout` | Scorer-backed active/shadow plus phrase/no-winner validation now passes at 0 harmful replacements and 0 false abstains over 54 cases for the recommended rescue policy. | Focused rescue validation and replay tests passed; scorer-backed validation artifact regenerated with --fail-on-review; registry audit and doc-reference checks must stay clean before commit. |
 | P1 | done | Audit authorization-frame evidence for source-triggered class behavior rather than browser-case or target-lemma shaping. | overfit_leakage | `authorization_frame_adapter`, `auth_frame_admission_report`, `auth_frame_failure_mining` | Authorization-frame report now records matched and unmatched source-trigger text per selected sense, plus target-lemma-in-source flags. | Adapter tests passed; auth-frame branch was regenerated; targeted leakage audit found 0 heldout sentence or Spanish target-lemma violations across 54 heldout sentences. |
+| P1 | done | Create the wave7 execution runbook, artifact map, and tracked exclusion manifest before running the breadth gate. | best_candidate | `breadth_expansion_gate_plan`, `wave7_source_class_breadth_runbook`, `wave7_exclusion_inventory`, `semantic_veto_assumption_ledger`, `semantic_veto_archive_consolidation_ledger` | Runbook now names exact commands, artifact paths, stop rules, setup blockers, and the 59-trigger exclusion manifest for prior v10, seed, wave2, wave5, and wave6 families. | Run preflight checks from the runbook plus registry summary, focused registry tests, doc-reference checks, and git diff whitespace checks. |
 | P2 | done | Demote or label older semantic-veto artifacts after their surviving lessons are preserved in the current registry, ledger, or workstream. | archive_consolidation | `semantic_veto_reconciliation_workstream`, `semantic_veto_assumption_ledger`, `semantic_veto_archive_consolidation_ledger`, `decision_research_lanes_ledger`, `decision_rule_comparison_plan`, `source_admission_program_doc`, `source_reference_lane_report`, `wordnet_active_related_reference_lane`, `wave5_source_portfolio_failure_mining`, `wave6_wiktextract_supported_initial_validation`, `wave6_wiktextract_supported_initial_failure_mining`, `wave32_forward_only_upper_bound_probe` | Archive ledger now classifies selected source-reference, wave5, wave6 precursor, and forward-only upper-bound artifacts as historical_reference or superseded rows, while retaining methodology docs as current references. | Regenerate the registry summary, run doc-reference checks, and confirm old latest artifacts are represented as context, controls, or superseded failure baselines instead of current authority. |
 | P2 | done | Convert the current candidate assumptions into explicit tested, untested, and rejected rows. | assumptions | `wave6_auth_frame_raw_sentence_surface_pos_rescue`, `wave6_alt_phrase_raw_sentence_control`, `auth_frame_active_shadow_validation`, `auth_frame_phrase_validation`, `auth_frame_rescue_replay_report`, `auth_frame_rescue_policy_validation`, `auth_frame_admission_report`, `auth_frame_failure_mining`, `breadth_expansion_gate_plan`, `semantic_veto_assumption_ledger` | Assumption ledger now records evidence-linked rows for raw-sentence context, phrase-prototype margin, source-triggered authorization frames, rescue-gate constraints, breadth limits, runtime-policy separation, and phrase/no-winner visibility. | Regenerate the registry summary and run doc-reference checks to confirm every assumption links to an artifact or queued breadth/runtime test. |
 | P2 | done | Define the next breadth test before tuning the current 16-family wave further. | best_candidate | `auth_frame_failure_mining`, `wave6_wiktextract_dataset`, `non_v10_wave_admission_sweep_harness`, `breadth_expansion_gate_plan` | Defined wave7_source_class_breadth_v1 with required exclusions, source-detectable class buckets, heldout floor, acceptance evidence, and stop rules. | Regenerate the registry summary, run doc-reference checks, and keep the gate explicitly marked as definition-only until the expanded lane is executed. |
@@ -42,7 +43,7 @@
 
 ### Entry States
 - `current_candidate`: `5`
-- `current_reference`: `8`
+- `current_reference`: `10`
 - `current_research`: `13`
 - `current_runtime`: `16`
 - `diagnostic_only`: `1`
@@ -55,9 +56,9 @@
 - `candidate_wave6`: `11`
 - `decision_research`: `7`
 - `diagnostics`: `3`
-- `evaluation_data`: `3`
+- `evaluation_data`: `4`
 - `historical_or_seed`: `6`
-- `process_governance`: `6`
+- `process_governance`: `7`
 - `runtime_path`: `16`
 - `source_admission`: `8`
 
@@ -112,12 +113,14 @@
 | alternate_sense_phrase_adapter | supporting_current | candidate_wave6 | Phrase rows must not become broad semantic competitors without a dedicated ablation. | assumptions |
 | translation_sense_adapter | supporting_current | candidate_wave6 | Translation-sense text must stay source-backed and not target-lemma-derived. | overfit_leakage |
 | decision_rule_comparison_plan | current_reference | decision_research | Decision-rule methodology can be misread as source-admission proof or as a current candidate claim. | archive_consolidation |
+| wave7_exclusion_inventory | current_reference | evaluation_data | Missing exclusions would allow prior shaped families to leak into the breadth gate. | best_candidate |
 | breadth_expansion_gate_plan | current_reference | process_governance | A gate definition can be mistaken for executed breadth evidence if the wave7 artifacts are not produced. | best_candidate |
 | current_wave6_rerun_chain_runbook | current_reference | process_governance | Must be updated whenever the lane rerun order or output filenames change. | data_artifacts |
 | semantic_sentence_veto_algorithm_doc | current_reference | process_governance | Can become stale if code defaults change without doc update. | runtime_path |
 | semantic_veto_archive_consolidation_ledger | current_reference | process_governance | Archive rows can go stale if new old artifacts are cited as current authority without being classified. | archive_consolidation |
 | semantic_veto_assumption_ledger | current_reference | process_governance | Assumptions can be mistaken for proof if row status and evidence links are not preserved. | archive_consolidation |
 | semantic_veto_reconciliation_workstream | current_reference | process_governance | Must stay concise enough to guide later turns. | runtime_path |
+| wave7_source_class_breadth_runbook | current_reference | process_governance | Wave7 can be run against incomplete inputs if the heldout-case and semantic-class detector blockers are skipped. | best_candidate |
 | source_admission_program_doc | current_reference | source_admission | Older current-best and promotion-candidate language can obscure the current wave6 auth-frame candidate unless routed through the archive ledger. | archive_consolidation |
 | auth_frame_active_shadow_validation | generated_evidence | candidate_wave6 | Breadth is too small for promotion. | best_candidate |
 | auth_frame_admission_report | generated_evidence | candidate_wave6 | Admission report is analysis-only without heldout validation. | data_artifacts |
@@ -171,12 +174,14 @@
 | alternate_sense_phrase_adapter | supporting_current | candidate_wave6 | scripts/testing/semantic_wordnet_alternate_sense_phrase_evidence_en_es.py | Wave6 phrase/no-winner coverage foundation. |
 | translation_sense_adapter | supporting_current | candidate_wave6 | scripts/testing/semantic_translation_sense_evidence_batch_en_es.py | Wave6 selected-sense source coverage foundation. |
 | decision_rule_comparison_plan | current_reference | decision_research | docs/rulegen/semantic_decision_rule_comparison_plan.md | Methodology guardrail before changing decision rules; not current candidate evidence by itself. |
+| wave7_exclusion_inventory | current_reference | evaluation_data | docs/test_inputs/semantic_routing/semantic_veto_wave7_exclusion_inventory_en_es.json | Excludes prior v10, seed, wave2, wave5, and wave6 triggers before wave7 inventory selection. |
 | breadth_expansion_gate_plan | current_reference | process_governance | docs/rulegen/semantic_veto_breadth_expansion_gate.md | Next breadth gate definition for the current research-only candidate. |
 | current_wave6_rerun_chain_runbook | current_reference | process_governance | docs/rulegen/semantic_veto_current_wave6_rerun_chain.md | Fresh-checkout reproducibility reference for the current data-artifact lane. |
 | semantic_sentence_veto_algorithm_doc | current_reference | process_governance | docs/rulegen/semantic_sentence_veto_algorithm.md | Primary algorithm map before runtime-path audits. |
 | semantic_veto_archive_consolidation_ledger | current_reference | process_governance | docs/rulegen/semantic_veto_archive_consolidation.md | Archive triage ledger for preventing old latest reports from steering current candidate decisions. |
 | semantic_veto_assumption_ledger | current_reference | process_governance | docs/rulegen/semantic_veto_assumption_ledger.md | Current assumption ledger for the wave6 auth-frame raw-sentence rescue candidate. |
 | semantic_veto_reconciliation_workstream | current_reference | process_governance | docs/rulegen/semantic_veto_reconciliation_workstream.md | Top-level reconciliation entrypoint. |
+| wave7_source_class_breadth_runbook | current_reference | process_governance | docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md | Current setup reference before executing the wave7 breadth gate. |
 | source_admission_program_doc | current_reference | source_admission | docs/rulegen/semantic_source_admission_program.md | Source-admission history, operating constraints, and older source-lane lessons; current candidate authority lives in the reconciliation registry. |
 | auth_frame_active_shadow_validation | generated_evidence | candidate_wave6 | docs/test_outputs/semantic_source_non_v10_wave6_auth_frame_surface_pos_raw_sentence_heldout_margin000_phrase002_validation_latest.md | Current measured active/shadow result: 0 harmful and 0 false abstains on 38 cases. |
 | auth_frame_admission_report | generated_evidence | candidate_wave6 | docs/test_outputs/semantic_source_admission_cycle_auth_frame_non_v10_wave6_wiktextract_supported_latest.md | Evidence for current candidate source-admission status. |

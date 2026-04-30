@@ -306,10 +306,12 @@
     {
       "action_id": "wave7_source_class_breadth_execution",
       "priority": "P1",
-      "status": "queued",
+      "status": "blocked",
       "pass_id": "best_candidate",
       "source_artifacts": [
         "breadth_expansion_gate_plan",
+        "wave7_source_class_breadth_runbook",
+        "wave7_exclusion_inventory",
         "semantic_veto_assumption_ledger",
         "semantic_veto_archive_consolidation_ledger",
         "auth_frame_rescue_policy_validation",
@@ -317,9 +319,26 @@
         "wave6_wiktextract_dataset"
       ],
       "action": "Execute wave7_source_class_breadth_v1 before treating the current wave6 candidate as promotion-quality evidence.",
-      "evidence_needed": "Fresh inventory exclusions, selected dataset and queue, source-support audit, source-admission cycle, active/shadow validation, phrase/no-winner validation, rescue policy validation, and failure-class mining.",
-      "validation": "Run the breadth gate artifacts named in semantic_veto_breadth_expansion_gate.md, then regenerate the registry summary and doc-reference checks.",
+      "evidence_needed": "Blocked until wave7 active/shadow and phrase/no-winner heldout case files exist and at least three non-authorization source-detectable semantic-class detector outputs are available.",
+      "validation": "Run the breadth gate artifacts named in semantic_veto_wave7_source_class_breadth_runbook.md, then regenerate the registry summary and doc-reference checks.",
       "promotion_impact": "Moves the work from reconciliation into the next evidence-producing breadth gate."
+    },
+    {
+      "action_id": "wave7_source_class_breadth_setup",
+      "priority": "P1",
+      "status": "done",
+      "pass_id": "best_candidate",
+      "source_artifacts": [
+        "breadth_expansion_gate_plan",
+        "wave7_source_class_breadth_runbook",
+        "wave7_exclusion_inventory",
+        "semantic_veto_assumption_ledger",
+        "semantic_veto_archive_consolidation_ledger"
+      ],
+      "action": "Create the wave7 execution runbook, artifact map, and tracked exclusion manifest before running the breadth gate.",
+      "evidence_needed": "Runbook now names exact commands, artifact paths, stop rules, setup blockers, and the 59-trigger exclusion manifest for prior v10, seed, wave2, wave5, and wave6 families.",
+      "validation": "Run preflight checks from the runbook plus registry summary, focused registry tests, doc-reference checks, and git diff whitespace checks.",
+      "promotion_impact": "Makes the next evidence-producing pass executable without relying on untracked draft artifacts for exclusions."
     },
     {
       "action_id": "breadth_expansion_gate",
@@ -1263,6 +1282,37 @@
       "next_audit_pass": "best_candidate",
       "verification_artifacts": [
         "docs/test_outputs/semantic_veto_system_registry_latest.md"
+      ]
+    },
+    {
+      "artifact_id": "wave7_source_class_breadth_runbook",
+      "title": "Wave7 source-class breadth runbook",
+      "component": "process_governance",
+      "state": "current_reference",
+      "path": "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
+      "role": "Execution runbook and artifact map for wave7_source_class_breadth_v1.",
+      "owner_doc": "docs/developer/documentation_governance.md",
+      "current_use": "Current setup reference before executing the wave7 breadth gate.",
+      "risk": "Wave7 can be run against incomplete inputs if the heldout-case and semantic-class detector blockers are skipped.",
+      "next_audit_pass": "best_candidate",
+      "verification_artifacts": [
+        "docs/test_inputs/semantic_routing/semantic_veto_wave7_exclusion_inventory_en_es.json",
+        "docs/test_outputs/semantic_veto_system_registry_latest.md"
+      ]
+    },
+    {
+      "artifact_id": "wave7_exclusion_inventory",
+      "title": "Wave7 exclusion trigger inventory",
+      "component": "evaluation_data",
+      "state": "current_reference",
+      "path": "docs/test_inputs/semantic_routing/semantic_veto_wave7_exclusion_inventory_en_es.json",
+      "role": "Tracked exclusion manifest for wave7 candidate inventory construction.",
+      "owner_doc": "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
+      "current_use": "Excludes prior v10, seed, wave2, wave5, and wave6 triggers before wave7 inventory selection.",
+      "risk": "Missing exclusions would allow prior shaped families to leak into the breadth gate.",
+      "next_audit_pass": "best_candidate",
+      "verification_artifacts": [
+        "scripts/testing/semantic_non_v10_inventory_candidates_en_es.py"
       ]
     }
   ]

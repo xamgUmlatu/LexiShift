@@ -34,6 +34,8 @@ candidate research, diagnostic tools, and historical evidence clearly distinct.
 - Process doc: `docs/rulegen/semantic_veto_reconciliation_workstream.md`
 - Assumption ledger: `docs/rulegen/semantic_veto_assumption_ledger.md`
 - Archive ledger: `docs/rulegen/semantic_veto_archive_consolidation.md`
+- Wave7 breadth runbook:
+  `docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md`
 - Machine registry: `docs/test_inputs/semantic_veto_system_registry_en_es.json`
 - Registry renderer/auditor: `scripts/testing/semantic_veto_system_registry_summary.py`
 - Latest rendered summary: `docs/test_outputs/semantic_veto_system_registry_latest.md`
@@ -167,6 +169,9 @@ Diagnostics and ledgers:
   `wave7_source_class_breadth_v1` breadth test, including exclusions, class
   buckets, acceptance artifacts, and stop rules; it is definition-only until the
   wave7 artifacts exist.
+- `docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md`: maps the
+  wave7 breadth gate to concrete commands, output paths, stop rules, and setup
+  blockers; it is a setup artifact, not executed breadth evidence.
 - `docs/test_inputs/semantic_decision_research_lanes_en_es.json` plus
   `scripts/testing/semantic_decision_research_lanes_summary.py`: tracks research
   lane state without collapsing everything into a generic done/completed state.
@@ -246,12 +251,17 @@ Current highest-priority actions:
 - `P0` `materialize_current_wave6_lane`: make the current wave6 lane
   fresh-checkout runnable, or demote local-only latest reports to provisional
   evidence.
-- `P1` `wave7_source_class_breadth_execution`: queued; execute the breadth
-  gate before treating the wave6 candidate as promotion-quality evidence.
+- `P1` `wave7_source_class_breadth_setup`: done; the wave7 runbook and tracked
+  59-trigger exclusion manifest are available.
+- `P1` `wave7_source_class_breadth_execution`: blocked; execution must wait for
+  locked wave7 active/shadow and phrase/no-winner heldout case files plus at
+  least three non-authorization source-detectable semantic-class detector
+  outputs.
 - `P1` `scorer_backed_rescue_policy_confirmation`: done; the recommended rescue
   policy passes scorer-backed offline validation over the current 54-row suite.
-- `P1` `source_trigger_overfit_audit`: verify authorization-frame evidence is
-  source-triggered class behavior, not browser-case or target-lemma shaping.
+- `P1` `source_trigger_overfit_audit`: done; authorization-frame evidence is
+  audited for source-triggered class behavior, browser-case leakage, and
+  target-lemma leakage.
 - `P2` `breadth_expansion_gate`: done; the next breadth test is
   `wave7_source_class_breadth_v1`.
 - `P2` `assumption_ledger_seed`: done; current candidate assumptions are
@@ -284,7 +294,7 @@ Current state:
   wave6 precursor, and upper-bound artifacts are labeled historical or
   superseded in `docs/rulegen/semantic_veto_archive_consolidation.md`.
 - Action ledger: reconciliation passes are parked; the next substantive work is
-  executing `wave7_source_class_breadth_v1`.
+  unblocking and then executing `wave7_source_class_breadth_v1`.
 - Current candidate remains research-only:
   `wave6_auth_frame_raw_sentence_surface_pos_rescue`.
 - Next breadth gate: `wave7_source_class_breadth_v1`.
@@ -294,18 +304,20 @@ Current state:
 Read in this order:
 
 1. `docs/rulegen/semantic_veto_reconciliation_workstream.md`
-2. `docs/test_outputs/semantic_veto_system_registry_latest.md`
-3. `docs/test_inputs/semantic_veto_system_registry_en_es.json`
-4. `docs/rulegen/semantic_veto_assumption_ledger.md`
-5. `docs/rulegen/semantic_veto_archive_consolidation.md`
-6. `docs/rulegen/semantic_sentence_veto_algorithm.md`
+2. `docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md`
+3. `docs/rulegen/semantic_veto_breadth_expansion_gate.md`
+4. `docs/test_outputs/semantic_veto_system_registry_latest.md`
+5. `docs/test_inputs/semantic_veto_system_registry_en_es.json`
+6. `docs/rulegen/semantic_veto_assumption_ledger.md`
+7. `docs/rulegen/semantic_veto_archive_consolidation.md`
+8. `docs/rulegen/semantic_sentence_veto_algorithm.md`
 
 First task:
 
-- Execute `wave7_source_class_breadth_v1` from
-  `docs/rulegen/semantic_veto_breadth_expansion_gate.md`, or add another
-  archive row first if an old artifact is still being cited as current
-  authority.
+- Create the missing wave7 heldout case files and at least three
+  non-authorization source-detectable semantic-class detector outputs, then
+  execute `wave7_source_class_breadth_v1` from
+  `docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md`.
 - Keep action items updated as cracks are discovered or resolved.
 - Keep durable inputs, generated evidence, control artifacts, and local
   uncommitted experiment outputs separate.
