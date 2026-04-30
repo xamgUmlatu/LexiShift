@@ -3,8 +3,8 @@
 Status: active workstream
 Role: Planning / WIP
 Purpose: keep the semantic sentence-veto runtime, research harnesses, data artifacts, and promotion claims aligned while the work spans many turns
-Last updated: 2026-04-30
-Last verified: 2026-04-30 against `semantic_sentence_veto_algorithm.md`, `semantic_source_admission_program.md`, `semantic_decision_rule_comparison_plan.md`, and `semantic_veto_system_registry_en_es.json`
+Last updated: 2026-05-01
+Last verified: 2026-05-01 against `semantic_sentence_veto_algorithm.md`, `semantic_source_admission_program.md`, `semantic_decision_rule_comparison_plan.md`, `semantic_veto_assumption_ledger.md`, and `semantic_veto_system_registry_en_es.json`
 Source-of-truth: this workstream governs reconciliation process; runtime truth still lives in code, tests, manifests, and generated evidence
 
 ## Why This Exists
@@ -32,6 +32,7 @@ candidate research, diagnostic tools, and historical evidence clearly distinct.
 ## Durable Artifacts
 
 - Process doc: `docs/rulegen/semantic_veto_reconciliation_workstream.md`
+- Assumption ledger: `docs/rulegen/semantic_veto_assumption_ledger.md`
 - Machine registry: `docs/test_inputs/semantic_veto_system_registry_en_es.json`
 - Registry renderer/auditor: `scripts/testing/semantic_veto_system_registry_summary.py`
 - Latest rendered summary: `docs/test_outputs/semantic_veto_system_registry_latest.md`
@@ -153,6 +154,10 @@ Source-admission and evidence harnesses:
 
 Diagnostics and ledgers:
 
+- `docs/rulegen/semantic_veto_assumption_ledger.md`: records the current
+  candidate's tested, untested, and rejected assumptions, with evidence links
+  or required follow-up tests; it is a reconciliation ledger, not a runtime
+  policy change.
 - `docs/rulegen/semantic_veto_breadth_expansion_gate.md`: defines the next
   `wave7_source_class_breadth_v1` breadth test, including exclusions, class
   buckets, acceptance artifacts, and stop rules; it is definition-only until the
@@ -242,8 +247,10 @@ Current highest-priority actions:
   source-triggered class behavior, not browser-case or target-lemma shaping.
 - `P2` `breadth_expansion_gate`: done; the next breadth test is
   `wave7_source_class_breadth_v1`.
-- `P2` `assumption_ledger_seed`: next; convert current candidate assumptions
-  into explicit tested, untested, and rejected rows.
+- `P2` `assumption_ledger_seed`: done; current candidate assumptions are
+  explicit in `semantic_veto_assumption_ledger.md`.
+- `P2` `archive_consolidation_triage`: next; demote or label older artifacts
+  after their surviving lessons are preserved.
 
 ## Next-Agent Handoff
 
@@ -263,7 +270,9 @@ Current state:
   artifact are explicit.
 - Parked pass: `best_candidate`; the current candidate, control, remaining
   blockers, and next breadth gate are explicit.
-- Action ledger: active; start with `assumption_ledger_seed`.
+- Parked pass: `assumptions`; tested, untested, and rejected current-candidate
+  assumptions are explicit in `docs/rulegen/semantic_veto_assumption_ledger.md`.
+- Action ledger: active; start with `archive_consolidation`.
 - Current candidate remains research-only:
   `wave6_auth_frame_raw_sentence_surface_pos_rescue`.
 - Next breadth gate: `wave7_source_class_breadth_v1`.
@@ -275,13 +284,14 @@ Read in this order:
 1. `docs/rulegen/semantic_veto_reconciliation_workstream.md`
 2. `docs/test_outputs/semantic_veto_system_registry_latest.md`
 3. `docs/test_inputs/semantic_veto_system_registry_en_es.json`
-4. `docs/rulegen/semantic_sentence_veto_algorithm.md`
+4. `docs/rulegen/semantic_veto_assumption_ledger.md`
+5. `docs/rulegen/semantic_sentence_veto_algorithm.md`
 
 First task:
 
-- Continue the `assumptions` pass by turning raw-sentence context,
-  phrase-prototype margin, source-triggered authorization frames, and
-  rescue-gate constraints into explicit evidence-linked rows.
+- Continue the `archive_consolidation` pass by demoting or labeling old
+  semantic-veto artifacts only after their surviving lessons are represented in
+  the registry, the assumption ledger, or this workstream.
 - Keep action items updated as cracks are discovered or resolved.
 - Keep durable inputs, generated evidence, control artifacts, and local
   uncommitted experiment outputs separate.

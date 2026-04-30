@@ -56,9 +56,26 @@
       "validation": "Adapter tests passed; auth-frame branch was regenerated; targeted leakage audit found 0 heldout sentence or Spanish target-lemma violations across 54 heldout sentences."
     },
     {
+      "action": "Demote or label older semantic-veto artifacts after their surviving lessons are preserved in the current registry, ledger, or workstream.",
+      "action_id": "archive_consolidation_triage",
+      "evidence_needed": "Historical_reference or superseded rows for old steering artifacts, or explicit current_reference retention for docs that still guide active work.",
+      "pass_id": "archive_consolidation",
+      "priority": "P2",
+      "promotion_impact": "Reduces confusion between current candidate evidence and archived research history.",
+      "source_artifacts": [
+        "semantic_veto_reconciliation_workstream",
+        "semantic_veto_assumption_ledger",
+        "decision_research_lanes_ledger",
+        "decision_rule_comparison_plan",
+        "source_admission_program_doc"
+      ],
+      "status": "queued",
+      "validation": "Regenerate the registry summary, run doc-reference checks, and confirm old latest artifacts no longer retain unqualified steering power."
+    },
+    {
       "action": "Convert the current candidate assumptions into explicit tested, untested, and rejected rows.",
       "action_id": "assumption_ledger_seed",
-      "evidence_needed": "Rows for raw-sentence context, phrase-prototype margin, source-triggered authorization frames, and rescue-gate constraints.",
+      "evidence_needed": "Assumption ledger now records evidence-linked rows for raw-sentence context, phrase-prototype margin, source-triggered authorization frames, rescue-gate constraints, breadth limits, runtime-policy separation, and phrase/no-winner visibility.",
       "pass_id": "assumptions",
       "priority": "P2",
       "promotion_impact": "Makes future changes explainable without treating today\u2019s best lane as folklore.",
@@ -66,10 +83,16 @@
         "wave6_auth_frame_raw_sentence_surface_pos_rescue",
         "wave6_alt_phrase_raw_sentence_control",
         "auth_frame_active_shadow_validation",
-        "auth_frame_phrase_validation"
+        "auth_frame_phrase_validation",
+        "auth_frame_rescue_replay_report",
+        "auth_frame_rescue_policy_validation",
+        "auth_frame_admission_report",
+        "auth_frame_failure_mining",
+        "breadth_expansion_gate_plan",
+        "semantic_veto_assumption_ledger"
       ],
-      "status": "queued",
-      "validation": "Regenerate the registry summary and confirm each assumption links to an artifact or a queued test."
+      "status": "done",
+      "validation": "Regenerate the registry summary and run doc-reference checks to confirm every assumption links to an artifact or queued breadth/runtime test."
     },
     {
       "action": "Define the next breadth test before tuning the current 16-family wave further.",
@@ -93,7 +116,7 @@
     "decision_research": 7,
     "diagnostics": 3,
     "evaluation_data": 3,
-    "process_governance": 4,
+    "process_governance": 5,
     "runtime_path": 16,
     "source_admission": 8
   },
@@ -792,6 +815,22 @@
       ]
     },
     {
+      "artifact_id": "semantic_veto_assumption_ledger",
+      "component": "process_governance",
+      "current_use": "Current assumption ledger for the wave6 auth-frame raw-sentence rescue candidate.",
+      "next_audit_pass": "archive_consolidation",
+      "owner_doc": "docs/developer/documentation_governance.md",
+      "path": "docs/rulegen/semantic_veto_assumption_ledger.md",
+      "risk": "Assumptions can be mistaken for proof if row status and evidence links are not preserved.",
+      "role": "Records current candidate assumptions as tested, untested, or rejected rows with evidence links or required follow-up tests.",
+      "state": "current_reference",
+      "title": "Semantic veto assumption ledger",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_system_registry_latest.md",
+        "scripts/testing/semantic_veto_system_registry_summary.py"
+      ]
+    },
+    {
       "artifact_id": "semantic_veto_reconciliation_workstream",
       "component": "process_governance",
       "current_use": "Top-level reconciliation entrypoint.",
@@ -975,8 +1014,8 @@
       ]
     }
   ],
-  "entry_count": 52,
-  "generated_at": "2026-04-30T03:56:17Z",
+  "entry_count": 53,
+  "generated_at": "2026-04-30T17:24:46Z",
   "issues": [],
   "next_passes": [
     {
@@ -992,26 +1031,12 @@
         "follow-up cleanup queue"
       ],
       "state": "queued_next"
-    },
-    {
-      "cracks_to_watch": [
-        "raw_sentence treated as universally better",
-        "rescue gates treated as safe outside tested phrase suites",
-        "source class frames growing without source-backed triggers"
-      ],
-      "lens": "Turn hidden candidate assumptions into explicit evidence-linked rows.",
-      "pass_id": "assumptions",
-      "primary_outputs": [
-        "assumption ledger entries for context, evidence, scorer, guard, and thresholds",
-        "queued tests for unproven assumptions"
-      ],
-      "state": "queued_next"
     }
   ],
   "pass_count": 7,
   "pass_state_counts": {
-    "parked": 5,
-    "queued_next": 2
+    "parked": 6,
+    "queued_next": 1
   },
   "passes": [
     {
@@ -1040,7 +1065,7 @@
         "assumption ledger entries for context, evidence, scorer, guard, and thresholds",
         "queued tests for unproven assumptions"
       ],
-      "state": "queued_next"
+      "state": "parked"
     },
     {
       "cracks_to_watch": [
@@ -1743,6 +1768,22 @@
       ]
     },
     {
+      "artifact_id": "semantic_veto_assumption_ledger",
+      "component": "process_governance",
+      "current_use": "Current assumption ledger for the wave6 auth-frame raw-sentence rescue candidate.",
+      "next_audit_pass": "archive_consolidation",
+      "owner_doc": "docs/developer/documentation_governance.md",
+      "path": "docs/rulegen/semantic_veto_assumption_ledger.md",
+      "risk": "Assumptions can be mistaken for proof if row status and evidence links are not preserved.",
+      "role": "Records current candidate assumptions as tested, untested, or rejected rows with evidence links or required follow-up tests.",
+      "state": "current_reference",
+      "title": "Semantic veto assumption ledger",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_system_registry_latest.md",
+        "scripts/testing/semantic_veto_system_registry_summary.py"
+      ]
+    },
+    {
       "artifact_id": "semantic_veto_reconciliation_workstream",
       "component": "process_governance",
       "current_use": "Top-level reconciliation entrypoint.",
@@ -1929,7 +1970,7 @@
   "schema_version": 1,
   "state_counts": {
     "current_candidate": 5,
-    "current_reference": 6,
+    "current_reference": 7,
     "current_research": 13,
     "current_runtime": 16,
     "diagnostic_only": 1,

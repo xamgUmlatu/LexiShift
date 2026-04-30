@@ -1,9 +1,9 @@
 # Semantic Veto System Registry
 
 - Status: `ok`
-- Generated: `2026-04-30T03:56:17Z`
+- Generated: `2026-04-30T17:24:46Z`
 - Registry: `/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_veto_system_registry_en_es.json`
-- Entries: `52`
+- Entries: `53`
 - Passes: `7`
 
 ## Current Candidate
@@ -26,7 +26,6 @@
 ## Next Passes
 
 - `archive_consolidation` (queued_next): Demote or label old artifacts after surviving value is migrated.
-- `assumptions` (queued_next): Turn hidden candidate assumptions into explicit evidence-linked rows.
 
 ## Action Items
 
@@ -35,14 +34,15 @@
 | P0 | done | Make the current wave6 lane fresh-checkout runnable, or explicitly demote local-only latest reports to provisional evidence. | data_artifacts | `wave6_auth_frame_raw_sentence_surface_pos_rescue`, `translation_sense_adapter`, `translation_sense_admission_report`, `alternate_sense_phrase_adapter`, `alternate_sense_phrase_admission_report`, `current_wave6_rerun_chain_runbook`, `authorization_frame_adapter`, `auth_frame_admission_report`, `auth_frame_active_shadow_validation`, `auth_frame_phrase_validation`, `auth_frame_rescue_replay_report` | Tracked generator scripts, deterministic rerun chain, and regenerated 2026-04-30 latest artifacts for every artifact in the lane rerun order. | Focused semantic harness tests passed; lane artifacts were regenerated through failure mining; registry audit and doc-reference checks must stay clean before commit. |
 | P1 | done | Run the recommended rescue policy through scorer-backed heldout validation before any runtime-policy or promotion claim. | best_candidate | `auth_frame_rescue_replay_report`, `auth_frame_rescue_policy_validation`, `surface_pos_rescue_sweep`, `wave6_active_shadow_heldout`, `wave6_phrase_heldout` | Scorer-backed active/shadow plus phrase/no-winner validation now passes at 0 harmful replacements and 0 false abstains over 54 cases for the recommended rescue policy. | Focused rescue validation and replay tests passed; scorer-backed validation artifact regenerated with --fail-on-review; registry audit and doc-reference checks must stay clean before commit. |
 | P1 | done | Audit authorization-frame evidence for source-triggered class behavior rather than browser-case or target-lemma shaping. | overfit_leakage | `authorization_frame_adapter`, `auth_frame_admission_report`, `auth_frame_failure_mining` | Authorization-frame report now records matched and unmatched source-trigger text per selected sense, plus target-lemma-in-source flags. | Adapter tests passed; auth-frame branch was regenerated; targeted leakage audit found 0 heldout sentence or Spanish target-lemma violations across 54 heldout sentences. |
-| P2 | queued | Convert the current candidate assumptions into explicit tested, untested, and rejected rows. | assumptions | `wave6_auth_frame_raw_sentence_surface_pos_rescue`, `wave6_alt_phrase_raw_sentence_control`, `auth_frame_active_shadow_validation`, `auth_frame_phrase_validation` | Rows for raw-sentence context, phrase-prototype margin, source-triggered authorization frames, and rescue-gate constraints. | Regenerate the registry summary and confirm each assumption links to an artifact or a queued test. |
+| P2 | queued | Demote or label older semantic-veto artifacts after their surviving lessons are preserved in the current registry, ledger, or workstream. | archive_consolidation | `semantic_veto_reconciliation_workstream`, `semantic_veto_assumption_ledger`, `decision_research_lanes_ledger`, `decision_rule_comparison_plan`, `source_admission_program_doc` | Historical_reference or superseded rows for old steering artifacts, or explicit current_reference retention for docs that still guide active work. | Regenerate the registry summary, run doc-reference checks, and confirm old latest artifacts no longer retain unqualified steering power. |
+| P2 | done | Convert the current candidate assumptions into explicit tested, untested, and rejected rows. | assumptions | `wave6_auth_frame_raw_sentence_surface_pos_rescue`, `wave6_alt_phrase_raw_sentence_control`, `auth_frame_active_shadow_validation`, `auth_frame_phrase_validation`, `auth_frame_rescue_replay_report`, `auth_frame_rescue_policy_validation`, `auth_frame_admission_report`, `auth_frame_failure_mining`, `breadth_expansion_gate_plan`, `semantic_veto_assumption_ledger` | Assumption ledger now records evidence-linked rows for raw-sentence context, phrase-prototype margin, source-triggered authorization frames, rescue-gate constraints, breadth limits, runtime-policy separation, and phrase/no-winner visibility. | Regenerate the registry summary and run doc-reference checks to confirm every assumption links to an artifact or queued breadth/runtime test. |
 | P2 | done | Define the next breadth test before tuning the current 16-family wave further. | best_candidate | `auth_frame_failure_mining`, `wave6_wiktextract_dataset`, `non_v10_wave_admission_sweep_harness`, `breadth_expansion_gate_plan` | Defined wave7_source_class_breadth_v1 with required exclusions, source-detectable class buckets, heldout floor, acceptance evidence, and stop rules. | Regenerate the registry summary, run doc-reference checks, and keep the gate explicitly marked as definition-only until the expanded lane is executed. |
 
 ## Counts
 
 ### Entry States
 - `current_candidate`: `5`
-- `current_reference`: `6`
+- `current_reference`: `7`
 - `current_research`: `13`
 - `current_runtime`: `16`
 - `diagnostic_only`: `1`
@@ -54,7 +54,7 @@
 - `decision_research`: `7`
 - `diagnostics`: `3`
 - `evaluation_data`: `3`
-- `process_governance`: `4`
+- `process_governance`: `5`
 - `runtime_path`: `16`
 - `source_admission`: `8`
 
@@ -112,6 +112,7 @@
 | breadth_expansion_gate_plan | current_reference | process_governance | A gate definition can be mistaken for executed breadth evidence if the wave7 artifacts are not produced. | assumptions |
 | current_wave6_rerun_chain_runbook | current_reference | process_governance | Must be updated whenever the lane rerun order or output filenames change. | data_artifacts |
 | semantic_sentence_veto_algorithm_doc | current_reference | process_governance | Can become stale if code defaults change without doc update. | runtime_path |
+| semantic_veto_assumption_ledger | current_reference | process_governance | Assumptions can be mistaken for proof if row status and evidence links are not preserved. | archive_consolidation |
 | semantic_veto_reconciliation_workstream | current_reference | process_governance | Must stay concise enough to guide later turns. | runtime_path |
 | source_admission_program_doc | current_reference | source_admission | Long evidence list can obscure the current best candidate. | research_harness |
 | auth_frame_active_shadow_validation | generated_evidence | candidate_wave6 | Breadth is too small for promotion. | best_candidate |
@@ -169,6 +170,7 @@
 | breadth_expansion_gate_plan | current_reference | process_governance | docs/rulegen/semantic_veto_breadth_expansion_gate.md | Next breadth gate definition for the current research-only candidate. |
 | current_wave6_rerun_chain_runbook | current_reference | process_governance | docs/rulegen/semantic_veto_current_wave6_rerun_chain.md | Fresh-checkout reproducibility reference for the current data-artifact lane. |
 | semantic_sentence_veto_algorithm_doc | current_reference | process_governance | docs/rulegen/semantic_sentence_veto_algorithm.md | Primary algorithm map before runtime-path audits. |
+| semantic_veto_assumption_ledger | current_reference | process_governance | docs/rulegen/semantic_veto_assumption_ledger.md | Current assumption ledger for the wave6 auth-frame raw-sentence rescue candidate. |
 | semantic_veto_reconciliation_workstream | current_reference | process_governance | docs/rulegen/semantic_veto_reconciliation_workstream.md | Top-level reconciliation entrypoint. |
 | source_admission_program_doc | current_reference | source_admission | docs/rulegen/semantic_source_admission_program.md | Source-admission orientation and constraints. |
 | auth_frame_active_shadow_validation | generated_evidence | candidate_wave6 | docs/test_outputs/semantic_source_non_v10_wave6_auth_frame_surface_pos_raw_sentence_heldout_margin000_phrase002_validation_latest.md | Current measured active/shadow result: 0 harmful and 0 false abstains on 38 cases. |

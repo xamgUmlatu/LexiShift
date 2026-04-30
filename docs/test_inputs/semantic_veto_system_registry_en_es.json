@@ -71,7 +71,7 @@
     },
     {
       "pass_id": "assumptions",
-      "state": "queued_next",
+      "state": "parked",
       "lens": "Turn hidden candidate assumptions into explicit evidence-linked rows.",
       "primary_outputs": [
         "assumption ledger entries for context, evidence, scorer, guard, and thresholds",
@@ -260,18 +260,41 @@
     {
       "action_id": "assumption_ledger_seed",
       "priority": "P2",
-      "status": "queued",
+      "status": "done",
       "pass_id": "assumptions",
       "source_artifacts": [
         "wave6_auth_frame_raw_sentence_surface_pos_rescue",
         "wave6_alt_phrase_raw_sentence_control",
         "auth_frame_active_shadow_validation",
-        "auth_frame_phrase_validation"
+        "auth_frame_phrase_validation",
+        "auth_frame_rescue_replay_report",
+        "auth_frame_rescue_policy_validation",
+        "auth_frame_admission_report",
+        "auth_frame_failure_mining",
+        "breadth_expansion_gate_plan",
+        "semantic_veto_assumption_ledger"
       ],
       "action": "Convert the current candidate assumptions into explicit tested, untested, and rejected rows.",
-      "evidence_needed": "Rows for raw-sentence context, phrase-prototype margin, source-triggered authorization frames, and rescue-gate constraints.",
-      "validation": "Regenerate the registry summary and confirm each assumption links to an artifact or a queued test.",
+      "evidence_needed": "Assumption ledger now records evidence-linked rows for raw-sentence context, phrase-prototype margin, source-triggered authorization frames, rescue-gate constraints, breadth limits, runtime-policy separation, and phrase/no-winner visibility.",
+      "validation": "Regenerate the registry summary and run doc-reference checks to confirm every assumption links to an artifact or queued breadth/runtime test.",
       "promotion_impact": "Makes future changes explainable without treating today’s best lane as folklore."
+    },
+    {
+      "action_id": "archive_consolidation_triage",
+      "priority": "P2",
+      "status": "queued",
+      "pass_id": "archive_consolidation",
+      "source_artifacts": [
+        "semantic_veto_reconciliation_workstream",
+        "semantic_veto_assumption_ledger",
+        "decision_research_lanes_ledger",
+        "decision_rule_comparison_plan",
+        "source_admission_program_doc"
+      ],
+      "action": "Demote or label older semantic-veto artifacts after their surviving lessons are preserved in the current registry, ledger, or workstream.",
+      "evidence_needed": "Historical_reference or superseded rows for old steering artifacts, or explicit current_reference retention for docs that still guide active work.",
+      "validation": "Regenerate the registry summary, run doc-reference checks, and confirm old latest artifacts no longer retain unqualified steering power.",
+      "promotion_impact": "Reduces confusion between current candidate evidence and archived research history."
     },
     {
       "action_id": "breadth_expansion_gate",
@@ -1078,6 +1101,22 @@
       "next_audit_pass": "data_artifacts",
       "verification_artifacts": [
         "docs/test_outputs/semantic_veto_system_registry_latest.md"
+      ]
+    },
+    {
+      "artifact_id": "semantic_veto_assumption_ledger",
+      "title": "Semantic veto assumption ledger",
+      "component": "process_governance",
+      "state": "current_reference",
+      "path": "docs/rulegen/semantic_veto_assumption_ledger.md",
+      "role": "Records current candidate assumptions as tested, untested, or rejected rows with evidence links or required follow-up tests.",
+      "owner_doc": "docs/developer/documentation_governance.md",
+      "current_use": "Current assumption ledger for the wave6 auth-frame raw-sentence rescue candidate.",
+      "risk": "Assumptions can be mistaken for proof if row status and evidence links are not preserved.",
+      "next_audit_pass": "archive_consolidation",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_system_registry_latest.md",
+        "scripts/testing/semantic_veto_system_registry_summary.py"
       ]
     },
     {
