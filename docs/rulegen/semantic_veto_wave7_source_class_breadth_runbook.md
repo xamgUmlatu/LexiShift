@@ -8,8 +8,8 @@ Gate: `wave7_source_class_breadth_v1`
 This runbook turns `docs/rulegen/semantic_veto_breadth_expansion_gate.md` into
 an executable artifact map. It does not change runtime policy. The current
 candidate remains `wave6_auth_frame_raw_sentence_surface_pos_rescue`; the
-executed wave7 breadth gate is a failed breadth probe until its harmful
-replacement classes are triaged and rerun.
+executed wave7 breadth gate is a failed breadth probe. Phrase-control triage
+has classified the first blocker layer, but no runtime policy changed.
 
 ## Preflight
 
@@ -26,9 +26,12 @@ test -f scripts/testing/semantic_wiktextract_translation_support_en_es.py
 test -f scripts/testing/semantic_non_v10_source_support_conversion_en_es.py
 test -f scripts/testing/semantic_translation_sense_evidence_batch_en_es.py
 test -f scripts/testing/semantic_wordnet_example_frame_batch_en_es.py
+test -f scripts/testing/semantic_wordnet_alternate_sense_phrase_evidence_en_es.py
 test -f scripts/testing/semantic_source_class_frame_evidence_en_es.py
 test -f scripts/testing/semantic_source_admission_cycle_en_es.py
 test -f scripts/testing/semantic_source_heldout_validation_en_es.py
+test -f scripts/testing/semantic_source_margin_policy_sweep_en_es.py
+test -f scripts/testing/semantic_surface_pos_rescue_policy_sweep_en_es.py
 test -f scripts/testing/semantic_surface_pos_rescue_policy_validation_en_es.py
 test -f scripts/testing/semantic_source_failure_class_mining_en_es.py
 test -f docs/test_inputs/semantic_routing_cases/en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases.json
@@ -47,7 +50,14 @@ Current execution result:
 - The gate did not pass. The scorer-backed rescue validation reports `7`
   harmful replacements and `5` false abstains across `48` locked cases.
 - `docs/test_outputs/semantic_source_failure_class_mining_wave7_source_class_breadth_v1_latest.md`
-  is the current starting point for blocker triage.
+  is the original blocker report.
+- Phrase-control triage added `179` alternate-sense phrase rows, restored
+  `16 / 16` phrase contract coverage, and still did not pass heldout gates:
+  active/shadow remains `1` harmful and `5` false abstains, phrase/no-winner
+  remains `6` harmful, rescue sweep has `0` passing policies, and no-surface
+  margin sweep has `0` passing combined policies.
+- The current next action is `wave7_active_signal_and_rescue_split`: separate
+  active source-signal misses from phrase rescue-policy interaction.
 
 ## Artifact Names
 
@@ -87,6 +97,18 @@ Use these names for the wave7 chain:
   `docs/test_outputs/semantic_surface_pos_rescue_policy_validation_wave7_source_class_breadth_v1_latest.{json,md}`
 - Failure-class mining:
   `docs/test_outputs/semantic_source_failure_class_mining_wave7_source_class_breadth_v1_latest.{json,md}`
+- Alternate-sense phrase-control triage:
+  `docs/test_outputs/semantic_wordnet_alternate_sense_phrase_wave7_source_class_breadth_v1_triage_latest.{json,md}`
+- Phrase-control triage admission:
+  `docs/test_outputs/semantic_source_admission_cycle_wave7_source_class_breadth_v1_phrase_control_triage_latest.{json,md}`
+- Phrase-control triage active/shadow validation:
+  `docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout_validation_latest.{json,md}`
+- Phrase-control triage phrase/no-winner validation:
+  `docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase_validation_latest.{json,md}`
+- Phrase-control triage rescue sweep:
+  `docs/test_outputs/semantic_surface_pos_rescue_policy_sweep_wave7_source_class_breadth_v1_phrase_control_triage_latest.{json,md}`
+- Phrase-control no-surface margin sweep:
+  `docs/test_outputs/semantic_source_margin_policy_sweep_wave7_source_class_breadth_v1_phrase_control_no_surface_latest.{json,md}`
 
 ## 1. Fresh Inventory
 
@@ -292,9 +314,48 @@ python3 scripts/testing/semantic_source_failure_class_mining_en_es.py \
   --markdown-out docs/test_outputs/semantic_source_failure_class_mining_wave7_source_class_breadth_v1_latest.md
 ```
 
+## 6. Phrase-Control Triage
+
+This triage lane keeps the initial failed artifacts intact and adds
+alternate-sense phrase/no-winner rows as a diagnostic layer. It is not a pass
+and is not runtime policy.
+
+```bash
+python3 scripts/testing/semantic_wordnet_alternate_sense_phrase_evidence_en_es.py \
+  --dataset docs/test_outputs/experiments/semantic_non_v10_wave_drafts/en_es_source_non_v10_wave7_source_class_breadth_v1_wiktextract_supported_dataset.json \
+  --run-id wordnet-alternate-sense-phrase-non-v10-wave7-source-class-breadth-v1-triage-latest \
+  --active-reference-batch-json docs/test_outputs/experiments/semantic_example_frame_batches/en-es-wave7-source-class-breadth-v1-latest_cycle_sense_admitted_normalized_evidence.json \
+  --normalized-batch-out docs/test_outputs/experiments/semantic_example_frame_batches/en-es-wordnet-alternate-sense-phrase-non-v10-wave7-source-class-breadth-v1-triage-latest_normalized_evidence.json \
+  --json-out docs/test_outputs/semantic_wordnet_alternate_sense_phrase_wave7_source_class_breadth_v1_triage_latest.json \
+  --markdown-out docs/test_outputs/semantic_wordnet_alternate_sense_phrase_wave7_source_class_breadth_v1_triage_latest.md
+```
+
+```bash
+python3 scripts/testing/semantic_source_admission_cycle_en_es.py \
+  --dataset docs/test_outputs/experiments/semantic_non_v10_wave_drafts/en_es_source_non_v10_wave7_source_class_breadth_v1_wiktextract_supported_dataset.json \
+  --queue-json docs/test_outputs/experiments/semantic_non_v10_wave_drafts/semantic_source_non_v10_wave7_source_class_breadth_v1_unsupported_selected_queue_en_es.json \
+  --required-family-json docs/test_outputs/experiments/semantic_non_v10_wave_drafts/en_es_source_non_v10_wave7_source_class_breadth_v1_wiktextract_supported_dataset.json \
+  --base-batch-json docs/test_outputs/experiments/semantic_example_frame_batches/en-es-wave7-source-class-breadth-v1-latest_cycle_sense_admitted_normalized_evidence.json \
+  --candidate-batch-json docs/test_outputs/experiments/semantic_example_frame_batches/en-es-wordnet-alternate-sense-phrase-non-v10-wave7-source-class-breadth-v1-triage-latest_normalized_evidence.json \
+  --batch-id en-es:wave7-source-class-breadth-v1:phrase-control-triage:cycle \
+  --source-id wordnet_alt_phrase_wave7_source_class_breadth_v1_triage \
+  --skip-ablation \
+  --json-out docs/test_outputs/semantic_source_admission_cycle_wave7_source_class_breadth_v1_phrase_control_triage_latest.json \
+  --markdown-out docs/test_outputs/semantic_source_admission_cycle_wave7_source_class_breadth_v1_phrase_control_triage_latest.md \
+  --filtered-batch-out docs/test_outputs/experiments/semantic_example_frame_batches/en-es-wave7-source-class-breadth-v1-phrase-control-triage-latest_cycle_filtered_normalized_evidence.json \
+  --sense-batch-out docs/test_outputs/experiments/semantic_example_frame_batches/en-es-wave7-source-class-breadth-v1-phrase-control-triage-latest_cycle_sense_admitted_normalized_evidence.json \
+  --merged-batch-out docs/test_outputs/experiments/semantic_example_frame_batches/en-es-wave7-source-class-breadth-v1-phrase-control-triage-latest_cycle_merged_normalized_evidence.json \
+  --candidate-admitted-batch-out docs/test_outputs/experiments/semantic_example_frame_batches/en-es-wave7-source-class-breadth-v1-phrase-control-triage-latest_admitted_delta_normalized_evidence.json
+```
+
+Use the phrase-control triage sense-admitted batch for active/shadow validation,
+phrase/no-winner validation, rescue sweep, and no-surface margin sweep. The
+executed result was diagnostic: phrase contract complete, but `0` passing
+rescue policies and `0` passing combined no-surface margin policies.
+
 ## Completion
 
-After the wave7 evidence chain exists:
+After the wave7 evidence or triage chain exists:
 
 1. Classify every wave7 artifact in
    `docs/test_inputs/semantic_veto_system_registry_en_es.json`.

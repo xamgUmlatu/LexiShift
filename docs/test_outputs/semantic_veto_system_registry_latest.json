@@ -24,23 +24,22 @@
       "validation": "Focused semantic harness tests passed; lane artifacts were regenerated through failure mining; registry audit and doc-reference checks must stay clean before commit."
     },
     {
-      "action": "Triage the wave7 harmful replacements before changing thresholds or claiming breadth success.",
-      "action_id": "wave7_blocking_failure_triage",
-      "evidence_needed": "Start with the active/shadow harmful case for gross and phrase/no-winner harmful cases for cast, wrong, stretch, score, squeeze, and foul; keep the five active false abstains for like, fix, full, even, and meet as tracked residuals.",
+      "action": "Design the next wave7 remediation split after phrase-control triage: add active source evidence for false abstains and gross, then test a phrase-aware rescue guard without hiding phrase harms.",
+      "action_id": "wave7_active_signal_and_rescue_split",
+      "evidence_needed": "No existing replayed rescue policy or no-surface scalar margin passes; phrase-control solves the phrase contract but surface rescue still admits phrase/no-winner harms while active/source cases still miss.",
       "pass_id": "best_candidate",
       "priority": "P1",
-      "promotion_impact": "Keeps the breadth lane evidence-producing while preventing accidental threshold tuning against unclassified harm.",
+      "promotion_impact": "Keeps wave7 research-only and prevents a rescue-policy tweak from being mistaken for a source-evidence fix.",
       "source_artifacts": [
-        "wave7_failure_mining",
-        "wave7_active_shadow_validation",
-        "wave7_phrase_validation",
-        "wave7_rescue_policy_validation",
-        "wave7_source_admission_report",
-        "wave7_source_class_frame_report",
-        "source_class_frame_adapter"
+        "wave7_phrase_control_triage_admission",
+        "wave7_phrase_control_triage_active_shadow_validation",
+        "wave7_phrase_control_triage_phrase_validation",
+        "wave7_phrase_control_rescue_sweep",
+        "wave7_phrase_control_no_surface_margin_sweep",
+        "wave7_failure_mining"
       ],
       "status": "queued",
-      "validation": "Rerun source-class evidence, admission, heldout validation, rescue validation, failure mining, registry summary, focused tests, doc-reference checks, and git diff whitespace checks after any fix."
+      "validation": "Rerun phrase-control admission, active/shadow heldout, phrase/no-winner heldout, rescue sweep, margin sweep, failure mining, registry summary, focused tests, doc-reference checks, and git diff whitespace checks after the remediation candidate."
     },
     {
       "action": "Run the recommended rescue policy through scorer-backed heldout validation before any runtime-policy or promotion claim.",
@@ -73,6 +72,31 @@
       ],
       "status": "done",
       "validation": "Adapter tests passed; auth-frame branch was regenerated; targeted leakage audit found 0 heldout sentence or Spanish target-lemma violations across 54 heldout sentences."
+    },
+    {
+      "action": "Triage the wave7 harmful replacements before changing thresholds or claiming breadth success.",
+      "action_id": "wave7_blocking_failure_triage",
+      "evidence_needed": "Phrase-control triage produced 179 alternate-sense phrase rows, restored 16/16 phrase contract coverage, and kept the same heldout blockers visible: active/shadow has 1 harmful replacement and 5 false abstains, phrase/no-winner has 6 harmful replacements, rescue sweep has 0 passing policies, and no-surface margin sweep has 0 passing combined policies.",
+      "pass_id": "best_candidate",
+      "priority": "P1",
+      "promotion_impact": "Reclassifies the blocker from missing phrase-control evidence to a split between active source-signal misses and phrase rescue-policy interaction.",
+      "source_artifacts": [
+        "wave7_failure_mining",
+        "wave7_active_shadow_validation",
+        "wave7_phrase_validation",
+        "wave7_rescue_policy_validation",
+        "wave7_source_admission_report",
+        "wave7_source_class_frame_report",
+        "source_class_frame_adapter",
+        "wave7_alt_phrase_triage_report",
+        "wave7_phrase_control_triage_admission",
+        "wave7_phrase_control_triage_active_shadow_validation",
+        "wave7_phrase_control_triage_phrase_validation",
+        "wave7_phrase_control_rescue_sweep",
+        "wave7_phrase_control_no_surface_margin_sweep"
+      ],
+      "status": "done",
+      "validation": "Phrase-control triage admission and heldout reports were generated, rescue and no-surface margin sweeps were generated, registry summary was regenerated, and focused registry/doc checks must stay clean before commit."
     },
     {
       "action": "Execute wave7_source_class_breadth_v1 before treating the current wave6 candidate as promotion-quality evidence.",
@@ -188,12 +212,12 @@
   "component_counts": {
     "candidate_wave6": 11,
     "decision_research": 7,
-    "diagnostics": 4,
+    "diagnostics": 6,
     "evaluation_data": 7,
     "historical_or_seed": 6,
     "process_governance": 7,
     "runtime_path": 16,
-    "source_admission": 15
+    "source_admission": 19
   },
   "current_candidate": {
     "candidate_id": "wave6_auth_frame_raw_sentence_surface_pos_rescue",
@@ -205,6 +229,9 @@
       "active_shadow_false_abstains": 0,
       "active_shadow_harmful_replacements": 0,
       "active_shadow_replace_recall": 1.0,
+      "latest_breadth_gate_false_abstains": 5,
+      "latest_breadth_gate_harmful_replacements": 7,
+      "latest_breadth_gate_status": "executed_failed",
       "next_breadth_gate": "wave7_source_class_breadth_v1",
       "phrase_no_winner_cases": 16,
       "rescue_replay_passing_policy_count": 12,
@@ -218,7 +245,7 @@
     "promotion_blockers": [
       "bounded to 16 families and 54 heldout cases",
       "scorer-backed confirmation is still offline and not a runtime policy change",
-      "wave7_source_class_breadth_v1 has not been executed",
+      "wave7_source_class_breadth_v1 executed and failed with harmful replacements plus false abstains",
       "phrase/no-winner safety must stay visible separately from active/shadow scoring"
     ],
     "runtime_policy_change": "none"
@@ -1000,11 +1027,11 @@
     {
       "artifact_id": "wave7_source_class_breadth_runbook",
       "component": "process_governance",
-      "current_use": "Current setup reference before executing the wave7 breadth gate.",
+      "current_use": "Current execution and triage reference for the failed wave7 breadth gate.",
       "next_audit_pass": "best_candidate",
       "owner_doc": "docs/developer/documentation_governance.md",
       "path": "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
-      "risk": "Wave7 can be run against incomplete inputs if the heldout-case and semantic-class detector blockers are skipped.",
+      "risk": "Wave7 can be misreported if failed execution, phrase-control triage, and queued remediation are not kept separate.",
       "role": "Execution runbook and artifact map for wave7_source_class_breadth_v1.",
       "state": "current_reference",
       "title": "Wave7 source-class breadth runbook",
@@ -1150,6 +1177,36 @@
       ]
     },
     {
+      "artifact_id": "wave7_phrase_control_no_surface_margin_sweep",
+      "component": "diagnostics",
+      "current_use": "Records 40 policy rows and 0 passing combined policies; phrase-only rows can pass, but active false abstains increase.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
+      "path": "docs/test_outputs/semantic_source_margin_policy_sweep_wave7_source_class_breadth_v1_phrase_control_no_surface_latest.md",
+      "risk": "Disabling surface rescue can hide phrase harms while making active/shadow recall unacceptable.",
+      "role": "No-surface scalar margin sweep over phrase-control triage evidence and both wave7 heldout suites.",
+      "state": "generated_evidence",
+      "title": "Wave7 phrase-control no-surface margin sweep",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_source_margin_policy_sweep_wave7_source_class_breadth_v1_phrase_control_no_surface_latest.json"
+      ]
+    },
+    {
+      "artifact_id": "wave7_phrase_control_rescue_sweep",
+      "component": "diagnostics",
+      "current_use": "Records 25 replayed policies and 0 passing policies; no existing rescue gate clears both suites.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
+      "path": "docs/test_outputs/semantic_surface_pos_rescue_policy_sweep_wave7_source_class_breadth_v1_phrase_control_triage_latest.md",
+      "risk": "A replay-only sweep is not runtime policy and cannot justify a rescue tweak without scorer-backed rerun.",
+      "role": "Fixed-trace rescue-policy replay over phrase-control triage active/shadow and phrase/no-winner reports.",
+      "state": "generated_evidence",
+      "title": "Wave7 phrase-control rescue policy sweep",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_surface_pos_rescue_policy_sweep_wave7_source_class_breadth_v1_phrase_control_triage_latest.json"
+      ]
+    },
+    {
       "artifact_id": "wave7_supported_dataset",
       "component": "evaluation_data",
       "current_use": "Executed wave7 breadth-gate base dataset.",
@@ -1213,6 +1270,22 @@
       ]
     },
     {
+      "artifact_id": "wave7_alt_phrase_triage_report",
+      "component": "source_admission",
+      "current_use": "Generated 179 phrase-control rows across all 16 wave7 families for blocker triage.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
+      "path": "docs/test_outputs/semantic_wordnet_alternate_sense_phrase_wave7_source_class_breadth_v1_triage_latest.md",
+      "risk": "Phrase-control rows can make the source contract look complete while heldout phrase harms still fail downstream.",
+      "role": "Reports WordNet alternate-sense phrase/no-winner evidence rows added after the initial wave7 phrase contract gap.",
+      "state": "generated_evidence",
+      "title": "Wave7 alternate-sense phrase-control triage report",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_wordnet_alternate_sense_phrase_wave7_source_class_breadth_v1_triage_latest.json",
+        "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-wordnet-alternate-sense-phrase-non-v10-wave7-source-class-breadth-v1-triage-latest_normalized_evidence.json"
+      ]
+    },
+    {
       "artifact_id": "wave7_evidence_composite",
       "component": "source_admission",
       "current_use": "Candidate evidence batch for wave7 source-admission cycle.",
@@ -1225,6 +1298,53 @@
       "title": "Wave7 merged evidence composite",
       "verification_artifacts": [
         "docs/test_outputs/semantic_example_frame_batch_merge_wave7_source_class_breadth_v1_latest.md"
+      ]
+    },
+    {
+      "artifact_id": "wave7_phrase_control_triage_active_shadow_validation",
+      "component": "source_admission",
+      "current_use": "Records the persistent 1 harmful replacement and 5 false abstains across 32 active/shadow cases.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
+      "path": "docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout_validation_latest.md",
+      "risk": "Active evidence misses can be obscured if phrase-control triage is reported as the whole fix.",
+      "role": "Scorer-backed active/shadow heldout validation after phrase-control rows were admitted.",
+      "state": "generated_evidence",
+      "title": "Wave7 phrase-control triage active/shadow validation",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout_validation_latest.json"
+      ]
+    },
+    {
+      "artifact_id": "wave7_phrase_control_triage_admission",
+      "component": "source_admission",
+      "current_use": "Restores 16/16 semantic and 16/16 phrase contract coverage with 307 final admitted rows; status remains review due leakage and heldout blockers.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
+      "path": "docs/test_outputs/semantic_source_admission_cycle_wave7_source_class_breadth_v1_phrase_control_triage_latest.md",
+      "risk": "Contract completion alone is not a pass because active/shadow and phrase/no-winner heldouts still fail.",
+      "role": "Admission, leakage, merge, contract, and sense-discrimination report for wave7 with alternate-sense phrase-control rows added.",
+      "state": "generated_evidence",
+      "title": "Wave7 phrase-control triage admission report",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_source_admission_cycle_wave7_source_class_breadth_v1_phrase_control_triage_latest.json",
+        "docs/test_outputs/semantic_source_admission_cycle_wave7_source_class_breadth_v1_phrase_control_triage_latest_contract.md",
+        "docs/test_outputs/semantic_source_admission_cycle_wave7_source_class_breadth_v1_phrase_control_triage_latest_leakage.md"
+      ]
+    },
+    {
+      "artifact_id": "wave7_phrase_control_triage_phrase_validation",
+      "component": "source_admission",
+      "current_use": "Records 6 harmful replacements across 16 phrase/no-winner cases even though phrase-control scores are now present.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
+      "path": "docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase_validation_latest.md",
+      "risk": "Surface-POS rescue interaction can override phrase-control signal unless tested separately.",
+      "role": "Scorer-backed phrase/no-winner heldout validation after phrase-control rows were admitted.",
+      "state": "generated_evidence",
+      "title": "Wave7 phrase-control triage phrase/no-winner validation",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase_validation_latest.json"
       ]
     },
     {
@@ -1393,8 +1513,8 @@
       ]
     }
   ],
-  "entry_count": 73,
-  "generated_at": "2026-04-30T18:10:30Z",
+  "entry_count": 79,
+  "generated_at": "2026-04-30T18:22:03Z",
   "issues": [],
   "next_passes": [],
   "pass_count": 7,
@@ -2241,11 +2361,11 @@
     {
       "artifact_id": "wave7_source_class_breadth_runbook",
       "component": "process_governance",
-      "current_use": "Current setup reference before executing the wave7 breadth gate.",
+      "current_use": "Current execution and triage reference for the failed wave7 breadth gate.",
       "next_audit_pass": "best_candidate",
       "owner_doc": "docs/developer/documentation_governance.md",
       "path": "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
-      "risk": "Wave7 can be run against incomplete inputs if the heldout-case and semantic-class detector blockers are skipped.",
+      "risk": "Wave7 can be misreported if failed execution, phrase-control triage, and queued remediation are not kept separate.",
       "role": "Execution runbook and artifact map for wave7_source_class_breadth_v1.",
       "state": "current_reference",
       "title": "Wave7 source-class breadth runbook",
@@ -2391,6 +2511,36 @@
       ]
     },
     {
+      "artifact_id": "wave7_phrase_control_no_surface_margin_sweep",
+      "component": "diagnostics",
+      "current_use": "Records 40 policy rows and 0 passing combined policies; phrase-only rows can pass, but active false abstains increase.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
+      "path": "docs/test_outputs/semantic_source_margin_policy_sweep_wave7_source_class_breadth_v1_phrase_control_no_surface_latest.md",
+      "risk": "Disabling surface rescue can hide phrase harms while making active/shadow recall unacceptable.",
+      "role": "No-surface scalar margin sweep over phrase-control triage evidence and both wave7 heldout suites.",
+      "state": "generated_evidence",
+      "title": "Wave7 phrase-control no-surface margin sweep",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_source_margin_policy_sweep_wave7_source_class_breadth_v1_phrase_control_no_surface_latest.json"
+      ]
+    },
+    {
+      "artifact_id": "wave7_phrase_control_rescue_sweep",
+      "component": "diagnostics",
+      "current_use": "Records 25 replayed policies and 0 passing policies; no existing rescue gate clears both suites.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
+      "path": "docs/test_outputs/semantic_surface_pos_rescue_policy_sweep_wave7_source_class_breadth_v1_phrase_control_triage_latest.md",
+      "risk": "A replay-only sweep is not runtime policy and cannot justify a rescue tweak without scorer-backed rerun.",
+      "role": "Fixed-trace rescue-policy replay over phrase-control triage active/shadow and phrase/no-winner reports.",
+      "state": "generated_evidence",
+      "title": "Wave7 phrase-control rescue policy sweep",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_surface_pos_rescue_policy_sweep_wave7_source_class_breadth_v1_phrase_control_triage_latest.json"
+      ]
+    },
+    {
       "artifact_id": "wave7_supported_dataset",
       "component": "evaluation_data",
       "current_use": "Executed wave7 breadth-gate base dataset.",
@@ -2454,6 +2604,22 @@
       ]
     },
     {
+      "artifact_id": "wave7_alt_phrase_triage_report",
+      "component": "source_admission",
+      "current_use": "Generated 179 phrase-control rows across all 16 wave7 families for blocker triage.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
+      "path": "docs/test_outputs/semantic_wordnet_alternate_sense_phrase_wave7_source_class_breadth_v1_triage_latest.md",
+      "risk": "Phrase-control rows can make the source contract look complete while heldout phrase harms still fail downstream.",
+      "role": "Reports WordNet alternate-sense phrase/no-winner evidence rows added after the initial wave7 phrase contract gap.",
+      "state": "generated_evidence",
+      "title": "Wave7 alternate-sense phrase-control triage report",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_wordnet_alternate_sense_phrase_wave7_source_class_breadth_v1_triage_latest.json",
+        "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-wordnet-alternate-sense-phrase-non-v10-wave7-source-class-breadth-v1-triage-latest_normalized_evidence.json"
+      ]
+    },
+    {
       "artifact_id": "wave7_evidence_composite",
       "component": "source_admission",
       "current_use": "Candidate evidence batch for wave7 source-admission cycle.",
@@ -2466,6 +2632,53 @@
       "title": "Wave7 merged evidence composite",
       "verification_artifacts": [
         "docs/test_outputs/semantic_example_frame_batch_merge_wave7_source_class_breadth_v1_latest.md"
+      ]
+    },
+    {
+      "artifact_id": "wave7_phrase_control_triage_active_shadow_validation",
+      "component": "source_admission",
+      "current_use": "Records the persistent 1 harmful replacement and 5 false abstains across 32 active/shadow cases.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
+      "path": "docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout_validation_latest.md",
+      "risk": "Active evidence misses can be obscured if phrase-control triage is reported as the whole fix.",
+      "role": "Scorer-backed active/shadow heldout validation after phrase-control rows were admitted.",
+      "state": "generated_evidence",
+      "title": "Wave7 phrase-control triage active/shadow validation",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout_validation_latest.json"
+      ]
+    },
+    {
+      "artifact_id": "wave7_phrase_control_triage_admission",
+      "component": "source_admission",
+      "current_use": "Restores 16/16 semantic and 16/16 phrase contract coverage with 307 final admitted rows; status remains review due leakage and heldout blockers.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
+      "path": "docs/test_outputs/semantic_source_admission_cycle_wave7_source_class_breadth_v1_phrase_control_triage_latest.md",
+      "risk": "Contract completion alone is not a pass because active/shadow and phrase/no-winner heldouts still fail.",
+      "role": "Admission, leakage, merge, contract, and sense-discrimination report for wave7 with alternate-sense phrase-control rows added.",
+      "state": "generated_evidence",
+      "title": "Wave7 phrase-control triage admission report",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_source_admission_cycle_wave7_source_class_breadth_v1_phrase_control_triage_latest.json",
+        "docs/test_outputs/semantic_source_admission_cycle_wave7_source_class_breadth_v1_phrase_control_triage_latest_contract.md",
+        "docs/test_outputs/semantic_source_admission_cycle_wave7_source_class_breadth_v1_phrase_control_triage_latest_leakage.md"
+      ]
+    },
+    {
+      "artifact_id": "wave7_phrase_control_triage_phrase_validation",
+      "component": "source_admission",
+      "current_use": "Records 6 harmful replacements across 16 phrase/no-winner cases even though phrase-control scores are now present.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
+      "path": "docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase_validation_latest.md",
+      "risk": "Surface-POS rescue interaction can override phrase-control signal unless tested separately.",
+      "role": "Scorer-backed phrase/no-winner heldout validation after phrase-control rows were admitted.",
+      "state": "generated_evidence",
+      "title": "Wave7 phrase-control triage phrase/no-winner validation",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase_validation_latest.json"
       ]
     },
     {
@@ -2551,7 +2764,7 @@
     "current_research": 14,
     "current_runtime": 16,
     "diagnostic_only": 1,
-    "generated_evidence": 17,
+    "generated_evidence": 23,
     "historical_reference": 4,
     "superseded": 2,
     "supporting_current": 2

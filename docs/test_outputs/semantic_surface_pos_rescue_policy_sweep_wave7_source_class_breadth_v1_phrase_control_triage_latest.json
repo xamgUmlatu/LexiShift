@@ -1,0 +1,3324 @@
+{
+  "schema_version": 1,
+  "status": "review",
+  "decision": "rescue_policy_review",
+  "generated_at": "2026-04-30T18:17:23Z",
+  "score_surface": {
+    "active_report": {
+      "path": "docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout_validation_latest.json",
+      "sha256": "ddaf83481b222dea8aff9f6eabab23dfc82715d7cca317dc9d979b71c0fb3fa8",
+      "status": "review",
+      "heldout_dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_active_shadow"
+    },
+    "phrase_report": {
+      "path": "docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase_validation_latest.json",
+      "sha256": "2e2059810869440f4d2d9bd2d67d5690780f3091e06620c3df31f0ce494d7bf8",
+      "status": "review",
+      "heldout_dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_phrase_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_phrase_no_winner"
+    }
+  },
+  "grid": {
+    "min_margins": [
+      0.0
+    ],
+    "phrase_prototype_margins": [
+      0.02
+    ],
+    "rescue_min_active_scores": [
+      0.0,
+      0.5,
+      0.52,
+      0.55,
+      0.58
+    ],
+    "noun_max_phrase_leads": [
+      null
+    ],
+    "modifier_max_phrase_leads": [
+      null,
+      0.02,
+      0.03,
+      0.04,
+      0.05
+    ]
+  },
+  "summary": {
+    "suite_count": 2,
+    "policy_count": 25,
+    "row_count": 50,
+    "passing_policy_count": 0,
+    "recommended_policy": null
+  },
+  "recommendation": {
+    "reason": "no_policy_passed",
+    "recommended_policy": null,
+    "passing_policies": [],
+    "best_rows": [
+      {
+        "policy_id": "m=0;p=0.02;rescue_active=0.52;noun_lead=none;modifier_lead=0.03",
+        "suite_id": "active_shadow",
+        "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases",
+        "case_scope": "non_v10_wave7_source_class_breadth_active_shadow",
+        "passes": false,
+        "min_margin": 0.0,
+        "phrase_prototype_margin": 0.02,
+        "rescue_min_active_score": 0.52,
+        "noun_max_phrase_lead": null,
+        "modifier_max_phrase_lead": 0.03,
+        "case_count": 32,
+        "gold_replace_cases": 16,
+        "gold_abstain_cases": 16,
+        "harmful_replace_count": 1,
+        "false_abstain_count": 5,
+        "harmful_replace_case_ids": [
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+        ],
+        "false_abstain_case_ids": [
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+        ],
+        "replace_recall": 0.6875,
+        "decision_accuracy": 0.8125,
+        "active_rescue_applied_count": 6,
+        "active_rescue_case_ids": [
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+        ],
+        "surface_pos_rescue_blocked_reasons": {
+          "strongest_shadow_not_verb_like": 1,
+          "active_modifier_margin_below_floor": 1
+        }
+      },
+      {
+        "policy_id": "m=0;p=0.02;rescue_active=0.52;noun_lead=none;modifier_lead=0.04",
+        "suite_id": "active_shadow",
+        "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases",
+        "case_scope": "non_v10_wave7_source_class_breadth_active_shadow",
+        "passes": false,
+        "min_margin": 0.0,
+        "phrase_prototype_margin": 0.02,
+        "rescue_min_active_score": 0.52,
+        "noun_max_phrase_lead": null,
+        "modifier_max_phrase_lead": 0.04,
+        "case_count": 32,
+        "gold_replace_cases": 16,
+        "gold_abstain_cases": 16,
+        "harmful_replace_count": 1,
+        "false_abstain_count": 5,
+        "harmful_replace_case_ids": [
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+        ],
+        "false_abstain_case_ids": [
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+        ],
+        "replace_recall": 0.6875,
+        "decision_accuracy": 0.8125,
+        "active_rescue_applied_count": 6,
+        "active_rescue_case_ids": [
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+        ],
+        "surface_pos_rescue_blocked_reasons": {
+          "strongest_shadow_not_verb_like": 1,
+          "active_modifier_margin_below_floor": 1
+        }
+      },
+      {
+        "policy_id": "m=0;p=0.02;rescue_active=0.52;noun_lead=none;modifier_lead=0.05",
+        "suite_id": "active_shadow",
+        "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases",
+        "case_scope": "non_v10_wave7_source_class_breadth_active_shadow",
+        "passes": false,
+        "min_margin": 0.0,
+        "phrase_prototype_margin": 0.02,
+        "rescue_min_active_score": 0.52,
+        "noun_max_phrase_lead": null,
+        "modifier_max_phrase_lead": 0.05,
+        "case_count": 32,
+        "gold_replace_cases": 16,
+        "gold_abstain_cases": 16,
+        "harmful_replace_count": 1,
+        "false_abstain_count": 5,
+        "harmful_replace_case_ids": [
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+        ],
+        "false_abstain_case_ids": [
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+        ],
+        "replace_recall": 0.6875,
+        "decision_accuracy": 0.8125,
+        "active_rescue_applied_count": 6,
+        "active_rescue_case_ids": [
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+        ],
+        "surface_pos_rescue_blocked_reasons": {
+          "strongest_shadow_not_verb_like": 1,
+          "active_modifier_margin_below_floor": 1
+        }
+      },
+      {
+        "policy_id": "m=0;p=0.02;rescue_active=0.52;noun_lead=none;modifier_lead=none",
+        "suite_id": "active_shadow",
+        "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases",
+        "case_scope": "non_v10_wave7_source_class_breadth_active_shadow",
+        "passes": false,
+        "min_margin": 0.0,
+        "phrase_prototype_margin": 0.02,
+        "rescue_min_active_score": 0.52,
+        "noun_max_phrase_lead": null,
+        "modifier_max_phrase_lead": null,
+        "case_count": 32,
+        "gold_replace_cases": 16,
+        "gold_abstain_cases": 16,
+        "harmful_replace_count": 1,
+        "false_abstain_count": 5,
+        "harmful_replace_case_ids": [
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+        ],
+        "false_abstain_case_ids": [
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+        ],
+        "replace_recall": 0.6875,
+        "decision_accuracy": 0.8125,
+        "active_rescue_applied_count": 6,
+        "active_rescue_case_ids": [
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+        ],
+        "surface_pos_rescue_blocked_reasons": {
+          "strongest_shadow_not_verb_like": 1,
+          "active_modifier_margin_below_floor": 1
+        }
+      },
+      {
+        "policy_id": "m=0;p=0.02;rescue_active=0.55;noun_lead=none;modifier_lead=0.03",
+        "suite_id": "active_shadow",
+        "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases",
+        "case_scope": "non_v10_wave7_source_class_breadth_active_shadow",
+        "passes": false,
+        "min_margin": 0.0,
+        "phrase_prototype_margin": 0.02,
+        "rescue_min_active_score": 0.55,
+        "noun_max_phrase_lead": null,
+        "modifier_max_phrase_lead": 0.03,
+        "case_count": 32,
+        "gold_replace_cases": 16,
+        "gold_abstain_cases": 16,
+        "harmful_replace_count": 1,
+        "false_abstain_count": 5,
+        "harmful_replace_case_ids": [
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+        ],
+        "false_abstain_case_ids": [
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+        ],
+        "replace_recall": 0.6875,
+        "decision_accuracy": 0.8125,
+        "active_rescue_applied_count": 6,
+        "active_rescue_case_ids": [
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+        ],
+        "surface_pos_rescue_blocked_reasons": {
+          "strongest_shadow_not_verb_like": 1,
+          "active_modifier_margin_below_floor": 1
+        }
+      },
+      {
+        "policy_id": "m=0;p=0.02;rescue_active=0.55;noun_lead=none;modifier_lead=0.04",
+        "suite_id": "active_shadow",
+        "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases",
+        "case_scope": "non_v10_wave7_source_class_breadth_active_shadow",
+        "passes": false,
+        "min_margin": 0.0,
+        "phrase_prototype_margin": 0.02,
+        "rescue_min_active_score": 0.55,
+        "noun_max_phrase_lead": null,
+        "modifier_max_phrase_lead": 0.04,
+        "case_count": 32,
+        "gold_replace_cases": 16,
+        "gold_abstain_cases": 16,
+        "harmful_replace_count": 1,
+        "false_abstain_count": 5,
+        "harmful_replace_case_ids": [
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+        ],
+        "false_abstain_case_ids": [
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+        ],
+        "replace_recall": 0.6875,
+        "decision_accuracy": 0.8125,
+        "active_rescue_applied_count": 6,
+        "active_rescue_case_ids": [
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+        ],
+        "surface_pos_rescue_blocked_reasons": {
+          "strongest_shadow_not_verb_like": 1,
+          "active_modifier_margin_below_floor": 1
+        }
+      },
+      {
+        "policy_id": "m=0;p=0.02;rescue_active=0.55;noun_lead=none;modifier_lead=0.05",
+        "suite_id": "active_shadow",
+        "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases",
+        "case_scope": "non_v10_wave7_source_class_breadth_active_shadow",
+        "passes": false,
+        "min_margin": 0.0,
+        "phrase_prototype_margin": 0.02,
+        "rescue_min_active_score": 0.55,
+        "noun_max_phrase_lead": null,
+        "modifier_max_phrase_lead": 0.05,
+        "case_count": 32,
+        "gold_replace_cases": 16,
+        "gold_abstain_cases": 16,
+        "harmful_replace_count": 1,
+        "false_abstain_count": 5,
+        "harmful_replace_case_ids": [
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+        ],
+        "false_abstain_case_ids": [
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+        ],
+        "replace_recall": 0.6875,
+        "decision_accuracy": 0.8125,
+        "active_rescue_applied_count": 6,
+        "active_rescue_case_ids": [
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+        ],
+        "surface_pos_rescue_blocked_reasons": {
+          "strongest_shadow_not_verb_like": 1,
+          "active_modifier_margin_below_floor": 1
+        }
+      },
+      {
+        "policy_id": "m=0;p=0.02;rescue_active=0.55;noun_lead=none;modifier_lead=none",
+        "suite_id": "active_shadow",
+        "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases",
+        "case_scope": "non_v10_wave7_source_class_breadth_active_shadow",
+        "passes": false,
+        "min_margin": 0.0,
+        "phrase_prototype_margin": 0.02,
+        "rescue_min_active_score": 0.55,
+        "noun_max_phrase_lead": null,
+        "modifier_max_phrase_lead": null,
+        "case_count": 32,
+        "gold_replace_cases": 16,
+        "gold_abstain_cases": 16,
+        "harmful_replace_count": 1,
+        "false_abstain_count": 5,
+        "harmful_replace_case_ids": [
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+        ],
+        "false_abstain_case_ids": [
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+        ],
+        "replace_recall": 0.6875,
+        "decision_accuracy": 0.8125,
+        "active_rescue_applied_count": 6,
+        "active_rescue_case_ids": [
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+        ],
+        "surface_pos_rescue_blocked_reasons": {
+          "strongest_shadow_not_verb_like": 1,
+          "active_modifier_margin_below_floor": 1
+        }
+      },
+      {
+        "policy_id": "m=0;p=0.02;rescue_active=0.5;noun_lead=none;modifier_lead=0.03",
+        "suite_id": "active_shadow",
+        "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases",
+        "case_scope": "non_v10_wave7_source_class_breadth_active_shadow",
+        "passes": false,
+        "min_margin": 0.0,
+        "phrase_prototype_margin": 0.02,
+        "rescue_min_active_score": 0.5,
+        "noun_max_phrase_lead": null,
+        "modifier_max_phrase_lead": 0.03,
+        "case_count": 32,
+        "gold_replace_cases": 16,
+        "gold_abstain_cases": 16,
+        "harmful_replace_count": 1,
+        "false_abstain_count": 5,
+        "harmful_replace_case_ids": [
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+        ],
+        "false_abstain_case_ids": [
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+        ],
+        "replace_recall": 0.6875,
+        "decision_accuracy": 0.8125,
+        "active_rescue_applied_count": 6,
+        "active_rescue_case_ids": [
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+        ],
+        "surface_pos_rescue_blocked_reasons": {
+          "strongest_shadow_not_verb_like": 1,
+          "active_modifier_margin_below_floor": 1
+        }
+      },
+      {
+        "policy_id": "m=0;p=0.02;rescue_active=0.5;noun_lead=none;modifier_lead=0.04",
+        "suite_id": "active_shadow",
+        "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases",
+        "case_scope": "non_v10_wave7_source_class_breadth_active_shadow",
+        "passes": false,
+        "min_margin": 0.0,
+        "phrase_prototype_margin": 0.02,
+        "rescue_min_active_score": 0.5,
+        "noun_max_phrase_lead": null,
+        "modifier_max_phrase_lead": 0.04,
+        "case_count": 32,
+        "gold_replace_cases": 16,
+        "gold_abstain_cases": 16,
+        "harmful_replace_count": 1,
+        "false_abstain_count": 5,
+        "harmful_replace_case_ids": [
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+        ],
+        "false_abstain_case_ids": [
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+        ],
+        "replace_recall": 0.6875,
+        "decision_accuracy": 0.8125,
+        "active_rescue_applied_count": 6,
+        "active_rescue_case_ids": [
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+        ],
+        "surface_pos_rescue_blocked_reasons": {
+          "strongest_shadow_not_verb_like": 1,
+          "active_modifier_margin_below_floor": 1
+        }
+      },
+      {
+        "policy_id": "m=0;p=0.02;rescue_active=0.5;noun_lead=none;modifier_lead=0.05",
+        "suite_id": "active_shadow",
+        "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases",
+        "case_scope": "non_v10_wave7_source_class_breadth_active_shadow",
+        "passes": false,
+        "min_margin": 0.0,
+        "phrase_prototype_margin": 0.02,
+        "rescue_min_active_score": 0.5,
+        "noun_max_phrase_lead": null,
+        "modifier_max_phrase_lead": 0.05,
+        "case_count": 32,
+        "gold_replace_cases": 16,
+        "gold_abstain_cases": 16,
+        "harmful_replace_count": 1,
+        "false_abstain_count": 5,
+        "harmful_replace_case_ids": [
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+        ],
+        "false_abstain_case_ids": [
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+        ],
+        "replace_recall": 0.6875,
+        "decision_accuracy": 0.8125,
+        "active_rescue_applied_count": 6,
+        "active_rescue_case_ids": [
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+        ],
+        "surface_pos_rescue_blocked_reasons": {
+          "strongest_shadow_not_verb_like": 1,
+          "active_modifier_margin_below_floor": 1
+        }
+      },
+      {
+        "policy_id": "m=0;p=0.02;rescue_active=0.5;noun_lead=none;modifier_lead=none",
+        "suite_id": "active_shadow",
+        "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases",
+        "case_scope": "non_v10_wave7_source_class_breadth_active_shadow",
+        "passes": false,
+        "min_margin": 0.0,
+        "phrase_prototype_margin": 0.02,
+        "rescue_min_active_score": 0.5,
+        "noun_max_phrase_lead": null,
+        "modifier_max_phrase_lead": null,
+        "case_count": 32,
+        "gold_replace_cases": 16,
+        "gold_abstain_cases": 16,
+        "harmful_replace_count": 1,
+        "false_abstain_count": 5,
+        "harmful_replace_case_ids": [
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+        ],
+        "false_abstain_case_ids": [
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+        ],
+        "replace_recall": 0.6875,
+        "decision_accuracy": 0.8125,
+        "active_rescue_applied_count": 6,
+        "active_rescue_case_ids": [
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+          "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+        ],
+        "surface_pos_rescue_blocked_reasons": {
+          "strongest_shadow_not_verb_like": 1,
+          "active_modifier_margin_below_floor": 1
+        }
+      }
+    ],
+    "blockers_by_policy": {
+      "m=0;p=0.02;rescue_active=0;noun_lead=none;modifier_lead=none": [
+        {
+          "suite_id": "active_shadow",
+          "harmful_replace_count": 1,
+          "false_abstain_count": 5,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+          ],
+          "false_abstain_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+          ]
+        },
+        {
+          "suite_id": "phrase_no_winner",
+          "harmful_replace_count": 6,
+          "false_abstain_count": 0,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+          ],
+          "false_abstain_case_ids": []
+        }
+      ],
+      "m=0;p=0.02;rescue_active=0;noun_lead=none;modifier_lead=0.02": [
+        {
+          "suite_id": "active_shadow",
+          "harmful_replace_count": 1,
+          "false_abstain_count": 6,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+          ],
+          "false_abstain_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+          ]
+        },
+        {
+          "suite_id": "phrase_no_winner",
+          "harmful_replace_count": 5,
+          "false_abstain_count": 0,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+          ],
+          "false_abstain_case_ids": []
+        }
+      ],
+      "m=0;p=0.02;rescue_active=0;noun_lead=none;modifier_lead=0.03": [
+        {
+          "suite_id": "active_shadow",
+          "harmful_replace_count": 1,
+          "false_abstain_count": 5,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+          ],
+          "false_abstain_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+          ]
+        },
+        {
+          "suite_id": "phrase_no_winner",
+          "harmful_replace_count": 6,
+          "false_abstain_count": 0,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+          ],
+          "false_abstain_case_ids": []
+        }
+      ],
+      "m=0;p=0.02;rescue_active=0;noun_lead=none;modifier_lead=0.04": [
+        {
+          "suite_id": "active_shadow",
+          "harmful_replace_count": 1,
+          "false_abstain_count": 5,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+          ],
+          "false_abstain_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+          ]
+        },
+        {
+          "suite_id": "phrase_no_winner",
+          "harmful_replace_count": 6,
+          "false_abstain_count": 0,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+          ],
+          "false_abstain_case_ids": []
+        }
+      ],
+      "m=0;p=0.02;rescue_active=0;noun_lead=none;modifier_lead=0.05": [
+        {
+          "suite_id": "active_shadow",
+          "harmful_replace_count": 1,
+          "false_abstain_count": 5,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+          ],
+          "false_abstain_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+          ]
+        },
+        {
+          "suite_id": "phrase_no_winner",
+          "harmful_replace_count": 6,
+          "false_abstain_count": 0,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+          ],
+          "false_abstain_case_ids": []
+        }
+      ],
+      "m=0;p=0.02;rescue_active=0.5;noun_lead=none;modifier_lead=none": [
+        {
+          "suite_id": "active_shadow",
+          "harmful_replace_count": 1,
+          "false_abstain_count": 5,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+          ],
+          "false_abstain_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+          ]
+        },
+        {
+          "suite_id": "phrase_no_winner",
+          "harmful_replace_count": 6,
+          "false_abstain_count": 0,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+          ],
+          "false_abstain_case_ids": []
+        }
+      ],
+      "m=0;p=0.02;rescue_active=0.5;noun_lead=none;modifier_lead=0.02": [
+        {
+          "suite_id": "active_shadow",
+          "harmful_replace_count": 1,
+          "false_abstain_count": 6,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+          ],
+          "false_abstain_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+          ]
+        },
+        {
+          "suite_id": "phrase_no_winner",
+          "harmful_replace_count": 5,
+          "false_abstain_count": 0,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+          ],
+          "false_abstain_case_ids": []
+        }
+      ],
+      "m=0;p=0.02;rescue_active=0.5;noun_lead=none;modifier_lead=0.03": [
+        {
+          "suite_id": "active_shadow",
+          "harmful_replace_count": 1,
+          "false_abstain_count": 5,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+          ],
+          "false_abstain_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+          ]
+        },
+        {
+          "suite_id": "phrase_no_winner",
+          "harmful_replace_count": 6,
+          "false_abstain_count": 0,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+          ],
+          "false_abstain_case_ids": []
+        }
+      ],
+      "m=0;p=0.02;rescue_active=0.5;noun_lead=none;modifier_lead=0.04": [
+        {
+          "suite_id": "active_shadow",
+          "harmful_replace_count": 1,
+          "false_abstain_count": 5,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+          ],
+          "false_abstain_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+          ]
+        },
+        {
+          "suite_id": "phrase_no_winner",
+          "harmful_replace_count": 6,
+          "false_abstain_count": 0,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+          ],
+          "false_abstain_case_ids": []
+        }
+      ],
+      "m=0;p=0.02;rescue_active=0.5;noun_lead=none;modifier_lead=0.05": [
+        {
+          "suite_id": "active_shadow",
+          "harmful_replace_count": 1,
+          "false_abstain_count": 5,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+          ],
+          "false_abstain_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+          ]
+        },
+        {
+          "suite_id": "phrase_no_winner",
+          "harmful_replace_count": 6,
+          "false_abstain_count": 0,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+          ],
+          "false_abstain_case_ids": []
+        }
+      ],
+      "m=0;p=0.02;rescue_active=0.52;noun_lead=none;modifier_lead=none": [
+        {
+          "suite_id": "active_shadow",
+          "harmful_replace_count": 1,
+          "false_abstain_count": 5,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+          ],
+          "false_abstain_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+          ]
+        },
+        {
+          "suite_id": "phrase_no_winner",
+          "harmful_replace_count": 6,
+          "false_abstain_count": 0,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+          ],
+          "false_abstain_case_ids": []
+        }
+      ],
+      "m=0;p=0.02;rescue_active=0.52;noun_lead=none;modifier_lead=0.02": [
+        {
+          "suite_id": "active_shadow",
+          "harmful_replace_count": 1,
+          "false_abstain_count": 6,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+          ],
+          "false_abstain_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+          ]
+        },
+        {
+          "suite_id": "phrase_no_winner",
+          "harmful_replace_count": 5,
+          "false_abstain_count": 0,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+          ],
+          "false_abstain_case_ids": []
+        }
+      ],
+      "m=0;p=0.02;rescue_active=0.52;noun_lead=none;modifier_lead=0.03": [
+        {
+          "suite_id": "active_shadow",
+          "harmful_replace_count": 1,
+          "false_abstain_count": 5,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+          ],
+          "false_abstain_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+          ]
+        },
+        {
+          "suite_id": "phrase_no_winner",
+          "harmful_replace_count": 6,
+          "false_abstain_count": 0,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+          ],
+          "false_abstain_case_ids": []
+        }
+      ],
+      "m=0;p=0.02;rescue_active=0.52;noun_lead=none;modifier_lead=0.04": [
+        {
+          "suite_id": "active_shadow",
+          "harmful_replace_count": 1,
+          "false_abstain_count": 5,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+          ],
+          "false_abstain_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+          ]
+        },
+        {
+          "suite_id": "phrase_no_winner",
+          "harmful_replace_count": 6,
+          "false_abstain_count": 0,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+          ],
+          "false_abstain_case_ids": []
+        }
+      ],
+      "m=0;p=0.02;rescue_active=0.52;noun_lead=none;modifier_lead=0.05": [
+        {
+          "suite_id": "active_shadow",
+          "harmful_replace_count": 1,
+          "false_abstain_count": 5,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+          ],
+          "false_abstain_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+          ]
+        },
+        {
+          "suite_id": "phrase_no_winner",
+          "harmful_replace_count": 6,
+          "false_abstain_count": 0,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+          ],
+          "false_abstain_case_ids": []
+        }
+      ],
+      "m=0;p=0.02;rescue_active=0.55;noun_lead=none;modifier_lead=none": [
+        {
+          "suite_id": "active_shadow",
+          "harmful_replace_count": 1,
+          "false_abstain_count": 5,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+          ],
+          "false_abstain_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+          ]
+        },
+        {
+          "suite_id": "phrase_no_winner",
+          "harmful_replace_count": 6,
+          "false_abstain_count": 0,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+          ],
+          "false_abstain_case_ids": []
+        }
+      ],
+      "m=0;p=0.02;rescue_active=0.55;noun_lead=none;modifier_lead=0.02": [
+        {
+          "suite_id": "active_shadow",
+          "harmful_replace_count": 1,
+          "false_abstain_count": 6,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+          ],
+          "false_abstain_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+          ]
+        },
+        {
+          "suite_id": "phrase_no_winner",
+          "harmful_replace_count": 5,
+          "false_abstain_count": 0,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+          ],
+          "false_abstain_case_ids": []
+        }
+      ],
+      "m=0;p=0.02;rescue_active=0.55;noun_lead=none;modifier_lead=0.03": [
+        {
+          "suite_id": "active_shadow",
+          "harmful_replace_count": 1,
+          "false_abstain_count": 5,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+          ],
+          "false_abstain_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+          ]
+        },
+        {
+          "suite_id": "phrase_no_winner",
+          "harmful_replace_count": 6,
+          "false_abstain_count": 0,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+          ],
+          "false_abstain_case_ids": []
+        }
+      ],
+      "m=0;p=0.02;rescue_active=0.55;noun_lead=none;modifier_lead=0.04": [
+        {
+          "suite_id": "active_shadow",
+          "harmful_replace_count": 1,
+          "false_abstain_count": 5,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+          ],
+          "false_abstain_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+          ]
+        },
+        {
+          "suite_id": "phrase_no_winner",
+          "harmful_replace_count": 6,
+          "false_abstain_count": 0,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+          ],
+          "false_abstain_case_ids": []
+        }
+      ],
+      "m=0;p=0.02;rescue_active=0.55;noun_lead=none;modifier_lead=0.05": [
+        {
+          "suite_id": "active_shadow",
+          "harmful_replace_count": 1,
+          "false_abstain_count": 5,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+          ],
+          "false_abstain_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+          ]
+        },
+        {
+          "suite_id": "phrase_no_winner",
+          "harmful_replace_count": 6,
+          "false_abstain_count": 0,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+          ],
+          "false_abstain_case_ids": []
+        }
+      ],
+      "m=0;p=0.02;rescue_active=0.58;noun_lead=none;modifier_lead=none": [
+        {
+          "suite_id": "active_shadow",
+          "harmful_replace_count": 1,
+          "false_abstain_count": 6,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+          ],
+          "false_abstain_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+          ]
+        },
+        {
+          "suite_id": "phrase_no_winner",
+          "harmful_replace_count": 5,
+          "false_abstain_count": 0,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+          ],
+          "false_abstain_case_ids": []
+        }
+      ],
+      "m=0;p=0.02;rescue_active=0.58;noun_lead=none;modifier_lead=0.02": [
+        {
+          "suite_id": "active_shadow",
+          "harmful_replace_count": 1,
+          "false_abstain_count": 7,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+          ],
+          "false_abstain_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+          ]
+        },
+        {
+          "suite_id": "phrase_no_winner",
+          "harmful_replace_count": 4,
+          "false_abstain_count": 0,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+          ],
+          "false_abstain_case_ids": []
+        }
+      ],
+      "m=0;p=0.02;rescue_active=0.58;noun_lead=none;modifier_lead=0.03": [
+        {
+          "suite_id": "active_shadow",
+          "harmful_replace_count": 1,
+          "false_abstain_count": 6,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+          ],
+          "false_abstain_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+          ]
+        },
+        {
+          "suite_id": "phrase_no_winner",
+          "harmful_replace_count": 5,
+          "false_abstain_count": 0,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+          ],
+          "false_abstain_case_ids": []
+        }
+      ],
+      "m=0;p=0.02;rescue_active=0.58;noun_lead=none;modifier_lead=0.04": [
+        {
+          "suite_id": "active_shadow",
+          "harmful_replace_count": 1,
+          "false_abstain_count": 6,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+          ],
+          "false_abstain_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+          ]
+        },
+        {
+          "suite_id": "phrase_no_winner",
+          "harmful_replace_count": 5,
+          "false_abstain_count": 0,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+          ],
+          "false_abstain_case_ids": []
+        }
+      ],
+      "m=0;p=0.02;rescue_active=0.58;noun_lead=none;modifier_lead=0.05": [
+        {
+          "suite_id": "active_shadow",
+          "harmful_replace_count": 1,
+          "false_abstain_count": 6,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+          ],
+          "false_abstain_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+          ]
+        },
+        {
+          "suite_id": "phrase_no_winner",
+          "harmful_replace_count": 5,
+          "false_abstain_count": 0,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+          ],
+          "false_abstain_case_ids": []
+        }
+      ]
+    },
+    "next_step": "add a new rescue gate or source signal; current replayed gates did not pass"
+  },
+  "rows": [
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0;noun_lead=none;modifier_lead=none",
+      "suite_id": "active_shadow",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_active_shadow",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.0,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": null,
+      "case_count": 32,
+      "gold_replace_cases": 16,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 1,
+      "false_abstain_count": 5,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+      ],
+      "false_abstain_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+      ],
+      "replace_recall": 0.6875,
+      "decision_accuracy": 0.8125,
+      "active_rescue_applied_count": 6,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {
+        "strongest_shadow_not_verb_like": 1,
+        "active_modifier_margin_below_floor": 1
+      }
+    },
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0;noun_lead=none;modifier_lead=none",
+      "suite_id": "phrase_no_winner",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_phrase_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_phrase_no_winner",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.0,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": null,
+      "case_count": 16,
+      "gold_replace_cases": 0,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 6,
+      "false_abstain_count": 0,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "false_abstain_case_ids": [],
+      "replace_recall": 0.0,
+      "decision_accuracy": 0.625,
+      "active_rescue_applied_count": 5,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {}
+    },
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0;noun_lead=none;modifier_lead=0.02",
+      "suite_id": "active_shadow",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_active_shadow",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.0,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": 0.02,
+      "case_count": 32,
+      "gold_replace_cases": 16,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 1,
+      "false_abstain_count": 6,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+      ],
+      "false_abstain_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+      ],
+      "replace_recall": 0.625,
+      "decision_accuracy": 0.7812,
+      "active_rescue_applied_count": 5,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {
+        "strongest_shadow_not_verb_like": 1,
+        "active_modifier_margin_below_floor": 1,
+        "surface_pos_modifier_phrase_lead_above_ceiling": 1
+      }
+    },
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0;noun_lead=none;modifier_lead=0.02",
+      "suite_id": "phrase_no_winner",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_phrase_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_phrase_no_winner",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.0,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": 0.02,
+      "case_count": 16,
+      "gold_replace_cases": 0,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 5,
+      "false_abstain_count": 0,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "false_abstain_case_ids": [],
+      "replace_recall": 0.0,
+      "decision_accuracy": 0.6875,
+      "active_rescue_applied_count": 4,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {
+        "surface_pos_modifier_phrase_lead_above_ceiling": 1
+      }
+    },
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0;noun_lead=none;modifier_lead=0.03",
+      "suite_id": "active_shadow",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_active_shadow",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.0,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": 0.03,
+      "case_count": 32,
+      "gold_replace_cases": 16,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 1,
+      "false_abstain_count": 5,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+      ],
+      "false_abstain_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+      ],
+      "replace_recall": 0.6875,
+      "decision_accuracy": 0.8125,
+      "active_rescue_applied_count": 6,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {
+        "strongest_shadow_not_verb_like": 1,
+        "active_modifier_margin_below_floor": 1
+      }
+    },
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0;noun_lead=none;modifier_lead=0.03",
+      "suite_id": "phrase_no_winner",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_phrase_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_phrase_no_winner",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.0,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": 0.03,
+      "case_count": 16,
+      "gold_replace_cases": 0,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 6,
+      "false_abstain_count": 0,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "false_abstain_case_ids": [],
+      "replace_recall": 0.0,
+      "decision_accuracy": 0.625,
+      "active_rescue_applied_count": 5,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {}
+    },
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0;noun_lead=none;modifier_lead=0.04",
+      "suite_id": "active_shadow",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_active_shadow",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.0,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": 0.04,
+      "case_count": 32,
+      "gold_replace_cases": 16,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 1,
+      "false_abstain_count": 5,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+      ],
+      "false_abstain_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+      ],
+      "replace_recall": 0.6875,
+      "decision_accuracy": 0.8125,
+      "active_rescue_applied_count": 6,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {
+        "strongest_shadow_not_verb_like": 1,
+        "active_modifier_margin_below_floor": 1
+      }
+    },
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0;noun_lead=none;modifier_lead=0.04",
+      "suite_id": "phrase_no_winner",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_phrase_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_phrase_no_winner",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.0,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": 0.04,
+      "case_count": 16,
+      "gold_replace_cases": 0,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 6,
+      "false_abstain_count": 0,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "false_abstain_case_ids": [],
+      "replace_recall": 0.0,
+      "decision_accuracy": 0.625,
+      "active_rescue_applied_count": 5,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {}
+    },
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0;noun_lead=none;modifier_lead=0.05",
+      "suite_id": "active_shadow",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_active_shadow",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.0,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": 0.05,
+      "case_count": 32,
+      "gold_replace_cases": 16,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 1,
+      "false_abstain_count": 5,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+      ],
+      "false_abstain_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+      ],
+      "replace_recall": 0.6875,
+      "decision_accuracy": 0.8125,
+      "active_rescue_applied_count": 6,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {
+        "strongest_shadow_not_verb_like": 1,
+        "active_modifier_margin_below_floor": 1
+      }
+    },
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0;noun_lead=none;modifier_lead=0.05",
+      "suite_id": "phrase_no_winner",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_phrase_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_phrase_no_winner",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.0,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": 0.05,
+      "case_count": 16,
+      "gold_replace_cases": 0,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 6,
+      "false_abstain_count": 0,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "false_abstain_case_ids": [],
+      "replace_recall": 0.0,
+      "decision_accuracy": 0.625,
+      "active_rescue_applied_count": 5,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {}
+    },
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0.5;noun_lead=none;modifier_lead=none",
+      "suite_id": "active_shadow",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_active_shadow",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.5,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": null,
+      "case_count": 32,
+      "gold_replace_cases": 16,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 1,
+      "false_abstain_count": 5,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+      ],
+      "false_abstain_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+      ],
+      "replace_recall": 0.6875,
+      "decision_accuracy": 0.8125,
+      "active_rescue_applied_count": 6,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {
+        "strongest_shadow_not_verb_like": 1,
+        "active_modifier_margin_below_floor": 1
+      }
+    },
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0.5;noun_lead=none;modifier_lead=none",
+      "suite_id": "phrase_no_winner",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_phrase_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_phrase_no_winner",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.5,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": null,
+      "case_count": 16,
+      "gold_replace_cases": 0,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 6,
+      "false_abstain_count": 0,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "false_abstain_case_ids": [],
+      "replace_recall": 0.0,
+      "decision_accuracy": 0.625,
+      "active_rescue_applied_count": 5,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {}
+    },
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0.5;noun_lead=none;modifier_lead=0.02",
+      "suite_id": "active_shadow",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_active_shadow",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.5,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": 0.02,
+      "case_count": 32,
+      "gold_replace_cases": 16,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 1,
+      "false_abstain_count": 6,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+      ],
+      "false_abstain_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+      ],
+      "replace_recall": 0.625,
+      "decision_accuracy": 0.7812,
+      "active_rescue_applied_count": 5,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {
+        "strongest_shadow_not_verb_like": 1,
+        "active_modifier_margin_below_floor": 1,
+        "surface_pos_modifier_phrase_lead_above_ceiling": 1
+      }
+    },
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0.5;noun_lead=none;modifier_lead=0.02",
+      "suite_id": "phrase_no_winner",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_phrase_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_phrase_no_winner",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.5,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": 0.02,
+      "case_count": 16,
+      "gold_replace_cases": 0,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 5,
+      "false_abstain_count": 0,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "false_abstain_case_ids": [],
+      "replace_recall": 0.0,
+      "decision_accuracy": 0.6875,
+      "active_rescue_applied_count": 4,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {
+        "surface_pos_modifier_phrase_lead_above_ceiling": 1
+      }
+    },
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0.5;noun_lead=none;modifier_lead=0.03",
+      "suite_id": "active_shadow",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_active_shadow",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.5,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": 0.03,
+      "case_count": 32,
+      "gold_replace_cases": 16,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 1,
+      "false_abstain_count": 5,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+      ],
+      "false_abstain_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+      ],
+      "replace_recall": 0.6875,
+      "decision_accuracy": 0.8125,
+      "active_rescue_applied_count": 6,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {
+        "strongest_shadow_not_verb_like": 1,
+        "active_modifier_margin_below_floor": 1
+      }
+    },
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0.5;noun_lead=none;modifier_lead=0.03",
+      "suite_id": "phrase_no_winner",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_phrase_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_phrase_no_winner",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.5,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": 0.03,
+      "case_count": 16,
+      "gold_replace_cases": 0,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 6,
+      "false_abstain_count": 0,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "false_abstain_case_ids": [],
+      "replace_recall": 0.0,
+      "decision_accuracy": 0.625,
+      "active_rescue_applied_count": 5,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {}
+    },
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0.5;noun_lead=none;modifier_lead=0.04",
+      "suite_id": "active_shadow",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_active_shadow",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.5,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": 0.04,
+      "case_count": 32,
+      "gold_replace_cases": 16,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 1,
+      "false_abstain_count": 5,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+      ],
+      "false_abstain_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+      ],
+      "replace_recall": 0.6875,
+      "decision_accuracy": 0.8125,
+      "active_rescue_applied_count": 6,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {
+        "strongest_shadow_not_verb_like": 1,
+        "active_modifier_margin_below_floor": 1
+      }
+    },
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0.5;noun_lead=none;modifier_lead=0.04",
+      "suite_id": "phrase_no_winner",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_phrase_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_phrase_no_winner",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.5,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": 0.04,
+      "case_count": 16,
+      "gold_replace_cases": 0,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 6,
+      "false_abstain_count": 0,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "false_abstain_case_ids": [],
+      "replace_recall": 0.0,
+      "decision_accuracy": 0.625,
+      "active_rescue_applied_count": 5,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {}
+    },
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0.5;noun_lead=none;modifier_lead=0.05",
+      "suite_id": "active_shadow",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_active_shadow",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.5,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": 0.05,
+      "case_count": 32,
+      "gold_replace_cases": 16,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 1,
+      "false_abstain_count": 5,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+      ],
+      "false_abstain_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+      ],
+      "replace_recall": 0.6875,
+      "decision_accuracy": 0.8125,
+      "active_rescue_applied_count": 6,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {
+        "strongest_shadow_not_verb_like": 1,
+        "active_modifier_margin_below_floor": 1
+      }
+    },
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0.5;noun_lead=none;modifier_lead=0.05",
+      "suite_id": "phrase_no_winner",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_phrase_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_phrase_no_winner",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.5,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": 0.05,
+      "case_count": 16,
+      "gold_replace_cases": 0,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 6,
+      "false_abstain_count": 0,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "false_abstain_case_ids": [],
+      "replace_recall": 0.0,
+      "decision_accuracy": 0.625,
+      "active_rescue_applied_count": 5,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {}
+    },
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0.52;noun_lead=none;modifier_lead=none",
+      "suite_id": "active_shadow",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_active_shadow",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.52,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": null,
+      "case_count": 32,
+      "gold_replace_cases": 16,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 1,
+      "false_abstain_count": 5,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+      ],
+      "false_abstain_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+      ],
+      "replace_recall": 0.6875,
+      "decision_accuracy": 0.8125,
+      "active_rescue_applied_count": 6,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {
+        "strongest_shadow_not_verb_like": 1,
+        "active_modifier_margin_below_floor": 1
+      }
+    },
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0.52;noun_lead=none;modifier_lead=none",
+      "suite_id": "phrase_no_winner",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_phrase_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_phrase_no_winner",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.52,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": null,
+      "case_count": 16,
+      "gold_replace_cases": 0,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 6,
+      "false_abstain_count": 0,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "false_abstain_case_ids": [],
+      "replace_recall": 0.0,
+      "decision_accuracy": 0.625,
+      "active_rescue_applied_count": 5,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {}
+    },
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0.52;noun_lead=none;modifier_lead=0.02",
+      "suite_id": "active_shadow",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_active_shadow",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.52,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": 0.02,
+      "case_count": 32,
+      "gold_replace_cases": 16,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 1,
+      "false_abstain_count": 6,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+      ],
+      "false_abstain_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+      ],
+      "replace_recall": 0.625,
+      "decision_accuracy": 0.7812,
+      "active_rescue_applied_count": 5,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {
+        "strongest_shadow_not_verb_like": 1,
+        "active_modifier_margin_below_floor": 1,
+        "surface_pos_modifier_phrase_lead_above_ceiling": 1
+      }
+    },
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0.52;noun_lead=none;modifier_lead=0.02",
+      "suite_id": "phrase_no_winner",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_phrase_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_phrase_no_winner",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.52,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": 0.02,
+      "case_count": 16,
+      "gold_replace_cases": 0,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 5,
+      "false_abstain_count": 0,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "false_abstain_case_ids": [],
+      "replace_recall": 0.0,
+      "decision_accuracy": 0.6875,
+      "active_rescue_applied_count": 4,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {
+        "surface_pos_modifier_phrase_lead_above_ceiling": 1
+      }
+    },
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0.52;noun_lead=none;modifier_lead=0.03",
+      "suite_id": "active_shadow",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_active_shadow",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.52,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": 0.03,
+      "case_count": 32,
+      "gold_replace_cases": 16,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 1,
+      "false_abstain_count": 5,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+      ],
+      "false_abstain_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+      ],
+      "replace_recall": 0.6875,
+      "decision_accuracy": 0.8125,
+      "active_rescue_applied_count": 6,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {
+        "strongest_shadow_not_verb_like": 1,
+        "active_modifier_margin_below_floor": 1
+      }
+    },
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0.52;noun_lead=none;modifier_lead=0.03",
+      "suite_id": "phrase_no_winner",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_phrase_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_phrase_no_winner",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.52,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": 0.03,
+      "case_count": 16,
+      "gold_replace_cases": 0,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 6,
+      "false_abstain_count": 0,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "false_abstain_case_ids": [],
+      "replace_recall": 0.0,
+      "decision_accuracy": 0.625,
+      "active_rescue_applied_count": 5,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {}
+    },
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0.52;noun_lead=none;modifier_lead=0.04",
+      "suite_id": "active_shadow",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_active_shadow",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.52,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": 0.04,
+      "case_count": 32,
+      "gold_replace_cases": 16,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 1,
+      "false_abstain_count": 5,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+      ],
+      "false_abstain_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+      ],
+      "replace_recall": 0.6875,
+      "decision_accuracy": 0.8125,
+      "active_rescue_applied_count": 6,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {
+        "strongest_shadow_not_verb_like": 1,
+        "active_modifier_margin_below_floor": 1
+      }
+    },
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0.52;noun_lead=none;modifier_lead=0.04",
+      "suite_id": "phrase_no_winner",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_phrase_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_phrase_no_winner",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.52,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": 0.04,
+      "case_count": 16,
+      "gold_replace_cases": 0,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 6,
+      "false_abstain_count": 0,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "false_abstain_case_ids": [],
+      "replace_recall": 0.0,
+      "decision_accuracy": 0.625,
+      "active_rescue_applied_count": 5,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {}
+    },
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0.52;noun_lead=none;modifier_lead=0.05",
+      "suite_id": "active_shadow",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_active_shadow",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.52,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": 0.05,
+      "case_count": 32,
+      "gold_replace_cases": 16,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 1,
+      "false_abstain_count": 5,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+      ],
+      "false_abstain_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+      ],
+      "replace_recall": 0.6875,
+      "decision_accuracy": 0.8125,
+      "active_rescue_applied_count": 6,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {
+        "strongest_shadow_not_verb_like": 1,
+        "active_modifier_margin_below_floor": 1
+      }
+    },
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0.52;noun_lead=none;modifier_lead=0.05",
+      "suite_id": "phrase_no_winner",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_phrase_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_phrase_no_winner",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.52,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": 0.05,
+      "case_count": 16,
+      "gold_replace_cases": 0,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 6,
+      "false_abstain_count": 0,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "false_abstain_case_ids": [],
+      "replace_recall": 0.0,
+      "decision_accuracy": 0.625,
+      "active_rescue_applied_count": 5,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {}
+    },
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0.55;noun_lead=none;modifier_lead=none",
+      "suite_id": "active_shadow",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_active_shadow",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.55,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": null,
+      "case_count": 32,
+      "gold_replace_cases": 16,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 1,
+      "false_abstain_count": 5,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+      ],
+      "false_abstain_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+      ],
+      "replace_recall": 0.6875,
+      "decision_accuracy": 0.8125,
+      "active_rescue_applied_count": 6,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {
+        "strongest_shadow_not_verb_like": 1,
+        "active_modifier_margin_below_floor": 1
+      }
+    },
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0.55;noun_lead=none;modifier_lead=none",
+      "suite_id": "phrase_no_winner",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_phrase_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_phrase_no_winner",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.55,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": null,
+      "case_count": 16,
+      "gold_replace_cases": 0,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 6,
+      "false_abstain_count": 0,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "false_abstain_case_ids": [],
+      "replace_recall": 0.0,
+      "decision_accuracy": 0.625,
+      "active_rescue_applied_count": 5,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {}
+    },
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0.55;noun_lead=none;modifier_lead=0.02",
+      "suite_id": "active_shadow",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_active_shadow",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.55,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": 0.02,
+      "case_count": 32,
+      "gold_replace_cases": 16,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 1,
+      "false_abstain_count": 6,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+      ],
+      "false_abstain_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+      ],
+      "replace_recall": 0.625,
+      "decision_accuracy": 0.7812,
+      "active_rescue_applied_count": 5,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {
+        "strongest_shadow_not_verb_like": 1,
+        "active_modifier_margin_below_floor": 1,
+        "surface_pos_modifier_phrase_lead_above_ceiling": 1
+      }
+    },
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0.55;noun_lead=none;modifier_lead=0.02",
+      "suite_id": "phrase_no_winner",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_phrase_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_phrase_no_winner",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.55,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": 0.02,
+      "case_count": 16,
+      "gold_replace_cases": 0,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 5,
+      "false_abstain_count": 0,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "false_abstain_case_ids": [],
+      "replace_recall": 0.0,
+      "decision_accuracy": 0.6875,
+      "active_rescue_applied_count": 4,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {
+        "surface_pos_modifier_phrase_lead_above_ceiling": 1
+      }
+    },
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0.55;noun_lead=none;modifier_lead=0.03",
+      "suite_id": "active_shadow",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_active_shadow",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.55,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": 0.03,
+      "case_count": 32,
+      "gold_replace_cases": 16,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 1,
+      "false_abstain_count": 5,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+      ],
+      "false_abstain_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+      ],
+      "replace_recall": 0.6875,
+      "decision_accuracy": 0.8125,
+      "active_rescue_applied_count": 6,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {
+        "strongest_shadow_not_verb_like": 1,
+        "active_modifier_margin_below_floor": 1
+      }
+    },
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0.55;noun_lead=none;modifier_lead=0.03",
+      "suite_id": "phrase_no_winner",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_phrase_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_phrase_no_winner",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.55,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": 0.03,
+      "case_count": 16,
+      "gold_replace_cases": 0,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 6,
+      "false_abstain_count": 0,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "false_abstain_case_ids": [],
+      "replace_recall": 0.0,
+      "decision_accuracy": 0.625,
+      "active_rescue_applied_count": 5,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {}
+    },
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0.55;noun_lead=none;modifier_lead=0.04",
+      "suite_id": "active_shadow",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_active_shadow",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.55,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": 0.04,
+      "case_count": 32,
+      "gold_replace_cases": 16,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 1,
+      "false_abstain_count": 5,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+      ],
+      "false_abstain_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+      ],
+      "replace_recall": 0.6875,
+      "decision_accuracy": 0.8125,
+      "active_rescue_applied_count": 6,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {
+        "strongest_shadow_not_verb_like": 1,
+        "active_modifier_margin_below_floor": 1
+      }
+    },
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0.55;noun_lead=none;modifier_lead=0.04",
+      "suite_id": "phrase_no_winner",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_phrase_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_phrase_no_winner",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.55,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": 0.04,
+      "case_count": 16,
+      "gold_replace_cases": 0,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 6,
+      "false_abstain_count": 0,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "false_abstain_case_ids": [],
+      "replace_recall": 0.0,
+      "decision_accuracy": 0.625,
+      "active_rescue_applied_count": 5,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {}
+    },
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0.55;noun_lead=none;modifier_lead=0.05",
+      "suite_id": "active_shadow",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_active_shadow",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.55,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": 0.05,
+      "case_count": 32,
+      "gold_replace_cases": 16,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 1,
+      "false_abstain_count": 5,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+      ],
+      "false_abstain_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+      ],
+      "replace_recall": 0.6875,
+      "decision_accuracy": 0.8125,
+      "active_rescue_applied_count": 6,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {
+        "strongest_shadow_not_verb_like": 1,
+        "active_modifier_margin_below_floor": 1
+      }
+    },
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0.55;noun_lead=none;modifier_lead=0.05",
+      "suite_id": "phrase_no_winner",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_phrase_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_phrase_no_winner",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.55,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": 0.05,
+      "case_count": 16,
+      "gold_replace_cases": 0,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 6,
+      "false_abstain_count": 0,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "false_abstain_case_ids": [],
+      "replace_recall": 0.0,
+      "decision_accuracy": 0.625,
+      "active_rescue_applied_count": 5,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {}
+    },
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0.58;noun_lead=none;modifier_lead=none",
+      "suite_id": "active_shadow",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_active_shadow",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.58,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": null,
+      "case_count": 32,
+      "gold_replace_cases": 16,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 1,
+      "false_abstain_count": 6,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+      ],
+      "false_abstain_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+      ],
+      "replace_recall": 0.625,
+      "decision_accuracy": 0.7812,
+      "active_rescue_applied_count": 5,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {
+        "surface_pos_active_score_below_floor": 3
+      }
+    },
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0.58;noun_lead=none;modifier_lead=none",
+      "suite_id": "phrase_no_winner",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_phrase_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_phrase_no_winner",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.58,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": null,
+      "case_count": 16,
+      "gold_replace_cases": 0,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 5,
+      "false_abstain_count": 0,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "false_abstain_case_ids": [],
+      "replace_recall": 0.0,
+      "decision_accuracy": 0.6875,
+      "active_rescue_applied_count": 4,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {
+        "surface_pos_active_score_below_floor": 1
+      }
+    },
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0.58;noun_lead=none;modifier_lead=0.02",
+      "suite_id": "active_shadow",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_active_shadow",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.58,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": 0.02,
+      "case_count": 32,
+      "gold_replace_cases": 16,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 1,
+      "false_abstain_count": 7,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+      ],
+      "false_abstain_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+      ],
+      "replace_recall": 0.5625,
+      "decision_accuracy": 0.75,
+      "active_rescue_applied_count": 4,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {
+        "surface_pos_active_score_below_floor": 3,
+        "surface_pos_modifier_phrase_lead_above_ceiling": 1
+      }
+    },
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0.58;noun_lead=none;modifier_lead=0.02",
+      "suite_id": "phrase_no_winner",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_phrase_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_phrase_no_winner",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.58,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": 0.02,
+      "case_count": 16,
+      "gold_replace_cases": 0,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 4,
+      "false_abstain_count": 0,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "false_abstain_case_ids": [],
+      "replace_recall": 0.0,
+      "decision_accuracy": 0.75,
+      "active_rescue_applied_count": 3,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {
+        "surface_pos_active_score_below_floor": 1,
+        "surface_pos_modifier_phrase_lead_above_ceiling": 1
+      }
+    },
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0.58;noun_lead=none;modifier_lead=0.03",
+      "suite_id": "active_shadow",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_active_shadow",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.58,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": 0.03,
+      "case_count": 32,
+      "gold_replace_cases": 16,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 1,
+      "false_abstain_count": 6,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+      ],
+      "false_abstain_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+      ],
+      "replace_recall": 0.625,
+      "decision_accuracy": 0.7812,
+      "active_rescue_applied_count": 5,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {
+        "surface_pos_active_score_below_floor": 3
+      }
+    },
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0.58;noun_lead=none;modifier_lead=0.03",
+      "suite_id": "phrase_no_winner",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_phrase_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_phrase_no_winner",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.58,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": 0.03,
+      "case_count": 16,
+      "gold_replace_cases": 0,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 5,
+      "false_abstain_count": 0,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "false_abstain_case_ids": [],
+      "replace_recall": 0.0,
+      "decision_accuracy": 0.6875,
+      "active_rescue_applied_count": 4,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {
+        "surface_pos_active_score_below_floor": 1
+      }
+    },
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0.58;noun_lead=none;modifier_lead=0.04",
+      "suite_id": "active_shadow",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_active_shadow",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.58,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": 0.04,
+      "case_count": 32,
+      "gold_replace_cases": 16,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 1,
+      "false_abstain_count": 6,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+      ],
+      "false_abstain_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+      ],
+      "replace_recall": 0.625,
+      "decision_accuracy": 0.7812,
+      "active_rescue_applied_count": 5,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {
+        "surface_pos_active_score_below_floor": 3
+      }
+    },
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0.58;noun_lead=none;modifier_lead=0.04",
+      "suite_id": "phrase_no_winner",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_phrase_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_phrase_no_winner",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.58,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": 0.04,
+      "case_count": 16,
+      "gold_replace_cases": 0,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 5,
+      "false_abstain_count": 0,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "false_abstain_case_ids": [],
+      "replace_recall": 0.0,
+      "decision_accuracy": 0.6875,
+      "active_rescue_applied_count": 4,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {
+        "surface_pos_active_score_below_floor": 1
+      }
+    },
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0.58;noun_lead=none;modifier_lead=0.05",
+      "suite_id": "active_shadow",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_active_shadow",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.58,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": 0.05,
+      "case_count": 32,
+      "gold_replace_cases": 16,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 1,
+      "false_abstain_count": 6,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+      ],
+      "false_abstain_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+      ],
+      "replace_recall": 0.625,
+      "decision_accuracy": 0.7812,
+      "active_rescue_applied_count": 5,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {
+        "surface_pos_active_score_below_floor": 3
+      }
+    },
+    {
+      "policy_id": "m=0;p=0.02;rescue_active=0.58;noun_lead=none;modifier_lead=0.05",
+      "suite_id": "phrase_no_winner",
+      "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_phrase_cases",
+      "case_scope": "non_v10_wave7_source_class_breadth_phrase_no_winner",
+      "passes": false,
+      "min_margin": 0.0,
+      "phrase_prototype_margin": 0.02,
+      "rescue_min_active_score": 0.58,
+      "noun_max_phrase_lead": null,
+      "modifier_max_phrase_lead": 0.05,
+      "case_count": 16,
+      "gold_replace_cases": 0,
+      "gold_abstain_cases": 16,
+      "harmful_replace_count": 5,
+      "false_abstain_count": 0,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "false_abstain_case_ids": [],
+      "replace_recall": 0.0,
+      "decision_accuracy": 0.6875,
+      "active_rescue_applied_count": 4,
+      "active_rescue_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "surface_pos_rescue_blocked_reasons": {
+        "surface_pos_active_score_below_floor": 1
+      }
+    }
+  ],
+  "limitations": [
+    "replay_only_not_runtime_policy",
+    "uses_fixed_score_traces_from_supplied_reports",
+    "bounded_wave6_active_and_phrase_suites_only"
+  ]
+}

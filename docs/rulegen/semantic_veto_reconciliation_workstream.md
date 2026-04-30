@@ -261,6 +261,27 @@ Wave7 breadth gate:
 - Failure mining result: promotion readiness `blocked`; blocking classes are
   `heldout_harmful_replace` and `additional_heldout_1_harmful_replace`.
 
+Wave7 phrase-control triage:
+
+- Added WordNet alternate-sense phrase/no-winner evidence for the same 16
+  families: `179` phrase-control rows across `248` candidate senses.
+- Phrase-control admission now reaches `16 / 16` semantic contract and
+  `16 / 16` phrase contract with `307` final admitted rows, but remains
+  `review` due leakage review and downstream heldout blockers.
+- Active/shadow heldout remains blocked: `1` harmful replacement and `5` false
+  abstains across `32` cases.
+- Phrase/no-winner heldout remains blocked under the current surface-POS shape:
+  `6` harmful replacements across `16` cases, even though phrase-control scores
+  are now present.
+- Rescue sweep over the phrase-control triage traces found `0` passing policies
+  across `25` replayed rescue policies.
+- No-surface margin sweep found `0` passing combined policies: phrase-only rows
+  can pass at several margins, but active/shadow false abstains increase enough
+  to block the lane.
+- Current blocker split: active source-signal misses (`gross` harmful plus
+  `like`, `fix`, `full`, `even`, `meet` false abstains) must be separated from
+  phrase rescue-policy interaction before another breadth pass.
+
 ## Action Ledger
 
 Action items live in `docs/test_inputs/semantic_veto_system_registry_en_es.json`
@@ -278,8 +299,12 @@ Current highest-priority actions:
 - `P1` `wave7_source_class_breadth_execution`: done; the gate was executed and
   failed with harmful replacements plus false abstains recorded in failure
   mining.
-- `P1` `wave7_blocking_failure_triage`: queued; start with the wave7 harmful
-  replacements before changing thresholds or claiming breadth success.
+- `P1` `wave7_blocking_failure_triage`: done; phrase-control evidence restored
+  the phrase contract, but heldout blockers remained and are now split into
+  active source-signal misses and phrase rescue-policy interaction.
+- `P1` `wave7_active_signal_and_rescue_split`: queued; add active source
+  evidence for false abstains and `gross`, then test a phrase-aware rescue
+  guard without hiding phrase/no-winner harms.
 - `P1` `scorer_backed_rescue_policy_confirmation`: done; the recommended rescue
   policy passes scorer-backed offline validation over the current 54-row suite.
 - `P1` `source_trigger_overfit_audit`: done; authorization-frame evidence is
@@ -317,12 +342,15 @@ Current state:
   wave6 precursor, and upper-bound artifacts are labeled historical or
   superseded in `docs/rulegen/semantic_veto_archive_consolidation.md`.
 - Action ledger: reconciliation passes are parked; the next substantive work is
-  triaging wave7 blocking harmful replacements.
+  `wave7_active_signal_and_rescue_split`.
 - Current candidate remains research-only:
   `wave6_auth_frame_raw_sentence_surface_pos_rescue`.
 - Next breadth gate: `wave7_source_class_breadth_v1`.
-- Next blocker report:
-  `docs/test_outputs/semantic_source_failure_class_mining_wave7_source_class_breadth_v1_latest.md`.
+- Latest blocker reports:
+  `docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout_validation_latest.md`,
+  `docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase_validation_latest.md`,
+  and
+  `docs/test_outputs/semantic_surface_pos_rescue_policy_sweep_wave7_source_class_breadth_v1_phrase_control_triage_latest.md`.
 - Runtime policy change: none.
 - Registry audit status: `ok`.
 
@@ -330,20 +358,26 @@ Read in this order:
 
 1. `docs/rulegen/semantic_veto_reconciliation_workstream.md`
 2. `docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md`
-3. `docs/test_outputs/semantic_source_failure_class_mining_wave7_source_class_breadth_v1_latest.md`
-4. `docs/test_outputs/semantic_surface_pos_rescue_policy_validation_wave7_source_class_breadth_v1_latest.md`
-5. `docs/rulegen/semantic_veto_breadth_expansion_gate.md`
-6. `docs/test_outputs/semantic_veto_system_registry_latest.md`
-7. `docs/test_inputs/semantic_veto_system_registry_en_es.json`
-8. `docs/rulegen/semantic_veto_assumption_ledger.md`
-9. `docs/rulegen/semantic_veto_archive_consolidation.md`
-10. `docs/rulegen/semantic_sentence_veto_algorithm.md`
+3. `docs/test_outputs/semantic_source_admission_cycle_wave7_source_class_breadth_v1_phrase_control_triage_latest.md`
+4. `docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout_validation_latest.md`
+5. `docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase_validation_latest.md`
+6. `docs/test_outputs/semantic_surface_pos_rescue_policy_sweep_wave7_source_class_breadth_v1_phrase_control_triage_latest.md`
+7. `docs/test_outputs/semantic_source_margin_policy_sweep_wave7_source_class_breadth_v1_phrase_control_no_surface_latest.md`
+8. `docs/test_outputs/semantic_source_failure_class_mining_wave7_source_class_breadth_v1_latest.md`
+9. `docs/test_outputs/semantic_surface_pos_rescue_policy_validation_wave7_source_class_breadth_v1_latest.md`
+10. `docs/rulegen/semantic_veto_breadth_expansion_gate.md`
+11. `docs/test_outputs/semantic_veto_system_registry_latest.md`
+12. `docs/test_inputs/semantic_veto_system_registry_en_es.json`
+13. `docs/rulegen/semantic_veto_assumption_ledger.md`
+14. `docs/rulegen/semantic_veto_archive_consolidation.md`
+15. `docs/rulegen/semantic_sentence_veto_algorithm.md`
 
 First task:
 
-- Triage `wave7_blocking_failure_triage`: start with the active/shadow harmful
-  `gross` case and phrase/no-winner harmful cases for `cast`, `wrong`,
-  `stretch`, `score`, `squeeze`, and `foul`.
+- Execute `wave7_active_signal_and_rescue_split`: keep the admitted
+  phrase-control rows, add active source evidence for the `gross` harmful case
+  and active false abstains (`like`, `fix`, `full`, `even`, `meet`), then test a
+  phrase-aware rescue guard against the locked phrase/no-winner suite.
 - Keep action items updated as cracks are discovered or resolved.
 - Keep durable inputs, generated evidence, control artifacts, and local
   uncommitted experiment outputs separate.
