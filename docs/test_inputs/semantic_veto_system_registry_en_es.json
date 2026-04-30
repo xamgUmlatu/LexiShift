@@ -151,7 +151,7 @@
       "next_breadth_gate": "wave7_source_class_breadth_v1",
       "latest_breadth_gate_status": "executed_failed",
       "latest_breadth_gate_harmful_replacements": 7,
-      "latest_breadth_gate_false_abstains": 3
+      "latest_breadth_gate_false_abstains": 2
     },
     "promotion_blockers": [
       "bounded to 16 families and 54 heldout cases",

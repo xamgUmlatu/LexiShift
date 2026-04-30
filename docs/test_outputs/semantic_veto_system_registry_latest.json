@@ -345,7 +345,7 @@
       "active_shadow_false_abstains": 0,
       "active_shadow_harmful_replacements": 0,
       "active_shadow_replace_recall": 1.0,
-      "latest_breadth_gate_false_abstains": 3,
+      "latest_breadth_gate_false_abstains": 2,
       "latest_breadth_gate_harmful_replacements": 7,
       "latest_breadth_gate_status": "executed_failed",
       "next_breadth_gate": "wave7_source_class_breadth_v1",
@@ -1727,7 +1727,7 @@
     }
   ],
   "entry_count": 85,
-  "generated_at": "2026-04-30T20:56:55Z",
+  "generated_at": "2026-04-30T22:28:25Z",
   "issues": [],
   "next_passes": [],
   "pass_count": 7,

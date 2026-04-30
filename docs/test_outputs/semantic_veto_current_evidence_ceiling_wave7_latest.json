@@ -1,0 +1,1763 @@
+{
+  "decision": "current_evidence_ceiling_partially_supported",
+  "generated_at": "2026-04-30T23:09:49Z",
+  "limitations": [
+    "current_evidence_only_no_new_source_rows",
+    "abstain_guard_sweep_only_does_not_recover_false_abstains_to_replace",
+    "no_case_ids_no_trigger_specific_rules",
+    "fixed_trace_research_only_not_runtime_policy"
+  ],
+  "next_steps": [
+    "Do not treat the optimistic 46/48 current-evidence ceiling as validated.",
+    "Use the no-regression policy as a diagnostic: it shows partial phrase/no-winner headroom but leaves harmful replacements.",
+    "Move upstream for the remaining gap: raw-source, evidence representation, scoring, and LLM-pipeline bound work."
+  ],
+  "representative_policies": {
+    "baseline": {
+      "accuracy": 0.8125,
+      "case_count": 48,
+      "changed_case_count": 0,
+      "correct_case_count": 39,
+      "false_abstain_count": 2,
+      "fixed_case_ids": [],
+      "fixed_residual_count": 0,
+      "fixed_score_visible_case_ids": [],
+      "fixed_score_visible_residual_count": 0,
+      "harmful_replace_count": 7,
+      "policy": {
+        "nonactive_lead_min": null,
+        "phrase_close_margin": null,
+        "phrase_lead_min": null,
+        "policy_id": "baseline_current_policy",
+        "scope": "none",
+        "shadow_lead_min": null
+      },
+      "policy_id": "baseline_current_policy",
+      "regressed_case_count": 0,
+      "regressed_case_ids": [],
+      "remaining_error_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ]
+    },
+    "best_accuracy": {
+      "accuracy": 0.875,
+      "case_count": 48,
+      "changed_case_count": 9,
+      "correct_case_count": 42,
+      "false_abstain_count": 5,
+      "fixed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "fixed_residual_count": 6,
+      "fixed_score_visible_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "fixed_score_visible_residual_count": 6,
+      "harmful_replace_count": 1,
+      "policy": {
+        "nonactive_lead_min": 0.03,
+        "phrase_close_margin": null,
+        "phrase_lead_min": null,
+        "policy_id": "surface_frame|nonactive_lead>=0.03",
+        "scope": "surface_frame",
+        "shadow_lead_min": null
+      },
+      "policy_id": "surface_frame|nonactive_lead>=0.03",
+      "regressed_case_count": 3,
+      "regressed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+      ],
+      "remaining_error_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001"
+      ]
+    },
+    "best_no_regression": {
+      "accuracy": 0.875,
+      "case_count": 48,
+      "changed_case_count": 3,
+      "correct_case_count": 42,
+      "false_abstain_count": 2,
+      "fixed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001"
+      ],
+      "fixed_residual_count": 3,
+      "fixed_score_visible_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001"
+      ],
+      "fixed_score_visible_residual_count": 3,
+      "harmful_replace_count": 4,
+      "policy": {
+        "nonactive_lead_min": null,
+        "phrase_close_margin": null,
+        "phrase_lead_min": 0.05,
+        "policy_id": "surface_frame|phrase_lead>=0.05|shadow_lead>=0.05",
+        "scope": "surface_frame",
+        "shadow_lead_min": 0.05
+      },
+      "policy_id": "surface_frame|phrase_lead>=0.05|shadow_lead>=0.05",
+      "regressed_case_count": 0,
+      "regressed_case_ids": [],
+      "remaining_error_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ]
+    },
+    "best_zero_harm": {
+      "accuracy": 0.8125,
+      "case_count": 48,
+      "changed_case_count": 14,
+      "correct_case_count": 39,
+      "false_abstain_count": 9,
+      "fixed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "fixed_residual_count": 7,
+      "fixed_score_visible_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "fixed_score_visible_residual_count": 7,
+      "harmful_replace_count": 0,
+      "policy": {
+        "nonactive_lead_min": 0.0,
+        "phrase_close_margin": null,
+        "phrase_lead_min": null,
+        "policy_id": "surface_frame|nonactive_lead>=0",
+        "scope": "surface_frame",
+        "shadow_lead_min": null
+      },
+      "policy_id": "surface_frame|nonactive_lead>=0",
+      "regressed_case_count": 7,
+      "regressed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:foul:001"
+      ],
+      "remaining_error_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:foul:001"
+      ]
+    }
+  },
+  "research_only": true,
+  "schema_version": 1,
+  "source_reports": {
+    "active_report": {
+      "case_count": 32,
+      "decision": "heldout_review",
+      "false_abstain_count": 2,
+      "harmful_replace_count": 1,
+      "heldout_case_scope": "non_v10_wave7_source_class_breadth_active_shadow",
+      "heldout_dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases",
+      "path": "docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout_validation_latest.json",
+      "status": "review"
+    },
+    "phrase_report": {
+      "case_count": 16,
+      "decision": "heldout_review",
+      "false_abstain_count": 0,
+      "harmful_replace_count": 6,
+      "heldout_case_scope": "non_v10_wave7_source_class_breadth_phrase_no_winner",
+      "heldout_dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_phrase_cases",
+      "path": "docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase_validation_latest.json",
+      "status": "review"
+    }
+  },
+  "status": "review",
+  "summary": {
+    "baseline": {
+      "accuracy": 0.8125,
+      "case_count": 48,
+      "changed_case_count": 0,
+      "correct_case_count": 39,
+      "false_abstain_count": 2,
+      "fixed_case_ids": [],
+      "fixed_residual_count": 0,
+      "fixed_score_visible_case_ids": [],
+      "fixed_score_visible_residual_count": 0,
+      "harmful_replace_count": 7,
+      "policy": {
+        "nonactive_lead_min": null,
+        "phrase_close_margin": null,
+        "phrase_lead_min": null,
+        "policy_id": "baseline_current_policy",
+        "scope": "none",
+        "shadow_lead_min": null
+      },
+      "policy_id": "baseline_current_policy",
+      "regressed_case_count": 0,
+      "regressed_case_ids": [],
+      "remaining_error_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ]
+    },
+    "candidate_policy_count": 445,
+    "case_count": 48,
+    "ceiling_assessment": {
+      "baseline_correct_case_count": 39,
+      "best_accuracy_correct_case_count": 42,
+      "best_no_regression_correct_case_count": 42,
+      "best_no_regression_false_abstain_count": 2,
+      "best_no_regression_fixed_score_visible_residual_count": 3,
+      "best_no_regression_harmful_replace_count": 4,
+      "best_no_regression_policy": {
+        "nonactive_lead_min": null,
+        "phrase_close_margin": null,
+        "phrase_lead_min": 0.05,
+        "policy_id": "surface_frame|phrase_lead>=0.05|shadow_lead>=0.05",
+        "scope": "surface_frame",
+        "shadow_lead_min": 0.05
+      },
+      "ceiling_status": "partial_headroom_but_optimistic_ceiling_collapsed",
+      "decision": "current_evidence_ceiling_partially_supported",
+      "interpretation": [
+        "The optimistic ceiling would require 46 / 48 correct cases.",
+        "The best no-regression guard only reaches 42 / 48 and fixes 3 / 7 score-visible residuals.",
+        "Zero-harm guard policies exist in this sweep, but they trade away currently correct replace cases, so they do not validate the optimistic bound."
+      ],
+      "optimistic_correct_case_count": 46,
+      "score_visible_residual_count": 7
+    },
+    "optimistic_current_evidence_bound": {
+      "case_count": 48,
+      "definition": "baseline correct cases plus all baseline residuals whose gold signal is visible in the current score trace",
+      "optimistic_accuracy": 0.9583,
+      "optimistic_correct_case_count": 46,
+      "score_visible_residual_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "score_visible_residual_count": 7
+    }
+  },
+  "top_no_regression_policies": [
+    {
+      "accuracy": 0.875,
+      "case_count": 48,
+      "changed_case_count": 3,
+      "correct_case_count": 42,
+      "false_abstain_count": 2,
+      "fixed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001"
+      ],
+      "fixed_residual_count": 3,
+      "fixed_score_visible_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001"
+      ],
+      "fixed_score_visible_residual_count": 3,
+      "harmful_replace_count": 4,
+      "policy": {
+        "nonactive_lead_min": null,
+        "phrase_close_margin": null,
+        "phrase_lead_min": 0.05,
+        "policy_id": "surface_frame|phrase_lead>=0.05|shadow_lead>=0.05",
+        "scope": "surface_frame",
+        "shadow_lead_min": 0.05
+      },
+      "policy_id": "surface_frame|phrase_lead>=0.05|shadow_lead>=0.05",
+      "regressed_case_count": 0,
+      "regressed_case_ids": [],
+      "remaining_error_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ]
+    },
+    {
+      "accuracy": 0.875,
+      "case_count": 48,
+      "changed_case_count": 3,
+      "correct_case_count": 42,
+      "false_abstain_count": 2,
+      "fixed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001"
+      ],
+      "fixed_residual_count": 3,
+      "fixed_score_visible_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001"
+      ],
+      "fixed_score_visible_residual_count": 3,
+      "harmful_replace_count": 4,
+      "policy": {
+        "nonactive_lead_min": null,
+        "phrase_close_margin": null,
+        "phrase_lead_min": 0.06,
+        "policy_id": "surface_frame|phrase_lead>=0.06|shadow_lead>=0.05",
+        "scope": "surface_frame",
+        "shadow_lead_min": 0.05
+      },
+      "policy_id": "surface_frame|phrase_lead>=0.06|shadow_lead>=0.05",
+      "regressed_case_count": 0,
+      "regressed_case_ids": [],
+      "remaining_error_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ]
+    },
+    {
+      "accuracy": 0.875,
+      "case_count": 48,
+      "changed_case_count": 3,
+      "correct_case_count": 42,
+      "false_abstain_count": 2,
+      "fixed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001"
+      ],
+      "fixed_residual_count": 3,
+      "fixed_score_visible_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001"
+      ],
+      "fixed_score_visible_residual_count": 3,
+      "harmful_replace_count": 4,
+      "policy": {
+        "nonactive_lead_min": null,
+        "phrase_close_margin": null,
+        "phrase_lead_min": 0.07,
+        "policy_id": "surface_frame|phrase_lead>=0.07|shadow_lead>=0.05",
+        "scope": "surface_frame",
+        "shadow_lead_min": 0.05
+      },
+      "policy_id": "surface_frame|phrase_lead>=0.07|shadow_lead>=0.05",
+      "regressed_case_count": 0,
+      "regressed_case_ids": [],
+      "remaining_error_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ]
+    },
+    {
+      "accuracy": 0.875,
+      "case_count": 48,
+      "changed_case_count": 3,
+      "correct_case_count": 42,
+      "false_abstain_count": 2,
+      "fixed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001"
+      ],
+      "fixed_residual_count": 3,
+      "fixed_score_visible_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001"
+      ],
+      "fixed_score_visible_residual_count": 3,
+      "harmful_replace_count": 4,
+      "policy": {
+        "nonactive_lead_min": null,
+        "phrase_close_margin": null,
+        "phrase_lead_min": 0.05,
+        "policy_id": "surface_rescue|phrase_lead>=0.05|shadow_lead>=0.05",
+        "scope": "surface_rescue",
+        "shadow_lead_min": 0.05
+      },
+      "policy_id": "surface_rescue|phrase_lead>=0.05|shadow_lead>=0.05",
+      "regressed_case_count": 0,
+      "regressed_case_ids": [],
+      "remaining_error_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ]
+    },
+    {
+      "accuracy": 0.875,
+      "case_count": 48,
+      "changed_case_count": 3,
+      "correct_case_count": 42,
+      "false_abstain_count": 2,
+      "fixed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001"
+      ],
+      "fixed_residual_count": 3,
+      "fixed_score_visible_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001"
+      ],
+      "fixed_score_visible_residual_count": 3,
+      "harmful_replace_count": 4,
+      "policy": {
+        "nonactive_lead_min": null,
+        "phrase_close_margin": null,
+        "phrase_lead_min": 0.06,
+        "policy_id": "surface_rescue|phrase_lead>=0.06|shadow_lead>=0.05",
+        "scope": "surface_rescue",
+        "shadow_lead_min": 0.05
+      },
+      "policy_id": "surface_rescue|phrase_lead>=0.06|shadow_lead>=0.05",
+      "regressed_case_count": 0,
+      "regressed_case_ids": [],
+      "remaining_error_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ]
+    },
+    {
+      "accuracy": 0.875,
+      "case_count": 48,
+      "changed_case_count": 3,
+      "correct_case_count": 42,
+      "false_abstain_count": 2,
+      "fixed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001"
+      ],
+      "fixed_residual_count": 3,
+      "fixed_score_visible_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001"
+      ],
+      "fixed_score_visible_residual_count": 3,
+      "harmful_replace_count": 4,
+      "policy": {
+        "nonactive_lead_min": null,
+        "phrase_close_margin": null,
+        "phrase_lead_min": 0.07,
+        "policy_id": "surface_rescue|phrase_lead>=0.07|shadow_lead>=0.05",
+        "scope": "surface_rescue",
+        "shadow_lead_min": 0.05
+      },
+      "policy_id": "surface_rescue|phrase_lead>=0.07|shadow_lead>=0.05",
+      "regressed_case_count": 0,
+      "regressed_case_ids": [],
+      "remaining_error_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ]
+    },
+    {
+      "accuracy": 0.8542,
+      "case_count": 48,
+      "changed_case_count": 2,
+      "correct_case_count": 41,
+      "false_abstain_count": 2,
+      "fixed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001"
+      ],
+      "fixed_residual_count": 2,
+      "fixed_score_visible_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001"
+      ],
+      "fixed_score_visible_residual_count": 2,
+      "harmful_replace_count": 5,
+      "policy": {
+        "nonactive_lead_min": null,
+        "phrase_close_margin": null,
+        "phrase_lead_min": 0.05,
+        "policy_id": "surface_frame|phrase_lead>=0.05",
+        "scope": "surface_frame",
+        "shadow_lead_min": null
+      },
+      "policy_id": "surface_frame|phrase_lead>=0.05",
+      "regressed_case_count": 0,
+      "regressed_case_ids": [],
+      "remaining_error_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ]
+    },
+    {
+      "accuracy": 0.8542,
+      "case_count": 48,
+      "changed_case_count": 2,
+      "correct_case_count": 41,
+      "false_abstain_count": 2,
+      "fixed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001"
+      ],
+      "fixed_residual_count": 2,
+      "fixed_score_visible_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001"
+      ],
+      "fixed_score_visible_residual_count": 2,
+      "harmful_replace_count": 5,
+      "policy": {
+        "nonactive_lead_min": null,
+        "phrase_close_margin": null,
+        "phrase_lead_min": 0.05,
+        "policy_id": "surface_frame|phrase_lead>=0.05|shadow_lead>=0.06",
+        "scope": "surface_frame",
+        "shadow_lead_min": 0.06
+      },
+      "policy_id": "surface_frame|phrase_lead>=0.05|shadow_lead>=0.06",
+      "regressed_case_count": 0,
+      "regressed_case_ids": [],
+      "remaining_error_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ]
+    },
+    {
+      "accuracy": 0.8542,
+      "case_count": 48,
+      "changed_case_count": 2,
+      "correct_case_count": 41,
+      "false_abstain_count": 2,
+      "fixed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001"
+      ],
+      "fixed_residual_count": 2,
+      "fixed_score_visible_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001"
+      ],
+      "fixed_score_visible_residual_count": 2,
+      "harmful_replace_count": 5,
+      "policy": {
+        "nonactive_lead_min": null,
+        "phrase_close_margin": null,
+        "phrase_lead_min": 0.05,
+        "policy_id": "surface_frame|phrase_lead>=0.05|shadow_lead>=0.08",
+        "scope": "surface_frame",
+        "shadow_lead_min": 0.08
+      },
+      "policy_id": "surface_frame|phrase_lead>=0.05|shadow_lead>=0.08",
+      "regressed_case_count": 0,
+      "regressed_case_ids": [],
+      "remaining_error_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ]
+    },
+    {
+      "accuracy": 0.8542,
+      "case_count": 48,
+      "changed_case_count": 2,
+      "correct_case_count": 41,
+      "false_abstain_count": 2,
+      "fixed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001"
+      ],
+      "fixed_residual_count": 2,
+      "fixed_score_visible_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001"
+      ],
+      "fixed_score_visible_residual_count": 2,
+      "harmful_replace_count": 5,
+      "policy": {
+        "nonactive_lead_min": null,
+        "phrase_close_margin": null,
+        "phrase_lead_min": 0.05,
+        "policy_id": "surface_frame|phrase_lead>=0.05|shadow_lead>=0.1",
+        "scope": "surface_frame",
+        "shadow_lead_min": 0.1
+      },
+      "policy_id": "surface_frame|phrase_lead>=0.05|shadow_lead>=0.1",
+      "regressed_case_count": 0,
+      "regressed_case_ids": [],
+      "remaining_error_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ]
+    }
+  ],
+  "top_policies_by_accuracy": [
+    {
+      "accuracy": 0.875,
+      "case_count": 48,
+      "changed_case_count": 9,
+      "correct_case_count": 42,
+      "false_abstain_count": 5,
+      "fixed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "fixed_residual_count": 6,
+      "fixed_score_visible_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "fixed_score_visible_residual_count": 6,
+      "harmful_replace_count": 1,
+      "policy": {
+        "nonactive_lead_min": 0.03,
+        "phrase_close_margin": null,
+        "phrase_lead_min": null,
+        "policy_id": "surface_frame|nonactive_lead>=0.03",
+        "scope": "surface_frame",
+        "shadow_lead_min": null
+      },
+      "policy_id": "surface_frame|nonactive_lead>=0.03",
+      "regressed_case_count": 3,
+      "regressed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+      ],
+      "remaining_error_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001"
+      ]
+    },
+    {
+      "accuracy": 0.875,
+      "case_count": 48,
+      "changed_case_count": 9,
+      "correct_case_count": 42,
+      "false_abstain_count": 5,
+      "fixed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "fixed_residual_count": 6,
+      "fixed_score_visible_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "fixed_score_visible_residual_count": 6,
+      "harmful_replace_count": 1,
+      "policy": {
+        "nonactive_lead_min": null,
+        "phrase_close_margin": null,
+        "phrase_lead_min": 0.03,
+        "policy_id": "surface_frame|phrase_lead>=0.03|shadow_lead>=0.005",
+        "scope": "surface_frame",
+        "shadow_lead_min": 0.005
+      },
+      "policy_id": "surface_frame|phrase_lead>=0.03|shadow_lead>=0.005",
+      "regressed_case_count": 3,
+      "regressed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+      ],
+      "remaining_error_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001"
+      ]
+    },
+    {
+      "accuracy": 0.875,
+      "case_count": 48,
+      "changed_case_count": 9,
+      "correct_case_count": 42,
+      "false_abstain_count": 5,
+      "fixed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "fixed_residual_count": 6,
+      "fixed_score_visible_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "fixed_score_visible_residual_count": 6,
+      "harmful_replace_count": 1,
+      "policy": {
+        "nonactive_lead_min": null,
+        "phrase_close_margin": null,
+        "phrase_lead_min": 0.03,
+        "policy_id": "surface_frame|phrase_lead>=0.03|shadow_lead>=0.01",
+        "scope": "surface_frame",
+        "shadow_lead_min": 0.01
+      },
+      "policy_id": "surface_frame|phrase_lead>=0.03|shadow_lead>=0.01",
+      "regressed_case_count": 3,
+      "regressed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+      ],
+      "remaining_error_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001"
+      ]
+    },
+    {
+      "accuracy": 0.875,
+      "case_count": 48,
+      "changed_case_count": 9,
+      "correct_case_count": 42,
+      "false_abstain_count": 5,
+      "fixed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "fixed_residual_count": 6,
+      "fixed_score_visible_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "fixed_score_visible_residual_count": 6,
+      "harmful_replace_count": 1,
+      "policy": {
+        "nonactive_lead_min": null,
+        "phrase_close_margin": null,
+        "phrase_lead_min": 0.04,
+        "policy_id": "surface_frame|phrase_lead>=0.04|shadow_lead>=0.005",
+        "scope": "surface_frame",
+        "shadow_lead_min": 0.005
+      },
+      "policy_id": "surface_frame|phrase_lead>=0.04|shadow_lead>=0.005",
+      "regressed_case_count": 3,
+      "regressed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+      ],
+      "remaining_error_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001"
+      ]
+    },
+    {
+      "accuracy": 0.875,
+      "case_count": 48,
+      "changed_case_count": 9,
+      "correct_case_count": 42,
+      "false_abstain_count": 5,
+      "fixed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "fixed_residual_count": 6,
+      "fixed_score_visible_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "fixed_score_visible_residual_count": 6,
+      "harmful_replace_count": 1,
+      "policy": {
+        "nonactive_lead_min": null,
+        "phrase_close_margin": null,
+        "phrase_lead_min": 0.04,
+        "policy_id": "surface_frame|phrase_lead>=0.04|shadow_lead>=0.01",
+        "scope": "surface_frame",
+        "shadow_lead_min": 0.01
+      },
+      "policy_id": "surface_frame|phrase_lead>=0.04|shadow_lead>=0.01",
+      "regressed_case_count": 3,
+      "regressed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+      ],
+      "remaining_error_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001"
+      ]
+    },
+    {
+      "accuracy": 0.875,
+      "case_count": 48,
+      "changed_case_count": 9,
+      "correct_case_count": 42,
+      "false_abstain_count": 5,
+      "fixed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "fixed_residual_count": 6,
+      "fixed_score_visible_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "fixed_score_visible_residual_count": 6,
+      "harmful_replace_count": 1,
+      "policy": {
+        "nonactive_lead_min": null,
+        "phrase_close_margin": null,
+        "phrase_lead_min": 0.05,
+        "policy_id": "surface_frame|phrase_lead>=0.05|shadow_lead>=0.005",
+        "scope": "surface_frame",
+        "shadow_lead_min": 0.005
+      },
+      "policy_id": "surface_frame|phrase_lead>=0.05|shadow_lead>=0.005",
+      "regressed_case_count": 3,
+      "regressed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+      ],
+      "remaining_error_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001"
+      ]
+    },
+    {
+      "accuracy": 0.875,
+      "case_count": 48,
+      "changed_case_count": 9,
+      "correct_case_count": 42,
+      "false_abstain_count": 5,
+      "fixed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "fixed_residual_count": 6,
+      "fixed_score_visible_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "fixed_score_visible_residual_count": 6,
+      "harmful_replace_count": 1,
+      "policy": {
+        "nonactive_lead_min": null,
+        "phrase_close_margin": null,
+        "phrase_lead_min": 0.05,
+        "policy_id": "surface_frame|phrase_lead>=0.05|shadow_lead>=0.01",
+        "scope": "surface_frame",
+        "shadow_lead_min": 0.01
+      },
+      "policy_id": "surface_frame|phrase_lead>=0.05|shadow_lead>=0.01",
+      "regressed_case_count": 3,
+      "regressed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+      ],
+      "remaining_error_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001"
+      ]
+    },
+    {
+      "accuracy": 0.875,
+      "case_count": 48,
+      "changed_case_count": 9,
+      "correct_case_count": 42,
+      "false_abstain_count": 5,
+      "fixed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "fixed_residual_count": 6,
+      "fixed_score_visible_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "fixed_score_visible_residual_count": 6,
+      "harmful_replace_count": 1,
+      "policy": {
+        "nonactive_lead_min": null,
+        "phrase_close_margin": null,
+        "phrase_lead_min": 0.06,
+        "policy_id": "surface_frame|phrase_lead>=0.06|shadow_lead>=0.005",
+        "scope": "surface_frame",
+        "shadow_lead_min": 0.005
+      },
+      "policy_id": "surface_frame|phrase_lead>=0.06|shadow_lead>=0.005",
+      "regressed_case_count": 3,
+      "regressed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+      ],
+      "remaining_error_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001"
+      ]
+    },
+    {
+      "accuracy": 0.875,
+      "case_count": 48,
+      "changed_case_count": 9,
+      "correct_case_count": 42,
+      "false_abstain_count": 5,
+      "fixed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "fixed_residual_count": 6,
+      "fixed_score_visible_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "fixed_score_visible_residual_count": 6,
+      "harmful_replace_count": 1,
+      "policy": {
+        "nonactive_lead_min": null,
+        "phrase_close_margin": null,
+        "phrase_lead_min": 0.06,
+        "policy_id": "surface_frame|phrase_lead>=0.06|shadow_lead>=0.01",
+        "scope": "surface_frame",
+        "shadow_lead_min": 0.01
+      },
+      "policy_id": "surface_frame|phrase_lead>=0.06|shadow_lead>=0.01",
+      "regressed_case_count": 3,
+      "regressed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+      ],
+      "remaining_error_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001"
+      ]
+    },
+    {
+      "accuracy": 0.875,
+      "case_count": 48,
+      "changed_case_count": 9,
+      "correct_case_count": 42,
+      "false_abstain_count": 5,
+      "fixed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "fixed_residual_count": 6,
+      "fixed_score_visible_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "fixed_score_visible_residual_count": 6,
+      "harmful_replace_count": 1,
+      "policy": {
+        "nonactive_lead_min": null,
+        "phrase_close_margin": null,
+        "phrase_lead_min": 0.07,
+        "policy_id": "surface_frame|phrase_lead>=0.07|shadow_lead>=0.005",
+        "scope": "surface_frame",
+        "shadow_lead_min": 0.005
+      },
+      "policy_id": "surface_frame|phrase_lead>=0.07|shadow_lead>=0.005",
+      "regressed_case_count": 3,
+      "regressed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+      ],
+      "remaining_error_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001"
+      ]
+    }
+  ],
+  "top_zero_harm_policies": [
+    {
+      "accuracy": 0.8125,
+      "case_count": 48,
+      "changed_case_count": 14,
+      "correct_case_count": 39,
+      "false_abstain_count": 9,
+      "fixed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "fixed_residual_count": 7,
+      "fixed_score_visible_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "fixed_score_visible_residual_count": 7,
+      "harmful_replace_count": 0,
+      "policy": {
+        "nonactive_lead_min": 0.0,
+        "phrase_close_margin": null,
+        "phrase_lead_min": null,
+        "policy_id": "surface_frame|nonactive_lead>=0",
+        "scope": "surface_frame",
+        "shadow_lead_min": null
+      },
+      "policy_id": "surface_frame|nonactive_lead>=0",
+      "regressed_case_count": 7,
+      "regressed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:foul:001"
+      ],
+      "remaining_error_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:foul:001"
+      ]
+    },
+    {
+      "accuracy": 0.8125,
+      "case_count": 48,
+      "changed_case_count": 14,
+      "correct_case_count": 39,
+      "false_abstain_count": 9,
+      "fixed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "fixed_residual_count": 7,
+      "fixed_score_visible_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "fixed_score_visible_residual_count": 7,
+      "harmful_replace_count": 0,
+      "policy": {
+        "nonactive_lead_min": 0.005,
+        "phrase_close_margin": null,
+        "phrase_lead_min": null,
+        "policy_id": "surface_frame|nonactive_lead>=0.005",
+        "scope": "surface_frame",
+        "shadow_lead_min": null
+      },
+      "policy_id": "surface_frame|nonactive_lead>=0.005",
+      "regressed_case_count": 7,
+      "regressed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:foul:001"
+      ],
+      "remaining_error_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:foul:001"
+      ]
+    },
+    {
+      "accuracy": 0.8125,
+      "case_count": 48,
+      "changed_case_count": 14,
+      "correct_case_count": 39,
+      "false_abstain_count": 9,
+      "fixed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "fixed_residual_count": 7,
+      "fixed_score_visible_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "fixed_score_visible_residual_count": 7,
+      "harmful_replace_count": 0,
+      "policy": {
+        "nonactive_lead_min": null,
+        "phrase_close_margin": 0.005,
+        "phrase_lead_min": null,
+        "policy_id": "surface_frame|phrase_close<=0.005|shadow_lead>=0",
+        "scope": "surface_frame",
+        "shadow_lead_min": 0.0
+      },
+      "policy_id": "surface_frame|phrase_close<=0.005|shadow_lead>=0",
+      "regressed_case_count": 7,
+      "regressed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:foul:001"
+      ],
+      "remaining_error_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:foul:001"
+      ]
+    },
+    {
+      "accuracy": 0.8125,
+      "case_count": 48,
+      "changed_case_count": 14,
+      "correct_case_count": 39,
+      "false_abstain_count": 9,
+      "fixed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "fixed_residual_count": 7,
+      "fixed_score_visible_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "fixed_score_visible_residual_count": 7,
+      "harmful_replace_count": 0,
+      "policy": {
+        "nonactive_lead_min": null,
+        "phrase_close_margin": 0.005,
+        "phrase_lead_min": null,
+        "policy_id": "surface_frame|phrase_close<=0.005|shadow_lead>=0.005",
+        "scope": "surface_frame",
+        "shadow_lead_min": 0.005
+      },
+      "policy_id": "surface_frame|phrase_close<=0.005|shadow_lead>=0.005",
+      "regressed_case_count": 7,
+      "regressed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:foul:001"
+      ],
+      "remaining_error_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:foul:001"
+      ]
+    },
+    {
+      "accuracy": 0.8125,
+      "case_count": 48,
+      "changed_case_count": 14,
+      "correct_case_count": 39,
+      "false_abstain_count": 9,
+      "fixed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "fixed_residual_count": 7,
+      "fixed_score_visible_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "fixed_score_visible_residual_count": 7,
+      "harmful_replace_count": 0,
+      "policy": {
+        "nonactive_lead_min": null,
+        "phrase_close_margin": 0.005,
+        "phrase_lead_min": null,
+        "policy_id": "surface_frame|phrase_close<=0.005|shadow_lead>=0.01",
+        "scope": "surface_frame",
+        "shadow_lead_min": 0.01
+      },
+      "policy_id": "surface_frame|phrase_close<=0.005|shadow_lead>=0.01",
+      "regressed_case_count": 7,
+      "regressed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:foul:001"
+      ],
+      "remaining_error_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:foul:001"
+      ]
+    },
+    {
+      "accuracy": 0.8125,
+      "case_count": 48,
+      "changed_case_count": 14,
+      "correct_case_count": 39,
+      "false_abstain_count": 9,
+      "fixed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "fixed_residual_count": 7,
+      "fixed_score_visible_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "fixed_score_visible_residual_count": 7,
+      "harmful_replace_count": 0,
+      "policy": {
+        "nonactive_lead_min": null,
+        "phrase_close_margin": 0.005,
+        "phrase_lead_min": null,
+        "policy_id": "surface_frame|phrase_close<=0.005|shadow_lead>=0.015",
+        "scope": "surface_frame",
+        "shadow_lead_min": 0.015
+      },
+      "policy_id": "surface_frame|phrase_close<=0.005|shadow_lead>=0.015",
+      "regressed_case_count": 7,
+      "regressed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:foul:001"
+      ],
+      "remaining_error_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:foul:001"
+      ]
+    },
+    {
+      "accuracy": 0.8125,
+      "case_count": 48,
+      "changed_case_count": 14,
+      "correct_case_count": 39,
+      "false_abstain_count": 9,
+      "fixed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "fixed_residual_count": 7,
+      "fixed_score_visible_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "fixed_score_visible_residual_count": 7,
+      "harmful_replace_count": 0,
+      "policy": {
+        "nonactive_lead_min": null,
+        "phrase_close_margin": 0.005,
+        "phrase_lead_min": null,
+        "policy_id": "surface_frame|phrase_close<=0.005|shadow_lead>=0.02",
+        "scope": "surface_frame",
+        "shadow_lead_min": 0.02
+      },
+      "policy_id": "surface_frame|phrase_close<=0.005|shadow_lead>=0.02",
+      "regressed_case_count": 7,
+      "regressed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:foul:001"
+      ],
+      "remaining_error_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:foul:001"
+      ]
+    },
+    {
+      "accuracy": 0.8125,
+      "case_count": 48,
+      "changed_case_count": 14,
+      "correct_case_count": 39,
+      "false_abstain_count": 9,
+      "fixed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "fixed_residual_count": 7,
+      "fixed_score_visible_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "fixed_score_visible_residual_count": 7,
+      "harmful_replace_count": 0,
+      "policy": {
+        "nonactive_lead_min": null,
+        "phrase_close_margin": 0.005,
+        "phrase_lead_min": null,
+        "policy_id": "surface_frame|phrase_close<=0.005|shadow_lead>=0.03",
+        "scope": "surface_frame",
+        "shadow_lead_min": 0.03
+      },
+      "policy_id": "surface_frame|phrase_close<=0.005|shadow_lead>=0.03",
+      "regressed_case_count": 7,
+      "regressed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:foul:001"
+      ],
+      "remaining_error_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:foul:001"
+      ]
+    },
+    {
+      "accuracy": 0.8125,
+      "case_count": 48,
+      "changed_case_count": 14,
+      "correct_case_count": 39,
+      "false_abstain_count": 9,
+      "fixed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "fixed_residual_count": 7,
+      "fixed_score_visible_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "fixed_score_visible_residual_count": 7,
+      "harmful_replace_count": 0,
+      "policy": {
+        "nonactive_lead_min": null,
+        "phrase_close_margin": 0.01,
+        "phrase_lead_min": null,
+        "policy_id": "surface_frame|phrase_close<=0.01|shadow_lead>=0",
+        "scope": "surface_frame",
+        "shadow_lead_min": 0.0
+      },
+      "policy_id": "surface_frame|phrase_close<=0.01|shadow_lead>=0",
+      "regressed_case_count": 7,
+      "regressed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:foul:001"
+      ],
+      "remaining_error_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:foul:001"
+      ]
+    },
+    {
+      "accuracy": 0.8125,
+      "case_count": 48,
+      "changed_case_count": 14,
+      "correct_case_count": 39,
+      "false_abstain_count": 9,
+      "fixed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "fixed_residual_count": 7,
+      "fixed_score_visible_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "fixed_score_visible_residual_count": 7,
+      "harmful_replace_count": 0,
+      "policy": {
+        "nonactive_lead_min": null,
+        "phrase_close_margin": 0.01,
+        "phrase_lead_min": null,
+        "policy_id": "surface_frame|phrase_close<=0.01|shadow_lead>=0.005",
+        "scope": "surface_frame",
+        "shadow_lead_min": 0.005
+      },
+      "policy_id": "surface_frame|phrase_close<=0.01|shadow_lead>=0.005",
+      "regressed_case_count": 7,
+      "regressed_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:foul:001"
+      ],
+      "remaining_error_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:foul:001"
+      ]
+    }
+  ]
+}
