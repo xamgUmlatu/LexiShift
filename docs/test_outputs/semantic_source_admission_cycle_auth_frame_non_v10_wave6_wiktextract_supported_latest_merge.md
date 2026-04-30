@@ -1,7 +1,7 @@
 # en-es Example-Frame Batch Merge
 
 - Status: `ok`
-- Generated: `2026-04-30T03:36:15Z`
+- Generated: `2026-04-30T03:42:18Z`
 - Batch id: `en-es:wordnet-translation-alt-phrase-plus-auth-frame:non-v10-wave6-wiktextract-supported-v1:cycle:sense-admitted`
 - Source id: `wordnet_translation_alt_phrase_auth_frame_non_v10_wave6_wiktextract_supported_v1`
 

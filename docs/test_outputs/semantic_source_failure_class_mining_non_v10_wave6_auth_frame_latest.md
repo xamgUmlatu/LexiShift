@@ -2,7 +2,7 @@
 
 - Status: `review`
 - Decision: `fix_blocking_failure_classes`
-- Generated: `2026-04-30T03:36:52Z`
+- Generated: `2026-04-30T03:43:00Z`
 - Promotion readiness: `blocked`
 - Quality-gate distance: `semantic_risk_blockers`
 - Manual overfit risk: `medium`

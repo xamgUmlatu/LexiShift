@@ -2,18 +2,18 @@
   "schema_version": 1,
   "status": "ok",
   "decision": "rescue_policy_candidate_found",
-  "generated_at": "2026-04-30T03:36:45Z",
+  "generated_at": "2026-04-30T03:42:53Z",
   "score_surface": {
     "active_report": {
       "path": "docs/test_outputs/semantic_source_non_v10_wave6_auth_frame_surface_pos_raw_sentence_heldout_margin000_phrase002_validation_latest.json",
-      "sha256": "0c304dacdf7821916bb6afa111c4ff110e99a2333a26d570c978fdd32e906aa8",
+      "sha256": "ab70c2153f99d5b284ed7e489654b80a3e6c52f20e529245d222abc609d6ad61",
       "status": "ok",
       "heldout_dataset_id": "en_es_source_non_v10_wave6_wiktextract_supported_heldout_cases_v1",
       "case_scope": "non_v10_wave6_wiktextract_supported_active_shadow"
     },
     "phrase_report": {
       "path": "docs/test_outputs/semantic_source_non_v10_wave6_auth_frame_surface_pos_raw_sentence_phrase_margin000_phrase002_validation_latest.json",
-      "sha256": "badbbc367a08ba326c9ecde1562fd1e807298af9694338e220bf7eee633eafda",
+      "sha256": "9b98e41a44094bce8a124466c7e0fd001582ae773126a68793ff9d0909b7991f",
       "status": "review",
       "heldout_dataset_id": "en_es_source_non_v10_wave6_wiktextract_supported_phrase_cases_v1",
       "case_scope": "non_v10_wave6_wiktextract_supported_phrase_no_winner"

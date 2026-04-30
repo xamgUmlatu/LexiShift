@@ -1,7 +1,7 @@
 # en-es LLM Example-Frame Leakage Audit
 
 - Status: `ok`
-- Generated: `2026-04-30T03:36:15Z`
+- Generated: `2026-04-30T03:42:18Z`
 - Batch: `en-es:authorization-frame-evidence:authorization-frame-non-v10-wave6-wiktextract-supported-v1-latest`
 - Filtered batch: `en-es:authorization-frame-evidence:authorization-frame-non-v10-wave6-wiktextract-supported-v1-latest:filtered`
 

@@ -48,10 +48,20 @@ class SemanticAuthorizationFrameEvidenceTests(unittest.TestCase):
         self.assertEqual(report["summary"]["matching_sense_count"], 1)
         self.assertEqual(report["summary"]["active_row_count"], len(AUTHORIZATION_TEMPLATES))
         self.assertEqual(report["summary"]["shadow_row_count"], 0)
+        active_sense_row = report["family_rows"][0]["sense_rows"][0]
+        self.assertTrue(active_sense_row["matched"])
+        self.assertIn("permission to be absent", active_sense_row["source_match_text"])
+        self.assertFalse(active_sense_row["target_lemma_in_source_match_text"])
+        self.assertIn(
+            "wiktextract_en_es_translation_table",
+            active_sense_row["support_sources"],
+        )
 
         markdown = render_authorization_frame_evidence_markdown(report)
         self.assertIn("Authorization-Frame Evidence Batch", markdown)
         self.assertIn("internal_rulegen_artifact", markdown)
+        self.assertIn("Source Trigger Audit", markdown)
+        self.assertIn("permission to be absent", markdown)
 
     def test_can_emit_shadow_rows_when_authorization_sense_is_shadow(self) -> None:
         dataset = _dataset_payload()

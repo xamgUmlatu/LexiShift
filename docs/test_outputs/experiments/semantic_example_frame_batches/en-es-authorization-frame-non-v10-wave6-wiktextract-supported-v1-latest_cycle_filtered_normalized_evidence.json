@@ -10,8 +10,8 @@
     "cue_generation",
     "discrimination"
   ],
-  "generated_at": "2026-04-30T03:34:14Z",
-  "ingested_at": "2026-04-30T03:34:14Z",
+  "generated_at": "2026-04-30T03:42:03Z",
+  "ingested_at": "2026-04-30T03:42:03Z",
   "review_state": "unreviewed",
   "model_id": "not_applicable",
   "prompt_version": "authorization-frame-evidence-v1",
@@ -51,8 +51,8 @@
         "row_id": "en-es-sentence-veto-leave-permiso:active-en-es-sentence-veto-leave-permiso-active-authorization-frame-1",
         "model_id": "not_applicable",
         "prompt_version": "authorization-frame-evidence-v1",
-        "generated_at": "2026-04-30T03:34:14Z",
-        "ingested_at": "2026-04-30T03:34:14Z",
+        "generated_at": "2026-04-30T03:42:03Z",
+        "ingested_at": "2026-04-30T03:42:03Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -127,8 +127,8 @@
         "row_id": "en-es-sentence-veto-leave-permiso:active-en-es-sentence-veto-leave-permiso-active-authorization-frame-2",
         "model_id": "not_applicable",
         "prompt_version": "authorization-frame-evidence-v1",
-        "generated_at": "2026-04-30T03:34:14Z",
-        "ingested_at": "2026-04-30T03:34:14Z",
+        "generated_at": "2026-04-30T03:42:03Z",
+        "ingested_at": "2026-04-30T03:42:03Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -203,8 +203,8 @@
         "row_id": "en-es-sentence-veto-leave-permiso:active-en-es-sentence-veto-leave-permiso-active-authorization-frame-3",
         "model_id": "not_applicable",
         "prompt_version": "authorization-frame-evidence-v1",
-        "generated_at": "2026-04-30T03:34:14Z",
-        "ingested_at": "2026-04-30T03:34:14Z",
+        "generated_at": "2026-04-30T03:42:03Z",
+        "ingested_at": "2026-04-30T03:42:03Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -279,8 +279,8 @@
         "row_id": "en-es-sentence-veto-leave-permiso:active-en-es-sentence-veto-leave-permiso-active-authorization-frame-4",
         "model_id": "not_applicable",
         "prompt_version": "authorization-frame-evidence-v1",
-        "generated_at": "2026-04-30T03:34:14Z",
-        "ingested_at": "2026-04-30T03:34:14Z",
+        "generated_at": "2026-04-30T03:42:03Z",
+        "ingested_at": "2026-04-30T03:42:03Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -355,8 +355,8 @@
         "row_id": "en-es-sentence-veto-leave-permiso:active-en-es-sentence-veto-leave-permiso-active-authorization-frame-5",
         "model_id": "not_applicable",
         "prompt_version": "authorization-frame-evidence-v1",
-        "generated_at": "2026-04-30T03:34:14Z",
-        "ingested_at": "2026-04-30T03:34:14Z",
+        "generated_at": "2026-04-30T03:42:03Z",
+        "ingested_at": "2026-04-30T03:42:03Z",
         "normalization_version": "semantic_evidence_v1",
         "requested_runtime_publishable": false
       },
@@ -405,8 +405,8 @@
     "batch_id": "en-es:authorization-frame-evidence:authorization-frame-non-v10-wave6-wiktextract-supported-v1-latest",
     "model_id": "not_applicable",
     "prompt_version": "authorization-frame-evidence-v1",
-    "generated_at": "2026-04-30T03:34:14Z",
-    "ingested_at": "2026-04-30T03:34:14Z",
+    "generated_at": "2026-04-30T03:42:03Z",
+    "ingested_at": "2026-04-30T03:42:03Z",
     "normalization_version": "semantic_evidence_v1",
     "upstream": {
       "dataset_id": "en_es_source_non_v10_wave6_anypos_unsupported_upper_bound_selected_v1",
@@ -434,21 +434,40 @@
               "relation_type": "anchor_cue",
               "matched": true,
               "canonical_pos": "noun",
-              "target_lemma": "permiso"
+              "target_lemma": "permiso",
+              "support_sources": [
+                "wiktionary_en_es",
+                "wiktextract_en_es_translation_table"
+              ],
+              "source_match_text": "leave noun sense: permission to be absent | permission to be absent | leave noun sense: permission to be absent | permission to be absent | permission to be absent | permission to be absent",
+              "target_lemma_in_source_match_text": false
             },
             {
               "sense_id": "en-es:sentence-veto:leave:permiso:excedencia:shadow",
               "relation_type": "shadow_candidate",
               "matched": false,
               "canonical_pos": "noun",
-              "target_lemma": "excedencia"
+              "target_lemma": "excedencia",
+              "support_sources": [
+                "wiktionary_en_es",
+                "wiktextract_en_es_translation_table"
+              ],
+              "source_match_text": "leave noun sense: absence from work | absence from work | leave noun sense: absence from work | absence from work | absence from work | absence from work",
+              "target_lemma_in_source_match_text": false
             },
             {
               "sense_id": "en-es:sentence-veto:leave:permiso:dejar:shadow",
               "relation_type": "shadow_candidate",
               "matched": false,
               "canonical_pos": "verb",
-              "target_lemma": "dejar"
+              "target_lemma": "dejar",
+              "support_sources": [
+                "wiktionary_en_es",
+                "freedict_es_en",
+                "wiktextract_en_es_translation_table"
+              ],
+              "source_match_text": "leave verb sense: to cause to remain as available, not take away, refrain from depleting | to cause to remain as available, not take away, refrain from depleting | leave verb sense: to cause to remain as available, not take away, refrain from depleting | to cause to remain as available, not take away, refrain from depleting | to cause to remain as available, not take away, refrain from depleting | to cause to remain as available, not take away, refrain from depleting | to transfer possession after death | to give (something) to someone; to deliver (something) to a repository; to deposit | to transfer responsibility or attention | to depart from, end one's connection or affiliation with",
+              "target_lemma_in_source_match_text": false
             }
           ]
         },
@@ -466,14 +485,27 @@
               "relation_type": "anchor_cue",
               "matched": false,
               "canonical_pos": "adjective",
-              "target_lemma": "oscuro"
+              "target_lemma": "oscuro",
+              "support_sources": [
+                "wiktionary_en_es",
+                "wiktextract_en_es_translation_table"
+              ],
+              "source_match_text": "black adjective sense: without light | without light | black adjective sense: without light | without light | without light | without light",
+              "target_lemma_in_source_match_text": false
             },
             {
               "sense_id": "en-es:sentence-veto:black:oscuro:negro:shadow",
               "relation_type": "shadow_candidate",
               "matched": false,
               "canonical_pos": "noun",
-              "target_lemma": "negro"
+              "target_lemma": "negro",
+              "support_sources": [
+                "wiktionary_en_es",
+                "freedict_es_en",
+                "wiktextract_en_es_translation_table"
+              ],
+              "source_match_text": "black noun sense: colour/color | colour/color | black noun sense: colour/color | colour/color | colour/color | colour/color | dark-skinned person — see also Negro",
+              "target_lemma_in_source_match_text": true
             }
           ]
         },
@@ -491,14 +523,27 @@
               "relation_type": "anchor_cue",
               "matched": false,
               "canonical_pos": "noun",
-              "target_lemma": "servicio"
+              "target_lemma": "servicio",
+              "support_sources": [
+                "wiktionary_en_es",
+                "wiktextract_en_es_translation_table"
+              ],
+              "source_match_text": "serve noun sense: sports: act of putting the ball or shuttlecock in play | sports: act of putting the ball or shuttlecock in play | serve noun sense: sports: act of putting the ball or shuttlecock in play | sports: act of putting the ball or shuttlecock in play | sports: act of putting the ball or shuttlecock in play | sports: act of putting the ball or shuttlecock in play",
+              "target_lemma_in_source_match_text": false
             },
             {
               "sense_id": "en-es:sentence-veto:serve:servicio:servir:shadow",
               "relation_type": "shadow_candidate",
               "matched": false,
               "canonical_pos": "verb",
-              "target_lemma": "servir"
+              "target_lemma": "servir",
+              "support_sources": [
+                "wiktionary_en_es",
+                "freedict_es_en",
+                "wiktextract_en_es_translation_table"
+              ],
+              "source_match_text": "serve verb sense: to work for | to work for | serve verb sense: to work for | to work for | to work for | to work for | religion: to obey and worship | to be subordinate to | to be suitor to | to attend, supply the wants of | to bring food to | to perform duties | to treat (someone) | to spend time (of punishment) | sports: to lead off with first delivery (of the ball) | to be a servant | to be of use",
+              "target_lemma_in_source_match_text": false
             }
           ]
         },
@@ -516,14 +561,28 @@
               "relation_type": "anchor_cue",
               "matched": false,
               "canonical_pos": "adverb",
-              "target_lemma": "bajo"
+              "target_lemma": "bajo",
+              "support_sources": [
+                "wiktionary_en_es",
+                "wiktionary_es_en",
+                "freedict_es_en",
+                "wiktextract_en_es_translation_table"
+              ],
+              "source_match_text": "low adverb sense: close to the ground | close to the ground | low adverb sense: close to the ground | close to the ground | close to the ground | close to the ground | at a lower frequency | with a low voice or sound",
+              "target_lemma_in_source_match_text": false
             },
             {
               "sense_id": "en-es:sentence-veto:low:bajo:deca-do:shadow",
               "relation_type": "shadow_candidate",
               "matched": false,
               "canonical_pos": "adjective",
-              "target_lemma": "decaído"
+              "target_lemma": "decaído",
+              "support_sources": [
+                "wiktionary_en_es",
+                "wiktextract_en_es_translation_table"
+              ],
+              "source_match_text": "low adjective sense: depressed, sad | depressed, sad | low adjective sense: depressed, sad | depressed, sad | depressed, sad | depressed, sad",
+              "target_lemma_in_source_match_text": false
             }
           ]
         },
@@ -541,21 +600,40 @@
               "relation_type": "anchor_cue",
               "matched": false,
               "canonical_pos": "noun",
-              "target_lemma": "parte"
+              "target_lemma": "parte",
+              "support_sources": [
+                "wiktionary_en_es",
+                "freedict_es_en",
+                "wiktextract_en_es_translation_table"
+              ],
+              "source_match_text": "part noun sense: fraction of a whole | fraction of a whole | part noun sense: fraction of a whole | fraction of a whole | fraction of a whole | fraction of a whole | group inside a larger group",
+              "target_lemma_in_source_match_text": false
             },
             {
               "sense_id": "en-es:sentence-veto:part:parte:papel:shadow",
               "relation_type": "shadow_candidate",
               "matched": false,
               "canonical_pos": "noun",
-              "target_lemma": "papel"
+              "target_lemma": "papel",
+              "support_sources": [
+                "wiktionary_en_es",
+                "wiktextract_en_es_translation_table"
+              ],
+              "source_match_text": "part noun sense: position or role, especially in a play | position or role, especially in a play | part noun sense: position or role, especially in a play | position or role, especially in a play | position or role, especially in a play | position or role, especially in a play",
+              "target_lemma_in_source_match_text": false
             },
             {
               "sense_id": "en-es:sentence-veto:part:parte:repartir:shadow",
               "relation_type": "shadow_candidate",
               "matched": false,
               "canonical_pos": "verb",
-              "target_lemma": "repartir"
+              "target_lemma": "repartir",
+              "support_sources": [
+                "wiktionary_en_es",
+                "wiktextract_en_es_translation_table"
+              ],
+              "source_match_text": "part verb sense: to divide in two | to divide in two | part verb sense: to divide in two | to divide in two | to divide in two | to divide in two",
+              "target_lemma_in_source_match_text": false
             }
           ]
         },
@@ -573,14 +651,27 @@
               "relation_type": "anchor_cue",
               "matched": false,
               "canonical_pos": "noun",
-              "target_lemma": "talento"
+              "target_lemma": "talento",
+              "support_sources": [
+                "wiktionary_en_es",
+                "wiktextract_en_es_translation_table"
+              ],
+              "source_match_text": "feel noun sense: intuitive ability | intuitive ability | feel noun sense: intuitive ability | intuitive ability | intuitive ability | intuitive ability",
+              "target_lemma_in_source_match_text": false
             },
             {
               "sense_id": "en-es:sentence-veto:feel:talento:sentir:shadow",
               "relation_type": "shadow_candidate",
               "matched": false,
               "canonical_pos": "verb",
-              "target_lemma": "sentir"
+              "target_lemma": "sentir",
+              "support_sources": [
+                "wiktionary_en_es",
+                "freedict_es_en",
+                "wiktextract_en_es_translation_table"
+              ],
+              "source_match_text": "feel verb sense: transitive: to sense by touch | transitive: to sense by touch | feel verb sense: transitive: to sense by touch | transitive: to sense by touch | transitive: to sense by touch | transitive: to sense by touch | transitive: to experience an emotion or other mental state about | transitive: to think or believe",
+              "target_lemma_in_source_match_text": false
             }
           ]
         },
@@ -598,21 +689,39 @@
               "relation_type": "anchor_cue",
               "matched": false,
               "canonical_pos": "noun",
-              "target_lemma": "quietud"
+              "target_lemma": "quietud",
+              "support_sources": [
+                "wiktionary_en_es",
+                "wiktextract_en_es_translation_table"
+              ],
+              "source_match_text": "still noun sense: period of calm or silence | period of calm or silence | still noun sense: period of calm or silence | period of calm or silence | period of calm or silence | period of calm or silence",
+              "target_lemma_in_source_match_text": false
             },
             {
               "sense_id": "en-es:sentence-veto:still:quietud:alambique:shadow",
               "relation_type": "shadow_candidate",
               "matched": false,
               "canonical_pos": "noun",
-              "target_lemma": "alambique"
+              "target_lemma": "alambique",
+              "support_sources": [
+                "wiktionary_en_es",
+                "wiktextract_en_es_translation_table"
+              ],
+              "source_match_text": "still noun sense: a device for distilling liquids | a device for distilling liquids | still noun sense: a device for distilling liquids | a device for distilling liquids | a device for distilling liquids | a device for distilling liquids",
+              "target_lemma_in_source_match_text": false
             },
             {
               "sense_id": "en-es:sentence-veto:still:quietud:aquietar:shadow",
               "relation_type": "shadow_candidate",
               "matched": false,
               "canonical_pos": "verb",
-              "target_lemma": "aquietar"
+              "target_lemma": "aquietar",
+              "support_sources": [
+                "wiktionary_en_es",
+                "wiktextract_en_es_translation_table"
+              ],
+              "source_match_text": "still verb sense: to calm down | to calm down | still verb sense: to calm down | to calm down | to calm down | to calm down",
+              "target_lemma_in_source_match_text": false
             }
           ]
         },
@@ -630,14 +739,27 @@
               "relation_type": "anchor_cue",
               "matched": false,
               "canonical_pos": "noun",
-              "target_lemma": "bajista"
+              "target_lemma": "bajista",
+              "support_sources": [
+                "wiktionary_en_es",
+                "wiktionary_es_en",
+                "wiktextract_en_es_translation_table"
+              ],
+              "source_match_text": "bear noun sense: investor who sells in anticipation of falling prices | investor who sells in anticipation of falling prices | bear noun sense: investor who sells in anticipation of falling prices | investor who sells in anticipation of falling prices | investor who sells in anticipation of falling prices | investor who sells in anticipation of falling prices",
+              "target_lemma_in_source_match_text": false
             },
             {
               "sense_id": "en-es:sentence-veto:bear:bajista:llevar:shadow",
               "relation_type": "shadow_candidate",
               "matched": false,
               "canonical_pos": "verb",
-              "target_lemma": "llevar"
+              "target_lemma": "llevar",
+              "support_sources": [
+                "wiktionary_en_es",
+                "wiktextract_en_es_translation_table"
+              ],
+              "source_match_text": "bear verb sense: to carry | to carry | bear verb sense: to carry | to carry | to carry | to carry | to be equipped with",
+              "target_lemma_in_source_match_text": false
             }
           ]
         },
@@ -655,21 +777,40 @@
               "relation_type": "anchor_cue",
               "matched": false,
               "canonical_pos": "noun",
-              "target_lemma": "meta"
+              "target_lemma": "meta",
+              "support_sources": [
+                "wiktionary_en_es",
+                "wiktextract_en_es_translation_table"
+              ],
+              "source_match_text": "finish noun sense: end | end | finish noun sense: end | end | end | end",
+              "target_lemma_in_source_match_text": false
             },
             {
               "sense_id": "en-es:sentence-veto:finish:meta:acabado:shadow",
               "relation_type": "shadow_candidate",
               "matched": false,
               "canonical_pos": "noun",
-              "target_lemma": "acabado"
+              "target_lemma": "acabado",
+              "support_sources": [
+                "wiktionary_en_es",
+                "wiktextract_en_es_translation_table"
+              ],
+              "source_match_text": "finish noun sense: protective coating | protective coating | finish noun sense: protective coating | protective coating | protective coating | protective coating",
+              "target_lemma_in_source_match_text": false
             },
             {
               "sense_id": "en-es:sentence-veto:finish:meta:acabar:shadow",
               "relation_type": "shadow_candidate",
               "matched": false,
               "canonical_pos": "verb",
-              "target_lemma": "acabar"
+              "target_lemma": "acabar",
+              "support_sources": [
+                "wiktionary_en_es",
+                "freedict_es_en",
+                "wiktextract_en_es_translation_table"
+              ],
+              "source_match_text": "finish verb sense: to complete | to complete | finish verb sense: to complete | to complete | to complete | to complete | to come to an end",
+              "target_lemma_in_source_match_text": false
             }
           ]
         },
@@ -687,14 +828,27 @@
               "relation_type": "anchor_cue",
               "matched": false,
               "canonical_pos": "noun",
-              "target_lemma": "lanzamiento"
+              "target_lemma": "lanzamiento",
+              "support_sources": [
+                "wiktionary_en_es",
+                "wiktextract_en_es_translation_table"
+              ],
+              "source_match_text": "throw noun sense: flight of a thrown object | flight of a thrown object | throw noun sense: flight of a thrown object | flight of a thrown object | flight of a thrown object | flight of a thrown object",
+              "target_lemma_in_source_match_text": false
             },
             {
               "sense_id": "en-es:sentence-veto:throw:lanzamiento:lanzar:shadow",
               "relation_type": "shadow_candidate",
               "matched": false,
               "canonical_pos": "verb",
-              "target_lemma": "lanzar"
+              "target_lemma": "lanzar",
+              "support_sources": [
+                "wiktionary_en_es",
+                "freedict_es_en",
+                "wiktextract_en_es_translation_table"
+              ],
+              "source_match_text": "throw verb sense: to cause an object to move rapidly through the air | to cause an object to move rapidly through the air | throw verb sense: to cause an object to move rapidly through the air | to cause an object to move rapidly through the air | to cause an object to move rapidly through the air | to cause an object to move rapidly through the air",
+              "target_lemma_in_source_match_text": false
             }
           ]
         },
@@ -712,14 +866,27 @@
               "relation_type": "anchor_cue",
               "matched": false,
               "canonical_pos": "adjective",
-              "target_lemma": "disgustado"
+              "target_lemma": "disgustado",
+              "support_sources": [
+                "wiktionary_en_es",
+                "wiktionary_es_en",
+                "wiktextract_en_es_translation_table"
+              ],
+              "source_match_text": "upset adjective sense: angry, distressed, unhappy | angry, distressed, unhappy | upset adjective sense: angry, distressed, unhappy | angry, distressed, unhappy | angry, distressed, unhappy | angry, distressed, unhappy",
+              "target_lemma_in_source_match_text": false
             },
             {
               "sense_id": "en-es:sentence-veto:upset:disgustado:trastrocar:shadow",
               "relation_type": "shadow_candidate",
               "matched": false,
               "canonical_pos": "verb",
-              "target_lemma": "trastrocar"
+              "target_lemma": "trastrocar",
+              "support_sources": [
+                "wiktionary_en_es",
+                "wiktextract_en_es_translation_table"
+              ],
+              "source_match_text": "upset verb sense: disturb, disrupt, unfavorably alter | disturb, disrupt, unfavorably alter | upset verb sense: disturb, disrupt, unfavorably alter | disturb, disrupt, unfavorably alter | disturb, disrupt, unfavorably alter | disturb, disrupt, unfavorably alter",
+              "target_lemma_in_source_match_text": false
             }
           ]
         },
@@ -737,21 +904,40 @@
               "relation_type": "anchor_cue",
               "matched": false,
               "canonical_pos": "noun",
-              "target_lemma": "trozo"
+              "target_lemma": "trozo",
+              "support_sources": [
+                "wiktionary_en_es",
+                "wiktionary_es_en",
+                "wiktextract_en_es_translation_table"
+              ],
+              "source_match_text": "piece noun sense: part of a larger whole | part of a larger whole | piece noun sense: part of a larger whole | part of a larger whole | part of a larger whole | part of a larger whole",
+              "target_lemma_in_source_match_text": false
             },
             {
               "sense_id": "en-es:sentence-veto:piece:trozo:ficha:shadow",
               "relation_type": "shadow_candidate",
               "matched": false,
               "canonical_pos": "noun",
-              "target_lemma": "ficha"
+              "target_lemma": "ficha",
+              "support_sources": [
+                "wiktionary_en_es",
+                "wiktextract_en_es_translation_table"
+              ],
+              "source_match_text": "piece noun sense: chess: figure other than pawn; similar counter in other games | chess: figure other than pawn; similar counter in other games | piece noun sense: chess: figure other than pawn; similar counter in other games | chess: figure other than pawn; similar counter in other games | chess: figure other than pawn; similar counter in other games | chess: figure other than pawn; similar counter in other games",
+              "target_lemma_in_source_match_text": false
             },
             {
               "sense_id": "en-es:sentence-veto:piece:trozo:montar:shadow",
               "relation_type": "shadow_candidate",
               "matched": false,
               "canonical_pos": "verb",
-              "target_lemma": "montar"
+              "target_lemma": "montar",
+              "support_sources": [
+                "wiktionary_en_es",
+                "wiktextract_en_es_translation_table"
+              ],
+              "source_match_text": "piece verb sense: to create or construct by assembling parts | to create or construct by assembling parts | piece verb sense: to create or construct by assembling parts | to create or construct by assembling parts | to create or construct by assembling parts | to create or construct by assembling parts",
+              "target_lemma_in_source_match_text": false
             }
           ]
         },
@@ -769,14 +955,26 @@
               "relation_type": "anchor_cue",
               "matched": false,
               "canonical_pos": "adjective",
-              "target_lemma": "pastel"
+              "target_lemma": "pastel",
+              "support_sources": [
+                "wiktionary_en_es",
+                "wiktextract_en_es_translation_table"
+              ],
+              "source_match_text": "fair adjective sense: light in color or pale | light in color or pale | fair adjective sense: light in color or pale | light in color or pale | light in color or pale | light in color or pale",
+              "target_lemma_in_source_match_text": false
             },
             {
               "sense_id": "en-es:sentence-veto:fair:pastel:feria-de-muestras:shadow",
               "relation_type": "shadow_candidate",
               "matched": false,
               "canonical_pos": "noun",
-              "target_lemma": "feria de muestras"
+              "target_lemma": "feria de muestras",
+              "support_sources": [
+                "wiktionary_en_es",
+                "wiktextract_en_es_translation_table"
+              ],
+              "source_match_text": "fair noun sense: professional event, trade fair | professional event, trade fair | fair noun sense: professional event, trade fair | professional event, trade fair | professional event, trade fair | professional event, trade fair",
+              "target_lemma_in_source_match_text": false
             }
           ]
         },
@@ -794,14 +992,26 @@
               "relation_type": "anchor_cue",
               "matched": false,
               "canonical_pos": "noun",
-              "target_lemma": "espectáculo"
+              "target_lemma": "espectáculo",
+              "support_sources": [
+                "wiktionary_en_es",
+                "wiktextract_en_es_translation_table"
+              ],
+              "source_match_text": "show noun sense: entertainment | entertainment | show noun sense: entertainment | entertainment | entertainment | entertainment",
+              "target_lemma_in_source_match_text": false
             },
             {
               "sense_id": "en-es:sentence-veto:show:espect-culo:demostrar:shadow",
               "relation_type": "shadow_candidate",
               "matched": false,
               "canonical_pos": "verb",
-              "target_lemma": "demostrar"
+              "target_lemma": "demostrar",
+              "support_sources": [
+                "wiktionary_en_es",
+                "wiktextract_en_es_translation_table"
+              ],
+              "source_match_text": "show verb sense: to indicate (a fact) to be true | to indicate (a fact) to be true | show verb sense: to indicate (a fact) to be true | to indicate (a fact) to be true | to indicate (a fact) to be true | to indicate (a fact) to be true",
+              "target_lemma_in_source_match_text": false
             }
           ]
         },
@@ -819,21 +1029,40 @@
               "relation_type": "anchor_cue",
               "matched": false,
               "canonical_pos": "noun",
-              "target_lemma": "avance"
+              "target_lemma": "avance",
+              "support_sources": [
+                "wiktionary_en_es",
+                "wiktionary_es_en",
+                "wiktextract_en_es_translation_table"
+              ],
+              "source_match_text": "advance noun sense: forward move | forward move | advance noun sense: forward move | forward move | forward move | forward move | amount of money",
+              "target_lemma_in_source_match_text": false
             },
             {
               "sense_id": "en-es:sentence-veto:advance:avance:adelanto:shadow",
               "relation_type": "shadow_candidate",
               "matched": false,
               "canonical_pos": "noun",
-              "target_lemma": "adelanto"
+              "target_lemma": "adelanto",
+              "support_sources": [
+                "wiktionary_en_es",
+                "wiktextract_en_es_translation_table"
+              ],
+              "source_match_text": "advance noun sense: amount of money | amount of money | advance noun sense: amount of money | amount of money | amount of money | amount of money",
+              "target_lemma_in_source_match_text": false
             },
             {
               "sense_id": "en-es:sentence-veto:advance:avance:avanzar:shadow",
               "relation_type": "shadow_candidate",
               "matched": false,
               "canonical_pos": "verb",
-              "target_lemma": "avanzar"
+              "target_lemma": "avanzar",
+              "support_sources": [
+                "wiktionary_en_es",
+                "wiktextract_en_es_translation_table"
+              ],
+              "source_match_text": "advance verb sense: to bring forward; to move towards the front; to make to go on | to bring forward; to move towards the front; to make to go on | advance verb sense: to bring forward; to move towards the front; to make to go on | to bring forward; to move towards the front; to make to go on | to bring forward; to move towards the front; to make to go on | to bring forward; to move towards the front; to make to go on",
+              "target_lemma_in_source_match_text": false
             }
           ]
         },
@@ -851,14 +1080,28 @@
               "relation_type": "anchor_cue",
               "matched": false,
               "canonical_pos": "adjective",
-              "target_lemma": "rancio"
+              "target_lemma": "rancio",
+              "support_sources": [
+                "wiktionary_en_es",
+                "wiktextract_en_es_translation_table"
+              ],
+              "source_match_text": "rank adjective sense: having a very strong and bad odor | having a very strong and bad odor | rank adjective sense: having a very strong and bad odor | having a very strong and bad odor | having a very strong and bad odor | having a very strong and bad odor",
+              "target_lemma_in_source_match_text": false
             },
             {
               "sense_id": "en-es:sentence-veto:rank:rancio:fila:shadow",
               "relation_type": "shadow_candidate",
               "matched": false,
               "canonical_pos": "noun",
-              "target_lemma": "fila"
+              "target_lemma": "fila",
+              "support_sources": [
+                "wiktionary_en_es",
+                "wiktionary_es_en",
+                "freedict_es_en",
+                "wiktextract_en_es_translation_table"
+              ],
+              "source_match_text": "rank noun sense: row of people or things organized in a grid pattern | row of people or things organized in a grid pattern | rank noun sense: row of people or things organized in a grid pattern | row of people or things organized in a grid pattern | row of people or things organized in a grid pattern | row of people or things organized in a grid pattern | chess: one of the horizontal lines of squares",
+              "target_lemma_in_source_match_text": false
             }
           ]
         }

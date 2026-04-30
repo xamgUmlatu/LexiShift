@@ -146,6 +146,36 @@ def render_authorization_frame_evidence_markdown(report: Mapping[str, object]) -
             )
             + " |"
         )
+    lines.extend(
+        [
+            "",
+            "## Source Trigger Audit",
+            "",
+            "| Family | Sense | Relation | Matched | Target In Source | Source Text |",
+            "| --- | --- | --- | --- | --- | --- |",
+        ]
+    )
+    for row in report.get("family_rows", ()):
+        if not isinstance(row, Mapping):
+            continue
+        family_id = str(row.get("family_id") or "").strip()
+        for sense_row in row.get("sense_rows", ()):
+            if not isinstance(sense_row, Mapping):
+                continue
+            lines.append(
+                "| "
+                + " | ".join(
+                    [
+                        f"`{family_id}`",
+                        f"`{sense_row.get('sense_id', '')}`",
+                        f"`{sense_row.get('relation_type', '')}`",
+                        f"`{str(bool(sense_row.get('matched'))).lower()}`",
+                        f"`{str(bool(sense_row.get('target_lemma_in_source_match_text'))).lower()}`",
+                        _markdown_cell(_snippet(sense_row.get("source_match_text"))),
+                    ]
+                )
+                + " |"
+            )
     lines.extend(["", "## Limitations", ""])
     lines.extend(f"- `{item}`" for item in report.get("limitations", ()))
     return "\n".join(lines) + "\n"
@@ -211,7 +241,14 @@ def _family_items(
     for relation_type, sense in senses:
         match_text = _authorization_match_text(sense)
         matched = bool(AUTHORIZATION_RE.search(match_text))
-        sense_rows.append(_sense_row(sense, relation_type=relation_type, matched=matched))
+        sense_rows.append(
+            _sense_row(
+                sense,
+                relation_type=relation_type,
+                matched=matched,
+                source_match_text=match_text,
+            )
+        )
         if not matched:
             continue
         for index, evidence_text in enumerate(AUTHORIZATION_TEMPLATES, start=1):
@@ -305,13 +342,21 @@ def _sense_row(
     *,
     relation_type: str,
     matched: bool,
+    source_match_text: str,
 ) -> dict[str, object]:
+    target_lemma = str(sense.get("target_lemma") or "").strip()
+    metadata = _as_mapping(sense.get("metadata"))
     return {
         "sense_id": _sense_id(sense),
         "relation_type": relation_type,
         "matched": bool(matched),
         "canonical_pos": str(sense.get("canonical_pos") or "").strip(),
-        "target_lemma": str(sense.get("target_lemma") or "").strip(),
+        "target_lemma": target_lemma,
+        "support_sources": _text_list(metadata.get("support_sources")),
+        "source_match_text": source_match_text,
+        "target_lemma_in_source_match_text": bool(
+            target_lemma and target_lemma.lower() in source_match_text.lower()
+        ),
     }
 
 
@@ -391,6 +436,17 @@ def _text_list(value: object) -> list[str]:
         return [str(item).strip() for item in value if str(item or "").strip()]
     text = str(value or "").strip()
     return [text] if text else []
+
+
+def _snippet(value: object, *, limit: int = 120) -> str:
+    text = " ".join(str(value or "").split())
+    if len(text) <= limit:
+        return text
+    return text[: limit - 3].rstrip() + "..."
+
+
+def _markdown_cell(value: object) -> str:
+    return str(value or "").replace("|", "\\|")
 
 
 def main() -> int:

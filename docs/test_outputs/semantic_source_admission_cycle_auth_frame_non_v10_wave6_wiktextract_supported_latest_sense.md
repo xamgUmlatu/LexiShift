@@ -1,7 +1,7 @@
 # en-es LLM Example-Frame Sense-Discrimination Audit
 
 - Status: `ok`
-- Generated: `2026-04-30T03:36:15Z`
+- Generated: `2026-04-30T03:42:18Z`
 - Batch: `en-es:wordnet-translation-alt-phrase-plus-auth-frame:non-v10-wave6-wiktextract-supported-v1:cycle:sense-admitted`
 - Admitted batch: `en-es:wordnet-translation-alt-phrase-plus-auth-frame:non-v10-wave6-wiktextract-supported-v1:cycle:sense-admitted:sense-admitted`
 

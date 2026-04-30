@@ -42,7 +42,7 @@
     {
       "action": "Audit authorization-frame evidence for source-triggered class behavior rather than browser-case or target-lemma shaping.",
       "action_id": "source_trigger_overfit_audit",
-      "evidence_needed": "Rows showing the source gloss or translation-sense trigger that allowed each emitted authorization frame, plus negative examples.",
+      "evidence_needed": "Authorization-frame report now records matched and unmatched source-trigger text per selected sense, plus target-lemma-in-source flags.",
       "pass_id": "overfit_leakage",
       "priority": "P1",
       "promotion_impact": "Keeps the current candidate from relying on case-shaped templates.",
@@ -51,8 +51,8 @@
         "auth_frame_admission_report",
         "auth_frame_failure_mining"
       ],
-      "status": "queued",
-      "validation": "Run adapter tests, source-admission leakage reports, and targeted grep/audit checks for browser sentence text and Spanish target lemmas."
+      "status": "done",
+      "validation": "Adapter tests passed; auth-frame branch was regenerated; targeted leakage audit found 0 heldout sentence or Spanish target-lemma violations across 54 heldout sentences."
     },
     {
       "action": "Convert the current candidate assumptions into explicit tested, untested, and rejected rows.",
@@ -921,24 +921,9 @@
     }
   ],
   "entry_count": 49,
-  "generated_at": "2026-04-30T03:39:37Z",
+  "generated_at": "2026-04-30T03:43:50Z",
   "issues": [],
   "next_passes": [
-    {
-      "cracks_to_watch": [
-        "latest artifact pointing at stale source input",
-        "discovery rows blended into locked eval",
-        "missing input hashes or unclear dataset ids"
-      ],
-      "lens": "Separate frozen inputs, generated source rows, latest reports, and historical outputs.",
-      "pass_id": "data_artifacts",
-      "primary_outputs": [
-        "current candidate rerun inputs",
-        "control and comparator artifacts",
-        "artifact scope and breadth notes"
-      ],
-      "state": "in_progress"
-    },
     {
       "cracks_to_watch": [
         "deleting artifacts before preserving their lesson",
@@ -979,48 +964,16 @@
         "current candidate row",
         "current control row",
         "promotion blocker list"
-      ],
-      "state": "queued_next"
-    },
-    {
-      "cracks_to_watch": [
-        "browser sentence text inside evidence rows",
-        "Spanish target lemma leakage",
-        "threshold selected on the same heldout suite used for promotion",
-        "templates shaped to one case instead of source class"
-      ],
-      "lens": "Search specifically for test-shaped behavior and leakage.",
-      "pass_id": "overfit_leakage",
-      "primary_outputs": [
-        "candidate overfit risk row",
-        "case-shaped template audit",
-        "negative control requirements"
       ],
       "state": "queued_next"
     }
   ],
   "pass_count": 7,
   "pass_state_counts": {
-    "in_progress": 1,
-    "parked": 2,
-    "queued_next": 4
+    "parked": 4,
+    "queued_next": 3
   },
   "passes": [
-    {
-      "cracks_to_watch": [
-        "latest artifact pointing at stale source input",
-        "discovery rows blended into locked eval",
-        "missing input hashes or unclear dataset ids"
-      ],
-      "lens": "Separate frozen inputs, generated source rows, latest reports, and historical outputs.",
-      "pass_id": "data_artifacts",
-      "primary_outputs": [
-        "current candidate rerun inputs",
-        "control and comparator artifacts",
-        "artifact scope and breadth notes"
-      ],
-      "state": "in_progress"
-    },
     {
       "cracks_to_watch": [
         "deleting artifacts before preserving their lesson",
@@ -1066,6 +1019,21 @@
     },
     {
       "cracks_to_watch": [
+        "latest artifact pointing at stale source input",
+        "discovery rows blended into locked eval",
+        "missing input hashes or unclear dataset ids"
+      ],
+      "lens": "Separate frozen inputs, generated source rows, latest reports, and historical outputs.",
+      "pass_id": "data_artifacts",
+      "primary_outputs": [
+        "current candidate rerun inputs",
+        "control and comparator artifacts",
+        "artifact scope and breadth notes"
+      ],
+      "state": "parked"
+    },
+    {
+      "cracks_to_watch": [
         "browser sentence text inside evidence rows",
         "Spanish target lemma leakage",
         "threshold selected on the same heldout suite used for promotion",
@@ -1078,7 +1046,7 @@
         "case-shaped template audit",
         "negative control requirements"
       ],
-      "state": "queued_next"
+      "state": "parked"
     },
     {
       "cracks_to_watch": [

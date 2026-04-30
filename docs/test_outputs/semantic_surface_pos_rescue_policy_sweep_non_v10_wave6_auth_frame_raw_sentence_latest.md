@@ -2,7 +2,7 @@
 
 - Status: `ok`
 - Decision: `rescue_policy_candidate_found`
-- Generated: `2026-04-30T03:36:45Z`
+- Generated: `2026-04-30T03:42:53Z`
 - Recommended policy: `m=0;p=0.02;rescue_active=0.52;noun_lead=none;modifier_lead=0.02`
 - Passing policies: `12`
 

@@ -2,7 +2,7 @@
 
 - Status: `review`
 - Decision: `heldout_review`
-- Generated: `2026-04-30T03:36:32Z`
+- Generated: `2026-04-30T03:42:35Z`
 - Base dataset: `en_es_source_non_v10_wave6_anypos_unsupported_upper_bound_selected_v1`
 - Held-out dataset: `en_es_source_non_v10_wave6_wiktextract_supported_phrase_cases_v1`
 - Case scope: `non_v10_wave6_wiktextract_supported_phrase_no_winner`
