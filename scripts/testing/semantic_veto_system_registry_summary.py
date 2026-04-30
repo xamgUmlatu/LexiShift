@@ -182,6 +182,7 @@ def render_markdown(report: Mapping[str, object]) -> str:
         f"`{result.get('scorer_backed_policy_harmful_replacements', '')}` harmful / "
         f"`{result.get('scorer_backed_policy_false_abstains', '')}` false abstains / "
         f"`{result.get('scorer_backed_policy_cases', '')}` cases",
+        f"- Next breadth gate: `{result.get('next_breadth_gate', '')}`",
         "",
         "## Audit",
         "",

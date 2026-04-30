@@ -74,17 +74,18 @@
     {
       "action": "Define the next breadth test before tuning the current 16-family wave further.",
       "action_id": "breadth_expansion_gate",
-      "evidence_needed": "A named next wave or expanded locked heldout suite with source-detectable semantic classes beyond the current authorization-frame case.",
+      "evidence_needed": "Defined wave7_source_class_breadth_v1 with required exclusions, source-detectable class buckets, heldout floor, acceptance evidence, and stop rules.",
       "pass_id": "best_candidate",
       "priority": "P2",
-      "promotion_impact": "Moves from seed-lane quality to broader semantic-veto confidence.",
+      "promotion_impact": "Prevents more tuning on the current 16-family wave before the next breadth lane is locked.",
       "source_artifacts": [
         "auth_frame_failure_mining",
         "wave6_wiktextract_dataset",
-        "non_v10_wave_admission_sweep_harness"
+        "non_v10_wave_admission_sweep_harness",
+        "breadth_expansion_gate_plan"
       ],
-      "status": "queued",
-      "validation": "Run source admission, active/shadow heldout, phrase/no-winner heldout, failure mining, and the registry audit for the expanded lane."
+      "status": "done",
+      "validation": "Regenerate the registry summary, run doc-reference checks, and keep the gate explicitly marked as definition-only until the expanded lane is executed."
     }
   ],
   "component_counts": {
@@ -92,7 +93,7 @@
     "decision_research": 7,
     "diagnostics": 3,
     "evaluation_data": 3,
-    "process_governance": 3,
+    "process_governance": 4,
     "runtime_path": 16,
     "source_admission": 8
   },
@@ -106,6 +107,7 @@
       "active_shadow_false_abstains": 0,
       "active_shadow_harmful_replacements": 0,
       "active_shadow_replace_recall": 1.0,
+      "next_breadth_gate": "wave7_source_class_breadth_v1",
       "phrase_no_winner_cases": 16,
       "rescue_replay_passing_policy_count": 12,
       "scorer_backed_policy_active_rescues": 3,
@@ -118,7 +120,7 @@
     "promotion_blockers": [
       "bounded to 16 families and 54 heldout cases",
       "scorer-backed confirmation is still offline and not a runtime policy change",
-      "broader semantic-class adapter breadth is untested",
+      "wave7_source_class_breadth_v1 has not been executed",
       "phrase/no-winner safety must stay visible separately from active/shadow scoring"
     ],
     "runtime_policy_change": "none"
@@ -744,6 +746,21 @@
       ]
     },
     {
+      "artifact_id": "breadth_expansion_gate_plan",
+      "component": "process_governance",
+      "current_use": "Next breadth gate definition for the current research-only candidate.",
+      "next_audit_pass": "assumptions",
+      "owner_doc": "docs/developer/documentation_governance.md",
+      "path": "docs/rulegen/semantic_veto_breadth_expansion_gate.md",
+      "risk": "A gate definition can be mistaken for executed breadth evidence if the wave7 artifacts are not produced.",
+      "role": "Defines the next wave7 source-class breadth test before further tuning the current wave6 candidate.",
+      "state": "current_reference",
+      "title": "Semantic veto breadth expansion gate",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_system_registry_latest.md"
+      ]
+    },
+    {
       "artifact_id": "current_wave6_rerun_chain_runbook",
       "component": "process_governance",
       "current_use": "Fresh-checkout reproducibility reference for the current data-artifact lane.",
@@ -958,8 +975,8 @@
       ]
     }
   ],
-  "entry_count": 51,
-  "generated_at": "2026-04-30T03:52:20Z",
+  "entry_count": 52,
+  "generated_at": "2026-04-30T03:56:17Z",
   "issues": [],
   "next_passes": [
     {
@@ -989,27 +1006,12 @@
         "queued tests for unproven assumptions"
       ],
       "state": "queued_next"
-    },
-    {
-      "cracks_to_watch": [
-        "multiple candidates described as current",
-        "phrase/no-winner behavior hidden inside active/shadow metrics",
-        "promotion criteria moving after results are known"
-      ],
-      "lens": "Reduce the project to one current candidate, one control, one blocker list, and one next breadth test.",
-      "pass_id": "best_candidate",
-      "primary_outputs": [
-        "current candidate row",
-        "current control row",
-        "promotion blocker list"
-      ],
-      "state": "queued_next"
     }
   ],
   "pass_count": 7,
   "pass_state_counts": {
-    "parked": 4,
-    "queued_next": 3
+    "parked": 5,
+    "queued_next": 2
   },
   "passes": [
     {
@@ -1053,7 +1055,7 @@
         "current control row",
         "promotion blocker list"
       ],
-      "state": "queued_next"
+      "state": "parked"
     },
     {
       "cracks_to_watch": [
@@ -1695,6 +1697,21 @@
       ]
     },
     {
+      "artifact_id": "breadth_expansion_gate_plan",
+      "component": "process_governance",
+      "current_use": "Next breadth gate definition for the current research-only candidate.",
+      "next_audit_pass": "assumptions",
+      "owner_doc": "docs/developer/documentation_governance.md",
+      "path": "docs/rulegen/semantic_veto_breadth_expansion_gate.md",
+      "risk": "A gate definition can be mistaken for executed breadth evidence if the wave7 artifacts are not produced.",
+      "role": "Defines the next wave7 source-class breadth test before further tuning the current wave6 candidate.",
+      "state": "current_reference",
+      "title": "Semantic veto breadth expansion gate",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_system_registry_latest.md"
+      ]
+    },
+    {
       "artifact_id": "current_wave6_rerun_chain_runbook",
       "component": "process_governance",
       "current_use": "Fresh-checkout reproducibility reference for the current data-artifact lane.",
@@ -1912,7 +1929,7 @@
   "schema_version": 1,
   "state_counts": {
     "current_candidate": 5,
-    "current_reference": 5,
+    "current_reference": 6,
     "current_research": 13,
     "current_runtime": 16,
     "diagnostic_only": 1,

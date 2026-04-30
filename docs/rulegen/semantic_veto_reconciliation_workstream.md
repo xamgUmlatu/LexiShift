@@ -153,6 +153,10 @@ Source-admission and evidence harnesses:
 
 Diagnostics and ledgers:
 
+- `docs/rulegen/semantic_veto_breadth_expansion_gate.md`: defines the next
+  `wave7_source_class_breadth_v1` breadth test, including exclusions, class
+  buckets, acceptance artifacts, and stop rules; it is definition-only until the
+  wave7 artifacts exist.
 - `docs/test_inputs/semantic_decision_research_lanes_en_es.json` plus
   `scripts/testing/semantic_decision_research_lanes_summary.py`: tracks research
   lane state without collapsing everything into a generic done/completed state.
@@ -236,6 +240,10 @@ Current highest-priority actions:
   policy passes scorer-backed offline validation over the current 54-row suite.
 - `P1` `source_trigger_overfit_audit`: verify authorization-frame evidence is
   source-triggered class behavior, not browser-case or target-lemma shaping.
+- `P2` `breadth_expansion_gate`: done; the next breadth test is
+  `wave7_source_class_breadth_v1`.
+- `P2` `assumption_ledger_seed`: next; convert current candidate assumptions
+  into explicit tested, untested, and rejected rows.
 
 ## Next-Agent Handoff
 
@@ -253,9 +261,12 @@ Current state:
 - Parked pass: `data_artifacts`; the current candidate inputs, generated
   reports, control artifacts, rerun order, and scorer-backed rescue validation
   artifact are explicit.
-- Action ledger: active; start with `breadth_expansion_gate`.
+- Parked pass: `best_candidate`; the current candidate, control, remaining
+  blockers, and next breadth gate are explicit.
+- Action ledger: active; start with `assumption_ledger_seed`.
 - Current candidate remains research-only:
   `wave6_auth_frame_raw_sentence_surface_pos_rescue`.
+- Next breadth gate: `wave7_source_class_breadth_v1`.
 - Runtime policy change: none.
 - Registry audit status: `ok`.
 
@@ -268,8 +279,9 @@ Read in this order:
 
 First task:
 
-- Continue the `best_candidate` pass by defining the next breadth test before
-  tuning the current 16-family wave further.
+- Continue the `assumptions` pass by turning raw-sentence context,
+  phrase-prototype margin, source-triggered authorization frames, and
+  rescue-gate constraints into explicit evidence-linked rows.
 - Keep action items updated as cracks are discovered or resolved.
 - Keep durable inputs, generated evidence, control artifacts, and local
   uncommitted experiment outputs separate.
