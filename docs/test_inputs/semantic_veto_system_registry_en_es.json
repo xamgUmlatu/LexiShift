@@ -116,7 +116,7 @@
     },
     {
       "pass_id": "archive_consolidation",
-      "state": "queued_next",
+      "state": "parked",
       "lens": "Demote or label old artifacts after surviving value is migrated.",
       "primary_outputs": [
         "historical_reference and superseded rows",
@@ -282,19 +282,44 @@
     {
       "action_id": "archive_consolidation_triage",
       "priority": "P2",
-      "status": "queued",
+      "status": "done",
       "pass_id": "archive_consolidation",
       "source_artifacts": [
         "semantic_veto_reconciliation_workstream",
         "semantic_veto_assumption_ledger",
+        "semantic_veto_archive_consolidation_ledger",
         "decision_research_lanes_ledger",
         "decision_rule_comparison_plan",
-        "source_admission_program_doc"
+        "source_admission_program_doc",
+        "source_reference_lane_report",
+        "wordnet_active_related_reference_lane",
+        "wave5_source_portfolio_failure_mining",
+        "wave6_wiktextract_supported_initial_validation",
+        "wave6_wiktextract_supported_initial_failure_mining",
+        "wave32_forward_only_upper_bound_probe"
       ],
       "action": "Demote or label older semantic-veto artifacts after their surviving lessons are preserved in the current registry, ledger, or workstream.",
-      "evidence_needed": "Historical_reference or superseded rows for old steering artifacts, or explicit current_reference retention for docs that still guide active work.",
-      "validation": "Regenerate the registry summary, run doc-reference checks, and confirm old latest artifacts no longer retain unqualified steering power.",
+      "evidence_needed": "Archive ledger now classifies selected source-reference, wave5, wave6 precursor, and forward-only upper-bound artifacts as historical_reference or superseded rows, while retaining methodology docs as current references.",
+      "validation": "Regenerate the registry summary, run doc-reference checks, and confirm old latest artifacts are represented as context, controls, or superseded failure baselines instead of current authority.",
       "promotion_impact": "Reduces confusion between current candidate evidence and archived research history."
+    },
+    {
+      "action_id": "wave7_source_class_breadth_execution",
+      "priority": "P1",
+      "status": "queued",
+      "pass_id": "best_candidate",
+      "source_artifacts": [
+        "breadth_expansion_gate_plan",
+        "semantic_veto_assumption_ledger",
+        "semantic_veto_archive_consolidation_ledger",
+        "auth_frame_rescue_policy_validation",
+        "auth_frame_failure_mining",
+        "wave6_wiktextract_dataset"
+      ],
+      "action": "Execute wave7_source_class_breadth_v1 before treating the current wave6 candidate as promotion-quality evidence.",
+      "evidence_needed": "Fresh inventory exclusions, selected dataset and queue, source-support audit, source-admission cycle, active/shadow validation, phrase/no-winner validation, rescue policy validation, and failure-class mining.",
+      "validation": "Run the breadth gate artifacts named in semantic_veto_breadth_expansion_gate.md, then regenerate the registry summary and doc-reference checks.",
+      "promotion_impact": "Moves the work from reconciliation into the next evidence-producing breadth gate."
     },
     {
       "action_id": "breadth_expansion_gate",
@@ -603,9 +628,9 @@
       "path": "docs/rulegen/semantic_source_admission_program.md",
       "role": "Planning and operating model for source coverage, leakage checks, sense admission, and promotion gating.",
       "owner_doc": "docs/rulegen/semantic_sentence_veto_algorithm.md",
-      "current_use": "Source-admission orientation and constraints.",
-      "risk": "Long evidence list can obscure the current best candidate.",
-      "next_audit_pass": "research_harness",
+      "current_use": "Source-admission history, operating constraints, and older source-lane lessons; current candidate authority lives in the reconciliation registry.",
+      "risk": "Older current-best and promotion-candidate language can obscure the current wave6 auth-frame candidate unless routed through the archive ledger.",
+      "next_audit_pass": "archive_consolidation",
       "verification_artifacts": [
         "scripts/testing/semantic_source_admission_cycle_en_es.py"
       ]
@@ -618,9 +643,9 @@
       "path": "docs/rulegen/semantic_decision_rule_comparison_plan.md",
       "role": "Separates final YES/NO rules from context, evidence, scorer, aggregation, and phrase experiments.",
       "owner_doc": "docs/rulegen/semantic_sentence_veto_algorithm.md",
-      "current_use": "Methodology guardrail before changing decision rules.",
-      "risk": "Can be bypassed if source work is described as decision-rule proof.",
-      "next_audit_pass": "assumptions",
+      "current_use": "Methodology guardrail before changing decision rules; not current candidate evidence by itself.",
+      "risk": "Decision-rule methodology can be misread as source-admission proof or as a current candidate claim.",
+      "next_audit_pass": "archive_consolidation",
       "verification_artifacts": [
         "docs/test_inputs/semantic_decision_research_lanes_en_es.json"
       ]
@@ -633,9 +658,9 @@
       "path": "docs/test_inputs/semantic_decision_research_lanes_en_es.json",
       "role": "Tracks research lane states without collapsing them into a generic complete state.",
       "owner_doc": "docs/rulegen/semantic_decision_rule_comparison_plan.md",
-      "current_use": "Current research-lane state ledger.",
-      "risk": "Can grow without enough component-level classification unless paired with this registry.",
-      "next_audit_pass": "research_harness",
+      "current_use": "Research-lane state ledger for decision experiments; current system truth is summarized by the reconciliation registry.",
+      "risk": "Can preserve older lane language that looks current unless paired with the system registry and archive ledger.",
+      "next_audit_pass": "archive_consolidation",
       "verification_artifacts": [
         "scripts/testing/semantic_decision_research_lanes_summary.py",
         "docs/test_outputs/semantic_decision_research_lanes_latest.md"
@@ -1120,6 +1145,112 @@
       ]
     },
     {
+      "artifact_id": "semantic_veto_archive_consolidation_ledger",
+      "title": "Semantic veto archive consolidation ledger",
+      "component": "process_governance",
+      "state": "current_reference",
+      "path": "docs/rulegen/semantic_veto_archive_consolidation.md",
+      "role": "Classifies older semantic-veto artifacts as current references, historical references, or superseded failure baselines.",
+      "owner_doc": "docs/developer/documentation_governance.md",
+      "current_use": "Archive triage ledger for preventing old latest reports from steering current candidate decisions.",
+      "risk": "Archive rows can go stale if new old artifacts are cited as current authority without being classified.",
+      "next_audit_pass": "archive_consolidation",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_system_registry_latest.md",
+        "scripts/testing/semantic_veto_system_registry_summary.py"
+      ]
+    },
+    {
+      "artifact_id": "source_reference_lane_report",
+      "title": "Semantic source reference lane report",
+      "component": "historical_or_seed",
+      "state": "historical_reference",
+      "path": "docs/test_outputs/semantic_source_reference_lane_latest.md",
+      "role": "Older frozen source-reference lane report that proved the lane-freeze and reference-check pattern.",
+      "owner_doc": "docs/rulegen/semantic_veto_archive_consolidation.md",
+      "current_use": "Historical reproducibility pattern, not current candidate evidence.",
+      "risk": "Its reference_lane_frozen result can be mistaken for current semantic-veto promotion evidence.",
+      "next_audit_pass": "archive_consolidation",
+      "verification_artifacts": [
+        "docs/rulegen/semantic_veto_archive_consolidation.md"
+      ]
+    },
+    {
+      "artifact_id": "wordnet_active_related_reference_lane",
+      "title": "WordNet active-related reference source lane",
+      "component": "historical_or_seed",
+      "state": "historical_reference",
+      "path": "docs/test_outputs/semantic_source_admission_cycle_wordnet_active_related_plant_cell_depth3_heldout_v2_policy_latest.md",
+      "role": "Older offline source-admission promotion-candidate lane for WordNet active-related evidence.",
+      "owner_doc": "docs/rulegen/semantic_veto_archive_consolidation.md",
+      "current_use": "Historical source-cycle validation context; superseded for current steering by the wave6 auth-frame candidate.",
+      "risk": "Offline promotion_candidate wording can be mistaken for runtime-ready or current-candidate status.",
+      "next_audit_pass": "archive_consolidation",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_source_reference_lane_latest.md"
+      ]
+    },
+    {
+      "artifact_id": "wave5_source_portfolio_failure_mining",
+      "title": "Wave5 source portfolio failure mining",
+      "component": "historical_or_seed",
+      "state": "historical_reference",
+      "path": "docs/test_outputs/semantic_source_failure_class_mining_non_v10_wave5_portfolio_latest.md",
+      "role": "Seed-pass wave5 portfolio and phrase-gap evidence that informed later breadth accounting.",
+      "owner_doc": "docs/rulegen/semantic_veto_archive_consolidation.md",
+      "current_use": "Historical lesson for materialized portfolios, phrase-gap tracking, and breadth-gap accounting.",
+      "risk": "Clean seed-pass language can be overread as broad proof if the same-suite phrase probe context is omitted.",
+      "next_audit_pass": "archive_consolidation",
+      "verification_artifacts": [
+        "docs/rulegen/semantic_veto_archive_consolidation.md"
+      ]
+    },
+    {
+      "artifact_id": "wave6_wiktextract_supported_initial_validation",
+      "title": "Initial wave6 Wiktextract-supported heldout validation",
+      "component": "historical_or_seed",
+      "state": "superseded",
+      "path": "docs/test_outputs/semantic_source_non_v10_wave6_wiktextract_supported_heldout_margin005_validation_latest.md",
+      "role": "Initial wave6 supported-source heldout baseline before raw-sentence, authorization-frame, and rescue-policy repairs.",
+      "owner_doc": "docs/rulegen/semantic_veto_archive_consolidation.md",
+      "current_use": "Superseded failure baseline for understanding why the current wave6 auth-frame lane exists.",
+      "risk": "Its earlier failure metrics conflict with current-candidate metrics unless labeled as pre-repair baseline.",
+      "next_audit_pass": "archive_consolidation",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_source_non_v10_wave6_auth_frame_surface_pos_raw_sentence_heldout_margin000_phrase002_validation_latest.md"
+      ]
+    },
+    {
+      "artifact_id": "wave6_wiktextract_supported_initial_failure_mining",
+      "title": "Initial wave6 Wiktextract-supported failure mining",
+      "component": "historical_or_seed",
+      "state": "superseded",
+      "path": "docs/test_outputs/semantic_source_failure_class_mining_non_v10_wave6_wiktextract_supported_latest.md",
+      "role": "Initial wave6 blocker ledger before the current auth-frame raw-sentence rescue candidate.",
+      "owner_doc": "docs/rulegen/semantic_veto_archive_consolidation.md",
+      "current_use": "Superseded failure-class baseline; current blocker posture comes from auth-frame failure mining plus the breadth gate.",
+      "risk": "The old blockers can be mistaken for unresolved current blockers after the auth-frame and rescue-validation passes.",
+      "next_audit_pass": "archive_consolidation",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_source_failure_class_mining_non_v10_wave6_auth_frame_latest.md"
+      ]
+    },
+    {
+      "artifact_id": "wave32_forward_only_upper_bound_probe",
+      "title": "Wave32 forward-only upper-bound admission probe",
+      "component": "historical_or_seed",
+      "state": "historical_reference",
+      "path": "docs/test_outputs/semantic_non_v10_wave_admission_sweep_wave32_anypos_unsupported_latest.md",
+      "role": "Older forward-only unsupported-source upper-bound probe for estimating source-support ceilings.",
+      "owner_doc": "docs/rulegen/semantic_veto_archive_consolidation.md",
+      "current_use": "Historical source-support ceiling evidence that routes through source-support conversion before candidate claims.",
+      "risk": "Unsupported upper-bound semantic completion can be mistaken for source-supported promotion evidence.",
+      "next_audit_pass": "archive_consolidation",
+      "verification_artifacts": [
+        "docs/rulegen/semantic_veto_breadth_expansion_gate.md"
+      ]
+    },
+    {
       "artifact_id": "breadth_expansion_gate_plan",
       "title": "Semantic veto breadth expansion gate",
       "component": "process_governance",
@@ -1129,7 +1260,7 @@
       "owner_doc": "docs/developer/documentation_governance.md",
       "current_use": "Next breadth gate definition for the current research-only candidate.",
       "risk": "A gate definition can be mistaken for executed breadth evidence if the wave7 artifacts are not produced.",
-      "next_audit_pass": "assumptions",
+      "next_audit_pass": "best_candidate",
       "verification_artifacts": [
         "docs/test_outputs/semantic_veto_system_registry_latest.md"
       ]

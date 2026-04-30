@@ -1,9 +1,9 @@
 # Semantic Veto System Registry
 
 - Status: `ok`
-- Generated: `2026-04-30T17:24:46Z`
+- Generated: `2026-04-30T17:33:33Z`
 - Registry: `/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_veto_system_registry_en_es.json`
-- Entries: `53`
+- Entries: `60`
 - Passes: `7`
 
 ## Current Candidate
@@ -25,16 +25,16 @@
 
 ## Next Passes
 
-- `archive_consolidation` (queued_next): Demote or label old artifacts after surviving value is migrated.
 
 ## Action Items
 
 | Priority | Status | Action | Pass | Source | Evidence Needed | Validation |
 | --- | --- | --- | --- | --- | --- | --- |
 | P0 | done | Make the current wave6 lane fresh-checkout runnable, or explicitly demote local-only latest reports to provisional evidence. | data_artifacts | `wave6_auth_frame_raw_sentence_surface_pos_rescue`, `translation_sense_adapter`, `translation_sense_admission_report`, `alternate_sense_phrase_adapter`, `alternate_sense_phrase_admission_report`, `current_wave6_rerun_chain_runbook`, `authorization_frame_adapter`, `auth_frame_admission_report`, `auth_frame_active_shadow_validation`, `auth_frame_phrase_validation`, `auth_frame_rescue_replay_report` | Tracked generator scripts, deterministic rerun chain, and regenerated 2026-04-30 latest artifacts for every artifact in the lane rerun order. | Focused semantic harness tests passed; lane artifacts were regenerated through failure mining; registry audit and doc-reference checks must stay clean before commit. |
+| P1 | queued | Execute wave7_source_class_breadth_v1 before treating the current wave6 candidate as promotion-quality evidence. | best_candidate | `breadth_expansion_gate_plan`, `semantic_veto_assumption_ledger`, `semantic_veto_archive_consolidation_ledger`, `auth_frame_rescue_policy_validation`, `auth_frame_failure_mining`, `wave6_wiktextract_dataset` | Fresh inventory exclusions, selected dataset and queue, source-support audit, source-admission cycle, active/shadow validation, phrase/no-winner validation, rescue policy validation, and failure-class mining. | Run the breadth gate artifacts named in semantic_veto_breadth_expansion_gate.md, then regenerate the registry summary and doc-reference checks. |
 | P1 | done | Run the recommended rescue policy through scorer-backed heldout validation before any runtime-policy or promotion claim. | best_candidate | `auth_frame_rescue_replay_report`, `auth_frame_rescue_policy_validation`, `surface_pos_rescue_sweep`, `wave6_active_shadow_heldout`, `wave6_phrase_heldout` | Scorer-backed active/shadow plus phrase/no-winner validation now passes at 0 harmful replacements and 0 false abstains over 54 cases for the recommended rescue policy. | Focused rescue validation and replay tests passed; scorer-backed validation artifact regenerated with --fail-on-review; registry audit and doc-reference checks must stay clean before commit. |
 | P1 | done | Audit authorization-frame evidence for source-triggered class behavior rather than browser-case or target-lemma shaping. | overfit_leakage | `authorization_frame_adapter`, `auth_frame_admission_report`, `auth_frame_failure_mining` | Authorization-frame report now records matched and unmatched source-trigger text per selected sense, plus target-lemma-in-source flags. | Adapter tests passed; auth-frame branch was regenerated; targeted leakage audit found 0 heldout sentence or Spanish target-lemma violations across 54 heldout sentences. |
-| P2 | queued | Demote or label older semantic-veto artifacts after their surviving lessons are preserved in the current registry, ledger, or workstream. | archive_consolidation | `semantic_veto_reconciliation_workstream`, `semantic_veto_assumption_ledger`, `decision_research_lanes_ledger`, `decision_rule_comparison_plan`, `source_admission_program_doc` | Historical_reference or superseded rows for old steering artifacts, or explicit current_reference retention for docs that still guide active work. | Regenerate the registry summary, run doc-reference checks, and confirm old latest artifacts no longer retain unqualified steering power. |
+| P2 | done | Demote or label older semantic-veto artifacts after their surviving lessons are preserved in the current registry, ledger, or workstream. | archive_consolidation | `semantic_veto_reconciliation_workstream`, `semantic_veto_assumption_ledger`, `semantic_veto_archive_consolidation_ledger`, `decision_research_lanes_ledger`, `decision_rule_comparison_plan`, `source_admission_program_doc`, `source_reference_lane_report`, `wordnet_active_related_reference_lane`, `wave5_source_portfolio_failure_mining`, `wave6_wiktextract_supported_initial_validation`, `wave6_wiktextract_supported_initial_failure_mining`, `wave32_forward_only_upper_bound_probe` | Archive ledger now classifies selected source-reference, wave5, wave6 precursor, and forward-only upper-bound artifacts as historical_reference or superseded rows, while retaining methodology docs as current references. | Regenerate the registry summary, run doc-reference checks, and confirm old latest artifacts are represented as context, controls, or superseded failure baselines instead of current authority. |
 | P2 | done | Convert the current candidate assumptions into explicit tested, untested, and rejected rows. | assumptions | `wave6_auth_frame_raw_sentence_surface_pos_rescue`, `wave6_alt_phrase_raw_sentence_control`, `auth_frame_active_shadow_validation`, `auth_frame_phrase_validation`, `auth_frame_rescue_replay_report`, `auth_frame_rescue_policy_validation`, `auth_frame_admission_report`, `auth_frame_failure_mining`, `breadth_expansion_gate_plan`, `semantic_veto_assumption_ledger` | Assumption ledger now records evidence-linked rows for raw-sentence context, phrase-prototype margin, source-triggered authorization frames, rescue-gate constraints, breadth limits, runtime-policy separation, and phrase/no-winner visibility. | Regenerate the registry summary and run doc-reference checks to confirm every assumption links to an artifact or queued breadth/runtime test. |
 | P2 | done | Define the next breadth test before tuning the current 16-family wave further. | best_candidate | `auth_frame_failure_mining`, `wave6_wiktextract_dataset`, `non_v10_wave_admission_sweep_harness`, `breadth_expansion_gate_plan` | Defined wave7_source_class_breadth_v1 with required exclusions, source-detectable class buckets, heldout floor, acceptance evidence, and stop rules. | Regenerate the registry summary, run doc-reference checks, and keep the gate explicitly marked as definition-only until the expanded lane is executed. |
 
@@ -42,11 +42,13 @@
 
 ### Entry States
 - `current_candidate`: `5`
-- `current_reference`: `7`
+- `current_reference`: `8`
 - `current_research`: `13`
 - `current_runtime`: `16`
 - `diagnostic_only`: `1`
 - `generated_evidence`: `9`
+- `historical_reference`: `4`
+- `superseded`: `2`
 - `supporting_current`: `2`
 
 ### Components
@@ -54,7 +56,8 @@
 - `decision_research`: `7`
 - `diagnostics`: `3`
 - `evaluation_data`: `3`
-- `process_governance`: `5`
+- `historical_or_seed`: `6`
+- `process_governance`: `6`
 - `runtime_path`: `16`
 - `source_admission`: `8`
 
@@ -94,7 +97,7 @@
 | wave6_phrase_heldout | current_candidate | evaluation_data | Must stay visible separately from active/shadow metrics. | data_artifacts |
 | wave6_wiktextract_dataset | current_candidate | evaluation_data | Lives under test_outputs/experiments, so registry must keep its role explicit. | data_artifacts |
 | surface_pos_rescue_policy_validation_harness | current_research | candidate_wave6 | Still offline validation; it does not implement or package a runtime policy. | best_candidate |
-| decision_research_lanes_ledger | current_research | decision_research | Can grow without enough component-level classification unless paired with this registry. | research_harness |
+| decision_research_lanes_ledger | current_research | decision_research | Can preserve older lane language that looks current unless paired with the system registry and archive ledger. | archive_consolidation |
 | decision_rule_matrix_harness | current_research | decision_research | Multiple axes can be confused if result rows are summarized too aggressively. | research_harness |
 | phrase_policy_signal_audit_harness | current_research | decision_research | Signal-only pass results do not validate translation targets, source evidence, or final replace/abstain decisions. | research_harness |
 | prototype_ablation_matrix_harness | current_research | decision_research | A good ablation row is not an admitted source batch and can hide leakage or held-out failures. | research_harness |
@@ -108,13 +111,14 @@
 | source_row_alignment_audit_harness | current_research | source_admission | Selector-ready row counts can be mistaken for downstream decision quality if not paired with admission and held-out validation. | research_harness |
 | alternate_sense_phrase_adapter | supporting_current | candidate_wave6 | Phrase rows must not become broad semantic competitors without a dedicated ablation. | assumptions |
 | translation_sense_adapter | supporting_current | candidate_wave6 | Translation-sense text must stay source-backed and not target-lemma-derived. | overfit_leakage |
-| decision_rule_comparison_plan | current_reference | decision_research | Can be bypassed if source work is described as decision-rule proof. | assumptions |
-| breadth_expansion_gate_plan | current_reference | process_governance | A gate definition can be mistaken for executed breadth evidence if the wave7 artifacts are not produced. | assumptions |
+| decision_rule_comparison_plan | current_reference | decision_research | Decision-rule methodology can be misread as source-admission proof or as a current candidate claim. | archive_consolidation |
+| breadth_expansion_gate_plan | current_reference | process_governance | A gate definition can be mistaken for executed breadth evidence if the wave7 artifacts are not produced. | best_candidate |
 | current_wave6_rerun_chain_runbook | current_reference | process_governance | Must be updated whenever the lane rerun order or output filenames change. | data_artifacts |
 | semantic_sentence_veto_algorithm_doc | current_reference | process_governance | Can become stale if code defaults change without doc update. | runtime_path |
+| semantic_veto_archive_consolidation_ledger | current_reference | process_governance | Archive rows can go stale if new old artifacts are cited as current authority without being classified. | archive_consolidation |
 | semantic_veto_assumption_ledger | current_reference | process_governance | Assumptions can be mistaken for proof if row status and evidence links are not preserved. | archive_consolidation |
 | semantic_veto_reconciliation_workstream | current_reference | process_governance | Must stay concise enough to guide later turns. | runtime_path |
-| source_admission_program_doc | current_reference | source_admission | Long evidence list can obscure the current best candidate. | research_harness |
+| source_admission_program_doc | current_reference | source_admission | Older current-best and promotion-candidate language can obscure the current wave6 auth-frame candidate unless routed through the archive ledger. | archive_consolidation |
 | auth_frame_active_shadow_validation | generated_evidence | candidate_wave6 | Breadth is too small for promotion. | best_candidate |
 | auth_frame_admission_report | generated_evidence | candidate_wave6 | Admission report is analysis-only without heldout validation. | data_artifacts |
 | auth_frame_phrase_validation | generated_evidence | candidate_wave6 | Can be misread as candidate failure if rescue replay context is omitted. | best_candidate |
@@ -152,7 +156,7 @@
 | wave6_phrase_heldout | current_candidate | evaluation_data | docs/test_inputs/semantic_routing_cases/en_es_source_non_v10_wave6_wiktextract_supported_phrase_cases_v1.json | Current phrase/no-winner heldout suite. |
 | wave6_wiktextract_dataset | current_candidate | evaluation_data | docs/test_outputs/experiments/semantic_non_v10_wave_drafts/en_es_source_non_v10_wave6_anypos_wiktextract_supported_v1_dataset.json | Current candidate source input. |
 | surface_pos_rescue_policy_validation_harness | current_research | candidate_wave6 | scripts/testing/semantic_surface_pos_rescue_policy_validation_en_es.py | Offline scorer-backed confirmation for the current wave6 rescue policy candidate. |
-| decision_research_lanes_ledger | current_research | decision_research | docs/test_inputs/semantic_decision_research_lanes_en_es.json | Current research-lane state ledger. |
+| decision_research_lanes_ledger | current_research | decision_research | docs/test_inputs/semantic_decision_research_lanes_en_es.json | Research-lane state ledger for decision experiments; current system truth is summarized by the reconciliation registry. |
 | decision_rule_matrix_harness | current_research | decision_research | scripts/testing/semantic_decision_rule_matrix_en_es.py | Final-rule and representation matrix; not source admission and not runtime policy. |
 | phrase_policy_signal_audit_harness | current_research | decision_research | scripts/testing/semantic_phrase_policy_signal_audit_en_es.py | Signal-only phrase/no-winner audit before promoting phrase cases into end-to-end held-out suites. |
 | prototype_ablation_matrix_harness | current_research | decision_research | scripts/testing/semantic_llm_prototype_ablation_matrix_en_es.py | No-spend ablation matrix for source/scorer/context/guard separation. |
@@ -166,13 +170,14 @@
 | source_row_alignment_audit_harness | current_research | source_admission | scripts/testing/semantic_source_row_alignment_audit_en_es.py | Source-row quality audit before frame-gap planning and context-conditioned evidence tests. |
 | alternate_sense_phrase_adapter | supporting_current | candidate_wave6 | scripts/testing/semantic_wordnet_alternate_sense_phrase_evidence_en_es.py | Wave6 phrase/no-winner coverage foundation. |
 | translation_sense_adapter | supporting_current | candidate_wave6 | scripts/testing/semantic_translation_sense_evidence_batch_en_es.py | Wave6 selected-sense source coverage foundation. |
-| decision_rule_comparison_plan | current_reference | decision_research | docs/rulegen/semantic_decision_rule_comparison_plan.md | Methodology guardrail before changing decision rules. |
+| decision_rule_comparison_plan | current_reference | decision_research | docs/rulegen/semantic_decision_rule_comparison_plan.md | Methodology guardrail before changing decision rules; not current candidate evidence by itself. |
 | breadth_expansion_gate_plan | current_reference | process_governance | docs/rulegen/semantic_veto_breadth_expansion_gate.md | Next breadth gate definition for the current research-only candidate. |
 | current_wave6_rerun_chain_runbook | current_reference | process_governance | docs/rulegen/semantic_veto_current_wave6_rerun_chain.md | Fresh-checkout reproducibility reference for the current data-artifact lane. |
 | semantic_sentence_veto_algorithm_doc | current_reference | process_governance | docs/rulegen/semantic_sentence_veto_algorithm.md | Primary algorithm map before runtime-path audits. |
+| semantic_veto_archive_consolidation_ledger | current_reference | process_governance | docs/rulegen/semantic_veto_archive_consolidation.md | Archive triage ledger for preventing old latest reports from steering current candidate decisions. |
 | semantic_veto_assumption_ledger | current_reference | process_governance | docs/rulegen/semantic_veto_assumption_ledger.md | Current assumption ledger for the wave6 auth-frame raw-sentence rescue candidate. |
 | semantic_veto_reconciliation_workstream | current_reference | process_governance | docs/rulegen/semantic_veto_reconciliation_workstream.md | Top-level reconciliation entrypoint. |
-| source_admission_program_doc | current_reference | source_admission | docs/rulegen/semantic_source_admission_program.md | Source-admission orientation and constraints. |
+| source_admission_program_doc | current_reference | source_admission | docs/rulegen/semantic_source_admission_program.md | Source-admission history, operating constraints, and older source-lane lessons; current candidate authority lives in the reconciliation registry. |
 | auth_frame_active_shadow_validation | generated_evidence | candidate_wave6 | docs/test_outputs/semantic_source_non_v10_wave6_auth_frame_surface_pos_raw_sentence_heldout_margin000_phrase002_validation_latest.md | Current measured active/shadow result: 0 harmful and 0 false abstains on 38 cases. |
 | auth_frame_admission_report | generated_evidence | candidate_wave6 | docs/test_outputs/semantic_source_admission_cycle_auth_frame_non_v10_wave6_wiktextract_supported_latest.md | Evidence for current candidate source-admission status. |
 | auth_frame_phrase_validation | generated_evidence | candidate_wave6 | docs/test_outputs/semantic_source_non_v10_wave6_auth_frame_surface_pos_raw_sentence_phrase_margin000_phrase002_validation_latest.md | Shows unrescued phrase/no-winner harm remains visible. |
@@ -183,3 +188,9 @@
 | alternate_sense_phrase_admission_report | generated_evidence | source_admission | docs/test_outputs/semantic_source_admission_cycle_alt_phrase_non_v10_wave6_wiktextract_supported_latest.md | Intermediate current-lane control composite; auth-frame admission layers deterministic authorization rows on top of it. |
 | translation_sense_admission_report | generated_evidence | source_admission | docs/test_outputs/semantic_source_admission_cycle_translation_sense_non_v10_wave6_wiktextract_supported_latest.md | Intermediate current-lane composite; required before alternate-sense phrase adapter output can be reproduced from a fresh checkout. |
 | runtime_diagnostics_semantic_surfaces | diagnostic_only | diagnostics | core/lexishift_core/helper/use_cases/runtime_diagnostics.py | Diagnostic evidence only; it does not decide browser replace or abstain outcomes. |
+| source_reference_lane_report | historical_reference | historical_or_seed | docs/test_outputs/semantic_source_reference_lane_latest.md | Historical reproducibility pattern, not current candidate evidence. |
+| wave32_forward_only_upper_bound_probe | historical_reference | historical_or_seed | docs/test_outputs/semantic_non_v10_wave_admission_sweep_wave32_anypos_unsupported_latest.md | Historical source-support ceiling evidence that routes through source-support conversion before candidate claims. |
+| wave5_source_portfolio_failure_mining | historical_reference | historical_or_seed | docs/test_outputs/semantic_source_failure_class_mining_non_v10_wave5_portfolio_latest.md | Historical lesson for materialized portfolios, phrase-gap tracking, and breadth-gap accounting. |
+| wordnet_active_related_reference_lane | historical_reference | historical_or_seed | docs/test_outputs/semantic_source_admission_cycle_wordnet_active_related_plant_cell_depth3_heldout_v2_policy_latest.md | Historical source-cycle validation context; superseded for current steering by the wave6 auth-frame candidate. |
+| wave6_wiktextract_supported_initial_failure_mining | superseded | historical_or_seed | docs/test_outputs/semantic_source_failure_class_mining_non_v10_wave6_wiktextract_supported_latest.md | Superseded failure-class baseline; current blocker posture comes from auth-frame failure mining plus the breadth gate. |
+| wave6_wiktextract_supported_initial_validation | superseded | historical_or_seed | docs/test_outputs/semantic_source_non_v10_wave6_wiktextract_supported_heldout_margin005_validation_latest.md | Superseded failure baseline for understanding why the current wave6 auth-frame lane exists. |
