@@ -24,6 +24,28 @@
       "validation": "Focused semantic harness tests passed; lane artifacts were regenerated through failure mining; registry audit and doc-reference checks must stay clean before commit."
     },
     {
+      "action": "Continue the integrity audit before more wave7 research: verify current-looking latest artifacts, dirty generated outputs, and methodology docs are classified as runtime truth, current candidate evidence, generated evidence, historical context, superseded, or queued follow-up.",
+      "action_id": "artifact_authority_stale_latest_audit_continuation",
+      "evidence_needed": "The registry currently has 27 latest-path entries classified as generated_evidence, historical_reference, or superseded; uncommitted latest outputs remain non-authoritative until an audit pass either classifies, regenerates, commits, or explicitly leaves them out of scope.",
+      "pass_id": "data_artifacts",
+      "priority": "P1",
+      "promotion_impact": "Keeps the remaining auditing work first while preserving the wave7 research lane as a queued, research-only follow-up.",
+      "source_artifacts": [
+        "semantic_veto_reconciliation_workstream",
+        "semantic_veto_system_registry",
+        "semantic_veto_archive_consolidation_ledger",
+        "decision_research_lanes_ledger",
+        "source_admission_program_doc",
+        "decision_rule_comparison_plan",
+        "semantic_sentence_veto_algorithm_doc",
+        "wave7_phrase_control_triage_admission",
+        "wave7_phrase_control_rescue_sweep",
+        "wave7_phrase_control_no_surface_margin_sweep"
+      ],
+      "status": "queued",
+      "validation": "Regenerate the registry summary, run focused registry tests, run doc-reference checks, validate registry JSON, and run git diff whitespace checks; avoid new semantic evidence generation unless the user explicitly switches to the research lane."
+    },
+    {
       "action": "Design the next wave7 remediation split after phrase-control triage: add active source evidence for false abstains and gross, then test a phrase-aware rescue guard without hiding phrase harms.",
       "action_id": "wave7_active_signal_and_rescue_split",
       "evidence_needed": "No existing replayed rescue policy or no-surface scalar margin passes; phrase-control solves the phrase contract but surface rescue still admits phrase/no-winner harms while active/source cases still miss.",
@@ -215,7 +237,7 @@
     "diagnostics": 6,
     "evaluation_data": 7,
     "historical_or_seed": 6,
-    "process_governance": 7,
+    "process_governance": 8,
     "runtime_path": 16,
     "source_admission": 19
   },
@@ -1025,6 +1047,22 @@
       ]
     },
     {
+      "artifact_id": "semantic_veto_system_registry",
+      "component": "process_governance",
+      "current_use": "Primary source for action state, artifact authority, and rendered handoff summary.",
+      "next_audit_pass": "data_artifacts",
+      "owner_doc": "docs/rulegen/semantic_veto_reconciliation_workstream.md",
+      "path": "docs/test_inputs/semantic_veto_system_registry_en_es.json",
+      "risk": "If action state drifts, agents can follow research remediation before finishing integrity audits.",
+      "role": "Machine-readable classification map for semantic-veto runtime, research, generated evidence, historical artifacts, and queued audit work.",
+      "state": "current_reference",
+      "title": "Semantic veto system registry",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_system_registry_latest.md",
+        "scripts/testing/semantic_veto_system_registry_summary.py"
+      ]
+    },
+    {
       "artifact_id": "wave7_source_class_breadth_runbook",
       "component": "process_governance",
       "current_use": "Current execution and triage reference for the failed wave7 breadth gate.",
@@ -1513,8 +1551,8 @@
       ]
     }
   ],
-  "entry_count": 79,
-  "generated_at": "2026-04-30T18:22:03Z",
+  "entry_count": 80,
+  "generated_at": "2026-04-30T18:29:15Z",
   "issues": [],
   "next_passes": [],
   "pass_count": 7,
@@ -2359,6 +2397,22 @@
       ]
     },
     {
+      "artifact_id": "semantic_veto_system_registry",
+      "component": "process_governance",
+      "current_use": "Primary source for action state, artifact authority, and rendered handoff summary.",
+      "next_audit_pass": "data_artifacts",
+      "owner_doc": "docs/rulegen/semantic_veto_reconciliation_workstream.md",
+      "path": "docs/test_inputs/semantic_veto_system_registry_en_es.json",
+      "risk": "If action state drifts, agents can follow research remediation before finishing integrity audits.",
+      "role": "Machine-readable classification map for semantic-veto runtime, research, generated evidence, historical artifacts, and queued audit work.",
+      "state": "current_reference",
+      "title": "Semantic veto system registry",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_system_registry_latest.md",
+        "scripts/testing/semantic_veto_system_registry_summary.py"
+      ]
+    },
+    {
       "artifact_id": "wave7_source_class_breadth_runbook",
       "component": "process_governance",
       "current_use": "Current execution and triage reference for the failed wave7 breadth gate.",
@@ -2760,7 +2814,7 @@
   "schema_version": 1,
   "state_counts": {
     "current_candidate": 5,
-    "current_reference": 12,
+    "current_reference": 13,
     "current_research": 14,
     "current_runtime": 16,
     "diagnostic_only": 1,

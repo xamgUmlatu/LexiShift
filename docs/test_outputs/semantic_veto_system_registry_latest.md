@@ -1,9 +1,9 @@
 # Semantic Veto System Registry
 
 - Status: `ok`
-- Generated: `2026-04-30T18:22:03Z`
+- Generated: `2026-04-30T18:29:15Z`
 - Registry: `/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_veto_system_registry_en_es.json`
-- Entries: `79`
+- Entries: `80`
 - Passes: `7`
 
 ## Current Candidate
@@ -31,6 +31,7 @@
 | Priority | Status | Action | Pass | Source | Evidence Needed | Validation |
 | --- | --- | --- | --- | --- | --- | --- |
 | P0 | done | Make the current wave6 lane fresh-checkout runnable, or explicitly demote local-only latest reports to provisional evidence. | data_artifacts | `wave6_auth_frame_raw_sentence_surface_pos_rescue`, `translation_sense_adapter`, `translation_sense_admission_report`, `alternate_sense_phrase_adapter`, `alternate_sense_phrase_admission_report`, `current_wave6_rerun_chain_runbook`, `authorization_frame_adapter`, `auth_frame_admission_report`, `auth_frame_active_shadow_validation`, `auth_frame_phrase_validation`, `auth_frame_rescue_replay_report` | Tracked generator scripts, deterministic rerun chain, and regenerated 2026-04-30 latest artifacts for every artifact in the lane rerun order. | Focused semantic harness tests passed; lane artifacts were regenerated through failure mining; registry audit and doc-reference checks must stay clean before commit. |
+| P1 | queued | Continue the integrity audit before more wave7 research: verify current-looking latest artifacts, dirty generated outputs, and methodology docs are classified as runtime truth, current candidate evidence, generated evidence, historical context, superseded, or queued follow-up. | data_artifacts | `semantic_veto_reconciliation_workstream`, `semantic_veto_system_registry`, `semantic_veto_archive_consolidation_ledger`, `decision_research_lanes_ledger`, `source_admission_program_doc`, `decision_rule_comparison_plan`, `semantic_sentence_veto_algorithm_doc`, `wave7_phrase_control_triage_admission`, `wave7_phrase_control_rescue_sweep`, `wave7_phrase_control_no_surface_margin_sweep` | The registry currently has 27 latest-path entries classified as generated_evidence, historical_reference, or superseded; uncommitted latest outputs remain non-authoritative until an audit pass either classifies, regenerates, commits, or explicitly leaves them out of scope. | Regenerate the registry summary, run focused registry tests, run doc-reference checks, validate registry JSON, and run git diff whitespace checks; avoid new semantic evidence generation unless the user explicitly switches to the research lane. |
 | P1 | queued | Design the next wave7 remediation split after phrase-control triage: add active source evidence for false abstains and gross, then test a phrase-aware rescue guard without hiding phrase harms. | best_candidate | `wave7_phrase_control_triage_admission`, `wave7_phrase_control_triage_active_shadow_validation`, `wave7_phrase_control_triage_phrase_validation`, `wave7_phrase_control_rescue_sweep`, `wave7_phrase_control_no_surface_margin_sweep`, `wave7_failure_mining` | No existing replayed rescue policy or no-surface scalar margin passes; phrase-control solves the phrase contract but surface rescue still admits phrase/no-winner harms while active/source cases still miss. | Rerun phrase-control admission, active/shadow heldout, phrase/no-winner heldout, rescue sweep, margin sweep, failure mining, registry summary, focused tests, doc-reference checks, and git diff whitespace checks after the remediation candidate. |
 | P1 | done | Run the recommended rescue policy through scorer-backed heldout validation before any runtime-policy or promotion claim. | best_candidate | `auth_frame_rescue_replay_report`, `auth_frame_rescue_policy_validation`, `surface_pos_rescue_sweep`, `wave6_active_shadow_heldout`, `wave6_phrase_heldout` | Scorer-backed active/shadow plus phrase/no-winner validation now passes at 0 harmful replacements and 0 false abstains over 54 cases for the recommended rescue policy. | Focused rescue validation and replay tests passed; scorer-backed validation artifact regenerated with --fail-on-review; registry audit and doc-reference checks must stay clean before commit. |
 | P1 | done | Audit authorization-frame evidence for source-triggered class behavior rather than browser-case or target-lemma shaping. | overfit_leakage | `authorization_frame_adapter`, `auth_frame_admission_report`, `auth_frame_failure_mining` | Authorization-frame report now records matched and unmatched source-trigger text per selected sense, plus target-lemma-in-source flags. | Adapter tests passed; auth-frame branch was regenerated; targeted leakage audit found 0 heldout sentence or Spanish target-lemma violations across 54 heldout sentences. |
@@ -45,7 +46,7 @@
 
 ### Entry States
 - `current_candidate`: `5`
-- `current_reference`: `12`
+- `current_reference`: `13`
 - `current_research`: `14`
 - `current_runtime`: `16`
 - `diagnostic_only`: `1`
@@ -60,7 +61,7 @@
 - `diagnostics`: `6`
 - `evaluation_data`: `7`
 - `historical_or_seed`: `6`
-- `process_governance`: `7`
+- `process_governance`: `8`
 - `runtime_path`: `16`
 - `source_admission`: `19`
 
@@ -125,6 +126,7 @@
 | semantic_veto_archive_consolidation_ledger | current_reference | process_governance | Archive rows can go stale if new old artifacts are cited as current authority without being classified. | archive_consolidation |
 | semantic_veto_assumption_ledger | current_reference | process_governance | Assumptions can be mistaken for proof if row status and evidence links are not preserved. | archive_consolidation |
 | semantic_veto_reconciliation_workstream | current_reference | process_governance | Must stay concise enough to guide later turns. | runtime_path |
+| semantic_veto_system_registry | current_reference | process_governance | If action state drifts, agents can follow research remediation before finishing integrity audits. | data_artifacts |
 | wave7_source_class_breadth_runbook | current_reference | process_governance | Wave7 can be misreported if failed execution, phrase-control triage, and queued remediation are not kept separate. | best_candidate |
 | source_admission_program_doc | current_reference | source_admission | Older current-best and promotion-candidate language can obscure the current wave6 auth-frame candidate unless routed through the archive ledger. | archive_consolidation |
 | auth_frame_active_shadow_validation | generated_evidence | candidate_wave6 | Breadth is too small for promotion. | best_candidate |
@@ -203,6 +205,7 @@
 | semantic_veto_archive_consolidation_ledger | current_reference | process_governance | docs/rulegen/semantic_veto_archive_consolidation.md | Archive triage ledger for preventing old latest reports from steering current candidate decisions. |
 | semantic_veto_assumption_ledger | current_reference | process_governance | docs/rulegen/semantic_veto_assumption_ledger.md | Current assumption ledger for the wave6 auth-frame raw-sentence rescue candidate. |
 | semantic_veto_reconciliation_workstream | current_reference | process_governance | docs/rulegen/semantic_veto_reconciliation_workstream.md | Top-level reconciliation entrypoint. |
+| semantic_veto_system_registry | current_reference | process_governance | docs/test_inputs/semantic_veto_system_registry_en_es.json | Primary source for action state, artifact authority, and rendered handoff summary. |
 | wave7_source_class_breadth_runbook | current_reference | process_governance | docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md | Current execution and triage reference for the failed wave7 breadth gate. |
 | source_admission_program_doc | current_reference | source_admission | docs/rulegen/semantic_source_admission_program.md | Source-admission history, operating constraints, and older source-lane lessons; current candidate authority lives in the reconciliation registry. |
 | auth_frame_active_shadow_validation | generated_evidence | candidate_wave6 | docs/test_outputs/semantic_source_non_v10_wave6_auth_frame_surface_pos_raw_sentence_heldout_margin000_phrase002_validation_latest.md | Current measured active/shadow result: 0 harmful and 0 false abstains on 38 cases. |

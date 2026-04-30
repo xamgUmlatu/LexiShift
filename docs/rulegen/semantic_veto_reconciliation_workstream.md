@@ -302,9 +302,13 @@ Current highest-priority actions:
 - `P1` `wave7_blocking_failure_triage`: done; phrase-control evidence restored
   the phrase contract, but heldout blockers remained and are now split into
   active source-signal misses and phrase rescue-policy interaction.
+- `P1` `artifact_authority_stale_latest_audit_continuation`: queued; continue
+  the original integrity audit by checking current-looking `latest` artifacts,
+  dirty generated outputs, and methodology docs before more wave7 research.
 - `P1` `wave7_active_signal_and_rescue_split`: queued; add active source
   evidence for false abstains and `gross`, then test a phrase-aware rescue
-  guard without hiding phrase/no-winner harms.
+  guard without hiding phrase/no-winner harms. This is the parked research
+  lane, not the next integrity-audit task.
 - `P1` `scorer_backed_rescue_policy_confirmation`: done; the recommended rescue
   policy passes scorer-backed offline validation over the current 54-row suite.
 - `P1` `source_trigger_overfit_audit`: done; authorization-frame evidence is
@@ -317,6 +321,41 @@ Current highest-priority actions:
 - `P2` `archive_consolidation_triage`: done; selected older source-reference,
   wave5, wave6 precursor, and upper-bound artifacts are labeled historical or
   superseded in the archive ledger and registry.
+
+## Lane Split
+
+This workstream has two live lanes. Keep them separate in future handoffs.
+
+Integrity audit lane:
+
+- First priority: `artifact_authority_stale_latest_audit_continuation`.
+- Purpose: finish the research-codebase integrity review by checking artifact
+  authority, stale `latest` reports, dirty generated outputs, methodology docs,
+  and registry classifications.
+- Current audit snapshot: the registry has `27` paths with `latest` in the
+  primary artifact path; all are classified as `generated_evidence`,
+  `historical_reference`, or `superseded`, not runtime truth. Dirty local
+  `latest` outputs outside this checkpoint remain non-authoritative until a
+  later audit classifies, regenerates, commits, or explicitly excludes them.
+- Rule: do not generate new semantic evidence in this lane unless the user
+  explicitly switches back to research.
+
+Research lane:
+
+- Parked action: `wave7_active_signal_and_rescue_split`.
+- Purpose: preserve the important wave7 finding without letting it consume the
+  rest of the audit. It starts from the phrase-control triage package and tests
+  active source-signal remediation separately from phrase rescue-policy
+  interaction.
+- Starting artifacts:
+  `docs/test_outputs/semantic_source_admission_cycle_wave7_source_class_breadth_v1_phrase_control_triage_latest.md`,
+  `docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout_validation_latest.md`,
+  `docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase_validation_latest.md`,
+  `docs/test_outputs/semantic_surface_pos_rescue_policy_sweep_wave7_source_class_breadth_v1_phrase_control_triage_latest.md`,
+  and
+  `docs/test_outputs/semantic_source_margin_policy_sweep_wave7_source_class_breadth_v1_phrase_control_no_surface_latest.md`.
+- Rule: keep this lane research-only until a separate promotion/runtime-policy
+  task is explicitly opened.
 
 ## Next-Agent Handoff
 
@@ -341,8 +380,10 @@ Current state:
 - Parked pass: `archive_consolidation`; selected older source-reference, wave5,
   wave6 precursor, and upper-bound artifacts are labeled historical or
   superseded in `docs/rulegen/semantic_veto_archive_consolidation.md`.
-- Action ledger: reconciliation passes are parked; the next substantive work is
-  `wave7_active_signal_and_rescue_split`.
+- Action ledger: reconciliation passes are parked; the next substantive audit
+  work is `artifact_authority_stale_latest_audit_continuation`.
+- Parked research lane: `wave7_active_signal_and_rescue_split` remains queued
+  and must not be lost, but it is not the next audit task.
 - Current candidate remains research-only:
   `wave6_auth_frame_raw_sentence_surface_pos_rescue`.
 - Next breadth gate: `wave7_source_class_breadth_v1`.
@@ -357,31 +398,29 @@ Current state:
 Read in this order:
 
 1. `docs/rulegen/semantic_veto_reconciliation_workstream.md`
-2. `docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md`
-3. `docs/test_outputs/semantic_source_admission_cycle_wave7_source_class_breadth_v1_phrase_control_triage_latest.md`
-4. `docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout_validation_latest.md`
-5. `docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase_validation_latest.md`
-6. `docs/test_outputs/semantic_surface_pos_rescue_policy_sweep_wave7_source_class_breadth_v1_phrase_control_triage_latest.md`
-7. `docs/test_outputs/semantic_source_margin_policy_sweep_wave7_source_class_breadth_v1_phrase_control_no_surface_latest.md`
-8. `docs/test_outputs/semantic_source_failure_class_mining_wave7_source_class_breadth_v1_latest.md`
-9. `docs/test_outputs/semantic_surface_pos_rescue_policy_validation_wave7_source_class_breadth_v1_latest.md`
-10. `docs/rulegen/semantic_veto_breadth_expansion_gate.md`
-11. `docs/test_outputs/semantic_veto_system_registry_latest.md`
-12. `docs/test_inputs/semantic_veto_system_registry_en_es.json`
-13. `docs/rulegen/semantic_veto_assumption_ledger.md`
-14. `docs/rulegen/semantic_veto_archive_consolidation.md`
-15. `docs/rulegen/semantic_sentence_veto_algorithm.md`
+2. `docs/test_outputs/semantic_veto_system_registry_latest.md`
+3. `docs/test_inputs/semantic_veto_system_registry_en_es.json`
+4. `docs/rulegen/semantic_veto_archive_consolidation.md`
+5. `docs/rulegen/semantic_veto_assumption_ledger.md`
+6. `docs/rulegen/semantic_sentence_veto_algorithm.md`
+7. `docs/rulegen/semantic_source_admission_program.md`
+8. `docs/rulegen/semantic_decision_rule_comparison_plan.md`
+9. `docs/test_inputs/semantic_decision_research_lanes_en_es.json`
+10. `docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md`
+11. `docs/test_outputs/semantic_source_admission_cycle_wave7_source_class_breadth_v1_phrase_control_triage_latest.md`
 
 First task:
 
-- Execute `wave7_active_signal_and_rescue_split`: keep the admitted
-  phrase-control rows, add active source evidence for the `gross` harmful case
-  and active false abstains (`like`, `fix`, `full`, `even`, `meet`), then test a
-  phrase-aware rescue guard against the locked phrase/no-winner suite.
+- Execute `artifact_authority_stale_latest_audit_continuation`: continue the
+  integrity audit, starting with current-looking `latest` reports and dirty
+  local generated outputs, and classify each as current evidence, historical
+  context, superseded baseline, queued follow-up, or out-of-scope local output.
 - Keep action items updated as cracks are discovered or resolved.
 - Keep durable inputs, generated evidence, control artifacts, and local
   uncommitted experiment outputs separate.
 - Do not treat generated reports under `latest` names as architecture authority.
+- Do not advance `wave7_active_signal_and_rescue_split` unless the user
+  explicitly switches from auditing to research remediation.
 - Reopen a reconciliation pass only if a new active harness appears, runtime
   policy changes, or another old artifact starts steering current decisions.
 
