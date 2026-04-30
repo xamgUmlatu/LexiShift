@@ -97,6 +97,7 @@ Verification:
 Related planning:
 - `docs/rulegen/semantic_sentence_veto_algorithm.md`
 - `docs/rulegen/semantic_decision_rule_comparison_plan.md`
+- `docs/rulegen/semantic_veto_reconciliation_workstream.md`
 - `docs/rulegen/semantic_en_es_expansion_opportunity_roadmap.md`
 - `docs/rulegen/semantic_shadow_source_intake_plan.md`
 

@@ -4,7 +4,7 @@ Status: active workstream
 Role: Planning / WIP
 Purpose: keep the semantic sentence-veto runtime, research harnesses, data artifacts, and promotion claims aligned while the work spans many turns
 Last updated: 2026-05-01
-Last verified: 2026-05-01 against `semantic_sentence_veto_algorithm.md`, `semantic_source_admission_program.md`, `semantic_decision_rule_comparison_plan.md`, `semantic_veto_assumption_ledger.md`, `semantic_veto_archive_consolidation.md`, `semantic_veto_artifact_authority_audit.md`, and `semantic_veto_system_registry_en_es.json`
+Last verified: 2026-05-01 against `semantic_sentence_veto_algorithm.md`, `semantic_source_admission_program.md`, `semantic_decision_rule_comparison_plan.md`, `semantic_decision_research_lanes_en_es.json`, `semantic_veto_assumption_ledger.md`, `semantic_veto_archive_consolidation.md`, `semantic_veto_artifact_authority_audit.md`, and `semantic_veto_system_registry_en_es.json`
 Source-of-truth: this workstream governs reconciliation process; runtime truth still lives in code, tests, manifests, and generated evidence
 
 ## Why This Exists
@@ -308,9 +308,10 @@ Current highest-priority actions:
   now records that registered `latest` primary paths are generated, historical,
   or superseded, and that dirty local generated outputs remain
   non-authoritative until disposition.
-- `P1` `semantic_methodology_doc_dirty_state_reconcile`: queued; review dirty
-  methodology docs and the decision research ledger before treating their
-  wave6 source/guard wording as canonical.
+- `P1` `semantic_methodology_doc_dirty_state_reconcile`: done; methodology docs
+  and the decision research ledger now carry the wave6 source/guard finding as
+  research-only current-reference material, with the cited generated evidence
+  committed and no runtime-policy promotion.
 - `P1` `local_semantic_latest_output_disposition`: queued; classify dirty and
   untracked semantic generated outputs as commit, archive, regenerate, or
   out-of-scope local output.
@@ -337,15 +338,18 @@ This workstream has two live lanes. Keep them separate in future handoffs.
 
 Integrity audit lane:
 
-- First priority: `semantic_methodology_doc_dirty_state_reconcile`.
+- First priority: `local_semantic_latest_output_disposition`.
 - Purpose: finish the research-codebase integrity review by checking artifact
   authority, stale `latest` reports, dirty generated outputs, methodology docs,
   and registry classifications.
-- Current audit snapshot: the registry has `27` paths with `latest` in the
+- Current audit snapshot: the registry has `28` paths with `latest` in the
   primary artifact path; all are classified as `generated_evidence`,
   `historical_reference`, or `superseded`, not runtime truth. Dirty local
   `latest` outputs outside this checkpoint remain non-authoritative until a
   later audit classifies, regenerates, commits, or explicitly excludes them.
+- Methodology-doc status: reconciliation links and the wave6 source/guard
+  finding are accepted as research-only current-reference material. They do not
+  promote a runtime policy and do not replace the registry or quality loop.
 - Latest audit report:
   `docs/rulegen/semantic_veto_artifact_authority_audit.md`.
 - Rule: do not generate new semantic evidence in this lane unless the user
@@ -392,7 +396,7 @@ Current state:
   wave6 precursor, and upper-bound artifacts are labeled historical or
   superseded in `docs/rulegen/semantic_veto_archive_consolidation.md`.
 - Action ledger: reconciliation passes are parked; the next substantive audit
-  work is `semantic_methodology_doc_dirty_state_reconcile`.
+  work is `local_semantic_latest_output_disposition`.
 - Parked research lane: `wave7_active_signal_and_rescue_split` remains queued
   and must not be lost, but it is not the next audit task.
 - Current candidate remains research-only:
@@ -423,10 +427,9 @@ Read in this order:
 
 First task:
 
-- Execute `semantic_methodology_doc_dirty_state_reconcile`: review the dirty
-  methodology docs and decision research lane ledger, then commit intended
-  current-reference updates or split research-only wording into explicit queued
-  rows.
+- Execute `local_semantic_latest_output_disposition`: classify remaining dirty
+  and untracked semantic generated outputs as commit, archive, regenerate, or
+  out-of-scope local output.
 - Keep action items updated as cracks are discovered or resolved.
 - Keep durable inputs, generated evidence, control artifacts, and local
   uncommitted experiment outputs separate.

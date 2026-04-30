@@ -406,19 +406,20 @@
     {
       "action_id": "semantic_methodology_doc_dirty_state_reconcile",
       "priority": "P1",
-      "status": "queued",
+      "status": "done",
       "pass_id": "research_harness",
       "source_artifacts": [
         "semantic_veto_artifact_authority_audit",
         "semantic_sentence_veto_algorithm_doc",
         "source_admission_program_doc",
         "decision_rule_comparison_plan",
-        "decision_research_lanes_ledger"
+        "decision_research_lanes_ledger",
+        "decision_research_lanes_summary"
       ],
       "action": "Review the dirty semantic-veto methodology docs and decision-lane ledger, then commit the intended current-reference updates or split research-only wording into explicit queued rows.",
-      "evidence_needed": "Dirty docs currently add reconciliation links and wave6 source/guard findings; they must be checked against registry state and generated artifacts before they become canonical.",
-      "validation": "Regenerate decision research lane summary if the ledger is kept, regenerate registry summary if classifications change, run doc-reference checks, validate JSON, and run git diff whitespace checks.",
-      "promotion_impact": "Prevents methodology docs from silently promoting research findings ahead of the registry."
+      "evidence_needed": "Methodology docs now add reconciliation links and record the wave6 source/guard finding as research-only current-reference material. The decision research ledger adds the semantic-class-frame adapter lane and keeps non-v10 breadth validation analysis-only. Selected wave6 evidence files cited by the docs are committed as generated evidence.",
+      "validation": "Decision research lane summary regenerated with no issues; registry summary regenerated with no issues; registry and research-lane JSON parsed; focused registry tests, doc-reference checks, and git diff whitespace checks passed.",
+      "promotion_impact": "Prevents methodology docs from silently promoting research findings ahead of the registry; no runtime policy change is made."
     },
     {
       "action_id": "local_semantic_latest_output_disposition",
@@ -433,7 +434,7 @@
         "wave6_wiktextract_supported_initial_validation"
       ],
       "action": "Classify dirty and untracked semantic generated outputs as commit, archive, regenerate, or out-of-scope local output without letting them steer current claims.",
-      "evidence_needed": "Dirty wave5 source-portfolio sidecars, dirty wave5 normalized evidence, untracked wave2-wave5 draft datasets, and untracked wave6 margin/heldout/rescue outputs remain local generated output state.",
+      "evidence_needed": "Dirty wave5 source-portfolio sidecars, dirty wave5 normalized evidence, untracked wave2-wave5 draft datasets, and remaining untracked wave6 margin/heldout/rescue outputs remain local generated output state. The methodology reconciliation pass committed only the selected wave6 evidence files directly cited by current-reference methodology wording.",
       "validation": "Update archive or registry rows only for artifacts intentionally preserved, rerun registry summary and doc-reference checks, validate JSON, and keep unrelated project-health/rulegen benchmark outputs out of semantic-veto authority.",
       "promotion_impact": "Removes stale-output ambiguity before future agents evaluate promotion or runtime-policy claims."
     },
@@ -776,8 +777,8 @@
       "path": "docs/rulegen/semantic_decision_rule_comparison_plan.md",
       "role": "Separates final YES/NO rules from context, evidence, scorer, aggregation, and phrase experiments.",
       "owner_doc": "docs/rulegen/semantic_sentence_veto_algorithm.md",
-      "current_use": "Methodology guardrail before changing decision rules; not current candidate evidence by itself.",
-      "risk": "Decision-rule methodology can be misread as source-admission proof or as a current candidate claim.",
+      "current_use": "Methodology guardrail before changing decision rules, now including the wave6 source/guard finding as research-only context; not current candidate evidence by itself.",
+      "risk": "Decision-rule methodology can be misread as source-admission proof, runtime policy, or a current candidate claim if not routed through the registry and generated evidence.",
       "next_audit_pass": "archive_consolidation",
       "verification_artifacts": [
         "docs/test_inputs/semantic_decision_research_lanes_en_es.json"
@@ -791,12 +792,28 @@
       "path": "docs/test_inputs/semantic_decision_research_lanes_en_es.json",
       "role": "Tracks research lane states without collapsing them into a generic complete state.",
       "owner_doc": "docs/rulegen/semantic_decision_rule_comparison_plan.md",
-      "current_use": "Research-lane state ledger for decision experiments; current system truth is summarized by the reconciliation registry.",
+      "current_use": "Research-lane state ledger for decision experiments, including semantic-class-frame adapters as active source-program work; current system truth is summarized by the reconciliation registry.",
       "risk": "Can preserve older lane language that looks current unless paired with the system registry and archive ledger.",
       "next_audit_pass": "archive_consolidation",
       "verification_artifacts": [
         "scripts/testing/semantic_decision_research_lanes_summary.py",
         "docs/test_outputs/semantic_decision_research_lanes_latest.md"
+      ]
+    },
+    {
+      "artifact_id": "decision_research_lanes_summary",
+      "title": "Semantic decision research lanes rendered summary",
+      "component": "decision_research",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_decision_research_lanes_latest.md",
+      "role": "Human-readable rendering and audit result for the semantic decision research lanes ledger.",
+      "owner_doc": "docs/rulegen/semantic_decision_rule_comparison_plan.md",
+      "current_use": "Confirms lane counts, state counts, and no methodology issues after ledger changes; not runtime authority.",
+      "risk": "Generated latest summary can be mistaken for promotion evidence unless paired with the source ledger and registry state.",
+      "next_audit_pass": "research_harness",
+      "verification_artifacts": [
+        "scripts/testing/semantic_decision_research_lanes_summary.py",
+        "docs/test_outputs/semantic_decision_research_lanes_latest.json"
       ]
     },
     {

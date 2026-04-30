@@ -19,6 +19,8 @@ Primary implementation references:
 - `docs/rulegen/semantic_routing_runtime_readiness.md`
 - `docs/rulegen/semantic_decision_rule_comparison_plan.md`
 - `docs/rulegen/semantic_source_admission_program.md`
+- `docs/rulegen/semantic_veto_reconciliation_workstream.md`
+- `docs/test_inputs/semantic_veto_system_registry_en_es.json`
 
 ## Core Product Goal
 

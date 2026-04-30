@@ -5,13 +5,28 @@ Role: Integrity audit snapshot
 Last updated: 2026-05-01
 Last verified: 2026-05-01 against `git status --short`,
 `semantic_veto_system_registry_en_es.json`,
-`semantic_veto_system_registry_latest.md`, and dirty semantic-veto doc diffs
+`semantic_veto_system_registry_latest.md`, dirty semantic-veto doc diffs, and
+`semantic_decision_research_lanes_latest.md`
 
 ## Purpose
 
 This audit keeps semantic-veto research artifacts from becoming accidental
 runtime or architecture authority. It does not promote a semantic veto policy,
 rerun semantic evidence, or change the browser/helper runtime path.
+
+## Subsequent Pass Status
+
+`semantic_methodology_doc_dirty_state_reconcile` accepted the intended
+methodology-doc and decision-lane ledger updates as research-only/current
+reference material. The accepted wording adds reconciliation links, records the
+wave6 source/guard finding, and keeps the strongest auth-frame/rescue candidate
+explicitly non-promotable until broader heldout and rulegen quality evidence
+exist.
+
+The selected wave6 evidence files referenced by that methodology wording are
+now committed as generated evidence. Other dirty or untracked semantic output
+files remain non-authoritative until
+`local_semantic_latest_output_disposition`.
 
 ## Authority Rules
 
@@ -28,12 +43,12 @@ rerun semantic evidence, or change the browser/helper runtime path.
 
 ## Registry Snapshot
 
-The registry currently has `27` primary artifact paths containing `latest`.
+The registry currently has `28` primary artifact paths containing `latest`.
 None of those primary `latest` paths are marked as runtime truth.
 
 State split:
 
-- `21` are `generated_evidence`
+- `22` are `generated_evidence`
 - `4` are `historical_reference`
 - `2` are `superseded`
 
@@ -43,6 +58,7 @@ Component split:
 - `6` are `candidate_wave6`
 - `6` are `historical_or_seed`
 - `4` are `diagnostics`
+- `1` is `decision_research`
 
 Current interpretation: the registry is not treating `latest` reports as
 runtime authority. The next risk is dirty local output drift, not registry
@@ -50,7 +66,8 @@ state collapse.
 
 ## Dirty Worktree Findings
 
-Tracked methodology / ledger changes:
+Tracked methodology / ledger changes reviewed by
+`semantic_methodology_doc_dirty_state_reconcile`:
 
 - `docs/rulegen/semantic_decision_rule_comparison_plan.md`
 - `docs/rulegen/semantic_sentence_veto_algorithm.md`
@@ -59,10 +76,10 @@ Tracked methodology / ledger changes:
 - `docs/test_outputs/semantic_decision_research_lanes_latest.json`
 - `docs/test_outputs/semantic_decision_research_lanes_latest.md`
 
-Classification: these are current-reference or current-research surfaces, but
-the dirty changes are not yet authoritative. They appear to add wave6 source and
-guard findings plus reconciliation links. Review them as a separate
-methodology-doc reconciliation pass before treating their wording as canonical.
+Classification: the intended changes are current-reference or current-research
+surfaces after reconciliation. They add wave6 source and guard findings plus
+reconciliation links, but they remain research-only and do not alter runtime
+policy.
 
 Tracked generated-output changes:
 
@@ -98,9 +115,6 @@ the user explicitly switches to research remediation.
 
 ## Follow-Up Audit Order
 
-1. `semantic_methodology_doc_dirty_state_reconcile`: review dirty methodology
-   docs and the decision research lane ledger, then decide what becomes
-   current reference versus what stays research-only.
-2. `local_semantic_latest_output_disposition`: classify dirty and untracked
+1. `local_semantic_latest_output_disposition`: classify dirty and untracked
    generated semantic outputs as commit, archive, regenerate, or out-of-scope
    local output.

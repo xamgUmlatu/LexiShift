@@ -22,6 +22,10 @@ Current executable manifests:
 Current process ledger:
 - `docs/test_inputs/semantic_decision_research_lanes_en_es.json`
 - `docs/test_outputs/semantic_decision_research_lanes_latest.md`
+Current system reconciliation ledger:
+- `docs/rulegen/semantic_veto_reconciliation_workstream.md`
+- `docs/test_inputs/semantic_veto_system_registry_en_es.json`
+- `docs/test_outputs/semantic_veto_system_registry_latest.md`
 Current source-row audits:
 - `docs/test_outputs/semantic_source_row_alignment_audit_en_es_latest.md`
 - `docs/test_outputs/semantic_source_row_alignment_audit_def_example_plus_llm_aligned_frame_gap_v2_latest.md`
@@ -238,6 +242,106 @@ Keep the testing harness intact as durable research infrastructure.
 - No production policy or runtime default changes from these harnesses until a
   candidate passes frozen, held-out active/shadow, and phrase/no-winner suites
   without adding harmful replacements.
+
+## Current Wave6 Source/Guard Finding
+
+This is a research-methodology finding, not a runtime-policy or promotion
+claim. Generated reports below are supporting evidence; promotion authority
+still requires the reconciliation registry, locked heldout breadth, and the
+rulegen quality loop.
+
+The 2026-04-29 wave6 evidence slice confirms that source coverage and guard
+composition are still more important than the final scalar margin alone.
+
+New source work:
+
+- Wiktextract translation-sense evidence covers `38 / 38` selected wave6
+  senses across `16 / 16` families and passes leakage/sense admission.
+- WordNet alternate-sense phrase evidence adds phrase-control rows for
+  `16 / 16` families. This is a real no-winner coverage improvement, not a
+  production policy by itself.
+- Authorization-frame evidence adds `5` deterministic English rows for
+  source-backed permission/authorization senses. The adapter uses the selected
+  sense's source gloss or translation-sense text to decide whether a generic
+  class frame is allowed, and it excludes browser-sentence text, Spanish target
+  lemmas, and the heldout-specific `manager` wording from emitted evidence.
+
+Guard/margin results:
+
+- Semantic phrase prototypes alone protect the 16-row phrase/no-winner suite at
+  zero harm, but over-abstain active cases.
+- An independent phrase-prototype dominance margin is useful but insufficient.
+  The best zero-harm active/shadow point tested so far is active margin `0`,
+  phrase margin `0.02`: `0` harmful, `7` false abstains, `56.2%` recall,
+  `81.6%` accuracy.
+- A hybrid semantic-phrase-prototype plus surface-POS guard is the strongest
+  active/shadow signal so far: active margin `0`, phrase margin `0.02` gives
+  `0` harmful, `2` false abstains, `87.5%` recall, `94.7%` accuracy.
+- The hybrid is not promotable because the wave6 phrase/no-winner suite
+  regresses to `2` harmful replacements: `low` rating and `bear` animal.
+- A replay-only rescue-gating sweep tested general active-score and phrase-lead
+  ceilings over the fixed hybrid score traces. It found no passing policy:
+  phrase/no-winner can be restored to `0` harmful / `0` false abstains, but the
+  best active/shadow rows still have `0` harmful / `2` false abstains.
+- The surface-POS margin sweep now has a replay path, so scorer-backed traces
+  are computed once and margin/phrase-margin policies are replayed cheaply. A
+  context-view sweep over the same hybrid shape found a real context signal:
+  `raw_sentence` and `raw_window` recover the dark `black` active row at margin
+  `0`, phrase margin `0.02`; `masked_sentence` does not. Raw-sentence held-out
+  validation reaches `0` harmful, `1` false abstain, `93.8%` recall, and
+  `97.4%` accuracy on active/shadow.
+- Adding the authorization-frame source rows to the raw-sentence hybrid lane
+  closes the remaining `leave:001` active false abstain without adding active
+  harmful replacements: active/shadow held-out validation is now `0` harmful,
+  `0` false abstains, `100%` recall, and `100%` accuracy across `38` cases.
+- The authorization-frame source rows do not themselves repair phrase/no-winner
+  harm, which is expected because they target active source evidence. The
+  paired rescue replay now finds `12` passing policies across active/shadow plus
+  phrase/no-winner suites. The recommended replay policy is active margin `0`,
+  phrase margin `0.02`, rescue active floor `0.52`, no noun phrase-lead rescue,
+  and modifier phrase-lead ceiling `0.02`.
+
+Current interpretation:
+
+- Surface-POS rescue is useful. It recovers many active noun/adjective cases
+  that semantic phrase prototypes over-block.
+- Surface-POS rescue is too broad when it can override strong no-winner evidence.
+  Rescue gates are therefore a candidate policy family only when evaluated
+  jointly with active/shadow and phrase/no-winner suites.
+- Dark `black` is no longer a blocker under raw sentence or raw window context,
+  which suggests that trigger masking removed useful literal-darkness evidence
+  for this class.
+- `leave` permission-vs-absence is no longer a blocker under the
+  source-backed authorization-frame adapter. The important distinction is that
+  this is a class/source mechanism, not a hand row for the word `leave`.
+- The phrase/no-winner rescue regressions remain `low` rating and `bear`
+  animal in the unrescued validation artifact, but the replayed rescue gates can
+  block them without reintroducing active false abstains under the auth-frame
+  raw-sentence score surface.
+- The next fair test is breadth: add more source-detectable semantic classes,
+  expand locked heldout families, and verify that the same source-admission plus
+  rescue-replay process keeps zero harmful replacements outside this wave.
+
+Relevant artifacts:
+
+- `docs/test_outputs/semantic_source_margin_policy_sweep_non_v10_wave6_alt_phrase_semantic_phrase_margin_grid_latest.md`
+- `docs/test_outputs/semantic_source_non_v10_wave6_alt_phrase_semantic_heldout_margin000_phrase002_validation_latest.md`
+- `docs/test_outputs/semantic_source_non_v10_wave6_alt_phrase_semantic_phrase_margin000_phrase002_validation_latest.md`
+- `docs/test_outputs/semantic_source_non_v10_wave6_alt_phrase_semantic_surface_pos_heldout_margin000_phrase002_validation_latest.md`
+- `docs/test_outputs/semantic_source_non_v10_wave6_alt_phrase_semantic_surface_pos_phrase_margin000_phrase002_validation_latest.md`
+- `docs/test_outputs/semantic_surface_pos_rescue_policy_sweep_non_v10_wave6_latest.md`
+- `docs/test_outputs/semantic_source_margin_policy_sweep_non_v10_wave6_alt_phrase_semantic_surface_pos_latest.md`
+- `docs/test_outputs/semantic_source_margin_policy_sweep_non_v10_wave6_alt_phrase_semantic_surface_pos_raw_sentence_latest.md`
+- `docs/test_outputs/semantic_source_margin_policy_sweep_non_v10_wave6_alt_phrase_semantic_surface_pos_raw_window_latest.md`
+- `docs/test_outputs/semantic_source_margin_policy_sweep_non_v10_wave6_alt_phrase_semantic_surface_pos_masked_window_latest.md`
+- `docs/test_outputs/semantic_source_non_v10_wave6_alt_phrase_semantic_surface_pos_raw_sentence_heldout_margin000_phrase002_validation_latest.md`
+- `docs/test_outputs/semantic_surface_pos_rescue_policy_sweep_non_v10_wave6_raw_sentence_latest.md`
+- `docs/test_outputs/semantic_authorization_frame_evidence_non_v10_wave6_wiktextract_supported_latest.md`
+- `docs/test_outputs/semantic_source_admission_cycle_auth_frame_non_v10_wave6_wiktextract_supported_latest.md`
+- `docs/test_outputs/semantic_source_non_v10_wave6_auth_frame_surface_pos_raw_sentence_heldout_margin000_phrase002_validation_latest.md`
+- `docs/test_outputs/semantic_source_non_v10_wave6_auth_frame_surface_pos_raw_sentence_phrase_margin000_phrase002_validation_latest.md`
+- `docs/test_outputs/semantic_surface_pos_rescue_policy_sweep_non_v10_wave6_auth_frame_raw_sentence_latest.md`
+- `docs/test_outputs/semantic_source_failure_class_mining_non_v10_wave6_auth_frame_latest.md`
 
 ## Context Representations To Compare
 
