@@ -424,19 +424,21 @@
     {
       "action_id": "local_semantic_latest_output_disposition",
       "priority": "P1",
-      "status": "queued",
+      "status": "done",
       "pass_id": "archive_consolidation",
       "source_artifacts": [
         "semantic_veto_artifact_authority_audit",
+        "semantic_veto_local_output_disposition",
         "semantic_veto_archive_consolidation_ledger",
+        "wave2_wave5_non_v10_draft_inputs",
         "wave5_source_portfolio_failure_mining",
         "wave6_wiktextract_supported_initial_failure_mining",
         "wave6_wiktextract_supported_initial_validation"
       ],
       "action": "Classify dirty and untracked semantic generated outputs as commit, archive, regenerate, or out-of-scope local output without letting them steer current claims.",
-      "evidence_needed": "Dirty wave5 source-portfolio sidecars, dirty wave5 normalized evidence, untracked wave2-wave5 draft datasets, and remaining untracked wave6 margin/heldout/rescue outputs remain local generated output state. The methodology reconciliation pass committed only the selected wave6 evidence files directly cited by current-reference methodology wording.",
-      "validation": "Update archive or registry rows only for artifacts intentionally preserved, rerun registry summary and doc-reference checks, validate JSON, and keep unrelated project-health/rulegen benchmark outputs out of semantic-veto authority.",
-      "promotion_impact": "Removes stale-output ambiguity before future agents evaluate promotion or runtime-policy claims."
+      "evidence_needed": "Disposition audit preserves the 14 wave2-wave5 draft input files referenced by tracked historical reports, heldout cases, or harness defaults. Dirty wave5 rerun churn remains unstaged as historical generated-output churn. Unreferenced wave6 comparator reports remain local-only. Generic project-health/rulegen outputs are out of semantic-veto scope.",
+      "validation": "Draft input JSON parsed, exact-reference searches performed for remaining wave6 comparator filenames, archive ledger and registry updated, registry summary regenerated, focused registry tests passed, doc-reference checks passed, registry JSON parsed, and git diff whitespace checks passed.",
+      "promotion_impact": "Removes stale-output ambiguity before future agents evaluate promotion or runtime-policy claims; no runtime policy change is made."
     },
     {
       "action_id": "wave7_source_class_breadth_setup",
@@ -1296,6 +1298,22 @@
       ]
     },
     {
+      "artifact_id": "semantic_veto_local_output_disposition",
+      "title": "Semantic veto local output disposition",
+      "component": "process_governance",
+      "state": "current_reference",
+      "path": "docs/rulegen/semantic_veto_local_output_disposition.md",
+      "role": "Integrity-audit snapshot that classifies remaining dirty and untracked generated outputs.",
+      "owner_doc": "docs/rulegen/semantic_veto_reconciliation_workstream.md",
+      "current_use": "Documents which local outputs were committed as historical support and which remain local-only or out of scope.",
+      "risk": "Must not be read as semantic evidence or as a reason to promote local latest reports.",
+      "next_audit_pass": "archive_consolidation",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_system_registry_latest.md",
+        "scripts/testing/semantic_veto_system_registry_summary.py"
+      ]
+    },
+    {
       "artifact_id": "current_wave6_rerun_chain_runbook",
       "title": "Current wave6 rerun chain runbook",
       "component": "process_governance",
@@ -1384,6 +1402,22 @@
       "risk": "Clean seed-pass language can be overread as broad proof if the same-suite phrase probe context is omitted.",
       "next_audit_pass": "archive_consolidation",
       "verification_artifacts": [
+        "docs/rulegen/semantic_veto_archive_consolidation.md"
+      ]
+    },
+    {
+      "artifact_id": "wave2_wave5_non_v10_draft_inputs",
+      "title": "Wave2 through wave5 non-v10 draft inputs",
+      "component": "historical_or_seed",
+      "state": "historical_reference",
+      "path": "docs/test_inputs/semantic_veto_wave2_wave5_draft_input_manifest_en_es.json",
+      "role": "Historical draft datasets and queues referenced by older tracked non-v10 reports, heldout cases, and harness defaults.",
+      "owner_doc": "docs/rulegen/semantic_veto_archive_consolidation.md",
+      "current_use": "Keeps older wave2-wave5 evidence reproducible as historical or seed context.",
+      "risk": "Input files under test_outputs/experiments can look current unless routed through the archive and system registry.",
+      "next_audit_pass": "archive_consolidation",
+      "verification_artifacts": [
+        "docs/rulegen/semantic_veto_local_output_disposition.md",
         "docs/rulegen/semantic_veto_archive_consolidation.md"
       ]
     },

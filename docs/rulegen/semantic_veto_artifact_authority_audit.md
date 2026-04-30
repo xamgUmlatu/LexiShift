@@ -6,7 +6,8 @@ Last updated: 2026-05-01
 Last verified: 2026-05-01 against `git status --short`,
 `semantic_veto_system_registry_en_es.json`,
 `semantic_veto_system_registry_latest.md`, dirty semantic-veto doc diffs, and
-`semantic_decision_research_lanes_latest.md`
+`semantic_decision_research_lanes_latest.md`, and
+`semantic_veto_local_output_disposition.md`
 
 ## Purpose
 
@@ -27,6 +28,11 @@ The selected wave6 evidence files referenced by that methodology wording are
 now committed as generated evidence. Other dirty or untracked semantic output
 files remain non-authoritative until
 `local_semantic_latest_output_disposition`.
+
+`local_semantic_latest_output_disposition` committed referenced wave2 through
+wave5 draft input files as historical/seed support and left the remaining
+semantic generated-output churn local-only. See
+`docs/rulegen/semantic_veto_local_output_disposition.md`.
 
 ## Authority Rules
 
@@ -81,7 +87,8 @@ surfaces after reconciliation. They add wave6 source and guard findings plus
 reconciliation links, but they remain research-only and do not alter runtime
 policy.
 
-Tracked generated-output changes:
+Tracked generated-output changes reviewed by
+`local_semantic_latest_output_disposition`:
 
 - wave5 source-portfolio normalized evidence under
   `docs/test_outputs/experiments/semantic_example_frame_batches/`
@@ -89,22 +96,26 @@ Tracked generated-output changes:
 - generic `project_health`, `feature_state`, rulegen benchmark, and benchmark
   triage outputs
 
-Classification: these dirty files are local generated output state. Within this
-semantic-veto workstream, the wave5 source-portfolio lane remains historical
-context unless a later audit registers more of those sidecars explicitly. The
-generic project-health and rulegen benchmark outputs are outside semantic-veto
-artifact authority and should not steer this workstream.
+Classification: these dirty files remain local generated output state. Within
+this semantic-veto workstream, the wave5 source-portfolio lane remains
+historical context. The sidecar deltas are timestamp-only and the normalized
+evidence deltas are large generated-output churn, so this pass leaves them
+unstaged. The generic project-health and rulegen benchmark outputs are outside
+semantic-veto artifact authority and should not steer this workstream.
 
-Untracked local generated outputs:
+Untracked local generated outputs reviewed by
+`local_semantic_latest_output_disposition`:
 
 - wave2 through wave5 non-v10 draft datasets and queues under
   `docs/test_outputs/experiments/semantic_non_v10_wave_drafts/`
 - wave6 translation-sense, alternate-phrase, surface-POS, margin, heldout, and
   rescue sweep outputs under `docs/test_outputs/`
 
-Classification: these are local experiment outputs, not current authority.
-They need a disposition pass before they are committed, archived, regenerated,
-or ignored.
+Classification: wave2 through wave5 draft inputs referenced by tracked reports,
+heldout cases, or harness defaults were committed as historical/seed support.
+Their manifest is
+`docs/test_inputs/semantic_veto_wave2_wave5_draft_input_manifest_en_es.json`.
+Unreferenced wave6 comparator outputs remain local-only and non-authoritative.
 
 ## Preserved Research Lane
 
@@ -115,6 +126,7 @@ the user explicitly switches to research remediation.
 
 ## Follow-Up Audit Order
 
-1. `local_semantic_latest_output_disposition`: classify dirty and untracked
-   generated semantic outputs as commit, archive, regenerate, or out-of-scope
-   local output.
+The integrity audit lane has no remaining queued disposition pass. Future work
+should either execute the parked research lane,
+`wave7_active_signal_and_rescue_split`, or open a new reconciliation pass if
+runtime policy, harness coverage, or artifact authority changes.

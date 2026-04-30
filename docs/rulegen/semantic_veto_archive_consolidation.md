@@ -37,6 +37,7 @@ baselines unless the registry names them as current candidate inputs.
 | `docs/test_outputs/semantic_source_non_v10_wave6_wiktextract_supported_heldout_margin005_validation_latest.md` | superseded | The first wave6 supported-source heldout exposed concrete blockers and failure traces. | It predates raw-sentence context, authorization-frame evidence, and scorer-backed rescue validation, so its metrics are a failure baseline rather than the current candidate read. |
 | `docs/test_outputs/semantic_source_failure_class_mining_non_v10_wave6_wiktextract_supported_latest.md` | superseded | The original wave6 blockers (`leave`, `piece`, `bear`, `fair`) shaped the later auth-frame, raw-sentence, and rescue-gate work. | The current blocker posture now comes from `auth_frame_failure_mining` plus the breadth expansion gate. |
 | `docs/test_outputs/semantic_non_v10_wave_admission_sweep_wave32_anypos_unsupported_latest.md` | historical_reference | Forward-only upper-bound sweeps expose source-support ceilings and acquisition targets. | Unsupported upper-bound completion is not source-supported promotion evidence and must route through source-support conversion before current-candidate claims. |
+| `docs/test_inputs/semantic_veto_wave2_wave5_draft_input_manifest_en_es.json` | historical_reference | These input files keep older tracked wave2-wave5 reports, heldout cases, and harness defaults reproducible. | They are seed/history support inputs only; current candidate steering uses the registry's wave6 and wave7 rows. |
 
 ## Retained Current References
 

@@ -24,23 +24,6 @@
       "validation": "Focused semantic harness tests passed; lane artifacts were regenerated through failure mining; registry audit and doc-reference checks must stay clean before commit."
     },
     {
-      "action": "Classify dirty and untracked semantic generated outputs as commit, archive, regenerate, or out-of-scope local output without letting them steer current claims.",
-      "action_id": "local_semantic_latest_output_disposition",
-      "evidence_needed": "Dirty wave5 source-portfolio sidecars, dirty wave5 normalized evidence, untracked wave2-wave5 draft datasets, and remaining untracked wave6 margin/heldout/rescue outputs remain local generated output state. The methodology reconciliation pass committed only the selected wave6 evidence files directly cited by current-reference methodology wording.",
-      "pass_id": "archive_consolidation",
-      "priority": "P1",
-      "promotion_impact": "Removes stale-output ambiguity before future agents evaluate promotion or runtime-policy claims.",
-      "source_artifacts": [
-        "semantic_veto_artifact_authority_audit",
-        "semantic_veto_archive_consolidation_ledger",
-        "wave5_source_portfolio_failure_mining",
-        "wave6_wiktextract_supported_initial_failure_mining",
-        "wave6_wiktextract_supported_initial_validation"
-      ],
-      "status": "queued",
-      "validation": "Update archive or registry rows only for artifacts intentionally preserved, rerun registry summary and doc-reference checks, validate JSON, and keep unrelated project-health/rulegen benchmark outputs out of semantic-veto authority."
-    },
-    {
       "action": "Design the next wave7 remediation split after phrase-control triage: add active source evidence for false abstains and gross, then test a phrase-aware rescue guard without hiding phrase harms.",
       "action_id": "wave7_active_signal_and_rescue_split",
       "evidence_needed": "No existing replayed rescue policy or no-surface scalar margin passes; phrase-control solves the phrase contract but surface rescue still admits phrase/no-winner harms while active/source cases still miss.",
@@ -80,6 +63,25 @@
       ],
       "status": "done",
       "validation": "Registry summary regenerated, focused registry tests passed, doc-reference checks passed, registry JSON parsed, and git diff whitespace checks passed. No new semantic evidence was generated."
+    },
+    {
+      "action": "Classify dirty and untracked semantic generated outputs as commit, archive, regenerate, or out-of-scope local output without letting them steer current claims.",
+      "action_id": "local_semantic_latest_output_disposition",
+      "evidence_needed": "Disposition audit preserves the 14 wave2-wave5 draft input files referenced by tracked historical reports, heldout cases, or harness defaults. Dirty wave5 rerun churn remains unstaged as historical generated-output churn. Unreferenced wave6 comparator reports remain local-only. Generic project-health/rulegen outputs are out of semantic-veto scope.",
+      "pass_id": "archive_consolidation",
+      "priority": "P1",
+      "promotion_impact": "Removes stale-output ambiguity before future agents evaluate promotion or runtime-policy claims; no runtime policy change is made.",
+      "source_artifacts": [
+        "semantic_veto_artifact_authority_audit",
+        "semantic_veto_local_output_disposition",
+        "semantic_veto_archive_consolidation_ledger",
+        "wave2_wave5_non_v10_draft_inputs",
+        "wave5_source_portfolio_failure_mining",
+        "wave6_wiktextract_supported_initial_failure_mining",
+        "wave6_wiktextract_supported_initial_validation"
+      ],
+      "status": "done",
+      "validation": "Draft input JSON parsed, exact-reference searches performed for remaining wave6 comparator filenames, archive ledger and registry updated, registry summary regenerated, focused registry tests passed, doc-reference checks passed, registry JSON parsed, and git diff whitespace checks passed."
     },
     {
       "action": "Run the recommended rescue policy through scorer-backed heldout validation before any runtime-policy or promotion claim.",
@@ -272,8 +274,8 @@
     "decision_research": 8,
     "diagnostics": 6,
     "evaluation_data": 7,
-    "historical_or_seed": 6,
-    "process_governance": 9,
+    "historical_or_seed": 7,
+    "process_governance": 10,
     "runtime_path": 16,
     "source_admission": 19
   },
@@ -1084,6 +1086,22 @@
       ]
     },
     {
+      "artifact_id": "semantic_veto_local_output_disposition",
+      "component": "process_governance",
+      "current_use": "Documents which local outputs were committed as historical support and which remain local-only or out of scope.",
+      "next_audit_pass": "archive_consolidation",
+      "owner_doc": "docs/rulegen/semantic_veto_reconciliation_workstream.md",
+      "path": "docs/rulegen/semantic_veto_local_output_disposition.md",
+      "risk": "Must not be read as semantic evidence or as a reason to promote local latest reports.",
+      "role": "Integrity-audit snapshot that classifies remaining dirty and untracked generated outputs.",
+      "state": "current_reference",
+      "title": "Semantic veto local output disposition",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_system_registry_latest.md",
+        "scripts/testing/semantic_veto_system_registry_summary.py"
+      ]
+    },
+    {
       "artifact_id": "semantic_veto_reconciliation_workstream",
       "component": "process_governance",
       "current_use": "Top-level reconciliation entrypoint.",
@@ -1544,6 +1562,22 @@
       ]
     },
     {
+      "artifact_id": "wave2_wave5_non_v10_draft_inputs",
+      "component": "historical_or_seed",
+      "current_use": "Keeps older wave2-wave5 evidence reproducible as historical or seed context.",
+      "next_audit_pass": "archive_consolidation",
+      "owner_doc": "docs/rulegen/semantic_veto_archive_consolidation.md",
+      "path": "docs/test_inputs/semantic_veto_wave2_wave5_draft_input_manifest_en_es.json",
+      "risk": "Input files under test_outputs/experiments can look current unless routed through the archive and system registry.",
+      "role": "Historical draft datasets and queues referenced by older tracked non-v10 reports, heldout cases, and harness defaults.",
+      "state": "historical_reference",
+      "title": "Wave2 through wave5 non-v10 draft inputs",
+      "verification_artifacts": [
+        "docs/rulegen/semantic_veto_local_output_disposition.md",
+        "docs/rulegen/semantic_veto_archive_consolidation.md"
+      ]
+    },
+    {
       "artifact_id": "wave32_forward_only_upper_bound_probe",
       "component": "historical_or_seed",
       "current_use": "Historical source-support ceiling evidence that routes through source-support conversion before candidate claims.",
@@ -1619,8 +1653,8 @@
       ]
     }
   ],
-  "entry_count": 82,
-  "generated_at": "2026-04-30T18:44:16Z",
+  "entry_count": 84,
+  "generated_at": "2026-04-30T19:02:23Z",
   "issues": [],
   "next_passes": [],
   "pass_count": 7,
@@ -2466,6 +2500,22 @@
       ]
     },
     {
+      "artifact_id": "semantic_veto_local_output_disposition",
+      "component": "process_governance",
+      "current_use": "Documents which local outputs were committed as historical support and which remain local-only or out of scope.",
+      "next_audit_pass": "archive_consolidation",
+      "owner_doc": "docs/rulegen/semantic_veto_reconciliation_workstream.md",
+      "path": "docs/rulegen/semantic_veto_local_output_disposition.md",
+      "risk": "Must not be read as semantic evidence or as a reason to promote local latest reports.",
+      "role": "Integrity-audit snapshot that classifies remaining dirty and untracked generated outputs.",
+      "state": "current_reference",
+      "title": "Semantic veto local output disposition",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_system_registry_latest.md",
+        "scripts/testing/semantic_veto_system_registry_summary.py"
+      ]
+    },
+    {
       "artifact_id": "semantic_veto_reconciliation_workstream",
       "component": "process_governance",
       "current_use": "Top-level reconciliation entrypoint.",
@@ -2914,12 +2964,12 @@
   "schema_version": 1,
   "state_counts": {
     "current_candidate": 5,
-    "current_reference": 14,
+    "current_reference": 15,
     "current_research": 14,
     "current_runtime": 16,
     "diagnostic_only": 1,
     "generated_evidence": 24,
-    "historical_reference": 4,
+    "historical_reference": 5,
     "superseded": 2,
     "supporting_current": 2
   },
