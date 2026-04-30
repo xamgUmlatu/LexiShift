@@ -118,6 +118,10 @@ Decision-rule and representation harnesses:
 - `scripts/testing/semantic_surface_pos_rescue_policy_sweep_en_es.py`: replays
   fixed score traces to test deterministic surface-POS rescue gates; it does
   not rescore evidence and is not runtime policy.
+- `scripts/testing/semantic_surface_pos_rescue_policy_validation_en_es.py`:
+  recomputes held-out scorer rows from the evidence batch, then applies the
+  recommended rescue gates to confirm the replay candidate offline; it is still
+  not runtime policy.
 
 Source-admission and evidence harnesses:
 
@@ -184,6 +188,9 @@ Generated reports for the current lane:
   rescue replay, preserving the unrescued phrase harm signal.
 - `auth_frame_rescue_replay_report`: fixed-trace rescue replay over active/shadow
   plus phrase/no-winner suites; replay only, not runtime policy.
+- `auth_frame_rescue_policy_validation`: scorer-backed offline confirmation of
+  the recommended rescue gates, currently `0` harmful and `0` false abstains
+  over `54` combined active/shadow plus phrase/no-winner cases.
 - `auth_frame_failure_mining`: generated failure-class and breadth-risk ledger.
 
 Control/comparator:
@@ -200,7 +207,8 @@ Rerun order:
 5. active/shadow heldout validation
 6. phrase/no-winner heldout validation
 7. rescue replay over fixed traces
-8. failure-class mining
+8. scorer-backed rescue policy validation
+9. failure-class mining
 
 Cracks preserved by this pass:
 
@@ -209,7 +217,8 @@ Cracks preserved by this pass:
   fresh-checkout runnable.
 - The base dataset is a current candidate input under `test_outputs/experiments`,
   so the registry must keep its role explicit.
-- Rescue replay is evidence over fixed traces, not scorer-backed runtime policy.
+- The rescue policy now has scorer-backed offline confirmation, but it is still
+  not a runtime policy change or breadth proof.
 
 ## Action Ledger
 
@@ -223,9 +232,8 @@ Current highest-priority actions:
 - `P0` `materialize_current_wave6_lane`: make the current wave6 lane
   fresh-checkout runnable, or demote local-only latest reports to provisional
   evidence.
-- `P1` `scorer_backed_rescue_policy_confirmation`: run the recommended rescue
-  policy through scorer-backed heldout validation before any runtime-policy or
-  promotion claim.
+- `P1` `scorer_backed_rescue_policy_confirmation`: done; the recommended rescue
+  policy passes scorer-backed offline validation over the current 54-row suite.
 - `P1` `source_trigger_overfit_audit`: verify authorization-frame evidence is
   source-triggered class behavior, not browser-case or target-lemma shaping.
 
@@ -242,9 +250,10 @@ Current state:
   scoring, and final DOM rendering surfaces.
 - Parked pass: `research_harness`; active harnesses are classified by the
   question they answer.
-- Active pass: `data_artifacts`; current work is keeping the current candidate
-  inputs, generated reports, control artifacts, and rerun order explicit.
-- Action ledger: active; start with `materialize_current_wave6_lane`.
+- Parked pass: `data_artifacts`; the current candidate inputs, generated
+  reports, control artifacts, rerun order, and scorer-backed rescue validation
+  artifact are explicit.
+- Action ledger: active; start with `breadth_expansion_gate`.
 - Current candidate remains research-only:
   `wave6_auth_frame_raw_sentence_surface_pos_rescue`.
 - Runtime policy change: none.
@@ -259,7 +268,8 @@ Read in this order:
 
 First task:
 
-- Continue the `data_artifacts` pass.
+- Continue the `best_candidate` pass by defining the next breadth test before
+  tuning the current 16-family wave further.
 - Keep action items updated as cracks are discovered or resolved.
 - Keep durable inputs, generated evidence, control artifacts, and local
   uncommitted experiment outputs separate.

@@ -1,9 +1,9 @@
 # Semantic Veto System Registry
 
 - Status: `ok`
-- Generated: `2026-04-30T03:43:50Z`
+- Generated: `2026-04-30T03:52:20Z`
 - Registry: `/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_veto_system_registry_en_es.json`
-- Entries: `49`
+- Entries: `51`
 - Passes: `7`
 
 ## Current Candidate
@@ -12,10 +12,11 @@
 - Production status: `research_only`
 - Runtime policy change: `none`
 - Control: wave6 alternate-phrase semantic surface-POS raw-sentence lane before authorization-frame rows
-- Summary: Translation-sense plus alternate-sense phrase evidence, raw-sentence context, semantic phrase prototypes, surface-POS rescue/preemption, deterministic source-backed authorization-frame rows, and replayed rescue gates.
+- Summary: Translation-sense plus alternate-sense phrase evidence, raw-sentence context, semantic phrase prototypes, surface-POS rescue/preemption, deterministic source-backed authorization-frame rows, replayed rescue gates, and offline scorer-backed rescue confirmation.
 - Active/shadow: `0` harmful / `0` false abstains / `1.0` accuracy
 - Phrase/no-winner before replay: `2` harmful
 - Rescue replay passing policies: `12`
+- Scorer-backed rescue policy: `0` harmful / `0` false abstains / `54` cases
 
 ## Audit
 
@@ -32,7 +33,7 @@
 | Priority | Status | Action | Pass | Source | Evidence Needed | Validation |
 | --- | --- | --- | --- | --- | --- | --- |
 | P0 | done | Make the current wave6 lane fresh-checkout runnable, or explicitly demote local-only latest reports to provisional evidence. | data_artifacts | `wave6_auth_frame_raw_sentence_surface_pos_rescue`, `translation_sense_adapter`, `translation_sense_admission_report`, `alternate_sense_phrase_adapter`, `alternate_sense_phrase_admission_report`, `current_wave6_rerun_chain_runbook`, `authorization_frame_adapter`, `auth_frame_admission_report`, `auth_frame_active_shadow_validation`, `auth_frame_phrase_validation`, `auth_frame_rescue_replay_report` | Tracked generator scripts, deterministic rerun chain, and regenerated 2026-04-30 latest artifacts for every artifact in the lane rerun order. | Focused semantic harness tests passed; lane artifacts were regenerated through failure mining; registry audit and doc-reference checks must stay clean before commit. |
-| P1 | queued | Run the recommended rescue policy through scorer-backed heldout validation before any runtime-policy or promotion claim. | best_candidate | `auth_frame_rescue_replay_report`, `surface_pos_rescue_sweep`, `wave6_active_shadow_heldout`, `wave6_phrase_heldout` | Non-replay active/shadow and phrase/no-winner validation artifacts for the recommended rescue policy. | Run the relevant heldout validation tests plus the registry audit after recording the new artifacts. |
+| P1 | done | Run the recommended rescue policy through scorer-backed heldout validation before any runtime-policy or promotion claim. | best_candidate | `auth_frame_rescue_replay_report`, `auth_frame_rescue_policy_validation`, `surface_pos_rescue_sweep`, `wave6_active_shadow_heldout`, `wave6_phrase_heldout` | Scorer-backed active/shadow plus phrase/no-winner validation now passes at 0 harmful replacements and 0 false abstains over 54 cases for the recommended rescue policy. | Focused rescue validation and replay tests passed; scorer-backed validation artifact regenerated with --fail-on-review; registry audit and doc-reference checks must stay clean before commit. |
 | P1 | done | Audit authorization-frame evidence for source-triggered class behavior rather than browser-case or target-lemma shaping. | overfit_leakage | `authorization_frame_adapter`, `auth_frame_admission_report`, `auth_frame_failure_mining` | Authorization-frame report now records matched and unmatched source-trigger text per selected sense, plus target-lemma-in-source flags. | Adapter tests passed; auth-frame branch was regenerated; targeted leakage audit found 0 heldout sentence or Spanish target-lemma violations across 54 heldout sentences. |
 | P2 | queued | Convert the current candidate assumptions into explicit tested, untested, and rejected rows. | assumptions | `wave6_auth_frame_raw_sentence_surface_pos_rescue`, `wave6_alt_phrase_raw_sentence_control`, `auth_frame_active_shadow_validation`, `auth_frame_phrase_validation` | Rows for raw-sentence context, phrase-prototype margin, source-triggered authorization frames, and rescue-gate constraints. | Regenerate the registry summary and confirm each assumption links to an artifact or a queued test. |
 | P2 | queued | Define the next breadth test before tuning the current 16-family wave further. | best_candidate | `auth_frame_failure_mining`, `wave6_wiktextract_dataset`, `non_v10_wave_admission_sweep_harness` | A named next wave or expanded locked heldout suite with source-detectable semantic classes beyond the current authorization-frame case. | Run source admission, active/shadow heldout, phrase/no-winner heldout, failure mining, and the registry audit for the expanded lane. |
@@ -42,14 +43,14 @@
 ### Entry States
 - `current_candidate`: `5`
 - `current_reference`: `5`
-- `current_research`: `12`
+- `current_research`: `13`
 - `current_runtime`: `16`
 - `diagnostic_only`: `1`
-- `generated_evidence`: `8`
+- `generated_evidence`: `9`
 - `supporting_current`: `2`
 
 ### Components
-- `candidate_wave6`: `9`
+- `candidate_wave6`: `11`
 - `decision_research`: `7`
 - `diagnostics`: `3`
 - `evaluation_data`: `3`
@@ -61,11 +62,11 @@
 
 | Lane | Status | Durable Inputs | Generated Reports | Control Artifacts | Cracks |
 | --- | --- | --- | --- | --- | --- |
-| wave6_auth_frame_raw_sentence_surface_pos_rescue | current_research_candidate | `wave6_wiktextract_dataset`, `wave6_active_shadow_heldout`, `wave6_phrase_heldout` | `translation_sense_admission_report`, `alternate_sense_phrase_admission_report`, `auth_frame_admission_report`, `auth_frame_active_shadow_validation`, `auth_frame_phrase_validation`, `auth_frame_rescue_replay_report`, `auth_frame_failure_mining` | `wave6_alt_phrase_raw_sentence_control` | `Latest reports are generated evidence; rerun the full lane chain before updating promotion claims.`, `The base dataset lives under test_outputs/experiments even though it is a current candidate input.`, `Rescue replay is over fixed traces and still needs scorer-backed runtime policy validation before promotion.` |
+| wave6_auth_frame_raw_sentence_surface_pos_rescue | current_research_candidate | `wave6_wiktextract_dataset`, `wave6_active_shadow_heldout`, `wave6_phrase_heldout` | `translation_sense_admission_report`, `alternate_sense_phrase_admission_report`, `auth_frame_admission_report`, `auth_frame_active_shadow_validation`, `auth_frame_phrase_validation`, `auth_frame_rescue_replay_report`, `auth_frame_rescue_policy_validation`, `auth_frame_failure_mining` | `wave6_alt_phrase_raw_sentence_control` | `Latest reports are generated evidence; rerun the full lane chain before updating promotion claims.`, `The base dataset lives under test_outputs/experiments even though it is a current candidate input.`, `Rescue policy is now scorer-backed offline evidence, but it still is not a runtime policy change.` |
 
 ### Data Rerun Order
 
-- `wave6_auth_frame_raw_sentence_surface_pos_rescue`: `translation_sense_adapter`, `translation_sense_admission_report`, `alternate_sense_phrase_adapter`, `alternate_sense_phrase_admission_report`, `wave6_alt_phrase_raw_sentence_control`, `authorization_frame_adapter`, `auth_frame_admission_report`, `auth_frame_active_shadow_validation`, `auth_frame_phrase_validation`, `auth_frame_rescue_replay_report`, `auth_frame_failure_mining`
+- `wave6_auth_frame_raw_sentence_surface_pos_rescue`: `translation_sense_adapter`, `translation_sense_admission_report`, `alternate_sense_phrase_adapter`, `alternate_sense_phrase_admission_report`, `wave6_alt_phrase_raw_sentence_control`, `authorization_frame_adapter`, `auth_frame_admission_report`, `auth_frame_active_shadow_validation`, `auth_frame_phrase_validation`, `auth_frame_rescue_replay_report`, `auth_frame_rescue_policy_validation`, `auth_frame_failure_mining`
 
 ## Risk Rows
 
@@ -92,6 +93,7 @@
 | wave6_active_shadow_heldout | current_candidate | evaluation_data | Thresholds chosen on this suite would not be independent promotion evidence. | data_artifacts |
 | wave6_phrase_heldout | current_candidate | evaluation_data | Must stay visible separately from active/shadow metrics. | data_artifacts |
 | wave6_wiktextract_dataset | current_candidate | evaluation_data | Lives under test_outputs/experiments, so registry must keep its role explicit. | data_artifacts |
+| surface_pos_rescue_policy_validation_harness | current_research | candidate_wave6 | Still offline validation; it does not implement or package a runtime policy. | best_candidate |
 | decision_research_lanes_ledger | current_research | decision_research | Can grow without enough component-level classification unless paired with this registry. | research_harness |
 | decision_rule_matrix_harness | current_research | decision_research | Multiple axes can be confused if result rows are summarized too aggressively. | research_harness |
 | phrase_policy_signal_audit_harness | current_research | decision_research | Signal-only pass results do not validate translation targets, source evidence, or final replace/abstain decisions. | research_harness |
@@ -114,6 +116,7 @@
 | auth_frame_active_shadow_validation | generated_evidence | candidate_wave6 | Breadth is too small for promotion. | best_candidate |
 | auth_frame_admission_report | generated_evidence | candidate_wave6 | Admission report is analysis-only without heldout validation. | data_artifacts |
 | auth_frame_phrase_validation | generated_evidence | candidate_wave6 | Can be misread as candidate failure if rescue replay context is omitted. | best_candidate |
+| auth_frame_rescue_policy_validation | generated_evidence | candidate_wave6 | Bounded to the current wave6 suites and not a runtime implementation. | best_candidate |
 | auth_frame_rescue_replay_report | generated_evidence | candidate_wave6 | Replay policy has not been promoted to runtime implementation. | best_candidate |
 | wave6_alt_phrase_raw_sentence_control | generated_evidence | candidate_wave6 | Control rows can be mistaken for the current candidate if the auth-frame admission and rescue replay reports are omitted. | data_artifacts |
 | auth_frame_failure_mining | generated_evidence | diagnostics | Uses unrescued phrase validation as a blocking heldout unless interpreted with rescue replay. | overfit_leakage |
@@ -146,6 +149,7 @@
 | wave6_active_shadow_heldout | current_candidate | evaluation_data | docs/test_inputs/semantic_routing_cases/en_es_source_non_v10_wave6_wiktextract_supported_heldout_cases_v1.json | Current active/shadow heldout suite. |
 | wave6_phrase_heldout | current_candidate | evaluation_data | docs/test_inputs/semantic_routing_cases/en_es_source_non_v10_wave6_wiktextract_supported_phrase_cases_v1.json | Current phrase/no-winner heldout suite. |
 | wave6_wiktextract_dataset | current_candidate | evaluation_data | docs/test_outputs/experiments/semantic_non_v10_wave_drafts/en_es_source_non_v10_wave6_anypos_wiktextract_supported_v1_dataset.json | Current candidate source input. |
+| surface_pos_rescue_policy_validation_harness | current_research | candidate_wave6 | scripts/testing/semantic_surface_pos_rescue_policy_validation_en_es.py | Offline scorer-backed confirmation for the current wave6 rescue policy candidate. |
 | decision_research_lanes_ledger | current_research | decision_research | docs/test_inputs/semantic_decision_research_lanes_en_es.json | Current research-lane state ledger. |
 | decision_rule_matrix_harness | current_research | decision_research | scripts/testing/semantic_decision_rule_matrix_en_es.py | Final-rule and representation matrix; not source admission and not runtime policy. |
 | phrase_policy_signal_audit_harness | current_research | decision_research | scripts/testing/semantic_phrase_policy_signal_audit_en_es.py | Signal-only phrase/no-winner audit before promoting phrase cases into end-to-end held-out suites. |
@@ -168,6 +172,7 @@
 | auth_frame_active_shadow_validation | generated_evidence | candidate_wave6 | docs/test_outputs/semantic_source_non_v10_wave6_auth_frame_surface_pos_raw_sentence_heldout_margin000_phrase002_validation_latest.md | Current measured active/shadow result: 0 harmful and 0 false abstains on 38 cases. |
 | auth_frame_admission_report | generated_evidence | candidate_wave6 | docs/test_outputs/semantic_source_admission_cycle_auth_frame_non_v10_wave6_wiktextract_supported_latest.md | Evidence for current candidate source-admission status. |
 | auth_frame_phrase_validation | generated_evidence | candidate_wave6 | docs/test_outputs/semantic_source_non_v10_wave6_auth_frame_surface_pos_raw_sentence_phrase_margin000_phrase002_validation_latest.md | Shows unrescued phrase/no-winner harm remains visible. |
+| auth_frame_rescue_policy_validation | generated_evidence | candidate_wave6 | docs/test_outputs/semantic_surface_pos_rescue_policy_validation_non_v10_wave6_auth_frame_raw_sentence_latest.md | Current offline confirmation: 0 harmful replacements and 0 false abstains over 54 cases. |
 | auth_frame_rescue_replay_report | generated_evidence | candidate_wave6 | docs/test_outputs/semantic_surface_pos_rescue_policy_sweep_non_v10_wave6_auth_frame_raw_sentence_latest.md | Current combined active/shadow plus phrase/no-winner rescue candidate evidence. |
 | wave6_alt_phrase_raw_sentence_control | generated_evidence | candidate_wave6 | docs/test_outputs/semantic_source_non_v10_wave6_alt_phrase_semantic_surface_pos_raw_sentence_heldout_margin000_phrase002_validation_latest.md | Control/comparator for the auth-frame candidate delta. |
 | auth_frame_failure_mining | generated_evidence | diagnostics | docs/test_outputs/semantic_source_failure_class_mining_non_v10_wave6_auth_frame_latest.md | Keeps promotion posture at review despite clean active/shadow result. |

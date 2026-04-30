@@ -13,8 +13,12 @@ Expected notable statuses:
   returns `review` before rescue replay because two phrase/no-winner cases remain harmful.
 - `semantic_surface_pos_rescue_policy_sweep_non_v10_wave6_auth_frame_raw_sentence_latest`
   returns `ok` as fixed-trace replay evidence only.
+- `semantic_surface_pos_rescue_policy_validation_non_v10_wave6_auth_frame_raw_sentence_latest`
+  returns `ok` as scorer-backed offline confirmation for the recommended rescue
+  policy, still not runtime promotion evidence.
 - `semantic_source_failure_class_mining_non_v10_wave6_auth_frame_latest` returns
-  `review` to keep promotion blocked until broader/scorer-backed confirmation.
+  `review` to keep promotion blocked until broader semantic-class breadth is
+  tested.
 
 ## 1. Translation-Sense Adapter
 
@@ -163,6 +167,13 @@ python3 scripts/testing/semantic_surface_pos_rescue_policy_sweep_en_es.py \
   --phrase-prototype-margin-grid 0.02 \
   --json-out docs/test_outputs/semantic_surface_pos_rescue_policy_sweep_non_v10_wave6_auth_frame_raw_sentence_latest.json \
   --markdown-out docs/test_outputs/semantic_surface_pos_rescue_policy_sweep_non_v10_wave6_auth_frame_raw_sentence_latest.md
+```
+
+```bash
+python3 scripts/testing/semantic_surface_pos_rescue_policy_validation_en_es.py \
+  --json-out docs/test_outputs/semantic_surface_pos_rescue_policy_validation_non_v10_wave6_auth_frame_raw_sentence_latest.json \
+  --markdown-out docs/test_outputs/semantic_surface_pos_rescue_policy_validation_non_v10_wave6_auth_frame_raw_sentence_latest.md \
+  --fail-on-review
 ```
 
 ```bash

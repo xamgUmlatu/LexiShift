@@ -178,6 +178,10 @@ def render_markdown(report: Mapping[str, object]) -> str:
         f"`{result.get('unrescued_phrase_harmful_replacements', '')}` harmful",
         f"- Rescue replay passing policies: "
         f"`{result.get('rescue_replay_passing_policy_count', '')}`",
+        f"- Scorer-backed rescue policy: "
+        f"`{result.get('scorer_backed_policy_harmful_replacements', '')}` harmful / "
+        f"`{result.get('scorer_backed_policy_false_abstains', '')}` false abstains / "
+        f"`{result.get('scorer_backed_policy_cases', '')}` cases",
         "",
         "## Audit",
         "",

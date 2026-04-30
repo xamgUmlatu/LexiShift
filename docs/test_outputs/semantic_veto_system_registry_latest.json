@@ -26,18 +26,19 @@
     {
       "action": "Run the recommended rescue policy through scorer-backed heldout validation before any runtime-policy or promotion claim.",
       "action_id": "scorer_backed_rescue_policy_confirmation",
-      "evidence_needed": "Non-replay active/shadow and phrase/no-winner validation artifacts for the recommended rescue policy.",
+      "evidence_needed": "Scorer-backed active/shadow plus phrase/no-winner validation now passes at 0 harmful replacements and 0 false abstains over 54 cases for the recommended rescue policy.",
       "pass_id": "best_candidate",
       "priority": "P1",
-      "promotion_impact": "Separates fixed-trace replay evidence from an implementable semantic decision policy.",
+      "promotion_impact": "Closes the fixed-trace replay gap while preserving runtime implementation and breadth expansion as separate promotion blockers.",
       "source_artifacts": [
         "auth_frame_rescue_replay_report",
+        "auth_frame_rescue_policy_validation",
         "surface_pos_rescue_sweep",
         "wave6_active_shadow_heldout",
         "wave6_phrase_heldout"
       ],
-      "status": "queued",
-      "validation": "Run the relevant heldout validation tests plus the registry audit after recording the new artifacts."
+      "status": "done",
+      "validation": "Focused rescue validation and replay tests passed; scorer-backed validation artifact regenerated with --fail-on-review; registry audit and doc-reference checks must stay clean before commit."
     },
     {
       "action": "Audit authorization-frame evidence for source-triggered class behavior rather than browser-case or target-lemma shaping.",
@@ -87,7 +88,7 @@
     }
   ],
   "component_counts": {
-    "candidate_wave6": 9,
+    "candidate_wave6": 11,
     "decision_research": 7,
     "diagnostics": 3,
     "evaluation_data": 3,
@@ -97,7 +98,7 @@
   },
   "current_candidate": {
     "candidate_id": "wave6_auth_frame_raw_sentence_surface_pos_rescue",
-    "candidate_summary": "Translation-sense plus alternate-sense phrase evidence, raw-sentence context, semantic phrase prototypes, surface-POS rescue/preemption, deterministic source-backed authorization-frame rows, and replayed rescue gates.",
+    "candidate_summary": "Translation-sense plus alternate-sense phrase evidence, raw-sentence context, semantic phrase prototypes, surface-POS rescue/preemption, deterministic source-backed authorization-frame rows, replayed rescue gates, and offline scorer-backed rescue confirmation.",
     "control": "wave6 alternate-phrase semantic surface-POS raw-sentence lane before authorization-frame rows",
     "current_result": {
       "active_shadow_cases": 38,
@@ -107,12 +108,16 @@
       "active_shadow_replace_recall": 1.0,
       "phrase_no_winner_cases": 16,
       "rescue_replay_passing_policy_count": 12,
+      "scorer_backed_policy_active_rescues": 3,
+      "scorer_backed_policy_cases": 54,
+      "scorer_backed_policy_false_abstains": 0,
+      "scorer_backed_policy_harmful_replacements": 0,
       "unrescued_phrase_harmful_replacements": 2
     },
     "production_status": "research_only",
     "promotion_blockers": [
       "bounded to 16 families and 54 heldout cases",
-      "rescue replay is not yet runtime policy",
+      "scorer-backed confirmation is still offline and not a runtime policy change",
       "broader semantic-class adapter breadth is untested",
       "phrase/no-winner safety must stay visible separately from active/shadow scoring"
     ],
@@ -135,13 +140,14 @@
         "auth_frame_active_shadow_validation",
         "auth_frame_phrase_validation",
         "auth_frame_rescue_replay_report",
+        "auth_frame_rescue_policy_validation",
         "auth_frame_failure_mining"
       ],
       "lane_id": "wave6_auth_frame_raw_sentence_surface_pos_rescue",
       "local_artifact_cracks": [
         "Latest reports are generated evidence; rerun the full lane chain before updating promotion claims.",
         "The base dataset lives under test_outputs/experiments even though it is a current candidate input.",
-        "Rescue replay is over fixed traces and still needs scorer-backed runtime policy validation before promotion."
+        "Rescue policy is now scorer-backed offline evidence, but it still is not a runtime policy change."
       ],
       "purpose": "Rerun map for the current wave6 auth-frame raw-sentence surface-POS rescue candidate; not runtime promotion evidence.",
       "rerun_order": [
@@ -155,6 +161,7 @@
         "auth_frame_active_shadow_validation",
         "auth_frame_phrase_validation",
         "auth_frame_rescue_replay_report",
+        "auth_frame_rescue_policy_validation",
         "auth_frame_failure_mining"
       ],
       "status": "current_research_candidate"
@@ -486,6 +493,22 @@
       "title": "Wave6 Wiktextract-supported source dataset",
       "verification_artifacts": [
         "docs/test_inputs/semantic_routing_cases/en_es_source_non_v10_wave6_wiktextract_supported_heldout_cases_v1.json"
+      ]
+    },
+    {
+      "artifact_id": "surface_pos_rescue_policy_validation_harness",
+      "component": "candidate_wave6",
+      "current_use": "Offline scorer-backed confirmation for the current wave6 rescue policy candidate.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_decision_rule_comparison_plan.md",
+      "path": "scripts/testing/semantic_surface_pos_rescue_policy_validation_en_es.py",
+      "risk": "Still offline validation; it does not implement or package a runtime policy.",
+      "role": "Answers whether the recommended rescue gates still pass after recomputing active/shadow and phrase/no-winner scorer rows from the evidence batch.",
+      "state": "current_research",
+      "title": "Surface-POS rescue policy validation harness",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_surface_pos_rescue_policy_validation_en_es.py",
+        "docs/test_outputs/semantic_surface_pos_rescue_policy_validation_non_v10_wave6_auth_frame_raw_sentence_latest.md"
       ]
     },
     {
@@ -827,6 +850,21 @@
       ]
     },
     {
+      "artifact_id": "auth_frame_rescue_policy_validation",
+      "component": "candidate_wave6",
+      "current_use": "Current offline confirmation: 0 harmful replacements and 0 false abstains over 54 cases.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_decision_rule_comparison_plan.md",
+      "path": "docs/test_outputs/semantic_surface_pos_rescue_policy_validation_non_v10_wave6_auth_frame_raw_sentence_latest.md",
+      "risk": "Bounded to the current wave6 suites and not a runtime implementation.",
+      "role": "Generated scorer-backed validation for the recommended auth-frame rescue policy over active/shadow plus phrase/no-winner heldout suites.",
+      "state": "generated_evidence",
+      "title": "Auth-frame rescue scorer-backed validation",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_surface_pos_rescue_policy_validation_non_v10_wave6_auth_frame_raw_sentence_latest.json"
+      ]
+    },
+    {
       "artifact_id": "auth_frame_rescue_replay_report",
       "component": "candidate_wave6",
       "current_use": "Current combined active/shadow plus phrase/no-winner rescue candidate evidence.",
@@ -920,8 +958,8 @@
       ]
     }
   ],
-  "entry_count": 49,
-  "generated_at": "2026-04-30T03:43:50Z",
+  "entry_count": 51,
+  "generated_at": "2026-04-30T03:52:20Z",
   "issues": [],
   "next_passes": [
     {
@@ -1409,6 +1447,22 @@
       ]
     },
     {
+      "artifact_id": "surface_pos_rescue_policy_validation_harness",
+      "component": "candidate_wave6",
+      "current_use": "Offline scorer-backed confirmation for the current wave6 rescue policy candidate.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_decision_rule_comparison_plan.md",
+      "path": "scripts/testing/semantic_surface_pos_rescue_policy_validation_en_es.py",
+      "risk": "Still offline validation; it does not implement or package a runtime policy.",
+      "role": "Answers whether the recommended rescue gates still pass after recomputing active/shadow and phrase/no-winner scorer rows from the evidence batch.",
+      "state": "current_research",
+      "title": "Surface-POS rescue policy validation harness",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_surface_pos_rescue_policy_validation_en_es.py",
+        "docs/test_outputs/semantic_surface_pos_rescue_policy_validation_non_v10_wave6_auth_frame_raw_sentence_latest.md"
+      ]
+    },
+    {
       "artifact_id": "decision_research_lanes_ledger",
       "component": "decision_research",
       "current_use": "Current research-lane state ledger.",
@@ -1747,6 +1801,21 @@
       ]
     },
     {
+      "artifact_id": "auth_frame_rescue_policy_validation",
+      "component": "candidate_wave6",
+      "current_use": "Current offline confirmation: 0 harmful replacements and 0 false abstains over 54 cases.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_decision_rule_comparison_plan.md",
+      "path": "docs/test_outputs/semantic_surface_pos_rescue_policy_validation_non_v10_wave6_auth_frame_raw_sentence_latest.md",
+      "risk": "Bounded to the current wave6 suites and not a runtime implementation.",
+      "role": "Generated scorer-backed validation for the recommended auth-frame rescue policy over active/shadow plus phrase/no-winner heldout suites.",
+      "state": "generated_evidence",
+      "title": "Auth-frame rescue scorer-backed validation",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_surface_pos_rescue_policy_validation_non_v10_wave6_auth_frame_raw_sentence_latest.json"
+      ]
+    },
+    {
       "artifact_id": "auth_frame_rescue_replay_report",
       "component": "candidate_wave6",
       "current_use": "Current combined active/shadow plus phrase/no-winner rescue candidate evidence.",
@@ -1844,10 +1913,10 @@
   "state_counts": {
     "current_candidate": 5,
     "current_reference": 5,
-    "current_research": 12,
+    "current_research": 13,
     "current_runtime": 16,
     "diagnostic_only": 1,
-    "generated_evidence": 8,
+    "generated_evidence": 9,
     "supporting_current": 2
   },
   "status": "ok"
