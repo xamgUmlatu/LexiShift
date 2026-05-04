@@ -64,6 +64,48 @@
       "validation": "Registry summary regenerated, focused registry tests passed, doc-reference checks passed, registry JSON parsed, and git diff whitespace checks passed. No new semantic evidence was generated."
     },
     {
+      "action": "Execute the bounded LLM pilot batch, repair only rejected generated rows, assemble the final payload with provenance, and admit it before any scoring claim.",
+      "action_id": "llm_pilot_generation_admission_execution",
+      "evidence_needed": "The live pilot produced 72 accepted generated rows after one invalid-output retry and two targeted trigger-token repairs. The assembled payload is request-aligned, has 72/72 expected rows, and the admission report is ok with 72 admitted rows and 0 rejected rows.",
+      "pass_id": "data_artifacts",
+      "priority": "P1",
+      "promotion_impact": "Converts the LLM pilot from a no-spend plan into admitted evaluation data while preserving the rule that generated rows are not source evidence and runtime policy remains unchanged.",
+      "source_artifacts": [
+        "llm_pilot_generation_request_latest_report",
+        "llm_pilot_generation_run_harness",
+        "llm_pilot_generation_run_latest_report",
+        "llm_pilot_generated_rows_merge_harness",
+        "llm_pilot_generated_rows_latest_payload",
+        "llm_pilot_generated_rows_merge_latest_report",
+        "llm_pilot_admission_harness",
+        "llm_pilot_admission_latest_report",
+        "semantic_veto_llm_pilot_en_es_v1"
+      ],
+      "status": "done",
+      "validation": "Generation run, merge, and admission reports were regenerated; focused generation, request, merge, and admission tests must pass, followed by registry summary, doc-reference checks, and git diff whitespace checks."
+    },
+    {
+      "action": "Create the no-spend LLM pilot preflight and admission lane before spending generation budget or treating generated rows as evaluation truth.",
+      "action_id": "llm_pilot_preflight_admission_lane",
+      "evidence_needed": "The pilot plan freezes the shared veto-only candidate, 12 planned families, 72 planned evaluation rows, phrasing strata, row contract, leakage filters, duplicate checks, discovery versus locked-eval split policy, and a 72-request no-spend generation packet.",
+      "pass_id": "data_artifacts",
+      "priority": "P1",
+      "promotion_impact": "Makes LLM-generated breadth a controlled evaluation lane while preserving the research/runtime boundary and preventing locked-eval leakage.",
+      "source_artifacts": [
+        "product_quality_goals_doc",
+        "product_quality_policy",
+        "veto_only_candidate_selection_latest_report",
+        "llm_pilot_plan_manifest",
+        "llm_pilot_generation_request_harness",
+        "llm_pilot_generation_request_latest_report",
+        "llm_pilot_admission_harness",
+        "llm_pilot_admission_latest_report",
+        "semantic_veto_llm_pilot_en_es_v1"
+      ],
+      "status": "done",
+      "validation": "Run the pilot request renderer and admission harness with --fail-on-review, focused request/admission tests, registry summary, doc-reference checks, and git diff whitespace checks."
+    },
+    {
       "action": "Classify dirty and untracked semantic generated outputs as commit, archive, regenerate, or out-of-scope local output without letting them steer current claims.",
       "action_id": "local_semantic_latest_output_disposition",
       "evidence_needed": "Disposition audit preserves the 14 wave2-wave5 draft input files referenced by tracked historical reports, heldout cases, or harness defaults. Dirty wave5 rerun churn remains unstaged as historical generated-output churn. Unreferenced wave6 comparator reports remain local-only. Generic project-health/rulegen outputs are out of semantic-veto scope.",
@@ -327,11 +369,11 @@
   ],
   "component_counts": {
     "candidate_wave6": 11,
-    "decision_research": 8,
-    "diagnostics": 7,
-    "evaluation_data": 7,
+    "decision_research": 16,
+    "diagnostics": 11,
+    "evaluation_data": 16,
     "historical_or_seed": 7,
-    "process_governance": 10,
+    "process_governance": 11,
     "runtime_path": 16,
     "source_admission": 19
   },
@@ -408,6 +450,41 @@
         "auth_frame_failure_mining"
       ],
       "status": "current_research_candidate"
+    },
+    {
+      "control_artifacts": [
+        "veto_only_candidate_selection_latest_report"
+      ],
+      "durable_inputs": [
+        "llm_pilot_plan_manifest",
+        "veto_only_candidate_selection_latest_report",
+        "product_quality_policy"
+      ],
+      "generated_reports": [
+        "llm_pilot_generation_request_latest_report",
+        "llm_pilot_generation_run_latest_report",
+        "llm_pilot_generated_rows_latest_payload",
+        "llm_pilot_generated_rows_merge_latest_report",
+        "llm_pilot_admission_latest_report"
+      ],
+      "lane_id": "semantic_veto_llm_pilot_en_es_v1",
+      "local_artifact_cracks": [
+        "The current output is admitted evaluation data, not source evidence and not a runtime policy change.",
+        "Discovery rows and locked-eval rows must stay separate before threshold or scorer claims.",
+        "The generated-row assembly must preserve immutable full-batch and repair-batch provenance before any scoring claim."
+      ],
+      "purpose": "Pilot lane that freezes the leading veto-only candidate, generates bounded LLM evaluation rows, admits them through strict filters, and keeps discovery versus locked-eval split visible before scoring.",
+      "rerun_order": [
+        "llm_pilot_generation_request_harness",
+        "llm_pilot_generation_request_latest_report",
+        "llm_pilot_generation_run_harness",
+        "llm_pilot_generation_run_latest_report",
+        "llm_pilot_generated_rows_merge_harness",
+        "llm_pilot_generated_rows_merge_latest_report",
+        "llm_pilot_admission_harness",
+        "llm_pilot_admission_latest_report"
+      ],
+      "status": "current_research_generated_admitted"
     }
   ],
   "entries": [
@@ -801,6 +878,22 @@
       ]
     },
     {
+      "artifact_id": "product_objective_bakeoff_harness",
+      "component": "decision_research",
+      "current_use": "Connects existing scorer research infrastructure to the current positive-allow and negative-abstain product target without rerunning expensive scorers.",
+      "next_audit_pass": "research_harness",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "path": "scripts/testing/semantic_veto_product_objective_bakeoff_en_es.py",
+      "risk": "Aggregate historical rows can identify promising scorer shapes, but they do not replace representative or LLM-expanded heldout evaluation.",
+      "role": "Re-ranks historical sentence-veto sweep and decision-rule matrix rows under the product-quality acceptance policy using the same product outcome-count calculus as the product-quality harness.",
+      "state": "current_research",
+      "title": "Semantic veto product objective bakeoff harness",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_veto_product_objective_bakeoff_en_es.py",
+        "docs/test_outputs/semantic_veto_product_objective_bakeoff_en_es_latest.md"
+      ]
+    },
+    {
       "artifact_id": "prototype_ablation_matrix_harness",
       "component": "decision_research",
       "current_use": "No-spend ablation matrix for source/scorer/context/guard separation.",
@@ -846,6 +939,86 @@
       ]
     },
     {
+      "artifact_id": "veto_only_candidate_selection_harness",
+      "component": "decision_research",
+      "current_use": "Selects the leading research-only allow-by-default blocker candidate before broader representative validation.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "path": "scripts/testing/semantic_veto_veto_only_candidate_selection_en_es.py",
+      "risk": "Candidate selection currently spans v10 and wave7 stress only; broader representative or LLM-expanded locked evaluation remains unmeasured.",
+      "role": "Joins the frozen v10 veto-only probe with stress validation by shared blocker parameters to identify candidate shapes that pass both measured lanes.",
+      "state": "current_research",
+      "title": "Semantic veto veto-only candidate selection harness",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_veto_veto_only_candidate_selection_en_es.py",
+        "docs/test_outputs/semantic_veto_veto_only_candidate_selection_en_es_latest.md"
+      ]
+    },
+    {
+      "artifact_id": "veto_only_product_probe_harness",
+      "component": "decision_research",
+      "current_use": "Tests the product-level reframing that semantic veto should be a bad-replacement detector rather than a second full admission gate.",
+      "next_audit_pass": "research_harness",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "path": "scripts/testing/semantic_veto_veto_only_probe_en_es.py",
+      "risk": "The current pass is on frozen v10 matrix traces only; stress-lane and broader representative validation are still required before runtime promotion.",
+      "role": "Replays decision-matrix case traces as an allow-by-default policy that abstains only when shadow or phrase evidence crosses blocker thresholds.",
+      "state": "current_research",
+      "title": "Semantic veto veto-only product probe harness",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_veto_veto_only_probe_en_es.py",
+        "docs/test_outputs/semantic_veto_veto_only_probe_en_es_latest.md"
+      ]
+    },
+    {
+      "artifact_id": "veto_only_validation_harness",
+      "component": "decision_research",
+      "current_use": "Validates whether the veto-only product framing survives beyond frozen v10 matrix traces on existing stress reports.",
+      "next_audit_pass": "research_harness",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "path": "scripts/testing/semantic_veto_veto_only_validation_en_es.py",
+      "risk": "Passing stress rows still do not freeze one runtime threshold; the exact v10 winner shape differs from the best stress-validation shape.",
+      "role": "Replays allow-by-default shadow and phrase blocker rules over configured validation reports such as wave7 stress lanes.",
+      "state": "current_research",
+      "title": "Semantic veto veto-only validation harness",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_veto_veto_only_validation_en_es.py",
+        "docs/test_outputs/semantic_veto_veto_only_validation_en_es_latest.md"
+      ]
+    },
+    {
+      "artifact_id": "llm_pilot_admission_harness",
+      "component": "diagnostics",
+      "current_use": "Strict gate between LLM row generation and any product-quality scoring or threshold research.",
+      "next_audit_pass": "research_harness",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "path": "scripts/testing/semantic_veto_llm_pilot_admission_en_es.py",
+      "risk": "Admission alone is not candidate scoring; rows must still be evaluated separately in discovery and locked-eval lanes.",
+      "role": "Validates the no-spend pilot plan and admits generated evaluation rows only after contract, request-packet alignment, leakage, duplicate, label, trigger, and split-discipline checks pass.",
+      "state": "current_research",
+      "title": "Semantic veto LLM pilot admission harness",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_veto_llm_pilot_admission_en_es.py",
+        "docs/test_outputs/semantic_veto_llm_pilot_admission_en_es_latest.md"
+      ]
+    },
+    {
+      "artifact_id": "product_quality_harness",
+      "component": "diagnostics",
+      "current_use": "First product-quality milestone; turns the current wave7 stress slice into product metrics without changing runtime policy.",
+      "next_audit_pass": "research_harness",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "path": "scripts/testing/semantic_veto_product_quality_en_es.py",
+      "risk": "Product metrics can hide safety-regression details if stress, representative, and generated lanes are blended.",
+      "role": "Computes product-facing positive allow, positive abstain, negative abstain, negative allow, utility, baseline deltas, lane summaries, and failure rows from configured validation reports.",
+      "state": "current_research",
+      "title": "Semantic veto product quality harness",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_veto_product_quality_en_es.py",
+        "docs/test_outputs/semantic_veto_product_quality_en_es_latest.md"
+      ]
+    },
+    {
       "artifact_id": "source_failure_class_mining_harness",
       "component": "diagnostics",
       "current_use": "Anti-handcrafting diagnostic before interpreting a clean seed or wave result as promotion evidence.",
@@ -858,6 +1031,54 @@
       "title": "Semantic source failure-class mining harness",
       "verification_artifacts": [
         "core/tests/dev/test_semantic_source_failure_class_mining_en_es.py"
+      ]
+    },
+    {
+      "artifact_id": "llm_pilot_generated_rows_merge_harness",
+      "component": "evaluation_data",
+      "current_use": "Combines the admitted LLM pilot full batch with targeted trigger-token repairs before final admission.",
+      "next_audit_pass": "data_artifacts",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "path": "scripts/testing/semantic_veto_llm_pilot_generated_rows_merge_en_es.py",
+      "risk": "Manual replacement would hide row provenance; this harness keeps repair sources auditable.",
+      "role": "Assembles a final generated-row payload from an immutable full batch plus targeted repair batches, replacing rows by row_id while preserving row-source provenance.",
+      "state": "current_research",
+      "title": "Semantic veto LLM pilot generated-row assembly harness",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_veto_llm_pilot_generated_rows_merge_en_es.py",
+        "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_merge_en_es_latest.md"
+      ]
+    },
+    {
+      "artifact_id": "llm_pilot_generation_request_harness",
+      "component": "evaluation_data",
+      "current_use": "Creates the exact pre-spend generation packet that a later LLM batch must answer before admission and scoring.",
+      "next_audit_pass": "data_artifacts",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "path": "scripts/testing/semantic_veto_llm_pilot_generation_requests_en_es.py",
+      "risk": "Request rendering is not generated data and does not validate candidate quality.",
+      "role": "Renders the no-spend request packet for the approved LLM evaluation pilot, with one request per planned row and prompt text bound to the frozen row contract.",
+      "state": "current_research",
+      "title": "Semantic veto LLM pilot generation request harness",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_veto_llm_pilot_generation_requests_en_es.py",
+        "docs/test_outputs/semantic_veto_llm_pilot_generation_requests_en_es_latest.md"
+      ]
+    },
+    {
+      "artifact_id": "llm_pilot_generation_run_harness",
+      "component": "evaluation_data",
+      "current_use": "Live generation runner for the admitted 72-row pilot evaluation batch; not a source-evidence generator and not runtime policy.",
+      "next_audit_pass": "data_artifacts",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "path": "scripts/testing/semantic_veto_llm_pilot_generation_run_en_es.py",
+      "risk": "Generation success can be mistaken for scoring success unless paired with admission and downstream candidate evaluation.",
+      "role": "Executes or replays the bounded LLM request packet, preserves raw responses and append-only live journals, parses generated rows, and supports explicit invalid-output retry on resume.",
+      "state": "current_research",
+      "title": "Semantic veto LLM pilot generation run harness",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_veto_llm_pilot_generation_run_en_es.py",
+        "docs/test_outputs/semantic_veto_llm_pilot_generation_run_en_es_latest.md"
       ]
     },
     {
@@ -1003,6 +1224,38 @@
       ]
     },
     {
+      "artifact_id": "llm_pilot_plan_manifest",
+      "component": "evaluation_data",
+      "current_use": "Pre-generation contract for broadening en-es product evaluation without changing runtime policy or promoting generated rows as source evidence.",
+      "next_audit_pass": "data_artifacts",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "path": "docs/test_inputs/semantic_veto_llm_pilot_plan_en_es.json",
+      "risk": "Can be mistaken for an evaluation result unless paired with admitted generated rows and downstream product scoring.",
+      "role": "Freezes the no-spend LLM pilot candidate, planned families, row contract, phrasing strata, admission filters, and discovery versus locked-eval split policy.",
+      "state": "current_reference",
+      "title": "Semantic veto LLM pilot plan manifest",
+      "verification_artifacts": [
+        "scripts/testing/semantic_veto_llm_pilot_admission_en_es.py",
+        "docs/test_outputs/semantic_veto_llm_pilot_admission_en_es_latest.json"
+      ]
+    },
+    {
+      "artifact_id": "product_quality_policy",
+      "component": "evaluation_data",
+      "current_use": "Policy input for the product-quality harness; currently measures the wave7 phrase-control triage stress lane plus the sentence-veto v10 representative proxy.",
+      "next_audit_pass": "data_artifacts",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "path": "docs/test_inputs/semantic_veto_product_quality_policy_en_es.json",
+      "risk": "The representative proxy is useful existing data, but still not a final browsing distribution or LLM-expanded breadth lane.",
+      "role": "Configures product-quality thresholds, utility weights, measured stress lanes, and planned representative or LLM-expanded lanes.",
+      "state": "current_reference",
+      "title": "Semantic veto product quality policy",
+      "verification_artifacts": [
+        "scripts/testing/semantic_veto_product_quality_en_es.py",
+        "docs/test_outputs/semantic_veto_product_quality_en_es_latest.json"
+      ]
+    },
+    {
       "artifact_id": "wave7_active_shadow_heldout",
       "component": "evaluation_data",
       "current_use": "Primary wave7 heldout gate input.",
@@ -1075,6 +1328,21 @@
       "title": "Current wave6 rerun chain runbook",
       "verification_artifacts": [
         "docs/test_outputs/semantic_veto_system_registry_latest.md"
+      ]
+    },
+    {
+      "artifact_id": "product_quality_goals_doc",
+      "component": "process_governance",
+      "current_use": "Current product-quality framing for the en-es semantic-veto research workstream.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "path": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "risk": "Can be overread as runtime promotion criteria if representative and LLM-expanded lanes stay unmeasured.",
+      "role": "Defines product-oriented semantic-veto acceptance targets, utility weights, lane separation, and the distinction between stress diagnostics and product readiness.",
+      "state": "current_reference",
+      "title": "Semantic veto product quality goals",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_product_quality_en_es_latest.md"
       ]
     },
     {
@@ -1327,6 +1595,70 @@
       ]
     },
     {
+      "artifact_id": "product_objective_bakeoff_latest_report",
+      "component": "decision_research",
+      "current_use": "Shows that no historical row currently clears the configured product target, while preserving best-utility and closest-target scorer shapes for next research.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "path": "docs/test_outputs/semantic_veto_product_objective_bakeoff_en_es_latest.md",
+      "risk": "Can be mistaken for final production evidence if the representative proxy and generated-eval limitations are ignored.",
+      "role": "Records the latest product-goal re-ranking of existing sentence-veto sweep and decision-rule matrix rows.",
+      "state": "generated_evidence",
+      "title": "Semantic veto product objective bakeoff latest report",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_product_objective_bakeoff_en_es_latest.json",
+        "docs/test_inputs/semantic_veto_product_quality_policy_en_es.json"
+      ]
+    },
+    {
+      "artifact_id": "veto_only_candidate_selection_latest_report",
+      "component": "decision_research",
+      "current_use": "Identifies the leading research candidate: allow-by-default with shadow_or_phrase_score blocker, shadow_lead_min=0.05, and shadow_score_min=0.0.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "path": "docs/test_outputs/semantic_veto_veto_only_candidate_selection_en_es_latest.md",
+      "risk": "Can be overread as production promotion even though representative product distribution is still missing.",
+      "role": "Records the latest shared-candidate selection across frozen v10 matrix traces and wave7 stress validation.",
+      "state": "generated_evidence",
+      "title": "Semantic veto veto-only candidate selection latest report",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_veto_only_candidate_selection_en_es_latest.json",
+        "docs/test_inputs/semantic_veto_product_quality_policy_en_es.json"
+      ]
+    },
+    {
+      "artifact_id": "veto_only_product_probe_latest_report",
+      "component": "decision_research",
+      "current_use": "Shows that the veto-only framing can clear the configured product target on frozen v10 matrix traces, with 81.6% positive allow and 94.7% negative abstain for the best row.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "path": "docs/test_outputs/semantic_veto_veto_only_probe_en_es_latest.md",
+      "risk": "Can be overread as production readiness unless paired with stress-lane and representative-lane validation.",
+      "role": "Records the latest allow-by-default shadow/phrase blocker replay over decision-matrix case traces.",
+      "state": "generated_evidence",
+      "title": "Semantic veto veto-only product probe latest report",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_veto_only_probe_en_es_latest.json",
+        "docs/test_inputs/semantic_veto_product_quality_policy_en_es.json"
+      ]
+    },
+    {
+      "artifact_id": "veto_only_validation_latest_report",
+      "component": "decision_research",
+      "current_use": "Shows that the veto-only blocker family can clear the configured product target on current stress reports with 81.2% positive allow and 75.0% negative abstain.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "path": "docs/test_outputs/semantic_veto_veto_only_validation_en_es_latest.md",
+      "risk": "The result supports the blocker-family direction but still needs unified candidate selection across v10, stress, and broader representative lanes.",
+      "role": "Records the latest allow-by-default blocker sweep over wave7 phrase-control triage stress reports.",
+      "state": "generated_evidence",
+      "title": "Semantic veto veto-only validation latest report",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_veto_only_validation_en_es_latest.json",
+        "docs/test_inputs/semantic_veto_product_quality_policy_en_es.json"
+      ]
+    },
+    {
       "artifact_id": "auth_frame_failure_mining",
       "component": "diagnostics",
       "current_use": "Keeps promotion posture at review despite clean active/shadow result.",
@@ -1339,6 +1671,38 @@
       "title": "Auth-frame failure-class mining report",
       "verification_artifacts": [
         "scripts/testing/semantic_source_failure_class_mining_en_es.py"
+      ]
+    },
+    {
+      "artifact_id": "llm_pilot_admission_latest_report",
+      "component": "diagnostics",
+      "current_use": "Currently shows the generated pilot payload is admitted_for_scoring with 72 admitted rows, 0 rejected rows, and 56 discovery plus 16 locked-eval rows.",
+      "next_audit_pass": "data_artifacts",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "path": "docs/test_outputs/semantic_veto_llm_pilot_admission_en_es_latest.md",
+      "risk": "Can be overread as progress on accuracy even though admitted generated rows still need candidate scoring and must not become source evidence.",
+      "role": "Records the latest no-spend pilot preflight or generated-row admission result.",
+      "state": "generated_evidence",
+      "title": "Semantic veto LLM pilot admission latest report",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_llm_pilot_admission_en_es_latest.json",
+        "docs/test_inputs/semantic_veto_llm_pilot_plan_en_es.json"
+      ]
+    },
+    {
+      "artifact_id": "product_quality_latest_report",
+      "component": "diagnostics",
+      "current_use": "Current product read over stress plus sentence-veto v10 representative proxy: product target is missed because positive allow is too low on broader active examples.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "path": "docs/test_outputs/semantic_veto_product_quality_en_es_latest.md",
+      "risk": "The report is evidence for product-metric direction, not production readiness or final browsing distribution.",
+      "role": "Records the latest product-quality read over configured lanes, including current utility versus lexical and abstain-all baselines.",
+      "state": "generated_evidence",
+      "title": "Semantic veto product quality latest report",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_product_quality_en_es_latest.json",
+        "docs/test_inputs/semantic_veto_product_quality_policy_en_es.json"
       ]
     },
     {
@@ -1401,6 +1765,70 @@
         "docs/test_outputs/semantic_wave7_residual_blocker_probe_wave7_source_class_breadth_v1_phrase_control_triage_latest.json",
         "scripts/testing/semantic_wave7_residual_blocker_probe_en_es.py",
         "core/tests/dev/test_semantic_wave7_residual_blocker_probe_en_es.py"
+      ]
+    },
+    {
+      "artifact_id": "llm_pilot_generated_rows_latest_payload",
+      "component": "evaluation_data",
+      "current_use": "Contains 72 request-aligned evaluation rows split into discovery and locked-eval by the admission harness.",
+      "next_audit_pass": "overfit_leakage",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "path": "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_latest.json",
+      "risk": "Generated evaluation rows must not be recycled as source evidence for scoring the same rows.",
+      "role": "Machine-readable generated evaluation rows admitted by the pilot lane after assembly.",
+      "state": "generated_evidence",
+      "title": "Semantic veto LLM pilot generated rows latest payload",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_llm_pilot_admission_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_merge_en_es_latest.json"
+      ]
+    },
+    {
+      "artifact_id": "llm_pilot_generated_rows_merge_latest_report",
+      "component": "evaluation_data",
+      "current_use": "Shows the final assembled payload has 72 expected rows, 0 missing rows, and 0 unexpected rows.",
+      "next_audit_pass": "data_artifacts",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "path": "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_merge_en_es_latest.md",
+      "risk": "Assembly success is a provenance check, not a semantic quality score.",
+      "role": "Records the immutable full-batch input, repair overlays, replacement row ids, and missing/unexpected row checks for the assembled generated-row payload.",
+      "state": "generated_evidence",
+      "title": "Semantic veto LLM pilot generated-row assembly latest report",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_merge_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_latest.json"
+      ]
+    },
+    {
+      "artifact_id": "llm_pilot_generation_request_latest_report",
+      "component": "evaluation_data",
+      "current_use": "Currently renders 72 requests across 12 families, 36 positive-active rows, 24 shadow-negative rows, and 12 phrase/no-winner rows.",
+      "next_audit_pass": "data_artifacts",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "path": "docs/test_outputs/semantic_veto_llm_pilot_generation_requests_en_es_latest.md",
+      "risk": "Can be mistaken for admitted generated data unless paired with the admission report and raw generated-row payload.",
+      "role": "Records the latest no-spend generation request packet for the semantic-veto LLM evaluation pilot.",
+      "state": "generated_evidence",
+      "title": "Semantic veto LLM pilot generation request latest report",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_llm_pilot_generation_requests_en_es_latest.json",
+        "docs/test_inputs/semantic_veto_llm_pilot_plan_en_es.json"
+      ]
+    },
+    {
+      "artifact_id": "llm_pilot_generation_run_latest_report",
+      "component": "evaluation_data",
+      "current_use": "Shows the full live run reached 72/72 accepted generated rows after one explicit invalid-output retry.",
+      "next_audit_pass": "data_artifacts",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "path": "docs/test_outputs/semantic_veto_llm_pilot_generation_run_en_es_latest.md",
+      "risk": "The report is generated-evaluation provenance; admission and scoring still control candidate claims.",
+      "role": "Records the latest bounded live generation run, token usage, accepted row count, raw response bundle, and request outcomes.",
+      "state": "generated_evidence",
+      "title": "Semantic veto LLM pilot generation run latest report",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_llm_pilot_generation_run_en_es_latest.json",
+        "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/"
       ]
     },
     {
@@ -1726,8 +2154,8 @@
       ]
     }
   ],
-  "entry_count": 85,
-  "generated_at": "2026-04-30T22:28:25Z",
+  "entry_count": 107,
+  "generated_at": "2026-05-04T21:57:58Z",
   "issues": [],
   "next_passes": [],
   "pass_count": 7,
@@ -1840,7 +2268,7 @@
   ],
   "purpose": "Machine-readable reconciliation map for the en-es semantic sentence-veto runtime, research harnesses, candidate artifacts, and follow-up audit passes.",
   "registry_id": "en_es_semantic_veto_system_registry_v1",
-  "registry_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_veto_system_registry_en_es.json",
+  "registry_path": "docs/test_inputs/semantic_veto_system_registry_en_es.json",
   "risk_rows": [
     {
       "artifact_id": "extension_active_rules_runtime",
@@ -2232,6 +2660,22 @@
       ]
     },
     {
+      "artifact_id": "product_objective_bakeoff_harness",
+      "component": "decision_research",
+      "current_use": "Connects existing scorer research infrastructure to the current positive-allow and negative-abstain product target without rerunning expensive scorers.",
+      "next_audit_pass": "research_harness",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "path": "scripts/testing/semantic_veto_product_objective_bakeoff_en_es.py",
+      "risk": "Aggregate historical rows can identify promising scorer shapes, but they do not replace representative or LLM-expanded heldout evaluation.",
+      "role": "Re-ranks historical sentence-veto sweep and decision-rule matrix rows under the product-quality acceptance policy using the same product outcome-count calculus as the product-quality harness.",
+      "state": "current_research",
+      "title": "Semantic veto product objective bakeoff harness",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_veto_product_objective_bakeoff_en_es.py",
+        "docs/test_outputs/semantic_veto_product_objective_bakeoff_en_es_latest.md"
+      ]
+    },
+    {
       "artifact_id": "prototype_ablation_matrix_harness",
       "component": "decision_research",
       "current_use": "No-spend ablation matrix for source/scorer/context/guard separation.",
@@ -2277,6 +2721,86 @@
       ]
     },
     {
+      "artifact_id": "veto_only_candidate_selection_harness",
+      "component": "decision_research",
+      "current_use": "Selects the leading research-only allow-by-default blocker candidate before broader representative validation.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "path": "scripts/testing/semantic_veto_veto_only_candidate_selection_en_es.py",
+      "risk": "Candidate selection currently spans v10 and wave7 stress only; broader representative or LLM-expanded locked evaluation remains unmeasured.",
+      "role": "Joins the frozen v10 veto-only probe with stress validation by shared blocker parameters to identify candidate shapes that pass both measured lanes.",
+      "state": "current_research",
+      "title": "Semantic veto veto-only candidate selection harness",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_veto_veto_only_candidate_selection_en_es.py",
+        "docs/test_outputs/semantic_veto_veto_only_candidate_selection_en_es_latest.md"
+      ]
+    },
+    {
+      "artifact_id": "veto_only_product_probe_harness",
+      "component": "decision_research",
+      "current_use": "Tests the product-level reframing that semantic veto should be a bad-replacement detector rather than a second full admission gate.",
+      "next_audit_pass": "research_harness",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "path": "scripts/testing/semantic_veto_veto_only_probe_en_es.py",
+      "risk": "The current pass is on frozen v10 matrix traces only; stress-lane and broader representative validation are still required before runtime promotion.",
+      "role": "Replays decision-matrix case traces as an allow-by-default policy that abstains only when shadow or phrase evidence crosses blocker thresholds.",
+      "state": "current_research",
+      "title": "Semantic veto veto-only product probe harness",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_veto_veto_only_probe_en_es.py",
+        "docs/test_outputs/semantic_veto_veto_only_probe_en_es_latest.md"
+      ]
+    },
+    {
+      "artifact_id": "veto_only_validation_harness",
+      "component": "decision_research",
+      "current_use": "Validates whether the veto-only product framing survives beyond frozen v10 matrix traces on existing stress reports.",
+      "next_audit_pass": "research_harness",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "path": "scripts/testing/semantic_veto_veto_only_validation_en_es.py",
+      "risk": "Passing stress rows still do not freeze one runtime threshold; the exact v10 winner shape differs from the best stress-validation shape.",
+      "role": "Replays allow-by-default shadow and phrase blocker rules over configured validation reports such as wave7 stress lanes.",
+      "state": "current_research",
+      "title": "Semantic veto veto-only validation harness",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_veto_veto_only_validation_en_es.py",
+        "docs/test_outputs/semantic_veto_veto_only_validation_en_es_latest.md"
+      ]
+    },
+    {
+      "artifact_id": "llm_pilot_admission_harness",
+      "component": "diagnostics",
+      "current_use": "Strict gate between LLM row generation and any product-quality scoring or threshold research.",
+      "next_audit_pass": "research_harness",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "path": "scripts/testing/semantic_veto_llm_pilot_admission_en_es.py",
+      "risk": "Admission alone is not candidate scoring; rows must still be evaluated separately in discovery and locked-eval lanes.",
+      "role": "Validates the no-spend pilot plan and admits generated evaluation rows only after contract, request-packet alignment, leakage, duplicate, label, trigger, and split-discipline checks pass.",
+      "state": "current_research",
+      "title": "Semantic veto LLM pilot admission harness",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_veto_llm_pilot_admission_en_es.py",
+        "docs/test_outputs/semantic_veto_llm_pilot_admission_en_es_latest.md"
+      ]
+    },
+    {
+      "artifact_id": "product_quality_harness",
+      "component": "diagnostics",
+      "current_use": "First product-quality milestone; turns the current wave7 stress slice into product metrics without changing runtime policy.",
+      "next_audit_pass": "research_harness",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "path": "scripts/testing/semantic_veto_product_quality_en_es.py",
+      "risk": "Product metrics can hide safety-regression details if stress, representative, and generated lanes are blended.",
+      "role": "Computes product-facing positive allow, positive abstain, negative abstain, negative allow, utility, baseline deltas, lane summaries, and failure rows from configured validation reports.",
+      "state": "current_research",
+      "title": "Semantic veto product quality harness",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_veto_product_quality_en_es.py",
+        "docs/test_outputs/semantic_veto_product_quality_en_es_latest.md"
+      ]
+    },
+    {
       "artifact_id": "source_failure_class_mining_harness",
       "component": "diagnostics",
       "current_use": "Anti-handcrafting diagnostic before interpreting a clean seed or wave result as promotion evidence.",
@@ -2289,6 +2813,54 @@
       "title": "Semantic source failure-class mining harness",
       "verification_artifacts": [
         "core/tests/dev/test_semantic_source_failure_class_mining_en_es.py"
+      ]
+    },
+    {
+      "artifact_id": "llm_pilot_generated_rows_merge_harness",
+      "component": "evaluation_data",
+      "current_use": "Combines the admitted LLM pilot full batch with targeted trigger-token repairs before final admission.",
+      "next_audit_pass": "data_artifacts",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "path": "scripts/testing/semantic_veto_llm_pilot_generated_rows_merge_en_es.py",
+      "risk": "Manual replacement would hide row provenance; this harness keeps repair sources auditable.",
+      "role": "Assembles a final generated-row payload from an immutable full batch plus targeted repair batches, replacing rows by row_id while preserving row-source provenance.",
+      "state": "current_research",
+      "title": "Semantic veto LLM pilot generated-row assembly harness",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_veto_llm_pilot_generated_rows_merge_en_es.py",
+        "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_merge_en_es_latest.md"
+      ]
+    },
+    {
+      "artifact_id": "llm_pilot_generation_request_harness",
+      "component": "evaluation_data",
+      "current_use": "Creates the exact pre-spend generation packet that a later LLM batch must answer before admission and scoring.",
+      "next_audit_pass": "data_artifacts",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "path": "scripts/testing/semantic_veto_llm_pilot_generation_requests_en_es.py",
+      "risk": "Request rendering is not generated data and does not validate candidate quality.",
+      "role": "Renders the no-spend request packet for the approved LLM evaluation pilot, with one request per planned row and prompt text bound to the frozen row contract.",
+      "state": "current_research",
+      "title": "Semantic veto LLM pilot generation request harness",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_veto_llm_pilot_generation_requests_en_es.py",
+        "docs/test_outputs/semantic_veto_llm_pilot_generation_requests_en_es_latest.md"
+      ]
+    },
+    {
+      "artifact_id": "llm_pilot_generation_run_harness",
+      "component": "evaluation_data",
+      "current_use": "Live generation runner for the admitted 72-row pilot evaluation batch; not a source-evidence generator and not runtime policy.",
+      "next_audit_pass": "data_artifacts",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "path": "scripts/testing/semantic_veto_llm_pilot_generation_run_en_es.py",
+      "risk": "Generation success can be mistaken for scoring success unless paired with admission and downstream candidate evaluation.",
+      "role": "Executes or replays the bounded LLM request packet, preserves raw responses and append-only live journals, parses generated rows, and supports explicit invalid-output retry on resume.",
+      "state": "current_research",
+      "title": "Semantic veto LLM pilot generation run harness",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_veto_llm_pilot_generation_run_en_es.py",
+        "docs/test_outputs/semantic_veto_llm_pilot_generation_run_en_es_latest.md"
       ]
     },
     {
@@ -2434,6 +3006,38 @@
       ]
     },
     {
+      "artifact_id": "llm_pilot_plan_manifest",
+      "component": "evaluation_data",
+      "current_use": "Pre-generation contract for broadening en-es product evaluation without changing runtime policy or promoting generated rows as source evidence.",
+      "next_audit_pass": "data_artifacts",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "path": "docs/test_inputs/semantic_veto_llm_pilot_plan_en_es.json",
+      "risk": "Can be mistaken for an evaluation result unless paired with admitted generated rows and downstream product scoring.",
+      "role": "Freezes the no-spend LLM pilot candidate, planned families, row contract, phrasing strata, admission filters, and discovery versus locked-eval split policy.",
+      "state": "current_reference",
+      "title": "Semantic veto LLM pilot plan manifest",
+      "verification_artifacts": [
+        "scripts/testing/semantic_veto_llm_pilot_admission_en_es.py",
+        "docs/test_outputs/semantic_veto_llm_pilot_admission_en_es_latest.json"
+      ]
+    },
+    {
+      "artifact_id": "product_quality_policy",
+      "component": "evaluation_data",
+      "current_use": "Policy input for the product-quality harness; currently measures the wave7 phrase-control triage stress lane plus the sentence-veto v10 representative proxy.",
+      "next_audit_pass": "data_artifacts",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "path": "docs/test_inputs/semantic_veto_product_quality_policy_en_es.json",
+      "risk": "The representative proxy is useful existing data, but still not a final browsing distribution or LLM-expanded breadth lane.",
+      "role": "Configures product-quality thresholds, utility weights, measured stress lanes, and planned representative or LLM-expanded lanes.",
+      "state": "current_reference",
+      "title": "Semantic veto product quality policy",
+      "verification_artifacts": [
+        "scripts/testing/semantic_veto_product_quality_en_es.py",
+        "docs/test_outputs/semantic_veto_product_quality_en_es_latest.json"
+      ]
+    },
+    {
       "artifact_id": "wave7_active_shadow_heldout",
       "component": "evaluation_data",
       "current_use": "Primary wave7 heldout gate input.",
@@ -2506,6 +3110,21 @@
       "title": "Current wave6 rerun chain runbook",
       "verification_artifacts": [
         "docs/test_outputs/semantic_veto_system_registry_latest.md"
+      ]
+    },
+    {
+      "artifact_id": "product_quality_goals_doc",
+      "component": "process_governance",
+      "current_use": "Current product-quality framing for the en-es semantic-veto research workstream.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "path": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "risk": "Can be overread as runtime promotion criteria if representative and LLM-expanded lanes stay unmeasured.",
+      "role": "Defines product-oriented semantic-veto acceptance targets, utility weights, lane separation, and the distinction between stress diagnostics and product readiness.",
+      "state": "current_reference",
+      "title": "Semantic veto product quality goals",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_product_quality_en_es_latest.md"
       ]
     },
     {
@@ -2758,6 +3377,70 @@
       ]
     },
     {
+      "artifact_id": "product_objective_bakeoff_latest_report",
+      "component": "decision_research",
+      "current_use": "Shows that no historical row currently clears the configured product target, while preserving best-utility and closest-target scorer shapes for next research.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "path": "docs/test_outputs/semantic_veto_product_objective_bakeoff_en_es_latest.md",
+      "risk": "Can be mistaken for final production evidence if the representative proxy and generated-eval limitations are ignored.",
+      "role": "Records the latest product-goal re-ranking of existing sentence-veto sweep and decision-rule matrix rows.",
+      "state": "generated_evidence",
+      "title": "Semantic veto product objective bakeoff latest report",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_product_objective_bakeoff_en_es_latest.json",
+        "docs/test_inputs/semantic_veto_product_quality_policy_en_es.json"
+      ]
+    },
+    {
+      "artifact_id": "veto_only_candidate_selection_latest_report",
+      "component": "decision_research",
+      "current_use": "Identifies the leading research candidate: allow-by-default with shadow_or_phrase_score blocker, shadow_lead_min=0.05, and shadow_score_min=0.0.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "path": "docs/test_outputs/semantic_veto_veto_only_candidate_selection_en_es_latest.md",
+      "risk": "Can be overread as production promotion even though representative product distribution is still missing.",
+      "role": "Records the latest shared-candidate selection across frozen v10 matrix traces and wave7 stress validation.",
+      "state": "generated_evidence",
+      "title": "Semantic veto veto-only candidate selection latest report",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_veto_only_candidate_selection_en_es_latest.json",
+        "docs/test_inputs/semantic_veto_product_quality_policy_en_es.json"
+      ]
+    },
+    {
+      "artifact_id": "veto_only_product_probe_latest_report",
+      "component": "decision_research",
+      "current_use": "Shows that the veto-only framing can clear the configured product target on frozen v10 matrix traces, with 81.6% positive allow and 94.7% negative abstain for the best row.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "path": "docs/test_outputs/semantic_veto_veto_only_probe_en_es_latest.md",
+      "risk": "Can be overread as production readiness unless paired with stress-lane and representative-lane validation.",
+      "role": "Records the latest allow-by-default shadow/phrase blocker replay over decision-matrix case traces.",
+      "state": "generated_evidence",
+      "title": "Semantic veto veto-only product probe latest report",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_veto_only_probe_en_es_latest.json",
+        "docs/test_inputs/semantic_veto_product_quality_policy_en_es.json"
+      ]
+    },
+    {
+      "artifact_id": "veto_only_validation_latest_report",
+      "component": "decision_research",
+      "current_use": "Shows that the veto-only blocker family can clear the configured product target on current stress reports with 81.2% positive allow and 75.0% negative abstain.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "path": "docs/test_outputs/semantic_veto_veto_only_validation_en_es_latest.md",
+      "risk": "The result supports the blocker-family direction but still needs unified candidate selection across v10, stress, and broader representative lanes.",
+      "role": "Records the latest allow-by-default blocker sweep over wave7 phrase-control triage stress reports.",
+      "state": "generated_evidence",
+      "title": "Semantic veto veto-only validation latest report",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_veto_only_validation_en_es_latest.json",
+        "docs/test_inputs/semantic_veto_product_quality_policy_en_es.json"
+      ]
+    },
+    {
       "artifact_id": "auth_frame_failure_mining",
       "component": "diagnostics",
       "current_use": "Keeps promotion posture at review despite clean active/shadow result.",
@@ -2770,6 +3453,38 @@
       "title": "Auth-frame failure-class mining report",
       "verification_artifacts": [
         "scripts/testing/semantic_source_failure_class_mining_en_es.py"
+      ]
+    },
+    {
+      "artifact_id": "llm_pilot_admission_latest_report",
+      "component": "diagnostics",
+      "current_use": "Currently shows the generated pilot payload is admitted_for_scoring with 72 admitted rows, 0 rejected rows, and 56 discovery plus 16 locked-eval rows.",
+      "next_audit_pass": "data_artifacts",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "path": "docs/test_outputs/semantic_veto_llm_pilot_admission_en_es_latest.md",
+      "risk": "Can be overread as progress on accuracy even though admitted generated rows still need candidate scoring and must not become source evidence.",
+      "role": "Records the latest no-spend pilot preflight or generated-row admission result.",
+      "state": "generated_evidence",
+      "title": "Semantic veto LLM pilot admission latest report",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_llm_pilot_admission_en_es_latest.json",
+        "docs/test_inputs/semantic_veto_llm_pilot_plan_en_es.json"
+      ]
+    },
+    {
+      "artifact_id": "product_quality_latest_report",
+      "component": "diagnostics",
+      "current_use": "Current product read over stress plus sentence-veto v10 representative proxy: product target is missed because positive allow is too low on broader active examples.",
+      "next_audit_pass": "best_candidate",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "path": "docs/test_outputs/semantic_veto_product_quality_en_es_latest.md",
+      "risk": "The report is evidence for product-metric direction, not production readiness or final browsing distribution.",
+      "role": "Records the latest product-quality read over configured lanes, including current utility versus lexical and abstain-all baselines.",
+      "state": "generated_evidence",
+      "title": "Semantic veto product quality latest report",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_product_quality_en_es_latest.json",
+        "docs/test_inputs/semantic_veto_product_quality_policy_en_es.json"
       ]
     },
     {
@@ -2832,6 +3547,70 @@
         "docs/test_outputs/semantic_wave7_residual_blocker_probe_wave7_source_class_breadth_v1_phrase_control_triage_latest.json",
         "scripts/testing/semantic_wave7_residual_blocker_probe_en_es.py",
         "core/tests/dev/test_semantic_wave7_residual_blocker_probe_en_es.py"
+      ]
+    },
+    {
+      "artifact_id": "llm_pilot_generated_rows_latest_payload",
+      "component": "evaluation_data",
+      "current_use": "Contains 72 request-aligned evaluation rows split into discovery and locked-eval by the admission harness.",
+      "next_audit_pass": "overfit_leakage",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "path": "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_latest.json",
+      "risk": "Generated evaluation rows must not be recycled as source evidence for scoring the same rows.",
+      "role": "Machine-readable generated evaluation rows admitted by the pilot lane after assembly.",
+      "state": "generated_evidence",
+      "title": "Semantic veto LLM pilot generated rows latest payload",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_llm_pilot_admission_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_merge_en_es_latest.json"
+      ]
+    },
+    {
+      "artifact_id": "llm_pilot_generated_rows_merge_latest_report",
+      "component": "evaluation_data",
+      "current_use": "Shows the final assembled payload has 72 expected rows, 0 missing rows, and 0 unexpected rows.",
+      "next_audit_pass": "data_artifacts",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "path": "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_merge_en_es_latest.md",
+      "risk": "Assembly success is a provenance check, not a semantic quality score.",
+      "role": "Records the immutable full-batch input, repair overlays, replacement row ids, and missing/unexpected row checks for the assembled generated-row payload.",
+      "state": "generated_evidence",
+      "title": "Semantic veto LLM pilot generated-row assembly latest report",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_merge_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_latest.json"
+      ]
+    },
+    {
+      "artifact_id": "llm_pilot_generation_request_latest_report",
+      "component": "evaluation_data",
+      "current_use": "Currently renders 72 requests across 12 families, 36 positive-active rows, 24 shadow-negative rows, and 12 phrase/no-winner rows.",
+      "next_audit_pass": "data_artifacts",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "path": "docs/test_outputs/semantic_veto_llm_pilot_generation_requests_en_es_latest.md",
+      "risk": "Can be mistaken for admitted generated data unless paired with the admission report and raw generated-row payload.",
+      "role": "Records the latest no-spend generation request packet for the semantic-veto LLM evaluation pilot.",
+      "state": "generated_evidence",
+      "title": "Semantic veto LLM pilot generation request latest report",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_llm_pilot_generation_requests_en_es_latest.json",
+        "docs/test_inputs/semantic_veto_llm_pilot_plan_en_es.json"
+      ]
+    },
+    {
+      "artifact_id": "llm_pilot_generation_run_latest_report",
+      "component": "evaluation_data",
+      "current_use": "Shows the full live run reached 72/72 accepted generated rows after one explicit invalid-output retry.",
+      "next_audit_pass": "data_artifacts",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "path": "docs/test_outputs/semantic_veto_llm_pilot_generation_run_en_es_latest.md",
+      "risk": "The report is generated-evaluation provenance; admission and scoring still control candidate claims.",
+      "role": "Records the latest bounded live generation run, token usage, accepted row count, raw response bundle, and request outcomes.",
+      "state": "generated_evidence",
+      "title": "Semantic veto LLM pilot generation run latest report",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_llm_pilot_generation_run_en_es_latest.json",
+        "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/"
       ]
     },
     {
@@ -3054,11 +3833,11 @@
   "schema_version": 1,
   "state_counts": {
     "current_candidate": 5,
-    "current_reference": 15,
-    "current_research": 14,
+    "current_reference": 18,
+    "current_research": 23,
     "current_runtime": 16,
     "diagnostic_only": 1,
-    "generated_evidence": 25,
+    "generated_evidence": 35,
     "historical_reference": 5,
     "superseded": 2,
     "supporting_current": 2

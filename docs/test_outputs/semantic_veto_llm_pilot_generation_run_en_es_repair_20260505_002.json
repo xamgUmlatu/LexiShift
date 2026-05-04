@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "status": "ok",
+  "pair": "en-es",
+  "generated_at": "2026-05-04T21:49:33Z",
+  "execution_mode": "live",
+  "replay_source": "",
+  "batch_id": "en-es:semantic-veto-llm-pilot:semantic-veto-pilot-repair-20260505-002",
+  "pilot_id": "semantic_veto_llm_pilot_en_es_v1",
+  "prompt_id": "semantic_veto_eval_sentence_pilot_v1",
+  "selected_model_id": "gpt-5.4-mini",
+  "selected_temperature": 0.0,
+  "summary": {
+    "selected_request_count": 1,
+    "accepted_row_count": 1,
+    "api_error_count": 0,
+    "invalid_output_count": 0,
+    "accepted_rows_by_gold_type": {
+      "phrase_no_winner": 1
+    },
+    "input_tokens": 438,
+    "output_tokens": 257,
+    "reasoning_tokens": 0
+  },
+  "artifacts": {
+    "journal_jsonl": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-repair-20260505-002_journal.jsonl",
+    "raw_response_bundle_json": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-repair-20260505-002_raw_responses.json",
+    "generated_rows_json": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-repair-20260505-002_generated_rows.json"
+  },
+  "request_rows": [
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_bank_banco:phrase_no_winner:001",
+      "row_id": "pilotrow:pilot_bank_banco:phrase_no_winner:001",
+      "family_id": "pilot:bank:banco",
+      "trigger": "bank",
+      "candidate_replacement": "banco",
+      "gold_type": "phrase_no_winner",
+      "gold_decision": "abstain",
+      "status": "accepted",
+      "response_id": "resp_068481082a5fb98b0169f9146ebabc8190b6f2153e5c391b93",
+      "sentence": "She banked on the new update arriving before the deadline.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-repair-20260505-002_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_bank_banco:phrase_no_winner:001",
+      "usage": {
+        "input_tokens": 438,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 257,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 695
+      }
+    }
+  ]
+}

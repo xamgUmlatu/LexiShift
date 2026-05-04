@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "batch_id": "en-es:semantic-veto-llm-pilot:semantic-veto-pilot-repair-20260505-002",
+  "pair": "en-es",
+  "pilot_id": "semantic_veto_llm_pilot_en_es_v1",
+  "prompt_id": "semantic_veto_eval_sentence_pilot_v1",
+  "generated_at": "2026-05-04T21:49:33Z",
+  "model_id": "gpt-5.4-mini",
+  "execution_mode": "live",
+  "source_request_packet": "docs/test_inputs/semantic_veto_llm_pilot_plan_en_es.json",
+  "raw_response_bundle_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-repair-20260505-002_raw_responses.json",
+  "selected_request_ids": [
+    "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_bank_banco:phrase_no_winner:001"
+  ],
+  "selected_expected_row_ids": [
+    "pilotrow:pilot_bank_banco:phrase_no_winner:001"
+  ],
+  "rows": [
+    {
+      "row_id": "pilotrow:pilot_bank_banco:phrase_no_winner:001",
+      "family_id": "pilot:bank:banco",
+      "trigger": "bank",
+      "candidate_replacement": "banco",
+      "sentence": "She banked on the new update arriving before the deadline.",
+      "gold_decision": "abstain",
+      "gold_type": "phrase_no_winner",
+      "active_sense": "financial institution",
+      "gold_reason": "The phrase means relied on, not a financial institution.",
+      "pos": "noun",
+      "generator_id": "operator-filled-model-id",
+      "prompt_id": "semantic_veto_eval_sentence_pilot_v1",
+      "negative_sense": "",
+      "no_winner_reason": "The word appears in the phrasal verb \"banked on,\" which means relied on, so neither the financial institution sense nor a simple noun replacement fits.",
+      "difficulty_tags": [
+        "word_order=canonical_subject_verb_object",
+        "trigger_position=early",
+        "context_distance=far_disambiguator",
+        "morphology=compound_or_phrase",
+        "register=ordinary_web",
+        "difficulty=moderate"
+      ],
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-repair-20260505-002_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_bank_banco:phrase_no_winner:001",
+      "source_request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_bank_banco:phrase_no_winner:001"
+    }
+  ]
+}

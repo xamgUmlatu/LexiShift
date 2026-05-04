@@ -1,0 +1,330 @@
+{
+  "schema_version": 1,
+  "status": "ok",
+  "generated_at": "2026-05-04T21:53:11Z",
+  "pair": "en-es",
+  "base_generated_rows_json": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json",
+  "overlay_generated_rows_json": [
+    "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_repair_20260505_001.json",
+    "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_repair_20260505_003.json"
+  ],
+  "generation_requests_json": "docs/test_outputs/semantic_veto_llm_pilot_generation_requests_en_es_latest.json",
+  "summary": {
+    "expected_row_count": 72,
+    "assembled_row_count": 72,
+    "base_row_count": 72,
+    "overlay_payload_count": 2,
+    "replacement_count": 3,
+    "missing_row_count": 0,
+    "unexpected_row_count": 0
+  },
+  "missing_row_ids": [],
+  "unexpected_row_ids": [],
+  "replacements": [
+    {
+      "row_id": "pilotrow:pilot_bank_banco:phrase_no_winner:001",
+      "old_source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json",
+      "new_source": "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_repair_20260505_001.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_branch_sucursal:phrase_no_winner:001",
+      "old_source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json",
+      "new_source": "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_repair_20260505_001.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_bank_banco:phrase_no_winner:001",
+      "old_source": "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_repair_20260505_001.json",
+      "new_source": "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_repair_20260505_003.json"
+    }
+  ],
+  "row_sources": [
+    {
+      "row_id": "pilotrow:pilot_bank_banco:positive_active:001",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_bank_banco:positive_active:002",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_bank_banco:positive_active:003",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_bank_banco:shadow_negative:001",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_bank_banco:shadow_negative:002",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_bank_banco:phrase_no_winner:001",
+      "source": "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_repair_20260505_003.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_plant_planta:positive_active:001",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_plant_planta:positive_active:002",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_plant_planta:positive_active:003",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_plant_planta:shadow_negative:001",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_plant_planta:shadow_negative:002",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_plant_planta:phrase_no_winner:001",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_board_tablero:positive_active:001",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_board_tablero:positive_active:002",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_board_tablero:positive_active:003",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_board_tablero:shadow_negative:001",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_board_tablero:shadow_negative:002",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_board_tablero:phrase_no_winner:001",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_check_cheque:positive_active:001",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_check_cheque:positive_active:002",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_check_cheque:positive_active:003",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_check_cheque:shadow_negative:001",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_check_cheque:shadow_negative:002",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_check_cheque:phrase_no_winner:001",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_branch_sucursal:positive_active:001",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_branch_sucursal:positive_active:002",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_branch_sucursal:positive_active:003",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_branch_sucursal:shadow_negative:001",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_branch_sucursal:shadow_negative:002",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_branch_sucursal:phrase_no_winner:001",
+      "source": "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_repair_20260505_001.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_file_archivo:positive_active:001",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_file_archivo:positive_active:002",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_file_archivo:positive_active:003",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_file_archivo:shadow_negative:001",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_file_archivo:shadow_negative:002",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_file_archivo:phrase_no_winner:001",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_play_obra:positive_active:001",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_play_obra:positive_active:002",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_play_obra:positive_active:003",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_play_obra:shadow_negative:001",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_play_obra:shadow_negative:002",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_play_obra:phrase_no_winner:001",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_seal_sello:positive_active:001",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_seal_sello:positive_active:002",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_seal_sello:positive_active:003",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_seal_sello:shadow_negative:001",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_seal_sello:shadow_negative:002",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_seal_sello:phrase_no_winner:001",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_report_informe:positive_active:001",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_report_informe:positive_active:002",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_report_informe:positive_active:003",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_report_informe:shadow_negative:001",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_report_informe:shadow_negative:002",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_report_informe:phrase_no_winner:001",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_order_pedido:positive_active:001",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_order_pedido:positive_active:002",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_order_pedido:positive_active:003",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_order_pedido:shadow_negative:001",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_order_pedido:shadow_negative:002",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_order_pedido:phrase_no_winner:001",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_match_partido:positive_active:001",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_match_partido:positive_active:002",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_match_partido:positive_active:003",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_match_partido:shadow_negative:001",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_match_partido:shadow_negative:002",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_match_partido:phrase_no_winner:001",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_watch_reloj:positive_active:001",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_watch_reloj:positive_active:002",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_watch_reloj:positive_active:003",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_watch_reloj:shadow_negative:001",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_watch_reloj:shadow_negative:002",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    },
+    {
+      "row_id": "pilotrow:pilot_watch_reloj:phrase_no_winner:001",
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+    }
+  ]
+}

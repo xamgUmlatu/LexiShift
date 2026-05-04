@@ -1,0 +1,102 @@
+# en-es Semantic Veto LLM Pilot Generation Run
+
+- Status: `ok`
+- Generated: `2026-05-04T21:48:12Z`
+- Execution mode: `live`
+- Batch id: `en-es:semantic-veto-llm-pilot:semantic-veto-pilot-full-20260505-001`
+- Pilot id: `semantic_veto_llm_pilot_en_es_v1`
+- Prompt id: `semantic_veto_eval_sentence_pilot_v1`
+- Selected model: `gpt-5.4-mini`
+
+## Summary
+
+- Selected requests: `72`
+- Accepted rows: `72`
+- API errors: `0`
+- Invalid outputs: `0`
+- Input tokens: `30311`
+- Output tokens: `15409`
+- Rows by type: `phrase_no_winner: 12, positive_active: 36, shadow_negative: 24`
+
+## Artifacts
+
+- Journal: `docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_journal.jsonl`
+- Raw responses: `docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json`
+- Generated rows: `docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json`
+
+## Request Outcomes
+
+| Request | Row | Family | Type | Status | Sentence / Error |
+| --- | --- | --- | --- | --- | --- |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_bank_banco:positive_active:001` | `pilotrow:pilot_bank_banco:positive_active:001` | `pilot:bank:banco` | `positive_active` | `accepted` | The bank approved the loan after reviewing the business plan. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_bank_banco:positive_active:002` | `pilotrow:pilot_bank_banco:positive_active:002` | `pilot:bank:banco` | `positive_active` | `accepted` | For the quarterly treasury review, the auditors confirmed that the bank held the reserve funds securely. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_bank_banco:positive_active:003` | `pilotrow:pilot_bank_banco:positive_active:003` | `pilot:bank:banco` | `positive_active` | `accepted` | The local bank approved the mortgage application this morning. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_bank_banco:shadow_negative:001` | `pilotrow:pilot_bank_banco:shadow_negative:001` | `pilot:bank:banco` | `shadow_negative` | `accepted` | River bank erosion closes the trail after heavy rain. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_bank_banco:shadow_negative:002` | `pilotrow:pilot_bank_banco:shadow_negative:002` | `pilot:bank:banco` | `shadow_negative` | `accepted` | The river bank eroded after the storm, and the hydrology report noted fresh sediment deposits. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_bank_banco:phrase_no_winner:001` | `pilotrow:pilot_bank_banco:phrase_no_winner:001` | `pilot:bank:banco` | `phrase_no_winner` | `accepted` | She banked the plane to the left before landing on the runway. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_plant_planta:positive_active:001` | `pilotrow:pilot_plant_planta:positive_active:001` | `pilot:plant:planta` | `positive_active` | `accepted` | In the greenhouse, the plant near the window is blooming. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_plant_planta:positive_active:002` | `pilotrow:pilot_plant_planta:positive_active:002` | `pilot:plant:planta` | `positive_active` | `accepted` | The greenhouse team monitored the rare plant species for signs of new growth. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_plant_planta:positive_active:003` | `pilotrow:pilot_plant_planta:positive_active:003` | `pilot:plant:planta` | `positive_active` | `accepted` | The plant in the corner is growing new leaves. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_plant_planta:shadow_negative:001` | `pilotrow:pilot_plant_planta:shadow_negative:001` | `pilot:plant:planta` | `shadow_negative` | `accepted` | After the outage, the plant was restarted, and the lights came back on. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_plant_planta:shadow_negative:002` | `pilotrow:pilot_plant_planta:shadow_negative:002` | `pilot:plant:planta` | `shadow_negative` | `accepted` | The engineers inspected the cooling systems at the power plant after the alarm sounded. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_plant_planta:phrase_no_winner:001` | `pilotrow:pilot_plant_planta:phrase_no_winner:001` | `pilot:plant:planta` | `phrase_no_winner` | `accepted` | In the end, the whole plan was a plant to get more clicks. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_board_tablero:positive_active:001` | `pilotrow:pilot_board_tablero:positive_active:001` | `pilot:board:tablero` | `positive_active` | `accepted` | New board game guide posted today. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_board_tablero:positive_active:002` | `pilotrow:pilot_board_tablero:positive_active:002` | `pilot:board:tablero` | `positive_active` | `accepted` | The engineer calibrated the control board for the new display system. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_board_tablero:positive_active:003` | `pilotrow:pilot_board_tablero:positive_active:003` | `pilot:board:tablero` | `positive_active` | `accepted` | The board, mounted above the desk, shows today’s schedule clearly. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_board_tablero:shadow_negative:001` | `pilotrow:pilot_board_tablero:shadow_negative:001` | `pilot:board:tablero` | `shadow_negative` | `accepted` | The passengers board the train after the final announcement. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_board_tablero:shadow_negative:002` | `pilotrow:pilot_board_tablero:shadow_negative:002` | `pilot:board:tablero` | `shadow_negative` | `accepted` | In the lab report, the board members approved the protocol update. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_board_tablero:phrase_no_winner:001` | `pilotrow:pilot_board_tablero:phrase_no_winner:001` | `pilot:board:tablero` | `phrase_no_winner` | `accepted` | The new app lets you board the train from your phone, and the schedule updates instantly. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_check_cheque:positive_active:001` | `pilotrow:pilot_check_cheque:positive_active:001` | `pilot:check:cheque` | `positive_active` | `accepted` | Deposit the check today at the bank. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_check_cheque:positive_active:002` | `pilotrow:pilot_check_cheque:positive_active:002` | `pilot:check:cheque` | `positive_active` | `accepted` | After the audit software flagged the invoice batch, the finance team printed a check for the vendor. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_check_cheque:positive_active:003` | `pilotrow:pilot_check_cheque:positive_active:003` | `pilot:check:cheque` | `positive_active` | `accepted` | She mailed the check to pay the rent. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_check_cheque:shadow_negative:001` | `pilotrow:pilot_check_cheque:shadow_negative:001` | `pilot:check:cheque` | `shadow_negative` | `accepted` | At the gate, the final check clears the bag. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_check_cheque:shadow_negative:002` | `pilotrow:pilot_check_cheque:shadow_negative:002` | `pilot:check:cheque` | `shadow_negative` | `accepted` | The server logs flagged a security check after the failed login attempts. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_check_cheque:phrase_no_winner:001` | `pilotrow:pilot_check_cheque:phrase_no_winner:001` | `pilot:check:cheque` | `phrase_no_winner` | `accepted` | Check the box below to continue, then review the form before you submit it. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_branch_sucursal:positive_active:001` | `pilotrow:pilot_branch_sucursal:positive_active:001` | `pilot:branch:sucursal` | `positive_active` | `accepted` | The branch, just off Main Street, opens at nine. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_branch_sucursal:positive_active:002` | `pilotrow:pilot_branch_sucursal:positive_active:002` | `pilot:branch:sucursal` | `positive_active` | `accepted` | The bank's downtown branch processes corporate deposits and loan applications. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_branch_sucursal:positive_active:003` | `pilotrow:pilot_branch_sucursal:positive_active:003` | `pilot:branch:sucursal` | `positive_active` | `accepted` | At the downtown branch, customers can open new accounts and get help with transfers. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_branch_sucursal:shadow_negative:001` | `pilotrow:pilot_branch_sucursal:shadow_negative:001` | `pilot:branch:sucursal` | `shadow_negative` | `accepted` | Storm damage closes the branch on the old oak, while crews clear the road below. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_branch_sucursal:shadow_negative:002` | `pilotrow:pilot_branch_sucursal:shadow_negative:002` | `pilot:branch:sucursal` | `shadow_negative` | `accepted` | The database query returned a branch of the decision tree after the latest update. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_branch_sucursal:phrase_no_winner:001` | `pilotrow:pilot_branch_sucursal:phrase_no_winner:001` | `pilot:branch:sucursal` | `phrase_no_winner` | `accepted` | Branching out into new hobbies, she later found that the long commute made the whole plan impractical. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_file_archivo:positive_active:001` | `pilotrow:pilot_file_archivo:positive_active:001` | `pilot:file:archivo` | `positive_active` | `accepted` | The clerk opened the file after lunch. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_file_archivo:positive_active:002` | `pilotrow:pilot_file_archivo:positive_active:002` | `pilot:file:archivo` | `positive_active` | `accepted` | For the audit review, the team uploaded the file to the secure server. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_file_archivo:positive_active:003` | `pilotrow:pilot_file_archivo:positive_active:003` | `pilot:file:archivo` | `positive_active` | `accepted` | The shared file folder is updated daily. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_file_archivo:shadow_negative:001` | `pilotrow:pilot_file_archivo:shadow_negative:001` | `pilot:file:archivo` | `shadow_negative` | `accepted` | Breaking news: the file on the table was a sharp metal tool, not a document. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_file_archivo:shadow_negative:002` | `pilotrow:pilot_file_archivo:shadow_negative:002` | `pilot:file:archivo` | `shadow_negative` | `accepted` | The technician checked the server logs, and the file on the drill bit was worn smooth. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_file_archivo:phrase_no_winner:001` | `pilotrow:pilot_file_archivo:phrase_no_winner:001` | `pilot:file:archivo` | `phrase_no_winner` | `accepted` | The team kept the file open while they waited for the final report. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_play_obra:positive_active:001` | `pilotrow:pilot_play_obra:positive_active:001` | `pilot:play:obra` | `positive_active` | `accepted` | On Broadway, the new play opens tonight. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_play_obra:positive_active:002` | `pilotrow:pilot_play_obra:positive_active:002` | `pilot:play:obra` | `positive_active` | `accepted` | In the theater archive, the annotated play was cataloged alongside the director's notes. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_play_obra:positive_active:003` | `pilotrow:pilot_play_obra:positive_active:003` | `pilot:play:obra` | `positive_active` | `accepted` | The play adaptation opened to strong reviews on the streaming site. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_play_obra:shadow_negative:001` | `pilotrow:pilot_play_obra:shadow_negative:001` | `pilot:play:obra` | `shadow_negative` | `accepted` | After the rain, the kids play in the park while the benches dry in the sun. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_play_obra:shadow_negative:002` | `pilotrow:pilot_play_obra:shadow_negative:002` | `pilot:play:obra` | `shadow_negative` | `accepted` | The server logs show a failed play in the deployment pipeline. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_play_obra:phrase_no_winner:001` | `pilotrow:pilot_play_obra:phrase_no_winner:001` | `pilot:play:obra` | `phrase_no_winner` | `accepted` | At the end of the article, the play on words made the headline memorable. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_seal_sello:positive_active:001` | `pilotrow:pilot_seal_sello:positive_active:001` | `pilot:seal:sello` | `positive_active` | `accepted` | Official seal confirms the document's authenticity. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_seal_sello:positive_active:002` | `pilotrow:pilot_seal_sello:positive_active:002` | `pilot:seal:sello` | `positive_active` | `accepted` | The compliance report requires a digital seal for each archived record. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_seal_sello:positive_active:003` | `pilotrow:pilot_seal_sello:positive_active:003` | `pilot:seal:sello` | `positive_active` | `accepted` | The seal on the certificate was checked by the clerk before the document was filed. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_seal_sello:shadow_negative:001` | `pilotrow:pilot_seal_sello:shadow_negative:001` | `pilot:seal:sello` | `shadow_negative` | `accepted` | The harbor seal naps on the dock while tourists watch from the pier. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_seal_sello:shadow_negative:002` | `pilotrow:pilot_seal_sello:shadow_negative:002` | `pilot:seal:sello` | `shadow_negative` | `accepted` | In the marine biology report, the researchers tracked the seal near the ice floe. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_seal_sello:phrase_no_winner:001` | `pilotrow:pilot_seal_sello:phrase_no_winner:001` | `pilot:seal:sello` | `phrase_no_winner` | `accepted` | A quick seal of approval from the editor helped the article go live. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_report_informe:positive_active:001` | `pilotrow:pilot_report_informe:positive_active:001` | `pilot:report:informe` | `positive_active` | `accepted` | The final report from the audit is now online. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_report_informe:positive_active:002` | `pilotrow:pilot_report_informe:positive_active:002` | `pilot:report:informe` | `positive_active` | `accepted` | After the audit team finished its review, the final report was posted on the compliance portal. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_report_informe:positive_active:003` | `pilotrow:pilot_report_informe:positive_active:003` | `pilot:report:informe` | `positive_active` | `accepted` | The report clearly summarizes the survey results. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_report_informe:shadow_negative:001` | `pilotrow:pilot_report_informe:shadow_negative:001` | `pilot:report:informe` | `shadow_negative` | `accepted` | After the storm, the report from the engine room was a loud bang. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_report_informe:shadow_negative:002` | `pilotrow:pilot_report_informe:shadow_negative:002` | `pilot:report:informe` | `shadow_negative` | `accepted` | The latest lab report showed elevated glucose levels. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_report_informe:phrase_no_winner:001` | `pilotrow:pilot_report_informe:phrase_no_winner:001` | `pilot:report:informe` | `phrase_no_winner` | `accepted` | The report back from the field arrived late, but the team still finished the update. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_order_pedido:positive_active:001` | `pilotrow:pilot_order_pedido:positive_active:001` | `pilot:order:pedido` | `positive_active` | `accepted` | The order, placed online after the sale, ships tomorrow. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_order_pedido:positive_active:002` | `pilotrow:pilot_order_pedido:positive_active:002` | `pilot:order:pedido` | `positive_active` | `accepted` | The procurement team reviewed the supplier catalog and placed a large order for replacement server parts. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_order_pedido:positive_active:003` | `pilotrow:pilot_order_pedido:positive_active:003` | `pilot:order:pedido` | `positive_active` | `accepted` | For the new laptop, the order arrived two days after checkout. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_order_pedido:shadow_negative:001` | `pilotrow:pilot_order_pedido:shadow_negative:001` | `pilot:order:pedido` | `shadow_negative` | `accepted` | New order restored in the court after the hearing. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_order_pedido:shadow_negative:002` | `pilotrow:pilot_order_pedido:shadow_negative:002` | `pilot:order:pedido` | `shadow_negative` | `accepted` | The database query returned rows in alphabetical order. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_order_pedido:phrase_no_winner:001` | `pilotrow:pilot_order_pedido:phrase_no_winner:001` | `pilot:order:pedido` | `phrase_no_winner` | `accepted` | The app loaded in order, but the video still buffered for several minutes. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_match_partido:positive_active:001` | `pilotrow:pilot_match_partido:positive_active:001` | `pilot:match:partido` | `positive_active` | `accepted` | The match ends with a late goal. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_match_partido:positive_active:002` | `pilotrow:pilot_match_partido:positive_active:002` | `pilot:match:partido` | `positive_active` | `accepted` | In the tournament report, the two teams' defensive records and late substitutions were analyzed before the final match. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_match_partido:positive_active:003` | `pilotrow:pilot_match_partido:positive_active:003` | `pilot:match:partido` | `positive_active` | `accepted` | The final match ended in a thrilling 2-1 victory for the home team. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_match_partido:shadow_negative:001` | `pilotrow:pilot_match_partido:shadow_negative:001` | `pilot:match:partido` | `shadow_negative` | `accepted` | Headline: a perfect match for the frame, with the finish finally aligned. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_match_partido:shadow_negative:002` | `pilotrow:pilot_match_partido:shadow_negative:002` | `pilot:match:partido` | `shadow_negative` | `accepted` | The technician checked whether the connector pins match the socket after the firmware update. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_match_partido:phrase_no_winner:001` | `pilotrow:pilot_match_partido:phrase_no_winner:001` | `pilot:match:partido` | `phrase_no_winner` | `accepted` | The colors on the new sofa match the curtains, and the room feels brighter after the renovation. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_watch_reloj:positive_active:001` | `pilotrow:pilot_watch_reloj:positive_active:001` | `pilot:watch:reloj` | `positive_active` | `accepted` | On the bedside table, the watch gleamed beside a ring. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_watch_reloj:positive_active:002` | `pilotrow:pilot_watch_reloj:positive_active:002` | `pilot:watch:reloj` | `positive_active` | `accepted` | In the lab’s latest wearable diagnostics report, the stainless-steel watch on the technician’s wrist was calibrated for precise timekeeping. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_watch_reloj:positive_active:003` | `pilotrow:pilot_watch_reloj:positive_active:003` | `pilot:watch:reloj` | `positive_active` | `accepted` | He checked his watch with the black leather strap before leaving the house. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_watch_reloj:shadow_negative:001` | `pilotrow:pilot_watch_reloj:shadow_negative:001` | `pilot:watch:reloj` | `shadow_negative` | `accepted` | Police watch the crowd from the rooftop as the parade moves below. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_watch_reloj:shadow_negative:002` | `pilotrow:pilot_watch_reloj:shadow_negative:002` | `pilot:watch:reloj` | `shadow_negative` | `accepted` | The security team will watch the server logs for suspicious activity. |
+| `semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_watch_reloj:phrase_no_winner:001` | `pilotrow:pilot_watch_reloj:phrase_no_winner:001` | `pilot:watch:reloj` | `phrase_no_winner` | `accepted` | Before the meeting starts, watch your step on the wet tiles. |

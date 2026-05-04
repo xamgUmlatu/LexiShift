@@ -122,7 +122,10 @@ def main() -> int:
         json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
     args.markdown_out.parent.mkdir(parents=True, exist_ok=True)
-    args.markdown_out.write_text(render_sentence_veto_markdown(report), encoding="utf-8")
+    args.markdown_out.write_text(
+        render_sentence_veto_markdown(report).rstrip() + "\n",
+        encoding="utf-8",
+    )
     return 0
 
 

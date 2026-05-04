@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "status": "ok",
+  "pair": "en-es",
+  "generated_at": "2026-05-04T21:48:57Z",
+  "execution_mode": "live",
+  "replay_source": "",
+  "batch_id": "en-es:semantic-veto-llm-pilot:semantic-veto-pilot-repair-20260505-001",
+  "pilot_id": "semantic_veto_llm_pilot_en_es_v1",
+  "prompt_id": "semantic_veto_eval_sentence_pilot_v1",
+  "selected_model_id": "gpt-5.4-mini",
+  "selected_temperature": 0.2,
+  "summary": {
+    "selected_request_count": 2,
+    "accepted_row_count": 2,
+    "api_error_count": 0,
+    "invalid_output_count": 0,
+    "accepted_rows_by_gold_type": {
+      "phrase_no_winner": 2
+    },
+    "input_tokens": 883,
+    "output_tokens": 526,
+    "reasoning_tokens": 0
+  },
+  "artifacts": {
+    "journal_jsonl": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-repair-20260505-001_journal.jsonl",
+    "raw_response_bundle_json": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-repair-20260505-001_raw_responses.json",
+    "generated_rows_json": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-repair-20260505-001_generated_rows.json"
+  },
+  "request_rows": [
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_bank_banco:phrase_no_winner:001",
+      "row_id": "pilotrow:pilot_bank_banco:phrase_no_winner:001",
+      "family_id": "pilot:bank:banco",
+      "trigger": "bank",
+      "candidate_replacement": "banco",
+      "gold_type": "phrase_no_winner",
+      "gold_decision": "abstain",
+      "status": "accepted",
+      "response_id": "resp_01449d52fa9aff860169f91449d57481978157fcc66fd30b59",
+      "sentence": "She banked on the new update, but the site still crashed.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-repair-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_bank_banco:phrase_no_winner:001",
+      "usage": {
+        "input_tokens": 438,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 250,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 688
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_branch_sucursal:phrase_no_winner:001",
+      "row_id": "pilotrow:pilot_branch_sucursal:phrase_no_winner:001",
+      "family_id": "pilot:branch:sucursal",
+      "trigger": "branch",
+      "candidate_replacement": "sucursal",
+      "gold_type": "phrase_no_winner",
+      "gold_decision": "abstain",
+      "status": "accepted",
+      "response_id": "resp_057e15cfd7d79fa00169f9144b8ddc81948abaacba1ab938af",
+      "sentence": "At first, the story took a sharp branch, and by the end the point was clear.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-repair-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_branch_sucursal:phrase_no_winner:001",
+      "usage": {
+        "input_tokens": 445,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 276,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 721
+      }
+    }
+  ]
+}

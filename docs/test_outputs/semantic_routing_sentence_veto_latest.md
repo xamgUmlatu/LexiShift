@@ -1,7 +1,7 @@
 # Semantic Routing Sentence Veto Harness
 
 - Status: `ok`
-- Generated: `2026-04-23T19:15:19Z`
+- Generated: `2026-05-01T00:46:48Z`
 - Dataset: `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v10.json`
 - Pair: `en-es`
 - Scorer: `tfidf_cosine`
@@ -19,7 +19,7 @@
 - Harmful replace / false abstain: `0.0%` / `65.8%`
 - Winner accuracy / shadow-winner accuracy: `63.2%` / `31.6%`
 - Predicted replace rate: `13.7%`
-- Phrase preemption hit rate / precision: `7.4%` / `100.0%`
+- Phrase preemption hit rate / precision: `8.4%` / `100.0%`
 - Active rescue applied rate / precision: `3.2%` / `100.0%`
 
 ## Family Breakdown
