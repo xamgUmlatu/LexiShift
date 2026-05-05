@@ -1,0 +1,3898 @@
+{
+  "comparison_rows": [
+    {
+      "case_id": "pilotrow:pilot_bank_banco:phrase_no_winner:001",
+      "data_difference": {
+        "diagnosis_confidence": "high",
+        "notes": [
+          "same_family_manual_matching_rows_passed_under_control",
+          "scorer_chose_active_evidence_over_blocker",
+          "surface_pattern_points_to_different_source_than_score_winner",
+          "phrase_prototype_did_not_cover_this_expression_strongly_enough",
+          "phrase_surface_pattern_visible_but_not_weighted_enough"
+        ],
+        "obvious_from_data": true,
+        "short_read": "The phrase shape is visible in the words, but the semantic score still did not let phrase evidence win."
+      },
+      "failure_class": "phrase_no_winner_phrase_score_not_dominant",
+      "family_id": "en-es:sentence-veto:bank:banco",
+      "gold_type": "phrase_no_winner",
+      "llm_context": "___ on getting there early, because the parking lot fills up fast before the concert starts.",
+      "llm_scores": {
+        "active": 0.5943,
+        "phrase": 0.5004,
+        "phrase_lead_to_best": -0.0939,
+        "shadow": 0.5377,
+        "shadow_lead": -0.0567,
+        "veto_reason": ""
+      },
+      "llm_sentence": "Bank on getting there early, because the parking lot fills up fast before the concert starts.",
+      "manual_matching_cases": [
+        {
+          "active_score": 0.564855,
+          "case_id": "en-es:sentence-veto:bank:005",
+          "context_text": "You can ___ on her support.",
+          "gold_decision": "abstain",
+          "gold_winner_type": "none",
+          "phrase_preemption_hit": true,
+          "predicted_decision": "abstain",
+          "product_outcome": "negative_abstain",
+          "sentence": "You can bank on her support.",
+          "slice_tags": [
+            "phrase_control",
+            "idiom"
+          ],
+          "strongest_shadow_score": 0.531059
+        }
+      ],
+      "manual_matching_summary": {
+        "case_count": 1,
+        "manual_failure_count": 0,
+        "manual_outcome_counts": {
+          "negative_abstain": 1
+        },
+        "manual_predicted_abstain_count": 1,
+        "manual_predicted_replace_count": 0
+      },
+      "nearest_manual_matching_case": {
+        "active_score": 0.564855,
+        "case_id": "en-es:sentence-veto:bank:005",
+        "composite_similarity": 0.1041,
+        "ordered_bigram_jaccard": 0.0526,
+        "predicted_decision": "abstain",
+        "product_outcome": "negative_abstain",
+        "sentence": "You can bank on her support.",
+        "strongest_shadow_score": 0.531059,
+        "token_jaccard": 0.1111,
+        "trigger_neighbor_overlap": 0.2,
+        "trigger_window_llm": {
+          "left": [],
+          "right": [
+            "on",
+            "getting"
+          ]
+        },
+        "trigger_window_manual": {
+          "left": [
+            "you",
+            "can"
+          ],
+          "right": [
+            "on",
+            "her"
+          ]
+        }
+      },
+      "product_outcome": "negative_allow",
+      "source_evidence_used": {
+        "active": "She deposited the cash at the ___ before lunch.",
+        "phrase": "You can ___ on her support.",
+        "shadow": "Wildflowers grew along the muddy ___"
+      },
+      "source_overlap": {
+        "active": {
+          "composite_similarity": 0.0263,
+          "left_trigger_window": {
+            "left": [],
+            "right": [
+              "on",
+              "getting"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0,
+          "right_trigger_window": {
+            "left": [
+              "at",
+              "the"
+            ],
+            "right": [
+              "before",
+              "lunch"
+            ]
+          },
+          "token_jaccard": 0.1053,
+          "trigger_neighbor_overlap": 0.0
+        },
+        "largest_surface_overlap": "phrase",
+        "phrase": {
+          "composite_similarity": 0.1041,
+          "left_trigger_window": {
+            "left": [],
+            "right": [
+              "on",
+              "getting"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0526,
+          "right_trigger_window": {
+            "left": [
+              "you",
+              "can"
+            ],
+            "right": [
+              "on",
+              "her"
+            ]
+          },
+          "token_jaccard": 0.1111,
+          "trigger_neighbor_overlap": 0.2
+        },
+        "score_winner": "active",
+        "shadow": {
+          "composite_similarity": 0.0139,
+          "left_trigger_window": {
+            "left": [],
+            "right": [
+              "on",
+              "getting"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0,
+          "right_trigger_window": {
+            "left": [
+              "the",
+              "muddy"
+            ],
+            "right": []
+          },
+          "token_jaccard": 0.0556,
+          "trigger_neighbor_overlap": 0.0
+        }
+      },
+      "trigger": "bank"
+    },
+    {
+      "case_id": "pilotrow:pilot_plant_planta:shadow_negative:001",
+      "data_difference": {
+        "diagnosis_confidence": "high",
+        "notes": [
+          "same_family_manual_matching_rows_passed_under_control",
+          "scorer_chose_active_evidence_over_blocker",
+          "surface_pattern_points_to_different_source_than_score_winner",
+          "shadow_negative_was_scored_as_active_like"
+        ],
+        "obvious_from_data": true,
+        "short_read": "The scorer chose active evidence over the intended blocker evidence."
+      },
+      "failure_class": "shadow_negative_active_score_dominated",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "gold_type": "shadow_negative",
+      "llm_context": "After the outage, the ___ was restarted, and the lights came back on.",
+      "llm_scores": {
+        "active": 0.6462,
+        "phrase": 0.5094,
+        "phrase_lead_to_best": -0.1368,
+        "shadow": 0.64,
+        "shadow_lead": -0.0062,
+        "veto_reason": ""
+      },
+      "llm_sentence": "After the outage, the plant was restarted, and the lights came back on.",
+      "manual_matching_cases": [
+        {
+          "active_score": 0.483005,
+          "case_id": "en-es:sentence-veto:plant:003",
+          "context_text": "The steel ___ closed after the strike.",
+          "gold_decision": "abstain",
+          "gold_winner_type": "shadow",
+          "phrase_preemption_hit": false,
+          "predicted_decision": "abstain",
+          "product_outcome": "negative_abstain",
+          "sentence": "The steel plant closed after the strike.",
+          "slice_tags": [
+            "clear_shadow",
+            "industry"
+          ],
+          "strongest_shadow_score": 0.576243
+        },
+        {
+          "active_score": 0.502487,
+          "case_id": "en-es:sentence-veto:plant:004",
+          "context_text": "Hundreds of workers left the chemical ___ at noon.",
+          "gold_decision": "abstain",
+          "gold_winner_type": "shadow",
+          "phrase_preemption_hit": false,
+          "predicted_decision": "abstain",
+          "product_outcome": "negative_abstain",
+          "sentence": "Hundreds of workers left the chemical plant at noon.",
+          "slice_tags": [
+            "clear_shadow",
+            "industry"
+          ],
+          "strongest_shadow_score": 0.606895
+        }
+      ],
+      "manual_matching_summary": {
+        "case_count": 2,
+        "manual_failure_count": 0,
+        "manual_outcome_counts": {
+          "negative_abstain": 2
+        },
+        "manual_predicted_abstain_count": 2,
+        "manual_predicted_replace_count": 0
+      },
+      "nearest_manual_matching_case": {
+        "active_score": 0.483005,
+        "case_id": "en-es:sentence-veto:plant:003",
+        "composite_similarity": 0.1036,
+        "ordered_bigram_jaccard": 0.0588,
+        "predicted_decision": "abstain",
+        "product_outcome": "negative_abstain",
+        "sentence": "The steel plant closed after the strike.",
+        "strongest_shadow_score": 0.576243,
+        "token_jaccard": 0.1538,
+        "trigger_neighbor_overlap": 0.1429,
+        "trigger_window_llm": {
+          "left": [
+            "outage",
+            "the"
+          ],
+          "right": [
+            "was",
+            "restarted"
+          ]
+        },
+        "trigger_window_manual": {
+          "left": [
+            "the",
+            "steel"
+          ],
+          "right": [
+            "closed",
+            "after"
+          ]
+        }
+      },
+      "product_outcome": "negative_allow",
+      "source_evidence_used": {
+        "active": "The ___ needs more sunlight in the afternoon.",
+        "phrase": "They tried to ___ evidence in his office.",
+        "shadow": "The steel ___ closed after the strike."
+      },
+      "source_overlap": {
+        "active": {
+          "composite_similarity": 0.0861,
+          "left_trigger_window": {
+            "left": [
+              "outage",
+              "the"
+            ],
+            "right": [
+              "was",
+              "restarted"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0556,
+          "right_trigger_window": {
+            "left": [
+              "the"
+            ],
+            "right": [
+              "needs",
+              "more"
+            ]
+          },
+          "token_jaccard": 0.0667,
+          "trigger_neighbor_overlap": 0.1667
+        },
+        "largest_surface_overlap": "shadow",
+        "phrase": {
+          "composite_similarity": 0.0147,
+          "left_trigger_window": {
+            "left": [
+              "outage",
+              "the"
+            ],
+            "right": [
+              "was",
+              "restarted"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0,
+          "right_trigger_window": {
+            "left": [
+              "tried",
+              "to"
+            ],
+            "right": [
+              "evidence",
+              "in"
+            ]
+          },
+          "token_jaccard": 0.0588,
+          "trigger_neighbor_overlap": 0.0
+        },
+        "score_winner": "active",
+        "shadow": {
+          "composite_similarity": 0.1036,
+          "left_trigger_window": {
+            "left": [
+              "outage",
+              "the"
+            ],
+            "right": [
+              "was",
+              "restarted"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0588,
+          "right_trigger_window": {
+            "left": [
+              "the",
+              "steel"
+            ],
+            "right": [
+              "closed",
+              "after"
+            ]
+          },
+          "token_jaccard": 0.1538,
+          "trigger_neighbor_overlap": 0.1429
+        }
+      },
+      "trigger": "plant"
+    },
+    {
+      "case_id": "pilotrow:pilot_plant_planta:shadow_negative:002",
+      "data_difference": {
+        "diagnosis_confidence": "medium",
+        "notes": [
+          "same_family_manual_matching_rows_passed_under_control"
+        ],
+        "obvious_from_data": true,
+        "short_read": "The same-family manual examples look easier or more directly aligned with the available evidence."
+      },
+      "failure_class": "shadow_negative_shadow_lead_below_threshold",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "gold_type": "shadow_negative",
+      "llm_context": "The engineers inspected the cooling systems at the power ___ after the alarm sounded.",
+      "llm_scores": {
+        "active": 0.6634,
+        "phrase": 0.6175,
+        "phrase_lead_to_best": -0.0596,
+        "shadow": 0.6771,
+        "shadow_lead": 0.0137,
+        "veto_reason": ""
+      },
+      "llm_sentence": "The engineers inspected the cooling systems at the power plant after the alarm sounded.",
+      "manual_matching_cases": [
+        {
+          "active_score": 0.483005,
+          "case_id": "en-es:sentence-veto:plant:003",
+          "context_text": "The steel ___ closed after the strike.",
+          "gold_decision": "abstain",
+          "gold_winner_type": "shadow",
+          "phrase_preemption_hit": false,
+          "predicted_decision": "abstain",
+          "product_outcome": "negative_abstain",
+          "sentence": "The steel plant closed after the strike.",
+          "slice_tags": [
+            "clear_shadow",
+            "industry"
+          ],
+          "strongest_shadow_score": 0.576243
+        },
+        {
+          "active_score": 0.502487,
+          "case_id": "en-es:sentence-veto:plant:004",
+          "context_text": "Hundreds of workers left the chemical ___ at noon.",
+          "gold_decision": "abstain",
+          "gold_winner_type": "shadow",
+          "phrase_preemption_hit": false,
+          "predicted_decision": "abstain",
+          "product_outcome": "negative_abstain",
+          "sentence": "Hundreds of workers left the chemical plant at noon.",
+          "slice_tags": [
+            "clear_shadow",
+            "industry"
+          ],
+          "strongest_shadow_score": 0.606895
+        }
+      ],
+      "manual_matching_summary": {
+        "case_count": 2,
+        "manual_failure_count": 0,
+        "manual_outcome_counts": {
+          "negative_abstain": 2
+        },
+        "manual_predicted_abstain_count": 2,
+        "manual_predicted_replace_count": 0
+      },
+      "nearest_manual_matching_case": {
+        "active_score": 0.483005,
+        "case_id": "en-es:sentence-veto:plant:003",
+        "composite_similarity": 0.1662,
+        "ordered_bigram_jaccard": 0.0556,
+        "predicted_decision": "abstain",
+        "product_outcome": "negative_abstain",
+        "sentence": "The steel plant closed after the strike.",
+        "strongest_shadow_score": 0.576243,
+        "token_jaccard": 0.1538,
+        "trigger_neighbor_overlap": 0.4,
+        "trigger_window_llm": {
+          "left": [
+            "the",
+            "power"
+          ],
+          "right": [
+            "after",
+            "the"
+          ]
+        },
+        "trigger_window_manual": {
+          "left": [
+            "the",
+            "steel"
+          ],
+          "right": [
+            "closed",
+            "after"
+          ]
+        }
+      },
+      "product_outcome": "negative_allow",
+      "source_evidence_used": {
+        "active": "She watered the ___ on the windowsill.",
+        "phrase": "They tried to ___ evidence in his office.",
+        "shadow": "Hundreds of workers left the chemical ___ at noon."
+      },
+      "source_overlap": {
+        "active": {
+          "composite_similarity": 0.0679,
+          "left_trigger_window": {
+            "left": [
+              "the",
+              "power"
+            ],
+            "right": [
+              "after",
+              "the"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0,
+          "right_trigger_window": {
+            "left": [
+              "watered",
+              "the"
+            ],
+            "right": [
+              "on",
+              "the"
+            ]
+          },
+          "token_jaccard": 0.0714,
+          "trigger_neighbor_overlap": 0.2
+        },
+        "largest_surface_overlap": "shadow",
+        "phrase": {
+          "composite_similarity": 0.0147,
+          "left_trigger_window": {
+            "left": [
+              "the",
+              "power"
+            ],
+            "right": [
+              "after",
+              "the"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0,
+          "right_trigger_window": {
+            "left": [
+              "tried",
+              "to"
+            ],
+            "right": [
+              "evidence",
+              "in"
+            ]
+          },
+          "token_jaccard": 0.0588,
+          "trigger_neighbor_overlap": 0.0
+        },
+        "score_winner": "shadow",
+        "shadow": {
+          "composite_similarity": 0.0729,
+          "left_trigger_window": {
+            "left": [
+              "the",
+              "power"
+            ],
+            "right": [
+              "after",
+              "the"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0,
+          "right_trigger_window": {
+            "left": [
+              "the",
+              "chemical"
+            ],
+            "right": [
+              "at",
+              "noon"
+            ]
+          },
+          "token_jaccard": 0.125,
+          "trigger_neighbor_overlap": 0.1667
+        }
+      },
+      "trigger": "plant"
+    },
+    {
+      "case_id": "pilotrow:pilot_plant_planta:phrase_no_winner:001",
+      "data_difference": {
+        "diagnosis_confidence": "high",
+        "notes": [
+          "same_family_manual_matching_rows_passed_under_control",
+          "scorer_chose_active_evidence_over_blocker",
+          "surface_pattern_points_to_different_source_than_score_winner",
+          "phrase_prototype_did_not_cover_this_expression_strongly_enough",
+          "phrase_surface_pattern_visible_but_not_weighted_enough"
+        ],
+        "obvious_from_data": true,
+        "short_read": "The phrase shape is visible in the words, but the semantic score still did not let phrase evidence win."
+      },
+      "failure_class": "phrase_no_winner_phrase_score_not_dominant",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "gold_type": "phrase_no_winner",
+      "llm_context": "In the end, the whole plan was a ___ to get more clicks.",
+      "llm_scores": {
+        "active": 0.5957,
+        "phrase": 0.5721,
+        "phrase_lead_to_best": -0.0236,
+        "shadow": 0.5834,
+        "shadow_lead": -0.0123,
+        "veto_reason": ""
+      },
+      "llm_sentence": "In the end, the whole plan was a plant to get more clicks.",
+      "manual_matching_cases": [
+        {
+          "active_score": 0.513267,
+          "case_id": "en-es:sentence-veto:plant:005",
+          "context_text": "They tried to ___ evidence in his office.",
+          "gold_decision": "abstain",
+          "gold_winner_type": "none",
+          "phrase_preemption_hit": true,
+          "predicted_decision": "abstain",
+          "product_outcome": "negative_abstain",
+          "sentence": "They tried to plant evidence in his office.",
+          "slice_tags": [
+            "phrase_control",
+            "verb"
+          ],
+          "strongest_shadow_score": 0.513748
+        }
+      ],
+      "manual_matching_summary": {
+        "case_count": 1,
+        "manual_failure_count": 0,
+        "manual_outcome_counts": {
+          "negative_abstain": 1
+        },
+        "manual_predicted_abstain_count": 1,
+        "manual_predicted_replace_count": 0
+      },
+      "nearest_manual_matching_case": {
+        "active_score": 0.513267,
+        "case_id": "en-es:sentence-veto:plant:005",
+        "composite_similarity": 0.0857,
+        "ordered_bigram_jaccard": 0.0,
+        "predicted_decision": "abstain",
+        "product_outcome": "negative_abstain",
+        "sentence": "They tried to plant evidence in his office.",
+        "strongest_shadow_score": 0.513748,
+        "token_jaccard": 0.2,
+        "trigger_neighbor_overlap": 0.1429,
+        "trigger_window_llm": {
+          "left": [
+            "was",
+            "a"
+          ],
+          "right": [
+            "to",
+            "get"
+          ]
+        },
+        "trigger_window_manual": {
+          "left": [
+            "tried",
+            "to"
+          ],
+          "right": [
+            "evidence",
+            "in"
+          ]
+        }
+      },
+      "product_outcome": "negative_allow",
+      "source_evidence_used": {
+        "active": "She watered the ___ on the windowsill.",
+        "phrase": "They tried to ___ evidence in his office.",
+        "shadow": "The steel ___ closed after the strike."
+      },
+      "source_overlap": {
+        "active": {
+          "composite_similarity": 0.0179,
+          "left_trigger_window": {
+            "left": [
+              "was",
+              "a"
+            ],
+            "right": [
+              "to",
+              "get"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0,
+          "right_trigger_window": {
+            "left": [
+              "watered",
+              "the"
+            ],
+            "right": [
+              "on",
+              "the"
+            ]
+          },
+          "token_jaccard": 0.0714,
+          "trigger_neighbor_overlap": 0.0
+        },
+        "largest_surface_overlap": "phrase",
+        "phrase": {
+          "composite_similarity": 0.0857,
+          "left_trigger_window": {
+            "left": [
+              "was",
+              "a"
+            ],
+            "right": [
+              "to",
+              "get"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0,
+          "right_trigger_window": {
+            "left": [
+              "tried",
+              "to"
+            ],
+            "right": [
+              "evidence",
+              "in"
+            ]
+          },
+          "token_jaccard": 0.2,
+          "trigger_neighbor_overlap": 0.1429
+        },
+        "score_winner": "active",
+        "shadow": {
+          "composite_similarity": 0.0179,
+          "left_trigger_window": {
+            "left": [
+              "was",
+              "a"
+            ],
+            "right": [
+              "to",
+              "get"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0,
+          "right_trigger_window": {
+            "left": [
+              "the",
+              "steel"
+            ],
+            "right": [
+              "closed",
+              "after"
+            ]
+          },
+          "token_jaccard": 0.0714,
+          "trigger_neighbor_overlap": 0.0
+        }
+      },
+      "trigger": "plant"
+    },
+    {
+      "case_id": "pilotrow:pilot_board_tablero:positive_active:001",
+      "data_difference": {
+        "diagnosis_confidence": "high",
+        "notes": [
+          "same_family_manual_matching_rows_passed_under_control",
+          "surface_pattern_points_to_different_source_than_score_winner",
+          "positive_sentence_was_short_or_generic_enough_for_phrase_prototype_to_win",
+          "llm_sentence_is_lexically_far_from_manual_same_class_examples"
+        ],
+        "obvious_from_data": true,
+        "short_read": "The LLM positive row is short or generic enough that phrase evidence beats it."
+      },
+      "failure_class": "positive_overblocked_by_phrase_prototype",
+      "family_id": "en-es:sentence-veto:board:tablero",
+      "gold_type": "positive_active",
+      "llm_context": "New ___ game guide posted today.",
+      "llm_scores": {
+        "active": 0.5856,
+        "phrase": 0.644,
+        "phrase_lead_to_best": 0.0584,
+        "shadow": 0.5394,
+        "shadow_lead": -0.0463,
+        "veto_reason": "phrase_score_lead"
+      },
+      "llm_sentence": "New board game guide posted today.",
+      "manual_matching_cases": [
+        {
+          "active_score": 0.568637,
+          "case_id": "en-es:sentence-veto:board:001",
+          "context_text": "He arranged the pieces on the ___ before the lesson began.",
+          "gold_decision": "replace",
+          "gold_winner_type": "active",
+          "phrase_preemption_hit": false,
+          "predicted_decision": "replace",
+          "product_outcome": "positive_allow",
+          "sentence": "He arranged the pieces on the board before the lesson began.",
+          "slice_tags": [
+            "clear_active",
+            "game"
+          ],
+          "strongest_shadow_score": 0.534764
+        },
+        {
+          "active_score": 0.625082,
+          "case_id": "en-es:sentence-veto:board:002",
+          "context_text": "She folded the ___ after the game ended.",
+          "gold_decision": "replace",
+          "gold_winner_type": "active",
+          "phrase_preemption_hit": false,
+          "predicted_decision": "replace",
+          "product_outcome": "positive_allow",
+          "sentence": "She folded the board after the game ended.",
+          "slice_tags": [
+            "clear_active",
+            "game"
+          ],
+          "strongest_shadow_score": 0.512886
+        }
+      ],
+      "manual_matching_summary": {
+        "case_count": 2,
+        "manual_failure_count": 0,
+        "manual_outcome_counts": {
+          "positive_allow": 2
+        },
+        "manual_predicted_abstain_count": 0,
+        "manual_predicted_replace_count": 2
+      },
+      "nearest_manual_matching_case": {
+        "active_score": 0.625082,
+        "case_id": "en-es:sentence-veto:board:002",
+        "composite_similarity": 0.05,
+        "ordered_bigram_jaccard": 0.0,
+        "predicted_decision": "replace",
+        "product_outcome": "positive_allow",
+        "sentence": "She folded the board after the game ended.",
+        "strongest_shadow_score": 0.512886,
+        "token_jaccard": 0.2,
+        "trigger_neighbor_overlap": 0.0,
+        "trigger_window_llm": {
+          "left": [
+            "new"
+          ],
+          "right": [
+            "game",
+            "guide"
+          ]
+        },
+        "trigger_window_manual": {
+          "left": [
+            "folded",
+            "the"
+          ],
+          "right": [
+            "after",
+            "the"
+          ]
+        }
+      },
+      "product_outcome": "positive_abstain",
+      "source_evidence_used": {
+        "active": "She folded the ___ after the game ended.",
+        "phrase": "Are you on ___ with the revised plan?",
+        "shadow": "The ___ approved the merger on Tuesday."
+      },
+      "source_overlap": {
+        "active": {
+          "composite_similarity": 0.05,
+          "left_trigger_window": {
+            "left": [
+              "new"
+            ],
+            "right": [
+              "game",
+              "guide"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0,
+          "right_trigger_window": {
+            "left": [
+              "folded",
+              "the"
+            ],
+            "right": [
+              "after",
+              "the"
+            ]
+          },
+          "token_jaccard": 0.2,
+          "trigger_neighbor_overlap": 0.0
+        },
+        "largest_surface_overlap": "active",
+        "phrase": {
+          "composite_similarity": 0.0208,
+          "left_trigger_window": {
+            "left": [
+              "new"
+            ],
+            "right": [
+              "game",
+              "guide"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0,
+          "right_trigger_window": {
+            "left": [
+              "you",
+              "on"
+            ],
+            "right": [
+              "with",
+              "the"
+            ]
+          },
+          "token_jaccard": 0.0833,
+          "trigger_neighbor_overlap": 0.0
+        },
+        "score_winner": "phrase",
+        "shadow": {
+          "composite_similarity": 0.025,
+          "left_trigger_window": {
+            "left": [
+              "new"
+            ],
+            "right": [
+              "game",
+              "guide"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0,
+          "right_trigger_window": {
+            "left": [
+              "the"
+            ],
+            "right": [
+              "approved",
+              "the"
+            ]
+          },
+          "token_jaccard": 0.1,
+          "trigger_neighbor_overlap": 0.0
+        }
+      },
+      "trigger": "board"
+    },
+    {
+      "case_id": "pilotrow:pilot_check_cheque:shadow_negative:001",
+      "data_difference": {
+        "diagnosis_confidence": "high",
+        "notes": [
+          "same_family_manual_matching_rows_passed_under_control",
+          "scorer_chose_active_evidence_over_blocker",
+          "shadow_negative_was_scored_as_active_like",
+          "llm_sentence_is_lexically_far_from_manual_same_class_examples"
+        ],
+        "obvious_from_data": true,
+        "short_read": "The scorer chose active evidence over the intended blocker evidence."
+      },
+      "failure_class": "shadow_negative_active_score_dominated",
+      "family_id": "en-es:sentence-veto:check:cheque",
+      "gold_type": "shadow_negative",
+      "llm_context": "At the gate, the final ___ clears the bag.",
+      "llm_scores": {
+        "active": 0.7607,
+        "phrase": 0.6,
+        "phrase_lead_to_best": -0.1608,
+        "shadow": 0.6082,
+        "shadow_lead": -0.1526,
+        "veto_reason": ""
+      },
+      "llm_sentence": "At the gate, the final check clears the bag.",
+      "manual_matching_cases": [
+        {
+          "active_score": 0.542255,
+          "case_id": "en-es:sentence-veto:check:003",
+          "context_text": "Please ___ the figures one more time.",
+          "gold_decision": "abstain",
+          "gold_winner_type": "shadow",
+          "phrase_preemption_hit": false,
+          "predicted_decision": "abstain",
+          "product_outcome": "negative_abstain",
+          "sentence": "Please check the figures one more time.",
+          "slice_tags": [
+            "clear_shadow",
+            "verb",
+            "cross_pos",
+            "inspection"
+          ],
+          "strongest_shadow_score": 0.597344
+        },
+        {
+          "active_score": 0.511134,
+          "case_id": "en-es:sentence-veto:check:004",
+          "context_text": "Technicians ___ the pressure every hour.",
+          "gold_decision": "abstain",
+          "gold_winner_type": "shadow",
+          "phrase_preemption_hit": false,
+          "predicted_decision": "abstain",
+          "product_outcome": "negative_abstain",
+          "sentence": "Technicians check the pressure every hour.",
+          "slice_tags": [
+            "clear_shadow",
+            "verb",
+            "cross_pos",
+            "inspection"
+          ],
+          "strongest_shadow_score": 0.64983
+        }
+      ],
+      "manual_matching_summary": {
+        "case_count": 2,
+        "manual_failure_count": 0,
+        "manual_outcome_counts": {
+          "negative_abstain": 2
+        },
+        "manual_predicted_abstain_count": 2,
+        "manual_predicted_replace_count": 0
+      },
+      "nearest_manual_matching_case": {
+        "active_score": 0.511134,
+        "case_id": "en-es:sentence-veto:check:004",
+        "composite_similarity": 0.075,
+        "ordered_bigram_jaccard": 0.0,
+        "predicted_decision": "abstain",
+        "product_outcome": "negative_abstain",
+        "sentence": "Technicians check the pressure every hour.",
+        "strongest_shadow_score": 0.64983,
+        "token_jaccard": 0.1,
+        "trigger_neighbor_overlap": 0.2,
+        "trigger_window_llm": {
+          "left": [
+            "the",
+            "final"
+          ],
+          "right": [
+            "clears",
+            "the"
+          ]
+        },
+        "trigger_window_manual": {
+          "left": [
+            "technicians"
+          ],
+          "right": [
+            "the",
+            "pressure"
+          ]
+        }
+      },
+      "product_outcome": "negative_allow",
+      "source_evidence_used": {
+        "active": "The ___ cleared after the holiday weekend.",
+        "phrase": "You should ___ out the new exhibit downtown.",
+        "shadow": "Please ___ the figures one more time."
+      },
+      "source_overlap": {
+        "active": {
+          "composite_similarity": 0.075,
+          "left_trigger_window": {
+            "left": [
+              "the",
+              "final"
+            ],
+            "right": [
+              "clears",
+              "the"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0,
+          "right_trigger_window": {
+            "left": [
+              "the"
+            ],
+            "right": [
+              "cleared",
+              "after"
+            ]
+          },
+          "token_jaccard": 0.1,
+          "trigger_neighbor_overlap": 0.2
+        },
+        "largest_surface_overlap": "active",
+        "phrase": {
+          "composite_similarity": 0.0625,
+          "left_trigger_window": {
+            "left": [
+              "the",
+              "final"
+            ],
+            "right": [
+              "clears",
+              "the"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0,
+          "right_trigger_window": {
+            "left": [
+              "you",
+              "should"
+            ],
+            "right": [
+              "out",
+              "the"
+            ]
+          },
+          "token_jaccard": 0.0833,
+          "trigger_neighbor_overlap": 0.1667
+        },
+        "score_winner": "active",
+        "shadow": {
+          "composite_similarity": 0.0727,
+          "left_trigger_window": {
+            "left": [
+              "the",
+              "final"
+            ],
+            "right": [
+              "clears",
+              "the"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0,
+          "right_trigger_window": {
+            "left": [
+              "please"
+            ],
+            "right": [
+              "the",
+              "figures"
+            ]
+          },
+          "token_jaccard": 0.0909,
+          "trigger_neighbor_overlap": 0.2
+        }
+      },
+      "trigger": "check"
+    },
+    {
+      "case_id": "pilotrow:pilot_check_cheque:shadow_negative:002",
+      "data_difference": {
+        "diagnosis_confidence": "high",
+        "notes": [
+          "same_family_manual_matching_rows_passed_under_control",
+          "scorer_chose_active_evidence_over_blocker",
+          "surface_pattern_points_to_different_source_than_score_winner",
+          "shadow_negative_was_scored_as_active_like",
+          "llm_sentence_is_lexically_far_from_manual_same_class_examples"
+        ],
+        "obvious_from_data": true,
+        "short_read": "The scorer chose active evidence over the intended blocker evidence."
+      },
+      "failure_class": "shadow_negative_active_score_dominated",
+      "family_id": "en-es:sentence-veto:check:cheque",
+      "gold_type": "shadow_negative",
+      "llm_context": "The server logs flagged a security ___ after the failed login attempts.",
+      "llm_scores": {
+        "active": 0.6459,
+        "phrase": 0.4395,
+        "phrase_lead_to_best": -0.2064,
+        "shadow": 0.5043,
+        "shadow_lead": -0.1416,
+        "veto_reason": ""
+      },
+      "llm_sentence": "The server logs flagged a security check after the failed login attempts.",
+      "manual_matching_cases": [
+        {
+          "active_score": 0.542255,
+          "case_id": "en-es:sentence-veto:check:003",
+          "context_text": "Please ___ the figures one more time.",
+          "gold_decision": "abstain",
+          "gold_winner_type": "shadow",
+          "phrase_preemption_hit": false,
+          "predicted_decision": "abstain",
+          "product_outcome": "negative_abstain",
+          "sentence": "Please check the figures one more time.",
+          "slice_tags": [
+            "clear_shadow",
+            "verb",
+            "cross_pos",
+            "inspection"
+          ],
+          "strongest_shadow_score": 0.597344
+        },
+        {
+          "active_score": 0.511134,
+          "case_id": "en-es:sentence-veto:check:004",
+          "context_text": "Technicians ___ the pressure every hour.",
+          "gold_decision": "abstain",
+          "gold_winner_type": "shadow",
+          "phrase_preemption_hit": false,
+          "predicted_decision": "abstain",
+          "product_outcome": "negative_abstain",
+          "sentence": "Technicians check the pressure every hour.",
+          "slice_tags": [
+            "clear_shadow",
+            "verb",
+            "cross_pos",
+            "inspection"
+          ],
+          "strongest_shadow_score": 0.64983
+        }
+      ],
+      "manual_matching_summary": {
+        "case_count": 2,
+        "manual_failure_count": 0,
+        "manual_outcome_counts": {
+          "negative_abstain": 2
+        },
+        "manual_predicted_abstain_count": 2,
+        "manual_predicted_replace_count": 0
+      },
+      "nearest_manual_matching_case": {
+        "active_score": 0.511134,
+        "case_id": "en-es:sentence-veto:check:004",
+        "composite_similarity": 0.0609,
+        "ordered_bigram_jaccard": 0.0,
+        "predicted_decision": "abstain",
+        "product_outcome": "negative_abstain",
+        "sentence": "Technicians check the pressure every hour.",
+        "strongest_shadow_score": 0.64983,
+        "token_jaccard": 0.0769,
+        "trigger_neighbor_overlap": 0.1667,
+        "trigger_window_llm": {
+          "left": [
+            "a",
+            "security"
+          ],
+          "right": [
+            "after",
+            "the"
+          ]
+        },
+        "trigger_window_manual": {
+          "left": [
+            "technicians"
+          ],
+          "right": [
+            "the",
+            "pressure"
+          ]
+        }
+      },
+      "product_outcome": "negative_allow",
+      "source_evidence_used": {
+        "active": "He signed the ___ before mailing the rent.",
+        "phrase": "You should ___ out the new exhibit downtown.",
+        "shadow": "Technicians ___ the pressure every hour."
+      },
+      "source_overlap": {
+        "active": {
+          "composite_similarity": 0.0536,
+          "left_trigger_window": {
+            "left": [
+              "a",
+              "security"
+            ],
+            "right": [
+              "after",
+              "the"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0,
+          "right_trigger_window": {
+            "left": [
+              "signed",
+              "the"
+            ],
+            "right": [
+              "before",
+              "mailing"
+            ]
+          },
+          "token_jaccard": 0.0714,
+          "trigger_neighbor_overlap": 0.1429
+        },
+        "largest_surface_overlap": "shadow",
+        "phrase": {
+          "composite_similarity": 0.0524,
+          "left_trigger_window": {
+            "left": [
+              "a",
+              "security"
+            ],
+            "right": [
+              "after",
+              "the"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0,
+          "right_trigger_window": {
+            "left": [
+              "you",
+              "should"
+            ],
+            "right": [
+              "out",
+              "the"
+            ]
+          },
+          "token_jaccard": 0.0667,
+          "trigger_neighbor_overlap": 0.1429
+        },
+        "score_winner": "active",
+        "shadow": {
+          "composite_similarity": 0.0609,
+          "left_trigger_window": {
+            "left": [
+              "a",
+              "security"
+            ],
+            "right": [
+              "after",
+              "the"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0,
+          "right_trigger_window": {
+            "left": [
+              "technicians"
+            ],
+            "right": [
+              "the",
+              "pressure"
+            ]
+          },
+          "token_jaccard": 0.0769,
+          "trigger_neighbor_overlap": 0.1667
+        }
+      },
+      "trigger": "check"
+    },
+    {
+      "case_id": "pilotrow:pilot_check_cheque:phrase_no_winner:001",
+      "data_difference": {
+        "diagnosis_confidence": "high",
+        "notes": [
+          "same_family_manual_matching_rows_passed_under_control",
+          "scorer_chose_active_evidence_over_blocker",
+          "surface_pattern_points_to_different_source_than_score_winner",
+          "phrase_prototype_did_not_cover_this_expression_strongly_enough",
+          "llm_sentence_is_lexically_far_from_manual_same_class_examples"
+        ],
+        "obvious_from_data": true,
+        "short_read": "The scorer chose active evidence over the intended blocker evidence."
+      },
+      "failure_class": "phrase_no_winner_phrase_score_not_dominant",
+      "family_id": "en-es:sentence-veto:check:cheque",
+      "gold_type": "phrase_no_winner",
+      "llm_context": "___ the box below to continue, then review the form before you submit it.",
+      "llm_scores": {
+        "active": 0.6063,
+        "phrase": 0.6035,
+        "phrase_lead_to_best": -0.0028,
+        "shadow": 0.5874,
+        "shadow_lead": -0.0189,
+        "veto_reason": ""
+      },
+      "llm_sentence": "Check the box below to continue, then review the form before you submit it.",
+      "manual_matching_cases": [
+        {
+          "active_score": 0.524828,
+          "case_id": "en-es:sentence-veto:check:005",
+          "context_text": "You should ___ out the new exhibit downtown.",
+          "gold_decision": "abstain",
+          "gold_winner_type": "none",
+          "phrase_preemption_hit": false,
+          "predicted_decision": "abstain",
+          "product_outcome": "negative_abstain",
+          "sentence": "You should check out the new exhibit downtown.",
+          "slice_tags": [
+            "phrase_control",
+            "verb",
+            "cross_pos",
+            "lexicalized_expression"
+          ],
+          "strongest_shadow_score": 0.63159
+        }
+      ],
+      "manual_matching_summary": {
+        "case_count": 1,
+        "manual_failure_count": 0,
+        "manual_outcome_counts": {
+          "negative_abstain": 1
+        },
+        "manual_predicted_abstain_count": 1,
+        "manual_predicted_replace_count": 0
+      },
+      "nearest_manual_matching_case": {
+        "active_score": 0.524828,
+        "case_id": "en-es:sentence-veto:check:005",
+        "composite_similarity": 0.0794,
+        "ordered_bigram_jaccard": 0.0,
+        "predicted_decision": "abstain",
+        "product_outcome": "negative_abstain",
+        "sentence": "You should check out the new exhibit downtown.",
+        "strongest_shadow_score": 0.63159,
+        "token_jaccard": 0.1176,
+        "trigger_neighbor_overlap": 0.2,
+        "trigger_window_llm": {
+          "left": [],
+          "right": [
+            "the",
+            "box"
+          ]
+        },
+        "trigger_window_manual": {
+          "left": [
+            "you",
+            "should"
+          ],
+          "right": [
+            "out",
+            "the"
+          ]
+        }
+      },
+      "product_outcome": "negative_allow",
+      "source_evidence_used": {
+        "active": "The ___ cleared after the holiday weekend.",
+        "phrase": "You should ___ out the new exhibit downtown.",
+        "shadow": "Please ___ the figures one more time."
+      },
+      "source_overlap": {
+        "active": {
+          "composite_similarity": 0.0781,
+          "left_trigger_window": {
+            "left": [],
+            "right": [
+              "the",
+              "box"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0,
+          "right_trigger_window": {
+            "left": [
+              "the"
+            ],
+            "right": [
+              "cleared",
+              "after"
+            ]
+          },
+          "token_jaccard": 0.0625,
+          "trigger_neighbor_overlap": 0.25
+        },
+        "largest_surface_overlap": "shadow",
+        "phrase": {
+          "composite_similarity": 0.0794,
+          "left_trigger_window": {
+            "left": [],
+            "right": [
+              "the",
+              "box"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0,
+          "right_trigger_window": {
+            "left": [
+              "you",
+              "should"
+            ],
+            "right": [
+              "out",
+              "the"
+            ]
+          },
+          "token_jaccard": 0.1176,
+          "trigger_neighbor_overlap": 0.2
+        },
+        "score_winner": "active",
+        "shadow": {
+          "composite_similarity": 0.105,
+          "left_trigger_window": {
+            "left": [],
+            "right": [
+              "the",
+              "box"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0556,
+          "right_trigger_window": {
+            "left": [
+              "please"
+            ],
+            "right": [
+              "the",
+              "figures"
+            ]
+          },
+          "token_jaccard": 0.0588,
+          "trigger_neighbor_overlap": 0.25
+        }
+      },
+      "trigger": "check"
+    },
+    {
+      "case_id": "pilotrow:pilot_branch_sucursal:shadow_negative:002",
+      "data_difference": {
+        "diagnosis_confidence": "high",
+        "notes": [
+          "same_family_manual_matching_rows_passed_under_control",
+          "scorer_chose_active_evidence_over_blocker",
+          "surface_pattern_points_to_different_source_than_score_winner",
+          "shadow_negative_was_scored_as_active_like"
+        ],
+        "obvious_from_data": true,
+        "short_read": "The scorer chose active evidence over the intended blocker evidence."
+      },
+      "failure_class": "shadow_negative_active_score_dominated",
+      "family_id": "en-es:sentence-veto:branch:sucursal",
+      "gold_type": "shadow_negative",
+      "llm_context": "The database query returned a ___ of the decision tree after the latest update.",
+      "llm_scores": {
+        "active": 0.6022,
+        "phrase": 0.487,
+        "phrase_lead_to_best": -0.1152,
+        "shadow": 0.5855,
+        "shadow_lead": -0.0167,
+        "veto_reason": ""
+      },
+      "llm_sentence": "The database query returned a branch of the decision tree after the latest update.",
+      "manual_matching_cases": [
+        {
+          "active_score": 0.582154,
+          "case_id": "en-es:sentence-veto:branch:003",
+          "context_text": "A bird landed on the highest ___ of the oak.",
+          "gold_decision": "abstain",
+          "gold_winner_type": "shadow",
+          "phrase_preemption_hit": false,
+          "predicted_decision": "abstain",
+          "product_outcome": "negative_abstain",
+          "sentence": "A bird landed on the highest branch of the oak.",
+          "slice_tags": [
+            "clear_shadow",
+            "nature"
+          ],
+          "strongest_shadow_score": 0.72092
+        },
+        {
+          "active_score": 0.525142,
+          "case_id": "en-es:sentence-veto:branch:004",
+          "context_text": "The storm snapped a heavy ___ in the yard.",
+          "gold_decision": "abstain",
+          "gold_winner_type": "shadow",
+          "phrase_preemption_hit": false,
+          "predicted_decision": "abstain",
+          "product_outcome": "negative_abstain",
+          "sentence": "The storm snapped a heavy branch in the yard.",
+          "slice_tags": [
+            "clear_shadow",
+            "nature"
+          ],
+          "strongest_shadow_score": 0.660264
+        }
+      ],
+      "manual_matching_summary": {
+        "case_count": 2,
+        "manual_failure_count": 0,
+        "manual_outcome_counts": {
+          "negative_abstain": 2
+        },
+        "manual_predicted_abstain_count": 2,
+        "manual_predicted_replace_count": 0
+      },
+      "nearest_manual_matching_case": {
+        "active_score": 0.582154,
+        "case_id": "en-es:sentence-veto:branch:003",
+        "composite_similarity": 0.1833,
+        "ordered_bigram_jaccard": 0.1,
+        "predicted_decision": "abstain",
+        "product_outcome": "negative_abstain",
+        "sentence": "A bird landed on the highest branch of the oak.",
+        "strongest_shadow_score": 0.72092,
+        "token_jaccard": 0.1333,
+        "trigger_neighbor_overlap": 0.4,
+        "trigger_window_llm": {
+          "left": [
+            "returned",
+            "a"
+          ],
+          "right": [
+            "of",
+            "the"
+          ]
+        },
+        "trigger_window_manual": {
+          "left": [
+            "the",
+            "highest"
+          ],
+          "right": [
+            "of",
+            "the"
+          ]
+        }
+      },
+      "product_outcome": "negative_allow",
+      "source_evidence_used": {
+        "active": "She submitted the paperwork at the ___ office.",
+        "phrase": "The startup plans to ___ out into tutoring.",
+        "shadow": "A bird landed on the highest ___ of the oak."
+      },
+      "source_overlap": {
+        "active": {
+          "composite_similarity": 0.0583,
+          "left_trigger_window": {
+            "left": [
+              "returned",
+              "a"
+            ],
+            "right": [
+              "of",
+              "the"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0,
+          "right_trigger_window": {
+            "left": [
+              "at",
+              "the"
+            ],
+            "right": [
+              "office"
+            ]
+          },
+          "token_jaccard": 0.0667,
+          "trigger_neighbor_overlap": 0.1667
+        },
+        "largest_surface_overlap": "shadow",
+        "phrase": {
+          "composite_similarity": 0.0156,
+          "left_trigger_window": {
+            "left": [
+              "returned",
+              "a"
+            ],
+            "right": [
+              "of",
+              "the"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0,
+          "right_trigger_window": {
+            "left": [
+              "plans",
+              "to"
+            ],
+            "right": [
+              "out",
+              "into"
+            ]
+          },
+          "token_jaccard": 0.0625,
+          "trigger_neighbor_overlap": 0.0
+        },
+        "score_winner": "active",
+        "shadow": {
+          "composite_similarity": 0.1833,
+          "left_trigger_window": {
+            "left": [
+              "returned",
+              "a"
+            ],
+            "right": [
+              "of",
+              "the"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.1,
+          "right_trigger_window": {
+            "left": [
+              "the",
+              "highest"
+            ],
+            "right": [
+              "of",
+              "the"
+            ]
+          },
+          "token_jaccard": 0.1333,
+          "trigger_neighbor_overlap": 0.4
+        }
+      },
+      "trigger": "branch"
+    },
+    {
+      "case_id": "pilotrow:pilot_file_archivo:positive_active:001",
+      "data_difference": {
+        "diagnosis_confidence": "high",
+        "notes": [
+          "same_family_manual_matching_rows_passed_under_control",
+          "surface_pattern_points_to_different_source_than_score_winner",
+          "positive_sentence_was_generic_enough_for_shadow_evidence_to_win"
+        ],
+        "obvious_from_data": true,
+        "short_read": "The LLM positive row is generic enough that shadow evidence beats it."
+      },
+      "failure_class": "positive_overblocked_by_shadow_score",
+      "family_id": "en-es:sentence-veto:file:archivo",
+      "gold_type": "positive_active",
+      "llm_context": "The clerk opened the ___ after lunch.",
+      "llm_scores": {
+        "active": 0.5517,
+        "phrase": 0.644,
+        "phrase_lead_to_best": -0.0496,
+        "shadow": 0.6937,
+        "shadow_lead": 0.142,
+        "veto_reason": "shadow_lead"
+      },
+      "llm_sentence": "The clerk opened the file after lunch.",
+      "manual_matching_cases": [
+        {
+          "active_score": 0.701831,
+          "case_id": "en-es:sentence-veto:file:001",
+          "context_text": "I uploaded the ___ to the shared folder.",
+          "gold_decision": "replace",
+          "gold_winner_type": "active",
+          "phrase_preemption_hit": false,
+          "predicted_decision": "replace",
+          "product_outcome": "positive_allow",
+          "sentence": "I uploaded the file to the shared folder.",
+          "slice_tags": [
+            "clear_active",
+            "digital"
+          ],
+          "strongest_shadow_score": 0.536724
+        },
+        {
+          "active_score": 0.633334,
+          "case_id": "en-es:sentence-veto:file:002",
+          "context_text": "The ___ was corrupted after the download.",
+          "gold_decision": "replace",
+          "gold_winner_type": "active",
+          "phrase_preemption_hit": false,
+          "predicted_decision": "replace",
+          "product_outcome": "positive_allow",
+          "sentence": "The file was corrupted after the download.",
+          "slice_tags": [
+            "clear_active",
+            "digital"
+          ],
+          "strongest_shadow_score": 0.55112
+        }
+      ],
+      "manual_matching_summary": {
+        "case_count": 2,
+        "manual_failure_count": 0,
+        "manual_outcome_counts": {
+          "positive_allow": 2
+        },
+        "manual_predicted_abstain_count": 0,
+        "manual_predicted_replace_count": 2
+      },
+      "nearest_manual_matching_case": {
+        "active_score": 0.633334,
+        "case_id": "en-es:sentence-veto:file:002",
+        "composite_similarity": 0.1496,
+        "ordered_bigram_jaccard": 0.0909,
+        "predicted_decision": "replace",
+        "product_outcome": "positive_allow",
+        "sentence": "The file was corrupted after the download.",
+        "strongest_shadow_score": 0.55112,
+        "token_jaccard": 0.25,
+        "trigger_neighbor_overlap": 0.1667,
+        "trigger_window_llm": {
+          "left": [
+            "opened",
+            "the"
+          ],
+          "right": [
+            "after",
+            "lunch"
+          ]
+        },
+        "trigger_window_manual": {
+          "left": [
+            "the"
+          ],
+          "right": [
+            "was",
+            "corrupted"
+          ]
+        }
+      },
+      "product_outcome": "positive_abstain",
+      "source_evidence_used": {
+        "active": "The ___ was corrupted after the download.",
+        "phrase": "They will ___ the complaint tomorrow morning.",
+        "shadow": "The jeweler picked up a fine ___ from the bench."
+      },
+      "source_overlap": {
+        "active": {
+          "composite_similarity": 0.1496,
+          "left_trigger_window": {
+            "left": [
+              "opened",
+              "the"
+            ],
+            "right": [
+              "after",
+              "lunch"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0909,
+          "right_trigger_window": {
+            "left": [
+              "the"
+            ],
+            "right": [
+              "was",
+              "corrupted"
+            ]
+          },
+          "token_jaccard": 0.25,
+          "trigger_neighbor_overlap": 0.1667
+        },
+        "largest_surface_overlap": "active",
+        "phrase": {
+          "composite_similarity": 0.0607,
+          "left_trigger_window": {
+            "left": [
+              "opened",
+              "the"
+            ],
+            "right": [
+              "after",
+              "lunch"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0,
+          "right_trigger_window": {
+            "left": [
+              "they",
+              "will"
+            ],
+            "right": [
+              "the",
+              "complaint"
+            ]
+          },
+          "token_jaccard": 0.1,
+          "trigger_neighbor_overlap": 0.1429
+        },
+        "score_winner": "shadow",
+        "shadow": {
+          "composite_similarity": 0.0584,
+          "left_trigger_window": {
+            "left": [
+              "opened",
+              "the"
+            ],
+            "right": [
+              "after",
+              "lunch"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0,
+          "right_trigger_window": {
+            "left": [
+              "a",
+              "fine"
+            ],
+            "right": [
+              "from",
+              "the"
+            ]
+          },
+          "token_jaccard": 0.0909,
+          "trigger_neighbor_overlap": 0.1429
+        }
+      },
+      "trigger": "file"
+    },
+    {
+      "case_id": "pilotrow:pilot_play_obra:shadow_negative:002",
+      "data_difference": {
+        "diagnosis_confidence": "high",
+        "notes": [
+          "same_family_manual_matching_rows_passed_under_control",
+          "scorer_chose_active_evidence_over_blocker",
+          "shadow_negative_was_scored_as_active_like",
+          "llm_sentence_is_lexically_far_from_manual_same_class_examples"
+        ],
+        "obvious_from_data": true,
+        "short_read": "The scorer chose active evidence over the intended blocker evidence."
+      },
+      "failure_class": "shadow_negative_active_score_dominated",
+      "family_id": "en-es:sentence-veto:play:obra",
+      "gold_type": "shadow_negative",
+      "llm_context": "The server logs show a failed ___ in the deployment pipeline.",
+      "llm_scores": {
+        "active": 0.5926,
+        "phrase": 0.5536,
+        "phrase_lead_to_best": -0.039,
+        "shadow": 0.4652,
+        "shadow_lead": -0.1274,
+        "veto_reason": ""
+      },
+      "llm_sentence": "The server logs show a failed play in the deployment pipeline.",
+      "manual_matching_cases": [
+        {
+          "active_score": 0.585624,
+          "case_id": "en-es:sentence-veto:play:003",
+          "context_text": "The children ___ outside after school.",
+          "gold_decision": "abstain",
+          "gold_winner_type": "shadow",
+          "phrase_preemption_hit": false,
+          "predicted_decision": "abstain",
+          "product_outcome": "negative_abstain",
+          "sentence": "The children play outside after school.",
+          "slice_tags": [
+            "clear_shadow",
+            "verb",
+            "cross_pos",
+            "activity"
+          ],
+          "strongest_shadow_score": 0.627689
+        },
+        {
+          "active_score": 0.519713,
+          "case_id": "en-es:sentence-veto:play:004",
+          "context_text": "She likes to ___ chess online.",
+          "gold_decision": "abstain",
+          "gold_winner_type": "shadow",
+          "phrase_preemption_hit": false,
+          "predicted_decision": "abstain",
+          "product_outcome": "negative_abstain",
+          "sentence": "She likes to play chess online.",
+          "slice_tags": [
+            "clear_shadow",
+            "verb",
+            "cross_pos",
+            "activity"
+          ],
+          "strongest_shadow_score": 0.592138
+        }
+      ],
+      "manual_matching_summary": {
+        "case_count": 2,
+        "manual_failure_count": 0,
+        "manual_outcome_counts": {
+          "negative_abstain": 2
+        },
+        "manual_predicted_abstain_count": 2,
+        "manual_predicted_replace_count": 0
+      },
+      "nearest_manual_matching_case": {
+        "active_score": 0.585624,
+        "case_id": "en-es:sentence-veto:play:003",
+        "composite_similarity": 0.0565,
+        "ordered_bigram_jaccard": 0.0,
+        "predicted_decision": "abstain",
+        "product_outcome": "negative_abstain",
+        "sentence": "The children play outside after school.",
+        "strongest_shadow_score": 0.627689,
+        "token_jaccard": 0.0833,
+        "trigger_neighbor_overlap": 0.1429,
+        "trigger_window_llm": {
+          "left": [
+            "a",
+            "failed"
+          ],
+          "right": [
+            "in",
+            "the"
+          ]
+        },
+        "trigger_window_manual": {
+          "left": [
+            "the",
+            "children"
+          ],
+          "right": [
+            "outside",
+            "after"
+          ]
+        }
+      },
+      "product_outcome": "negative_allow",
+      "source_evidence_used": {
+        "active": "The ___ opened last night.",
+        "phrase": "The scandal will ___ out over several weeks.",
+        "shadow": "The children ___ outside after school."
+      },
+      "source_overlap": {
+        "active": {
+          "composite_similarity": 0.0644,
+          "left_trigger_window": {
+            "left": [
+              "a",
+              "failed"
+            ],
+            "right": [
+              "in",
+              "the"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0,
+          "right_trigger_window": {
+            "left": [
+              "the"
+            ],
+            "right": [
+              "opened",
+              "last"
+            ]
+          },
+          "token_jaccard": 0.0909,
+          "trigger_neighbor_overlap": 0.1667
+        },
+        "largest_surface_overlap": "active",
+        "phrase": {
+          "composite_similarity": 0.0179,
+          "left_trigger_window": {
+            "left": [
+              "a",
+              "failed"
+            ],
+            "right": [
+              "in",
+              "the"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0,
+          "right_trigger_window": {
+            "left": [
+              "scandal",
+              "will"
+            ],
+            "right": [
+              "out",
+              "over"
+            ]
+          },
+          "token_jaccard": 0.0714,
+          "trigger_neighbor_overlap": 0.0
+        },
+        "score_winner": "active",
+        "shadow": {
+          "composite_similarity": 0.0565,
+          "left_trigger_window": {
+            "left": [
+              "a",
+              "failed"
+            ],
+            "right": [
+              "in",
+              "the"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0,
+          "right_trigger_window": {
+            "left": [
+              "the",
+              "children"
+            ],
+            "right": [
+              "outside",
+              "after"
+            ]
+          },
+          "token_jaccard": 0.0833,
+          "trigger_neighbor_overlap": 0.1429
+        }
+      },
+      "trigger": "play"
+    },
+    {
+      "case_id": "pilotrow:pilot_play_obra:phrase_no_winner:001",
+      "data_difference": {
+        "diagnosis_confidence": "high",
+        "notes": [
+          "same_family_manual_matching_rows_also_have_failures",
+          "scorer_chose_active_evidence_over_blocker",
+          "phrase_prototype_did_not_cover_this_expression_strongly_enough",
+          "llm_sentence_is_lexically_far_from_manual_same_class_examples"
+        ],
+        "obvious_from_data": true,
+        "short_read": "The scorer chose active evidence over the intended blocker evidence."
+      },
+      "failure_class": "phrase_no_winner_phrase_score_not_dominant",
+      "family_id": "en-es:sentence-veto:play:obra",
+      "gold_type": "phrase_no_winner",
+      "llm_context": "At the end of the article, the ___ on words made the headline memorable.",
+      "llm_scores": {
+        "active": 0.7199,
+        "phrase": 0.6376,
+        "phrase_lead_to_best": -0.0823,
+        "shadow": 0.5906,
+        "shadow_lead": -0.1293,
+        "veto_reason": ""
+      },
+      "llm_sentence": "At the end of the article, the play on words made the headline memorable.",
+      "manual_matching_cases": [
+        {
+          "active_score": 0.559147,
+          "case_id": "en-es:sentence-veto:play:005",
+          "context_text": "The scandal will ___ out over several weeks.",
+          "gold_decision": "abstain",
+          "gold_winner_type": "none",
+          "phrase_preemption_hit": false,
+          "predicted_decision": "replace",
+          "product_outcome": "negative_allow",
+          "sentence": "The scandal will play out over several weeks.",
+          "slice_tags": [
+            "phrase_control",
+            "verb",
+            "cross_pos",
+            "lexicalized_expression"
+          ],
+          "strongest_shadow_score": 0.4937
+        }
+      ],
+      "manual_matching_summary": {
+        "case_count": 1,
+        "manual_failure_count": 1,
+        "manual_outcome_counts": {
+          "negative_allow": 1
+        },
+        "manual_predicted_abstain_count": 0,
+        "manual_predicted_replace_count": 1
+      },
+      "nearest_manual_matching_case": {
+        "active_score": 0.559147,
+        "case_id": "en-es:sentence-veto:play:005",
+        "composite_similarity": 0.0156,
+        "ordered_bigram_jaccard": 0.0,
+        "predicted_decision": "replace",
+        "product_outcome": "negative_allow",
+        "sentence": "The scandal will play out over several weeks.",
+        "strongest_shadow_score": 0.4937,
+        "token_jaccard": 0.0625,
+        "trigger_neighbor_overlap": 0.0,
+        "trigger_window_llm": {
+          "left": [
+            "article",
+            "the"
+          ],
+          "right": [
+            "on",
+            "words"
+          ]
+        },
+        "trigger_window_manual": {
+          "left": [
+            "scandal",
+            "will"
+          ],
+          "right": [
+            "out",
+            "over"
+          ]
+        }
+      },
+      "product_outcome": "negative_allow",
+      "source_evidence_used": {
+        "active": "They praised the ___ in reviews.",
+        "phrase": "The scandal will ___ out over several weeks.",
+        "shadow": "The children ___ outside after school."
+      },
+      "source_overlap": {
+        "active": {
+          "composite_similarity": 0.083,
+          "left_trigger_window": {
+            "left": [
+              "article",
+              "the"
+            ],
+            "right": [
+              "on",
+              "words"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0588,
+          "right_trigger_window": {
+            "left": [
+              "praised",
+              "the"
+            ],
+            "right": [
+              "in",
+              "reviews"
+            ]
+          },
+          "token_jaccard": 0.0714,
+          "trigger_neighbor_overlap": 0.1429
+        },
+        "largest_surface_overlap": "active",
+        "phrase": {
+          "composite_similarity": 0.0156,
+          "left_trigger_window": {
+            "left": [
+              "article",
+              "the"
+            ],
+            "right": [
+              "on",
+              "words"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0,
+          "right_trigger_window": {
+            "left": [
+              "scandal",
+              "will"
+            ],
+            "right": [
+              "out",
+              "over"
+            ]
+          },
+          "token_jaccard": 0.0625,
+          "trigger_neighbor_overlap": 0.0
+        },
+        "score_winner": "active",
+        "shadow": {
+          "composite_similarity": 0.0536,
+          "left_trigger_window": {
+            "left": [
+              "article",
+              "the"
+            ],
+            "right": [
+              "on",
+              "words"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0,
+          "right_trigger_window": {
+            "left": [
+              "the",
+              "children"
+            ],
+            "right": [
+              "outside",
+              "after"
+            ]
+          },
+          "token_jaccard": 0.0714,
+          "trigger_neighbor_overlap": 0.1429
+        }
+      },
+      "trigger": "play"
+    },
+    {
+      "case_id": "pilotrow:pilot_report_informe:positive_active:001",
+      "data_difference": {
+        "diagnosis_confidence": "high",
+        "notes": [
+          "same_family_manual_matching_rows_also_have_failures",
+          "surface_pattern_points_to_different_source_than_score_winner",
+          "positive_sentence_was_short_or_generic_enough_for_phrase_prototype_to_win",
+          "llm_sentence_is_lexically_far_from_manual_same_class_examples"
+        ],
+        "obvious_from_data": true,
+        "short_read": "The manual same-class rows already expose a similar weakness, so this is not purely an LLM-data regression."
+      },
+      "failure_class": "positive_overblocked_by_phrase_prototype",
+      "family_id": "en-es:sentence-veto:report:informe",
+      "gold_type": "positive_active",
+      "llm_context": "The final ___ from the audit is now online.",
+      "llm_scores": {
+        "active": 0.5833,
+        "phrase": 0.6469,
+        "phrase_lead_to_best": 0.0627,
+        "shadow": 0.5841,
+        "shadow_lead": 0.0008,
+        "veto_reason": "phrase_score_lead"
+      },
+      "llm_sentence": "The final report from the audit is now online.",
+      "manual_matching_cases": [
+        {
+          "active_score": 0.567612,
+          "case_id": "en-es:sentence-veto:report:001",
+          "context_text": "The ___ arrived this morning.",
+          "gold_decision": "replace",
+          "gold_winner_type": "active",
+          "phrase_preemption_hit": false,
+          "predicted_decision": "abstain",
+          "product_outcome": "positive_abstain",
+          "sentence": "The report arrived this morning.",
+          "slice_tags": [
+            "clear_active",
+            "document",
+            "weak_active_support",
+            "cross_pos"
+          ],
+          "strongest_shadow_score": 0.615538
+        },
+        {
+          "active_score": 0.50444,
+          "case_id": "en-es:sentence-veto:report:002",
+          "context_text": "The ___ was delayed until Friday.",
+          "gold_decision": "replace",
+          "gold_winner_type": "active",
+          "phrase_preemption_hit": false,
+          "predicted_decision": "abstain",
+          "product_outcome": "positive_abstain",
+          "sentence": "The report was delayed until Friday.",
+          "slice_tags": [
+            "clear_active",
+            "document",
+            "weak_active_support",
+            "cross_pos"
+          ],
+          "strongest_shadow_score": 0.574947
+        }
+      ],
+      "manual_matching_summary": {
+        "case_count": 2,
+        "manual_failure_count": 2,
+        "manual_outcome_counts": {
+          "positive_abstain": 2
+        },
+        "manual_predicted_abstain_count": 2,
+        "manual_predicted_replace_count": 0
+      },
+      "nearest_manual_matching_case": {
+        "active_score": 0.567612,
+        "case_id": "en-es:sentence-veto:report:001",
+        "composite_similarity": 0.075,
+        "ordered_bigram_jaccard": 0.0,
+        "predicted_decision": "abstain",
+        "product_outcome": "positive_abstain",
+        "sentence": "The report arrived this morning.",
+        "strongest_shadow_score": 0.615538,
+        "token_jaccard": 0.1,
+        "trigger_neighbor_overlap": 0.2,
+        "trigger_window_llm": {
+          "left": [
+            "the",
+            "final"
+          ],
+          "right": [
+            "from",
+            "the"
+          ]
+        },
+        "trigger_window_manual": {
+          "left": [
+            "the"
+          ],
+          "right": [
+            "arrived",
+            "this"
+          ]
+        }
+      },
+      "product_outcome": "positive_abstain",
+      "source_evidence_used": {
+        "active": "The ___ was delayed until Friday.",
+        "phrase": "Please ___ back after the conference.",
+        "shadow": "Analysts ___ slower growth this quarter."
+      },
+      "source_overlap": {
+        "active": {
+          "composite_similarity": 0.0727,
+          "left_trigger_window": {
+            "left": [
+              "the",
+              "final"
+            ],
+            "right": [
+              "from",
+              "the"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0,
+          "right_trigger_window": {
+            "left": [
+              "the"
+            ],
+            "right": [
+              "was",
+              "delayed"
+            ]
+          },
+          "token_jaccard": 0.0909,
+          "trigger_neighbor_overlap": 0.2
+        },
+        "largest_surface_overlap": "active",
+        "phrase": {
+          "composite_similarity": 0.0227,
+          "left_trigger_window": {
+            "left": [
+              "the",
+              "final"
+            ],
+            "right": [
+              "from",
+              "the"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0,
+          "right_trigger_window": {
+            "left": [
+              "please"
+            ],
+            "right": [
+              "back",
+              "after"
+            ]
+          },
+          "token_jaccard": 0.0909,
+          "trigger_neighbor_overlap": 0.0
+        },
+        "score_winner": "phrase",
+        "shadow": {
+          "composite_similarity": 0.0208,
+          "left_trigger_window": {
+            "left": [
+              "the",
+              "final"
+            ],
+            "right": [
+              "from",
+              "the"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0,
+          "right_trigger_window": {
+            "left": [
+              "analysts"
+            ],
+            "right": [
+              "slower",
+              "growth"
+            ]
+          },
+          "token_jaccard": 0.0833,
+          "trigger_neighbor_overlap": 0.0
+        }
+      },
+      "trigger": "report"
+    },
+    {
+      "case_id": "pilotrow:pilot_report_informe:positive_active:002",
+      "data_difference": {
+        "diagnosis_confidence": "high",
+        "notes": [
+          "same_family_manual_matching_rows_also_have_failures",
+          "surface_pattern_points_to_different_source_than_score_winner",
+          "positive_sentence_was_short_or_generic_enough_for_phrase_prototype_to_win"
+        ],
+        "obvious_from_data": true,
+        "short_read": "The manual same-class rows already expose a similar weakness, so this is not purely an LLM-data regression."
+      },
+      "failure_class": "positive_overblocked_by_phrase_prototype",
+      "family_id": "en-es:sentence-veto:report:informe",
+      "gold_type": "positive_active",
+      "llm_context": "After the audit team finished its review, the final ___ was posted on the compliance portal.",
+      "llm_scores": {
+        "active": 0.6006,
+        "phrase": 0.6627,
+        "phrase_lead_to_best": 0.0543,
+        "shadow": 0.6085,
+        "shadow_lead": 0.0079,
+        "veto_reason": "phrase_score_lead"
+      },
+      "llm_sentence": "After the audit team finished its review, the final report was posted on the compliance portal.",
+      "manual_matching_cases": [
+        {
+          "active_score": 0.567612,
+          "case_id": "en-es:sentence-veto:report:001",
+          "context_text": "The ___ arrived this morning.",
+          "gold_decision": "replace",
+          "gold_winner_type": "active",
+          "phrase_preemption_hit": false,
+          "predicted_decision": "abstain",
+          "product_outcome": "positive_abstain",
+          "sentence": "The report arrived this morning.",
+          "slice_tags": [
+            "clear_active",
+            "document",
+            "weak_active_support",
+            "cross_pos"
+          ],
+          "strongest_shadow_score": 0.615538
+        },
+        {
+          "active_score": 0.50444,
+          "case_id": "en-es:sentence-veto:report:002",
+          "context_text": "The ___ was delayed until Friday.",
+          "gold_decision": "replace",
+          "gold_winner_type": "active",
+          "phrase_preemption_hit": false,
+          "predicted_decision": "abstain",
+          "product_outcome": "positive_abstain",
+          "sentence": "The report was delayed until Friday.",
+          "slice_tags": [
+            "clear_active",
+            "document",
+            "weak_active_support",
+            "cross_pos"
+          ],
+          "strongest_shadow_score": 0.574947
+        }
+      ],
+      "manual_matching_summary": {
+        "case_count": 2,
+        "manual_failure_count": 2,
+        "manual_outcome_counts": {
+          "positive_abstain": 2
+        },
+        "manual_predicted_abstain_count": 2,
+        "manual_predicted_replace_count": 0
+      },
+      "nearest_manual_matching_case": {
+        "active_score": 0.50444,
+        "case_id": "en-es:sentence-veto:report:002",
+        "composite_similarity": 0.1576,
+        "ordered_bigram_jaccard": 0.0526,
+        "predicted_decision": "abstain",
+        "product_outcome": "positive_abstain",
+        "sentence": "The report was delayed until Friday.",
+        "strongest_shadow_score": 0.574947,
+        "token_jaccard": 0.125,
+        "trigger_neighbor_overlap": 0.4,
+        "trigger_window_llm": {
+          "left": [
+            "the",
+            "final"
+          ],
+          "right": [
+            "was",
+            "posted"
+          ]
+        },
+        "trigger_window_manual": {
+          "left": [
+            "the"
+          ],
+          "right": [
+            "was",
+            "delayed"
+          ]
+        }
+      },
+      "product_outcome": "positive_abstain",
+      "source_evidence_used": {
+        "active": "The ___ was delayed until Friday.",
+        "phrase": "Please ___ back after the conference.",
+        "shadow": "Analysts ___ slower growth this quarter."
+      },
+      "source_overlap": {
+        "active": {
+          "composite_similarity": 0.1576,
+          "left_trigger_window": {
+            "left": [
+              "the",
+              "final"
+            ],
+            "right": [
+              "was",
+              "posted"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0526,
+          "right_trigger_window": {
+            "left": [
+              "the"
+            ],
+            "right": [
+              "was",
+              "delayed"
+            ]
+          },
+          "token_jaccard": 0.125,
+          "trigger_neighbor_overlap": 0.4
+        },
+        "largest_surface_overlap": "active",
+        "phrase": {
+          "composite_similarity": 0.0576,
+          "left_trigger_window": {
+            "left": [
+              "the",
+              "final"
+            ],
+            "right": [
+              "was",
+              "posted"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0526,
+          "right_trigger_window": {
+            "left": [
+              "please"
+            ],
+            "right": [
+              "back",
+              "after"
+            ]
+          },
+          "token_jaccard": 0.125,
+          "trigger_neighbor_overlap": 0.0
+        },
+        "score_winner": "phrase",
+        "shadow": {
+          "composite_similarity": 0.0139,
+          "left_trigger_window": {
+            "left": [
+              "the",
+              "final"
+            ],
+            "right": [
+              "was",
+              "posted"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0,
+          "right_trigger_window": {
+            "left": [
+              "analysts"
+            ],
+            "right": [
+              "slower",
+              "growth"
+            ]
+          },
+          "token_jaccard": 0.0556,
+          "trigger_neighbor_overlap": 0.0
+        }
+      },
+      "trigger": "report"
+    },
+    {
+      "case_id": "pilotrow:pilot_report_informe:shadow_negative:001",
+      "data_difference": {
+        "diagnosis_confidence": "medium",
+        "notes": [
+          "same_family_manual_matching_rows_passed_under_control",
+          "surface_pattern_points_to_different_source_than_score_winner",
+          "llm_sentence_is_lexically_far_from_manual_same_class_examples"
+        ],
+        "obvious_from_data": true,
+        "short_read": "The same-family manual examples look easier or more directly aligned with the available evidence."
+      },
+      "failure_class": "shadow_negative_shadow_lead_below_threshold",
+      "family_id": "en-es:sentence-veto:report:informe",
+      "gold_type": "shadow_negative",
+      "llm_context": "After the storm, the ___ from the engine room was a loud bang.",
+      "llm_scores": {
+        "active": 0.6391,
+        "phrase": 0.6078,
+        "phrase_lead_to_best": -0.0488,
+        "shadow": 0.6566,
+        "shadow_lead": 0.0175,
+        "veto_reason": ""
+      },
+      "llm_sentence": "After the storm, the report from the engine room was a loud bang.",
+      "manual_matching_cases": [
+        {
+          "active_score": 0.560694,
+          "case_id": "en-es:sentence-veto:report:003",
+          "context_text": "Witnesses ___ heavy rain near the coast.",
+          "gold_decision": "abstain",
+          "gold_winner_type": "shadow",
+          "phrase_preemption_hit": false,
+          "predicted_decision": "abstain",
+          "product_outcome": "negative_abstain",
+          "sentence": "Witnesses report heavy rain near the coast.",
+          "slice_tags": [
+            "clear_shadow",
+            "verb",
+            "cross_pos",
+            "communication"
+          ],
+          "strongest_shadow_score": 0.588795
+        },
+        {
+          "active_score": 0.603758,
+          "case_id": "en-es:sentence-veto:report:004",
+          "context_text": "Analysts ___ slower growth this quarter.",
+          "gold_decision": "abstain",
+          "gold_winner_type": "shadow",
+          "phrase_preemption_hit": false,
+          "predicted_decision": "abstain",
+          "product_outcome": "negative_abstain",
+          "sentence": "Analysts report slower growth this quarter.",
+          "slice_tags": [
+            "clear_shadow",
+            "verb",
+            "cross_pos",
+            "communication"
+          ],
+          "strongest_shadow_score": 0.620791
+        }
+      ],
+      "manual_matching_summary": {
+        "case_count": 2,
+        "manual_failure_count": 0,
+        "manual_outcome_counts": {
+          "negative_abstain": 2
+        },
+        "manual_predicted_abstain_count": 2,
+        "manual_predicted_replace_count": 0
+      },
+      "nearest_manual_matching_case": {
+        "active_score": 0.560694,
+        "case_id": "en-es:sentence-veto:report:003",
+        "composite_similarity": 0.0179,
+        "ordered_bigram_jaccard": 0.0,
+        "predicted_decision": "abstain",
+        "product_outcome": "negative_abstain",
+        "sentence": "Witnesses report heavy rain near the coast.",
+        "strongest_shadow_score": 0.588795,
+        "token_jaccard": 0.0714,
+        "trigger_neighbor_overlap": 0.0,
+        "trigger_window_llm": {
+          "left": [
+            "storm",
+            "the"
+          ],
+          "right": [
+            "from",
+            "the"
+          ]
+        },
+        "trigger_window_manual": {
+          "left": [
+            "witnesses"
+          ],
+          "right": [
+            "heavy",
+            "rain"
+          ]
+        }
+      },
+      "product_outcome": "negative_allow",
+      "source_evidence_used": {
+        "active": "The ___ arrived this morning.",
+        "phrase": "Please ___ back after the conference.",
+        "shadow": "Witnesses ___ heavy rain near the coast."
+      },
+      "source_overlap": {
+        "active": {
+          "composite_similarity": 0.1042,
+          "left_trigger_window": {
+            "left": [
+              "storm",
+              "the"
+            ],
+            "right": [
+              "from",
+              "the"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0667,
+          "right_trigger_window": {
+            "left": [
+              "the"
+            ],
+            "right": [
+              "arrived",
+              "this"
+            ]
+          },
+          "token_jaccard": 0.0833,
+          "trigger_neighbor_overlap": 0.2
+        },
+        "largest_surface_overlap": "active",
+        "phrase": {
+          "composite_similarity": 0.0729,
+          "left_trigger_window": {
+            "left": [
+              "storm",
+              "the"
+            ],
+            "right": [
+              "from",
+              "the"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0625,
+          "right_trigger_window": {
+            "left": [
+              "please"
+            ],
+            "right": [
+              "back",
+              "after"
+            ]
+          },
+          "token_jaccard": 0.1667,
+          "trigger_neighbor_overlap": 0.0
+        },
+        "score_winner": "shadow",
+        "shadow": {
+          "composite_similarity": 0.0179,
+          "left_trigger_window": {
+            "left": [
+              "storm",
+              "the"
+            ],
+            "right": [
+              "from",
+              "the"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0,
+          "right_trigger_window": {
+            "left": [
+              "witnesses"
+            ],
+            "right": [
+              "heavy",
+              "rain"
+            ]
+          },
+          "token_jaccard": 0.0714,
+          "trigger_neighbor_overlap": 0.0
+        }
+      },
+      "trigger": "report"
+    },
+    {
+      "case_id": "pilotrow:pilot_report_informe:phrase_no_winner:001",
+      "data_difference": {
+        "diagnosis_confidence": "high",
+        "notes": [
+          "same_family_manual_matching_rows_passed_under_control",
+          "scorer_chose_active_evidence_over_blocker",
+          "surface_pattern_points_to_different_source_than_score_winner",
+          "phrase_prototype_did_not_cover_this_expression_strongly_enough",
+          "phrase_surface_pattern_visible_but_not_weighted_enough"
+        ],
+        "obvious_from_data": true,
+        "short_read": "The phrase shape is visible in the words, but the semantic score still did not let phrase evidence win."
+      },
+      "failure_class": "phrase_no_winner_phrase_score_not_dominant",
+      "family_id": "en-es:sentence-veto:report:informe",
+      "gold_type": "phrase_no_winner",
+      "llm_context": "The ___ back from the field arrived late, but the team still finished the update.",
+      "llm_scores": {
+        "active": 0.7502,
+        "phrase": 0.6528,
+        "phrase_lead_to_best": -0.0974,
+        "shadow": 0.6422,
+        "shadow_lead": -0.108,
+        "veto_reason": ""
+      },
+      "llm_sentence": "The report back from the field arrived late, but the team still finished the update.",
+      "manual_matching_cases": [
+        {
+          "active_score": 0.636495,
+          "case_id": "en-es:sentence-veto:report:005",
+          "context_text": "Please ___ back after the conference.",
+          "gold_decision": "abstain",
+          "gold_winner_type": "none",
+          "phrase_preemption_hit": false,
+          "predicted_decision": "abstain",
+          "product_outcome": "negative_abstain",
+          "sentence": "Please report back after the conference.",
+          "slice_tags": [
+            "phrase_control",
+            "verb",
+            "cross_pos",
+            "lexicalized_expression"
+          ],
+          "strongest_shadow_score": 0.648406
+        }
+      ],
+      "manual_matching_summary": {
+        "case_count": 1,
+        "manual_failure_count": 0,
+        "manual_outcome_counts": {
+          "negative_abstain": 1
+        },
+        "manual_predicted_abstain_count": 1,
+        "manual_predicted_replace_count": 0
+      },
+      "nearest_manual_matching_case": {
+        "active_score": 0.636495,
+        "case_id": "en-es:sentence-veto:report:005",
+        "composite_similarity": 0.1135,
+        "ordered_bigram_jaccard": 0.0556,
+        "predicted_decision": "abstain",
+        "product_outcome": "negative_abstain",
+        "sentence": "Please report back after the conference.",
+        "strongest_shadow_score": 0.648406,
+        "token_jaccard": 0.1429,
+        "trigger_neighbor_overlap": 0.2,
+        "trigger_window_llm": {
+          "left": [
+            "the"
+          ],
+          "right": [
+            "back",
+            "from"
+          ]
+        },
+        "trigger_window_manual": {
+          "left": [
+            "please"
+          ],
+          "right": [
+            "back",
+            "after"
+          ]
+        }
+      },
+      "product_outcome": "negative_allow",
+      "source_evidence_used": {
+        "active": "The ___ was delayed until Friday.",
+        "phrase": "Please ___ back after the conference.",
+        "shadow": "Analysts ___ slower growth this quarter."
+      },
+      "source_overlap": {
+        "active": {
+          "composite_similarity": 0.0944,
+          "left_trigger_window": {
+            "left": [
+              "the"
+            ],
+            "right": [
+              "back",
+              "from"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0556,
+          "right_trigger_window": {
+            "left": [
+              "the"
+            ],
+            "right": [
+              "was",
+              "delayed"
+            ]
+          },
+          "token_jaccard": 0.0667,
+          "trigger_neighbor_overlap": 0.2
+        },
+        "largest_surface_overlap": "phrase",
+        "phrase": {
+          "composite_similarity": 0.1135,
+          "left_trigger_window": {
+            "left": [
+              "the"
+            ],
+            "right": [
+              "back",
+              "from"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0556,
+          "right_trigger_window": {
+            "left": [
+              "please"
+            ],
+            "right": [
+              "back",
+              "after"
+            ]
+          },
+          "token_jaccard": 0.1429,
+          "trigger_neighbor_overlap": 0.2
+        },
+        "score_winner": "active",
+        "shadow": {
+          "composite_similarity": 0.0156,
+          "left_trigger_window": {
+            "left": [
+              "the"
+            ],
+            "right": [
+              "back",
+              "from"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0,
+          "right_trigger_window": {
+            "left": [
+              "analysts"
+            ],
+            "right": [
+              "slower",
+              "growth"
+            ]
+          },
+          "token_jaccard": 0.0625,
+          "trigger_neighbor_overlap": 0.0
+        }
+      },
+      "trigger": "report"
+    },
+    {
+      "case_id": "pilotrow:pilot_order_pedido:shadow_negative:001",
+      "data_difference": {
+        "diagnosis_confidence": "high",
+        "notes": [
+          "same_family_manual_matching_rows_passed_under_control",
+          "scorer_chose_active_evidence_over_blocker",
+          "shadow_negative_was_scored_as_active_like",
+          "llm_sentence_is_lexically_far_from_manual_same_class_examples"
+        ],
+        "obvious_from_data": true,
+        "short_read": "The scorer chose active evidence over the intended blocker evidence."
+      },
+      "failure_class": "shadow_negative_active_score_dominated",
+      "family_id": "en-es:sentence-veto:order:pedido",
+      "gold_type": "shadow_negative",
+      "llm_context": "New ___ restored in the court after the hearing.",
+      "llm_scores": {
+        "active": 0.5973,
+        "phrase": 0.4649,
+        "phrase_lead_to_best": -0.1323,
+        "shadow": 0.5684,
+        "shadow_lead": -0.0288,
+        "veto_reason": ""
+      },
+      "llm_sentence": "New order restored in the court after the hearing.",
+      "manual_matching_cases": [
+        {
+          "active_score": 0.533473,
+          "case_id": "en-es:sentence-veto:order:003",
+          "context_text": "Teachers ___ the class to remain silent.",
+          "gold_decision": "abstain",
+          "gold_winner_type": "shadow",
+          "phrase_preemption_hit": false,
+          "predicted_decision": "abstain",
+          "product_outcome": "negative_abstain",
+          "sentence": "Teachers order the class to remain silent.",
+          "slice_tags": [
+            "clear_shadow",
+            "verb",
+            "cross_pos",
+            "command"
+          ],
+          "strongest_shadow_score": 0.641595
+        },
+        {
+          "active_score": 0.594271,
+          "case_id": "en-es:sentence-veto:order:004",
+          "context_text": "Commanders ___ the troops forward.",
+          "gold_decision": "abstain",
+          "gold_winner_type": "shadow",
+          "phrase_preemption_hit": false,
+          "predicted_decision": "abstain",
+          "product_outcome": "negative_abstain",
+          "sentence": "Commanders order the troops forward.",
+          "slice_tags": [
+            "clear_shadow",
+            "verb",
+            "cross_pos",
+            "command"
+          ],
+          "strongest_shadow_score": 0.685274
+        }
+      ],
+      "manual_matching_summary": {
+        "case_count": 2,
+        "manual_failure_count": 0,
+        "manual_outcome_counts": {
+          "negative_abstain": 2
+        },
+        "manual_predicted_abstain_count": 2,
+        "manual_predicted_replace_count": 0
+      },
+      "nearest_manual_matching_case": {
+        "active_score": 0.594271,
+        "case_id": "en-es:sentence-veto:order:004",
+        "composite_similarity": 0.025,
+        "ordered_bigram_jaccard": 0.0,
+        "predicted_decision": "abstain",
+        "product_outcome": "negative_abstain",
+        "sentence": "Commanders order the troops forward.",
+        "strongest_shadow_score": 0.685274,
+        "token_jaccard": 0.1,
+        "trigger_neighbor_overlap": 0.0,
+        "trigger_window_llm": {
+          "left": [
+            "new"
+          ],
+          "right": [
+            "restored",
+            "in"
+          ]
+        },
+        "trigger_window_manual": {
+          "left": [
+            "commanders"
+          ],
+          "right": [
+            "the",
+            "troops"
+          ]
+        }
+      },
+      "product_outcome": "negative_allow",
+      "source_evidence_used": {
+        "active": "The ___ shipped this morning.",
+        "phrase": "We should ___ out tonight.",
+        "shadow": "Commanders ___ the troops forward."
+      },
+      "source_overlap": {
+        "active": {
+          "composite_similarity": 0.025,
+          "left_trigger_window": {
+            "left": [
+              "new"
+            ],
+            "right": [
+              "restored",
+              "in"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0,
+          "right_trigger_window": {
+            "left": [
+              "the"
+            ],
+            "right": [
+              "shipped",
+              "this"
+            ]
+          },
+          "token_jaccard": 0.1,
+          "trigger_neighbor_overlap": 0.0
+        },
+        "largest_surface_overlap": "active",
+        "phrase": {
+          "composite_similarity": 0.0227,
+          "left_trigger_window": {
+            "left": [
+              "new"
+            ],
+            "right": [
+              "restored",
+              "in"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0,
+          "right_trigger_window": {
+            "left": [
+              "we",
+              "should"
+            ],
+            "right": [
+              "out",
+              "tonight"
+            ]
+          },
+          "token_jaccard": 0.0909,
+          "trigger_neighbor_overlap": 0.0
+        },
+        "score_winner": "active",
+        "shadow": {
+          "composite_similarity": 0.025,
+          "left_trigger_window": {
+            "left": [
+              "new"
+            ],
+            "right": [
+              "restored",
+              "in"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0,
+          "right_trigger_window": {
+            "left": [
+              "commanders"
+            ],
+            "right": [
+              "the",
+              "troops"
+            ]
+          },
+          "token_jaccard": 0.1,
+          "trigger_neighbor_overlap": 0.0
+        }
+      },
+      "trigger": "order"
+    },
+    {
+      "case_id": "pilotrow:pilot_order_pedido:shadow_negative:002",
+      "data_difference": {
+        "diagnosis_confidence": "high",
+        "notes": [
+          "same_family_manual_matching_rows_passed_under_control",
+          "scorer_chose_active_evidence_over_blocker",
+          "shadow_negative_was_scored_as_active_like",
+          "llm_sentence_is_lexically_far_from_manual_same_class_examples"
+        ],
+        "obvious_from_data": true,
+        "short_read": "The scorer chose active evidence over the intended blocker evidence."
+      },
+      "failure_class": "shadow_negative_active_score_dominated",
+      "family_id": "en-es:sentence-veto:order:pedido",
+      "gold_type": "shadow_negative",
+      "llm_context": "The database query returned rows in alphabetical ___",
+      "llm_scores": {
+        "active": 0.5523,
+        "phrase": 0.5142,
+        "phrase_lead_to_best": -0.0381,
+        "shadow": 0.5087,
+        "shadow_lead": -0.0436,
+        "veto_reason": ""
+      },
+      "llm_sentence": "The database query returned rows in alphabetical order.",
+      "manual_matching_cases": [
+        {
+          "active_score": 0.533473,
+          "case_id": "en-es:sentence-veto:order:003",
+          "context_text": "Teachers ___ the class to remain silent.",
+          "gold_decision": "abstain",
+          "gold_winner_type": "shadow",
+          "phrase_preemption_hit": false,
+          "predicted_decision": "abstain",
+          "product_outcome": "negative_abstain",
+          "sentence": "Teachers order the class to remain silent.",
+          "slice_tags": [
+            "clear_shadow",
+            "verb",
+            "cross_pos",
+            "command"
+          ],
+          "strongest_shadow_score": 0.641595
+        },
+        {
+          "active_score": 0.594271,
+          "case_id": "en-es:sentence-veto:order:004",
+          "context_text": "Commanders ___ the troops forward.",
+          "gold_decision": "abstain",
+          "gold_winner_type": "shadow",
+          "phrase_preemption_hit": false,
+          "predicted_decision": "abstain",
+          "product_outcome": "negative_abstain",
+          "sentence": "Commanders order the troops forward.",
+          "slice_tags": [
+            "clear_shadow",
+            "verb",
+            "cross_pos",
+            "command"
+          ],
+          "strongest_shadow_score": 0.685274
+        }
+      ],
+      "manual_matching_summary": {
+        "case_count": 2,
+        "manual_failure_count": 0,
+        "manual_outcome_counts": {
+          "negative_abstain": 2
+        },
+        "manual_predicted_abstain_count": 2,
+        "manual_predicted_replace_count": 0
+      },
+      "nearest_manual_matching_case": {
+        "active_score": 0.594271,
+        "case_id": "en-es:sentence-veto:order:004",
+        "composite_similarity": 0.025,
+        "ordered_bigram_jaccard": 0.0,
+        "predicted_decision": "abstain",
+        "product_outcome": "negative_abstain",
+        "sentence": "Commanders order the troops forward.",
+        "strongest_shadow_score": 0.685274,
+        "token_jaccard": 0.1,
+        "trigger_neighbor_overlap": 0.0,
+        "trigger_window_llm": {
+          "left": [
+            "in",
+            "alphabetical"
+          ],
+          "right": []
+        },
+        "trigger_window_manual": {
+          "left": [
+            "commanders"
+          ],
+          "right": [
+            "the",
+            "troops"
+          ]
+        }
+      },
+      "product_outcome": "negative_allow",
+      "source_evidence_used": {
+        "active": "The ___ shipped this morning.",
+        "phrase": "We should ___ out tonight.",
+        "shadow": "Commanders ___ the troops forward."
+      },
+      "source_overlap": {
+        "active": {
+          "composite_similarity": 0.025,
+          "left_trigger_window": {
+            "left": [
+              "in",
+              "alphabetical"
+            ],
+            "right": []
+          },
+          "ordered_bigram_jaccard": 0.0,
+          "right_trigger_window": {
+            "left": [
+              "the"
+            ],
+            "right": [
+              "shipped",
+              "this"
+            ]
+          },
+          "token_jaccard": 0.1,
+          "trigger_neighbor_overlap": 0.0
+        },
+        "largest_surface_overlap": "active",
+        "phrase": {
+          "composite_similarity": 0.0227,
+          "left_trigger_window": {
+            "left": [
+              "in",
+              "alphabetical"
+            ],
+            "right": []
+          },
+          "ordered_bigram_jaccard": 0.0,
+          "right_trigger_window": {
+            "left": [
+              "we",
+              "should"
+            ],
+            "right": [
+              "out",
+              "tonight"
+            ]
+          },
+          "token_jaccard": 0.0909,
+          "trigger_neighbor_overlap": 0.0
+        },
+        "score_winner": "active",
+        "shadow": {
+          "composite_similarity": 0.025,
+          "left_trigger_window": {
+            "left": [
+              "in",
+              "alphabetical"
+            ],
+            "right": []
+          },
+          "ordered_bigram_jaccard": 0.0,
+          "right_trigger_window": {
+            "left": [
+              "commanders"
+            ],
+            "right": [
+              "the",
+              "troops"
+            ]
+          },
+          "token_jaccard": 0.1,
+          "trigger_neighbor_overlap": 0.0
+        }
+      },
+      "trigger": "order"
+    },
+    {
+      "case_id": "pilotrow:pilot_order_pedido:phrase_no_winner:001",
+      "data_difference": {
+        "diagnosis_confidence": "medium",
+        "notes": [
+          "same_family_manual_matching_rows_passed_under_control",
+          "surface_pattern_points_to_different_source_than_score_winner",
+          "phrase_prototype_did_not_cover_this_expression_strongly_enough",
+          "llm_sentence_is_lexically_far_from_manual_same_class_examples"
+        ],
+        "obvious_from_data": true,
+        "short_read": "The LLM phrase/no-winner expression is not well covered by the available phrase prototype."
+      },
+      "failure_class": "phrase_no_winner_phrase_score_not_dominant",
+      "family_id": "en-es:sentence-veto:order:pedido",
+      "gold_type": "phrase_no_winner",
+      "llm_context": "The app loaded in ___ but the video still buffered for several minutes.",
+      "llm_scores": {
+        "active": 0.5249,
+        "phrase": 0.4784,
+        "phrase_lead_to_best": -0.0519,
+        "shadow": 0.5303,
+        "shadow_lead": 0.0054,
+        "veto_reason": ""
+      },
+      "llm_sentence": "The app loaded in order, but the video still buffered for several minutes.",
+      "manual_matching_cases": [
+        {
+          "active_score": 0.546349,
+          "case_id": "en-es:sentence-veto:order:005",
+          "context_text": "We should ___ out tonight.",
+          "gold_decision": "abstain",
+          "gold_winner_type": "none",
+          "phrase_preemption_hit": false,
+          "predicted_decision": "abstain",
+          "product_outcome": "negative_abstain",
+          "sentence": "We should order out tonight.",
+          "slice_tags": [
+            "phrase_control",
+            "verb",
+            "cross_pos",
+            "lexicalized_expression"
+          ],
+          "strongest_shadow_score": 0.582953
+        }
+      ],
+      "manual_matching_summary": {
+        "case_count": 1,
+        "manual_failure_count": 0,
+        "manual_outcome_counts": {
+          "negative_abstain": 1
+        },
+        "manual_predicted_abstain_count": 1,
+        "manual_predicted_replace_count": 0
+      },
+      "nearest_manual_matching_case": {
+        "active_score": 0.546349,
+        "case_id": "en-es:sentence-veto:order:005",
+        "composite_similarity": 0.0167,
+        "ordered_bigram_jaccard": 0.0,
+        "predicted_decision": "abstain",
+        "product_outcome": "negative_abstain",
+        "sentence": "We should order out tonight.",
+        "strongest_shadow_score": 0.582953,
+        "token_jaccard": 0.0667,
+        "trigger_neighbor_overlap": 0.0,
+        "trigger_window_llm": {
+          "left": [
+            "loaded",
+            "in"
+          ],
+          "right": [
+            "but",
+            "the"
+          ]
+        },
+        "trigger_window_manual": {
+          "left": [
+            "we",
+            "should"
+          ],
+          "right": [
+            "out",
+            "tonight"
+          ]
+        }
+      },
+      "product_outcome": "negative_allow",
+      "source_evidence_used": {
+        "active": "The ___ shipped this morning.",
+        "phrase": "We should ___ out tonight.",
+        "shadow": "Teachers ___ the class to remain silent."
+      },
+      "source_overlap": {
+        "active": {
+          "composite_similarity": 0.0595,
+          "left_trigger_window": {
+            "left": [
+              "loaded",
+              "in"
+            ],
+            "right": [
+              "but",
+              "the"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0,
+          "right_trigger_window": {
+            "left": [
+              "the"
+            ],
+            "right": [
+              "shipped",
+              "this"
+            ]
+          },
+          "token_jaccard": 0.0714,
+          "trigger_neighbor_overlap": 0.1667
+        },
+        "largest_surface_overlap": "active",
+        "phrase": {
+          "composite_similarity": 0.0167,
+          "left_trigger_window": {
+            "left": [
+              "loaded",
+              "in"
+            ],
+            "right": [
+              "but",
+              "the"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0,
+          "right_trigger_window": {
+            "left": [
+              "we",
+              "should"
+            ],
+            "right": [
+              "out",
+              "tonight"
+            ]
+          },
+          "token_jaccard": 0.0667,
+          "trigger_neighbor_overlap": 0.0
+        },
+        "score_winner": "shadow",
+        "shadow": {
+          "composite_similarity": 0.0573,
+          "left_trigger_window": {
+            "left": [
+              "loaded",
+              "in"
+            ],
+            "right": [
+              "but",
+              "the"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0,
+          "right_trigger_window": {
+            "left": [
+              "teachers"
+            ],
+            "right": [
+              "the",
+              "class"
+            ]
+          },
+          "token_jaccard": 0.0625,
+          "trigger_neighbor_overlap": 0.1667
+        }
+      },
+      "trigger": "order"
+    },
+    {
+      "case_id": "pilotrow:pilot_match_partido:shadow_negative:001",
+      "data_difference": {
+        "diagnosis_confidence": "medium",
+        "notes": [
+          "same_family_manual_matching_rows_passed_under_control",
+          "surface_pattern_points_to_different_source_than_score_winner",
+          "shadow_negative_was_scored_as_active_like"
+        ],
+        "obvious_from_data": true,
+        "short_read": "The same-family manual examples look easier or more directly aligned with the available evidence."
+      },
+      "failure_class": "shadow_negative_active_score_dominated",
+      "family_id": "en-es:sentence-veto:match:partido",
+      "gold_type": "shadow_negative",
+      "llm_context": "Headline: a perfect ___ for the frame, with the finish finally aligned.",
+      "llm_scores": {
+        "active": 0.672,
+        "phrase": 0.697,
+        "phrase_lead_to_best": 0.0249,
+        "shadow": 0.5893,
+        "shadow_lead": -0.0828,
+        "veto_reason": ""
+      },
+      "llm_sentence": "Headline: a perfect match for the frame, with the finish finally aligned.",
+      "manual_matching_cases": [
+        {
+          "active_score": 0.496029,
+          "case_id": "en-es:sentence-veto:match:003",
+          "context_text": "She lit a ___ beside the stove.",
+          "gold_decision": "abstain",
+          "gold_winner_type": "shadow",
+          "phrase_preemption_hit": false,
+          "predicted_decision": "abstain",
+          "product_outcome": "negative_abstain",
+          "sentence": "She lit a match beside the stove.",
+          "slice_tags": [
+            "clear_shadow",
+            "fire"
+          ],
+          "strongest_shadow_score": 0.733509
+        },
+        {
+          "active_score": 0.537859,
+          "case_id": "en-es:sentence-veto:match:004",
+          "context_text": "He dropped the burning ___ into the sink.",
+          "gold_decision": "abstain",
+          "gold_winner_type": "shadow",
+          "phrase_preemption_hit": false,
+          "predicted_decision": "abstain",
+          "product_outcome": "negative_abstain",
+          "sentence": "He dropped the burning match into the sink.",
+          "slice_tags": [
+            "clear_shadow",
+            "fire"
+          ],
+          "strongest_shadow_score": 0.611569
+        }
+      ],
+      "manual_matching_summary": {
+        "case_count": 2,
+        "manual_failure_count": 0,
+        "manual_outcome_counts": {
+          "negative_abstain": 2
+        },
+        "manual_predicted_abstain_count": 2,
+        "manual_predicted_replace_count": 0
+      },
+      "nearest_manual_matching_case": {
+        "active_score": 0.496029,
+        "case_id": "en-es:sentence-veto:match:003",
+        "composite_similarity": 0.1026,
+        "ordered_bigram_jaccard": 0.0,
+        "predicted_decision": "abstain",
+        "product_outcome": "negative_abstain",
+        "sentence": "She lit a match beside the stove.",
+        "strongest_shadow_score": 0.733509,
+        "token_jaccard": 0.0769,
+        "trigger_neighbor_overlap": 0.3333,
+        "trigger_window_llm": {
+          "left": [
+            "a",
+            "perfect"
+          ],
+          "right": [
+            "for",
+            "the"
+          ]
+        },
+        "trigger_window_manual": {
+          "left": [
+            "lit",
+            "a"
+          ],
+          "right": [
+            "beside",
+            "the"
+          ]
+        }
+      },
+      "product_outcome": "negative_allow",
+      "source_evidence_used": {
+        "active": "The ___ ended after extra time.",
+        "phrase": "These curtains ___ the sofa perfectly.",
+        "shadow": "He dropped the burning ___ into the sink."
+      },
+      "source_overlap": {
+        "active": {
+          "composite_similarity": 0.0609,
+          "left_trigger_window": {
+            "left": [
+              "a",
+              "perfect"
+            ],
+            "right": [
+              "for",
+              "the"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0,
+          "right_trigger_window": {
+            "left": [
+              "the"
+            ],
+            "right": [
+              "ended",
+              "after"
+            ]
+          },
+          "token_jaccard": 0.0769,
+          "trigger_neighbor_overlap": 0.1667
+        },
+        "largest_surface_overlap": "active",
+        "phrase": {
+          "composite_similarity": 0.0549,
+          "left_trigger_window": {
+            "left": [
+              "a",
+              "perfect"
+            ],
+            "right": [
+              "for",
+              "the"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0,
+          "right_trigger_window": {
+            "left": [
+              "these",
+              "curtains"
+            ],
+            "right": [
+              "the",
+              "sofa"
+            ]
+          },
+          "token_jaccard": 0.0769,
+          "trigger_neighbor_overlap": 0.1429
+        },
+        "score_winner": "phrase",
+        "shadow": {
+          "composite_similarity": 0.0595,
+          "left_trigger_window": {
+            "left": [
+              "a",
+              "perfect"
+            ],
+            "right": [
+              "for",
+              "the"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0,
+          "right_trigger_window": {
+            "left": [
+              "the",
+              "burning"
+            ],
+            "right": [
+              "into",
+              "the"
+            ]
+          },
+          "token_jaccard": 0.0714,
+          "trigger_neighbor_overlap": 0.1667
+        }
+      },
+      "trigger": "match"
+    },
+    {
+      "case_id": "pilotrow:pilot_watch_reloj:phrase_no_winner:001",
+      "data_difference": {
+        "diagnosis_confidence": "medium",
+        "notes": [
+          "same_family_manual_matching_rows_passed_under_control",
+          "surface_pattern_points_to_different_source_than_score_winner",
+          "phrase_prototype_did_not_cover_this_expression_strongly_enough",
+          "llm_sentence_is_lexically_far_from_manual_same_class_examples"
+        ],
+        "obvious_from_data": true,
+        "short_read": "The LLM phrase/no-winner expression is not well covered by the available phrase prototype."
+      },
+      "failure_class": "phrase_no_winner_phrase_score_not_dominant",
+      "family_id": "en-es:sentence-veto:watch:reloj",
+      "gold_type": "phrase_no_winner",
+      "llm_context": "Before the meeting starts, ___ your step on the wet tiles.",
+      "llm_scores": {
+        "active": 0.6263,
+        "phrase": 0.6531,
+        "phrase_lead_to_best": -0.0152,
+        "shadow": 0.6683,
+        "shadow_lead": 0.042,
+        "veto_reason": ""
+      },
+      "llm_sentence": "Before the meeting starts, watch your step on the wet tiles.",
+      "manual_matching_cases": [
+        {
+          "active_score": 0.551326,
+          "case_id": "en-es:sentence-veto:watch:005",
+          "context_text": "You should ___ out for black ice on the bridge.",
+          "gold_decision": "abstain",
+          "gold_winner_type": "none",
+          "phrase_preemption_hit": false,
+          "predicted_decision": "abstain",
+          "product_outcome": "negative_abstain",
+          "sentence": "You should watch out for black ice on the bridge.",
+          "slice_tags": [
+            "phrase_control",
+            "verb",
+            "cross_pos",
+            "lexicalized_expression"
+          ],
+          "strongest_shadow_score": 0.618814
+        }
+      ],
+      "manual_matching_summary": {
+        "case_count": 1,
+        "manual_failure_count": 0,
+        "manual_outcome_counts": {
+          "negative_abstain": 1
+        },
+        "manual_predicted_abstain_count": 1,
+        "manual_predicted_replace_count": 0
+      },
+      "nearest_manual_matching_case": {
+        "active_score": 0.551326,
+        "case_id": "en-es:sentence-veto:watch:005",
+        "composite_similarity": 0.059,
+        "ordered_bigram_jaccard": 0.0556,
+        "predicted_decision": "abstain",
+        "product_outcome": "negative_abstain",
+        "sentence": "You should watch out for black ice on the bridge.",
+        "strongest_shadow_score": 0.618814,
+        "token_jaccard": 0.125,
+        "trigger_neighbor_overlap": 0.0,
+        "trigger_window_llm": {
+          "left": [
+            "meeting",
+            "starts"
+          ],
+          "right": [
+            "your",
+            "step"
+          ]
+        },
+        "trigger_window_manual": {
+          "left": [
+            "you",
+            "should"
+          ],
+          "right": [
+            "out",
+            "for"
+          ]
+        }
+      },
+      "product_outcome": "negative_allow",
+      "source_evidence_used": {
+        "active": "He adjusted his ___ strap before the interview.",
+        "phrase": "You should ___ out for black ice on the bridge.",
+        "shadow": "Guards ___ the entrance through the night."
+      },
+      "source_overlap": {
+        "active": {
+          "composite_similarity": 0.067,
+          "left_trigger_window": {
+            "left": [
+              "meeting",
+              "starts"
+            ],
+            "right": [
+              "your",
+              "step"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0625,
+          "right_trigger_window": {
+            "left": [
+              "adjusted",
+              "his"
+            ],
+            "right": [
+              "strap",
+              "before"
+            ]
+          },
+          "token_jaccard": 0.1429,
+          "trigger_neighbor_overlap": 0.0
+        },
+        "largest_surface_overlap": "active",
+        "phrase": {
+          "composite_similarity": 0.059,
+          "left_trigger_window": {
+            "left": [
+              "meeting",
+              "starts"
+            ],
+            "right": [
+              "your",
+              "step"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0556,
+          "right_trigger_window": {
+            "left": [
+              "you",
+              "should"
+            ],
+            "right": [
+              "out",
+              "for"
+            ]
+          },
+          "token_jaccard": 0.125,
+          "trigger_neighbor_overlap": 0.0
+        },
+        "score_winner": "shadow",
+        "shadow": {
+          "composite_similarity": 0.0192,
+          "left_trigger_window": {
+            "left": [
+              "meeting",
+              "starts"
+            ],
+            "right": [
+              "your",
+              "step"
+            ]
+          },
+          "ordered_bigram_jaccard": 0.0,
+          "right_trigger_window": {
+            "left": [
+              "guards"
+            ],
+            "right": [
+              "the",
+              "entrance"
+            ]
+          },
+          "token_jaccard": 0.0769,
+          "trigger_neighbor_overlap": 0.0
+        }
+      },
+      "trigger": "watch"
+    }
+  ],
+  "decision": "llm_manual_failed_case_data_comparison_complete",
+  "generated_at": "2026-05-04T23:15:55Z",
+  "inputs": {
+    "config_id": "control_st_masked_all_margin_phrase_override",
+    "manual_dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v10.json",
+    "manual_matrix_path": "docs/test_outputs/semantic_decision_rule_matrix_en_es_latest.json",
+    "scoring_path": "docs/test_outputs/semantic_veto_llm_pilot_scoring_en_es_latest.json"
+  },
+  "interpretation": [
+    "The automatic comparison found medium/high-confidence data explanations for 21 / 21 failed LLM rows.",
+    "Diagnosis confidence counts: high:16, medium:5.",
+    "The repeated pattern is that LLM-generated negative rows often leave the narrow manual/source evidence lane or expose phrase shapes whose word order is visible but whose semantic score is not dominant enough.",
+    "Several LLM rows are not simply harder examples; they expose source-coverage or label-scope questions, especially for `plant`, `check`, `order`, `match`, and phrase/no-winner rows.",
+    "Largest failure classes: phrase_no_winner_phrase_score_not_dominant:7, positive_overblocked_by_phrase_prototype:3, positive_overblocked_by_shadow_score:1, shadow_negative_active_score_dominated:8, shadow_negative_shadow_lead_below_threshold:2."
+  ],
+  "schema_version": 1,
+  "status": "ok",
+  "summary": {
+    "data_difference_note_counts": {
+      "llm_sentence_is_lexically_far_from_manual_same_class_examples": 12,
+      "phrase_prototype_did_not_cover_this_expression_strongly_enough": 7,
+      "phrase_surface_pattern_visible_but_not_weighted_enough": 3,
+      "positive_sentence_was_generic_enough_for_shadow_evidence_to_win": 1,
+      "positive_sentence_was_short_or_generic_enough_for_phrase_prototype_to_win": 3,
+      "same_family_manual_matching_rows_also_have_failures": 3,
+      "same_family_manual_matching_rows_passed_under_control": 18,
+      "scorer_chose_active_evidence_over_blocker": 12,
+      "shadow_negative_was_scored_as_active_like": 8,
+      "surface_pattern_points_to_different_source_than_score_winner": 15
+    },
+    "diagnosis_confidence_counts": {
+      "high": 16,
+      "medium": 5
+    },
+    "failed_llm_case_count": 21,
+    "failure_class_counts": {
+      "phrase_no_winner_phrase_score_not_dominant": 7,
+      "positive_overblocked_by_phrase_prototype": 3,
+      "positive_overblocked_by_shadow_score": 1,
+      "shadow_negative_active_score_dominated": 8,
+      "shadow_negative_shadow_lead_below_threshold": 2
+    },
+    "manual_matching_case_count": 35,
+    "obvious_data_difference_count": 21
+  }
+}

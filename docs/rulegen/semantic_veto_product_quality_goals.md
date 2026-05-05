@@ -614,9 +614,166 @@ Interpretation:
 - discovery rows may diagnose or tune future candidate choices; locked-eval
   rows must remain untouched by threshold selection.
 
+### Milestone 2c: LLM Pilot Scored With Independent Source Evidence
+
+The admitted pilot rows are now scored against the frozen candidate using the
+expanded reviewed source-evidence batch as independent active, shadow, and
+phrase-control prototypes. The pilot rows remain evaluation data only.
+
+Artifacts:
+
+```text
+scripts/testing/semantic_veto_llm_pilot_scoring_en_es.py
+scripts/testing/semantic_veto_llm_pilot_failure_review_en_es.py
+scripts/testing/semantic_veto_llm_pilot_data_comparison_en_es.py
+scripts/testing/semantic_veto_llm_threshold_bakeoff_en_es.py
+docs/test_outputs/semantic_veto_llm_pilot_scoring_en_es_latest.json
+docs/test_outputs/semantic_veto_llm_pilot_scoring_en_es_latest.md
+docs/test_outputs/semantic_veto_llm_pilot_failure_review_en_es_latest.json
+docs/test_outputs/semantic_veto_llm_pilot_failure_review_en_es_latest.md
+docs/test_outputs/semantic_veto_llm_pilot_data_comparison_en_es_latest.json
+docs/test_outputs/semantic_veto_llm_pilot_data_comparison_en_es_latest.md
+docs/test_outputs/semantic_veto_llm_threshold_bakeoff_en_es_latest.json
+docs/test_outputs/semantic_veto_llm_threshold_bakeoff_en_es_latest.md
+```
+
+Run the scoring lane:
+
+```bash
+python3 scripts/testing/semantic_veto_llm_pilot_scoring_en_es.py \
+  --json-out docs/test_outputs/semantic_veto_llm_pilot_scoring_en_es_latest.json \
+  --markdown-out docs/test_outputs/semantic_veto_llm_pilot_scoring_en_es_latest.md \
+  --fail-on-review
+```
+
+Review the scored-pilot failures:
+
+```bash
+python3 scripts/testing/semantic_veto_llm_pilot_failure_review_en_es.py \
+  --json-out docs/test_outputs/semantic_veto_llm_pilot_failure_review_en_es_latest.json \
+  --markdown-out docs/test_outputs/semantic_veto_llm_pilot_failure_review_en_es_latest.md \
+  --fail-on-review
+```
+
+Compare failed LLM pilot rows to same-family manual rows and source evidence:
+
+```bash
+python3 scripts/testing/semantic_veto_llm_pilot_data_comparison_en_es.py \
+  --json-out docs/test_outputs/semantic_veto_llm_pilot_data_comparison_en_es_latest.json \
+  --markdown-out docs/test_outputs/semantic_veto_llm_pilot_data_comparison_en_es_latest.md \
+  --fail-on-review
+```
+
+Run the separate shadow/phrase threshold bakeoff. Candidate selection is limited
+to `llm_discovery`; locked-eval and manual/stress lanes are reported after
+selection and must not be used as if they were the discovery lane.
+
+```bash
+python3 scripts/testing/semantic_veto_llm_threshold_bakeoff_en_es.py \
+  --json-out docs/test_outputs/semantic_veto_llm_threshold_bakeoff_en_es_latest.json \
+  --markdown-out docs/test_outputs/semantic_veto_llm_threshold_bakeoff_en_es_latest.md \
+  --fail-on-review
+```
+
+Current read:
+
+```text
+status: ok
+decision: frozen_candidate_product_target_passed_on_llm_pilot
+scored rows: 72 / 72
+scoreable families: 12 / 12
+source evidence: expanded reviewed v10 source batch, 95 rows, 19 complete families
+evaluation row id overlap with source evidence: 0
+context text exact overlap with source evidence: 0
+overall positive_allow_rate: 88.89%
+overall negative_abstain_rate: 52.78%
+overall utility: 35.4
+discovery positive_allow_rate / negative_abstain_rate: 84.62% / 50.00%
+locked_eval positive_allow_rate / negative_abstain_rate: 100.00% / 66.67%
+failure review: 21 failures
+positive_allow vs manual/stress best: +7.6pp
+negative_abstain vs manual/stress best: -22.2pp
+shadow_negative_abstain vs manual active/shadow source: -29.2pp
+phrase_no_winner_abstain vs manual phrase source: -20.8pp
+data comparison failed rows: 21
+data comparison manual same-class rows referenced: 35
+data comparison diagnosis confidence: high 16, medium 5
+data comparison repeated notes:
+  same-family manual matching rows passed under control: 18
+  scorer chose active evidence over blocker: 12
+  surface-pattern winner differed from score winner: 15
+  phrase surface visible but not weighted enough: 3
+threshold bakeoff rows: 121
+threshold bakeoff selection lane: LLM discovery only
+threshold bakeoff selected discovery candidate:
+  shadow_lead_min=-0.05, phrase_lead_min=-0.025
+  LLM discovery: 80.8% positive allow / 83.3% negative abstain
+  LLM locked-eval: 80.0% positive allow / 83.3% negative abstain
+  manual/stress: 12.5% positive allow / 100.0% negative abstain
+threshold bakeoff all-lane advisory:
+  shadow_lead_min=0.05, phrase_lead_min=0.075
+  LLM discovery: 96.2% positive allow / 50.0% negative abstain
+  LLM locked-eval: 100.0% positive allow / 66.7% negative abstain
+  manual/stress: 81.2% positive allow / 68.8% negative abstain
+incumbent:
+  shadow_lead_min=0.05, phrase_lead_min=0.05
+  LLM discovery: 84.6% positive allow / 50.0% negative abstain
+  LLM locked-eval: 100.0% positive allow / 66.7% negative abstain
+  manual/stress: 81.2% positive allow / 75.0% negative abstain
+```
+
+Interpretation:
+
+- this is a real accuracy milestone for the pilot lane, not a production claim,
+- it is a clean result for the current product acceptance shape because both
+  discovery and locked-eval splits meet the 80% positive-allow and 50%
+  negative-abstain targets,
+- it does not prove broad browsing quality because the pilot is small and
+  LLM-generated,
+- the remaining weak class is still visible: phrase/no-winner rows only reached
+  `5 / 12` abstains, so phrase/no-winner coverage should stay separate from
+  ordinary active-vs-shadow scoring,
+- the pilot is not weaker across the board: positive allow is higher than the
+  current manual/stress comparator, but negative blocking is much weaker,
+- the largest failure classes are active score dominating shadow-negative rows
+  and phrase/no-winner rows where phrase-control evidence does not dominate the
+  best ordinary sense,
+- the data-level comparison makes the weakness more concrete: many generated
+  failures are not mirror images of the manual rows, and several phrase failures
+  show visible word-order evidence that still loses the score contest,
+- a simple lower shadow threshold is not safe: the LLM-discovery-selected
+  aggressive shadow candidate blocks nearly every manual/stress positive,
+- the only threshold-only direction that currently looks plausible is not
+  harsher shadow blocking, but a small phrase-threshold separation
+  (`phrase_lead_min=0.075`) that improves LLM positive allow while still passing
+  the combined stress target; it weakens phrase/no-winner stress blocking, so it
+  remains advisory rather than promoted,
+- no runtime policy or source evidence was promoted by this result.
+
 ### Milestone 3: LLM-Expanded Evaluation
 
 Use LLM budget to generate broader locked evaluation data.
+
+Before spending broadly, use the difficulty-stratification research plan to
+test whether failure risk is concentrated in high-frequency / high-polysemy
+source triggers:
+
+```text
+docs/rulegen/semantic_veto_difficulty_stratification_research_plan.md
+```
+
+That plan keeps three product axes separate:
+
+```text
+learner_value: user/profile/topic usefulness
+learner_difficulty: Spanish target level for SRS admission
+veto_decision_difficulty: English trigger ambiguity and replacement risk
+```
+
+The expected first no-spend artifact is a rank-bin report that joins existing
+LLM/manual/stress rows to frequency, source-coverage, and ambiguity metadata
+before deciding whether expensive LLM generation should focus on the first
+500-1000 English triggers.
 
 Success:
 

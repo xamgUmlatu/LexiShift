@@ -1,0 +1,792 @@
+{
+  "comparison_rows": [
+    {
+      "case_count": 72,
+      "negative_abstain_count": 19,
+      "negative_abstain_rate": 0.5278,
+      "negative_allow_count": 17,
+      "note": "LLM pilot, all admitted rows",
+      "positive_abstain_count": 4,
+      "positive_allow_count": 32,
+      "positive_allow_rate": 0.8889,
+      "scope_id": "llm_pilot_overall",
+      "target_status": "pass",
+      "utility_score": 35.4
+    },
+    {
+      "case_count": 56,
+      "negative_abstain_count": 15,
+      "negative_abstain_rate": 0.5,
+      "negative_allow_count": 15,
+      "note": "LLM pilot split",
+      "positive_abstain_count": 4,
+      "positive_allow_count": 22,
+      "positive_allow_rate": 0.8462,
+      "scope_id": "llm_pilot_split:discovery",
+      "target_status": "pass",
+      "utility_score": 23.4
+    },
+    {
+      "case_count": 16,
+      "negative_abstain_count": 4,
+      "negative_abstain_rate": 0.6667,
+      "negative_allow_count": 2,
+      "note": "LLM pilot split",
+      "positive_abstain_count": 0,
+      "positive_allow_count": 10,
+      "positive_allow_rate": 1.0,
+      "scope_id": "llm_pilot_split:locked_eval",
+      "target_status": "pass",
+      "utility_score": 12.0
+    },
+    {
+      "case_count": 12,
+      "negative_abstain_count": 5,
+      "negative_abstain_rate": 0.4167,
+      "negative_allow_count": 7,
+      "note": "LLM pilot gold type",
+      "positive_abstain_count": 0,
+      "positive_allow_count": 0,
+      "positive_allow_rate": null,
+      "scope_id": "llm_pilot_gold:phrase_no_winner",
+      "target_status": "fail",
+      "utility_score": -0.2
+    },
+    {
+      "case_count": 36,
+      "negative_abstain_count": 0,
+      "negative_abstain_rate": null,
+      "negative_allow_count": 0,
+      "note": "LLM pilot gold type",
+      "positive_abstain_count": 4,
+      "positive_allow_count": 32,
+      "positive_allow_rate": 0.8889,
+      "scope_id": "llm_pilot_gold:positive_active",
+      "target_status": "fail",
+      "utility_score": 30.4
+    },
+    {
+      "case_count": 24,
+      "negative_abstain_count": 14,
+      "negative_abstain_rate": 0.5833,
+      "negative_allow_count": 10,
+      "note": "LLM pilot gold type",
+      "positive_abstain_count": 0,
+      "positive_allow_count": 0,
+      "positive_allow_rate": null,
+      "scope_id": "llm_pilot_gold:shadow_negative",
+      "target_status": "pass",
+      "utility_score": 5.2
+    },
+    {
+      "case_count": null,
+      "negative_abstain_count": 24,
+      "negative_abstain_rate": 0.75,
+      "negative_allow_count": 8,
+      "note": "Current manual/stress best row",
+      "positive_abstain_count": 3,
+      "positive_allow_count": 13,
+      "positive_allow_rate": 0.8125,
+      "scope_id": "manual_stress_best_veto_only",
+      "target_status": "pass",
+      "utility_score": 26.2
+    },
+    {
+      "case_count": null,
+      "negative_abstain_count": null,
+      "negative_abstain_rate": 0.875,
+      "negative_allow_count": null,
+      "note": "Manual/stress source breakdown",
+      "positive_abstain_count": null,
+      "positive_allow_count": null,
+      "positive_allow_rate": 0.8125,
+      "scope_id": "manual_stress_source:semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+      "target_status": "pass",
+      "utility_score": 21.8
+    },
+    {
+      "case_count": null,
+      "negative_abstain_count": null,
+      "negative_abstain_rate": 0.625,
+      "negative_allow_count": null,
+      "note": "Manual/stress source breakdown",
+      "positive_abstain_count": null,
+      "positive_allow_count": null,
+      "positive_allow_rate": null,
+      "scope_id": "manual_stress_source:semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+      "target_status": "pass",
+      "utility_score": 4.4
+    },
+    {
+      "case_count": 143,
+      "negative_abstain_count": 82,
+      "negative_abstain_rate": 0.9213,
+      "negative_allow_count": 7,
+      "note": "Current product-quality aggregate",
+      "positive_abstain_count": 27,
+      "positive_allow_count": 27,
+      "positive_allow_rate": 0.5,
+      "scope_id": "product_quality_current_overall",
+      "target_status": "fail",
+      "utility_score": 77.6
+    }
+  ],
+  "decision": "llm_pilot_failure_review_complete",
+  "expectation_rows": [
+    {
+      "actual_rate": 0.8889,
+      "description": "Good replacements should usually stay visible.",
+      "expectation_id": "positive_allow",
+      "manual_comparator_delta": 0.0764,
+      "manual_comparator_rate": 0.8125,
+      "status": "meets_target_and_comparator",
+      "target_delta": 0.0889,
+      "target_rate": 0.8
+    },
+    {
+      "actual_rate": 0.5278,
+      "description": "Clearly bad replacements should be blocked at least half the time.",
+      "expectation_id": "negative_abstain_overall",
+      "manual_comparator_delta": -0.2222,
+      "manual_comparator_rate": 0.75,
+      "status": "below_manual_comparator",
+      "target_delta": 0.0278,
+      "target_rate": 0.5
+    },
+    {
+      "actual_rate": 0.5833,
+      "description": "Alternate-sense negatives should often be caught by shadow evidence.",
+      "expectation_id": "shadow_negative_abstain",
+      "manual_comparator_delta": -0.2917,
+      "manual_comparator_rate": 0.875,
+      "status": "below_manual_comparator",
+      "target_delta": 0.0833,
+      "target_rate": 0.5
+    },
+    {
+      "actual_rate": 0.4167,
+      "description": "Phrase/no-winner rows should remain visible as their own safety class.",
+      "expectation_id": "phrase_no_winner_abstain",
+      "manual_comparator_delta": -0.2083,
+      "manual_comparator_rate": 0.625,
+      "status": "below_target",
+      "target_delta": -0.0833,
+      "target_rate": 0.5
+    }
+  ],
+  "failure_class_rows": [
+    {
+      "case_count": 8,
+      "failure_class": "shadow_negative_active_score_dominated",
+      "gold_type_counts": {
+        "shadow_negative": 8
+      },
+      "median_phrase_lead_to_best": -0.1237,
+      "median_shadow_lead": -0.0632,
+      "sample_case_ids": [
+        "pilotrow:pilot_plant_planta:shadow_negative:001",
+        "pilotrow:pilot_check_cheque:shadow_negative:001",
+        "pilotrow:pilot_check_cheque:shadow_negative:002",
+        "pilotrow:pilot_branch_sucursal:shadow_negative:002",
+        "pilotrow:pilot_play_obra:shadow_negative:002",
+        "pilotrow:pilot_order_pedido:shadow_negative:001"
+      ],
+      "trigger_counts": {
+        "branch": 1,
+        "check": 2,
+        "match": 1,
+        "order": 2,
+        "plant": 1,
+        "play": 1
+      }
+    },
+    {
+      "case_count": 7,
+      "failure_class": "phrase_no_winner_phrase_score_not_dominant",
+      "gold_type_counts": {
+        "phrase_no_winner": 7
+      },
+      "median_phrase_lead_to_best": -0.0519,
+      "median_shadow_lead": -0.0189,
+      "sample_case_ids": [
+        "pilotrow:pilot_bank_banco:phrase_no_winner:001",
+        "pilotrow:pilot_plant_planta:phrase_no_winner:001",
+        "pilotrow:pilot_check_cheque:phrase_no_winner:001",
+        "pilotrow:pilot_play_obra:phrase_no_winner:001",
+        "pilotrow:pilot_report_informe:phrase_no_winner:001",
+        "pilotrow:pilot_order_pedido:phrase_no_winner:001"
+      ],
+      "trigger_counts": {
+        "bank": 1,
+        "check": 1,
+        "order": 1,
+        "plant": 1,
+        "play": 1,
+        "report": 1,
+        "watch": 1
+      }
+    },
+    {
+      "case_count": 3,
+      "failure_class": "positive_overblocked_by_phrase_prototype",
+      "gold_type_counts": {
+        "positive_active": 3
+      },
+      "median_phrase_lead_to_best": 0.0584,
+      "median_shadow_lead": 0.0008,
+      "sample_case_ids": [
+        "pilotrow:pilot_board_tablero:positive_active:001",
+        "pilotrow:pilot_report_informe:positive_active:001",
+        "pilotrow:pilot_report_informe:positive_active:002"
+      ],
+      "trigger_counts": {
+        "board": 1,
+        "report": 2
+      }
+    },
+    {
+      "case_count": 2,
+      "failure_class": "shadow_negative_shadow_lead_below_threshold",
+      "gold_type_counts": {
+        "shadow_negative": 2
+      },
+      "median_phrase_lead_to_best": -0.0542,
+      "median_shadow_lead": 0.0156,
+      "sample_case_ids": [
+        "pilotrow:pilot_plant_planta:shadow_negative:002",
+        "pilotrow:pilot_report_informe:shadow_negative:001"
+      ],
+      "trigger_counts": {
+        "plant": 1,
+        "report": 1
+      }
+    },
+    {
+      "case_count": 1,
+      "failure_class": "positive_overblocked_by_shadow_score",
+      "gold_type_counts": {
+        "positive_active": 1
+      },
+      "median_phrase_lead_to_best": -0.0496,
+      "median_shadow_lead": 0.142,
+      "sample_case_ids": [
+        "pilotrow:pilot_file_archivo:positive_active:001"
+      ],
+      "trigger_counts": {
+        "file": 1
+      }
+    }
+  ],
+  "failure_samples": [
+    {
+      "active_score": 0.5943,
+      "case_id": "pilotrow:pilot_bank_banco:phrase_no_winner:001",
+      "failure_class": "phrase_no_winner_phrase_score_not_dominant",
+      "gold_type": "phrase_no_winner",
+      "phrase_control_score": 0.5004,
+      "phrase_lead_to_best": -0.0939,
+      "product_outcome": "negative_allow",
+      "sentence": "Bank on getting there early, because the parking lot fills up fast before the concert starts.",
+      "shadow_lead": -0.0567,
+      "split": "discovery",
+      "strongest_shadow_score": 0.5377,
+      "trigger": "bank",
+      "veto_reason": ""
+    },
+    {
+      "active_score": 0.6462,
+      "case_id": "pilotrow:pilot_plant_planta:shadow_negative:001",
+      "failure_class": "shadow_negative_active_score_dominated",
+      "gold_type": "shadow_negative",
+      "phrase_control_score": 0.5094,
+      "phrase_lead_to_best": -0.1368,
+      "product_outcome": "negative_allow",
+      "sentence": "After the outage, the plant was restarted, and the lights came back on.",
+      "shadow_lead": -0.0062,
+      "split": "discovery",
+      "strongest_shadow_score": 0.64,
+      "trigger": "plant",
+      "veto_reason": ""
+    },
+    {
+      "active_score": 0.6634,
+      "case_id": "pilotrow:pilot_plant_planta:shadow_negative:002",
+      "failure_class": "shadow_negative_shadow_lead_below_threshold",
+      "gold_type": "shadow_negative",
+      "phrase_control_score": 0.6175,
+      "phrase_lead_to_best": -0.0596,
+      "product_outcome": "negative_allow",
+      "sentence": "The engineers inspected the cooling systems at the power plant after the alarm sounded.",
+      "shadow_lead": 0.0137,
+      "split": "discovery",
+      "strongest_shadow_score": 0.6771,
+      "trigger": "plant",
+      "veto_reason": ""
+    },
+    {
+      "active_score": 0.5957,
+      "case_id": "pilotrow:pilot_plant_planta:phrase_no_winner:001",
+      "failure_class": "phrase_no_winner_phrase_score_not_dominant",
+      "gold_type": "phrase_no_winner",
+      "phrase_control_score": 0.5721,
+      "phrase_lead_to_best": -0.0236,
+      "product_outcome": "negative_allow",
+      "sentence": "In the end, the whole plan was a plant to get more clicks.",
+      "shadow_lead": -0.0123,
+      "split": "discovery",
+      "strongest_shadow_score": 0.5834,
+      "trigger": "plant",
+      "veto_reason": ""
+    },
+    {
+      "active_score": 0.5856,
+      "case_id": "pilotrow:pilot_board_tablero:positive_active:001",
+      "failure_class": "positive_overblocked_by_phrase_prototype",
+      "gold_type": "positive_active",
+      "phrase_control_score": 0.644,
+      "phrase_lead_to_best": 0.0584,
+      "product_outcome": "positive_abstain",
+      "sentence": "New board game guide posted today.",
+      "shadow_lead": -0.0463,
+      "split": "discovery",
+      "strongest_shadow_score": 0.5394,
+      "trigger": "board",
+      "veto_reason": "phrase_score_lead"
+    },
+    {
+      "active_score": 0.7607,
+      "case_id": "pilotrow:pilot_check_cheque:shadow_negative:001",
+      "failure_class": "shadow_negative_active_score_dominated",
+      "gold_type": "shadow_negative",
+      "phrase_control_score": 0.6,
+      "phrase_lead_to_best": -0.1608,
+      "product_outcome": "negative_allow",
+      "sentence": "At the gate, the final check clears the bag.",
+      "shadow_lead": -0.1526,
+      "split": "discovery",
+      "strongest_shadow_score": 0.6082,
+      "trigger": "check",
+      "veto_reason": ""
+    },
+    {
+      "active_score": 0.6459,
+      "case_id": "pilotrow:pilot_check_cheque:shadow_negative:002",
+      "failure_class": "shadow_negative_active_score_dominated",
+      "gold_type": "shadow_negative",
+      "phrase_control_score": 0.4395,
+      "phrase_lead_to_best": -0.2064,
+      "product_outcome": "negative_allow",
+      "sentence": "The server logs flagged a security check after the failed login attempts.",
+      "shadow_lead": -0.1416,
+      "split": "discovery",
+      "strongest_shadow_score": 0.5043,
+      "trigger": "check",
+      "veto_reason": ""
+    },
+    {
+      "active_score": 0.6063,
+      "case_id": "pilotrow:pilot_check_cheque:phrase_no_winner:001",
+      "failure_class": "phrase_no_winner_phrase_score_not_dominant",
+      "gold_type": "phrase_no_winner",
+      "phrase_control_score": 0.6035,
+      "phrase_lead_to_best": -0.0028,
+      "product_outcome": "negative_allow",
+      "sentence": "Check the box below to continue, then review the form before you submit it.",
+      "shadow_lead": -0.0189,
+      "split": "discovery",
+      "strongest_shadow_score": 0.5874,
+      "trigger": "check",
+      "veto_reason": ""
+    },
+    {
+      "active_score": 0.6022,
+      "case_id": "pilotrow:pilot_branch_sucursal:shadow_negative:002",
+      "failure_class": "shadow_negative_active_score_dominated",
+      "gold_type": "shadow_negative",
+      "phrase_control_score": 0.487,
+      "phrase_lead_to_best": -0.1152,
+      "product_outcome": "negative_allow",
+      "sentence": "The database query returned a branch of the decision tree after the latest update.",
+      "shadow_lead": -0.0167,
+      "split": "discovery",
+      "strongest_shadow_score": 0.5855,
+      "trigger": "branch",
+      "veto_reason": ""
+    },
+    {
+      "active_score": 0.5517,
+      "case_id": "pilotrow:pilot_file_archivo:positive_active:001",
+      "failure_class": "positive_overblocked_by_shadow_score",
+      "gold_type": "positive_active",
+      "phrase_control_score": 0.644,
+      "phrase_lead_to_best": -0.0496,
+      "product_outcome": "positive_abstain",
+      "sentence": "The clerk opened the file after lunch.",
+      "shadow_lead": 0.142,
+      "split": "discovery",
+      "strongest_shadow_score": 0.6937,
+      "trigger": "file",
+      "veto_reason": "shadow_lead"
+    },
+    {
+      "active_score": 0.5926,
+      "case_id": "pilotrow:pilot_play_obra:shadow_negative:002",
+      "failure_class": "shadow_negative_active_score_dominated",
+      "gold_type": "shadow_negative",
+      "phrase_control_score": 0.5536,
+      "phrase_lead_to_best": -0.039,
+      "product_outcome": "negative_allow",
+      "sentence": "The server logs show a failed play in the deployment pipeline.",
+      "shadow_lead": -0.1274,
+      "split": "locked_eval",
+      "strongest_shadow_score": 0.4652,
+      "trigger": "play",
+      "veto_reason": ""
+    },
+    {
+      "active_score": 0.7199,
+      "case_id": "pilotrow:pilot_play_obra:phrase_no_winner:001",
+      "failure_class": "phrase_no_winner_phrase_score_not_dominant",
+      "gold_type": "phrase_no_winner",
+      "phrase_control_score": 0.6376,
+      "phrase_lead_to_best": -0.0823,
+      "product_outcome": "negative_allow",
+      "sentence": "At the end of the article, the play on words made the headline memorable.",
+      "shadow_lead": -0.1293,
+      "split": "discovery",
+      "strongest_shadow_score": 0.5906,
+      "trigger": "play",
+      "veto_reason": ""
+    },
+    {
+      "active_score": 0.5833,
+      "case_id": "pilotrow:pilot_report_informe:positive_active:001",
+      "failure_class": "positive_overblocked_by_phrase_prototype",
+      "gold_type": "positive_active",
+      "phrase_control_score": 0.6469,
+      "phrase_lead_to_best": 0.0627,
+      "product_outcome": "positive_abstain",
+      "sentence": "The final report from the audit is now online.",
+      "shadow_lead": 0.0008,
+      "split": "discovery",
+      "strongest_shadow_score": 0.5841,
+      "trigger": "report",
+      "veto_reason": "phrase_score_lead"
+    },
+    {
+      "active_score": 0.6006,
+      "case_id": "pilotrow:pilot_report_informe:positive_active:002",
+      "failure_class": "positive_overblocked_by_phrase_prototype",
+      "gold_type": "positive_active",
+      "phrase_control_score": 0.6627,
+      "phrase_lead_to_best": 0.0543,
+      "product_outcome": "positive_abstain",
+      "sentence": "After the audit team finished its review, the final report was posted on the compliance portal.",
+      "shadow_lead": 0.0079,
+      "split": "discovery",
+      "strongest_shadow_score": 0.6085,
+      "trigger": "report",
+      "veto_reason": "phrase_score_lead"
+    },
+    {
+      "active_score": 0.6391,
+      "case_id": "pilotrow:pilot_report_informe:shadow_negative:001",
+      "failure_class": "shadow_negative_shadow_lead_below_threshold",
+      "gold_type": "shadow_negative",
+      "phrase_control_score": 0.6078,
+      "phrase_lead_to_best": -0.0488,
+      "product_outcome": "negative_allow",
+      "sentence": "After the storm, the report from the engine room was a loud bang.",
+      "shadow_lead": 0.0175,
+      "split": "locked_eval",
+      "strongest_shadow_score": 0.6566,
+      "trigger": "report",
+      "veto_reason": ""
+    },
+    {
+      "active_score": 0.7502,
+      "case_id": "pilotrow:pilot_report_informe:phrase_no_winner:001",
+      "failure_class": "phrase_no_winner_phrase_score_not_dominant",
+      "gold_type": "phrase_no_winner",
+      "phrase_control_score": 0.6528,
+      "phrase_lead_to_best": -0.0974,
+      "product_outcome": "negative_allow",
+      "sentence": "The report back from the field arrived late, but the team still finished the update.",
+      "shadow_lead": -0.108,
+      "split": "discovery",
+      "strongest_shadow_score": 0.6422,
+      "trigger": "report",
+      "veto_reason": ""
+    },
+    {
+      "active_score": 0.5973,
+      "case_id": "pilotrow:pilot_order_pedido:shadow_negative:001",
+      "failure_class": "shadow_negative_active_score_dominated",
+      "gold_type": "shadow_negative",
+      "phrase_control_score": 0.4649,
+      "phrase_lead_to_best": -0.1323,
+      "product_outcome": "negative_allow",
+      "sentence": "New order restored in the court after the hearing.",
+      "shadow_lead": -0.0288,
+      "split": "discovery",
+      "strongest_shadow_score": 0.5684,
+      "trigger": "order",
+      "veto_reason": ""
+    },
+    {
+      "active_score": 0.5523,
+      "case_id": "pilotrow:pilot_order_pedido:shadow_negative:002",
+      "failure_class": "shadow_negative_active_score_dominated",
+      "gold_type": "shadow_negative",
+      "phrase_control_score": 0.5142,
+      "phrase_lead_to_best": -0.0381,
+      "product_outcome": "negative_allow",
+      "sentence": "The database query returned rows in alphabetical order.",
+      "shadow_lead": -0.0436,
+      "split": "discovery",
+      "strongest_shadow_score": 0.5087,
+      "trigger": "order",
+      "veto_reason": ""
+    },
+    {
+      "active_score": 0.5249,
+      "case_id": "pilotrow:pilot_order_pedido:phrase_no_winner:001",
+      "failure_class": "phrase_no_winner_phrase_score_not_dominant",
+      "gold_type": "phrase_no_winner",
+      "phrase_control_score": 0.4784,
+      "phrase_lead_to_best": -0.0519,
+      "product_outcome": "negative_allow",
+      "sentence": "The app loaded in order, but the video still buffered for several minutes.",
+      "shadow_lead": 0.0054,
+      "split": "discovery",
+      "strongest_shadow_score": 0.5303,
+      "trigger": "order",
+      "veto_reason": ""
+    },
+    {
+      "active_score": 0.672,
+      "case_id": "pilotrow:pilot_match_partido:shadow_negative:001",
+      "failure_class": "shadow_negative_active_score_dominated",
+      "gold_type": "shadow_negative",
+      "phrase_control_score": 0.697,
+      "phrase_lead_to_best": 0.0249,
+      "product_outcome": "negative_allow",
+      "sentence": "Headline: a perfect match for the frame, with the finish finally aligned.",
+      "shadow_lead": -0.0828,
+      "split": "discovery",
+      "strongest_shadow_score": 0.5893,
+      "trigger": "match",
+      "veto_reason": ""
+    },
+    {
+      "active_score": 0.6263,
+      "case_id": "pilotrow:pilot_watch_reloj:phrase_no_winner:001",
+      "failure_class": "phrase_no_winner_phrase_score_not_dominant",
+      "gold_type": "phrase_no_winner",
+      "phrase_control_score": 0.6531,
+      "phrase_lead_to_best": -0.0152,
+      "product_outcome": "negative_allow",
+      "sentence": "Before the meeting starts, watch your step on the wet tiles.",
+      "shadow_lead": 0.042,
+      "split": "discovery",
+      "strongest_shadow_score": 0.6683,
+      "trigger": "watch",
+      "veto_reason": ""
+    }
+  ],
+  "generated_at": "2026-05-04T23:02:07Z",
+  "inputs": {
+    "manual_validation_path": "docs/test_outputs/semantic_veto_veto_only_validation_en_es_latest.json",
+    "product_quality_path": "docs/test_outputs/semantic_veto_product_quality_en_es_latest.json",
+    "scoring_path": "docs/test_outputs/semantic_veto_llm_pilot_scoring_en_es_latest.json"
+  },
+  "interpretation": [
+    "The pilot is not lower in every way: positive allow beats the 80% target and the current manual/stress comparator.",
+    "The worrying gap is negative blocking. Overall negative abstain barely clears the 50% target and is well below the manual/stress best row.",
+    "Phrase/no-winner is the clearest miss: its abstain rate is below target and below the manual phrase-source comparator.",
+    "Shadow-negative rows pass the minimum target but lag the manual active/shadow comparator, so the issue is not only phrase handling.",
+    "Most failures are no-veto negative allows, meaning the active/shadow/phrase scores did not produce a strong enough blocker rather than a blocker firing incorrectly."
+  ],
+  "next_steps": [
+    "Review the no-veto negative-allow rows first; they show whether source evidence, context representation, or threshold shape is the limiting factor.",
+    "Keep phrase/no-winner separate from shadow-negative rows; the phrase class is below target even while the aggregate passes.",
+    "Do not interpret the small locked-eval pass as enough to justify full-scale generation; expand only after the discovered failure classes are understood."
+  ],
+  "schema_version": 1,
+  "status": "ok",
+  "summary": {
+    "failure_count": 21,
+    "failure_gold_type_counts": {
+      "phrase_no_winner": 7,
+      "positive_active": 4,
+      "shadow_negative": 10
+    },
+    "failure_outcome_counts": {
+      "negative_allow": 17,
+      "positive_abstain": 4
+    },
+    "main_read": "The LLM pilot keeps positive replacements visible, but negative blocking is weaker than manual/stress comparators; the largest failure class is `shadow_negative_active_score_dominated`. Weak expectations: negative_abstain_overall, shadow_negative_abstain, phrase_no_winner_abstain."
+  },
+  "trigger_failure_rows": [
+    {
+      "failure_count": 4,
+      "gold_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 2,
+        "shadow_negative": 1
+      },
+      "outcome_counts": {
+        "negative_allow": 2,
+        "positive_abstain": 2
+      },
+      "sample_case_ids": [
+        "pilotrow:pilot_report_informe:positive_active:001",
+        "pilotrow:pilot_report_informe:positive_active:002",
+        "pilotrow:pilot_report_informe:shadow_negative:001",
+        "pilotrow:pilot_report_informe:phrase_no_winner:001"
+      ],
+      "trigger": "report"
+    },
+    {
+      "failure_count": 3,
+      "gold_type_counts": {
+        "phrase_no_winner": 1,
+        "shadow_negative": 2
+      },
+      "outcome_counts": {
+        "negative_allow": 3
+      },
+      "sample_case_ids": [
+        "pilotrow:pilot_check_cheque:shadow_negative:001",
+        "pilotrow:pilot_check_cheque:shadow_negative:002",
+        "pilotrow:pilot_check_cheque:phrase_no_winner:001"
+      ],
+      "trigger": "check"
+    },
+    {
+      "failure_count": 3,
+      "gold_type_counts": {
+        "phrase_no_winner": 1,
+        "shadow_negative": 2
+      },
+      "outcome_counts": {
+        "negative_allow": 3
+      },
+      "sample_case_ids": [
+        "pilotrow:pilot_order_pedido:shadow_negative:001",
+        "pilotrow:pilot_order_pedido:shadow_negative:002",
+        "pilotrow:pilot_order_pedido:phrase_no_winner:001"
+      ],
+      "trigger": "order"
+    },
+    {
+      "failure_count": 3,
+      "gold_type_counts": {
+        "phrase_no_winner": 1,
+        "shadow_negative": 2
+      },
+      "outcome_counts": {
+        "negative_allow": 3
+      },
+      "sample_case_ids": [
+        "pilotrow:pilot_plant_planta:shadow_negative:001",
+        "pilotrow:pilot_plant_planta:shadow_negative:002",
+        "pilotrow:pilot_plant_planta:phrase_no_winner:001"
+      ],
+      "trigger": "plant"
+    },
+    {
+      "failure_count": 2,
+      "gold_type_counts": {
+        "phrase_no_winner": 1,
+        "shadow_negative": 1
+      },
+      "outcome_counts": {
+        "negative_allow": 2
+      },
+      "sample_case_ids": [
+        "pilotrow:pilot_play_obra:shadow_negative:002",
+        "pilotrow:pilot_play_obra:phrase_no_winner:001"
+      ],
+      "trigger": "play"
+    },
+    {
+      "failure_count": 1,
+      "gold_type_counts": {
+        "phrase_no_winner": 1
+      },
+      "outcome_counts": {
+        "negative_allow": 1
+      },
+      "sample_case_ids": [
+        "pilotrow:pilot_bank_banco:phrase_no_winner:001"
+      ],
+      "trigger": "bank"
+    },
+    {
+      "failure_count": 1,
+      "gold_type_counts": {
+        "positive_active": 1
+      },
+      "outcome_counts": {
+        "positive_abstain": 1
+      },
+      "sample_case_ids": [
+        "pilotrow:pilot_board_tablero:positive_active:001"
+      ],
+      "trigger": "board"
+    },
+    {
+      "failure_count": 1,
+      "gold_type_counts": {
+        "shadow_negative": 1
+      },
+      "outcome_counts": {
+        "negative_allow": 1
+      },
+      "sample_case_ids": [
+        "pilotrow:pilot_branch_sucursal:shadow_negative:002"
+      ],
+      "trigger": "branch"
+    },
+    {
+      "failure_count": 1,
+      "gold_type_counts": {
+        "positive_active": 1
+      },
+      "outcome_counts": {
+        "positive_abstain": 1
+      },
+      "sample_case_ids": [
+        "pilotrow:pilot_file_archivo:positive_active:001"
+      ],
+      "trigger": "file"
+    },
+    {
+      "failure_count": 1,
+      "gold_type_counts": {
+        "shadow_negative": 1
+      },
+      "outcome_counts": {
+        "negative_allow": 1
+      },
+      "sample_case_ids": [
+        "pilotrow:pilot_match_partido:shadow_negative:001"
+      ],
+      "trigger": "match"
+    },
+    {
+      "failure_count": 1,
+      "gold_type_counts": {
+        "phrase_no_winner": 1
+      },
+      "outcome_counts": {
+        "negative_allow": 1
+      },
+      "sample_case_ids": [
+        "pilotrow:pilot_watch_reloj:phrase_no_winner:001"
+      ],
+      "trigger": "watch"
+    }
+  ]
+}

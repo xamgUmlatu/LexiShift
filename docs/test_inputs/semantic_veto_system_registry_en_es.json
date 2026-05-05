@@ -205,27 +205,34 @@
     },
     {
       "lane_id": "semantic_veto_llm_pilot_en_es_v1",
-      "status": "current_research_generated_admitted",
-      "purpose": "Pilot lane that freezes the leading veto-only candidate, generates bounded LLM evaluation rows, admits them through strict filters, and keeps discovery versus locked-eval split visible before scoring.",
+      "status": "current_research_scored_pilot",
+      "purpose": "Pilot lane that freezes the leading veto-only candidate, generates bounded LLM evaluation rows, admits them through strict filters, and scores them against independent source evidence with discovery versus locked-eval split visible.",
       "durable_inputs": [
         "llm_pilot_plan_manifest",
         "veto_only_candidate_selection_latest_report",
-        "product_quality_policy"
+        "product_quality_policy",
+        "difficulty_stratification_research_plan"
       ],
       "generated_reports": [
         "llm_pilot_generation_request_latest_report",
         "llm_pilot_generation_run_latest_report",
         "llm_pilot_generated_rows_latest_payload",
         "llm_pilot_generated_rows_merge_latest_report",
-        "llm_pilot_admission_latest_report"
+        "llm_pilot_admission_latest_report",
+        "llm_pilot_scoring_latest_report",
+        "llm_pilot_failure_review_latest_report",
+        "llm_pilot_data_comparison_latest_report",
+        "llm_threshold_bakeoff_latest_report"
       ],
       "control_artifacts": [
         "veto_only_candidate_selection_latest_report"
       ],
       "local_artifact_cracks": [
-        "The current output is admitted evaluation data, not source evidence and not a runtime policy change.",
+        "The generated rows are evaluation data only; the scoring harness must use independent source evidence, not the pilot rows themselves.",
         "Discovery rows and locked-eval rows must stay separate before threshold or scorer claims.",
-        "The generated-row assembly must preserve immutable full-batch and repair-batch provenance before any scoring claim."
+        "The scored pilot is not representative browsing evidence and does not promote runtime policy.",
+        "The failed-case data comparison is an automatic diagnostic, not a final human adjudication of every LLM label.",
+        "The threshold bakeoff selects on LLM discovery only and keeps locked-eval plus manual/stress lanes as reported checks, not hidden selection inputs."
       ],
       "rerun_order": [
         "llm_pilot_generation_request_harness",
@@ -235,7 +242,15 @@
         "llm_pilot_generated_rows_merge_harness",
         "llm_pilot_generated_rows_merge_latest_report",
         "llm_pilot_admission_harness",
-        "llm_pilot_admission_latest_report"
+        "llm_pilot_admission_latest_report",
+        "llm_pilot_scoring_harness",
+        "llm_pilot_scoring_latest_report",
+        "llm_pilot_failure_review_harness",
+        "llm_pilot_failure_review_latest_report",
+        "llm_pilot_data_comparison_harness",
+        "llm_pilot_data_comparison_latest_report",
+        "llm_threshold_bakeoff_harness",
+        "llm_threshold_bakeoff_latest_report"
       ]
     }
   ],
@@ -512,6 +527,25 @@
       "evidence_needed": "The live pilot produced 72 accepted generated rows after one invalid-output retry and two targeted trigger-token repairs. The assembled payload is request-aligned, has 72/72 expected rows, and the admission report is ok with 72 admitted rows and 0 rejected rows.",
       "validation": "Generation run, merge, and admission reports were regenerated; focused generation, request, merge, and admission tests must pass, followed by registry summary, doc-reference checks, and git diff whitespace checks.",
       "promotion_impact": "Converts the LLM pilot from a no-spend plan into admitted evaluation data while preserving the rule that generated rows are not source evidence and runtime policy remains unchanged."
+    },
+    {
+      "action_id": "llm_pilot_independent_source_scoring",
+      "priority": "P1",
+      "status": "done",
+      "pass_id": "data_artifacts",
+      "source_artifacts": [
+        "llm_pilot_admission_latest_report",
+        "llm_pilot_generated_rows_latest_payload",
+        "llm_pilot_scoring_harness",
+        "llm_pilot_scoring_latest_report",
+        "llm_pilot_failure_review_harness",
+        "llm_pilot_failure_review_latest_report",
+        "semantic_veto_llm_pilot_en_es_v1"
+      ],
+      "action": "Score the admitted LLM pilot rows with the frozen veto-only candidate while using independent reviewed source evidence instead of recycling the generated evaluation rows as evidence.",
+      "evidence_needed": "The scoring report covers 72/72 admitted rows and 12/12 pilot families, records 0 source/evaluation row-id overlaps and 0 exact context-text overlaps, and keeps discovery versus locked-eval metrics separate. The failure review shows positive allow is above the manual/stress comparator, while negative abstain is 22.2pp below the manual/stress best row.",
+      "validation": "Run the LLM pilot scoring and failure-review harnesses with --fail-on-review, focused scoring/review tests, registry summary, doc-reference checks, and git diff whitespace checks.",
+      "promotion_impact": "Turns the pilot from admitted evaluation data into an initial scored accuracy result while preserving that it is not representative browsing evidence and not a runtime policy change."
     },
     {
       "action_id": "artifact_authority_stale_latest_audit_continuation",
@@ -982,6 +1016,23 @@
       ]
     },
     {
+      "artifact_id": "difficulty_stratification_research_plan",
+      "title": "Semantic veto difficulty stratification research plan",
+      "component": "process_governance",
+      "state": "current_reference",
+      "path": "docs/rulegen/semantic_veto_difficulty_stratification_research_plan.md",
+      "role": "Defines how to research learner value, learner difficulty, and veto decision difficulty together without collapsing SRS admission relevance into semantic-veto correctness.",
+      "owner_doc": "docs/rulegen/semantic_veto_difficulty_stratification_research_plan.md",
+      "current_use": "Planning reference for the next no-spend rank/polysemy/source-coverage stratification report and for deciding whether expensive LLM generation should focus on top-frequency English triggers.",
+      "risk": "This is a research plan only; it does not prove a difficulty model, change SRS admission behavior, or promote runtime veto policy.",
+      "next_audit_pass": "research_harness",
+      "verification_artifacts": [
+        "docs/rulegen/semantic_veto_product_quality_goals.md",
+        "docs/srs/srs_profile_schema.md",
+        "docs/reference/schema.md"
+      ]
+    },
+    {
       "artifact_id": "product_quality_policy",
       "title": "Semantic veto product quality policy",
       "component": "evaluation_data",
@@ -1315,6 +1366,142 @@
       "verification_artifacts": [
         "docs/test_outputs/semantic_veto_llm_pilot_admission_en_es_latest.json",
         "docs/test_inputs/semantic_veto_llm_pilot_plan_en_es.json"
+      ]
+    },
+    {
+      "artifact_id": "llm_pilot_scoring_harness",
+      "title": "Semantic veto LLM pilot scoring harness",
+      "component": "diagnostics",
+      "state": "current_research",
+      "path": "scripts/testing/semantic_veto_llm_pilot_scoring_en_es.py",
+      "role": "Scores admitted LLM pilot evaluation rows with the frozen veto-only candidate while binding active, shadow, and phrase-control scores from independent reviewed source evidence.",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "current_use": "Current bridge from admitted generated evaluation rows to product-quality metrics without promoting runtime policy or source evidence.",
+      "risk": "Can overstate progress if the pilot rows are treated as representative browsing data or if the independent-source checks are skipped.",
+      "next_audit_pass": "overfit_leakage",
+      "verification_artifacts": [
+        "scripts/testing/semantic_veto_llm_pilot_scoring_rendering.py",
+        "scripts/testing/semantic_veto_llm_pilot_scoring_policy.py",
+        "core/tests/dev/test_semantic_veto_llm_pilot_scoring_en_es.py",
+        "docs/test_outputs/semantic_veto_llm_pilot_scoring_en_es_latest.md"
+      ]
+    },
+    {
+      "artifact_id": "llm_pilot_scoring_latest_report",
+      "title": "Semantic veto LLM pilot scoring latest report",
+      "component": "diagnostics",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_veto_llm_pilot_scoring_en_es_latest.md",
+      "role": "Records the frozen-candidate scoring result for the admitted LLM pilot against independent source evidence.",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "current_use": "Shows 72/72 pilot rows scored, 12/12 families source-covered, 88.89% positive allow, 52.78% negative abstain, and a product-target pass on the pilot lane.",
+      "risk": "This is an initial LLM-generated pilot result, not production-quality representative browsing evidence.",
+      "next_audit_pass": "data_artifacts",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_llm_pilot_scoring_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_llm_pilot_admission_en_es_latest.json",
+        "docs/test_outputs/semantic_llm_example_frame_contract_expanded_latest.json"
+      ]
+    },
+    {
+      "artifact_id": "llm_pilot_failure_review_harness",
+      "title": "Semantic veto LLM pilot failure-review harness",
+      "component": "diagnostics",
+      "state": "current_research",
+      "path": "scripts/testing/semantic_veto_llm_pilot_failure_review_en_es.py",
+      "role": "Compares scored LLM pilot failures against the current manual/stress comparator and classifies where the pilot misses product expectations.",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "current_use": "Explains whether the scored pilot is weaker across the board or specifically weak on negative blocking.",
+      "risk": "A comparison report can be overread if manual/stress lanes and LLM-generated pilot rows are treated as the same distribution.",
+      "next_audit_pass": "overfit_leakage",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_veto_llm_pilot_failure_review_en_es.py",
+        "docs/test_outputs/semantic_veto_llm_pilot_failure_review_en_es_latest.md"
+      ]
+    },
+    {
+      "artifact_id": "llm_pilot_failure_review_latest_report",
+      "title": "Semantic veto LLM pilot failure-review latest report",
+      "component": "diagnostics",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_veto_llm_pilot_failure_review_en_es_latest.md",
+      "role": "Records the expectation comparison and failure classes for the scored LLM pilot.",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "current_use": "Shows the pilot exceeds the manual/stress positive-allow comparator but lags negative-abstain by 22.2pp overall, 29.2pp on shadow-negative, and 20.8pp on phrase/no-winner.",
+      "risk": "This diagnoses the pilot; it is not a reason to tune thresholds on locked-eval rows.",
+      "next_audit_pass": "data_artifacts",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_llm_pilot_failure_review_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_llm_pilot_scoring_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_veto_only_validation_en_es_latest.json"
+      ]
+    },
+    {
+      "artifact_id": "llm_pilot_data_comparison_harness",
+      "title": "Semantic veto LLM pilot failed-row data comparison harness",
+      "component": "diagnostics",
+      "state": "current_research",
+      "path": "scripts/testing/semantic_veto_llm_pilot_data_comparison_en_es.py",
+      "role": "Compares every failed LLM pilot row against same-family manual rows and the source evidence that won or lost the frozen-candidate score contest.",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "current_use": "Grounds pilot failures in the actual sentences, source prototypes, score winners, surface-pattern winners, and manual same-class outcomes.",
+      "risk": "The diagnosis notes are automatic heuristics; they should guide review and source planning, not relabel locked-eval data by themselves.",
+      "next_audit_pass": "data_artifacts",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_veto_llm_pilot_data_comparison_en_es.py",
+        "docs/test_outputs/semantic_veto_llm_pilot_data_comparison_en_es_latest.md"
+      ]
+    },
+    {
+      "artifact_id": "llm_pilot_data_comparison_latest_report",
+      "title": "Semantic veto LLM pilot failed-row data comparison latest report",
+      "component": "diagnostics",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_veto_llm_pilot_data_comparison_en_es_latest.md",
+      "role": "Records case-by-case data comparisons for all scored LLM pilot failures.",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "current_use": "Shows 21 failed LLM rows compared to 35 manual same-class rows, with high-confidence automatic explanations for 16 rows and medium-confidence explanations for 5 rows.",
+      "risk": "The report is useful for source/evaluation planning but is not a production policy promotion or a substitute for larger heldout data.",
+      "next_audit_pass": "data_artifacts",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_llm_pilot_data_comparison_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_llm_pilot_scoring_en_es_latest.json",
+        "docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v10.json",
+        "docs/test_outputs/semantic_decision_rule_matrix_en_es_latest.json"
+      ]
+    },
+    {
+      "artifact_id": "llm_threshold_bakeoff_harness",
+      "title": "Semantic veto LLM pilot separate-threshold bakeoff harness",
+      "component": "diagnostics",
+      "state": "current_research",
+      "path": "scripts/testing/semantic_veto_llm_threshold_bakeoff_en_es.py",
+      "role": "Sweeps separate shadow and phrase lead thresholds, selects candidates on LLM discovery rows only, and reports locked-eval plus manual/stress behavior afterward.",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "current_use": "Answers whether the LLM pilot failures are a threshold-margin problem or whether lower thresholds overblock existing manual/stress positives.",
+      "risk": "Overreading the discovery-selected row would tune on a small generated lane; the report is research-only and does not change runtime policy.",
+      "next_audit_pass": "overfit_leakage",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_veto_llm_threshold_bakeoff_en_es.py",
+        "docs/test_outputs/semantic_veto_llm_threshold_bakeoff_en_es_latest.md"
+      ]
+    },
+    {
+      "artifact_id": "llm_threshold_bakeoff_latest_report",
+      "title": "Semantic veto LLM pilot separate-threshold bakeoff latest report",
+      "component": "diagnostics",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_veto_llm_threshold_bakeoff_en_es_latest.md",
+      "role": "Records the separate shadow/phrase threshold sweep across LLM discovery, LLM locked-eval, and current manual/stress validation rows.",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "current_use": "Shows the LLM-discovery-selected aggressive shadow threshold fails manual/stress positives, while the only plausible threshold-only direction is a small phrase threshold separation.",
+      "risk": "The all-lane advisory row uses observed heldout/stress metrics for diagnosis and still needs a pre-registered follow-up before any promotion claim.",
+      "next_audit_pass": "data_artifacts",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_llm_threshold_bakeoff_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_llm_pilot_scoring_en_es_latest.json",
+        "docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout_validation_latest.json",
+        "docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase_validation_latest.json"
       ]
     },
     {
