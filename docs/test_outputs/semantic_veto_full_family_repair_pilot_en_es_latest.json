@@ -1,0 +1,163 @@
+{
+  "decision": "full_family_repaired_pilot_ready_for_user_review",
+  "deferred_families": [
+    {
+      "deferred_reason": "source_target_mapping_audit_required",
+      "family_id": "en-es:full-family-representative:bar:cercar",
+      "notes": "The draft active sense was an alcohol bar; cercar needs separate dictionary-source confirmation before repair.",
+      "source": "bar",
+      "target": "cercar"
+    },
+    {
+      "deferred_reason": "source_target_mapping_audit_required",
+      "family_id": "en-es:full-family-representative:offset:distancia",
+      "notes": "The draft active sense was onset/outset; distancia needs a technical offset/distance mapping audit before repair.",
+      "source": "offset",
+      "target": "distancia"
+    },
+    {
+      "deferred_reason": "source_target_mapping_audit_required",
+      "family_id": "en-es:full-family-representative:demand:deduccion",
+      "notes": "The draft active sense was demand/request, which does not match deducción without unexpected source evidence.",
+      "source": "demand",
+      "target": "deducción"
+    }
+  ],
+  "e2e_checks": {
+    "all_cases_have_standalone_source_token": true,
+    "all_rows_pending_user_review": true,
+    "has_active_shadow_and_no_winner_cases": true,
+    "has_repaired_families": true,
+    "no_definition_fallback_templates": true,
+    "no_placeholder_shadow_targets": true,
+    "no_trusted_rows_claimed": true
+  },
+  "family_rows": [
+    {
+      "case_count": 5,
+      "family_id": "en-es:full-family-repaired-pilot:break:quebrar",
+      "phrase_no_winner_count": 1,
+      "positive_count": 2,
+      "repair_status": "active_sense_corrected",
+      "shadow_count": 2,
+      "shadow_negative_count": 2,
+      "source": "break",
+      "target": "quebrar"
+    },
+    {
+      "case_count": 5,
+      "family_id": "en-es:full-family-repaired-pilot:bridle:reprimir",
+      "phrase_no_winner_count": 1,
+      "positive_count": 2,
+      "repair_status": "active_sense_corrected",
+      "shadow_count": 2,
+      "shadow_negative_count": 2,
+      "source": "bridle",
+      "target": "reprimir"
+    },
+    {
+      "case_count": 3,
+      "family_id": "en-es:full-family-repaired-pilot:december:diciembre",
+      "phrase_no_winner_count": 1,
+      "positive_count": 2,
+      "repair_status": "aligned_mapping_contexts_rewritten",
+      "shadow_count": 0,
+      "shadow_negative_count": 0,
+      "source": "december",
+      "target": "diciembre"
+    },
+    {
+      "case_count": 3,
+      "family_id": "en-es:full-family-repaired-pilot:emotion:emoci-n",
+      "phrase_no_winner_count": 1,
+      "positive_count": 2,
+      "repair_status": "aligned_mapping_contexts_rewritten",
+      "shadow_count": 0,
+      "shadow_negative_count": 0,
+      "source": "emotion",
+      "target": "emoción"
+    },
+    {
+      "case_count": 3,
+      "family_id": "en-es:full-family-repaired-pilot:dentist:dentista",
+      "phrase_no_winner_count": 1,
+      "positive_count": 2,
+      "repair_status": "aligned_mapping_contexts_rewritten",
+      "shadow_count": 0,
+      "shadow_negative_count": 0,
+      "source": "dentist",
+      "target": "dentista"
+    },
+    {
+      "case_count": 3,
+      "family_id": "en-es:full-family-repaired-pilot:bouillon:caldo",
+      "phrase_no_winner_count": 1,
+      "positive_count": 2,
+      "repair_status": "aligned_mapping_contexts_rewritten",
+      "shadow_count": 0,
+      "shadow_negative_count": 0,
+      "source": "bouillon",
+      "target": "caldo"
+    },
+    {
+      "case_count": 5,
+      "family_id": "en-es:full-family-repaired-pilot:control:gobernar",
+      "phrase_no_winner_count": 1,
+      "positive_count": 2,
+      "repair_status": "active_sense_corrected",
+      "shadow_count": 2,
+      "shadow_negative_count": 2,
+      "source": "control",
+      "target": "gobernar"
+    }
+  ],
+  "generated_at": "2026-05-06T21:59:45Z",
+  "inputs": {
+    "review_artifact_id": "semantic_veto_full_family_agent_manual_review_en_es_v1",
+    "review_authority": "codex_agent_recommendation_not_user_approval",
+    "review_path": "docs/test_outputs/semantic_veto_full_family_agent_manual_review_en_es_latest.json"
+  },
+  "methodology": {
+    "repair_policy": "Keep only aligned or salvageable pilot families; correct active senses where salvageable; defer questionable source-target mappings; use real Spanish shadow targets; use standalone source tokens; replace definition fallbacks with independent contexts.",
+    "row_authority": "agent_repaired_user_review_pending",
+    "runtime_policy_change": "none",
+    "score_promotion": "none",
+    "trusted_row_rule": "Rows remain untrusted until the user reviews the repaired packet or a separate locked-eval artifact is created from it."
+  },
+  "next_steps": [
+    "User reviews the repaired packet before any row is counted as trusted.",
+    "Run sentence-veto scoring as a diagnostic comparison against the unrepaired pilot.",
+    "Audit deferred mappings before spending LLM generation or manual rewrite effort on them.",
+    "If approved, split the repaired packet into discovery and locked-eval lanes before scorer tuning."
+  ],
+  "outputs": {
+    "dataset_id": "en_es_full_family_repaired_pilot_v1",
+    "dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_full_family_repaired_pilot_v1.json"
+  },
+  "pair": "en-es",
+  "schema_version": 1,
+  "status": "ok",
+  "summary": {
+    "case_type_counts": {
+      "phrase_no_winner": 7,
+      "positive_active": 14,
+      "shadow_negative": 6
+    },
+    "deferred_family_count": 3,
+    "family_repair_status_counts": {
+      "active_sense_corrected": 3,
+      "aligned_mapping_contexts_rewritten": 4
+    },
+    "manual_review_state": "agent_repaired_user_review_pending",
+    "repaired_case_count": 27,
+    "repaired_family_count": 7,
+    "source_band_case_counts": {
+      "zipf_3_to_4_mid": 3,
+      "zipf_4_to_5_common": 3,
+      "zipf_5_plus_very_common": 13,
+      "zipf_below_3_rare": 8
+    },
+    "trusted_case_count": 0,
+    "trusted_family_count": 0
+  }
+}

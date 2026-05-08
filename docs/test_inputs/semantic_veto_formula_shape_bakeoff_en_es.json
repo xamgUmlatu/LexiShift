@@ -1,0 +1,198 @@
+{
+  "schema_version": 1,
+  "manifest_id": "semantic_veto_formula_shape_bakeoff_en_es_v1",
+  "description": "No-spend diagnostic bakeoff for mathematically distinct heuristic formula shapes that rank semantic-veto cells by observed difficulty and by expected manual/LLM data-help value. Runtime policy remains unchanged.",
+  "inputs": {
+    "difficulty_surface_json": "docs/test_outputs/semantic_veto_heuristic_difficulty_surface_en_es_latest.json",
+    "product_quality_policy_json": "docs/test_inputs/semantic_veto_product_quality_policy_en_es.json"
+  },
+  "cell_grouping": [
+    "scorer_id",
+    "selection_mode",
+    "heuristic_group",
+    "manual_case_type",
+    "shadow_contract",
+    "source_rank_bin",
+    "polysemy_band"
+  ],
+  "primary_validation": {
+    "selection_mode": "pre_outcome",
+    "sentinel_policy": "exclude_from_primary_validation",
+    "missing_rank_policy": "rank_risk_zero_plus_missing_indicator"
+  },
+  "internal_split": {
+    "method": "stable_hash_cell_id",
+    "modulo": 4,
+    "locked_eval_remainders": [
+      0
+    ],
+    "interpretation": "Advisory only. This is not a substitute for future locked heldout data."
+  },
+  "formula_rows": [
+    {
+      "formula_id": "linear_baseline",
+      "formula_class": "linear_weighted_sum",
+      "description": "Frequency/polysemy/case-shape control using normalized additive weights."
+    },
+    {
+      "formula_id": "normalized_dot_signal",
+      "formula_class": "normalized_dot_product",
+      "description": "Cosine-style feature-vector agreement between observed cell features and a hand-specified risk direction."
+    },
+    {
+      "formula_id": "multiplicative_interaction",
+      "formula_class": "interaction_model",
+      "description": "Additive baseline plus rank-by-polysemy and failure-class interactions."
+    },
+    {
+      "formula_id": "probabilistic_product",
+      "formula_class": "probabilistic_noisy_or",
+      "description": "Noisy-or composition where multiple moderate risks can compound."
+    },
+    {
+      "formula_id": "max_risk",
+      "formula_class": "max_operator",
+      "description": "Risk is dominated by the strongest individual warning signal."
+    },
+    {
+      "formula_id": "gated_by_failure_class",
+      "formula_class": "gated_formula",
+      "description": "Uses separate positive-active, shadow-negative, and phrase/no-winner formulas."
+    },
+    {
+      "formula_id": "logistic_signal",
+      "formula_class": "logistic_link",
+      "description": "Sigmoid transform over normalized feature evidence."
+    },
+    {
+      "formula_id": "monotone_rule_table",
+      "formula_class": "monotone_rule_table",
+      "description": "Small monotone rule table that prioritizes phrase/near-tie/coverage cells without fitting thresholds to outcomes."
+    },
+    {
+      "formula_id": "rank_aggregation",
+      "formula_class": "rank_aggregation",
+      "description": "Robust median-rank aggregation over the non-control formula shapes."
+    }
+  ],
+  "negative_controls": [
+    {
+      "control_id": "random_seeded",
+      "description": "Deterministic random score from cell_id hash. It should not be trusted even if the small draft lane happens to rank well."
+    },
+    {
+      "control_id": "target_lemma_length",
+      "description": "Target-lemma length only. Useful for exposing accidental lexical leakage."
+    },
+    {
+      "control_id": "source_rank_only",
+      "description": "Rank feature only, with missing rank preserved as an explicit missingness indicator."
+    },
+    {
+      "control_id": "shuffled_observed_order",
+      "description": "Validation-only control that rotates observed difficulties inside each comparison scope."
+    }
+  ],
+  "parameter_sweeps": [
+    {
+      "sweep_id": "linear_simplex_weight_sweep",
+      "formula_class": "linear_weighted_sum",
+      "description": "Continuously slides additive feature weights on the normalized simplex. Selection uses discovery primary cells only; sentinel cells are excluded.",
+      "sample_count": 192,
+      "seed": "linear_simplex_weight_sweep_v1",
+      "composition": "linear",
+      "selection_scope": "primary_discovery_all_scorers",
+      "selection_metric_order": [
+        "spearman_rank_correlation",
+        "top_k_lift",
+        "negative_brier_score"
+      ],
+      "features": [
+        "rank_risk",
+        "rank_missing_rate",
+        "sense_risk",
+        "pos_risk",
+        "case_type_prior",
+        "shadow_contract_risk",
+        "near_tie_rate",
+        "active_low_rate",
+        "phrase_surface_pattern_rate",
+        "coverage_gap",
+        "fixability",
+        "underfilled_rate"
+      ]
+    },
+    {
+      "sweep_id": "gated_phrase_shadow_positive_weight_sweep",
+      "formula_class": "gated_linear_weighted_sum",
+      "description": "Slides weights for the existing gated formula family, with separate sampled weights by positive, shadow, and phrase/no-winner cells.",
+      "sample_count": 160,
+      "seed": "gated_phrase_shadow_positive_weight_sweep_v1",
+      "composition": "gated_linear",
+      "selection_scope": "primary_discovery_all_scorers",
+      "selection_metric_order": [
+        "spearman_rank_correlation",
+        "top_k_lift",
+        "negative_brier_score"
+      ],
+      "gate_features": {
+        "positive_active": [
+          "near_tie_rate",
+          "active_low_rate",
+          "coverage_gap",
+          "sense_risk",
+          "rank_risk",
+          "rank_missing_rate",
+          "underfilled_rate"
+        ],
+        "shadow_negative": [
+          "shadow_contract_risk",
+          "sense_risk",
+          "near_tie_rate",
+          "active_low_rate",
+          "rank_risk",
+          "coverage_gap",
+          "underfilled_rate"
+        ],
+        "phrase_no_winner": [
+          "phrase_surface_pattern_rate",
+          "near_tie_rate",
+          "active_low_rate",
+          "coverage_gap",
+          "rank_risk",
+          "rank_missing_rate",
+          "underfilled_rate"
+        ]
+      }
+    }
+  ],
+  "data_help_priority": {
+    "top_k": 8,
+    "underfilled_target_rows": 8,
+    "formula": "exposure_weight * product_impact_weight * uncertainty_weight * predicted_failure_risk * fixability_weight * coverage_gap_weight",
+    "manual_rows_by_priority": {
+      "P0": 4,
+      "P1": 3,
+      "P2": 2
+    },
+    "llm_rows_by_priority": {
+      "P0": 16,
+      "P1": 10,
+      "P2": 6
+    },
+    "locked_eval_rows_by_priority": {
+      "P0": 8,
+      "P1": 5,
+      "P2": 3
+    }
+  },
+  "validation_metrics": [
+    "spearman_rank_correlation",
+    "kendall_tau",
+    "brier_score",
+    "top_k_lift",
+    "priority_top_k_lift",
+    "calibration_buckets",
+    "discovery_vs_internal_locked_eval"
+  ]
+}

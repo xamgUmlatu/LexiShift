@@ -1,0 +1,529 @@
+{
+  "description": "Frozen full-family agent review rows for en-es semantic-veto repair-pool planning.",
+  "family_reviews": [
+    {
+      "active_sense_status": "corrected_active_sense_required",
+      "corrected_active_gloss": "become separated into pieces or crack under force",
+      "family_disposition": "salvage_with_corrected_active_sense",
+      "notes": "Draft active sense is interruption; target requires fracture/breaking.",
+      "scoring_action": "repair_pool",
+      "target": "quebrar",
+      "trigger": "break"
+    },
+    {
+      "active_sense_status": "corrected_active_sense_required",
+      "corrected_active_gloss": "block, bar, fence in, or prevent passage with a barrier",
+      "family_disposition": "salvage_with_corrected_active_sense",
+      "notes": "Alcohol-bar row is wrong; only a barrier/enclosure verb sense is salvageable.",
+      "scoring_action": "repair_pool",
+      "target": "cercar",
+      "trigger": "bar"
+    },
+    {
+      "active_sense_status": "corrected_active_sense_required",
+      "corrected_active_gloss": "a measured displacement or distance from a reference point",
+      "family_disposition": "salvage_with_corrected_active_sense",
+      "notes": "Draft onset/outset sense is wrong; spatial or technical offset is the usable lane.",
+      "scoring_action": "repair_pool",
+      "target": "distancia",
+      "trigger": "offset"
+    },
+    {
+      "active_sense_status": "corrected_active_sense_required",
+      "corrected_active_gloss": "restrain, repress, or hold back an action or reaction",
+      "family_disposition": "salvage_with_corrected_active_sense",
+      "notes": "Horse-headgear active evidence is wrong; restrain/repress sense is salvageable.",
+      "scoring_action": "repair_pool",
+      "target": "reprimir",
+      "trigger": "bridle"
+    },
+    {
+      "active_sense_status": "aligned",
+      "corrected_active_gloss": "the twelfth month of the year",
+      "family_disposition": "aligned_mapping_rewrite_contexts",
+      "notes": "Mapping is straightforward; draft positive row is definition-circular.",
+      "scoring_action": "repair_pool",
+      "target": "diciembre",
+      "trigger": "december"
+    },
+    {
+      "active_sense_status": "aligned",
+      "corrected_active_gloss": "a strong feeling or affective state",
+      "family_disposition": "aligned_mapping_rewrite_contexts",
+      "notes": "Mapping is aligned; draft positive row needs independent context.",
+      "scoring_action": "repair_pool",
+      "target": "emoción",
+      "trigger": "emotion"
+    },
+    {
+      "active_sense_status": "aligned",
+      "corrected_active_gloss": "a person qualified to practice dentistry",
+      "family_disposition": "aligned_mapping_rewrite_contexts",
+      "notes": "Mapping is aligned; draft positive row needs independent context.",
+      "scoring_action": "repair_pool",
+      "target": "dentista",
+      "trigger": "dentist"
+    },
+    {
+      "active_sense_status": "aligned",
+      "corrected_active_gloss": "a clear seasoned broth",
+      "family_disposition": "aligned_mapping_rewrite_contexts",
+      "notes": "Mapping is aligned; draft positive row needs independent context.",
+      "scoring_action": "repair_pool",
+      "target": "caldo",
+      "trigger": "bouillon"
+    },
+    {
+      "active_sense_status": "corrected_active_sense_required",
+      "corrected_active_gloss": "exercise authority over a place, organization, or group",
+      "family_disposition": "salvage_with_corrected_active_sense",
+      "notes": "Noun control/power row is not enough; governing-authority verb sense is salvageable.",
+      "scoring_action": "repair_pool",
+      "target": "gobernar",
+      "trigger": "control"
+    },
+    {
+      "active_sense_status": "source_target_mapping_rejected",
+      "corrected_active_gloss": "",
+      "family_disposition": "source_target_mapping_rejected",
+      "notes": "Demand/request/economic demand does not match deducción.",
+      "scoring_action": "exclude_from_trusted_eval",
+      "target": "deducción",
+      "trigger": "demand"
+    },
+    {
+      "active_sense_status": "aligned",
+      "corrected_active_gloss": "a compartment in a stable where an animal is kept",
+      "family_disposition": "aligned_mapping_rewrite_contexts",
+      "notes": "Stable-stall sense is usable; draft rows still need independent contexts and real shadows.",
+      "scoring_action": "repair_pool",
+      "target": "cuadra",
+      "trigger": "stall"
+    },
+    {
+      "active_sense_status": "aligned",
+      "corrected_active_gloss": "Romanian as a nationality, language, or country adjective",
+      "family_disposition": "aligned_mapping_shadow_rows_not_competitors",
+      "notes": "Target can cover adjective, person, and language; draft POS shadows are not true competitors.",
+      "scoring_action": "repair_pool",
+      "target": "rumano",
+      "trigger": "rumanian"
+    },
+    {
+      "active_sense_status": "aligned",
+      "corrected_active_gloss": "the month following May and preceding July",
+      "family_disposition": "aligned_mapping_rewrite_contexts",
+      "notes": "Mapping is straightforward; filename no-winner should be rewritten or trigger-checked.",
+      "scoring_action": "repair_pool",
+      "target": "junio",
+      "trigger": "june"
+    },
+    {
+      "active_sense_status": "aligned",
+      "corrected_active_gloss": "a tavern or public house serving drinks and often light meals",
+      "family_disposition": "aligned_mapping_rewrite_contexts",
+      "notes": "Mapping is aligned; draft positive row needs independent context.",
+      "scoring_action": "repair_pool",
+      "target": "taberna",
+      "trigger": "pub"
+    },
+    {
+      "active_sense_status": "aligned",
+      "corrected_active_gloss": "a person whose job is selling goods or services",
+      "family_disposition": "aligned_mapping_rewrite_contexts",
+      "notes": "Mapping is aligned despite gender/generalization looseness.",
+      "scoring_action": "repair_pool",
+      "target": "vendedor",
+      "trigger": "salesman"
+    },
+    {
+      "active_sense_status": "aligned",
+      "corrected_active_gloss": "work or craft produced by hand",
+      "family_disposition": "aligned_mapping_rewrite_contexts",
+      "notes": "Mapping is aligned; draft positive row needs independent context.",
+      "scoring_action": "repair_pool",
+      "target": "artesanía",
+      "trigger": "handiwork"
+    },
+    {
+      "active_sense_status": "corrected_active_sense_required",
+      "corrected_active_gloss": "last or continue for a period of time",
+      "family_disposition": "salvage_with_corrected_active_sense",
+      "notes": "Draft continue-working sense is too close to seguir; durar needs duration/lasting contexts.",
+      "scoring_action": "repair_pool",
+      "target": "durar",
+      "trigger": "continue"
+    },
+    {
+      "active_sense_status": "aligned",
+      "corrected_active_gloss": "start or come into being",
+      "family_disposition": "aligned_mapping_shadow_rows_not_competitors",
+      "notes": "Mapping is aligned, but several draft shadows also allow comenzar and are not true negatives.",
+      "scoring_action": "repair_pool",
+      "target": "comenzar",
+      "trigger": "begin"
+    },
+    {
+      "active_sense_status": "aligned",
+      "corrected_active_gloss": "elegant and stylish",
+      "family_disposition": "aligned_mapping_rewrite_contexts",
+      "notes": "Adjective target is aligned; noun chic/elegance can be a real contrast.",
+      "scoring_action": "repair_pool",
+      "target": "elegante",
+      "trigger": "chic"
+    },
+    {
+      "active_sense_status": "aligned",
+      "corrected_active_gloss": "a large sea wave or swell",
+      "family_disposition": "aligned_mapping_rewrite_contexts",
+      "notes": "Noun wave sense is aligned; verb billow rows need real Spanish competitor targets.",
+      "scoring_action": "repair_pool",
+      "target": "oleaje",
+      "trigger": "billow"
+    },
+    {
+      "active_sense_status": "aligned",
+      "corrected_active_gloss": "in the midst of or included within a group",
+      "family_disposition": "aligned_mapping_rewrite_contexts",
+      "notes": "Mapping is aligned but lacks WordNet-backed sense evidence in the draft packet.",
+      "scoring_action": "repair_pool",
+      "target": "entre",
+      "trigger": "among"
+    },
+    {
+      "active_sense_status": "corrected_active_sense_required",
+      "corrected_active_gloss": "recover from illness, injury, or shock; heal",
+      "family_disposition": "salvage_with_corrected_active_sense",
+      "notes": "Draft regain/find-back sense is wrong for sanar.",
+      "scoring_action": "repair_pool",
+      "target": "sanar",
+      "trigger": "recover"
+    },
+    {
+      "active_sense_status": "aligned",
+      "corrected_active_gloss": "next to or sharing a boundary with something",
+      "family_disposition": "aligned_mapping_rewrite_contexts",
+      "notes": "Mapping is aligned; draft evidence is placeholder-only.",
+      "scoring_action": "repair_pool",
+      "target": "contiguo",
+      "trigger": "adjoining"
+    },
+    {
+      "active_sense_status": "aligned",
+      "corrected_active_gloss": "Argentine as a nationality or country adjective",
+      "family_disposition": "aligned_mapping_shadow_rows_not_competitors",
+      "notes": "Mapping is aligned; noun/adjective contrasts usually share the same Spanish target.",
+      "scoring_action": "repair_pool",
+      "target": "argentino",
+      "trigger": "argentinean"
+    },
+    {
+      "active_sense_status": "aligned",
+      "corrected_active_gloss": "heart as emotional center or physical organ",
+      "family_disposition": "aligned_mapping_shadow_rows_not_competitors",
+      "notes": "Most major senses still allow corazón, so draft shadows are weak competitors.",
+      "scoring_action": "repair_pool",
+      "target": "corazón",
+      "trigger": "heart"
+    },
+    {
+      "active_sense_status": "source_target_mapping_rejected",
+      "corrected_active_gloss": "",
+      "family_disposition": "source_target_mapping_rejected",
+      "notes": "Grow does not naturally map to acontecer, which means happen/occur.",
+      "scoring_action": "exclude_from_trusted_eval",
+      "target": "acontecer",
+      "trigger": "grow"
+    },
+    {
+      "active_sense_status": "corrected_active_sense_required",
+      "corrected_active_gloss": "mention or refer to a source, person, or fact",
+      "family_disposition": "salvage_with_corrected_active_sense",
+      "notes": "Draft noun citation sense is wrong; verb mention/reference sense is salvageable.",
+      "scoring_action": "repair_pool",
+      "target": "mencionar",
+      "trigger": "cite"
+    },
+    {
+      "active_sense_status": "corrected_active_sense_required",
+      "corrected_active_gloss": "breathe noisily while sleeping",
+      "family_disposition": "salvage_with_corrected_active_sense",
+      "notes": "Target is verb roncar; draft noun snore/ronquido sense must be corrected.",
+      "scoring_action": "repair_pool",
+      "target": "roncar",
+      "trigger": "snore"
+    },
+    {
+      "active_sense_status": "aligned",
+      "corrected_active_gloss": "on, onto, or regarding, depending on context",
+      "family_disposition": "aligned_mapping_rewrite_contexts",
+      "notes": "Mapping is broad but usable; draft lacks real sense evidence.",
+      "scoring_action": "repair_pool",
+      "target": "sobre",
+      "trigger": "upon"
+    },
+    {
+      "active_sense_status": "aligned",
+      "corrected_active_gloss": "neighboring or adjacent",
+      "family_disposition": "aligned_mapping_rewrite_contexts",
+      "notes": "Mapping is usable for neighboring/adjoining; distinguish from contiguo duplicate lane later.",
+      "scoring_action": "repair_pool",
+      "target": "vecino",
+      "trigger": "adjoining"
+    },
+    {
+      "active_sense_status": "source_form_artifact_rejected",
+      "corrected_active_gloss": "",
+      "family_disposition": "source_form_artifact_rejected",
+      "notes": "Unspaced trigger turnon is not a normal browser-facing source token for this target.",
+      "scoring_action": "exclude_from_trusted_eval",
+      "target": "poner",
+      "trigger": "turnon"
+    },
+    {
+      "active_sense_status": "aligned",
+      "corrected_active_gloss": "belonging to the present time; contemporary",
+      "family_disposition": "aligned_mapping_rewrite_contexts",
+      "notes": "Adjective current sense is aligned; electrical/water-current shadows are real competitors.",
+      "scoring_action": "repair_pool",
+      "target": "contemporáneo",
+      "trigger": "current"
+    },
+    {
+      "active_sense_status": "source_target_mapping_rejected",
+      "corrected_active_gloss": "",
+      "family_disposition": "source_target_mapping_rejected",
+      "notes": "Draft caducous, outbuilding, and remove senses do not justify puesto as a trusted target.",
+      "scoring_action": "exclude_from_trusted_eval",
+      "target": "puesto",
+      "trigger": "shed"
+    },
+    {
+      "active_sense_status": "aligned",
+      "corrected_active_gloss": "a parrot bird",
+      "family_disposition": "aligned_mapping_rewrite_contexts",
+      "notes": "Bird sense is aligned; repeat/copycat shadows are real competitors after target repair.",
+      "scoring_action": "repair_pool",
+      "target": "loro",
+      "trigger": "parrot"
+    },
+    {
+      "active_sense_status": "questionable_mapping_rejected",
+      "corrected_active_gloss": "",
+      "family_disposition": "questionable_mapping_rejected",
+      "notes": "Aberration as deviation/disorder/optical flaw is not reliably equivocación.",
+      "scoring_action": "exclude_from_trusted_eval",
+      "target": "equivocación",
+      "trigger": "aberration"
+    },
+    {
+      "active_sense_status": "aligned",
+      "corrected_active_gloss": "American as a nationality or regional adjective",
+      "family_disposition": "aligned_mapping_shadow_rows_not_competitors",
+      "notes": "The Spanish target covers several noun/adjective senses; draft shadows are not clean negatives.",
+      "scoring_action": "repair_pool",
+      "target": "americano",
+      "trigger": "american"
+    },
+    {
+      "active_sense_status": "aligned",
+      "corrected_active_gloss": "German as nationality, language, or country adjective",
+      "family_disposition": "aligned_mapping_shadow_rows_not_competitors",
+      "notes": "Person/language/adjective distinctions usually share alemán, so draft shadows are weak.",
+      "scoring_action": "repair_pool",
+      "target": "alemán",
+      "trigger": "german"
+    },
+    {
+      "active_sense_status": "aligned",
+      "corrected_active_gloss": "a refund, reduction, or discount on an amount paid",
+      "family_disposition": "aligned_mapping_rewrite_contexts",
+      "notes": "Price-reduction sense is aligned; woodworking-groove shadows are useful competitors.",
+      "scoring_action": "repair_pool",
+      "target": "descuento",
+      "trigger": "rebate"
+    },
+    {
+      "active_sense_status": "corrected_active_sense_required",
+      "corrected_active_gloss": "a small viper snake",
+      "family_disposition": "salvage_with_corrected_active_sense",
+      "notes": "Draft arithmetic-person active sense is wrong; viper sense is salvageable.",
+      "scoring_action": "repair_pool",
+      "target": "víbora",
+      "trigger": "adder"
+    },
+    {
+      "active_sense_status": "aligned",
+      "corrected_active_gloss": "the day after today, the next day, or the near future",
+      "family_disposition": "aligned_mapping_shadow_rows_not_competitors",
+      "notes": "Noun/adverb/future senses mostly map to mañana, so draft shadows are not true negatives.",
+      "scoring_action": "repair_pool",
+      "target": "mañana",
+      "trigger": "tomorrow"
+    },
+    {
+      "active_sense_status": "aligned",
+      "corrected_active_gloss": "a pair or set of two things",
+      "family_disposition": "aligned_mapping_shadow_rows_not_competitors",
+      "notes": "Noun pair senses map to par; verb shadows need different competitors or should be dropped.",
+      "scoring_action": "repair_pool",
+      "target": "par",
+      "trigger": "pair"
+    },
+    {
+      "active_sense_status": "corrected_active_sense_required",
+      "corrected_active_gloss": "continue to exist or last over time",
+      "family_disposition": "salvage_with_corrected_active_sense",
+      "notes": "Draft tolerate/suffer sense is not durar; lasting/perdure sense is salvageable.",
+      "scoring_action": "repair_pool",
+      "target": "durar",
+      "trigger": "endure"
+    },
+    {
+      "active_sense_status": "aligned",
+      "corrected_active_gloss": "Russian as nationality, language, or country adjective",
+      "family_disposition": "aligned_mapping_shadow_rows_not_competitors",
+      "notes": "Person/language/adjective distinctions usually share ruso.",
+      "scoring_action": "repair_pool",
+      "target": "ruso",
+      "trigger": "russian"
+    },
+    {
+      "active_sense_status": "corrected_active_sense_required",
+      "corrected_active_gloss": "smile as a verb, changing one's facial expression",
+      "family_disposition": "salvage_with_corrected_active_sense",
+      "notes": "Draft noun smile is sonrisa; target sonreír requires verb contexts.",
+      "scoring_action": "repair_pool",
+      "target": "sonreír",
+      "trigger": "smile"
+    },
+    {
+      "active_sense_status": "corrected_active_sense_required",
+      "corrected_active_gloss": "exercise governing authority over a country, place, or organization",
+      "family_disposition": "salvage_with_corrected_active_sense",
+      "notes": "Regulate/conformity sense is too broad; authority sense should be active.",
+      "scoring_action": "repair_pool",
+      "target": "gobernar",
+      "trigger": "govern"
+    },
+    {
+      "active_sense_status": "aligned",
+      "corrected_active_gloss": "a male sibling, fellow member, or fraternal address",
+      "family_disposition": "aligned_mapping_shadow_rows_not_competitors",
+      "notes": "Most draft alternate senses still allow hermano, so shadows are not clean competitors.",
+      "scoring_action": "repair_pool",
+      "target": "hermano",
+      "trigger": "brother"
+    },
+    {
+      "active_sense_status": "aligned",
+      "corrected_active_gloss": "acceptable or reasonable in degree or quality",
+      "family_disposition": "aligned_mapping_shadow_rows_not_competitors",
+      "notes": "Mapping is broad but usable; several draft shadows may still be reasonable/acceptable.",
+      "scoring_action": "repair_pool",
+      "target": "razonable",
+      "trigger": "acceptable"
+    },
+    {
+      "active_sense_status": "aligned",
+      "corrected_active_gloss": "height or elevation above a reference level",
+      "family_disposition": "aligned_mapping_shadow_rows_not_competitors",
+      "notes": "Mapping is aligned; geometric/angular altitude can also be elevation-like.",
+      "scoring_action": "repair_pool",
+      "target": "elevación",
+      "trigger": "altitude"
+    },
+    {
+      "active_sense_status": "aligned",
+      "corrected_active_gloss": "health as wellbeing or bodily/mental condition",
+      "family_disposition": "aligned_mapping_shadow_rows_not_competitors",
+      "notes": "Both WordNet senses map to salud, so draft shadow is not a competitor.",
+      "scoring_action": "repair_pool",
+      "target": "salud",
+      "trigger": "health"
+    },
+    {
+      "active_sense_status": "source_target_mapping_rejected",
+      "corrected_active_gloss": "",
+      "family_disposition": "source_target_mapping_rejected",
+      "notes": "Sale/selling/discount event does not reliably map to deducción.",
+      "scoring_action": "exclude_from_trusted_eval",
+      "target": "deducción",
+      "trigger": "sale"
+    },
+    {
+      "active_sense_status": "aligned",
+      "corrected_active_gloss": "a lack, deficit, or insufficient amount",
+      "family_disposition": "aligned_mapping_shadow_rows_not_competitors",
+      "notes": "Both draft senses map to falta, so shadow contrast is weak.",
+      "scoring_action": "repair_pool",
+      "target": "falta",
+      "trigger": "shortage"
+    },
+    {
+      "active_sense_status": "corrected_active_sense_required",
+      "corrected_active_gloss": "except/excluding as a preposition or conjunction",
+      "family_disposition": "salvage_with_corrected_active_sense",
+      "notes": "WordNet verb object-to sense is wrong; common browser preposition sense is salvageable.",
+      "scoring_action": "repair_pool",
+      "target": "excepto",
+      "trigger": "except"
+    },
+    {
+      "active_sense_status": "aligned",
+      "corrected_active_gloss": "completely, wholly, or entirely",
+      "family_disposition": "aligned_mapping_shadow_rows_not_competitors",
+      "notes": "Both draft adverb senses can map to enteramente; shadows are weak competitors.",
+      "scoring_action": "repair_pool",
+      "target": "enteramente",
+      "trigger": "entirely"
+    },
+    {
+      "active_sense_status": "corrected_active_sense_required",
+      "corrected_active_gloss": "a local district, territory, or comarca-like region",
+      "family_disposition": "salvage_with_corrected_active_sense",
+      "notes": "Generic region is too broad; local/district region sense is the usable target lane.",
+      "scoring_action": "repair_pool",
+      "target": "comarca",
+      "trigger": "region"
+    },
+    {
+      "active_sense_status": "aligned",
+      "corrected_active_gloss": "owe, be obliged to pay, or be indebted",
+      "family_disposition": "aligned_mapping_shadow_rows_not_competitors",
+      "notes": "Monetary and abstract owe senses both map to deber, so shadows are not clean competitors.",
+      "scoring_action": "repair_pool",
+      "target": "deber",
+      "trigger": "owe"
+    },
+    {
+      "active_sense_status": "source_target_mapping_rejected",
+      "corrected_active_gloss": "",
+      "family_disposition": "source_target_mapping_rejected",
+      "notes": "Conversance means familiarity/knowledge, not notoriety/fame.",
+      "scoring_action": "exclude_from_trusted_eval",
+      "target": "notoriedad",
+      "trigger": "conversance"
+    },
+    {
+      "active_sense_status": "source_form_artifact_rejected",
+      "corrected_active_gloss": "",
+      "family_disposition": "source_form_artifact_rejected",
+      "notes": "Unspaced source form is an artifact; use journalist/female journalist only in a separate source-form lane.",
+      "scoring_action": "exclude_from_trusted_eval",
+      "target": "periodista",
+      "trigger": "femalejournalist"
+    },
+    {
+      "active_sense_status": "source_form_artifact_rejected",
+      "corrected_active_gloss": "",
+      "family_disposition": "source_form_artifact_rejected",
+      "notes": "Unspaced source form is an artifact, even though mosaic work can map to mosaico.",
+      "scoring_action": "exclude_from_trusted_eval",
+      "target": "mosaico",
+      "trigger": "mosaicwork"
+    }
+  ],
+  "review_authority": "codex_agent_review_user_approval_required",
+  "schema_version": 1
+}

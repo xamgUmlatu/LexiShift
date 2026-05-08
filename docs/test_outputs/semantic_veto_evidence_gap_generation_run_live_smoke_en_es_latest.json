@@ -1,0 +1,126 @@
+{
+  "admission_preview": {
+    "admitted_item_count": 5,
+    "coverage_shortfall_count": 0,
+    "decision": "generated_items_admitted_for_pilot_rescoring",
+    "rejected_item_count": 0,
+    "status": "ok"
+  },
+  "artifacts": {
+    "generated_responses_json": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-live-smoke-20260508-005_generated_responses.json",
+    "journal_jsonl": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-live-smoke-20260508-005_journal.jsonl",
+    "raw_response_bundle_json": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-live-smoke-20260508-005_raw_responses.json"
+  },
+  "batch_id": "en-es:semantic-veto-evidence-gap-generation:semantic-veto-evidence-gap-live-smoke-20260508-005",
+  "execution_mode": "live",
+  "generated_at": "2026-05-08T01:35:47Z",
+  "pair": "en-es",
+  "pilot_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1",
+  "prompt_id": "semantic_veto_evidence_gap_generation_v4",
+  "replay_source": "",
+  "request_rows": [
+    {
+      "family_id": "en-es:full-family-repaired-full:adjoining:vecino",
+      "first_sentence": "The cafe opened in the adjoining building, right next to the library.",
+      "item_count": 2,
+      "pilot_arm": "high_need",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-live-smoke-20260508-005_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_082e4b7a7d21b0be0169fd3df4c7b8819086ffb80c0fac61ba",
+      "slot_id": "en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 468,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 185,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 653
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:adjoining:vecino",
+      "first_sentence": "The report included an adjoining appendix with the raw data.",
+      "item_count": 2,
+      "pilot_arm": "high_need",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-live-smoke-20260508-005_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:shadow_or_competitor_evidence_probe",
+      "requested_items": 2,
+      "response_id": "resp_00813b909059985a0169fd3df668e08190adaf7cef59deb005",
+      "slot_id": "en-es:full-family-repaired-full:adjoining:vecino:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 662,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 324,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 986
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:adjoining:vecino",
+      "first_sentence": "Search results for adjoining apartments in the city center.",
+      "item_count": 1,
+      "pilot_arm": "high_need",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-live-smoke-20260508-005_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:no_winner_context_probe",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:no_winner_context_probe",
+      "requested_items": 1,
+      "response_id": "resp_036ca9db8cebaee90169fd3df8b77c819490bb2f3cb6fd218a",
+      "slot_id": "en-es:full-family-repaired-full:adjoining:vecino:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 591,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 188,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 779
+      }
+    }
+  ],
+  "schema_version": 1,
+  "selected_model_id": "gpt-5.4-mini",
+  "selected_temperature": 0.2,
+  "status": "ok",
+  "summary": {
+    "accepted_generated_item_count": 5,
+    "accepted_items_by_slot_type": {
+      "active_evidence_expansion": 2,
+      "no_winner_context_probe": 1,
+      "shadow_or_competitor_evidence_probe": 2
+    },
+    "accepted_response_count": 3,
+    "accepted_responses_by_arm": {
+      "high_need": 3
+    },
+    "accepted_responses_by_slot_type": {
+      "active_evidence_expansion": 1,
+      "no_winner_context_probe": 1,
+      "shadow_or_competitor_evidence_probe": 1
+    },
+    "admission_status": "ok",
+    "admitted_item_count": 5,
+    "api_error_count": 0,
+    "coverage_shortfall_count": 0,
+    "input_tokens": 1721,
+    "invalid_output_count": 0,
+    "output_tokens": 697,
+    "reasoning_tokens": 0,
+    "rejected_item_count": 0,
+    "selected_request_count": 3
+  }
+}

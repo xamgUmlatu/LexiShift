@@ -1,0 +1,1650 @@
+{
+  "description": "Frozen authored trigger specs for the en-es semantic-veto heuristic-group research packet.",
+  "group_order": {
+    "core_high_polysemy": 0,
+    "core_low_polysemy_control": 1,
+    "measured_missing_rank_high_failure_sentinel": 6,
+    "mid_high_polysemy": 2,
+    "mid_low_polysemy_control": 3,
+    "tail_high_polysemy": 4,
+    "tail_low_polysemy_control": 5
+  },
+  "schema_version": 1,
+  "trigger_specs": {
+    "call": {
+      "canonical_pos": "noun",
+      "cases": [
+        {
+          "gold_type": "positive_active",
+          "reason": "phone contact",
+          "sentence": "I missed your call during the meeting.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "positive_active",
+          "reason": "phone contact",
+          "sentence": "The call lasted only five minutes.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "shadow_negative",
+          "reason": "official decision",
+          "sentence": "The referee made a close call near the goal.",
+          "winner": "judgment"
+        },
+        {
+          "gold_type": "shadow_negative",
+          "reason": "verb meaning name",
+          "sentence": "They call the dog Luna because of her white fur.",
+          "winner": "name"
+        },
+        {
+          "gold_type": "phrase_no_winner",
+          "reason": "phrasal verb",
+          "sentence": "They decided to call off the outdoor concert.",
+          "winner": "none"
+        }
+      ],
+      "examples": [
+        "phone call",
+        "missed call",
+        "take a call"
+      ],
+      "expected_veto_difficulty": "high",
+      "gloss_text": "an act of contacting someone by telephone",
+      "human_polysemy_gauge": "high",
+      "review_notes": "Very common noun/verb source with decision, naming, and phrasal uses.",
+      "sense_label": "telephone call",
+      "shadow_contract": "full",
+      "shadows": [
+        {
+          "canonical_pos": "noun",
+          "examples": [
+            "close call by the referee"
+          ],
+          "gloss_text": "a decision or judgment made by an official",
+          "key": "judgment",
+          "sense_label": "judgment or ruling",
+          "target_lemma": "decisión"
+        },
+        {
+          "canonical_pos": "verb",
+          "examples": [
+            "call the dog Luna"
+          ],
+          "gloss_text": "to give a name to someone or something",
+          "key": "name",
+          "sense_label": "name or address someone",
+          "target_lemma": "llamar"
+        }
+      ],
+      "target_lemma": "llamada",
+      "trigger": "call"
+    },
+    "check": {
+      "canonical_pos": "noun",
+      "cases": [
+        {
+          "gold_type": "positive_active",
+          "reason": "bank payment instrument",
+          "sentence": "He wrote a check for the deposit.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "positive_active",
+          "reason": "bank payment instrument",
+          "sentence": "The check cleared before Friday.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "shadow_negative",
+          "reason": "verb inspect",
+          "sentence": "Please check the form before sending it.",
+          "winner": "verify"
+        },
+        {
+          "gold_type": "shadow_negative",
+          "reason": "inspection noun",
+          "sentence": "The airport added a security check at the gate.",
+          "winner": "inspection"
+        },
+        {
+          "gold_type": "phrase_no_winner",
+          "reason": "phrasal verb",
+          "sentence": "They need to check in before noon.",
+          "winner": "none"
+        }
+      ],
+      "examples": [
+        "write a check",
+        "cash the check",
+        "the check cleared"
+      ],
+      "expected_veto_difficulty": "high",
+      "gloss_text": "a written order directing a bank to pay money",
+      "human_polysemy_gauge": "high",
+      "review_notes": "Outcome-informed sentinel; not used to validate the primary heuristic.",
+      "sense_label": "bank check",
+      "shadow_contract": "full",
+      "shadows": [
+        {
+          "canonical_pos": "verb",
+          "examples": [
+            "check the form"
+          ],
+          "gloss_text": "to examine something for correctness or safety",
+          "key": "verify",
+          "sense_label": "verify or inspect",
+          "target_lemma": "revisar"
+        },
+        {
+          "canonical_pos": "noun",
+          "examples": [
+            "security check"
+          ],
+          "gloss_text": "an examination or safety control",
+          "key": "inspection",
+          "sense_label": "inspection or control",
+          "target_lemma": "inspección"
+        }
+      ],
+      "target_lemma": "cheque",
+      "trigger": "check"
+    },
+    "crisis": {
+      "canonical_pos": "noun",
+      "cases": [
+        {
+          "gold_type": "positive_active",
+          "reason": "emergency",
+          "sentence": "The crisis forced the school to close.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "positive_active",
+          "reason": "emergency",
+          "sentence": "During the crisis, volunteers delivered food.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "phrase_no_winner",
+          "reason": "proper title",
+          "sentence": "Crisis Core was listed as the game title.",
+          "winner": "none"
+        }
+      ],
+      "examples": [
+        "financial crisis",
+        "during the crisis",
+        "crisis response"
+      ],
+      "expected_veto_difficulty": "low",
+      "gloss_text": "a time of intense difficulty, danger, or instability",
+      "human_polysemy_gauge": "low",
+      "review_notes": "Low-polysemy cognate control; title mentions are the main negative shape.",
+      "sense_label": "crisis",
+      "shadow_contract": "not_applicable",
+      "shadows": [],
+      "target_lemma": "crisis",
+      "trigger": "crisis"
+    },
+    "deep": {
+      "canonical_pos": "adjective",
+      "cases": [
+        {
+          "gold_type": "positive_active",
+          "reason": "physical depth",
+          "sentence": "The hikers crossed a deep valley.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "positive_active",
+          "reason": "physical depth",
+          "sentence": "The deep water looked almost black.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "shadow_negative",
+          "reason": "low-pitched sound",
+          "sentence": "His deep voice filled the room.",
+          "winner": "voice"
+        },
+        {
+          "gold_type": "shadow_negative",
+          "reason": "intense mental state",
+          "sentence": "She fell into deep concentration.",
+          "winner": "intense"
+        },
+        {
+          "gold_type": "phrase_no_winner",
+          "reason": "fixed adverbial phrase",
+          "sentence": "Deep down, he knew the answer.",
+          "winner": "none"
+        }
+      ],
+      "examples": [
+        "deep water",
+        "deep hole",
+        "deep valley"
+      ],
+      "expected_veto_difficulty": "medium_high",
+      "gloss_text": "extending far down, inward, or below the surface",
+      "human_polysemy_gauge": "high",
+      "review_notes": "Many adjective/adverb senses, but several Spanish targets overlap with profundo.",
+      "sense_label": "physically deep",
+      "shadow_contract": "full",
+      "shadows": [
+        {
+          "canonical_pos": "adjective",
+          "examples": [
+            "deep voice"
+          ],
+          "gloss_text": "having a low pitch",
+          "key": "voice",
+          "sense_label": "low-pitched voice or sound",
+          "target_lemma": "grave"
+        },
+        {
+          "canonical_pos": "adjective",
+          "examples": [
+            "deep concentration"
+          ],
+          "gloss_text": "strong, serious, or emotionally intense",
+          "key": "intense",
+          "sense_label": "intense or absorbed",
+          "target_lemma": "intenso"
+        }
+      ],
+      "target_lemma": "profundo",
+      "trigger": "deep"
+    },
+    "green": {
+      "canonical_pos": "adjective",
+      "cases": [
+        {
+          "gold_type": "positive_active",
+          "reason": "color",
+          "sentence": "She wore a green jacket to school.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "positive_active",
+          "reason": "color",
+          "sentence": "The green paint dried overnight.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "shadow_negative",
+          "reason": "inexperienced person",
+          "sentence": "The green intern needed extra training.",
+          "winner": "inexperienced"
+        },
+        {
+          "gold_type": "shadow_negative",
+          "reason": "environmental politics",
+          "sentence": "The mayor announced a green policy for buses.",
+          "winner": "environmental"
+        },
+        {
+          "gold_type": "phrase_no_winner",
+          "reason": "traffic-signal phrase",
+          "sentence": "The driver waited for the green light.",
+          "winner": "none"
+        }
+      ],
+      "examples": [
+        "green shirt",
+        "green paint",
+        "green light color"
+      ],
+      "expected_veto_difficulty": "high",
+      "gloss_text": "having the color of grass or leaves",
+      "human_polysemy_gauge": "high",
+      "review_notes": "Color, environmental, inexperienced, and golf senses create a clean mid-rank test.",
+      "sense_label": "green color",
+      "shadow_contract": "full",
+      "shadows": [
+        {
+          "canonical_pos": "adjective",
+          "examples": [
+            "green employee"
+          ],
+          "gloss_text": "new and lacking experience",
+          "key": "inexperienced",
+          "sense_label": "inexperienced",
+          "target_lemma": "novato"
+        },
+        {
+          "canonical_pos": "adjective",
+          "examples": [
+            "green policy"
+          ],
+          "gloss_text": "related to environmental politics or sustainability",
+          "key": "environmental",
+          "sense_label": "environmentally friendly",
+          "target_lemma": "ecológico"
+        },
+        {
+          "canonical_pos": "noun",
+          "examples": [
+            "on the green"
+          ],
+          "gloss_text": "the closely cut area around a golf hole",
+          "key": "golf",
+          "sense_label": "golf putting green",
+          "target_lemma": "green"
+        }
+      ],
+      "target_lemma": "verde",
+      "trigger": "green"
+    },
+    "hammer": {
+      "canonical_pos": "noun",
+      "cases": [
+        {
+          "gold_type": "positive_active",
+          "reason": "hand tool",
+          "sentence": "He borrowed a hammer from the garage.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "positive_active",
+          "reason": "hand tool",
+          "sentence": "The hammer slipped off the nail.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "shadow_negative",
+          "reason": "verb action",
+          "sentence": "Workers hammer the metal into shape.",
+          "winner": "verb"
+        },
+        {
+          "gold_type": "shadow_negative",
+          "reason": "auction phrase",
+          "sentence": "The painting went under the hammer at noon.",
+          "winner": "auction"
+        },
+        {
+          "gold_type": "phrase_no_winner",
+          "reason": "idiom",
+          "sentence": "She tried to hammer home the main point.",
+          "winner": "none"
+        }
+      ],
+      "examples": [
+        "use a hammer",
+        "wooden hammer handle",
+        "the hammer hit the nail"
+      ],
+      "expected_veto_difficulty": "medium",
+      "gloss_text": "a hand tool with a heavy head used for hitting nails",
+      "human_polysemy_gauge": "medium_high",
+      "review_notes": "Tool target competes with verb and auction/sports extensions.",
+      "sense_label": "tool hammer",
+      "shadow_contract": "full",
+      "shadows": [
+        {
+          "canonical_pos": "verb",
+          "examples": [
+            "hammer the nail"
+          ],
+          "gloss_text": "to hit something repeatedly with force",
+          "key": "verb",
+          "sense_label": "hit repeatedly",
+          "target_lemma": "martillar"
+        },
+        {
+          "canonical_pos": "noun",
+          "examples": [
+            "under the hammer"
+          ],
+          "gloss_text": "a gavel or mallet used to close an auction or meeting",
+          "key": "auction",
+          "sense_label": "auctioneer's hammer",
+          "target_lemma": "mazo"
+        }
+      ],
+      "target_lemma": "martillo",
+      "trigger": "hammer"
+    },
+    "help": {
+      "canonical_pos": "noun",
+      "cases": [
+        {
+          "gold_type": "positive_active",
+          "reason": "assistance",
+          "sentence": "Thanks for your help with the boxes.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "positive_active",
+          "reason": "assistance",
+          "sentence": "The instructions offer help for new users.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "shadow_negative",
+          "reason": "hired workers",
+          "sentence": "The farm hired help for the harvest season.",
+          "winner": "staff"
+        },
+        {
+          "gold_type": "shadow_negative",
+          "reason": "domestic staff",
+          "sentence": "The help cleaned the rooms before noon.",
+          "winner": "staff"
+        },
+        {
+          "gold_type": "phrase_no_winner",
+          "reason": "fixed expression meaning cannot avoid",
+          "sentence": "I cannot help laughing at that scene.",
+          "winner": "none"
+        }
+      ],
+      "examples": [
+        "ask for help",
+        "offer help",
+        "need help"
+      ],
+      "expected_veto_difficulty": "medium_high",
+      "gloss_text": "assistance or support given to someone",
+      "human_polysemy_gauge": "medium_high",
+      "review_notes": "Mostly assistance, but staff and fixed expressions create realistic non-active cases.",
+      "sense_label": "assistance",
+      "shadow_contract": "limited",
+      "shadows": [
+        {
+          "canonical_pos": "noun",
+          "examples": [
+            "the hired help arrived"
+          ],
+          "gloss_text": "people hired to do domestic or farm work",
+          "key": "staff",
+          "sense_label": "hired help or servants",
+          "target_lemma": "servicio"
+        }
+      ],
+      "target_lemma": "ayuda",
+      "trigger": "help"
+    },
+    "low": {
+      "canonical_pos": "adjective",
+      "cases": [
+        {
+          "gold_type": "positive_active",
+          "reason": "not high in position",
+          "sentence": "The shelf is too low for the vase.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "positive_active",
+          "reason": "small amount",
+          "sentence": "The store offered a low price.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "shadow_negative",
+          "reason": "lowest point",
+          "sentence": "The stock hit a new low after the report.",
+          "winner": "minimum"
+        },
+        {
+          "gold_type": "shadow_negative",
+          "reason": "verb for animal sound",
+          "sentence": "The cattle low softly near the barn.",
+          "winner": "sound"
+        },
+        {
+          "gold_type": "phrase_no_winner",
+          "reason": "malapropism/title-like phrase",
+          "sentence": "Low and behold was written as a joke.",
+          "winner": "none"
+        }
+      ],
+      "examples": [
+        "low shelf",
+        "low price",
+        "low score"
+      ],
+      "expected_veto_difficulty": "medium_high",
+      "gloss_text": "not high in position, amount, level, or degree",
+      "human_polysemy_gauge": "high",
+      "review_notes": "Small tail word with many adjective/adverb/noun/verb uses.",
+      "sense_label": "low level or height",
+      "shadow_contract": "full",
+      "shadows": [
+        {
+          "canonical_pos": "noun",
+          "examples": [
+            "new low"
+          ],
+          "gloss_text": "the lowest point or level reached",
+          "key": "minimum",
+          "sense_label": "lowest point",
+          "target_lemma": "mínimo"
+        },
+        {
+          "canonical_pos": "verb",
+          "examples": [
+            "cattle low"
+          ],
+          "gloss_text": "to make the deep sound of cattle",
+          "key": "sound",
+          "sense_label": "make a cattle sound",
+          "target_lemma": "mugir"
+        }
+      ],
+      "target_lemma": "bajo",
+      "trigger": "low"
+    },
+    "man": {
+      "canonical_pos": "noun",
+      "cases": [
+        {
+          "gold_type": "positive_active",
+          "reason": "male adult person",
+          "sentence": "The old man waited by the bus stop.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "positive_active",
+          "reason": "male adult person",
+          "sentence": "A tall man entered the quiet room.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "shadow_negative",
+          "reason": "verb meaning staff or operate",
+          "sentence": "Volunteers man the phones during the pledge drive.",
+          "winner": "staff"
+        },
+        {
+          "gold_type": "shadow_negative",
+          "reason": "verb meaning staff a post",
+          "sentence": "Two guards man the front gate after dark.",
+          "winner": "staff"
+        },
+        {
+          "gold_type": "phrase_no_winner",
+          "reason": "interjection",
+          "sentence": "Man, that was a close call at the end.",
+          "winner": "none"
+        }
+      ],
+      "examples": [
+        "old man",
+        "young man",
+        "the man entered the room"
+      ],
+      "expected_veto_difficulty": "high",
+      "gloss_text": "a male adult human being",
+      "human_polysemy_gauge": "high",
+      "review_notes": "Common core word with noun and verb senses; useful overload probe.",
+      "sense_label": "adult male person",
+      "shadow_contract": "full",
+      "shadows": [
+        {
+          "canonical_pos": "verb",
+          "examples": [
+            "volunteers man the booth",
+            "operators man the phones"
+          ],
+          "gloss_text": "to provide people to operate equipment, a booth, or a station",
+          "key": "staff",
+          "sense_label": "staff or operate a post",
+          "target_lemma": "dotar"
+        },
+        {
+          "canonical_pos": "noun",
+          "examples": [
+            "every man for himself"
+          ],
+          "gloss_text": "generic human or mankind sense rather than specifically male adult",
+          "key": "humanity",
+          "sense_label": "human being in general",
+          "target_lemma": "ser humano"
+        }
+      ],
+      "target_lemma": "hombre",
+      "trigger": "man"
+    },
+    "money": {
+      "canonical_pos": "noun",
+      "cases": [
+        {
+          "gold_type": "positive_active",
+          "reason": "funds",
+          "sentence": "He saved money for the trip.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "positive_active",
+          "reason": "funds",
+          "sentence": "They raised money for the clinic.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "phrase_no_winner",
+          "reason": "idiom/proverb",
+          "sentence": "Money talks in that old proverb.",
+          "winner": "none"
+        }
+      ],
+      "examples": [
+        "save money",
+        "raise money",
+        "spend money"
+      ],
+      "expected_veto_difficulty": "low",
+      "gloss_text": "coins, bills, or funds used for payment",
+      "human_polysemy_gauge": "low",
+      "review_notes": "Low-polysemy control with phrase risk rather than true shadow competition.",
+      "sense_label": "money or funds",
+      "shadow_contract": "not_applicable",
+      "shadows": [],
+      "target_lemma": "dinero",
+      "trigger": "money"
+    },
+    "often": {
+      "canonical_pos": "adverb",
+      "cases": [
+        {
+          "gold_type": "positive_active",
+          "reason": "frequently",
+          "sentence": "She often rides her bike to work.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "positive_active",
+          "reason": "frequently",
+          "sentence": "We often meet after class.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "phrase_no_winner",
+          "reason": "fixed motto-like phrase",
+          "sentence": "Little and often is his training motto.",
+          "winner": "none"
+        }
+      ],
+      "examples": [
+        "often visit",
+        "often happens",
+        "not often"
+      ],
+      "expected_veto_difficulty": "low",
+      "gloss_text": "happening many times or frequently",
+      "human_polysemy_gauge": "low",
+      "review_notes": "Low-polysemy adverb control; negative case is a fixed expression.",
+      "sense_label": "frequently",
+      "shadow_contract": "not_applicable",
+      "shadows": [],
+      "target_lemma": "a menudo",
+      "trigger": "often"
+    },
+    "order": {
+      "canonical_pos": "noun",
+      "cases": [
+        {
+          "gold_type": "positive_active",
+          "reason": "customer purchase",
+          "sentence": "Your order shipped this morning.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "positive_active",
+          "reason": "restaurant request",
+          "sentence": "The waiter took our order quickly.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "shadow_negative",
+          "reason": "legal command",
+          "sentence": "The judge issued a strict order.",
+          "winner": "command"
+        },
+        {
+          "gold_type": "shadow_negative",
+          "reason": "sequence arrangement",
+          "sentence": "Sort the names in alphabetical order.",
+          "winner": "sequence"
+        },
+        {
+          "gold_type": "phrase_no_winner",
+          "reason": "fixed phrase",
+          "sentence": "She left early in order to catch the train.",
+          "winner": "none"
+        }
+      ],
+      "examples": [
+        "place an order",
+        "shipping order",
+        "restaurant order"
+      ],
+      "expected_veto_difficulty": "high",
+      "gloss_text": "a request to buy goods or food",
+      "human_polysemy_gauge": "high",
+      "review_notes": "Outcome-informed sentinel with commerce, command, and sequence senses.",
+      "sense_label": "customer order",
+      "shadow_contract": "full",
+      "shadows": [
+        {
+          "canonical_pos": "noun",
+          "examples": [
+            "court order"
+          ],
+          "gloss_text": "an authoritative command or legal instruction",
+          "key": "command",
+          "sense_label": "command or instruction",
+          "target_lemma": "orden"
+        },
+        {
+          "canonical_pos": "noun",
+          "examples": [
+            "alphabetical order"
+          ],
+          "gloss_text": "the arrangement of things in a sequence",
+          "key": "sequence",
+          "sense_label": "sequence or arrangement",
+          "target_lemma": "orden"
+        }
+      ],
+      "target_lemma": "pedido",
+      "trigger": "order"
+    },
+    "participant": {
+      "canonical_pos": "noun",
+      "cases": [
+        {
+          "gold_type": "positive_active",
+          "reason": "person taking part",
+          "sentence": "Each participant signed the consent form.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "positive_active",
+          "reason": "person taking part",
+          "sentence": "The participant asked a question after class.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "phrase_no_winner",
+          "reason": "field-name mention",
+          "sentence": "The database field participant id was blank.",
+          "winner": "none"
+        }
+      ],
+      "examples": [
+        "study participant",
+        "each participant",
+        "participant signed"
+      ],
+      "expected_veto_difficulty": "low",
+      "gloss_text": "a person who takes part in an activity",
+      "human_polysemy_gauge": "low",
+      "review_notes": "Low-polysemy person noun; code/field mentions are the main no-winner shape.",
+      "sense_label": "participant",
+      "shadow_contract": "not_applicable",
+      "shadows": [],
+      "target_lemma": "participante",
+      "trigger": "participant"
+    },
+    "particular": {
+      "canonical_pos": "adjective",
+      "cases": [
+        {
+          "gold_type": "positive_active",
+          "reason": "specific item",
+          "sentence": "We need a particular tool for this repair.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "positive_active",
+          "reason": "specific reason",
+          "sentence": "She had no particular reason to leave.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "shadow_negative",
+          "reason": "fussy or exacting",
+          "sentence": "He is particular about the spacing in reports.",
+          "winner": "fussy"
+        },
+        {
+          "gold_type": "shadow_negative",
+          "reason": "individual detail",
+          "sentence": "The lawyer checked every particular of the claim.",
+          "winner": "details"
+        },
+        {
+          "gold_type": "phrase_no_winner",
+          "reason": "fixed phrase",
+          "sentence": "That problem matters in particular today.",
+          "winner": "none"
+        }
+      ],
+      "examples": [
+        "particular reason",
+        "particular case",
+        "particular tool"
+      ],
+      "expected_veto_difficulty": "medium",
+      "gloss_text": "specific or distinct from others",
+      "human_polysemy_gauge": "medium_high",
+      "review_notes": "Specific-sense target competes with fussy and detail-noun senses.",
+      "sense_label": "specific",
+      "shadow_contract": "full",
+      "shadows": [
+        {
+          "canonical_pos": "adjective",
+          "examples": [
+            "particular about grammar"
+          ],
+          "gloss_text": "very exacting or fussy about details",
+          "key": "fussy",
+          "sense_label": "hard to please",
+          "target_lemma": "quisquilloso"
+        },
+        {
+          "canonical_pos": "noun",
+          "examples": [
+            "particulars of the contract"
+          ],
+          "gloss_text": "individual facts or details of a case",
+          "key": "details",
+          "sense_label": "details or particulars",
+          "target_lemma": "detalles"
+        }
+      ],
+      "target_lemma": "específico",
+      "trigger": "particular"
+    },
+    "percent": {
+      "canonical_pos": "noun",
+      "cases": [
+        {
+          "gold_type": "positive_active",
+          "reason": "percentage value",
+          "sentence": "Only ten percent of the class passed.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "positive_active",
+          "reason": "percentage value",
+          "sentence": "The rate rose by three percent last month.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "phrase_no_winner",
+          "reason": "symbol phrase",
+          "sentence": "The percent sign appeared in every spreadsheet cell.",
+          "winner": "none"
+        }
+      ],
+      "examples": [
+        "ten percent",
+        "three percent increase",
+        "percent value"
+      ],
+      "expected_veto_difficulty": "low",
+      "gloss_text": "one part in each hundred",
+      "human_polysemy_gauge": "low",
+      "review_notes": "Low-polysemy numeric control; only mention/format phrases act as negatives.",
+      "sense_label": "percentage unit",
+      "shadow_contract": "not_applicable",
+      "shadows": [],
+      "target_lemma": "por ciento",
+      "trigger": "percent"
+    },
+    "plant": {
+      "canonical_pos": "verb",
+      "cases": [
+        {
+          "gold_type": "positive_active",
+          "reason": "verb put in soil",
+          "sentence": "They plant tomatoes behind the house.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "positive_active",
+          "reason": "verb put in soil",
+          "sentence": "We plant trees along the road each spring.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "shadow_negative",
+          "reason": "living organism noun",
+          "sentence": "The plant needs sunlight every morning.",
+          "winner": "living_thing"
+        },
+        {
+          "gold_type": "shadow_negative",
+          "reason": "industrial facility",
+          "sentence": "The power plant hired new engineers.",
+          "winner": "factory"
+        },
+        {
+          "gold_type": "phrase_no_winner",
+          "reason": "idiom/verb with different target",
+          "sentence": "The spy tried to plant evidence in the room.",
+          "winner": "none"
+        }
+      ],
+      "examples": [
+        "plant trees",
+        "plant tomatoes",
+        "plant seeds"
+      ],
+      "expected_veto_difficulty": "high",
+      "gloss_text": "to put seeds or plants in the ground so they grow",
+      "human_polysemy_gauge": "high",
+      "review_notes": "Outcome-informed sentinel; active is verb to avoid Spanish planta covering both living organism and factory.",
+      "sense_label": "plant seeds or plants",
+      "shadow_contract": "full",
+      "shadows": [
+        {
+          "canonical_pos": "noun",
+          "examples": [
+            "water the plant"
+          ],
+          "gloss_text": "a living organism such as a flower, tree, or grass",
+          "key": "living_thing",
+          "sense_label": "living plant",
+          "target_lemma": "planta"
+        },
+        {
+          "canonical_pos": "noun",
+          "examples": [
+            "power plant"
+          ],
+          "gloss_text": "a factory or industrial facility",
+          "key": "factory",
+          "sense_label": "industrial plant",
+          "target_lemma": "fábrica"
+        }
+      ],
+      "target_lemma": "plantar",
+      "trigger": "plant"
+    },
+    "play": {
+      "canonical_pos": "verb",
+      "cases": [
+        {
+          "gold_type": "positive_active",
+          "reason": "game activity",
+          "sentence": "Children play soccer in the park.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "positive_active",
+          "reason": "sport activity",
+          "sentence": "The team will play on Saturday.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "shadow_negative",
+          "reason": "dramatic work",
+          "sentence": "The play opened at the small theater.",
+          "winner": "theater"
+        },
+        {
+          "gold_type": "shadow_negative",
+          "reason": "mechanical looseness",
+          "sentence": "There is too much play in the steering wheel.",
+          "winner": "looseness"
+        },
+        {
+          "gold_type": "phrase_no_winner",
+          "reason": "fixed phrase",
+          "sentence": "The headline used a play on words.",
+          "winner": "none"
+        }
+      ],
+      "examples": [
+        "children play",
+        "play soccer",
+        "play the game"
+      ],
+      "expected_veto_difficulty": "high",
+      "gloss_text": "to take part in a game, sport, or playful activity",
+      "human_polysemy_gauge": "high",
+      "review_notes": "Outcome-informed sentinel with game, theater, music, mechanical movement, and phrase uses.",
+      "sense_label": "play a game or sport",
+      "shadow_contract": "full",
+      "shadows": [
+        {
+          "canonical_pos": "noun",
+          "examples": [
+            "the play opened"
+          ],
+          "gloss_text": "a dramatic work performed in a theater",
+          "key": "theater",
+          "sense_label": "stage play",
+          "target_lemma": "obra"
+        },
+        {
+          "canonical_pos": "noun",
+          "examples": [
+            "play in the steering wheel"
+          ],
+          "gloss_text": "looseness or movement in a mechanism",
+          "key": "looseness",
+          "sense_label": "free movement or looseness",
+          "target_lemma": "holgura"
+        }
+      ],
+      "target_lemma": "jugar",
+      "trigger": "play"
+    },
+    "prosecute": {
+      "canonical_pos": "verb",
+      "cases": [
+        {
+          "gold_type": "positive_active",
+          "reason": "legal action",
+          "sentence": "The state will prosecute the fraud case.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "positive_active",
+          "reason": "legal action",
+          "sentence": "They refused to prosecute without evidence.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "phrase_no_winner",
+          "reason": "word-as-label mention",
+          "sentence": "Prosecute was printed on the folder tab.",
+          "winner": "none"
+        }
+      ],
+      "examples": [
+        "prosecute the case",
+        "prosecute the suspect",
+        "prosecute fraud"
+      ],
+      "expected_veto_difficulty": "low",
+      "gloss_text": "to bring legal proceedings against someone",
+      "human_polysemy_gauge": "low",
+      "review_notes": "Low-polysemy legal verb control.",
+      "sense_label": "prosecute legally",
+      "shadow_contract": "not_applicable",
+      "shadows": [],
+      "target_lemma": "enjuiciar",
+      "trigger": "prosecute"
+    },
+    "purely": {
+      "canonical_pos": "adverb",
+      "cases": [
+        {
+          "gold_type": "positive_active",
+          "reason": "solely",
+          "sentence": "The choice was purely practical.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "positive_active",
+          "reason": "completely",
+          "sentence": "The story is purely fictional.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "phrase_no_winner",
+          "reason": "hyphenated technical phrase",
+          "sentence": "The term purely-functional appeared in the README.",
+          "winner": "none"
+        }
+      ],
+      "examples": [
+        "purely practical",
+        "purely fictional",
+        "purely accidental"
+      ],
+      "expected_veto_difficulty": "low",
+      "gloss_text": "only, solely, or completely",
+      "human_polysemy_gauge": "low",
+      "review_notes": "Low-polysemy adverb control with hyphenated term no-winner.",
+      "sense_label": "purely",
+      "shadow_contract": "not_applicable",
+      "shadows": [],
+      "target_lemma": "puramente",
+      "trigger": "purely"
+    },
+    "report": {
+      "canonical_pos": "noun",
+      "cases": [
+        {
+          "gold_type": "positive_active",
+          "reason": "written account",
+          "sentence": "The report summarized the audit findings.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "positive_active",
+          "reason": "official written account",
+          "sentence": "She filed a report after the accident.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "shadow_negative",
+          "reason": "verb report to",
+          "sentence": "New employees report to the office at nine.",
+          "winner": "inform"
+        },
+        {
+          "gold_type": "shadow_negative",
+          "reason": "loud sound",
+          "sentence": "The report of the gun echoed through the valley.",
+          "winner": "sound"
+        },
+        {
+          "gold_type": "phrase_no_winner",
+          "reason": "phrasal verb",
+          "sentence": "The team will report back after lunch.",
+          "winner": "none"
+        }
+      ],
+      "examples": [
+        "final report",
+        "audit report",
+        "file a report"
+      ],
+      "expected_veto_difficulty": "high",
+      "gloss_text": "a written or spoken account that gives information",
+      "human_polysemy_gauge": "high",
+      "review_notes": "Outcome-informed sentinel; noun target competes with verb and sound senses.",
+      "sense_label": "written report",
+      "shadow_contract": "full",
+      "shadows": [
+        {
+          "canonical_pos": "verb",
+          "examples": [
+            "report to the office"
+          ],
+          "gloss_text": "to give information officially or formally",
+          "key": "inform",
+          "sense_label": "report or inform",
+          "target_lemma": "informar"
+        },
+        {
+          "canonical_pos": "noun",
+          "examples": [
+            "report of a gun"
+          ],
+          "gloss_text": "a loud explosive sound",
+          "key": "sound",
+          "sense_label": "loud report or bang",
+          "target_lemma": "estallido"
+        }
+      ],
+      "target_lemma": "informe",
+      "trigger": "report"
+    },
+    "senate": {
+      "canonical_pos": "noun",
+      "cases": [
+        {
+          "gold_type": "positive_active",
+          "reason": "legislative chamber",
+          "sentence": "The senate passed the budget bill.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "positive_active",
+          "reason": "legislative chamber",
+          "sentence": "He testified before the senate committee.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "phrase_no_winner",
+          "reason": "proper URL mention",
+          "sentence": "The URL senate.gov appeared in the notes.",
+          "winner": "none"
+        }
+      ],
+      "examples": [
+        "state senate",
+        "senate committee",
+        "the senate voted"
+      ],
+      "expected_veto_difficulty": "low",
+      "gloss_text": "a legislative body or upper chamber",
+      "human_polysemy_gauge": "low",
+      "review_notes": "Low-polysemy institutional noun; proper-name mentions are the main negative shape.",
+      "sense_label": "legislative senate",
+      "shadow_contract": "not_applicable",
+      "shadows": [],
+      "target_lemma": "senado",
+      "trigger": "senate"
+    },
+    "suitable": {
+      "canonical_pos": "adjective",
+      "cases": [
+        {
+          "gold_type": "positive_active",
+          "reason": "appropriate",
+          "sentence": "The room was suitable for a workshop.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "positive_active",
+          "reason": "appropriate",
+          "sentence": "Choose a suitable password for the account.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "phrase_no_winner",
+          "reason": "file-name mention",
+          "sentence": "The file named suitable.txt was missing.",
+          "winner": "none"
+        }
+      ],
+      "examples": [
+        "suitable room",
+        "suitable password",
+        "suitable candidate"
+      ],
+      "expected_veto_difficulty": "low",
+      "gloss_text": "appropriate or fitting for a purpose",
+      "human_polysemy_gauge": "low",
+      "review_notes": "Low-polysemy adjective control.",
+      "sense_label": "suitable",
+      "shadow_contract": "not_applicable",
+      "shadows": [],
+      "target_lemma": "adecuado",
+      "trigger": "suitable"
+    },
+    "therefore": {
+      "canonical_pos": "adverb",
+      "cases": [
+        {
+          "gold_type": "positive_active",
+          "reason": "consequence connective",
+          "sentence": "The road was closed; therefore, we walked.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "positive_active",
+          "reason": "consequence connective",
+          "sentence": "The sample was contaminated and therefore unusable.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "phrase_no_winner",
+          "reason": "word mention",
+          "sentence": "The proof ended with the word therefore.",
+          "winner": "none"
+        }
+      ],
+      "examples": [
+        "therefore we left",
+        "therefore it failed",
+        "therefore true"
+      ],
+      "expected_veto_difficulty": "low",
+      "gloss_text": "for that reason or consequently",
+      "human_polysemy_gauge": "low",
+      "review_notes": "Low-polysemy connective; no honest alternate sense is forced.",
+      "sense_label": "therefore",
+      "shadow_contract": "not_applicable",
+      "shadows": [],
+      "target_lemma": "por lo tanto",
+      "trigger": "therefore"
+    },
+    "trade": {
+      "canonical_pos": "noun",
+      "cases": [
+        {
+          "gold_type": "positive_active",
+          "reason": "commerce",
+          "sentence": "The trade between the countries doubled.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "positive_active",
+          "reason": "commerce",
+          "sentence": "Officials debated the new trade agreement.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "shadow_negative",
+          "reason": "exchange action",
+          "sentence": "The children trade cards after school.",
+          "winner": "swap"
+        },
+        {
+          "gold_type": "shadow_negative",
+          "reason": "occupation",
+          "sentence": "He learned a trade from his uncle.",
+          "winner": "profession"
+        },
+        {
+          "gold_type": "phrase_no_winner",
+          "reason": "compound expression",
+          "sentence": "The trade-off was clear after the test.",
+          "winner": "none"
+        }
+      ],
+      "examples": [
+        "international trade",
+        "trade deal",
+        "trade policy"
+      ],
+      "expected_veto_difficulty": "medium_high",
+      "gloss_text": "buying and selling goods or services",
+      "human_polysemy_gauge": "high",
+      "review_notes": "Commerce target competes with swap and occupation senses.",
+      "sense_label": "commerce",
+      "shadow_contract": "full",
+      "shadows": [
+        {
+          "canonical_pos": "verb",
+          "examples": [
+            "trade cards"
+          ],
+          "gloss_text": "to give one thing and receive another",
+          "key": "swap",
+          "sense_label": "exchange or swap",
+          "target_lemma": "intercambiar"
+        },
+        {
+          "canonical_pos": "noun",
+          "examples": [
+            "learn a trade"
+          ],
+          "gloss_text": "a skilled job or occupation",
+          "key": "profession",
+          "sense_label": "skilled occupation",
+          "target_lemma": "oficio"
+        }
+      ],
+      "target_lemma": "comercio",
+      "trigger": "trade"
+    },
+    "unnecessary": {
+      "canonical_pos": "adjective",
+      "cases": [
+        {
+          "gold_type": "positive_active",
+          "reason": "not needed",
+          "sentence": "The extra step was unnecessary.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "positive_active",
+          "reason": "not needed",
+          "sentence": "They removed unnecessary files from the folder.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "phrase_no_winner",
+          "reason": "word-as-label mention",
+          "sentence": "The label read unnecessary in red ink.",
+          "winner": "none"
+        }
+      ],
+      "examples": [
+        "unnecessary step",
+        "unnecessary delay",
+        "unnecessary files"
+      ],
+      "expected_veto_difficulty": "low",
+      "gloss_text": "not needed or not required",
+      "human_polysemy_gauge": "low",
+      "review_notes": "Low-polysemy adjective control.",
+      "sense_label": "unnecessary",
+      "shadow_contract": "not_applicable",
+      "shadows": [],
+      "target_lemma": "innecesario",
+      "trigger": "unnecessary"
+    },
+    "upgrade": {
+      "canonical_pos": "noun",
+      "cases": [
+        {
+          "gold_type": "positive_active",
+          "reason": "software update",
+          "sentence": "Install the upgrade before restarting the laptop.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "positive_active",
+          "reason": "technical update",
+          "sentence": "The phone upgrade fixed the battery issue.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "shadow_negative",
+          "reason": "service status improvement",
+          "sentence": "The airline offered a free seat upgrade.",
+          "winner": "service"
+        },
+        {
+          "gold_type": "shadow_negative",
+          "reason": "verb meaning improve",
+          "sentence": "The city will upgrade the old bridge next year.",
+          "winner": "verb"
+        },
+        {
+          "gold_type": "phrase_no_winner",
+          "reason": "technical compound phrase",
+          "sentence": "The upgrade path changed after the merger.",
+          "winner": "none"
+        }
+      ],
+      "examples": [
+        "install the upgrade",
+        "phone upgrade",
+        "system upgrade"
+      ],
+      "expected_veto_difficulty": "medium",
+      "gloss_text": "an update that improves software, hardware, or a system",
+      "human_polysemy_gauge": "medium_high",
+      "review_notes": "Tail word but sense split between technical update and service/status improvement.",
+      "sense_label": "software or system update",
+      "shadow_contract": "full",
+      "shadows": [
+        {
+          "canonical_pos": "noun",
+          "examples": [
+            "room upgrade"
+          ],
+          "gloss_text": "an improved class, room, seat, or level of service",
+          "key": "service",
+          "sense_label": "service or status improvement",
+          "target_lemma": "mejora"
+        },
+        {
+          "canonical_pos": "verb",
+          "examples": [
+            "upgrade the road"
+          ],
+          "gloss_text": "to improve something to a better grade or standard",
+          "key": "verb",
+          "sense_label": "raise to a better level",
+          "target_lemma": "mejorar"
+        }
+      ],
+      "target_lemma": "actualización",
+      "trigger": "upgrade"
+    },
+    "work": {
+      "canonical_pos": "noun",
+      "cases": [
+        {
+          "gold_type": "positive_active",
+          "reason": "job or workplace",
+          "sentence": "She left work early to catch the train.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "positive_active",
+          "reason": "labor or task",
+          "sentence": "The repair work took all afternoon.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "shadow_negative",
+          "reason": "verb meaning function",
+          "sentence": "The old engine will not work in cold weather.",
+          "winner": "function"
+        },
+        {
+          "gold_type": "shadow_negative",
+          "reason": "artistic creation",
+          "sentence": "The museum displayed a late work by the painter.",
+          "winner": "artwork"
+        },
+        {
+          "gold_type": "phrase_no_winner",
+          "reason": "phrasal verb",
+          "sentence": "The plan will work out if everyone stays calm.",
+          "winner": "none"
+        }
+      ],
+      "examples": [
+        "go to work",
+        "finish the work",
+        "paid work"
+      ],
+      "expected_veto_difficulty": "high",
+      "gloss_text": "employment, labor, or effort performed by a person",
+      "human_polysemy_gauge": "high",
+      "review_notes": "Noun/verb split plus artwork and mechanism senses make this a good core overload case.",
+      "sense_label": "job or labor",
+      "shadow_contract": "full",
+      "shadows": [
+        {
+          "canonical_pos": "verb",
+          "examples": [
+            "the engine will not work"
+          ],
+          "gloss_text": "to operate correctly or have the intended effect",
+          "key": "function",
+          "sense_label": "operate or function",
+          "target_lemma": "funcionar"
+        },
+        {
+          "canonical_pos": "noun",
+          "examples": [
+            "a famous work of art"
+          ],
+          "gloss_text": "a product of artistic or intellectual effort",
+          "key": "artwork",
+          "sense_label": "created work or artwork",
+          "target_lemma": "obra"
+        }
+      ],
+      "target_lemma": "trabajo",
+      "trigger": "work"
+    },
+    "yes": {
+      "canonical_pos": "noun",
+      "cases": [
+        {
+          "gold_type": "positive_active",
+          "reason": "affirmative response",
+          "sentence": "She whispered yes before signing the form.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "positive_active",
+          "reason": "affirmative response",
+          "sentence": "The answer was yes on the final survey.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "phrase_no_winner",
+          "reason": "word-as-label mention",
+          "sentence": "The button label reads yes in lowercase letters.",
+          "winner": "none"
+        }
+      ],
+      "examples": [
+        "say yes",
+        "answer yes",
+        "yes vote"
+      ],
+      "expected_veto_difficulty": "low",
+      "gloss_text": "an affirmative response or agreement",
+      "human_polysemy_gauge": "low",
+      "review_notes": "Low-polysemy control; no honest alternate English sense is forced.",
+      "sense_label": "affirmative answer",
+      "shadow_contract": "not_applicable",
+      "shadows": [],
+      "target_lemma": "sí",
+      "trigger": "yes"
+    },
+    "yield": {
+      "canonical_pos": "noun",
+      "cases": [
+        {
+          "gold_type": "positive_active",
+          "reason": "amount produced",
+          "sentence": "The crop yield improved after the rain.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "positive_active",
+          "reason": "investment return",
+          "sentence": "The bond yield fell again today.",
+          "winner": "active"
+        },
+        {
+          "gold_type": "shadow_negative",
+          "reason": "give way in traffic",
+          "sentence": "Drivers must yield to pedestrians here.",
+          "winner": "give_way"
+        },
+        {
+          "gold_type": "shadow_negative",
+          "reason": "produce a result",
+          "sentence": "The experiment may yield useful evidence.",
+          "winner": "produce"
+        },
+        {
+          "gold_type": "phrase_no_winner",
+          "reason": "fixed phrase with yield to",
+          "sentence": "She refused to yield to temptation.",
+          "winner": "none"
+        }
+      ],
+      "examples": [
+        "crop yield",
+        "bond yield",
+        "high yield"
+      ],
+      "expected_veto_difficulty": "high",
+      "gloss_text": "the amount produced or the return on an investment",
+      "human_polysemy_gauge": "high",
+      "review_notes": "Tail rank but strong verb/noun split, good test of advanced-word ambiguity.",
+      "sense_label": "yield or return",
+      "shadow_contract": "full",
+      "shadows": [
+        {
+          "canonical_pos": "verb",
+          "examples": [
+            "drivers must yield"
+          ],
+          "gloss_text": "to give way, surrender, or allow another to proceed",
+          "key": "give_way",
+          "sense_label": "give way or surrender",
+          "target_lemma": "ceder"
+        },
+        {
+          "canonical_pos": "verb",
+          "examples": [
+            "yield evidence"
+          ],
+          "gloss_text": "to produce or generate a result",
+          "key": "produce",
+          "sense_label": "produce a result",
+          "target_lemma": "producir"
+        }
+      ],
+      "target_lemma": "rendimiento",
+      "trigger": "yield"
+    }
+  }
+}

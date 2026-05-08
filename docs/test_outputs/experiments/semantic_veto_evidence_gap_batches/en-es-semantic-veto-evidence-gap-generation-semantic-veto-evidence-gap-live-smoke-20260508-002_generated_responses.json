@@ -1,0 +1,87 @@
+{
+  "batch_id": "en-es:semantic-veto-evidence-gap-generation:semantic-veto-evidence-gap-live-smoke-20260508-002",
+  "execution_mode": "live",
+  "generated_at": "2026-05-07T22:39:31Z",
+  "model_id": "gpt-5.4-mini",
+  "pair": "en-es",
+  "pilot_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1",
+  "prompt_id": "semantic_veto_evidence_gap_generation_v1",
+  "raw_response_bundle_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-live-smoke-20260508-002_raw_responses.json",
+  "responses": [
+    {
+      "family_id": "en-es:full-family-repaired-full:adjoining:vecino",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Shows the sense of neighboring or directly next to.",
+          "sentence": "The hotel has an adjoining room that connects directly to ours."
+        },
+        {
+          "evidence_note": "Clearly indicates an adjacent space.",
+          "sentence": "We planted herbs in the adjoining garden beside the kitchen."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v1",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-live-smoke-20260508-002_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "adjoining",
+      "target_lemma": "vecino",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:adjoining:vecino",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Uses the grammatical sense of adjoining, not the sense of neighboring or adjacent.",
+          "sentence": "The adjoining clauses in the contract were rewritten to avoid ambiguity."
+        },
+        {
+          "evidence_note": "Uses the structural or connected sense of adjoining, not the spatial neighbor sense.",
+          "sentence": "She studied the adjoining rooms of the sentence diagram to see how the parts connected."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v1",
+      "proposed_competitor_target_lemma": "contiguo",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-live-smoke-20260508-002_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:shadow_or_competitor_evidence_probe",
+      "slot_id": "en-es:full-family-repaired-full:adjoining:vecino:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "source_phrase": "adjoining",
+      "target_lemma": "",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:adjoining:vecino",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "no_winner_reason": "The word appears as part of a filename, not in a sense that cues the target meaning.",
+          "sentence": "The browser tab showed a file named \"adjoining_notes.txt\" in the downloads folder."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v1",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-live-smoke-20260508-002_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:no_winner_context_probe",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:no_winner_context_probe",
+      "slot_id": "en-es:full-family-repaired-full:adjoining:vecino:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "source_phrase": "adjoining",
+      "target_lemma": "",
+      "unable_to_find_distinct_competitor": false
+    }
+  ],
+  "schema_version": 1,
+  "selected_request_ids": [
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:shadow_or_competitor_evidence_probe",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:no_winner_context_probe"
+  ],
+  "source_request_packet": "docs/test_outputs/semantic_veto_evidence_gap_generation_requests_en_es_latest.json"
+}

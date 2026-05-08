@@ -1,0 +1,274 @@
+{
+  "admission_preview": {
+    "admitted_item_count": 13,
+    "coverage_shortfall_count": 0,
+    "coverage_waived_item_count": 2,
+    "decision": "generated_items_admitted_for_pilot_rescoring",
+    "rejected_item_count": 0,
+    "status": "ok"
+  },
+  "artifacts": {
+    "generated_responses_json": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-balanced-smoke-20260509-001_generated_responses.json",
+    "journal_jsonl": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-balanced-smoke-20260509-001_journal.jsonl",
+    "raw_response_bundle_json": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-balanced-smoke-20260509-001_raw_responses.json"
+  },
+  "batch_id": "en-es:semantic-veto-evidence-gap-generation:semantic-veto-evidence-gap-balanced-smoke-20260509-001",
+  "execution_mode": "live",
+  "generated_at": "2026-05-08T19:35:47Z",
+  "pair": "en-es",
+  "pilot_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1",
+  "prompt_id": "semantic_veto_evidence_gap_generation_v5",
+  "replay_source": "",
+  "request_rows": [
+    {
+      "family_id": "en-es:full-family-repaired-full:entirely:enteramente",
+      "first_sentence": "The room was entirely dark after the power went out.",
+      "item_count": 2,
+      "pilot_arm": "high_need",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-balanced-smoke-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:entirely:enteramente:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:entirely:enteramente:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_01032f3499e60e130169fe3a3ed1fc8197a9a50a2c20f82dde",
+      "slot_id": "en-es:full-family-repaired-full:entirely:enteramente:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 481,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 174,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 655
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:entirely:enteramente",
+      "first_sentence": "",
+      "item_count": 0,
+      "pilot_arm": "high_need",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-balanced-smoke-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:entirely:enteramente:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:entirely:enteramente:shadow_or_competitor_evidence_probe",
+      "requested_items": 2,
+      "response_id": "resp_063a5a2fbf2ab63c0169fe3a40d72c8195941a7442b326e64e",
+      "slot_id": "en-es:full-family-repaired-full:entirely:enteramente:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 719,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 223,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 942
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:entirely:enteramente",
+      "first_sentence": "Search results for entirely",
+      "item_count": 1,
+      "pilot_arm": "high_need",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-balanced-smoke-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:entirely:enteramente:no_winner_context_probe",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:entirely:enteramente:no_winner_context_probe",
+      "requested_items": 1,
+      "response_id": "resp_06531d38491dde670169fe3a43a4f4819399acfc1063d987fa",
+      "slot_id": "en-es:full-family-repaired-full:entirely:enteramente:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 603,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 189,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 792
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:brother:hermano",
+      "first_sentence": "My brother helped me move into my new apartment.",
+      "item_count": 2,
+      "pilot_arm": "middle_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-balanced-smoke-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:brother:hermano:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:brother:hermano:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_065ac33c20d09b1a0169fe3a459a548195b58e6433d6e85583",
+      "slot_id": "en-es:full-family-repaired-full:brother:hermano:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 477,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 156,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 633
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:brother:hermano",
+      "first_sentence": "The old brother spent the morning copying manuscripts in the monastery library.",
+      "item_count": 2,
+      "pilot_arm": "middle_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-balanced-smoke-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:brother:hermano:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:brother:hermano:shadow_or_competitor_evidence_probe",
+      "requested_items": 2,
+      "response_id": "resp_04aeaed8953891340169fe3a48741c81958a1fa4297000c683",
+      "slot_id": "en-es:full-family-repaired-full:brother:hermano:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 716,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 326,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 1042
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:brother:hermano",
+      "first_sentence": "Search results for brother",
+      "item_count": 1,
+      "pilot_arm": "middle_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-balanced-smoke-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:brother:hermano:no_winner_context_probe",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:brother:hermano:no_winner_context_probe",
+      "requested_items": 1,
+      "response_id": "resp_058e5abdf034fec70169fe3a4f1fb88194aca94f35c5ca6965",
+      "slot_id": "en-es:full-family-repaired-full:brother:hermano:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 600,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 186,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 786
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+      "first_sentence": "She tried to smile after hearing the good news.",
+      "item_count": 2,
+      "pilot_arm": "low_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-balanced-smoke-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_068b2e9ead6b500f0169fe3a5118b481948159c36b1e6888c1",
+      "slot_id": "en-es:full-family-repaired-full:smile:sonre-r:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 493,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 184,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 677
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+      "first_sentence": "Her smile lit up the room during the ceremony.",
+      "item_count": 2,
+      "pilot_arm": "low_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-balanced-smoke-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe",
+      "requested_items": 2,
+      "response_id": "resp_01842c8ad43aec720169fe3a52ff088194af6a0ccfe34225ba",
+      "slot_id": "en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 734,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 319,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 1053
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+      "first_sentence": "Page title: smile — customer feedback dashboard",
+      "item_count": 1,
+      "pilot_arm": "low_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-balanced-smoke-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:no_winner_context_probe",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:no_winner_context_probe",
+      "requested_items": 1,
+      "response_id": "resp_05db1f67348166de0169fe3a55aaec81939d77740758aca1f8",
+      "slot_id": "en-es:full-family-repaired-full:smile:sonre-r:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 613,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 203,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 816
+      }
+    }
+  ],
+  "schema_version": 1,
+  "selected_model_id": "gpt-5.4-mini",
+  "selected_temperature": 0.2,
+  "status": "ok",
+  "summary": {
+    "accepted_generated_item_count": 13,
+    "accepted_items_by_slot_type": {
+      "active_evidence_expansion": 6,
+      "no_winner_context_probe": 3,
+      "shadow_or_competitor_evidence_probe": 4
+    },
+    "accepted_response_count": 9,
+    "accepted_responses_by_arm": {
+      "high_need": 3,
+      "low_control": 3,
+      "middle_control": 3
+    },
+    "accepted_responses_by_slot_type": {
+      "active_evidence_expansion": 3,
+      "no_winner_context_probe": 3,
+      "shadow_or_competitor_evidence_probe": 3
+    },
+    "admission_status": "ok",
+    "admitted_item_count": 13,
+    "api_error_count": 0,
+    "coverage_shortfall_count": 0,
+    "coverage_waived_item_count": 2,
+    "input_tokens": 5436,
+    "invalid_output_count": 0,
+    "output_tokens": 1960,
+    "reasoning_tokens": 0,
+    "rejected_item_count": 0,
+    "selected_request_count": 9
+  }
+}

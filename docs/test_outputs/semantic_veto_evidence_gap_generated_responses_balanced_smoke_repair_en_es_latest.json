@@ -1,0 +1,45 @@
+{
+  "batch_id": "en-es:semantic-veto-evidence-gap-generation:semantic-veto-evidence-gap-balanced-smoke-smile-shadow-repair-20260508-001",
+  "execution_mode": "live",
+  "generated_at": "2026-05-08T03:11:01Z",
+  "model_id": "gpt-5.4-mini",
+  "pair": "en-es",
+  "pilot_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1",
+  "prompt_id": "semantic_veto_evidence_gap_generation_v5",
+  "raw_response_bundle_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-balanced-smoke-smile-shadow-repair-20260508-001_raw_responses.json",
+  "responses": [
+    {
+      "active_sense_contrast": "The competitor sense is the noun meaning a smile, while the active sense is the verb meaning to smile; the same English form can realize both, but the sentence must force the noun reading.",
+      "competitor_sense_label": "verb sense: to smile as a facial expression",
+      "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "active_mismatch_note": "active_target_lemma sonreír is wrong here because the sentence names a thing, not the action of smiling.",
+          "evidence_note": "smile is used as a noun referring to a facial expression.",
+          "sentence": "Her smile was warm and reassuring during the interview."
+        },
+        {
+          "active_mismatch_note": "active_target_lemma sonreír is wrong here because the sentence describes a facial expression, not the verb action of smiling.",
+          "evidence_note": "smile functions as a noun describing an expression on the face.",
+          "sentence": "A quick smile crossed his face before he answered."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v5",
+      "proposed_competitor_target_lemma": "sonrisa",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-balanced-smoke-smile-shadow-repair-20260508-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe",
+      "slot_id": "en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "source_phrase": "smile",
+      "target_lemma": "sonrisa",
+      "unable_to_find_distinct_competitor": false
+    }
+  ],
+  "schema_version": 1,
+  "selected_request_ids": [
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe"
+  ],
+  "source_request_packet": "docs/test_outputs/semantic_veto_evidence_gap_generation_requests_en_es_latest.json"
+}

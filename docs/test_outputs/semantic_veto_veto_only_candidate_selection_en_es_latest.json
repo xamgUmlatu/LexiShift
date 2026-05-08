@@ -2,11 +2,11 @@
   "decision": "veto_only_shared_candidate_found",
   "e2e_checks": {
     "matched_parameter_rows": 297,
-    "passing_shared_rows": 70,
+    "passing_shared_rows": 10,
     "probe_rows_considered": 297,
     "validation_rows_considered": 540
   },
-  "generated_at": "2026-05-01T01:44:54Z",
+  "generated_at": "2026-05-05T18:22:10Z",
   "passing_rows": [
     {
       "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase_score|lead=0.05|score=0.0",
@@ -360,26 +360,26 @@
       ]
     },
     {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.05|score=0.0",
-      "combined_utility": 87.4,
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase_score|lead=0.05|score=0.6",
+      "combined_utility": 84.6,
       "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.625,
+      "minimum_negative_abstain_rate": 0.6842,
       "minimum_positive_allow_rate": 0.8125,
       "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase",
+      "phrase_mode": "shadow_or_phrase_score",
       "probe": {
-        "negative_abstain_rate": 0.807,
-        "positive_allow_rate": 0.9737,
+        "negative_abstain_rate": 0.6842,
+        "positive_allow_rate": 1.0,
         "target_status": "pass",
-        "utility_score": 66.8
+        "utility_score": 58.4
       },
       "shadow_lead_min": 0.05,
-      "shadow_score_min": 0.0,
+      "shadow_score_min": 0.6,
       "validation": {
-        "negative_abstain_rate": 0.625,
+        "negative_abstain_rate": 0.75,
         "positive_allow_rate": 0.8125,
         "target_status": "pass",
-        "utility_score": 20.6
+        "utility_score": 26.2
       },
       "validation_source_breakdowns": [
         {
@@ -390,89 +390,11 @@
           "utility_score": 21.8
         },
         {
-          "negative_abstain_rate": 0.375,
+          "negative_abstain_rate": 0.625,
           "positive_allow_rate": null,
           "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -1.2
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.05|score=0.02",
-      "combined_utility": 87.4,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.625,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase",
-      "probe": {
-        "negative_abstain_rate": 0.807,
-        "positive_allow_rate": 0.9737,
-        "target_status": "pass",
-        "utility_score": 66.8
-      },
-      "shadow_lead_min": 0.05,
-      "shadow_score_min": 0.02,
-      "validation": {
-        "negative_abstain_rate": 0.625,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 20.6
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
           "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.375,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -1.2
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.05|score=0.05",
-      "combined_utility": 87.4,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.625,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase",
-      "probe": {
-        "negative_abstain_rate": 0.807,
-        "positive_allow_rate": 0.9737,
-        "target_status": "pass",
-        "utility_score": 66.8
-      },
-      "shadow_lead_min": 0.05,
-      "shadow_score_min": 0.05,
-      "validation": {
-        "negative_abstain_rate": 0.625,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 20.6
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.375,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -1.2
+          "utility_score": 4.4
         }
       ]
     }
@@ -837,318 +759,6 @@
       ]
     },
     {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.05|score=0.0",
-      "combined_utility": 87.4,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.625,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase",
-      "probe": {
-        "negative_abstain_rate": 0.807,
-        "positive_allow_rate": 0.9737,
-        "target_status": "pass",
-        "utility_score": 66.8
-      },
-      "shadow_lead_min": 0.05,
-      "shadow_score_min": 0.0,
-      "validation": {
-        "negative_abstain_rate": 0.625,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 20.6
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.375,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -1.2
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.05|score=0.02",
-      "combined_utility": 87.4,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.625,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase",
-      "probe": {
-        "negative_abstain_rate": 0.807,
-        "positive_allow_rate": 0.9737,
-        "target_status": "pass",
-        "utility_score": 66.8
-      },
-      "shadow_lead_min": 0.05,
-      "shadow_score_min": 0.02,
-      "validation": {
-        "negative_abstain_rate": 0.625,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 20.6
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.375,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -1.2
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.05|score=0.05",
-      "combined_utility": 87.4,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.625,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase",
-      "probe": {
-        "negative_abstain_rate": 0.807,
-        "positive_allow_rate": 0.9737,
-        "target_status": "pass",
-        "utility_score": 66.8
-      },
-      "shadow_lead_min": 0.05,
-      "shadow_score_min": 0.05,
-      "validation": {
-        "negative_abstain_rate": 0.625,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 20.6
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.375,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -1.2
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.05|score=0.1",
-      "combined_utility": 87.4,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.625,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase",
-      "probe": {
-        "negative_abstain_rate": 0.807,
-        "positive_allow_rate": 0.9737,
-        "target_status": "pass",
-        "utility_score": 66.8
-      },
-      "shadow_lead_min": 0.05,
-      "shadow_score_min": 0.1,
-      "validation": {
-        "negative_abstain_rate": 0.625,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 20.6
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.375,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -1.2
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.05|score=0.2",
-      "combined_utility": 87.4,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.625,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase",
-      "probe": {
-        "negative_abstain_rate": 0.807,
-        "positive_allow_rate": 0.9737,
-        "target_status": "pass",
-        "utility_score": 66.8
-      },
-      "shadow_lead_min": 0.05,
-      "shadow_score_min": 0.2,
-      "validation": {
-        "negative_abstain_rate": 0.625,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 20.6
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.375,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -1.2
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.05|score=0.35",
-      "combined_utility": 87.4,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.625,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase",
-      "probe": {
-        "negative_abstain_rate": 0.807,
-        "positive_allow_rate": 0.9737,
-        "target_status": "pass",
-        "utility_score": 66.8
-      },
-      "shadow_lead_min": 0.05,
-      "shadow_score_min": 0.35,
-      "validation": {
-        "negative_abstain_rate": 0.625,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 20.6
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.375,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -1.2
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.05|score=0.45",
-      "combined_utility": 87.4,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.625,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase",
-      "probe": {
-        "negative_abstain_rate": 0.807,
-        "positive_allow_rate": 0.9737,
-        "target_status": "pass",
-        "utility_score": 66.8
-      },
-      "shadow_lead_min": 0.05,
-      "shadow_score_min": 0.45,
-      "validation": {
-        "negative_abstain_rate": 0.625,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 20.6
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.375,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -1.2
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.05|score=0.5",
-      "combined_utility": 87.4,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.625,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase",
-      "probe": {
-        "negative_abstain_rate": 0.807,
-        "positive_allow_rate": 0.9737,
-        "target_status": "pass",
-        "utility_score": 66.8
-      },
-      "shadow_lead_min": 0.05,
-      "shadow_score_min": 0.5,
-      "validation": {
-        "negative_abstain_rate": 0.625,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 20.6
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.375,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -1.2
-        }
-      ]
-    },
-    {
       "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase_score|lead=0.05|score=0.6",
       "combined_utility": 84.6,
       "config_id": "control_st_masked_all_margin_phrase_override",
@@ -1184,2034 +794,6 @@
           "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
           "target_status": "pass",
           "utility_score": 4.4
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.05|score=0.55",
-      "combined_utility": 84.6,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.625,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase",
-      "probe": {
-        "negative_abstain_rate": 0.7719,
-        "positive_allow_rate": 0.9737,
-        "target_status": "pass",
-        "utility_score": 64.0
-      },
-      "shadow_lead_min": 0.05,
-      "shadow_score_min": 0.55,
-      "validation": {
-        "negative_abstain_rate": 0.625,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 20.6
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.375,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -1.2
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.05|score=0.6",
-      "combined_utility": 79.0,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.625,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase",
-      "probe": {
-        "negative_abstain_rate": 0.6842,
-        "positive_allow_rate": 1.0,
-        "target_status": "pass",
-        "utility_score": 58.4
-      },
-      "shadow_lead_min": 0.05,
-      "shadow_score_min": 0.6,
-      "validation": {
-        "negative_abstain_rate": 0.625,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 20.6
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.375,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -1.2
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_only|lead=0.05|score=0.0",
-      "combined_utility": 74.8,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5312,
-      "minimum_positive_allow_rate": 0.875,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_only",
-      "probe": {
-        "negative_abstain_rate": 0.6842,
-        "positive_allow_rate": 0.9737,
-        "target_status": "pass",
-        "utility_score": 57.0
-      },
-      "shadow_lead_min": 0.05,
-      "shadow_score_min": 0.0,
-      "validation": {
-        "negative_abstain_rate": 0.5312,
-        "positive_allow_rate": 0.875,
-        "target_status": "pass",
-        "utility_score": 17.8
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.6875,
-          "positive_allow_rate": 0.875,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 19.0
-        },
-        {
-          "negative_abstain_rate": 0.375,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -1.2
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_only|lead=0.05|score=0.02",
-      "combined_utility": 74.8,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5312,
-      "minimum_positive_allow_rate": 0.875,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_only",
-      "probe": {
-        "negative_abstain_rate": 0.6842,
-        "positive_allow_rate": 0.9737,
-        "target_status": "pass",
-        "utility_score": 57.0
-      },
-      "shadow_lead_min": 0.05,
-      "shadow_score_min": 0.02,
-      "validation": {
-        "negative_abstain_rate": 0.5312,
-        "positive_allow_rate": 0.875,
-        "target_status": "pass",
-        "utility_score": 17.8
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.6875,
-          "positive_allow_rate": 0.875,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 19.0
-        },
-        {
-          "negative_abstain_rate": 0.375,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -1.2
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_only|lead=0.05|score=0.05",
-      "combined_utility": 74.8,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5312,
-      "minimum_positive_allow_rate": 0.875,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_only",
-      "probe": {
-        "negative_abstain_rate": 0.6842,
-        "positive_allow_rate": 0.9737,
-        "target_status": "pass",
-        "utility_score": 57.0
-      },
-      "shadow_lead_min": 0.05,
-      "shadow_score_min": 0.05,
-      "validation": {
-        "negative_abstain_rate": 0.5312,
-        "positive_allow_rate": 0.875,
-        "target_status": "pass",
-        "utility_score": 17.8
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.6875,
-          "positive_allow_rate": 0.875,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 19.0
-        },
-        {
-          "negative_abstain_rate": 0.375,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -1.2
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_only|lead=0.05|score=0.1",
-      "combined_utility": 74.8,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5312,
-      "minimum_positive_allow_rate": 0.875,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_only",
-      "probe": {
-        "negative_abstain_rate": 0.6842,
-        "positive_allow_rate": 0.9737,
-        "target_status": "pass",
-        "utility_score": 57.0
-      },
-      "shadow_lead_min": 0.05,
-      "shadow_score_min": 0.1,
-      "validation": {
-        "negative_abstain_rate": 0.5312,
-        "positive_allow_rate": 0.875,
-        "target_status": "pass",
-        "utility_score": 17.8
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.6875,
-          "positive_allow_rate": 0.875,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 19.0
-        },
-        {
-          "negative_abstain_rate": 0.375,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -1.2
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_only|lead=0.05|score=0.2",
-      "combined_utility": 74.8,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5312,
-      "minimum_positive_allow_rate": 0.875,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_only",
-      "probe": {
-        "negative_abstain_rate": 0.6842,
-        "positive_allow_rate": 0.9737,
-        "target_status": "pass",
-        "utility_score": 57.0
-      },
-      "shadow_lead_min": 0.05,
-      "shadow_score_min": 0.2,
-      "validation": {
-        "negative_abstain_rate": 0.5312,
-        "positive_allow_rate": 0.875,
-        "target_status": "pass",
-        "utility_score": 17.8
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.6875,
-          "positive_allow_rate": 0.875,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 19.0
-        },
-        {
-          "negative_abstain_rate": 0.375,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -1.2
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_only|lead=0.05|score=0.35",
-      "combined_utility": 74.8,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5312,
-      "minimum_positive_allow_rate": 0.875,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_only",
-      "probe": {
-        "negative_abstain_rate": 0.6842,
-        "positive_allow_rate": 0.9737,
-        "target_status": "pass",
-        "utility_score": 57.0
-      },
-      "shadow_lead_min": 0.05,
-      "shadow_score_min": 0.35,
-      "validation": {
-        "negative_abstain_rate": 0.5312,
-        "positive_allow_rate": 0.875,
-        "target_status": "pass",
-        "utility_score": 17.8
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.6875,
-          "positive_allow_rate": 0.875,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 19.0
-        },
-        {
-          "negative_abstain_rate": 0.375,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -1.2
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_only|lead=0.05|score=0.45",
-      "combined_utility": 74.8,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5312,
-      "minimum_positive_allow_rate": 0.875,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_only",
-      "probe": {
-        "negative_abstain_rate": 0.6842,
-        "positive_allow_rate": 0.9737,
-        "target_status": "pass",
-        "utility_score": 57.0
-      },
-      "shadow_lead_min": 0.05,
-      "shadow_score_min": 0.45,
-      "validation": {
-        "negative_abstain_rate": 0.5312,
-        "positive_allow_rate": 0.875,
-        "target_status": "pass",
-        "utility_score": 17.8
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.6875,
-          "positive_allow_rate": 0.875,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 19.0
-        },
-        {
-          "negative_abstain_rate": 0.375,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -1.2
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase_score|lead=0.08|score=0.0",
-      "combined_utility": 74.8,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5938,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase_score",
-      "probe": {
-        "negative_abstain_rate": 0.6491,
-        "positive_allow_rate": 1.0,
-        "target_status": "pass",
-        "utility_score": 55.6
-      },
-      "shadow_lead_min": 0.08,
-      "shadow_score_min": 0.0,
-      "validation": {
-        "negative_abstain_rate": 0.5938,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 19.2
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.3125,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -2.6
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase_score|lead=0.08|score=0.02",
-      "combined_utility": 74.8,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5938,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase_score",
-      "probe": {
-        "negative_abstain_rate": 0.6491,
-        "positive_allow_rate": 1.0,
-        "target_status": "pass",
-        "utility_score": 55.6
-      },
-      "shadow_lead_min": 0.08,
-      "shadow_score_min": 0.02,
-      "validation": {
-        "negative_abstain_rate": 0.5938,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 19.2
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.3125,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -2.6
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase_score|lead=0.08|score=0.05",
-      "combined_utility": 74.8,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5938,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase_score",
-      "probe": {
-        "negative_abstain_rate": 0.6491,
-        "positive_allow_rate": 1.0,
-        "target_status": "pass",
-        "utility_score": 55.6
-      },
-      "shadow_lead_min": 0.08,
-      "shadow_score_min": 0.05,
-      "validation": {
-        "negative_abstain_rate": 0.5938,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 19.2
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.3125,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -2.6
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase_score|lead=0.08|score=0.1",
-      "combined_utility": 74.8,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5938,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase_score",
-      "probe": {
-        "negative_abstain_rate": 0.6491,
-        "positive_allow_rate": 1.0,
-        "target_status": "pass",
-        "utility_score": 55.6
-      },
-      "shadow_lead_min": 0.08,
-      "shadow_score_min": 0.1,
-      "validation": {
-        "negative_abstain_rate": 0.5938,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 19.2
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.3125,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -2.6
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase_score|lead=0.08|score=0.2",
-      "combined_utility": 74.8,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5938,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase_score",
-      "probe": {
-        "negative_abstain_rate": 0.6491,
-        "positive_allow_rate": 1.0,
-        "target_status": "pass",
-        "utility_score": 55.6
-      },
-      "shadow_lead_min": 0.08,
-      "shadow_score_min": 0.2,
-      "validation": {
-        "negative_abstain_rate": 0.5938,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 19.2
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.3125,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -2.6
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase_score|lead=0.08|score=0.35",
-      "combined_utility": 74.8,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5938,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase_score",
-      "probe": {
-        "negative_abstain_rate": 0.6491,
-        "positive_allow_rate": 1.0,
-        "target_status": "pass",
-        "utility_score": 55.6
-      },
-      "shadow_lead_min": 0.08,
-      "shadow_score_min": 0.35,
-      "validation": {
-        "negative_abstain_rate": 0.5938,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 19.2
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.3125,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -2.6
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase_score|lead=0.08|score=0.45",
-      "combined_utility": 74.8,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5938,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase_score",
-      "probe": {
-        "negative_abstain_rate": 0.6491,
-        "positive_allow_rate": 1.0,
-        "target_status": "pass",
-        "utility_score": 55.6
-      },
-      "shadow_lead_min": 0.08,
-      "shadow_score_min": 0.45,
-      "validation": {
-        "negative_abstain_rate": 0.5938,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 19.2
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.3125,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -2.6
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase_score|lead=0.08|score=0.5",
-      "combined_utility": 74.8,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5938,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase_score",
-      "probe": {
-        "negative_abstain_rate": 0.6491,
-        "positive_allow_rate": 1.0,
-        "target_status": "pass",
-        "utility_score": 55.6
-      },
-      "shadow_lead_min": 0.08,
-      "shadow_score_min": 0.5,
-      "validation": {
-        "negative_abstain_rate": 0.5938,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 19.2
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.3125,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -2.6
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_only|lead=0.05|score=0.5",
-      "combined_utility": 73.4,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5312,
-      "minimum_positive_allow_rate": 0.875,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_only",
-      "probe": {
-        "negative_abstain_rate": 0.6667,
-        "positive_allow_rate": 0.9737,
-        "target_status": "pass",
-        "utility_score": 55.6
-      },
-      "shadow_lead_min": 0.05,
-      "shadow_score_min": 0.5,
-      "validation": {
-        "negative_abstain_rate": 0.5312,
-        "positive_allow_rate": 0.875,
-        "target_status": "pass",
-        "utility_score": 17.8
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.6875,
-          "positive_allow_rate": 0.875,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 19.0
-        },
-        {
-          "negative_abstain_rate": 0.375,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -1.2
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase_score|lead=0.08|score=0.55",
-      "combined_utility": 73.4,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5938,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase_score",
-      "probe": {
-        "negative_abstain_rate": 0.6316,
-        "positive_allow_rate": 1.0,
-        "target_status": "pass",
-        "utility_score": 54.2
-      },
-      "shadow_lead_min": 0.08,
-      "shadow_score_min": 0.55,
-      "validation": {
-        "negative_abstain_rate": 0.5938,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 19.2
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.3125,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -2.6
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.08|score=0.0",
-      "combined_utility": 72.0,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5312,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase",
-      "probe": {
-        "negative_abstain_rate": 0.6491,
-        "positive_allow_rate": 1.0,
-        "target_status": "pass",
-        "utility_score": 55.6
-      },
-      "shadow_lead_min": 0.08,
-      "shadow_score_min": 0.0,
-      "validation": {
-        "negative_abstain_rate": 0.5312,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 16.4
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.1875,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -5.4
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.08|score=0.02",
-      "combined_utility": 72.0,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5312,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase",
-      "probe": {
-        "negative_abstain_rate": 0.6491,
-        "positive_allow_rate": 1.0,
-        "target_status": "pass",
-        "utility_score": 55.6
-      },
-      "shadow_lead_min": 0.08,
-      "shadow_score_min": 0.02,
-      "validation": {
-        "negative_abstain_rate": 0.5312,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 16.4
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.1875,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -5.4
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.08|score=0.05",
-      "combined_utility": 72.0,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5312,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase",
-      "probe": {
-        "negative_abstain_rate": 0.6491,
-        "positive_allow_rate": 1.0,
-        "target_status": "pass",
-        "utility_score": 55.6
-      },
-      "shadow_lead_min": 0.08,
-      "shadow_score_min": 0.05,
-      "validation": {
-        "negative_abstain_rate": 0.5312,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 16.4
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.1875,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -5.4
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.08|score=0.1",
-      "combined_utility": 72.0,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5312,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase",
-      "probe": {
-        "negative_abstain_rate": 0.6491,
-        "positive_allow_rate": 1.0,
-        "target_status": "pass",
-        "utility_score": 55.6
-      },
-      "shadow_lead_min": 0.08,
-      "shadow_score_min": 0.1,
-      "validation": {
-        "negative_abstain_rate": 0.5312,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 16.4
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.1875,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -5.4
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.08|score=0.2",
-      "combined_utility": 72.0,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5312,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase",
-      "probe": {
-        "negative_abstain_rate": 0.6491,
-        "positive_allow_rate": 1.0,
-        "target_status": "pass",
-        "utility_score": 55.6
-      },
-      "shadow_lead_min": 0.08,
-      "shadow_score_min": 0.2,
-      "validation": {
-        "negative_abstain_rate": 0.5312,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 16.4
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.1875,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -5.4
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.08|score=0.35",
-      "combined_utility": 72.0,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5312,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase",
-      "probe": {
-        "negative_abstain_rate": 0.6491,
-        "positive_allow_rate": 1.0,
-        "target_status": "pass",
-        "utility_score": 55.6
-      },
-      "shadow_lead_min": 0.08,
-      "shadow_score_min": 0.35,
-      "validation": {
-        "negative_abstain_rate": 0.5312,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 16.4
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.1875,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -5.4
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.08|score=0.45",
-      "combined_utility": 72.0,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5312,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase",
-      "probe": {
-        "negative_abstain_rate": 0.6491,
-        "positive_allow_rate": 1.0,
-        "target_status": "pass",
-        "utility_score": 55.6
-      },
-      "shadow_lead_min": 0.08,
-      "shadow_score_min": 0.45,
-      "validation": {
-        "negative_abstain_rate": 0.5312,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 16.4
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.1875,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -5.4
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.08|score=0.5",
-      "combined_utility": 72.0,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5312,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase",
-      "probe": {
-        "negative_abstain_rate": 0.6491,
-        "positive_allow_rate": 1.0,
-        "target_status": "pass",
-        "utility_score": 55.6
-      },
-      "shadow_lead_min": 0.08,
-      "shadow_score_min": 0.5,
-      "validation": {
-        "negative_abstain_rate": 0.5312,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 16.4
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.1875,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -5.4
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_only|lead=0.05|score=0.55",
-      "combined_utility": 70.6,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5312,
-      "minimum_positive_allow_rate": 0.875,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_only",
-      "probe": {
-        "negative_abstain_rate": 0.6316,
-        "positive_allow_rate": 0.9737,
-        "target_status": "pass",
-        "utility_score": 52.8
-      },
-      "shadow_lead_min": 0.05,
-      "shadow_score_min": 0.55,
-      "validation": {
-        "negative_abstain_rate": 0.5312,
-        "positive_allow_rate": 0.875,
-        "target_status": "pass",
-        "utility_score": 17.8
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.6875,
-          "positive_allow_rate": 0.875,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 19.0
-        },
-        {
-          "negative_abstain_rate": 0.375,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -1.2
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase_score|lead=0.08|score=0.6",
-      "combined_utility": 70.6,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5938,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase_score",
-      "probe": {
-        "negative_abstain_rate": 0.5965,
-        "positive_allow_rate": 1.0,
-        "target_status": "pass",
-        "utility_score": 51.4
-      },
-      "shadow_lead_min": 0.08,
-      "shadow_score_min": 0.6,
-      "validation": {
-        "negative_abstain_rate": 0.5938,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 19.2
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.3125,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -2.6
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.08|score=0.55",
-      "combined_utility": 70.6,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5312,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase",
-      "probe": {
-        "negative_abstain_rate": 0.6316,
-        "positive_allow_rate": 1.0,
-        "target_status": "pass",
-        "utility_score": 54.2
-      },
-      "shadow_lead_min": 0.08,
-      "shadow_score_min": 0.55,
-      "validation": {
-        "negative_abstain_rate": 0.5312,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 16.4
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.1875,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -5.4
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.08|score=0.6",
-      "combined_utility": 67.8,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5312,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase",
-      "probe": {
-        "negative_abstain_rate": 0.5965,
-        "positive_allow_rate": 1.0,
-        "target_status": "pass",
-        "utility_score": 51.4
-      },
-      "shadow_lead_min": 0.08,
-      "shadow_score_min": 0.6,
-      "validation": {
-        "negative_abstain_rate": 0.5312,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 16.4
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.1875,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -5.4
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_only|lead=0.05|score=0.6",
-      "combined_utility": 65.0,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5312,
-      "minimum_positive_allow_rate": 0.875,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_only",
-      "probe": {
-        "negative_abstain_rate": 0.5439,
-        "positive_allow_rate": 1.0,
-        "target_status": "pass",
-        "utility_score": 47.2
-      },
-      "shadow_lead_min": 0.05,
-      "shadow_score_min": 0.6,
-      "validation": {
-        "negative_abstain_rate": 0.5312,
-        "positive_allow_rate": 0.875,
-        "target_status": "pass",
-        "utility_score": 17.8
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.6875,
-          "positive_allow_rate": 0.875,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 19.0
-        },
-        {
-          "negative_abstain_rate": 0.375,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -1.2
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase_score|lead=0.1|score=0.0",
-      "combined_utility": 65.0,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5263,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase_score",
-      "probe": {
-        "negative_abstain_rate": 0.5263,
-        "positive_allow_rate": 1.0,
-        "target_status": "pass",
-        "utility_score": 45.8
-      },
-      "shadow_lead_min": 0.1,
-      "shadow_score_min": 0.0,
-      "validation": {
-        "negative_abstain_rate": 0.5938,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 19.2
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.3125,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -2.6
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase_score|lead=0.1|score=0.02",
-      "combined_utility": 65.0,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5263,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase_score",
-      "probe": {
-        "negative_abstain_rate": 0.5263,
-        "positive_allow_rate": 1.0,
-        "target_status": "pass",
-        "utility_score": 45.8
-      },
-      "shadow_lead_min": 0.1,
-      "shadow_score_min": 0.02,
-      "validation": {
-        "negative_abstain_rate": 0.5938,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 19.2
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.3125,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -2.6
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase_score|lead=0.1|score=0.05",
-      "combined_utility": 65.0,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5263,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase_score",
-      "probe": {
-        "negative_abstain_rate": 0.5263,
-        "positive_allow_rate": 1.0,
-        "target_status": "pass",
-        "utility_score": 45.8
-      },
-      "shadow_lead_min": 0.1,
-      "shadow_score_min": 0.05,
-      "validation": {
-        "negative_abstain_rate": 0.5938,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 19.2
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.3125,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -2.6
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase_score|lead=0.1|score=0.1",
-      "combined_utility": 65.0,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5263,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase_score",
-      "probe": {
-        "negative_abstain_rate": 0.5263,
-        "positive_allow_rate": 1.0,
-        "target_status": "pass",
-        "utility_score": 45.8
-      },
-      "shadow_lead_min": 0.1,
-      "shadow_score_min": 0.1,
-      "validation": {
-        "negative_abstain_rate": 0.5938,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 19.2
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.3125,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -2.6
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase_score|lead=0.1|score=0.2",
-      "combined_utility": 65.0,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5263,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase_score",
-      "probe": {
-        "negative_abstain_rate": 0.5263,
-        "positive_allow_rate": 1.0,
-        "target_status": "pass",
-        "utility_score": 45.8
-      },
-      "shadow_lead_min": 0.1,
-      "shadow_score_min": 0.2,
-      "validation": {
-        "negative_abstain_rate": 0.5938,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 19.2
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.3125,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -2.6
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase_score|lead=0.1|score=0.35",
-      "combined_utility": 65.0,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5263,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase_score",
-      "probe": {
-        "negative_abstain_rate": 0.5263,
-        "positive_allow_rate": 1.0,
-        "target_status": "pass",
-        "utility_score": 45.8
-      },
-      "shadow_lead_min": 0.1,
-      "shadow_score_min": 0.35,
-      "validation": {
-        "negative_abstain_rate": 0.5938,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 19.2
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.3125,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -2.6
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase_score|lead=0.1|score=0.45",
-      "combined_utility": 65.0,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5263,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase_score",
-      "probe": {
-        "negative_abstain_rate": 0.5263,
-        "positive_allow_rate": 1.0,
-        "target_status": "pass",
-        "utility_score": 45.8
-      },
-      "shadow_lead_min": 0.1,
-      "shadow_score_min": 0.45,
-      "validation": {
-        "negative_abstain_rate": 0.5938,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 19.2
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.3125,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -2.6
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase_score|lead=0.1|score=0.5",
-      "combined_utility": 65.0,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5263,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase_score",
-      "probe": {
-        "negative_abstain_rate": 0.5263,
-        "positive_allow_rate": 1.0,
-        "target_status": "pass",
-        "utility_score": 45.8
-      },
-      "shadow_lead_min": 0.1,
-      "shadow_score_min": 0.5,
-      "validation": {
-        "negative_abstain_rate": 0.5938,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 19.2
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.3125,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -2.6
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase_score|lead=0.1|score=0.55",
-      "combined_utility": 65.0,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5263,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase_score",
-      "probe": {
-        "negative_abstain_rate": 0.5263,
-        "positive_allow_rate": 1.0,
-        "target_status": "pass",
-        "utility_score": 45.8
-      },
-      "shadow_lead_min": 0.1,
-      "shadow_score_min": 0.55,
-      "validation": {
-        "negative_abstain_rate": 0.5938,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 19.2
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.3125,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -2.6
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase_score|lead=0.1|score=0.6",
-      "combined_utility": 65.0,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5263,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase_score",
-      "probe": {
-        "negative_abstain_rate": 0.5263,
-        "positive_allow_rate": 1.0,
-        "target_status": "pass",
-        "utility_score": 45.8
-      },
-      "shadow_lead_min": 0.1,
-      "shadow_score_min": 0.6,
-      "validation": {
-        "negative_abstain_rate": 0.5938,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 19.2
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.3125,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -2.6
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.1|score=0.0",
-      "combined_utility": 60.8,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase",
-      "probe": {
-        "negative_abstain_rate": 0.5263,
-        "positive_allow_rate": 1.0,
-        "target_status": "pass",
-        "utility_score": 45.8
-      },
-      "shadow_lead_min": 0.1,
-      "shadow_score_min": 0.0,
-      "validation": {
-        "negative_abstain_rate": 0.5,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 15.0
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.125,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -6.8
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.1|score=0.02",
-      "combined_utility": 60.8,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase",
-      "probe": {
-        "negative_abstain_rate": 0.5263,
-        "positive_allow_rate": 1.0,
-        "target_status": "pass",
-        "utility_score": 45.8
-      },
-      "shadow_lead_min": 0.1,
-      "shadow_score_min": 0.02,
-      "validation": {
-        "negative_abstain_rate": 0.5,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 15.0
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.125,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -6.8
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.1|score=0.05",
-      "combined_utility": 60.8,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase",
-      "probe": {
-        "negative_abstain_rate": 0.5263,
-        "positive_allow_rate": 1.0,
-        "target_status": "pass",
-        "utility_score": 45.8
-      },
-      "shadow_lead_min": 0.1,
-      "shadow_score_min": 0.05,
-      "validation": {
-        "negative_abstain_rate": 0.5,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 15.0
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.125,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -6.8
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.1|score=0.1",
-      "combined_utility": 60.8,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase",
-      "probe": {
-        "negative_abstain_rate": 0.5263,
-        "positive_allow_rate": 1.0,
-        "target_status": "pass",
-        "utility_score": 45.8
-      },
-      "shadow_lead_min": 0.1,
-      "shadow_score_min": 0.1,
-      "validation": {
-        "negative_abstain_rate": 0.5,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 15.0
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.125,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -6.8
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.1|score=0.2",
-      "combined_utility": 60.8,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase",
-      "probe": {
-        "negative_abstain_rate": 0.5263,
-        "positive_allow_rate": 1.0,
-        "target_status": "pass",
-        "utility_score": 45.8
-      },
-      "shadow_lead_min": 0.1,
-      "shadow_score_min": 0.2,
-      "validation": {
-        "negative_abstain_rate": 0.5,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 15.0
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.125,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -6.8
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.1|score=0.35",
-      "combined_utility": 60.8,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase",
-      "probe": {
-        "negative_abstain_rate": 0.5263,
-        "positive_allow_rate": 1.0,
-        "target_status": "pass",
-        "utility_score": 45.8
-      },
-      "shadow_lead_min": 0.1,
-      "shadow_score_min": 0.35,
-      "validation": {
-        "negative_abstain_rate": 0.5,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 15.0
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.125,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -6.8
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.1|score=0.45",
-      "combined_utility": 60.8,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase",
-      "probe": {
-        "negative_abstain_rate": 0.5263,
-        "positive_allow_rate": 1.0,
-        "target_status": "pass",
-        "utility_score": 45.8
-      },
-      "shadow_lead_min": 0.1,
-      "shadow_score_min": 0.45,
-      "validation": {
-        "negative_abstain_rate": 0.5,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 15.0
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.125,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -6.8
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.1|score=0.5",
-      "combined_utility": 60.8,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase",
-      "probe": {
-        "negative_abstain_rate": 0.5263,
-        "positive_allow_rate": 1.0,
-        "target_status": "pass",
-        "utility_score": 45.8
-      },
-      "shadow_lead_min": 0.1,
-      "shadow_score_min": 0.5,
-      "validation": {
-        "negative_abstain_rate": 0.5,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 15.0
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.125,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -6.8
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.1|score=0.55",
-      "combined_utility": 60.8,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase",
-      "probe": {
-        "negative_abstain_rate": 0.5263,
-        "positive_allow_rate": 1.0,
-        "target_status": "pass",
-        "utility_score": 45.8
-      },
-      "shadow_lead_min": 0.1,
-      "shadow_score_min": 0.55,
-      "validation": {
-        "negative_abstain_rate": 0.5,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 15.0
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.125,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -6.8
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.1|score=0.6",
-      "combined_utility": 60.8,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.5,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase",
-      "probe": {
-        "negative_abstain_rate": 0.5263,
-        "positive_allow_rate": 1.0,
-        "target_status": "pass",
-        "utility_score": 45.8
-      },
-      "shadow_lead_min": 0.1,
-      "shadow_score_min": 0.6,
-      "validation": {
-        "negative_abstain_rate": 0.5,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 15.0
-      },
-      "validation_source_breakdowns": [
-        {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.125,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -6.8
         }
       ]
     },
@@ -4581,6 +2163,318 @@
       ]
     },
     {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.05|score=0.0",
+      "combined_utility": 87.4,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.625,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase",
+      "probe": {
+        "negative_abstain_rate": 0.807,
+        "positive_allow_rate": 0.9737,
+        "target_status": "pass",
+        "utility_score": 66.8
+      },
+      "shadow_lead_min": 0.05,
+      "shadow_score_min": 0.0,
+      "validation": {
+        "negative_abstain_rate": 0.625,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 20.6
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.375,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -1.2
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.05|score=0.02",
+      "combined_utility": 87.4,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.625,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase",
+      "probe": {
+        "negative_abstain_rate": 0.807,
+        "positive_allow_rate": 0.9737,
+        "target_status": "pass",
+        "utility_score": 66.8
+      },
+      "shadow_lead_min": 0.05,
+      "shadow_score_min": 0.02,
+      "validation": {
+        "negative_abstain_rate": 0.625,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 20.6
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.375,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -1.2
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.05|score=0.05",
+      "combined_utility": 87.4,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.625,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase",
+      "probe": {
+        "negative_abstain_rate": 0.807,
+        "positive_allow_rate": 0.9737,
+        "target_status": "pass",
+        "utility_score": 66.8
+      },
+      "shadow_lead_min": 0.05,
+      "shadow_score_min": 0.05,
+      "validation": {
+        "negative_abstain_rate": 0.625,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 20.6
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.375,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -1.2
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.05|score=0.1",
+      "combined_utility": 87.4,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.625,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase",
+      "probe": {
+        "negative_abstain_rate": 0.807,
+        "positive_allow_rate": 0.9737,
+        "target_status": "pass",
+        "utility_score": 66.8
+      },
+      "shadow_lead_min": 0.05,
+      "shadow_score_min": 0.1,
+      "validation": {
+        "negative_abstain_rate": 0.625,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 20.6
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.375,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -1.2
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.05|score=0.2",
+      "combined_utility": 87.4,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.625,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase",
+      "probe": {
+        "negative_abstain_rate": 0.807,
+        "positive_allow_rate": 0.9737,
+        "target_status": "pass",
+        "utility_score": 66.8
+      },
+      "shadow_lead_min": 0.05,
+      "shadow_score_min": 0.2,
+      "validation": {
+        "negative_abstain_rate": 0.625,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 20.6
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.375,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -1.2
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.05|score=0.35",
+      "combined_utility": 87.4,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.625,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase",
+      "probe": {
+        "negative_abstain_rate": 0.807,
+        "positive_allow_rate": 0.9737,
+        "target_status": "pass",
+        "utility_score": 66.8
+      },
+      "shadow_lead_min": 0.05,
+      "shadow_score_min": 0.35,
+      "validation": {
+        "negative_abstain_rate": 0.625,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 20.6
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.375,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -1.2
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.05|score=0.45",
+      "combined_utility": 87.4,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.625,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase",
+      "probe": {
+        "negative_abstain_rate": 0.807,
+        "positive_allow_rate": 0.9737,
+        "target_status": "pass",
+        "utility_score": 66.8
+      },
+      "shadow_lead_min": 0.05,
+      "shadow_score_min": 0.45,
+      "validation": {
+        "negative_abstain_rate": 0.625,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 20.6
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.375,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -1.2
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.05|score=0.5",
+      "combined_utility": 87.4,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.625,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase",
+      "probe": {
+        "negative_abstain_rate": 0.807,
+        "positive_allow_rate": 0.9737,
+        "target_status": "pass",
+        "utility_score": 66.8
+      },
+      "shadow_lead_min": 0.05,
+      "shadow_score_min": 0.5,
+      "validation": {
+        "negative_abstain_rate": 0.625,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 20.6
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.375,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -1.2
+        }
+      ]
+    },
+    {
       "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.0|score=0.55",
       "combined_utility": 87.4,
       "config_id": "control_st_masked_all_margin_phrase_override",
@@ -5084,6 +2978,45 @@
           "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
           "target_status": "pass",
           "utility_score": 12.8
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.05|score=0.55",
+      "combined_utility": 84.6,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.625,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase",
+      "probe": {
+        "negative_abstain_rate": 0.7719,
+        "positive_allow_rate": 0.9737,
+        "target_status": "pass",
+        "utility_score": 64.0
+      },
+      "shadow_lead_min": 0.05,
+      "shadow_score_min": 0.55,
+      "validation": {
+        "negative_abstain_rate": 0.625,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 20.6
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.375,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -1.2
         }
       ]
     },
@@ -6921,6 +4854,45 @@
       ]
     },
     {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.05|score=0.6",
+      "combined_utility": 79.0,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.625,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase",
+      "probe": {
+        "negative_abstain_rate": 0.6842,
+        "positive_allow_rate": 1.0,
+        "target_status": "pass",
+        "utility_score": 58.4
+      },
+      "shadow_lead_min": 0.05,
+      "shadow_score_min": 0.6,
+      "validation": {
+        "negative_abstain_rate": 0.625,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 20.6
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.375,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -1.2
+        }
+      ]
+    },
+    {
       "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_only|lead=-0.02|score=0.5",
       "combined_utility": 79.0,
       "config_id": "control_st_masked_all_margin_phrase_override",
@@ -7662,6 +5634,591 @@
       ]
     },
     {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_only|lead=0.05|score=0.0",
+      "combined_utility": 74.8,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5312,
+      "minimum_positive_allow_rate": 0.875,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_only",
+      "probe": {
+        "negative_abstain_rate": 0.6842,
+        "positive_allow_rate": 0.9737,
+        "target_status": "pass",
+        "utility_score": 57.0
+      },
+      "shadow_lead_min": 0.05,
+      "shadow_score_min": 0.0,
+      "validation": {
+        "negative_abstain_rate": 0.5312,
+        "positive_allow_rate": 0.875,
+        "target_status": "pass",
+        "utility_score": 17.8
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.6875,
+          "positive_allow_rate": 0.875,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 19.0
+        },
+        {
+          "negative_abstain_rate": 0.375,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -1.2
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_only|lead=0.05|score=0.02",
+      "combined_utility": 74.8,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5312,
+      "minimum_positive_allow_rate": 0.875,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_only",
+      "probe": {
+        "negative_abstain_rate": 0.6842,
+        "positive_allow_rate": 0.9737,
+        "target_status": "pass",
+        "utility_score": 57.0
+      },
+      "shadow_lead_min": 0.05,
+      "shadow_score_min": 0.02,
+      "validation": {
+        "negative_abstain_rate": 0.5312,
+        "positive_allow_rate": 0.875,
+        "target_status": "pass",
+        "utility_score": 17.8
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.6875,
+          "positive_allow_rate": 0.875,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 19.0
+        },
+        {
+          "negative_abstain_rate": 0.375,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -1.2
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_only|lead=0.05|score=0.05",
+      "combined_utility": 74.8,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5312,
+      "minimum_positive_allow_rate": 0.875,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_only",
+      "probe": {
+        "negative_abstain_rate": 0.6842,
+        "positive_allow_rate": 0.9737,
+        "target_status": "pass",
+        "utility_score": 57.0
+      },
+      "shadow_lead_min": 0.05,
+      "shadow_score_min": 0.05,
+      "validation": {
+        "negative_abstain_rate": 0.5312,
+        "positive_allow_rate": 0.875,
+        "target_status": "pass",
+        "utility_score": 17.8
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.6875,
+          "positive_allow_rate": 0.875,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 19.0
+        },
+        {
+          "negative_abstain_rate": 0.375,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -1.2
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_only|lead=0.05|score=0.1",
+      "combined_utility": 74.8,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5312,
+      "minimum_positive_allow_rate": 0.875,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_only",
+      "probe": {
+        "negative_abstain_rate": 0.6842,
+        "positive_allow_rate": 0.9737,
+        "target_status": "pass",
+        "utility_score": 57.0
+      },
+      "shadow_lead_min": 0.05,
+      "shadow_score_min": 0.1,
+      "validation": {
+        "negative_abstain_rate": 0.5312,
+        "positive_allow_rate": 0.875,
+        "target_status": "pass",
+        "utility_score": 17.8
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.6875,
+          "positive_allow_rate": 0.875,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 19.0
+        },
+        {
+          "negative_abstain_rate": 0.375,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -1.2
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_only|lead=0.05|score=0.2",
+      "combined_utility": 74.8,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5312,
+      "minimum_positive_allow_rate": 0.875,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_only",
+      "probe": {
+        "negative_abstain_rate": 0.6842,
+        "positive_allow_rate": 0.9737,
+        "target_status": "pass",
+        "utility_score": 57.0
+      },
+      "shadow_lead_min": 0.05,
+      "shadow_score_min": 0.2,
+      "validation": {
+        "negative_abstain_rate": 0.5312,
+        "positive_allow_rate": 0.875,
+        "target_status": "pass",
+        "utility_score": 17.8
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.6875,
+          "positive_allow_rate": 0.875,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 19.0
+        },
+        {
+          "negative_abstain_rate": 0.375,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -1.2
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_only|lead=0.05|score=0.35",
+      "combined_utility": 74.8,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5312,
+      "minimum_positive_allow_rate": 0.875,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_only",
+      "probe": {
+        "negative_abstain_rate": 0.6842,
+        "positive_allow_rate": 0.9737,
+        "target_status": "pass",
+        "utility_score": 57.0
+      },
+      "shadow_lead_min": 0.05,
+      "shadow_score_min": 0.35,
+      "validation": {
+        "negative_abstain_rate": 0.5312,
+        "positive_allow_rate": 0.875,
+        "target_status": "pass",
+        "utility_score": 17.8
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.6875,
+          "positive_allow_rate": 0.875,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 19.0
+        },
+        {
+          "negative_abstain_rate": 0.375,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -1.2
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_only|lead=0.05|score=0.45",
+      "combined_utility": 74.8,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5312,
+      "minimum_positive_allow_rate": 0.875,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_only",
+      "probe": {
+        "negative_abstain_rate": 0.6842,
+        "positive_allow_rate": 0.9737,
+        "target_status": "pass",
+        "utility_score": 57.0
+      },
+      "shadow_lead_min": 0.05,
+      "shadow_score_min": 0.45,
+      "validation": {
+        "negative_abstain_rate": 0.5312,
+        "positive_allow_rate": 0.875,
+        "target_status": "pass",
+        "utility_score": 17.8
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.6875,
+          "positive_allow_rate": 0.875,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 19.0
+        },
+        {
+          "negative_abstain_rate": 0.375,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -1.2
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase_score|lead=0.08|score=0.0",
+      "combined_utility": 74.8,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5938,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase_score",
+      "probe": {
+        "negative_abstain_rate": 0.6491,
+        "positive_allow_rate": 1.0,
+        "target_status": "pass",
+        "utility_score": 55.6
+      },
+      "shadow_lead_min": 0.08,
+      "shadow_score_min": 0.0,
+      "validation": {
+        "negative_abstain_rate": 0.5938,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 19.2
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.3125,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -2.6
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase_score|lead=0.08|score=0.02",
+      "combined_utility": 74.8,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5938,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase_score",
+      "probe": {
+        "negative_abstain_rate": 0.6491,
+        "positive_allow_rate": 1.0,
+        "target_status": "pass",
+        "utility_score": 55.6
+      },
+      "shadow_lead_min": 0.08,
+      "shadow_score_min": 0.02,
+      "validation": {
+        "negative_abstain_rate": 0.5938,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 19.2
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.3125,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -2.6
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase_score|lead=0.08|score=0.05",
+      "combined_utility": 74.8,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5938,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase_score",
+      "probe": {
+        "negative_abstain_rate": 0.6491,
+        "positive_allow_rate": 1.0,
+        "target_status": "pass",
+        "utility_score": 55.6
+      },
+      "shadow_lead_min": 0.08,
+      "shadow_score_min": 0.05,
+      "validation": {
+        "negative_abstain_rate": 0.5938,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 19.2
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.3125,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -2.6
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase_score|lead=0.08|score=0.1",
+      "combined_utility": 74.8,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5938,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase_score",
+      "probe": {
+        "negative_abstain_rate": 0.6491,
+        "positive_allow_rate": 1.0,
+        "target_status": "pass",
+        "utility_score": 55.6
+      },
+      "shadow_lead_min": 0.08,
+      "shadow_score_min": 0.1,
+      "validation": {
+        "negative_abstain_rate": 0.5938,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 19.2
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.3125,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -2.6
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase_score|lead=0.08|score=0.2",
+      "combined_utility": 74.8,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5938,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase_score",
+      "probe": {
+        "negative_abstain_rate": 0.6491,
+        "positive_allow_rate": 1.0,
+        "target_status": "pass",
+        "utility_score": 55.6
+      },
+      "shadow_lead_min": 0.08,
+      "shadow_score_min": 0.2,
+      "validation": {
+        "negative_abstain_rate": 0.5938,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 19.2
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.3125,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -2.6
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase_score|lead=0.08|score=0.35",
+      "combined_utility": 74.8,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5938,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase_score",
+      "probe": {
+        "negative_abstain_rate": 0.6491,
+        "positive_allow_rate": 1.0,
+        "target_status": "pass",
+        "utility_score": 55.6
+      },
+      "shadow_lead_min": 0.08,
+      "shadow_score_min": 0.35,
+      "validation": {
+        "negative_abstain_rate": 0.5938,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 19.2
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.3125,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -2.6
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase_score|lead=0.08|score=0.45",
+      "combined_utility": 74.8,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5938,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase_score",
+      "probe": {
+        "negative_abstain_rate": 0.6491,
+        "positive_allow_rate": 1.0,
+        "target_status": "pass",
+        "utility_score": 55.6
+      },
+      "shadow_lead_min": 0.08,
+      "shadow_score_min": 0.45,
+      "validation": {
+        "negative_abstain_rate": 0.5938,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 19.2
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.3125,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -2.6
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase_score|lead=0.08|score=0.5",
+      "combined_utility": 74.8,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5938,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase_score",
+      "probe": {
+        "negative_abstain_rate": 0.6491,
+        "positive_allow_rate": 1.0,
+        "target_status": "pass",
+        "utility_score": 55.6
+      },
+      "shadow_lead_min": 0.08,
+      "shadow_score_min": 0.5,
+      "validation": {
+        "negative_abstain_rate": 0.5938,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 19.2
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.3125,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -2.6
+        }
+      ]
+    },
+    {
       "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_only|lead=-0.05|score=0.5",
       "combined_utility": 74.8,
       "config_id": "control_st_masked_all_margin_phrase_override",
@@ -7701,6 +6258,84 @@
       ]
     },
     {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_only|lead=0.05|score=0.5",
+      "combined_utility": 73.4,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5312,
+      "minimum_positive_allow_rate": 0.875,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_only",
+      "probe": {
+        "negative_abstain_rate": 0.6667,
+        "positive_allow_rate": 0.9737,
+        "target_status": "pass",
+        "utility_score": 55.6
+      },
+      "shadow_lead_min": 0.05,
+      "shadow_score_min": 0.5,
+      "validation": {
+        "negative_abstain_rate": 0.5312,
+        "positive_allow_rate": 0.875,
+        "target_status": "pass",
+        "utility_score": 17.8
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.6875,
+          "positive_allow_rate": 0.875,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 19.0
+        },
+        {
+          "negative_abstain_rate": 0.375,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -1.2
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase_score|lead=0.08|score=0.55",
+      "combined_utility": 73.4,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5938,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase_score",
+      "probe": {
+        "negative_abstain_rate": 0.6316,
+        "positive_allow_rate": 1.0,
+        "target_status": "pass",
+        "utility_score": 54.2
+      },
+      "shadow_lead_min": 0.08,
+      "shadow_score_min": 0.55,
+      "validation": {
+        "negative_abstain_rate": 0.5938,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 19.2
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.3125,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -2.6
+        }
+      ]
+    },
+    {
       "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_only|lead=-0.05|score=0.55",
       "combined_utility": 73.4,
       "config_id": "control_st_masked_all_margin_phrase_override",
@@ -7736,6 +6371,318 @@
           "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
           "target_status": "pass",
           "utility_score": 10.0
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.08|score=0.0",
+      "combined_utility": 72.0,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5312,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase",
+      "probe": {
+        "negative_abstain_rate": 0.6491,
+        "positive_allow_rate": 1.0,
+        "target_status": "pass",
+        "utility_score": 55.6
+      },
+      "shadow_lead_min": 0.08,
+      "shadow_score_min": 0.0,
+      "validation": {
+        "negative_abstain_rate": 0.5312,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 16.4
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.1875,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -5.4
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.08|score=0.02",
+      "combined_utility": 72.0,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5312,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase",
+      "probe": {
+        "negative_abstain_rate": 0.6491,
+        "positive_allow_rate": 1.0,
+        "target_status": "pass",
+        "utility_score": 55.6
+      },
+      "shadow_lead_min": 0.08,
+      "shadow_score_min": 0.02,
+      "validation": {
+        "negative_abstain_rate": 0.5312,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 16.4
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.1875,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -5.4
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.08|score=0.05",
+      "combined_utility": 72.0,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5312,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase",
+      "probe": {
+        "negative_abstain_rate": 0.6491,
+        "positive_allow_rate": 1.0,
+        "target_status": "pass",
+        "utility_score": 55.6
+      },
+      "shadow_lead_min": 0.08,
+      "shadow_score_min": 0.05,
+      "validation": {
+        "negative_abstain_rate": 0.5312,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 16.4
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.1875,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -5.4
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.08|score=0.1",
+      "combined_utility": 72.0,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5312,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase",
+      "probe": {
+        "negative_abstain_rate": 0.6491,
+        "positive_allow_rate": 1.0,
+        "target_status": "pass",
+        "utility_score": 55.6
+      },
+      "shadow_lead_min": 0.08,
+      "shadow_score_min": 0.1,
+      "validation": {
+        "negative_abstain_rate": 0.5312,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 16.4
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.1875,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -5.4
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.08|score=0.2",
+      "combined_utility": 72.0,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5312,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase",
+      "probe": {
+        "negative_abstain_rate": 0.6491,
+        "positive_allow_rate": 1.0,
+        "target_status": "pass",
+        "utility_score": 55.6
+      },
+      "shadow_lead_min": 0.08,
+      "shadow_score_min": 0.2,
+      "validation": {
+        "negative_abstain_rate": 0.5312,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 16.4
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.1875,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -5.4
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.08|score=0.35",
+      "combined_utility": 72.0,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5312,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase",
+      "probe": {
+        "negative_abstain_rate": 0.6491,
+        "positive_allow_rate": 1.0,
+        "target_status": "pass",
+        "utility_score": 55.6
+      },
+      "shadow_lead_min": 0.08,
+      "shadow_score_min": 0.35,
+      "validation": {
+        "negative_abstain_rate": 0.5312,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 16.4
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.1875,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -5.4
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.08|score=0.45",
+      "combined_utility": 72.0,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5312,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase",
+      "probe": {
+        "negative_abstain_rate": 0.6491,
+        "positive_allow_rate": 1.0,
+        "target_status": "pass",
+        "utility_score": 55.6
+      },
+      "shadow_lead_min": 0.08,
+      "shadow_score_min": 0.45,
+      "validation": {
+        "negative_abstain_rate": 0.5312,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 16.4
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.1875,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -5.4
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.08|score=0.5",
+      "combined_utility": 72.0,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5312,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase",
+      "probe": {
+        "negative_abstain_rate": 0.6491,
+        "positive_allow_rate": 1.0,
+        "target_status": "pass",
+        "utility_score": 55.6
+      },
+      "shadow_lead_min": 0.08,
+      "shadow_score_min": 0.5,
+      "validation": {
+        "negative_abstain_rate": 0.5312,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 16.4
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.1875,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -5.4
         }
       ]
     },
@@ -7818,6 +6765,123 @@
       ]
     },
     {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_only|lead=0.05|score=0.55",
+      "combined_utility": 70.6,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5312,
+      "minimum_positive_allow_rate": 0.875,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_only",
+      "probe": {
+        "negative_abstain_rate": 0.6316,
+        "positive_allow_rate": 0.9737,
+        "target_status": "pass",
+        "utility_score": 52.8
+      },
+      "shadow_lead_min": 0.05,
+      "shadow_score_min": 0.55,
+      "validation": {
+        "negative_abstain_rate": 0.5312,
+        "positive_allow_rate": 0.875,
+        "target_status": "pass",
+        "utility_score": 17.8
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.6875,
+          "positive_allow_rate": 0.875,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 19.0
+        },
+        {
+          "negative_abstain_rate": 0.375,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -1.2
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase_score|lead=0.08|score=0.6",
+      "combined_utility": 70.6,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5938,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase_score",
+      "probe": {
+        "negative_abstain_rate": 0.5965,
+        "positive_allow_rate": 1.0,
+        "target_status": "pass",
+        "utility_score": 51.4
+      },
+      "shadow_lead_min": 0.08,
+      "shadow_score_min": 0.6,
+      "validation": {
+        "negative_abstain_rate": 0.5938,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 19.2
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.3125,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -2.6
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.08|score=0.55",
+      "combined_utility": 70.6,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5312,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase",
+      "probe": {
+        "negative_abstain_rate": 0.6316,
+        "positive_allow_rate": 1.0,
+        "target_status": "pass",
+        "utility_score": 54.2
+      },
+      "shadow_lead_min": 0.08,
+      "shadow_score_min": 0.55,
+      "validation": {
+        "negative_abstain_rate": 0.5312,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 16.4
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.1875,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -5.4
+        }
+      ]
+    },
+    {
       "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_only|lead=0.02|score=0.6",
       "combined_utility": 69.2,
       "config_id": "control_st_masked_all_margin_phrase_override",
@@ -7896,6 +6960,45 @@
       ]
     },
     {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.08|score=0.6",
+      "combined_utility": 67.8,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5312,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase",
+      "probe": {
+        "negative_abstain_rate": 0.5965,
+        "positive_allow_rate": 1.0,
+        "target_status": "pass",
+        "utility_score": 51.4
+      },
+      "shadow_lead_min": 0.08,
+      "shadow_score_min": 0.6,
+      "validation": {
+        "negative_abstain_rate": 0.5312,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 16.4
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.1875,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -5.4
+        }
+      ]
+    },
+    {
       "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase_score|lead=0.0|score=0.65",
       "combined_utility": 67.8,
       "config_id": "control_st_masked_all_margin_phrase_override",
@@ -7970,6 +7073,435 @@
           "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
           "target_status": "pass",
           "utility_score": 5.8
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_only|lead=0.05|score=0.6",
+      "combined_utility": 65.0,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5312,
+      "minimum_positive_allow_rate": 0.875,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_only",
+      "probe": {
+        "negative_abstain_rate": 0.5439,
+        "positive_allow_rate": 1.0,
+        "target_status": "pass",
+        "utility_score": 47.2
+      },
+      "shadow_lead_min": 0.05,
+      "shadow_score_min": 0.6,
+      "validation": {
+        "negative_abstain_rate": 0.5312,
+        "positive_allow_rate": 0.875,
+        "target_status": "pass",
+        "utility_score": 17.8
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.6875,
+          "positive_allow_rate": 0.875,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 19.0
+        },
+        {
+          "negative_abstain_rate": 0.375,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -1.2
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase_score|lead=0.1|score=0.0",
+      "combined_utility": 65.0,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5263,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase_score",
+      "probe": {
+        "negative_abstain_rate": 0.5263,
+        "positive_allow_rate": 1.0,
+        "target_status": "pass",
+        "utility_score": 45.8
+      },
+      "shadow_lead_min": 0.1,
+      "shadow_score_min": 0.0,
+      "validation": {
+        "negative_abstain_rate": 0.5938,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 19.2
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.3125,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -2.6
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase_score|lead=0.1|score=0.02",
+      "combined_utility": 65.0,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5263,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase_score",
+      "probe": {
+        "negative_abstain_rate": 0.5263,
+        "positive_allow_rate": 1.0,
+        "target_status": "pass",
+        "utility_score": 45.8
+      },
+      "shadow_lead_min": 0.1,
+      "shadow_score_min": 0.02,
+      "validation": {
+        "negative_abstain_rate": 0.5938,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 19.2
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.3125,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -2.6
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase_score|lead=0.1|score=0.05",
+      "combined_utility": 65.0,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5263,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase_score",
+      "probe": {
+        "negative_abstain_rate": 0.5263,
+        "positive_allow_rate": 1.0,
+        "target_status": "pass",
+        "utility_score": 45.8
+      },
+      "shadow_lead_min": 0.1,
+      "shadow_score_min": 0.05,
+      "validation": {
+        "negative_abstain_rate": 0.5938,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 19.2
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.3125,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -2.6
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase_score|lead=0.1|score=0.1",
+      "combined_utility": 65.0,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5263,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase_score",
+      "probe": {
+        "negative_abstain_rate": 0.5263,
+        "positive_allow_rate": 1.0,
+        "target_status": "pass",
+        "utility_score": 45.8
+      },
+      "shadow_lead_min": 0.1,
+      "shadow_score_min": 0.1,
+      "validation": {
+        "negative_abstain_rate": 0.5938,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 19.2
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.3125,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -2.6
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase_score|lead=0.1|score=0.2",
+      "combined_utility": 65.0,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5263,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase_score",
+      "probe": {
+        "negative_abstain_rate": 0.5263,
+        "positive_allow_rate": 1.0,
+        "target_status": "pass",
+        "utility_score": 45.8
+      },
+      "shadow_lead_min": 0.1,
+      "shadow_score_min": 0.2,
+      "validation": {
+        "negative_abstain_rate": 0.5938,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 19.2
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.3125,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -2.6
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase_score|lead=0.1|score=0.35",
+      "combined_utility": 65.0,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5263,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase_score",
+      "probe": {
+        "negative_abstain_rate": 0.5263,
+        "positive_allow_rate": 1.0,
+        "target_status": "pass",
+        "utility_score": 45.8
+      },
+      "shadow_lead_min": 0.1,
+      "shadow_score_min": 0.35,
+      "validation": {
+        "negative_abstain_rate": 0.5938,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 19.2
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.3125,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -2.6
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase_score|lead=0.1|score=0.45",
+      "combined_utility": 65.0,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5263,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase_score",
+      "probe": {
+        "negative_abstain_rate": 0.5263,
+        "positive_allow_rate": 1.0,
+        "target_status": "pass",
+        "utility_score": 45.8
+      },
+      "shadow_lead_min": 0.1,
+      "shadow_score_min": 0.45,
+      "validation": {
+        "negative_abstain_rate": 0.5938,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 19.2
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.3125,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -2.6
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase_score|lead=0.1|score=0.5",
+      "combined_utility": 65.0,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5263,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase_score",
+      "probe": {
+        "negative_abstain_rate": 0.5263,
+        "positive_allow_rate": 1.0,
+        "target_status": "pass",
+        "utility_score": 45.8
+      },
+      "shadow_lead_min": 0.1,
+      "shadow_score_min": 0.5,
+      "validation": {
+        "negative_abstain_rate": 0.5938,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 19.2
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.3125,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -2.6
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase_score|lead=0.1|score=0.55",
+      "combined_utility": 65.0,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5263,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase_score",
+      "probe": {
+        "negative_abstain_rate": 0.5263,
+        "positive_allow_rate": 1.0,
+        "target_status": "pass",
+        "utility_score": 45.8
+      },
+      "shadow_lead_min": 0.1,
+      "shadow_score_min": 0.55,
+      "validation": {
+        "negative_abstain_rate": 0.5938,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 19.2
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.3125,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -2.6
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase_score|lead=0.1|score=0.6",
+      "combined_utility": 65.0,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5263,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase_score",
+      "probe": {
+        "negative_abstain_rate": 0.5263,
+        "positive_allow_rate": 1.0,
+        "target_status": "pass",
+        "utility_score": 45.8
+      },
+      "shadow_lead_min": 0.1,
+      "shadow_score_min": 0.6,
+      "validation": {
+        "negative_abstain_rate": 0.5938,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 19.2
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.3125,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -2.6
         }
       ]
     },
@@ -8087,6 +7619,396 @@
           "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
           "target_status": "pass",
           "utility_score": 8.6
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.1|score=0.0",
+      "combined_utility": 60.8,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase",
+      "probe": {
+        "negative_abstain_rate": 0.5263,
+        "positive_allow_rate": 1.0,
+        "target_status": "pass",
+        "utility_score": 45.8
+      },
+      "shadow_lead_min": 0.1,
+      "shadow_score_min": 0.0,
+      "validation": {
+        "negative_abstain_rate": 0.5,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 15.0
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.125,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -6.8
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.1|score=0.02",
+      "combined_utility": 60.8,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase",
+      "probe": {
+        "negative_abstain_rate": 0.5263,
+        "positive_allow_rate": 1.0,
+        "target_status": "pass",
+        "utility_score": 45.8
+      },
+      "shadow_lead_min": 0.1,
+      "shadow_score_min": 0.02,
+      "validation": {
+        "negative_abstain_rate": 0.5,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 15.0
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.125,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -6.8
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.1|score=0.05",
+      "combined_utility": 60.8,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase",
+      "probe": {
+        "negative_abstain_rate": 0.5263,
+        "positive_allow_rate": 1.0,
+        "target_status": "pass",
+        "utility_score": 45.8
+      },
+      "shadow_lead_min": 0.1,
+      "shadow_score_min": 0.05,
+      "validation": {
+        "negative_abstain_rate": 0.5,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 15.0
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.125,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -6.8
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.1|score=0.1",
+      "combined_utility": 60.8,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase",
+      "probe": {
+        "negative_abstain_rate": 0.5263,
+        "positive_allow_rate": 1.0,
+        "target_status": "pass",
+        "utility_score": 45.8
+      },
+      "shadow_lead_min": 0.1,
+      "shadow_score_min": 0.1,
+      "validation": {
+        "negative_abstain_rate": 0.5,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 15.0
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.125,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -6.8
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.1|score=0.2",
+      "combined_utility": 60.8,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase",
+      "probe": {
+        "negative_abstain_rate": 0.5263,
+        "positive_allow_rate": 1.0,
+        "target_status": "pass",
+        "utility_score": 45.8
+      },
+      "shadow_lead_min": 0.1,
+      "shadow_score_min": 0.2,
+      "validation": {
+        "negative_abstain_rate": 0.5,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 15.0
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.125,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -6.8
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.1|score=0.35",
+      "combined_utility": 60.8,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase",
+      "probe": {
+        "negative_abstain_rate": 0.5263,
+        "positive_allow_rate": 1.0,
+        "target_status": "pass",
+        "utility_score": 45.8
+      },
+      "shadow_lead_min": 0.1,
+      "shadow_score_min": 0.35,
+      "validation": {
+        "negative_abstain_rate": 0.5,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 15.0
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.125,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -6.8
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.1|score=0.45",
+      "combined_utility": 60.8,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase",
+      "probe": {
+        "negative_abstain_rate": 0.5263,
+        "positive_allow_rate": 1.0,
+        "target_status": "pass",
+        "utility_score": 45.8
+      },
+      "shadow_lead_min": 0.1,
+      "shadow_score_min": 0.45,
+      "validation": {
+        "negative_abstain_rate": 0.5,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 15.0
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.125,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -6.8
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.1|score=0.5",
+      "combined_utility": 60.8,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase",
+      "probe": {
+        "negative_abstain_rate": 0.5263,
+        "positive_allow_rate": 1.0,
+        "target_status": "pass",
+        "utility_score": 45.8
+      },
+      "shadow_lead_min": 0.1,
+      "shadow_score_min": 0.5,
+      "validation": {
+        "negative_abstain_rate": 0.5,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 15.0
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.125,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -6.8
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.1|score=0.55",
+      "combined_utility": 60.8,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase",
+      "probe": {
+        "negative_abstain_rate": 0.5263,
+        "positive_allow_rate": 1.0,
+        "target_status": "pass",
+        "utility_score": 45.8
+      },
+      "shadow_lead_min": 0.1,
+      "shadow_score_min": 0.55,
+      "validation": {
+        "negative_abstain_rate": 0.5,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 15.0
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.125,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -6.8
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.1|score=0.6",
+      "combined_utility": 60.8,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.5,
+      "minimum_positive_allow_rate": 0.8125,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase",
+      "probe": {
+        "negative_abstain_rate": 0.5263,
+        "positive_allow_rate": 1.0,
+        "target_status": "pass",
+        "utility_score": 45.8
+      },
+      "shadow_lead_min": 0.1,
+      "shadow_score_min": 0.6,
+      "validation": {
+        "negative_abstain_rate": 0.5,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 15.0
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.125,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "fail",
+          "utility_score": -6.8
         }
       ]
     },
@@ -12111,9 +12033,9 @@
         }
       ]
     },
-    "passing_shared_count": 70,
+    "passing_shared_count": 10,
     "recommendation": [
-      "A shared veto-only candidate passes both frozen v10 matrix traces and current wave7 stress validation.",
+      "A shared veto-only candidate passes both frozen v10 matrix traces and the configured validation report.",
       "Treat this as the leading runtime-candidate family, but keep it research-only until broader representative data is measured.",
       "Next validation should use an expanded representative or LLM-generated locked lane with the same candidate parameters."
     ],
@@ -12473,125 +12395,125 @@
       ]
     },
     {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.05|score=0.0",
-      "combined_utility": 87.4,
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase_score|lead=0.05|score=0.6",
+      "combined_utility": 84.6,
       "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.625,
+      "minimum_negative_abstain_rate": 0.6842,
       "minimum_positive_allow_rate": 0.8125,
       "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase",
+      "phrase_mode": "shadow_or_phrase_score",
       "probe": {
-        "negative_abstain_rate": 0.807,
-        "positive_allow_rate": 0.9737,
+        "negative_abstain_rate": 0.6842,
+        "positive_allow_rate": 1.0,
         "target_status": "pass",
-        "utility_score": 66.8
+        "utility_score": 58.4
       },
       "shadow_lead_min": 0.05,
+      "shadow_score_min": 0.6,
+      "validation": {
+        "negative_abstain_rate": 0.75,
+        "positive_allow_rate": 0.8125,
+        "target_status": "pass",
+        "utility_score": 26.2
+      },
+      "validation_source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.625,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "pass",
+          "utility_score": 4.4
+        }
+      ]
+    },
+    {
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase_score|lead=0.02|score=0.0",
+      "combined_utility": 97.2,
+      "config_id": "control_st_masked_all_margin_phrase_override",
+      "minimum_negative_abstain_rate": 0.9375,
+      "minimum_positive_allow_rate": 0.5,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase_score",
+      "probe": {
+        "negative_abstain_rate": 0.9474,
+        "positive_allow_rate": 0.8158,
+        "target_status": "pass",
+        "utility_score": 69.6
+      },
+      "shadow_lead_min": 0.02,
       "shadow_score_min": 0.0,
       "validation": {
-        "negative_abstain_rate": 0.625,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 20.6
+        "negative_abstain_rate": 0.9375,
+        "positive_allow_rate": 0.5,
+        "target_status": "fail",
+        "utility_score": 27.6
       },
       "validation_source_breakdowns": [
         {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
+          "negative_abstain_rate": 1.0,
+          "positive_allow_rate": 0.5,
           "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
+          "target_status": "fail",
+          "utility_score": 17.6
         },
         {
-          "negative_abstain_rate": 0.375,
+          "negative_abstain_rate": 0.875,
           "positive_allow_rate": null,
           "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -1.2
+          "target_status": "pass",
+          "utility_score": 10.0
         }
       ]
     },
     {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.05|score=0.02",
-      "combined_utility": 87.4,
+      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase_score|lead=0.02|score=0.02",
+      "combined_utility": 97.2,
       "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.625,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase",
+      "minimum_negative_abstain_rate": 0.9375,
+      "minimum_positive_allow_rate": 0.5,
+      "passes_all_measured_lanes": false,
+      "phrase_mode": "shadow_or_phrase_score",
       "probe": {
-        "negative_abstain_rate": 0.807,
-        "positive_allow_rate": 0.9737,
+        "negative_abstain_rate": 0.9474,
+        "positive_allow_rate": 0.8158,
         "target_status": "pass",
-        "utility_score": 66.8
+        "utility_score": 69.6
       },
-      "shadow_lead_min": 0.05,
+      "shadow_lead_min": 0.02,
       "shadow_score_min": 0.02,
       "validation": {
-        "negative_abstain_rate": 0.625,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 20.6
+        "negative_abstain_rate": 0.9375,
+        "positive_allow_rate": 0.5,
+        "target_status": "fail",
+        "utility_score": 27.6
       },
       "validation_source_breakdowns": [
         {
-          "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
+          "negative_abstain_rate": 1.0,
+          "positive_allow_rate": 0.5,
           "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
+          "target_status": "fail",
+          "utility_score": 17.6
         },
         {
-          "negative_abstain_rate": 0.375,
-          "positive_allow_rate": null,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -1.2
-        }
-      ]
-    },
-    {
-      "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase|lead=0.05|score=0.05",
-      "combined_utility": 87.4,
-      "config_id": "control_st_masked_all_margin_phrase_override",
-      "minimum_negative_abstain_rate": 0.625,
-      "minimum_positive_allow_rate": 0.8125,
-      "passes_all_measured_lanes": true,
-      "phrase_mode": "shadow_or_phrase",
-      "probe": {
-        "negative_abstain_rate": 0.807,
-        "positive_allow_rate": 0.9737,
-        "target_status": "pass",
-        "utility_score": 66.8
-      },
-      "shadow_lead_min": 0.05,
-      "shadow_score_min": 0.05,
-      "validation": {
-        "negative_abstain_rate": 0.625,
-        "positive_allow_rate": 0.8125,
-        "target_status": "pass",
-        "utility_score": 20.6
-      },
-      "validation_source_breakdowns": [
-        {
           "negative_abstain_rate": 0.875,
-          "positive_allow_rate": 0.8125,
-          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
-          "target_status": "pass",
-          "utility_score": 21.8
-        },
-        {
-          "negative_abstain_rate": 0.375,
           "positive_allow_rate": null,
           "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
-          "target_status": "fail",
-          "utility_score": -1.2
+          "target_status": "pass",
+          "utility_score": 10.0
         }
       ]
     }
   ],
   "validation": {
-    "decision": "veto_only_validation_product_target_pass_found",
+    "decision": "veto_only_validation_strict_source_product_target_pass_found",
     "path": "docs/test_outputs/semantic_veto_veto_only_validation_en_es_latest.json",
     "row_count": 540,
     "target_pass_count": 100

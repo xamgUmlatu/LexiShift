@@ -193,14 +193,15 @@ def build_veto_only_validation_report(
         for row in ranked_rows
         if str(_as_mapping(row.get("target_checks")).get("target_status") or "") == "pass"
     ]
+    strict_target_pass_rows = [row for row in target_pass_rows if _all_source_breakdowns_pass(row)]
+    decision = _validation_decision(
+        target_pass_rows=target_pass_rows,
+        strict_target_pass_rows=strict_target_pass_rows,
+    )
     return {
         "schema_version": 1,
-        "status": "ok" if target_pass_rows else "review",
-        "decision": (
-            "veto_only_validation_product_target_pass_found"
-            if target_pass_rows
-            else "veto_only_validation_product_target_not_met"
-        ),
+        "status": decision["status"],
+        "decision": decision["decision"],
         "generated_at": generated_at,
         "pair": str(policy.get("pair") or "en-es"),
         "policy": {
@@ -225,6 +226,7 @@ def build_veto_only_validation_report(
         "summary": {
             "row_count": len(rows),
             "target_pass_count": len(target_pass_rows),
+            "strict_target_pass_count": len(strict_target_pass_rows),
             "top_n": max(1, int(top_n)),
             "best_product_rank_row": _public_validation_row(
                 ranked_rows[0] if ranked_rows else None
@@ -232,11 +234,20 @@ def build_veto_only_validation_report(
             "best_target_pass_row": _public_validation_row(
                 target_pass_rows[0] if target_pass_rows else None
             ),
-            "recommendation": _recommendation(target_pass_rows=target_pass_rows),
+            "best_strict_target_pass_row": _public_validation_row(
+                strict_target_pass_rows[0] if strict_target_pass_rows else None
+            ),
+            "recommendation": _recommendation(
+                target_pass_rows=target_pass_rows,
+                strict_target_pass_rows=strict_target_pass_rows,
+            ),
         },
         "top_rows": [_public_validation_row(row) for row in ranked_rows[: max(1, int(top_n))]],
         "target_pass_rows": [
             _public_validation_row(row) for row in target_pass_rows[: max(1, int(top_n))]
+        ],
+        "strict_target_pass_rows": [
+            _public_validation_row(row) for row in strict_target_pass_rows[: max(1, int(top_n))]
         ],
         "failure_samples": _failure_samples(ranked_rows[0] if ranked_rows else None),
         "rows": [_public_validation_row(row) for row in ranked_rows],
@@ -255,6 +266,7 @@ def render_veto_only_validation_markdown(report: Mapping[str, object]) -> str:
         f"- Sources: `{len(_mapping_rows(report.get('sources')))}`",
         f"- Rows evaluated: `{summary.get('row_count', 0)}`",
         f"- Product target pass rows: `{summary.get('target_pass_count', 0)}`",
+        f"- Strict source-pass rows: `{summary.get('strict_target_pass_count', 0)}`",
         "",
         "## E2E Checks",
         "",
@@ -271,6 +283,10 @@ def render_veto_only_validation_markdown(report: Mapping[str, object]) -> str:
         "## Passing Rows",
         "",
         _validation_row_table(report.get("target_pass_rows")),
+        "",
+        "## Strict Source-Passing Rows",
+        "",
+        _validation_row_table(report.get("strict_target_pass_rows")),
         "",
         "## Failure Samples For Best Row",
         "",
@@ -360,10 +376,42 @@ def _source_breakdowns(
     ]
 
 
+def _all_source_breakdowns_pass(row: Mapping[str, object]) -> bool:
+    breakdowns = _mapping_rows(row.get("source_breakdowns"))
+    if not breakdowns:
+        return False
+    return all(
+        str(_as_mapping(source.get("target_checks")).get("target_status") or "") == "pass"
+        for source in breakdowns
+    )
+
+
+def _validation_decision(
+    *,
+    target_pass_rows: Sequence[Mapping[str, object]],
+    strict_target_pass_rows: Sequence[Mapping[str, object]],
+) -> dict[str, str]:
+    if strict_target_pass_rows:
+        return {
+            "status": "ok",
+            "decision": "veto_only_validation_strict_source_product_target_pass_found",
+        }
+    if target_pass_rows:
+        return {
+            "status": "review",
+            "decision": "veto_only_validation_overall_product_target_pass_source_failures",
+        }
+    return {
+        "status": "review",
+        "decision": "veto_only_validation_product_target_not_met",
+    }
+
+
 def _public_validation_row(row: Mapping[str, object] | None) -> dict[str, object] | None:
     public = _public_probe_row(row)
     if public is None:
         return None
+    public["strict_target_status"] = "pass" if _all_source_breakdowns_pass(row) else "fail"
     public["source_breakdowns"] = [
         {
             "report_id": str(source.get("report_id") or ""),
@@ -427,8 +475,8 @@ def _validation_row_table(value: object) -> str:
     if not rows:
         return "_No rows._"
     lines = [
-        "| Phrase mode | Shadow lead | Shadow score | Pos allow | Neg abstain | Utility | Target | Source breakdowns |",
-        "| --- | ---: | ---: | ---: | ---: | ---: | --- | --- |",
+        "| Phrase mode | Shadow lead | Shadow score | Pos allow | Neg abstain | Utility | Target | Strict | Source breakdowns |",
+        "| --- | ---: | ---: | ---: | ---: | ---: | --- | --- | --- |",
     ]
     for row in rows:
         lines.append(
@@ -442,6 +490,7 @@ def _validation_row_table(value: object) -> str:
                     _format_percent(row.get("negative_abstain_rate")),
                     str(row.get("utility_score", "")),
                     _escape_md(str(row.get("target_status") or "")),
+                    _escape_md(str(row.get("strict_target_status") or "")),
                     _escape_md(_render_source_breakdowns(row.get("source_breakdowns"))),
                 ]
             )
@@ -505,12 +554,22 @@ def _failure_table(value: object) -> str:
     return "\n".join(lines)
 
 
-def _recommendation(*, target_pass_rows: Sequence[Mapping[str, object]]) -> list[str]:
-    if target_pass_rows:
+def _recommendation(
+    *,
+    target_pass_rows: Sequence[Mapping[str, object]],
+    strict_target_pass_rows: Sequence[Mapping[str, object]],
+) -> list[str]:
+    if strict_target_pass_rows:
         return [
-            "At least one veto-only blocker policy meets the configured product target on these validation reports.",
+            "At least one veto-only blocker policy meets the configured product target on every measured source.",
             "Compare the winning blocker against the frozen v10 matrix winner before considering runtime policy changes.",
             "Use source breakdowns and failure samples to decide which blocker signals need broader representative evaluation.",
+        ]
+    if target_pass_rows:
+        return [
+            "At least one veto-only blocker policy meets the aggregate product target, but no row passes every measured source.",
+            "Do not promote this as a shared candidate until the failing source lane is repaired or a stricter candidate is found.",
+            "Use source breakdowns to decide whether the weakness is representative negatives, stress positives, or phrase/no-winner blocking.",
         ]
     return [
         "No veto-only blocker policy meets the configured product target on these validation reports.",

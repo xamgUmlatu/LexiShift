@@ -1,0 +1,978 @@
+{
+  "batch_id": "en-es:semantic-veto-evidence-gap-generation:semantic-veto-evidence-gap-balanced-smoke-20260508-001",
+  "execution_mode": "live",
+  "generated_at": "2026-05-08T03:06:32Z",
+  "pair": "en-es",
+  "pilot_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1",
+  "prompt_id": "semantic_veto_evidence_gap_generation_v4",
+  "replay_source": "",
+  "request_count": 9,
+  "requests": [
+    {
+      "family_id": "en-es:full-family-repaired-full:entirely:enteramente",
+      "model_id": "gpt-5.4-mini",
+      "output_text": "{\"request_id\":\"semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:entirely:enteramente:active_evidence_expansion\",\"family_id\":\"en-es:full-family-repaired-full:entirely:enteramente\",\"slot_id\":\"en-es:full-family-repaired-full:entirely:enteramente:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"entirely\",\"target_lemma\":\"enteramente\",\"items\":[{\"sentence\":\"The room was entirely dark after the power went out.\",\"evidence_note\":\"entirely means completely, with no light at all.\"},{\"sentence\":\"She was entirely sure the train had already left.\",\"evidence_note\":\"entirely means wholly or completely sure.\"}]}",
+      "pilot_arm": "high_need",
+      "prompt_text": "Return exactly one JSON object. Preserve request_id, family_id, slot_id, slot_type, source_phrase, and target_lemma exactly as given. Do not include markdown. Generated English sentences must not contain Spanish target lemmas. Do not add labels like allow, abstain, active, shadow, or no-winner inside generated sentences. Every generated sentence must contain source_phrase as an exact standalone browser-replaceable token separated by spaces or ordinary punctuation. Do not hide source_phrase inside filenames, URLs, code identifiers, hashtags, handles, underscores, camelCase, or compounds. Return exactly requested_items item objects unless you are returning the explicit unable_to_find_distinct_competitor marker.\n\nrequest_id: semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:entirely:enteramente:active_evidence_expansion\nfamily_id: en-es:full-family-repaired-full:entirely:enteramente\nslot_id: en-es:full-family-repaired-full:entirely:enteramente:active_evidence_expansion\nslot_type: active_evidence_expansion\nsource_phrase: entirely\ntarget_lemma: enteramente\nactive_target_lemma: enteramente\nactive_evidence_text: entirely -> enteramente | completely, wholly, or entirely\nknown_shadow_targets: -\nrequested_items: 2\n\nRequired top-level JSON fields and exact values:\n{\"request_id\": \"semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:entirely:enteramente:active_evidence_expansion\", \"family_id\": \"en-es:full-family-repaired-full:entirely:enteramente\", \"slot_id\": \"en-es:full-family-repaired-full:entirely:enteramente:active_evidence_expansion\", \"slot_type\": \"active_evidence_expansion\", \"source_phrase\": \"entirely\", \"target_lemma\": \"enteramente\", \"items\": \"...\"}\n\nTask: generate concise English evidence examples for the active sense. Each item should be a natural sentence containing the source_phrase and making the active target sense clear from context.\nSchema: {request_id, family_id, slot_id, slot_type, source_phrase, target_lemma, items:[{sentence, evidence_note}]}",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:entirely:enteramente:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_009c519b4575e7770169fd533a488c8195831dc17cf9055f61",
+      "response_json": {
+        "background": false,
+        "billing": {
+          "payer": "developer"
+        },
+        "completed_at": 1778209596.0,
+        "conversation": null,
+        "created_at": 1778209594.0,
+        "error": null,
+        "frequency_penalty": 0.0,
+        "id": "resp_009c519b4575e7770169fd533a488c8195831dc17cf9055f61",
+        "incomplete_details": null,
+        "instructions": null,
+        "max_output_tokens": 700,
+        "max_tool_calls": null,
+        "metadata": {
+          "family_id": "en-es:full-family-repaired-full:entirely:enteramente",
+          "prompt_id": "semantic_veto_evidence_gap_generation_v4",
+          "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:entirely:enteramente:active_evidence_expansion",
+          "slot_id": "en-es:full-family-repaired-full:entirely:enteramente:active_evidence_expansion"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "moderation": null,
+        "object": "response",
+        "output": [
+          {
+            "content": [
+              {
+                "annotations": [],
+                "logprobs": [],
+                "text": "{\"request_id\":\"semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:entirely:enteramente:active_evidence_expansion\",\"family_id\":\"en-es:full-family-repaired-full:entirely:enteramente\",\"slot_id\":\"en-es:full-family-repaired-full:entirely:enteramente:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"entirely\",\"target_lemma\":\"enteramente\",\"items\":[{\"sentence\":\"The room was entirely dark after the power went out.\",\"evidence_note\":\"entirely means completely, with no light at all.\"},{\"sentence\":\"She was entirely sure the train had already left.\",\"evidence_note\":\"entirely means wholly or completely sure.\"}]}",
+                "type": "output_text"
+              }
+            ],
+            "id": "msg_009c519b4575e7770169fd533ae1cc819586ab77e2c65cb69b",
+            "phase": "final_answer",
+            "role": "assistant",
+            "status": "completed",
+            "type": "message"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "presence_penalty": 0.0,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "store": false,
+        "temperature": 0.2,
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "tool_choice": "auto",
+        "tools": [],
+        "top_logprobs": 0,
+        "top_p": 0.98,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 481,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 174,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 655
+        },
+        "user": null
+      },
+      "response_status": "completed",
+      "slot_id": "en-es:full-family-repaired-full:entirely:enteramente:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "completed",
+      "temperature": 0.2,
+      "usage": {
+        "input_tokens": 481,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 174,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 655
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:entirely:enteramente",
+      "model_id": "gpt-5.4-mini",
+      "output_text": "{\"request_id\":\"semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:entirely:enteramente:shadow_or_competitor_evidence_probe\",\"family_id\":\"en-es:full-family-repaired-full:entirely:enteramente\",\"slot_id\":\"en-es:full-family-repaired-full:entirely:enteramente:shadow_or_competitor_evidence_probe\",\"slot_type\":\"shadow_or_competitor_evidence_probe\",\"source_phrase\":\"entirely\",\"target_lemma\":\"\",\"proposed_competitor_target_lemma\":\"totalmente\",\"competitor_sense_label\":\"completely; in full; without exception\",\"active_sense_contrast\":\"The active target sense is the adverb meaning 'enteramente' as 'completely/wholly'; the competitor sense is the same English form used in a broader general-completeness sense that a dictionary would more naturally render as 'totalmente'.\",\"unable_to_find_distinct_competitor\":false,\"no_distinct_competitor_reason\":\"\",\"items\":[{\"sentence\":\"The plan was entirely different from the one we discussed yesterday.\",\"evidence_note\":\"Here entirely means 'completely' in a general comparison of difference, which fits totalmente.\",\"active_mismatch_note\":\"Enteramente is less natural here; the sentence calls for a broader 'completely' reading rather than the more literal 'wholly/entirely' gloss.\"},{\"sentence\":\"Her decision was entirely her own, with no pressure from anyone else.\",\"evidence_note\":\"entirely expresses full independence or complete responsibility, a case commonly translated as totalmente.\",\"active_mismatch_note\":\"The active target sense is too narrow; enteramente is not the best dictionary choice for this idiomatic 'completely on her own' use.\"}]}",
+      "pilot_arm": "high_need",
+      "prompt_text": "Return exactly one JSON object. Preserve request_id, family_id, slot_id, slot_type, source_phrase, and target_lemma exactly as given. Do not include markdown. Generated English sentences must not contain Spanish target lemmas. Do not add labels like allow, abstain, active, shadow, or no-winner inside generated sentences. Every generated sentence must contain source_phrase as an exact standalone browser-replaceable token separated by spaces or ordinary punctuation. Do not hide source_phrase inside filenames, URLs, code identifiers, hashtags, handles, underscores, camelCase, or compounds. Return exactly requested_items item objects unless you are returning the explicit unable_to_find_distinct_competitor marker.\n\nrequest_id: semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:entirely:enteramente:shadow_or_competitor_evidence_probe\nfamily_id: en-es:full-family-repaired-full:entirely:enteramente\nslot_id: en-es:full-family-repaired-full:entirely:enteramente:shadow_or_competitor_evidence_probe\nslot_type: shadow_or_competitor_evidence_probe\nsource_phrase: entirely\ntarget_lemma: \nactive_target_lemma: enteramente\nactive_evidence_text: entirely -> enteramente | completely, wholly, or entirely\nknown_shadow_targets: -\nrequested_items: 2\n\nRequired top-level JSON fields and exact values:\n{\"request_id\": \"semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:entirely:enteramente:shadow_or_competitor_evidence_probe\", \"family_id\": \"en-es:full-family-repaired-full:entirely:enteramente\", \"slot_id\": \"en-es:full-family-repaired-full:entirely:enteramente:shadow_or_competitor_evidence_probe\", \"slot_type\": \"shadow_or_competitor_evidence_probe\", \"source_phrase\": \"entirely\", \"target_lemma\": \"\", \"items\": \"...\"}\n\nTask: generate competitor-sense evidence. First decide whether source_phrase has a clearly different English sense from the active target sense. Distinct means the active_target_lemma would be wrong in that sentence and a bilingual dictionary would reasonably choose another Spanish lemma. If slot target_lemma is provided, use that competitor sense. If blank, propose one plausible Spanish competitor target only when it meets that distinct-sense test. Do not use near-synonyms, stylistic variants, grammatical meta-examples, or examples that still fit active_evidence_text. If no clearly distinct competitor exists, return unable_to_find_distinct_competitor:true with empty items and explain why. When generating items, include a competitor_sense_label and active_sense_contrast at the response level, and include active_mismatch_note for each item explaining why the active target sense is wrong.\nSchema: {request_id, family_id, slot_id, slot_type, source_phrase, target_lemma, proposed_competitor_target_lemma, competitor_sense_label, active_sense_contrast, unable_to_find_distinct_competitor, no_distinct_competitor_reason, items:[{sentence, evidence_note, active_mismatch_note}]}",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:entirely:enteramente:shadow_or_competitor_evidence_probe",
+      "requested_items": 2,
+      "response_id": "resp_043a6ca5d6b948be0169fd533d4b048197aa7f1133ef0cfd0a",
+      "response_json": {
+        "background": false,
+        "billing": {
+          "payer": "developer"
+        },
+        "completed_at": 1778209600.0,
+        "conversation": null,
+        "created_at": 1778209597.0,
+        "error": null,
+        "frequency_penalty": 0.0,
+        "id": "resp_043a6ca5d6b948be0169fd533d4b048197aa7f1133ef0cfd0a",
+        "incomplete_details": null,
+        "instructions": null,
+        "max_output_tokens": 700,
+        "max_tool_calls": null,
+        "metadata": {
+          "family_id": "en-es:full-family-repaired-full:entirely:enteramente",
+          "prompt_id": "semantic_veto_evidence_gap_generation_v4",
+          "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:entirely:enteramente:shadow_or_competitor_evidence_probe",
+          "slot_id": "en-es:full-family-repaired-full:entirely:enteramente:shadow_or_competitor_evidence_probe"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "moderation": null,
+        "object": "response",
+        "output": [
+          {
+            "content": [
+              {
+                "annotations": [],
+                "logprobs": [],
+                "text": "{\"request_id\":\"semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:entirely:enteramente:shadow_or_competitor_evidence_probe\",\"family_id\":\"en-es:full-family-repaired-full:entirely:enteramente\",\"slot_id\":\"en-es:full-family-repaired-full:entirely:enteramente:shadow_or_competitor_evidence_probe\",\"slot_type\":\"shadow_or_competitor_evidence_probe\",\"source_phrase\":\"entirely\",\"target_lemma\":\"\",\"proposed_competitor_target_lemma\":\"totalmente\",\"competitor_sense_label\":\"completely; in full; without exception\",\"active_sense_contrast\":\"The active target sense is the adverb meaning 'enteramente' as 'completely/wholly'; the competitor sense is the same English form used in a broader general-completeness sense that a dictionary would more naturally render as 'totalmente'.\",\"unable_to_find_distinct_competitor\":false,\"no_distinct_competitor_reason\":\"\",\"items\":[{\"sentence\":\"The plan was entirely different from the one we discussed yesterday.\",\"evidence_note\":\"Here entirely means 'completely' in a general comparison of difference, which fits totalmente.\",\"active_mismatch_note\":\"Enteramente is less natural here; the sentence calls for a broader 'completely' reading rather than the more literal 'wholly/entirely' gloss.\"},{\"sentence\":\"Her decision was entirely her own, with no pressure from anyone else.\",\"evidence_note\":\"entirely expresses full independence or complete responsibility, a case commonly translated as totalmente.\",\"active_mismatch_note\":\"The active target sense is too narrow; enteramente is not the best dictionary choice for this idiomatic 'completely on her own' use.\"}]}",
+                "type": "output_text"
+              }
+            ],
+            "id": "msg_043a6ca5d6b948be0169fd533dd08c8197a5cd476aaeffc7dd",
+            "phase": "final_answer",
+            "role": "assistant",
+            "status": "completed",
+            "type": "message"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "presence_penalty": 0.0,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "store": false,
+        "temperature": 0.2,
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "tool_choice": "auto",
+        "tools": [],
+        "top_logprobs": 0,
+        "top_p": 0.98,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 674,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 374,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 1048
+        },
+        "user": null
+      },
+      "response_status": "completed",
+      "slot_id": "en-es:full-family-repaired-full:entirely:enteramente:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "status": "completed",
+      "temperature": 0.2,
+      "usage": {
+        "input_tokens": 674,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 374,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 1048
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:entirely:enteramente",
+      "model_id": "gpt-5.4-mini",
+      "output_text": "{\"request_id\":\"semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:entirely:enteramente:no_winner_context_probe\",\"family_id\":\"en-es:full-family-repaired-full:entirely:enteramente\",\"slot_id\":\"en-es:full-family-repaired-full:entirely:enteramente:no_winner_context_probe\",\"slot_type\":\"no_winner_context_probe\",\"source_phrase\":\"entirely\",\"target_lemma\":\"\",\"items\":[{\"sentence\":\"Search results for entirely.\",\"no_winner_context_class\":\"search_query\",\"no_winner_reason\":\"This is a literal query string, not a translatable content sentence, so there is no natural place to insert the Spanish target lemma.\",\"runtime_trigger_note\":\"entirely appears as a standalone token between spaces and punctuation, so a browser-style matcher can replace it directly.\"}]}",
+      "pilot_arm": "high_need",
+      "prompt_text": "Return exactly one JSON object. Preserve request_id, family_id, slot_id, slot_type, source_phrase, and target_lemma exactly as given. Do not include markdown. Generated English sentences must not contain Spanish target lemmas. Do not add labels like allow, abstain, active, shadow, or no-winner inside generated sentences. Every generated sentence must contain source_phrase as an exact standalone browser-replaceable token separated by spaces or ordinary punctuation. Do not hide source_phrase inside filenames, URLs, code identifiers, hashtags, handles, underscores, camelCase, or compounds. Return exactly requested_items item objects unless you are returning the explicit unable_to_find_distinct_competitor marker.\n\nrequest_id: semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:entirely:enteramente:no_winner_context_probe\nfamily_id: en-es:full-family-repaired-full:entirely:enteramente\nslot_id: en-es:full-family-repaired-full:entirely:enteramente:no_winner_context_probe\nslot_type: no_winner_context_probe\nsource_phrase: entirely\ntarget_lemma: \nactive_target_lemma: enteramente\nactive_evidence_text: entirely -> enteramente | completely, wholly, or entirely\nknown_shadow_targets: -\nrequested_items: 1\n\nRequired top-level JSON fields and exact values:\n{\"request_id\": \"semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:entirely:enteramente:no_winner_context_probe\", \"family_id\": \"en-es:full-family-repaired-full:entirely:enteramente\", \"slot_id\": \"en-es:full-family-repaired-full:entirely:enteramente:no_winner_context_probe\", \"slot_type\": \"no_winner_context_probe\", \"source_phrase\": \"entirely\", \"target_lemma\": \"\", \"items\": \"...\"}\n\nTask: generate browser-like English contexts where source_phrase appears as a standalone replaceable token, but neither the active Spanish target nor any known competitor target should be inserted. Good contexts include page titles, visible headings, UI labels, table labels, quoted user text, or literal search queries when natural. Avoid filenames, file paths, URLs, code identifiers, underscores, embedded-token examples, and ordinary sentences that simply use the active target sense. Each item must set no_winner_context_class to one of page_title, visible_heading, ui_label, table_label, quoted_user_text, search_query, name_or_title, or literal_fragment. Each item must explain both why the replacement should not happen and why the English source token is still a runtime-like standalone match.\nSchema: {request_id, family_id, slot_id, slot_type, source_phrase, target_lemma:\"\", items:[{sentence, no_winner_context_class, no_winner_reason, runtime_trigger_note}]}",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:entirely:enteramente:no_winner_context_probe",
+      "requested_items": 1,
+      "response_id": "resp_05fd835e71485b1b0169fd5340d2888190afbd458d72df25e4",
+      "response_json": {
+        "background": false,
+        "billing": {
+          "payer": "developer"
+        },
+        "completed_at": 1778209602.0,
+        "conversation": null,
+        "created_at": 1778209600.0,
+        "error": null,
+        "frequency_penalty": 0.0,
+        "id": "resp_05fd835e71485b1b0169fd5340d2888190afbd458d72df25e4",
+        "incomplete_details": null,
+        "instructions": null,
+        "max_output_tokens": 700,
+        "max_tool_calls": null,
+        "metadata": {
+          "family_id": "en-es:full-family-repaired-full:entirely:enteramente",
+          "prompt_id": "semantic_veto_evidence_gap_generation_v4",
+          "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:entirely:enteramente:no_winner_context_probe",
+          "slot_id": "en-es:full-family-repaired-full:entirely:enteramente:no_winner_context_probe"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "moderation": null,
+        "object": "response",
+        "output": [
+          {
+            "content": [
+              {
+                "annotations": [],
+                "logprobs": [],
+                "text": "{\"request_id\":\"semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:entirely:enteramente:no_winner_context_probe\",\"family_id\":\"en-es:full-family-repaired-full:entirely:enteramente\",\"slot_id\":\"en-es:full-family-repaired-full:entirely:enteramente:no_winner_context_probe\",\"slot_type\":\"no_winner_context_probe\",\"source_phrase\":\"entirely\",\"target_lemma\":\"\",\"items\":[{\"sentence\":\"Search results for entirely.\",\"no_winner_context_class\":\"search_query\",\"no_winner_reason\":\"This is a literal query string, not a translatable content sentence, so there is no natural place to insert the Spanish target lemma.\",\"runtime_trigger_note\":\"entirely appears as a standalone token between spaces and punctuation, so a browser-style matcher can replace it directly.\"}]}",
+                "type": "output_text"
+              }
+            ],
+            "id": "msg_05fd835e71485b1b0169fd53410cc88190a7cb290577607e7b",
+            "phase": "final_answer",
+            "role": "assistant",
+            "status": "completed",
+            "type": "message"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "presence_penalty": 0.0,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "store": false,
+        "temperature": 0.2,
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "tool_choice": "auto",
+        "tools": [],
+        "top_logprobs": 0,
+        "top_p": 0.98,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 603,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 189,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 792
+        },
+        "user": null
+      },
+      "response_status": "completed",
+      "slot_id": "en-es:full-family-repaired-full:entirely:enteramente:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "status": "completed",
+      "temperature": 0.2,
+      "usage": {
+        "input_tokens": 603,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 189,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 792
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:brother:hermano",
+      "model_id": "gpt-5.4-mini",
+      "output_text": "{\"request_id\":\"semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:brother:hermano:active_evidence_expansion\",\"family_id\":\"en-es:full-family-repaired-full:brother:hermano\",\"slot_id\":\"en-es:full-family-repaired-full:brother:hermano:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"brother\",\"target_lemma\":\"hermano\",\"items\":[{\"sentence\":\"My brother helped me move into the new apartment.\",\"evidence_note\":\"Refers to a male sibling.\"},{\"sentence\":\"She introduced him as her brother at the family reunion.\",\"evidence_note\":\"Clear family relationship between siblings.\"}]}",
+      "pilot_arm": "middle_control",
+      "prompt_text": "Return exactly one JSON object. Preserve request_id, family_id, slot_id, slot_type, source_phrase, and target_lemma exactly as given. Do not include markdown. Generated English sentences must not contain Spanish target lemmas. Do not add labels like allow, abstain, active, shadow, or no-winner inside generated sentences. Every generated sentence must contain source_phrase as an exact standalone browser-replaceable token separated by spaces or ordinary punctuation. Do not hide source_phrase inside filenames, URLs, code identifiers, hashtags, handles, underscores, camelCase, or compounds. Return exactly requested_items item objects unless you are returning the explicit unable_to_find_distinct_competitor marker.\n\nrequest_id: semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:brother:hermano:active_evidence_expansion\nfamily_id: en-es:full-family-repaired-full:brother:hermano\nslot_id: en-es:full-family-repaired-full:brother:hermano:active_evidence_expansion\nslot_type: active_evidence_expansion\nsource_phrase: brother\ntarget_lemma: hermano\nactive_target_lemma: hermano\nactive_evidence_text: brother -> hermano | a male sibling, fellow member, or fraternal address\nknown_shadow_targets: -\nrequested_items: 2\n\nRequired top-level JSON fields and exact values:\n{\"request_id\": \"semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:brother:hermano:active_evidence_expansion\", \"family_id\": \"en-es:full-family-repaired-full:brother:hermano\", \"slot_id\": \"en-es:full-family-repaired-full:brother:hermano:active_evidence_expansion\", \"slot_type\": \"active_evidence_expansion\", \"source_phrase\": \"brother\", \"target_lemma\": \"hermano\", \"items\": \"...\"}\n\nTask: generate concise English evidence examples for the active sense. Each item should be a natural sentence containing the source_phrase and making the active target sense clear from context.\nSchema: {request_id, family_id, slot_id, slot_type, source_phrase, target_lemma, items:[{sentence, evidence_note}]}",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:brother:hermano:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0ec2234b3878d93c0169fd534276bc8197a7c6e4da2c4f0ae8",
+      "response_json": {
+        "background": false,
+        "billing": {
+          "payer": "developer"
+        },
+        "completed_at": 1778209603.0,
+        "conversation": null,
+        "created_at": 1778209602.0,
+        "error": null,
+        "frequency_penalty": 0.0,
+        "id": "resp_0ec2234b3878d93c0169fd534276bc8197a7c6e4da2c4f0ae8",
+        "incomplete_details": null,
+        "instructions": null,
+        "max_output_tokens": 700,
+        "max_tool_calls": null,
+        "metadata": {
+          "family_id": "en-es:full-family-repaired-full:brother:hermano",
+          "prompt_id": "semantic_veto_evidence_gap_generation_v4",
+          "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:brother:hermano:active_evidence_expansion",
+          "slot_id": "en-es:full-family-repaired-full:brother:hermano:active_evidence_expansion"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "moderation": null,
+        "object": "response",
+        "output": [
+          {
+            "content": [
+              {
+                "annotations": [],
+                "logprobs": [],
+                "text": "{\"request_id\":\"semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:brother:hermano:active_evidence_expansion\",\"family_id\":\"en-es:full-family-repaired-full:brother:hermano\",\"slot_id\":\"en-es:full-family-repaired-full:brother:hermano:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"brother\",\"target_lemma\":\"hermano\",\"items\":[{\"sentence\":\"My brother helped me move into the new apartment.\",\"evidence_note\":\"Refers to a male sibling.\"},{\"sentence\":\"She introduced him as her brother at the family reunion.\",\"evidence_note\":\"Clear family relationship between siblings.\"}]}",
+                "type": "output_text"
+              }
+            ],
+            "id": "msg_0ec2234b3878d93c0169fd5342b78c81978e626951ee8e3d8b",
+            "phase": "final_answer",
+            "role": "assistant",
+            "status": "completed",
+            "type": "message"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "presence_penalty": 0.0,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "store": false,
+        "temperature": 0.2,
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "tool_choice": "auto",
+        "tools": [],
+        "top_logprobs": 0,
+        "top_p": 0.98,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 477,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 162,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 639
+        },
+        "user": null
+      },
+      "response_status": "completed",
+      "slot_id": "en-es:full-family-repaired-full:brother:hermano:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "completed",
+      "temperature": 0.2,
+      "usage": {
+        "input_tokens": 477,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 162,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 639
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:brother:hermano",
+      "model_id": "gpt-5.4-mini",
+      "output_text": "{\"request_id\":\"semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:brother:hermano:shadow_or_competitor_evidence_probe\",\"family_id\":\"en-es:full-family-repaired-full:brother:hermano\",\"slot_id\":\"en-es:full-family-repaired-full:brother:hermano:shadow_or_competitor_evidence_probe\",\"slot_type\":\"shadow_or_competitor_evidence_probe\",\"source_phrase\":\"brother\",\"target_lemma\":\"\",\"proposed_competitor_target_lemma\":\"monje\",\"competitor_sense_label\":\"religious brother / monk\",\"active_sense_contrast\":\"Here brother refers to a member of a religious order, not a male sibling or fraternal address.\",\"unable_to_find_distinct_competitor\":false,\"no_distinct_competitor_reason\":\"\",\"items\":[{\"sentence\":\"After years of study, the brother took his vows and lived in silence at the abbey.\",\"evidence_note\":\"brother refers to a monk in a religious community.\",\"active_mismatch_note\":\"hermano is wrong because this is not a male sibling; the context is monastic life.\"},{\"sentence\":\"The brother copied manuscripts in the cloister and prayed before dawn.\",\"evidence_note\":\"brother is used for a religious brother, not a family relation.\",\"active_mismatch_note\":\"hermano does not fit because the sentence describes a monk, not a sibling.\"}]}",
+      "pilot_arm": "middle_control",
+      "prompt_text": "Return exactly one JSON object. Preserve request_id, family_id, slot_id, slot_type, source_phrase, and target_lemma exactly as given. Do not include markdown. Generated English sentences must not contain Spanish target lemmas. Do not add labels like allow, abstain, active, shadow, or no-winner inside generated sentences. Every generated sentence must contain source_phrase as an exact standalone browser-replaceable token separated by spaces or ordinary punctuation. Do not hide source_phrase inside filenames, URLs, code identifiers, hashtags, handles, underscores, camelCase, or compounds. Return exactly requested_items item objects unless you are returning the explicit unable_to_find_distinct_competitor marker.\n\nrequest_id: semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:brother:hermano:shadow_or_competitor_evidence_probe\nfamily_id: en-es:full-family-repaired-full:brother:hermano\nslot_id: en-es:full-family-repaired-full:brother:hermano:shadow_or_competitor_evidence_probe\nslot_type: shadow_or_competitor_evidence_probe\nsource_phrase: brother\ntarget_lemma: \nactive_target_lemma: hermano\nactive_evidence_text: brother -> hermano | a male sibling, fellow member, or fraternal address\nknown_shadow_targets: -\nrequested_items: 2\n\nRequired top-level JSON fields and exact values:\n{\"request_id\": \"semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:brother:hermano:shadow_or_competitor_evidence_probe\", \"family_id\": \"en-es:full-family-repaired-full:brother:hermano\", \"slot_id\": \"en-es:full-family-repaired-full:brother:hermano:shadow_or_competitor_evidence_probe\", \"slot_type\": \"shadow_or_competitor_evidence_probe\", \"source_phrase\": \"brother\", \"target_lemma\": \"\", \"items\": \"...\"}\n\nTask: generate competitor-sense evidence. First decide whether source_phrase has a clearly different English sense from the active target sense. Distinct means the active_target_lemma would be wrong in that sentence and a bilingual dictionary would reasonably choose another Spanish lemma. If slot target_lemma is provided, use that competitor sense. If blank, propose one plausible Spanish competitor target only when it meets that distinct-sense test. Do not use near-synonyms, stylistic variants, grammatical meta-examples, or examples that still fit active_evidence_text. If no clearly distinct competitor exists, return unable_to_find_distinct_competitor:true with empty items and explain why. When generating items, include a competitor_sense_label and active_sense_contrast at the response level, and include active_mismatch_note for each item explaining why the active target sense is wrong.\nSchema: {request_id, family_id, slot_id, slot_type, source_phrase, target_lemma, proposed_competitor_target_lemma, competitor_sense_label, active_sense_contrast, unable_to_find_distinct_competitor, no_distinct_competitor_reason, items:[{sentence, evidence_note, active_mismatch_note}]}",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:brother:hermano:shadow_or_competitor_evidence_probe",
+      "requested_items": 2,
+      "response_id": "resp_0ebac5ab322595090169fd5343e27081949dcce4135fbaf043",
+      "response_json": {
+        "background": false,
+        "billing": {
+          "payer": "developer"
+        },
+        "completed_at": 1778209606.0,
+        "conversation": null,
+        "created_at": 1778209603.0,
+        "error": null,
+        "frequency_penalty": 0.0,
+        "id": "resp_0ebac5ab322595090169fd5343e27081949dcce4135fbaf043",
+        "incomplete_details": null,
+        "instructions": null,
+        "max_output_tokens": 700,
+        "max_tool_calls": null,
+        "metadata": {
+          "family_id": "en-es:full-family-repaired-full:brother:hermano",
+          "prompt_id": "semantic_veto_evidence_gap_generation_v4",
+          "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:brother:hermano:shadow_or_competitor_evidence_probe",
+          "slot_id": "en-es:full-family-repaired-full:brother:hermano:shadow_or_competitor_evidence_probe"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "moderation": null,
+        "object": "response",
+        "output": [
+          {
+            "content": [
+              {
+                "annotations": [],
+                "logprobs": [],
+                "text": "{\"request_id\":\"semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:brother:hermano:shadow_or_competitor_evidence_probe\",\"family_id\":\"en-es:full-family-repaired-full:brother:hermano\",\"slot_id\":\"en-es:full-family-repaired-full:brother:hermano:shadow_or_competitor_evidence_probe\",\"slot_type\":\"shadow_or_competitor_evidence_probe\",\"source_phrase\":\"brother\",\"target_lemma\":\"\",\"proposed_competitor_target_lemma\":\"monje\",\"competitor_sense_label\":\"religious brother / monk\",\"active_sense_contrast\":\"Here brother refers to a member of a religious order, not a male sibling or fraternal address.\",\"unable_to_find_distinct_competitor\":false,\"no_distinct_competitor_reason\":\"\",\"items\":[{\"sentence\":\"After years of study, the brother took his vows and lived in silence at the abbey.\",\"evidence_note\":\"brother refers to a monk in a religious community.\",\"active_mismatch_note\":\"hermano is wrong because this is not a male sibling; the context is monastic life.\"},{\"sentence\":\"The brother copied manuscripts in the cloister and prayed before dawn.\",\"evidence_note\":\"brother is used for a religious brother, not a family relation.\",\"active_mismatch_note\":\"hermano does not fit because the sentence describes a monk, not a sibling.\"}]}",
+                "type": "output_text"
+              }
+            ],
+            "id": "msg_0ebac5ab322595090169fd53444db48194b597bfc976c0d1dd",
+            "phase": "final_answer",
+            "role": "assistant",
+            "status": "completed",
+            "type": "message"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "presence_penalty": 0.0,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "store": false,
+        "temperature": 0.2,
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "tool_choice": "auto",
+        "tools": [],
+        "top_logprobs": 0,
+        "top_p": 0.98,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 671,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 306,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 977
+        },
+        "user": null
+      },
+      "response_status": "completed",
+      "slot_id": "en-es:full-family-repaired-full:brother:hermano:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "status": "completed",
+      "temperature": 0.2,
+      "usage": {
+        "input_tokens": 671,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 306,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 977
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:brother:hermano",
+      "model_id": "gpt-5.4-mini",
+      "output_text": "{\"request_id\":\"semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:brother:hermano:no_winner_context_probe\",\"family_id\":\"en-es:full-family-repaired-full:brother:hermano\",\"slot_id\":\"en-es:full-family-repaired-full:brother:hermano:no_winner_context_probe\",\"slot_type\":\"no_winner_context_probe\",\"source_phrase\":\"brother\",\"target_lemma\":\"\",\"items\":[{\"sentence\":\"Search results for brother\",\"no_winner_context_class\":\"search_query\",\"no_winner_reason\":\"This is a query label, not a translation context, so no Spanish replacement is needed or expected.\",\"runtime_trigger_note\":\"brother appears as a standalone query token separated by spaces.\"}]}",
+      "pilot_arm": "middle_control",
+      "prompt_text": "Return exactly one JSON object. Preserve request_id, family_id, slot_id, slot_type, source_phrase, and target_lemma exactly as given. Do not include markdown. Generated English sentences must not contain Spanish target lemmas. Do not add labels like allow, abstain, active, shadow, or no-winner inside generated sentences. Every generated sentence must contain source_phrase as an exact standalone browser-replaceable token separated by spaces or ordinary punctuation. Do not hide source_phrase inside filenames, URLs, code identifiers, hashtags, handles, underscores, camelCase, or compounds. Return exactly requested_items item objects unless you are returning the explicit unable_to_find_distinct_competitor marker.\n\nrequest_id: semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:brother:hermano:no_winner_context_probe\nfamily_id: en-es:full-family-repaired-full:brother:hermano\nslot_id: en-es:full-family-repaired-full:brother:hermano:no_winner_context_probe\nslot_type: no_winner_context_probe\nsource_phrase: brother\ntarget_lemma: \nactive_target_lemma: hermano\nactive_evidence_text: brother -> hermano | a male sibling, fellow member, or fraternal address\nknown_shadow_targets: -\nrequested_items: 1\n\nRequired top-level JSON fields and exact values:\n{\"request_id\": \"semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:brother:hermano:no_winner_context_probe\", \"family_id\": \"en-es:full-family-repaired-full:brother:hermano\", \"slot_id\": \"en-es:full-family-repaired-full:brother:hermano:no_winner_context_probe\", \"slot_type\": \"no_winner_context_probe\", \"source_phrase\": \"brother\", \"target_lemma\": \"\", \"items\": \"...\"}\n\nTask: generate browser-like English contexts where source_phrase appears as a standalone replaceable token, but neither the active Spanish target nor any known competitor target should be inserted. Good contexts include page titles, visible headings, UI labels, table labels, quoted user text, or literal search queries when natural. Avoid filenames, file paths, URLs, code identifiers, underscores, embedded-token examples, and ordinary sentences that simply use the active target sense. Each item must set no_winner_context_class to one of page_title, visible_heading, ui_label, table_label, quoted_user_text, search_query, name_or_title, or literal_fragment. Each item must explain both why the replacement should not happen and why the English source token is still a runtime-like standalone match.\nSchema: {request_id, family_id, slot_id, slot_type, source_phrase, target_lemma:\"\", items:[{sentence, no_winner_context_class, no_winner_reason, runtime_trigger_note}]}",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:brother:hermano:no_winner_context_probe",
+      "requested_items": 1,
+      "response_id": "resp_06465a288b60bd550169fd53466fb08195a77d76a7a9bd5ccc",
+      "response_json": {
+        "background": false,
+        "billing": {
+          "payer": "developer"
+        },
+        "completed_at": 1778209607.0,
+        "conversation": null,
+        "created_at": 1778209606.0,
+        "error": null,
+        "frequency_penalty": 0.0,
+        "id": "resp_06465a288b60bd550169fd53466fb08195a77d76a7a9bd5ccc",
+        "incomplete_details": null,
+        "instructions": null,
+        "max_output_tokens": 700,
+        "max_tool_calls": null,
+        "metadata": {
+          "family_id": "en-es:full-family-repaired-full:brother:hermano",
+          "prompt_id": "semantic_veto_evidence_gap_generation_v4",
+          "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:brother:hermano:no_winner_context_probe",
+          "slot_id": "en-es:full-family-repaired-full:brother:hermano:no_winner_context_probe"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "moderation": null,
+        "object": "response",
+        "output": [
+          {
+            "content": [
+              {
+                "annotations": [],
+                "logprobs": [],
+                "text": "{\"request_id\":\"semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:brother:hermano:no_winner_context_probe\",\"family_id\":\"en-es:full-family-repaired-full:brother:hermano\",\"slot_id\":\"en-es:full-family-repaired-full:brother:hermano:no_winner_context_probe\",\"slot_type\":\"no_winner_context_probe\",\"source_phrase\":\"brother\",\"target_lemma\":\"\",\"items\":[{\"sentence\":\"Search results for brother\",\"no_winner_context_class\":\"search_query\",\"no_winner_reason\":\"This is a query label, not a translation context, so no Spanish replacement is needed or expected.\",\"runtime_trigger_note\":\"brother appears as a standalone query token separated by spaces.\"}]}",
+                "type": "output_text"
+              }
+            ],
+            "id": "msg_06465a288b60bd550169fd5346f5e0819585815b125327e8d3",
+            "phase": "final_answer",
+            "role": "assistant",
+            "status": "completed",
+            "type": "message"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "presence_penalty": 0.0,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "store": false,
+        "temperature": 0.2,
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "tool_choice": "auto",
+        "tools": [],
+        "top_logprobs": 0,
+        "top_p": 0.98,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 600,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 167,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 767
+        },
+        "user": null
+      },
+      "response_status": "completed",
+      "slot_id": "en-es:full-family-repaired-full:brother:hermano:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "status": "completed",
+      "temperature": 0.2,
+      "usage": {
+        "input_tokens": 600,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 167,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 767
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+      "model_id": "gpt-5.4-mini",
+      "output_text": "{\"request_id\":\"semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:active_evidence_expansion\",\"family_id\":\"en-es:full-family-repaired-full:smile:sonre-r\",\"slot_id\":\"en-es:full-family-repaired-full:smile:sonre-r:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"smile\",\"target_lemma\":\"sonreír\",\"items\":[{\"sentence\":\"She tried to smile after hearing the good news.\",\"evidence_note\":\"The verb shows a facial expression of happiness, matching the active sense.\"},{\"sentence\":\"He could not smile because his cheeks hurt.\",\"evidence_note\":\"The context makes smile an action involving the face, not a noun or idiom.\"}]}",
+      "pilot_arm": "low_control",
+      "prompt_text": "Return exactly one JSON object. Preserve request_id, family_id, slot_id, slot_type, source_phrase, and target_lemma exactly as given. Do not include markdown. Generated English sentences must not contain Spanish target lemmas. Do not add labels like allow, abstain, active, shadow, or no-winner inside generated sentences. Every generated sentence must contain source_phrase as an exact standalone browser-replaceable token separated by spaces or ordinary punctuation. Do not hide source_phrase inside filenames, URLs, code identifiers, hashtags, handles, underscores, camelCase, or compounds. Return exactly requested_items item objects unless you are returning the explicit unable_to_find_distinct_competitor marker.\n\nrequest_id: semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:active_evidence_expansion\nfamily_id: en-es:full-family-repaired-full:smile:sonre-r\nslot_id: en-es:full-family-repaired-full:smile:sonre-r:active_evidence_expansion\nslot_type: active_evidence_expansion\nsource_phrase: smile\ntarget_lemma: sonreír\nactive_target_lemma: sonreír\nactive_evidence_text: smile -> sonreír | smile as a verb, changing one's facial expression\nknown_shadow_targets: sonrisa, agradecer con una sonrisa\nrequested_items: 2\n\nRequired top-level JSON fields and exact values:\n{\"request_id\": \"semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:active_evidence_expansion\", \"family_id\": \"en-es:full-family-repaired-full:smile:sonre-r\", \"slot_id\": \"en-es:full-family-repaired-full:smile:sonre-r:active_evidence_expansion\", \"slot_type\": \"active_evidence_expansion\", \"source_phrase\": \"smile\", \"target_lemma\": \"sonreír\", \"items\": \"...\"}\n\nTask: generate concise English evidence examples for the active sense. Each item should be a natural sentence containing the source_phrase and making the active target sense clear from context.\nSchema: {request_id, family_id, slot_id, slot_type, source_phrase, target_lemma, items:[{sentence, evidence_note}]}",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_04c8d4e2a3aa694c0169fd534826c48193b2ae923fc8fe989e",
+      "response_json": {
+        "background": false,
+        "billing": {
+          "payer": "developer"
+        },
+        "completed_at": 1778209609.0,
+        "conversation": null,
+        "created_at": 1778209608.0,
+        "error": null,
+        "frequency_penalty": 0.0,
+        "id": "resp_04c8d4e2a3aa694c0169fd534826c48193b2ae923fc8fe989e",
+        "incomplete_details": null,
+        "instructions": null,
+        "max_output_tokens": 700,
+        "max_tool_calls": null,
+        "metadata": {
+          "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+          "prompt_id": "semantic_veto_evidence_gap_generation_v4",
+          "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:active_evidence_expansion",
+          "slot_id": "en-es:full-family-repaired-full:smile:sonre-r:active_evidence_expansion"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "moderation": null,
+        "object": "response",
+        "output": [
+          {
+            "content": [
+              {
+                "annotations": [],
+                "logprobs": [],
+                "text": "{\"request_id\":\"semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:active_evidence_expansion\",\"family_id\":\"en-es:full-family-repaired-full:smile:sonre-r\",\"slot_id\":\"en-es:full-family-repaired-full:smile:sonre-r:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"smile\",\"target_lemma\":\"sonreír\",\"items\":[{\"sentence\":\"She tried to smile after hearing the good news.\",\"evidence_note\":\"The verb shows a facial expression of happiness, matching the active sense.\"},{\"sentence\":\"He could not smile because his cheeks hurt.\",\"evidence_note\":\"The context makes smile an action involving the face, not a noun or idiom.\"}]}",
+                "type": "output_text"
+              }
+            ],
+            "id": "msg_04c8d4e2a3aa694c0169fd53488a2881939c5a258c8c203bc5",
+            "phase": "final_answer",
+            "role": "assistant",
+            "status": "completed",
+            "type": "message"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "presence_penalty": 0.0,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "store": false,
+        "temperature": 0.2,
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "tool_choice": "auto",
+        "tools": [],
+        "top_logprobs": 0,
+        "top_p": 0.98,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 493,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 182,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 675
+        },
+        "user": null
+      },
+      "response_status": "completed",
+      "slot_id": "en-es:full-family-repaired-full:smile:sonre-r:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "completed",
+      "temperature": 0.2,
+      "usage": {
+        "input_tokens": 493,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 182,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 675
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+      "model_id": "gpt-5.4-mini",
+      "output_text": "{\"request_id\":\"semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe\",\"family_id\":\"en-es:full-family-repaired-full:smile:sonre-r\",\"slot_id\":\"en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe\",\"slot_type\":\"shadow_or_competitor_evidence_probe\",\"source_phrase\":\"smile\",\"target_lemma\":\"sonrisa\",\"proposed_competitor_target_lemma\":\"sonreír\",\"competitor_sense_label\":\"verb sense: to smile / grin\",\"active_sense_contrast\":\"The competitor sense uses smile as a verb meaning to change one's facial expression, not the noun meaning a smile.\",\"unable_to_find_distinct_competitor\":false,\"no_distinct_competitor_reason\":\"\",\"items\":[{\"sentence\":\"She tried to smile at the camera, but the flash made her blink.\",\"evidence_note\":\"smile is used as a verb describing an action with the face.\",\"active_mismatch_note\":\"sonrisa is wrong here because the sentence needs the verb sense, not the noun for a facial expression.\"},{\"sentence\":\"He smiled politely before answering the question.\",\"evidence_note\":\"smiled clearly expresses the action of smiling.\",\"active_mismatch_note\":\"sonrisa does not fit because this is not about a smile as a thing; it is about someone performing the action.\"}]}",
+      "pilot_arm": "low_control",
+      "prompt_text": "Return exactly one JSON object. Preserve request_id, family_id, slot_id, slot_type, source_phrase, and target_lemma exactly as given. Do not include markdown. Generated English sentences must not contain Spanish target lemmas. Do not add labels like allow, abstain, active, shadow, or no-winner inside generated sentences. Every generated sentence must contain source_phrase as an exact standalone browser-replaceable token separated by spaces or ordinary punctuation. Do not hide source_phrase inside filenames, URLs, code identifiers, hashtags, handles, underscores, camelCase, or compounds. Return exactly requested_items item objects unless you are returning the explicit unable_to_find_distinct_competitor marker.\n\nrequest_id: semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe\nfamily_id: en-es:full-family-repaired-full:smile:sonre-r\nslot_id: en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe\nslot_type: shadow_or_competitor_evidence_probe\nsource_phrase: smile\ntarget_lemma: sonrisa\nactive_target_lemma: sonreír\nactive_evidence_text: smile -> sonreír | smile as a verb, changing one's facial expression\nknown_shadow_targets: sonrisa, agradecer con una sonrisa\nrequested_items: 2\n\nRequired top-level JSON fields and exact values:\n{\"request_id\": \"semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe\", \"family_id\": \"en-es:full-family-repaired-full:smile:sonre-r\", \"slot_id\": \"en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe\", \"slot_type\": \"shadow_or_competitor_evidence_probe\", \"source_phrase\": \"smile\", \"target_lemma\": \"sonrisa\", \"items\": \"...\"}\n\nTask: generate competitor-sense evidence. First decide whether source_phrase has a clearly different English sense from the active target sense. Distinct means the active_target_lemma would be wrong in that sentence and a bilingual dictionary would reasonably choose another Spanish lemma. If slot target_lemma is provided, use that competitor sense. If blank, propose one plausible Spanish competitor target only when it meets that distinct-sense test. Do not use near-synonyms, stylistic variants, grammatical meta-examples, or examples that still fit active_evidence_text. If no clearly distinct competitor exists, return unable_to_find_distinct_competitor:true with empty items and explain why. When generating items, include a competitor_sense_label and active_sense_contrast at the response level, and include active_mismatch_note for each item explaining why the active target sense is wrong.\nSchema: {request_id, family_id, slot_id, slot_type, source_phrase, target_lemma, proposed_competitor_target_lemma, competitor_sense_label, active_sense_contrast, unable_to_find_distinct_competitor, no_distinct_competitor_reason, items:[{sentence, evidence_note, active_mismatch_note}]}",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe",
+      "requested_items": 2,
+      "response_id": "resp_00d42eea0302b9270169fd5349e9688195b60e2de85e5c3d06",
+      "response_json": {
+        "background": false,
+        "billing": {
+          "payer": "developer"
+        },
+        "completed_at": 1778209612.0,
+        "conversation": null,
+        "created_at": 1778209609.0,
+        "error": null,
+        "frequency_penalty": 0.0,
+        "id": "resp_00d42eea0302b9270169fd5349e9688195b60e2de85e5c3d06",
+        "incomplete_details": null,
+        "instructions": null,
+        "max_output_tokens": 700,
+        "max_tool_calls": null,
+        "metadata": {
+          "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+          "prompt_id": "semantic_veto_evidence_gap_generation_v4",
+          "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe",
+          "slot_id": "en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "moderation": null,
+        "object": "response",
+        "output": [
+          {
+            "content": [
+              {
+                "annotations": [],
+                "logprobs": [],
+                "text": "{\"request_id\":\"semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe\",\"family_id\":\"en-es:full-family-repaired-full:smile:sonre-r\",\"slot_id\":\"en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe\",\"slot_type\":\"shadow_or_competitor_evidence_probe\",\"source_phrase\":\"smile\",\"target_lemma\":\"sonrisa\",\"proposed_competitor_target_lemma\":\"sonreír\",\"competitor_sense_label\":\"verb sense: to smile / grin\",\"active_sense_contrast\":\"The competitor sense uses smile as a verb meaning to change one's facial expression, not the noun meaning a smile.\",\"unable_to_find_distinct_competitor\":false,\"no_distinct_competitor_reason\":\"\",\"items\":[{\"sentence\":\"She tried to smile at the camera, but the flash made her blink.\",\"evidence_note\":\"smile is used as a verb describing an action with the face.\",\"active_mismatch_note\":\"sonrisa is wrong here because the sentence needs the verb sense, not the noun for a facial expression.\"},{\"sentence\":\"He smiled politely before answering the question.\",\"evidence_note\":\"smiled clearly expresses the action of smiling.\",\"active_mismatch_note\":\"sonrisa does not fit because this is not about a smile as a thing; it is about someone performing the action.\"}]}",
+                "type": "output_text"
+              }
+            ],
+            "id": "msg_00d42eea0302b9270169fd534a3fc08195ada5b2d1fd24d9a9",
+            "phase": "final_answer",
+            "role": "assistant",
+            "status": "completed",
+            "type": "message"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "presence_penalty": 0.0,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "store": false,
+        "temperature": 0.2,
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "tool_choice": "auto",
+        "tools": [],
+        "top_logprobs": 0,
+        "top_p": 0.98,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 689,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 324,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 1013
+        },
+        "user": null
+      },
+      "response_status": "completed",
+      "slot_id": "en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "status": "completed",
+      "temperature": 0.2,
+      "usage": {
+        "input_tokens": 689,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 324,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 1013
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+      "model_id": "gpt-5.4-mini",
+      "output_text": "{\"request_id\":\"semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:no_winner_context_probe\",\"family_id\":\"en-es:full-family-repaired-full:smile:sonre-r\",\"slot_id\":\"en-es:full-family-repaired-full:smile:sonre-r:no_winner_context_probe\",\"slot_type\":\"no_winner_context_probe\",\"source_phrase\":\"smile\",\"target_lemma\":\"\",\"items\":[{\"sentence\":\"Page title: smile gallery overview\",\"no_winner_context_class\":\"page_title\",\"no_winner_reason\":\"This is a page title about a gallery, not a verb phrase expressing facial expression, so the Spanish verb target should not be inserted.\",\"runtime_trigger_note\":\"smile appears as a standalone token between spaces in the title.\"}]}",
+      "pilot_arm": "low_control",
+      "prompt_text": "Return exactly one JSON object. Preserve request_id, family_id, slot_id, slot_type, source_phrase, and target_lemma exactly as given. Do not include markdown. Generated English sentences must not contain Spanish target lemmas. Do not add labels like allow, abstain, active, shadow, or no-winner inside generated sentences. Every generated sentence must contain source_phrase as an exact standalone browser-replaceable token separated by spaces or ordinary punctuation. Do not hide source_phrase inside filenames, URLs, code identifiers, hashtags, handles, underscores, camelCase, or compounds. Return exactly requested_items item objects unless you are returning the explicit unable_to_find_distinct_competitor marker.\n\nrequest_id: semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:no_winner_context_probe\nfamily_id: en-es:full-family-repaired-full:smile:sonre-r\nslot_id: en-es:full-family-repaired-full:smile:sonre-r:no_winner_context_probe\nslot_type: no_winner_context_probe\nsource_phrase: smile\ntarget_lemma: \nactive_target_lemma: sonreír\nactive_evidence_text: smile -> sonreír | smile as a verb, changing one's facial expression\nknown_shadow_targets: sonrisa, agradecer con una sonrisa\nrequested_items: 1\n\nRequired top-level JSON fields and exact values:\n{\"request_id\": \"semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:no_winner_context_probe\", \"family_id\": \"en-es:full-family-repaired-full:smile:sonre-r\", \"slot_id\": \"en-es:full-family-repaired-full:smile:sonre-r:no_winner_context_probe\", \"slot_type\": \"no_winner_context_probe\", \"source_phrase\": \"smile\", \"target_lemma\": \"\", \"items\": \"...\"}\n\nTask: generate browser-like English contexts where source_phrase appears as a standalone replaceable token, but neither the active Spanish target nor any known competitor target should be inserted. Good contexts include page titles, visible headings, UI labels, table labels, quoted user text, or literal search queries when natural. Avoid filenames, file paths, URLs, code identifiers, underscores, embedded-token examples, and ordinary sentences that simply use the active target sense. Each item must set no_winner_context_class to one of page_title, visible_heading, ui_label, table_label, quoted_user_text, search_query, name_or_title, or literal_fragment. Each item must explain both why the replacement should not happen and why the English source token is still a runtime-like standalone match.\nSchema: {request_id, family_id, slot_id, slot_type, source_phrase, target_lemma:\"\", items:[{sentence, no_winner_context_class, no_winner_reason, runtime_trigger_note}]}",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:no_winner_context_probe",
+      "requested_items": 1,
+      "response_id": "resp_0c54b3f90971e00a0169fd534c7498819387cd6ea208075905",
+      "response_json": {
+        "background": false,
+        "billing": {
+          "payer": "developer"
+        },
+        "completed_at": 1778209613.0,
+        "conversation": null,
+        "created_at": 1778209612.0,
+        "error": null,
+        "frequency_penalty": 0.0,
+        "id": "resp_0c54b3f90971e00a0169fd534c7498819387cd6ea208075905",
+        "incomplete_details": null,
+        "instructions": null,
+        "max_output_tokens": 700,
+        "max_tool_calls": null,
+        "metadata": {
+          "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+          "prompt_id": "semantic_veto_evidence_gap_generation_v4",
+          "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:no_winner_context_probe",
+          "slot_id": "en-es:full-family-repaired-full:smile:sonre-r:no_winner_context_probe"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "moderation": null,
+        "object": "response",
+        "output": [
+          {
+            "content": [
+              {
+                "annotations": [],
+                "logprobs": [],
+                "text": "{\"request_id\":\"semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:no_winner_context_probe\",\"family_id\":\"en-es:full-family-repaired-full:smile:sonre-r\",\"slot_id\":\"en-es:full-family-repaired-full:smile:sonre-r:no_winner_context_probe\",\"slot_type\":\"no_winner_context_probe\",\"source_phrase\":\"smile\",\"target_lemma\":\"\",\"items\":[{\"sentence\":\"Page title: smile gallery overview\",\"no_winner_context_class\":\"page_title\",\"no_winner_reason\":\"This is a page title about a gallery, not a verb phrase expressing facial expression, so the Spanish verb target should not be inserted.\",\"runtime_trigger_note\":\"smile appears as a standalone token between spaces in the title.\"}]}",
+                "type": "output_text"
+              }
+            ],
+            "id": "msg_0c54b3f90971e00a0169fd534cb868819388f7425a351f642a",
+            "phase": "final_answer",
+            "role": "assistant",
+            "status": "completed",
+            "type": "message"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "presence_penalty": 0.0,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "store": false,
+        "temperature": 0.2,
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "tool_choice": "auto",
+        "tools": [],
+        "top_logprobs": 0,
+        "top_p": 0.98,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 613,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 180,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 793
+        },
+        "user": null
+      },
+      "response_status": "completed",
+      "slot_id": "en-es:full-family-repaired-full:smile:sonre-r:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "status": "completed",
+      "temperature": 0.2,
+      "usage": {
+        "input_tokens": 613,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 180,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 793
+      }
+    }
+  ],
+  "schema_version": 1,
+  "selected_model_id": "gpt-5.4-mini",
+  "selected_temperature": 0.2
+}

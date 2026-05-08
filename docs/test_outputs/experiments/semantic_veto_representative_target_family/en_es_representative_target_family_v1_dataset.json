@@ -1,0 +1,2469 @@
+{
+  "schema_version": 1,
+  "pair": "en-es",
+  "dataset_id": "en_es_semantic_veto_representative_target_family_construction_en_es_v1",
+  "generated_at": "2026-05-05T20:48:34+00:00",
+  "description": "Source-ready draft target/shadow families constructed over the frozen representative heuristic-band source-trigger sample. Families require review before scored probes and are not LLM active/shadow/phrase rows.",
+  "source_sample_decision": "representative_heuristic_band_sample_frozen",
+  "review_state": "draft_target_shadow_families_need_review",
+  "families": [
+    {
+      "family_id": "en-es:sentence-veto:work:trabajo",
+      "trigger": "work",
+      "active": {
+        "sense_id": "en-es:sentence-veto:work:trabajo:active",
+        "target_lemma": "trabajo",
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "sense_label": "work noun sense: labour, employment, occupation, job",
+          "gloss_text": "labour, employment, occupation, job",
+          "sense_gloss_bundle": "work noun sense: labour, employment, occupation, job | labour, employment, occupation, job",
+          "all_evidence_text": "trabajo | work noun sense: labour, employment, occupation, job | labour, employment, occupation, job | labour, employment, occupation, job"
+        },
+        "metadata": {
+          "sense_role": "active",
+          "translation_rank": 1,
+          "translation_pos": "noun",
+          "translation_sense_text": "labour, employment, occupation, job",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktionary_es_en",
+            "freedict_es_en"
+          ],
+          "reverse_support": true,
+          "freedict_support": true,
+          "wordnet_linked": true,
+          "best_wordnet_link_score": 0.2857,
+          "best_wordnet_overlap": [
+            "employment",
+            "occupation"
+          ]
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-es:sentence-veto:work:trabajo:trabajar:shadow",
+          "target_lemma": "trabajar",
+          "canonical_pos": "verb",
+          "evidence_views": {
+            "sense_label": "work verb sense: to do a specific task",
+            "gloss_text": "to do a specific task",
+            "sense_gloss_bundle": "work verb sense: to do a specific task | to do a specific task",
+            "all_evidence_text": "trabajar | work verb sense: to do a specific task | to do a specific task | to do a specific task"
+          },
+          "metadata": {
+            "sense_role": "shadow",
+            "translation_rank": 11,
+            "translation_pos": "verb",
+            "translation_sense_text": "to do a specific task",
+            "support_sources": [
+              "wiktionary_en_es",
+              "freedict_es_en"
+            ],
+            "reverse_support": false,
+            "freedict_support": true,
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.2,
+            "best_wordnet_overlap": [
+              "task"
+            ]
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-es:sentence-veto:work:trabajo:draft-loader:001",
+          "sentence": "The word work is being checked for labour, employment, occupation, job.",
+          "source_phrase": "work",
+          "gold_winner": "en-es:sentence-veto:work:trabajo:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "non_v10_wave_draft",
+            "loader_only",
+            "not_quality_evaluation"
+          ]
+        }
+      ],
+      "metadata": {
+        "wave_id": "semantic_veto_representative_target_family_construction_en_es_v1",
+        "construction_method": "wiktionary_forward_translation_with_reverse_support:noun_verb",
+        "source_candidate": {
+          "candidate_id": "representative-heuristic-band:23:work",
+          "trigger": "work",
+          "score": 1.625,
+          "complexity_band": "source_rank_band=1-500::polysemy_band=high_10_plus::pos_shape=cross_pos_polysemy",
+          "sense_count": 34,
+          "source_rank": 115.0,
+          "source_rank_band": "1-500",
+          "polysemy_band": "high_10_plus",
+          "pos_shape": "cross_pos_polysemy"
+        },
+        "translation_candidates": [
+          {
+            "headword": "work",
+            "translation": "trabajo",
+            "translation_lc": "trabajo",
+            "pos": "noun",
+            "canonical_pos": "noun",
+            "rank": 1,
+            "sense_text": "labour, employment, occupation, job",
+            "raw_glosses": [
+              "labour, employment, occupation, job"
+            ],
+            "reverse_support": true,
+            "freedict_support": true,
+            "support_sources": [
+              "wiktionary_en_es",
+              "wiktionary_es_en",
+              "freedict_es_en"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.2857,
+            "best_wordnet_overlap": [
+              "employment",
+              "occupation"
+            ],
+            "best_wordnet_synset_id": "00585404-n"
+          },
+          {
+            "headword": "work",
+            "translation": "trabajar",
+            "translation_lc": "trabajar",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 11,
+            "sense_text": "to do a specific task",
+            "raw_glosses": [
+              "to do a specific task"
+            ],
+            "reverse_support": false,
+            "freedict_support": true,
+            "support_sources": [
+              "wiktionary_en_es",
+              "freedict_es_en"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.2,
+            "best_wordnet_overlap": [
+              "task"
+            ],
+            "best_wordnet_synset_id": "02378106-v"
+          },
+          {
+            "headword": "work",
+            "translation": "curro",
+            "translation_lc": "curro",
+            "pos": "noun",
+            "canonical_pos": "noun",
+            "rank": 2,
+            "sense_text": "labour, employment, occupation, job",
+            "raw_glosses": [
+              "labour, employment, occupation, job"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.2857,
+            "best_wordnet_overlap": [
+              "employment",
+              "occupation"
+            ],
+            "best_wordnet_synset_id": "00585404-n"
+          },
+          {
+            "headword": "work",
+            "translation": "laburo",
+            "translation_lc": "laburo",
+            "pos": "noun",
+            "canonical_pos": "noun",
+            "rank": 3,
+            "sense_text": "labour, employment, occupation, job",
+            "raw_glosses": [
+              "labour, employment, occupation, job"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.2857,
+            "best_wordnet_overlap": [
+              "employment",
+              "occupation"
+            ],
+            "best_wordnet_synset_id": "00585404-n"
+          },
+          {
+            "headword": "work",
+            "translation": "chamba",
+            "translation_lc": "chamba",
+            "pos": "noun",
+            "canonical_pos": "noun",
+            "rank": 4,
+            "sense_text": "labour, employment, occupation, job",
+            "raw_glosses": [
+              "labour, employment, occupation, job"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.2857,
+            "best_wordnet_overlap": [
+              "employment",
+              "occupation"
+            ],
+            "best_wordnet_synset_id": "00585404-n"
+          },
+          {
+            "headword": "work",
+            "translation": "cheje",
+            "translation_lc": "cheje",
+            "pos": "noun",
+            "canonical_pos": "noun",
+            "rank": 5,
+            "sense_text": "labour, employment, occupation, job",
+            "raw_glosses": [
+              "labour, employment, occupation, job"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.2857,
+            "best_wordnet_overlap": [
+              "employment",
+              "occupation"
+            ],
+            "best_wordnet_synset_id": "00585404-n"
+          },
+          {
+            "headword": "work",
+            "translation": "trabajal",
+            "translation_lc": "trabajal",
+            "pos": "noun",
+            "canonical_pos": "noun",
+            "rank": 6,
+            "sense_text": "labour, employment, occupation, job",
+            "raw_glosses": [
+              "labour, employment, occupation, job",
+              "a lot of work"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.375,
+            "best_wordnet_overlap": [
+              "employment",
+              "lot",
+              "occupation"
+            ],
+            "best_wordnet_synset_id": "00585404-n"
+          },
+          {
+            "headword": "work",
+            "translation": "laburar",
+            "translation_lc": "laburar",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 12,
+            "sense_text": "to do a specific task",
+            "raw_glosses": [
+              "to do a specific task"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.2,
+            "best_wordnet_overlap": [
+              "task"
+            ],
+            "best_wordnet_synset_id": "02378106-v"
+          },
+          {
+            "headword": "work",
+            "translation": "chambear",
+            "translation_lc": "chambear",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 13,
+            "sense_text": "to do a specific task",
+            "raw_glosses": [
+              "to do a specific task"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.2,
+            "best_wordnet_overlap": [
+              "task"
+            ],
+            "best_wordnet_synset_id": "02378106-v"
+          },
+          {
+            "headword": "work",
+            "translation": "chejear",
+            "translation_lc": "chejear",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 14,
+            "sense_text": "to do a specific task",
+            "raw_glosses": [
+              "to do a specific task"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.2,
+            "best_wordnet_overlap": [
+              "task"
+            ],
+            "best_wordnet_synset_id": "02378106-v"
+          },
+          {
+            "headword": "work",
+            "translation": "bretear",
+            "translation_lc": "bretear",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 15,
+            "sense_text": "to do a specific task",
+            "raw_glosses": [
+              "to do a specific task"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.2,
+            "best_wordnet_overlap": [
+              "task"
+            ],
+            "best_wordnet_synset_id": "02378106-v"
+          },
+          {
+            "headword": "work",
+            "translation": "currelar",
+            "translation_lc": "currelar",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 16,
+            "sense_text": "to do a specific task",
+            "raw_glosses": [
+              "to do a specific task"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.2,
+            "best_wordnet_overlap": [
+              "task"
+            ],
+            "best_wordnet_synset_id": "02378106-v"
+          }
+        ],
+        "requires_independent_cases": true,
+        "requires_wordnet_link": true,
+        "llm_data_priority_target_family_construction": {
+          "construction_rank": 23,
+          "bridge_priority_rank": 23,
+          "selected_strategy": "noun_verb_supported_source_linked",
+          "readiness_stage": "source_supported_family_draft_needs_review",
+          "source_ready_for_scored_probe": true
+        },
+        "representative_heuristic_band_sample": {
+          "representative_sample_rank": 4,
+          "cell_id": "source_rank_band=1-500::polysemy_band=high_10_plus::pos_shape=cross_pos_polysemy",
+          "cell_eligible_count": 13,
+          "cell_sample_count": 8,
+          "cell_sampling_weight": 1.625,
+          "source_rank": 115.0,
+          "source_rank_band": "1-500",
+          "polysemy_band": "high_10_plus",
+          "pos_shape": "cross_pos_polysemy",
+          "wordnet_sense_count": 34,
+          "wordnet_pos_count": 2
+        }
+      }
+    },
+    {
+      "family_id": "en-es:sentence-veto:simple:sencillo",
+      "trigger": "simple",
+      "active": {
+        "sense_id": "en-es:sentence-veto:simple:sencillo:active",
+        "target_lemma": "sencillo",
+        "canonical_pos": "adjective",
+        "evidence_views": {
+          "sense_label": "simple adjective sense: uncomplicated",
+          "gloss_text": "uncomplicated",
+          "sense_gloss_bundle": "simple adjective sense: uncomplicated | uncomplicated",
+          "all_evidence_text": "sencillo | simple adjective sense: uncomplicated | uncomplicated | uncomplicated"
+        },
+        "metadata": {
+          "sense_role": "active",
+          "translation_rank": 2,
+          "translation_pos": "adj",
+          "translation_sense_text": "uncomplicated",
+          "support_sources": [
+            "wiktionary_en_es",
+            "freedict_es_en"
+          ],
+          "reverse_support": false,
+          "freedict_support": true,
+          "wordnet_linked": true,
+          "best_wordnet_link_score": 0.25,
+          "best_wordnet_overlap": [
+            "uncomplicat"
+          ]
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-es:sentence-veto:simple:sencillo:simple:shadow",
+          "target_lemma": "simple",
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "sense_label": "simple noun sense: preparation from one plant",
+            "gloss_text": "preparation from one plant",
+            "sense_gloss_bundle": "simple noun sense: preparation from one plant | preparation from one plant",
+            "all_evidence_text": "simple | simple noun sense: preparation from one plant | preparation from one plant | preparation from one plant"
+          },
+          "metadata": {
+            "sense_role": "shadow",
+            "translation_rank": 1,
+            "translation_pos": "noun",
+            "translation_sense_text": "preparation from one plant",
+            "support_sources": [
+              "wiktionary_en_es",
+              "wiktionary_es_en",
+              "freedict_es_en"
+            ],
+            "reverse_support": true,
+            "freedict_support": true,
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.2,
+            "best_wordnet_overlap": [
+              "plant"
+            ]
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-es:sentence-veto:simple:sencillo:draft-loader:001",
+          "sentence": "The word simple is being checked for uncomplicated.",
+          "source_phrase": "simple",
+          "gold_winner": "en-es:sentence-veto:simple:sencillo:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "non_v10_wave_draft",
+            "loader_only",
+            "not_quality_evaluation"
+          ]
+        }
+      ],
+      "metadata": {
+        "wave_id": "semantic_veto_representative_target_family_construction_en_es_v1",
+        "construction_method": "wiktionary_forward_translation_with_reverse_support:any_cross_pos",
+        "source_candidate": {
+          "candidate_id": "representative-heuristic-band:45:simple",
+          "trigger": "simple",
+          "score": 1.375,
+          "complexity_band": "source_rank_band=501-1000::polysemy_band=medium_4_to_9::pos_shape=cross_pos_polysemy",
+          "sense_count": 9,
+          "source_rank": 735.0,
+          "source_rank_band": "501-1000",
+          "polysemy_band": "medium_4_to_9",
+          "pos_shape": "cross_pos_polysemy"
+        },
+        "translation_candidates": [
+          {
+            "headword": "simple",
+            "translation": "simple",
+            "translation_lc": "simple",
+            "pos": "adj",
+            "canonical_pos": "adjective",
+            "rank": 1,
+            "sense_text": "uncomplicated",
+            "raw_glosses": [
+              "uncomplicated"
+            ],
+            "reverse_support": true,
+            "freedict_support": true,
+            "support_sources": [
+              "wiktionary_en_es",
+              "wiktionary_es_en",
+              "freedict_es_en"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.3333,
+            "best_wordnet_overlap": [
+              "uncomplicat"
+            ],
+            "best_wordnet_synset_id": "00753900-s"
+          },
+          {
+            "headword": "simple",
+            "translation": "simple",
+            "translation_lc": "simple",
+            "pos": "noun",
+            "canonical_pos": "noun",
+            "rank": 1,
+            "sense_text": "preparation from one plant",
+            "raw_glosses": [
+              "preparation from one plant"
+            ],
+            "reverse_support": true,
+            "freedict_support": true,
+            "support_sources": [
+              "wiktionary_en_es",
+              "wiktionary_es_en",
+              "freedict_es_en"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.2,
+            "best_wordnet_overlap": [
+              "plant"
+            ],
+            "best_wordnet_synset_id": "12233207-n"
+          },
+          {
+            "headword": "simple",
+            "translation": "sencillo",
+            "translation_lc": "sencillo",
+            "pos": "adj",
+            "canonical_pos": "adjective",
+            "rank": 2,
+            "sense_text": "uncomplicated",
+            "raw_glosses": [
+              "uncomplicated"
+            ],
+            "reverse_support": false,
+            "freedict_support": true,
+            "support_sources": [
+              "wiktionary_en_es",
+              "freedict_es_en"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.25,
+            "best_wordnet_overlap": [
+              "uncomplicat"
+            ],
+            "best_wordnet_synset_id": "00753900-s"
+          }
+        ],
+        "requires_independent_cases": true,
+        "requires_wordnet_link": true,
+        "llm_data_priority_target_family_construction": {
+          "construction_rank": 45,
+          "bridge_priority_rank": 45,
+          "selected_strategy": "any_cross_pos_supported_source_linked",
+          "readiness_stage": "source_supported_family_draft_needs_review",
+          "source_ready_for_scored_probe": true
+        },
+        "representative_heuristic_band_sample": {
+          "representative_sample_rank": 1,
+          "cell_id": "source_rank_band=501-1000::polysemy_band=medium_4_to_9::pos_shape=cross_pos_polysemy",
+          "cell_eligible_count": 11,
+          "cell_sample_count": 8,
+          "cell_sampling_weight": 1.375,
+          "source_rank": 735.0,
+          "source_rank_band": "501-1000",
+          "polysemy_band": "medium_4_to_9",
+          "pos_shape": "cross_pos_polysemy",
+          "wordnet_sense_count": 9,
+          "wordnet_pos_count": 2
+        }
+      }
+    },
+    {
+      "family_id": "en-es:sentence-veto:look:aspecto",
+      "trigger": "look",
+      "active": {
+        "sense_id": "en-es:sentence-veto:look:aspecto:active",
+        "target_lemma": "aspecto",
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "sense_label": "look noun sense: physical appearance",
+          "gloss_text": "physical appearance",
+          "sense_gloss_bundle": "look noun sense: physical appearance | physical appearance",
+          "all_evidence_text": "aspecto | look noun sense: physical appearance | physical appearance | physical appearance"
+        },
+        "metadata": {
+          "sense_role": "active",
+          "translation_rank": 15,
+          "translation_pos": "noun",
+          "translation_sense_text": "physical appearance",
+          "support_sources": [
+            "wiktionary_en_es",
+            "freedict_es_en"
+          ],
+          "reverse_support": false,
+          "freedict_support": true,
+          "wordnet_linked": true,
+          "best_wordnet_link_score": 0.4,
+          "best_wordnet_overlap": [
+            "appearance",
+            "physical"
+          ]
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-es:sentence-veto:look:aspecto:parecer:shadow",
+          "target_lemma": "parecer",
+          "canonical_pos": "verb",
+          "evidence_views": {
+            "sense_label": "look verb sense: to appear, to seem",
+            "gloss_text": "to appear, to seem",
+            "sense_gloss_bundle": "look verb sense: to appear, to seem | to appear, to seem",
+            "all_evidence_text": "parecer | look verb sense: to appear, to seem | to appear, to seem | to appear, to seem"
+          },
+          "metadata": {
+            "sense_role": "shadow",
+            "translation_rank": 6,
+            "translation_pos": "verb",
+            "translation_sense_text": "to appear, to seem",
+            "support_sources": [
+              "wiktionary_en_es",
+              "freedict_es_en"
+            ],
+            "reverse_support": false,
+            "freedict_support": true,
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.4,
+            "best_wordnet_overlap": [
+              "appear",
+              "seem"
+            ]
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-es:sentence-veto:look:aspecto:draft-loader:001",
+          "sentence": "The word look is being checked for physical appearance.",
+          "source_phrase": "look",
+          "gold_winner": "en-es:sentence-veto:look:aspecto:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "non_v10_wave_draft",
+            "loader_only",
+            "not_quality_evaluation"
+          ]
+        }
+      ],
+      "metadata": {
+        "wave_id": "semantic_veto_representative_target_family_construction_en_es_v1",
+        "construction_method": "wiktionary_forward_translation_with_reverse_support:noun_verb",
+        "source_candidate": {
+          "candidate_id": "representative-heuristic-band:54:look",
+          "trigger": "look",
+          "score": 1.25,
+          "complexity_band": "source_rank_band=501-1000::polysemy_band=high_10_plus::pos_shape=cross_pos_polysemy",
+          "sense_count": 14,
+          "source_rank": 605.0,
+          "source_rank_band": "501-1000",
+          "polysemy_band": "high_10_plus",
+          "pos_shape": "cross_pos_polysemy"
+        },
+        "translation_candidates": [
+          {
+            "headword": "look",
+            "translation": "parecer",
+            "translation_lc": "parecer",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 6,
+            "sense_text": "to appear, to seem",
+            "raw_glosses": [
+              "to appear, to seem"
+            ],
+            "reverse_support": false,
+            "freedict_support": true,
+            "support_sources": [
+              "wiktionary_en_es",
+              "freedict_es_en"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.4,
+            "best_wordnet_overlap": [
+              "appear",
+              "seem"
+            ],
+            "best_wordnet_synset_id": "02137900-v"
+          },
+          {
+            "headword": "look",
+            "translation": "aspecto",
+            "translation_lc": "aspecto",
+            "pos": "noun",
+            "canonical_pos": "noun",
+            "rank": 15,
+            "sense_text": "physical appearance",
+            "raw_glosses": [
+              "physical appearance"
+            ],
+            "reverse_support": false,
+            "freedict_support": true,
+            "support_sources": [
+              "wiktionary_en_es",
+              "freedict_es_en"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.4,
+            "best_wordnet_overlap": [
+              "appearance",
+              "physical"
+            ],
+            "best_wordnet_synset_id": "04682072-n"
+          },
+          {
+            "headword": "look",
+            "translation": "mirar",
+            "translation_lc": "mirar",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 1,
+            "sense_text": "to try to see",
+            "raw_glosses": [
+              "to try to see"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.2,
+            "best_wordnet_overlap": [
+              "see"
+            ],
+            "best_wordnet_synset_id": "02555278-v"
+          },
+          {
+            "headword": "look",
+            "translation": "ojear",
+            "translation_lc": "ojear",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 2,
+            "sense_text": "to try to see",
+            "raw_glosses": [
+              "to try to see"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.2,
+            "best_wordnet_overlap": [
+              "see"
+            ],
+            "best_wordnet_synset_id": "02555278-v"
+          },
+          {
+            "headword": "look",
+            "translation": "catar",
+            "translation_lc": "catar",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 3,
+            "sense_text": "to try to see",
+            "raw_glosses": [
+              "to try to see"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.2,
+            "best_wordnet_overlap": [
+              "see"
+            ],
+            "best_wordnet_synset_id": "02555278-v"
+          },
+          {
+            "headword": "look",
+            "translation": "lentear",
+            "translation_lc": "lentear",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 4,
+            "sense_text": "to try to see",
+            "raw_glosses": [
+              "to try to see"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.2,
+            "best_wordnet_overlap": [
+              "see"
+            ],
+            "best_wordnet_synset_id": "02555278-v"
+          },
+          {
+            "headword": "look",
+            "translation": "lookear",
+            "translation_lc": "lookear",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 5,
+            "sense_text": "to try to see",
+            "raw_glosses": [
+              "to try to see"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.2,
+            "best_wordnet_overlap": [
+              "see"
+            ],
+            "best_wordnet_synset_id": "02555278-v"
+          },
+          {
+            "headword": "look",
+            "translation": "verse",
+            "translation_lc": "verse",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 7,
+            "sense_text": "to appear, to seem",
+            "raw_glosses": [
+              "to appear, to seem"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.4,
+            "best_wordnet_overlap": [
+              "appear",
+              "seem"
+            ],
+            "best_wordnet_synset_id": "02137900-v"
+          },
+          {
+            "headword": "look",
+            "translation": "lucir",
+            "translation_lc": "lucir",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 8,
+            "sense_text": "to appear, to seem",
+            "raw_glosses": [
+              "to appear, to seem"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.4,
+            "best_wordnet_overlap": [
+              "appear",
+              "seem"
+            ],
+            "best_wordnet_synset_id": "02137900-v"
+          },
+          {
+            "headword": "look",
+            "translation": "veerse",
+            "translation_lc": "veerse",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 9,
+            "sense_text": "give an appearance of being",
+            "raw_glosses": [
+              "give an appearance of being"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.2,
+            "best_wordnet_overlap": [
+              "give"
+            ],
+            "best_wordnet_synset_id": "02137900-v"
+          },
+          {
+            "headword": "look",
+            "translation": "dar",
+            "translation_lc": "dar",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 10,
+            "sense_text": "to face",
+            "raw_glosses": [
+              "to face"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.25,
+            "best_wordnet_overlap": [
+              "face"
+            ],
+            "best_wordnet_synset_id": "02699161-v"
+          },
+          {
+            "headword": "look",
+            "translation": "esperar",
+            "translation_lc": "esperar",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 11,
+            "sense_text": "to expect",
+            "raw_glosses": [
+              "to expect"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.25,
+            "best_wordnet_overlap": [
+              "expect"
+            ],
+            "best_wordnet_synset_id": "00721987-v"
+          }
+        ],
+        "requires_independent_cases": true,
+        "requires_wordnet_link": true,
+        "llm_data_priority_target_family_construction": {
+          "construction_rank": 54,
+          "bridge_priority_rank": 54,
+          "selected_strategy": "noun_verb_supported_source_linked",
+          "readiness_stage": "source_supported_family_draft_needs_review",
+          "source_ready_for_scored_probe": true
+        },
+        "representative_heuristic_band_sample": {
+          "representative_sample_rank": 1,
+          "cell_id": "source_rank_band=501-1000::polysemy_band=high_10_plus::pos_shape=cross_pos_polysemy",
+          "cell_eligible_count": 10,
+          "cell_sample_count": 8,
+          "cell_sampling_weight": 1.25,
+          "source_rank": 605.0,
+          "source_rank_band": "501-1000",
+          "polysemy_band": "high_10_plus",
+          "pos_shape": "cross_pos_polysemy",
+          "wordnet_sense_count": 14,
+          "wordnet_pos_count": 2
+        }
+      }
+    },
+    {
+      "family_id": "en-es:sentence-veto:return:regreso",
+      "trigger": "return",
+      "active": {
+        "sense_id": "en-es:sentence-veto:return:regreso:active",
+        "target_lemma": "regreso",
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "sense_label": "return noun sense: act of returning",
+          "gloss_text": "act of returning",
+          "sense_gloss_bundle": "return noun sense: act of returning | act of returning",
+          "all_evidence_text": "regreso | return noun sense: act of returning | act of returning | act of returning"
+        },
+        "metadata": {
+          "sense_role": "active",
+          "translation_rank": 8,
+          "translation_pos": "noun",
+          "translation_sense_text": "act of returning",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktionary_es_en"
+          ],
+          "reverse_support": true,
+          "freedict_support": false,
+          "wordnet_linked": true,
+          "best_wordnet_link_score": 0.25,
+          "best_wordnet_overlap": [
+            "act"
+          ]
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-es:sentence-veto:return:regreso:devoluci-n:shadow",
+          "target_lemma": "devolución",
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "sense_label": "return noun sense: act of returning an item",
+            "gloss_text": "act of returning an item",
+            "sense_gloss_bundle": "return noun sense: act of returning an item | act of returning an item",
+            "all_evidence_text": "devolución | return noun sense: act of returning an item | act of returning an item | act of returning an item"
+          },
+          "metadata": {
+            "sense_role": "shadow",
+            "translation_rank": 13,
+            "translation_pos": "noun",
+            "translation_sense_text": "act of returning an item",
+            "support_sources": [
+              "wiktionary_en_es",
+              "wiktionary_es_en"
+            ],
+            "reverse_support": true,
+            "freedict_support": false,
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.2,
+            "best_wordnet_overlap": [
+              "act"
+            ]
+          }
+        },
+        {
+          "sense_id": "en-es:sentence-veto:return:regreso:devolver:shadow",
+          "target_lemma": "devolver",
+          "canonical_pos": "verb",
+          "evidence_views": {
+            "sense_label": "return verb sense: to give something back to its original holder or owner",
+            "gloss_text": "to give something back to its original holder or owner",
+            "sense_gloss_bundle": "return verb sense: to give something back to its original holder or owner | to give something back to its original holder or owner",
+            "all_evidence_text": "devolver | return verb sense: to give something back to its original holder or owner | to give something back to its original holder or owner | to give something back to its original holder or owner"
+          },
+          "metadata": {
+            "sense_role": "shadow",
+            "translation_rank": 7,
+            "translation_pos": "verb",
+            "translation_sense_text": "to give something back to its original holder or owner",
+            "support_sources": [
+              "wiktionary_en_es",
+              "freedict_es_en"
+            ],
+            "reverse_support": false,
+            "freedict_support": true,
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.25,
+            "best_wordnet_overlap": [
+              "back",
+              "give"
+            ]
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-es:sentence-veto:return:regreso:draft-loader:001",
+          "sentence": "The word return is being checked for act of returning.",
+          "source_phrase": "return",
+          "gold_winner": "en-es:sentence-veto:return:regreso:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "non_v10_wave_draft",
+            "loader_only",
+            "not_quality_evaluation"
+          ]
+        }
+      ],
+      "metadata": {
+        "wave_id": "semantic_veto_representative_target_family_construction_en_es_v1",
+        "construction_method": "wiktionary_forward_translation_with_reverse_support:noun_verb",
+        "source_candidate": {
+          "candidate_id": "representative-heuristic-band:57:return",
+          "trigger": "return",
+          "score": 1.25,
+          "complexity_band": "source_rank_band=501-1000::polysemy_band=high_10_plus::pos_shape=cross_pos_polysemy",
+          "sense_count": 29,
+          "source_rank": 545.0,
+          "source_rank_band": "501-1000",
+          "polysemy_band": "high_10_plus",
+          "pos_shape": "cross_pos_polysemy"
+        },
+        "translation_candidates": [
+          {
+            "headword": "return",
+            "translation": "regreso",
+            "translation_lc": "regreso",
+            "pos": "noun",
+            "canonical_pos": "noun",
+            "rank": 8,
+            "sense_text": "act of returning",
+            "raw_glosses": [
+              "act of returning"
+            ],
+            "reverse_support": true,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es",
+              "wiktionary_es_en"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.25,
+            "best_wordnet_overlap": [
+              "act"
+            ],
+            "best_wordnet_synset_id": "00328841-n"
+          },
+          {
+            "headword": "return",
+            "translation": "retorno",
+            "translation_lc": "retorno",
+            "pos": "noun",
+            "canonical_pos": "noun",
+            "rank": 9,
+            "sense_text": "act of returning",
+            "raw_glosses": [
+              "act of returning"
+            ],
+            "reverse_support": true,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es",
+              "wiktionary_es_en"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.25,
+            "best_wordnet_overlap": [
+              "act"
+            ],
+            "best_wordnet_synset_id": "00328841-n"
+          },
+          {
+            "headword": "return",
+            "translation": "vuelta",
+            "translation_lc": "vuelta",
+            "pos": "noun",
+            "canonical_pos": "noun",
+            "rank": 10,
+            "sense_text": "act of returning",
+            "raw_glosses": [
+              "act of returning"
+            ],
+            "reverse_support": true,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es",
+              "wiktionary_es_en"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.25,
+            "best_wordnet_overlap": [
+              "act"
+            ],
+            "best_wordnet_synset_id": "00328841-n"
+          },
+          {
+            "headword": "return",
+            "translation": "devolución",
+            "translation_lc": "devolución",
+            "pos": "noun",
+            "canonical_pos": "noun",
+            "rank": 13,
+            "sense_text": "act of returning an item",
+            "raw_glosses": [
+              "act of returning an item"
+            ],
+            "reverse_support": true,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es",
+              "wiktionary_es_en"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.2,
+            "best_wordnet_overlap": [
+              "act"
+            ],
+            "best_wordnet_synset_id": "00328841-n"
+          },
+          {
+            "headword": "return",
+            "translation": "devolver",
+            "translation_lc": "devolver",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 7,
+            "sense_text": "to give something back to its original holder or owner",
+            "raw_glosses": [
+              "to give something back to its original holder or owner"
+            ],
+            "reverse_support": false,
+            "freedict_support": true,
+            "support_sources": [
+              "wiktionary_en_es",
+              "freedict_es_en"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.25,
+            "best_wordnet_overlap": [
+              "back",
+              "give"
+            ],
+            "best_wordnet_synset_id": "02314987-v"
+          },
+          {
+            "headword": "return",
+            "translation": "retornar",
+            "translation_lc": "retornar",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 1,
+            "sense_text": "to come or go back",
+            "raw_glosses": [
+              "to come or go back"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.4,
+            "best_wordnet_overlap": [
+              "back",
+              "come"
+            ],
+            "best_wordnet_synset_id": "02008888-v"
+          },
+          {
+            "headword": "return",
+            "translation": "retornarse",
+            "translation_lc": "retornarse",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 2,
+            "sense_text": "to come or go back",
+            "raw_glosses": [
+              "to come or go back"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.4,
+            "best_wordnet_overlap": [
+              "back",
+              "come"
+            ],
+            "best_wordnet_synset_id": "02008888-v"
+          },
+          {
+            "headword": "return",
+            "translation": "estarse de retorno",
+            "translation_lc": "estarse de retorno",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 3,
+            "sense_text": "to come or go back",
+            "raw_glosses": [
+              "to come or go back"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.3333,
+            "best_wordnet_overlap": [
+              "back",
+              "come"
+            ],
+            "best_wordnet_synset_id": "02008888-v"
+          },
+          {
+            "headword": "return",
+            "translation": "estar de retorno",
+            "translation_lc": "estar de retorno",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 4,
+            "sense_text": "to come or go back",
+            "raw_glosses": [
+              "to come or go back",
+              "to start to return or to be on the way back"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.25,
+            "best_wordnet_overlap": [
+              "back",
+              "come"
+            ],
+            "best_wordnet_synset_id": "02008888-v"
+          },
+          {
+            "headword": "return",
+            "translation": "regresar",
+            "translation_lc": "regresar",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 6,
+            "sense_text": "to turn back, retreat",
+            "raw_glosses": [
+              "to turn back, retreat"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.3333,
+            "best_wordnet_overlap": [
+              "back",
+              "turn"
+            ],
+            "best_wordnet_synset_id": "00387981-v"
+          },
+          {
+            "headword": "return",
+            "translation": "retrovendición",
+            "translation_lc": "retrovendición",
+            "pos": "noun",
+            "canonical_pos": "noun",
+            "rank": 11,
+            "sense_text": "act of returning an item",
+            "raw_glosses": [
+              "act of returning an item"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.2,
+            "best_wordnet_overlap": [
+              "act"
+            ],
+            "best_wordnet_synset_id": "00328841-n"
+          },
+          {
+            "headword": "return",
+            "translation": "retroventa",
+            "translation_lc": "retroventa",
+            "pos": "noun",
+            "canonical_pos": "noun",
+            "rank": 12,
+            "sense_text": "act of returning an item",
+            "raw_glosses": [
+              "act of returning an item"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.2,
+            "best_wordnet_overlap": [
+              "act"
+            ],
+            "best_wordnet_synset_id": "00328841-n"
+          }
+        ],
+        "requires_independent_cases": true,
+        "requires_wordnet_link": true,
+        "llm_data_priority_target_family_construction": {
+          "construction_rank": 57,
+          "bridge_priority_rank": 57,
+          "selected_strategy": "noun_verb_supported_source_linked",
+          "readiness_stage": "source_supported_family_draft_needs_review",
+          "source_ready_for_scored_probe": true
+        },
+        "representative_heuristic_band_sample": {
+          "representative_sample_rank": 4,
+          "cell_id": "source_rank_band=501-1000::polysemy_band=high_10_plus::pos_shape=cross_pos_polysemy",
+          "cell_eligible_count": 10,
+          "cell_sample_count": 8,
+          "cell_sampling_weight": 1.25,
+          "source_rank": 545.0,
+          "source_rank_band": "501-1000",
+          "polysemy_band": "high_10_plus",
+          "pos_shape": "cross_pos_polysemy",
+          "wordnet_sense_count": 29,
+          "wordnet_pos_count": 2
+        }
+      }
+    },
+    {
+      "family_id": "en-es:sentence-veto:soldier:soldado",
+      "trigger": "soldier",
+      "active": {
+        "sense_id": "en-es:sentence-veto:soldier:soldado:active",
+        "target_lemma": "soldado",
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "sense_label": "soldier noun sense: member of an army",
+          "gloss_text": "member of an army",
+          "sense_gloss_bundle": "soldier noun sense: member of an army | member of an army",
+          "all_evidence_text": "soldado | soldier noun sense: member of an army | member of an army | member of an army"
+        },
+        "metadata": {
+          "sense_role": "active",
+          "translation_rank": 1,
+          "translation_pos": "noun",
+          "translation_sense_text": "member of an army",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktionary_es_en"
+          ],
+          "reverse_support": true,
+          "freedict_support": false,
+          "wordnet_linked": true,
+          "best_wordnet_link_score": 0.2,
+          "best_wordnet_overlap": [
+            "army"
+          ]
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-es:sentence-veto:soldier:soldado:militar:shadow",
+          "target_lemma": "militar",
+          "canonical_pos": "verb",
+          "evidence_views": {
+            "sense_label": "soldier verb sense: to serve as a soldier",
+            "gloss_text": "to serve as a soldier",
+            "sense_gloss_bundle": "soldier verb sense: to serve as a soldier | to serve as a soldier",
+            "all_evidence_text": "militar | soldier verb sense: to serve as a soldier | to serve as a soldier | to serve as a soldier"
+          },
+          "metadata": {
+            "sense_role": "shadow",
+            "translation_rank": 2,
+            "translation_pos": "verb",
+            "translation_sense_text": "to serve as a soldier",
+            "support_sources": [
+              "wiktionary_en_es",
+              "wiktionary_es_en"
+            ],
+            "reverse_support": true,
+            "freedict_support": false,
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.25,
+            "best_wordnet_overlap": [
+              "serve"
+            ]
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-es:sentence-veto:soldier:soldado:draft-loader:001",
+          "sentence": "The word soldier is being checked for member of an army.",
+          "source_phrase": "soldier",
+          "gold_winner": "en-es:sentence-veto:soldier:soldado:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "non_v10_wave_draft",
+            "loader_only",
+            "not_quality_evaluation"
+          ]
+        }
+      ],
+      "metadata": {
+        "wave_id": "semantic_veto_representative_target_family_construction_en_es_v1",
+        "construction_method": "wiktionary_forward_translation_with_reverse_support:noun_verb",
+        "source_candidate": {
+          "candidate_id": "representative-heuristic-band:77:soldier",
+          "trigger": "soldier",
+          "score": 1.125,
+          "complexity_band": "source_rank_band=1001-2000::polysemy_band=low_1_to_3::pos_shape=cross_pos_polysemy",
+          "sense_count": 3,
+          "source_rank": 1235.0,
+          "source_rank_band": "1001-2000",
+          "polysemy_band": "low_1_to_3",
+          "pos_shape": "cross_pos_polysemy"
+        },
+        "translation_candidates": [
+          {
+            "headword": "soldier",
+            "translation": "soldado",
+            "translation_lc": "soldado",
+            "pos": "noun",
+            "canonical_pos": "noun",
+            "rank": 1,
+            "sense_text": "member of an army",
+            "raw_glosses": [
+              "member of an army"
+            ],
+            "reverse_support": true,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es",
+              "wiktionary_es_en"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.2,
+            "best_wordnet_overlap": [
+              "army"
+            ],
+            "best_wordnet_synset_id": "10641415-n"
+          },
+          {
+            "headword": "soldier",
+            "translation": "militar",
+            "translation_lc": "militar",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 2,
+            "sense_text": "to serve as a soldier",
+            "raw_glosses": [
+              "to serve as a soldier"
+            ],
+            "reverse_support": true,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es",
+              "wiktionary_es_en"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.25,
+            "best_wordnet_overlap": [
+              "serve"
+            ],
+            "best_wordnet_synset_id": "01099442-v"
+          },
+          {
+            "headword": "soldier",
+            "translation": "militar",
+            "translation_lc": "militar",
+            "pos": "noun",
+            "canonical_pos": "noun",
+            "rank": 2,
+            "sense_text": "member of an army",
+            "raw_glosses": [
+              "member of an army"
+            ],
+            "reverse_support": true,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es",
+              "wiktionary_es_en"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.2,
+            "best_wordnet_overlap": [
+              "army"
+            ],
+            "best_wordnet_synset_id": "10641415-n"
+          },
+          {
+            "headword": "soldier",
+            "translation": "áscari",
+            "translation_lc": "áscari",
+            "pos": "noun",
+            "canonical_pos": "noun",
+            "rank": 3,
+            "sense_text": "member of an army",
+            "raw_glosses": [
+              "member of an army"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.2,
+            "best_wordnet_overlap": [
+              "army"
+            ],
+            "best_wordnet_synset_id": "10641415-n"
+          },
+          {
+            "headword": "soldier",
+            "translation": "cuilío",
+            "translation_lc": "cuilío",
+            "pos": "noun",
+            "canonical_pos": "noun",
+            "rank": 4,
+            "sense_text": "member of an army",
+            "raw_glosses": [
+              "member of an army"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.2,
+            "best_wordnet_overlap": [
+              "army"
+            ],
+            "best_wordnet_synset_id": "10641415-n"
+          },
+          {
+            "headword": "soldier",
+            "translation": "milico",
+            "translation_lc": "milico",
+            "pos": "noun",
+            "canonical_pos": "noun",
+            "rank": 5,
+            "sense_text": "member of an army",
+            "raw_glosses": [
+              "member of an army",
+              "Meridional America"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": false,
+            "best_wordnet_link_score": 0.0,
+            "best_wordnet_overlap": []
+          },
+          {
+            "headword": "soldier",
+            "translation": "campión (disused)",
+            "translation_lc": "campión (disused)",
+            "pos": "noun",
+            "canonical_pos": "noun",
+            "rank": 6,
+            "sense_text": "a term of affection for a young boy",
+            "raw_glosses": [
+              "a term of affection for a young boy"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": false,
+            "best_wordnet_link_score": 0.0,
+            "best_wordnet_overlap": []
+          },
+          {
+            "headword": "soldier",
+            "translation": "campeón",
+            "translation_lc": "campeón",
+            "pos": "noun",
+            "canonical_pos": "noun",
+            "rank": 7,
+            "sense_text": "a term of affection for a young boy",
+            "raw_glosses": [
+              "a term of affection for a young boy"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": false,
+            "best_wordnet_link_score": 0.0,
+            "best_wordnet_overlap": []
+          }
+        ],
+        "requires_independent_cases": true,
+        "requires_wordnet_link": true,
+        "llm_data_priority_target_family_construction": {
+          "construction_rank": 77,
+          "bridge_priority_rank": 77,
+          "selected_strategy": "noun_verb_supported_source_linked",
+          "readiness_stage": "source_supported_family_draft_needs_review",
+          "source_ready_for_scored_probe": true
+        },
+        "representative_heuristic_band_sample": {
+          "representative_sample_rank": 3,
+          "cell_id": "source_rank_band=1001-2000::polysemy_band=low_1_to_3::pos_shape=cross_pos_polysemy",
+          "cell_eligible_count": 9,
+          "cell_sample_count": 8,
+          "cell_sampling_weight": 1.125,
+          "source_rank": 1235.0,
+          "source_rank_band": "1001-2000",
+          "polysemy_band": "low_1_to_3",
+          "pos_shape": "cross_pos_polysemy",
+          "wordnet_sense_count": 3,
+          "wordnet_pos_count": 2
+        }
+      }
+    },
+    {
+      "family_id": "en-es:sentence-veto:stress:estr-s",
+      "trigger": "stress",
+      "active": {
+        "sense_id": "en-es:sentence-veto:stress:estr-s:active",
+        "target_lemma": "estrés",
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "sense_label": "stress noun sense: emotional pressure",
+          "gloss_text": "emotional pressure",
+          "sense_gloss_bundle": "stress noun sense: emotional pressure | emotional pressure",
+          "all_evidence_text": "estrés | stress noun sense: emotional pressure | emotional pressure | emotional pressure"
+        },
+        "metadata": {
+          "sense_role": "active",
+          "translation_rank": 2,
+          "translation_pos": "noun",
+          "translation_sense_text": "emotional pressure",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktionary_es_en"
+          ],
+          "reverse_support": true,
+          "freedict_support": false,
+          "wordnet_linked": true,
+          "best_wordnet_link_score": 0.2,
+          "best_wordnet_overlap": [
+            "emotional"
+          ]
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-es:sentence-veto:stress:estr-s:acentuar:shadow",
+          "target_lemma": "acentuar",
+          "canonical_pos": "verb",
+          "evidence_views": {
+            "sense_label": "stress verb sense: to emphasise (a syllable)",
+            "gloss_text": "to emphasise (a syllable)",
+            "sense_gloss_bundle": "stress verb sense: to emphasise (a syllable) | to emphasise (a syllable)",
+            "all_evidence_text": "acentuar | stress verb sense: to emphasise (a syllable) | to emphasise (a syllable) | to emphasise (a syllable)"
+          },
+          "metadata": {
+            "sense_role": "shadow",
+            "translation_rank": 7,
+            "translation_pos": "verb",
+            "translation_sense_text": "to emphasise (a syllable)",
+            "support_sources": [
+              "wiktionary_en_es",
+              "freedict_es_en"
+            ],
+            "reverse_support": false,
+            "freedict_support": true,
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.2,
+            "best_wordnet_overlap": [
+              "emphasise"
+            ]
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-es:sentence-veto:stress:estr-s:draft-loader:001",
+          "sentence": "The word stress is being checked for emotional pressure.",
+          "source_phrase": "stress",
+          "gold_winner": "en-es:sentence-veto:stress:estr-s:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "non_v10_wave_draft",
+            "loader_only",
+            "not_quality_evaluation"
+          ]
+        }
+      ],
+      "metadata": {
+        "wave_id": "semantic_veto_representative_target_family_construction_en_es_v1",
+        "construction_method": "wiktionary_forward_translation_with_reverse_support:noun_verb",
+        "source_candidate": {
+          "candidate_id": "representative-heuristic-band:98:stress",
+          "trigger": "stress",
+          "score": 2.875,
+          "complexity_band": "source_rank_band=1001-2000::polysemy_band=medium_4_to_9::pos_shape=cross_pos_polysemy",
+          "sense_count": 9,
+          "source_rank": 1935.0,
+          "source_rank_band": "1001-2000",
+          "polysemy_band": "medium_4_to_9",
+          "pos_shape": "cross_pos_polysemy"
+        },
+        "translation_candidates": [
+          {
+            "headword": "stress",
+            "translation": "estrés",
+            "translation_lc": "estrés",
+            "pos": "noun",
+            "canonical_pos": "noun",
+            "rank": 2,
+            "sense_text": "emotional pressure",
+            "raw_glosses": [
+              "emotional pressure"
+            ],
+            "reverse_support": true,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es",
+              "wiktionary_es_en"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.2,
+            "best_wordnet_overlap": [
+              "emotional"
+            ],
+            "best_wordnet_synset_id": "14399593-n"
+          },
+          {
+            "headword": "stress",
+            "translation": "acentuar",
+            "translation_lc": "acentuar",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 7,
+            "sense_text": "to emphasise (a syllable)",
+            "raw_glosses": [
+              "to emphasise (a syllable)"
+            ],
+            "reverse_support": false,
+            "freedict_support": true,
+            "support_sources": [
+              "wiktionary_en_es",
+              "freedict_es_en"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.2,
+            "best_wordnet_overlap": [
+              "emphasise"
+            ],
+            "best_wordnet_synset_id": "01015376-v"
+          },
+          {
+            "headword": "stress",
+            "translation": "tensión",
+            "translation_lc": "tensión",
+            "pos": "noun",
+            "canonical_pos": "noun",
+            "rank": 1,
+            "sense_text": "(physics) internal force across a boundary per area",
+            "raw_glosses": [
+              "(physics) internal force across a boundary per area"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.3,
+            "best_wordnet_overlap": [
+              "area",
+              "force",
+              "physic"
+            ],
+            "best_wordnet_synset_id": "11535238-n"
+          },
+          {
+            "headword": "stress",
+            "translation": "recalcar",
+            "translation_lc": "recalcar",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 9,
+            "sense_text": "to emphasise (a point)",
+            "raw_glosses": [
+              "to emphasise (a point)"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.2,
+            "best_wordnet_overlap": [
+              "emphasise"
+            ],
+            "best_wordnet_synset_id": "01015376-v"
+          },
+          {
+            "headword": "stress",
+            "translation": "énfasis",
+            "translation_lc": "énfasis",
+            "pos": "noun",
+            "canonical_pos": "noun",
+            "rank": 3,
+            "sense_text": "on a point in an argument",
+            "raw_glosses": [
+              "on a point in an argument"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": false,
+            "best_wordnet_link_score": 0.0,
+            "best_wordnet_overlap": []
+          },
+          {
+            "headword": "stress",
+            "translation": "tensionar",
+            "translation_lc": "tensionar",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 4,
+            "sense_text": "to apply force to, causing strain",
+            "raw_glosses": [
+              "to apply force to, causing strain"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": false,
+            "best_wordnet_link_score": 0.0,
+            "best_wordnet_overlap": []
+          },
+          {
+            "headword": "stress",
+            "translation": "tensar",
+            "translation_lc": "tensar",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 5,
+            "sense_text": "to apply force to, causing strain",
+            "raw_glosses": [
+              "to apply force to, causing strain"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": false,
+            "best_wordnet_link_score": 0.0,
+            "best_wordnet_overlap": []
+          },
+          {
+            "headword": "stress",
+            "translation": "estresar",
+            "translation_lc": "estresar",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 6,
+            "sense_text": "to apply emotional pressure to",
+            "raw_glosses": [
+              "to apply emotional pressure to"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": false,
+            "best_wordnet_link_score": 0.0,
+            "best_wordnet_overlap": []
+          },
+          {
+            "headword": "stress",
+            "translation": "enfatizar",
+            "translation_lc": "enfatizar",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 8,
+            "sense_text": "to emphasise (words in speaking)",
+            "raw_glosses": [
+              "to emphasise (words in speaking)"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": false,
+            "best_wordnet_link_score": 0.0,
+            "best_wordnet_overlap": []
+          }
+        ],
+        "requires_independent_cases": true,
+        "requires_wordnet_link": true,
+        "llm_data_priority_target_family_construction": {
+          "construction_rank": 98,
+          "bridge_priority_rank": 98,
+          "selected_strategy": "noun_verb_supported_source_linked",
+          "readiness_stage": "source_supported_family_draft_needs_review",
+          "source_ready_for_scored_probe": true
+        },
+        "representative_heuristic_band_sample": {
+          "representative_sample_rank": 8,
+          "cell_id": "source_rank_band=1001-2000::polysemy_band=medium_4_to_9::pos_shape=cross_pos_polysemy",
+          "cell_eligible_count": 23,
+          "cell_sample_count": 8,
+          "cell_sampling_weight": 2.875,
+          "source_rank": 1935.0,
+          "source_rank_band": "1001-2000",
+          "polysemy_band": "medium_4_to_9",
+          "pos_shape": "cross_pos_polysemy",
+          "wordnet_sense_count": 9,
+          "wordnet_pos_count": 2
+        }
+      }
+    },
+    {
+      "family_id": "en-es:sentence-veto:strike:strike",
+      "trigger": "strike",
+      "active": {
+        "sense_id": "en-es:sentence-veto:strike:strike:active",
+        "target_lemma": "strike",
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "sense_label": "strike noun sense: in baseball",
+          "gloss_text": "in baseball",
+          "sense_gloss_bundle": "strike noun sense: in baseball | in baseball",
+          "all_evidence_text": "strike | strike noun sense: in baseball | in baseball | in baseball"
+        },
+        "metadata": {
+          "sense_role": "active",
+          "translation_rank": 21,
+          "translation_pos": "noun",
+          "translation_sense_text": "in baseball",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktionary_es_en"
+          ],
+          "reverse_support": true,
+          "freedict_support": false,
+          "wordnet_linked": true,
+          "best_wordnet_link_score": 0.3333,
+          "best_wordnet_overlap": [
+            "baseball"
+          ]
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-es:sentence-veto:strike:strike:huelga:shadow",
+          "target_lemma": "huelga",
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "sense_label": "strike noun sense: work stoppage",
+            "gloss_text": "work stoppage",
+            "sense_gloss_bundle": "strike noun sense: work stoppage | work stoppage",
+            "all_evidence_text": "huelga | strike noun sense: work stoppage | work stoppage | work stoppage"
+          },
+          "metadata": {
+            "sense_role": "shadow",
+            "translation_rank": 25,
+            "translation_pos": "noun",
+            "translation_sense_text": "work stoppage",
+            "support_sources": [
+              "wiktionary_en_es",
+              "freedict_es_en"
+            ],
+            "reverse_support": false,
+            "freedict_support": true,
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.4,
+            "best_wordnet_overlap": [
+              "stoppage",
+              "work"
+            ]
+          }
+        },
+        {
+          "sense_id": "en-es:sentence-veto:strike:strike:golpear:shadow",
+          "target_lemma": "golpear",
+          "canonical_pos": "verb",
+          "evidence_views": {
+            "sense_label": "strike verb sense: to hit",
+            "gloss_text": "to hit",
+            "sense_gloss_bundle": "strike verb sense: to hit | to hit",
+            "all_evidence_text": "golpear | strike verb sense: to hit | to hit | to hit"
+          },
+          "metadata": {
+            "sense_role": "shadow",
+            "translation_rank": 3,
+            "translation_pos": "verb",
+            "translation_sense_text": "to hit",
+            "support_sources": [
+              "wiktionary_en_es",
+              "freedict_es_en"
+            ],
+            "reverse_support": false,
+            "freedict_support": true,
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.25,
+            "best_wordnet_overlap": [
+              "hit"
+            ]
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-es:sentence-veto:strike:strike:draft-loader:001",
+          "sentence": "The word strike is being checked for in baseball.",
+          "source_phrase": "strike",
+          "gold_winner": "en-es:sentence-veto:strike:strike:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "non_v10_wave_draft",
+            "loader_only",
+            "not_quality_evaluation"
+          ]
+        }
+      ],
+      "metadata": {
+        "wave_id": "semantic_veto_representative_target_family_construction_en_es_v1",
+        "construction_method": "wiktionary_forward_translation_with_reverse_support:noun_verb",
+        "source_candidate": {
+          "candidate_id": "representative-heuristic-band:104:strike",
+          "trigger": "strike",
+          "score": 3.0,
+          "complexity_band": "source_rank_band=1001-2000::polysemy_band=high_10_plus::pos_shape=cross_pos_polysemy",
+          "sense_count": 29,
+          "source_rank": 1285.0,
+          "source_rank_band": "1001-2000",
+          "polysemy_band": "high_10_plus",
+          "pos_shape": "cross_pos_polysemy"
+        },
+        "translation_candidates": [
+          {
+            "headword": "strike",
+            "translation": "strike",
+            "translation_lc": "strike",
+            "pos": "noun",
+            "canonical_pos": "noun",
+            "rank": 21,
+            "sense_text": "in baseball",
+            "raw_glosses": [
+              "in baseball"
+            ],
+            "reverse_support": true,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es",
+              "wiktionary_es_en"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.3333,
+            "best_wordnet_overlap": [
+              "baseball"
+            ],
+            "best_wordnet_synset_id": "00110234-n"
+          },
+          {
+            "headword": "strike",
+            "translation": "golpear",
+            "translation_lc": "golpear",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 3,
+            "sense_text": "to hit",
+            "raw_glosses": [
+              "to hit"
+            ],
+            "reverse_support": false,
+            "freedict_support": true,
+            "support_sources": [
+              "wiktionary_en_es",
+              "freedict_es_en"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.25,
+            "best_wordnet_overlap": [
+              "hit"
+            ],
+            "best_wordnet_synset_id": "01238728-v"
+          },
+          {
+            "headword": "strike",
+            "translation": "huelga",
+            "translation_lc": "huelga",
+            "pos": "noun",
+            "canonical_pos": "noun",
+            "rank": 25,
+            "sense_text": "work stoppage",
+            "raw_glosses": [
+              "work stoppage"
+            ],
+            "reverse_support": false,
+            "freedict_support": true,
+            "support_sources": [
+              "wiktionary_en_es",
+              "freedict_es_en"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.4,
+            "best_wordnet_overlap": [
+              "stoppage",
+              "work"
+            ],
+            "best_wordnet_synset_id": "01246221-n"
+          },
+          {
+            "headword": "strike",
+            "translation": "pegar",
+            "translation_lc": "pegar",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 4,
+            "sense_text": "to hit",
+            "raw_glosses": [
+              "to hit"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.25,
+            "best_wordnet_overlap": [
+              "hit"
+            ],
+            "best_wordnet_synset_id": "01238728-v"
+          },
+          {
+            "headword": "strike",
+            "translation": "asestar",
+            "translation_lc": "asestar",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 5,
+            "sense_text": "to hit",
+            "raw_glosses": [
+              "to hit"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.25,
+            "best_wordnet_overlap": [
+              "hit"
+            ],
+            "best_wordnet_synset_id": "01238728-v"
+          },
+          {
+            "headword": "strike",
+            "translation": "propinar",
+            "translation_lc": "propinar",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 6,
+            "sense_text": "to hit",
+            "raw_glosses": [
+              "to hit"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.25,
+            "best_wordnet_overlap": [
+              "hit"
+            ],
+            "best_wordnet_synset_id": "01238728-v"
+          },
+          {
+            "headword": "strike",
+            "translation": "acuñar",
+            "translation_lc": "acuñar",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 7,
+            "sense_text": "to manufacture by stamping",
+            "raw_glosses": [
+              "to manufacture by stamping"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.2,
+            "best_wordnet_overlap": [
+              "stamp"
+            ],
+            "best_wordnet_synset_id": "01642647-v"
+          },
+          {
+            "headword": "strike",
+            "translation": "parar el trabajo",
+            "translation_lc": "parar el trabajo",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 9,
+            "sense_text": "to stop working as a form of protest",
+            "raw_glosses": [
+              "to stop working as a form of protest"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.25,
+            "best_wordnet_overlap": [
+              "stop",
+              "work"
+            ],
+            "best_wordnet_synset_id": "02417777-v"
+          },
+          {
+            "headword": "strike",
+            "translation": "hacer huelga",
+            "translation_lc": "hacer huelga",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 10,
+            "sense_text": "to stop working as a form of protest",
+            "raw_glosses": [
+              "to stop working as a form of protest"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.25,
+            "best_wordnet_overlap": [
+              "stop",
+              "work"
+            ],
+            "best_wordnet_synset_id": "02417777-v"
+          },
+          {
+            "headword": "strike",
+            "translation": "huelguear",
+            "translation_lc": "huelguear",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 11,
+            "sense_text": "to stop working as a form of protest",
+            "raw_glosses": [
+              "to stop working as a form of protest"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.2857,
+            "best_wordnet_overlap": [
+              "stop",
+              "work"
+            ],
+            "best_wordnet_synset_id": "02417777-v"
+          },
+          {
+            "headword": "strike",
+            "translation": "paro",
+            "translation_lc": "paro",
+            "pos": "noun",
+            "canonical_pos": "noun",
+            "rank": 26,
+            "sense_text": "work stoppage",
+            "raw_glosses": [
+              "work stoppage"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.4,
+            "best_wordnet_overlap": [
+              "stoppage",
+              "work"
+            ],
+            "best_wordnet_synset_id": "01246221-n"
+          },
+          {
+            "headword": "strike",
+            "translation": "golpe",
+            "translation_lc": "golpe",
+            "pos": "noun",
+            "canonical_pos": "noun",
+            "rank": 27,
+            "sense_text": "physical blow",
+            "raw_glosses": [
+              "physical blow"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.2,
+            "best_wordnet_overlap": [
+              "blow"
+            ],
+            "best_wordnet_synset_id": "07424621-n"
+          }
+        ],
+        "requires_independent_cases": true,
+        "requires_wordnet_link": true,
+        "llm_data_priority_target_family_construction": {
+          "construction_rank": 104,
+          "bridge_priority_rank": 104,
+          "selected_strategy": "noun_verb_supported_source_linked",
+          "readiness_stage": "source_supported_family_draft_needs_review",
+          "source_ready_for_scored_probe": true
+        },
+        "representative_heuristic_band_sample": {
+          "representative_sample_rank": 4,
+          "cell_id": "source_rank_band=1001-2000::polysemy_band=high_10_plus::pos_shape=cross_pos_polysemy",
+          "cell_eligible_count": 24,
+          "cell_sample_count": 8,
+          "cell_sampling_weight": 3.0,
+          "source_rank": 1285.0,
+          "source_rank_band": "1001-2000",
+          "polysemy_band": "high_10_plus",
+          "pos_shape": "cross_pos_polysemy",
+          "wordnet_sense_count": 29,
+          "wordnet_pos_count": 2
+        }
+      }
+    }
+  ]
+}

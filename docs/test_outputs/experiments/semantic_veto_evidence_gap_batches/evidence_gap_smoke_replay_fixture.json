@@ -1,0 +1,40 @@
+{
+  "requests": [
+    {
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion",
+      "response_id": "replay_1",
+      "output_text": "{\"request_id\": \"semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion\", \"family_id\": \"en-es:full-family-repaired-full:adjoining:vecino\", \"slot_id\": \"en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion\", \"slot_type\": \"active_evidence_expansion\", \"source_phrase\": \"adjoining\", \"target_lemma\": \"vecino\", \"items\": [{\"sentence\": \"The adjoining room shares a wall with the kitchen.\", \"evidence_note\": \"The source phrase describes a neighboring room.\"}, {\"sentence\": \"She rented the adjoining office for the design team.\", \"evidence_note\": \"The source phrase describes an adjacent office.\"}]}",
+      "usage": {
+        "input_tokens": 100,
+        "output_tokens": 80,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:shadow_or_competitor_evidence_probe",
+      "response_id": "replay_2",
+      "output_text": "{\"request_id\": \"semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:shadow_or_competitor_evidence_probe\", \"family_id\": \"en-es:full-family-repaired-full:adjoining:vecino\", \"slot_id\": \"en-es:full-family-repaired-full:adjoining:vecino:shadow_or_competitor_evidence_probe\", \"slot_type\": \"shadow_or_competitor_evidence_probe\", \"source_phrase\": \"adjoining\", \"target_lemma\": \"\", \"proposed_competitor_target_lemma\": \"contiguo\", \"competitor_sense_label\": \"touching at a border\", \"active_sense_contrast\": \"The competitor sense describes direct contact along an edge, not a neighboring person or place relation.\", \"items\": [{\"sentence\": \"The legal notice used adjoining to classify parcels that touch at one border.\", \"evidence_note\": \"A technical property-boundary contact relation.\", \"active_mismatch_note\": \"vecino is too broad because the sentence requires physical boundary contact.\"}, {\"sentence\": \"The diagram marked two adjoining cells along the same edge.\", \"evidence_note\": \"A grid-contact relation along one edge.\", \"active_mismatch_note\": \"vecino does not capture the exact shared-edge relation.\"}]}",
+      "usage": {
+        "input_tokens": 100,
+        "output_tokens": 80,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:no_winner_context_probe",
+      "response_id": "replay_3",
+      "output_text": "{\"request_id\": \"semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:no_winner_context_probe\", \"family_id\": \"en-es:full-family-repaired-full:adjoining:vecino\", \"slot_id\": \"en-es:full-family-repaired-full:adjoining:vecino:no_winner_context_probe\", \"slot_type\": \"no_winner_context_probe\", \"source_phrase\": \"adjoining\", \"target_lemma\": \"\", \"items\": [{\"sentence\": \"The template heading \\\"Adjoining\\\" appears before the room list.\", \"no_winner_context_class\": \"visible_heading\", \"no_winner_reason\": \"The source phrase is a UI heading, not sentence text needing replacement.\", \"runtime_trigger_note\": \"Adjoining appears as a standalone visible token separated by quotation punctuation.\"}]}",
+      "usage": {
+        "input_tokens": 100,
+        "output_tokens": 80,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    }
+  ]
+}

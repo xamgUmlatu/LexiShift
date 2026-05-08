@@ -225,6 +225,11 @@ def _case_traces(
                 "strongest_shadow_score": _safe_float(row.get("strongest_shadow_score")),
                 "phrase_control_score": _safe_float(row.get("phrase_control_score")),
                 "surface_pos_signal": str(row.get("surface_pos_signal") or "").strip(),
+                "context_source": str(row.get("context_source") or "").strip(),
+                "review_state": str(row.get("review_state") or "").strip(),
+                "source_frame_id": str(row.get("source_frame_id") or "").strip(),
+                "frame_row_id": str(row.get("frame_row_id") or "").strip(),
+                "selected_for_locked_eval": bool(row.get("selected_for_locked_eval")),
             }
         )
     return rows

@@ -1,0 +1,830 @@
+{
+  "admitted_items": [],
+  "alignment": {
+    "duplicate_response_request_count": 0,
+    "expected_request_count": 72,
+    "issues": [],
+    "matched_expected_request_count": 0,
+    "missing_expected_request_ids": [],
+    "response_request_count": 0,
+    "unexpected_response_request_ids": []
+  },
+  "coverage": [
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 2,
+      "family_id": "en-es:full-family-repaired-full:acceptable:razonable",
+      "pilot_arm": "middle_control",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:acceptable:razonable:active_evidence_expansion",
+      "shortfall_count": 2,
+      "slot_type": "active_evidence_expansion",
+      "trigger": "acceptable"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 1,
+      "family_id": "en-es:full-family-repaired-full:acceptable:razonable",
+      "pilot_arm": "middle_control",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:acceptable:razonable:no_winner_context_probe",
+      "shortfall_count": 1,
+      "slot_type": "no_winner_context_probe",
+      "trigger": "acceptable"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 2,
+      "family_id": "en-es:full-family-repaired-full:acceptable:razonable",
+      "pilot_arm": "middle_control",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:acceptable:razonable:shadow_or_competitor_evidence_probe",
+      "shortfall_count": 2,
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "trigger": "acceptable"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 2,
+      "family_id": "en-es:full-family-repaired-full:adjoining:vecino",
+      "pilot_arm": "high_need",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion",
+      "shortfall_count": 2,
+      "slot_type": "active_evidence_expansion",
+      "trigger": "adjoining"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 1,
+      "family_id": "en-es:full-family-repaired-full:adjoining:vecino",
+      "pilot_arm": "high_need",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:no_winner_context_probe",
+      "shortfall_count": 1,
+      "slot_type": "no_winner_context_probe",
+      "trigger": "adjoining"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 2,
+      "family_id": "en-es:full-family-repaired-full:adjoining:vecino",
+      "pilot_arm": "high_need",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:shadow_or_competitor_evidence_probe",
+      "shortfall_count": 2,
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "trigger": "adjoining"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 2,
+      "family_id": "en-es:full-family-repaired-full:american:americano",
+      "pilot_arm": "high_need",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:american:americano:active_evidence_expansion",
+      "shortfall_count": 2,
+      "slot_type": "active_evidence_expansion",
+      "trigger": "american"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 1,
+      "family_id": "en-es:full-family-repaired-full:american:americano",
+      "pilot_arm": "high_need",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:american:americano:no_winner_context_probe",
+      "shortfall_count": 1,
+      "slot_type": "no_winner_context_probe",
+      "trigger": "american"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 2,
+      "family_id": "en-es:full-family-repaired-full:american:americano",
+      "pilot_arm": "high_need",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:american:americano:shadow_or_competitor_evidence_probe",
+      "shortfall_count": 2,
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "trigger": "american"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 2,
+      "family_id": "en-es:full-family-repaired-full:among:entre",
+      "pilot_arm": "high_need",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:among:entre:active_evidence_expansion",
+      "shortfall_count": 2,
+      "slot_type": "active_evidence_expansion",
+      "trigger": "among"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 1,
+      "family_id": "en-es:full-family-repaired-full:among:entre",
+      "pilot_arm": "high_need",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:among:entre:no_winner_context_probe",
+      "shortfall_count": 1,
+      "slot_type": "no_winner_context_probe",
+      "trigger": "among"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 2,
+      "family_id": "en-es:full-family-repaired-full:among:entre",
+      "pilot_arm": "high_need",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:among:entre:shadow_or_competitor_evidence_probe",
+      "shortfall_count": 2,
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "trigger": "among"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 2,
+      "family_id": "en-es:full-family-repaired-full:bar:cercar",
+      "pilot_arm": "low_control",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:bar:cercar:active_evidence_expansion",
+      "shortfall_count": 2,
+      "slot_type": "active_evidence_expansion",
+      "trigger": "bar"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 1,
+      "family_id": "en-es:full-family-repaired-full:bar:cercar",
+      "pilot_arm": "low_control",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:bar:cercar:no_winner_context_probe",
+      "shortfall_count": 1,
+      "slot_type": "no_winner_context_probe",
+      "trigger": "bar"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 2,
+      "family_id": "en-es:full-family-repaired-full:bar:cercar",
+      "pilot_arm": "low_control",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:bar:cercar:shadow_or_competitor_evidence_probe",
+      "shortfall_count": 2,
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "trigger": "bar"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 2,
+      "family_id": "en-es:full-family-repaired-full:begin:comenzar",
+      "pilot_arm": "high_need",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:begin:comenzar:active_evidence_expansion",
+      "shortfall_count": 2,
+      "slot_type": "active_evidence_expansion",
+      "trigger": "begin"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 1,
+      "family_id": "en-es:full-family-repaired-full:begin:comenzar",
+      "pilot_arm": "high_need",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:begin:comenzar:no_winner_context_probe",
+      "shortfall_count": 1,
+      "slot_type": "no_winner_context_probe",
+      "trigger": "begin"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 2,
+      "family_id": "en-es:full-family-repaired-full:begin:comenzar",
+      "pilot_arm": "high_need",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:begin:comenzar:shadow_or_competitor_evidence_probe",
+      "shortfall_count": 2,
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "trigger": "begin"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 2,
+      "family_id": "en-es:full-family-repaired-full:bouillon:caldo",
+      "pilot_arm": "high_need",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:bouillon:caldo:active_evidence_expansion",
+      "shortfall_count": 2,
+      "slot_type": "active_evidence_expansion",
+      "trigger": "bouillon"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 1,
+      "family_id": "en-es:full-family-repaired-full:bouillon:caldo",
+      "pilot_arm": "high_need",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:bouillon:caldo:no_winner_context_probe",
+      "shortfall_count": 1,
+      "slot_type": "no_winner_context_probe",
+      "trigger": "bouillon"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 2,
+      "family_id": "en-es:full-family-repaired-full:bouillon:caldo",
+      "pilot_arm": "high_need",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:bouillon:caldo:shadow_or_competitor_evidence_probe",
+      "shortfall_count": 2,
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "trigger": "bouillon"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 2,
+      "family_id": "en-es:full-family-repaired-full:break:quebrar",
+      "pilot_arm": "low_control",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:break:quebrar:active_evidence_expansion",
+      "shortfall_count": 2,
+      "slot_type": "active_evidence_expansion",
+      "trigger": "break"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 1,
+      "family_id": "en-es:full-family-repaired-full:break:quebrar",
+      "pilot_arm": "low_control",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:break:quebrar:no_winner_context_probe",
+      "shortfall_count": 1,
+      "slot_type": "no_winner_context_probe",
+      "trigger": "break"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 2,
+      "family_id": "en-es:full-family-repaired-full:break:quebrar",
+      "pilot_arm": "low_control",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:break:quebrar:shadow_or_competitor_evidence_probe",
+      "shortfall_count": 2,
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "trigger": "break"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 2,
+      "family_id": "en-es:full-family-repaired-full:bridle:reprimir",
+      "pilot_arm": "low_control",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:bridle:reprimir:active_evidence_expansion",
+      "shortfall_count": 2,
+      "slot_type": "active_evidence_expansion",
+      "trigger": "bridle"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 1,
+      "family_id": "en-es:full-family-repaired-full:bridle:reprimir",
+      "pilot_arm": "low_control",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:bridle:reprimir:no_winner_context_probe",
+      "shortfall_count": 1,
+      "slot_type": "no_winner_context_probe",
+      "trigger": "bridle"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 2,
+      "family_id": "en-es:full-family-repaired-full:bridle:reprimir",
+      "pilot_arm": "low_control",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:bridle:reprimir:shadow_or_competitor_evidence_probe",
+      "shortfall_count": 2,
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "trigger": "bridle"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 2,
+      "family_id": "en-es:full-family-repaired-full:brother:hermano",
+      "pilot_arm": "middle_control",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:brother:hermano:active_evidence_expansion",
+      "shortfall_count": 2,
+      "slot_type": "active_evidence_expansion",
+      "trigger": "brother"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 1,
+      "family_id": "en-es:full-family-repaired-full:brother:hermano",
+      "pilot_arm": "middle_control",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:brother:hermano:no_winner_context_probe",
+      "shortfall_count": 1,
+      "slot_type": "no_winner_context_probe",
+      "trigger": "brother"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 2,
+      "family_id": "en-es:full-family-repaired-full:brother:hermano",
+      "pilot_arm": "middle_control",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:brother:hermano:shadow_or_competitor_evidence_probe",
+      "shortfall_count": 2,
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "trigger": "brother"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 2,
+      "family_id": "en-es:full-family-repaired-full:chic:elegante",
+      "pilot_arm": "middle_control",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:chic:elegante:active_evidence_expansion",
+      "shortfall_count": 2,
+      "slot_type": "active_evidence_expansion",
+      "trigger": "chic"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 1,
+      "family_id": "en-es:full-family-repaired-full:chic:elegante",
+      "pilot_arm": "middle_control",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:chic:elegante:no_winner_context_probe",
+      "shortfall_count": 1,
+      "slot_type": "no_winner_context_probe",
+      "trigger": "chic"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 2,
+      "family_id": "en-es:full-family-repaired-full:chic:elegante",
+      "pilot_arm": "middle_control",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:chic:elegante:shadow_or_competitor_evidence_probe",
+      "shortfall_count": 2,
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "trigger": "chic"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 2,
+      "family_id": "en-es:full-family-repaired-full:control:gobernar",
+      "pilot_arm": "low_control",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:control:gobernar:active_evidence_expansion",
+      "shortfall_count": 2,
+      "slot_type": "active_evidence_expansion",
+      "trigger": "control"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 1,
+      "family_id": "en-es:full-family-repaired-full:control:gobernar",
+      "pilot_arm": "low_control",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:control:gobernar:no_winner_context_probe",
+      "shortfall_count": 1,
+      "slot_type": "no_winner_context_probe",
+      "trigger": "control"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 2,
+      "family_id": "en-es:full-family-repaired-full:control:gobernar",
+      "pilot_arm": "low_control",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:control:gobernar:shadow_or_competitor_evidence_probe",
+      "shortfall_count": 2,
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "trigger": "control"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 2,
+      "family_id": "en-es:full-family-repaired-full:december:diciembre",
+      "pilot_arm": "high_need",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:december:diciembre:active_evidence_expansion",
+      "shortfall_count": 2,
+      "slot_type": "active_evidence_expansion",
+      "trigger": "december"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 1,
+      "family_id": "en-es:full-family-repaired-full:december:diciembre",
+      "pilot_arm": "high_need",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:december:diciembre:no_winner_context_probe",
+      "shortfall_count": 1,
+      "slot_type": "no_winner_context_probe",
+      "trigger": "december"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 2,
+      "family_id": "en-es:full-family-repaired-full:december:diciembre",
+      "pilot_arm": "high_need",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:december:diciembre:shadow_or_competitor_evidence_probe",
+      "shortfall_count": 2,
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "trigger": "december"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 2,
+      "family_id": "en-es:full-family-repaired-full:dentist:dentista",
+      "pilot_arm": "high_need",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:dentist:dentista:active_evidence_expansion",
+      "shortfall_count": 2,
+      "slot_type": "active_evidence_expansion",
+      "trigger": "dentist"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 1,
+      "family_id": "en-es:full-family-repaired-full:dentist:dentista",
+      "pilot_arm": "high_need",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:dentist:dentista:no_winner_context_probe",
+      "shortfall_count": 1,
+      "slot_type": "no_winner_context_probe",
+      "trigger": "dentist"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 2,
+      "family_id": "en-es:full-family-repaired-full:dentist:dentista",
+      "pilot_arm": "high_need",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:dentist:dentista:shadow_or_competitor_evidence_probe",
+      "shortfall_count": 2,
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "trigger": "dentist"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 2,
+      "family_id": "en-es:full-family-repaired-full:entirely:enteramente",
+      "pilot_arm": "high_need",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:entirely:enteramente:active_evidence_expansion",
+      "shortfall_count": 2,
+      "slot_type": "active_evidence_expansion",
+      "trigger": "entirely"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 1,
+      "family_id": "en-es:full-family-repaired-full:entirely:enteramente",
+      "pilot_arm": "high_need",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:entirely:enteramente:no_winner_context_probe",
+      "shortfall_count": 1,
+      "slot_type": "no_winner_context_probe",
+      "trigger": "entirely"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 2,
+      "family_id": "en-es:full-family-repaired-full:entirely:enteramente",
+      "pilot_arm": "high_need",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:entirely:enteramente:shadow_or_competitor_evidence_probe",
+      "shortfall_count": 2,
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "trigger": "entirely"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 2,
+      "family_id": "en-es:full-family-repaired-full:german:alem-n",
+      "pilot_arm": "middle_control",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:german:alem-n:active_evidence_expansion",
+      "shortfall_count": 2,
+      "slot_type": "active_evidence_expansion",
+      "trigger": "german"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 1,
+      "family_id": "en-es:full-family-repaired-full:german:alem-n",
+      "pilot_arm": "middle_control",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:german:alem-n:no_winner_context_probe",
+      "shortfall_count": 1,
+      "slot_type": "no_winner_context_probe",
+      "trigger": "german"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 2,
+      "family_id": "en-es:full-family-repaired-full:german:alem-n",
+      "pilot_arm": "middle_control",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:german:alem-n:shadow_or_competitor_evidence_probe",
+      "shortfall_count": 2,
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "trigger": "german"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 2,
+      "family_id": "en-es:full-family-repaired-full:govern:gobernar",
+      "pilot_arm": "low_control",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:govern:gobernar:active_evidence_expansion",
+      "shortfall_count": 2,
+      "slot_type": "active_evidence_expansion",
+      "trigger": "govern"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 1,
+      "family_id": "en-es:full-family-repaired-full:govern:gobernar",
+      "pilot_arm": "low_control",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:govern:gobernar:no_winner_context_probe",
+      "shortfall_count": 1,
+      "slot_type": "no_winner_context_probe",
+      "trigger": "govern"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 2,
+      "family_id": "en-es:full-family-repaired-full:govern:gobernar",
+      "pilot_arm": "low_control",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:govern:gobernar:shadow_or_competitor_evidence_probe",
+      "shortfall_count": 2,
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "trigger": "govern"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 2,
+      "family_id": "en-es:full-family-repaired-full:heart:coraz-n",
+      "pilot_arm": "middle_control",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:heart:coraz-n:active_evidence_expansion",
+      "shortfall_count": 2,
+      "slot_type": "active_evidence_expansion",
+      "trigger": "heart"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 1,
+      "family_id": "en-es:full-family-repaired-full:heart:coraz-n",
+      "pilot_arm": "middle_control",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:heart:coraz-n:no_winner_context_probe",
+      "shortfall_count": 1,
+      "slot_type": "no_winner_context_probe",
+      "trigger": "heart"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 2,
+      "family_id": "en-es:full-family-repaired-full:heart:coraz-n",
+      "pilot_arm": "middle_control",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:heart:coraz-n:shadow_or_competitor_evidence_probe",
+      "shortfall_count": 2,
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "trigger": "heart"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 2,
+      "family_id": "en-es:full-family-repaired-full:offset:distancia",
+      "pilot_arm": "low_control",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:offset:distancia:active_evidence_expansion",
+      "shortfall_count": 2,
+      "slot_type": "active_evidence_expansion",
+      "trigger": "offset"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 1,
+      "family_id": "en-es:full-family-repaired-full:offset:distancia",
+      "pilot_arm": "low_control",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:offset:distancia:no_winner_context_probe",
+      "shortfall_count": 1,
+      "slot_type": "no_winner_context_probe",
+      "trigger": "offset"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 2,
+      "family_id": "en-es:full-family-repaired-full:offset:distancia",
+      "pilot_arm": "low_control",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:offset:distancia:shadow_or_competitor_evidence_probe",
+      "shortfall_count": 2,
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "trigger": "offset"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 2,
+      "family_id": "en-es:full-family-repaired-full:rebate:descuento",
+      "pilot_arm": "low_control",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:rebate:descuento:active_evidence_expansion",
+      "shortfall_count": 2,
+      "slot_type": "active_evidence_expansion",
+      "trigger": "rebate"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 1,
+      "family_id": "en-es:full-family-repaired-full:rebate:descuento",
+      "pilot_arm": "low_control",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:rebate:descuento:no_winner_context_probe",
+      "shortfall_count": 1,
+      "slot_type": "no_winner_context_probe",
+      "trigger": "rebate"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 2,
+      "family_id": "en-es:full-family-repaired-full:rebate:descuento",
+      "pilot_arm": "low_control",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:rebate:descuento:shadow_or_competitor_evidence_probe",
+      "shortfall_count": 2,
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "trigger": "rebate"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 2,
+      "family_id": "en-es:full-family-repaired-full:rumanian:rumano",
+      "pilot_arm": "middle_control",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:rumanian:rumano:active_evidence_expansion",
+      "shortfall_count": 2,
+      "slot_type": "active_evidence_expansion",
+      "trigger": "rumanian"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 1,
+      "family_id": "en-es:full-family-repaired-full:rumanian:rumano",
+      "pilot_arm": "middle_control",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:rumanian:rumano:no_winner_context_probe",
+      "shortfall_count": 1,
+      "slot_type": "no_winner_context_probe",
+      "trigger": "rumanian"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 2,
+      "family_id": "en-es:full-family-repaired-full:rumanian:rumano",
+      "pilot_arm": "middle_control",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:rumanian:rumano:shadow_or_competitor_evidence_probe",
+      "shortfall_count": 2,
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "trigger": "rumanian"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 2,
+      "family_id": "en-es:full-family-repaired-full:salesman:vendedor",
+      "pilot_arm": "middle_control",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:salesman:vendedor:active_evidence_expansion",
+      "shortfall_count": 2,
+      "slot_type": "active_evidence_expansion",
+      "trigger": "salesman"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 1,
+      "family_id": "en-es:full-family-repaired-full:salesman:vendedor",
+      "pilot_arm": "middle_control",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:salesman:vendedor:no_winner_context_probe",
+      "shortfall_count": 1,
+      "slot_type": "no_winner_context_probe",
+      "trigger": "salesman"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 2,
+      "family_id": "en-es:full-family-repaired-full:salesman:vendedor",
+      "pilot_arm": "middle_control",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:salesman:vendedor:shadow_or_competitor_evidence_probe",
+      "shortfall_count": 2,
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "trigger": "salesman"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 2,
+      "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+      "pilot_arm": "low_control",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:active_evidence_expansion",
+      "shortfall_count": 2,
+      "slot_type": "active_evidence_expansion",
+      "trigger": "smile"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 1,
+      "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+      "pilot_arm": "low_control",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:no_winner_context_probe",
+      "shortfall_count": 1,
+      "slot_type": "no_winner_context_probe",
+      "trigger": "smile"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 2,
+      "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+      "pilot_arm": "low_control",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe",
+      "shortfall_count": 2,
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "trigger": "smile"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 2,
+      "family_id": "en-es:full-family-repaired-full:tomorrow:ma-ana",
+      "pilot_arm": "middle_control",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:tomorrow:ma-ana:active_evidence_expansion",
+      "shortfall_count": 2,
+      "slot_type": "active_evidence_expansion",
+      "trigger": "tomorrow"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 1,
+      "family_id": "en-es:full-family-repaired-full:tomorrow:ma-ana",
+      "pilot_arm": "middle_control",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:tomorrow:ma-ana:no_winner_context_probe",
+      "shortfall_count": 1,
+      "slot_type": "no_winner_context_probe",
+      "trigger": "tomorrow"
+    },
+    {
+      "admitted_item_count": 0,
+      "expected_item_count": 2,
+      "family_id": "en-es:full-family-repaired-full:tomorrow:ma-ana",
+      "pilot_arm": "middle_control",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:tomorrow:ma-ana:shadow_or_competitor_evidence_probe",
+      "shortfall_count": 2,
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "trigger": "tomorrow"
+    }
+  ],
+  "decision": "ready_for_generated_response_admission",
+  "generated_at": "2026-05-08T03:10:13Z",
+  "limitations": [
+    "research-only generated-response admission lane",
+    "no LLM call is made by this script",
+    "no generated item is source evidence until a later explicit promotion step",
+    "no runtime policy or threshold changes are made",
+    "semantic correctness of generated text still needs scoring and spot review"
+  ],
+  "next_steps": [
+    "Review the request packet, then run the bounded LLM generation batch.",
+    "Run this admission harness on the generated response objects before rescoring.",
+    "Keep high, middle, and low arms under the same response and admission contract."
+  ],
+  "pair": "en-es",
+  "pilot": {
+    "generated_responses_path": "",
+    "generated_responses_present": false,
+    "generation_requests_path": "docs/test_outputs/semantic_veto_evidence_gap_generation_requests_en_es_latest.json",
+    "pilot_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1",
+    "request_kind": "semantic_veto_evidence_gap_generation"
+  },
+  "rejected_items": [],
+  "rejection_reasons": {},
+  "request_packet_checks": {
+    "issue_count": 0,
+    "issues": [],
+    "request_count": 72,
+    "unique_request_ids": true
+  },
+  "response_results": [],
+  "schema_version": 1,
+  "status": "ok",
+  "strict_flow": {
+    "admission_role": "pre_scoring_generated_response_filter",
+    "runtime_policy_change": "none",
+    "selected_request_subset_allowed": false,
+    "source_evidence_promotion": "none",
+    "threshold_tuning": "none"
+  },
+  "summary": {
+    "admitted_item_count": 0,
+    "by_arm": {
+      "high_need": {
+        "admitted_item_count": 0,
+        "expected_item_count": 40,
+        "expected_request_count": 24,
+        "rejected_item_count": 0,
+        "shortfall_count": 40
+      },
+      "low_control": {
+        "admitted_item_count": 0,
+        "expected_item_count": 40,
+        "expected_request_count": 24,
+        "rejected_item_count": 0,
+        "shortfall_count": 40
+      },
+      "middle_control": {
+        "admitted_item_count": 0,
+        "expected_item_count": 40,
+        "expected_request_count": 24,
+        "rejected_item_count": 0,
+        "shortfall_count": 40
+      }
+    },
+    "by_slot_type": {
+      "active_evidence_expansion": {
+        "admitted_item_count": 0,
+        "expected_item_count": 48,
+        "expected_request_count": 24,
+        "rejected_item_count": 0,
+        "shortfall_count": 48
+      },
+      "no_winner_context_probe": {
+        "admitted_item_count": 0,
+        "expected_item_count": 24,
+        "expected_request_count": 24,
+        "rejected_item_count": 0,
+        "shortfall_count": 24
+      },
+      "shadow_or_competitor_evidence_probe": {
+        "admitted_item_count": 0,
+        "expected_item_count": 48,
+        "expected_request_count": 24,
+        "rejected_item_count": 0,
+        "shortfall_count": 48
+      }
+    },
+    "coverage_shortfall_count": 120,
+    "expected_item_count": 120,
+    "expected_request_count": 72,
+    "generated_response_count": 0,
+    "rejected_item_count": 0,
+    "response_level_error_count": 0,
+    "total_request_packet_count": 72
+  }
+}

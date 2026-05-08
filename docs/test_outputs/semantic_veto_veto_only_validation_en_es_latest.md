@@ -1,12 +1,13 @@
 # en-es Semantic Veto Veto-Only Validation
 
 - Status: `ok`
-- Decision: `veto_only_validation_product_target_pass_found`
-- Generated: `2026-05-01T01:41:49Z`
+- Decision: `veto_only_validation_strict_source_product_target_pass_found`
+- Generated: `2026-05-05T18:22:02Z`
 - Policy: `docs/test_inputs/semantic_veto_product_quality_policy_en_es.json`
 - Sources: `2`
 - Rows evaluated: `540`
 - Product target pass rows: `100`
+- Strict source-pass rows: `12`
 
 ## E2E Checks
 
@@ -29,37 +30,54 @@
 
 ## Top Validation Rows
 
-| Phrase mode | Shadow lead | Shadow score | Pos allow | Neg abstain | Utility | Target | Source breakdowns |
-| --- | ---: | ---: | ---: | ---: | ---: | --- | --- |
-| shadow_or_phrase_score | 0.05 | 0.0 | 81.2% | 75.0% | 26.2 | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
-| shadow_or_phrase_score | 0.05 | 0.02 | 81.2% | 75.0% | 26.2 | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
-| shadow_or_phrase_score | 0.05 | 0.05 | 81.2% | 75.0% | 26.2 | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
-| shadow_or_phrase_score | 0.05 | 0.1 | 81.2% | 75.0% | 26.2 | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
-| shadow_or_phrase_score | 0.05 | 0.2 | 81.2% | 75.0% | 26.2 | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
-| shadow_or_phrase_score | 0.05 | 0.35 | 81.2% | 75.0% | 26.2 | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
-| shadow_or_phrase_score | 0.05 | 0.45 | 81.2% | 75.0% | 26.2 | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
-| shadow_or_phrase_score | 0.05 | 0.5 | 81.2% | 75.0% | 26.2 | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
-| shadow_or_phrase_score | 0.05 | 0.55 | 81.2% | 75.0% | 26.2 | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
-| shadow_or_phrase_score | 0.05 | 0.6 | 81.2% | 75.0% | 26.2 | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
-| shadow_or_phrase_score | 0.05 | 0.7 | 87.5% | 68.8% | 24.8 | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 87.5%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 50.0% |
-| shadow_or_phrase_score | 0.05 | 0.65 | 81.2% | 71.9% | 24.8 | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 56.2% |
+| Phrase mode | Shadow lead | Shadow score | Pos allow | Neg abstain | Utility | Target | Strict | Source breakdowns |
+| --- | ---: | ---: | ---: | ---: | ---: | --- | --- | --- |
+| shadow_or_phrase_score | 0.05 | 0.0 | 81.2% | 75.0% | 26.2 | pass | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
+| shadow_or_phrase_score | 0.05 | 0.02 | 81.2% | 75.0% | 26.2 | pass | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
+| shadow_or_phrase_score | 0.05 | 0.05 | 81.2% | 75.0% | 26.2 | pass | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
+| shadow_or_phrase_score | 0.05 | 0.1 | 81.2% | 75.0% | 26.2 | pass | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
+| shadow_or_phrase_score | 0.05 | 0.2 | 81.2% | 75.0% | 26.2 | pass | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
+| shadow_or_phrase_score | 0.05 | 0.35 | 81.2% | 75.0% | 26.2 | pass | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
+| shadow_or_phrase_score | 0.05 | 0.45 | 81.2% | 75.0% | 26.2 | pass | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
+| shadow_or_phrase_score | 0.05 | 0.5 | 81.2% | 75.0% | 26.2 | pass | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
+| shadow_or_phrase_score | 0.05 | 0.55 | 81.2% | 75.0% | 26.2 | pass | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
+| shadow_or_phrase_score | 0.05 | 0.6 | 81.2% | 75.0% | 26.2 | pass | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
+| shadow_or_phrase_score | 0.05 | 0.7 | 87.5% | 68.8% | 24.8 | pass | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 87.5%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 50.0% |
+| shadow_or_phrase_score | 0.05 | 0.65 | 81.2% | 71.9% | 24.8 | pass | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 56.2% |
 
 ## Passing Rows
 
-| Phrase mode | Shadow lead | Shadow score | Pos allow | Neg abstain | Utility | Target | Source breakdowns |
-| --- | ---: | ---: | ---: | ---: | ---: | --- | --- |
-| shadow_or_phrase_score | 0.05 | 0.0 | 81.2% | 75.0% | 26.2 | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
-| shadow_or_phrase_score | 0.05 | 0.02 | 81.2% | 75.0% | 26.2 | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
-| shadow_or_phrase_score | 0.05 | 0.05 | 81.2% | 75.0% | 26.2 | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
-| shadow_or_phrase_score | 0.05 | 0.1 | 81.2% | 75.0% | 26.2 | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
-| shadow_or_phrase_score | 0.05 | 0.2 | 81.2% | 75.0% | 26.2 | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
-| shadow_or_phrase_score | 0.05 | 0.35 | 81.2% | 75.0% | 26.2 | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
-| shadow_or_phrase_score | 0.05 | 0.45 | 81.2% | 75.0% | 26.2 | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
-| shadow_or_phrase_score | 0.05 | 0.5 | 81.2% | 75.0% | 26.2 | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
-| shadow_or_phrase_score | 0.05 | 0.55 | 81.2% | 75.0% | 26.2 | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
-| shadow_or_phrase_score | 0.05 | 0.6 | 81.2% | 75.0% | 26.2 | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
-| shadow_or_phrase_score | 0.05 | 0.7 | 87.5% | 68.8% | 24.8 | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 87.5%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 50.0% |
-| shadow_or_phrase_score | 0.05 | 0.65 | 81.2% | 71.9% | 24.8 | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 56.2% |
+| Phrase mode | Shadow lead | Shadow score | Pos allow | Neg abstain | Utility | Target | Strict | Source breakdowns |
+| --- | ---: | ---: | ---: | ---: | ---: | --- | --- | --- |
+| shadow_or_phrase_score | 0.05 | 0.0 | 81.2% | 75.0% | 26.2 | pass | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
+| shadow_or_phrase_score | 0.05 | 0.02 | 81.2% | 75.0% | 26.2 | pass | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
+| shadow_or_phrase_score | 0.05 | 0.05 | 81.2% | 75.0% | 26.2 | pass | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
+| shadow_or_phrase_score | 0.05 | 0.1 | 81.2% | 75.0% | 26.2 | pass | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
+| shadow_or_phrase_score | 0.05 | 0.2 | 81.2% | 75.0% | 26.2 | pass | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
+| shadow_or_phrase_score | 0.05 | 0.35 | 81.2% | 75.0% | 26.2 | pass | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
+| shadow_or_phrase_score | 0.05 | 0.45 | 81.2% | 75.0% | 26.2 | pass | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
+| shadow_or_phrase_score | 0.05 | 0.5 | 81.2% | 75.0% | 26.2 | pass | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
+| shadow_or_phrase_score | 0.05 | 0.55 | 81.2% | 75.0% | 26.2 | pass | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
+| shadow_or_phrase_score | 0.05 | 0.6 | 81.2% | 75.0% | 26.2 | pass | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
+| shadow_or_phrase_score | 0.05 | 0.7 | 87.5% | 68.8% | 24.8 | pass | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 87.5%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 50.0% |
+| shadow_or_phrase_score | 0.05 | 0.65 | 81.2% | 71.9% | 24.8 | pass | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 56.2% |
+
+## Strict Source-Passing Rows
+
+| Phrase mode | Shadow lead | Shadow score | Pos allow | Neg abstain | Utility | Target | Strict | Source breakdowns |
+| --- | ---: | ---: | ---: | ---: | ---: | --- | --- | --- |
+| shadow_or_phrase_score | 0.05 | 0.0 | 81.2% | 75.0% | 26.2 | pass | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
+| shadow_or_phrase_score | 0.05 | 0.02 | 81.2% | 75.0% | 26.2 | pass | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
+| shadow_or_phrase_score | 0.05 | 0.05 | 81.2% | 75.0% | 26.2 | pass | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
+| shadow_or_phrase_score | 0.05 | 0.1 | 81.2% | 75.0% | 26.2 | pass | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
+| shadow_or_phrase_score | 0.05 | 0.2 | 81.2% | 75.0% | 26.2 | pass | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
+| shadow_or_phrase_score | 0.05 | 0.35 | 81.2% | 75.0% | 26.2 | pass | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
+| shadow_or_phrase_score | 0.05 | 0.45 | 81.2% | 75.0% | 26.2 | pass | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
+| shadow_or_phrase_score | 0.05 | 0.5 | 81.2% | 75.0% | 26.2 | pass | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
+| shadow_or_phrase_score | 0.05 | 0.55 | 81.2% | 75.0% | 26.2 | pass | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
+| shadow_or_phrase_score | 0.05 | 0.6 | 81.2% | 75.0% | 26.2 | pass | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 62.5% |
+| shadow_or_phrase_score | 0.05 | 0.7 | 87.5% | 68.8% | 24.8 | pass | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 87.5%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 50.0% |
+| shadow_or_phrase_score | 0.05 | 0.65 | 81.2% | 71.9% | 24.8 | pass | pass | semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout: pos 81.2%, neg 87.5%; semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase: pos n/a, neg 56.2% |
 
 ## Failure Samples For Best Row
 
@@ -79,6 +97,6 @@
 
 ## Recommendation
 
-- At least one veto-only blocker policy meets the configured product target on these validation reports.
+- At least one veto-only blocker policy meets the configured product target on every measured source.
 - Compare the winning blocker against the frozen v10 matrix winner before considering runtime policy changes.
 - Use source breakdowns and failure samples to decide which blocker signals need broader representative evaluation.

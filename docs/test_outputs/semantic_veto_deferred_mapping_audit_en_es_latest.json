@@ -1,0 +1,296 @@
+{
+  "decision": "deferred_mapping_audit_complete",
+  "e2e_checks": {
+    "all_deferred_mappings_excluded_from_trusted_seed": true,
+    "all_mappings_have_installed_dictionary_evidence": true,
+    "all_mappings_present_in_repaired_deferred_families": true,
+    "all_mappings_trace_to_srs_source_target_bridge": true,
+    "no_mapping_promoted_to_trusted": true
+  },
+  "generated_at": "2026-05-06T22:22:12Z",
+  "inputs": {
+    "draft_dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_full_family_representative_manual_v1.json",
+    "installed_dictionary_scope": "local installed en-es source/target packs; paths are environment-specific",
+    "repaired_pilot_path": "docs/test_inputs/semantic_routing_cases/en_es_full_family_repaired_pilot_v1.json",
+    "srs_zipf_bridge_path": "docs/test_outputs/semantic_veto_srs_zipf_bridge_en_es_latest.json",
+    "trusted_seed_path": "docs/test_inputs/semantic_routing_cases/en_es_full_family_trusted_eval_seed_v1.json"
+  },
+  "issues": [],
+  "mapping_rows": [
+    {
+      "audit_status": "salvageable_with_corrected_active_sense",
+      "confidence": "medium",
+      "corrected_active_gloss": "bar as a verb: obstruct, block, or fence off passage",
+      "draft_active_gloss": "a room or establishment where alcoholic drinks are served over a counter",
+      "draft_active_label": "bar -> cercar",
+      "evidence_summary": "source->target exact not found; target->source exact found; source sense hits: obstruct, passage, lock, bolt; target gloss hits: corral, fence, fence off",
+      "excluded_from_trusted_seed": true,
+      "family_id": "en-es:full-family-representative:bar:cercar",
+      "installed_evidence_status": "found",
+      "mapping_id": "bar->cercar",
+      "present_in_repaired_deferred_families": true,
+      "recommended_action": "Do not revive the alcohol-bar draft rows. Author a fresh pending-review family around verb contexts such as 'bar the entrance' or 'bar the way', with shadows for pub/counter/legal-bar senses.",
+      "source": "bar",
+      "source_sense_examples": [
+        {
+          "headword": "bar",
+          "pos": "verb",
+          "raw_glosses_json": "[\"to obstruct the passage of\"]",
+          "translation": "barrear"
+        },
+        {
+          "headword": "bar",
+          "pos": "verb",
+          "raw_glosses_json": "[\"to lock or bolt with a bar\"]",
+          "translation": "embarrar"
+        },
+        {
+          "headword": "bar",
+          "pos": "verb",
+          "raw_glosses_json": "[\"to lock or bolt with a bar\"]",
+          "translation": "barretear"
+        },
+        {
+          "headword": "bar",
+          "pos": "verb",
+          "raw_glosses_json": "[\"to lock or bolt with a bar\"]",
+          "translation": "barrear"
+        },
+        {
+          "headword": "bar",
+          "pos": "noun",
+          "raw_glosses_json": "[\"solid object with uniform cross-section\"]",
+          "translation": "barra"
+        },
+        {
+          "headword": "bar",
+          "pos": "noun",
+          "raw_glosses_json": "[\"solid object with uniform cross-section\",\"iron\"]",
+          "translation": "tortor"
+        }
+      ],
+      "source_support_hits": [
+        "obstruct",
+        "passage",
+        "lock",
+        "bolt"
+      ],
+      "source_to_target_exact_count": 0,
+      "srs_source_target_pair": {
+        "source": "bar",
+        "source_zipf_band_en": "zipf_4_to_5_common",
+        "source_zipf_frequency_en": 4.94,
+        "target": "cercar",
+        "target_zipf_band_es": "zipf_below_3_rare",
+        "target_zipf_frequency_es": 2.62
+      },
+      "srs_source_target_pair_present": true,
+      "target": "cercar",
+      "target_gloss_examples": [
+        {
+          "headword": "cercar",
+          "pos": "verb",
+          "raw_glosses_json": "[\"(transitive) to corral, fence, fence off\"]",
+          "translation": "to corral, fence, fence off"
+        }
+      ],
+      "target_support_hits": [
+        "corral",
+        "fence",
+        "fence off"
+      ],
+      "target_to_source_exact_count": 1,
+      "trusted_seed_status": "excluded"
+    },
+    {
+      "audit_status": "salvageable_with_corrected_active_sense",
+      "confidence": "medium_low",
+      "corrected_active_gloss": "offset as a noun: the distance or displacement by which one thing is out of alignment with another",
+      "draft_active_gloss": "the time at which something is supposed to begin",
+      "draft_active_label": "offset -> distancia",
+      "evidence_summary": "source->target exact not found; target->source exact found; source sense hits: distance by which, out of alignment; target gloss hits: distance",
+      "excluded_from_trusted_seed": true,
+      "family_id": "en-es:full-family-representative:offset:distancia",
+      "installed_evidence_status": "found",
+      "mapping_id": "offset->distancia",
+      "present_in_repaired_deferred_families": true,
+      "recommended_action": "Author fresh pending-review technical/spatial rows only if the product accepts the broad target 'distancia' for this sense; otherwise replace the target with a more specific Spanish competitor such as 'desfase'.",
+      "source": "offset",
+      "source_sense_examples": [
+        {
+          "headword": "offset",
+          "pos": "noun",
+          "raw_glosses_json": "[\"distance by which one thing is out of alignment with another\"]",
+          "translation": "desfase"
+        },
+        {
+          "headword": "offset",
+          "pos": "noun",
+          "raw_glosses_json": "[\"distance by which one thing is out of alignment with another\"]",
+          "translation": "excentricidad"
+        },
+        {
+          "headword": "offset",
+          "pos": "noun",
+          "raw_glosses_json": "[\"distance by which one thing is out of alignment with another\"]",
+          "translation": "desfasaje"
+        },
+        {
+          "headword": "offset",
+          "pos": "noun",
+          "raw_glosses_json": "[\"compensating equivalent\"]",
+          "translation": "ajuste"
+        },
+        {
+          "headword": "offset",
+          "pos": "noun",
+          "raw_glosses_json": "[\"compensating equivalent\"]",
+          "translation": "descuento"
+        },
+        {
+          "headword": "offset",
+          "pos": "noun",
+          "raw_glosses_json": "[\"compensating equivalent\"]",
+          "translation": "compensación"
+        }
+      ],
+      "source_support_hits": [
+        "distance by which",
+        "out of alignment"
+      ],
+      "source_to_target_exact_count": 0,
+      "srs_source_target_pair": {
+        "source": "offset",
+        "source_zipf_band_en": "zipf_3_to_4_mid",
+        "source_zipf_frequency_en": 3.99,
+        "target": "distancia",
+        "target_zipf_band_es": "zipf_4_to_5_common",
+        "target_zipf_frequency_es": 4.89
+      },
+      "srs_source_target_pair_present": true,
+      "target": "distancia",
+      "target_gloss_examples": [
+        {
+          "headword": "distancia",
+          "pos": "noun",
+          "raw_glosses_json": null,
+          "translation": "distance"
+        }
+      ],
+      "target_support_hits": [
+        "distance"
+      ],
+      "target_to_source_exact_count": 1,
+      "trusted_seed_status": "excluded"
+    },
+    {
+      "audit_status": "reject_mapping_source_target_mismatch",
+      "confidence": "high",
+      "corrected_active_gloss": "",
+      "draft_active_gloss": "an urgent or peremptory request",
+      "draft_active_label": "demand -> deducción",
+      "evidence_summary": "source->target exact not found; target->source exact found; source sense hits: request, claim, purchase goods, summons; target gloss hits: deduction",
+      "excluded_from_trusted_seed": true,
+      "family_id": "en-es:full-family-representative:demand:deduccion",
+      "installed_evidence_status": "found",
+      "mapping_id": "demand->deducción",
+      "present_in_repaired_deferred_families": true,
+      "recommended_action": "Keep excluded from trusted evaluation. Treat the reverse FreeDict mapping as insufficient or erroneous unless an independent source proves a valid sense; sample a replacement family for this cell instead.",
+      "source": "demand",
+      "source_sense_examples": [
+        {
+          "headword": "demand",
+          "pos": "noun",
+          "raw_glosses_json": "[\"desire to purchase goods and services\"]",
+          "translation": "demanda"
+        },
+        {
+          "headword": "demand",
+          "pos": "noun",
+          "raw_glosses_json": "[\"desire to purchase goods and services\"]",
+          "translation": "demanda económica"
+        },
+        {
+          "headword": "demand",
+          "pos": "noun",
+          "raw_glosses_json": "[\"forceful claim for something\"]",
+          "translation": "intimación"
+        },
+        {
+          "headword": "demand",
+          "pos": "noun",
+          "raw_glosses_json": "[\"forceful claim for something\"]",
+          "translation": "intima"
+        },
+        {
+          "headword": "demand",
+          "pos": "verb",
+          "raw_glosses_json": "[\"to request forcefully\"]",
+          "translation": "exigir"
+        },
+        {
+          "headword": "demand",
+          "pos": "verb",
+          "raw_glosses_json": "[\"to request forcefully\"]",
+          "translation": "demandar"
+        }
+      ],
+      "source_support_hits": [
+        "request",
+        "claim",
+        "purchase goods",
+        "summons"
+      ],
+      "source_to_target_exact_count": 0,
+      "srs_source_target_pair": {
+        "source": "demand",
+        "source_zipf_band_en": "zipf_4_to_5_common",
+        "source_zipf_frequency_en": 4.84,
+        "target": "deducción",
+        "target_zipf_band_es": "zipf_3_to_4_mid",
+        "target_zipf_frequency_es": 3.33
+      },
+      "srs_source_target_pair_present": true,
+      "target": "deducción",
+      "target_gloss_examples": [
+        {
+          "headword": "deducción",
+          "pos": "noun",
+          "raw_glosses_json": null,
+          "translation": "deduction"
+        }
+      ],
+      "target_support_hits": [
+        "deduction"
+      ],
+      "target_to_source_exact_count": 1,
+      "trusted_seed_status": "excluded"
+    }
+  ],
+  "methodology": {
+    "audit_question": "For each deferred mapping, determine whether the source-target pair is supported by independent dictionary/sense evidence and whether it can be rewritten into a coherent pending-review test family.",
+    "authority_boundary": "This audit does not make new rows trusted. Salvageable mappings need fresh row authoring and user review before they enter any trusted lane.",
+    "runtime_policy_change": "none",
+    "score_promotion": "none",
+    "trusted_seed_change": "none"
+  },
+  "next_steps": [
+    "Keep demand -> deducción excluded unless an independent source disproves the mismatch.",
+    "If desired, author pending-review repaired rows for bar -> cercar and offset -> distancia from corrected active senses only.",
+    "User-review any newly authored rows before adding them to the trusted eval seed.",
+    "Replace the rejected demand-family slot with a fresh representative family from the same sampling cell."
+  ],
+  "pair": "en-es",
+  "schema_version": 1,
+  "status": "ok",
+  "summary": {
+    "mapping_count": 3,
+    "reject_mapping_source_target_mismatch_count": 1,
+    "salvageable_with_corrected_active_sense_count": 2,
+    "status_counts": {
+      "reject_mapping_source_target_mismatch": 1,
+      "salvageable_with_corrected_active_sense": 2
+    },
+    "trusted_seed_leak_count": 0
+  }
+}

@@ -1,0 +1,4620 @@
+{
+  "dataset_id": "en_es_sampling_stage1_representative_v1",
+  "description": "Stage 1 representative semantic-veto frame materialized as a sentence-veto dataset for current-policy scoring. Uses existing v10 family evidence and the frozen 120-row representative frame.",
+  "families": [
+    {
+      "active": {
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "all_evidence_text": "ball used in games or sports | object generally spherical and used in play | sports equipment",
+          "gloss_text": "object generally spherical and used in play",
+          "sense_gloss_bundle": "ball used in games or sports | sports equipment",
+          "sense_label": "ball used in games or sports"
+        },
+        "sense_id": "en-es:sentence-veto:ball:pelota:active",
+        "target_lemma": "pelota"
+      },
+      "cases": [
+        {
+          "case_id": "en-es:representative-gap:v1:001",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:ball:pelota:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-gap:27e25ab7979a; context_source=agent_curated_corpus_like_app_candidate_contexts",
+          "sentence": "A fan caught the foul ball in the second inning.",
+          "slice_dimensions": {
+            "context_source": [
+              "agent_curated_corpus_like_app_candidate_contexts"
+            ],
+            "family": [
+              "ball"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-gap:27e25ab7979a"
+            ],
+            "review_state": [
+              "agent_draft_human_review_pending"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "corpus_sampled_app_candidate_contexts"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "representative_gap_primary",
+            "corpus_like_app_candidate",
+            "clear_active",
+            "sports"
+          ],
+          "source_phrase": "ball"
+        },
+        {
+          "case_id": "en-es:representative-gap:v1:002",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:sentence-veto:ball:baile:shadow",
+          "notes": "stage1_frame_row=en-es:stage1-representative-gap:f3b13db2c8a2; context_source=agent_curated_corpus_like_app_candidate_contexts",
+          "sentence": "The winter ball sold out within an hour.",
+          "slice_dimensions": {
+            "context_source": [
+              "agent_curated_corpus_like_app_candidate_contexts"
+            ],
+            "family": [
+              "ball"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-gap:f3b13db2c8a2"
+            ],
+            "review_state": [
+              "agent_draft_human_review_pending"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "corpus_sampled_app_candidate_contexts"
+            ],
+            "winner_type": [
+              "shadow"
+            ]
+          },
+          "slice_tags": [
+            "representative_gap_primary",
+            "corpus_like_app_candidate",
+            "clear_shadow",
+            "event"
+          ],
+          "source_phrase": "ball"
+        },
+        {
+          "case_id": "en-es:sentence-veto:ball:001",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:ball:pelota:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:02e14506e287; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "The goalkeeper punched the ball over the bar.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "ball"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:02e14506e287"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "clear_active",
+            "sports"
+          ],
+          "source_phrase": "ball"
+        },
+        {
+          "case_id": "en-es:sentence-veto:ball:002",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:ball:pelota:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:3a259518566e; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "The child kicked the ball into the street.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "ball"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:3a259518566e"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "clear_active",
+            "sports"
+          ],
+          "source_phrase": "ball"
+        },
+        {
+          "case_id": "en-es:sentence-veto:ball:003",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:sentence-veto:ball:baile:shadow",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:42dcd36263a9; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "They danced at the royal ball until dawn.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "ball"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:42dcd36263a9"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "shadow"
+            ]
+          },
+          "slice_tags": [
+            "clear_shadow",
+            "event"
+          ],
+          "source_phrase": "ball"
+        },
+        {
+          "case_id": "en-es:sentence-veto:ball:004",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:sentence-veto:ball:baile:shadow",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:6044a22172de; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "The charity ball raised thousands of dollars.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "ball"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:6044a22172de"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "shadow"
+            ]
+          },
+          "slice_tags": [
+            "clear_shadow",
+            "event"
+          ],
+          "source_phrase": "ball"
+        },
+        {
+          "case_id": "en-es:sentence-veto:ball:005",
+          "gold_decision": "abstain",
+          "gold_winner": "none",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:6fc75470a207; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "The ball is in your court now.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "ball"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:6fc75470a207"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "none"
+            ]
+          },
+          "slice_tags": [
+            "phrase_control",
+            "idiom"
+          ],
+          "source_phrase": "ball"
+        }
+      ],
+      "family_id": "en-es:sentence-veto:ball:pelota",
+      "shadows": [
+        {
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "all_evidence_text": "formal dance event | gala or social dance gathering | evening dance",
+            "gloss_text": "gala or social dance gathering",
+            "sense_gloss_bundle": "formal dance event | gala",
+            "sense_label": "formal dance event"
+          },
+          "sense_id": "en-es:sentence-veto:ball:baile:shadow",
+          "target_lemma": "baile"
+        }
+      ],
+      "trigger": "ball"
+    },
+    {
+      "active": {
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "all_evidence_text": "financial bank | financial institution that stores and lends money | accounts and loans",
+          "gloss_text": "financial institution that stores and lends money",
+          "sense_gloss_bundle": "financial bank | finance",
+          "sense_label": "financial bank"
+        },
+        "sense_id": "en-es:sentence-veto:bank:banco:active",
+        "target_lemma": "banco"
+      },
+      "cases": [
+        {
+          "case_id": "en-es:representative-gap:v1:003",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:bank:banco:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-gap:1372dcee5e7a; context_source=agent_curated_corpus_like_app_candidate_contexts",
+          "sentence": "The bank froze the card after the suspicious charge.",
+          "slice_dimensions": {
+            "context_source": [
+              "agent_curated_corpus_like_app_candidate_contexts"
+            ],
+            "family": [
+              "bank"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-gap:1372dcee5e7a"
+            ],
+            "review_state": [
+              "agent_draft_human_review_pending"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "corpus_sampled_app_candidate_contexts"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "representative_gap_primary",
+            "corpus_like_app_candidate",
+            "clear_active",
+            "finance"
+          ],
+          "source_phrase": "bank"
+        },
+        {
+          "case_id": "en-es:sentence-veto:bank:001",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:bank:banco:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:5c4c5102ffe0; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "She deposited the cash at the bank before lunch.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "bank"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:5c4c5102ffe0"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "clear_active",
+            "finance"
+          ],
+          "source_phrase": "bank"
+        },
+        {
+          "case_id": "en-es:sentence-veto:bank:002",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:bank:banco:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:b544f7add92f; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "The bank approved our mortgage application.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "bank"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:b544f7add92f"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "clear_active",
+            "finance"
+          ],
+          "source_phrase": "bank"
+        },
+        {
+          "case_id": "en-es:sentence-veto:bank:003",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:sentence-veto:bank:orilla:shadow",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:7d9a27c35573; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "They sat on the grassy bank of the river.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "bank"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:7d9a27c35573"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "shadow"
+            ]
+          },
+          "slice_tags": [
+            "clear_shadow",
+            "nature"
+          ],
+          "source_phrase": "bank"
+        },
+        {
+          "case_id": "en-es:sentence-veto:bank:004",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:sentence-veto:bank:orilla:shadow",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:e3428ced71d5; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "Wildflowers grew along the muddy bank.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "bank"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:e3428ced71d5"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "shadow"
+            ]
+          },
+          "slice_tags": [
+            "clear_shadow",
+            "nature"
+          ],
+          "source_phrase": "bank"
+        },
+        {
+          "case_id": "en-es:sentence-veto:bank:005",
+          "gold_decision": "abstain",
+          "gold_winner": "none",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:04f43d2d0575; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "You can bank on her support.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "bank"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:04f43d2d0575"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "none"
+            ]
+          },
+          "slice_tags": [
+            "phrase_control",
+            "idiom"
+          ],
+          "source_phrase": "bank"
+        }
+      ],
+      "family_id": "en-es:sentence-veto:bank:banco",
+      "shadows": [
+        {
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "all_evidence_text": "river bank | edge of a river or lake | waterside ground",
+            "gloss_text": "edge of a river or lake",
+            "sense_gloss_bundle": "river bank | waterside edge",
+            "sense_label": "river bank"
+          },
+          "sense_id": "en-es:sentence-veto:bank:orilla:shadow",
+          "target_lemma": "orilla"
+        }
+      ],
+      "trigger": "bank"
+    },
+    {
+      "active": {
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "all_evidence_text": "game or display board | flat board used as a play surface or panel | pieces and surface",
+          "gloss_text": "flat board used as a play surface or panel",
+          "sense_gloss_bundle": "game or display board | panel",
+          "sense_label": "game or display board"
+        },
+        "sense_id": "en-es:sentence-veto:board:tablero:active",
+        "target_lemma": "tablero"
+      },
+      "cases": [
+        {
+          "case_id": "en-es:representative-gap:v1:015",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:board:tablero:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-gap:fa523732b75e; context_source=agent_curated_corpus_like_app_candidate_contexts",
+          "sentence": "The chess board was missing two squares.",
+          "slice_dimensions": {
+            "context_source": [
+              "agent_curated_corpus_like_app_candidate_contexts"
+            ],
+            "family": [
+              "board"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-gap:fa523732b75e"
+            ],
+            "review_state": [
+              "agent_draft_human_review_pending"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "corpus_sampled_app_candidate_contexts"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "representative_gap_primary",
+            "corpus_like_app_candidate",
+            "clear_active",
+            "game"
+          ],
+          "source_phrase": "board"
+        },
+        {
+          "case_id": "en-es:representative-gap:v1:016",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:sentence-veto:board:junta:shadow",
+          "notes": "stage1_frame_row=en-es:stage1-representative-gap:cd825b6d01fe; context_source=agent_curated_corpus_like_app_candidate_contexts",
+          "sentence": "The board voted to approve the budget.",
+          "slice_dimensions": {
+            "context_source": [
+              "agent_curated_corpus_like_app_candidate_contexts"
+            ],
+            "family": [
+              "board"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-gap:cd825b6d01fe"
+            ],
+            "review_state": [
+              "agent_draft_human_review_pending"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "corpus_sampled_app_candidate_contexts"
+            ],
+            "winner_type": [
+              "shadow"
+            ]
+          },
+          "slice_tags": [
+            "representative_gap_primary",
+            "corpus_like_app_candidate",
+            "clear_shadow",
+            "organization"
+          ],
+          "source_phrase": "board"
+        },
+        {
+          "case_id": "en-es:sentence-veto:board:001",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:board:tablero:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:a9bfe835a1f7; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "He arranged the pieces on the board before the lesson began.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "board"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:a9bfe835a1f7"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "clear_active",
+            "game"
+          ],
+          "source_phrase": "board"
+        },
+        {
+          "case_id": "en-es:sentence-veto:board:002",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:board:tablero:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:0fa2b649472a; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "She folded the board after the game ended.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "board"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:0fa2b649472a"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "clear_active",
+            "game"
+          ],
+          "source_phrase": "board"
+        },
+        {
+          "case_id": "en-es:sentence-veto:board:003",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:sentence-veto:board:junta:shadow",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:903762622c75; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "The board approved the merger on Tuesday.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "board"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:903762622c75"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "shadow"
+            ]
+          },
+          "slice_tags": [
+            "clear_shadow",
+            "organization"
+          ],
+          "source_phrase": "board"
+        },
+        {
+          "case_id": "en-es:sentence-veto:board:004",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:sentence-veto:board:junta:shadow",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:8acbbf332493; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "Two members of the board resigned after the audit.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "board"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:8acbbf332493"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "shadow"
+            ]
+          },
+          "slice_tags": [
+            "clear_shadow",
+            "organization"
+          ],
+          "source_phrase": "board"
+        },
+        {
+          "case_id": "en-es:sentence-veto:board:005",
+          "gold_decision": "abstain",
+          "gold_winner": "none",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:c99330e5ed42; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "Are you on board with the revised plan?",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "board"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:c99330e5ed42"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "none"
+            ]
+          },
+          "slice_tags": [
+            "phrase_control",
+            "idiom",
+            "frame_sensitive"
+          ],
+          "source_phrase": "board"
+        }
+      ],
+      "family_id": "en-es:sentence-veto:board:tablero",
+      "shadows": [
+        {
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "all_evidence_text": "governing board | group of directors or managers overseeing an organization | meeting and vote",
+            "gloss_text": "group of directors or managers overseeing an organization",
+            "sense_gloss_bundle": "governing board | directors",
+            "sense_label": "governing board"
+          },
+          "sense_id": "en-es:sentence-veto:board:junta:shadow",
+          "target_lemma": "junta"
+        }
+      ],
+      "trigger": "board"
+    },
+    {
+      "active": {
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "all_evidence_text": "business branch | local office or division of an organization | bank and office",
+          "gloss_text": "local office or division of an organization",
+          "sense_gloss_bundle": "business branch | office",
+          "sense_label": "business branch"
+        },
+        "sense_id": "en-es:sentence-veto:branch:sucursal:active",
+        "target_lemma": "sucursal"
+      },
+      "cases": [
+        {
+          "case_id": "en-es:representative-gap:v1:019",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:branch:sucursal:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-gap:57c185f04cd9; context_source=agent_curated_corpus_like_app_candidate_contexts",
+          "sentence": "The new branch opened beside the train station.",
+          "slice_dimensions": {
+            "context_source": [
+              "agent_curated_corpus_like_app_candidate_contexts"
+            ],
+            "family": [
+              "branch"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-gap:57c185f04cd9"
+            ],
+            "review_state": [
+              "agent_draft_human_review_pending"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "corpus_sampled_app_candidate_contexts"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "representative_gap_primary",
+            "corpus_like_app_candidate",
+            "clear_active",
+            "business"
+          ],
+          "source_phrase": "branch"
+        },
+        {
+          "case_id": "en-es:representative-gap:v1:020",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:sentence-veto:branch:rama:shadow",
+          "notes": "stage1_frame_row=en-es:stage1-representative-gap:7fb875e82c79; context_source=agent_curated_corpus_like_app_candidate_contexts",
+          "sentence": "A broken branch blocked the sidewalk.",
+          "slice_dimensions": {
+            "context_source": [
+              "agent_curated_corpus_like_app_candidate_contexts"
+            ],
+            "family": [
+              "branch"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-gap:7fb875e82c79"
+            ],
+            "review_state": [
+              "agent_draft_human_review_pending"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "corpus_sampled_app_candidate_contexts"
+            ],
+            "winner_type": [
+              "shadow"
+            ]
+          },
+          "slice_tags": [
+            "representative_gap_primary",
+            "corpus_like_app_candidate",
+            "clear_shadow",
+            "tree"
+          ],
+          "source_phrase": "branch"
+        },
+        {
+          "case_id": "en-es:sentence-veto:branch:001",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:branch:sucursal:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:dd8dfa854812; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "The downtown branch closes at five on weekdays.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "branch"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:dd8dfa854812"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "clear_active",
+            "institution"
+          ],
+          "source_phrase": "branch"
+        },
+        {
+          "case_id": "en-es:sentence-veto:branch:002",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:branch:sucursal:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:f4cb36177d75; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "She submitted the paperwork at the branch office.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "branch"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:f4cb36177d75"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "clear_active",
+            "institution"
+          ],
+          "source_phrase": "branch"
+        },
+        {
+          "case_id": "en-es:sentence-veto:branch:003",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:sentence-veto:branch:rama:shadow",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:accfc493ddea; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "A bird landed on the highest branch of the oak.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "branch"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:accfc493ddea"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "shadow"
+            ]
+          },
+          "slice_tags": [
+            "clear_shadow",
+            "nature"
+          ],
+          "source_phrase": "branch"
+        },
+        {
+          "case_id": "en-es:sentence-veto:branch:004",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:sentence-veto:branch:rama:shadow",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:038eaaead8aa; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "The storm snapped a heavy branch in the yard.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "branch"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:038eaaead8aa"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "shadow"
+            ]
+          },
+          "slice_tags": [
+            "clear_shadow",
+            "nature"
+          ],
+          "source_phrase": "branch"
+        },
+        {
+          "case_id": "en-es:sentence-veto:branch:005",
+          "gold_decision": "abstain",
+          "gold_winner": "none",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:e437fadb12b4; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "The startup plans to branch out into tutoring.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "branch"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:e437fadb12b4"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "none"
+            ]
+          },
+          "slice_tags": [
+            "phrase_control",
+            "idiom",
+            "frame_sensitive"
+          ],
+          "source_phrase": "branch"
+        }
+      ],
+      "family_id": "en-es:sentence-veto:branch:sucursal",
+      "shadows": [
+        {
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "all_evidence_text": "tree branch | woody limb growing from a trunk | tree and leaf",
+            "gloss_text": "woody limb growing from a trunk",
+            "sense_gloss_bundle": "tree branch | limb",
+            "sense_label": "tree branch"
+          },
+          "sense_id": "en-es:sentence-veto:branch:rama:shadow",
+          "target_lemma": "rama"
+        }
+      ],
+      "trigger": "branch"
+    },
+    {
+      "active": {
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "all_evidence_text": "biological cell | small biological unit of a living organism | tissue and microscope",
+          "gloss_text": "small biological unit of a living organism",
+          "sense_gloss_bundle": "biological cell | biology",
+          "sense_label": "biological cell"
+        },
+        "sense_id": "en-es:sentence-veto:cell:celula:active",
+        "target_lemma": "célula"
+      },
+      "cases": [
+        {
+          "case_id": "en-es:representative-gap:v1:006",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:cell:celula:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-gap:e8187e971456; context_source=agent_curated_corpus_like_app_candidate_contexts",
+          "sentence": "The microscope image showed a damaged cell near the edge.",
+          "slice_dimensions": {
+            "context_source": [
+              "agent_curated_corpus_like_app_candidate_contexts"
+            ],
+            "family": [
+              "cell"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-gap:e8187e971456"
+            ],
+            "review_state": [
+              "agent_draft_human_review_pending"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "corpus_sampled_app_candidate_contexts"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "representative_gap_primary",
+            "corpus_like_app_candidate",
+            "clear_active",
+            "biology"
+          ],
+          "source_phrase": "cell"
+        },
+        {
+          "case_id": "en-es:representative-gap:v1:007",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:sentence-veto:cell:celda:shadow",
+          "notes": "stage1_frame_row=en-es:stage1-representative-gap:b2f352a1dab3; context_source=agent_curated_corpus_like_app_candidate_contexts",
+          "sentence": "The guard opened the cell for the morning inspection.",
+          "slice_dimensions": {
+            "context_source": [
+              "agent_curated_corpus_like_app_candidate_contexts"
+            ],
+            "family": [
+              "cell"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-gap:b2f352a1dab3"
+            ],
+            "review_state": [
+              "agent_draft_human_review_pending"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "corpus_sampled_app_candidate_contexts"
+            ],
+            "winner_type": [
+              "shadow"
+            ]
+          },
+          "slice_tags": [
+            "representative_gap_primary",
+            "corpus_like_app_candidate",
+            "clear_shadow",
+            "prison"
+          ],
+          "source_phrase": "cell"
+        },
+        {
+          "case_id": "en-es:sentence-veto:cell:001",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:cell:celula:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:89d1be08bacc; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "The scientist examined the cell under a microscope.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "cell"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:89d1be08bacc"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "clear_active",
+            "biology"
+          ],
+          "source_phrase": "cell"
+        },
+        {
+          "case_id": "en-es:sentence-veto:cell:002",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:cell:celula:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:c8287d879f9f; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "Each cell in the tissue absorbed the dye.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "cell"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:c8287d879f9f"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "clear_active",
+            "biology"
+          ],
+          "source_phrase": "cell"
+        },
+        {
+          "case_id": "en-es:sentence-veto:cell:003",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:sentence-veto:cell:celda:shadow",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:59c44c54062a; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "The prisoner was returned to his cell after dinner.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "cell"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:59c44c54062a"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "shadow"
+            ]
+          },
+          "slice_tags": [
+            "clear_shadow",
+            "prison"
+          ],
+          "source_phrase": "cell"
+        },
+        {
+          "case_id": "en-es:sentence-veto:cell:004",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:sentence-veto:cell:celda:shadow",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:b75ab250521b; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "The guard unlocked the cell at dawn.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "cell"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:b75ab250521b"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "shadow"
+            ]
+          },
+          "slice_tags": [
+            "clear_shadow",
+            "prison"
+          ],
+          "source_phrase": "cell"
+        },
+        {
+          "case_id": "en-es:sentence-veto:cell:005",
+          "gold_decision": "abstain",
+          "gold_winner": "none",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:30b442b2f8de; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "My phone lost cell service in the tunnel.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "cell"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:30b442b2f8de"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "none"
+            ]
+          },
+          "slice_tags": [
+            "phrase_control",
+            "telecom"
+          ],
+          "source_phrase": "cell"
+        }
+      ],
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "shadows": [
+        {
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "all_evidence_text": "prison cell | small room in a prison | prisoner and guard",
+            "gloss_text": "small room in a prison",
+            "sense_gloss_bundle": "prison cell | jail room",
+            "sense_label": "prison cell"
+          },
+          "sense_id": "en-es:sentence-veto:cell:celda:shadow",
+          "target_lemma": "celda"
+        }
+      ],
+      "trigger": "cell"
+    },
+    {
+      "active": {
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "all_evidence_text": "check as a bank payment slip | written order directing a bank to pay money | bank and signature",
+          "gloss_text": "written order directing a bank to pay money",
+          "sense_gloss_bundle": "check as a bank payment slip | cheque",
+          "sense_label": "check as a bank payment slip"
+        },
+        "sense_id": "en-es:sentence-veto:check:cheque:active",
+        "target_lemma": "cheque"
+      },
+      "cases": [
+        {
+          "case_id": "en-es:sentence-veto:check:001",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:check:cheque:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:899df0450509; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "He signed the check before mailing the rent.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "check"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:899df0450509"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "clear_active",
+            "finance",
+            "weak_active_support",
+            "cross_pos"
+          ],
+          "source_phrase": "check"
+        },
+        {
+          "case_id": "en-es:sentence-veto:check:002",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:check:cheque:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:eb7196e280f9; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "The check cleared after the holiday weekend.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "check"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:eb7196e280f9"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "clear_active",
+            "finance",
+            "weak_active_support",
+            "cross_pos"
+          ],
+          "source_phrase": "check"
+        },
+        {
+          "case_id": "en-es:sentence-veto:check:003",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:sentence-veto:check:revisar:shadow",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:d18ce5807471; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "Please check the figures one more time.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "check"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:d18ce5807471"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "shadow"
+            ]
+          },
+          "slice_tags": [
+            "clear_shadow",
+            "verb",
+            "cross_pos",
+            "inspection"
+          ],
+          "source_phrase": "check"
+        },
+        {
+          "case_id": "en-es:sentence-veto:check:004",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:sentence-veto:check:revisar:shadow",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:649ed1f7b0b7; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "Technicians check the pressure every hour.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "check"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:649ed1f7b0b7"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "shadow"
+            ]
+          },
+          "slice_tags": [
+            "clear_shadow",
+            "verb",
+            "cross_pos",
+            "inspection"
+          ],
+          "source_phrase": "check"
+        },
+        {
+          "case_id": "en-es:sentence-veto:check:005",
+          "gold_decision": "abstain",
+          "gold_winner": "none",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:033111962b75; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "You should check out the new exhibit downtown.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "check"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:033111962b75"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "none"
+            ]
+          },
+          "slice_tags": [
+            "phrase_control",
+            "verb",
+            "cross_pos",
+            "lexicalized_expression"
+          ],
+          "source_phrase": "check"
+        }
+      ],
+      "family_id": "en-es:sentence-veto:check:cheque",
+      "shadows": [
+        {
+          "canonical_pos": "verb",
+          "evidence_views": {
+            "all_evidence_text": "check or inspect carefully | examine, verify, or inspect something carefully | inspect and verify",
+            "gloss_text": "examine, verify, or inspect something carefully",
+            "sense_gloss_bundle": "check or inspect carefully | verify",
+            "sense_label": "check or inspect carefully"
+          },
+          "sense_id": "en-es:sentence-veto:check:revisar:shadow",
+          "target_lemma": "revisar"
+        }
+      ],
+      "trigger": "check"
+    },
+    {
+      "active": {
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "all_evidence_text": "drink as a beverage | liquid intended for drinking | beverage and glass",
+          "gloss_text": "liquid intended for drinking",
+          "sense_gloss_bundle": "drink as a beverage | beverage",
+          "sense_label": "drink as a beverage"
+        },
+        "sense_id": "en-es:sentence-veto:drink:bebida:active",
+        "target_lemma": "bebida"
+      },
+      "cases": [
+        {
+          "case_id": "en-es:representative-gap:v1:023",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:drink:bebida:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-gap:ba08e1858b28; context_source=agent_curated_corpus_like_app_candidate_contexts",
+          "sentence": "The cold drink helped after the long walk.",
+          "slice_dimensions": {
+            "context_source": [
+              "agent_curated_corpus_like_app_candidate_contexts"
+            ],
+            "family": [
+              "drink"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-gap:ba08e1858b28"
+            ],
+            "review_state": [
+              "agent_draft_human_review_pending"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "corpus_sampled_app_candidate_contexts"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "representative_gap_primary",
+            "corpus_like_app_candidate",
+            "clear_active",
+            "food"
+          ],
+          "source_phrase": "drink"
+        },
+        {
+          "case_id": "en-es:sentence-veto:drink:001",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:drink:bebida:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:9bcc6f1095a2; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "They enjoyed a drink after dinner.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "drink"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:9bcc6f1095a2"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "clear_active",
+            "beverage",
+            "weak_active_support",
+            "cross_pos"
+          ],
+          "source_phrase": "drink"
+        },
+        {
+          "case_id": "en-es:sentence-veto:drink:002",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:drink:bebida:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:9d70c136a572; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "I ordered a drink at the bar.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "drink"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:9d70c136a572"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "clear_active",
+            "beverage",
+            "weak_active_support",
+            "cross_pos"
+          ],
+          "source_phrase": "drink"
+        },
+        {
+          "case_id": "en-es:sentence-veto:drink:003",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:sentence-veto:drink:beber:shadow",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:58ae4905a29c; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "Athletes should drink more water during practice.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "drink"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:58ae4905a29c"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "shadow"
+            ]
+          },
+          "slice_tags": [
+            "clear_shadow",
+            "verb",
+            "cross_pos",
+            "beverage"
+          ],
+          "source_phrase": "drink"
+        },
+        {
+          "case_id": "en-es:sentence-veto:drink:004",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:sentence-veto:drink:beber:shadow",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:d0224e259122; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "He refused to drink after the surgery.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "drink"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:d0224e259122"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "shadow"
+            ]
+          },
+          "slice_tags": [
+            "clear_shadow",
+            "verb",
+            "cross_pos",
+            "beverage"
+          ],
+          "source_phrase": "drink"
+        },
+        {
+          "case_id": "en-es:sentence-veto:drink:005",
+          "gold_decision": "abstain",
+          "gold_winner": "none",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:8a57eb68b08d; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "She tried to drink in the view from the balcony.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "drink"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:8a57eb68b08d"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "none"
+            ]
+          },
+          "slice_tags": [
+            "phrase_control",
+            "verb",
+            "cross_pos",
+            "lexicalized_expression"
+          ],
+          "source_phrase": "drink"
+        }
+      ],
+      "family_id": "en-es:sentence-veto:drink:bebida",
+      "shadows": [
+        {
+          "canonical_pos": "verb",
+          "evidence_views": {
+            "all_evidence_text": "drink liquid | consume a beverage or other liquid | swallow and sip",
+            "gloss_text": "consume a beverage or other liquid",
+            "sense_gloss_bundle": "drink liquid | consume beverage",
+            "sense_label": "drink liquid"
+          },
+          "sense_id": "en-es:sentence-veto:drink:beber:shadow",
+          "target_lemma": "beber"
+        }
+      ],
+      "trigger": "drink"
+    },
+    {
+      "active": {
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "all_evidence_text": "digital file | stored document or data file | download and folder",
+          "gloss_text": "stored document or data file",
+          "sense_gloss_bundle": "digital file | document",
+          "sense_label": "digital file"
+        },
+        "sense_id": "en-es:sentence-veto:file:archivo:active",
+        "target_lemma": "archivo"
+      },
+      "cases": [
+        {
+          "case_id": "en-es:representative-gap:v1:012",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:file:archivo:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-gap:edf2d38ec1c1; context_source=agent_curated_corpus_like_app_candidate_contexts",
+          "sentence": "The file attached to the email contains the receipts.",
+          "slice_dimensions": {
+            "context_source": [
+              "agent_curated_corpus_like_app_candidate_contexts"
+            ],
+            "family": [
+              "file"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-gap:edf2d38ec1c1"
+            ],
+            "review_state": [
+              "agent_draft_human_review_pending"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "corpus_sampled_app_candidate_contexts"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "representative_gap_primary",
+            "corpus_like_app_candidate",
+            "clear_active",
+            "document"
+          ],
+          "source_phrase": "file"
+        },
+        {
+          "case_id": "en-es:sentence-veto:file:001",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:file:archivo:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:c317e4b65636; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "I uploaded the file to the shared folder.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "file"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:c317e4b65636"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "clear_active",
+            "digital"
+          ],
+          "source_phrase": "file"
+        },
+        {
+          "case_id": "en-es:sentence-veto:file:002",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:file:archivo:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:f93f5aae0117; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "The file was corrupted after the download.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "file"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:f93f5aae0117"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "clear_active",
+            "digital"
+          ],
+          "source_phrase": "file"
+        },
+        {
+          "case_id": "en-es:sentence-veto:file:003",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:sentence-veto:file:lima:shadow",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:ffc4fc757ad1; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "He used a file to smooth the rough edge.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "file"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:ffc4fc757ad1"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "shadow"
+            ]
+          },
+          "slice_tags": [
+            "clear_shadow",
+            "tool"
+          ],
+          "source_phrase": "file"
+        },
+        {
+          "case_id": "en-es:sentence-veto:file:004",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:sentence-veto:file:lima:shadow",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:2f05bf4afa93; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "The jeweler picked up a fine file from the bench.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "file"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:2f05bf4afa93"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "shadow"
+            ]
+          },
+          "slice_tags": [
+            "clear_shadow",
+            "tool"
+          ],
+          "source_phrase": "file"
+        },
+        {
+          "case_id": "en-es:sentence-veto:file:005",
+          "gold_decision": "abstain",
+          "gold_winner": "none",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:8433de18dac0; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "They will file the complaint tomorrow morning.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "file"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:8433de18dac0"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "none"
+            ]
+          },
+          "slice_tags": [
+            "phrase_control",
+            "verb"
+          ],
+          "source_phrase": "file"
+        }
+      ],
+      "family_id": "en-es:sentence-veto:file:archivo",
+      "shadows": [
+        {
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "all_evidence_text": "metal file | tool with a rough surface for smoothing material | bench and edge",
+            "gloss_text": "tool with a rough surface for smoothing material",
+            "sense_gloss_bundle": "metal file | tool",
+            "sense_label": "metal file"
+          },
+          "sense_id": "en-es:sentence-veto:file:lima:shadow",
+          "target_lemma": "lima"
+        }
+      ],
+      "trigger": "file"
+    },
+    {
+      "active": {
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "all_evidence_text": "sports match | organized game or contest between opponents | stadium and fans",
+          "gloss_text": "organized game or contest between opponents",
+          "sense_gloss_bundle": "sports match | game",
+          "sense_label": "sports match"
+        },
+        "sense_id": "en-es:sentence-veto:match:partido:active",
+        "target_lemma": "partido"
+      },
+      "cases": [
+        {
+          "case_id": "en-es:representative-gap:v1:013",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:match:partido:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-gap:dbe5b378f2cb; context_source=agent_curated_corpus_like_app_candidate_contexts",
+          "sentence": "The final match drew a huge crowd downtown.",
+          "slice_dimensions": {
+            "context_source": [
+              "agent_curated_corpus_like_app_candidate_contexts"
+            ],
+            "family": [
+              "match"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-gap:dbe5b378f2cb"
+            ],
+            "review_state": [
+              "agent_draft_human_review_pending"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "corpus_sampled_app_candidate_contexts"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "representative_gap_primary",
+            "corpus_like_app_candidate",
+            "clear_active",
+            "sports"
+          ],
+          "source_phrase": "match"
+        },
+        {
+          "case_id": "en-es:representative-gap:v1:014",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:sentence-veto:match:cerilla:shadow",
+          "notes": "stage1_frame_row=en-es:stage1-representative-gap:4618c6875f89; context_source=agent_curated_corpus_like_app_candidate_contexts",
+          "sentence": "She struck a match to light the candle.",
+          "slice_dimensions": {
+            "context_source": [
+              "agent_curated_corpus_like_app_candidate_contexts"
+            ],
+            "family": [
+              "match"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-gap:4618c6875f89"
+            ],
+            "review_state": [
+              "agent_draft_human_review_pending"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "corpus_sampled_app_candidate_contexts"
+            ],
+            "winner_type": [
+              "shadow"
+            ]
+          },
+          "slice_tags": [
+            "representative_gap_primary",
+            "corpus_like_app_candidate",
+            "clear_shadow",
+            "fire"
+          ],
+          "source_phrase": "match"
+        },
+        {
+          "case_id": "en-es:sentence-veto:match:001",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:match:partido:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:5c747f0acee7; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "The match ended after extra time.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "match"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:5c747f0acee7"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "clear_active",
+            "sports"
+          ],
+          "source_phrase": "match"
+        },
+        {
+          "case_id": "en-es:sentence-veto:match:002",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:match:partido:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:fa9009146fc6; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "The stadium filled before the match began.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "match"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:fa9009146fc6"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "clear_active",
+            "sports"
+          ],
+          "source_phrase": "match"
+        },
+        {
+          "case_id": "en-es:sentence-veto:match:003",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:sentence-veto:match:cerilla:shadow",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:f6d0e07f0690; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "She lit a match beside the stove.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "match"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:f6d0e07f0690"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "shadow"
+            ]
+          },
+          "slice_tags": [
+            "clear_shadow",
+            "fire"
+          ],
+          "source_phrase": "match"
+        },
+        {
+          "case_id": "en-es:sentence-veto:match:004",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:sentence-veto:match:cerilla:shadow",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:c4e1e11c4179; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "He dropped the burning match into the sink.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "match"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:c4e1e11c4179"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "shadow"
+            ]
+          },
+          "slice_tags": [
+            "clear_shadow",
+            "fire"
+          ],
+          "source_phrase": "match"
+        },
+        {
+          "case_id": "en-es:sentence-veto:match:005",
+          "gold_decision": "abstain",
+          "gold_winner": "none",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:8c930c12dcd0; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "These curtains match the sofa perfectly.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "match"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:8c930c12dcd0"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "none"
+            ]
+          },
+          "slice_tags": [
+            "phrase_control",
+            "verb"
+          ],
+          "source_phrase": "match"
+        }
+      ],
+      "family_id": "en-es:sentence-veto:match:partido",
+      "shadows": [
+        {
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "all_evidence_text": "matchstick | small stick used to make fire | flame and stove",
+            "gloss_text": "small stick used to make fire",
+            "sense_gloss_bundle": "matchstick | fire",
+            "sense_label": "matchstick"
+          },
+          "sense_id": "en-es:sentence-veto:match:cerilla:shadow",
+          "target_lemma": "cerilla"
+        }
+      ],
+      "trigger": "match"
+    },
+    {
+      "active": {
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "all_evidence_text": "order as a purchase request | request to buy or deliver goods | purchase and shipment",
+          "gloss_text": "request to buy or deliver goods",
+          "sense_gloss_bundle": "order as a purchase request | purchase",
+          "sense_label": "order as a purchase request"
+        },
+        "sense_id": "en-es:sentence-veto:order:pedido:active",
+        "target_lemma": "pedido"
+      },
+      "cases": [
+        {
+          "case_id": "en-es:sentence-veto:order:001",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:order:pedido:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:5b3055554842; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "The order shipped this morning.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "order"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:5b3055554842"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "clear_active",
+            "commerce",
+            "weak_active_support",
+            "cross_pos"
+          ],
+          "source_phrase": "order"
+        },
+        {
+          "case_id": "en-es:sentence-veto:order:002",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:order:pedido:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:dbcd9f1c83e1; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "Your order arrived before noon.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "order"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:dbcd9f1c83e1"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "clear_active",
+            "commerce",
+            "weak_active_support",
+            "cross_pos"
+          ],
+          "source_phrase": "order"
+        },
+        {
+          "case_id": "en-es:sentence-veto:order:003",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:sentence-veto:order:ordenar:shadow",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:7f4aa5d16be8; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "Teachers order the class to remain silent.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "order"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:7f4aa5d16be8"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "shadow"
+            ]
+          },
+          "slice_tags": [
+            "clear_shadow",
+            "verb",
+            "cross_pos",
+            "command"
+          ],
+          "source_phrase": "order"
+        },
+        {
+          "case_id": "en-es:sentence-veto:order:004",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:sentence-veto:order:ordenar:shadow",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:9780324ddb3e; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "Commanders order the troops forward.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "order"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:9780324ddb3e"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "shadow"
+            ]
+          },
+          "slice_tags": [
+            "clear_shadow",
+            "verb",
+            "cross_pos",
+            "command"
+          ],
+          "source_phrase": "order"
+        },
+        {
+          "case_id": "en-es:sentence-veto:order:005",
+          "gold_decision": "abstain",
+          "gold_winner": "none",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:210402a9821f; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "We should order out tonight.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "order"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:210402a9821f"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "none"
+            ]
+          },
+          "slice_tags": [
+            "phrase_control",
+            "verb",
+            "cross_pos",
+            "lexicalized_expression"
+          ],
+          "source_phrase": "order"
+        }
+      ],
+      "family_id": "en-es:sentence-veto:order:pedido",
+      "shadows": [
+        {
+          "canonical_pos": "verb",
+          "evidence_views": {
+            "all_evidence_text": "order or command something | command or request that something be done | command and instruction",
+            "gloss_text": "command or request that something be done",
+            "sense_gloss_bundle": "order or command something | command",
+            "sense_label": "order or command something"
+          },
+          "sense_id": "en-es:sentence-veto:order:ordenar:shadow",
+          "target_lemma": "ordenar"
+        }
+      ],
+      "trigger": "order"
+    },
+    {
+      "active": {
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "all_evidence_text": "public park | public green space for recreation | trees and benches",
+          "gloss_text": "public green space for recreation",
+          "sense_gloss_bundle": "public park | green space",
+          "sense_label": "public park"
+        },
+        "sense_id": "en-es:sentence-veto:park:parque:active",
+        "target_lemma": "parque"
+      },
+      "cases": [
+        {
+          "case_id": "en-es:representative-gap:v1:021",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:park:parque:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-gap:88c7dc9c3511; context_source=agent_curated_corpus_like_app_candidate_contexts",
+          "sentence": "Families filled the park on Saturday afternoon.",
+          "slice_dimensions": {
+            "context_source": [
+              "agent_curated_corpus_like_app_candidate_contexts"
+            ],
+            "family": [
+              "park"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-gap:88c7dc9c3511"
+            ],
+            "review_state": [
+              "agent_draft_human_review_pending"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "corpus_sampled_app_candidate_contexts"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "representative_gap_primary",
+            "corpus_like_app_candidate",
+            "clear_active",
+            "place"
+          ],
+          "source_phrase": "park"
+        },
+        {
+          "case_id": "en-es:representative-gap:v1:022",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:sentence-veto:park:aparcar:shadow",
+          "notes": "stage1_frame_row=en-es:stage1-representative-gap:94c01272a2a0; context_source=agent_curated_corpus_like_app_candidate_contexts",
+          "sentence": "Please park the car behind the hotel.",
+          "slice_dimensions": {
+            "context_source": [
+              "agent_curated_corpus_like_app_candidate_contexts"
+            ],
+            "family": [
+              "park"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-gap:94c01272a2a0"
+            ],
+            "review_state": [
+              "agent_draft_human_review_pending"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "corpus_sampled_app_candidate_contexts"
+            ],
+            "winner_type": [
+              "shadow"
+            ]
+          },
+          "slice_tags": [
+            "representative_gap_primary",
+            "corpus_like_app_candidate",
+            "clear_shadow",
+            "verb"
+          ],
+          "source_phrase": "park"
+        },
+        {
+          "case_id": "en-es:sentence-veto:park:001",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:park:parque:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:b4d3a10d9069; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "The children ran through the park after school.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "park"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:b4d3a10d9069"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "clear_active",
+            "outdoors",
+            "weak_active_support",
+            "cross_pos"
+          ],
+          "source_phrase": "park"
+        },
+        {
+          "case_id": "en-es:sentence-veto:park:002",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:park:parque:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:f6e0c8534156; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "We met near the fountain in the park.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "park"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:f6e0c8534156"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "clear_active",
+            "outdoors",
+            "weak_active_support",
+            "cross_pos"
+          ],
+          "source_phrase": "park"
+        },
+        {
+          "case_id": "en-es:sentence-veto:park:003",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:sentence-veto:park:aparcar:shadow",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:a1e75254987f; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "Please park behind the building.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "park"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:a1e75254987f"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "shadow"
+            ]
+          },
+          "slice_tags": [
+            "clear_shadow",
+            "verb",
+            "cross_pos"
+          ],
+          "source_phrase": "park"
+        },
+        {
+          "case_id": "en-es:sentence-veto:park:004",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:sentence-veto:park:aparcar:shadow",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:09d5cf0ec09f; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "They had to park on the next block.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "park"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:09d5cf0ec09f"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "shadow"
+            ]
+          },
+          "slice_tags": [
+            "clear_shadow",
+            "verb",
+            "cross_pos"
+          ],
+          "source_phrase": "park"
+        },
+        {
+          "case_id": "en-es:sentence-veto:park:005",
+          "gold_decision": "abstain",
+          "gold_winner": "none",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:ba2e3fb09da5; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "The committee will park that issue for now.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "park"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:ba2e3fb09da5"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "none"
+            ]
+          },
+          "slice_tags": [
+            "phrase_control",
+            "verb",
+            "cross_pos",
+            "lexicalized_expression"
+          ],
+          "source_phrase": "park"
+        }
+      ],
+      "family_id": "en-es:sentence-veto:park:parque",
+      "shadows": [
+        {
+          "canonical_pos": "verb",
+          "evidence_views": {
+            "all_evidence_text": "to park a vehicle | leave a vehicle in a place temporarily | car and garage",
+            "gloss_text": "leave a vehicle in a place temporarily",
+            "sense_gloss_bundle": "park a vehicle | leave a car",
+            "sense_label": "to park a vehicle"
+          },
+          "sense_id": "en-es:sentence-veto:park:aparcar:shadow",
+          "target_lemma": "aparcar"
+        }
+      ],
+      "trigger": "park"
+    },
+    {
+      "active": {
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "all_evidence_text": "living plant | living organism that grows in soil or water | leaves and stems",
+          "gloss_text": "living organism that grows in soil or water",
+          "sense_gloss_bundle": "living plant | botanical organism",
+          "sense_label": "living plant"
+        },
+        "sense_id": "en-es:sentence-veto:plant:planta:active",
+        "target_lemma": "planta"
+      },
+      "cases": [
+        {
+          "case_id": "en-es:representative-gap:v1:004",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:plant:planta:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-gap:bb107889c88e; context_source=agent_curated_corpus_like_app_candidate_contexts",
+          "sentence": "A small plant on the shelf drooped in the heat.",
+          "slice_dimensions": {
+            "context_source": [
+              "agent_curated_corpus_like_app_candidate_contexts"
+            ],
+            "family": [
+              "plant"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-gap:bb107889c88e"
+            ],
+            "review_state": [
+              "agent_draft_human_review_pending"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "corpus_sampled_app_candidate_contexts"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "representative_gap_primary",
+            "corpus_like_app_candidate",
+            "clear_active",
+            "home"
+          ],
+          "source_phrase": "plant"
+        },
+        {
+          "case_id": "en-es:representative-gap:v1:005",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:sentence-veto:plant:fabrica:shadow",
+          "notes": "stage1_frame_row=en-es:stage1-representative-gap:2e6a75c6a23f; context_source=agent_curated_corpus_like_app_candidate_contexts",
+          "sentence": "The plant produces parts for electric buses.",
+          "slice_dimensions": {
+            "context_source": [
+              "agent_curated_corpus_like_app_candidate_contexts"
+            ],
+            "family": [
+              "plant"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-gap:2e6a75c6a23f"
+            ],
+            "review_state": [
+              "agent_draft_human_review_pending"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "corpus_sampled_app_candidate_contexts"
+            ],
+            "winner_type": [
+              "shadow"
+            ]
+          },
+          "slice_tags": [
+            "representative_gap_primary",
+            "corpus_like_app_candidate",
+            "clear_shadow",
+            "industry"
+          ],
+          "source_phrase": "plant"
+        },
+        {
+          "case_id": "en-es:sentence-veto:plant:001",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:plant:planta:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:81614ba17b6a; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "She watered the plant on the windowsill.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "plant"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:81614ba17b6a"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "clear_active",
+            "home"
+          ],
+          "source_phrase": "plant"
+        },
+        {
+          "case_id": "en-es:sentence-veto:plant:002",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:plant:planta:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:924bee729267; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "The plant needs more sunlight in the afternoon.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "plant"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:924bee729267"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "clear_active",
+            "home"
+          ],
+          "source_phrase": "plant"
+        },
+        {
+          "case_id": "en-es:sentence-veto:plant:003",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:sentence-veto:plant:fabrica:shadow",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:8befbaba3298; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "The steel plant closed after the strike.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "plant"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:8befbaba3298"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "shadow"
+            ]
+          },
+          "slice_tags": [
+            "clear_shadow",
+            "industry"
+          ],
+          "source_phrase": "plant"
+        },
+        {
+          "case_id": "en-es:sentence-veto:plant:004",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:sentence-veto:plant:fabrica:shadow",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:539daecc1b59; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "Hundreds of workers left the chemical plant at noon.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "plant"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:539daecc1b59"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "shadow"
+            ]
+          },
+          "slice_tags": [
+            "clear_shadow",
+            "industry"
+          ],
+          "source_phrase": "plant"
+        },
+        {
+          "case_id": "en-es:sentence-veto:plant:005",
+          "gold_decision": "abstain",
+          "gold_winner": "none",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:5a93f36c07fd; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "They tried to plant evidence in his office.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "plant"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:5a93f36c07fd"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "none"
+            ]
+          },
+          "slice_tags": [
+            "phrase_control",
+            "verb"
+          ],
+          "source_phrase": "plant"
+        }
+      ],
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "shadows": [
+        {
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "all_evidence_text": "industrial plant | factory where goods are manufactured | industrial site",
+            "gloss_text": "factory where goods are manufactured",
+            "sense_gloss_bundle": "industrial plant | factory",
+            "sense_label": "industrial plant"
+          },
+          "sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+          "target_lemma": "fábrica"
+        }
+      ],
+      "trigger": "plant"
+    },
+    {
+      "active": {
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "all_evidence_text": "play as a theater work | dramatic work written for the stage | theater and actors",
+          "gloss_text": "dramatic work written for the stage",
+          "sense_gloss_bundle": "play as a theater work | drama",
+          "sense_label": "play as a theater work"
+        },
+        "sense_id": "en-es:sentence-veto:play:obra:active",
+        "target_lemma": "obra"
+      },
+      "cases": [
+        {
+          "case_id": "en-es:representative-gap:v1:024",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:play:obra:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-gap:ef593b099f53; context_source=agent_curated_corpus_like_app_candidate_contexts",
+          "sentence": "The school play starts at seven tonight.",
+          "slice_dimensions": {
+            "context_source": [
+              "agent_curated_corpus_like_app_candidate_contexts"
+            ],
+            "family": [
+              "play"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-gap:ef593b099f53"
+            ],
+            "review_state": [
+              "agent_draft_human_review_pending"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "corpus_sampled_app_candidate_contexts"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "representative_gap_primary",
+            "corpus_like_app_candidate",
+            "clear_active",
+            "theater"
+          ],
+          "source_phrase": "play"
+        },
+        {
+          "case_id": "en-es:sentence-veto:play:001",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:play:obra:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:0c209fc4f19f; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "They praised the play in reviews.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "play"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:0c209fc4f19f"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "clear_active",
+            "arts",
+            "weak_active_support",
+            "cross_pos"
+          ],
+          "source_phrase": "play"
+        },
+        {
+          "case_id": "en-es:sentence-veto:play:002",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:play:obra:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:8f6b6196509b; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "The play opened last night.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "play"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:8f6b6196509b"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "clear_active",
+            "arts",
+            "weak_active_support",
+            "cross_pos"
+          ],
+          "source_phrase": "play"
+        },
+        {
+          "case_id": "en-es:sentence-veto:play:003",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:sentence-veto:play:jugar:shadow",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:89ea2c0c43ce; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "The children play outside after school.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "play"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:89ea2c0c43ce"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "shadow"
+            ]
+          },
+          "slice_tags": [
+            "clear_shadow",
+            "verb",
+            "cross_pos",
+            "activity"
+          ],
+          "source_phrase": "play"
+        },
+        {
+          "case_id": "en-es:sentence-veto:play:004",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:sentence-veto:play:jugar:shadow",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:5f43749ce308; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "She likes to play chess online.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "play"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:5f43749ce308"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "shadow"
+            ]
+          },
+          "slice_tags": [
+            "clear_shadow",
+            "verb",
+            "cross_pos",
+            "activity"
+          ],
+          "source_phrase": "play"
+        },
+        {
+          "case_id": "en-es:sentence-veto:play:005",
+          "gold_decision": "abstain",
+          "gold_winner": "none",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:5c71cdaba557; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "The scandal will play out over several weeks.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "play"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:5c71cdaba557"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "none"
+            ]
+          },
+          "slice_tags": [
+            "phrase_control",
+            "verb",
+            "cross_pos",
+            "lexicalized_expression"
+          ],
+          "source_phrase": "play"
+        }
+      ],
+      "family_id": "en-es:sentence-veto:play:obra",
+      "shadows": [
+        {
+          "canonical_pos": "verb",
+          "evidence_views": {
+            "all_evidence_text": "play a game | take part in a game or sport | compete and score",
+            "gloss_text": "take part in a game or sport",
+            "sense_gloss_bundle": "play a game | participate",
+            "sense_label": "play a game"
+          },
+          "sense_id": "en-es:sentence-veto:play:jugar:shadow",
+          "target_lemma": "jugar"
+        }
+      ],
+      "trigger": "play"
+    },
+    {
+      "active": {
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "all_evidence_text": "written report or formal account | written document describing facts, results, or findings | document and findings",
+          "gloss_text": "written document describing facts, results, or findings",
+          "sense_gloss_bundle": "written report or formal account | report document",
+          "sense_label": "written report or formal account"
+        },
+        "sense_id": "en-es:sentence-veto:report:informe:active",
+        "target_lemma": "informe"
+      },
+      "cases": [
+        {
+          "case_id": "en-es:sentence-veto:report:001",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:report:informe:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:a33ba11a5c0a; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "The report arrived this morning.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "report"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:a33ba11a5c0a"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "clear_active",
+            "document",
+            "weak_active_support",
+            "cross_pos"
+          ],
+          "source_phrase": "report"
+        },
+        {
+          "case_id": "en-es:sentence-veto:report:002",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:report:informe:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:1880622ed1b8; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "The report was delayed until Friday.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "report"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:1880622ed1b8"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "clear_active",
+            "document",
+            "weak_active_support",
+            "cross_pos"
+          ],
+          "source_phrase": "report"
+        },
+        {
+          "case_id": "en-es:sentence-veto:report:003",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:sentence-veto:report:informar:shadow",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:94d44b5bb20c; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "Witnesses report heavy rain near the coast.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "report"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:94d44b5bb20c"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "shadow"
+            ]
+          },
+          "slice_tags": [
+            "clear_shadow",
+            "verb",
+            "cross_pos",
+            "communication"
+          ],
+          "source_phrase": "report"
+        },
+        {
+          "case_id": "en-es:sentence-veto:report:004",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:sentence-veto:report:informar:shadow",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:6566fee4c9d1; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "Analysts report slower growth this quarter.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "report"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:6566fee4c9d1"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "shadow"
+            ]
+          },
+          "slice_tags": [
+            "clear_shadow",
+            "verb",
+            "cross_pos",
+            "communication"
+          ],
+          "source_phrase": "report"
+        },
+        {
+          "case_id": "en-es:sentence-veto:report:005",
+          "gold_decision": "abstain",
+          "gold_winner": "none",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:42aa53dd0b10; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "Please report back after the conference.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "report"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:42aa53dd0b10"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "none"
+            ]
+          },
+          "slice_tags": [
+            "phrase_control",
+            "verb",
+            "cross_pos",
+            "lexicalized_expression"
+          ],
+          "source_phrase": "report"
+        }
+      ],
+      "family_id": "en-es:sentence-veto:report:informe",
+      "shadows": [
+        {
+          "canonical_pos": "verb",
+          "evidence_views": {
+            "all_evidence_text": "report or state information | tell, announce, or state information | say and announce",
+            "gloss_text": "tell, announce, or state information",
+            "sense_gloss_bundle": "report or state information | inform",
+            "sense_label": "report or state information"
+          },
+          "sense_id": "en-es:sentence-veto:report:informar:shadow",
+          "target_lemma": "informar"
+        }
+      ],
+      "trigger": "report"
+    },
+    {
+      "active": {
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "all_evidence_text": "official seal | stamp or emblem used to certify a document | wax and certificate",
+          "gloss_text": "stamp or emblem used to certify a document",
+          "sense_gloss_bundle": "official seal | emblem",
+          "sense_label": "official seal"
+        },
+        "sense_id": "en-es:sentence-veto:seal:sello:active",
+        "target_lemma": "sello"
+      },
+      "cases": [
+        {
+          "case_id": "en-es:representative-gap:v1:010",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:seal:sello:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-gap:bdf951c92bcf; context_source=agent_curated_corpus_like_app_candidate_contexts",
+          "sentence": "The customs seal on the box was still intact.",
+          "slice_dimensions": {
+            "context_source": [
+              "agent_curated_corpus_like_app_candidate_contexts"
+            ],
+            "family": [
+              "seal"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-gap:bdf951c92bcf"
+            ],
+            "review_state": [
+              "agent_draft_human_review_pending"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "corpus_sampled_app_candidate_contexts"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "representative_gap_primary",
+            "corpus_like_app_candidate",
+            "clear_active",
+            "shipping"
+          ],
+          "source_phrase": "seal"
+        },
+        {
+          "case_id": "en-es:representative-gap:v1:011",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:sentence-veto:seal:foca:shadow",
+          "notes": "stage1_frame_row=en-es:stage1-representative-gap:1c0cf7b82fe9; context_source=agent_curated_corpus_like_app_candidate_contexts",
+          "sentence": "A gray seal surfaced beside the boat.",
+          "slice_dimensions": {
+            "context_source": [
+              "agent_curated_corpus_like_app_candidate_contexts"
+            ],
+            "family": [
+              "seal"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-gap:1c0cf7b82fe9"
+            ],
+            "review_state": [
+              "agent_draft_human_review_pending"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "corpus_sampled_app_candidate_contexts"
+            ],
+            "winner_type": [
+              "shadow"
+            ]
+          },
+          "slice_tags": [
+            "representative_gap_primary",
+            "corpus_like_app_candidate",
+            "clear_shadow",
+            "animal"
+          ],
+          "source_phrase": "seal"
+        },
+        {
+          "case_id": "en-es:sentence-veto:seal:001",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:seal:sello:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:c001e6f4a95e; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "The certificate carries the official seal.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "seal"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:c001e6f4a95e"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "clear_active",
+            "document"
+          ],
+          "source_phrase": "seal"
+        },
+        {
+          "case_id": "en-es:sentence-veto:seal:002",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:seal:sello:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:ddf2e47fb267; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "She pressed the seal into the hot wax.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "seal"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:ddf2e47fb267"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "clear_active",
+            "document"
+          ],
+          "source_phrase": "seal"
+        },
+        {
+          "case_id": "en-es:sentence-veto:seal:003",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:sentence-veto:seal:foca:shadow",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:6e6090a733ca; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "A seal rested on the icy rock.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "seal"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:6e6090a733ca"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "shadow"
+            ]
+          },
+          "slice_tags": [
+            "clear_shadow",
+            "animal"
+          ],
+          "source_phrase": "seal"
+        },
+        {
+          "case_id": "en-es:sentence-veto:seal:004",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:sentence-veto:seal:foca:shadow",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:da847bc2870e; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "The seal disappeared beneath the water.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "seal"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:da847bc2870e"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "shadow"
+            ]
+          },
+          "slice_tags": [
+            "clear_shadow",
+            "animal"
+          ],
+          "source_phrase": "seal"
+        },
+        {
+          "case_id": "en-es:sentence-veto:seal:005",
+          "gold_decision": "abstain",
+          "gold_winner": "none",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:3dade2426df9; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "Please seal the envelope before mailing it.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "seal"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:3dade2426df9"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "none"
+            ]
+          },
+          "slice_tags": [
+            "phrase_control",
+            "verb"
+          ],
+          "source_phrase": "seal"
+        }
+      ],
+      "family_id": "en-es:sentence-veto:seal:sello",
+      "shadows": [
+        {
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "all_evidence_text": "marine seal | ocean mammal with flippers | water and rock",
+            "gloss_text": "ocean mammal with flippers",
+            "sense_gloss_bundle": "marine seal | sea mammal",
+            "sense_label": "marine seal"
+          },
+          "sense_id": "en-es:sentence-veto:seal:foca:shadow",
+          "target_lemma": "foca"
+        }
+      ],
+      "trigger": "seal"
+    },
+    {
+      "active": {
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "all_evidence_text": "spring season | season between winter and summer | weather and blossoms",
+          "gloss_text": "season between winter and summer",
+          "sense_gloss_bundle": "spring season | time of year",
+          "sense_label": "spring season"
+        },
+        "sense_id": "en-es:sentence-veto:spring:primavera:active",
+        "target_lemma": "primavera"
+      },
+      "cases": [
+        {
+          "case_id": "en-es:representative-gap:v1:008",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:spring:primavera:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-gap:36b6b148223f; context_source=agent_curated_corpus_like_app_candidate_contexts",
+          "sentence": "Spring arrived early after a mild winter.",
+          "slice_dimensions": {
+            "context_source": [
+              "agent_curated_corpus_like_app_candidate_contexts"
+            ],
+            "family": [
+              "spring"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-gap:36b6b148223f"
+            ],
+            "review_state": [
+              "agent_draft_human_review_pending"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "corpus_sampled_app_candidate_contexts"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "representative_gap_primary",
+            "corpus_like_app_candidate",
+            "clear_active",
+            "season"
+          ],
+          "source_phrase": "spring"
+        },
+        {
+          "case_id": "en-es:representative-gap:v1:009",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:sentence-veto:spring:resorte:shadow",
+          "notes": "stage1_frame_row=en-es:stage1-representative-gap:e690c202c130; context_source=agent_curated_corpus_like_app_candidate_contexts",
+          "sentence": "The spring inside the pen snapped during class.",
+          "slice_dimensions": {
+            "context_source": [
+              "agent_curated_corpus_like_app_candidate_contexts"
+            ],
+            "family": [
+              "spring"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-gap:e690c202c130"
+            ],
+            "review_state": [
+              "agent_draft_human_review_pending"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "corpus_sampled_app_candidate_contexts"
+            ],
+            "winner_type": [
+              "shadow"
+            ]
+          },
+          "slice_tags": [
+            "representative_gap_primary",
+            "corpus_like_app_candidate",
+            "clear_shadow",
+            "mechanical"
+          ],
+          "source_phrase": "spring"
+        },
+        {
+          "case_id": "en-es:sentence-veto:spring:001",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:spring:primavera:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:ac9a97388761; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "Warm rain usually arrives in spring.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "spring"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:ac9a97388761"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "clear_active",
+            "season"
+          ],
+          "source_phrase": "spring"
+        },
+        {
+          "case_id": "en-es:sentence-veto:spring:002",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:spring:primavera:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:3f7aa517e2a2; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "The park looks beautiful in the spring.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "spring"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:3f7aa517e2a2"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "clear_active",
+            "season"
+          ],
+          "source_phrase": "spring"
+        },
+        {
+          "case_id": "en-es:sentence-veto:spring:003",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:sentence-veto:spring:resorte:shadow",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:11514e347121; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "The spring inside the lock snapped suddenly.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "spring"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:11514e347121"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "shadow"
+            ]
+          },
+          "slice_tags": [
+            "clear_shadow",
+            "mechanical"
+          ],
+          "source_phrase": "spring"
+        },
+        {
+          "case_id": "en-es:sentence-veto:spring:004",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:sentence-veto:spring:resorte:shadow",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:3ed907ca84d2; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "He replaced the broken spring in the toy.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "spring"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:3ed907ca84d2"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "shadow"
+            ]
+          },
+          "slice_tags": [
+            "clear_shadow",
+            "mechanical"
+          ],
+          "source_phrase": "spring"
+        },
+        {
+          "case_id": "en-es:sentence-veto:spring:005",
+          "gold_decision": "abstain",
+          "gold_winner": "none",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:f837ba205d46; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "The team will spring into action at dawn.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "spring"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:f837ba205d46"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "none"
+            ]
+          },
+          "slice_tags": [
+            "phrase_control",
+            "verb"
+          ],
+          "source_phrase": "spring"
+        }
+      ],
+      "family_id": "en-es:sentence-veto:spring:primavera",
+      "shadows": [
+        {
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "all_evidence_text": "metal spring | coiled piece of metal that compresses or stretches | machine and tension",
+            "gloss_text": "coiled piece of metal that compresses or stretches",
+            "sense_gloss_bundle": "metal spring | coil",
+            "sense_label": "metal spring"
+          },
+          "sense_id": "en-es:sentence-veto:spring:resorte:shadow",
+          "target_lemma": "resorte"
+        }
+      ],
+      "trigger": "spring"
+    },
+    {
+      "active": {
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "all_evidence_text": "furniture table | piece of furniture with a flat top and legs | dining room and kitchen",
+          "gloss_text": "piece of furniture with a flat top and legs",
+          "sense_gloss_bundle": "furniture table | furniture",
+          "sense_label": "furniture table"
+        },
+        "sense_id": "en-es:sentence-veto:table:mesa:active",
+        "target_lemma": "mesa"
+      },
+      "cases": [
+        {
+          "case_id": "en-es:representative-gap:v1:017",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:table:mesa:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-gap:edec39a698f9; context_source=agent_curated_corpus_like_app_candidate_contexts",
+          "sentence": "The table near the window seats four people.",
+          "slice_dimensions": {
+            "context_source": [
+              "agent_curated_corpus_like_app_candidate_contexts"
+            ],
+            "family": [
+              "table"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-gap:edec39a698f9"
+            ],
+            "review_state": [
+              "agent_draft_human_review_pending"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "corpus_sampled_app_candidate_contexts"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "representative_gap_primary",
+            "corpus_like_app_candidate",
+            "clear_active",
+            "furniture"
+          ],
+          "source_phrase": "table"
+        },
+        {
+          "case_id": "en-es:representative-gap:v1:018",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:sentence-veto:table:tabla:shadow",
+          "notes": "stage1_frame_row=en-es:stage1-representative-gap:76ced583cd9a; context_source=agent_curated_corpus_like_app_candidate_contexts",
+          "sentence": "The table in the report lists every expense.",
+          "slice_dimensions": {
+            "context_source": [
+              "agent_curated_corpus_like_app_candidate_contexts"
+            ],
+            "family": [
+              "table"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-gap:76ced583cd9a"
+            ],
+            "review_state": [
+              "agent_draft_human_review_pending"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "corpus_sampled_app_candidate_contexts"
+            ],
+            "winner_type": [
+              "shadow"
+            ]
+          },
+          "slice_tags": [
+            "representative_gap_primary",
+            "corpus_like_app_candidate",
+            "clear_shadow",
+            "data"
+          ],
+          "source_phrase": "table"
+        },
+        {
+          "case_id": "en-es:sentence-veto:table:001",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:table:mesa:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:ad4a6309e489; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "The plates are already on the table.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "table"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:ad4a6309e489"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "clear_active",
+            "home"
+          ],
+          "source_phrase": "table"
+        },
+        {
+          "case_id": "en-es:sentence-veto:table:002",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:table:mesa:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:848f03e45138; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "We left the flowers on the kitchen table.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "table"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:848f03e45138"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "clear_active",
+            "home"
+          ],
+          "source_phrase": "table"
+        },
+        {
+          "case_id": "en-es:sentence-veto:table:003",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:sentence-veto:table:tabla:shadow",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:ea833ea89e99; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "The table of exchange rates appears in the appendix.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "table"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:ea833ea89e99"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "shadow"
+            ]
+          },
+          "slice_tags": [
+            "clear_shadow",
+            "document"
+          ],
+          "source_phrase": "table"
+        },
+        {
+          "case_id": "en-es:sentence-veto:table:004",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:sentence-veto:table:tabla:shadow",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:af601be422a1; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "The budget table lists every department in one column.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "table"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:af601be422a1"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "shadow"
+            ]
+          },
+          "slice_tags": [
+            "clear_shadow",
+            "document"
+          ],
+          "source_phrase": "table"
+        },
+        {
+          "case_id": "en-es:sentence-veto:table:005",
+          "gold_decision": "abstain",
+          "gold_winner": "none",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:767dc37b14e3; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "They will table the amendment until Friday.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "table"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:767dc37b14e3"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "none"
+            ]
+          },
+          "slice_tags": [
+            "phrase_control",
+            "cross_pos",
+            "lexicalized_expression"
+          ],
+          "source_phrase": "table"
+        }
+      ],
+      "family_id": "en-es:sentence-veto:table:mesa",
+      "shadows": [
+        {
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "all_evidence_text": "data table | structured chart with rows and columns | appendix and totals",
+            "gloss_text": "structured chart with rows and columns",
+            "sense_gloss_bundle": "data table | chart",
+            "sense_label": "data table"
+          },
+          "sense_id": "en-es:sentence-veto:table:tabla:shadow",
+          "target_lemma": "tabla"
+        }
+      ],
+      "trigger": "table"
+    },
+    {
+      "active": {
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "all_evidence_text": "trip or short journey | brief journey or outing | noun sense",
+          "gloss_text": "brief journey or outing",
+          "sense_gloss_bundle": "trip or short journey | brief journey or outing",
+          "sense_label": "trip or short journey"
+        },
+        "sense_id": "en-es:sentence-veto:trip:viaje:active",
+        "target_lemma": "viaje"
+      },
+      "cases": [
+        {
+          "case_id": "en-es:sentence-veto:trip:001",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:trip:viaje:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:48f254c07caf; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "The trip lasted only two days.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "trip"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:48f254c07caf"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "clear_active"
+          ],
+          "source_phrase": "trip"
+        },
+        {
+          "case_id": "en-es:sentence-veto:trip:002",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:trip:viaje:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:89b89cf4f074; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "Their trip ended before sunrise.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "trip"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:89b89cf4f074"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "weak_active_support"
+          ],
+          "source_phrase": "trip"
+        },
+        {
+          "case_id": "en-es:sentence-veto:trip:003",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:sentence-veto:trip:viaje:shadow",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:c1586d2431c9; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "Runners trip on these loose stones.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "trip"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:c1586d2431c9"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "shadow"
+            ]
+          },
+          "slice_tags": [
+            "clear_shadow"
+          ],
+          "source_phrase": "trip"
+        },
+        {
+          "case_id": "en-es:sentence-veto:trip:004",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:sentence-veto:trip:viaje:shadow",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:c376abae6c95; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "Children trip if the laces come loose.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "trip"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:c376abae6c95"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "shadow"
+            ]
+          },
+          "slice_tags": [
+            "clear_shadow"
+          ],
+          "source_phrase": "trip"
+        },
+        {
+          "case_id": "en-es:sentence-veto:trip:005",
+          "gold_decision": "abstain",
+          "gold_winner": "none",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:66de2d80638f; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "That question can trip up new hires.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "trip"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:66de2d80638f"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "none"
+            ]
+          },
+          "slice_tags": [
+            "phrase_control",
+            "idiom"
+          ],
+          "source_phrase": "trip"
+        }
+      ],
+      "family_id": "en-es:sentence-veto:trip:viaje",
+      "shadows": [
+        {
+          "canonical_pos": "verb",
+          "evidence_views": {
+            "all_evidence_text": "to trip or stumble | catch a foot and stumble | verb sense",
+            "gloss_text": "catch a foot and stumble",
+            "sense_gloss_bundle": "to trip or stumble | catch a foot and stumble",
+            "sense_label": "to trip or stumble"
+          },
+          "sense_id": "en-es:sentence-veto:trip:viaje:shadow",
+          "target_lemma": "tropezar"
+        }
+      ],
+      "trigger": "trip"
+    },
+    {
+      "active": {
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "all_evidence_text": "watch as a timepiece | small portable clock worn or carried | wrist and battery",
+          "gloss_text": "small portable clock worn or carried",
+          "sense_gloss_bundle": "watch as a timepiece | clock",
+          "sense_label": "watch as a timepiece"
+        },
+        "sense_id": "en-es:sentence-veto:watch:reloj:active",
+        "target_lemma": "reloj"
+      },
+      "cases": [
+        {
+          "case_id": "en-es:representative-gap:v1:025",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:watch:reloj:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-gap:8269d9eaa508; context_source=agent_curated_corpus_like_app_candidate_contexts",
+          "sentence": "His watch stopped just before the meeting.",
+          "slice_dimensions": {
+            "context_source": [
+              "agent_curated_corpus_like_app_candidate_contexts"
+            ],
+            "family": [
+              "watch"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-gap:8269d9eaa508"
+            ],
+            "review_state": [
+              "agent_draft_human_review_pending"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "corpus_sampled_app_candidate_contexts"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "representative_gap_primary",
+            "corpus_like_app_candidate",
+            "clear_active",
+            "object"
+          ],
+          "source_phrase": "watch"
+        },
+        {
+          "case_id": "en-es:sentence-veto:watch:001",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:watch:reloj:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:97161fef50b2; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "He adjusted his watch strap before the interview.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "watch"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:97161fef50b2"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "clear_active",
+            "accessory",
+            "weak_active_support",
+            "cross_pos"
+          ],
+          "source_phrase": "watch"
+        },
+        {
+          "case_id": "en-es:sentence-veto:watch:002",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:sentence-veto:watch:reloj:active",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:7b9ba99de62e; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "The watch needed a new battery after the trip.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "watch"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:7b9ba99de62e"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "active"
+            ]
+          },
+          "slice_tags": [
+            "clear_active",
+            "accessory",
+            "weak_active_support",
+            "cross_pos"
+          ],
+          "source_phrase": "watch"
+        },
+        {
+          "case_id": "en-es:sentence-veto:watch:003",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:sentence-veto:watch:vigilar:shadow",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:949bf4ae9837; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "Parents watch their children closely at the beach.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "watch"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:949bf4ae9837"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "shadow"
+            ]
+          },
+          "slice_tags": [
+            "clear_shadow",
+            "verb",
+            "cross_pos",
+            "observation"
+          ],
+          "source_phrase": "watch"
+        },
+        {
+          "case_id": "en-es:sentence-veto:watch:004",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:sentence-veto:watch:vigilar:shadow",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:73b2de0ad721; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "Guards watch the entrance through the night.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "watch"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:73b2de0ad721"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "shadow"
+            ]
+          },
+          "slice_tags": [
+            "clear_shadow",
+            "verb",
+            "cross_pos",
+            "observation"
+          ],
+          "source_phrase": "watch"
+        },
+        {
+          "case_id": "en-es:sentence-veto:watch:005",
+          "gold_decision": "abstain",
+          "gold_winner": "none",
+          "notes": "stage1_frame_row=en-es:stage1-representative-frame:ac2ecb46a5c1; context_source=existing_sentence_veto_v10_representative_proxy",
+          "sentence": "You should watch out for black ice on the bridge.",
+          "slice_dimensions": {
+            "context_source": [
+              "existing_sentence_veto_v10_representative_proxy"
+            ],
+            "family": [
+              "watch"
+            ],
+            "frame_row_id": [
+              "en-es:stage1-representative-frame:ac2ecb46a5c1"
+            ],
+            "selected_for_locked_eval": [
+              "true"
+            ],
+            "source_id": [
+              "sampling_stage1_representative_current_policy"
+            ],
+            "winner_type": [
+              "none"
+            ]
+          },
+          "slice_tags": [
+            "phrase_control",
+            "verb",
+            "cross_pos",
+            "lexicalized_expression"
+          ],
+          "source_phrase": "watch"
+        }
+      ],
+      "family_id": "en-es:sentence-veto:watch:reloj",
+      "shadows": [
+        {
+          "canonical_pos": "verb",
+          "evidence_views": {
+            "all_evidence_text": "watch or guard carefully | observe carefully or guard something over time | guard and monitor",
+            "gloss_text": "observe carefully or guard something over time",
+            "sense_gloss_bundle": "watch or guard carefully | monitor",
+            "sense_label": "watch or guard carefully"
+          },
+          "sense_id": "en-es:sentence-veto:watch:vigilar:shadow",
+          "target_lemma": "vigilar"
+        }
+      ],
+      "trigger": "watch"
+    }
+  ],
+  "generated_at": "2026-05-05T18:21:56Z",
+  "methodology": {
+    "family_evidence_source": "docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v10.json",
+    "gap_rows_are_agent_draft_human_review_pending": true,
+    "representative_frame_source": "docs/test_outputs/semantic_veto_sampling_stage1_representative_frame_en_es_latest.json",
+    "runtime_policy_change": "none",
+    "selection_used_scoring_fields": false,
+    "threshold_or_scorer_change": "none"
+  },
+  "pair": "en-es",
+  "schema_version": 1,
+  "source_frame_id": "semantic_veto_sampling_stage1_representative_frame_en_es_v1"
+}

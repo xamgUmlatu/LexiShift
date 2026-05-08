@@ -1,0 +1,6456 @@
+{
+  "decision": "srs_zipf_bridge_established",
+  "full_source_target_family_zipf_matrix": [
+    {
+      "family_count": 42,
+      "sample_families": [
+        {
+          "source": "among",
+          "target": "entre"
+        },
+        {
+          "source": "away",
+          "target": "lejos"
+        },
+        {
+          "source": "beginning",
+          "target": "principio"
+        },
+        {
+          "source": "between",
+          "target": "entre"
+        },
+        {
+          "source": "brother",
+          "target": "hermano"
+        },
+        {
+          "source": "capital",
+          "target": "capital"
+        },
+        {
+          "source": "century",
+          "target": "siglo"
+        },
+        {
+          "source": "chief",
+          "target": "jefe"
+        },
+        {
+          "source": "december",
+          "target": "diciembre"
+        },
+        {
+          "source": "director",
+          "target": "director"
+        },
+        {
+          "source": "even",
+          "target": "par"
+        },
+        {
+          "source": "far",
+          "target": "lejos"
+        }
+      ],
+      "share": 0.0737,
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "target_zipf_band_es": "zipf_5_plus_very_common"
+    },
+    {
+      "family_count": 42,
+      "sample_families": [
+        {
+          "source": "access",
+          "target": "entrada"
+        },
+        {
+          "source": "action",
+          "target": "batalla"
+        },
+        {
+          "source": "american",
+          "target": "americano"
+        },
+        {
+          "source": "ask",
+          "target": "preguntar"
+        },
+        {
+          "source": "break",
+          "target": "romper"
+        },
+        {
+          "source": "car",
+          "target": "automóvil"
+        },
+        {
+          "source": "chief",
+          "target": "amo"
+        },
+        {
+          "source": "close",
+          "target": "estrecho"
+        },
+        {
+          "source": "control",
+          "target": "gobernar"
+        },
+        {
+          "source": "court",
+          "target": "patio"
+        },
+        {
+          "source": "cup",
+          "target": "taza"
+        },
+        {
+          "source": "current",
+          "target": "contemporáneo"
+        }
+      ],
+      "share": 0.0737,
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "target_zipf_band_es": "zipf_4_to_5_common"
+    },
+    {
+      "family_count": 21,
+      "sample_families": [
+        {
+          "source": "ask",
+          "target": "demandar"
+        },
+        {
+          "source": "back",
+          "target": "reverso"
+        },
+        {
+          "source": "base",
+          "target": "basar"
+        },
+        {
+          "source": "bed",
+          "target": "cauce"
+        },
+        {
+          "source": "book",
+          "target": "reservar"
+        },
+        {
+          "source": "break",
+          "target": "quebrar"
+        },
+        {
+          "source": "check",
+          "target": "reprimir"
+        },
+        {
+          "source": "continue",
+          "target": "durar"
+        },
+        {
+          "source": "cross",
+          "target": "atravesar"
+        },
+        {
+          "source": "drive",
+          "target": "propulsión"
+        },
+        {
+          "source": "figure",
+          "target": "calcular"
+        },
+        {
+          "source": "form",
+          "target": "formulario"
+        }
+      ],
+      "share": 0.0368,
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "target_zipf_band_es": "zipf_3_to_4_mid"
+    },
+    {
+      "family_count": 4,
+      "sample_families": [
+        {
+          "source": "become",
+          "target": "acontecer"
+        },
+        {
+          "source": "cover",
+          "target": "forrar"
+        },
+        {
+          "source": "front",
+          "target": "frontón"
+        },
+        {
+          "source": "happen",
+          "target": "acontecer"
+        }
+      ],
+      "share": 0.007,
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "target_zipf_band_es": "zipf_below_3_rare"
+    },
+    {
+      "family_count": 24,
+      "sample_families": [
+        {
+          "source": "absence",
+          "target": "falta"
+        },
+        {
+          "source": "afternoon",
+          "target": "tarde"
+        },
+        {
+          "source": "author",
+          "target": "autor"
+        },
+        {
+          "source": "background",
+          "target": "fondo"
+        },
+        {
+          "source": "boss",
+          "target": "jefe"
+        },
+        {
+          "source": "crisis",
+          "target": "crisis"
+        },
+        {
+          "source": "depression",
+          "target": "crisis"
+        },
+        {
+          "source": "emergency",
+          "target": "crisis"
+        },
+        {
+          "source": "exclusively",
+          "target": "sólo"
+        },
+        {
+          "source": "favor",
+          "target": "favor"
+        },
+        {
+          "source": "favour",
+          "target": "favor"
+        },
+        {
+          "source": "lack",
+          "target": "falta"
+        }
+      ],
+      "share": 0.0421,
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "target_zipf_band_es": "zipf_5_plus_very_common"
+    },
+    {
+      "family_count": 114,
+      "sample_families": [
+        {
+          "source": "academy",
+          "target": "academia"
+        },
+        {
+          "source": "acceptable",
+          "target": "razonable"
+        },
+        {
+          "source": "adjacent",
+          "target": "vecino"
+        },
+        {
+          "source": "arrange",
+          "target": "arreglar"
+        },
+        {
+          "source": "axis",
+          "target": "eje"
+        },
+        {
+          "source": "bare",
+          "target": "desnudo"
+        },
+        {
+          "source": "battle",
+          "target": "batalla"
+        },
+        {
+          "source": "begin",
+          "target": "comenzar"
+        },
+        {
+          "source": "bird",
+          "target": "ave"
+        },
+        {
+          "source": "blind",
+          "target": "ciego"
+        },
+        {
+          "source": "boat",
+          "target": "barco"
+        },
+        {
+          "source": "boss",
+          "target": "amo"
+        }
+      ],
+      "share": 0.2,
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "target_zipf_band_es": "zipf_4_to_5_common"
+    },
+    {
+      "family_count": 79,
+      "sample_families": [
+        {
+          "source": "adjacent",
+          "target": "adyacente"
+        },
+        {
+          "source": "african",
+          "target": "africano"
+        },
+        {
+          "source": "anonymous",
+          "target": "anónimo"
+        },
+        {
+          "source": "australian",
+          "target": "australiano"
+        },
+        {
+          "source": "baker",
+          "target": "panadero"
+        },
+        {
+          "source": "bar",
+          "target": "taberna"
+        },
+        {
+          "source": "basket",
+          "target": "cesto"
+        },
+        {
+          "source": "bee",
+          "target": "abeja"
+        },
+        {
+          "source": "beg",
+          "target": "demandar"
+        },
+        {
+          "source": "bid",
+          "target": "demandar"
+        },
+        {
+          "source": "blank",
+          "target": "formulario"
+        },
+        {
+          "source": "blow",
+          "target": "soplar"
+        }
+      ],
+      "share": 0.1386,
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "target_zipf_band_es": "zipf_3_to_4_mid"
+    },
+    {
+      "family_count": 18,
+      "sample_families": [
+        {
+          "source": "adjacent",
+          "target": "contiguo"
+        },
+        {
+          "source": "bar",
+          "target": "cercar"
+        },
+        {
+          "source": "cap",
+          "target": "birrete"
+        },
+        {
+          "source": "command",
+          "target": "capitanear"
+        },
+        {
+          "source": "decrease",
+          "target": "decrecer"
+        },
+        {
+          "source": "divide",
+          "target": "segregar"
+        },
+        {
+          "source": "error",
+          "target": "yerro"
+        },
+        {
+          "source": "fur",
+          "target": "incrustación"
+        },
+        {
+          "source": "grow",
+          "target": "acontecer"
+        },
+        {
+          "source": "lighter",
+          "target": "mechero"
+        },
+        {
+          "source": "mistake",
+          "target": "yerro"
+        },
+        {
+          "source": "nearby",
+          "target": "contiguo"
+        }
+      ],
+      "share": 0.0316,
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "target_zipf_band_es": "zipf_below_3_rare"
+    },
+    {
+      "family_count": 13,
+      "sample_families": [
+        {
+          "source": "afar",
+          "target": "lejos"
+        },
+        {
+          "source": "barn",
+          "target": "puesto"
+        },
+        {
+          "source": "centennial",
+          "target": "siglo"
+        },
+        {
+          "source": "commencement",
+          "target": "principio"
+        },
+        {
+          "source": "commonplace",
+          "target": "común"
+        },
+        {
+          "source": "compartment",
+          "target": "departamento"
+        },
+        {
+          "source": "diminutive",
+          "target": "pequeño"
+        },
+        {
+          "source": "dismal",
+          "target": "común"
+        },
+        {
+          "source": "envelope",
+          "target": "sobre"
+        },
+        {
+          "source": "manufacture",
+          "target": "producción"
+        },
+        {
+          "source": "metropolis",
+          "target": "capital"
+        },
+        {
+          "source": "necessity",
+          "target": "necesidad"
+        }
+      ],
+      "share": 0.0228,
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "target_zipf_band_es": "zipf_5_plus_very_common"
+    },
+    {
+      "family_count": 40,
+      "sample_families": [
+        {
+          "source": "abiding",
+          "target": "continuo"
+        },
+        {
+          "source": "abstraction",
+          "target": "robo"
+        },
+        {
+          "source": "accountable",
+          "target": "responsable"
+        },
+        {
+          "source": "adjoining",
+          "target": "vecino"
+        },
+        {
+          "source": "argentine",
+          "target": "argentino"
+        },
+        {
+          "source": "axle",
+          "target": "eje"
+        },
+        {
+          "source": "bark",
+          "target": "barco"
+        },
+        {
+          "source": "baton",
+          "target": "palo"
+        },
+        {
+          "source": "cane",
+          "target": "palo"
+        },
+        {
+          "source": "chic",
+          "target": "elegante"
+        },
+        {
+          "source": "chunk",
+          "target": "bola"
+        },
+        {
+          "source": "cite",
+          "target": "mencionar"
+        }
+      ],
+      "share": 0.0702,
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "target_zipf_band_es": "zipf_4_to_5_common"
+    },
+    {
+      "family_count": 76,
+      "sample_families": [
+        {
+          "source": "abandonment",
+          "target": "cesión"
+        },
+        {
+          "source": "abolish",
+          "target": "abolir"
+        },
+        {
+          "source": "accompaniment",
+          "target": "acompañamiento"
+        },
+        {
+          "source": "accuse",
+          "target": "acusar"
+        },
+        {
+          "source": "acquaintance",
+          "target": "notoriedad"
+        },
+        {
+          "source": "adjective",
+          "target": "adjetivo"
+        },
+        {
+          "source": "adjoining",
+          "target": "adyacente"
+        },
+        {
+          "source": "altitude",
+          "target": "elevación"
+        },
+        {
+          "source": "ankle",
+          "target": "tobillo"
+        },
+        {
+          "source": "appease",
+          "target": "calmar"
+        },
+        {
+          "source": "asphalt",
+          "target": "asfalto"
+        },
+        {
+          "source": "ballet",
+          "target": "ballet"
+        }
+      ],
+      "share": 0.1333,
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "target_zipf_band_es": "zipf_3_to_4_mid"
+    },
+    {
+      "family_count": 23,
+      "sample_families": [
+        {
+          "source": "adjoining",
+          "target": "contiguo"
+        },
+        {
+          "source": "bleak",
+          "target": "lúgubre"
+        },
+        {
+          "source": "blunt",
+          "target": "despuntar"
+        },
+        {
+          "source": "diminish",
+          "target": "decrecer"
+        },
+        {
+          "source": "dismal",
+          "target": "lúgubre"
+        },
+        {
+          "source": "dove",
+          "target": "pichón"
+        },
+        {
+          "source": "dreary",
+          "target": "lúgubre"
+        },
+        {
+          "source": "envious",
+          "target": "envidioso"
+        },
+        {
+          "source": "govern",
+          "target": "capitanear"
+        },
+        {
+          "source": "inflate",
+          "target": "inflar"
+        },
+        {
+          "source": "lovable",
+          "target": "afable"
+        },
+        {
+          "source": "mourn",
+          "target": "deplorar"
+        }
+      ],
+      "share": 0.0404,
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "target_zipf_band_es": "zipf_below_3_rare"
+    },
+    {
+      "family_count": 2,
+      "sample_families": [
+        {
+          "source": "trite",
+          "target": "común"
+        },
+        {
+          "source": "turnon",
+          "target": "poner"
+        }
+      ],
+      "share": 0.0035,
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "target_zipf_band_es": "zipf_5_plus_very_common"
+    },
+    {
+      "family_count": 15,
+      "sample_families": [
+        {
+          "source": "abatement",
+          "target": "descuento"
+        },
+        {
+          "source": "acquaint",
+          "target": "informar"
+        },
+        {
+          "source": "affable",
+          "target": "gracioso"
+        },
+        {
+          "source": "alternation",
+          "target": "alternativa"
+        },
+        {
+          "source": "argentinean",
+          "target": "argentino"
+        },
+        {
+          "source": "barque",
+          "target": "barco"
+        },
+        {
+          "source": "burndown",
+          "target": "quemar"
+        },
+        {
+          "source": "clod",
+          "target": "bola"
+        },
+        {
+          "source": "depository",
+          "target": "depósito"
+        },
+        {
+          "source": "mayhap",
+          "target": "quizás"
+        },
+        {
+          "source": "otherthan",
+          "target": "excepto"
+        },
+        {
+          "source": "perchance",
+          "target": "quizás"
+        }
+      ],
+      "share": 0.0263,
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "target_zipf_band_es": "zipf_4_to_5_common"
+    },
+    {
+      "family_count": 20,
+      "sample_families": [
+        {
+          "source": "aberration",
+          "target": "equivocación"
+        },
+        {
+          "source": "abrogate",
+          "target": "abolir"
+        },
+        {
+          "source": "adder",
+          "target": "víbora"
+        },
+        {
+          "source": "annotation",
+          "target": "anotación"
+        },
+        {
+          "source": "billow",
+          "target": "oleaje"
+        },
+        {
+          "source": "bouillon",
+          "target": "caldo"
+        },
+        {
+          "source": "bridle",
+          "target": "reprimir"
+        },
+        {
+          "source": "cede",
+          "target": "ceder"
+        },
+        {
+          "source": "crevice",
+          "target": "grieta"
+        },
+        {
+          "source": "depute",
+          "target": "delegar"
+        },
+        {
+          "source": "handiwork",
+          "target": "artesanía"
+        },
+        {
+          "source": "housefly",
+          "target": "mosca"
+        }
+      ],
+      "share": 0.0351,
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "target_zipf_band_es": "zipf_3_to_4_mid"
+    },
+    {
+      "family_count": 15,
+      "sample_families": [
+        {
+          "source": "abate",
+          "target": "decrecer"
+        },
+        {
+          "source": "aberration",
+          "target": "yerro"
+        },
+        {
+          "source": "admonition",
+          "target": "exhortación"
+        },
+        {
+          "source": "battlefront",
+          "target": "frontón"
+        },
+        {
+          "source": "begrudge",
+          "target": "deplorar"
+        },
+        {
+          "source": "beret",
+          "target": "birrete"
+        },
+        {
+          "source": "confiscate",
+          "target": "confiscar"
+        },
+        {
+          "source": "exhortation",
+          "target": "exhortación"
+        },
+        {
+          "source": "frontage",
+          "target": "frontón"
+        },
+        {
+          "source": "haddock",
+          "target": "merluza"
+        },
+        {
+          "source": "laggard",
+          "target": "rezagado"
+        },
+        {
+          "source": "snore",
+          "target": "roncar"
+        }
+      ],
+      "share": 0.0263,
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "target_zipf_band_es": "zipf_below_3_rare"
+    },
+    {
+      "family_count": 3,
+      "sample_families": [
+        {
+          "source": "manifacture",
+          "target": "producción"
+        },
+        {
+          "source": "onethousand",
+          "target": "mil"
+        },
+        {
+          "source": "thatmuch",
+          "target": "tanto"
+        }
+      ],
+      "share": 0.0053,
+      "source_zipf_band_en": "missing",
+      "target_zipf_band_es": "zipf_5_plus_very_common"
+    },
+    {
+      "family_count": 8,
+      "sample_families": [
+        {
+          "source": "beburntdown",
+          "target": "quemar"
+        },
+        {
+          "source": "campingsite",
+          "target": "campamento"
+        },
+        {
+          "source": "femalejournalist",
+          "target": "periodista"
+        },
+        {
+          "source": "germanlanguage",
+          "target": "alemán"
+        },
+        {
+          "source": "japaneselanguage",
+          "target": "japonés"
+        },
+        {
+          "source": "middaymeal",
+          "target": "cena"
+        },
+        {
+          "source": "tellalie",
+          "target": "mentir"
+        },
+        {
+          "source": "tentedcamp",
+          "target": "campamento"
+        }
+      ],
+      "share": 0.014,
+      "source_zipf_band_en": "missing",
+      "target_zipf_band_es": "zipf_4_to_5_common"
+    },
+    {
+      "family_count": 10,
+      "sample_families": [
+        {
+          "source": "attitudinizer",
+          "target": "farsante"
+        },
+        {
+          "source": "conversance",
+          "target": "notoriedad"
+        },
+        {
+          "source": "gobackwards",
+          "target": "retroceder"
+        },
+        {
+          "source": "gobeyond",
+          "target": "atravesar"
+        },
+        {
+          "source": "mosaicwork",
+          "target": "mosaico"
+        },
+        {
+          "source": "offerofparriage",
+          "target": "pretensión"
+        },
+        {
+          "source": "polishwoman",
+          "target": "polaca"
+        },
+        {
+          "source": "reverseside",
+          "target": "reverso"
+        },
+        {
+          "source": "turnaway",
+          "target": "apartar"
+        },
+        {
+          "source": "withoutaname",
+          "target": "anónimo"
+        }
+      ],
+      "share": 0.0175,
+      "source_zipf_band_en": "missing",
+      "target_zipf_band_es": "zipf_3_to_4_mid"
+    },
+    {
+      "family_count": 1,
+      "sample_families": [
+        {
+          "source": "taketheplaceof",
+          "target": "relevar"
+        }
+      ],
+      "share": 0.0018,
+      "source_zipf_band_en": "missing",
+      "target_zipf_band_es": "zipf_below_3_rare"
+    }
+  ],
+  "full_source_target_pairs": [
+    {
+      "source": "abandonment",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.4,
+      "target": "cesión",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.69
+    },
+    {
+      "source": "abate",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 2.68,
+      "target": "decrecer",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.27
+    },
+    {
+      "source": "abatement",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 2.73,
+      "target": "descuento",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.2
+    },
+    {
+      "source": "aberration",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 2.98,
+      "target": "equivocación",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.43
+    },
+    {
+      "source": "aberration",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 2.98,
+      "target": "yerro",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.09
+    },
+    {
+      "source": "abiding",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.45,
+      "target": "continuo",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.11
+    },
+    {
+      "source": "abolish",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.48,
+      "target": "abolir",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.27
+    },
+    {
+      "source": "abrogate",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 2.08,
+      "target": "abolir",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.27
+    },
+    {
+      "source": "absence",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.34,
+      "target": "falta",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.44
+    },
+    {
+      "source": "abstraction",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.3,
+      "target": "robo",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.55
+    },
+    {
+      "source": "academy",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.57,
+      "target": "academia",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.54
+    },
+    {
+      "source": "acceptable",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.27,
+      "target": "razonable",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.23
+    },
+    {
+      "source": "access",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.05,
+      "target": "entrada",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.99
+    },
+    {
+      "source": "accompaniment",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.22,
+      "target": "acompañamiento",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.68
+    },
+    {
+      "source": "accountable",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.9,
+      "target": "responsable",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.8
+    },
+    {
+      "source": "accuse",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.71,
+      "target": "acusar",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.79
+    },
+    {
+      "source": "acquaint",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 2.51,
+      "target": "informar",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.26
+    },
+    {
+      "source": "acquaintance",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.55,
+      "target": "notoriedad",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.42
+    },
+    {
+      "source": "action",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.25,
+      "target": "batalla",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.81
+    },
+    {
+      "source": "adder",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 2.69,
+      "target": "víbora",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.25
+    },
+    {
+      "source": "adjacent",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.12,
+      "target": "adyacente",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.13
+    },
+    {
+      "source": "adjacent",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.12,
+      "target": "contiguo",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.98
+    },
+    {
+      "source": "adjacent",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.12,
+      "target": "vecino",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.5
+    },
+    {
+      "source": "adjective",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.34,
+      "target": "adjetivo",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.53
+    },
+    {
+      "source": "adjoining",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.5,
+      "target": "adyacente",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.13
+    },
+    {
+      "source": "adjoining",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.5,
+      "target": "contiguo",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.98
+    },
+    {
+      "source": "adjoining",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.5,
+      "target": "vecino",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.5
+    },
+    {
+      "source": "admonition",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 2.51,
+      "target": "exhortación",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.73
+    },
+    {
+      "source": "afar",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.35,
+      "target": "lejos",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.07
+    },
+    {
+      "source": "affable",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 2.66,
+      "target": "gracioso",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.37
+    },
+    {
+      "source": "african",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.82,
+      "target": "africano",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.93
+    },
+    {
+      "source": "afternoon",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.72,
+      "target": "tarde",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.43
+    },
+    {
+      "source": "alternation",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 2.53,
+      "target": "alternativa",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.55
+    },
+    {
+      "source": "altitude",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.92,
+      "target": "elevación",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.76
+    },
+    {
+      "source": "american",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.49,
+      "target": "americano",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.52
+    },
+    {
+      "source": "among",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.31,
+      "target": "entre",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 6.11
+    },
+    {
+      "source": "ankle",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.97,
+      "target": "tobillo",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.6
+    },
+    {
+      "source": "annotation",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 2.89,
+      "target": "anotación",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.44
+    },
+    {
+      "source": "anonymous",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.17,
+      "target": "anónimo",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.93
+    },
+    {
+      "source": "appease",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.2,
+      "target": "calmar",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.76
+    },
+    {
+      "source": "argentine",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.62,
+      "target": "argentino",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.83
+    },
+    {
+      "source": "argentinean",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 2.52,
+      "target": "argentino",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.83
+    },
+    {
+      "source": "arrange",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.0,
+      "target": "arreglar",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.34
+    },
+    {
+      "source": "ask",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.34,
+      "target": "demandar",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.71
+    },
+    {
+      "source": "ask",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.34,
+      "target": "preguntar",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.52
+    },
+    {
+      "source": "asphalt",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.53,
+      "target": "asfalto",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.62
+    },
+    {
+      "source": "attitudinizer",
+      "source_zipf_band_en": "missing",
+      "source_zipf_frequency_en": null,
+      "target": "farsante",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.0
+    },
+    {
+      "source": "australian",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.93,
+      "target": "australiano",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.8
+    },
+    {
+      "source": "author",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.95,
+      "target": "autor",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.07
+    },
+    {
+      "source": "away",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.62,
+      "target": "lejos",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.07
+    },
+    {
+      "source": "axis",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.02,
+      "target": "eje",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.29
+    },
+    {
+      "source": "axle",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.49,
+      "target": "eje",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.29
+    },
+    {
+      "source": "back",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 6.04,
+      "target": "reverso",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.4
+    },
+    {
+      "source": "background",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.77,
+      "target": "fondo",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.06
+    },
+    {
+      "source": "baker",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.23,
+      "target": "panadero",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.26
+    },
+    {
+      "source": "ballet",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.95,
+      "target": "ballet",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.77
+    },
+    {
+      "source": "bar",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.94,
+      "target": "cercar",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.62
+    },
+    {
+      "source": "bar",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.94,
+      "target": "taberna",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.43
+    },
+    {
+      "source": "barbarian",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.28,
+      "target": "bárbaro",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.65
+    },
+    {
+      "source": "bare",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.18,
+      "target": "desnudo",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.05
+    },
+    {
+      "source": "bark",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.85,
+      "target": "barco",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.52
+    },
+    {
+      "source": "barn",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.99,
+      "target": "puesto",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.3
+    },
+    {
+      "source": "barque",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 2.15,
+      "target": "barco",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.52
+    },
+    {
+      "source": "base",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.05,
+      "target": "basar",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.12
+    },
+    {
+      "source": "basket",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.07,
+      "target": "cesto",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.04
+    },
+    {
+      "source": "baton",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.64,
+      "target": "palo",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.38
+    },
+    {
+      "source": "battle",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.94,
+      "target": "batalla",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.81
+    },
+    {
+      "source": "battlefront",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 2.75,
+      "target": "frontón",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.94
+    },
+    {
+      "source": "beburntdown",
+      "source_zipf_band_en": "missing",
+      "source_zipf_frequency_en": null,
+      "target": "quemar",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.13
+    },
+    {
+      "source": "become",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.4,
+      "target": "acontecer",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.97
+    },
+    {
+      "source": "bed",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.07,
+      "target": "cauce",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.56
+    },
+    {
+      "source": "bee",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.09,
+      "target": "abeja",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.48
+    },
+    {
+      "source": "beg",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.05,
+      "target": "demandar",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.71
+    },
+    {
+      "source": "beggar",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.17,
+      "target": "mendigo",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.33
+    },
+    {
+      "source": "begin",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.84,
+      "target": "comenzar",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.56
+    },
+    {
+      "source": "beginning",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.0,
+      "target": "principio",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.1
+    },
+    {
+      "source": "begrudge",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 2.57,
+      "target": "deplorar",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 1.52
+    },
+    {
+      "source": "beret",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 2.92,
+      "target": "birrete",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.2
+    },
+    {
+      "source": "between",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.77,
+      "target": "entre",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 6.11
+    },
+    {
+      "source": "bid",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.4,
+      "target": "demandar",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.71
+    },
+    {
+      "source": "billow",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 2.12,
+      "target": "oleaje",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.16
+    },
+    {
+      "source": "bird",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.63,
+      "target": "ave",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.12
+    },
+    {
+      "source": "blank",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.14,
+      "target": "formulario",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.85
+    },
+    {
+      "source": "bleak",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.43,
+      "target": "lúgubre",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.92
+    },
+    {
+      "source": "blind",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.52,
+      "target": "ciego",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.22
+    },
+    {
+      "source": "blow",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.59,
+      "target": "soplar",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.17
+    },
+    {
+      "source": "blunt",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.9,
+      "target": "despuntar",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.56
+    },
+    {
+      "source": "boat",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.71,
+      "target": "barco",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.52
+    },
+    {
+      "source": "book",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.43,
+      "target": "reservar",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.52
+    },
+    {
+      "source": "bore",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.93,
+      "target": "aburrir",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.06
+    },
+    {
+      "source": "boss",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.76,
+      "target": "amo",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.85
+    },
+    {
+      "source": "boss",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.76,
+      "target": "jefe",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.15
+    },
+    {
+      "source": "bouillon",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 2.54,
+      "target": "caldo",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.75
+    },
+    {
+      "source": "bracelet",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.7,
+      "target": "pulsera",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.49
+    },
+    {
+      "source": "brazilian",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.23,
+      "target": "brasileño",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.22
+    },
+    {
+      "source": "break",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.18,
+      "target": "quebrar",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.44
+    },
+    {
+      "source": "break",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.18,
+      "target": "romper",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.57
+    },
+    {
+      "source": "bridle",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 2.78,
+      "target": "reprimir",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.67
+    },
+    {
+      "source": "brother",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.11,
+      "target": "hermano",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.11
+    },
+    {
+      "source": "brush",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.23,
+      "target": "cepillo",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.56
+    },
+    {
+      "source": "builder",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.85,
+      "target": "labrador",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.41
+    },
+    {
+      "source": "burden",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.23,
+      "target": "cargar",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.19
+    },
+    {
+      "source": "burn",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.53,
+      "target": "quemar",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.13
+    },
+    {
+      "source": "burndown",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 1.04,
+      "target": "quemar",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.13
+    },
+    {
+      "source": "burst",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.15,
+      "target": "grieta",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.5
+    },
+    {
+      "source": "butterfly",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.93,
+      "target": "mariposa",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.84
+    },
+    {
+      "source": "calculate",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.87,
+      "target": "calcular",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.95
+    },
+    {
+      "source": "calm",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.54,
+      "target": "calmar",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.76
+    },
+    {
+      "source": "calm",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.54,
+      "target": "silencio",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.89
+    },
+    {
+      "source": "campingsite",
+      "source_zipf_band_en": "missing",
+      "source_zipf_frequency_en": null,
+      "target": "campamento",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.28
+    },
+    {
+      "source": "cane",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.76,
+      "target": "palo",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.38
+    },
+    {
+      "source": "cap",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.51,
+      "target": "birrete",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.2
+    },
+    {
+      "source": "capital",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.01,
+      "target": "capital",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.25
+    },
+    {
+      "source": "capsule",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.7,
+      "target": "cápsula",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.59
+    },
+    {
+      "source": "car",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.45,
+      "target": "automóvil",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.02
+    },
+    {
+      "source": "castle",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.45,
+      "target": "castillo",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.58
+    },
+    {
+      "source": "cat",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.78,
+      "target": "gato",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.62
+    },
+    {
+      "source": "cede",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 2.86,
+      "target": "ceder",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.94
+    },
+    {
+      "source": "centennial",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.36,
+      "target": "siglo",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.15
+    },
+    {
+      "source": "century",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.02,
+      "target": "siglo",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.15
+    },
+    {
+      "source": "chair",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.69,
+      "target": "silla",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.43
+    },
+    {
+      "source": "chase",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.44,
+      "target": "cazar",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.74
+    },
+    {
+      "source": "check",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.31,
+      "target": "reprimir",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.67
+    },
+    {
+      "source": "chemist",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.51,
+      "target": "farmacéutico",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.41
+    },
+    {
+      "source": "chic",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.68,
+      "target": "elegante",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.13
+    },
+    {
+      "source": "chief",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.11,
+      "target": "amo",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.85
+    },
+    {
+      "source": "chief",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.11,
+      "target": "jefe",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.15
+    },
+    {
+      "source": "chunk",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.64,
+      "target": "bola",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.43
+    },
+    {
+      "source": "citadel",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.33,
+      "target": "ciudadela",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.41
+    },
+    {
+      "source": "cite",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.67,
+      "target": "mencionar",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.39
+    },
+    {
+      "source": "claw",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.59,
+      "target": "garra",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.5
+    },
+    {
+      "source": "clay",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.29,
+      "target": "arcilla",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.65
+    },
+    {
+      "source": "climb",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.22,
+      "target": "trepar",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.13
+    },
+    {
+      "source": "clod",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 2.32,
+      "target": "bola",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.43
+    },
+    {
+      "source": "close",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.36,
+      "target": "estrecho",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.05
+    },
+    {
+      "source": "cockroach",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.16,
+      "target": "cucaracha",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.37
+    },
+    {
+      "source": "cocoa",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.64,
+      "target": "cacao",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.75
+    },
+    {
+      "source": "colleague",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.98,
+      "target": "colega",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.1
+    },
+    {
+      "source": "command",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.7,
+      "target": "capitanear",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 1.94
+    },
+    {
+      "source": "commence",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.59,
+      "target": "comenzar",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.56
+    },
+    {
+      "source": "commencement",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.48,
+      "target": "principio",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.1
+    },
+    {
+      "source": "commonplace",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.41,
+      "target": "común",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.14
+    },
+    {
+      "source": "communist",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.32,
+      "target": "comunista",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.51
+    },
+    {
+      "source": "compartment",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.64,
+      "target": "departamento",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.04
+    },
+    {
+      "source": "competition",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.91,
+      "target": "competencia",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.78
+    },
+    {
+      "source": "condemn",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.72,
+      "target": "condenar",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.75
+    },
+    {
+      "source": "confiscate",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 2.93,
+      "target": "confiscar",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.84
+    },
+    {
+      "source": "constant",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.54,
+      "target": "continuo",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.11
+    },
+    {
+      "source": "continual",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.35,
+      "target": "continuo",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.11
+    },
+    {
+      "source": "continue",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.08,
+      "target": "durar",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.98
+    },
+    {
+      "source": "control",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.4,
+      "target": "gobernar",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.12
+    },
+    {
+      "source": "conversance",
+      "source_zipf_band_en": "missing",
+      "source_zipf_frequency_en": null,
+      "target": "notoriedad",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.42
+    },
+    {
+      "source": "copy",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.77,
+      "target": "trasladar",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.8
+    },
+    {
+      "source": "corruption",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.35,
+      "target": "corrupción",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.86
+    },
+    {
+      "source": "count",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.83,
+      "target": "calcular",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.95
+    },
+    {
+      "source": "counter",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.56,
+      "target": "mostrador",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.57
+    },
+    {
+      "source": "court",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.41,
+      "target": "patio",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.4
+    },
+    {
+      "source": "courtyard",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.65,
+      "target": "patio",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.4
+    },
+    {
+      "source": "cousin",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.41,
+      "target": "primo",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.42
+    },
+    {
+      "source": "cover",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.08,
+      "target": "forrar",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.51
+    },
+    {
+      "source": "crack",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.41,
+      "target": "grieta",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.5
+    },
+    {
+      "source": "cramped",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.28,
+      "target": "estrecho",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.05
+    },
+    {
+      "source": "crevice",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 2.62,
+      "target": "grieta",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.5
+    },
+    {
+      "source": "crisis",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.62,
+      "target": "crisis",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.02
+    },
+    {
+      "source": "cross",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.0,
+      "target": "atravesar",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.81
+    },
+    {
+      "source": "cry",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.59,
+      "target": "grito",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.28
+    },
+    {
+      "source": "cup",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.11,
+      "target": "taza",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.04
+    },
+    {
+      "source": "current",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.27,
+      "target": "contemporáneo",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.01
+    },
+    {
+      "source": "cylinder",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.99,
+      "target": "cilindro",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.5
+    },
+    {
+      "source": "damage",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.9,
+      "target": "defecto",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.15
+    },
+    {
+      "source": "debt",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.69,
+      "target": "deuda",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.67
+    },
+    {
+      "source": "december",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.07,
+      "target": "diciembre",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.2
+    },
+    {
+      "source": "decrease",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.17,
+      "target": "decrecer",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.27
+    },
+    {
+      "source": "defeat",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.51,
+      "target": "derrota",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.37
+    },
+    {
+      "source": "delegate",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.7,
+      "target": "delegar",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.17
+    },
+    {
+      "source": "delegate",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.7,
+      "target": "diputado",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.59
+    },
+    {
+      "source": "demand",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.84,
+      "target": "deducción",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.33
+    },
+    {
+      "source": "denounce",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.24,
+      "target": "acusar",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.79
+    },
+    {
+      "source": "dentist",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.86,
+      "target": "dentista",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.68
+    },
+    {
+      "source": "depository",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 2.94,
+      "target": "depósito",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.24
+    },
+    {
+      "source": "depression",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.56,
+      "target": "crisis",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.02
+    },
+    {
+      "source": "depute",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 2.2,
+      "target": "delegar",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.17
+    },
+    {
+      "source": "deputy",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.55,
+      "target": "diputado",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.59
+    },
+    {
+      "source": "detain",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.21,
+      "target": "retener",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.72
+    },
+    {
+      "source": "determine",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.63,
+      "target": "determinar",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.47
+    },
+    {
+      "source": "dial",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.93,
+      "target": "marcar",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.14
+    },
+    {
+      "source": "diameter",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.08,
+      "target": "diámetro",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.0
+    },
+    {
+      "source": "dictionary",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.02,
+      "target": "diccionario",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.22
+    },
+    {
+      "source": "diminish",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.46,
+      "target": "decrecer",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.27
+    },
+    {
+      "source": "diminutive",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.09,
+      "target": "pequeño",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.09
+    },
+    {
+      "source": "dinner",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.78,
+      "target": "cena",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.42
+    },
+    {
+      "source": "director",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.15,
+      "target": "director",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.12
+    },
+    {
+      "source": "discount",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.35,
+      "target": "descuento",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.2
+    },
+    {
+      "source": "dismal",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.26,
+      "target": "común",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.14
+    },
+    {
+      "source": "dismal",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.26,
+      "target": "lúgubre",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.92
+    },
+    {
+      "source": "distance",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.85,
+      "target": "distancia",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.89
+    },
+    {
+      "source": "distract",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.71,
+      "target": "distraer",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.45
+    },
+    {
+      "source": "divert",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.42,
+      "target": "distraer",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.45
+    },
+    {
+      "source": "divide",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.12,
+      "target": "apartar",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.38
+    },
+    {
+      "source": "divide",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.12,
+      "target": "segregar",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.56
+    },
+    {
+      "source": "double",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.01,
+      "target": "doble",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.89
+    },
+    {
+      "source": "dove",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.67,
+      "target": "pichón",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.95
+    },
+    {
+      "source": "dreary",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.08,
+      "target": "lúgubre",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.92
+    },
+    {
+      "source": "drive",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.13,
+      "target": "propulsión",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.18
+    },
+    {
+      "source": "drunk",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.61,
+      "target": "ebrio",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.47
+    },
+    {
+      "source": "dual",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.28,
+      "target": "doble",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.89
+    },
+    {
+      "source": "duty",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.71,
+      "target": "deber",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.42
+    },
+    {
+      "source": "ear",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.43,
+      "target": "oreja",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.99
+    },
+    {
+      "source": "earthquake",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.15,
+      "target": "terremoto",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.19
+    },
+    {
+      "source": "eight",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.02,
+      "target": "ocho",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.93
+    },
+    {
+      "source": "eighth",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.2,
+      "target": "octavo",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.84
+    },
+    {
+      "source": "elegant",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.95,
+      "target": "elegante",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.13
+    },
+    {
+      "source": "emergency",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.72,
+      "target": "crisis",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.02
+    },
+    {
+      "source": "emotion",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.19,
+      "target": "emoción",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.33
+    },
+    {
+      "source": "endure",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.82,
+      "target": "durar",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.98
+    },
+    {
+      "source": "entertain",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.83,
+      "target": "distraer",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.45
+    },
+    {
+      "source": "entirely",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.72,
+      "target": "enteramente",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.69
+    },
+    {
+      "source": "entrance",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.39,
+      "target": "entrada",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.99
+    },
+    {
+      "source": "envelope",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.86,
+      "target": "sobre",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 6.19
+    },
+    {
+      "source": "envious",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.22,
+      "target": "envidioso",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.99
+    },
+    {
+      "source": "error",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.55,
+      "target": "equivocación",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.43
+    },
+    {
+      "source": "error",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.55,
+      "target": "yerro",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.09
+    },
+    {
+      "source": "escort",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.0,
+      "target": "acompañamiento",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.68
+    },
+    {
+      "source": "even",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.99,
+      "target": "par",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.07
+    },
+    {
+      "source": "exactly",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.15,
+      "target": "justamente",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.18
+    },
+    {
+      "source": "exaggerate",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.19,
+      "target": "exagerar",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.37
+    },
+    {
+      "source": "except",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.02,
+      "target": "excepto",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.59
+    },
+    {
+      "source": "exclusively",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.24,
+      "target": "sólo",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.79
+    },
+    {
+      "source": "exhortation",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 2.58,
+      "target": "exhortación",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.73
+    },
+    {
+      "source": "experienced",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.63,
+      "target": "experto",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.38
+    },
+    {
+      "source": "expert",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.56,
+      "target": "experto",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.38
+    },
+    {
+      "source": "exploit",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.83,
+      "target": "explotar",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.13
+    },
+    {
+      "source": "extract",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.02,
+      "target": "extracto",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.83
+    },
+    {
+      "source": "face",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.45,
+      "target": "rostro",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.57
+    },
+    {
+      "source": "faint",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.78,
+      "target": "débil",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.38
+    },
+    {
+      "source": "faithful",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.1,
+      "target": "fiel",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.34
+    },
+    {
+      "source": "familiarity",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.4,
+      "target": "notoriedad",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.42
+    },
+    {
+      "source": "famous",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.84,
+      "target": "famoso",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.62
+    },
+    {
+      "source": "far",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.5,
+      "target": "lejos",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.07
+    },
+    {
+      "source": "farmer",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.15,
+      "target": "campesino",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.74
+    },
+    {
+      "source": "fat",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.85,
+      "target": "grasa",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.21
+    },
+    {
+      "source": "favor",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.58,
+      "target": "favor",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.48
+    },
+    {
+      "source": "favour",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.31,
+      "target": "favor",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.48
+    },
+    {
+      "source": "feather",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.69,
+      "target": "pluma",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.91
+    },
+    {
+      "source": "feed",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.67,
+      "target": "alimentar",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.97
+    },
+    {
+      "source": "femalejournalist",
+      "source_zipf_band_en": "missing",
+      "source_zipf_frequency_en": null,
+      "target": "periodista",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.7
+    },
+    {
+      "source": "figure",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.07,
+      "target": "calcular",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.95
+    },
+    {
+      "source": "fix",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.75,
+      "target": "determinar",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.47
+    },
+    {
+      "source": "flow",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.68,
+      "target": "correr",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.6
+    },
+    {
+      "source": "fly",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.75,
+      "target": "mosca",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.77
+    },
+    {
+      "source": "fog",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.9,
+      "target": "niebla",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.91
+    },
+    {
+      "source": "form",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.31,
+      "target": "formulario",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.85
+    },
+    {
+      "source": "friendly",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.64,
+      "target": "gracioso",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.37
+    },
+    {
+      "source": "front",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.28,
+      "target": "frontón",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.94
+    },
+    {
+      "source": "frontage",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 2.99,
+      "target": "frontón",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.94
+    },
+    {
+      "source": "fur",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.03,
+      "target": "incrustación",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.19
+    },
+    {
+      "source": "fur",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.03,
+      "target": "piel",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.8
+    },
+    {
+      "source": "future",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.33,
+      "target": "porvenir",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.52
+    },
+    {
+      "source": "gentle",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.17,
+      "target": "dulce",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.71
+    },
+    {
+      "source": "german",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.95,
+      "target": "alemán",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.55
+    },
+    {
+      "source": "germanlanguage",
+      "source_zipf_band_en": "missing",
+      "source_zipf_frequency_en": null,
+      "target": "alemán",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.55
+    },
+    {
+      "source": "glorious",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.08,
+      "target": "famoso",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.62
+    },
+    {
+      "source": "glove",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.73,
+      "target": "guante",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.5
+    },
+    {
+      "source": "gobackwards",
+      "source_zipf_band_en": "missing",
+      "source_zipf_frequency_en": null,
+      "target": "retroceder",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.71
+    },
+    {
+      "source": "gobeyond",
+      "source_zipf_band_en": "missing",
+      "source_zipf_frequency_en": null,
+      "target": "atravesar",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.81
+    },
+    {
+      "source": "goose",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.84,
+      "target": "ganso",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.33
+    },
+    {
+      "source": "govern",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.67,
+      "target": "capitanear",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 1.94
+    },
+    {
+      "source": "govern",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.67,
+      "target": "gobernar",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.12
+    },
+    {
+      "source": "grease",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.72,
+      "target": "grasa",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.21
+    },
+    {
+      "source": "grow",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.9,
+      "target": "acontecer",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.97
+    },
+    {
+      "source": "guest",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.58,
+      "target": "huésped",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.63
+    },
+    {
+      "source": "guilty",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.61,
+      "target": "culpable",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.45
+    },
+    {
+      "source": "haddock",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 2.83,
+      "target": "merluza",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.93
+    },
+    {
+      "source": "handiwork",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 2.73,
+      "target": "artesanía",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.51
+    },
+    {
+      "source": "happen",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.19,
+      "target": "acontecer",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.97
+    },
+    {
+      "source": "haste",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.37,
+      "target": "prisa",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.13
+    },
+    {
+      "source": "health",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.44,
+      "target": "salud",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.28
+    },
+    {
+      "source": "heart",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.31,
+      "target": "corazón",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.2
+    },
+    {
+      "source": "heat",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.86,
+      "target": "calentar",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.69
+    },
+    {
+      "source": "height",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.53,
+      "target": "altura",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.78
+    },
+    {
+      "source": "height",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.53,
+      "target": "elevación",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.76
+    },
+    {
+      "source": "hide",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.54,
+      "target": "piel",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.8
+    },
+    {
+      "source": "hip",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.46,
+      "target": "cadera",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.64
+    },
+    {
+      "source": "hit",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.37,
+      "target": "llamar",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.85
+    },
+    {
+      "source": "honest",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.73,
+      "target": "honrado",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.69
+    },
+    {
+      "source": "horizon",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.07,
+      "target": "horizonte",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.05
+    },
+    {
+      "source": "hour",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.18,
+      "target": "hora",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.45
+    },
+    {
+      "source": "housefly",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 1.8,
+      "target": "mosca",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.77
+    },
+    {
+      "source": "hunt",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.49,
+      "target": "cazar",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.74
+    },
+    {
+      "source": "ice",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.0,
+      "target": "hielo",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.41
+    },
+    {
+      "source": "ideal",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.44,
+      "target": "ideal",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.57
+    },
+    {
+      "source": "idol",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.94,
+      "target": "ídolo",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.77
+    },
+    {
+      "source": "impossible",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.78,
+      "target": "imposible",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.99
+    },
+    {
+      "source": "indicate",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.35,
+      "target": "designar",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.71
+    },
+    {
+      "source": "indicate",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.35,
+      "target": "mostrar",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.61
+    },
+    {
+      "source": "inflammation",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.73,
+      "target": "inflamación",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.49
+    },
+    {
+      "source": "inflate",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.01,
+      "target": "inflar",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.87
+    },
+    {
+      "source": "inform",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.15,
+      "target": "informar",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.26
+    },
+    {
+      "source": "infusion",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.29,
+      "target": "extracto",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.83
+    },
+    {
+      "source": "inside",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.19,
+      "target": "dentro",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.53
+    },
+    {
+      "source": "intoxicated",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.34,
+      "target": "ebrio",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.47
+    },
+    {
+      "source": "invoke",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.33,
+      "target": "llamar",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.85
+    },
+    {
+      "source": "jack",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.82,
+      "target": "gato",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.62
+    },
+    {
+      "source": "japanese",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.81,
+      "target": "japonés",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.39
+    },
+    {
+      "source": "japaneselanguage",
+      "source_zipf_band_en": "missing",
+      "source_zipf_frequency_en": null,
+      "target": "japonés",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.39
+    },
+    {
+      "source": "jest",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.06,
+      "target": "bromear",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.21
+    },
+    {
+      "source": "joke",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.68,
+      "target": "bromear",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.21
+    },
+    {
+      "source": "journalist",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.38,
+      "target": "periodista",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.7
+    },
+    {
+      "source": "judge",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.95,
+      "target": "juzgar",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.25
+    },
+    {
+      "source": "junction",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.94,
+      "target": "reunión",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.9
+    },
+    {
+      "source": "june",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.21,
+      "target": "junio",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.17
+    },
+    {
+      "source": "just",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 6.43,
+      "target": "sólo",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.79
+    },
+    {
+      "source": "kick",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.72,
+      "target": "patada",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.9
+    },
+    {
+      "source": "kind",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.45,
+      "target": "gracioso",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.37
+    },
+    {
+      "source": "kiss",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.58,
+      "target": "besar",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.78
+    },
+    {
+      "source": "knock",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.35,
+      "target": "llamar",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.85
+    },
+    {
+      "source": "lack",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.92,
+      "target": "falta",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.44
+    },
+    {
+      "source": "laggard",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 1.97,
+      "target": "rezagado",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.71
+    },
+    {
+      "source": "lamb",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.02,
+      "target": "cordero",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.98
+    },
+    {
+      "source": "last",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.86,
+      "target": "durar",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.98
+    },
+    {
+      "source": "latin",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.48,
+      "target": "latino",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.24
+    },
+    {
+      "source": "lay",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.64,
+      "target": "poner",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.24
+    },
+    {
+      "source": "leader",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.95,
+      "target": "amo",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.85
+    },
+    {
+      "source": "leader",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.95,
+      "target": "jefe",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.15
+    },
+    {
+      "source": "lick",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.77,
+      "target": "lamer",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.14
+    },
+    {
+      "source": "lie",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.84,
+      "target": "mentir",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.16
+    },
+    {
+      "source": "light",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.33,
+      "target": "débil",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.38
+    },
+    {
+      "source": "light",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.33,
+      "target": "luz",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.25
+    },
+    {
+      "source": "lighter",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.09,
+      "target": "mechero",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.82
+    },
+    {
+      "source": "little",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.75,
+      "target": "pequeño",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.09
+    },
+    {
+      "source": "load",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.58,
+      "target": "cargar",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.19
+    },
+    {
+      "source": "lovable",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.23,
+      "target": "afable",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.92
+    },
+    {
+      "source": "lump",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.71,
+      "target": "bola",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.43
+    },
+    {
+      "source": "majority",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.94,
+      "target": "mayoría",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.36
+    },
+    {
+      "source": "making",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.54,
+      "target": "producción",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.15
+    },
+    {
+      "source": "male",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.89,
+      "target": "masculino",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.12
+    },
+    {
+      "source": "manager",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.97,
+      "target": "director",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.12
+    },
+    {
+      "source": "manifacture",
+      "source_zipf_band_en": "missing",
+      "source_zipf_frequency_en": null,
+      "target": "producción",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.15
+    },
+    {
+      "source": "manufacture",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.98,
+      "target": "producción",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.15
+    },
+    {
+      "source": "maybe",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.45,
+      "target": "quizás",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.97
+    },
+    {
+      "source": "mayhap",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 1.86,
+      "target": "quizás",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.97
+    },
+    {
+      "source": "measure",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.65,
+      "target": "medir",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.16
+    },
+    {
+      "source": "mention",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.73,
+      "target": "mencionar",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.39
+    },
+    {
+      "source": "metropolis",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.57,
+      "target": "capital",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.25
+    },
+    {
+      "source": "middaymeal",
+      "source_zipf_band_en": "missing",
+      "source_zipf_frequency_en": null,
+      "target": "cena",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.42
+    },
+    {
+      "source": "million",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.33,
+      "target": "millón",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.59
+    },
+    {
+      "source": "mist",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.67,
+      "target": "niebla",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.91
+    },
+    {
+      "source": "mistake",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.67,
+      "target": "equivocación",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.43
+    },
+    {
+      "source": "mistake",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.67,
+      "target": "yerro",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.09
+    },
+    {
+      "source": "mitten",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 2.48,
+      "target": "guante",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.5
+    },
+    {
+      "source": "more",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 6.36,
+      "target": "más",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 6.63
+    },
+    {
+      "source": "morning",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.33,
+      "target": "mañana",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.48
+    },
+    {
+      "source": "mosaic",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.58,
+      "target": "mosaico",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.44
+    },
+    {
+      "source": "mosaicwork",
+      "source_zipf_band_en": "missing",
+      "source_zipf_frequency_en": null,
+      "target": "mosaico",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.44
+    },
+    {
+      "source": "mourn",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.43,
+      "target": "deplorar",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 1.52
+    },
+    {
+      "source": "music",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.52,
+      "target": "música",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.24
+    },
+    {
+      "source": "musician",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.01,
+      "target": "músico",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.09
+    },
+    {
+      "source": "naked",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.43,
+      "target": "desnudo",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.05
+    },
+    {
+      "source": "nameless",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.15,
+      "target": "anónimo",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.93
+    },
+    {
+      "source": "narrow",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.39,
+      "target": "estrecho",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.05
+    },
+    {
+      "source": "nasty",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.22,
+      "target": "feo",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.36
+    },
+    {
+      "source": "national",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.51,
+      "target": "nacional",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.69
+    },
+    {
+      "source": "nationality",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.72,
+      "target": "nacionalidad",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.31
+    },
+    {
+      "source": "nearby",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.55,
+      "target": "adyacente",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.13
+    },
+    {
+      "source": "nearby",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.55,
+      "target": "contiguo",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.98
+    },
+    {
+      "source": "nearby",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.55,
+      "target": "vecino",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.5
+    },
+    {
+      "source": "necessity",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.91,
+      "target": "necesidad",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.03
+    },
+    {
+      "source": "need",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.97,
+      "target": "necesidad",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.03
+    },
+    {
+      "source": "never",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.91,
+      "target": "jamás",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.95
+    },
+    {
+      "source": "nice",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.37,
+      "target": "rico",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.96
+    },
+    {
+      "source": "note",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.04,
+      "target": "anotación",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.44
+    },
+    {
+      "source": "nourish",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 2.9,
+      "target": "alimentar",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.97
+    },
+    {
+      "source": "now",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 6.18,
+      "target": "actualmente",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.01
+    },
+    {
+      "source": "nude",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.0,
+      "target": "desnudo",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.05
+    },
+    {
+      "source": "obligation",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.07,
+      "target": "deber",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.42
+    },
+    {
+      "source": "obstruct",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.09,
+      "target": "cercar",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.62
+    },
+    {
+      "source": "offer",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.05,
+      "target": "pretensión",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.49
+    },
+    {
+      "source": "offerofparriage",
+      "source_zipf_band_en": "missing",
+      "source_zipf_frequency_en": null,
+      "target": "pretensión",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.49
+    },
+    {
+      "source": "officer",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.03,
+      "target": "funcionario",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.36
+    },
+    {
+      "source": "official",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.14,
+      "target": "funcionario",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.36
+    },
+    {
+      "source": "official",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.14,
+      "target": "oficial",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.23
+    },
+    {
+      "source": "offset",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.99,
+      "target": "distancia",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.89
+    },
+    {
+      "source": "offspring",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.77,
+      "target": "descendiente",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.62
+    },
+    {
+      "source": "old",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.75,
+      "target": "anciano",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.01
+    },
+    {
+      "source": "omelette",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 2.85,
+      "target": "tortilla",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.61
+    },
+    {
+      "source": "onethousand",
+      "source_zipf_band_en": "missing",
+      "source_zipf_frequency_en": null,
+      "target": "mil",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.34
+    },
+    {
+      "source": "only",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 6.12,
+      "target": "sólo",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.79
+    },
+    {
+      "source": "orange",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.62,
+      "target": "naranja",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.28
+    },
+    {
+      "source": "otherthan",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 1.02,
+      "target": "excepto",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.59
+    },
+    {
+      "source": "overlay",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.24,
+      "target": "forrar",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.51
+    },
+    {
+      "source": "owe",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.13,
+      "target": "deber",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.42
+    },
+    {
+      "source": "pair",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.72,
+      "target": "par",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.07
+    },
+    {
+      "source": "parallel",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.27,
+      "target": "paralelo",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.11
+    },
+    {
+      "source": "parrot",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.49,
+      "target": "loro",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.54
+    },
+    {
+      "source": "patriarch",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.31,
+      "target": "patriarca",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.55
+    },
+    {
+      "source": "pepper",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.14,
+      "target": "pimienta",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.89
+    },
+    {
+      "source": "perchance",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 2.51,
+      "target": "quizás",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.97
+    },
+    {
+      "source": "petty",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.07,
+      "target": "mezquino",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.15
+    },
+    {
+      "source": "pheasant",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.03,
+      "target": "faisán",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.65
+    },
+    {
+      "source": "phenomenal",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.76,
+      "target": "fenomenal",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.49
+    },
+    {
+      "source": "pigeon",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.61,
+      "target": "paloma",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.92
+    },
+    {
+      "source": "pigeon",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.61,
+      "target": "pichón",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.95
+    },
+    {
+      "source": "pink",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.52,
+      "target": "rosado",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.65
+    },
+    {
+      "source": "plain",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.43,
+      "target": "llanura",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.61
+    },
+    {
+      "source": "plane",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.72,
+      "target": "cepillo",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.56
+    },
+    {
+      "source": "pleasure",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.57,
+      "target": "agrado",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.77
+    },
+    {
+      "source": "polishwoman",
+      "source_zipf_band_en": "missing",
+      "source_zipf_frequency_en": null,
+      "target": "polaca",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.48
+    },
+    {
+      "source": "politician",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.16,
+      "target": "político",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.2
+    },
+    {
+      "source": "portal",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.0,
+      "target": "entrada",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.99
+    },
+    {
+      "source": "poseur",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 1.85,
+      "target": "farsante",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.0
+    },
+    {
+      "source": "prefer",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.57,
+      "target": "preferir",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.45
+    },
+    {
+      "source": "presence",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.73,
+      "target": "presencia",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.97
+    },
+    {
+      "source": "present",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.18,
+      "target": "contemporáneo",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.01
+    },
+    {
+      "source": "proposal",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.47,
+      "target": "pretensión",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.49
+    },
+    {
+      "source": "protest",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.45,
+      "target": "protesta",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.43
+    },
+    {
+      "source": "protestant",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.81,
+      "target": "protestante",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.49
+    },
+    {
+      "source": "prussian",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.26,
+      "target": "prusiano",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.74
+    },
+    {
+      "source": "pub",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.23,
+      "target": "taberna",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.43
+    },
+    {
+      "source": "quarrel",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.31,
+      "target": "reñir",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.23
+    },
+    {
+      "source": "quiet",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.65,
+      "target": "calmar",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.76
+    },
+    {
+      "source": "quiet",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.65,
+      "target": "silencio",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.89
+    },
+    {
+      "source": "quite",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.29,
+      "target": "enteramente",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.69
+    },
+    {
+      "source": "quote",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.51,
+      "target": "mencionar",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.39
+    },
+    {
+      "source": "race",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.08,
+      "target": "correr",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.6
+    },
+    {
+      "source": "read",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.54,
+      "target": "leer",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.15
+    },
+    {
+      "source": "rebate",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.31,
+      "target": "descuento",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.2
+    },
+    {
+      "source": "recover",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.29,
+      "target": "sanar",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.47
+    },
+    {
+      "source": "red",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.32,
+      "target": "rojo",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.84
+    },
+    {
+      "source": "refuse",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.39,
+      "target": "rechazar",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.99
+    },
+    {
+      "source": "region",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.0,
+      "target": "comarca",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.95
+    },
+    {
+      "source": "regret",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.37,
+      "target": "deplorar",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 1.52
+    },
+    {
+      "source": "regulation",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.38,
+      "target": "regla",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.51
+    },
+    {
+      "source": "reject",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.03,
+      "target": "rechazar",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.99
+    },
+    {
+      "source": "relinquish",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.12,
+      "target": "ceder",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.94
+    },
+    {
+      "source": "remove",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.71,
+      "target": "abolir",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.27
+    },
+    {
+      "source": "replacement",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.44,
+      "target": "suplemento",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.67
+    },
+    {
+      "source": "replenishment",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 2.74,
+      "target": "suplemento",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.67
+    },
+    {
+      "source": "report",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.32,
+      "target": "informar",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.26
+    },
+    {
+      "source": "repose",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 2.75,
+      "target": "descansar",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.21
+    },
+    {
+      "source": "representative",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.57,
+      "target": "diputado",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.59
+    },
+    {
+      "source": "republic",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.6,
+      "target": "república",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.17
+    },
+    {
+      "source": "reserve",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.6,
+      "target": "reservar",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.52
+    },
+    {
+      "source": "responsible",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.88,
+      "target": "responsable",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.8
+    },
+    {
+      "source": "rest",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.23,
+      "target": "descansar",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.21
+    },
+    {
+      "source": "restaurant",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.68,
+      "target": "restaurante",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.45
+    },
+    {
+      "source": "restrain",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.27,
+      "target": "capitanear",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 1.94
+    },
+    {
+      "source": "restrain",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.27,
+      "target": "gobernar",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.12
+    },
+    {
+      "source": "restrain",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.27,
+      "target": "reprimir",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.67
+    },
+    {
+      "source": "retain",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.16,
+      "target": "retener",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.72
+    },
+    {
+      "source": "reverse",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.37,
+      "target": "reverso",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.4
+    },
+    {
+      "source": "reverseside",
+      "source_zipf_band_en": "missing",
+      "source_zipf_frequency_en": null,
+      "target": "reverso",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.4
+    },
+    {
+      "source": "roast",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.87,
+      "target": "asar",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.94
+    },
+    {
+      "source": "roller",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.99,
+      "target": "cilindro",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.5
+    },
+    {
+      "source": "romanian",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.58,
+      "target": "rumano",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.34
+    },
+    {
+      "source": "room",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.39,
+      "target": "espacio",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.14
+    },
+    {
+      "source": "round",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.14,
+      "target": "redondo",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.82
+    },
+    {
+      "source": "rule",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.94,
+      "target": "regla",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.51
+    },
+    {
+      "source": "rumanian",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 1.91,
+      "target": "rumano",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.34
+    },
+    {
+      "source": "run",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.49,
+      "target": "correr",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.6
+    },
+    {
+      "source": "russian",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.01,
+      "target": "ruso",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.54
+    },
+    {
+      "source": "salad",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.15,
+      "target": "ensalada",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.91
+    },
+    {
+      "source": "sale",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.99,
+      "target": "deducción",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.33
+    },
+    {
+      "source": "salesman",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.64,
+      "target": "vendedor",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.14
+    },
+    {
+      "source": "satisfy",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.98,
+      "target": "complacer",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.5
+    },
+    {
+      "source": "scale",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.83,
+      "target": "incrustación",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.19
+    },
+    {
+      "source": "scuffle",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 2.79,
+      "target": "batalla",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.81
+    },
+    {
+      "source": "section",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.0,
+      "target": "departamento",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.04
+    },
+    {
+      "source": "sentence",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.58,
+      "target": "condenar",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.75
+    },
+    {
+      "source": "separate",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.83,
+      "target": "apartar",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.38
+    },
+    {
+      "source": "separate",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.83,
+      "target": "segregar",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.56
+    },
+    {
+      "source": "severe",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.56,
+      "target": "inclemente",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.38
+    },
+    {
+      "source": "shade",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.16,
+      "target": "sombra",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.41
+    },
+    {
+      "source": "shadow",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.44,
+      "target": "sombra",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.41
+    },
+    {
+      "source": "sharp",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.48,
+      "target": "justamente",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.18
+    },
+    {
+      "source": "shed",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.23,
+      "target": "puesto",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.3
+    },
+    {
+      "source": "shortage",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.91,
+      "target": "falta",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.44
+    },
+    {
+      "source": "shout",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.06,
+      "target": "grito",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.28
+    },
+    {
+      "source": "show",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.68,
+      "target": "designar",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.71
+    },
+    {
+      "source": "show",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.68,
+      "target": "mostrar",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.61
+    },
+    {
+      "source": "sigh",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.95,
+      "target": "suspirar",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.8
+    },
+    {
+      "source": "silence",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.46,
+      "target": "silencio",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.89
+    },
+    {
+      "source": "single",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.41,
+      "target": "soltero",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.92
+    },
+    {
+      "source": "ski",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.13,
+      "target": "esquí",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.61
+    },
+    {
+      "source": "skilful",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 2.91,
+      "target": "experto",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.38
+    },
+    {
+      "source": "skin",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.91,
+      "target": "piel",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.8
+    },
+    {
+      "source": "skirt",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.96,
+      "target": "falda",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.89
+    },
+    {
+      "source": "small",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.51,
+      "target": "pequeño",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.09
+    },
+    {
+      "source": "smile",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.64,
+      "target": "sonreír",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.77
+    },
+    {
+      "source": "smile",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.64,
+      "target": "sonrisa",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.5
+    },
+    {
+      "source": "snore",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 2.76,
+      "target": "roncar",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.65
+    },
+    {
+      "source": "soft",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.68,
+      "target": "dulce",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.71
+    },
+    {
+      "source": "space",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.23,
+      "target": "espacio",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.14
+    },
+    {
+      "source": "speed",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.0,
+      "target": "prisa",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.13
+    },
+    {
+      "source": "stable",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.48,
+      "target": "cuadra",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.99
+    },
+    {
+      "source": "stall",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.79,
+      "target": "cuadra",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.99
+    },
+    {
+      "source": "stand",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.14,
+      "target": "puesto",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.3
+    },
+    {
+      "source": "start",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.56,
+      "target": "comenzar",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.56
+    },
+    {
+      "source": "start",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.56,
+      "target": "poner",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.24
+    },
+    {
+      "source": "start",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.56,
+      "target": "principio",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.1
+    },
+    {
+      "source": "stick",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.76,
+      "target": "palo",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.38
+    },
+    {
+      "source": "stoke",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.73,
+      "target": "calentar",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.69
+    },
+    {
+      "source": "stomach",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.42,
+      "target": "estómago",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.13
+    },
+    {
+      "source": "storm",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.66,
+      "target": "tempestad",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.38
+    },
+    {
+      "source": "straggler",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 1.96,
+      "target": "rezagado",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.71
+    },
+    {
+      "source": "strict",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.23,
+      "target": "inclemente",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.38
+    },
+    {
+      "source": "sty",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 2.47,
+      "target": "cuadra",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.99
+    },
+    {
+      "source": "subscriber",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.52,
+      "target": "abonado",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.18
+    },
+    {
+      "source": "successor",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.99,
+      "target": "descendiente",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.62
+    },
+    {
+      "source": "suggest",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.75,
+      "target": "designar",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.71
+    },
+    {
+      "source": "sun",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.97,
+      "target": "sol",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.09
+    },
+    {
+      "source": "supper",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.74,
+      "target": "cena",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.42
+    },
+    {
+      "source": "supplement",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.03,
+      "target": "suplemento",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.67
+    },
+    {
+      "source": "sweat",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.14,
+      "target": "transpirar",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.52
+    },
+    {
+      "source": "swede",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.05,
+      "target": "sueco",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.71
+    },
+    {
+      "source": "swedish",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.21,
+      "target": "sueco",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.71
+    },
+    {
+      "source": "sweet",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.91,
+      "target": "dulce",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.71
+    },
+    {
+      "source": "taketheplaceof",
+      "source_zipf_band_en": "missing",
+      "source_zipf_frequency_en": null,
+      "target": "relevar",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.77
+    },
+    {
+      "source": "taste",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.73,
+      "target": "gusto",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.98
+    },
+    {
+      "source": "tasty",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.84,
+      "target": "rico",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.96
+    },
+    {
+      "source": "tax",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.14,
+      "target": "imponer",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.22
+    },
+    {
+      "source": "tea",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.73,
+      "target": "té",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.29
+    },
+    {
+      "source": "tellalie",
+      "source_zipf_band_en": "missing",
+      "source_zipf_frequency_en": null,
+      "target": "mentir",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.16
+    },
+    {
+      "source": "tentedcamp",
+      "source_zipf_band_en": "missing",
+      "source_zipf_frequency_en": null,
+      "target": "campamento",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.28
+    },
+    {
+      "source": "terrace",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.88,
+      "target": "terraza",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.83
+    },
+    {
+      "source": "thatmuch",
+      "source_zipf_band_en": "missing",
+      "source_zipf_frequency_en": null,
+      "target": "tanto",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.84
+    },
+    {
+      "source": "theatre",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.52,
+      "target": "teatro",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.83
+    },
+    {
+      "source": "theft",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.13,
+      "target": "robo",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.55
+    },
+    {
+      "source": "thief",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.88,
+      "target": "ladrón",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.11
+    },
+    {
+      "source": "thousand",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.64,
+      "target": "mil",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.34
+    },
+    {
+      "source": "throat",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.3,
+      "target": "garganta",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.2
+    },
+    {
+      "source": "tidy",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.53,
+      "target": "arreglar",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.34
+    },
+    {
+      "source": "time",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 6.29,
+      "target": "hora",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.45
+    },
+    {
+      "source": "toast",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.96,
+      "target": "asar",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.94
+    },
+    {
+      "source": "tomorrow",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.02,
+      "target": "mañana",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.48
+    },
+    {
+      "source": "train",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.96,
+      "target": "tren",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.71
+    },
+    {
+      "source": "transfer",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.72,
+      "target": "atravesar",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.81
+    },
+    {
+      "source": "transitive",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 2.76,
+      "target": "transitivo",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.34
+    },
+    {
+      "source": "transport",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.68,
+      "target": "transportar",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.79
+    },
+    {
+      "source": "trite",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 2.8,
+      "target": "común",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.14
+    },
+    {
+      "source": "trumpet",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.58,
+      "target": "trombón",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.7
+    },
+    {
+      "source": "turnaway",
+      "source_zipf_band_en": "missing",
+      "source_zipf_frequency_en": null,
+      "target": "apartar",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.38
+    },
+    {
+      "source": "turnon",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 1.08,
+      "target": "poner",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.24
+    },
+    {
+      "source": "ugly",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.42,
+      "target": "feo",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.36
+    },
+    {
+      "source": "unmarried",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.47,
+      "target": "soltero",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.92
+    },
+    {
+      "source": "upon",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.12,
+      "target": "sobre",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 6.19
+    },
+    {
+      "source": "urgency",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.55,
+      "target": "prisa",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.13
+    },
+    {
+      "source": "urine",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.84,
+      "target": "orina",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.78
+    },
+    {
+      "source": "utilize",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.75,
+      "target": "explotar",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.13
+    },
+    {
+      "source": "viper",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.31,
+      "target": "víbora",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.25
+    },
+    {
+      "source": "visit",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.04,
+      "target": "visita",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.93
+    },
+    {
+      "source": "vocabulary",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.82,
+      "target": "diccionario",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.22
+    },
+    {
+      "source": "want",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 6.04,
+      "target": "necesidad",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.03
+    },
+    {
+      "source": "wasp",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.35,
+      "target": "avispa",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.06
+    },
+    {
+      "source": "watercourse",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 2.35,
+      "target": "cauce",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.56
+    },
+    {
+      "source": "weak",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.66,
+      "target": "débil",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.38
+    },
+    {
+      "source": "west",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.29,
+      "target": "oeste",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.61
+    },
+    {
+      "source": "wholly",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.83,
+      "target": "enteramente",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.69
+    },
+    {
+      "source": "widower",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.03,
+      "target": "viudo",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.25
+    },
+    {
+      "source": "wife",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.23,
+      "target": "esposa",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.9
+    },
+    {
+      "source": "willow",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.69,
+      "target": "sauce",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.36
+    },
+    {
+      "source": "withoutaname",
+      "source_zipf_band_en": "missing",
+      "source_zipf_frequency_en": null,
+      "target": "anónimo",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.93
+    },
+    {
+      "source": "wolf",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.35,
+      "target": "lobo",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.2
+    },
+    {
+      "source": "work",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.96,
+      "target": "trabajar",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.22
+    },
+    {
+      "source": "workplace",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.04,
+      "target": "taller",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.51
+    },
+    {
+      "source": "wrangle",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "source_zipf_frequency_en": 2.6,
+      "target": "reñir",
+      "target_zipf_band_es": "zipf_below_3_rare",
+      "target_zipf_frequency_es": 2.23
+    },
+    {
+      "source": "writer",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.69,
+      "target": "autor",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.07
+    },
+    {
+      "source": "yard",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.57,
+      "target": "patio",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.4
+    },
+    {
+      "source": "yesterday",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.91,
+      "target": "ayer",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.09
+    },
+    {
+      "source": "yield",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "source_zipf_frequency_en": 4.16,
+      "target": "ceder",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.94
+    },
+    {
+      "source": "zinc",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.65,
+      "target": "zinc",
+      "target_zipf_band_es": "zipf_3_to_4_mid",
+      "target_zipf_frequency_es": 3.48
+    }
+  ],
+  "full_source_zipf_scope_en": {
+    "breakdowns": [
+      {
+        "sample_terms": [
+          "access",
+          "action",
+          "american",
+          "among",
+          "ask",
+          "away",
+          "back",
+          "base",
+          "become",
+          "bed",
+          "beginning",
+          "between"
+        ],
+        "scope_id": "full_srs_rule_source_triggers",
+        "share": 0.1884,
+        "source_count": 101,
+        "weight_share": null,
+        "weight_sum": 0.0,
+        "zipf_band": "zipf_5_plus_very_common"
+      },
+      {
+        "sample_terms": [
+          "absence",
+          "academy",
+          "acceptable",
+          "adjacent",
+          "african",
+          "afternoon",
+          "anonymous",
+          "arrange",
+          "australian",
+          "author",
+          "axis",
+          "background"
+        ],
+        "scope_id": "full_srs_rule_source_triggers",
+        "share": 0.4067,
+        "source_count": 218,
+        "weight_share": null,
+        "weight_sum": 0.0,
+        "zipf_band": "zipf_4_to_5_common"
+      },
+      {
+        "sample_terms": [
+          "abandonment",
+          "abiding",
+          "abolish",
+          "abstraction",
+          "accompaniment",
+          "accountable",
+          "accuse",
+          "acquaintance",
+          "adjective",
+          "adjoining",
+          "afar",
+          "altitude"
+        ],
+        "scope_id": "full_srs_rule_source_triggers",
+        "share": 0.2687,
+        "source_count": 144,
+        "weight_share": null,
+        "weight_sum": 0.0,
+        "zipf_band": "zipf_3_to_4_mid"
+      },
+      {
+        "sample_terms": [
+          "abate",
+          "abatement",
+          "aberration",
+          "abrogate",
+          "acquaint",
+          "adder",
+          "admonition",
+          "affable",
+          "alternation",
+          "annotation",
+          "argentinean",
+          "barque"
+        ],
+        "scope_id": "full_srs_rule_source_triggers",
+        "share": 0.0951,
+        "source_count": 51,
+        "weight_share": null,
+        "weight_sum": 0.0,
+        "zipf_band": "zipf_below_3_rare"
+      },
+      {
+        "sample_terms": [
+          "attitudinizer",
+          "beburntdown",
+          "campingsite",
+          "conversance",
+          "femalejournalist",
+          "germanlanguage",
+          "gobackwards",
+          "gobeyond",
+          "japaneselanguage",
+          "manifacture",
+          "middaymeal",
+          "mosaicwork"
+        ],
+        "scope_id": "full_srs_rule_source_triggers",
+        "share": 0.041,
+        "source_count": 22,
+        "weight_share": null,
+        "weight_sum": 0.0,
+        "zipf_band": "missing"
+      }
+    ],
+    "language": "en",
+    "preview_only": false,
+    "scope_id": "full_srs_rule_source_triggers",
+    "term_count": 536,
+    "term_label": "source",
+    "weight_sum": null
+  },
+  "generated_at": "2026-05-06T00:44:11+00:00",
+  "inputs": {
+    "full_rulegen": {
+      "elapsed_seconds": 5.745,
+      "jmdict_path": "",
+      "pair": "en-es",
+      "reverse_translation_dict_exists": true,
+      "reverse_translation_dict_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-en-es.sqlite",
+      "rule_count": 570,
+      "source_target_pair_count": 570,
+      "status": "ok",
+      "target_count": 1984,
+      "translation_dict_exists": true,
+      "translation_dict_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/freedict-es-en/main.sqlite"
+    },
+    "full_srs": {
+      "frequency_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-es-cde.sqlite",
+      "frequency_db_exists": true,
+      "jmdict_path": "",
+      "pair": "en-es",
+      "requires_jmdict_for_seed": false,
+      "seed_row_count": 2000,
+      "status": "ok",
+      "stopwords_exists": false,
+      "stopwords_path": "",
+      "top_n": 50000,
+      "translation_dict_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/freedict-es-en/main.sqlite",
+      "unique_target_count": 1984
+    },
+    "srs_journey_path": "docs/test_outputs/srs_journey/srs_journey_en_es_installed_latest.json",
+    "srs_journey_scenario": "en-es_installed_data_journey_v1",
+    "srs_resource_mode": "installed"
+  },
+  "journey_source_target_pairs": [
+    {
+      "source": "beginning",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.0,
+      "target": "principio",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.1
+    },
+    {
+      "source": "centennial",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.36,
+      "target": "siglo",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.15
+    },
+    {
+      "source": "century",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.02,
+      "target": "siglo",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.15
+    },
+    {
+      "source": "commencement",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.48,
+      "target": "principio",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.1
+    },
+    {
+      "source": "hour",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.18,
+      "target": "hora",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.45
+    },
+    {
+      "source": "light",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.33,
+      "target": "luz",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.25
+    },
+    {
+      "source": "million",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.33,
+      "target": "millón",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.59
+    },
+    {
+      "source": "music",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.52,
+      "target": "música",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.24
+    },
+    {
+      "source": "start",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.56,
+      "target": "principio",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.1
+    },
+    {
+      "source": "time",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 6.29,
+      "target": "hora",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.45
+    }
+  ],
+  "limitations": [
+    "srs_target_frequency_is_not_the_same_as_source_trigger_veto_difficulty",
+    "zipf_frequency_is_not_cefr_or_user_known_word_level",
+    "journey_candidate_universe_is_current_top_n_slice_not_full_srs_universe",
+    "full_srs_universe_is_limited_by_current_installed_frequency_pack",
+    "source_target_matrix_depends_on_journey_artifact_preserving_rule_pairs",
+    "full_source_target_matrix_requires_explicit_full_rulegen_run",
+    "report_is_cost_planning_evidence_not_runtime_policy"
+  ],
+  "methodology": {
+    "llm_generation": "none",
+    "runtime_policy_change": "none",
+    "source_denominator": "Full generated rule source-target pairs when requested, plus published journey rule source triggers and source-target pairs.",
+    "source_language": "en",
+    "target_denominator": "Full installed SRS-admissible target lemmas from the SRS seed/admission path, plus journey-slice selected/admitted/due/published target lemmas.",
+    "target_language": "es",
+    "zipf_thresholds": {
+      "zipf_3_to_4_mid": ">= 3.0 and < 4.0",
+      "zipf_4_to_5_common": ">= 4.0 and < 5.0",
+      "zipf_5_plus_very_common": ">= 5.0",
+      "zipf_below_3_rare": "> 0.0 and < 3.0"
+    }
+  },
+  "next_steps": [
+    "Use target-side rows to estimate which SRS words users actually experience.",
+    "Use source-trigger rows to estimate which published replacement families need semantic-veto evidence.",
+    "Weight future LLM generation by SRS admission exposure and source-trigger veto difficulty, not by source frequency alone.",
+    "Keep target-side learner difficulty and source-side veto ambiguity as separate axes."
+  ],
+  "pair": "en-es",
+  "schema_version": 1,
+  "source_target_family_zipf_matrix": [
+    {
+      "family_count": 7,
+      "sample_families": [
+        {
+          "source": "beginning",
+          "target": "principio"
+        },
+        {
+          "source": "century",
+          "target": "siglo"
+        },
+        {
+          "source": "hour",
+          "target": "hora"
+        },
+        {
+          "source": "light",
+          "target": "luz"
+        },
+        {
+          "source": "music",
+          "target": "música"
+        },
+        {
+          "source": "start",
+          "target": "principio"
+        },
+        {
+          "source": "time",
+          "target": "hora"
+        }
+      ],
+      "share": 0.7,
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "target_zipf_band_es": "zipf_5_plus_very_common"
+    },
+    {
+      "family_count": 1,
+      "sample_families": [
+        {
+          "source": "million",
+          "target": "millón"
+        }
+      ],
+      "share": 0.1,
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "target_zipf_band_es": "zipf_4_to_5_common"
+    },
+    {
+      "family_count": 2,
+      "sample_families": [
+        {
+          "source": "centennial",
+          "target": "siglo"
+        },
+        {
+          "source": "commencement",
+          "target": "principio"
+        }
+      ],
+      "share": 0.2,
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "target_zipf_band_es": "zipf_5_plus_very_common"
+    }
+  ],
+  "source_zipf_scope_en": {
+    "breakdowns": [
+      {
+        "sample_terms": [
+          "beginning",
+          "century",
+          "hour",
+          "light",
+          "million",
+          "music",
+          "start",
+          "time"
+        ],
+        "scope_id": "journey_union_rule_source_triggers",
+        "share": 0.8,
+        "source_count": 8,
+        "weight_share": null,
+        "weight_sum": 0.0,
+        "zipf_band": "zipf_5_plus_very_common"
+      },
+      {
+        "sample_terms": [],
+        "scope_id": "journey_union_rule_source_triggers",
+        "share": 0.0,
+        "source_count": 0,
+        "weight_share": null,
+        "weight_sum": 0.0,
+        "zipf_band": "zipf_4_to_5_common"
+      },
+      {
+        "sample_terms": [
+          "centennial",
+          "commencement"
+        ],
+        "scope_id": "journey_union_rule_source_triggers",
+        "share": 0.2,
+        "source_count": 2,
+        "weight_share": null,
+        "weight_sum": 0.0,
+        "zipf_band": "zipf_3_to_4_mid"
+      },
+      {
+        "sample_terms": [],
+        "scope_id": "journey_union_rule_source_triggers",
+        "share": 0.0,
+        "source_count": 0,
+        "weight_share": null,
+        "weight_sum": 0.0,
+        "zipf_band": "zipf_below_3_rare"
+      },
+      {
+        "sample_terms": [],
+        "scope_id": "journey_union_rule_source_triggers",
+        "share": 0.0,
+        "source_count": 0,
+        "weight_share": null,
+        "weight_sum": 0.0,
+        "zipf_band": "missing"
+      }
+    ],
+    "language": "en",
+    "preview_only": false,
+    "scope_id": "journey_union_rule_source_triggers",
+    "term_count": 10,
+    "term_label": "source",
+    "weight_sum": null
+  },
+  "status": "ok",
+  "summary": {
+    "candidate_target_very_common_or_common_count": 172,
+    "candidate_target_very_common_or_common_share": 0.86,
+    "full_rule_source_trigger_count": 536,
+    "full_source_mapping_status": "full_source_target_pairs_available",
+    "full_source_target_pair_count": 570,
+    "full_srs_admissible_seed_row_count": 2000,
+    "full_srs_admissible_target_count": 1984,
+    "full_target_very_common_or_common_count": 404,
+    "full_target_very_common_or_common_share": 0.2036,
+    "issues": [],
+    "journey_candidate_target_very_common_or_common_count": 172,
+    "journey_candidate_target_very_common_or_common_share": 0.86,
+    "journey_srs_candidate_target_count": 200,
+    "journey_union_published_target_count": 6,
+    "journey_union_rule_source_trigger_count": 10,
+    "journey_union_source_target_pair_count": 10,
+    "latest_admitted_target_count": 7,
+    "latest_due_target_count": 3,
+    "latest_published_target_count": 6,
+    "source_mapping_status": "source_target_pairs_available",
+    "srs_candidate_target_count": 200,
+    "srs_selected_initial_active_count": 3
+  },
+  "target_zipf_scopes_es": [
+    {
+      "breakdowns": [
+        {
+          "sample_terms": [
+            "actualmente",
+            "asi",
+            "aun",
+            "auto",
+            "autor",
+            "ayer",
+            "base",
+            "brasil",
+            "capital",
+            "colombia",
+            "común",
+            "corazón"
+          ],
+          "scope_id": "full_srs_admissible_universe",
+          "share": 0.0368,
+          "target_count": 73,
+          "weight_share": 0.0567,
+          "weight_sum": 33.266579,
+          "zipf_band": "zipf_5_plus_very_common"
+        },
+        {
+          "sample_terms": [
+            "abrazo",
+            "absurdo",
+            "academia",
+            "afortunadamente",
+            "alemán",
+            "alternativa",
+            "altura",
+            "americano",
+            "amo",
+            "ampliar",
+            "anciano",
+            "argentino"
+          ],
+          "scope_id": "full_srs_admissible_universe",
+          "share": 0.1668,
+          "target_count": 331,
+          "weight_share": 0.2268,
+          "weight_sum": 133.109825,
+          "zipf_band": "zipf_4_to_5_common"
+        },
+        {
+          "sample_terms": [
+            "abeja",
+            "abolir",
+            "abonado",
+            "abundancia",
+            "aburrir",
+            "accidental",
+            "acompañamiento",
+            "acreedor",
+            "acumular",
+            "acusar",
+            "adecuación",
+            "adelantado"
+          ],
+          "scope_id": "full_srs_admissible_universe",
+          "share": 0.4158,
+          "target_count": 825,
+          "weight_share": 0.4209,
+          "weight_sum": 247.084474,
+          "zipf_band": "zipf_3_to_4_mid"
+        },
+        {
+          "sample_terms": [
+            "abdicar",
+            "abolengo",
+            "abrasar",
+            "absurdamente",
+            "acontecer",
+            "acribillar",
+            "actuante",
+            "acumulativo",
+            "acunar",
+            "acupuntura",
+            "adalid",
+            "adiposo"
+          ],
+          "scope_id": "full_srs_admissible_universe",
+          "share": 0.3745,
+          "target_count": 743,
+          "weight_share": 0.2913,
+          "weight_sum": 170.996853,
+          "zipf_band": "zipf_below_3_rare"
+        },
+        {
+          "sample_terms": [
+            "ajenar",
+            "consternar",
+            "desproveer",
+            "empalidecer",
+            "enconar",
+            "frutar",
+            "mandatari",
+            "palmotear",
+            "preciarse",
+            "seriar",
+            "sonrosar",
+            "tumefacto"
+          ],
+          "scope_id": "full_srs_admissible_universe",
+          "share": 0.006,
+          "target_count": 12,
+          "weight_share": 0.0044,
+          "weight_sum": 2.556562,
+          "zipf_band": "missing"
+        }
+      ],
+      "language": "es",
+      "scope_id": "full_srs_admissible_universe",
+      "term_count": 1984,
+      "term_label": "target",
+      "weight_sum": 587.014293
+    },
+    {
+      "breakdowns": [
+        {
+          "sample_terms": [
+            "actualmente",
+            "auto",
+            "autor",
+            "capital",
+            "común",
+            "corazón",
+            "crear",
+            "crisis",
+            "dentro",
+            "departamento",
+            "diciembre",
+            "el"
+          ],
+          "scope_id": "journey_srs_candidate_slice",
+          "share": 0.31,
+          "target_count": 62,
+          "weight_share": 0.3298,
+          "weight_sum": 30.094586,
+          "zipf_band": "zipf_5_plus_very_common"
+        },
+        {
+          "sample_terms": [
+            "alemán",
+            "altura",
+            "americano",
+            "ampliar",
+            "argentino",
+            "arreglar",
+            "asimismo",
+            "asistir",
+            "ave",
+            "barco",
+            "batalla",
+            "cargar"
+          ],
+          "scope_id": "journey_srs_candidate_slice",
+          "share": 0.55,
+          "target_count": 110,
+          "weight_share": 0.5549,
+          "weight_sum": 50.63483,
+          "zipf_band": "zipf_4_to_5_common"
+        },
+        {
+          "sample_terms": [
+            "acusar",
+            "advertir",
+            "alimentar",
+            "arrastrar",
+            "atravesar",
+            "basar",
+            "caber",
+            "calcular",
+            "característico",
+            "ceder",
+            "condenar",
+            "diverso"
+          ],
+          "scope_id": "journey_srs_candidate_slice",
+          "share": 0.13,
+          "target_count": 26,
+          "weight_share": 0.1072,
+          "weight_sum": 9.783293,
+          "zipf_band": "zipf_3_to_4_mid"
+        },
+        {
+          "sample_terms": [
+            "consistir",
+            "oponer"
+          ],
+          "scope_id": "journey_srs_candidate_slice",
+          "share": 0.01,
+          "target_count": 2,
+          "weight_share": 0.0081,
+          "weight_sum": 0.742312,
+          "zipf_band": "zipf_below_3_rare"
+        },
+        {
+          "sample_terms": [],
+          "scope_id": "journey_srs_candidate_slice",
+          "share": 0.0,
+          "target_count": 0,
+          "weight_share": 0.0,
+          "weight_sum": 0.0,
+          "zipf_band": "missing"
+        }
+      ],
+      "language": "es",
+      "scope_id": "journey_srs_candidate_slice",
+      "term_count": 200,
+      "term_label": "target",
+      "weight_sum": 91.255021
+    },
+    {
+      "breakdowns": [
+        {
+          "sample_terms": [
+            "hora",
+            "siglo"
+          ],
+          "scope_id": "srs_selected_initial_active",
+          "share": 0.6667,
+          "target_count": 2,
+          "weight_share": 0.669,
+          "weight_sum": 1.335186,
+          "zipf_band": "zipf_5_plus_very_common"
+        },
+        {
+          "sample_terms": [
+            "millón"
+          ],
+          "scope_id": "srs_selected_initial_active",
+          "share": 0.3333,
+          "target_count": 1,
+          "weight_share": 0.331,
+          "weight_sum": 0.660539,
+          "zipf_band": "zipf_4_to_5_common"
+        },
+        {
+          "sample_terms": [],
+          "scope_id": "srs_selected_initial_active",
+          "share": 0.0,
+          "target_count": 0,
+          "weight_share": 0.0,
+          "weight_sum": 0.0,
+          "zipf_band": "zipf_3_to_4_mid"
+        },
+        {
+          "sample_terms": [],
+          "scope_id": "srs_selected_initial_active",
+          "share": 0.0,
+          "target_count": 0,
+          "weight_share": 0.0,
+          "weight_sum": 0.0,
+          "zipf_band": "zipf_below_3_rare"
+        },
+        {
+          "sample_terms": [],
+          "scope_id": "srs_selected_initial_active",
+          "share": 0.0,
+          "target_count": 0,
+          "weight_share": 0.0,
+          "weight_sum": 0.0,
+          "zipf_band": "missing"
+        }
+      ],
+      "language": "es",
+      "scope_id": "srs_selected_initial_active",
+      "term_count": 3,
+      "term_label": "target",
+      "weight_sum": 1.995725
+    },
+    {
+      "breakdowns": [
+        {
+          "sample_terms": [
+            "hora",
+            "luz",
+            "movimiento",
+            "música",
+            "principio",
+            "siglo"
+          ],
+          "scope_id": "latest_admitted_srs_items",
+          "share": 0.8571,
+          "target_count": 6,
+          "weight_share": 0.8526,
+          "weight_sum": 3.819643,
+          "zipf_band": "zipf_5_plus_very_common"
+        },
+        {
+          "sample_terms": [
+            "millón"
+          ],
+          "scope_id": "latest_admitted_srs_items",
+          "share": 0.1429,
+          "target_count": 1,
+          "weight_share": 0.1474,
+          "weight_sum": 0.660539,
+          "zipf_band": "zipf_4_to_5_common"
+        },
+        {
+          "sample_terms": [],
+          "scope_id": "latest_admitted_srs_items",
+          "share": 0.0,
+          "target_count": 0,
+          "weight_share": 0.0,
+          "weight_sum": 0.0,
+          "zipf_band": "zipf_3_to_4_mid"
+        },
+        {
+          "sample_terms": [],
+          "scope_id": "latest_admitted_srs_items",
+          "share": 0.0,
+          "target_count": 0,
+          "weight_share": 0.0,
+          "weight_sum": 0.0,
+          "zipf_band": "zipf_below_3_rare"
+        },
+        {
+          "sample_terms": [],
+          "scope_id": "latest_admitted_srs_items",
+          "share": 0.0,
+          "target_count": 0,
+          "weight_share": 0.0,
+          "weight_sum": 0.0,
+          "zipf_band": "missing"
+        }
+      ],
+      "language": "es",
+      "scope_id": "latest_admitted_srs_items",
+      "term_count": 7,
+      "term_label": "target",
+      "weight_sum": 4.480182
+    },
+    {
+      "breakdowns": [
+        {
+          "sample_terms": [
+            "hora",
+            "luz",
+            "movimiento"
+          ],
+          "scope_id": "latest_due_srs_items",
+          "share": 1.0,
+          "target_count": 3,
+          "weight_share": 1.0,
+          "weight_sum": 1.882375,
+          "zipf_band": "zipf_5_plus_very_common"
+        },
+        {
+          "sample_terms": [],
+          "scope_id": "latest_due_srs_items",
+          "share": 0.0,
+          "target_count": 0,
+          "weight_share": 0.0,
+          "weight_sum": 0.0,
+          "zipf_band": "zipf_4_to_5_common"
+        },
+        {
+          "sample_terms": [],
+          "scope_id": "latest_due_srs_items",
+          "share": 0.0,
+          "target_count": 0,
+          "weight_share": 0.0,
+          "weight_sum": 0.0,
+          "zipf_band": "zipf_3_to_4_mid"
+        },
+        {
+          "sample_terms": [],
+          "scope_id": "latest_due_srs_items",
+          "share": 0.0,
+          "target_count": 0,
+          "weight_share": 0.0,
+          "weight_sum": 0.0,
+          "zipf_band": "zipf_below_3_rare"
+        },
+        {
+          "sample_terms": [],
+          "scope_id": "latest_due_srs_items",
+          "share": 0.0,
+          "target_count": 0,
+          "weight_share": 0.0,
+          "weight_sum": 0.0,
+          "zipf_band": "missing"
+        }
+      ],
+      "language": "es",
+      "scope_id": "latest_due_srs_items",
+      "term_count": 3,
+      "term_label": "target",
+      "weight_sum": 1.882375
+    },
+    {
+      "breakdowns": [
+        {
+          "sample_terms": [
+            "hora",
+            "luz",
+            "música",
+            "principio",
+            "siglo"
+          ],
+          "scope_id": "latest_published_srs_targets",
+          "share": 0.8333,
+          "target_count": 5,
+          "weight_share": 0.829,
+          "weight_sum": 3.203162,
+          "zipf_band": "zipf_5_plus_very_common"
+        },
+        {
+          "sample_terms": [
+            "millón"
+          ],
+          "scope_id": "latest_published_srs_targets",
+          "share": 0.1667,
+          "target_count": 1,
+          "weight_share": 0.171,
+          "weight_sum": 0.660539,
+          "zipf_band": "zipf_4_to_5_common"
+        },
+        {
+          "sample_terms": [],
+          "scope_id": "latest_published_srs_targets",
+          "share": 0.0,
+          "target_count": 0,
+          "weight_share": 0.0,
+          "weight_sum": 0.0,
+          "zipf_band": "zipf_3_to_4_mid"
+        },
+        {
+          "sample_terms": [],
+          "scope_id": "latest_published_srs_targets",
+          "share": 0.0,
+          "target_count": 0,
+          "weight_share": 0.0,
+          "weight_sum": 0.0,
+          "zipf_band": "zipf_below_3_rare"
+        },
+        {
+          "sample_terms": [],
+          "scope_id": "latest_published_srs_targets",
+          "share": 0.0,
+          "target_count": 0,
+          "weight_share": 0.0,
+          "weight_sum": 0.0,
+          "zipf_band": "missing"
+        }
+      ],
+      "language": "es",
+      "scope_id": "latest_published_srs_targets",
+      "term_count": 6,
+      "term_label": "target",
+      "weight_sum": 3.863701
+    },
+    {
+      "breakdowns": [
+        {
+          "sample_terms": [
+            "hora",
+            "luz",
+            "música",
+            "principio",
+            "siglo"
+          ],
+          "scope_id": "journey_union_published_targets",
+          "share": 0.8333,
+          "target_count": 5,
+          "weight_share": null,
+          "weight_sum": 0.0,
+          "zipf_band": "zipf_5_plus_very_common"
+        },
+        {
+          "sample_terms": [
+            "millón"
+          ],
+          "scope_id": "journey_union_published_targets",
+          "share": 0.1667,
+          "target_count": 1,
+          "weight_share": null,
+          "weight_sum": 0.0,
+          "zipf_band": "zipf_4_to_5_common"
+        },
+        {
+          "sample_terms": [],
+          "scope_id": "journey_union_published_targets",
+          "share": 0.0,
+          "target_count": 0,
+          "weight_share": null,
+          "weight_sum": 0.0,
+          "zipf_band": "zipf_3_to_4_mid"
+        },
+        {
+          "sample_terms": [],
+          "scope_id": "journey_union_published_targets",
+          "share": 0.0,
+          "target_count": 0,
+          "weight_share": null,
+          "weight_sum": 0.0,
+          "zipf_band": "zipf_below_3_rare"
+        },
+        {
+          "sample_terms": [],
+          "scope_id": "journey_union_published_targets",
+          "share": 0.0,
+          "target_count": 0,
+          "weight_share": null,
+          "weight_sum": 0.0,
+          "zipf_band": "missing"
+        }
+      ],
+      "language": "es",
+      "scope_id": "journey_union_published_targets",
+      "term_count": 6,
+      "term_label": "target",
+      "weight_sum": null
+    }
+  ]
+}

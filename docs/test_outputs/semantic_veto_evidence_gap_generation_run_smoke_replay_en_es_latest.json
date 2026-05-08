@@ -1,0 +1,114 @@
+{
+  "admission_preview": {
+    "admitted_item_count": 5,
+    "coverage_shortfall_count": 0,
+    "decision": "generated_items_admitted_for_pilot_rescoring",
+    "rejected_item_count": 0,
+    "status": "ok"
+  },
+  "artifacts": {
+    "generated_responses_json": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-smoke-replay-repaired-contract-v5-replay_generated_responses.json",
+    "journal_jsonl": "",
+    "raw_response_bundle_json": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-smoke-replay-repaired-contract-v5-replay_raw_responses.json"
+  },
+  "batch_id": "en-es:semantic-veto-evidence-gap-generation:semantic-veto-evidence-gap-smoke-replay-repaired-contract-v5:replay",
+  "execution_mode": "replay",
+  "generated_at": "2026-05-08T03:10:20Z",
+  "pair": "en-es",
+  "pilot_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1",
+  "prompt_id": "semantic_veto_evidence_gap_generation_v5",
+  "replay_source": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/evidence_gap_smoke_replay_fixture.json",
+  "request_rows": [
+    {
+      "family_id": "en-es:full-family-repaired-full:adjoining:vecino",
+      "first_sentence": "The adjoining room shares a wall with the kitchen.",
+      "item_count": 2,
+      "pilot_arm": "high_need",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-smoke-replay-repaired-contract-v5-replay_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "replay_1",
+      "slot_id": "en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 100,
+        "output_tokens": 80,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:adjoining:vecino",
+      "first_sentence": "The legal notice used adjoining to classify parcels that touch at one border.",
+      "item_count": 2,
+      "pilot_arm": "high_need",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-smoke-replay-repaired-contract-v5-replay_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:shadow_or_competitor_evidence_probe",
+      "requested_items": 2,
+      "response_id": "replay_2",
+      "slot_id": "en-es:full-family-repaired-full:adjoining:vecino:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 100,
+        "output_tokens": 80,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:adjoining:vecino",
+      "first_sentence": "The template heading \"Adjoining\" appears before the room list.",
+      "item_count": 1,
+      "pilot_arm": "high_need",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-smoke-replay-repaired-contract-v5-replay_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:no_winner_context_probe",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:no_winner_context_probe",
+      "requested_items": 1,
+      "response_id": "replay_3",
+      "slot_id": "en-es:full-family-repaired-full:adjoining:vecino:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 100,
+        "output_tokens": 80,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    }
+  ],
+  "schema_version": 1,
+  "selected_model_id": "gpt-5.4-mini",
+  "selected_temperature": 0.2,
+  "status": "ok",
+  "summary": {
+    "accepted_generated_item_count": 5,
+    "accepted_items_by_slot_type": {
+      "active_evidence_expansion": 2,
+      "no_winner_context_probe": 1,
+      "shadow_or_competitor_evidence_probe": 2
+    },
+    "accepted_response_count": 3,
+    "accepted_responses_by_arm": {
+      "high_need": 3
+    },
+    "accepted_responses_by_slot_type": {
+      "active_evidence_expansion": 1,
+      "no_winner_context_probe": 1,
+      "shadow_or_competitor_evidence_probe": 1
+    },
+    "admission_status": "ok",
+    "admitted_item_count": 5,
+    "api_error_count": 0,
+    "coverage_shortfall_count": 0,
+    "input_tokens": 300,
+    "invalid_output_count": 0,
+    "output_tokens": 240,
+    "reasoning_tokens": 0,
+    "rejected_item_count": 0,
+    "selected_request_count": 3
+  }
+}

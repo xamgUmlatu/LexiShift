@@ -63,14 +63,19 @@ class SemanticVetoVetoOnlyValidationTests(unittest.TestCase):
         )
 
         self.assertEqual(report["status"], "ok")
-        self.assertEqual(report["decision"], "veto_only_validation_product_target_pass_found")
+        self.assertEqual(
+            report["decision"],
+            "veto_only_validation_strict_source_product_target_pass_found",
+        )
         self.assertEqual(report["summary"]["target_pass_count"], 1)
+        self.assertEqual(report["summary"]["strict_target_pass_count"], 1)
         self.assertEqual(report["e2e_checks"]["input_case_rows_read"], 10)
 
         best = report["summary"]["best_product_rank_row"]
         self.assertEqual(best["positive_allow_rate"], 1.0)
         self.assertEqual(best["negative_abstain_rate"], 0.6)
         self.assertEqual(best["target_status"], "pass")
+        self.assertEqual(best["strict_target_status"], "pass")
         self.assertEqual(
             best["source_breakdowns"][0]["report_id"],
             "active_shadow_fixture",
@@ -107,6 +112,69 @@ class SemanticVetoVetoOnlyValidationTests(unittest.TestCase):
         self.assertEqual(by_mode["shadow_only"]["negative_abstain_rate"], 0.0)
         self.assertEqual(by_mode["shadow_or_phrase_score"]["negative_abstain_rate"], 1.0)
         self.assertEqual(by_mode["shadow_or_phrase_score"]["target_status"], "pass")
+
+    def test_overall_pass_is_review_when_a_source_breakdown_fails(self) -> None:
+        report = build_veto_only_validation_report(
+            policy=_policy(),
+            validation_reports=[
+                {
+                    "report_id": "strong_positive_source",
+                    "suite_id": "positive",
+                    "report": {
+                        "schema_version": 1,
+                        "status": "ok",
+                        "configured_case_results": [
+                            _case(f"positive-{index}", "replace", 0.6, 0.1) for index in range(5)
+                        ],
+                    },
+                },
+                {
+                    "report_id": "weak_negative_source",
+                    "suite_id": "negative",
+                    "report": {
+                        "schema_version": 1,
+                        "status": "ok",
+                        "configured_case_results": [
+                            *[
+                                _case(f"negative-{index}", "abstain", 0.1, 0.3)
+                                for index in range(2)
+                            ],
+                            *[
+                                _case(f"negative-open-{index}", "abstain", 0.3, 0.1)
+                                for index in range(3)
+                            ],
+                        ],
+                    },
+                },
+                {
+                    "report_id": "strong_negative_source",
+                    "suite_id": "negative_control",
+                    "report": {
+                        "schema_version": 1,
+                        "status": "ok",
+                        "configured_case_results": [
+                            _case(f"negative-control-{index}", "abstain", 0.1, 0.3)
+                            for index in range(3)
+                        ],
+                    },
+                },
+            ],
+            shadow_lead_grid=[0.05],
+            shadow_score_grid=[0.1],
+            phrase_modes=["shadow_only"],
+            generated_at="2026-05-01T00:00:00Z",
+        )
+
+        self.assertEqual(report["status"], "review")
+        self.assertEqual(
+            report["decision"],
+            "veto_only_validation_overall_product_target_pass_source_failures",
+        )
+        self.assertEqual(report["summary"]["target_pass_count"], 1)
+        self.assertEqual(report["summary"]["strict_target_pass_count"], 0)
+        row = report["rows"][0]
+        self.assertEqual(row["target_status"], "pass")
+        self.assertEqual(row["strict_target_status"], "fail")
 
 
 def _policy() -> dict[str, object]:

@@ -1,0 +1,1075 @@
+{
+  "dataset_id": "en_es_full_family_deferred_mapping_review_fix_v1",
+  "description": "Agent-reviewed fix packet for deferred full-family source-target mappings. Rows are repaired for semantic coherence but remain pending user review.",
+  "families": [
+    {
+      "active": {
+        "canonical_pos": "verb",
+        "evidence_views": {
+          "all_evidence_text": "bar -> cercar | fence off, block, or obstruct passage into a place",
+          "gloss_text": "fence off, block, or obstruct passage into a place",
+          "sense_gloss_bundle": "bar -> cercar | fence off, block, or obstruct passage into a place",
+          "sense_label": "bar -> cercar"
+        },
+        "sense_id": "en-es:full-family-deferred-review-fix:bar:cercar:active",
+        "target_lemma": "cercar"
+      },
+      "cases": [
+        {
+          "case_id": "en-es:full-family-deferred-review-fix:bar:cercar:001",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-deferred-review-fix:bar:cercar:active",
+          "human_review_status": "pending_user_review",
+          "notes": "agent-reviewed fixed active context",
+          "row_quality_status": "agent_reviewed_user_review_pending",
+          "sentence": "The crew will bar the service entrance with temporary fencing.",
+          "slice_dimensions": {
+            "context_source": [
+              "agent_reviewed_independent_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_deferred_mapping_review_fix_v1"
+            ],
+            "family_repair_status": [
+              "deferred_mapping_fixed_corrected_active_sense"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "agent_reviewed_user_review_pending"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "agent_reviewed_user_review_pending"
+            ],
+            "source_cell_id": [
+              "source_zipf=zipf_4_to_5_common::polysemy=high_10_plus::pos_shape=cross_pos_polysemy"
+            ],
+            "source_zipf_band_en": [
+              "zipf_4_to_5_common"
+            ],
+            "target_zipf_band_es": [
+              "zipf_below_3_rare"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_deferred_mapping_review_fix_v1",
+            "agent_reviewed_user_review_pending",
+            "deferred_mapping_fixed_corrected_active_sense",
+            "source_zipf:zipf_4_to_5_common",
+            "target_zipf:zipf_below_3_rare",
+            "polysemy:high_10_plus",
+            "pos_shape:cross_pos_polysemy",
+            "source_cell:source_zipf=zipf_4_to_5_common::polysemy=high_10_plus::pos_shape=cross_pos_polysemy",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "bar"
+        },
+        {
+          "case_id": "en-es:full-family-deferred-review-fix:bar:cercar:002",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-deferred-review-fix:bar:cercar:active",
+          "human_review_status": "pending_user_review",
+          "notes": "agent-reviewed fixed active context",
+          "row_quality_status": "agent_reviewed_user_review_pending",
+          "sentence": "A locked gate can bar the narrow path to the reservoir.",
+          "slice_dimensions": {
+            "context_source": [
+              "agent_reviewed_independent_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_deferred_mapping_review_fix_v1"
+            ],
+            "family_repair_status": [
+              "deferred_mapping_fixed_corrected_active_sense"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "agent_reviewed_user_review_pending"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "agent_reviewed_user_review_pending"
+            ],
+            "source_cell_id": [
+              "source_zipf=zipf_4_to_5_common::polysemy=high_10_plus::pos_shape=cross_pos_polysemy"
+            ],
+            "source_zipf_band_en": [
+              "zipf_4_to_5_common"
+            ],
+            "target_zipf_band_es": [
+              "zipf_below_3_rare"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_deferred_mapping_review_fix_v1",
+            "agent_reviewed_user_review_pending",
+            "deferred_mapping_fixed_corrected_active_sense",
+            "source_zipf:zipf_4_to_5_common",
+            "target_zipf:zipf_below_3_rare",
+            "polysemy:high_10_plus",
+            "pos_shape:cross_pos_polysemy",
+            "source_cell:source_zipf=zipf_4_to_5_common::polysemy=high_10_plus::pos_shape=cross_pos_polysemy",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "bar"
+        },
+        {
+          "case_id": "en-es:full-family-deferred-review-fix:bar:cercar:003",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:full-family-deferred-review-fix:bar:cercar:shadow:1:taberna",
+          "human_review_status": "pending_user_review",
+          "notes": "agent-reviewed real Spanish shadow competitor context",
+          "row_quality_status": "agent_reviewed_user_review_pending",
+          "sentence": "She ordered mineral water at the bar after dinner.",
+          "slice_dimensions": {
+            "context_source": [
+              "agent_reviewed_independent_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_deferred_mapping_review_fix_v1"
+            ],
+            "family_repair_status": [
+              "deferred_mapping_fixed_corrected_active_sense"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "manual_review_state": [
+              "agent_reviewed_user_review_pending"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "agent_reviewed_user_review_pending"
+            ],
+            "source_cell_id": [
+              "source_zipf=zipf_4_to_5_common::polysemy=high_10_plus::pos_shape=cross_pos_polysemy"
+            ],
+            "source_zipf_band_en": [
+              "zipf_4_to_5_common"
+            ],
+            "target_zipf_band_es": [
+              "zipf_below_3_rare"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_deferred_mapping_review_fix_v1",
+            "agent_reviewed_user_review_pending",
+            "deferred_mapping_fixed_corrected_active_sense",
+            "source_zipf:zipf_4_to_5_common",
+            "target_zipf:zipf_below_3_rare",
+            "polysemy:high_10_plus",
+            "pos_shape:cross_pos_polysemy",
+            "source_cell:source_zipf=zipf_4_to_5_common::polysemy=high_10_plus::pos_shape=cross_pos_polysemy",
+            "shadow_negative",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "bar"
+        },
+        {
+          "case_id": "en-es:full-family-deferred-review-fix:bar:cercar:004",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:full-family-deferred-review-fix:bar:cercar:shadow:2:barra",
+          "human_review_status": "pending_user_review",
+          "notes": "agent-reviewed real Spanish shadow competitor context",
+          "row_quality_status": "agent_reviewed_user_review_pending",
+          "sentence": "The mechanic welded a steel bar across the frame.",
+          "slice_dimensions": {
+            "context_source": [
+              "agent_reviewed_independent_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_deferred_mapping_review_fix_v1"
+            ],
+            "family_repair_status": [
+              "deferred_mapping_fixed_corrected_active_sense"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "manual_review_state": [
+              "agent_reviewed_user_review_pending"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "agent_reviewed_user_review_pending"
+            ],
+            "source_cell_id": [
+              "source_zipf=zipf_4_to_5_common::polysemy=high_10_plus::pos_shape=cross_pos_polysemy"
+            ],
+            "source_zipf_band_en": [
+              "zipf_4_to_5_common"
+            ],
+            "target_zipf_band_es": [
+              "zipf_below_3_rare"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_deferred_mapping_review_fix_v1",
+            "agent_reviewed_user_review_pending",
+            "deferred_mapping_fixed_corrected_active_sense",
+            "source_zipf:zipf_4_to_5_common",
+            "target_zipf:zipf_below_3_rare",
+            "polysemy:high_10_plus",
+            "pos_shape:cross_pos_polysemy",
+            "source_cell:source_zipf=zipf_4_to_5_common::polysemy=high_10_plus::pos_shape=cross_pos_polysemy",
+            "shadow_negative",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "bar"
+        },
+        {
+          "case_id": "en-es:full-family-deferred-review-fix:bar:cercar:005",
+          "gold_decision": "abstain",
+          "gold_winner": "none",
+          "human_review_status": "pending_user_review",
+          "notes": "agent-reviewed no-winner context; subtype=metalinguistic_token",
+          "row_quality_status": "agent_reviewed_user_review_pending",
+          "sentence": "The settings page showed bar as the value of the layout test.",
+          "slice_dimensions": {
+            "context_source": [
+              "agent_reviewed_independent_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_deferred_mapping_review_fix_v1"
+            ],
+            "family_repair_status": [
+              "deferred_mapping_fixed_corrected_active_sense"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "manual_review_state": [
+              "agent_reviewed_user_review_pending"
+            ],
+            "no_winner_subtype": [
+              "metalinguistic_token"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "agent_reviewed_user_review_pending"
+            ],
+            "source_cell_id": [
+              "source_zipf=zipf_4_to_5_common::polysemy=high_10_plus::pos_shape=cross_pos_polysemy"
+            ],
+            "source_zipf_band_en": [
+              "zipf_4_to_5_common"
+            ],
+            "target_zipf_band_es": [
+              "zipf_below_3_rare"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_deferred_mapping_review_fix_v1",
+            "agent_reviewed_user_review_pending",
+            "deferred_mapping_fixed_corrected_active_sense",
+            "source_zipf:zipf_4_to_5_common",
+            "target_zipf:zipf_below_3_rare",
+            "polysemy:high_10_plus",
+            "pos_shape:cross_pos_polysemy",
+            "source_cell:source_zipf=zipf_4_to_5_common::polysemy=high_10_plus::pos_shape=cross_pos_polysemy",
+            "phrase_no_winner",
+            "no_winner_subtype:metalinguistic_token"
+          ],
+          "source_phrase": "bar"
+        }
+      ],
+      "family_id": "en-es:full-family-deferred-review-fix:bar:cercar",
+      "repair_metadata": {
+        "family_repair_status": "deferred_mapping_fixed_corrected_active_sense",
+        "human_review_status": "pending_user_review",
+        "manual_review_state": "agent_reviewed_user_review_pending",
+        "replaces_rejected_mapping": "",
+        "review_note": "The draft alcohol-bar active sense was rejected. This fixed family tests only the verb/blockage sense supported by the audit.",
+        "source_cell_id": "source_zipf=zipf_4_to_5_common::polysemy=high_10_plus::pos_shape=cross_pos_polysemy",
+        "trusted_now": false
+      },
+      "shadows": [
+        {
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "all_evidence_text": "bar -> taberna | a place where drinks are served",
+            "gloss_text": "a place where drinks are served",
+            "sense_gloss_bundle": "bar -> taberna | a place where drinks are served",
+            "sense_label": "bar -> taberna"
+          },
+          "sense_id": "en-es:full-family-deferred-review-fix:bar:cercar:shadow:1:taberna",
+          "target_lemma": "taberna"
+        },
+        {
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "all_evidence_text": "bar -> barra | a rigid piece of metal or wood",
+            "gloss_text": "a rigid piece of metal or wood",
+            "sense_gloss_bundle": "bar -> barra | a rigid piece of metal or wood",
+            "sense_label": "bar -> barra"
+          },
+          "sense_id": "en-es:full-family-deferred-review-fix:bar:cercar:shadow:2:barra",
+          "target_lemma": "barra"
+        }
+      ],
+      "trigger": "bar"
+    },
+    {
+      "active": {
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "all_evidence_text": "offset -> distancia | the distance or displacement by which one thing is out of alignment with another",
+          "gloss_text": "the distance or displacement by which one thing is out of alignment with another",
+          "sense_gloss_bundle": "offset -> distancia | the distance or displacement by which one thing is out of alignment with another",
+          "sense_label": "offset -> distancia"
+        },
+        "sense_id": "en-es:full-family-deferred-review-fix:offset:distancia:active",
+        "target_lemma": "distancia"
+      },
+      "cases": [
+        {
+          "case_id": "en-es:full-family-deferred-review-fix:offset:distancia:001",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-deferred-review-fix:offset:distancia:active",
+          "human_review_status": "pending_user_review",
+          "notes": "agent-reviewed fixed active context",
+          "row_quality_status": "agent_reviewed_user_review_pending",
+          "sentence": "Measure the offset from the centerline before drilling.",
+          "slice_dimensions": {
+            "context_source": [
+              "agent_reviewed_independent_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_deferred_mapping_review_fix_v1"
+            ],
+            "family_repair_status": [
+              "deferred_mapping_fixed_corrected_active_sense"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "agent_reviewed_user_review_pending"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "agent_reviewed_user_review_pending"
+            ],
+            "source_cell_id": [
+              "source_zipf=zipf_3_to_4_mid::polysemy=high_10_plus::pos_shape=cross_pos_polysemy"
+            ],
+            "source_zipf_band_en": [
+              "zipf_3_to_4_mid"
+            ],
+            "target_zipf_band_es": [
+              "zipf_4_to_5_common"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_deferred_mapping_review_fix_v1",
+            "agent_reviewed_user_review_pending",
+            "deferred_mapping_fixed_corrected_active_sense",
+            "source_zipf:zipf_3_to_4_mid",
+            "target_zipf:zipf_4_to_5_common",
+            "polysemy:high_10_plus",
+            "pos_shape:cross_pos_polysemy",
+            "source_cell:source_zipf=zipf_3_to_4_mid::polysemy=high_10_plus::pos_shape=cross_pos_polysemy",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "offset"
+        },
+        {
+          "case_id": "en-es:full-family-deferred-review-fix:offset:distancia:002",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-deferred-review-fix:offset:distancia:active",
+          "human_review_status": "pending_user_review",
+          "notes": "agent-reviewed fixed active context",
+          "row_quality_status": "agent_reviewed_user_review_pending",
+          "sentence": "A small offset between the sensor and the marker caused the error.",
+          "slice_dimensions": {
+            "context_source": [
+              "agent_reviewed_independent_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_deferred_mapping_review_fix_v1"
+            ],
+            "family_repair_status": [
+              "deferred_mapping_fixed_corrected_active_sense"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "agent_reviewed_user_review_pending"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "agent_reviewed_user_review_pending"
+            ],
+            "source_cell_id": [
+              "source_zipf=zipf_3_to_4_mid::polysemy=high_10_plus::pos_shape=cross_pos_polysemy"
+            ],
+            "source_zipf_band_en": [
+              "zipf_3_to_4_mid"
+            ],
+            "target_zipf_band_es": [
+              "zipf_4_to_5_common"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_deferred_mapping_review_fix_v1",
+            "agent_reviewed_user_review_pending",
+            "deferred_mapping_fixed_corrected_active_sense",
+            "source_zipf:zipf_3_to_4_mid",
+            "target_zipf:zipf_4_to_5_common",
+            "polysemy:high_10_plus",
+            "pos_shape:cross_pos_polysemy",
+            "source_cell:source_zipf=zipf_3_to_4_mid::polysemy=high_10_plus::pos_shape=cross_pos_polysemy",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "offset"
+        },
+        {
+          "case_id": "en-es:full-family-deferred-review-fix:offset:distancia:003",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:full-family-deferred-review-fix:offset:distancia:shadow:1:compensar",
+          "human_review_status": "pending_user_review",
+          "notes": "agent-reviewed real Spanish shadow competitor context",
+          "row_quality_status": "agent_reviewed_user_review_pending",
+          "sentence": "The rebate can offset the cost of the repairs.",
+          "slice_dimensions": {
+            "context_source": [
+              "agent_reviewed_independent_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_deferred_mapping_review_fix_v1"
+            ],
+            "family_repair_status": [
+              "deferred_mapping_fixed_corrected_active_sense"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "manual_review_state": [
+              "agent_reviewed_user_review_pending"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "agent_reviewed_user_review_pending"
+            ],
+            "source_cell_id": [
+              "source_zipf=zipf_3_to_4_mid::polysemy=high_10_plus::pos_shape=cross_pos_polysemy"
+            ],
+            "source_zipf_band_en": [
+              "zipf_3_to_4_mid"
+            ],
+            "target_zipf_band_es": [
+              "zipf_4_to_5_common"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_deferred_mapping_review_fix_v1",
+            "agent_reviewed_user_review_pending",
+            "deferred_mapping_fixed_corrected_active_sense",
+            "source_zipf:zipf_3_to_4_mid",
+            "target_zipf:zipf_4_to_5_common",
+            "polysemy:high_10_plus",
+            "pos_shape:cross_pos_polysemy",
+            "source_cell:source_zipf=zipf_3_to_4_mid::polysemy=high_10_plus::pos_shape=cross_pos_polysemy",
+            "shadow_negative",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "offset"
+        },
+        {
+          "case_id": "en-es:full-family-deferred-review-fix:offset:distancia:004",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:full-family-deferred-review-fix:offset:distancia:shadow:2:compensaci-n",
+          "human_review_status": "pending_user_review",
+          "notes": "agent-reviewed real Spanish shadow competitor context",
+          "row_quality_status": "agent_reviewed_user_review_pending",
+          "sentence": "The refund acted as an offset against the unpaid balance.",
+          "slice_dimensions": {
+            "context_source": [
+              "agent_reviewed_independent_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_deferred_mapping_review_fix_v1"
+            ],
+            "family_repair_status": [
+              "deferred_mapping_fixed_corrected_active_sense"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "manual_review_state": [
+              "agent_reviewed_user_review_pending"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "agent_reviewed_user_review_pending"
+            ],
+            "source_cell_id": [
+              "source_zipf=zipf_3_to_4_mid::polysemy=high_10_plus::pos_shape=cross_pos_polysemy"
+            ],
+            "source_zipf_band_en": [
+              "zipf_3_to_4_mid"
+            ],
+            "target_zipf_band_es": [
+              "zipf_4_to_5_common"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_deferred_mapping_review_fix_v1",
+            "agent_reviewed_user_review_pending",
+            "deferred_mapping_fixed_corrected_active_sense",
+            "source_zipf:zipf_3_to_4_mid",
+            "target_zipf:zipf_4_to_5_common",
+            "polysemy:high_10_plus",
+            "pos_shape:cross_pos_polysemy",
+            "source_cell:source_zipf=zipf_3_to_4_mid::polysemy=high_10_plus::pos_shape=cross_pos_polysemy",
+            "shadow_negative",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "offset"
+        },
+        {
+          "case_id": "en-es:full-family-deferred-review-fix:offset:distancia:005",
+          "gold_decision": "abstain",
+          "gold_winner": "none",
+          "human_review_status": "pending_user_review",
+          "notes": "agent-reviewed no-winner context; subtype=metalinguistic_token",
+          "row_quality_status": "agent_reviewed_user_review_pending",
+          "sentence": "The debug field named offset stayed empty after import.",
+          "slice_dimensions": {
+            "context_source": [
+              "agent_reviewed_independent_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_deferred_mapping_review_fix_v1"
+            ],
+            "family_repair_status": [
+              "deferred_mapping_fixed_corrected_active_sense"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "manual_review_state": [
+              "agent_reviewed_user_review_pending"
+            ],
+            "no_winner_subtype": [
+              "metalinguistic_token"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "agent_reviewed_user_review_pending"
+            ],
+            "source_cell_id": [
+              "source_zipf=zipf_3_to_4_mid::polysemy=high_10_plus::pos_shape=cross_pos_polysemy"
+            ],
+            "source_zipf_band_en": [
+              "zipf_3_to_4_mid"
+            ],
+            "target_zipf_band_es": [
+              "zipf_4_to_5_common"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_deferred_mapping_review_fix_v1",
+            "agent_reviewed_user_review_pending",
+            "deferred_mapping_fixed_corrected_active_sense",
+            "source_zipf:zipf_3_to_4_mid",
+            "target_zipf:zipf_4_to_5_common",
+            "polysemy:high_10_plus",
+            "pos_shape:cross_pos_polysemy",
+            "source_cell:source_zipf=zipf_3_to_4_mid::polysemy=high_10_plus::pos_shape=cross_pos_polysemy",
+            "phrase_no_winner",
+            "no_winner_subtype:metalinguistic_token"
+          ],
+          "source_phrase": "offset"
+        }
+      ],
+      "family_id": "en-es:full-family-deferred-review-fix:offset:distancia",
+      "repair_metadata": {
+        "family_repair_status": "deferred_mapping_fixed_corrected_active_sense",
+        "human_review_status": "pending_user_review",
+        "manual_review_state": "agent_reviewed_user_review_pending",
+        "replaces_rejected_mapping": "",
+        "review_note": "The draft outset active sense was rejected. This fixed family tests only the spatial/technical distance sense; broad target adequacy remains a review question.",
+        "source_cell_id": "source_zipf=zipf_3_to_4_mid::polysemy=high_10_plus::pos_shape=cross_pos_polysemy",
+        "trusted_now": false
+      },
+      "shadows": [
+        {
+          "canonical_pos": "verb",
+          "evidence_views": {
+            "all_evidence_text": "offset -> compensar | counterbalance or make up for something",
+            "gloss_text": "counterbalance or make up for something",
+            "sense_gloss_bundle": "offset -> compensar | counterbalance or make up for something",
+            "sense_label": "offset -> compensar"
+          },
+          "sense_id": "en-es:full-family-deferred-review-fix:offset:distancia:shadow:1:compensar",
+          "target_lemma": "compensar"
+        },
+        {
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "all_evidence_text": "offset -> compensación | a compensating equivalent or credit",
+            "gloss_text": "a compensating equivalent or credit",
+            "sense_gloss_bundle": "offset -> compensación | a compensating equivalent or credit",
+            "sense_label": "offset -> compensación"
+          },
+          "sense_id": "en-es:full-family-deferred-review-fix:offset:distancia:shadow:2:compensaci-n",
+          "target_lemma": "compensación"
+        }
+      ],
+      "trigger": "offset"
+    },
+    {
+      "active": {
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "all_evidence_text": "crack -> grieta | a thin split, cleft, or narrow opening in a solid surface",
+          "gloss_text": "a thin split, cleft, or narrow opening in a solid surface",
+          "sense_gloss_bundle": "crack -> grieta | a thin split, cleft, or narrow opening in a solid surface",
+          "sense_label": "crack -> grieta"
+        },
+        "sense_id": "en-es:full-family-deferred-review-fix:crack:grieta:active",
+        "target_lemma": "grieta"
+      },
+      "cases": [
+        {
+          "case_id": "en-es:full-family-deferred-review-fix:crack:grieta:001",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-deferred-review-fix:crack:grieta:active",
+          "human_review_status": "pending_user_review",
+          "notes": "agent-reviewed fixed active context",
+          "row_quality_status": "agent_reviewed_user_review_pending",
+          "sentence": "A thin crack ran across the windshield.",
+          "slice_dimensions": {
+            "context_source": [
+              "agent_reviewed_independent_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_deferred_mapping_review_fix_v1"
+            ],
+            "family_repair_status": [
+              "representative_slot_replacement_for_rejected_mapping"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "agent_reviewed_user_review_pending"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "agent_reviewed_user_review_pending"
+            ],
+            "source_cell_id": [
+              "source_zipf=zipf_4_to_5_common::polysemy=high_10_plus::pos_shape=cross_pos_polysemy"
+            ],
+            "source_zipf_band_en": [
+              "zipf_4_to_5_common"
+            ],
+            "target_zipf_band_es": [
+              "zipf_3_to_4_mid"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_deferred_mapping_review_fix_v1",
+            "agent_reviewed_user_review_pending",
+            "representative_slot_replacement_for_rejected_mapping",
+            "source_zipf:zipf_4_to_5_common",
+            "target_zipf:zipf_3_to_4_mid",
+            "polysemy:high_10_plus",
+            "pos_shape:cross_pos_polysemy",
+            "source_cell:source_zipf=zipf_4_to_5_common::polysemy=high_10_plus::pos_shape=cross_pos_polysemy",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "crack"
+        },
+        {
+          "case_id": "en-es:full-family-deferred-review-fix:crack:grieta:002",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-deferred-review-fix:crack:grieta:active",
+          "human_review_status": "pending_user_review",
+          "notes": "agent-reviewed fixed active context",
+          "row_quality_status": "agent_reviewed_user_review_pending",
+          "sentence": "Moisture seeped through a crack in the basement wall.",
+          "slice_dimensions": {
+            "context_source": [
+              "agent_reviewed_independent_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_deferred_mapping_review_fix_v1"
+            ],
+            "family_repair_status": [
+              "representative_slot_replacement_for_rejected_mapping"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "agent_reviewed_user_review_pending"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "agent_reviewed_user_review_pending"
+            ],
+            "source_cell_id": [
+              "source_zipf=zipf_4_to_5_common::polysemy=high_10_plus::pos_shape=cross_pos_polysemy"
+            ],
+            "source_zipf_band_en": [
+              "zipf_4_to_5_common"
+            ],
+            "target_zipf_band_es": [
+              "zipf_3_to_4_mid"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_deferred_mapping_review_fix_v1",
+            "agent_reviewed_user_review_pending",
+            "representative_slot_replacement_for_rejected_mapping",
+            "source_zipf:zipf_4_to_5_common",
+            "target_zipf:zipf_3_to_4_mid",
+            "polysemy:high_10_plus",
+            "pos_shape:cross_pos_polysemy",
+            "source_cell:source_zipf=zipf_4_to_5_common::polysemy=high_10_plus::pos_shape=cross_pos_polysemy",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "crack"
+        },
+        {
+          "case_id": "en-es:full-family-deferred-review-fix:crack:grieta:003",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:full-family-deferred-review-fix:crack:grieta:shadow:1:broma",
+          "human_review_status": "pending_user_review",
+          "notes": "agent-reviewed real Spanish shadow competitor context",
+          "row_quality_status": "agent_reviewed_user_review_pending",
+          "sentence": "His crack about the budget made the room laugh.",
+          "slice_dimensions": {
+            "context_source": [
+              "agent_reviewed_independent_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_deferred_mapping_review_fix_v1"
+            ],
+            "family_repair_status": [
+              "representative_slot_replacement_for_rejected_mapping"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "manual_review_state": [
+              "agent_reviewed_user_review_pending"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "agent_reviewed_user_review_pending"
+            ],
+            "source_cell_id": [
+              "source_zipf=zipf_4_to_5_common::polysemy=high_10_plus::pos_shape=cross_pos_polysemy"
+            ],
+            "source_zipf_band_en": [
+              "zipf_4_to_5_common"
+            ],
+            "target_zipf_band_es": [
+              "zipf_3_to_4_mid"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_deferred_mapping_review_fix_v1",
+            "agent_reviewed_user_review_pending",
+            "representative_slot_replacement_for_rejected_mapping",
+            "source_zipf:zipf_4_to_5_common",
+            "target_zipf:zipf_3_to_4_mid",
+            "polysemy:high_10_plus",
+            "pos_shape:cross_pos_polysemy",
+            "source_cell:source_zipf=zipf_4_to_5_common::polysemy=high_10_plus::pos_shape=cross_pos_polysemy",
+            "shadow_negative",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "crack"
+        },
+        {
+          "case_id": "en-es:full-family-deferred-review-fix:crack:grieta:004",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:full-family-deferred-review-fix:crack:grieta:shadow:2:chasquido",
+          "human_review_status": "pending_user_review",
+          "notes": "agent-reviewed real Spanish shadow competitor context",
+          "row_quality_status": "agent_reviewed_user_review_pending",
+          "sentence": "The crack of the branch echoed through the yard.",
+          "slice_dimensions": {
+            "context_source": [
+              "agent_reviewed_independent_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_deferred_mapping_review_fix_v1"
+            ],
+            "family_repair_status": [
+              "representative_slot_replacement_for_rejected_mapping"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "manual_review_state": [
+              "agent_reviewed_user_review_pending"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "agent_reviewed_user_review_pending"
+            ],
+            "source_cell_id": [
+              "source_zipf=zipf_4_to_5_common::polysemy=high_10_plus::pos_shape=cross_pos_polysemy"
+            ],
+            "source_zipf_band_en": [
+              "zipf_4_to_5_common"
+            ],
+            "target_zipf_band_es": [
+              "zipf_3_to_4_mid"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_deferred_mapping_review_fix_v1",
+            "agent_reviewed_user_review_pending",
+            "representative_slot_replacement_for_rejected_mapping",
+            "source_zipf:zipf_4_to_5_common",
+            "target_zipf:zipf_3_to_4_mid",
+            "polysemy:high_10_plus",
+            "pos_shape:cross_pos_polysemy",
+            "source_cell:source_zipf=zipf_4_to_5_common::polysemy=high_10_plus::pos_shape=cross_pos_polysemy",
+            "shadow_negative",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "crack"
+        },
+        {
+          "case_id": "en-es:full-family-deferred-review-fix:crack:grieta:005",
+          "gold_decision": "abstain",
+          "gold_winner": "none",
+          "human_review_status": "pending_user_review",
+          "notes": "agent-reviewed no-winner context; subtype=metalinguistic_token",
+          "row_quality_status": "agent_reviewed_user_review_pending",
+          "sentence": "The saved search tag crack appeared in the sidebar.",
+          "slice_dimensions": {
+            "context_source": [
+              "agent_reviewed_independent_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_deferred_mapping_review_fix_v1"
+            ],
+            "family_repair_status": [
+              "representative_slot_replacement_for_rejected_mapping"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "manual_review_state": [
+              "agent_reviewed_user_review_pending"
+            ],
+            "no_winner_subtype": [
+              "metalinguistic_token"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "agent_reviewed_user_review_pending"
+            ],
+            "source_cell_id": [
+              "source_zipf=zipf_4_to_5_common::polysemy=high_10_plus::pos_shape=cross_pos_polysemy"
+            ],
+            "source_zipf_band_en": [
+              "zipf_4_to_5_common"
+            ],
+            "target_zipf_band_es": [
+              "zipf_3_to_4_mid"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_deferred_mapping_review_fix_v1",
+            "agent_reviewed_user_review_pending",
+            "representative_slot_replacement_for_rejected_mapping",
+            "source_zipf:zipf_4_to_5_common",
+            "target_zipf:zipf_3_to_4_mid",
+            "polysemy:high_10_plus",
+            "pos_shape:cross_pos_polysemy",
+            "source_cell:source_zipf=zipf_4_to_5_common::polysemy=high_10_plus::pos_shape=cross_pos_polysemy",
+            "phrase_no_winner",
+            "no_winner_subtype:metalinguistic_token"
+          ],
+          "source_phrase": "crack"
+        }
+      ],
+      "family_id": "en-es:full-family-deferred-review-fix:crack:grieta",
+      "repair_metadata": {
+        "family_repair_status": "representative_slot_replacement_for_rejected_mapping",
+        "human_review_status": "pending_user_review",
+        "manual_review_state": "agent_reviewed_user_review_pending",
+        "replaces_rejected_mapping": "demand->deducción",
+        "review_note": "This family replaces demand -> deducción in the same source-band, polysemy, and POS-shape cell because demand -> deducción failed the source-target audit.",
+        "source_cell_id": "source_zipf=zipf_4_to_5_common::polysemy=high_10_plus::pos_shape=cross_pos_polysemy",
+        "trusted_now": false
+      },
+      "shadows": [
+        {
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "all_evidence_text": "crack -> broma | a sharply humorous comment",
+            "gloss_text": "a sharply humorous comment",
+            "sense_gloss_bundle": "crack -> broma | a sharply humorous comment",
+            "sense_label": "crack -> broma"
+          },
+          "sense_id": "en-es:full-family-deferred-review-fix:crack:grieta:shadow:1:broma",
+          "target_lemma": "broma"
+        },
+        {
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "all_evidence_text": "crack -> chasquido | a sharp sound made when something breaks or snaps",
+            "gloss_text": "a sharp sound made when something breaks or snaps",
+            "sense_gloss_bundle": "crack -> chasquido | a sharp sound made when something breaks or snaps",
+            "sense_label": "crack -> chasquido"
+          },
+          "sense_id": "en-es:full-family-deferred-review-fix:crack:grieta:shadow:2:chasquido",
+          "target_lemma": "chasquido"
+        }
+      ],
+      "trigger": "crack"
+    }
+  ],
+  "manual_review_state": "agent_reviewed_user_review_pending",
+  "pair": "en-es",
+  "provenance": {
+    "source_audit_artifact": "docs/test_outputs/semantic_veto_deferred_mapping_audit_en_es_latest.json",
+    "source_audit_decision": "deferred_mapping_audit_complete",
+    "trusted_seed_mutated": false
+  },
+  "rejected_mappings": [
+    {
+      "audit_status": "reject_mapping_source_target_mismatch",
+      "family_id": "en-es:full-family-representative:demand:deduccion",
+      "mapping_id": "demand->deducción",
+      "replacement_family_id": "en-es:full-family-deferred-review-fix:crack:grieta",
+      "replacement_mapping_id": "crack->grieta",
+      "source": "demand",
+      "target": "deducción"
+    }
+  ],
+  "schema_version": 1
+}

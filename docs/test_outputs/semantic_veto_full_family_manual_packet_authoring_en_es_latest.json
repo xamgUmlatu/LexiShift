@@ -1,0 +1,754 @@
+{
+  "decision": "full_family_manual_packet_ready_for_scoring",
+  "e2e_checks": {
+    "active_positive_cases_present": true,
+    "all_cases_have_review_state": true,
+    "case_ids_unique": true,
+    "mid_cases_present": true,
+    "one_family_per_sample_row": true,
+    "phrase_no_winner_cases_present": true,
+    "rare_cases_present": true,
+    "sample_rows_available": true
+  },
+  "family_rows": [
+    {
+      "case_count": 2,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 1
+      },
+      "family_id": "en-es:full-family-representative:june:junio",
+      "shadow_count": 0,
+      "target": "junio",
+      "trigger": "june"
+    },
+    {
+      "case_count": 2,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 1
+      },
+      "family_id": "en-es:full-family-representative:december:diciembre",
+      "shadow_count": 0,
+      "target": "diciembre",
+      "trigger": "december"
+    },
+    {
+      "case_count": 3,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 1,
+        "shadow_negative": 1
+      },
+      "family_id": "en-es:full-family-representative:except:excepto",
+      "shadow_count": 1,
+      "target": "excepto",
+      "trigger": "except"
+    },
+    {
+      "case_count": 3,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 1,
+        "shadow_negative": 1
+      },
+      "family_id": "en-es:full-family-representative:health:salud",
+      "shadow_count": 1,
+      "target": "salud",
+      "trigger": "health"
+    },
+    {
+      "case_count": 4,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 1,
+        "shadow_negative": 2
+      },
+      "family_id": "en-es:full-family-representative:russian:ruso",
+      "shadow_count": 2,
+      "target": "ruso",
+      "trigger": "russian"
+    },
+    {
+      "case_count": 4,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 1,
+        "shadow_negative": 2
+      },
+      "family_id": "en-es:full-family-representative:tomorrow:manana",
+      "shadow_count": 2,
+      "target": "mañana",
+      "trigger": "tomorrow"
+    },
+    {
+      "case_count": 4,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 1,
+        "shadow_negative": 2
+      },
+      "family_id": "en-es:full-family-representative:region:comarca",
+      "shadow_count": 2,
+      "target": "comarca",
+      "trigger": "region"
+    },
+    {
+      "case_count": 4,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 1,
+        "shadow_negative": 2
+      },
+      "family_id": "en-es:full-family-representative:brother:hermano",
+      "shadow_count": 2,
+      "target": "hermano",
+      "trigger": "brother"
+    },
+    {
+      "case_count": 5,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 2,
+        "shadow_negative": 2
+      },
+      "family_id": "en-es:full-family-representative:american:americano",
+      "shadow_count": 2,
+      "target": "americano",
+      "trigger": "american"
+    },
+    {
+      "case_count": 5,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 2,
+        "shadow_negative": 2
+      },
+      "family_id": "en-es:full-family-representative:current:contemporaneo",
+      "shadow_count": 2,
+      "target": "contemporáneo",
+      "trigger": "current"
+    },
+    {
+      "case_count": 5,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 2,
+        "shadow_negative": 2
+      },
+      "family_id": "en-es:full-family-representative:heart:corazon",
+      "shadow_count": 2,
+      "target": "corazón",
+      "trigger": "heart"
+    },
+    {
+      "case_count": 5,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 2,
+        "shadow_negative": 2
+      },
+      "family_id": "en-es:full-family-representative:continue:durar",
+      "shadow_count": 2,
+      "target": "durar",
+      "trigger": "continue"
+    },
+    {
+      "case_count": 4,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 1,
+        "shadow_negative": 2
+      },
+      "family_id": "en-es:full-family-representative:control:gobernar",
+      "shadow_count": 2,
+      "target": "gobernar",
+      "trigger": "control"
+    },
+    {
+      "case_count": 5,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 2,
+        "shadow_negative": 2
+      },
+      "family_id": "en-es:full-family-representative:break:quebrar",
+      "shadow_count": 2,
+      "target": "quebrar",
+      "trigger": "break"
+    },
+    {
+      "case_count": 2,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 1
+      },
+      "family_id": "en-es:full-family-representative:among:entre",
+      "shadow_count": 0,
+      "target": "entre",
+      "trigger": "among"
+    },
+    {
+      "case_count": 2,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 1
+      },
+      "family_id": "en-es:full-family-representative:upon:sobre",
+      "shadow_count": 0,
+      "target": "sobre",
+      "trigger": "upon"
+    },
+    {
+      "case_count": 2,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 1
+      },
+      "family_id": "en-es:full-family-representative:pub:taberna",
+      "shadow_count": 0,
+      "target": "taberna",
+      "trigger": "pub"
+    },
+    {
+      "case_count": 2,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 1
+      },
+      "family_id": "en-es:full-family-representative:emotion:emocion",
+      "shadow_count": 0,
+      "target": "emoción",
+      "trigger": "emotion"
+    },
+    {
+      "case_count": 4,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 2,
+        "shadow_negative": 1
+      },
+      "family_id": "en-es:full-family-representative:entirely:enteramente",
+      "shadow_count": 1,
+      "target": "enteramente",
+      "trigger": "entirely"
+    },
+    {
+      "case_count": 4,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 1,
+        "shadow_negative": 2
+      },
+      "family_id": "en-es:full-family-representative:owe:deber",
+      "shadow_count": 2,
+      "target": "deber",
+      "trigger": "owe"
+    },
+    {
+      "case_count": 5,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 2,
+        "shadow_negative": 2
+      },
+      "family_id": "en-es:full-family-representative:german:aleman",
+      "shadow_count": 2,
+      "target": "alemán",
+      "trigger": "german"
+    },
+    {
+      "case_count": 4,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 1,
+        "shadow_negative": 2
+      },
+      "family_id": "en-es:full-family-representative:smile:sonreir",
+      "shadow_count": 2,
+      "target": "sonreír",
+      "trigger": "smile"
+    },
+    {
+      "case_count": 5,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 2,
+        "shadow_negative": 2
+      },
+      "family_id": "en-es:full-family-representative:sale:deduccion",
+      "shadow_count": 2,
+      "target": "deducción",
+      "trigger": "sale"
+    },
+    {
+      "case_count": 5,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 2,
+        "shadow_negative": 2
+      },
+      "family_id": "en-es:full-family-representative:acceptable:razonable",
+      "shadow_count": 2,
+      "target": "razonable",
+      "trigger": "acceptable"
+    },
+    {
+      "case_count": 5,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 2,
+        "shadow_negative": 2
+      },
+      "family_id": "en-es:full-family-representative:shed:puesto",
+      "shadow_count": 2,
+      "target": "puesto",
+      "trigger": "shed"
+    },
+    {
+      "case_count": 4,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 1,
+        "shadow_negative": 2
+      },
+      "family_id": "en-es:full-family-representative:pair:par",
+      "shadow_count": 2,
+      "target": "par",
+      "trigger": "pair"
+    },
+    {
+      "case_count": 5,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 2,
+        "shadow_negative": 2
+      },
+      "family_id": "en-es:full-family-representative:begin:comenzar",
+      "shadow_count": 2,
+      "target": "comenzar",
+      "trigger": "begin"
+    },
+    {
+      "case_count": 4,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 1,
+        "shadow_negative": 2
+      },
+      "family_id": "en-es:full-family-representative:grow:acontecer",
+      "shadow_count": 2,
+      "target": "acontecer",
+      "trigger": "grow"
+    },
+    {
+      "case_count": 4,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 1,
+        "shadow_negative": 2
+      },
+      "family_id": "en-es:full-family-representative:bar:cercar",
+      "shadow_count": 2,
+      "target": "cercar",
+      "trigger": "bar"
+    },
+    {
+      "case_count": 4,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 1,
+        "shadow_negative": 2
+      },
+      "family_id": "en-es:full-family-representative:demand:deduccion",
+      "shadow_count": 2,
+      "target": "deducción",
+      "trigger": "demand"
+    },
+    {
+      "case_count": 2,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 1
+      },
+      "family_id": "en-es:full-family-representative:recover:sanar",
+      "shadow_count": 0,
+      "target": "sanar",
+      "trigger": "recover"
+    },
+    {
+      "case_count": 2,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 1
+      },
+      "family_id": "en-es:full-family-representative:dentist:dentista",
+      "shadow_count": 0,
+      "target": "dentista",
+      "trigger": "dentist"
+    },
+    {
+      "case_count": 2,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 1
+      },
+      "family_id": "en-es:full-family-representative:salesman:vendedor",
+      "shadow_count": 0,
+      "target": "vendedor",
+      "trigger": "salesman"
+    },
+    {
+      "case_count": 4,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 1,
+        "shadow_negative": 2
+      },
+      "family_id": "en-es:full-family-representative:altitude:elevacion",
+      "shadow_count": 2,
+      "target": "elevación",
+      "trigger": "altitude"
+    },
+    {
+      "case_count": 3,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 1,
+        "shadow_negative": 1
+      },
+      "family_id": "en-es:full-family-representative:shortage:falta",
+      "shadow_count": 1,
+      "target": "falta",
+      "trigger": "shortage"
+    },
+    {
+      "case_count": 4,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 2,
+        "shadow_negative": 1
+      },
+      "family_id": "en-es:full-family-representative:chic:elegante",
+      "shadow_count": 1,
+      "target": "elegante",
+      "trigger": "chic"
+    },
+    {
+      "case_count": 4,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 1,
+        "shadow_negative": 2
+      },
+      "family_id": "en-es:full-family-representative:parrot:loro",
+      "shadow_count": 2,
+      "target": "loro",
+      "trigger": "parrot"
+    },
+    {
+      "case_count": 5,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 2,
+        "shadow_negative": 2
+      },
+      "family_id": "en-es:full-family-representative:govern:gobernar",
+      "shadow_count": 2,
+      "target": "gobernar",
+      "trigger": "govern"
+    },
+    {
+      "case_count": 5,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 2,
+        "shadow_negative": 2
+      },
+      "family_id": "en-es:full-family-representative:endure:durar",
+      "shadow_count": 2,
+      "target": "durar",
+      "trigger": "endure"
+    },
+    {
+      "case_count": 4,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 1,
+        "shadow_negative": 2
+      },
+      "family_id": "en-es:full-family-representative:cite:mencionar",
+      "shadow_count": 2,
+      "target": "mencionar",
+      "trigger": "cite"
+    },
+    {
+      "case_count": 4,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 1,
+        "shadow_negative": 2
+      },
+      "family_id": "en-es:full-family-representative:rebate:descuento",
+      "shadow_count": 2,
+      "target": "descuento",
+      "trigger": "rebate"
+    },
+    {
+      "case_count": 4,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 1,
+        "shadow_negative": 2
+      },
+      "family_id": "en-es:full-family-representative:stall:cuadra",
+      "shadow_count": 2,
+      "target": "cuadra",
+      "trigger": "stall"
+    },
+    {
+      "case_count": 5,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 2,
+        "shadow_negative": 2
+      },
+      "family_id": "en-es:full-family-representative:offset:distancia",
+      "shadow_count": 2,
+      "target": "distancia",
+      "trigger": "offset"
+    },
+    {
+      "case_count": 2,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 1
+      },
+      "family_id": "en-es:full-family-representative:adjoining:vecino",
+      "shadow_count": 0,
+      "target": "vecino",
+      "trigger": "adjoining"
+    },
+    {
+      "case_count": 2,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 1
+      },
+      "family_id": "en-es:full-family-representative:adjoining:contiguo",
+      "shadow_count": 0,
+      "target": "contiguo",
+      "trigger": "adjoining"
+    },
+    {
+      "case_count": 2,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 1
+      },
+      "family_id": "en-es:full-family-representative:handiwork:artesania",
+      "shadow_count": 0,
+      "target": "artesanía",
+      "trigger": "handiwork"
+    },
+    {
+      "case_count": 2,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 1
+      },
+      "family_id": "en-es:full-family-representative:bouillon:caldo",
+      "shadow_count": 0,
+      "target": "caldo",
+      "trigger": "bouillon"
+    },
+    {
+      "case_count": 4,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 1,
+        "shadow_negative": 2
+      },
+      "family_id": "en-es:full-family-representative:aberration:equivocacion",
+      "shadow_count": 2,
+      "target": "equivocación",
+      "trigger": "aberration"
+    },
+    {
+      "case_count": 4,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 1,
+        "shadow_negative": 2
+      },
+      "family_id": "en-es:full-family-representative:adder:vibora",
+      "shadow_count": 2,
+      "target": "víbora",
+      "trigger": "adder"
+    },
+    {
+      "case_count": 4,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 1,
+        "shadow_negative": 2
+      },
+      "family_id": "en-es:full-family-representative:snore:roncar",
+      "shadow_count": 2,
+      "target": "roncar",
+      "trigger": "snore"
+    },
+    {
+      "case_count": 4,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 1,
+        "shadow_negative": 2
+      },
+      "family_id": "en-es:full-family-representative:rumanian:rumano",
+      "shadow_count": 2,
+      "target": "rumano",
+      "trigger": "rumanian"
+    },
+    {
+      "case_count": 4,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 1,
+        "shadow_negative": 2
+      },
+      "family_id": "en-es:full-family-representative:bridle:reprimir",
+      "shadow_count": 2,
+      "target": "reprimir",
+      "trigger": "bridle"
+    },
+    {
+      "case_count": 4,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 1,
+        "shadow_negative": 2
+      },
+      "family_id": "en-es:full-family-representative:billow:oleaje",
+      "shadow_count": 2,
+      "target": "oleaje",
+      "trigger": "billow"
+    },
+    {
+      "case_count": 2,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 1
+      },
+      "family_id": "en-es:full-family-representative:turnon:poner",
+      "shadow_count": 0,
+      "target": "poner",
+      "trigger": "turnon"
+    },
+    {
+      "case_count": 2,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 1
+      },
+      "family_id": "en-es:full-family-representative:argentinean:argentino",
+      "shadow_count": 0,
+      "target": "argentino",
+      "trigger": "argentinean"
+    },
+    {
+      "case_count": 2,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 1
+      },
+      "family_id": "en-es:full-family-representative:conversance:notoriedad",
+      "shadow_count": 0,
+      "target": "notoriedad",
+      "trigger": "conversance"
+    },
+    {
+      "case_count": 2,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 1
+      },
+      "family_id": "en-es:full-family-representative:femalejournalist:periodista",
+      "shadow_count": 0,
+      "target": "periodista",
+      "trigger": "femalejournalist"
+    },
+    {
+      "case_count": 2,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 1
+      },
+      "family_id": "en-es:full-family-representative:mosaicwork:mosaico",
+      "shadow_count": 0,
+      "target": "mosaico",
+      "trigger": "mosaicwork"
+    }
+  ],
+  "generated_at": "2026-05-06T20:18:34Z",
+  "inputs": {
+    "sample_decision": "full_family_representative_sample_frozen",
+    "sample_path": "docs/test_outputs/semantic_veto_full_family_representative_sample_en_es_latest.json",
+    "wordnet_dir": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/english-wordnet-2025-json",
+    "wordnet_source_file_count": 72
+  },
+  "limitations": [
+    "agent_draft_sentences_are_not_human_locked_evaluation_rows",
+    "wordnet_first_sense_may_not_match_the_dictionary_source_target_sense",
+    "automated_phrase_no_winner_rows_are_diagnostic_not_browser_distribution",
+    "shadow_negative_rows_depend_on_available_wordnet_alternate_senses"
+  ],
+  "methodology": {
+    "authoring_policy": "Use exact or source-adapted WordNet examples before definition fallbacks; do not duplicate shadow-negative rows when only one real alternate context is available; keep missing or single-sense shadows as not_applicable.",
+    "llm_generation": "none",
+    "manual_review_state": "agent_draft_human_review_pending",
+    "promotion_rule": "This dataset may be scored as a research lane but cannot support promotion claims until reviewed or replaced by human-approved cases.",
+    "runtime_policy_change": "none",
+    "source_selection": "frozen_full_family_representative_sample"
+  },
+  "next_steps": [
+    "Run TF-IDF and sentence-transformer sentence-veto scoring as a diagnostic lane.",
+    "Inspect failures and questionable authored rows before any promotion claim.",
+    "Use source-band and polysemy breakdowns to decide whether mid and rare bands are easier.",
+    "Replace weak draft rows with human-reviewed contexts if the curve signal is promising or ambiguous."
+  ],
+  "outputs": {
+    "dataset_fingerprint": "b5c7fc1e7b83b1fb1c20f94a940f6ed9f81434e59f87a11c0a1840c8a752a65b",
+    "dataset_id": "en_es_full_family_representative_manual_v1",
+    "dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_full_family_representative_manual_v1.json"
+  },
+  "pair": "en-es",
+  "schema_version": 1,
+  "status": "ok",
+  "summary": {
+    "active_positive_count": 73,
+    "case_type_counts": {
+      "phrase_no_winner": 58,
+      "positive_active": 73,
+      "shadow_negative": 75
+    },
+    "dataset_case_count": 206,
+    "dataset_family_count": 58,
+    "dataset_fingerprint": "b5c7fc1e7b83b1fb1c20f94a940f6ed9f81434e59f87a11c0a1840c8a752a65b",
+    "draft_review_state": "agent_draft_human_review_pending",
+    "phrase_no_winner_count": 58,
+    "sampled_family_count": 58,
+    "shadow_contract_case_counts": {
+      "candidate_polysemic": 170,
+      "not_applicable": 36
+    },
+    "shadow_negative_count": 75,
+    "source_band_case_counts": {
+      "missing": 6,
+      "zipf_3_to_4_mid": 50,
+      "zipf_4_to_5_common": 59,
+      "zipf_5_plus_very_common": 59,
+      "zipf_below_3_rare": 32
+    }
+  }
+}

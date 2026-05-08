@@ -1,0 +1,151 @@
+{
+  "decision": "full_family_trusted_eval_seed_ready_for_scoring",
+  "e2e_checks": {
+    "all_rows_approved_by_user": true,
+    "all_rows_trusted": true,
+    "has_active_shadow_and_no_winner_cases": true,
+    "has_trusted_families": true,
+    "no_deferred_families_in_trusted_rows": true
+  },
+  "excluded_families": [
+    {
+      "deferred_reason": "source_target_mapping_audit_required",
+      "family_id": "en-es:full-family-representative:bar:cercar",
+      "notes": "The draft active sense was an alcohol bar; cercar needs separate dictionary-source confirmation before repair.",
+      "source": "bar",
+      "target": "cercar"
+    },
+    {
+      "deferred_reason": "source_target_mapping_audit_required",
+      "family_id": "en-es:full-family-representative:offset:distancia",
+      "notes": "The draft active sense was onset/outset; distancia needs a technical offset/distance mapping audit before repair.",
+      "source": "offset",
+      "target": "distancia"
+    },
+    {
+      "deferred_reason": "source_target_mapping_audit_required",
+      "family_id": "en-es:full-family-representative:demand:deduccion",
+      "notes": "The draft active sense was demand/request, which does not match deducción without unexpected source evidence.",
+      "source": "demand",
+      "target": "deducción"
+    }
+  ],
+  "family_rows": [
+    {
+      "case_count": 5,
+      "family_id": "en-es:full-family-repaired-pilot:break:quebrar",
+      "phrase_no_winner_count": 1,
+      "positive_count": 2,
+      "repair_status": "active_sense_corrected",
+      "shadow_negative_count": 2,
+      "source": "break",
+      "target": "quebrar"
+    },
+    {
+      "case_count": 5,
+      "family_id": "en-es:full-family-repaired-pilot:bridle:reprimir",
+      "phrase_no_winner_count": 1,
+      "positive_count": 2,
+      "repair_status": "active_sense_corrected",
+      "shadow_negative_count": 2,
+      "source": "bridle",
+      "target": "reprimir"
+    },
+    {
+      "case_count": 3,
+      "family_id": "en-es:full-family-repaired-pilot:december:diciembre",
+      "phrase_no_winner_count": 1,
+      "positive_count": 2,
+      "repair_status": "aligned_mapping_contexts_rewritten",
+      "shadow_negative_count": 0,
+      "source": "december",
+      "target": "diciembre"
+    },
+    {
+      "case_count": 3,
+      "family_id": "en-es:full-family-repaired-pilot:emotion:emoci-n",
+      "phrase_no_winner_count": 1,
+      "positive_count": 2,
+      "repair_status": "aligned_mapping_contexts_rewritten",
+      "shadow_negative_count": 0,
+      "source": "emotion",
+      "target": "emoción"
+    },
+    {
+      "case_count": 3,
+      "family_id": "en-es:full-family-repaired-pilot:dentist:dentista",
+      "phrase_no_winner_count": 1,
+      "positive_count": 2,
+      "repair_status": "aligned_mapping_contexts_rewritten",
+      "shadow_negative_count": 0,
+      "source": "dentist",
+      "target": "dentista"
+    },
+    {
+      "case_count": 3,
+      "family_id": "en-es:full-family-repaired-pilot:bouillon:caldo",
+      "phrase_no_winner_count": 1,
+      "positive_count": 2,
+      "repair_status": "aligned_mapping_contexts_rewritten",
+      "shadow_negative_count": 0,
+      "source": "bouillon",
+      "target": "caldo"
+    },
+    {
+      "case_count": 5,
+      "family_id": "en-es:full-family-repaired-pilot:control:gobernar",
+      "phrase_no_winner_count": 1,
+      "positive_count": 2,
+      "repair_status": "active_sense_corrected",
+      "shadow_negative_count": 2,
+      "source": "control",
+      "target": "gobernar"
+    }
+  ],
+  "generated_at": "2026-05-06T22:08:25Z",
+  "inputs": {
+    "approval_id": "user_step7_repaired_pilot_approval_2026_05_07",
+    "repaired_dataset_id": "en_es_full_family_repaired_pilot_v1",
+    "repaired_dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_full_family_repaired_pilot_v1.json"
+  },
+  "methodology": {
+    "approval_boundary": "User approval applies only to repaired pilot rows. Deferred source-target mapping audit rows remain excluded.",
+    "locked_eval_boundary": "This is a trusted seed, not a discovery/locked split. Do not tune thresholds on it and then claim locked-eval performance.",
+    "runtime_policy_change": "none",
+    "score_promotion": "none"
+  },
+  "next_steps": [
+    "Score this trusted seed to establish the post-approval baseline.",
+    "Create a separate discovery/locked split before threshold or scorer tuning.",
+    "Audit excluded source-target mappings before adding them to any trusted lane."
+  ],
+  "outputs": {
+    "dataset_id": "en_es_full_family_trusted_eval_seed_v1",
+    "dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_full_family_trusted_eval_seed_v1.json"
+  },
+  "pair": "en-es",
+  "schema_version": 1,
+  "status": "ok",
+  "summary": {
+    "case_type_counts": {
+      "phrase_no_winner": 7,
+      "positive_active": 14,
+      "shadow_negative": 6
+    },
+    "excluded_family_count": 3,
+    "family_repair_status_counts": {
+      "active_sense_corrected": 3,
+      "aligned_mapping_contexts_rewritten": 4
+    },
+    "manual_review_state": "approved_by_user",
+    "row_quality_status": "trusted",
+    "source_band_case_counts": {
+      "zipf_3_to_4_mid": 3,
+      "zipf_4_to_5_common": 3,
+      "zipf_5_plus_very_common": 13,
+      "zipf_below_3_rare": 8
+    },
+    "trusted_case_count": 27,
+    "trusted_family_count": 7
+  }
+}

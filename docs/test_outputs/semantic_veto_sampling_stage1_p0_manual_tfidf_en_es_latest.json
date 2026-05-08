@@ -1,0 +1,3123 @@
+{
+  "schema_version": 1,
+  "status": "ok",
+  "pair": "en-es",
+  "dataset_id": "en_es_sampling_stage1_p0_manual_v1",
+  "generated_at": "2026-05-05T15:31:10Z",
+  "dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_sampling_stage1_p0_manual_v1.json",
+  "config": {
+    "scorer_id": "tfidf_cosine",
+    "model_name": null,
+    "context_view": "masked_sentence",
+    "evidence_view": "all_evidence_text",
+    "min_active_score": 0.05,
+    "min_margin": 0.0,
+    "phrase_control_mode": "noun_family_frame_guard",
+    "phrase_guard_pos_scope": "family_all",
+    "active_rescue_mode": "off",
+    "window_tokens": 4,
+    "mask_token": "___"
+  },
+  "summary": {
+    "cases_total": 20,
+    "gold_replace_cases": 4,
+    "gold_abstain_cases": 16,
+    "gold_active_winner_cases": 4,
+    "gold_shadow_winner_cases": 0,
+    "gold_none_cases": 16,
+    "predicted_replace_cases": 0,
+    "predicted_abstain_cases": 20,
+    "true_replace_count": 0,
+    "true_abstain_count": 16,
+    "harmful_replace_count": 0,
+    "false_abstain_count": 4,
+    "winner_labeled_cases": 4,
+    "winner_correct_count": 2,
+    "shadow_winner_labeled_cases": 0,
+    "shadow_winner_correct_count": 0,
+    "phrase_preemption_hit_count": 4,
+    "phrase_preemption_correct_abstain_count": 4,
+    "phrase_preemption_harmful_block_count": 0,
+    "active_rescue_applied_count": 0,
+    "active_rescue_correct_replace_count": 0,
+    "active_rescue_harmful_replace_count": 0,
+    "decision_accuracy": 0.8,
+    "replace_precision": null,
+    "replace_recall": 0.0,
+    "harmful_replace_rate": 0.0,
+    "false_abstain_rate": 1.0,
+    "winner_accuracy": 0.5,
+    "shadow_winner_accuracy": null,
+    "predicted_replace_rate": 0.0,
+    "phrase_preemption_hit_rate": 0.2,
+    "phrase_preemption_precision": 1.0,
+    "active_rescue_applied_rate": 0.0,
+    "active_rescue_precision": null
+  },
+  "family_breakdown": [
+    {
+      "family_id": "en-es:sampling-stage1-p0:help:ayuda",
+      "trigger": "help",
+      "active_target": "ayuda",
+      "shadow_targets": [
+        "servicio"
+      ],
+      "summary": {
+        "cases_total": 12,
+        "gold_replace_cases": 4,
+        "gold_abstain_cases": 8,
+        "gold_active_winner_cases": 4,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 8,
+        "predicted_replace_cases": 0,
+        "predicted_abstain_cases": 12,
+        "true_replace_count": 0,
+        "true_abstain_count": 8,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 4,
+        "winner_labeled_cases": 4,
+        "winner_correct_count": 2,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "phrase_preemption_hit_count": 4,
+        "phrase_preemption_correct_abstain_count": 4,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.6666666666666666,
+        "replace_precision": null,
+        "replace_recall": 0.0,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": 1.0,
+        "winner_accuracy": 0.5,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 0.0,
+        "phrase_preemption_hit_rate": 0.3333333333333333,
+        "phrase_preemption_precision": 1.0,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    },
+    {
+      "family_id": "en-es:sampling-stage1-p0:particular:específico",
+      "trigger": "particular",
+      "active_target": "específico",
+      "shadow_targets": [
+        "quisquilloso",
+        "detalles"
+      ],
+      "summary": {
+        "cases_total": 8,
+        "gold_replace_cases": 0,
+        "gold_abstain_cases": 8,
+        "gold_active_winner_cases": 0,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 8,
+        "predicted_replace_cases": 0,
+        "predicted_abstain_cases": 8,
+        "true_replace_count": 0,
+        "true_abstain_count": 8,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 0,
+        "winner_labeled_cases": 0,
+        "winner_correct_count": 0,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "phrase_preemption_hit_count": 0,
+        "phrase_preemption_correct_abstain_count": 0,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 1.0,
+        "replace_precision": null,
+        "replace_recall": null,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": null,
+        "winner_accuracy": null,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 0.0,
+        "phrase_preemption_hit_rate": 0.0,
+        "phrase_preemption_precision": null,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    }
+  ],
+  "slice_tag_breakdown": [
+    {
+      "slice_tag": "curve_priority:P0",
+      "summary": {
+        "cases_total": 20,
+        "gold_replace_cases": 4,
+        "gold_abstain_cases": 16,
+        "gold_active_winner_cases": 4,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 16,
+        "predicted_replace_cases": 0,
+        "predicted_abstain_cases": 20,
+        "true_replace_count": 0,
+        "true_abstain_count": 16,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 4,
+        "winner_labeled_cases": 4,
+        "winner_correct_count": 2,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "phrase_preemption_hit_count": 4,
+        "phrase_preemption_correct_abstain_count": 4,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.8,
+        "replace_precision": null,
+        "replace_recall": 0.0,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": 1.0,
+        "winner_accuracy": 0.5,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 0.0,
+        "phrase_preemption_hit_rate": 0.2,
+        "phrase_preemption_precision": 1.0,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    },
+    {
+      "slice_tag": "discovery",
+      "summary": {
+        "cases_total": 20,
+        "gold_replace_cases": 4,
+        "gold_abstain_cases": 16,
+        "gold_active_winner_cases": 4,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 16,
+        "predicted_replace_cases": 0,
+        "predicted_abstain_cases": 20,
+        "true_replace_count": 0,
+        "true_abstain_count": 16,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 4,
+        "winner_labeled_cases": 4,
+        "winner_correct_count": 2,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "phrase_preemption_hit_count": 4,
+        "phrase_preemption_correct_abstain_count": 4,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.8,
+        "replace_precision": null,
+        "replace_recall": 0.0,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": 1.0,
+        "winner_accuracy": 0.5,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 0.0,
+        "phrase_preemption_hit_rate": 0.2,
+        "phrase_preemption_precision": 1.0,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    },
+    {
+      "slice_tag": "en_es_sampling_stage1_p0_manual_v1",
+      "summary": {
+        "cases_total": 20,
+        "gold_replace_cases": 4,
+        "gold_abstain_cases": 16,
+        "gold_active_winner_cases": 4,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 16,
+        "predicted_replace_cases": 0,
+        "predicted_abstain_cases": 20,
+        "true_replace_count": 0,
+        "true_abstain_count": 16,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 4,
+        "winner_labeled_cases": 4,
+        "winner_correct_count": 2,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "phrase_preemption_hit_count": 4,
+        "phrase_preemption_correct_abstain_count": 4,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.8,
+        "replace_precision": null,
+        "replace_recall": 0.0,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": 1.0,
+        "winner_accuracy": 0.5,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 0.0,
+        "phrase_preemption_hit_rate": 0.2,
+        "phrase_preemption_precision": 1.0,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    },
+    {
+      "slice_tag": "manual_draft_v1",
+      "summary": {
+        "cases_total": 20,
+        "gold_replace_cases": 4,
+        "gold_abstain_cases": 16,
+        "gold_active_winner_cases": 4,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 16,
+        "predicted_replace_cases": 0,
+        "predicted_abstain_cases": 20,
+        "true_replace_count": 0,
+        "true_abstain_count": 16,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 4,
+        "winner_labeled_cases": 4,
+        "winner_correct_count": 2,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "phrase_preemption_hit_count": 4,
+        "phrase_preemption_correct_abstain_count": 4,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.8,
+        "replace_precision": null,
+        "replace_recall": 0.0,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": 1.0,
+        "winner_accuracy": 0.5,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 0.0,
+        "phrase_preemption_hit_rate": 0.2,
+        "phrase_preemption_precision": 1.0,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    },
+    {
+      "slice_tag": "pre_outcome",
+      "summary": {
+        "cases_total": 20,
+        "gold_replace_cases": 4,
+        "gold_abstain_cases": 16,
+        "gold_active_winner_cases": 4,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 16,
+        "predicted_replace_cases": 0,
+        "predicted_abstain_cases": 20,
+        "true_replace_count": 0,
+        "true_abstain_count": 16,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 4,
+        "winner_labeled_cases": 4,
+        "winner_correct_count": 2,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "phrase_preemption_hit_count": 4,
+        "phrase_preemption_correct_abstain_count": 4,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.8,
+        "replace_precision": null,
+        "replace_recall": 0.0,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": 1.0,
+        "winner_accuracy": 0.5,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 0.0,
+        "phrase_preemption_hit_rate": 0.2,
+        "phrase_preemption_precision": 1.0,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    },
+    {
+      "slice_tag": "targeted_curve_mechanism_lane",
+      "summary": {
+        "cases_total": 20,
+        "gold_replace_cases": 4,
+        "gold_abstain_cases": 16,
+        "gold_active_winner_cases": 4,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 16,
+        "predicted_replace_cases": 0,
+        "predicted_abstain_cases": 20,
+        "true_replace_count": 0,
+        "true_abstain_count": 16,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 4,
+        "winner_labeled_cases": 4,
+        "winner_correct_count": 2,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "phrase_preemption_hit_count": 4,
+        "phrase_preemption_correct_abstain_count": 4,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.8,
+        "replace_precision": null,
+        "replace_recall": 0.0,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": 1.0,
+        "winner_accuracy": 0.5,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 0.0,
+        "phrase_preemption_hit_rate": 0.2,
+        "phrase_preemption_precision": 1.0,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    },
+    {
+      "slice_tag": "phrase_no_winner",
+      "summary": {
+        "cases_total": 16,
+        "gold_replace_cases": 0,
+        "gold_abstain_cases": 16,
+        "gold_active_winner_cases": 0,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 16,
+        "predicted_replace_cases": 0,
+        "predicted_abstain_cases": 16,
+        "true_replace_count": 0,
+        "true_abstain_count": 16,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 0,
+        "winner_labeled_cases": 0,
+        "winner_correct_count": 0,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "phrase_preemption_hit_count": 4,
+        "phrase_preemption_correct_abstain_count": 4,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 1.0,
+        "replace_precision": null,
+        "replace_recall": null,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": null,
+        "winner_accuracy": null,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 0.0,
+        "phrase_preemption_hit_rate": 0.25,
+        "phrase_preemption_precision": 1.0,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    },
+    {
+      "slice_tag": "core_high_polysemy",
+      "summary": {
+        "cases_total": 12,
+        "gold_replace_cases": 4,
+        "gold_abstain_cases": 8,
+        "gold_active_winner_cases": 4,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 8,
+        "predicted_replace_cases": 0,
+        "predicted_abstain_cases": 12,
+        "true_replace_count": 0,
+        "true_abstain_count": 8,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 4,
+        "winner_labeled_cases": 4,
+        "winner_correct_count": 2,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "phrase_preemption_hit_count": 4,
+        "phrase_preemption_correct_abstain_count": 4,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.6666666666666666,
+        "replace_precision": null,
+        "replace_recall": 0.0,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": 1.0,
+        "winner_accuracy": 0.5,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 0.0,
+        "phrase_preemption_hit_rate": 0.3333333333333333,
+        "phrase_preemption_precision": 1.0,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    },
+    {
+      "slice_tag": "polysemy:high_10_plus",
+      "summary": {
+        "cases_total": 12,
+        "gold_replace_cases": 4,
+        "gold_abstain_cases": 8,
+        "gold_active_winner_cases": 4,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 8,
+        "predicted_replace_cases": 0,
+        "predicted_abstain_cases": 12,
+        "true_replace_count": 0,
+        "true_abstain_count": 8,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 4,
+        "winner_labeled_cases": 4,
+        "winner_correct_count": 2,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "phrase_preemption_hit_count": 4,
+        "phrase_preemption_correct_abstain_count": 4,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.6666666666666666,
+        "replace_precision": null,
+        "replace_recall": 0.0,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": 1.0,
+        "winner_accuracy": 0.5,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 0.0,
+        "phrase_preemption_hit_rate": 0.3333333333333333,
+        "phrase_preemption_precision": 1.0,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    },
+    {
+      "slice_tag": "rank_bin:1-500",
+      "summary": {
+        "cases_total": 12,
+        "gold_replace_cases": 4,
+        "gold_abstain_cases": 8,
+        "gold_active_winner_cases": 4,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 8,
+        "predicted_replace_cases": 0,
+        "predicted_abstain_cases": 12,
+        "true_replace_count": 0,
+        "true_abstain_count": 8,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 4,
+        "winner_labeled_cases": 4,
+        "winner_correct_count": 2,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "phrase_preemption_hit_count": 4,
+        "phrase_preemption_correct_abstain_count": 4,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.6666666666666666,
+        "replace_precision": null,
+        "replace_recall": 0.0,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": 1.0,
+        "winner_accuracy": 0.5,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 0.0,
+        "phrase_preemption_hit_rate": 0.3333333333333333,
+        "phrase_preemption_precision": 1.0,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    },
+    {
+      "slice_tag": "scorer:tfidf_cosine",
+      "summary": {
+        "cases_total": 12,
+        "gold_replace_cases": 4,
+        "gold_abstain_cases": 8,
+        "gold_active_winner_cases": 4,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 8,
+        "predicted_replace_cases": 0,
+        "predicted_abstain_cases": 12,
+        "true_replace_count": 0,
+        "true_abstain_count": 8,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 4,
+        "winner_labeled_cases": 4,
+        "winner_correct_count": 2,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "phrase_preemption_hit_count": 2,
+        "phrase_preemption_correct_abstain_count": 2,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.6666666666666666,
+        "replace_precision": null,
+        "replace_recall": 0.0,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": 1.0,
+        "winner_accuracy": 0.5,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 0.0,
+        "phrase_preemption_hit_rate": 0.16666666666666666,
+        "phrase_preemption_precision": 1.0,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    },
+    {
+      "slice_tag": "shadow_contract:limited",
+      "summary": {
+        "cases_total": 12,
+        "gold_replace_cases": 4,
+        "gold_abstain_cases": 8,
+        "gold_active_winner_cases": 4,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 8,
+        "predicted_replace_cases": 0,
+        "predicted_abstain_cases": 12,
+        "true_replace_count": 0,
+        "true_abstain_count": 8,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 4,
+        "winner_labeled_cases": 4,
+        "winner_correct_count": 2,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "phrase_preemption_hit_count": 4,
+        "phrase_preemption_correct_abstain_count": 4,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.6666666666666666,
+        "replace_precision": null,
+        "replace_recall": 0.0,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": 1.0,
+        "winner_accuracy": 0.5,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 0.0,
+        "phrase_preemption_hit_rate": 0.3333333333333333,
+        "phrase_preemption_precision": 1.0,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    },
+    {
+      "slice_tag": "mid_high_polysemy",
+      "summary": {
+        "cases_total": 8,
+        "gold_replace_cases": 0,
+        "gold_abstain_cases": 8,
+        "gold_active_winner_cases": 0,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 8,
+        "predicted_replace_cases": 0,
+        "predicted_abstain_cases": 8,
+        "true_replace_count": 0,
+        "true_abstain_count": 8,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 0,
+        "winner_labeled_cases": 0,
+        "winner_correct_count": 0,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "phrase_preemption_hit_count": 0,
+        "phrase_preemption_correct_abstain_count": 0,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 1.0,
+        "replace_precision": null,
+        "replace_recall": null,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": null,
+        "winner_accuracy": null,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 0.0,
+        "phrase_preemption_hit_rate": 0.0,
+        "phrase_preemption_precision": null,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    },
+    {
+      "slice_tag": "polysemy:medium_4_to_9",
+      "summary": {
+        "cases_total": 8,
+        "gold_replace_cases": 0,
+        "gold_abstain_cases": 8,
+        "gold_active_winner_cases": 0,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 8,
+        "predicted_replace_cases": 0,
+        "predicted_abstain_cases": 8,
+        "true_replace_count": 0,
+        "true_abstain_count": 8,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 0,
+        "winner_labeled_cases": 0,
+        "winner_correct_count": 0,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "phrase_preemption_hit_count": 0,
+        "phrase_preemption_correct_abstain_count": 0,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 1.0,
+        "replace_precision": null,
+        "replace_recall": null,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": null,
+        "winner_accuracy": null,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 0.0,
+        "phrase_preemption_hit_rate": 0.0,
+        "phrase_preemption_precision": null,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    },
+    {
+      "slice_tag": "rank_bin:1001-2000",
+      "summary": {
+        "cases_total": 8,
+        "gold_replace_cases": 0,
+        "gold_abstain_cases": 8,
+        "gold_active_winner_cases": 0,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 8,
+        "predicted_replace_cases": 0,
+        "predicted_abstain_cases": 8,
+        "true_replace_count": 0,
+        "true_abstain_count": 8,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 0,
+        "winner_labeled_cases": 0,
+        "winner_correct_count": 0,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "phrase_preemption_hit_count": 0,
+        "phrase_preemption_correct_abstain_count": 0,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 1.0,
+        "replace_precision": null,
+        "replace_recall": null,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": null,
+        "winner_accuracy": null,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 0.0,
+        "phrase_preemption_hit_rate": 0.0,
+        "phrase_preemption_precision": null,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    },
+    {
+      "slice_tag": "scorer:sentence_transformer_cosine",
+      "summary": {
+        "cases_total": 8,
+        "gold_replace_cases": 0,
+        "gold_abstain_cases": 8,
+        "gold_active_winner_cases": 0,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 8,
+        "predicted_replace_cases": 0,
+        "predicted_abstain_cases": 8,
+        "true_replace_count": 0,
+        "true_abstain_count": 8,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 0,
+        "winner_labeled_cases": 0,
+        "winner_correct_count": 0,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "phrase_preemption_hit_count": 2,
+        "phrase_preemption_correct_abstain_count": 2,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 1.0,
+        "replace_precision": null,
+        "replace_recall": null,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": null,
+        "winner_accuracy": null,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 0.0,
+        "phrase_preemption_hit_rate": 0.25,
+        "phrase_preemption_precision": 1.0,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    },
+    {
+      "slice_tag": "shadow_contract:full",
+      "summary": {
+        "cases_total": 8,
+        "gold_replace_cases": 0,
+        "gold_abstain_cases": 8,
+        "gold_active_winner_cases": 0,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 8,
+        "predicted_replace_cases": 0,
+        "predicted_abstain_cases": 8,
+        "true_replace_count": 0,
+        "true_abstain_count": 8,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 0,
+        "winner_labeled_cases": 0,
+        "winner_correct_count": 0,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "phrase_preemption_hit_count": 0,
+        "phrase_preemption_correct_abstain_count": 0,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 1.0,
+        "replace_precision": null,
+        "replace_recall": null,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": null,
+        "winner_accuracy": null,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 0.0,
+        "phrase_preemption_hit_rate": 0.0,
+        "phrase_preemption_precision": null,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    },
+    {
+      "slice_tag": "positive_active",
+      "summary": {
+        "cases_total": 4,
+        "gold_replace_cases": 4,
+        "gold_abstain_cases": 0,
+        "gold_active_winner_cases": 4,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 0,
+        "predicted_replace_cases": 0,
+        "predicted_abstain_cases": 4,
+        "true_replace_count": 0,
+        "true_abstain_count": 0,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 4,
+        "winner_labeled_cases": 4,
+        "winner_correct_count": 2,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "phrase_preemption_hit_count": 0,
+        "phrase_preemption_correct_abstain_count": 0,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.0,
+        "replace_precision": null,
+        "replace_recall": 0.0,
+        "harmful_replace_rate": null,
+        "false_abstain_rate": 1.0,
+        "winner_accuracy": 0.5,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 0.0,
+        "phrase_preemption_hit_rate": 0.0,
+        "phrase_preemption_precision": null,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    }
+  ],
+  "gold_winner_type_breakdown": [
+    {
+      "gold_winner_type": "active",
+      "summary": {
+        "cases_total": 4,
+        "gold_replace_cases": 4,
+        "gold_abstain_cases": 0,
+        "gold_active_winner_cases": 4,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 0,
+        "predicted_replace_cases": 0,
+        "predicted_abstain_cases": 4,
+        "true_replace_count": 0,
+        "true_abstain_count": 0,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 4,
+        "winner_labeled_cases": 4,
+        "winner_correct_count": 2,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "phrase_preemption_hit_count": 0,
+        "phrase_preemption_correct_abstain_count": 0,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.0,
+        "replace_precision": null,
+        "replace_recall": 0.0,
+        "harmful_replace_rate": null,
+        "false_abstain_rate": 1.0,
+        "winner_accuracy": 0.5,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 0.0,
+        "phrase_preemption_hit_rate": 0.0,
+        "phrase_preemption_precision": null,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    },
+    {
+      "gold_winner_type": "none",
+      "summary": {
+        "cases_total": 16,
+        "gold_replace_cases": 0,
+        "gold_abstain_cases": 16,
+        "gold_active_winner_cases": 0,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 16,
+        "predicted_replace_cases": 0,
+        "predicted_abstain_cases": 16,
+        "true_replace_count": 0,
+        "true_abstain_count": 16,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 0,
+        "winner_labeled_cases": 0,
+        "winner_correct_count": 0,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "phrase_preemption_hit_count": 4,
+        "phrase_preemption_correct_abstain_count": 4,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 1.0,
+        "replace_precision": null,
+        "replace_recall": null,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": null,
+        "winner_accuracy": null,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 0.0,
+        "phrase_preemption_hit_rate": 0.25,
+        "phrase_preemption_precision": 1.0,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    }
+  ],
+  "row_results": [
+    {
+      "case_id": "en-es:sampling-stage1-p0:help:01:001",
+      "family_id": "en-es:sampling-stage1-p0:help:ayuda",
+      "trigger": "help",
+      "sentence": "I cannot help noticing how quiet the room became.",
+      "source_phrase": "help",
+      "gold_decision": "abstain",
+      "gold_winner": "none",
+      "gold_winner_type": "none",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:sampling-stage1-p0:help:ayuda:servicio:shadow",
+      "predicted_winner_type": "shadow",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.007976529764563301,
+      "margin": -0.007976529764563301,
+      "strongest_shadow_id": "en-es:sampling-stage1-p0:help:ayuda:servicio:shadow",
+      "context_text": "I cannot ___ noticing how quiet the room became.",
+      "active_evidence_text": "assistance | assistance or support given to someone | ask for help | offer help | need help",
+      "strongest_shadow_evidence_text": "hired help or servants | people hired to do domestic or farm work | the hired help arrived | farm help | domestic help",
+      "phrase_preemption_hit": true,
+      "matched_phrase_pattern": "cannot help",
+      "phrase_reason_code": "modal_trigger_frame",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": -0.007976529764563301,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_sampling_stage1_p0_manual_v1",
+        "manual_draft_v1",
+        "targeted_curve_mechanism_lane",
+        "discovery",
+        "curve_priority:P0",
+        "core_high_polysemy",
+        "pre_outcome",
+        "rank_bin:1-500",
+        "polysemy:high_10_plus",
+        "phrase_no_winner",
+        "shadow_contract:limited",
+        "scorer:tfidf_cosine"
+      ],
+      "slice_dimensions": {
+        "sampling_lane": [
+          "targeted_curve_mechanism_lane"
+        ],
+        "split": [
+          "discovery"
+        ],
+        "curve_priority": [
+          "P0"
+        ],
+        "curve_cell_id": [
+          "scorer_id=tfidf_cosine::selection_mode=pre_outcome::heuristic_group=core_high_polysemy::manual_case_type=phrase_no_winner::shadow_contract=limited::source_rank_bin=1-500::polysemy_band=high_10_plus"
+        ],
+        "scorer_id": [
+          "tfidf_cosine"
+        ],
+        "heuristic_group": [
+          "core_high_polysemy"
+        ],
+        "selection_mode": [
+          "pre_outcome"
+        ],
+        "source_rank_bin": [
+          "1-500"
+        ],
+        "polysemy_band": [
+          "high_10_plus"
+        ],
+        "manual_case_type": [
+          "phrase_no_winner"
+        ],
+        "shadow_contract": [
+          "limited"
+        ],
+        "manual_review_state": [
+          "agent_draft_human_review_pending"
+        ]
+      },
+      "notes": "cannot help plus gerund idiom"
+    },
+    {
+      "case_id": "en-es:sampling-stage1-p0:help:01:002",
+      "family_id": "en-es:sampling-stage1-p0:help:ayuda",
+      "trigger": "help",
+      "sentence": "She could not help but smile at the news.",
+      "source_phrase": "help",
+      "gold_decision": "abstain",
+      "gold_winner": "none",
+      "gold_winner_type": "none",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:sampling-stage1-p0:help:ayuda:servicio:shadow",
+      "predicted_winner_type": "shadow",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.00797105913832594,
+      "margin": -0.00797105913832594,
+      "strongest_shadow_id": "en-es:sampling-stage1-p0:help:ayuda:servicio:shadow",
+      "context_text": "She could not ___ but smile at the news.",
+      "active_evidence_text": "assistance | assistance or support given to someone | ask for help | offer help | need help",
+      "strongest_shadow_evidence_text": "hired help or servants | people hired to do domestic or farm work | the hired help arrived | farm help | domestic help",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": -0.00797105913832594,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_sampling_stage1_p0_manual_v1",
+        "manual_draft_v1",
+        "targeted_curve_mechanism_lane",
+        "discovery",
+        "curve_priority:P0",
+        "core_high_polysemy",
+        "pre_outcome",
+        "rank_bin:1-500",
+        "polysemy:high_10_plus",
+        "phrase_no_winner",
+        "shadow_contract:limited",
+        "scorer:tfidf_cosine"
+      ],
+      "slice_dimensions": {
+        "sampling_lane": [
+          "targeted_curve_mechanism_lane"
+        ],
+        "split": [
+          "discovery"
+        ],
+        "curve_priority": [
+          "P0"
+        ],
+        "curve_cell_id": [
+          "scorer_id=tfidf_cosine::selection_mode=pre_outcome::heuristic_group=core_high_polysemy::manual_case_type=phrase_no_winner::shadow_contract=limited::source_rank_bin=1-500::polysemy_band=high_10_plus"
+        ],
+        "scorer_id": [
+          "tfidf_cosine"
+        ],
+        "heuristic_group": [
+          "core_high_polysemy"
+        ],
+        "selection_mode": [
+          "pre_outcome"
+        ],
+        "source_rank_bin": [
+          "1-500"
+        ],
+        "polysemy_band": [
+          "high_10_plus"
+        ],
+        "manual_case_type": [
+          "phrase_no_winner"
+        ],
+        "shadow_contract": [
+          "limited"
+        ],
+        "manual_review_state": [
+          "agent_draft_human_review_pending"
+        ]
+      },
+      "notes": "cannot help but idiom"
+    },
+    {
+      "case_id": "en-es:sampling-stage1-p0:help:01:003",
+      "family_id": "en-es:sampling-stage1-p0:help:ayuda",
+      "trigger": "help",
+      "sentence": "Help, the elevator is stuck between floors!",
+      "source_phrase": "help",
+      "gold_decision": "abstain",
+      "gold_winner": "none",
+      "gold_winner_type": "none",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:sampling-stage1-p0:help:ayuda:servicio:shadow",
+      "predicted_winner_type": "shadow",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.009258841720196804,
+      "margin": -0.009258841720196804,
+      "strongest_shadow_id": "en-es:sampling-stage1-p0:help:ayuda:servicio:shadow",
+      "context_text": "___ the elevator is stuck between floors!",
+      "active_evidence_text": "assistance | assistance or support given to someone | ask for help | offer help | need help",
+      "strongest_shadow_evidence_text": "hired help or servants | people hired to do domestic or farm work | the hired help arrived | farm help | domestic help",
+      "phrase_preemption_hit": true,
+      "matched_phrase_pattern": "help the",
+      "phrase_reason_code": "sentence_initial_object_frame",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": -0.009258841720196804,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_sampling_stage1_p0_manual_v1",
+        "manual_draft_v1",
+        "targeted_curve_mechanism_lane",
+        "discovery",
+        "curve_priority:P0",
+        "core_high_polysemy",
+        "pre_outcome",
+        "rank_bin:1-500",
+        "polysemy:high_10_plus",
+        "phrase_no_winner",
+        "shadow_contract:limited",
+        "scorer:tfidf_cosine"
+      ],
+      "slice_dimensions": {
+        "sampling_lane": [
+          "targeted_curve_mechanism_lane"
+        ],
+        "split": [
+          "discovery"
+        ],
+        "curve_priority": [
+          "P0"
+        ],
+        "curve_cell_id": [
+          "scorer_id=tfidf_cosine::selection_mode=pre_outcome::heuristic_group=core_high_polysemy::manual_case_type=phrase_no_winner::shadow_contract=limited::source_rank_bin=1-500::polysemy_band=high_10_plus"
+        ],
+        "scorer_id": [
+          "tfidf_cosine"
+        ],
+        "heuristic_group": [
+          "core_high_polysemy"
+        ],
+        "selection_mode": [
+          "pre_outcome"
+        ],
+        "source_rank_bin": [
+          "1-500"
+        ],
+        "polysemy_band": [
+          "high_10_plus"
+        ],
+        "manual_case_type": [
+          "phrase_no_winner"
+        ],
+        "shadow_contract": [
+          "limited"
+        ],
+        "manual_review_state": [
+          "agent_draft_human_review_pending"
+        ]
+      },
+      "notes": "emergency interjection rather than assistance noun"
+    },
+    {
+      "case_id": "en-es:sampling-stage1-p0:help:01:004",
+      "family_id": "en-es:sampling-stage1-p0:help:ayuda",
+      "trigger": "help",
+      "sentence": "So help me, I will finish this tonight.",
+      "source_phrase": "help",
+      "gold_decision": "abstain",
+      "gold_winner": "none",
+      "gold_winner_type": "none",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:sampling-stage1-p0:help:ayuda:ayuda:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.0,
+      "strongest_shadow_id": "",
+      "context_text": "So ___ me, I will finish this tonight.",
+      "active_evidence_text": "assistance | assistance or support given to someone | ask for help | offer help | need help",
+      "strongest_shadow_evidence_text": "",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": 0.0,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_sampling_stage1_p0_manual_v1",
+        "manual_draft_v1",
+        "targeted_curve_mechanism_lane",
+        "discovery",
+        "curve_priority:P0",
+        "core_high_polysemy",
+        "pre_outcome",
+        "rank_bin:1-500",
+        "polysemy:high_10_plus",
+        "phrase_no_winner",
+        "shadow_contract:limited",
+        "scorer:tfidf_cosine"
+      ],
+      "slice_dimensions": {
+        "sampling_lane": [
+          "targeted_curve_mechanism_lane"
+        ],
+        "split": [
+          "discovery"
+        ],
+        "curve_priority": [
+          "P0"
+        ],
+        "curve_cell_id": [
+          "scorer_id=tfidf_cosine::selection_mode=pre_outcome::heuristic_group=core_high_polysemy::manual_case_type=phrase_no_winner::shadow_contract=limited::source_rank_bin=1-500::polysemy_band=high_10_plus"
+        ],
+        "scorer_id": [
+          "tfidf_cosine"
+        ],
+        "heuristic_group": [
+          "core_high_polysemy"
+        ],
+        "selection_mode": [
+          "pre_outcome"
+        ],
+        "source_rank_bin": [
+          "1-500"
+        ],
+        "polysemy_band": [
+          "high_10_plus"
+        ],
+        "manual_case_type": [
+          "phrase_no_winner"
+        ],
+        "shadow_contract": [
+          "limited"
+        ],
+        "manual_review_state": [
+          "agent_draft_human_review_pending"
+        ]
+      },
+      "notes": "oath-like fixed expression"
+    },
+    {
+      "case_id": "en-es:sampling-stage1-p0:help:02:001",
+      "family_id": "en-es:sampling-stage1-p0:help:ayuda",
+      "trigger": "help",
+      "sentence": "Her help made the move much easier.",
+      "source_phrase": "help",
+      "gold_decision": "replace",
+      "gold_winner": "en-es:sampling-stage1-p0:help:ayuda:ayuda:active",
+      "gold_winner_type": "active",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:sampling-stage1-p0:help:ayuda:servicio:shadow",
+      "predicted_winner_type": "shadow",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.009258841720196804,
+      "margin": -0.009258841720196804,
+      "strongest_shadow_id": "en-es:sampling-stage1-p0:help:ayuda:servicio:shadow",
+      "context_text": "Her ___ made the move much easier.",
+      "active_evidence_text": "assistance | assistance or support given to someone | ask for help | offer help | need help",
+      "strongest_shadow_evidence_text": "hired help or servants | people hired to do domestic or farm work | the hired help arrived | farm help | domestic help",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": -0.009258841720196804,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_sampling_stage1_p0_manual_v1",
+        "manual_draft_v1",
+        "targeted_curve_mechanism_lane",
+        "discovery",
+        "curve_priority:P0",
+        "core_high_polysemy",
+        "pre_outcome",
+        "rank_bin:1-500",
+        "polysemy:high_10_plus",
+        "positive_active",
+        "shadow_contract:limited",
+        "scorer:tfidf_cosine"
+      ],
+      "slice_dimensions": {
+        "sampling_lane": [
+          "targeted_curve_mechanism_lane"
+        ],
+        "split": [
+          "discovery"
+        ],
+        "curve_priority": [
+          "P0"
+        ],
+        "curve_cell_id": [
+          "scorer_id=tfidf_cosine::selection_mode=pre_outcome::heuristic_group=core_high_polysemy::manual_case_type=positive_active::shadow_contract=limited::source_rank_bin=1-500::polysemy_band=high_10_plus"
+        ],
+        "scorer_id": [
+          "tfidf_cosine"
+        ],
+        "heuristic_group": [
+          "core_high_polysemy"
+        ],
+        "selection_mode": [
+          "pre_outcome"
+        ],
+        "source_rank_bin": [
+          "1-500"
+        ],
+        "polysemy_band": [
+          "high_10_plus"
+        ],
+        "manual_case_type": [
+          "positive_active"
+        ],
+        "shadow_contract": [
+          "limited"
+        ],
+        "manual_review_state": [
+          "agent_draft_human_review_pending"
+        ]
+      },
+      "notes": "assistance noun"
+    },
+    {
+      "case_id": "en-es:sampling-stage1-p0:help:02:002",
+      "family_id": "en-es:sampling-stage1-p0:help:ayuda",
+      "trigger": "help",
+      "sentence": "The guide offers help with password resets.",
+      "source_phrase": "help",
+      "gold_decision": "replace",
+      "gold_winner": "en-es:sampling-stage1-p0:help:ayuda:ayuda:active",
+      "gold_winner_type": "active",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:sampling-stage1-p0:help:ayuda:servicio:shadow",
+      "predicted_winner_type": "shadow",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.00935752463139434,
+      "margin": -0.00935752463139434,
+      "strongest_shadow_id": "en-es:sampling-stage1-p0:help:ayuda:servicio:shadow",
+      "context_text": "The guide offers ___ with password resets.",
+      "active_evidence_text": "assistance | assistance or support given to someone | ask for help | offer help | need help",
+      "strongest_shadow_evidence_text": "hired help or servants | people hired to do domestic or farm work | the hired help arrived | farm help | domestic help",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": -0.00935752463139434,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_sampling_stage1_p0_manual_v1",
+        "manual_draft_v1",
+        "targeted_curve_mechanism_lane",
+        "discovery",
+        "curve_priority:P0",
+        "core_high_polysemy",
+        "pre_outcome",
+        "rank_bin:1-500",
+        "polysemy:high_10_plus",
+        "positive_active",
+        "shadow_contract:limited",
+        "scorer:tfidf_cosine"
+      ],
+      "slice_dimensions": {
+        "sampling_lane": [
+          "targeted_curve_mechanism_lane"
+        ],
+        "split": [
+          "discovery"
+        ],
+        "curve_priority": [
+          "P0"
+        ],
+        "curve_cell_id": [
+          "scorer_id=tfidf_cosine::selection_mode=pre_outcome::heuristic_group=core_high_polysemy::manual_case_type=positive_active::shadow_contract=limited::source_rank_bin=1-500::polysemy_band=high_10_plus"
+        ],
+        "scorer_id": [
+          "tfidf_cosine"
+        ],
+        "heuristic_group": [
+          "core_high_polysemy"
+        ],
+        "selection_mode": [
+          "pre_outcome"
+        ],
+        "source_rank_bin": [
+          "1-500"
+        ],
+        "polysemy_band": [
+          "high_10_plus"
+        ],
+        "manual_case_type": [
+          "positive_active"
+        ],
+        "shadow_contract": [
+          "limited"
+        ],
+        "manual_review_state": [
+          "agent_draft_human_review_pending"
+        ]
+      },
+      "notes": "assistance offered by instructions"
+    },
+    {
+      "case_id": "en-es:sampling-stage1-p0:help:02:003",
+      "family_id": "en-es:sampling-stage1-p0:help:ayuda",
+      "trigger": "help",
+      "sentence": "We need help carrying these boxes upstairs.",
+      "source_phrase": "help",
+      "gold_decision": "replace",
+      "gold_winner": "en-es:sampling-stage1-p0:help:ayuda:ayuda:active",
+      "gold_winner_type": "active",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:sampling-stage1-p0:help:ayuda:ayuda:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.04292794802250065,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.04292794802250065,
+      "strongest_shadow_id": "",
+      "context_text": "We need ___ carrying these boxes upstairs.",
+      "active_evidence_text": "assistance | assistance or support given to someone | ask for help | offer help | need help",
+      "strongest_shadow_evidence_text": "",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": 0.04292794802250065,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_sampling_stage1_p0_manual_v1",
+        "manual_draft_v1",
+        "targeted_curve_mechanism_lane",
+        "discovery",
+        "curve_priority:P0",
+        "core_high_polysemy",
+        "pre_outcome",
+        "rank_bin:1-500",
+        "polysemy:high_10_plus",
+        "positive_active",
+        "shadow_contract:limited",
+        "scorer:tfidf_cosine"
+      ],
+      "slice_dimensions": {
+        "sampling_lane": [
+          "targeted_curve_mechanism_lane"
+        ],
+        "split": [
+          "discovery"
+        ],
+        "curve_priority": [
+          "P0"
+        ],
+        "curve_cell_id": [
+          "scorer_id=tfidf_cosine::selection_mode=pre_outcome::heuristic_group=core_high_polysemy::manual_case_type=positive_active::shadow_contract=limited::source_rank_bin=1-500::polysemy_band=high_10_plus"
+        ],
+        "scorer_id": [
+          "tfidf_cosine"
+        ],
+        "heuristic_group": [
+          "core_high_polysemy"
+        ],
+        "selection_mode": [
+          "pre_outcome"
+        ],
+        "source_rank_bin": [
+          "1-500"
+        ],
+        "polysemy_band": [
+          "high_10_plus"
+        ],
+        "manual_case_type": [
+          "positive_active"
+        ],
+        "shadow_contract": [
+          "limited"
+        ],
+        "manual_review_state": [
+          "agent_draft_human_review_pending"
+        ]
+      },
+      "notes": "request for assistance"
+    },
+    {
+      "case_id": "en-es:sampling-stage1-p0:help:02:004",
+      "family_id": "en-es:sampling-stage1-p0:help:ayuda",
+      "trigger": "help",
+      "sentence": "Thank you for the help you gave my sister.",
+      "source_phrase": "help",
+      "gold_decision": "replace",
+      "gold_winner": "en-es:sampling-stage1-p0:help:ayuda:ayuda:active",
+      "gold_winner_type": "active",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:sampling-stage1-p0:help:ayuda:ayuda:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.0352696519768945,
+      "strongest_shadow_score": 0.0074817806548230096,
+      "margin": 0.027787871322071493,
+      "strongest_shadow_id": "en-es:sampling-stage1-p0:help:ayuda:servicio:shadow",
+      "context_text": "Thank you for the ___ you gave my sister.",
+      "active_evidence_text": "assistance | assistance or support given to someone | ask for help | offer help | need help",
+      "strongest_shadow_evidence_text": "hired help or servants | people hired to do domestic or farm work | the hired help arrived | farm help | domestic help",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": 0.027787871322071493,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_sampling_stage1_p0_manual_v1",
+        "manual_draft_v1",
+        "targeted_curve_mechanism_lane",
+        "discovery",
+        "curve_priority:P0",
+        "core_high_polysemy",
+        "pre_outcome",
+        "rank_bin:1-500",
+        "polysemy:high_10_plus",
+        "positive_active",
+        "shadow_contract:limited",
+        "scorer:tfidf_cosine"
+      ],
+      "slice_dimensions": {
+        "sampling_lane": [
+          "targeted_curve_mechanism_lane"
+        ],
+        "split": [
+          "discovery"
+        ],
+        "curve_priority": [
+          "P0"
+        ],
+        "curve_cell_id": [
+          "scorer_id=tfidf_cosine::selection_mode=pre_outcome::heuristic_group=core_high_polysemy::manual_case_type=positive_active::shadow_contract=limited::source_rank_bin=1-500::polysemy_band=high_10_plus"
+        ],
+        "scorer_id": [
+          "tfidf_cosine"
+        ],
+        "heuristic_group": [
+          "core_high_polysemy"
+        ],
+        "selection_mode": [
+          "pre_outcome"
+        ],
+        "source_rank_bin": [
+          "1-500"
+        ],
+        "polysemy_band": [
+          "high_10_plus"
+        ],
+        "manual_case_type": [
+          "positive_active"
+        ],
+        "shadow_contract": [
+          "limited"
+        ],
+        "manual_review_state": [
+          "agent_draft_human_review_pending"
+        ]
+      },
+      "notes": "received assistance"
+    },
+    {
+      "case_id": "en-es:sampling-stage1-p0:help:04:001",
+      "family_id": "en-es:sampling-stage1-p0:help:ayuda",
+      "trigger": "help",
+      "sentence": "No one can help being nervous before the final.",
+      "source_phrase": "help",
+      "gold_decision": "abstain",
+      "gold_winner": "none",
+      "gold_winner_type": "none",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:sampling-stage1-p0:help:ayuda:servicio:shadow",
+      "predicted_winner_type": "shadow",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.00809797824315922,
+      "margin": -0.00809797824315922,
+      "strongest_shadow_id": "en-es:sampling-stage1-p0:help:ayuda:servicio:shadow",
+      "context_text": "No one can ___ being nervous before the final.",
+      "active_evidence_text": "assistance | assistance or support given to someone | ask for help | offer help | need help",
+      "strongest_shadow_evidence_text": "hired help or servants | people hired to do domestic or farm work | the hired help arrived | farm help | domestic help",
+      "phrase_preemption_hit": true,
+      "matched_phrase_pattern": "can help",
+      "phrase_reason_code": "modal_trigger_frame",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": -0.00809797824315922,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_sampling_stage1_p0_manual_v1",
+        "manual_draft_v1",
+        "targeted_curve_mechanism_lane",
+        "discovery",
+        "curve_priority:P0",
+        "core_high_polysemy",
+        "pre_outcome",
+        "rank_bin:1-500",
+        "polysemy:high_10_plus",
+        "phrase_no_winner",
+        "shadow_contract:limited",
+        "scorer:sentence_transformer_cosine"
+      ],
+      "slice_dimensions": {
+        "sampling_lane": [
+          "targeted_curve_mechanism_lane"
+        ],
+        "split": [
+          "discovery"
+        ],
+        "curve_priority": [
+          "P0"
+        ],
+        "curve_cell_id": [
+          "scorer_id=sentence_transformer_cosine::selection_mode=pre_outcome::heuristic_group=core_high_polysemy::manual_case_type=phrase_no_winner::shadow_contract=limited::source_rank_bin=1-500::polysemy_band=high_10_plus"
+        ],
+        "scorer_id": [
+          "sentence_transformer_cosine"
+        ],
+        "heuristic_group": [
+          "core_high_polysemy"
+        ],
+        "selection_mode": [
+          "pre_outcome"
+        ],
+        "source_rank_bin": [
+          "1-500"
+        ],
+        "polysemy_band": [
+          "high_10_plus"
+        ],
+        "manual_case_type": [
+          "phrase_no_winner"
+        ],
+        "shadow_contract": [
+          "limited"
+        ],
+        "manual_review_state": [
+          "agent_draft_human_review_pending"
+        ]
+      },
+      "notes": "cannot help being idiom"
+    },
+    {
+      "case_id": "en-es:sampling-stage1-p0:help:04:002",
+      "family_id": "en-es:sampling-stage1-p0:help:ayuda",
+      "trigger": "help",
+      "sentence": "The child shouted help from the locked bathroom.",
+      "source_phrase": "help",
+      "gold_decision": "abstain",
+      "gold_winner": "none",
+      "gold_winner_type": "none",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:sampling-stage1-p0:help:ayuda:servicio:shadow",
+      "predicted_winner_type": "shadow",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.01732068473867064,
+      "margin": -0.01732068473867064,
+      "strongest_shadow_id": "en-es:sampling-stage1-p0:help:ayuda:servicio:shadow",
+      "context_text": "The child shouted ___ from the locked bathroom.",
+      "active_evidence_text": "assistance | assistance or support given to someone | ask for help | offer help | need help",
+      "strongest_shadow_evidence_text": "hired help or servants | people hired to do domestic or farm work | the hired help arrived | farm help | domestic help",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": -0.01732068473867064,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_sampling_stage1_p0_manual_v1",
+        "manual_draft_v1",
+        "targeted_curve_mechanism_lane",
+        "discovery",
+        "curve_priority:P0",
+        "core_high_polysemy",
+        "pre_outcome",
+        "rank_bin:1-500",
+        "polysemy:high_10_plus",
+        "phrase_no_winner",
+        "shadow_contract:limited",
+        "scorer:sentence_transformer_cosine"
+      ],
+      "slice_dimensions": {
+        "sampling_lane": [
+          "targeted_curve_mechanism_lane"
+        ],
+        "split": [
+          "discovery"
+        ],
+        "curve_priority": [
+          "P0"
+        ],
+        "curve_cell_id": [
+          "scorer_id=sentence_transformer_cosine::selection_mode=pre_outcome::heuristic_group=core_high_polysemy::manual_case_type=phrase_no_winner::shadow_contract=limited::source_rank_bin=1-500::polysemy_band=high_10_plus"
+        ],
+        "scorer_id": [
+          "sentence_transformer_cosine"
+        ],
+        "heuristic_group": [
+          "core_high_polysemy"
+        ],
+        "selection_mode": [
+          "pre_outcome"
+        ],
+        "source_rank_bin": [
+          "1-500"
+        ],
+        "polysemy_band": [
+          "high_10_plus"
+        ],
+        "manual_case_type": [
+          "phrase_no_winner"
+        ],
+        "shadow_contract": [
+          "limited"
+        ],
+        "manual_review_state": [
+          "agent_draft_human_review_pending"
+        ]
+      },
+      "notes": "cry for rescue, not the assistance noun target"
+    },
+    {
+      "case_id": "en-es:sampling-stage1-p0:help:04:003",
+      "family_id": "en-es:sampling-stage1-p0:help:ayuda",
+      "trigger": "help",
+      "sentence": "I can't help thinking we missed a step.",
+      "source_phrase": "help",
+      "gold_decision": "abstain",
+      "gold_winner": "none",
+      "gold_winner_type": "none",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:sampling-stage1-p0:help:ayuda:ayuda:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.0,
+      "strongest_shadow_id": "",
+      "context_text": "I can't ___ thinking we missed a step.",
+      "active_evidence_text": "assistance | assistance or support given to someone | ask for help | offer help | need help",
+      "strongest_shadow_evidence_text": "",
+      "phrase_preemption_hit": true,
+      "matched_phrase_pattern": "can't help",
+      "phrase_reason_code": "modal_trigger_frame",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": 0.0,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_sampling_stage1_p0_manual_v1",
+        "manual_draft_v1",
+        "targeted_curve_mechanism_lane",
+        "discovery",
+        "curve_priority:P0",
+        "core_high_polysemy",
+        "pre_outcome",
+        "rank_bin:1-500",
+        "polysemy:high_10_plus",
+        "phrase_no_winner",
+        "shadow_contract:limited",
+        "scorer:sentence_transformer_cosine"
+      ],
+      "slice_dimensions": {
+        "sampling_lane": [
+          "targeted_curve_mechanism_lane"
+        ],
+        "split": [
+          "discovery"
+        ],
+        "curve_priority": [
+          "P0"
+        ],
+        "curve_cell_id": [
+          "scorer_id=sentence_transformer_cosine::selection_mode=pre_outcome::heuristic_group=core_high_polysemy::manual_case_type=phrase_no_winner::shadow_contract=limited::source_rank_bin=1-500::polysemy_band=high_10_plus"
+        ],
+        "scorer_id": [
+          "sentence_transformer_cosine"
+        ],
+        "heuristic_group": [
+          "core_high_polysemy"
+        ],
+        "selection_mode": [
+          "pre_outcome"
+        ],
+        "source_rank_bin": [
+          "1-500"
+        ],
+        "polysemy_band": [
+          "high_10_plus"
+        ],
+        "manual_case_type": [
+          "phrase_no_winner"
+        ],
+        "shadow_contract": [
+          "limited"
+        ],
+        "manual_review_state": [
+          "agent_draft_human_review_pending"
+        ]
+      },
+      "notes": "can't help thinking idiom"
+    },
+    {
+      "case_id": "en-es:sampling-stage1-p0:help:04:004",
+      "family_id": "en-es:sampling-stage1-p0:help:ayuda",
+      "trigger": "help",
+      "sentence": "Help yourself to some coffee before the meeting.",
+      "source_phrase": "help",
+      "gold_decision": "abstain",
+      "gold_winner": "none",
+      "gold_winner_type": "none",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:sampling-stage1-p0:help:ayuda:servicio:shadow",
+      "predicted_winner_type": "shadow",
+      "active_score": 0.029117019226470576,
+      "strongest_shadow_score": 0.030296516690694282,
+      "margin": -0.0011794974642237062,
+      "strongest_shadow_id": "en-es:sampling-stage1-p0:help:ayuda:servicio:shadow",
+      "context_text": "___ yourself to some coffee before the meeting.",
+      "active_evidence_text": "assistance | assistance or support given to someone | ask for help | offer help | need help",
+      "strongest_shadow_evidence_text": "hired help or servants | people hired to do domestic or farm work | the hired help arrived | farm help | domestic help",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": -0.0011794974642237062,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_sampling_stage1_p0_manual_v1",
+        "manual_draft_v1",
+        "targeted_curve_mechanism_lane",
+        "discovery",
+        "curve_priority:P0",
+        "core_high_polysemy",
+        "pre_outcome",
+        "rank_bin:1-500",
+        "polysemy:high_10_plus",
+        "phrase_no_winner",
+        "shadow_contract:limited",
+        "scorer:sentence_transformer_cosine"
+      ],
+      "slice_dimensions": {
+        "sampling_lane": [
+          "targeted_curve_mechanism_lane"
+        ],
+        "split": [
+          "discovery"
+        ],
+        "curve_priority": [
+          "P0"
+        ],
+        "curve_cell_id": [
+          "scorer_id=sentence_transformer_cosine::selection_mode=pre_outcome::heuristic_group=core_high_polysemy::manual_case_type=phrase_no_winner::shadow_contract=limited::source_rank_bin=1-500::polysemy_band=high_10_plus"
+        ],
+        "scorer_id": [
+          "sentence_transformer_cosine"
+        ],
+        "heuristic_group": [
+          "core_high_polysemy"
+        ],
+        "selection_mode": [
+          "pre_outcome"
+        ],
+        "source_rank_bin": [
+          "1-500"
+        ],
+        "polysemy_band": [
+          "high_10_plus"
+        ],
+        "manual_case_type": [
+          "phrase_no_winner"
+        ],
+        "shadow_contract": [
+          "limited"
+        ],
+        "manual_review_state": [
+          "agent_draft_human_review_pending"
+        ]
+      },
+      "notes": "help yourself idiom"
+    },
+    {
+      "case_id": "en-es:sampling-stage1-p0:particular:03:001",
+      "family_id": "en-es:sampling-stage1-p0:particular:específico",
+      "trigger": "particular",
+      "sentence": "In particular, the last paragraph needs work.",
+      "source_phrase": "particular",
+      "gold_decision": "abstain",
+      "gold_winner": "none",
+      "gold_winner_type": "none",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:sampling-stage1-p0:particular:específico:detalles:shadow",
+      "predicted_winner_type": "shadow",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.023180980368508113,
+      "margin": -0.023180980368508113,
+      "strongest_shadow_id": "en-es:sampling-stage1-p0:particular:específico:detalles:shadow",
+      "context_text": "In ___ the last paragraph needs work.",
+      "active_evidence_text": "specific | specific or distinct from others | particular reason | particular case | particular tool",
+      "strongest_shadow_evidence_text": "details or particulars | individual facts or details of a case | particulars of the contract | all the particulars",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": -0.023180980368508113,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_sampling_stage1_p0_manual_v1",
+        "manual_draft_v1",
+        "targeted_curve_mechanism_lane",
+        "discovery",
+        "curve_priority:P0",
+        "mid_high_polysemy",
+        "pre_outcome",
+        "rank_bin:1001-2000",
+        "polysemy:medium_4_to_9",
+        "phrase_no_winner",
+        "shadow_contract:full",
+        "scorer:tfidf_cosine"
+      ],
+      "slice_dimensions": {
+        "sampling_lane": [
+          "targeted_curve_mechanism_lane"
+        ],
+        "split": [
+          "discovery"
+        ],
+        "curve_priority": [
+          "P0"
+        ],
+        "curve_cell_id": [
+          "scorer_id=tfidf_cosine::selection_mode=pre_outcome::heuristic_group=mid_high_polysemy::manual_case_type=phrase_no_winner::shadow_contract=full::source_rank_bin=1001-2000::polysemy_band=medium_4_to_9"
+        ],
+        "scorer_id": [
+          "tfidf_cosine"
+        ],
+        "heuristic_group": [
+          "mid_high_polysemy"
+        ],
+        "selection_mode": [
+          "pre_outcome"
+        ],
+        "source_rank_bin": [
+          "1001-2000"
+        ],
+        "polysemy_band": [
+          "medium_4_to_9"
+        ],
+        "manual_case_type": [
+          "phrase_no_winner"
+        ],
+        "shadow_contract": [
+          "full"
+        ],
+        "manual_review_state": [
+          "agent_draft_human_review_pending"
+        ]
+      },
+      "notes": "in particular discourse phrase"
+    },
+    {
+      "case_id": "en-es:sampling-stage1-p0:particular:03:002",
+      "family_id": "en-es:sampling-stage1-p0:particular:específico",
+      "trigger": "particular",
+      "sentence": "Nothing in particular caught my eye.",
+      "source_phrase": "particular",
+      "gold_decision": "abstain",
+      "gold_winner": "none",
+      "gold_winner_type": "none",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:sampling-stage1-p0:particular:específico:especifico:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.0,
+      "strongest_shadow_id": "",
+      "context_text": "Nothing in ___ caught my eye.",
+      "active_evidence_text": "specific | specific or distinct from others | particular reason | particular case | particular tool",
+      "strongest_shadow_evidence_text": "",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": 0.0,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_sampling_stage1_p0_manual_v1",
+        "manual_draft_v1",
+        "targeted_curve_mechanism_lane",
+        "discovery",
+        "curve_priority:P0",
+        "mid_high_polysemy",
+        "pre_outcome",
+        "rank_bin:1001-2000",
+        "polysemy:medium_4_to_9",
+        "phrase_no_winner",
+        "shadow_contract:full",
+        "scorer:tfidf_cosine"
+      ],
+      "slice_dimensions": {
+        "sampling_lane": [
+          "targeted_curve_mechanism_lane"
+        ],
+        "split": [
+          "discovery"
+        ],
+        "curve_priority": [
+          "P0"
+        ],
+        "curve_cell_id": [
+          "scorer_id=tfidf_cosine::selection_mode=pre_outcome::heuristic_group=mid_high_polysemy::manual_case_type=phrase_no_winner::shadow_contract=full::source_rank_bin=1001-2000::polysemy_band=medium_4_to_9"
+        ],
+        "scorer_id": [
+          "tfidf_cosine"
+        ],
+        "heuristic_group": [
+          "mid_high_polysemy"
+        ],
+        "selection_mode": [
+          "pre_outcome"
+        ],
+        "source_rank_bin": [
+          "1001-2000"
+        ],
+        "polysemy_band": [
+          "medium_4_to_9"
+        ],
+        "manual_case_type": [
+          "phrase_no_winner"
+        ],
+        "shadow_contract": [
+          "full"
+        ],
+        "manual_review_state": [
+          "agent_draft_human_review_pending"
+        ]
+      },
+      "notes": "nothing in particular idiom"
+    },
+    {
+      "case_id": "en-es:sampling-stage1-p0:particular:03:003",
+      "family_id": "en-es:sampling-stage1-p0:particular:específico",
+      "trigger": "particular",
+      "sentence": "He was not angry with anyone in particular.",
+      "source_phrase": "particular",
+      "gold_decision": "abstain",
+      "gold_winner": "none",
+      "gold_winner_type": "none",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:sampling-stage1-p0:particular:específico:especifico:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.0,
+      "strongest_shadow_id": "",
+      "context_text": "He was not angry with anyone in ___",
+      "active_evidence_text": "specific | specific or distinct from others | particular reason | particular case | particular tool",
+      "strongest_shadow_evidence_text": "",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": 0.0,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_sampling_stage1_p0_manual_v1",
+        "manual_draft_v1",
+        "targeted_curve_mechanism_lane",
+        "discovery",
+        "curve_priority:P0",
+        "mid_high_polysemy",
+        "pre_outcome",
+        "rank_bin:1001-2000",
+        "polysemy:medium_4_to_9",
+        "phrase_no_winner",
+        "shadow_contract:full",
+        "scorer:tfidf_cosine"
+      ],
+      "slice_dimensions": {
+        "sampling_lane": [
+          "targeted_curve_mechanism_lane"
+        ],
+        "split": [
+          "discovery"
+        ],
+        "curve_priority": [
+          "P0"
+        ],
+        "curve_cell_id": [
+          "scorer_id=tfidf_cosine::selection_mode=pre_outcome::heuristic_group=mid_high_polysemy::manual_case_type=phrase_no_winner::shadow_contract=full::source_rank_bin=1001-2000::polysemy_band=medium_4_to_9"
+        ],
+        "scorer_id": [
+          "tfidf_cosine"
+        ],
+        "heuristic_group": [
+          "mid_high_polysemy"
+        ],
+        "selection_mode": [
+          "pre_outcome"
+        ],
+        "source_rank_bin": [
+          "1001-2000"
+        ],
+        "polysemy_band": [
+          "medium_4_to_9"
+        ],
+        "manual_case_type": [
+          "phrase_no_winner"
+        ],
+        "shadow_contract": [
+          "full"
+        ],
+        "manual_review_state": [
+          "agent_draft_human_review_pending"
+        ]
+      },
+      "notes": "anyone in particular idiom"
+    },
+    {
+      "case_id": "en-es:sampling-stage1-p0:particular:03:004",
+      "family_id": "en-es:sampling-stage1-p0:particular:específico",
+      "trigger": "particular",
+      "sentence": "One example in particular changed my mind.",
+      "source_phrase": "particular",
+      "gold_decision": "abstain",
+      "gold_winner": "none",
+      "gold_winner_type": "none",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:sampling-stage1-p0:particular:específico:especifico:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.0,
+      "strongest_shadow_id": "",
+      "context_text": "One example in ___ changed my mind.",
+      "active_evidence_text": "specific | specific or distinct from others | particular reason | particular case | particular tool",
+      "strongest_shadow_evidence_text": "",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": 0.0,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_sampling_stage1_p0_manual_v1",
+        "manual_draft_v1",
+        "targeted_curve_mechanism_lane",
+        "discovery",
+        "curve_priority:P0",
+        "mid_high_polysemy",
+        "pre_outcome",
+        "rank_bin:1001-2000",
+        "polysemy:medium_4_to_9",
+        "phrase_no_winner",
+        "shadow_contract:full",
+        "scorer:tfidf_cosine"
+      ],
+      "slice_dimensions": {
+        "sampling_lane": [
+          "targeted_curve_mechanism_lane"
+        ],
+        "split": [
+          "discovery"
+        ],
+        "curve_priority": [
+          "P0"
+        ],
+        "curve_cell_id": [
+          "scorer_id=tfidf_cosine::selection_mode=pre_outcome::heuristic_group=mid_high_polysemy::manual_case_type=phrase_no_winner::shadow_contract=full::source_rank_bin=1001-2000::polysemy_band=medium_4_to_9"
+        ],
+        "scorer_id": [
+          "tfidf_cosine"
+        ],
+        "heuristic_group": [
+          "mid_high_polysemy"
+        ],
+        "selection_mode": [
+          "pre_outcome"
+        ],
+        "source_rank_bin": [
+          "1001-2000"
+        ],
+        "polysemy_band": [
+          "medium_4_to_9"
+        ],
+        "manual_case_type": [
+          "phrase_no_winner"
+        ],
+        "shadow_contract": [
+          "full"
+        ],
+        "manual_review_state": [
+          "agent_draft_human_review_pending"
+        ]
+      },
+      "notes": "postposed in particular phrase"
+    },
+    {
+      "case_id": "en-es:sampling-stage1-p0:particular:05:001",
+      "family_id": "en-es:sampling-stage1-p0:particular:específico",
+      "trigger": "particular",
+      "sentence": "She likes tea in particular after dinner.",
+      "source_phrase": "particular",
+      "gold_decision": "abstain",
+      "gold_winner": "none",
+      "gold_winner_type": "none",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:sampling-stage1-p0:particular:específico:especifico:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.0,
+      "strongest_shadow_id": "",
+      "context_text": "She likes tea in ___ after dinner.",
+      "active_evidence_text": "specific | specific or distinct from others | particular reason | particular case | particular tool",
+      "strongest_shadow_evidence_text": "",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": 0.0,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_sampling_stage1_p0_manual_v1",
+        "manual_draft_v1",
+        "targeted_curve_mechanism_lane",
+        "discovery",
+        "curve_priority:P0",
+        "mid_high_polysemy",
+        "pre_outcome",
+        "rank_bin:1001-2000",
+        "polysemy:medium_4_to_9",
+        "phrase_no_winner",
+        "shadow_contract:full",
+        "scorer:sentence_transformer_cosine"
+      ],
+      "slice_dimensions": {
+        "sampling_lane": [
+          "targeted_curve_mechanism_lane"
+        ],
+        "split": [
+          "discovery"
+        ],
+        "curve_priority": [
+          "P0"
+        ],
+        "curve_cell_id": [
+          "scorer_id=sentence_transformer_cosine::selection_mode=pre_outcome::heuristic_group=mid_high_polysemy::manual_case_type=phrase_no_winner::shadow_contract=full::source_rank_bin=1001-2000::polysemy_band=medium_4_to_9"
+        ],
+        "scorer_id": [
+          "sentence_transformer_cosine"
+        ],
+        "heuristic_group": [
+          "mid_high_polysemy"
+        ],
+        "selection_mode": [
+          "pre_outcome"
+        ],
+        "source_rank_bin": [
+          "1001-2000"
+        ],
+        "polysemy_band": [
+          "medium_4_to_9"
+        ],
+        "manual_case_type": [
+          "phrase_no_winner"
+        ],
+        "shadow_contract": [
+          "full"
+        ],
+        "manual_review_state": [
+          "agent_draft_human_review_pending"
+        ]
+      },
+      "notes": "in particular preference phrase"
+    },
+    {
+      "case_id": "en-es:sampling-stage1-p0:particular:05:002",
+      "family_id": "en-es:sampling-stage1-p0:particular:específico",
+      "trigger": "particular",
+      "sentence": "No rule in particular explains that result.",
+      "source_phrase": "particular",
+      "gold_decision": "abstain",
+      "gold_winner": "none",
+      "gold_winner_type": "none",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:sampling-stage1-p0:particular:específico:especifico:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.0,
+      "strongest_shadow_id": "",
+      "context_text": "No rule in ___ explains that result.",
+      "active_evidence_text": "specific | specific or distinct from others | particular reason | particular case | particular tool",
+      "strongest_shadow_evidence_text": "",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": 0.0,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_sampling_stage1_p0_manual_v1",
+        "manual_draft_v1",
+        "targeted_curve_mechanism_lane",
+        "discovery",
+        "curve_priority:P0",
+        "mid_high_polysemy",
+        "pre_outcome",
+        "rank_bin:1001-2000",
+        "polysemy:medium_4_to_9",
+        "phrase_no_winner",
+        "shadow_contract:full",
+        "scorer:sentence_transformer_cosine"
+      ],
+      "slice_dimensions": {
+        "sampling_lane": [
+          "targeted_curve_mechanism_lane"
+        ],
+        "split": [
+          "discovery"
+        ],
+        "curve_priority": [
+          "P0"
+        ],
+        "curve_cell_id": [
+          "scorer_id=sentence_transformer_cosine::selection_mode=pre_outcome::heuristic_group=mid_high_polysemy::manual_case_type=phrase_no_winner::shadow_contract=full::source_rank_bin=1001-2000::polysemy_band=medium_4_to_9"
+        ],
+        "scorer_id": [
+          "sentence_transformer_cosine"
+        ],
+        "heuristic_group": [
+          "mid_high_polysemy"
+        ],
+        "selection_mode": [
+          "pre_outcome"
+        ],
+        "source_rank_bin": [
+          "1001-2000"
+        ],
+        "polysemy_band": [
+          "medium_4_to_9"
+        ],
+        "manual_case_type": [
+          "phrase_no_winner"
+        ],
+        "shadow_contract": [
+          "full"
+        ],
+        "manual_review_state": [
+          "agent_draft_human_review_pending"
+        ]
+      },
+      "notes": "no X in particular phrase"
+    },
+    {
+      "case_id": "en-es:sampling-stage1-p0:particular:05:003",
+      "family_id": "en-es:sampling-stage1-p0:particular:específico",
+      "trigger": "particular",
+      "sentence": "This season in particular has been unpredictable.",
+      "source_phrase": "particular",
+      "gold_decision": "abstain",
+      "gold_winner": "none",
+      "gold_winner_type": "none",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:sampling-stage1-p0:particular:específico:especifico:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.0,
+      "strongest_shadow_id": "",
+      "context_text": "This season in ___ has been unpredictable.",
+      "active_evidence_text": "specific | specific or distinct from others | particular reason | particular case | particular tool",
+      "strongest_shadow_evidence_text": "",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": 0.0,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_sampling_stage1_p0_manual_v1",
+        "manual_draft_v1",
+        "targeted_curve_mechanism_lane",
+        "discovery",
+        "curve_priority:P0",
+        "mid_high_polysemy",
+        "pre_outcome",
+        "rank_bin:1001-2000",
+        "polysemy:medium_4_to_9",
+        "phrase_no_winner",
+        "shadow_contract:full",
+        "scorer:sentence_transformer_cosine"
+      ],
+      "slice_dimensions": {
+        "sampling_lane": [
+          "targeted_curve_mechanism_lane"
+        ],
+        "split": [
+          "discovery"
+        ],
+        "curve_priority": [
+          "P0"
+        ],
+        "curve_cell_id": [
+          "scorer_id=sentence_transformer_cosine::selection_mode=pre_outcome::heuristic_group=mid_high_polysemy::manual_case_type=phrase_no_winner::shadow_contract=full::source_rank_bin=1001-2000::polysemy_band=medium_4_to_9"
+        ],
+        "scorer_id": [
+          "sentence_transformer_cosine"
+        ],
+        "heuristic_group": [
+          "mid_high_polysemy"
+        ],
+        "selection_mode": [
+          "pre_outcome"
+        ],
+        "source_rank_bin": [
+          "1001-2000"
+        ],
+        "polysemy_band": [
+          "medium_4_to_9"
+        ],
+        "manual_case_type": [
+          "phrase_no_winner"
+        ],
+        "shadow_contract": [
+          "full"
+        ],
+        "manual_review_state": [
+          "agent_draft_human_review_pending"
+        ]
+      },
+      "notes": "in particular focus phrase"
+    },
+    {
+      "case_id": "en-es:sampling-stage1-p0:particular:05:004",
+      "family_id": "en-es:sampling-stage1-p0:particular:específico",
+      "trigger": "particular",
+      "sentence": "I remember that hallway in particular.",
+      "source_phrase": "particular",
+      "gold_decision": "abstain",
+      "gold_winner": "none",
+      "gold_winner_type": "none",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:sampling-stage1-p0:particular:específico:especifico:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.0,
+      "strongest_shadow_id": "",
+      "context_text": "I remember that hallway in ___",
+      "active_evidence_text": "specific | specific or distinct from others | particular reason | particular case | particular tool",
+      "strongest_shadow_evidence_text": "",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": 0.0,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_sampling_stage1_p0_manual_v1",
+        "manual_draft_v1",
+        "targeted_curve_mechanism_lane",
+        "discovery",
+        "curve_priority:P0",
+        "mid_high_polysemy",
+        "pre_outcome",
+        "rank_bin:1001-2000",
+        "polysemy:medium_4_to_9",
+        "phrase_no_winner",
+        "shadow_contract:full",
+        "scorer:sentence_transformer_cosine"
+      ],
+      "slice_dimensions": {
+        "sampling_lane": [
+          "targeted_curve_mechanism_lane"
+        ],
+        "split": [
+          "discovery"
+        ],
+        "curve_priority": [
+          "P0"
+        ],
+        "curve_cell_id": [
+          "scorer_id=sentence_transformer_cosine::selection_mode=pre_outcome::heuristic_group=mid_high_polysemy::manual_case_type=phrase_no_winner::shadow_contract=full::source_rank_bin=1001-2000::polysemy_band=medium_4_to_9"
+        ],
+        "scorer_id": [
+          "sentence_transformer_cosine"
+        ],
+        "heuristic_group": [
+          "mid_high_polysemy"
+        ],
+        "selection_mode": [
+          "pre_outcome"
+        ],
+        "source_rank_bin": [
+          "1001-2000"
+        ],
+        "polysemy_band": [
+          "medium_4_to_9"
+        ],
+        "manual_case_type": [
+          "phrase_no_winner"
+        ],
+        "shadow_contract": [
+          "full"
+        ],
+        "manual_review_state": [
+          "agent_draft_human_review_pending"
+        ]
+      },
+      "notes": "object plus in particular phrase"
+    }
+  ],
+  "sample_harmful_replace_rows": [],
+  "sample_false_abstain_rows": [
+    {
+      "case_id": "en-es:sampling-stage1-p0:help:02:001",
+      "family_id": "en-es:sampling-stage1-p0:help:ayuda",
+      "trigger": "help",
+      "sentence": "Her help made the move much easier.",
+      "source_phrase": "help",
+      "gold_decision": "replace",
+      "gold_winner": "en-es:sampling-stage1-p0:help:ayuda:ayuda:active",
+      "gold_winner_type": "active",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:sampling-stage1-p0:help:ayuda:servicio:shadow",
+      "predicted_winner_type": "shadow",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.009258841720196804,
+      "margin": -0.009258841720196804,
+      "strongest_shadow_id": "en-es:sampling-stage1-p0:help:ayuda:servicio:shadow",
+      "context_text": "Her ___ made the move much easier.",
+      "active_evidence_text": "assistance | assistance or support given to someone | ask for help | offer help | need help",
+      "strongest_shadow_evidence_text": "hired help or servants | people hired to do domestic or farm work | the hired help arrived | farm help | domestic help",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": -0.009258841720196804,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_sampling_stage1_p0_manual_v1",
+        "manual_draft_v1",
+        "targeted_curve_mechanism_lane",
+        "discovery",
+        "curve_priority:P0",
+        "core_high_polysemy",
+        "pre_outcome",
+        "rank_bin:1-500",
+        "polysemy:high_10_plus",
+        "positive_active",
+        "shadow_contract:limited",
+        "scorer:tfidf_cosine"
+      ],
+      "slice_dimensions": {
+        "sampling_lane": [
+          "targeted_curve_mechanism_lane"
+        ],
+        "split": [
+          "discovery"
+        ],
+        "curve_priority": [
+          "P0"
+        ],
+        "curve_cell_id": [
+          "scorer_id=tfidf_cosine::selection_mode=pre_outcome::heuristic_group=core_high_polysemy::manual_case_type=positive_active::shadow_contract=limited::source_rank_bin=1-500::polysemy_band=high_10_plus"
+        ],
+        "scorer_id": [
+          "tfidf_cosine"
+        ],
+        "heuristic_group": [
+          "core_high_polysemy"
+        ],
+        "selection_mode": [
+          "pre_outcome"
+        ],
+        "source_rank_bin": [
+          "1-500"
+        ],
+        "polysemy_band": [
+          "high_10_plus"
+        ],
+        "manual_case_type": [
+          "positive_active"
+        ],
+        "shadow_contract": [
+          "limited"
+        ],
+        "manual_review_state": [
+          "agent_draft_human_review_pending"
+        ]
+      },
+      "notes": "assistance noun"
+    },
+    {
+      "case_id": "en-es:sampling-stage1-p0:help:02:002",
+      "family_id": "en-es:sampling-stage1-p0:help:ayuda",
+      "trigger": "help",
+      "sentence": "The guide offers help with password resets.",
+      "source_phrase": "help",
+      "gold_decision": "replace",
+      "gold_winner": "en-es:sampling-stage1-p0:help:ayuda:ayuda:active",
+      "gold_winner_type": "active",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:sampling-stage1-p0:help:ayuda:servicio:shadow",
+      "predicted_winner_type": "shadow",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.00935752463139434,
+      "margin": -0.00935752463139434,
+      "strongest_shadow_id": "en-es:sampling-stage1-p0:help:ayuda:servicio:shadow",
+      "context_text": "The guide offers ___ with password resets.",
+      "active_evidence_text": "assistance | assistance or support given to someone | ask for help | offer help | need help",
+      "strongest_shadow_evidence_text": "hired help or servants | people hired to do domestic or farm work | the hired help arrived | farm help | domestic help",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": -0.00935752463139434,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_sampling_stage1_p0_manual_v1",
+        "manual_draft_v1",
+        "targeted_curve_mechanism_lane",
+        "discovery",
+        "curve_priority:P0",
+        "core_high_polysemy",
+        "pre_outcome",
+        "rank_bin:1-500",
+        "polysemy:high_10_plus",
+        "positive_active",
+        "shadow_contract:limited",
+        "scorer:tfidf_cosine"
+      ],
+      "slice_dimensions": {
+        "sampling_lane": [
+          "targeted_curve_mechanism_lane"
+        ],
+        "split": [
+          "discovery"
+        ],
+        "curve_priority": [
+          "P0"
+        ],
+        "curve_cell_id": [
+          "scorer_id=tfidf_cosine::selection_mode=pre_outcome::heuristic_group=core_high_polysemy::manual_case_type=positive_active::shadow_contract=limited::source_rank_bin=1-500::polysemy_band=high_10_plus"
+        ],
+        "scorer_id": [
+          "tfidf_cosine"
+        ],
+        "heuristic_group": [
+          "core_high_polysemy"
+        ],
+        "selection_mode": [
+          "pre_outcome"
+        ],
+        "source_rank_bin": [
+          "1-500"
+        ],
+        "polysemy_band": [
+          "high_10_plus"
+        ],
+        "manual_case_type": [
+          "positive_active"
+        ],
+        "shadow_contract": [
+          "limited"
+        ],
+        "manual_review_state": [
+          "agent_draft_human_review_pending"
+        ]
+      },
+      "notes": "assistance offered by instructions"
+    },
+    {
+      "case_id": "en-es:sampling-stage1-p0:help:02:003",
+      "family_id": "en-es:sampling-stage1-p0:help:ayuda",
+      "trigger": "help",
+      "sentence": "We need help carrying these boxes upstairs.",
+      "source_phrase": "help",
+      "gold_decision": "replace",
+      "gold_winner": "en-es:sampling-stage1-p0:help:ayuda:ayuda:active",
+      "gold_winner_type": "active",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:sampling-stage1-p0:help:ayuda:ayuda:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.04292794802250065,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.04292794802250065,
+      "strongest_shadow_id": "",
+      "context_text": "We need ___ carrying these boxes upstairs.",
+      "active_evidence_text": "assistance | assistance or support given to someone | ask for help | offer help | need help",
+      "strongest_shadow_evidence_text": "",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": 0.04292794802250065,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_sampling_stage1_p0_manual_v1",
+        "manual_draft_v1",
+        "targeted_curve_mechanism_lane",
+        "discovery",
+        "curve_priority:P0",
+        "core_high_polysemy",
+        "pre_outcome",
+        "rank_bin:1-500",
+        "polysemy:high_10_plus",
+        "positive_active",
+        "shadow_contract:limited",
+        "scorer:tfidf_cosine"
+      ],
+      "slice_dimensions": {
+        "sampling_lane": [
+          "targeted_curve_mechanism_lane"
+        ],
+        "split": [
+          "discovery"
+        ],
+        "curve_priority": [
+          "P0"
+        ],
+        "curve_cell_id": [
+          "scorer_id=tfidf_cosine::selection_mode=pre_outcome::heuristic_group=core_high_polysemy::manual_case_type=positive_active::shadow_contract=limited::source_rank_bin=1-500::polysemy_band=high_10_plus"
+        ],
+        "scorer_id": [
+          "tfidf_cosine"
+        ],
+        "heuristic_group": [
+          "core_high_polysemy"
+        ],
+        "selection_mode": [
+          "pre_outcome"
+        ],
+        "source_rank_bin": [
+          "1-500"
+        ],
+        "polysemy_band": [
+          "high_10_plus"
+        ],
+        "manual_case_type": [
+          "positive_active"
+        ],
+        "shadow_contract": [
+          "limited"
+        ],
+        "manual_review_state": [
+          "agent_draft_human_review_pending"
+        ]
+      },
+      "notes": "request for assistance"
+    },
+    {
+      "case_id": "en-es:sampling-stage1-p0:help:02:004",
+      "family_id": "en-es:sampling-stage1-p0:help:ayuda",
+      "trigger": "help",
+      "sentence": "Thank you for the help you gave my sister.",
+      "source_phrase": "help",
+      "gold_decision": "replace",
+      "gold_winner": "en-es:sampling-stage1-p0:help:ayuda:ayuda:active",
+      "gold_winner_type": "active",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:sampling-stage1-p0:help:ayuda:ayuda:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.0352696519768945,
+      "strongest_shadow_score": 0.0074817806548230096,
+      "margin": 0.027787871322071493,
+      "strongest_shadow_id": "en-es:sampling-stage1-p0:help:ayuda:servicio:shadow",
+      "context_text": "Thank you for the ___ you gave my sister.",
+      "active_evidence_text": "assistance | assistance or support given to someone | ask for help | offer help | need help",
+      "strongest_shadow_evidence_text": "hired help or servants | people hired to do domestic or farm work | the hired help arrived | farm help | domestic help",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": 0.027787871322071493,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_sampling_stage1_p0_manual_v1",
+        "manual_draft_v1",
+        "targeted_curve_mechanism_lane",
+        "discovery",
+        "curve_priority:P0",
+        "core_high_polysemy",
+        "pre_outcome",
+        "rank_bin:1-500",
+        "polysemy:high_10_plus",
+        "positive_active",
+        "shadow_contract:limited",
+        "scorer:tfidf_cosine"
+      ],
+      "slice_dimensions": {
+        "sampling_lane": [
+          "targeted_curve_mechanism_lane"
+        ],
+        "split": [
+          "discovery"
+        ],
+        "curve_priority": [
+          "P0"
+        ],
+        "curve_cell_id": [
+          "scorer_id=tfidf_cosine::selection_mode=pre_outcome::heuristic_group=core_high_polysemy::manual_case_type=positive_active::shadow_contract=limited::source_rank_bin=1-500::polysemy_band=high_10_plus"
+        ],
+        "scorer_id": [
+          "tfidf_cosine"
+        ],
+        "heuristic_group": [
+          "core_high_polysemy"
+        ],
+        "selection_mode": [
+          "pre_outcome"
+        ],
+        "source_rank_bin": [
+          "1-500"
+        ],
+        "polysemy_band": [
+          "high_10_plus"
+        ],
+        "manual_case_type": [
+          "positive_active"
+        ],
+        "shadow_contract": [
+          "limited"
+        ],
+        "manual_review_state": [
+          "agent_draft_human_review_pending"
+        ]
+      },
+      "notes": "received assistance"
+    }
+  ],
+  "sample_winner_error_rows": [
+    {
+      "case_id": "en-es:sampling-stage1-p0:help:02:001",
+      "family_id": "en-es:sampling-stage1-p0:help:ayuda",
+      "trigger": "help",
+      "sentence": "Her help made the move much easier.",
+      "source_phrase": "help",
+      "gold_decision": "replace",
+      "gold_winner": "en-es:sampling-stage1-p0:help:ayuda:ayuda:active",
+      "gold_winner_type": "active",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:sampling-stage1-p0:help:ayuda:servicio:shadow",
+      "predicted_winner_type": "shadow",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.009258841720196804,
+      "margin": -0.009258841720196804,
+      "strongest_shadow_id": "en-es:sampling-stage1-p0:help:ayuda:servicio:shadow",
+      "context_text": "Her ___ made the move much easier.",
+      "active_evidence_text": "assistance | assistance or support given to someone | ask for help | offer help | need help",
+      "strongest_shadow_evidence_text": "hired help or servants | people hired to do domestic or farm work | the hired help arrived | farm help | domestic help",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": -0.009258841720196804,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_sampling_stage1_p0_manual_v1",
+        "manual_draft_v1",
+        "targeted_curve_mechanism_lane",
+        "discovery",
+        "curve_priority:P0",
+        "core_high_polysemy",
+        "pre_outcome",
+        "rank_bin:1-500",
+        "polysemy:high_10_plus",
+        "positive_active",
+        "shadow_contract:limited",
+        "scorer:tfidf_cosine"
+      ],
+      "slice_dimensions": {
+        "sampling_lane": [
+          "targeted_curve_mechanism_lane"
+        ],
+        "split": [
+          "discovery"
+        ],
+        "curve_priority": [
+          "P0"
+        ],
+        "curve_cell_id": [
+          "scorer_id=tfidf_cosine::selection_mode=pre_outcome::heuristic_group=core_high_polysemy::manual_case_type=positive_active::shadow_contract=limited::source_rank_bin=1-500::polysemy_band=high_10_plus"
+        ],
+        "scorer_id": [
+          "tfidf_cosine"
+        ],
+        "heuristic_group": [
+          "core_high_polysemy"
+        ],
+        "selection_mode": [
+          "pre_outcome"
+        ],
+        "source_rank_bin": [
+          "1-500"
+        ],
+        "polysemy_band": [
+          "high_10_plus"
+        ],
+        "manual_case_type": [
+          "positive_active"
+        ],
+        "shadow_contract": [
+          "limited"
+        ],
+        "manual_review_state": [
+          "agent_draft_human_review_pending"
+        ]
+      },
+      "notes": "assistance noun"
+    },
+    {
+      "case_id": "en-es:sampling-stage1-p0:help:02:002",
+      "family_id": "en-es:sampling-stage1-p0:help:ayuda",
+      "trigger": "help",
+      "sentence": "The guide offers help with password resets.",
+      "source_phrase": "help",
+      "gold_decision": "replace",
+      "gold_winner": "en-es:sampling-stage1-p0:help:ayuda:ayuda:active",
+      "gold_winner_type": "active",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:sampling-stage1-p0:help:ayuda:servicio:shadow",
+      "predicted_winner_type": "shadow",
+      "active_score": 0.0,
+      "strongest_shadow_score": 0.00935752463139434,
+      "margin": -0.00935752463139434,
+      "strongest_shadow_id": "en-es:sampling-stage1-p0:help:ayuda:servicio:shadow",
+      "context_text": "The guide offers ___ with password resets.",
+      "active_evidence_text": "assistance | assistance or support given to someone | ask for help | offer help | need help",
+      "strongest_shadow_evidence_text": "hired help or servants | people hired to do domestic or farm work | the hired help arrived | farm help | domestic help",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": -0.00935752463139434,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_sampling_stage1_p0_manual_v1",
+        "manual_draft_v1",
+        "targeted_curve_mechanism_lane",
+        "discovery",
+        "curve_priority:P0",
+        "core_high_polysemy",
+        "pre_outcome",
+        "rank_bin:1-500",
+        "polysemy:high_10_plus",
+        "positive_active",
+        "shadow_contract:limited",
+        "scorer:tfidf_cosine"
+      ],
+      "slice_dimensions": {
+        "sampling_lane": [
+          "targeted_curve_mechanism_lane"
+        ],
+        "split": [
+          "discovery"
+        ],
+        "curve_priority": [
+          "P0"
+        ],
+        "curve_cell_id": [
+          "scorer_id=tfidf_cosine::selection_mode=pre_outcome::heuristic_group=core_high_polysemy::manual_case_type=positive_active::shadow_contract=limited::source_rank_bin=1-500::polysemy_band=high_10_plus"
+        ],
+        "scorer_id": [
+          "tfidf_cosine"
+        ],
+        "heuristic_group": [
+          "core_high_polysemy"
+        ],
+        "selection_mode": [
+          "pre_outcome"
+        ],
+        "source_rank_bin": [
+          "1-500"
+        ],
+        "polysemy_band": [
+          "high_10_plus"
+        ],
+        "manual_case_type": [
+          "positive_active"
+        ],
+        "shadow_contract": [
+          "limited"
+        ],
+        "manual_review_state": [
+          "agent_draft_human_review_pending"
+        ]
+      },
+      "notes": "assistance offered by instructions"
+    }
+  ]
+}

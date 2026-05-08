@@ -196,7 +196,10 @@ def _candidate_row(
     validation_row: Mapping[str, object],
 ) -> dict[str, object]:
     probe_pass = str(probe_row.get("target_status") or "") == "pass"
-    validation_pass = str(validation_row.get("target_status") or "") == "pass"
+    validation_status = str(
+        validation_row.get("strict_target_status") or validation_row.get("target_status") or ""
+    )
+    validation_pass = validation_status == "pass"
     return {
         "candidate_id": (
             f"{probe_row.get('config_id')}|{probe_row.get('phrase_mode')}|"
@@ -280,7 +283,7 @@ def _candidate_table(value: object) -> str:
     if not rows:
         return "_No candidate rows._"
     lines = [
-        "| Candidate | Shared pass | Combined utility | Min pos allow | Min neg abstain | v10 pos/neg | stress pos/neg |",
+        "| Candidate | Shared pass | Combined utility | Min pos allow | Min neg abstain | v10 pos/neg | validation pos/neg |",
         "| --- | --- | ---: | ---: | ---: | ---: | ---: |",
     ]
     for row in rows:
@@ -323,13 +326,13 @@ def _checks_table(value: object) -> str:
 def _recommendation(*, passing_rows: Sequence[Mapping[str, object]]) -> list[str]:
     if passing_rows:
         return [
-            "A shared veto-only candidate passes both frozen v10 matrix traces and current wave7 stress validation.",
+            "A shared veto-only candidate passes both frozen v10 matrix traces and the configured validation report.",
             "Treat this as the leading runtime-candidate family, but keep it research-only until broader representative data is measured.",
             "Next validation should use an expanded representative or LLM-generated locked lane with the same candidate parameters.",
         ]
     return [
-        "No shared veto-only candidate currently passes both measured lanes.",
-        "Do not promote the v10 pass until a common parameter shape survives stress validation.",
+        "No shared veto-only candidate currently passes both measured inputs.",
+        "Do not promote the v10 pass until a common parameter shape survives the configured validation report.",
     ]
 
 

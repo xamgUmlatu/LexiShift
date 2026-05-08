@@ -53,6 +53,26 @@ Files:
   - intended current use: compare scorer families, context transforms, evidence views, and threshold ladders without changing the mined shadow source
 
 Datasets:
+- `docs/test_inputs/semantic_veto_representative_gap_rows_en_es.json`
+  - research-only `en-es` representative gap row dataset for Stage 1 sampling
+  - currently 25 corpus-like app-candidate proxy rows
+  - purpose: fill the Stage 1 representative-frame target from 95 to 120 rows without using targeted P0, stress, or LLM discovery rows
+  - caveat: agent-authored corpus-like proxy lane; not observed browser logs and human review is still required before promotion claims
+- `docs/test_inputs/semantic_routing_cases/en_es_sampling_stage1_representative_v1.json`
+  - research-only `en-es` filled Stage 1 representative sentence-veto dataset
+  - currently 19 trigger families / 120 labeled sentences
+  - purpose: score the filled representative frame with ordinary sentence-veto harnesses using existing v10 family evidence
+  - caveat: includes 25 agent-authored corpus-like proxy rows; not final browsing-distribution evidence
+- `docs/test_inputs/semantic_routing_cases/en_es_sampling_stage1_p0_manual_v1.json`
+  - research-only `en-es` Stage 1 P0 manual discovery dataset generated from the scientific sampling expansion plan
+  - currently 2 trigger families / 20 draft labeled sentences
+  - purpose: confirm the first P0 targeted curve-mechanism cell contracts before spending LLM generation budget
+  - caveat: agent-authored draft lane; not representative browsing evidence and not locked evaluation
+- `docs/test_inputs/semantic_routing_cases/en_es_heuristic_group_pilot_v1.json`
+  - research-only `en-es` word-group diagnostic dataset generated from the frozen semantic-veto frequency/polysemy pilot
+  - currently 29 authored trigger families / 121 draft labeled sentences
+  - purpose: compare veto behavior by pre-outcome source-frequency and WordNet-polysemy groups before spending broader LLM generation budget
+  - caveat: agent-authored draft lane; low-polysemy controls are not shadow-balanced when no honest shadow exists
 - `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v10.json`
   - current curated `en-es` runtime-veto harness dataset
   - currently 19 ambiguity families / 95 labeled sentences

@@ -3,8 +3,8 @@
 Status: draft reference
 Role: Draft decision log
 Purpose: define the product-oriented acceptance calculus for semantic-veto work so research does not optimize for zero-harm purity when the user experience target is broader replacement usefulness
-Last updated: 2026-05-01
-Last verified: 2026-05-01 against current wave7 product-quality harness output and sidecar bound reports
+Last updated: 2026-05-06
+Last verified: 2026-05-06 against current product-quality, LLM pilot, threshold-bakeoff, difficulty-stratification, sampling-design, Stage 1 materialization, Stage 1 representative scoring, and strict veto-only validation outputs
 Source-of-truth: this document is planning guidance only; runtime truth remains in code, test inputs, generated outputs, and the semantic-veto registry
 
 ## Product Frame
@@ -237,8 +237,8 @@ docs/test_outputs/semantic_veto_product_quality_en_es_latest.json
 docs/test_outputs/semantic_veto_product_quality_en_es_latest.md
 ```
 
-Current status: implemented for the wave7 stress lane plus the existing
-sentence-veto v10 representative proxy.
+Current status: implemented for the wave7 stress lane plus the filled Stage 1
+representative proxy.
 
 Run:
 
@@ -249,28 +249,130 @@ python3 scripts/testing/semantic_veto_product_quality_en_es.py \
   --markdown-out docs/test_outputs/semantic_veto_product_quality_en_es_latest.md
 ```
 
-The current report includes both the wave7 stress lane and the existing
-sentence-veto v10 representative proxy. Its overall read is:
+The current report includes both the wave7 stress lane and the filled Stage 1
+representative proxy. Its overall read is:
 
 ```text
 decision: product_target_missed
-cases: 143
-positive_allow_rate: 50.0%
-negative_abstain_rate: 92.1%
-utility: 77.6
-lexical_allow_all_utility: 0.6
-abstain_all_utility: 49.6
+cases: 168
+positive_allow_rate: 39.1%
+negative_abstain_rate: 92.9%
+utility: 79.6
+lexical_allow_all_utility: 9.6
+abstain_all_utility: 51.6
 ```
 
 Interpretation:
 
 - the current stress lane clears the first product target on known hard cases,
-- the existing v10 representative proxy fails the first product target because
-  positive allow is only `34.2%` in that lane,
+- the filled Stage 1 representative proxy fails the first product target
+  because positive allow is only `24.5%` in that lane,
 - the combined measured lanes beat lexical allow-all and abstain-all baselines
   under the current utility weights,
 - the immediate blocker is positive allow on broader active examples, not
   negative abstain.
+
+### Milestone 1a: Sampling Expansion Stage 1 Exists
+
+The scientific sampling design has now produced its first operational
+materialization:
+
+```text
+scripts/testing/semantic_veto_sampling_stage1_materialization_en_es.py
+docs/test_inputs/semantic_routing_cases/en_es_sampling_stage1_p0_manual_v1.json
+docs/test_inputs/semantic_veto_representative_gap_rows_en_es.json
+docs/test_outputs/semantic_veto_sampling_stage1_representative_frame_en_es_latest.json
+docs/test_outputs/semantic_veto_sampling_stage1_materialization_en_es_latest.json
+docs/test_outputs/semantic_veto_sampling_stage1_materialization_en_es_latest.md
+```
+
+Current read:
+
+```text
+representative locked target: 120
+representative rows available: 120
+base v10 representative proxy rows: 95
+corpus-like representative gap rows added: 25
+representative shortfall: 0
+P0 manual discovery cases: 20
+P0 cells: 5
+runtime policy change: none
+```
+
+The representative shortfall is now tracked by an explicit gap plan:
+
+```text
+docs/test_inputs/semantic_veto_representative_gap_source_manifest_en_es.json
+scripts/testing/semantic_veto_representative_gap_plan_en_es.py
+docs/test_outputs/semantic_veto_representative_gap_plan_en_es_latest.json
+docs/test_outputs/semantic_veto_representative_gap_plan_en_es_latest.md
+```
+
+Current gap-plan read:
+
+```text
+open primary collection slots: 0
+corpus-like app-candidate rows materialized: 25
+observed runtime/context rows materialized: 0
+LLM locked proxy rows available: 16
+LLM proxy rows count toward primary target: false
+```
+
+Interpretation:
+
+- the representative lane is filled to the 120-row Stage 1 target without
+  padding it with targeted failure-shaped rows,
+- the 25-row gap is filled with corpus-like primary proxy rows; these still
+  need human review and are not observed browser logs,
+- the P0 manual packet is discovery data for checking cell contracts before LLM
+  generation, not product-quality evidence,
+- first P0 discovery scoring confirms the targeted cells are meaningful:
+  TF-IDF protects the phrase/no-winner rows but misses all positive `help`
+  rows, while sentence-transformer scoring recovers some positives but leaks
+  four no-winner rows,
+- filled-frame scoring now exists and drives the current product-quality
+  representative lane.
+
+### Milestone 1a.1: Filled Representative Frame Scoring Exists
+
+The filled 120-row representative frame is now converted into a normal
+sentence-veto dataset and scored with the same current-policy configuration as
+the v10 representative proxy:
+
+```text
+scripts/testing/semantic_veto_sampling_stage1_representative_scoring_en_es.py
+docs/test_inputs/semantic_routing_cases/en_es_sampling_stage1_representative_v1.json
+docs/test_outputs/semantic_veto_sampling_stage1_representative_scoring_en_es_latest.json
+docs/test_outputs/semantic_veto_sampling_stage1_representative_scoring_en_es_latest.md
+```
+
+Current score:
+
+```text
+cases: 120
+positive cases: 53
+negative cases: 67
+predicted replace cases: 13
+positive_allow_rate: 24.5%
+negative_abstain_rate: 100.0%
+harmful replacements: 0
+false abstains: 40
+context sources: 95 existing v10 proxy, 25 corpus-like gap rows
+review states: 95 reviewed/existing, 25 agent_draft_human_review_pending
+runtime policy change: none
+```
+
+Interpretation:
+
+- the old current policy is very conservative on the filled representative
+  frame,
+- it hides all labeled negatives in this proxy lane, but misses most good
+  replacements,
+- the 25 corpus-like gap rows did not create a new harmful-replacement problem;
+  they mostly reinforce the known false-abstain problem,
+- this result should update product-quality estimates, but it still cannot
+  serve as promotion evidence until the 25 gap rows are human-reviewed and an
+  observed or LLM-expanded locked lane confirms the same shape.
 
 ### Milestone 1b: Product Objective Bakeoff Exists
 
@@ -402,6 +504,7 @@ stress reports read: 2
 stress cases read: 48
 policy rows evaluated: 540
 target-pass rows: 100
+strict source-pass rows: 12
 best row: shadow_or_phrase_score, shadow_lead_min=0.05, shadow_score_min=0.0
 best positive_allow_rate: 81.2%
 best negative_abstain_rate: 75.0%
@@ -416,7 +519,7 @@ and a less aggressive shadow-lead threshold.
 Interpretation:
 
 - the allow-by-default product framing is not limited to v10; it also finds a
-  passing shape on the wave7 stress reports,
+  strict source-passing shape on the wave7 stress reports,
 - the best shared concept is stable, but the exact blocker threshold is not yet
   frozen,
 - before runtime promotion, we need a unified candidate-selection report that
@@ -470,6 +573,58 @@ Interpretation:
   production promotion,
 - implementation should preserve the product framing: default allow, block only
   on clear shadow or phrase-control evidence.
+
+### Milestone 1f: Filled-Representative Veto-Only Validation Exists
+
+The same validation harness is now rerun with the filled Stage 1 representative
+scoring report added to the wave7 stress reports. The report distinguishes
+aggregate target passes from strict source-by-source passes so a candidate
+cannot look promotable only because one lane averages out another lane's
+failure.
+
+Artifacts:
+
+```text
+docs/test_outputs/semantic_veto_veto_only_validation_stage1_representative_en_es_latest.json
+docs/test_outputs/semantic_veto_veto_only_validation_stage1_representative_en_es_latest.md
+docs/test_outputs/semantic_veto_veto_only_candidate_selection_stage1_representative_en_es_latest.json
+docs/test_outputs/semantic_veto_veto_only_candidate_selection_stage1_representative_en_es_latest.md
+```
+
+Current validation read:
+
+```text
+input case rows: 168
+policy rows evaluated: 540
+aggregate target-pass rows: 16
+strict source-pass rows: 0
+decision: veto_only_validation_overall_product_target_pass_source_failures
+best aggregate row: shadow_or_phrase_score, shadow_lead_min=0.02, shadow_score_min=0.0
+overall positive_allow_rate: 88.4%
+overall negative_abstain_rate: 53.5%
+filled representative source: positive_allow_rate 100.0%, negative_abstain_rate 34.3%
+active/shadow stress source: positive_allow_rate 50.0%, negative_abstain_rate 100.0%
+phrase/no-winner stress source: negative_abstain_rate 87.5%
+```
+
+Current shared-candidate read with the v10 probe:
+
+```text
+matched parameter rows: 297
+passing shared rows: 0
+decision: veto_only_shared_candidate_not_found
+```
+
+Interpretation:
+
+- the allow-by-default blocker family still looks promising for product
+  direction, but it is not yet a promotable shared candidate,
+- aggregate passes are not enough because the filled representative source
+  leaks too many negatives under the high-positive-allow settings,
+- conservative settings protect representative negatives but fall below the
+  positive-allow target,
+- next work should search for blocker signals that separate representative
+  negatives from positives, instead of only sliding one shared shadow threshold.
 
 ### Milestone 2: Existing Data Product Read
 
@@ -774,6 +929,234 @@ The expected first no-spend artifact is a rank-bin report that joins existing
 LLM/manual/stress rows to frequency, source-coverage, and ambiguity metadata
 before deciding whether expensive LLM generation should focus on the first
 500-1000 English triggers.
+
+That first artifact now exists.
+
+Artifacts:
+
+```text
+scripts/testing/semantic_veto_difficulty_stratification_en_es.py
+docs/test_outputs/semantic_veto_difficulty_stratification_en_es_latest.json
+docs/test_outputs/semantic_veto_difficulty_stratification_en_es_latest.md
+```
+
+Run:
+
+```bash
+python3 scripts/testing/semantic_veto_difficulty_stratification_en_es.py \
+  --json-out docs/test_outputs/semantic_veto_difficulty_stratification_en_es_latest.json \
+  --markdown-out docs/test_outputs/semantic_veto_difficulty_stratification_en_es_latest.md \
+  --fail-on-review
+```
+
+Current no-spend read:
+
+```text
+status: ok
+decision: difficulty_stratification_baseline_established
+case rows: 215
+policy/product rows: 143
+LLM pilot rows: 72
+families: 35
+triggers: 35
+overall positive_allow_rate: 65.6%
+overall negative_abstain_rate: 80.8%
+overall utility: 113.0
+English source-trigger rank coverage: 73 / 215 = 34.0%
+Spanish target-rank coverage: 15 / 215 = 7.0%
+known top-1000 English trigger failures: 6 / 25 rows
+10+ WordNet-sense failures: 9 / 48 rows
+```
+
+Interpretation:
+
+- this is a real research-infrastructure milestone, not an accuracy promotion,
+- the first rank curve is not yet strong enough to answer the beginner-versus
+  advanced-word hypothesis because local frequency coverage is sparse,
+- the report already gives actionable generation priorities: high-failure
+  triggers such as `check`, `order`, `plant`, `report`, and `play` should stay
+  in the next LLM-evaluation budget even when their frequency-rank metadata is
+  currently missing,
+- source-trigger rank, Spanish target rank, declared LLM ambiguity class,
+  WordNet sense count, translation fan-out, and score-surface bins are now
+  reported separately,
+- target difficulty for SRS cannot yet rely on the installed Spanish frequency
+  pack alone; the next data layer needs better target-lemma normalization or a
+  denser target-frequency/level source,
+- the report is self-contained as a no-spend measurement harness, but broad
+  success is not self-contained inside this artifact; it feeds the next LLM
+  budget planner and future representative evaluation.
+
+The next methodology step is also materialized as a small-group pilot:
+
+```text
+scripts/testing/semantic_veto_heuristic_group_pilot_en_es.py
+docs/test_outputs/semantic_veto_heuristic_group_pilot_en_es_latest.json
+docs/test_outputs/semantic_veto_heuristic_group_pilot_en_es_latest.md
+```
+
+Current heuristic-group pilot read:
+
+```text
+candidate pool: 4112
+selected triggers: 29
+manual review rows: 29
+primary groups: 6
+sentinel group: 1
+case slots per trigger: 5
+```
+
+The six primary groups are selected from pre-outcome frequency and WordNet
+metadata while excluding current measured triggers. The measured missing-rank
+high-failure group is deliberately outcome-informed and exists only as a
+regression anchor, not as proof that the frequency/polysemy heuristic works.
+
+That small-group pilot now has a first draft authoring and scoring lane:
+
+```text
+scripts/testing/semantic_veto_heuristic_group_case_authoring_en_es.py
+docs/test_inputs/semantic_routing_cases/en_es_heuristic_group_pilot_v1.json
+docs/test_outputs/semantic_veto_heuristic_group_case_authoring_en_es_latest.md
+docs/test_outputs/semantic_veto_heuristic_group_sentence_veto_tfidf_en_es_latest.md
+docs/test_outputs/semantic_veto_heuristic_group_sentence_veto_st_en_es_latest.md
+docs/test_outputs/semantic_veto_heuristic_group_veto_only_validation_st_en_es_latest.md
+docs/test_outputs/semantic_veto_heuristic_difficulty_surface_en_es_latest.md
+```
+
+Current first draft:
+
+```text
+authored triggers: 29
+dataset cases: 121
+positive_active cases: 58
+shadow_negative cases: 34
+phrase_no_winner cases: 29
+manual state: agent_draft_human_review_pending
+```
+
+First diagnostic scoring read:
+
+```text
+tfidf_cosine: positive recall 39.7%, harmful replace 3.2%
+sentence_transformer_cosine: positive recall 89.7%, harmful replace 33.3%
+veto-only replay over ST rows: positive allow 100.0%, negative abstain 47.6%
+```
+
+The useful signal is not "this passes." It does not. The useful signal is that
+the lane now exposes the target tradeoff at the word-group level: high-positive
+allow is reachable on the draft groups, but no-winner and phrase-like negatives
+still leak enough to miss the `>= 50%` negative-abstain product target on the
+frozen veto-only replay. The low-polysemy controls also show that easy words
+should not be forced into fake shadow-negative cases; their evaluation mix is
+positive plus mention/phrase no-winner unless a real alternate sense exists.
+
+The heuristic difficulty surface makes that shape explicit:
+
+```text
+sentence_transformer_cosine:
+  positive_allow_difficulty: 10.3%
+  shadow_negative_difficulty: 5.9%
+  phrase_no_winner_difficulty: 65.5%
+
+tfidf_cosine:
+  positive_allow_difficulty: 60.3%
+  shadow_negative_difficulty: 0.0%
+  phrase_no_winner_difficulty: 6.9%
+```
+
+The current frequency/polysemy formula is therefore only a control. On this
+draft lane it does not explain the sentence-transformer failure surface well;
+phrase/no-winner risk is the dominant specific difficulty. The next expansion
+budget should target phrase/no-winner cells first, and should keep low-polysemy
+controls as phrase/mention probes rather than manufacturing fake shadow senses.
+
+The planning question is now more precise than "which words are difficult."
+For product quality and spend control, the useful function is:
+
+```text
+which cells deserve more data =
+  expected exposure
+  * product impact
+  * current uncertainty
+  * predicted failure risk
+  * likely fixability from better evidence or more rows
+  * current coverage gap
+```
+
+The difficulty plan therefore treats signals and formula shape separately. The
+same source-rank, polysemy, case-shape, phrase-order, and score-margin signals
+must be tested under multiple mathematically distinct compositions: linear,
+normalized dot product, multiplicative interaction, max-risk, gated
+per-failure-class formulas, logistic scoring, small monotone rule tables, and
+rank aggregation. A formula only earns trust if it predicts observed
+difficulty on discovery data and keeps that ordering on locked evaluation; it
+does not become a runtime decision policy by itself.
+
+That bakeoff now exists:
+
+```text
+docs/test_inputs/semantic_veto_formula_shape_bakeoff_en_es.json
+scripts/testing/semantic_veto_formula_shape_bakeoff_en_es.py
+docs/test_outputs/semantic_veto_formula_shape_bakeoff_en_es_latest.md
+```
+
+Current read:
+
+```text
+cells: 48
+primary cells: 42
+formula families: 9
+parameter sweeps: 2
+primary all-scorer leader: monotone_rule_table
+primary all-scorer Spearman: 0.3056
+primary all-scorer top-k lift: 1.2632
+selected gated sweep Spearman: 0.2599
+selected gated sweep top-k lift: 1.5918
+selected gated sweep Brier: 0.0915
+weight-surface analysis: implemented
+sampled maxima shape: sharp_sampled_peak for both linear and gated sweeps
+```
+
+This is useful but not a product-quality claim. It says formula shape matters
+enough to keep testing, and the continuous sweep can slide weights
+programmatically instead of relying only on fixed hand weights. It gives a more
+disciplined spend queue for manual and LLM rows. It does not prove that the
+current heuristic-group draft data is representative browsing data, and it
+does not promote runtime policy.
+
+The curve analysis strengthens the next-data argument: the apparent maxima are
+sharp, so the right use is to map where the measured difficulty curve changes,
+not to treat this draft lane as a coefficient optimizer. The next move is to
+expand the high-priority cells, especially phrase/no-winner underfilled
+coverage, order-sensitive mention rows, shadow near ties, and positive-active
+low-score rows, then rerun the surface analysis to see whether the same shapes
+or broad plateaus survive.
+
+The current curve-guided expansion report turns that into an explicit first
+queue: 24 cells, 5 P0 cells, 16 P1 cells, 3 P2 cells, and a first-wave budget of
+74 manual discovery rows, 258 LLM discovery rows, and 129 locked-eval rows if
+the whole queue is pursued. That is a planning artifact, not a requirement to
+generate all rows immediately.
+
+The scientific sampling design now wraps that targeted queue in a broader
+anti-bias expansion plan:
+
+```text
+representative random product lane: 120 locked rows
+stratified difficulty-surface lane: 144 rows
+targeted P0 curve-mechanism lane: 140 rows
+negative/leakage control lane: 36 rows
+total planned rows: 440
+locked-eval share: 50.0%
+```
+
+This prevents the project from accidentally proving only the current theory.
+The representative random lane is the product-quality estimator. The
+stratified lane draws the difficulty surface. The targeted P0 lane tests the
+strongest mechanisms from the curve report. The control lane checks whether
+generation or scoring is leaking labels. Promotion claims still require the
+representative locked lane; targeted rows can explain failures but cannot
+estimate their real-world frequency.
 
 Success:
 

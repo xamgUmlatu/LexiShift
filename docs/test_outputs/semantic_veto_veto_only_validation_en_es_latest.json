@@ -1,5 +1,5 @@
 {
-  "decision": "veto_only_validation_product_target_pass_found",
+  "decision": "veto_only_validation_strict_source_product_target_pass_found",
   "e2e_checks": {
     "calculus_source": "scripts/testing/semantic_veto_product_quality_en_es.py::score_product_outcome_counts",
     "input_case_rows_read": 48,
@@ -198,7 +198,7 @@
       "veto_reason": ""
     }
   ],
-  "generated_at": "2026-05-01T01:41:49Z",
+  "generated_at": "2026-05-05T18:22:02Z",
   "pair": "en-es",
   "policy": {
     "acceptance": {
@@ -256,6 +256,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
       "target_status": "pass",
       "utility_score": 26.2
     },
@@ -297,6 +298,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
       "target_status": "pass",
       "utility_score": 26.2
     },
@@ -338,6 +340,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
       "target_status": "pass",
       "utility_score": 26.2
     },
@@ -379,6 +382,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
       "target_status": "pass",
       "utility_score": 26.2
     },
@@ -420,6 +424,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
       "target_status": "pass",
       "utility_score": 26.2
     },
@@ -461,6 +466,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
       "target_status": "pass",
       "utility_score": 26.2
     },
@@ -502,6 +508,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
       "target_status": "pass",
       "utility_score": 26.2
     },
@@ -543,6 +550,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
       "target_status": "pass",
       "utility_score": 26.2
     },
@@ -584,6 +592,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
       "target_status": "pass",
       "utility_score": 26.2
     },
@@ -625,6 +634,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
       "target_status": "pass",
       "utility_score": 26.2
     },
@@ -666,6 +676,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
       "target_status": "pass",
       "utility_score": 24.8
     },
@@ -707,6 +718,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
       "target_status": "pass",
       "utility_score": 24.8
     },
@@ -748,6 +760,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 20.6
     },
@@ -789,6 +802,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 20.6
     },
@@ -830,6 +844,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 20.6
     },
@@ -871,6 +886,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 20.6
     },
@@ -912,6 +928,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 20.6
     },
@@ -953,6 +970,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 20.6
     },
@@ -994,6 +1012,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 20.6
     },
@@ -1035,6 +1054,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 20.6
     },
@@ -1076,6 +1096,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 20.6
     },
@@ -1117,6 +1138,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 20.6
     },
@@ -1158,6 +1180,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 20.6
     },
@@ -1199,6 +1222,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 20.6
     },
@@ -1240,6 +1264,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 19.2
     },
@@ -1281,6 +1306,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 19.2
     },
@@ -1322,6 +1348,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 19.2
     },
@@ -1363,6 +1390,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 19.2
     },
@@ -1404,6 +1432,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 19.2
     },
@@ -1445,6 +1474,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 19.2
     },
@@ -1486,6 +1516,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 19.2
     },
@@ -1527,6 +1558,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 19.2
     },
@@ -1568,6 +1600,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 19.2
     },
@@ -1609,6 +1642,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 19.2
     },
@@ -1650,6 +1684,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 19.2
     },
@@ -1691,6 +1726,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 19.2
     },
@@ -1732,6 +1768,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 19.2
     },
@@ -1773,6 +1810,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 19.2
     },
@@ -1814,6 +1852,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 19.2
     },
@@ -1855,6 +1894,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 19.2
     },
@@ -1896,6 +1936,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 19.2
     },
@@ -1937,6 +1978,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 19.2
     },
@@ -1978,6 +2020,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 19.2
     },
@@ -2019,6 +2062,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 19.2
     },
@@ -2060,6 +2104,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 19.2
     },
@@ -2101,6 +2146,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 19.2
     },
@@ -2142,6 +2188,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 19.2
     },
@@ -2183,6 +2230,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 19.2
     },
@@ -2224,6 +2272,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 19.2
     },
@@ -2265,6 +2314,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 19.2
     },
@@ -2306,6 +2356,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 19.2
     },
@@ -2347,6 +2398,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 19.2
     },
@@ -2388,6 +2440,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 19.2
     },
@@ -2429,6 +2482,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 19.2
     },
@@ -2470,6 +2524,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 19.2
     },
@@ -2511,6 +2566,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 19.2
     },
@@ -2552,6 +2608,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 19.2
     },
@@ -2593,6 +2650,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 19.2
     },
@@ -2634,6 +2692,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 19.2
     },
@@ -2675,6 +2734,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 19.2
     },
@@ -2716,6 +2776,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 19.2
     },
@@ -2757,6 +2818,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 17.8
     },
@@ -2798,6 +2860,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 17.8
     },
@@ -2839,6 +2902,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 17.8
     },
@@ -2880,6 +2944,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 17.8
     },
@@ -2921,6 +2986,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 17.8
     },
@@ -2962,6 +3028,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 17.8
     },
@@ -3003,6 +3070,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 17.8
     },
@@ -3044,6 +3112,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 17.8
     },
@@ -3085,6 +3154,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 17.8
     },
@@ -3126,6 +3196,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 17.8
     },
@@ -3167,6 +3238,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 17.8
     },
@@ -3208,6 +3280,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 17.8
     },
@@ -3249,6 +3322,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 17.8
     },
@@ -3290,6 +3364,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 16.4
     },
@@ -3331,6 +3406,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 16.4
     },
@@ -3372,6 +3448,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 16.4
     },
@@ -3413,6 +3490,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 16.4
     },
@@ -3454,6 +3532,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 16.4
     },
@@ -3495,6 +3574,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 16.4
     },
@@ -3536,6 +3616,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 16.4
     },
@@ -3577,6 +3658,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 16.4
     },
@@ -3618,6 +3700,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 16.4
     },
@@ -3659,6 +3742,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 16.4
     },
@@ -3700,6 +3784,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 16.4
     },
@@ -3741,6 +3826,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 16.4
     },
@@ -3782,6 +3868,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 15.0
     },
@@ -3823,6 +3910,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 15.0
     },
@@ -3864,6 +3952,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 15.0
     },
@@ -3905,6 +3994,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 15.0
     },
@@ -3946,6 +4036,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 15.0
     },
@@ -3987,6 +4078,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 15.0
     },
@@ -4028,6 +4120,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 15.0
     },
@@ -4069,6 +4162,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 15.0
     },
@@ -4110,6 +4204,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 15.0
     },
@@ -4151,6 +4246,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 15.0
     },
@@ -4192,6 +4288,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 15.0
     },
@@ -4233,6 +4330,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 15.0
     },
@@ -4274,6 +4372,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 15.0
     },
@@ -4315,6 +4414,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "pass",
       "utility_score": 15.0
     },
@@ -4356,6 +4456,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 29.0
     },
@@ -4397,6 +4498,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 29.0
     },
@@ -4438,6 +4540,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 29.0
     },
@@ -4479,6 +4582,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 29.0
     },
@@ -4520,6 +4624,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 29.0
     },
@@ -4561,6 +4666,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 29.0
     },
@@ -4602,6 +4708,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 29.0
     },
@@ -4643,6 +4750,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 29.0
     },
@@ -4684,6 +4792,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 29.0
     },
@@ -4725,6 +4834,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 29.0
     },
@@ -4766,6 +4876,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 29.0
     },
@@ -4807,6 +4918,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 27.6
     },
@@ -4848,6 +4960,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 27.6
     },
@@ -4889,6 +5002,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 27.6
     },
@@ -4930,6 +5044,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 27.6
     },
@@ -4971,6 +5086,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 27.6
     },
@@ -5012,6 +5128,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 27.6
     },
@@ -5053,6 +5170,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 27.6
     },
@@ -5094,6 +5212,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 27.6
     },
@@ -5135,6 +5254,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 27.6
     },
@@ -5176,6 +5296,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 27.6
     },
@@ -5217,6 +5338,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 27.6
     },
@@ -5258,6 +5380,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 27.6
     },
@@ -5299,6 +5422,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 27.6
     },
@@ -5340,6 +5464,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 27.6
     },
@@ -5381,6 +5506,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 27.6
     },
@@ -5422,6 +5548,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 27.6
     },
@@ -5463,6 +5590,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 27.6
     },
@@ -5504,6 +5632,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 27.6
     },
@@ -5545,6 +5674,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 27.6
     },
@@ -5586,6 +5716,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 27.6
     },
@@ -5627,6 +5758,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 26.2
     },
@@ -5668,6 +5800,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 26.2
     },
@@ -5709,6 +5842,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 26.2
     },
@@ -5750,6 +5884,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 26.2
     },
@@ -5791,6 +5926,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 26.2
     },
@@ -5832,6 +5968,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 26.2
     },
@@ -5873,6 +6010,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 26.2
     },
@@ -5914,6 +6052,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 26.2
     },
@@ -5955,6 +6094,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 26.2
     },
@@ -5996,6 +6136,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 26.2
     },
@@ -6037,6 +6178,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 26.2
     },
@@ -6078,6 +6220,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 26.2
     },
@@ -6119,6 +6262,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 26.2
     },
@@ -6160,6 +6304,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 26.2
     },
@@ -6201,6 +6346,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 26.2
     },
@@ -6242,6 +6388,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 26.2
     },
@@ -6283,6 +6430,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 26.2
     },
@@ -6324,6 +6472,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 26.2
     },
@@ -6365,6 +6514,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 26.2
     },
@@ -6406,6 +6556,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 26.2
     },
@@ -6447,6 +6598,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 26.2
     },
@@ -6488,6 +6640,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 26.2
     },
@@ -6529,6 +6682,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 26.2
     },
@@ -6570,6 +6724,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 26.2
     },
@@ -6611,6 +6766,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 26.2
     },
@@ -6652,6 +6808,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 26.2
     },
@@ -6693,6 +6850,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 26.2
     },
@@ -6734,6 +6892,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 26.2
     },
@@ -6775,6 +6934,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 26.2
     },
@@ -6816,6 +6976,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 26.2
     },
@@ -6857,6 +7018,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 26.2
     },
@@ -6898,6 +7060,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 26.2
     },
@@ -6939,6 +7102,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 26.2
     },
@@ -6980,6 +7144,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 26.2
     },
@@ -7021,6 +7186,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 26.2
     },
@@ -7062,6 +7228,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 26.2
     },
@@ -7103,6 +7270,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 26.2
     },
@@ -7144,6 +7312,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 26.2
     },
@@ -7185,6 +7354,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 26.2
     },
@@ -7226,6 +7396,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 26.2
     },
@@ -7267,6 +7438,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 26.2
     },
@@ -7308,6 +7480,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 26.2
     },
@@ -7349,6 +7522,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 26.2
     },
@@ -7390,6 +7564,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -7431,6 +7606,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -7472,6 +7648,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -7513,6 +7690,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -7554,6 +7732,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -7595,6 +7774,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -7636,6 +7816,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -7677,6 +7858,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -7718,6 +7900,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -7759,6 +7942,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -7800,6 +7984,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -7841,6 +8026,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -7882,6 +8068,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -7923,6 +8110,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -7964,6 +8152,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -8005,6 +8194,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -8046,6 +8236,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -8087,6 +8278,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -8128,6 +8320,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -8169,6 +8362,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -8210,6 +8404,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -8251,6 +8446,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -8292,6 +8488,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -8333,6 +8530,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -8374,6 +8572,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -8415,6 +8614,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -8456,6 +8656,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -8497,6 +8698,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -8538,6 +8740,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -8579,6 +8782,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -8620,6 +8824,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -8661,6 +8866,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -8702,6 +8908,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -8743,6 +8950,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -8784,6 +8992,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -8825,6 +9034,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -8866,6 +9076,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -8907,6 +9118,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -8948,6 +9160,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -8989,6 +9202,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -9030,6 +9244,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -9071,6 +9286,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -9112,6 +9328,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -9153,6 +9370,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -9194,6 +9412,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -9235,6 +9454,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -9276,6 +9496,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -9317,6 +9538,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -9358,6 +9580,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -9399,6 +9622,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -9440,6 +9664,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -9481,6 +9706,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -9522,6 +9748,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -9563,6 +9790,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -9604,6 +9832,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -9645,6 +9874,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -9686,6 +9916,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -9727,6 +9958,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -9768,6 +10000,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -9809,6 +10042,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -9850,6 +10084,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -9891,6 +10126,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -9932,6 +10168,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -9973,6 +10210,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -10014,6 +10252,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -10055,6 +10294,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -10096,6 +10336,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -10137,6 +10378,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -10178,6 +10420,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -10219,6 +10462,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -10260,6 +10504,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -10301,6 +10546,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -10342,6 +10588,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -10383,6 +10630,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -10424,6 +10672,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -10465,6 +10714,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -10506,6 +10756,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -10547,6 +10798,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -10588,6 +10840,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -10629,6 +10882,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -10670,6 +10924,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -10711,6 +10966,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -10752,6 +11008,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -10793,6 +11050,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -10834,6 +11092,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -10875,6 +11134,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -10916,6 +11176,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -10957,6 +11218,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -10998,6 +11260,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -11039,6 +11302,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -11080,6 +11344,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -11121,6 +11386,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -11162,6 +11428,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -11203,6 +11470,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -11244,6 +11512,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -11285,6 +11554,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -11326,6 +11596,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -11367,6 +11638,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -11408,6 +11680,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -11449,6 +11722,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -11490,6 +11764,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -11531,6 +11806,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -11572,6 +11848,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 24.8
     },
@@ -11613,6 +11890,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -11654,6 +11932,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -11695,6 +11974,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -11736,6 +12016,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -11777,6 +12058,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -11818,6 +12100,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -11859,6 +12142,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -11900,6 +12184,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -11941,6 +12226,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -11982,6 +12268,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -12023,6 +12310,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -12064,6 +12352,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -12105,6 +12394,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -12146,6 +12436,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -12187,6 +12478,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -12228,6 +12520,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -12269,6 +12562,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -12310,6 +12604,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -12351,6 +12646,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -12392,6 +12688,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -12433,6 +12730,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -12474,6 +12772,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -12515,6 +12814,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -12556,6 +12856,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -12597,6 +12898,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -12638,6 +12940,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -12679,6 +12982,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -12720,6 +13024,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -12761,6 +13066,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -12802,6 +13108,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -12843,6 +13150,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -12884,6 +13192,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -12925,6 +13234,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -12966,6 +13276,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -13007,6 +13318,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -13048,6 +13360,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -13089,6 +13402,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -13130,6 +13444,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -13171,6 +13486,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -13212,6 +13528,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -13253,6 +13570,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -13294,6 +13612,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -13335,6 +13654,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -13376,6 +13696,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -13417,6 +13738,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -13458,6 +13780,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -13499,6 +13822,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -13540,6 +13864,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -13581,6 +13906,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -13622,6 +13948,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -13663,6 +13990,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -13704,6 +14032,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -13745,6 +14074,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -13786,6 +14116,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -13827,6 +14158,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -13868,6 +14200,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -13909,6 +14242,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -13950,6 +14284,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -13991,6 +14326,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -14032,6 +14368,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -14073,6 +14410,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -14114,6 +14452,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -14155,6 +14494,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -14196,6 +14536,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -14237,6 +14578,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -14278,6 +14620,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -14319,6 +14662,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -14360,6 +14704,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -14401,6 +14746,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -14442,6 +14788,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -14483,6 +14830,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -14524,6 +14872,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -14565,6 +14914,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -14606,6 +14956,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -14647,6 +14998,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -14688,6 +15040,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -14729,6 +15082,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 23.4
     },
@@ -14770,6 +15124,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 22.0
     },
@@ -14811,6 +15166,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 22.0
     },
@@ -14852,6 +15208,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 22.0
     },
@@ -14893,6 +15250,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 22.0
     },
@@ -14934,6 +15292,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 22.0
     },
@@ -14975,6 +15334,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 22.0
     },
@@ -15016,6 +15376,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 22.0
     },
@@ -15057,6 +15418,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 22.0
     },
@@ -15098,6 +15460,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 22.0
     },
@@ -15139,6 +15502,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 22.0
     },
@@ -15180,6 +15544,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 22.0
     },
@@ -15221,6 +15586,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 22.0
     },
@@ -15262,6 +15628,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 22.0
     },
@@ -15303,6 +15670,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 22.0
     },
@@ -15344,6 +15712,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 22.0
     },
@@ -15385,6 +15754,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 22.0
     },
@@ -15426,6 +15796,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 22.0
     },
@@ -15467,6 +15838,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 22.0
     },
@@ -15508,6 +15880,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 22.0
     },
@@ -15549,6 +15922,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 22.0
     },
@@ -15590,6 +15964,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 22.0
     },
@@ -15631,6 +16006,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 22.0
     },
@@ -15672,6 +16048,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 22.0
     },
@@ -15713,6 +16090,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 22.0
     },
@@ -15754,6 +16132,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 22.0
     },
@@ -15795,6 +16174,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 22.0
     },
@@ -15836,6 +16216,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 22.0
     },
@@ -15877,6 +16258,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 22.0
     },
@@ -15918,6 +16300,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 22.0
     },
@@ -15959,6 +16342,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 22.0
     },
@@ -16000,6 +16384,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 22.0
     },
@@ -16041,6 +16426,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 22.0
     },
@@ -16082,6 +16468,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 22.0
     },
@@ -16123,6 +16510,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 22.0
     },
@@ -16164,6 +16552,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 22.0
     },
@@ -16205,6 +16594,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 22.0
     },
@@ -16246,6 +16636,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 22.0
     },
@@ -16287,6 +16678,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 22.0
     },
@@ -16328,6 +16720,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 22.0
     },
@@ -16369,6 +16762,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 22.0
     },
@@ -16410,6 +16804,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 22.0
     },
@@ -16451,6 +16846,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 20.6
     },
@@ -16492,6 +16888,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 20.6
     },
@@ -16533,6 +16930,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 20.6
     },
@@ -16574,6 +16972,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 20.6
     },
@@ -16615,6 +17014,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 20.6
     },
@@ -16656,6 +17056,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 20.6
     },
@@ -16697,6 +17098,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 20.6
     },
@@ -16738,6 +17140,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 20.6
     },
@@ -16779,6 +17182,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 20.6
     },
@@ -16820,6 +17224,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 19.2
     },
@@ -16861,6 +17266,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 19.2
     },
@@ -16902,6 +17308,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 19.2
     },
@@ -16943,6 +17350,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 19.2
     },
@@ -16984,6 +17392,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 19.2
     },
@@ -17025,6 +17434,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 19.2
     },
@@ -17066,6 +17476,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 19.2
     },
@@ -17107,6 +17518,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 19.2
     },
@@ -17148,6 +17560,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 19.2
     },
@@ -17189,6 +17602,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 19.2
     },
@@ -17230,6 +17644,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 19.2
     },
@@ -17271,6 +17686,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 19.2
     },
@@ -17312,6 +17728,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 19.2
     },
@@ -17353,6 +17770,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 19.2
     },
@@ -17394,6 +17812,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 19.2
     },
@@ -17435,6 +17854,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 19.2
     },
@@ -17476,6 +17896,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 19.2
     },
@@ -17517,6 +17938,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 19.2
     },
@@ -17558,6 +17980,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 19.2
     },
@@ -17599,6 +18022,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 19.2
     },
@@ -17640,6 +18064,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 19.2
     },
@@ -17681,6 +18106,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 19.2
     },
@@ -17722,6 +18148,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 19.2
     },
@@ -17763,6 +18190,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 19.2
     },
@@ -17804,6 +18232,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 19.2
     },
@@ -17845,6 +18274,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 17.8
     },
@@ -17886,6 +18316,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 17.8
     },
@@ -17927,6 +18358,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 17.8
     },
@@ -17968,6 +18400,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 17.8
     },
@@ -18009,6 +18442,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 17.8
     },
@@ -18050,6 +18484,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 17.8
     },
@@ -18091,6 +18526,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 17.8
     },
@@ -18132,6 +18568,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 17.8
     },
@@ -18173,6 +18610,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 16.4
     },
@@ -18214,6 +18652,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 16.4
     },
@@ -18255,6 +18694,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 16.4
     },
@@ -18296,6 +18736,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 16.4
     },
@@ -18337,6 +18778,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 16.4
     },
@@ -18378,6 +18820,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 16.4
     },
@@ -18419,6 +18862,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 16.4
     },
@@ -18460,6 +18904,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 16.4
     },
@@ -18501,6 +18946,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 16.4
     },
@@ -18542,6 +18988,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 16.4
     },
@@ -18583,6 +19030,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 16.4
     },
@@ -18624,6 +19072,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 16.4
     },
@@ -18665,6 +19114,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 16.4
     },
@@ -18706,6 +19156,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 16.4
     },
@@ -18747,6 +19198,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 16.4
     },
@@ -18788,6 +19240,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 15.0
     },
@@ -18829,6 +19282,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 15.0
     },
@@ -18870,6 +19324,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 15.0
     },
@@ -18911,6 +19366,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 15.0
     },
@@ -18952,6 +19408,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 13.6
     },
@@ -18993,6 +19450,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 13.6
     },
@@ -19034,6 +19492,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 12.2
     },
@@ -19075,6 +19534,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 12.2
     },
@@ -19116,6 +19576,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 12.2
     },
@@ -19157,6 +19618,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 12.2
     },
@@ -19198,6 +19660,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 12.2
     },
@@ -19239,6 +19702,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 12.2
     },
@@ -19280,6 +19744,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 12.2
     },
@@ -19321,6 +19786,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 12.2
     },
@@ -19362,6 +19828,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 12.2
     },
@@ -19403,6 +19870,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 12.2
     },
@@ -19444,6 +19912,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 12.2
     },
@@ -19485,6 +19954,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 12.2
     },
@@ -19526,6 +19996,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 12.2
     },
@@ -19567,6 +20038,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 12.2
     },
@@ -19608,6 +20080,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 12.2
     },
@@ -19649,6 +20122,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 12.2
     },
@@ -19690,6 +20164,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 12.2
     },
@@ -19731,6 +20206,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 12.2
     },
@@ -19772,6 +20248,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 12.2
     },
@@ -19813,6 +20290,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 12.2
     },
@@ -19854,6 +20332,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 12.2
     },
@@ -19895,6 +20374,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 12.2
     },
@@ -19936,6 +20416,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 12.2
     },
@@ -19977,6 +20458,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 12.2
     },
@@ -20018,6 +20500,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 12.2
     },
@@ -20059,6 +20542,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 12.2
     },
@@ -20100,6 +20584,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 12.2
     },
@@ -20141,6 +20626,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 12.2
     },
@@ -20182,6 +20668,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 12.2
     },
@@ -20223,6 +20710,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 12.2
     },
@@ -20264,6 +20752,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 10.8
     },
@@ -20305,6 +20794,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 10.8
     },
@@ -20346,6 +20836,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 10.8
     },
@@ -20387,6 +20878,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 9.4
     },
@@ -20428,6 +20920,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 8.0
     },
@@ -20469,6 +20962,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 8.0
     },
@@ -20510,6 +21004,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 8.0
     },
@@ -20551,6 +21046,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 8.0
     },
@@ -20592,6 +21088,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 8.0
     },
@@ -20633,6 +21130,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 8.0
     },
@@ -20674,6 +21172,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 8.0
     },
@@ -20715,6 +21214,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 8.0
     },
@@ -20756,6 +21256,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 8.0
     },
@@ -20797,6 +21298,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 8.0
     },
@@ -20838,6 +21340,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 6.6
     },
@@ -20879,6 +21382,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 6.6
     },
@@ -20920,6 +21424,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 6.6
     },
@@ -20961,6 +21466,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 6.6
     },
@@ -21002,6 +21508,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 6.6
     },
@@ -21043,6 +21550,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 6.6
     },
@@ -21084,6 +21592,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 6.6
     },
@@ -21125,6 +21634,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 6.6
     },
@@ -21166,6 +21676,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 6.6
     },
@@ -21207,6 +21718,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 6.6
     },
@@ -21248,6 +21760,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 6.6
     },
@@ -21289,6 +21802,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 6.6
     },
@@ -21330,6 +21844,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 6.6
     },
@@ -21371,6 +21886,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 6.6
     },
@@ -21412,6 +21928,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 5.2
     },
@@ -21453,6 +21970,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 5.2
     },
@@ -21494,6 +22012,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 5.2
     },
@@ -21535,6 +22054,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 5.2
     },
@@ -21576,6 +22096,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 5.2
     },
@@ -21617,6 +22138,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 5.2
     },
@@ -21658,6 +22180,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 5.2
     },
@@ -21699,6 +22222,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 5.2
     },
@@ -21740,6 +22264,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 5.2
     },
@@ -21781,6 +22306,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 5.2
     },
@@ -21822,6 +22348,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 5.2
     },
@@ -21863,6 +22390,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": 5.2
     },
@@ -21904,6 +22432,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": -1.8
     },
@@ -21945,6 +22474,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": -1.8
     },
@@ -21986,6 +22516,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": -1.8
     },
@@ -22027,6 +22558,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": -1.8
     },
@@ -22068,6 +22600,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": -1.8
     },
@@ -22109,6 +22642,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": -1.8
     },
@@ -22150,6 +22684,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": -1.8
     },
@@ -22191,6 +22726,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": -1.8
     },
@@ -22232,6 +22768,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": -1.8
     },
@@ -22273,6 +22810,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": -1.8
     },
@@ -22314,6 +22852,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": -1.8
     },
@@ -22355,6 +22894,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "fail",
       "target_status": "fail",
       "utility_score": -1.8
     }
@@ -22383,6 +22923,512 @@
     }
   ],
   "status": "ok",
+  "strict_target_pass_rows": [
+    {
+      "aggregation_rule": "configured_validation_scores",
+      "algorithm_family": "",
+      "category": "validation",
+      "config_id": "veto_only_validation",
+      "context_view": "raw_sentence",
+      "decision_rule": "allow_default_shadow_veto",
+      "is_control": false,
+      "label": "Veto-only replay over validation reports",
+      "negative_abstain_count": 24,
+      "negative_abstain_rate": 0.75,
+      "negative_allow_count": 8,
+      "phrase_mode": "shadow_or_phrase_score",
+      "positive_abstain_count": 3,
+      "positive_allow_count": 13,
+      "positive_allow_rate": 0.8125,
+      "scorer_id": "sentence_transformer_cosine",
+      "sense_representation": "configured_validation_evidence",
+      "shadow_lead_min": 0.05,
+      "shadow_score_min": 0.0,
+      "source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.625,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "pass",
+          "utility_score": 4.4
+        }
+      ],
+      "source_decision_rule": "allow_default_shadow_veto",
+      "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
+      "target_status": "pass",
+      "utility_score": 26.2
+    },
+    {
+      "aggregation_rule": "configured_validation_scores",
+      "algorithm_family": "",
+      "category": "validation",
+      "config_id": "veto_only_validation",
+      "context_view": "raw_sentence",
+      "decision_rule": "allow_default_shadow_veto",
+      "is_control": false,
+      "label": "Veto-only replay over validation reports",
+      "negative_abstain_count": 24,
+      "negative_abstain_rate": 0.75,
+      "negative_allow_count": 8,
+      "phrase_mode": "shadow_or_phrase_score",
+      "positive_abstain_count": 3,
+      "positive_allow_count": 13,
+      "positive_allow_rate": 0.8125,
+      "scorer_id": "sentence_transformer_cosine",
+      "sense_representation": "configured_validation_evidence",
+      "shadow_lead_min": 0.05,
+      "shadow_score_min": 0.02,
+      "source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.625,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "pass",
+          "utility_score": 4.4
+        }
+      ],
+      "source_decision_rule": "allow_default_shadow_veto",
+      "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
+      "target_status": "pass",
+      "utility_score": 26.2
+    },
+    {
+      "aggregation_rule": "configured_validation_scores",
+      "algorithm_family": "",
+      "category": "validation",
+      "config_id": "veto_only_validation",
+      "context_view": "raw_sentence",
+      "decision_rule": "allow_default_shadow_veto",
+      "is_control": false,
+      "label": "Veto-only replay over validation reports",
+      "negative_abstain_count": 24,
+      "negative_abstain_rate": 0.75,
+      "negative_allow_count": 8,
+      "phrase_mode": "shadow_or_phrase_score",
+      "positive_abstain_count": 3,
+      "positive_allow_count": 13,
+      "positive_allow_rate": 0.8125,
+      "scorer_id": "sentence_transformer_cosine",
+      "sense_representation": "configured_validation_evidence",
+      "shadow_lead_min": 0.05,
+      "shadow_score_min": 0.05,
+      "source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.625,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "pass",
+          "utility_score": 4.4
+        }
+      ],
+      "source_decision_rule": "allow_default_shadow_veto",
+      "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
+      "target_status": "pass",
+      "utility_score": 26.2
+    },
+    {
+      "aggregation_rule": "configured_validation_scores",
+      "algorithm_family": "",
+      "category": "validation",
+      "config_id": "veto_only_validation",
+      "context_view": "raw_sentence",
+      "decision_rule": "allow_default_shadow_veto",
+      "is_control": false,
+      "label": "Veto-only replay over validation reports",
+      "negative_abstain_count": 24,
+      "negative_abstain_rate": 0.75,
+      "negative_allow_count": 8,
+      "phrase_mode": "shadow_or_phrase_score",
+      "positive_abstain_count": 3,
+      "positive_allow_count": 13,
+      "positive_allow_rate": 0.8125,
+      "scorer_id": "sentence_transformer_cosine",
+      "sense_representation": "configured_validation_evidence",
+      "shadow_lead_min": 0.05,
+      "shadow_score_min": 0.1,
+      "source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.625,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "pass",
+          "utility_score": 4.4
+        }
+      ],
+      "source_decision_rule": "allow_default_shadow_veto",
+      "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
+      "target_status": "pass",
+      "utility_score": 26.2
+    },
+    {
+      "aggregation_rule": "configured_validation_scores",
+      "algorithm_family": "",
+      "category": "validation",
+      "config_id": "veto_only_validation",
+      "context_view": "raw_sentence",
+      "decision_rule": "allow_default_shadow_veto",
+      "is_control": false,
+      "label": "Veto-only replay over validation reports",
+      "negative_abstain_count": 24,
+      "negative_abstain_rate": 0.75,
+      "negative_allow_count": 8,
+      "phrase_mode": "shadow_or_phrase_score",
+      "positive_abstain_count": 3,
+      "positive_allow_count": 13,
+      "positive_allow_rate": 0.8125,
+      "scorer_id": "sentence_transformer_cosine",
+      "sense_representation": "configured_validation_evidence",
+      "shadow_lead_min": 0.05,
+      "shadow_score_min": 0.2,
+      "source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.625,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "pass",
+          "utility_score": 4.4
+        }
+      ],
+      "source_decision_rule": "allow_default_shadow_veto",
+      "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
+      "target_status": "pass",
+      "utility_score": 26.2
+    },
+    {
+      "aggregation_rule": "configured_validation_scores",
+      "algorithm_family": "",
+      "category": "validation",
+      "config_id": "veto_only_validation",
+      "context_view": "raw_sentence",
+      "decision_rule": "allow_default_shadow_veto",
+      "is_control": false,
+      "label": "Veto-only replay over validation reports",
+      "negative_abstain_count": 24,
+      "negative_abstain_rate": 0.75,
+      "negative_allow_count": 8,
+      "phrase_mode": "shadow_or_phrase_score",
+      "positive_abstain_count": 3,
+      "positive_allow_count": 13,
+      "positive_allow_rate": 0.8125,
+      "scorer_id": "sentence_transformer_cosine",
+      "sense_representation": "configured_validation_evidence",
+      "shadow_lead_min": 0.05,
+      "shadow_score_min": 0.35,
+      "source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.625,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "pass",
+          "utility_score": 4.4
+        }
+      ],
+      "source_decision_rule": "allow_default_shadow_veto",
+      "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
+      "target_status": "pass",
+      "utility_score": 26.2
+    },
+    {
+      "aggregation_rule": "configured_validation_scores",
+      "algorithm_family": "",
+      "category": "validation",
+      "config_id": "veto_only_validation",
+      "context_view": "raw_sentence",
+      "decision_rule": "allow_default_shadow_veto",
+      "is_control": false,
+      "label": "Veto-only replay over validation reports",
+      "negative_abstain_count": 24,
+      "negative_abstain_rate": 0.75,
+      "negative_allow_count": 8,
+      "phrase_mode": "shadow_or_phrase_score",
+      "positive_abstain_count": 3,
+      "positive_allow_count": 13,
+      "positive_allow_rate": 0.8125,
+      "scorer_id": "sentence_transformer_cosine",
+      "sense_representation": "configured_validation_evidence",
+      "shadow_lead_min": 0.05,
+      "shadow_score_min": 0.45,
+      "source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.625,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "pass",
+          "utility_score": 4.4
+        }
+      ],
+      "source_decision_rule": "allow_default_shadow_veto",
+      "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
+      "target_status": "pass",
+      "utility_score": 26.2
+    },
+    {
+      "aggregation_rule": "configured_validation_scores",
+      "algorithm_family": "",
+      "category": "validation",
+      "config_id": "veto_only_validation",
+      "context_view": "raw_sentence",
+      "decision_rule": "allow_default_shadow_veto",
+      "is_control": false,
+      "label": "Veto-only replay over validation reports",
+      "negative_abstain_count": 24,
+      "negative_abstain_rate": 0.75,
+      "negative_allow_count": 8,
+      "phrase_mode": "shadow_or_phrase_score",
+      "positive_abstain_count": 3,
+      "positive_allow_count": 13,
+      "positive_allow_rate": 0.8125,
+      "scorer_id": "sentence_transformer_cosine",
+      "sense_representation": "configured_validation_evidence",
+      "shadow_lead_min": 0.05,
+      "shadow_score_min": 0.5,
+      "source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.625,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "pass",
+          "utility_score": 4.4
+        }
+      ],
+      "source_decision_rule": "allow_default_shadow_veto",
+      "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
+      "target_status": "pass",
+      "utility_score": 26.2
+    },
+    {
+      "aggregation_rule": "configured_validation_scores",
+      "algorithm_family": "",
+      "category": "validation",
+      "config_id": "veto_only_validation",
+      "context_view": "raw_sentence",
+      "decision_rule": "allow_default_shadow_veto",
+      "is_control": false,
+      "label": "Veto-only replay over validation reports",
+      "negative_abstain_count": 24,
+      "negative_abstain_rate": 0.75,
+      "negative_allow_count": 8,
+      "phrase_mode": "shadow_or_phrase_score",
+      "positive_abstain_count": 3,
+      "positive_allow_count": 13,
+      "positive_allow_rate": 0.8125,
+      "scorer_id": "sentence_transformer_cosine",
+      "sense_representation": "configured_validation_evidence",
+      "shadow_lead_min": 0.05,
+      "shadow_score_min": 0.55,
+      "source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.625,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "pass",
+          "utility_score": 4.4
+        }
+      ],
+      "source_decision_rule": "allow_default_shadow_veto",
+      "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
+      "target_status": "pass",
+      "utility_score": 26.2
+    },
+    {
+      "aggregation_rule": "configured_validation_scores",
+      "algorithm_family": "",
+      "category": "validation",
+      "config_id": "veto_only_validation",
+      "context_view": "raw_sentence",
+      "decision_rule": "allow_default_shadow_veto",
+      "is_control": false,
+      "label": "Veto-only replay over validation reports",
+      "negative_abstain_count": 24,
+      "negative_abstain_rate": 0.75,
+      "negative_allow_count": 8,
+      "phrase_mode": "shadow_or_phrase_score",
+      "positive_abstain_count": 3,
+      "positive_allow_count": 13,
+      "positive_allow_rate": 0.8125,
+      "scorer_id": "sentence_transformer_cosine",
+      "sense_representation": "configured_validation_evidence",
+      "shadow_lead_min": 0.05,
+      "shadow_score_min": 0.6,
+      "source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.625,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "pass",
+          "utility_score": 4.4
+        }
+      ],
+      "source_decision_rule": "allow_default_shadow_veto",
+      "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
+      "target_status": "pass",
+      "utility_score": 26.2
+    },
+    {
+      "aggregation_rule": "configured_validation_scores",
+      "algorithm_family": "",
+      "category": "validation",
+      "config_id": "veto_only_validation",
+      "context_view": "raw_sentence",
+      "decision_rule": "allow_default_shadow_veto",
+      "is_control": false,
+      "label": "Veto-only replay over validation reports",
+      "negative_abstain_count": 22,
+      "negative_abstain_rate": 0.6875,
+      "negative_allow_count": 10,
+      "phrase_mode": "shadow_or_phrase_score",
+      "positive_abstain_count": 2,
+      "positive_allow_count": 14,
+      "positive_allow_rate": 0.875,
+      "scorer_id": "sentence_transformer_cosine",
+      "sense_representation": "configured_validation_evidence",
+      "shadow_lead_min": 0.05,
+      "shadow_score_min": 0.7,
+      "source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.875,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 23.2
+        },
+        {
+          "negative_abstain_rate": 0.5,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "pass",
+          "utility_score": 1.6
+        }
+      ],
+      "source_decision_rule": "allow_default_shadow_veto",
+      "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
+      "target_status": "pass",
+      "utility_score": 24.8
+    },
+    {
+      "aggregation_rule": "configured_validation_scores",
+      "algorithm_family": "",
+      "category": "validation",
+      "config_id": "veto_only_validation",
+      "context_view": "raw_sentence",
+      "decision_rule": "allow_default_shadow_veto",
+      "is_control": false,
+      "label": "Veto-only replay over validation reports",
+      "negative_abstain_count": 23,
+      "negative_abstain_rate": 0.7188,
+      "negative_allow_count": 9,
+      "phrase_mode": "shadow_or_phrase_score",
+      "positive_abstain_count": 3,
+      "positive_allow_count": 13,
+      "positive_allow_rate": 0.8125,
+      "scorer_id": "sentence_transformer_cosine",
+      "sense_representation": "configured_validation_evidence",
+      "shadow_lead_min": 0.05,
+      "shadow_score_min": 0.65,
+      "source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.5625,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "pass",
+          "utility_score": 3.0
+        }
+      ],
+      "source_decision_rule": "allow_default_shadow_veto",
+      "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
+      "target_status": "pass",
+      "utility_score": 24.8
+    }
+  ],
   "summary": {
     "best_product_rank_row": {
       "aggregation_rule": "configured_validation_scores",
@@ -22422,6 +23468,49 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
+      "target_status": "pass",
+      "utility_score": 26.2
+    },
+    "best_strict_target_pass_row": {
+      "aggregation_rule": "configured_validation_scores",
+      "algorithm_family": "",
+      "category": "validation",
+      "config_id": "veto_only_validation",
+      "context_view": "raw_sentence",
+      "decision_rule": "allow_default_shadow_veto",
+      "is_control": false,
+      "label": "Veto-only replay over validation reports",
+      "negative_abstain_count": 24,
+      "negative_abstain_rate": 0.75,
+      "negative_allow_count": 8,
+      "phrase_mode": "shadow_or_phrase_score",
+      "positive_abstain_count": 3,
+      "positive_allow_count": 13,
+      "positive_allow_rate": 0.8125,
+      "scorer_id": "sentence_transformer_cosine",
+      "sense_representation": "configured_validation_evidence",
+      "shadow_lead_min": 0.05,
+      "shadow_score_min": 0.0,
+      "source_breakdowns": [
+        {
+          "negative_abstain_rate": 0.875,
+          "positive_allow_rate": 0.8125,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout",
+          "target_status": "pass",
+          "utility_score": 21.8
+        },
+        {
+          "negative_abstain_rate": 0.625,
+          "positive_allow_rate": null,
+          "report_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase",
+          "target_status": "pass",
+          "utility_score": 4.4
+        }
+      ],
+      "source_decision_rule": "allow_default_shadow_veto",
+      "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
       "target_status": "pass",
       "utility_score": 26.2
     },
@@ -22463,15 +23552,17 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
       "target_status": "pass",
       "utility_score": 26.2
     },
     "recommendation": [
-      "At least one veto-only blocker policy meets the configured product target on these validation reports.",
+      "At least one veto-only blocker policy meets the configured product target on every measured source.",
       "Compare the winning blocker against the frozen v10 matrix winner before considering runtime policy changes.",
       "Use source breakdowns and failure samples to decide which blocker signals need broader representative evaluation."
     ],
     "row_count": 540,
+    "strict_target_pass_count": 12,
     "target_pass_count": 100,
     "top_n": 12
   },
@@ -22514,6 +23605,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
       "target_status": "pass",
       "utility_score": 26.2
     },
@@ -22555,6 +23647,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
       "target_status": "pass",
       "utility_score": 26.2
     },
@@ -22596,6 +23689,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
       "target_status": "pass",
       "utility_score": 26.2
     },
@@ -22637,6 +23731,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
       "target_status": "pass",
       "utility_score": 26.2
     },
@@ -22678,6 +23773,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
       "target_status": "pass",
       "utility_score": 26.2
     },
@@ -22719,6 +23815,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
       "target_status": "pass",
       "utility_score": 26.2
     },
@@ -22760,6 +23857,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
       "target_status": "pass",
       "utility_score": 26.2
     },
@@ -22801,6 +23899,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
       "target_status": "pass",
       "utility_score": 26.2
     },
@@ -22842,6 +23941,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
       "target_status": "pass",
       "utility_score": 26.2
     },
@@ -22883,6 +23983,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
       "target_status": "pass",
       "utility_score": 26.2
     },
@@ -22924,6 +24025,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
       "target_status": "pass",
       "utility_score": 24.8
     },
@@ -22965,6 +24067,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
       "target_status": "pass",
       "utility_score": 24.8
     }
@@ -23008,6 +24111,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
       "target_status": "pass",
       "utility_score": 26.2
     },
@@ -23049,6 +24153,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
       "target_status": "pass",
       "utility_score": 26.2
     },
@@ -23090,6 +24195,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
       "target_status": "pass",
       "utility_score": 26.2
     },
@@ -23131,6 +24237,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
       "target_status": "pass",
       "utility_score": 26.2
     },
@@ -23172,6 +24279,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
       "target_status": "pass",
       "utility_score": 26.2
     },
@@ -23213,6 +24321,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
       "target_status": "pass",
       "utility_score": 26.2
     },
@@ -23254,6 +24363,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
       "target_status": "pass",
       "utility_score": 26.2
     },
@@ -23295,6 +24405,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
       "target_status": "pass",
       "utility_score": 26.2
     },
@@ -23336,6 +24447,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
       "target_status": "pass",
       "utility_score": 26.2
     },
@@ -23377,6 +24489,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
       "target_status": "pass",
       "utility_score": 26.2
     },
@@ -23418,6 +24531,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
       "target_status": "pass",
       "utility_score": 24.8
     },
@@ -23459,6 +24573,7 @@
       ],
       "source_decision_rule": "allow_default_shadow_veto",
       "source_phrase_handling": "active_shadow_phrase_semantic_surface_pos",
+      "strict_target_status": "pass",
       "target_status": "pass",
       "utility_score": 24.8
     }

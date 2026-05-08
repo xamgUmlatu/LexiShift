@@ -1,0 +1,220 @@
+{
+  "description": "Frozen authored trigger specs for the en-es semantic-veto sampling stage 1 P0 manual packet.",
+  "schema_version": 1,
+  "trigger_specs": {
+    "help": {
+      "active": {
+        "canonical_pos": "noun",
+        "examples": [
+          "ask for help",
+          "offer help",
+          "need help"
+        ],
+        "gloss_text": "assistance or support given to someone",
+        "sense_id_suffix": "ayuda",
+        "sense_label": "assistance",
+        "target_lemma": "ayuda"
+      },
+      "cases": [
+        {
+          "cell_key": "phrase_no_winner::tfidf_cosine::",
+          "gold_decision": "abstain",
+          "gold_winner_kind": "none",
+          "note": "cannot help plus gerund idiom",
+          "sentence": "I cannot help noticing how quiet the room became."
+        },
+        {
+          "cell_key": "phrase_no_winner::tfidf_cosine::",
+          "gold_decision": "abstain",
+          "gold_winner_kind": "none",
+          "note": "cannot help but idiom",
+          "sentence": "She could not help but smile at the news."
+        },
+        {
+          "cell_key": "phrase_no_winner::tfidf_cosine::",
+          "gold_decision": "abstain",
+          "gold_winner_kind": "none",
+          "note": "emergency interjection rather than assistance noun",
+          "sentence": "Help, the elevator is stuck between floors!"
+        },
+        {
+          "cell_key": "phrase_no_winner::tfidf_cosine::",
+          "gold_decision": "abstain",
+          "gold_winner_kind": "none",
+          "note": "oath-like fixed expression",
+          "sentence": "So help me, I will finish this tonight."
+        },
+        {
+          "cell_key": "phrase_no_winner::sentence_transformer_cosine::",
+          "gold_decision": "abstain",
+          "gold_winner_kind": "none",
+          "note": "cannot help being idiom",
+          "sentence": "No one can help being nervous before the final."
+        },
+        {
+          "cell_key": "phrase_no_winner::sentence_transformer_cosine::",
+          "gold_decision": "abstain",
+          "gold_winner_kind": "none",
+          "note": "cry for rescue, not the assistance noun target",
+          "sentence": "The child shouted help from the locked bathroom."
+        },
+        {
+          "cell_key": "phrase_no_winner::sentence_transformer_cosine::",
+          "gold_decision": "abstain",
+          "gold_winner_kind": "none",
+          "note": "can't help thinking idiom",
+          "sentence": "I can't help thinking we missed a step."
+        },
+        {
+          "cell_key": "phrase_no_winner::sentence_transformer_cosine::",
+          "gold_decision": "abstain",
+          "gold_winner_kind": "none",
+          "note": "help yourself idiom",
+          "sentence": "Help yourself to some coffee before the meeting."
+        },
+        {
+          "cell_key": "positive_active::tfidf_cosine::",
+          "gold_decision": "replace",
+          "gold_winner_kind": "active",
+          "note": "assistance noun",
+          "sentence": "Her help made the move much easier."
+        },
+        {
+          "cell_key": "positive_active::tfidf_cosine::",
+          "gold_decision": "replace",
+          "gold_winner_kind": "active",
+          "note": "assistance offered by instructions",
+          "sentence": "The guide offers help with password resets."
+        },
+        {
+          "cell_key": "positive_active::tfidf_cosine::",
+          "gold_decision": "replace",
+          "gold_winner_kind": "active",
+          "note": "request for assistance",
+          "sentence": "We need help carrying these boxes upstairs."
+        },
+        {
+          "cell_key": "positive_active::tfidf_cosine::",
+          "gold_decision": "replace",
+          "gold_winner_kind": "active",
+          "note": "received assistance",
+          "sentence": "Thank you for the help you gave my sister."
+        }
+      ],
+      "shadows": [
+        {
+          "canonical_pos": "noun",
+          "examples": [
+            "the hired help arrived",
+            "farm help",
+            "domestic help"
+          ],
+          "gloss_text": "people hired to do domestic or farm work",
+          "sense_id_suffix": "servicio",
+          "sense_label": "hired help or servants",
+          "target_lemma": "servicio"
+        }
+      ],
+      "target_lemma": "ayuda",
+      "trigger": "help"
+    },
+    "particular": {
+      "active": {
+        "canonical_pos": "adjective",
+        "examples": [
+          "particular reason",
+          "particular case",
+          "particular tool"
+        ],
+        "gloss_text": "specific or distinct from others",
+        "sense_id_suffix": "especifico",
+        "sense_label": "specific",
+        "target_lemma": "específico"
+      },
+      "cases": [
+        {
+          "cell_key": "phrase_no_winner::tfidf_cosine::",
+          "gold_decision": "abstain",
+          "gold_winner_kind": "none",
+          "note": "in particular discourse phrase",
+          "sentence": "In particular, the last paragraph needs work."
+        },
+        {
+          "cell_key": "phrase_no_winner::tfidf_cosine::",
+          "gold_decision": "abstain",
+          "gold_winner_kind": "none",
+          "note": "nothing in particular idiom",
+          "sentence": "Nothing in particular caught my eye."
+        },
+        {
+          "cell_key": "phrase_no_winner::tfidf_cosine::",
+          "gold_decision": "abstain",
+          "gold_winner_kind": "none",
+          "note": "anyone in particular idiom",
+          "sentence": "He was not angry with anyone in particular."
+        },
+        {
+          "cell_key": "phrase_no_winner::tfidf_cosine::",
+          "gold_decision": "abstain",
+          "gold_winner_kind": "none",
+          "note": "postposed in particular phrase",
+          "sentence": "One example in particular changed my mind."
+        },
+        {
+          "cell_key": "phrase_no_winner::sentence_transformer_cosine::",
+          "gold_decision": "abstain",
+          "gold_winner_kind": "none",
+          "note": "in particular preference phrase",
+          "sentence": "She likes tea in particular after dinner."
+        },
+        {
+          "cell_key": "phrase_no_winner::sentence_transformer_cosine::",
+          "gold_decision": "abstain",
+          "gold_winner_kind": "none",
+          "note": "no X in particular phrase",
+          "sentence": "No rule in particular explains that result."
+        },
+        {
+          "cell_key": "phrase_no_winner::sentence_transformer_cosine::",
+          "gold_decision": "abstain",
+          "gold_winner_kind": "none",
+          "note": "in particular focus phrase",
+          "sentence": "This season in particular has been unpredictable."
+        },
+        {
+          "cell_key": "phrase_no_winner::sentence_transformer_cosine::",
+          "gold_decision": "abstain",
+          "gold_winner_kind": "none",
+          "note": "object plus in particular phrase",
+          "sentence": "I remember that hallway in particular."
+        }
+      ],
+      "shadows": [
+        {
+          "canonical_pos": "adjective",
+          "examples": [
+            "particular about grammar",
+            "particular about details"
+          ],
+          "gloss_text": "very exacting or fussy about details",
+          "sense_id_suffix": "quisquilloso",
+          "sense_label": "hard to please",
+          "target_lemma": "quisquilloso"
+        },
+        {
+          "canonical_pos": "noun",
+          "examples": [
+            "particulars of the contract",
+            "all the particulars"
+          ],
+          "gloss_text": "individual facts or details of a case",
+          "sense_id_suffix": "detalles",
+          "sense_label": "details or particulars",
+          "target_lemma": "detalles"
+        }
+      ],
+      "target_lemma": "específico",
+      "trigger": "particular"
+    }
+  }
+}

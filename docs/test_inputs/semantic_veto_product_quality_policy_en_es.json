@@ -36,15 +36,15 @@
       ]
     },
     {
-      "lane_id": "sentence_veto_v10_representative_proxy",
+      "lane_id": "sampling_stage1_representative_proxy",
       "lane_type": "representative",
-      "description": "Existing manually labeled sentence-veto v10 suite used as the first no-spend representative proxy.",
-      "interpretation": "Useful for measuring product-facing recall on broader active/shadow/no-winner examples; still not a final browsing distribution.",
+      "description": "Filled Stage 1 representative proxy: existing sentence-veto v10 rows plus 25 corpus-like app-candidate gap rows.",
+      "interpretation": "Useful for measuring product-facing recall on the filled 120-row representative proxy; still not a final browsing distribution, and the 25 corpus-like rows need human review.",
       "reports": [
         {
-          "source_id": "sentence_veto_v10_current_policy",
-          "suite_id": "sentence_veto_v10",
-          "path": "docs/test_outputs/semantic_routing_sentence_veto_latest.json"
+          "source_id": "sampling_stage1_representative_current_policy",
+          "suite_id": "sampling_stage1_representative",
+          "path": "docs/test_outputs/semantic_veto_sampling_stage1_representative_scoring_en_es_latest.json"
         }
       ]
     }
@@ -64,8 +64,8 @@
     }
   ],
   "next_steps": [
-    "Run the product-quality harness on existing stress data before changing runtime policy.",
-    "Add representative browsing and LLM-expanded locked evaluation lanes before broad product-quality claims.",
+    "Human-review the 25 corpus-like representative gap rows before promotion claims.",
+    "Add observed representative browsing and LLM-expanded locked evaluation lanes before broad product-quality claims.",
     "Keep stress and representative results separate in every report."
   ]
 }

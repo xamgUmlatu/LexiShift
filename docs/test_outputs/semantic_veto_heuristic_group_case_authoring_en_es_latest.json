@@ -1,0 +1,797 @@
+{
+  "authored_triggers": [
+    {
+      "canonical_pos": "noun",
+      "case_count": 5,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 2,
+        "shadow_negative": 2
+      },
+      "expected_veto_difficulty": "high",
+      "group_id": "core_high_polysemy",
+      "human_polysemy_gauge": "high",
+      "polysemy_band": "high_10_plus",
+      "review_notes": "Common core word with noun and verb senses; useful overload probe.",
+      "selection_mode": "pre_outcome",
+      "shadow_contract": "full",
+      "shadow_targets": [
+        "dotar",
+        "ser humano"
+      ],
+      "source_rank": 95.0,
+      "source_rank_bin": "1-500",
+      "target_lemma": "hombre",
+      "trigger": "man",
+      "wordnet_pos_count": 2,
+      "wordnet_sense_count": 12
+    },
+    {
+      "canonical_pos": "noun",
+      "case_count": 5,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 2,
+        "shadow_negative": 2
+      },
+      "expected_veto_difficulty": "high",
+      "group_id": "core_high_polysemy",
+      "human_polysemy_gauge": "high",
+      "polysemy_band": "high_10_plus",
+      "review_notes": "Noun/verb split plus artwork and mechanism senses make this a good core overload case.",
+      "selection_mode": "pre_outcome",
+      "shadow_contract": "full",
+      "shadow_targets": [
+        "funcionar",
+        "obra"
+      ],
+      "source_rank": 115.0,
+      "source_rank_bin": "1-500",
+      "target_lemma": "trabajo",
+      "trigger": "work",
+      "wordnet_pos_count": 2,
+      "wordnet_sense_count": 34
+    },
+    {
+      "canonical_pos": "noun",
+      "case_count": 5,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 2,
+        "shadow_negative": 2
+      },
+      "expected_veto_difficulty": "high",
+      "group_id": "core_high_polysemy",
+      "human_polysemy_gauge": "high",
+      "polysemy_band": "high_10_plus",
+      "review_notes": "Very common noun/verb source with decision, naming, and phrasal uses.",
+      "selection_mode": "pre_outcome",
+      "shadow_contract": "full",
+      "shadow_targets": [
+        "decisión",
+        "llamar"
+      ],
+      "source_rank": 125.0,
+      "source_rank_bin": "1-500",
+      "target_lemma": "llamada",
+      "trigger": "call",
+      "wordnet_pos_count": 2,
+      "wordnet_sense_count": 41
+    },
+    {
+      "canonical_pos": "noun",
+      "case_count": 5,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 2,
+        "shadow_negative": 2
+      },
+      "expected_veto_difficulty": "medium_high",
+      "group_id": "core_high_polysemy",
+      "human_polysemy_gauge": "medium_high",
+      "polysemy_band": "high_10_plus",
+      "review_notes": "Mostly assistance, but staff and fixed expressions create realistic non-active cases.",
+      "selection_mode": "pre_outcome",
+      "shadow_contract": "limited",
+      "shadow_targets": [
+        "servicio"
+      ],
+      "source_rank": 155.0,
+      "source_rank_bin": "1-500",
+      "target_lemma": "ayuda",
+      "trigger": "help",
+      "wordnet_pos_count": 2,
+      "wordnet_sense_count": 12
+    },
+    {
+      "canonical_pos": "noun",
+      "case_count": 3,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 2
+      },
+      "expected_veto_difficulty": "low",
+      "group_id": "core_low_polysemy_control",
+      "human_polysemy_gauge": "low",
+      "polysemy_band": "low_1_to_3",
+      "review_notes": "Low-polysemy control; no honest alternate English sense is forced.",
+      "selection_mode": "pre_outcome",
+      "shadow_contract": "not_applicable",
+      "shadow_targets": [],
+      "source_rank": 175.0,
+      "source_rank_bin": "1-500",
+      "target_lemma": "sí",
+      "trigger": "yes",
+      "wordnet_pos_count": 1,
+      "wordnet_sense_count": 1
+    },
+    {
+      "canonical_pos": "noun",
+      "case_count": 3,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 2
+      },
+      "expected_veto_difficulty": "low",
+      "group_id": "core_low_polysemy_control",
+      "human_polysemy_gauge": "low",
+      "polysemy_band": "low_1_to_3",
+      "review_notes": "Low-polysemy control with phrase risk rather than true shadow competition.",
+      "selection_mode": "pre_outcome",
+      "shadow_contract": "not_applicable",
+      "shadow_targets": [],
+      "source_rank": 215.0,
+      "source_rank_bin": "1-500",
+      "target_lemma": "dinero",
+      "trigger": "money",
+      "wordnet_pos_count": 1,
+      "wordnet_sense_count": 3
+    },
+    {
+      "canonical_pos": "noun",
+      "case_count": 3,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 2
+      },
+      "expected_veto_difficulty": "low",
+      "group_id": "core_low_polysemy_control",
+      "human_polysemy_gauge": "low",
+      "polysemy_band": "low_1_to_3",
+      "review_notes": "Low-polysemy numeric control; only mention/format phrases act as negatives.",
+      "selection_mode": "pre_outcome",
+      "shadow_contract": "not_applicable",
+      "shadow_targets": [],
+      "source_rank": 265.0,
+      "source_rank_bin": "1-500",
+      "target_lemma": "por ciento",
+      "trigger": "percent",
+      "wordnet_pos_count": 1,
+      "wordnet_sense_count": 1
+    },
+    {
+      "canonical_pos": "adverb",
+      "case_count": 3,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 2
+      },
+      "expected_veto_difficulty": "low",
+      "group_id": "core_low_polysemy_control",
+      "human_polysemy_gauge": "low",
+      "polysemy_band": "low_1_to_3",
+      "review_notes": "Low-polysemy adverb control; negative case is a fixed expression.",
+      "selection_mode": "pre_outcome",
+      "shadow_contract": "not_applicable",
+      "shadow_targets": [],
+      "source_rank": 335.0,
+      "source_rank_bin": "1-500",
+      "target_lemma": "a menudo",
+      "trigger": "often",
+      "wordnet_pos_count": 1,
+      "wordnet_sense_count": 3
+    },
+    {
+      "canonical_pos": "adjective",
+      "case_count": 5,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 2,
+        "shadow_negative": 2
+      },
+      "expected_veto_difficulty": "high",
+      "group_id": "mid_high_polysemy",
+      "human_polysemy_gauge": "high",
+      "polysemy_band": "high_10_plus",
+      "review_notes": "Color, environmental, inexperienced, and golf senses create a clean mid-rank test.",
+      "selection_mode": "pre_outcome",
+      "shadow_contract": "full",
+      "shadow_targets": [
+        "novato",
+        "ecológico",
+        "green"
+      ],
+      "source_rank": 1005.0,
+      "source_rank_bin": "1001-2000",
+      "target_lemma": "verde",
+      "trigger": "green",
+      "wordnet_pos_count": 4,
+      "wordnet_sense_count": 13
+    },
+    {
+      "canonical_pos": "noun",
+      "case_count": 5,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 2,
+        "shadow_negative": 2
+      },
+      "expected_veto_difficulty": "medium_high",
+      "group_id": "mid_high_polysemy",
+      "human_polysemy_gauge": "high",
+      "polysemy_band": "high_10_plus",
+      "review_notes": "Commerce target competes with swap and occupation senses.",
+      "selection_mode": "pre_outcome",
+      "shadow_contract": "full",
+      "shadow_targets": [
+        "intercambiar",
+        "oficio"
+      ],
+      "source_rank": 1025.0,
+      "source_rank_bin": "1001-2000",
+      "target_lemma": "comercio",
+      "trigger": "trade",
+      "wordnet_pos_count": 2,
+      "wordnet_sense_count": 12
+    },
+    {
+      "canonical_pos": "adjective",
+      "case_count": 5,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 2,
+        "shadow_negative": 2
+      },
+      "expected_veto_difficulty": "medium_high",
+      "group_id": "mid_high_polysemy",
+      "human_polysemy_gauge": "high",
+      "polysemy_band": "high_10_plus",
+      "review_notes": "Many adjective/adverb senses, but several Spanish targets overlap with profundo.",
+      "selection_mode": "pre_outcome",
+      "shadow_contract": "full",
+      "shadow_targets": [
+        "grave",
+        "intenso"
+      ],
+      "source_rank": 1035.0,
+      "source_rank_bin": "1001-2000",
+      "target_lemma": "profundo",
+      "trigger": "deep",
+      "wordnet_pos_count": 3,
+      "wordnet_sense_count": 21
+    },
+    {
+      "canonical_pos": "adjective",
+      "case_count": 5,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 2,
+        "shadow_negative": 2
+      },
+      "expected_veto_difficulty": "medium",
+      "group_id": "mid_high_polysemy",
+      "human_polysemy_gauge": "medium_high",
+      "polysemy_band": "medium_4_to_9",
+      "review_notes": "Specific-sense target competes with fussy and detail-noun senses.",
+      "selection_mode": "pre_outcome",
+      "shadow_contract": "full",
+      "shadow_targets": [
+        "quisquilloso",
+        "detalles"
+      ],
+      "source_rank": 1045.0,
+      "source_rank_bin": "1001-2000",
+      "target_lemma": "específico",
+      "trigger": "particular",
+      "wordnet_pos_count": 2,
+      "wordnet_sense_count": 9
+    },
+    {
+      "canonical_pos": "adverb",
+      "case_count": 3,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 2
+      },
+      "expected_veto_difficulty": "low",
+      "group_id": "mid_low_polysemy_control",
+      "human_polysemy_gauge": "low",
+      "polysemy_band": "low_1_to_3",
+      "review_notes": "Low-polysemy connective; no honest alternate sense is forced.",
+      "selection_mode": "pre_outcome",
+      "shadow_contract": "not_applicable",
+      "shadow_targets": [],
+      "source_rank": 1085.0,
+      "source_rank_bin": "1001-2000",
+      "target_lemma": "por lo tanto",
+      "trigger": "therefore",
+      "wordnet_pos_count": 1,
+      "wordnet_sense_count": 2
+    },
+    {
+      "canonical_pos": "noun",
+      "case_count": 3,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 2
+      },
+      "expected_veto_difficulty": "low",
+      "group_id": "mid_low_polysemy_control",
+      "human_polysemy_gauge": "low",
+      "polysemy_band": "low_1_to_3",
+      "review_notes": "Low-polysemy institutional noun; proper-name mentions are the main negative shape.",
+      "selection_mode": "pre_outcome",
+      "shadow_contract": "not_applicable",
+      "shadow_targets": [],
+      "source_rank": 1155.0,
+      "source_rank_bin": "1001-2000",
+      "target_lemma": "senado",
+      "trigger": "senate",
+      "wordnet_pos_count": 1,
+      "wordnet_sense_count": 1
+    },
+    {
+      "canonical_pos": "noun",
+      "case_count": 3,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 2
+      },
+      "expected_veto_difficulty": "low",
+      "group_id": "mid_low_polysemy_control",
+      "human_polysemy_gauge": "low",
+      "polysemy_band": "low_1_to_3",
+      "review_notes": "Low-polysemy person noun; code/field mentions are the main no-winner shape.",
+      "selection_mode": "pre_outcome",
+      "shadow_contract": "not_applicable",
+      "shadow_targets": [],
+      "source_rank": 1185.0,
+      "source_rank_bin": "1001-2000",
+      "target_lemma": "participante",
+      "trigger": "participant",
+      "wordnet_pos_count": 1,
+      "wordnet_sense_count": 2
+    },
+    {
+      "canonical_pos": "noun",
+      "case_count": 3,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 2
+      },
+      "expected_veto_difficulty": "low",
+      "group_id": "mid_low_polysemy_control",
+      "human_polysemy_gauge": "low",
+      "polysemy_band": "low_1_to_3",
+      "review_notes": "Low-polysemy cognate control; title mentions are the main negative shape.",
+      "selection_mode": "pre_outcome",
+      "shadow_contract": "not_applicable",
+      "shadow_targets": [],
+      "source_rank": 1295.0,
+      "source_rank_bin": "1001-2000",
+      "target_lemma": "crisis",
+      "trigger": "crisis",
+      "wordnet_pos_count": 1,
+      "wordnet_sense_count": 2
+    },
+    {
+      "canonical_pos": "noun",
+      "case_count": 5,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 2,
+        "shadow_negative": 2
+      },
+      "expected_veto_difficulty": "medium",
+      "group_id": "tail_high_polysemy",
+      "human_polysemy_gauge": "medium_high",
+      "polysemy_band": "high_10_plus",
+      "review_notes": "Tail word but sense split between technical update and service/status improvement.",
+      "selection_mode": "pre_outcome",
+      "shadow_contract": "full",
+      "shadow_targets": [
+        "mejora",
+        "mejorar"
+      ],
+      "source_rank": 5005.0,
+      "source_rank_bin": ">5000",
+      "target_lemma": "actualización",
+      "trigger": "upgrade",
+      "wordnet_pos_count": 2,
+      "wordnet_sense_count": 11
+    },
+    {
+      "canonical_pos": "noun",
+      "case_count": 5,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 2,
+        "shadow_negative": 2
+      },
+      "expected_veto_difficulty": "high",
+      "group_id": "tail_high_polysemy",
+      "human_polysemy_gauge": "high",
+      "polysemy_band": "high_10_plus",
+      "review_notes": "Tail rank but strong verb/noun split, good test of advanced-word ambiguity.",
+      "selection_mode": "pre_outcome",
+      "shadow_contract": "full",
+      "shadow_targets": [
+        "ceder",
+        "producir"
+      ],
+      "source_rank": 5025.0,
+      "source_rank_bin": ">5000",
+      "target_lemma": "rendimiento",
+      "trigger": "yield",
+      "wordnet_pos_count": 2,
+      "wordnet_sense_count": 17
+    },
+    {
+      "canonical_pos": "noun",
+      "case_count": 5,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 2,
+        "shadow_negative": 2
+      },
+      "expected_veto_difficulty": "medium",
+      "group_id": "tail_high_polysemy",
+      "human_polysemy_gauge": "medium_high",
+      "polysemy_band": "high_10_plus",
+      "review_notes": "Tool target competes with verb and auction/sports extensions.",
+      "selection_mode": "pre_outcome",
+      "shadow_contract": "full",
+      "shadow_targets": [
+        "martillar",
+        "mazo"
+      ],
+      "source_rank": 5045.0,
+      "source_rank_bin": ">5000",
+      "target_lemma": "martillo",
+      "trigger": "hammer",
+      "wordnet_pos_count": 2,
+      "wordnet_sense_count": 10
+    },
+    {
+      "canonical_pos": "adjective",
+      "case_count": 5,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 2,
+        "shadow_negative": 2
+      },
+      "expected_veto_difficulty": "medium_high",
+      "group_id": "tail_high_polysemy",
+      "human_polysemy_gauge": "high",
+      "polysemy_band": "high_10_plus",
+      "review_notes": "Small tail word with many adjective/adverb/noun/verb uses.",
+      "selection_mode": "pre_outcome",
+      "shadow_contract": "full",
+      "shadow_targets": [
+        "mínimo",
+        "mugir"
+      ],
+      "source_rank": 5135.0,
+      "source_rank_bin": ">5000",
+      "target_lemma": "bajo",
+      "trigger": "low",
+      "wordnet_pos_count": 4,
+      "wordnet_sense_count": 15
+    },
+    {
+      "canonical_pos": "adjective",
+      "case_count": 3,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 2
+      },
+      "expected_veto_difficulty": "low",
+      "group_id": "tail_low_polysemy_control",
+      "human_polysemy_gauge": "low",
+      "polysemy_band": "low_1_to_3",
+      "review_notes": "Low-polysemy adjective control.",
+      "selection_mode": "pre_outcome",
+      "shadow_contract": "not_applicable",
+      "shadow_targets": [],
+      "source_rank": 5075.0,
+      "source_rank_bin": ">5000",
+      "target_lemma": "innecesario",
+      "trigger": "unnecessary",
+      "wordnet_pos_count": 1,
+      "wordnet_sense_count": 1
+    },
+    {
+      "canonical_pos": "adjective",
+      "case_count": 3,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 2
+      },
+      "expected_veto_difficulty": "low",
+      "group_id": "tail_low_polysemy_control",
+      "human_polysemy_gauge": "low",
+      "polysemy_band": "low_1_to_3",
+      "review_notes": "Low-polysemy adjective control.",
+      "selection_mode": "pre_outcome",
+      "shadow_contract": "not_applicable",
+      "shadow_targets": [],
+      "source_rank": 5085.0,
+      "source_rank_bin": ">5000",
+      "target_lemma": "adecuado",
+      "trigger": "suitable",
+      "wordnet_pos_count": 1,
+      "wordnet_sense_count": 2
+    },
+    {
+      "canonical_pos": "adverb",
+      "case_count": 3,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 2
+      },
+      "expected_veto_difficulty": "low",
+      "group_id": "tail_low_polysemy_control",
+      "human_polysemy_gauge": "low",
+      "polysemy_band": "low_1_to_3",
+      "review_notes": "Low-polysemy adverb control with hyphenated term no-winner.",
+      "selection_mode": "pre_outcome",
+      "shadow_contract": "not_applicable",
+      "shadow_targets": [],
+      "source_rank": 5105.0,
+      "source_rank_bin": ">5000",
+      "target_lemma": "puramente",
+      "trigger": "purely",
+      "wordnet_pos_count": 1,
+      "wordnet_sense_count": 1
+    },
+    {
+      "canonical_pos": "verb",
+      "case_count": 3,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 2
+      },
+      "expected_veto_difficulty": "low",
+      "group_id": "tail_low_polysemy_control",
+      "human_polysemy_gauge": "low",
+      "polysemy_band": "low_1_to_3",
+      "review_notes": "Low-polysemy legal verb control.",
+      "selection_mode": "pre_outcome",
+      "shadow_contract": "not_applicable",
+      "shadow_targets": [],
+      "source_rank": 5125.0,
+      "source_rank_bin": ">5000",
+      "target_lemma": "enjuiciar",
+      "trigger": "prosecute",
+      "wordnet_pos_count": 1,
+      "wordnet_sense_count": 3
+    },
+    {
+      "canonical_pos": "noun",
+      "case_count": 5,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 2,
+        "shadow_negative": 2
+      },
+      "expected_veto_difficulty": "high",
+      "group_id": "measured_missing_rank_high_failure_sentinel",
+      "human_polysemy_gauge": "high",
+      "polysemy_band": "high_10_plus",
+      "review_notes": "Outcome-informed sentinel; not used to validate the primary heuristic.",
+      "selection_mode": "outcome_informed_sentinel",
+      "shadow_contract": "full",
+      "shadow_targets": [
+        "revisar",
+        "inspección"
+      ],
+      "source_rank": null,
+      "source_rank_bin": "missing",
+      "target_lemma": "cheque",
+      "trigger": "check",
+      "wordnet_pos_count": 2,
+      "wordnet_sense_count": 38
+    },
+    {
+      "canonical_pos": "noun",
+      "case_count": 5,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 2,
+        "shadow_negative": 2
+      },
+      "expected_veto_difficulty": "high",
+      "group_id": "measured_missing_rank_high_failure_sentinel",
+      "human_polysemy_gauge": "high",
+      "polysemy_band": "high_10_plus",
+      "review_notes": "Outcome-informed sentinel with commerce, command, and sequence senses.",
+      "selection_mode": "outcome_informed_sentinel",
+      "shadow_contract": "full",
+      "shadow_targets": [
+        "orden",
+        "orden"
+      ],
+      "source_rank": null,
+      "source_rank_bin": "missing",
+      "target_lemma": "pedido",
+      "trigger": "order",
+      "wordnet_pos_count": 2,
+      "wordnet_sense_count": 23
+    },
+    {
+      "canonical_pos": "verb",
+      "case_count": 5,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 2,
+        "shadow_negative": 2
+      },
+      "expected_veto_difficulty": "high",
+      "group_id": "measured_missing_rank_high_failure_sentinel",
+      "human_polysemy_gauge": "high",
+      "polysemy_band": "high_10_plus",
+      "review_notes": "Outcome-informed sentinel; active is verb to avoid Spanish planta covering both living organism and factory.",
+      "selection_mode": "outcome_informed_sentinel",
+      "shadow_contract": "full",
+      "shadow_targets": [
+        "planta",
+        "fábrica"
+      ],
+      "source_rank": null,
+      "source_rank_bin": "missing",
+      "target_lemma": "plantar",
+      "trigger": "plant",
+      "wordnet_pos_count": 2,
+      "wordnet_sense_count": 10
+    },
+    {
+      "canonical_pos": "verb",
+      "case_count": 5,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 2,
+        "shadow_negative": 2
+      },
+      "expected_veto_difficulty": "high",
+      "group_id": "measured_missing_rank_high_failure_sentinel",
+      "human_polysemy_gauge": "high",
+      "polysemy_band": "high_10_plus",
+      "review_notes": "Outcome-informed sentinel with game, theater, music, mechanical movement, and phrase uses.",
+      "selection_mode": "outcome_informed_sentinel",
+      "shadow_contract": "full",
+      "shadow_targets": [
+        "obra",
+        "holgura"
+      ],
+      "source_rank": null,
+      "source_rank_bin": "missing",
+      "target_lemma": "jugar",
+      "trigger": "play",
+      "wordnet_pos_count": 2,
+      "wordnet_sense_count": 52
+    },
+    {
+      "canonical_pos": "noun",
+      "case_count": 5,
+      "case_type_counts": {
+        "phrase_no_winner": 1,
+        "positive_active": 2,
+        "shadow_negative": 2
+      },
+      "expected_veto_difficulty": "high",
+      "group_id": "measured_missing_rank_high_failure_sentinel",
+      "human_polysemy_gauge": "high",
+      "polysemy_band": "high_10_plus",
+      "review_notes": "Outcome-informed sentinel; noun target competes with verb and sound senses.",
+      "selection_mode": "outcome_informed_sentinel",
+      "shadow_contract": "full",
+      "shadow_targets": [
+        "informar",
+        "estallido"
+      ],
+      "source_rank": null,
+      "source_rank_bin": "missing",
+      "target_lemma": "informe",
+      "trigger": "report",
+      "wordnet_pos_count": 2,
+      "wordnet_sense_count": 13
+    }
+  ],
+  "decision": "heuristic_group_case_authoring_dataset_ready_for_scoring",
+  "generated_at": "2026-05-05T02:16:07Z",
+  "inputs": {
+    "pilot_fingerprint": "d823971d29c3e682612214cfb821ca223f0fb21cafe78b371089e7377c9c92c0",
+    "pilot_id": "semantic_veto_heuristic_group_pilot_en_es_v1",
+    "pilot_path": "docs/test_outputs/semantic_veto_heuristic_group_pilot_en_es_latest.json"
+  },
+  "limitations": [
+    "agent_authored_cases_need_human_review_before_promotion_claims",
+    "low_polysemy_controls_are_not_shadow_balanced_when_no_honest_shadow_exists",
+    "case_sentences_are_manual_draft_rows_not_representative_browsing_samples",
+    "spanish_target_choices_are_plausible_research_targets_not_admitted_source_truth"
+  ],
+  "methodology": {
+    "low_polysemy_control_contract": "When a selected low-polysemy control has no honest alternate sense, the packet records that and does not fabricate shadow-negative cases.",
+    "manual_review_state": "agent_draft_human_review_pending",
+    "primary_selection_remains_pre_outcome": true,
+    "runtime_policy_change": "none",
+    "source_evidence_promotion": "none"
+  },
+  "next_steps": [
+    "Score this dataset with the existing sentence-veto harness as a diagnostic lane.",
+    "Compare group-level positive allow and negative abstain rates without mixing sentinel rows into primary-heuristic claims.",
+    "Human-review or replace any questionable target/shadow choices before treating the lane as locked evaluation.",
+    "Use failures to decide whether frequency/polysemy predicts veto difficulty or whether richer source coverage dominates."
+  ],
+  "outputs": {
+    "dataset_fingerprint": "134f139f12981d6565e4c7c3b1ac4edddd88b08aee5ddecb856c5eb11f2e244e",
+    "dataset_id": "en_es_heuristic_group_pilot_v1",
+    "dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_heuristic_group_pilot_v1.json"
+  },
+  "pair": "en-es",
+  "schema_version": 1,
+  "status": "ok",
+  "summary": {
+    "authored_trigger_count": 29,
+    "case_type_counts": {
+      "phrase_no_winner": 29,
+      "positive_active": 58,
+      "shadow_negative": 34
+    },
+    "dataset_case_count": 121,
+    "dataset_family_count": 29,
+    "dataset_fingerprint": "134f139f12981d6565e4c7c3b1ac4edddd88b08aee5ddecb856c5eb11f2e244e",
+    "group_case_type_counts": {
+      "core_high_polysemy": {
+        "phrase_no_winner": 4,
+        "positive_active": 8,
+        "shadow_negative": 8
+      },
+      "core_low_polysemy_control": {
+        "phrase_no_winner": 4,
+        "positive_active": 8
+      },
+      "measured_missing_rank_high_failure_sentinel": {
+        "phrase_no_winner": 5,
+        "positive_active": 10,
+        "shadow_negative": 10
+      },
+      "mid_high_polysemy": {
+        "phrase_no_winner": 4,
+        "positive_active": 8,
+        "shadow_negative": 8
+      },
+      "mid_low_polysemy_control": {
+        "phrase_no_winner": 4,
+        "positive_active": 8
+      },
+      "tail_high_polysemy": {
+        "phrase_no_winner": 4,
+        "positive_active": 8,
+        "shadow_negative": 8
+      },
+      "tail_low_polysemy_control": {
+        "phrase_no_winner": 4,
+        "positive_active": 8
+      }
+    },
+    "missing_authoring_specs": [],
+    "pilot_manual_review_rows": 29,
+    "shadow_contract_counts": {
+      "full": 16,
+      "limited": 1,
+      "not_applicable": 12
+    },
+    "unused_authoring_specs": []
+  }
+}

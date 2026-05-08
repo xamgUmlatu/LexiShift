@@ -1,0 +1,531 @@
+{
+  "acceptance_link": {
+    "negative_abstain_rate_min": 0.5,
+    "positive_allow_rate_min": 0.8,
+    "promotion_claim_rule": "Only the representative locked lane can estimate product quality; stratified and targeted lanes can explain or improve it.",
+    "representative_lane_required_for_promotion": true
+  },
+  "bias_controls": [
+    "all_rows_locked_for_promotion_estimation",
+    "balanced_quota_not_failure_weighted",
+    "case_contract_blinded_to_current_scorer",
+    "control_failures_block_promotion_claims",
+    "controls_expected_to_fail_or_degrade_when_the_pipeline_leaks_labels",
+    "do_not_condition_on_current_failure_status",
+    "locked_eval_rows_reserved_before_discovery_results",
+    "manual_rows_confirm_cell_contract_before_llm_rows",
+    "report_controls_separately_from_product_accuracy",
+    "report_empty_and_underfilled_cells",
+    "report_sampling_weights_and_missing_context_source",
+    "rerun_curve_surface_before_expanding_P1",
+    "source_trigger_and_context_sampled_before_scoring",
+    "stratified_results_not_representative_without_reweighting",
+    "targeted_rows_cannot_estimate_real_world_frequency"
+  ],
+  "decision": "sampling_expansion_design_established",
+  "generated_at": "2026-05-05T06:13:35Z",
+  "inputs": {
+    "curve_guided_decision": "curve_guided_expansion_plan_established",
+    "curve_guided_expansion_path": "docs/test_outputs/semantic_veto_curve_guided_expansion_plan_en_es_latest.json",
+    "manifest_path": "docs/test_inputs/semantic_veto_sampling_expansion_design_en_es.json",
+    "product_policy_id": "semantic_veto_product_quality_policy_en_es_v1",
+    "product_quality_policy_path": "docs/test_inputs/semantic_veto_product_quality_policy_en_es.json"
+  },
+  "lane_reports": [
+    {
+      "bias_controls": [
+        "do_not_condition_on_current_failure_status",
+        "source_trigger_and_context_sampled_before_scoring",
+        "all_rows_locked_for_promotion_estimation",
+        "report_sampling_weights_and_missing_context_source"
+      ],
+      "can_select_hypotheses": false,
+      "can_support_promotion_metric": true,
+      "claim_supported": "product_quality_estimate",
+      "context_policy": "Prefer observed or corpus-sampled sentences. If LLM-generated proxy contexts are used, mark them as proxy and do not call the lane representative browsing.",
+      "is_representative": true,
+      "lane_id": "representative_random_product_lane",
+      "lane_type": "representative_random",
+      "llm_discovery_rows": 0,
+      "locked_eval_rows": 120,
+      "manual_discovery_rows": 0,
+      "purpose": "Estimate product-facing allow/abstain rates under ordinary browser-like exposure.",
+      "sampling_frame": "Normal app candidate replacements from observed browser or corpus-like contexts, sampled by expected exposure/admission probability.",
+      "selection_method": "Probability-proportional-to-exposure random sample, deduped by source trigger, target lemma, and normalized context.",
+      "total_rows": 120,
+      "uses_random_sampling": true
+    },
+    {
+      "bias_controls": [
+        "balanced_quota_not_failure_weighted",
+        "case_contract_blinded_to_current_scorer",
+        "report_empty_and_underfilled_cells",
+        "stratified_results_not_representative_without_reweighting"
+      ],
+      "can_select_hypotheses": true,
+      "can_support_promotion_metric": false,
+      "claim_supported": "curve_shape_estimation",
+      "context_policy": "",
+      "is_representative": false,
+      "lane_id": "stratified_difficulty_surface_lane",
+      "lane_type": "stratified_balanced",
+      "llm_discovery_rows": 48,
+      "locked_eval_rows": 48,
+      "manual_discovery_rows": 48,
+      "purpose": "Measure difficulty curves across case type, frequency/rank, and polysemy cells without letting common easy cases dominate.",
+      "sampling_frame": "Eligible source triggers and candidate replacements grouped by pre-outcome metadata.",
+      "selection_method": "Balanced random sample within each predefined stratum; underfilled cells remain underfilled and are reported.",
+      "total_rows": 144,
+      "uses_random_sampling": true
+    },
+    {
+      "bias_controls": [
+        "targeted_rows_cannot_estimate_real_world_frequency",
+        "manual_rows_confirm_cell_contract_before_llm_rows",
+        "locked_eval_rows_reserved_before_discovery_results",
+        "rerun_curve_surface_before_expanding_P1"
+      ],
+      "can_select_hypotheses": true,
+      "can_support_promotion_metric": false,
+      "claim_supported": "mechanism_validation",
+      "context_policy": "",
+      "is_representative": false,
+      "lane_id": "targeted_curve_mechanism_lane",
+      "lane_type": "targeted_curve_expansion",
+      "llm_discovery_rows": 80,
+      "locked_eval_rows": 40,
+      "manual_discovery_rows": 20,
+      "purpose": "Test the current strongest curve mechanisms while labeling the rows as discovery or locked checks, not representative product data.",
+      "sampling_frame": "P0 cells from the curve-guided expansion report, currently phrase/no-winner underfilled/rank cells, positive-active low-score cells, and shadow near-tie cells.",
+      "selection_method": "Use the curve-guided queue priority, but consume only P0 first; P1/P2 remain staged until P0 rows rerun.",
+      "total_rows": 140,
+      "uses_random_sampling": false
+    },
+    {
+      "bias_controls": [
+        "controls_expected_to_fail_or_degrade_when_the_pipeline_leaks_labels",
+        "control_failures_block_promotion_claims",
+        "report_controls_separately_from_product_accuracy"
+      ],
+      "can_select_hypotheses": false,
+      "can_support_promotion_metric": false,
+      "claim_supported": "sanity_check",
+      "context_policy": "",
+      "is_representative": false,
+      "lane_id": "negative_and_leakage_control_lane",
+      "lane_type": "negative_control",
+      "llm_discovery_rows": 12,
+      "locked_eval_rows": 12,
+      "manual_discovery_rows": 12,
+      "purpose": "Detect lexical leakage, scorer-shaped prompts, and label leakage before expansion results are trusted.",
+      "sampling_frame": "Control rows spanning target-lemma-only traps, shuffled active/shadow labels, low-polysemy no-shadow controls, and no-winner mention-only contexts.",
+      "selection_method": "Fixed quota plus seeded random trigger selection inside each control family.",
+      "total_rows": 36,
+      "uses_random_sampling": false
+    }
+  ],
+  "methodology": {
+    "core_principle": "Representative rows estimate product quality, stratified rows draw the difficulty surface, targeted rows test mechanisms, controls detect leakage, and locked rows validate after selection.",
+    "global_rules": [
+      "Pre-register sampling lanes, quotas, split policy, and promotion claims before authoring or generating rows.",
+      "Keep representative, stratified, targeted, control, discovery, and locked-eval rows separate in every output.",
+      "Do not tune thresholds, formula weights, source evidence, or prompt templates on locked-eval rows.",
+      "Do not ask LLMs to create rows that fool or repair the current scorer; prompts may name only the linguistic case contract.",
+      "Treat missing metadata and underfilled strata as findings, not as permission to substitute known failure rows.",
+      "Use stable random seeds and deterministic row IDs so later agents can reproduce the sample plan."
+    ],
+    "random_seed": "semantic_veto_sampling_expansion_en_es_v1_2026_05_05",
+    "runtime_policy_change": "none",
+    "source_evidence_promotion": "none",
+    "split_policy": {
+      "discovery_fraction_default": 0.7,
+      "interpretation": "Discovery rows can choose hypotheses. Locked-eval rows only check hypotheses after selection.",
+      "locked_eval_fraction_default": 0.3,
+      "method": "stable_hash_row_id",
+      "representative_random_policy": "locked_eval_only_for_product_estimation"
+    }
+  },
+  "next_steps": [
+    "Freeze this sampling design before authoring additional rows.",
+    "Materialize the representative sampling frame and P0 manual rows first.",
+    "Run leakage/control prompts before any LLM generation spend.",
+    "After P0 discovery rows are scored, rerun the difficulty surface and decide whether P1 expansion is still justified."
+  ],
+  "pair": "en-es",
+  "schema_version": 1,
+  "stage_plan": [
+    {
+      "entry_condition": "Current curve-guided report and product-quality policy are present.",
+      "exit_condition": "Sampling design report is generated, reviewed, and committed; no rows authored yet.",
+      "stage_id": "stage_0_design_freeze"
+    },
+    {
+      "entry_condition": "Design freeze passed.",
+      "exit_condition": "P0 manual rows and representative sampling-frame candidate list are materialized; no threshold or scorer changes.",
+      "stage_id": "stage_1_p0_manual_and_frame_sample"
+    },
+    {
+      "entry_condition": "Manual rows confirm each P0 cell contract and prompts pass leakage review.",
+      "exit_condition": "LLM discovery rows are admitted and scored separately from manual rows.",
+      "stage_id": "stage_2_llm_discovery_generation"
+    },
+    {
+      "entry_condition": "Discovery candidate choices are frozen.",
+      "exit_condition": "Locked-eval rows are scored once, and curve reports are rerun without changing the locked lane.",
+      "stage_id": "stage_3_locked_eval_and_curve_rerun"
+    }
+  ],
+  "status": "ok",
+  "stratified_cells": [
+    {
+      "case_type": "positive_active",
+      "lane_id": "stratified_difficulty_surface_lane",
+      "llm_discovery_rows": 2,
+      "locked_eval_rows": 2,
+      "manual_discovery_rows": 2,
+      "polysemy_band": "low_1_to_3",
+      "source_rank_bin": "1-500"
+    },
+    {
+      "case_type": "positive_active",
+      "lane_id": "stratified_difficulty_surface_lane",
+      "llm_discovery_rows": 2,
+      "locked_eval_rows": 2,
+      "manual_discovery_rows": 2,
+      "polysemy_band": "high_4_plus",
+      "source_rank_bin": "1-500"
+    },
+    {
+      "case_type": "positive_active",
+      "lane_id": "stratified_difficulty_surface_lane",
+      "llm_discovery_rows": 2,
+      "locked_eval_rows": 2,
+      "manual_discovery_rows": 2,
+      "polysemy_band": "low_1_to_3",
+      "source_rank_bin": "501-1000"
+    },
+    {
+      "case_type": "positive_active",
+      "lane_id": "stratified_difficulty_surface_lane",
+      "llm_discovery_rows": 2,
+      "locked_eval_rows": 2,
+      "manual_discovery_rows": 2,
+      "polysemy_band": "high_4_plus",
+      "source_rank_bin": "501-1000"
+    },
+    {
+      "case_type": "positive_active",
+      "lane_id": "stratified_difficulty_surface_lane",
+      "llm_discovery_rows": 2,
+      "locked_eval_rows": 2,
+      "manual_discovery_rows": 2,
+      "polysemy_band": "low_1_to_3",
+      "source_rank_bin": "1001-5000"
+    },
+    {
+      "case_type": "positive_active",
+      "lane_id": "stratified_difficulty_surface_lane",
+      "llm_discovery_rows": 2,
+      "locked_eval_rows": 2,
+      "manual_discovery_rows": 2,
+      "polysemy_band": "high_4_plus",
+      "source_rank_bin": "1001-5000"
+    },
+    {
+      "case_type": "positive_active",
+      "lane_id": "stratified_difficulty_surface_lane",
+      "llm_discovery_rows": 2,
+      "locked_eval_rows": 2,
+      "manual_discovery_rows": 2,
+      "polysemy_band": "low_1_to_3",
+      "source_rank_bin": "missing_or_tail"
+    },
+    {
+      "case_type": "positive_active",
+      "lane_id": "stratified_difficulty_surface_lane",
+      "llm_discovery_rows": 2,
+      "locked_eval_rows": 2,
+      "manual_discovery_rows": 2,
+      "polysemy_band": "high_4_plus",
+      "source_rank_bin": "missing_or_tail"
+    },
+    {
+      "case_type": "shadow_negative",
+      "lane_id": "stratified_difficulty_surface_lane",
+      "llm_discovery_rows": 2,
+      "locked_eval_rows": 2,
+      "manual_discovery_rows": 2,
+      "polysemy_band": "low_1_to_3",
+      "source_rank_bin": "1-500"
+    },
+    {
+      "case_type": "shadow_negative",
+      "lane_id": "stratified_difficulty_surface_lane",
+      "llm_discovery_rows": 2,
+      "locked_eval_rows": 2,
+      "manual_discovery_rows": 2,
+      "polysemy_band": "high_4_plus",
+      "source_rank_bin": "1-500"
+    },
+    {
+      "case_type": "shadow_negative",
+      "lane_id": "stratified_difficulty_surface_lane",
+      "llm_discovery_rows": 2,
+      "locked_eval_rows": 2,
+      "manual_discovery_rows": 2,
+      "polysemy_band": "low_1_to_3",
+      "source_rank_bin": "501-1000"
+    },
+    {
+      "case_type": "shadow_negative",
+      "lane_id": "stratified_difficulty_surface_lane",
+      "llm_discovery_rows": 2,
+      "locked_eval_rows": 2,
+      "manual_discovery_rows": 2,
+      "polysemy_band": "high_4_plus",
+      "source_rank_bin": "501-1000"
+    },
+    {
+      "case_type": "shadow_negative",
+      "lane_id": "stratified_difficulty_surface_lane",
+      "llm_discovery_rows": 2,
+      "locked_eval_rows": 2,
+      "manual_discovery_rows": 2,
+      "polysemy_band": "low_1_to_3",
+      "source_rank_bin": "1001-5000"
+    },
+    {
+      "case_type": "shadow_negative",
+      "lane_id": "stratified_difficulty_surface_lane",
+      "llm_discovery_rows": 2,
+      "locked_eval_rows": 2,
+      "manual_discovery_rows": 2,
+      "polysemy_band": "high_4_plus",
+      "source_rank_bin": "1001-5000"
+    },
+    {
+      "case_type": "shadow_negative",
+      "lane_id": "stratified_difficulty_surface_lane",
+      "llm_discovery_rows": 2,
+      "locked_eval_rows": 2,
+      "manual_discovery_rows": 2,
+      "polysemy_band": "low_1_to_3",
+      "source_rank_bin": "missing_or_tail"
+    },
+    {
+      "case_type": "shadow_negative",
+      "lane_id": "stratified_difficulty_surface_lane",
+      "llm_discovery_rows": 2,
+      "locked_eval_rows": 2,
+      "manual_discovery_rows": 2,
+      "polysemy_band": "high_4_plus",
+      "source_rank_bin": "missing_or_tail"
+    },
+    {
+      "case_type": "phrase_no_winner",
+      "lane_id": "stratified_difficulty_surface_lane",
+      "llm_discovery_rows": 2,
+      "locked_eval_rows": 2,
+      "manual_discovery_rows": 2,
+      "polysemy_band": "low_1_to_3",
+      "source_rank_bin": "1-500"
+    },
+    {
+      "case_type": "phrase_no_winner",
+      "lane_id": "stratified_difficulty_surface_lane",
+      "llm_discovery_rows": 2,
+      "locked_eval_rows": 2,
+      "manual_discovery_rows": 2,
+      "polysemy_band": "high_4_plus",
+      "source_rank_bin": "1-500"
+    },
+    {
+      "case_type": "phrase_no_winner",
+      "lane_id": "stratified_difficulty_surface_lane",
+      "llm_discovery_rows": 2,
+      "locked_eval_rows": 2,
+      "manual_discovery_rows": 2,
+      "polysemy_band": "low_1_to_3",
+      "source_rank_bin": "501-1000"
+    },
+    {
+      "case_type": "phrase_no_winner",
+      "lane_id": "stratified_difficulty_surface_lane",
+      "llm_discovery_rows": 2,
+      "locked_eval_rows": 2,
+      "manual_discovery_rows": 2,
+      "polysemy_band": "high_4_plus",
+      "source_rank_bin": "501-1000"
+    },
+    {
+      "case_type": "phrase_no_winner",
+      "lane_id": "stratified_difficulty_surface_lane",
+      "llm_discovery_rows": 2,
+      "locked_eval_rows": 2,
+      "manual_discovery_rows": 2,
+      "polysemy_band": "low_1_to_3",
+      "source_rank_bin": "1001-5000"
+    },
+    {
+      "case_type": "phrase_no_winner",
+      "lane_id": "stratified_difficulty_surface_lane",
+      "llm_discovery_rows": 2,
+      "locked_eval_rows": 2,
+      "manual_discovery_rows": 2,
+      "polysemy_band": "high_4_plus",
+      "source_rank_bin": "1001-5000"
+    },
+    {
+      "case_type": "phrase_no_winner",
+      "lane_id": "stratified_difficulty_surface_lane",
+      "llm_discovery_rows": 2,
+      "locked_eval_rows": 2,
+      "manual_discovery_rows": 2,
+      "polysemy_band": "low_1_to_3",
+      "source_rank_bin": "missing_or_tail"
+    },
+    {
+      "case_type": "phrase_no_winner",
+      "lane_id": "stratified_difficulty_surface_lane",
+      "llm_discovery_rows": 2,
+      "locked_eval_rows": 2,
+      "manual_discovery_rows": 2,
+      "polysemy_band": "high_4_plus",
+      "source_rank_bin": "missing_or_tail"
+    }
+  ],
+  "summary": {
+    "curve_queue_priority_counts": {
+      "P0": 5,
+      "P1": 16,
+      "P2": 3
+    },
+    "curve_queue_rows_read": 24,
+    "issues": [],
+    "lane_count": 4,
+    "locked_eval_share": 0.5,
+    "representative_locked_rows": 120,
+    "row_budget_totals": {
+      "discovery_rows": 220,
+      "llm_discovery_rows": 140,
+      "locked_eval_rows": 220,
+      "manual_discovery_rows": 80,
+      "total_rows": 440
+    },
+    "targeted_priority_scope": [
+      "P0"
+    ]
+  },
+  "targeted_curve_cells": [
+    {
+      "expansion_score": 0.9087,
+      "heuristic_group": "core_high_polysemy",
+      "llm_discovery_rows": 16,
+      "locked_eval_rows": 8,
+      "manual_case_type": "phrase_no_winner",
+      "manual_discovery_rows": 4,
+      "polysemy_band": "high_10_plus",
+      "priority": "P0",
+      "reasons": [
+        "high_uncertainty",
+        "phrase_no_winner_priority",
+        "strong_surface_curve_signal",
+        "top_shape_data_help_cell",
+        "underfilled_cell"
+      ],
+      "scorer_id": "tfidf_cosine",
+      "source_rank_bin": "1-500",
+      "triggers": [
+        "help"
+      ]
+    },
+    {
+      "expansion_score": 0.7916,
+      "heuristic_group": "core_high_polysemy",
+      "llm_discovery_rows": 16,
+      "locked_eval_rows": 8,
+      "manual_case_type": "positive_active",
+      "manual_discovery_rows": 4,
+      "polysemy_band": "high_10_plus",
+      "priority": "P0",
+      "reasons": [
+        "high_uncertainty",
+        "positive_active_low_score",
+        "strong_surface_curve_signal",
+        "top_shape_data_help_cell",
+        "underfilled_cell"
+      ],
+      "scorer_id": "tfidf_cosine",
+      "source_rank_bin": "1-500",
+      "triggers": [
+        "help"
+      ]
+    },
+    {
+      "expansion_score": 0.7687,
+      "heuristic_group": "mid_high_polysemy",
+      "llm_discovery_rows": 16,
+      "locked_eval_rows": 8,
+      "manual_case_type": "phrase_no_winner",
+      "manual_discovery_rows": 4,
+      "polysemy_band": "medium_4_to_9",
+      "priority": "P0",
+      "reasons": [
+        "high_uncertainty",
+        "phrase_no_winner_priority",
+        "strong_surface_curve_signal",
+        "top_shape_data_help_cell",
+        "underfilled_cell"
+      ],
+      "scorer_id": "tfidf_cosine",
+      "source_rank_bin": "1001-2000",
+      "triggers": [
+        "particular"
+      ]
+    },
+    {
+      "expansion_score": 0.7599,
+      "heuristic_group": "core_high_polysemy",
+      "llm_discovery_rows": 16,
+      "locked_eval_rows": 8,
+      "manual_case_type": "phrase_no_winner",
+      "manual_discovery_rows": 4,
+      "polysemy_band": "high_10_plus",
+      "priority": "P0",
+      "reasons": [
+        "high_uncertainty",
+        "phrase_no_winner_priority",
+        "strong_surface_curve_signal",
+        "top_shape_data_help_cell",
+        "underfilled_cell"
+      ],
+      "scorer_id": "sentence_transformer_cosine",
+      "source_rank_bin": "1-500",
+      "triggers": [
+        "help"
+      ]
+    },
+    {
+      "expansion_score": 0.7521,
+      "heuristic_group": "mid_high_polysemy",
+      "llm_discovery_rows": 16,
+      "locked_eval_rows": 8,
+      "manual_case_type": "phrase_no_winner",
+      "manual_discovery_rows": 4,
+      "polysemy_band": "medium_4_to_9",
+      "priority": "P0",
+      "reasons": [
+        "high_uncertainty",
+        "phrase_no_winner_priority",
+        "strong_surface_curve_signal",
+        "top_shape_data_help_cell",
+        "underfilled_cell"
+      ],
+      "scorer_id": "sentence_transformer_cosine",
+      "source_rank_bin": "1001-2000",
+      "triggers": [
+        "particular"
+      ]
+    }
+  ]
+}

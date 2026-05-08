@@ -1,0 +1,110 @@
+{
+  "decision": "deferred_mapping_review_fix_ready_for_user_review",
+  "e2e_checks": {
+    "all_cases_have_standalone_source_token": true,
+    "all_rows_pending_user_review": true,
+    "has_active_shadow_and_no_winner_cases": true,
+    "has_fixed_families": true,
+    "no_definition_fallback_templates": true,
+    "no_placeholder_shadow_targets": true,
+    "no_trusted_rows_claimed": true,
+    "rejected_mapping_not_repaired_as_same_pair": true,
+    "replacement_family_same_source_cell": true,
+    "salvageable_audit_rows_repaired": true
+  },
+  "family_rows": [
+    {
+      "case_count": 5,
+      "family_id": "en-es:full-family-deferred-review-fix:bar:cercar",
+      "phrase_no_winner_count": 1,
+      "positive_count": 2,
+      "repair_status": "deferred_mapping_fixed_corrected_active_sense",
+      "review_note": "The draft alcohol-bar active sense was rejected. This fixed family tests only the verb/blockage sense supported by the audit.",
+      "shadow_negative_count": 2,
+      "source": "bar",
+      "source_cell_id": "source_zipf=zipf_4_to_5_common::polysemy=high_10_plus::pos_shape=cross_pos_polysemy",
+      "target": "cercar"
+    },
+    {
+      "case_count": 5,
+      "family_id": "en-es:full-family-deferred-review-fix:offset:distancia",
+      "phrase_no_winner_count": 1,
+      "positive_count": 2,
+      "repair_status": "deferred_mapping_fixed_corrected_active_sense",
+      "review_note": "The draft outset active sense was rejected. This fixed family tests only the spatial/technical distance sense; broad target adequacy remains a review question.",
+      "shadow_negative_count": 2,
+      "source": "offset",
+      "source_cell_id": "source_zipf=zipf_3_to_4_mid::polysemy=high_10_plus::pos_shape=cross_pos_polysemy",
+      "target": "distancia"
+    },
+    {
+      "case_count": 5,
+      "family_id": "en-es:full-family-deferred-review-fix:crack:grieta",
+      "phrase_no_winner_count": 1,
+      "positive_count": 2,
+      "repair_status": "representative_slot_replacement_for_rejected_mapping",
+      "review_note": "This family replaces demand -> deducción in the same source-band, polysemy, and POS-shape cell because demand -> deducción failed the source-target audit.",
+      "shadow_negative_count": 2,
+      "source": "crack",
+      "source_cell_id": "source_zipf=zipf_4_to_5_common::polysemy=high_10_plus::pos_shape=cross_pos_polysemy",
+      "target": "grieta"
+    }
+  ],
+  "generated_at": "2026-05-06T22:37:34Z",
+  "inputs": {
+    "audit_decision": "deferred_mapping_audit_complete",
+    "audit_path": "docs/test_outputs/semantic_veto_deferred_mapping_audit_en_es_latest.json"
+  },
+  "methodology": {
+    "repair_policy": "Repair only mappings the audit marked salvageable with corrected active sense; reject mismatched mappings; preserve the representative cell by adding a fresh replacement family from the same source-band/polysemy/POS shape; use independent contexts and real Spanish shadow targets.",
+    "row_authority": "agent_reviewed_user_review_pending",
+    "runtime_policy_change": "none",
+    "score_promotion": "none",
+    "trusted_seed_change": "none"
+  },
+  "next_steps": [
+    "User reviews this fixed packet before any row enters trusted evaluation.",
+    "Run sentence-veto diagnostics as a data-quality smoke test only.",
+    "If approved, append these rows to a separate trusted addendum or rerun the trusted-seed builder with an explicit approval id."
+  ],
+  "outputs": {
+    "dataset_id": "en_es_full_family_deferred_mapping_review_fix_v1",
+    "dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_full_family_deferred_mapping_review_fix_v1.json"
+  },
+  "pair": "en-es",
+  "rejected_mappings": [
+    {
+      "audit_status": "reject_mapping_source_target_mismatch",
+      "family_id": "en-es:full-family-representative:demand:deduccion",
+      "mapping_id": "demand->deducción",
+      "replacement_family_id": "en-es:full-family-deferred-review-fix:crack:grieta",
+      "replacement_mapping_id": "crack->grieta",
+      "source": "demand",
+      "target": "deducción"
+    }
+  ],
+  "schema_version": 1,
+  "status": "ok",
+  "summary": {
+    "case_type_counts": {
+      "phrase_no_winner": 3,
+      "positive_active": 6,
+      "shadow_negative": 6
+    },
+    "family_repair_status_counts": {
+      "deferred_mapping_fixed_corrected_active_sense": 2,
+      "representative_slot_replacement_for_rejected_mapping": 1
+    },
+    "fixed_case_count": 15,
+    "fixed_family_count": 3,
+    "manual_review_state": "agent_reviewed_user_review_pending",
+    "rejected_mapping_count": 1,
+    "replacement_family_count": 1,
+    "salvaged_mapping_count": 2,
+    "source_cell_case_counts": {
+      "source_zipf=zipf_3_to_4_mid::polysemy=high_10_plus::pos_shape=cross_pos_polysemy": 5,
+      "source_zipf=zipf_4_to_5_common::polysemy=high_10_plus::pos_shape=cross_pos_polysemy": 10
+    },
+    "trusted_case_count": 0
+  }
+}

@@ -1,0 +1,3939 @@
+{
+  "decision": "heuristic_group_pilot_ready_for_manual_tests",
+  "generated_at": "2026-05-05T01:45:57Z",
+  "group_specs": [
+    {
+      "description": "Top-1000 English triggers with many WordNet senses across POS.",
+      "group_id": "core_high_polysemy",
+      "heuristic_family": "frequency_x_wordnet_polysemy",
+      "label": "Core high-polysemy",
+      "pos_count_max": null,
+      "pos_count_min": 2,
+      "rank_max": 1000,
+      "rank_min": 1,
+      "selection_mode": "pre_outcome",
+      "sense_max": null,
+      "sense_min": 8
+    },
+    {
+      "description": "Top-1000 English triggers with few WordNet senses in one POS.",
+      "group_id": "core_low_polysemy_control",
+      "heuristic_family": "frequency_x_wordnet_polysemy",
+      "label": "Core low-polysemy control",
+      "pos_count_max": 1,
+      "pos_count_min": 1,
+      "rank_max": 1000,
+      "rank_min": 1,
+      "selection_mode": "pre_outcome",
+      "sense_max": 3,
+      "sense_min": 1
+    },
+    {
+      "description": "Rank 1001-5000 English triggers with many senses across POS.",
+      "group_id": "mid_high_polysemy",
+      "heuristic_family": "frequency_x_wordnet_polysemy",
+      "label": "Mid-rank high-polysemy",
+      "pos_count_max": null,
+      "pos_count_min": 2,
+      "rank_max": 5000,
+      "rank_min": 1001,
+      "selection_mode": "pre_outcome",
+      "sense_max": null,
+      "sense_min": 8
+    },
+    {
+      "description": "Rank 1001-5000 English triggers with few senses in one POS.",
+      "group_id": "mid_low_polysemy_control",
+      "heuristic_family": "frequency_x_wordnet_polysemy",
+      "label": "Mid-rank low-polysemy control",
+      "pos_count_max": 1,
+      "pos_count_min": 1,
+      "rank_max": 5000,
+      "rank_min": 1001,
+      "selection_mode": "pre_outcome",
+      "sense_max": 3,
+      "sense_min": 1
+    },
+    {
+      "description": "Rank >5000 English triggers with many senses across POS.",
+      "group_id": "tail_high_polysemy",
+      "heuristic_family": "frequency_x_wordnet_polysemy",
+      "label": "Tail high-polysemy",
+      "pos_count_max": null,
+      "pos_count_min": 2,
+      "rank_max": 999999,
+      "rank_min": 5001,
+      "selection_mode": "pre_outcome",
+      "sense_max": null,
+      "sense_min": 8
+    },
+    {
+      "description": "Rank >5000 English triggers with few senses in one POS.",
+      "group_id": "tail_low_polysemy_control",
+      "heuristic_family": "frequency_x_wordnet_polysemy",
+      "label": "Tail low-polysemy control",
+      "pos_count_max": 1,
+      "pos_count_min": 1,
+      "rank_max": 999999,
+      "rank_min": 5001,
+      "selection_mode": "pre_outcome",
+      "sense_max": 3,
+      "sense_min": 1
+    }
+  ],
+  "groups": [
+    {
+      "description": "Top-1000 English triggers with many WordNet senses across POS.",
+      "eligible_count": 30,
+      "group_id": "core_high_polysemy",
+      "heuristic_family": "frequency_x_wordnet_polysemy",
+      "label": "Core high-polysemy",
+      "selection_mode": "pre_outcome",
+      "trigger_count": 4,
+      "triggers": [
+        {
+          "observed_failure_count": null,
+          "observed_negative_allow_count": null,
+          "observed_positive_abstain_count": null,
+          "sample_synsets": [
+            {
+              "definition": "an adult person who is male (as opposed to a woman)",
+              "example": "there were two women and six men on the bus",
+              "members": [
+                "man",
+                "adult male"
+              ],
+              "pos": "noun",
+              "synset_id": "10306910-n"
+            },
+            {
+              "definition": "the generic use of the word to refer to any human being",
+              "example": "it was every man for himself",
+              "members": [
+                "man"
+              ],
+              "pos": "noun",
+              "synset_id": "10308700-n"
+            },
+            {
+              "definition": "any living or extinct member of the family Hominidae characterized by superior intelligence, articulate speech, and erect carriage",
+              "example": "",
+              "members": [
+                "homo",
+                "man",
+                "human being",
+                "human"
+              ],
+              "pos": "noun",
+              "synset_id": "02474924-n"
+            }
+          ],
+          "selection_reason": "core_high_polysemy",
+          "source_frequency": 1091176.0,
+          "source_rank": 95.0,
+          "source_rank_bin": "1-500",
+          "trigger": "man",
+          "wordnet_definition_count": 12,
+          "wordnet_example_count": 14,
+          "wordnet_pos_count": 2,
+          "wordnet_pos_counts": {
+            "noun": 10,
+            "verb": 2
+          },
+          "wordnet_sense_count": 12
+        },
+        {
+          "observed_failure_count": null,
+          "observed_negative_allow_count": null,
+          "observed_positive_abstain_count": null,
+          "sample_synsets": [
+            {
+              "definition": "activity directed toward making or doing something",
+              "example": "she checked several points needing further work",
+              "members": [
+                "work"
+              ],
+              "pos": "noun",
+              "synset_id": "00576778-n"
+            },
+            {
+              "definition": "a product produced or accomplished through the effort or activity or agency of a person or thing",
+              "example": "it is not regarded as one of his more memorable works",
+              "members": [
+                "work",
+                "piece of work"
+              ],
+              "pos": "noun",
+              "synset_id": "04606723-n"
+            },
+            {
+              "definition": "the occupation for which you are paid",
+              "example": "he is looking for employment",
+              "members": [
+                "employment",
+                "work"
+              ],
+              "pos": "noun",
+              "synset_id": "00585404-n"
+            }
+          ],
+          "selection_reason": "core_high_polysemy",
+          "source_frequency": 854095.0,
+          "source_rank": 115.0,
+          "source_rank_bin": "1-500",
+          "trigger": "work",
+          "wordnet_definition_count": 34,
+          "wordnet_example_count": 92,
+          "wordnet_pos_count": 2,
+          "wordnet_pos_counts": {
+            "noun": 7,
+            "verb": 27
+          },
+          "wordnet_sense_count": 34
+        },
+        {
+          "observed_failure_count": null,
+          "observed_negative_allow_count": null,
+          "observed_positive_abstain_count": null,
+          "sample_synsets": [
+            {
+              "definition": "a method of contacting a person by phone",
+              "example": "she reported several anonymous calls",
+              "members": [
+                "call",
+                "phone call",
+                "telephone call"
+              ],
+              "pos": "noun",
+              "synset_id": "06283456-n"
+            },
+            {
+              "definition": "a loud utterance; often in protest or opposition",
+              "example": "the speaker was interrupted by loud cries from the rear of the audience",
+              "members": [
+                "cry",
+                "outcry",
+                "call",
+                "yell",
+                "shout"
+              ],
+              "pos": "noun",
+              "synset_id": "07135232-n"
+            },
+            {
+              "definition": "a demand",
+              "example": "",
+              "members": [
+                "call",
+                "claim"
+              ],
+              "pos": "noun",
+              "synset_id": "07206789-n"
+            }
+          ],
+          "selection_reason": "core_high_polysemy",
+          "source_frequency": 768117.0,
+          "source_rank": 125.0,
+          "source_rank_bin": "1-500",
+          "trigger": "call",
+          "wordnet_definition_count": 41,
+          "wordnet_example_count": 58,
+          "wordnet_pos_count": 2,
+          "wordnet_pos_counts": {
+            "noun": 13,
+            "verb": 28
+          },
+          "wordnet_sense_count": 41
+        },
+        {
+          "observed_failure_count": null,
+          "observed_negative_allow_count": null,
+          "observed_positive_abstain_count": null,
+          "sample_synsets": [
+            {
+              "definition": "the activity of contributing to the fulfillment of a need or furtherance of an effort or purpose",
+              "example": "he gave me an assist with the housework",
+              "members": [
+                "aid",
+                "assist",
+                "assistance",
+                "help"
+              ],
+              "pos": "noun",
+              "synset_id": "01210099-n"
+            },
+            {
+              "definition": "a person who contributes to the fulfillment of a need or furtherance of an effort or purpose",
+              "example": "my invaluable assistant",
+              "members": [
+                "assistant",
+                "helper",
+                "help",
+                "supporter"
+              ],
+              "pos": "noun",
+              "synset_id": "09835195-n"
+            },
+            {
+              "definition": "a person or thing that is a resource that helps make something easier or possible to do",
+              "example": "visual aids in teaching",
+              "members": [
+                "aid",
+                "assistance",
+                "help"
+              ],
+              "pos": "noun",
+              "synset_id": "05162155-n"
+            }
+          ],
+          "selection_reason": "core_high_polysemy",
+          "source_frequency": 606887.0,
+          "source_rank": 155.0,
+          "source_rank_bin": "1-500",
+          "trigger": "help",
+          "wordnet_definition_count": 12,
+          "wordnet_example_count": 25,
+          "wordnet_pos_count": 2,
+          "wordnet_pos_counts": {
+            "noun": 4,
+            "verb": 8
+          },
+          "wordnet_sense_count": 12
+        }
+      ]
+    },
+    {
+      "description": "Top-1000 English triggers with few WordNet senses in one POS.",
+      "eligible_count": 12,
+      "group_id": "core_low_polysemy_control",
+      "heuristic_family": "frequency_x_wordnet_polysemy",
+      "label": "Core low-polysemy control",
+      "selection_mode": "pre_outcome",
+      "trigger_count": 4,
+      "triggers": [
+        {
+          "observed_failure_count": null,
+          "observed_negative_allow_count": null,
+          "observed_positive_abstain_count": null,
+          "sample_synsets": [
+            {
+              "definition": "an affirmative",
+              "example": "I was hoping for a yes",
+              "members": [
+                "yes"
+              ],
+              "pos": "noun",
+              "synset_id": "07218560-n"
+            }
+          ],
+          "selection_reason": "core_low_polysemy_control",
+          "source_frequency": 537066.0,
+          "source_rank": 175.0,
+          "source_rank_bin": "1-500",
+          "trigger": "yes",
+          "wordnet_definition_count": 1,
+          "wordnet_example_count": 1,
+          "wordnet_pos_count": 1,
+          "wordnet_pos_counts": {
+            "noun": 1
+          },
+          "wordnet_sense_count": 1
+        },
+        {
+          "observed_failure_count": null,
+          "observed_negative_allow_count": null,
+          "observed_positive_abstain_count": null,
+          "sample_synsets": [
+            {
+              "definition": "the most common medium of exchange; functions as legal tender",
+              "example": "we tried to collect the money he owed us",
+              "members": [
+                "money"
+              ],
+              "pos": "noun",
+              "synset_id": "13405730-n"
+            },
+            {
+              "definition": "wealth reckoned in terms of money",
+              "example": "all his money is in real estate",
+              "members": [
+                "money"
+              ],
+              "pos": "noun",
+              "synset_id": "13271441-n"
+            },
+            {
+              "definition": "the official currency issued by a government or national bank",
+              "example": "he changed his money into francs",
+              "members": [
+                "money"
+              ],
+              "pos": "noun",
+              "synset_id": "13406050-n"
+            }
+          ],
+          "selection_reason": "core_low_polysemy_control",
+          "source_frequency": 437583.0,
+          "source_rank": 215.0,
+          "source_rank_bin": "1-500",
+          "trigger": "money",
+          "wordnet_definition_count": 3,
+          "wordnet_example_count": 3,
+          "wordnet_pos_count": 1,
+          "wordnet_pos_counts": {
+            "noun": 3
+          },
+          "wordnet_sense_count": 3
+        },
+        {
+          "observed_failure_count": null,
+          "observed_negative_allow_count": null,
+          "observed_positive_abstain_count": null,
+          "sample_synsets": [
+            {
+              "definition": "a proportion in relation to a whole (which is usually the amount per hundred); ten percent",
+              "example": "",
+              "members": [
+                "percentage",
+                "percent",
+                "per centum",
+                "pct"
+              ],
+              "pos": "noun",
+              "synset_id": "13839738-n"
+            }
+          ],
+          "selection_reason": "core_low_polysemy_control",
+          "source_frequency": 357515.0,
+          "source_rank": 265.0,
+          "source_rank_bin": "1-500",
+          "trigger": "percent",
+          "wordnet_definition_count": 1,
+          "wordnet_example_count": 0,
+          "wordnet_pos_count": 1,
+          "wordnet_pos_counts": {
+            "noun": 1
+          },
+          "wordnet_sense_count": 1
+        },
+        {
+          "observed_failure_count": null,
+          "observed_negative_allow_count": null,
+          "observed_positive_abstain_count": null,
+          "sample_synsets": [
+            {
+              "definition": "many times at short intervals",
+              "example": "we often met over a cup of coffee",
+              "members": [
+                "frequently",
+                "often",
+                "oftentimes",
+                "oft",
+                "ofttimes"
+              ],
+              "pos": "adverb",
+              "synset_id": "00035445-r"
+            },
+            {
+              "definition": "frequently or in great quantities",
+              "example": "I don't drink much",
+              "members": [
+                "much",
+                "a great deal",
+                "often"
+              ],
+              "pos": "adverb",
+              "synset_id": "00059951-r"
+            },
+            {
+              "definition": "in many cases or instances",
+              "example": "",
+              "members": [
+                "often"
+              ],
+              "pos": "adverb",
+              "synset_id": "00060085-r"
+            }
+          ],
+          "selection_reason": "core_low_polysemy_control",
+          "source_frequency": 295709.0,
+          "source_rank": 335.0,
+          "source_rank_bin": "1-500",
+          "trigger": "often",
+          "wordnet_definition_count": 3,
+          "wordnet_example_count": 3,
+          "wordnet_pos_count": 1,
+          "wordnet_pos_counts": {
+            "adverb": 3
+          },
+          "wordnet_sense_count": 3
+        }
+      ]
+    },
+    {
+      "description": "Rank 1001-5000 English triggers with many senses across POS.",
+      "eligible_count": 82,
+      "group_id": "mid_high_polysemy",
+      "heuristic_family": "frequency_x_wordnet_polysemy",
+      "label": "Mid-rank high-polysemy",
+      "selection_mode": "pre_outcome",
+      "trigger_count": 4,
+      "triggers": [
+        {
+          "observed_failure_count": null,
+          "observed_negative_allow_count": null,
+          "observed_positive_abstain_count": null,
+          "sample_synsets": [
+            {
+              "definition": "of the color between blue and yellow in the color spectrum; similar to the color of fresh grass",
+              "example": "a green tree",
+              "members": [
+                "green",
+                "greenish",
+                "light-green",
+                "dark-green"
+              ],
+              "pos": "adjective",
+              "synset_id": "00377031-s"
+            },
+            {
+              "definition": "concerned with or supporting or in conformity with the political principles of the Green Party",
+              "example": "",
+              "members": [
+                "green"
+              ],
+              "pos": "adjective",
+              "synset_id": "03081365-a"
+            },
+            {
+              "definition": "not fully developed or mature; not ripe",
+              "example": "unripe fruit",
+              "members": [
+                "green",
+                "unripe",
+                "unripened",
+                "immature"
+              ],
+              "pos": "adjective",
+              "synset_id": "01497045-a"
+            }
+          ],
+          "selection_reason": "mid_high_polysemy",
+          "source_frequency": 95937.0,
+          "source_rank": 1005.0,
+          "source_rank_bin": "1001-2000",
+          "trigger": "green",
+          "wordnet_definition_count": 13,
+          "wordnet_example_count": 12,
+          "wordnet_pos_count": 4,
+          "wordnet_pos_counts": {
+            "adjective": 5,
+            "adjective_satellite": 1,
+            "noun": 6,
+            "verb": 1
+          },
+          "wordnet_sense_count": 13
+        },
+        {
+          "observed_failure_count": null,
+          "observed_negative_allow_count": null,
+          "observed_positive_abstain_count": null,
+          "sample_synsets": [
+            {
+              "definition": "the commercial exchange (buying and selling on domestic or international markets) of goods and services",
+              "example": "Venice was an important center of trade with the East",
+              "members": [
+                "trade"
+              ],
+              "pos": "noun",
+              "synset_id": "01093829-n"
+            },
+            {
+              "definition": "the skilled practice of a practical occupation",
+              "example": "he learned his trade as an apprentice",
+              "members": [
+                "trade",
+                "craft"
+              ],
+              "pos": "noun",
+              "synset_id": "00607485-n"
+            },
+            {
+              "definition": "the business given to a commercial establishment by its customers",
+              "example": "even before noon there was a considerable patronage",
+              "members": [
+                "trade",
+                "patronage"
+              ],
+              "pos": "noun",
+              "synset_id": "01098359-n"
+            }
+          ],
+          "selection_reason": "mid_high_polysemy",
+          "source_frequency": 94509.0,
+          "source_rank": 1025.0,
+          "source_rank_bin": "1001-2000",
+          "trigger": "trade",
+          "wordnet_definition_count": 12,
+          "wordnet_example_count": 17,
+          "wordnet_pos_count": 2,
+          "wordnet_pos_counts": {
+            "noun": 7,
+            "verb": 5
+          },
+          "wordnet_sense_count": 12
+        },
+        {
+          "observed_failure_count": null,
+          "observed_negative_allow_count": null,
+          "observed_positive_abstain_count": null,
+          "sample_synsets": [
+            {
+              "definition": "relatively deep or strong; affecting one deeply",
+              "example": "a deep breath",
+              "members": [
+                "deep"
+              ],
+              "pos": "adjective",
+              "synset_id": "00696211-a"
+            },
+            {
+              "definition": "marked by depth of thinking",
+              "example": "deep thoughts",
+              "members": [
+                "deep"
+              ],
+              "pos": "adjective",
+              "synset_id": "01879131-s"
+            },
+            {
+              "definition": "having great spatial extension or penetration downward or inward from an outer surface or backward or laterally or outward from a center; sometimes used in combination",
+              "example": "a deep well",
+              "members": [
+                "deep"
+              ],
+              "pos": "adjective",
+              "synset_id": "00693335-a"
+            }
+          ],
+          "selection_reason": "mid_high_polysemy",
+          "source_frequency": 93753.0,
+          "source_rank": 1035.0,
+          "source_rank_bin": "1001-2000",
+          "trigger": "deep",
+          "wordnet_definition_count": 21,
+          "wordnet_example_count": 60,
+          "wordnet_pos_count": 3,
+          "wordnet_pos_counts": {
+            "adjective": 15,
+            "adverb": 3,
+            "noun": 3
+          },
+          "wordnet_sense_count": 21
+        },
+        {
+          "observed_failure_count": null,
+          "observed_negative_allow_count": null,
+          "observed_positive_abstain_count": null,
+          "sample_synsets": [
+            {
+              "definition": "unique or specific to a person or thing or category",
+              "example": "the particular demands of the job",
+              "members": [
+                "particular",
+                "peculiar",
+                "special"
+              ],
+              "pos": "adjective",
+              "synset_id": "01107719-s"
+            },
+            {
+              "definition": "separate and distinct from others of the same group or category",
+              "example": "interested in one particular artist",
+              "members": [
+                "particular"
+              ],
+              "pos": "adjective",
+              "synset_id": "01108153-s"
+            },
+            {
+              "definition": "surpassing what is common or usual or expected",
+              "example": "he paid especial attention to her",
+              "members": [
+                "especial",
+                "exceptional",
+                "particular",
+                "special"
+              ],
+              "pos": "adjective",
+              "synset_id": "00490174-s"
+            }
+          ],
+          "selection_reason": "mid_high_polysemy",
+          "source_frequency": 92775.0,
+          "source_rank": 1045.0,
+          "source_rank_bin": "1001-2000",
+          "trigger": "particular",
+          "wordnet_definition_count": 9,
+          "wordnet_example_count": 23,
+          "wordnet_pos_count": 2,
+          "wordnet_pos_counts": {
+            "adjective": 6,
+            "noun": 3
+          },
+          "wordnet_sense_count": 9
+        }
+      ]
+    },
+    {
+      "description": "Rank 1001-5000 English triggers with few senses in one POS.",
+      "eligible_count": 138,
+      "group_id": "mid_low_polysemy_control",
+      "heuristic_family": "frequency_x_wordnet_polysemy",
+      "label": "Mid-rank low-polysemy control",
+      "selection_mode": "pre_outcome",
+      "trigger_count": 4,
+      "triggers": [
+        {
+          "observed_failure_count": null,
+          "observed_negative_allow_count": null,
+          "observed_positive_abstain_count": null,
+          "sample_synsets": [
+            {
+              "definition": "(used to introduce a logical conclusion) from that fact or reason or as a result",
+              "example": "therefore X must be true",
+              "members": [
+                "therefore",
+                "hence",
+                "thence",
+                "thus",
+                "so"
+              ],
+              "pos": "adverb",
+              "synset_id": "00043413-r"
+            },
+            {
+              "definition": "as a consequence",
+              "example": "he had good reason to be grateful for the opportunities which they had made available to him and which consequently led to the good position he now held",
+              "members": [
+                "consequently",
+                "therefore"
+              ],
+              "pos": "adverb",
+              "synset_id": "00295773-r"
+            }
+          ],
+          "selection_reason": "mid_low_polysemy_control",
+          "source_frequency": 89981.0,
+          "source_rank": 1085.0,
+          "source_rank_bin": "1001-2000",
+          "trigger": "therefore",
+          "wordnet_definition_count": 2,
+          "wordnet_example_count": 6,
+          "wordnet_pos_count": 1,
+          "wordnet_pos_counts": {
+            "adverb": 2
+          },
+          "wordnet_sense_count": 2
+        },
+        {
+          "observed_failure_count": null,
+          "observed_negative_allow_count": null,
+          "observed_positive_abstain_count": null,
+          "sample_synsets": [
+            {
+              "definition": "assembly possessing high legislative powers",
+              "example": "",
+              "members": [
+                "senate"
+              ],
+              "pos": "noun",
+              "synset_id": "08178376-n"
+            }
+          ],
+          "selection_reason": "mid_low_polysemy_control",
+          "source_frequency": 83931.0,
+          "source_rank": 1155.0,
+          "source_rank_bin": "1001-2000",
+          "trigger": "senate",
+          "wordnet_definition_count": 1,
+          "wordnet_example_count": 0,
+          "wordnet_pos_count": 1,
+          "wordnet_pos_counts": {
+            "noun": 1
+          },
+          "wordnet_sense_count": 1
+        },
+        {
+          "observed_failure_count": null,
+          "observed_negative_allow_count": null,
+          "observed_positive_abstain_count": null,
+          "sample_synsets": [
+            {
+              "definition": "someone who takes part in an activity",
+              "example": "he was a major player in setting up the corporation",
+              "members": [
+                "participant",
+                "player"
+              ],
+              "pos": "noun",
+              "synset_id": "10421528-n"
+            },
+            {
+              "definition": "a person who participates in or is skilled at some game",
+              "example": "",
+              "members": [
+                "player",
+                "participant"
+              ],
+              "pos": "noun",
+              "synset_id": "10459618-n"
+            }
+          ],
+          "selection_reason": "mid_low_polysemy_control",
+          "source_frequency": 81371.0,
+          "source_rank": 1185.0,
+          "source_rank_bin": "1001-2000",
+          "trigger": "participant",
+          "wordnet_definition_count": 2,
+          "wordnet_example_count": 1,
+          "wordnet_pos_count": 1,
+          "wordnet_pos_counts": {
+            "noun": 2
+          },
+          "wordnet_sense_count": 2
+        },
+        {
+          "observed_failure_count": null,
+          "observed_negative_allow_count": null,
+          "observed_positive_abstain_count": null,
+          "sample_synsets": [
+            {
+              "definition": "an unstable situation of extreme danger or difficulty",
+              "example": "they went bankrupt during the economic crisis",
+              "members": [
+                "crisis"
+              ],
+              "pos": "noun",
+              "synset_id": "13956593-n"
+            },
+            {
+              "definition": "a crucial stage or turning point in the course of something",
+              "example": "after the crisis the patient either dies or gets better",
+              "members": [
+                "crisis"
+              ],
+              "pos": "noun",
+              "synset_id": "07432244-n"
+            }
+          ],
+          "selection_reason": "mid_low_polysemy_control",
+          "source_frequency": 73691.0,
+          "source_rank": 1295.0,
+          "source_rank_bin": "1001-2000",
+          "trigger": "crisis",
+          "wordnet_definition_count": 2,
+          "wordnet_example_count": 2,
+          "wordnet_pos_count": 1,
+          "wordnet_pos_counts": {
+            "noun": 2
+          },
+          "wordnet_sense_count": 2
+        }
+      ]
+    },
+    {
+      "description": "Rank >5000 English triggers with many senses across POS.",
+      "eligible_count": 120,
+      "group_id": "tail_high_polysemy",
+      "heuristic_family": "frequency_x_wordnet_polysemy",
+      "label": "Tail high-polysemy",
+      "selection_mode": "pre_outcome",
+      "trigger_count": 4,
+      "triggers": [
+        {
+          "observed_failure_count": null,
+          "observed_negative_allow_count": null,
+          "observed_positive_abstain_count": null,
+          "sample_synsets": [
+            {
+              "definition": "an upward slope or grade (as in a road)",
+              "example": "the car couldn't make it up the rise",
+              "members": [
+                "ascent",
+                "acclivity",
+                "rise",
+                "raise",
+                "climb"
+              ],
+              "pos": "noun",
+              "synset_id": "09229873-n"
+            },
+            {
+              "definition": "software that provides better performance than an earlier version did",
+              "example": "",
+              "members": [
+                "upgrade"
+              ],
+              "pos": "noun",
+              "synset_id": "06916031-n"
+            },
+            {
+              "definition": "a reservation that is improved",
+              "example": "I got an upgrade to first class when coach class was full",
+              "members": [
+                "upgrade"
+              ],
+              "pos": "noun",
+              "synset_id": "05803662-n"
+            }
+          ],
+          "selection_reason": "tail_high_polysemy",
+          "source_frequency": 12053.0,
+          "source_rank": 5005.0,
+          "source_rank_bin": ">5000",
+          "trigger": "upgrade",
+          "wordnet_definition_count": 11,
+          "wordnet_example_count": 10,
+          "wordnet_pos_count": 2,
+          "wordnet_pos_counts": {
+            "noun": 6,
+            "verb": 5
+          },
+          "wordnet_sense_count": 11
+        },
+        {
+          "observed_failure_count": null,
+          "observed_negative_allow_count": null,
+          "observed_positive_abstain_count": null,
+          "sample_synsets": [
+            {
+              "definition": "production of a certain amount",
+              "example": "",
+              "members": [
+                "output",
+                "yield"
+              ],
+              "pos": "noun",
+              "synset_id": "00916463-n"
+            },
+            {
+              "definition": "the income or profit arising from such transactions as the sale of land or other property",
+              "example": "the average return was about 5%",
+              "members": [
+                "return",
+                "issue",
+                "take",
+                "takings",
+                "proceeds"
+              ],
+              "pos": "noun",
+              "synset_id": "13281089-n"
+            },
+            {
+              "definition": "an amount of a product",
+              "example": "",
+              "members": [
+                "yield",
+                "fruit"
+              ],
+              "pos": "noun",
+              "synset_id": "04620079-n"
+            }
+          ],
+          "selection_reason": "tail_high_polysemy",
+          "source_frequency": 11970.0,
+          "source_rank": 5025.0,
+          "source_rank_bin": ">5000",
+          "trigger": "yield",
+          "wordnet_definition_count": 17,
+          "wordnet_example_count": 17,
+          "wordnet_pos_count": 2,
+          "wordnet_pos_counts": {
+            "noun": 4,
+            "verb": 13
+          },
+          "wordnet_sense_count": 17
+        },
+        {
+          "observed_failure_count": null,
+          "observed_negative_allow_count": null,
+          "observed_positive_abstain_count": null,
+          "sample_synsets": [
+            {
+              "definition": "the part of a gunlock that strikes the percussion cap when the trigger is pulled",
+              "example": "",
+              "members": [
+                "hammer",
+                "cock"
+              ],
+              "pos": "noun",
+              "synset_id": "03486907-n"
+            },
+            {
+              "definition": "a hand tool with a heavy rigid head and a handle; used to deliver an impulsive force by striking",
+              "example": "",
+              "members": [
+                "hammer"
+              ],
+              "pos": "noun",
+              "synset_id": "03486255-n"
+            },
+            {
+              "definition": "the ossicle attached to the eardrum",
+              "example": "",
+              "members": [
+                "malleus",
+                "hammer"
+              ],
+              "pos": "noun",
+              "synset_id": "05333491-n"
+            }
+          ],
+          "selection_reason": "tail_high_polysemy",
+          "source_frequency": 11886.0,
+          "source_rank": 5045.0,
+          "source_rank_bin": ">5000",
+          "trigger": "hammer",
+          "wordnet_definition_count": 10,
+          "wordnet_example_count": 5,
+          "wordnet_pos_count": 2,
+          "wordnet_pos_counts": {
+            "noun": 8,
+            "verb": 2
+          },
+          "wordnet_sense_count": 10
+        },
+        {
+          "observed_failure_count": null,
+          "observed_negative_allow_count": null,
+          "observed_positive_abstain_count": null,
+          "sample_synsets": [
+            {
+              "definition": "less than normal in degree or intensity or amount",
+              "example": "low prices",
+              "members": [
+                "low"
+              ],
+              "pos": "adjective",
+              "synset_id": "01215141-a"
+            },
+            {
+              "definition": "being at or having a relatively small elevation or upward extension",
+              "example": "low ceilings",
+              "members": [
+                "low"
+              ],
+              "pos": "adjective",
+              "synset_id": "01209146-a"
+            },
+            {
+              "definition": "very low in volume",
+              "example": "a low murmur",
+              "members": [
+                "low",
+                "low-toned"
+              ],
+              "pos": "adjective",
+              "synset_id": "01458667-s"
+            }
+          ],
+          "selection_reason": "tail_high_polysemy",
+          "source_frequency": 11611.0,
+          "source_rank": 5135.0,
+          "source_rank_bin": ">5000",
+          "trigger": "low",
+          "wordnet_definition_count": 15,
+          "wordnet_example_count": 40,
+          "wordnet_pos_count": 4,
+          "wordnet_pos_counts": {
+            "adjective": 10,
+            "adverb": 1,
+            "noun": 3,
+            "verb": 1
+          },
+          "wordnet_sense_count": 15
+        }
+      ]
+    },
+    {
+      "description": "Rank >5000 English triggers with few senses in one POS.",
+      "eligible_count": 2759,
+      "group_id": "tail_low_polysemy_control",
+      "heuristic_family": "frequency_x_wordnet_polysemy",
+      "label": "Tail low-polysemy control",
+      "selection_mode": "pre_outcome",
+      "trigger_count": 4,
+      "triggers": [
+        {
+          "observed_failure_count": null,
+          "observed_negative_allow_count": null,
+          "observed_positive_abstain_count": null,
+          "sample_synsets": [
+            {
+              "definition": "not necessary",
+              "example": "",
+              "members": [
+                "unnecessary",
+                "unneeded"
+              ],
+              "pos": "adjective",
+              "synset_id": "01585523-a"
+            }
+          ],
+          "selection_reason": "tail_low_polysemy_control",
+          "source_frequency": 11789.0,
+          "source_rank": 5075.0,
+          "source_rank_bin": ">5000",
+          "trigger": "unnecessary",
+          "wordnet_definition_count": 1,
+          "wordnet_example_count": 0,
+          "wordnet_pos_count": 1,
+          "wordnet_pos_counts": {
+            "adjective": 1
+          },
+          "wordnet_sense_count": 1
+        },
+        {
+          "observed_failure_count": null,
+          "observed_negative_allow_count": null,
+          "observed_positive_abstain_count": null,
+          "sample_synsets": [
+            {
+              "definition": "meant or adapted for an occasion or use",
+              "example": "a tractor suitable (or fit) for heavy duty",
+              "members": [
+                "suitable",
+                "suited",
+                "appropriate"
+              ],
+              "pos": "adjective",
+              "synset_id": "01024501-s"
+            },
+            {
+              "definition": "worthy of being chosen especially as a spouse",
+              "example": "the parents found the girl suitable for their son",
+              "members": [
+                "desirable",
+                "suitable",
+                "worthy"
+              ],
+              "pos": "adjective",
+              "synset_id": "00855376-s"
+            }
+          ],
+          "selection_reason": "tail_low_polysemy_control",
+          "source_frequency": 11759.0,
+          "source_rank": 5085.0,
+          "source_rank_bin": ">5000",
+          "trigger": "suitable",
+          "wordnet_definition_count": 2,
+          "wordnet_example_count": 3,
+          "wordnet_pos_count": 1,
+          "wordnet_pos_counts": {
+            "adjective": 2
+          },
+          "wordnet_sense_count": 2
+        },
+        {
+          "observed_failure_count": null,
+          "observed_negative_allow_count": null,
+          "observed_positive_abstain_count": null,
+          "sample_synsets": [
+            {
+              "definition": "restricted to something",
+              "example": "we talked strictly business",
+              "members": [
+                "strictly",
+                "purely"
+              ],
+              "pos": "adverb",
+              "synset_id": "00180598-r"
+            }
+          ],
+          "selection_reason": "tail_low_polysemy_control",
+          "source_frequency": 11697.0,
+          "source_rank": 5105.0,
+          "source_rank_bin": ">5000",
+          "trigger": "purely",
+          "wordnet_definition_count": 1,
+          "wordnet_example_count": 1,
+          "wordnet_pos_count": 1,
+          "wordnet_pos_counts": {
+            "adverb": 1
+          },
+          "wordnet_sense_count": 1
+        },
+        {
+          "observed_failure_count": null,
+          "observed_negative_allow_count": null,
+          "observed_positive_abstain_count": null,
+          "sample_synsets": [
+            {
+              "definition": "conduct a prosecution in a court of law",
+              "example": "",
+              "members": [
+                "prosecute"
+              ],
+              "pos": "verb",
+              "synset_id": "02587985-v"
+            },
+            {
+              "definition": "bring a criminal action against (in a trial)",
+              "example": "The State of California prosecuted O.J. Simpson",
+              "members": [
+                "prosecute"
+              ],
+              "pos": "verb",
+              "synset_id": "02587562-v"
+            },
+            {
+              "definition": "carry out or participate in an activity; be involved in",
+              "example": "She pursued many activities",
+              "members": [
+                "prosecute",
+                "engage",
+                "pursue"
+              ],
+              "pos": "verb",
+              "synset_id": "02380222-v"
+            }
+          ],
+          "selection_reason": "tail_low_polysemy_control",
+          "source_frequency": 11637.0,
+          "source_rank": 5125.0,
+          "source_rank_bin": ">5000",
+          "trigger": "prosecute",
+          "wordnet_definition_count": 3,
+          "wordnet_example_count": 4,
+          "wordnet_pos_count": 1,
+          "wordnet_pos_counts": {
+            "verb": 3
+          },
+          "wordnet_sense_count": 3
+        }
+      ]
+    },
+    {
+      "description": "Currently measured high-failure triggers missing local source rank. This is not used to validate the frequency/polysemy heuristic.",
+      "eligible_count": 6,
+      "group_id": "measured_missing_rank_high_failure_sentinel",
+      "heuristic_family": "outcome_informed_metadata_gap",
+      "label": "Measured missing-rank high-failure sentinel",
+      "selection_mode": "outcome_informed_sentinel",
+      "trigger_count": 5,
+      "triggers": [
+        {
+          "observed_failure_count": 5,
+          "observed_negative_allow_count": 3,
+          "observed_positive_abstain_count": 2,
+          "sample_synsets": [
+            {
+              "definition": "a written order directing a bank to pay money",
+              "example": "he paid all his bills by check",
+              "members": [
+                "check",
+                "bank check",
+                "cheque"
+              ],
+              "pos": "noun",
+              "synset_id": "13402907-n"
+            },
+            {
+              "definition": "an appraisal of the state of affairs",
+              "example": "they made an assay of the contents",
+              "members": [
+                "assay",
+                "check"
+              ],
+              "pos": "noun",
+              "synset_id": "05746570-n"
+            },
+            {
+              "definition": "the bill in a restaurant",
+              "example": "he asked the waiter for the check",
+              "members": [
+                "check",
+                "chit",
+                "tab"
+              ],
+              "pos": "noun",
+              "synset_id": "06529933-n"
+            }
+          ],
+          "selection_reason": "measured_missing_rank_high_failure_sentinel",
+          "source_frequency": null,
+          "source_rank": null,
+          "source_rank_bin": "missing",
+          "trigger": "check",
+          "wordnet_definition_count": 38,
+          "wordnet_example_count": 61,
+          "wordnet_pos_count": 2,
+          "wordnet_pos_counts": {
+            "noun": 13,
+            "verb": 25
+          },
+          "wordnet_sense_count": 38
+        },
+        {
+          "observed_failure_count": 5,
+          "observed_negative_allow_count": 3,
+          "observed_positive_abstain_count": 2,
+          "sample_synsets": [
+            {
+              "definition": "(often plural) a command given by a superior (e.g., a military or law enforcement officer) that must be obeyed",
+              "example": "the British ships dropped anchor and waited for orders from London",
+              "members": [
+                "order"
+              ],
+              "pos": "noun",
+              "synset_id": "07183274-n"
+            },
+            {
+              "definition": "a degree in a continuum of size or quantity",
+              "example": "it was on the order of a mile",
+              "members": [
+                "order",
+                "order of magnitude"
+              ],
+              "pos": "noun",
+              "synset_id": "05098520-n"
+            },
+            {
+              "definition": "established customary state (especially of society)",
+              "example": "order ruled in the streets",
+              "members": [
+                "order"
+              ],
+              "pos": "noun",
+              "synset_id": "13991994-n"
+            }
+          ],
+          "selection_reason": "measured_missing_rank_high_failure_sentinel",
+          "source_frequency": null,
+          "source_rank": null,
+          "source_rank_bin": "missing",
+          "trigger": "order",
+          "wordnet_definition_count": 23,
+          "wordnet_example_count": 33,
+          "wordnet_pos_count": 2,
+          "wordnet_pos_counts": {
+            "noun": 14,
+            "verb": 9
+          },
+          "wordnet_sense_count": 23
+        },
+        {
+          "observed_failure_count": 5,
+          "observed_negative_allow_count": 3,
+          "observed_positive_abstain_count": 2,
+          "sample_synsets": [
+            {
+              "definition": "buildings for carrying on industrial labor",
+              "example": "they built a large plant to manufacture automobiles",
+              "members": [
+                "plant",
+                "works",
+                "industrial plant"
+              ],
+              "pos": "noun",
+              "synset_id": "03963198-n"
+            },
+            {
+              "definition": "(botany) a living organism lacking the power of locomotion",
+              "example": "",
+              "members": [
+                "plant",
+                "flora",
+                "plant life"
+              ],
+              "pos": "noun",
+              "synset_id": "00017402-n"
+            },
+            {
+              "definition": "an actor situated in the audience whose acting is rehearsed but seems spontaneous to the audience",
+              "example": "",
+              "members": [
+                "plant"
+              ],
+              "pos": "noun",
+              "synset_id": "10458237-n"
+            }
+          ],
+          "selection_reason": "measured_missing_rank_high_failure_sentinel",
+          "source_frequency": null,
+          "source_rank": null,
+          "source_rank_bin": "missing",
+          "trigger": "plant",
+          "wordnet_definition_count": 10,
+          "wordnet_example_count": 13,
+          "wordnet_pos_count": 2,
+          "wordnet_pos_counts": {
+            "noun": 4,
+            "verb": 6
+          },
+          "wordnet_sense_count": 10
+        },
+        {
+          "observed_failure_count": 6,
+          "observed_negative_allow_count": 2,
+          "observed_positive_abstain_count": 4,
+          "sample_synsets": [
+            {
+              "definition": "a written document describing the findings of some individual or group",
+              "example": "this accords with the recent study by Hill and Dale",
+              "members": [
+                "report",
+                "study",
+                "written report"
+              ],
+              "pos": "noun",
+              "synset_id": "07233130-n"
+            },
+            {
+              "definition": "the act of informing by verbal report",
+              "example": "he heard reports that they were causing trouble",
+              "members": [
+                "report",
+                "account"
+              ],
+              "pos": "noun",
+              "synset_id": "07232584-n"
+            },
+            {
+              "definition": "a short account of the news",
+              "example": "the report of his speech",
+              "members": [
+                "report",
+                "news report",
+                "story",
+                "account",
+                "write up"
+              ],
+              "pos": "noun",
+              "synset_id": "06694296-n"
+            }
+          ],
+          "selection_reason": "measured_missing_rank_high_failure_sentinel",
+          "source_frequency": null,
+          "source_rank": null,
+          "source_rank_bin": "missing",
+          "trigger": "report",
+          "wordnet_definition_count": 13,
+          "wordnet_example_count": 23,
+          "wordnet_pos_count": 2,
+          "wordnet_pos_counts": {
+            "noun": 7,
+            "verb": 6
+          },
+          "wordnet_sense_count": 13
+        },
+        {
+          "observed_failure_count": 4,
+          "observed_negative_allow_count": 2,
+          "observed_positive_abstain_count": 2,
+          "sample_synsets": [
+            {
+              "definition": "a dramatic work intended for performance by actors on a stage",
+              "example": "he wrote several plays but only one was produced on Broadway",
+              "members": [
+                "play",
+                "drama",
+                "dramatic play"
+              ],
+              "pos": "noun",
+              "synset_id": "07021061-n"
+            },
+            {
+              "definition": "a theatrical performance of a drama",
+              "example": "the play lasted two hours",
+              "members": [
+                "play"
+              ],
+              "pos": "noun",
+              "synset_id": "07032045-n"
+            },
+            {
+              "definition": "a preset plan of action in team sports",
+              "example": "the coach drew up the plays for her team",
+              "members": [
+                "play"
+              ],
+              "pos": "noun",
+              "synset_id": "00558625-n"
+            }
+          ],
+          "selection_reason": "measured_missing_rank_high_failure_sentinel",
+          "source_frequency": null,
+          "source_rank": null,
+          "source_rank_bin": "missing",
+          "trigger": "play",
+          "wordnet_definition_count": 52,
+          "wordnet_example_count": 104,
+          "wordnet_pos_count": 2,
+          "wordnet_pos_counts": {
+            "noun": 17,
+            "verb": 35
+          },
+          "wordnet_sense_count": 52
+        }
+      ]
+    }
+  ],
+  "input_fingerprint": "d823971d29c3e682612214cfb821ca223f0fb21cafe78b371089e7377c9c92c0",
+  "inputs": {
+    "difficulty_report_path": "docs/test_outputs/semantic_veto_difficulty_stratification_en_es_latest.json",
+    "difficulty_report_status": "ok",
+    "source_frequency_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-en-coca.sqlite",
+    "source_frequency_record_count": 6046,
+    "source_frequency_status": "ok",
+    "wordnet_dir": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/english-wordnet-2025-json",
+    "wordnet_source_file_count": 72
+  },
+  "limitations": [
+    "primary_groups_do_not_have_manual_cases_yet",
+    "outcome_informed_sentinel_group_must_not_validate_frequency_polysemy_heuristic",
+    "wordnet_polysemy_is_a_proxy_and_can_miss_browser_phrase_difficulty",
+    "source_frequency_pack_is_local_and_sparser_than_a_full_corpus_rank_list",
+    "spanish_target_selection_still_requires_manual_or_translation_family_review"
+  ],
+  "manual_review_packet": [
+    {
+      "case_slots": [
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "man:positive_active:01"
+        },
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "man:positive_active:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "man:shadow_negative:01"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "man:shadow_negative:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "phrase_no_winner",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "man:phrase_no_winner:01"
+        }
+      ],
+      "group_id": "core_high_polysemy",
+      "manual_review_fields": {
+        "active_sense_en": "",
+        "candidate_replacement_es": "",
+        "expected_veto_difficulty": "",
+        "human_polysemy_gauge": "",
+        "phrase_or_no_winner_patterns_en": [],
+        "review_notes": "",
+        "shadow_senses_en": []
+      },
+      "sample_synsets": [
+        {
+          "definition": "an adult person who is male (as opposed to a woman)",
+          "example": "there were two women and six men on the bus",
+          "members": [
+            "man",
+            "adult male"
+          ],
+          "pos": "noun",
+          "synset_id": "10306910-n"
+        },
+        {
+          "definition": "the generic use of the word to refer to any human being",
+          "example": "it was every man for himself",
+          "members": [
+            "man"
+          ],
+          "pos": "noun",
+          "synset_id": "10308700-n"
+        },
+        {
+          "definition": "any living or extinct member of the family Hominidae characterized by superior intelligence, articulate speech, and erect carriage",
+          "example": "",
+          "members": [
+            "homo",
+            "man",
+            "human being",
+            "human"
+          ],
+          "pos": "noun",
+          "synset_id": "02474924-n"
+        }
+      ],
+      "selection_reason": "core_high_polysemy",
+      "source_rank": 95.0,
+      "source_rank_bin": "1-500",
+      "trigger": "man",
+      "wordnet_pos_count": 2,
+      "wordnet_sense_count": 12
+    },
+    {
+      "case_slots": [
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "work:positive_active:01"
+        },
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "work:positive_active:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "work:shadow_negative:01"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "work:shadow_negative:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "phrase_no_winner",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "work:phrase_no_winner:01"
+        }
+      ],
+      "group_id": "core_high_polysemy",
+      "manual_review_fields": {
+        "active_sense_en": "",
+        "candidate_replacement_es": "",
+        "expected_veto_difficulty": "",
+        "human_polysemy_gauge": "",
+        "phrase_or_no_winner_patterns_en": [],
+        "review_notes": "",
+        "shadow_senses_en": []
+      },
+      "sample_synsets": [
+        {
+          "definition": "activity directed toward making or doing something",
+          "example": "she checked several points needing further work",
+          "members": [
+            "work"
+          ],
+          "pos": "noun",
+          "synset_id": "00576778-n"
+        },
+        {
+          "definition": "a product produced or accomplished through the effort or activity or agency of a person or thing",
+          "example": "it is not regarded as one of his more memorable works",
+          "members": [
+            "work",
+            "piece of work"
+          ],
+          "pos": "noun",
+          "synset_id": "04606723-n"
+        },
+        {
+          "definition": "the occupation for which you are paid",
+          "example": "he is looking for employment",
+          "members": [
+            "employment",
+            "work"
+          ],
+          "pos": "noun",
+          "synset_id": "00585404-n"
+        }
+      ],
+      "selection_reason": "core_high_polysemy",
+      "source_rank": 115.0,
+      "source_rank_bin": "1-500",
+      "trigger": "work",
+      "wordnet_pos_count": 2,
+      "wordnet_sense_count": 34
+    },
+    {
+      "case_slots": [
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "call:positive_active:01"
+        },
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "call:positive_active:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "call:shadow_negative:01"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "call:shadow_negative:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "phrase_no_winner",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "call:phrase_no_winner:01"
+        }
+      ],
+      "group_id": "core_high_polysemy",
+      "manual_review_fields": {
+        "active_sense_en": "",
+        "candidate_replacement_es": "",
+        "expected_veto_difficulty": "",
+        "human_polysemy_gauge": "",
+        "phrase_or_no_winner_patterns_en": [],
+        "review_notes": "",
+        "shadow_senses_en": []
+      },
+      "sample_synsets": [
+        {
+          "definition": "a method of contacting a person by phone",
+          "example": "she reported several anonymous calls",
+          "members": [
+            "call",
+            "phone call",
+            "telephone call"
+          ],
+          "pos": "noun",
+          "synset_id": "06283456-n"
+        },
+        {
+          "definition": "a loud utterance; often in protest or opposition",
+          "example": "the speaker was interrupted by loud cries from the rear of the audience",
+          "members": [
+            "cry",
+            "outcry",
+            "call",
+            "yell",
+            "shout"
+          ],
+          "pos": "noun",
+          "synset_id": "07135232-n"
+        },
+        {
+          "definition": "a demand",
+          "example": "",
+          "members": [
+            "call",
+            "claim"
+          ],
+          "pos": "noun",
+          "synset_id": "07206789-n"
+        }
+      ],
+      "selection_reason": "core_high_polysemy",
+      "source_rank": 125.0,
+      "source_rank_bin": "1-500",
+      "trigger": "call",
+      "wordnet_pos_count": 2,
+      "wordnet_sense_count": 41
+    },
+    {
+      "case_slots": [
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "help:positive_active:01"
+        },
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "help:positive_active:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "help:shadow_negative:01"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "help:shadow_negative:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "phrase_no_winner",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "help:phrase_no_winner:01"
+        }
+      ],
+      "group_id": "core_high_polysemy",
+      "manual_review_fields": {
+        "active_sense_en": "",
+        "candidate_replacement_es": "",
+        "expected_veto_difficulty": "",
+        "human_polysemy_gauge": "",
+        "phrase_or_no_winner_patterns_en": [],
+        "review_notes": "",
+        "shadow_senses_en": []
+      },
+      "sample_synsets": [
+        {
+          "definition": "the activity of contributing to the fulfillment of a need or furtherance of an effort or purpose",
+          "example": "he gave me an assist with the housework",
+          "members": [
+            "aid",
+            "assist",
+            "assistance",
+            "help"
+          ],
+          "pos": "noun",
+          "synset_id": "01210099-n"
+        },
+        {
+          "definition": "a person who contributes to the fulfillment of a need or furtherance of an effort or purpose",
+          "example": "my invaluable assistant",
+          "members": [
+            "assistant",
+            "helper",
+            "help",
+            "supporter"
+          ],
+          "pos": "noun",
+          "synset_id": "09835195-n"
+        },
+        {
+          "definition": "a person or thing that is a resource that helps make something easier or possible to do",
+          "example": "visual aids in teaching",
+          "members": [
+            "aid",
+            "assistance",
+            "help"
+          ],
+          "pos": "noun",
+          "synset_id": "05162155-n"
+        }
+      ],
+      "selection_reason": "core_high_polysemy",
+      "source_rank": 155.0,
+      "source_rank_bin": "1-500",
+      "trigger": "help",
+      "wordnet_pos_count": 2,
+      "wordnet_sense_count": 12
+    },
+    {
+      "case_slots": [
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "yes:positive_active:01"
+        },
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "yes:positive_active:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "yes:shadow_negative:01"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "yes:shadow_negative:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "phrase_no_winner",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "yes:phrase_no_winner:01"
+        }
+      ],
+      "group_id": "core_low_polysemy_control",
+      "manual_review_fields": {
+        "active_sense_en": "",
+        "candidate_replacement_es": "",
+        "expected_veto_difficulty": "",
+        "human_polysemy_gauge": "",
+        "phrase_or_no_winner_patterns_en": [],
+        "review_notes": "",
+        "shadow_senses_en": []
+      },
+      "sample_synsets": [
+        {
+          "definition": "an affirmative",
+          "example": "I was hoping for a yes",
+          "members": [
+            "yes"
+          ],
+          "pos": "noun",
+          "synset_id": "07218560-n"
+        }
+      ],
+      "selection_reason": "core_low_polysemy_control",
+      "source_rank": 175.0,
+      "source_rank_bin": "1-500",
+      "trigger": "yes",
+      "wordnet_pos_count": 1,
+      "wordnet_sense_count": 1
+    },
+    {
+      "case_slots": [
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "money:positive_active:01"
+        },
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "money:positive_active:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "money:shadow_negative:01"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "money:shadow_negative:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "phrase_no_winner",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "money:phrase_no_winner:01"
+        }
+      ],
+      "group_id": "core_low_polysemy_control",
+      "manual_review_fields": {
+        "active_sense_en": "",
+        "candidate_replacement_es": "",
+        "expected_veto_difficulty": "",
+        "human_polysemy_gauge": "",
+        "phrase_or_no_winner_patterns_en": [],
+        "review_notes": "",
+        "shadow_senses_en": []
+      },
+      "sample_synsets": [
+        {
+          "definition": "the most common medium of exchange; functions as legal tender",
+          "example": "we tried to collect the money he owed us",
+          "members": [
+            "money"
+          ],
+          "pos": "noun",
+          "synset_id": "13405730-n"
+        },
+        {
+          "definition": "wealth reckoned in terms of money",
+          "example": "all his money is in real estate",
+          "members": [
+            "money"
+          ],
+          "pos": "noun",
+          "synset_id": "13271441-n"
+        },
+        {
+          "definition": "the official currency issued by a government or national bank",
+          "example": "he changed his money into francs",
+          "members": [
+            "money"
+          ],
+          "pos": "noun",
+          "synset_id": "13406050-n"
+        }
+      ],
+      "selection_reason": "core_low_polysemy_control",
+      "source_rank": 215.0,
+      "source_rank_bin": "1-500",
+      "trigger": "money",
+      "wordnet_pos_count": 1,
+      "wordnet_sense_count": 3
+    },
+    {
+      "case_slots": [
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "percent:positive_active:01"
+        },
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "percent:positive_active:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "percent:shadow_negative:01"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "percent:shadow_negative:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "phrase_no_winner",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "percent:phrase_no_winner:01"
+        }
+      ],
+      "group_id": "core_low_polysemy_control",
+      "manual_review_fields": {
+        "active_sense_en": "",
+        "candidate_replacement_es": "",
+        "expected_veto_difficulty": "",
+        "human_polysemy_gauge": "",
+        "phrase_or_no_winner_patterns_en": [],
+        "review_notes": "",
+        "shadow_senses_en": []
+      },
+      "sample_synsets": [
+        {
+          "definition": "a proportion in relation to a whole (which is usually the amount per hundred); ten percent",
+          "example": "",
+          "members": [
+            "percentage",
+            "percent",
+            "per centum",
+            "pct"
+          ],
+          "pos": "noun",
+          "synset_id": "13839738-n"
+        }
+      ],
+      "selection_reason": "core_low_polysemy_control",
+      "source_rank": 265.0,
+      "source_rank_bin": "1-500",
+      "trigger": "percent",
+      "wordnet_pos_count": 1,
+      "wordnet_sense_count": 1
+    },
+    {
+      "case_slots": [
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "often:positive_active:01"
+        },
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "often:positive_active:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "often:shadow_negative:01"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "often:shadow_negative:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "phrase_no_winner",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "often:phrase_no_winner:01"
+        }
+      ],
+      "group_id": "core_low_polysemy_control",
+      "manual_review_fields": {
+        "active_sense_en": "",
+        "candidate_replacement_es": "",
+        "expected_veto_difficulty": "",
+        "human_polysemy_gauge": "",
+        "phrase_or_no_winner_patterns_en": [],
+        "review_notes": "",
+        "shadow_senses_en": []
+      },
+      "sample_synsets": [
+        {
+          "definition": "many times at short intervals",
+          "example": "we often met over a cup of coffee",
+          "members": [
+            "frequently",
+            "often",
+            "oftentimes",
+            "oft",
+            "ofttimes"
+          ],
+          "pos": "adverb",
+          "synset_id": "00035445-r"
+        },
+        {
+          "definition": "frequently or in great quantities",
+          "example": "I don't drink much",
+          "members": [
+            "much",
+            "a great deal",
+            "often"
+          ],
+          "pos": "adverb",
+          "synset_id": "00059951-r"
+        },
+        {
+          "definition": "in many cases or instances",
+          "example": "",
+          "members": [
+            "often"
+          ],
+          "pos": "adverb",
+          "synset_id": "00060085-r"
+        }
+      ],
+      "selection_reason": "core_low_polysemy_control",
+      "source_rank": 335.0,
+      "source_rank_bin": "1-500",
+      "trigger": "often",
+      "wordnet_pos_count": 1,
+      "wordnet_sense_count": 3
+    },
+    {
+      "case_slots": [
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "green:positive_active:01"
+        },
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "green:positive_active:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "green:shadow_negative:01"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "green:shadow_negative:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "phrase_no_winner",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "green:phrase_no_winner:01"
+        }
+      ],
+      "group_id": "mid_high_polysemy",
+      "manual_review_fields": {
+        "active_sense_en": "",
+        "candidate_replacement_es": "",
+        "expected_veto_difficulty": "",
+        "human_polysemy_gauge": "",
+        "phrase_or_no_winner_patterns_en": [],
+        "review_notes": "",
+        "shadow_senses_en": []
+      },
+      "sample_synsets": [
+        {
+          "definition": "of the color between blue and yellow in the color spectrum; similar to the color of fresh grass",
+          "example": "a green tree",
+          "members": [
+            "green",
+            "greenish",
+            "light-green",
+            "dark-green"
+          ],
+          "pos": "adjective",
+          "synset_id": "00377031-s"
+        },
+        {
+          "definition": "concerned with or supporting or in conformity with the political principles of the Green Party",
+          "example": "",
+          "members": [
+            "green"
+          ],
+          "pos": "adjective",
+          "synset_id": "03081365-a"
+        },
+        {
+          "definition": "not fully developed or mature; not ripe",
+          "example": "unripe fruit",
+          "members": [
+            "green",
+            "unripe",
+            "unripened",
+            "immature"
+          ],
+          "pos": "adjective",
+          "synset_id": "01497045-a"
+        }
+      ],
+      "selection_reason": "mid_high_polysemy",
+      "source_rank": 1005.0,
+      "source_rank_bin": "1001-2000",
+      "trigger": "green",
+      "wordnet_pos_count": 4,
+      "wordnet_sense_count": 13
+    },
+    {
+      "case_slots": [
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "trade:positive_active:01"
+        },
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "trade:positive_active:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "trade:shadow_negative:01"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "trade:shadow_negative:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "phrase_no_winner",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "trade:phrase_no_winner:01"
+        }
+      ],
+      "group_id": "mid_high_polysemy",
+      "manual_review_fields": {
+        "active_sense_en": "",
+        "candidate_replacement_es": "",
+        "expected_veto_difficulty": "",
+        "human_polysemy_gauge": "",
+        "phrase_or_no_winner_patterns_en": [],
+        "review_notes": "",
+        "shadow_senses_en": []
+      },
+      "sample_synsets": [
+        {
+          "definition": "the commercial exchange (buying and selling on domestic or international markets) of goods and services",
+          "example": "Venice was an important center of trade with the East",
+          "members": [
+            "trade"
+          ],
+          "pos": "noun",
+          "synset_id": "01093829-n"
+        },
+        {
+          "definition": "the skilled practice of a practical occupation",
+          "example": "he learned his trade as an apprentice",
+          "members": [
+            "trade",
+            "craft"
+          ],
+          "pos": "noun",
+          "synset_id": "00607485-n"
+        },
+        {
+          "definition": "the business given to a commercial establishment by its customers",
+          "example": "even before noon there was a considerable patronage",
+          "members": [
+            "trade",
+            "patronage"
+          ],
+          "pos": "noun",
+          "synset_id": "01098359-n"
+        }
+      ],
+      "selection_reason": "mid_high_polysemy",
+      "source_rank": 1025.0,
+      "source_rank_bin": "1001-2000",
+      "trigger": "trade",
+      "wordnet_pos_count": 2,
+      "wordnet_sense_count": 12
+    },
+    {
+      "case_slots": [
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "deep:positive_active:01"
+        },
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "deep:positive_active:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "deep:shadow_negative:01"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "deep:shadow_negative:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "phrase_no_winner",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "deep:phrase_no_winner:01"
+        }
+      ],
+      "group_id": "mid_high_polysemy",
+      "manual_review_fields": {
+        "active_sense_en": "",
+        "candidate_replacement_es": "",
+        "expected_veto_difficulty": "",
+        "human_polysemy_gauge": "",
+        "phrase_or_no_winner_patterns_en": [],
+        "review_notes": "",
+        "shadow_senses_en": []
+      },
+      "sample_synsets": [
+        {
+          "definition": "relatively deep or strong; affecting one deeply",
+          "example": "a deep breath",
+          "members": [
+            "deep"
+          ],
+          "pos": "adjective",
+          "synset_id": "00696211-a"
+        },
+        {
+          "definition": "marked by depth of thinking",
+          "example": "deep thoughts",
+          "members": [
+            "deep"
+          ],
+          "pos": "adjective",
+          "synset_id": "01879131-s"
+        },
+        {
+          "definition": "having great spatial extension or penetration downward or inward from an outer surface or backward or laterally or outward from a center; sometimes used in combination",
+          "example": "a deep well",
+          "members": [
+            "deep"
+          ],
+          "pos": "adjective",
+          "synset_id": "00693335-a"
+        }
+      ],
+      "selection_reason": "mid_high_polysemy",
+      "source_rank": 1035.0,
+      "source_rank_bin": "1001-2000",
+      "trigger": "deep",
+      "wordnet_pos_count": 3,
+      "wordnet_sense_count": 21
+    },
+    {
+      "case_slots": [
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "particular:positive_active:01"
+        },
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "particular:positive_active:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "particular:shadow_negative:01"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "particular:shadow_negative:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "phrase_no_winner",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "particular:phrase_no_winner:01"
+        }
+      ],
+      "group_id": "mid_high_polysemy",
+      "manual_review_fields": {
+        "active_sense_en": "",
+        "candidate_replacement_es": "",
+        "expected_veto_difficulty": "",
+        "human_polysemy_gauge": "",
+        "phrase_or_no_winner_patterns_en": [],
+        "review_notes": "",
+        "shadow_senses_en": []
+      },
+      "sample_synsets": [
+        {
+          "definition": "unique or specific to a person or thing or category",
+          "example": "the particular demands of the job",
+          "members": [
+            "particular",
+            "peculiar",
+            "special"
+          ],
+          "pos": "adjective",
+          "synset_id": "01107719-s"
+        },
+        {
+          "definition": "separate and distinct from others of the same group or category",
+          "example": "interested in one particular artist",
+          "members": [
+            "particular"
+          ],
+          "pos": "adjective",
+          "synset_id": "01108153-s"
+        },
+        {
+          "definition": "surpassing what is common or usual or expected",
+          "example": "he paid especial attention to her",
+          "members": [
+            "especial",
+            "exceptional",
+            "particular",
+            "special"
+          ],
+          "pos": "adjective",
+          "synset_id": "00490174-s"
+        }
+      ],
+      "selection_reason": "mid_high_polysemy",
+      "source_rank": 1045.0,
+      "source_rank_bin": "1001-2000",
+      "trigger": "particular",
+      "wordnet_pos_count": 2,
+      "wordnet_sense_count": 9
+    },
+    {
+      "case_slots": [
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "therefore:positive_active:01"
+        },
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "therefore:positive_active:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "therefore:shadow_negative:01"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "therefore:shadow_negative:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "phrase_no_winner",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "therefore:phrase_no_winner:01"
+        }
+      ],
+      "group_id": "mid_low_polysemy_control",
+      "manual_review_fields": {
+        "active_sense_en": "",
+        "candidate_replacement_es": "",
+        "expected_veto_difficulty": "",
+        "human_polysemy_gauge": "",
+        "phrase_or_no_winner_patterns_en": [],
+        "review_notes": "",
+        "shadow_senses_en": []
+      },
+      "sample_synsets": [
+        {
+          "definition": "(used to introduce a logical conclusion) from that fact or reason or as a result",
+          "example": "therefore X must be true",
+          "members": [
+            "therefore",
+            "hence",
+            "thence",
+            "thus",
+            "so"
+          ],
+          "pos": "adverb",
+          "synset_id": "00043413-r"
+        },
+        {
+          "definition": "as a consequence",
+          "example": "he had good reason to be grateful for the opportunities which they had made available to him and which consequently led to the good position he now held",
+          "members": [
+            "consequently",
+            "therefore"
+          ],
+          "pos": "adverb",
+          "synset_id": "00295773-r"
+        }
+      ],
+      "selection_reason": "mid_low_polysemy_control",
+      "source_rank": 1085.0,
+      "source_rank_bin": "1001-2000",
+      "trigger": "therefore",
+      "wordnet_pos_count": 1,
+      "wordnet_sense_count": 2
+    },
+    {
+      "case_slots": [
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "senate:positive_active:01"
+        },
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "senate:positive_active:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "senate:shadow_negative:01"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "senate:shadow_negative:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "phrase_no_winner",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "senate:phrase_no_winner:01"
+        }
+      ],
+      "group_id": "mid_low_polysemy_control",
+      "manual_review_fields": {
+        "active_sense_en": "",
+        "candidate_replacement_es": "",
+        "expected_veto_difficulty": "",
+        "human_polysemy_gauge": "",
+        "phrase_or_no_winner_patterns_en": [],
+        "review_notes": "",
+        "shadow_senses_en": []
+      },
+      "sample_synsets": [
+        {
+          "definition": "assembly possessing high legislative powers",
+          "example": "",
+          "members": [
+            "senate"
+          ],
+          "pos": "noun",
+          "synset_id": "08178376-n"
+        }
+      ],
+      "selection_reason": "mid_low_polysemy_control",
+      "source_rank": 1155.0,
+      "source_rank_bin": "1001-2000",
+      "trigger": "senate",
+      "wordnet_pos_count": 1,
+      "wordnet_sense_count": 1
+    },
+    {
+      "case_slots": [
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "participant:positive_active:01"
+        },
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "participant:positive_active:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "participant:shadow_negative:01"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "participant:shadow_negative:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "phrase_no_winner",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "participant:phrase_no_winner:01"
+        }
+      ],
+      "group_id": "mid_low_polysemy_control",
+      "manual_review_fields": {
+        "active_sense_en": "",
+        "candidate_replacement_es": "",
+        "expected_veto_difficulty": "",
+        "human_polysemy_gauge": "",
+        "phrase_or_no_winner_patterns_en": [],
+        "review_notes": "",
+        "shadow_senses_en": []
+      },
+      "sample_synsets": [
+        {
+          "definition": "someone who takes part in an activity",
+          "example": "he was a major player in setting up the corporation",
+          "members": [
+            "participant",
+            "player"
+          ],
+          "pos": "noun",
+          "synset_id": "10421528-n"
+        },
+        {
+          "definition": "a person who participates in or is skilled at some game",
+          "example": "",
+          "members": [
+            "player",
+            "participant"
+          ],
+          "pos": "noun",
+          "synset_id": "10459618-n"
+        }
+      ],
+      "selection_reason": "mid_low_polysemy_control",
+      "source_rank": 1185.0,
+      "source_rank_bin": "1001-2000",
+      "trigger": "participant",
+      "wordnet_pos_count": 1,
+      "wordnet_sense_count": 2
+    },
+    {
+      "case_slots": [
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "crisis:positive_active:01"
+        },
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "crisis:positive_active:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "crisis:shadow_negative:01"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "crisis:shadow_negative:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "phrase_no_winner",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "crisis:phrase_no_winner:01"
+        }
+      ],
+      "group_id": "mid_low_polysemy_control",
+      "manual_review_fields": {
+        "active_sense_en": "",
+        "candidate_replacement_es": "",
+        "expected_veto_difficulty": "",
+        "human_polysemy_gauge": "",
+        "phrase_or_no_winner_patterns_en": [],
+        "review_notes": "",
+        "shadow_senses_en": []
+      },
+      "sample_synsets": [
+        {
+          "definition": "an unstable situation of extreme danger or difficulty",
+          "example": "they went bankrupt during the economic crisis",
+          "members": [
+            "crisis"
+          ],
+          "pos": "noun",
+          "synset_id": "13956593-n"
+        },
+        {
+          "definition": "a crucial stage or turning point in the course of something",
+          "example": "after the crisis the patient either dies or gets better",
+          "members": [
+            "crisis"
+          ],
+          "pos": "noun",
+          "synset_id": "07432244-n"
+        }
+      ],
+      "selection_reason": "mid_low_polysemy_control",
+      "source_rank": 1295.0,
+      "source_rank_bin": "1001-2000",
+      "trigger": "crisis",
+      "wordnet_pos_count": 1,
+      "wordnet_sense_count": 2
+    },
+    {
+      "case_slots": [
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "upgrade:positive_active:01"
+        },
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "upgrade:positive_active:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "upgrade:shadow_negative:01"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "upgrade:shadow_negative:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "phrase_no_winner",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "upgrade:phrase_no_winner:01"
+        }
+      ],
+      "group_id": "tail_high_polysemy",
+      "manual_review_fields": {
+        "active_sense_en": "",
+        "candidate_replacement_es": "",
+        "expected_veto_difficulty": "",
+        "human_polysemy_gauge": "",
+        "phrase_or_no_winner_patterns_en": [],
+        "review_notes": "",
+        "shadow_senses_en": []
+      },
+      "sample_synsets": [
+        {
+          "definition": "an upward slope or grade (as in a road)",
+          "example": "the car couldn't make it up the rise",
+          "members": [
+            "ascent",
+            "acclivity",
+            "rise",
+            "raise",
+            "climb"
+          ],
+          "pos": "noun",
+          "synset_id": "09229873-n"
+        },
+        {
+          "definition": "software that provides better performance than an earlier version did",
+          "example": "",
+          "members": [
+            "upgrade"
+          ],
+          "pos": "noun",
+          "synset_id": "06916031-n"
+        },
+        {
+          "definition": "a reservation that is improved",
+          "example": "I got an upgrade to first class when coach class was full",
+          "members": [
+            "upgrade"
+          ],
+          "pos": "noun",
+          "synset_id": "05803662-n"
+        }
+      ],
+      "selection_reason": "tail_high_polysemy",
+      "source_rank": 5005.0,
+      "source_rank_bin": ">5000",
+      "trigger": "upgrade",
+      "wordnet_pos_count": 2,
+      "wordnet_sense_count": 11
+    },
+    {
+      "case_slots": [
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "yield:positive_active:01"
+        },
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "yield:positive_active:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "yield:shadow_negative:01"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "yield:shadow_negative:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "phrase_no_winner",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "yield:phrase_no_winner:01"
+        }
+      ],
+      "group_id": "tail_high_polysemy",
+      "manual_review_fields": {
+        "active_sense_en": "",
+        "candidate_replacement_es": "",
+        "expected_veto_difficulty": "",
+        "human_polysemy_gauge": "",
+        "phrase_or_no_winner_patterns_en": [],
+        "review_notes": "",
+        "shadow_senses_en": []
+      },
+      "sample_synsets": [
+        {
+          "definition": "production of a certain amount",
+          "example": "",
+          "members": [
+            "output",
+            "yield"
+          ],
+          "pos": "noun",
+          "synset_id": "00916463-n"
+        },
+        {
+          "definition": "the income or profit arising from such transactions as the sale of land or other property",
+          "example": "the average return was about 5%",
+          "members": [
+            "return",
+            "issue",
+            "take",
+            "takings",
+            "proceeds"
+          ],
+          "pos": "noun",
+          "synset_id": "13281089-n"
+        },
+        {
+          "definition": "an amount of a product",
+          "example": "",
+          "members": [
+            "yield",
+            "fruit"
+          ],
+          "pos": "noun",
+          "synset_id": "04620079-n"
+        }
+      ],
+      "selection_reason": "tail_high_polysemy",
+      "source_rank": 5025.0,
+      "source_rank_bin": ">5000",
+      "trigger": "yield",
+      "wordnet_pos_count": 2,
+      "wordnet_sense_count": 17
+    },
+    {
+      "case_slots": [
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "hammer:positive_active:01"
+        },
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "hammer:positive_active:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "hammer:shadow_negative:01"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "hammer:shadow_negative:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "phrase_no_winner",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "hammer:phrase_no_winner:01"
+        }
+      ],
+      "group_id": "tail_high_polysemy",
+      "manual_review_fields": {
+        "active_sense_en": "",
+        "candidate_replacement_es": "",
+        "expected_veto_difficulty": "",
+        "human_polysemy_gauge": "",
+        "phrase_or_no_winner_patterns_en": [],
+        "review_notes": "",
+        "shadow_senses_en": []
+      },
+      "sample_synsets": [
+        {
+          "definition": "the part of a gunlock that strikes the percussion cap when the trigger is pulled",
+          "example": "",
+          "members": [
+            "hammer",
+            "cock"
+          ],
+          "pos": "noun",
+          "synset_id": "03486907-n"
+        },
+        {
+          "definition": "a hand tool with a heavy rigid head and a handle; used to deliver an impulsive force by striking",
+          "example": "",
+          "members": [
+            "hammer"
+          ],
+          "pos": "noun",
+          "synset_id": "03486255-n"
+        },
+        {
+          "definition": "the ossicle attached to the eardrum",
+          "example": "",
+          "members": [
+            "malleus",
+            "hammer"
+          ],
+          "pos": "noun",
+          "synset_id": "05333491-n"
+        }
+      ],
+      "selection_reason": "tail_high_polysemy",
+      "source_rank": 5045.0,
+      "source_rank_bin": ">5000",
+      "trigger": "hammer",
+      "wordnet_pos_count": 2,
+      "wordnet_sense_count": 10
+    },
+    {
+      "case_slots": [
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "low:positive_active:01"
+        },
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "low:positive_active:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "low:shadow_negative:01"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "low:shadow_negative:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "phrase_no_winner",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "low:phrase_no_winner:01"
+        }
+      ],
+      "group_id": "tail_high_polysemy",
+      "manual_review_fields": {
+        "active_sense_en": "",
+        "candidate_replacement_es": "",
+        "expected_veto_difficulty": "",
+        "human_polysemy_gauge": "",
+        "phrase_or_no_winner_patterns_en": [],
+        "review_notes": "",
+        "shadow_senses_en": []
+      },
+      "sample_synsets": [
+        {
+          "definition": "less than normal in degree or intensity or amount",
+          "example": "low prices",
+          "members": [
+            "low"
+          ],
+          "pos": "adjective",
+          "synset_id": "01215141-a"
+        },
+        {
+          "definition": "being at or having a relatively small elevation or upward extension",
+          "example": "low ceilings",
+          "members": [
+            "low"
+          ],
+          "pos": "adjective",
+          "synset_id": "01209146-a"
+        },
+        {
+          "definition": "very low in volume",
+          "example": "a low murmur",
+          "members": [
+            "low",
+            "low-toned"
+          ],
+          "pos": "adjective",
+          "synset_id": "01458667-s"
+        }
+      ],
+      "selection_reason": "tail_high_polysemy",
+      "source_rank": 5135.0,
+      "source_rank_bin": ">5000",
+      "trigger": "low",
+      "wordnet_pos_count": 4,
+      "wordnet_sense_count": 15
+    },
+    {
+      "case_slots": [
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "unnecessary:positive_active:01"
+        },
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "unnecessary:positive_active:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "unnecessary:shadow_negative:01"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "unnecessary:shadow_negative:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "phrase_no_winner",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "unnecessary:phrase_no_winner:01"
+        }
+      ],
+      "group_id": "tail_low_polysemy_control",
+      "manual_review_fields": {
+        "active_sense_en": "",
+        "candidate_replacement_es": "",
+        "expected_veto_difficulty": "",
+        "human_polysemy_gauge": "",
+        "phrase_or_no_winner_patterns_en": [],
+        "review_notes": "",
+        "shadow_senses_en": []
+      },
+      "sample_synsets": [
+        {
+          "definition": "not necessary",
+          "example": "",
+          "members": [
+            "unnecessary",
+            "unneeded"
+          ],
+          "pos": "adjective",
+          "synset_id": "01585523-a"
+        }
+      ],
+      "selection_reason": "tail_low_polysemy_control",
+      "source_rank": 5075.0,
+      "source_rank_bin": ">5000",
+      "trigger": "unnecessary",
+      "wordnet_pos_count": 1,
+      "wordnet_sense_count": 1
+    },
+    {
+      "case_slots": [
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "suitable:positive_active:01"
+        },
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "suitable:positive_active:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "suitable:shadow_negative:01"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "suitable:shadow_negative:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "phrase_no_winner",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "suitable:phrase_no_winner:01"
+        }
+      ],
+      "group_id": "tail_low_polysemy_control",
+      "manual_review_fields": {
+        "active_sense_en": "",
+        "candidate_replacement_es": "",
+        "expected_veto_difficulty": "",
+        "human_polysemy_gauge": "",
+        "phrase_or_no_winner_patterns_en": [],
+        "review_notes": "",
+        "shadow_senses_en": []
+      },
+      "sample_synsets": [
+        {
+          "definition": "meant or adapted for an occasion or use",
+          "example": "a tractor suitable (or fit) for heavy duty",
+          "members": [
+            "suitable",
+            "suited",
+            "appropriate"
+          ],
+          "pos": "adjective",
+          "synset_id": "01024501-s"
+        },
+        {
+          "definition": "worthy of being chosen especially as a spouse",
+          "example": "the parents found the girl suitable for their son",
+          "members": [
+            "desirable",
+            "suitable",
+            "worthy"
+          ],
+          "pos": "adjective",
+          "synset_id": "00855376-s"
+        }
+      ],
+      "selection_reason": "tail_low_polysemy_control",
+      "source_rank": 5085.0,
+      "source_rank_bin": ">5000",
+      "trigger": "suitable",
+      "wordnet_pos_count": 1,
+      "wordnet_sense_count": 2
+    },
+    {
+      "case_slots": [
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "purely:positive_active:01"
+        },
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "purely:positive_active:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "purely:shadow_negative:01"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "purely:shadow_negative:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "phrase_no_winner",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "purely:phrase_no_winner:01"
+        }
+      ],
+      "group_id": "tail_low_polysemy_control",
+      "manual_review_fields": {
+        "active_sense_en": "",
+        "candidate_replacement_es": "",
+        "expected_veto_difficulty": "",
+        "human_polysemy_gauge": "",
+        "phrase_or_no_winner_patterns_en": [],
+        "review_notes": "",
+        "shadow_senses_en": []
+      },
+      "sample_synsets": [
+        {
+          "definition": "restricted to something",
+          "example": "we talked strictly business",
+          "members": [
+            "strictly",
+            "purely"
+          ],
+          "pos": "adverb",
+          "synset_id": "00180598-r"
+        }
+      ],
+      "selection_reason": "tail_low_polysemy_control",
+      "source_rank": 5105.0,
+      "source_rank_bin": ">5000",
+      "trigger": "purely",
+      "wordnet_pos_count": 1,
+      "wordnet_sense_count": 1
+    },
+    {
+      "case_slots": [
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "prosecute:positive_active:01"
+        },
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "prosecute:positive_active:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "prosecute:shadow_negative:01"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "prosecute:shadow_negative:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "phrase_no_winner",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "prosecute:phrase_no_winner:01"
+        }
+      ],
+      "group_id": "tail_low_polysemy_control",
+      "manual_review_fields": {
+        "active_sense_en": "",
+        "candidate_replacement_es": "",
+        "expected_veto_difficulty": "",
+        "human_polysemy_gauge": "",
+        "phrase_or_no_winner_patterns_en": [],
+        "review_notes": "",
+        "shadow_senses_en": []
+      },
+      "sample_synsets": [
+        {
+          "definition": "conduct a prosecution in a court of law",
+          "example": "",
+          "members": [
+            "prosecute"
+          ],
+          "pos": "verb",
+          "synset_id": "02587985-v"
+        },
+        {
+          "definition": "bring a criminal action against (in a trial)",
+          "example": "The State of California prosecuted O.J. Simpson",
+          "members": [
+            "prosecute"
+          ],
+          "pos": "verb",
+          "synset_id": "02587562-v"
+        },
+        {
+          "definition": "carry out or participate in an activity; be involved in",
+          "example": "She pursued many activities",
+          "members": [
+            "prosecute",
+            "engage",
+            "pursue"
+          ],
+          "pos": "verb",
+          "synset_id": "02380222-v"
+        }
+      ],
+      "selection_reason": "tail_low_polysemy_control",
+      "source_rank": 5125.0,
+      "source_rank_bin": ">5000",
+      "trigger": "prosecute",
+      "wordnet_pos_count": 1,
+      "wordnet_sense_count": 3
+    },
+    {
+      "case_slots": [
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "check:positive_active:01"
+        },
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "check:positive_active:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "check:shadow_negative:01"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "check:shadow_negative:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "phrase_no_winner",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "check:phrase_no_winner:01"
+        }
+      ],
+      "group_id": "measured_missing_rank_high_failure_sentinel",
+      "manual_review_fields": {
+        "active_sense_en": "",
+        "candidate_replacement_es": "",
+        "expected_veto_difficulty": "",
+        "human_polysemy_gauge": "",
+        "phrase_or_no_winner_patterns_en": [],
+        "review_notes": "",
+        "shadow_senses_en": []
+      },
+      "sample_synsets": [
+        {
+          "definition": "a written order directing a bank to pay money",
+          "example": "he paid all his bills by check",
+          "members": [
+            "check",
+            "bank check",
+            "cheque"
+          ],
+          "pos": "noun",
+          "synset_id": "13402907-n"
+        },
+        {
+          "definition": "an appraisal of the state of affairs",
+          "example": "they made an assay of the contents",
+          "members": [
+            "assay",
+            "check"
+          ],
+          "pos": "noun",
+          "synset_id": "05746570-n"
+        },
+        {
+          "definition": "the bill in a restaurant",
+          "example": "he asked the waiter for the check",
+          "members": [
+            "check",
+            "chit",
+            "tab"
+          ],
+          "pos": "noun",
+          "synset_id": "06529933-n"
+        }
+      ],
+      "selection_reason": "measured_missing_rank_high_failure_sentinel",
+      "source_rank": null,
+      "source_rank_bin": "missing",
+      "trigger": "check",
+      "wordnet_pos_count": 2,
+      "wordnet_sense_count": 38
+    },
+    {
+      "case_slots": [
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "order:positive_active:01"
+        },
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "order:positive_active:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "order:shadow_negative:01"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "order:shadow_negative:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "phrase_no_winner",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "order:phrase_no_winner:01"
+        }
+      ],
+      "group_id": "measured_missing_rank_high_failure_sentinel",
+      "manual_review_fields": {
+        "active_sense_en": "",
+        "candidate_replacement_es": "",
+        "expected_veto_difficulty": "",
+        "human_polysemy_gauge": "",
+        "phrase_or_no_winner_patterns_en": [],
+        "review_notes": "",
+        "shadow_senses_en": []
+      },
+      "sample_synsets": [
+        {
+          "definition": "(often plural) a command given by a superior (e.g., a military or law enforcement officer) that must be obeyed",
+          "example": "the British ships dropped anchor and waited for orders from London",
+          "members": [
+            "order"
+          ],
+          "pos": "noun",
+          "synset_id": "07183274-n"
+        },
+        {
+          "definition": "a degree in a continuum of size or quantity",
+          "example": "it was on the order of a mile",
+          "members": [
+            "order",
+            "order of magnitude"
+          ],
+          "pos": "noun",
+          "synset_id": "05098520-n"
+        },
+        {
+          "definition": "established customary state (especially of society)",
+          "example": "order ruled in the streets",
+          "members": [
+            "order"
+          ],
+          "pos": "noun",
+          "synset_id": "13991994-n"
+        }
+      ],
+      "selection_reason": "measured_missing_rank_high_failure_sentinel",
+      "source_rank": null,
+      "source_rank_bin": "missing",
+      "trigger": "order",
+      "wordnet_pos_count": 2,
+      "wordnet_sense_count": 23
+    },
+    {
+      "case_slots": [
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "plant:positive_active:01"
+        },
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "plant:positive_active:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "plant:shadow_negative:01"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "plant:shadow_negative:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "phrase_no_winner",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "plant:phrase_no_winner:01"
+        }
+      ],
+      "group_id": "measured_missing_rank_high_failure_sentinel",
+      "manual_review_fields": {
+        "active_sense_en": "",
+        "candidate_replacement_es": "",
+        "expected_veto_difficulty": "",
+        "human_polysemy_gauge": "",
+        "phrase_or_no_winner_patterns_en": [],
+        "review_notes": "",
+        "shadow_senses_en": []
+      },
+      "sample_synsets": [
+        {
+          "definition": "buildings for carrying on industrial labor",
+          "example": "they built a large plant to manufacture automobiles",
+          "members": [
+            "plant",
+            "works",
+            "industrial plant"
+          ],
+          "pos": "noun",
+          "synset_id": "03963198-n"
+        },
+        {
+          "definition": "(botany) a living organism lacking the power of locomotion",
+          "example": "",
+          "members": [
+            "plant",
+            "flora",
+            "plant life"
+          ],
+          "pos": "noun",
+          "synset_id": "00017402-n"
+        },
+        {
+          "definition": "an actor situated in the audience whose acting is rehearsed but seems spontaneous to the audience",
+          "example": "",
+          "members": [
+            "plant"
+          ],
+          "pos": "noun",
+          "synset_id": "10458237-n"
+        }
+      ],
+      "selection_reason": "measured_missing_rank_high_failure_sentinel",
+      "source_rank": null,
+      "source_rank_bin": "missing",
+      "trigger": "plant",
+      "wordnet_pos_count": 2,
+      "wordnet_sense_count": 10
+    },
+    {
+      "case_slots": [
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "report:positive_active:01"
+        },
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "report:positive_active:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "report:shadow_negative:01"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "report:shadow_negative:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "phrase_no_winner",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "report:phrase_no_winner:01"
+        }
+      ],
+      "group_id": "measured_missing_rank_high_failure_sentinel",
+      "manual_review_fields": {
+        "active_sense_en": "",
+        "candidate_replacement_es": "",
+        "expected_veto_difficulty": "",
+        "human_polysemy_gauge": "",
+        "phrase_or_no_winner_patterns_en": [],
+        "review_notes": "",
+        "shadow_senses_en": []
+      },
+      "sample_synsets": [
+        {
+          "definition": "a written document describing the findings of some individual or group",
+          "example": "this accords with the recent study by Hill and Dale",
+          "members": [
+            "report",
+            "study",
+            "written report"
+          ],
+          "pos": "noun",
+          "synset_id": "07233130-n"
+        },
+        {
+          "definition": "the act of informing by verbal report",
+          "example": "he heard reports that they were causing trouble",
+          "members": [
+            "report",
+            "account"
+          ],
+          "pos": "noun",
+          "synset_id": "07232584-n"
+        },
+        {
+          "definition": "a short account of the news",
+          "example": "the report of his speech",
+          "members": [
+            "report",
+            "news report",
+            "story",
+            "account",
+            "write up"
+          ],
+          "pos": "noun",
+          "synset_id": "06694296-n"
+        }
+      ],
+      "selection_reason": "measured_missing_rank_high_failure_sentinel",
+      "source_rank": null,
+      "source_rank_bin": "missing",
+      "trigger": "report",
+      "wordnet_pos_count": 2,
+      "wordnet_sense_count": 13
+    },
+    {
+      "case_slots": [
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "play:positive_active:01"
+        },
+        {
+          "gold_decision": "replace",
+          "gold_type": "positive_active",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "play:positive_active:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "play:shadow_negative:01"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "shadow_negative",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "play:shadow_negative:02"
+        },
+        {
+          "gold_decision": "abstain",
+          "gold_type": "phrase_no_winner",
+          "label_reason": "",
+          "sentence": "",
+          "slot_id": "play:phrase_no_winner:01"
+        }
+      ],
+      "group_id": "measured_missing_rank_high_failure_sentinel",
+      "manual_review_fields": {
+        "active_sense_en": "",
+        "candidate_replacement_es": "",
+        "expected_veto_difficulty": "",
+        "human_polysemy_gauge": "",
+        "phrase_or_no_winner_patterns_en": [],
+        "review_notes": "",
+        "shadow_senses_en": []
+      },
+      "sample_synsets": [
+        {
+          "definition": "a dramatic work intended for performance by actors on a stage",
+          "example": "he wrote several plays but only one was produced on Broadway",
+          "members": [
+            "play",
+            "drama",
+            "dramatic play"
+          ],
+          "pos": "noun",
+          "synset_id": "07021061-n"
+        },
+        {
+          "definition": "a theatrical performance of a drama",
+          "example": "the play lasted two hours",
+          "members": [
+            "play"
+          ],
+          "pos": "noun",
+          "synset_id": "07032045-n"
+        },
+        {
+          "definition": "a preset plan of action in team sports",
+          "example": "the coach drew up the plays for her team",
+          "members": [
+            "play"
+          ],
+          "pos": "noun",
+          "synset_id": "00558625-n"
+        }
+      ],
+      "selection_reason": "measured_missing_rank_high_failure_sentinel",
+      "source_rank": null,
+      "source_rank_bin": "missing",
+      "trigger": "play",
+      "wordnet_pos_count": 2,
+      "wordnet_sense_count": 52
+    }
+  ],
+  "methodology": {
+    "goal": "Freeze small word groups selected by cheap heuristics before manual case authoring, then compare whether those heuristics predict veto difficulty.",
+    "manual_case_target_per_trigger": {
+      "phrase_no_winner": 1,
+      "positive_active": 2,
+      "shadow_negative": 2
+    },
+    "primary_group_selection": "pre_outcome_only_excludes_current_measured_triggers",
+    "primary_selection_inputs": [
+      "English source frequency rank",
+      "WordNet sense count",
+      "WordNet POS count"
+    ],
+    "runtime_policy_change": "none",
+    "sentinel_group_selection": "outcome_informed_not_used_to_validate_heuristic",
+    "source_evidence_promotion": "none"
+  },
+  "next_steps": [
+    "Freeze this group manifest before writing manual cases.",
+    "For each trigger, choose one plausible Spanish replacement target and at least one shadow sense.",
+    "Write two positive, two shadow-negative, and one phrase/no-winner sentence per trigger where possible.",
+    "Score the filled manual packet with the frozen veto candidate and compare group-level positive allow plus negative abstain rates.",
+    "Use only the pre-outcome groups to judge whether frequency and polysemy predict difficulty; use the sentinel group as a regression anchor."
+  ],
+  "pair": "en-es",
+  "pilot_id": "semantic_veto_heuristic_group_pilot_en_es_v1",
+  "schema_version": 1,
+  "status": "ok",
+  "summary": {
+    "candidate_pool_count": 4112,
+    "empty_primary_groups": [],
+    "group_count": 7,
+    "manual_review_row_count": 29,
+    "measured_trigger_exclusion_count": 35,
+    "primary_group_count": 6,
+    "selected_trigger_count": 29
+  }
+}

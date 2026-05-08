@@ -1,0 +1,207 @@
+{
+  "admitted_items": [
+    {
+      "active_mismatch_note": "active_target_lemma sonreír is wrong here because the sentence names a thing, not the action of smiling.",
+      "active_sense_contrast": "The competitor sense is the noun meaning a smile, while the active sense is the verb meaning to smile; the same English form can realize both, but the sentence must force the noun reading.",
+      "active_target_lemma": "sonreír",
+      "admission_status": "admitted",
+      "arm_rank": 1,
+      "competitor_sense_label": "verb sense: to smile as a facial expression",
+      "evidence_note": "smile is used as a noun referring to a facial expression.",
+      "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+      "global_need_rank": 49,
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe:item:001",
+      "no_winner_context_class": "",
+      "no_winner_reason": "",
+      "pilot_arm": "low_control",
+      "predicted_need": 0.4531,
+      "proposed_competitor_target_lemma": "sonrisa",
+      "rejection_reasons": [],
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe",
+      "runtime_trigger_note": "",
+      "sentence": "Her smile was warm and reassuring during the interview.",
+      "slot_id": "en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "source_phrase": "smile",
+      "target_lemma": "sonrisa"
+    },
+    {
+      "active_mismatch_note": "active_target_lemma sonreír is wrong here because the sentence describes a facial expression, not the verb action of smiling.",
+      "active_sense_contrast": "The competitor sense is the noun meaning a smile, while the active sense is the verb meaning to smile; the same English form can realize both, but the sentence must force the noun reading.",
+      "active_target_lemma": "sonreír",
+      "admission_status": "admitted",
+      "arm_rank": 1,
+      "competitor_sense_label": "verb sense: to smile as a facial expression",
+      "evidence_note": "smile functions as a noun describing an expression on the face.",
+      "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+      "global_need_rank": 49,
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe:item:002",
+      "no_winner_context_class": "",
+      "no_winner_reason": "",
+      "pilot_arm": "low_control",
+      "predicted_need": 0.4531,
+      "proposed_competitor_target_lemma": "sonrisa",
+      "rejection_reasons": [],
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe",
+      "runtime_trigger_note": "",
+      "sentence": "A quick smile crossed his face before he answered.",
+      "slot_id": "en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "source_phrase": "smile",
+      "target_lemma": "sonrisa"
+    }
+  ],
+  "alignment": {
+    "duplicate_response_request_count": 0,
+    "expected_request_count": 1,
+    "issues": [],
+    "matched_expected_request_count": 1,
+    "missing_expected_request_ids": [],
+    "response_request_count": 1,
+    "unexpected_response_request_ids": []
+  },
+  "coverage": [
+    {
+      "admitted_item_count": 2,
+      "expected_item_count": 2,
+      "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+      "pilot_arm": "low_control",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe",
+      "shortfall_count": 0,
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "trigger": "smile"
+    }
+  ],
+  "decision": "generated_items_admitted_for_pilot_rescoring",
+  "generated_at": "2026-05-08T03:11:11Z",
+  "limitations": [
+    "research-only generated-response admission lane",
+    "no LLM call is made by this script",
+    "no generated item is source evidence until a later explicit promotion step",
+    "no runtime policy or threshold changes are made",
+    "semantic correctness of generated text still needs scoring and spot review"
+  ],
+  "next_steps": [
+    "Run the downstream evidence-application/rescoring harness on admitted generated items.",
+    "Compare improvement by high_need, middle_control, and low_control arms.",
+    "Treat this as heuristic validation, not runtime promotion."
+  ],
+  "pair": "en-es",
+  "pilot": {
+    "generated_responses_path": "docs/test_outputs/semantic_veto_evidence_gap_generated_responses_balanced_smoke_repair_en_es_latest.json",
+    "generated_responses_present": true,
+    "generation_requests_path": "docs/test_outputs/semantic_veto_evidence_gap_generation_requests_en_es_latest.json",
+    "pilot_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1",
+    "request_kind": "semantic_veto_evidence_gap_generation"
+  },
+  "rejected_items": [],
+  "rejection_reasons": {},
+  "request_packet_checks": {
+    "issue_count": 0,
+    "issues": [],
+    "request_count": 72,
+    "unique_request_ids": true
+  },
+  "response_results": [
+    {
+      "admitted_item_count": 2,
+      "admitted_items": [
+        {
+          "active_mismatch_note": "active_target_lemma sonreír is wrong here because the sentence names a thing, not the action of smiling.",
+          "active_sense_contrast": "The competitor sense is the noun meaning a smile, while the active sense is the verb meaning to smile; the same English form can realize both, but the sentence must force the noun reading.",
+          "active_target_lemma": "sonreír",
+          "admission_status": "admitted",
+          "arm_rank": 1,
+          "competitor_sense_label": "verb sense: to smile as a facial expression",
+          "evidence_note": "smile is used as a noun referring to a facial expression.",
+          "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+          "global_need_rank": 49,
+          "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe:item:001",
+          "no_winner_context_class": "",
+          "no_winner_reason": "",
+          "pilot_arm": "low_control",
+          "predicted_need": 0.4531,
+          "proposed_competitor_target_lemma": "sonrisa",
+          "rejection_reasons": [],
+          "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe",
+          "runtime_trigger_note": "",
+          "sentence": "Her smile was warm and reassuring during the interview.",
+          "slot_id": "en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe",
+          "slot_type": "shadow_or_competitor_evidence_probe",
+          "source_phrase": "smile",
+          "target_lemma": "sonrisa"
+        },
+        {
+          "active_mismatch_note": "active_target_lemma sonreír is wrong here because the sentence describes a facial expression, not the verb action of smiling.",
+          "active_sense_contrast": "The competitor sense is the noun meaning a smile, while the active sense is the verb meaning to smile; the same English form can realize both, but the sentence must force the noun reading.",
+          "active_target_lemma": "sonreír",
+          "admission_status": "admitted",
+          "arm_rank": 1,
+          "competitor_sense_label": "verb sense: to smile as a facial expression",
+          "evidence_note": "smile functions as a noun describing an expression on the face.",
+          "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+          "global_need_rank": 49,
+          "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe:item:002",
+          "no_winner_context_class": "",
+          "no_winner_reason": "",
+          "pilot_arm": "low_control",
+          "predicted_need": 0.4531,
+          "proposed_competitor_target_lemma": "sonrisa",
+          "rejection_reasons": [],
+          "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe",
+          "runtime_trigger_note": "",
+          "sentence": "A quick smile crossed his face before he answered.",
+          "slot_id": "en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe",
+          "slot_type": "shadow_or_competitor_evidence_probe",
+          "source_phrase": "smile",
+          "target_lemma": "sonrisa"
+        }
+      ],
+      "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+      "item_count": 2,
+      "rejected_item_count": 0,
+      "rejected_items": [],
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe",
+      "response_rejection_reasons": [],
+      "slot_id": "en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe"
+    }
+  ],
+  "schema_version": 1,
+  "status": "ok",
+  "strict_flow": {
+    "admission_role": "pre_scoring_generated_response_filter",
+    "runtime_policy_change": "none",
+    "selected_request_subset_allowed": true,
+    "source_evidence_promotion": "none",
+    "threshold_tuning": "none"
+  },
+  "summary": {
+    "admitted_item_count": 2,
+    "by_arm": {
+      "low_control": {
+        "admitted_item_count": 2,
+        "expected_item_count": 2,
+        "expected_request_count": 1,
+        "rejected_item_count": 0,
+        "shortfall_count": 0
+      }
+    },
+    "by_slot_type": {
+      "shadow_or_competitor_evidence_probe": {
+        "admitted_item_count": 2,
+        "expected_item_count": 2,
+        "expected_request_count": 1,
+        "rejected_item_count": 0,
+        "shortfall_count": 0
+      }
+    },
+    "coverage_shortfall_count": 0,
+    "expected_item_count": 2,
+    "expected_request_count": 1,
+    "generated_response_count": 1,
+    "rejected_item_count": 0,
+    "response_level_error_count": 0,
+    "total_request_packet_count": 72
+  }
+}
