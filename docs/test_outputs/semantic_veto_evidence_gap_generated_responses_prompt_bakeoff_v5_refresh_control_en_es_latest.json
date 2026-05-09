@@ -1,0 +1,664 @@
+{
+  "batch_id": "en-es:semantic-veto-evidence-gap-generation:semantic-veto-evidence-gap-prompt-bakeoff-v5-refresh-control-20260509-001",
+  "execution_mode": "live",
+  "generated_at": "2026-05-09T00:11:01Z",
+  "model_id": "gpt-5.4-mini",
+  "pair": "en-es",
+  "pilot_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:prompt_variant:v5_refresh_control",
+  "prompt_id": "semantic_veto_evidence_gap_generation_v5_refresh_control",
+  "raw_response_bundle_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v5-refresh-control-20260509-001_raw_responses.json",
+  "responses": [
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:adjoining:vecino",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Shows the sense of neighboring or adjacent rooms.",
+          "sentence": "The hotel booked us an adjoining room next to the suite."
+        },
+        {
+          "evidence_note": "Shows the sense of a neighboring or adjacent garden.",
+          "sentence": "We planted herbs in the adjoining garden beside our house."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v5_refresh_control",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v5-refresh-control-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "adjoining",
+      "target_lemma": "vecino",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:entirely:enteramente",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "entirely means completely, with no light at all.",
+          "sentence": "The room was entirely dark after the power went out."
+        },
+        {
+          "evidence_note": "entirely means wholly, with full responsibility.",
+          "sentence": "She was entirely responsible for organizing the event."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v5_refresh_control",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v5-refresh-control-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:entirely:enteramente:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:entirely:enteramente:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:entirely:enteramente:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "entirely",
+      "target_lemma": "enteramente",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:bouillon:caldo",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Shows bouillon as a clear seasoned broth used in cooking.",
+          "sentence": "The chef simmered the bones for hours to make a rich bouillon for the soup."
+        },
+        {
+          "evidence_note": "Uses bouillon as broth added to a dish, matching the active sense.",
+          "sentence": "She added a cup of hot bouillon to the rice to give it more flavor."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v5_refresh_control",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v5-refresh-control-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:bouillon:caldo:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:bouillon:caldo:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:bouillon:caldo:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "bouillon",
+      "target_lemma": "caldo",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:december:diciembre",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Shows december as the calendar month at the end of the year.",
+          "sentence": "We plan to visit family in december, the twelfth month of the year."
+        },
+        {
+          "evidence_note": "Uses december in its month sense, with seasonal context.",
+          "sentence": "The store closes early every december because of the holiday season."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v5_refresh_control",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v5-refresh-control-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:december:diciembre:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:december:diciembre:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:december:diciembre:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "december",
+      "target_lemma": "diciembre",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:american:americano",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "American is used as a nationality adjective referring to the United States.",
+          "sentence": "She studied American history in college."
+        },
+        {
+          "evidence_note": "American modifies a cultural noun and clearly means from the United States.",
+          "sentence": "The museum featured American art from the nineteenth century."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v5_refresh_control",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v5-refresh-control-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:american:americano:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:american:americano:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:american:americano:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "american",
+      "target_lemma": "americano",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:among:entre",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Shows inclusion within a group of gifts.",
+          "sentence": "The red umbrella was among the many gifts on the table."
+        },
+        {
+          "evidence_note": "Shows being in the midst of a group of people.",
+          "sentence": "She felt calm among her closest friends at the reunion."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v5_refresh_control",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v5-refresh-control-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:among:entre:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:among:entre:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:among:entre:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "among",
+      "target_lemma": "entre",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:begin:comenzar",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Shows the active sense of starting an event.",
+          "sentence": "We will begin the meeting at nine o'clock."
+        },
+        {
+          "evidence_note": "Shows the active sense of coming into being or starting.",
+          "sentence": "The flowers begin to bloom in early spring."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v5_refresh_control",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v5-refresh-control-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:begin:comenzar:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:begin:comenzar:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:begin:comenzar:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "begin",
+      "target_lemma": "comenzar",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:dentist:dentista",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Shows a dental professional examining teeth and performing treatment.",
+          "sentence": "The dentist checked my teeth and filled a small cavity."
+        },
+        {
+          "evidence_note": "Clearly refers to a person who practices dentistry and provides oral care.",
+          "sentence": "I booked an appointment with the dentist to clean my gums and fix a chipped tooth."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v5_refresh_control",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v5-refresh-control-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:dentist:dentista:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:dentist:dentista:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:dentist:dentista:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "dentist",
+      "target_lemma": "dentista",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:brother:hermano",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Uses brother as a male sibling.",
+          "sentence": "My brother helped me move into my new apartment."
+        },
+        {
+          "evidence_note": "Uses brother as a family relation, a male sibling.",
+          "sentence": "She called her brother to ask for advice about the car."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v5_refresh_control",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v5-refresh-control-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:brother:hermano:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:brother:hermano:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:brother:hermano:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "brother",
+      "target_lemma": "hermano",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:german:alem-n",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Language sense: german refers to the German language.",
+          "sentence": "She studied german in school so she could speak with visitors from Berlin."
+        },
+        {
+          "evidence_note": "Nationality/country adjective sense: german describes origin from Germany.",
+          "sentence": "The museum labeled the painting as a german work from the 19th century."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v5_refresh_control",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v5-refresh-control-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:german:alem-n:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:german:alem-n:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:german:alem-n:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "german",
+      "target_lemma": "alemán",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:heart:coraz-n",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Physical organ sense: the heart is being examined by a doctor.",
+          "sentence": "The doctor listened to her heart and said the rhythm was steady."
+        },
+        {
+          "evidence_note": "Physical organ sense: the heart is referenced in a bodily gesture.",
+          "sentence": "He put his hand over his heart when the music began."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v5_refresh_control",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v5-refresh-control-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:heart:coraz-n:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:heart:coraz-n:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:heart:coraz-n:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "heart",
+      "target_lemma": "corazón",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:rumanian:rumano",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Uses rumanian as a nationality/country adjective in a clear Romanian context.",
+          "sentence": "She studied rumanian history to better understand the country's modern identity."
+        },
+        {
+          "evidence_note": "Uses rumanian for the language sense, matching the active target meaning.",
+          "sentence": "The museum added a rumanian language exhibit with books, songs, and folk tales."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v5_refresh_control",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v5-refresh-control-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:rumanian:rumano:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:rumanian:rumano:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:rumanian:rumano:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "rumanian",
+      "target_lemma": "rumano",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:salesman:vendedor",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Shows a person selling goods or services to customers.",
+          "sentence": "The salesman visited our office to demonstrate the new software and discuss pricing."
+        },
+        {
+          "evidence_note": "Clearly refers to a retail worker whose job is selling products.",
+          "sentence": "A salesman at the electronics store helped me compare the features of three laptops."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v5_refresh_control",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v5-refresh-control-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:salesman:vendedor:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:salesman:vendedor:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:salesman:vendedor:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "salesman",
+      "target_lemma": "vendedor",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:tomorrow:ma-ana",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Refers to the next day after today.",
+          "sentence": "I have a dentist appointment tomorrow morning."
+        },
+        {
+          "evidence_note": "Refers to the following day in a scheduling context.",
+          "sentence": "Please send the report tomorrow, not today."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v5_refresh_control",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v5-refresh-control-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:tomorrow:ma-ana:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:tomorrow:ma-ana:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:tomorrow:ma-ana:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "tomorrow",
+      "target_lemma": "mañana",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:acceptable:razonable",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Shows acceptable meaning reasonable in degree or quality.",
+          "sentence": "The proposal is acceptable because it offers a fair compromise for both sides."
+        },
+        {
+          "evidence_note": "Shows acceptable meaning sufficiently good or reasonable.",
+          "sentence": "Her explanation was acceptable after she added the missing details and corrected the errors."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v5_refresh_control",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v5-refresh-control-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:acceptable:razonable:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:acceptable:razonable:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:acceptable:razonable:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "acceptable",
+      "target_lemma": "razonable",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:chic:elegante",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Describes a stylish, refined appearance.",
+          "sentence": "Her apartment looks chic, with clean lines, soft lighting, and carefully chosen furniture."
+        },
+        {
+          "evidence_note": "Shows fashionable, sophisticated style.",
+          "sentence": "He wore a chic black suit to the gala, and everyone noticed how polished he looked."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v5_refresh_control",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v5-refresh-control-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:chic:elegante:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:chic:elegante:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:chic:elegante:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "chic",
+      "target_lemma": "elegante",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "The verb smile shows a facial expression of happiness, matching the active sense.",
+          "sentence": "She tried to smile after hearing the good news."
+        },
+        {
+          "evidence_note": "The context clearly uses smile as an intentional facial expression, not a noun.",
+          "sentence": "He could not help but smile when he saw the baby laugh."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v5_refresh_control",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v5-refresh-control-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:smile:sonre-r:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "smile",
+      "target_lemma": "sonreír",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:break:quebrar",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Physical force causes an object to crack or separate into pieces.",
+          "sentence": "The glass will break if it falls onto the tile floor."
+        },
+        {
+          "evidence_note": "Something solid fails structurally and splits because of pressure.",
+          "sentence": "A heavy branch can break under the weight of the snow."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v5_refresh_control",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v5-refresh-control-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:break:quebrar:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:break:quebrar:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:break:quebrar:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "break",
+      "target_lemma": "quebrar",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:rebate:descuento",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Shows a price reduction applied after purchase.",
+          "sentence": "The store offered a rebate on the laptop, so the final price was lower than the sticker price."
+        },
+        {
+          "evidence_note": "Shows a refund or reduction in the amount paid.",
+          "sentence": "After mailing in the form, she received a rebate that reduced the amount she had paid for the appliance."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v5_refresh_control",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v5-refresh-control-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:rebate:descuento:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:rebate:descuento:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:rebate:descuento:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "rebate",
+      "target_lemma": "descuento",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:govern:gobernar",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Shows governing authority over a city.",
+          "sentence": "The elected council will govern the city for the next four years."
+        },
+        {
+          "evidence_note": "Shows formal authority over a country.",
+          "sentence": "A new constitution will govern the country after the transition."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v5_refresh_control",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v5-refresh-control-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:govern:gobernar:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:govern:gobernar:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:govern:gobernar:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "govern",
+      "target_lemma": "gobernar",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:offset:distancia",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "offset is used as a measured distance from a reference point.",
+          "sentence": "The survey marked the offset from the bridge as 12 meters."
+        },
+        {
+          "evidence_note": "offset clearly refers to physical distance between two points.",
+          "sentence": "We measured the offset between the wall and the sensor to align the equipment."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v5_refresh_control",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v5-refresh-control-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:offset:distancia:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:offset:distancia:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:offset:distancia:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "offset",
+      "target_lemma": "distancia",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:control:gobernar",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "control means exercising authority over a place or group.",
+          "sentence": "The mayor used his control to govern the city through a difficult winter."
+        },
+        {
+          "evidence_note": "control indicates holding power to govern.",
+          "sentence": "After the election, the party gained control and began to govern the country."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v5_refresh_control",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v5-refresh-control-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:control:gobernar:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:control:gobernar:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:control:gobernar:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "control",
+      "target_lemma": "gobernar",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:bridle:reprimir",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Shows restraining a strong reaction.",
+          "sentence": "She had to bridle her anger before answering the rude remark."
+        },
+        {
+          "evidence_note": "Shows holding back an action or reaction.",
+          "sentence": "He tried to bridle his impulse to shout during the meeting."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v5_refresh_control",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v5-refresh-control-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:bridle:reprimir:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:bridle:reprimir:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:bridle:reprimir:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "bridle",
+      "target_lemma": "reprimir",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:bar:cercar",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "bar means block passage with a barrier or by closing access.",
+          "sentence": "The guards bar the gate to keep the crowd out."
+        },
+        {
+          "evidence_note": "bar means fence in or prevent passage.",
+          "sentence": "We bar the trail with fallen branches until the fire is under control."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v5_refresh_control",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v5-refresh-control-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:bar:cercar:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:bar:cercar:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:bar:cercar:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "bar",
+      "target_lemma": "cercar",
+      "unable_to_find_distinct_competitor": false
+    }
+  ],
+  "schema_version": 1,
+  "selected_request_ids": [
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:entirely:enteramente:active_evidence_expansion",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:bouillon:caldo:active_evidence_expansion",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:december:diciembre:active_evidence_expansion",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:american:americano:active_evidence_expansion",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:among:entre:active_evidence_expansion",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:begin:comenzar:active_evidence_expansion",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:dentist:dentista:active_evidence_expansion",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:brother:hermano:active_evidence_expansion",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:german:alem-n:active_evidence_expansion",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:heart:coraz-n:active_evidence_expansion",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:rumanian:rumano:active_evidence_expansion",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:salesman:vendedor:active_evidence_expansion",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:tomorrow:ma-ana:active_evidence_expansion",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:acceptable:razonable:active_evidence_expansion",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:chic:elegante:active_evidence_expansion",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:active_evidence_expansion",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:break:quebrar:active_evidence_expansion",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:rebate:descuento:active_evidence_expansion",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:govern:gobernar:active_evidence_expansion",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:offset:distancia:active_evidence_expansion",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:control:gobernar:active_evidence_expansion",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:bridle:reprimir:active_evidence_expansion",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:bar:cercar:active_evidence_expansion"
+  ],
+  "source_request_packet": "docs/test_inputs/semantic_veto_evidence_gap_prompt_variant_requests_en_es/v5_refresh_control.json"
+}

@@ -1,0 +1,78 @@
+{
+  "decision": "prompt_variant_request_packets_ready",
+  "generated_at": "2026-05-09T00:09:46Z",
+  "inputs": {
+    "dataset_json": "docs/test_inputs/semantic_routing_cases/en_es_full_family_repaired_full_v1.json",
+    "source_request_json": "docs/test_inputs/semantic_veto_evidence_gap_active_only_poc_requests_en_es.json"
+  },
+  "methodology": {
+    "llm_call": "none",
+    "primary_later_comparison": "postprocess no_high_eval_overlap_sentence_only view",
+    "runtime_policy_change": "none",
+    "same_family_denominator": "all variants use the frozen 24 active-only PoC families",
+    "threshold_tuning": "none"
+  },
+  "next_steps": [
+    "Run each variant packet with the existing generation runner and explicit spend guards.",
+    "Admit each variant response bundle against the matching variant request packet.",
+    "Run the generated-evidence postprocess report for each variant.",
+    "Compare variants on the no_high_eval_overlap_sentence_only view before scaling."
+  ],
+  "pair": "en-es",
+  "schema_version": 1,
+  "status": "ok",
+  "summary": {
+    "issue_count": 0,
+    "issues": [],
+    "request_count_per_variant": 24,
+    "total_expected_generated_items_if_all_variants_run": 192,
+    "total_request_count_if_all_variants_run": 96,
+    "variant_count": 4
+  },
+  "variants": [
+    {
+      "description": "Regenerate the current v5 active-only prompt as a variance control.",
+      "estimated_input_tokens": 12110,
+      "expected_generated_item_count": 48,
+      "expected_output_token_budget": 6720,
+      "family_count": 24,
+      "packet_path": "docs/test_inputs/semantic_veto_evidence_gap_prompt_variant_requests_en_es/v5_refresh_control.json",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v5_refresh_control",
+      "request_count": 24,
+      "variant_id": "v5_refresh_control"
+    },
+    {
+      "description": "Add expected-POS and source-frame instructions while leaving topic diversity mostly unchanged.",
+      "estimated_input_tokens": 16638,
+      "expected_generated_item_count": 48,
+      "expected_output_token_budget": 8160,
+      "family_count": 24,
+      "packet_path": "docs/test_inputs/semantic_veto_evidence_gap_prompt_variant_requests_en_es/v6_pos_only.json",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v6_pos_only",
+      "request_count": 24,
+      "variant_id": "v6_pos_only"
+    },
+    {
+      "description": "Add topic/frame diversity instructions without explicit POS-frame requirements.",
+      "estimated_input_tokens": 17165,
+      "expected_generated_item_count": 48,
+      "expected_output_token_budget": 8160,
+      "family_count": 24,
+      "packet_path": "docs/test_inputs/semantic_veto_evidence_gap_prompt_variant_requests_en_es/v6_diversity_only.json",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v6_diversity_only",
+      "request_count": 24,
+      "variant_id": "v6_diversity_only"
+    },
+    {
+      "description": "Combine expected-POS grammar anchoring with topic/frame diversity instructions.",
+      "estimated_input_tokens": 18371,
+      "expected_generated_item_count": 48,
+      "expected_output_token_budget": 8160,
+      "family_count": 24,
+      "packet_path": "docs/test_inputs/semantic_veto_evidence_gap_prompt_variant_requests_en_es/v6_pos_diversity.json",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v6_pos_diversity",
+      "request_count": 24,
+      "variant_id": "v6_pos_diversity"
+    }
+  ]
+}

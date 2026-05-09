@@ -47,22 +47,29 @@ def build_evidence_gap_score_contribution_report(
     *,
     dataset_payload: Mapping[str, object],
     admission_payload: Mapping[str, object],
+    selected_family_ids: Sequence[str] | None = None,
     dataset_path: Path | None = None,
     admission_path: Path | None = None,
     augmented_dir: Path = DEFAULT_AUGMENTED_DIR,
     scorer_id: str = DEFAULT_SCORER_ID,
     context_view: str = DEFAULT_CONTEXT_VIEW,
     evidence_view: str = DEFAULT_EVIDENCE_VIEW,
+    include_policy_sweep: bool = True,
     generated_at: str | None = None,
 ) -> dict[str, object]:
     generated_at = generated_at or _utc_now()
     admitted_items = _mapping_rows(admission_payload.get("admitted_items"))
+    selected_family_ids = sorted(selected_family_ids or [])
+    if not selected_family_ids:
+        selected_family_ids = sorted(
+            {
+                str(item.get("family_id") or "")
+                for item in admitted_items
+                if str(item.get("family_id") or "")
+            }
+        )
     selected_family_ids = sorted(
-        {
-            str(item.get("family_id") or "")
-            for item in admitted_items
-            if str(item.get("family_id") or "")
-        }
+        {str(family_id) for family_id in selected_family_ids if str(family_id)}
     )
     issues: list[str] = []
     if not selected_family_ids:
@@ -213,14 +220,20 @@ def build_evidence_gap_score_contribution_report(
         for mode, report in reports.items()
         if mode != "base"
     }
-    policy_sweep_rows = _build_policy_sweep_rows(
-        base_dataset_path=base_dataset_path,
-        application_dataset_paths=application_dataset_paths,
-        scorer_id=scorer_id,
-        context_view=context_view,
-        evidence_view=evidence_view,
+    policy_sweep_rows = (
+        _build_policy_sweep_rows(
+            base_dataset_path=base_dataset_path,
+            application_dataset_paths=application_dataset_paths,
+            scorer_id=scorer_id,
+            context_view=context_view,
+            evidence_view=evidence_view,
+        )
+        if include_policy_sweep
+        else []
     )
-    best_by_harmful_budget = _best_policy_rows_by_harmful_budget(policy_sweep_rows)
+    best_by_harmful_budget = (
+        _best_policy_rows_by_harmful_budget(policy_sweep_rows) if include_policy_sweep else {}
+    )
     status = "review" if issues else "ok"
     return {
         "schema_version": 1,

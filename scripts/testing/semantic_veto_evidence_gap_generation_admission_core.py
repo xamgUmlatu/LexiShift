@@ -483,6 +483,9 @@ def _public_item(
         "active_sense_contrast": str(response.get("active_sense_contrast") or "").strip(),
         "sentence": str(item.get("sentence") or "").strip(),
         "evidence_note": str(item.get("evidence_note") or "").strip(),
+        "source_pos_frame": str(item.get("source_pos_frame") or "").strip(),
+        "topic_frame": str(item.get("topic_frame") or "").strip(),
+        "diversity_note": str(item.get("diversity_note") or "").strip(),
         "active_mismatch_note": str(item.get("active_mismatch_note") or "").strip(),
         "no_winner_context_class": _normalize_no_winner_context_class(
             str(item.get("no_winner_context_class") or "")

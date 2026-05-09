@@ -3,14 +3,15 @@
 Status: active plan
 Role: Planning / pre-scan framing
 Purpose: define what semantic-routing data should eventually be generated with LLM support, which units deserve queueing, what can be inferred automatically versus what remains hypothesis, and how to avoid redundant generation work
-Last updated: 2026-04-25
-Last verified: 2026-04-25 filtered residual source runs, leakage admission, and surface-POS prototype-quality gate against the frozen `v10` queue
+Last updated: 2026-05-09
+Last verified: 2026-05-09 active-only prompt-variant bakeoff, generated-evidence admission, and postprocess scoring over the frozen 24-family PoC denominator
 Source-of-truth: planning doc only; current implemented truth still lives in the semantic-routing contracts, inventory publication code, and offline evidence normalization seam
 Related docs:
 - `docs/rulegen/semantic_shadow_source_intake_plan.md`
 - `docs/rulegen/semantic_llm_prompt_bakeoff_plan.md`
 - `docs/rulegen/semantic_routing_data_update_lifecycle.md`
 - `docs/rulegen/semantic_feedback_promotion_flow.md`
+- `docs/rulegen/semantic_llm_generation_budget_reference.md`
 - `docs/rulegen/semantic_routing_data_contract.md`
 - `docs/rulegen/semantic_routing_runtime_readiness.md`
 - `docs/test_inputs/semantic_routing/semantic_family_inventory.schema.json`
@@ -542,6 +543,10 @@ Current planning anchors:
 
 ## Recommended first-budget posture
 
+Budget calculation reference:
+
+- `docs/rulegen/semantic_llm_generation_budget_reference.md`
+
 Before any full scan, the current recommended first-budget posture is:
 
 - choose a bounded first tranche of high-value families
@@ -554,6 +559,60 @@ This should make the first tranche useful in two ways:
 
 - it may improve quality immediately
 - and it will teach the repo which kinds of families are actually worth paying for
+
+Current cost posture:
+
+- the `$100` budget is not tight at the current request sizes
+- the completed active-only PoC cost estimate is only cents on `gpt-5.4-mini`
+- even hundreds of active-only requests are expected to remain in low dollars
+- the real constraint is generated-data validity and downstream contribution, not
+  raw token spend
+
+Post-generation audit posture:
+
+- raw LLM outputs remain immutable
+- derived postprocess views may mechanically drop or scrub generated evidence
+  before rescoring
+- the current active-only audit lane is:
+  - `scripts/testing/semantic_veto_evidence_gap_generation_postprocess_en_es.py`
+  - `docs/test_outputs/semantic_veto_evidence_gap_generation_postprocess_active_only_poc_en_es_latest.md`
+- this lane compares sentence-plus-note, sentence-only, note-only diagnostic,
+  eval-overlap-filtered, POS-anchored, conservative, and quality-ranked views
+- promotion candidates should prefer generated browser sentences over explanatory
+  evidence notes unless the postprocess report proves the notes are harmless
+
+Current prompt-variant bakeoff result:
+
+- no runtime policy, threshold, or raw-output mutation was made
+- four active-only prompt packets were generated over the same frozen 24-family
+  denominator:
+  - `v5_refresh_control`
+  - `v6_pos_only`
+  - `v6_diversity_only`
+  - `v6_pos_diversity`
+- live generation accepted `24 / 24` responses for every variant
+- admission accepted all rows for `v5_refresh_control`, `v6_pos_only`, and
+  `v6_diversity_only`
+- admission rejected one `v6_pos_diversity` row because the model wrote
+  `smiled` instead of the exact browser trigger `smile`; this is kept as a
+  prompt-quality signal, not repaired in raw output
+- the consolidated bakeoff artifact is:
+  - `scripts/testing/semantic_veto_evidence_gap_prompt_variant_bakeoff_summary_en_es.py`
+  - `docs/test_outputs/semantic_veto_evidence_gap_prompt_variant_bakeoff_summary_en_es_latest.md`
+- primary comparison view: `no_high_eval_overlap_sentence_only`
+- primary result:
+  - `v5_refresh_control`: `73.63%` accuracy / `50.00%` replace recall / `0`
+    harmful / `24` false abstains
+  - `v6_pos_only`: `68.13%` / `43.75%` / `2` harmful / `27`
+  - `v6_diversity_only`: `67.03%` / `41.67%` / `2` harmful / `28`
+  - `v6_pos_diversity`: `68.13%` / `41.67%` / `1` harmful / `28`
+- interpretation:
+  - POS/diversity prompting improved some mechanical diagnostics, especially
+    model-provided frame labels and POS-weak counts
+  - those mechanical improvements did not improve downstream veto decisions on
+    this frozen active-only lane
+  - the current best immediate prompt posture is therefore the simpler v5
+    active-only shape plus postprocess filtering, not the heavier v6 wording
 
 ## What a future automatic pass should emit
 

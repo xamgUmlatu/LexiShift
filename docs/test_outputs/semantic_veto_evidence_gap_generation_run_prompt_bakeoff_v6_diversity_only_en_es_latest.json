@@ -1,0 +1,630 @@
+{
+  "admission_preview": {
+    "admitted_item_count": 48,
+    "coverage_shortfall_count": 0,
+    "coverage_waived_item_count": 0,
+    "decision": "generated_items_admitted_for_pilot_rescoring",
+    "rejected_item_count": 0,
+    "status": "ok"
+  },
+  "artifacts": {
+    "generated_responses_json": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-diversity-only-20260509-001_generated_responses.json",
+    "journal_jsonl": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-diversity-only-20260509-001_journal.jsonl",
+    "raw_response_bundle_json": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-diversity-only-20260509-001_raw_responses.json"
+  },
+  "batch_id": "en-es:semantic-veto-evidence-gap-generation:semantic-veto-evidence-gap-prompt-bakeoff-v6-diversity-only-20260509-001",
+  "execution_mode": "live",
+  "generated_at": "2026-05-09T00:12:48Z",
+  "pair": "en-es",
+  "pilot_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:prompt_variant:v6_diversity_only",
+  "prompt_id": "semantic_veto_evidence_gap_generation_v6_diversity_only",
+  "replay_source": "",
+  "request_rows": [
+    {
+      "family_id": "en-es:full-family-repaired-full:adjoining:vecino",
+      "first_sentence": "The clinic moved into the adjoining office after the lease ended.",
+      "item_count": 2,
+      "pilot_arm": "high_need",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-diversity-only-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0415930735c552040169fe7c01c4a48193b0ec517e6f730b62",
+      "slot_id": "en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 639,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 250,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 889
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:entirely:enteramente",
+      "first_sentence": "The report was entirely accurate, so the editor published it without changes.",
+      "item_count": 2,
+      "pilot_arm": "high_need",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-diversity-only-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:entirely:enteramente:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:entirely:enteramente:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_03453b715fcfc1610169fe7c048ad48196aa2bef3fe36c8668",
+      "slot_id": "en-es:full-family-repaired-full:entirely:enteramente:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 653,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 261,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 914
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:bouillon:caldo",
+      "first_sentence": "The chef simmered the bouillon with herbs before serving the soup.",
+      "item_count": 2,
+      "pilot_arm": "high_need",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-diversity-only-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:bouillon:caldo:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:bouillon:caldo:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0e3ce7e191d959970169fe7c06cd7c8195bc9d0f95bb469918",
+      "slot_id": "en-es:full-family-repaired-full:bouillon:caldo:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 642,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 246,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 888
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:december:diciembre",
+      "first_sentence": "We booked the cabin for december and left the city for a quiet week.",
+      "item_count": 2,
+      "pilot_arm": "high_need",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-diversity-only-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:december:diciembre:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:december:diciembre:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_051f22e9da52beca0169fe7c08ac588193b9ae1c74637a43ff",
+      "slot_id": "en-es:full-family-repaired-full:december:diciembre:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 637,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 255,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 892
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:american:americano",
+      "first_sentence": "The museum opened a new exhibit on american folk art.",
+      "item_count": 2,
+      "pilot_arm": "high_need",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-diversity-only-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:american:americano:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:american:americano:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_083e9bba6253c84e0169fe7c0ab07481948433ccfa7b78e9e7",
+      "slot_id": "en-es:full-family-repaired-full:american:americano:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 629,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 248,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 877
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:among:entre",
+      "first_sentence": "The new policy was popular among nurses at the clinic.",
+      "item_count": 2,
+      "pilot_arm": "high_need",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-diversity-only-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:among:entre:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:among:entre:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0fc73aed03d87b3c0169fe7c0c8f3c8196abc07dd987bfbca6",
+      "slot_id": "en-es:full-family-repaired-full:among:entre:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 632,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 232,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 864
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:begin:comenzar",
+      "first_sentence": "We will begin the meeting after the last guest arrives.",
+      "item_count": 2,
+      "pilot_arm": "high_need",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-diversity-only-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:begin:comenzar:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:begin:comenzar:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0e40a751058a52a00169fe7c0e1bf48196a9ad3d427396ae19",
+      "slot_id": "en-es:full-family-repaired-full:begin:comenzar:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 641,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 233,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 874
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:dentist:dentista",
+      "first_sentence": "My dentist checked the filling and scheduled a follow-up for next week.",
+      "item_count": 2,
+      "pilot_arm": "high_need",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-diversity-only-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:dentist:dentista:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:dentist:dentista:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_05d57544cce156080169fe7c1042488190887e5e4e6be02625",
+      "slot_id": "en-es:full-family-repaired-full:dentist:dentista:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 645,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 252,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 897
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:brother:hermano",
+      "first_sentence": "My brother fixed the bike before school and left it by the porch.",
+      "item_count": 2,
+      "pilot_arm": "middle_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-diversity-only-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:brother:hermano:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:brother:hermano:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0a1ec6219714cf490169fe7c1241cc8190ba14bc9541873ed4",
+      "slot_id": "en-es:full-family-repaired-full:brother:hermano:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 648,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 250,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 898
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:german:alem-n",
+      "first_sentence": "The museum added a german poster from the 1920s to the new exhibit.",
+      "item_count": 2,
+      "pilot_arm": "middle_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-diversity-only-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:german:alem-n:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:german:alem-n:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_05afca93749c0e290169fe7c140b5881978bc93a854b8a05a5",
+      "slot_id": "en-es:full-family-repaired-full:german:alem-n:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 639,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 256,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 895
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:heart:coraz-n",
+      "first_sentence": "She felt a sudden ache in her heart after the long climb.",
+      "item_count": 2,
+      "pilot_arm": "middle_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-diversity-only-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:heart:coraz-n:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:heart:coraz-n:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0aa5de97307058ef0169fe7c15e51881938ed673cc466f6a45",
+      "slot_id": "en-es:full-family-repaired-full:heart:coraz-n:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 642,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 244,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 886
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:rumanian:rumano",
+      "first_sentence": "The museum added a rumanian folk costume to its winter exhibit.",
+      "item_count": 2,
+      "pilot_arm": "middle_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-diversity-only-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:rumanian:rumano:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:rumanian:rumano:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_04017a4310b295fc0169fe7c17b20c8193ba0644d7d8220a2b",
+      "slot_id": "en-es:full-family-repaired-full:rumanian:rumano:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 654,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 266,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 920
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:salesman:vendedor",
+      "first_sentence": "The salesman showed us a compact camera and explained the warranty.",
+      "item_count": 2,
+      "pilot_arm": "middle_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-diversity-only-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:salesman:vendedor:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:salesman:vendedor:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_06e32d7cddf2fc870169fe7c1b18048195aa19f2842017da71",
+      "slot_id": "en-es:full-family-repaired-full:salesman:vendedor:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 639,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 244,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 883
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:tomorrow:ma-ana",
+      "first_sentence": "The package should arrive tomorrow, so I can sign for it after work.",
+      "item_count": 2,
+      "pilot_arm": "middle_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-diversity-only-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:tomorrow:ma-ana:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:tomorrow:ma-ana:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_07b432c77468834e0169fe7c1ce18081979a078dadee1bbb85",
+      "slot_id": "en-es:full-family-repaired-full:tomorrow:ma-ana:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 655,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 262,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 917
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:acceptable:razonable",
+      "first_sentence": "The hotel room was acceptable, with a clean bed and a quiet hallway.",
+      "item_count": 2,
+      "pilot_arm": "middle_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-diversity-only-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:acceptable:razonable:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:acceptable:razonable:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_051938f8e8dca9db0169fe7c1edc248197bc5986bb5ba18ca6",
+      "slot_id": "en-es:full-family-repaired-full:acceptable:razonable:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 646,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 253,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 899
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:chic:elegante",
+      "first_sentence": "Her apartment has a chic living room with clean lines and soft lighting.",
+      "item_count": 2,
+      "pilot_arm": "middle_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-diversity-only-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:chic:elegante:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:chic:elegante:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0319fd3a0e4603280169fe7c20d2f48195986d5f9da6240a41",
+      "slot_id": "en-es:full-family-repaired-full:chic:elegante:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 640,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 246,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 886
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+      "first_sentence": "She tried to smile after hearing the good news.",
+      "item_count": 2,
+      "pilot_arm": "low_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-diversity-only-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0b3161ff78d915110169fe7c22e4ec81968983e6ff459891cf",
+      "slot_id": "en-es:full-family-repaired-full:smile:sonre-r:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 658,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 235,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 893
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:break:quebrar",
+      "first_sentence": "The old chair started to break when he sat down.",
+      "item_count": 2,
+      "pilot_arm": "low_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-diversity-only-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:break:quebrar:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:break:quebrar:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0791a6c1c45b1d670169fe7c249bd08195b261ba5d21f043fc",
+      "slot_id": "en-es:full-family-repaired-full:break:quebrar:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 647,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 247,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 894
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:rebate:descuento",
+      "first_sentence": "The store offered a rebate on the washing machine after checkout.",
+      "item_count": 2,
+      "pilot_arm": "low_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-diversity-only-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:rebate:descuento:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:rebate:descuento:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_04b31fae965f6b7c0169fe7c26b61c8193bcf7aaa65fad4f55",
+      "slot_id": "en-es:full-family-repaired-full:rebate:descuento:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 647,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 273,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 920
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:govern:gobernar",
+      "first_sentence": "The coalition plans to govern the city council after the election.",
+      "item_count": 2,
+      "pilot_arm": "low_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-diversity-only-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:govern:gobernar:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:govern:gobernar:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_037e9a85a7c415720169fe7c28b53c8190a105fb388a89b574",
+      "slot_id": "en-es:full-family-repaired-full:govern:gobernar:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 658,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 257,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 915
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:offset:distancia",
+      "first_sentence": "The survey marker showed an offset of twelve feet from the fence line.",
+      "item_count": 2,
+      "pilot_arm": "low_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-diversity-only-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:offset:distancia:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:offset:distancia:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_020bfc2119026efa0169fe7c2bdd6081908da92a7d640ea907",
+      "slot_id": "en-es:full-family-repaired-full:offset:distancia:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 638,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 237,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 875
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:control:gobernar",
+      "first_sentence": "After the election, the coalition will control the city council and set the budget.",
+      "item_count": 2,
+      "pilot_arm": "low_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-diversity-only-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:control:gobernar:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:control:gobernar:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_078d0f6815ce40170169fe7c2da63481958af1acab3e505fdc",
+      "slot_id": "en-es:full-family-repaired-full:control:gobernar:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 650,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 262,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 912
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:bridle:reprimir",
+      "first_sentence": "The coach tried to bridle his anger before the team meeting.",
+      "item_count": 2,
+      "pilot_arm": "low_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-diversity-only-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:bridle:reprimir:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:bridle:reprimir:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_01a0d2f25dc253e20169fe7c2fb4248197bce03b1183fecdd2",
+      "slot_id": "en-es:full-family-repaired-full:bridle:reprimir:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 653,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 255,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 908
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:bar:cercar",
+      "first_sentence": "The crew used steel panels to bar the alley during the parade.",
+      "item_count": 2,
+      "pilot_arm": "low_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-diversity-only-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:bar:cercar:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:bar:cercar:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0412dd6be5edcee40169fe7c32aadc819582e7573f9a4cd884",
+      "slot_id": "en-es:full-family-repaired-full:bar:cercar:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 646,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 250,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 896
+      }
+    }
+  ],
+  "schema_version": 1,
+  "selected_model_id": "gpt-5.4-mini",
+  "selected_temperature": 0.2,
+  "status": "ok",
+  "summary": {
+    "accepted_generated_item_count": 48,
+    "accepted_items_by_slot_type": {
+      "active_evidence_expansion": 48
+    },
+    "accepted_response_count": 24,
+    "accepted_responses_by_arm": {
+      "high_need": 8,
+      "low_control": 8,
+      "middle_control": 8
+    },
+    "accepted_responses_by_slot_type": {
+      "active_evidence_expansion": 24
+    },
+    "admission_status": "ok",
+    "admitted_item_count": 48,
+    "api_error_count": 0,
+    "coverage_shortfall_count": 0,
+    "coverage_waived_item_count": 0,
+    "input_tokens": 15478,
+    "invalid_output_count": 0,
+    "output_tokens": 6014,
+    "reasoning_tokens": 0,
+    "rejected_item_count": 0,
+    "selected_request_count": 24
+  }
+}

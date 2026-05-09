@@ -1,9 +1,9 @@
 # Semantic Veto System Registry
 
 - Status: `ok`
-- Generated: `2026-05-08T21:34:12Z`
+- Generated: `2026-05-09T00:25:37Z`
 - Registry: `/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_veto_system_registry_en_es.json`
-- Entries: `251`
+- Entries: `255`
 - Passes: `7`
 
 ## Current Candidate
@@ -103,10 +103,10 @@
 ### Entry States
 - `current_candidate`: `5`
 - `current_reference`: `27`
-- `current_research`: `77`
+- `current_research`: `80`
 - `current_runtime`: `16`
 - `diagnostic_only`: `1`
-- `generated_evidence`: `116`
+- `generated_evidence`: `117`
 - `historical_reference`: `5`
 - `superseded`: `2`
 - `supporting_current`: `2`
@@ -114,7 +114,7 @@
 ### Components
 - `candidate_wave6`: `11`
 - `decision_research`: `18`
-- `diagnostics`: `122`
+- `diagnostics`: `126`
 - `evaluation_data`: `45`
 - `historical_or_seed`: `7`
 - `process_governance`: `13`
@@ -173,9 +173,12 @@
 | difficulty_stratification_harness | current_research | diagnostics | Rank and ambiguity bins can be overread because current local frequency coverage is sparse and the report is diagnostic-only. | research_harness |
 | evidence_gap_active_only_poc_requests_harness | current_research | diagnostics | Request freezer only; generated data still requires live generation, admission, and score-contribution before interpretation. | research_harness |
 | evidence_gap_active_only_poc_requests_packet | current_research | diagnostics | Input packet only; not generated data and not runtime source evidence. | data_artifacts |
+| evidence_gap_active_only_prompt_variant_bakeoff_summary_harness | current_research | diagnostics | Small active-only prompt bakeoff; useful for prompt choice but not a full en-es semantic-veto promotion claim. | research_harness |
+| evidence_gap_active_only_prompt_variant_requests_harness | current_research | diagnostics | Request packets are generation inputs only; results must pass live generation, admission, postprocess scoring, and later locked evaluation before promotion. | research_harness |
 | evidence_gap_control_pilot_plan_harness | current_research | diagnostics | The selected families come from the current repaired-full denominator and do not by themselves validate LLM evidence benefit. | research_harness |
 | evidence_gap_generation_admission_harness | current_research | diagnostics | Admission is structural and lexical; semantic usefulness still requires downstream rescoring and spot review. | research_harness |
 | evidence_gap_generation_contribution_harness | current_research | diagnostics | Similarity diagnostics are not final semantic judgments; review and downstream rescoring are still required. | research_harness |
+| evidence_gap_generation_postprocess_harness | current_research | diagnostics | Postprocess filters are diagnostics and promotion candidates; they do not change runtime policy and do not validate shadow or no-winner generation quality. | research_harness |
 | evidence_gap_generation_requests_harness | current_research | diagnostics | Request rendering is not generated data, source admission, downstream scoring, or runtime policy. | research_harness |
 | evidence_gap_generation_run_harness | current_research | diagnostics | Generated responses still require admission, rescoring, and spot review; live mode spends API budget and must keep explicit run-id and cost ceilings. | research_harness |
 | evidence_gap_generation_score_contribution_harness | current_research | diagnostics | No runtime policy or threshold is changed; selected balanced-smoke and policy-sweep results are diagnostic and must not be treated as full-pilot proof. | research_harness |
@@ -280,6 +283,7 @@
 | auth_frame_failure_mining | generated_evidence | diagnostics | Uses unrescued phrase validation as a blocking heldout unless interpreted with rescue replay. | overfit_leakage |
 | curve_guided_expansion_plan_latest_report | generated_evidence | diagnostics | This is a planning artifact for data expansion, not proof that all recommended rows are necessary or that any runtime coefficient is promotable. | data_artifacts |
 | difficulty_stratification_latest_report | generated_evidence | diagnostics | The sparse rank and WordNet coverage makes it a planning artifact, not a proof of the beginner-versus-advanced accuracy curve; Zipf coverage improves observability but does not replace representative controls. | data_artifacts |
+| evidence_gap_active_only_prompt_variant_bakeoff_summary_report | generated_evidence | diagnostics | Current result argues against heavier v6 wording for this active-only lane; it should not be generalized to shadow, phrase/no-winner, or full language-pair coverage without separate tests. | data_artifacts |
 | evidence_gap_control_pilot_plan_latest_report | generated_evidence | diagnostics | Generated planning evidence only; high and middle historical failure similarity means future improvement, not historical failure alone, must decide whether the heuristic is useful. | data_artifacts |
 | evidence_gap_generation_admission_active_only_poc_report | generated_evidence | diagnostics | Structural admission only; score contribution decides whether the active examples help the frozen cases. | data_artifacts |
 | evidence_gap_generation_admission_balanced_smoke_report | generated_evidence | diagnostics | Structural admission only; generated items still require semantic contribution review and score-contribution checks before promotion. | data_artifacts |
@@ -422,9 +426,12 @@
 | difficulty_stratification_harness | current_research | diagnostics | scripts/testing/semantic_veto_difficulty_stratification_en_es.py | First no-spend measurement surface for deciding whether expanded LLM generation should concentrate on high-frequency or high-ambiguity source triggers, while keeping SRS target difficulty separate. |
 | evidence_gap_active_only_poc_requests_harness | current_research | diagnostics | scripts/testing/semantic_veto_evidence_gap_active_only_poc_requests_en_es.py | Selects exactly 24 active evidence requests across 8 high-need, 8 middle-control, and 8 low-control families, with two active examples per family. |
 | evidence_gap_active_only_poc_requests_packet | current_research | diagnostics | docs/test_inputs/semantic_veto_evidence_gap_active_only_poc_requests_en_es.json | Contains 24 active evidence requests, 24 families, balanced 8/8/8 high/middle/low arms, and 48 expected active examples under prompt semantic_veto_evidence_gap_generation_v5. |
+| evidence_gap_active_only_prompt_variant_bakeoff_summary_harness | current_research | diagnostics | scripts/testing/semantic_veto_evidence_gap_prompt_variant_bakeoff_summary_en_es.py | Ranks the four active-only prompt variants on the primary no-high-eval-overlap sentence-only view while preserving admission warnings and cost estimates. |
+| evidence_gap_active_only_prompt_variant_requests_harness | current_research | diagnostics | scripts/testing/semantic_veto_evidence_gap_prompt_variant_requests_en_es.py | Creates v5_refresh_control, v6_pos_only, v6_diversity_only, and v6_pos_diversity packets with identical family coverage for a fair prompt bakeoff. |
 | evidence_gap_control_pilot_plan_harness | current_research | diagnostics | scripts/testing/semantic_veto_evidence_gap_control_pilot_plan_en_es.py | Turns the evidence-gap heuristic into a falsifiable pilot design while keeping observed failures diagnostic-only. |
 | evidence_gap_generation_admission_harness | current_research | diagnostics | scripts/testing/semantic_veto_evidence_gap_generation_admission_en_es.py | Validates request alignment, source phrase presence, Spanish target absence, label leakage, duplicate sentences, slot-specific note fields, competitor target presence, and no-winner blank-target behavior. |
 | evidence_gap_generation_contribution_harness | current_research | diagnostics | scripts/testing/semantic_veto_evidence_gap_generation_contribution_en_es.py | Scores admitted generated items against active evidence with token-jaccard and TF-IDF diagnostics, queues non-active slots for role review, flags possible active-role pollution, and records new competitor targets. |
+| evidence_gap_generation_postprocess_harness | current_research | diagnostics | scripts/testing/semantic_veto_evidence_gap_generation_postprocess_en_es.py | Compares sentence-plus-note, sentence-only, note-only diagnostic, eval-overlap-filtered, POS-anchored, conservative, and quality-ranked evidence views over the frozen active-only PoC denominator. |
 | evidence_gap_generation_requests_harness | current_research | diagnostics | scripts/testing/semantic_veto_evidence_gap_generation_requests_en_es.py | Creates the exact pre-spend prompt packet for 72 balanced slot requests across high, middle, and low control arms. |
 | evidence_gap_generation_run_harness | current_research | diagnostics | scripts/testing/semantic_veto_evidence_gap_generation_run_en_es.py | Provides replay mode, bounded live mode, append-only live journals, raw response bundles, generated response payloads, and admission preview for selected request subsets or full batches. |
 | evidence_gap_generation_score_contribution_harness | current_research | diagnostics | scripts/testing/semantic_veto_evidence_gap_generation_score_contribution_en_es.py | Builds selected base and augmented datasets from the repaired-full manual packet, runs TF-IDF sentence-veto scoring, reports five generated-evidence application modes, and runs a 240-row no-spend policy sweep across min active, margin, phrase guard, and active-rescue settings. |
@@ -529,6 +536,7 @@
 | auth_frame_failure_mining | generated_evidence | diagnostics | docs/test_outputs/semantic_source_failure_class_mining_non_v10_wave6_auth_frame_latest.md | Keeps promotion posture at review despite clean active/shadow result. |
 | curve_guided_expansion_plan_latest_report | generated_evidence | diagnostics | docs/test_outputs/semantic_veto_curve_guided_expansion_plan_en_es_latest.md | Shows 42 primary cells, 6 sentinel cells excluded from queue selection, 37 curve signals, 24 queued cells, and first-wave manual/LLM/locked row budgets. |
 | difficulty_stratification_latest_report | generated_evidence | diagnostics | docs/test_outputs/semantic_veto_difficulty_stratification_en_es_latest.md | Shows current measured rows at 56.2% positive allow and 82.2% negative abstain, with English source-rank coverage at 33.8%, Spanish target-rank coverage at 6.2%, and optional English source-Zipf coverage at 100.0%. The broader Zipf slice is directionally harder for very-common words than common words, but is not a causal proof. |
+| evidence_gap_active_only_prompt_variant_bakeoff_summary_report | generated_evidence | diagnostics | docs/test_outputs/semantic_veto_evidence_gap_prompt_variant_bakeoff_summary_en_es_latest.md | Shows v5_refresh_control as the best primary-view result at 73.63% accuracy, 50.00% replace recall, 0 harmful replacements, and 24 false abstains; v6 variants improve some mechanical labels but score worse downstream. |
 | evidence_gap_control_pilot_plan_latest_report | generated_evidence | diagnostics | docs/test_outputs/semantic_veto_evidence_gap_control_pilot_plan_en_es_latest.md | Shows 24 selected families and 72 planned generation slots. Historical TF-IDF failure is 62.5% high, 61.3% middle, and 37.5% low; historical sentence-transformer failure is 33.3% high, 38.8% middle, and 22.5% low. |
 | evidence_gap_generation_admission_active_only_poc_report | generated_evidence | diagnostics | docs/test_outputs/semantic_veto_evidence_gap_generation_admission_active_only_poc_en_es_latest.md | Shows 24 expected requests, 24 generated responses, 48 expected items, 48 admitted items, 0 rejected items, 0 coverage shortfall, and 0 waived items. |
 | evidence_gap_generation_admission_balanced_smoke_report | generated_evidence | diagnostics | docs/test_outputs/semantic_veto_evidence_gap_generation_admission_balanced_smoke_en_es_latest.md | Shows 9 expected requests, 9 generated responses, 15 expected items, 13 admitted items, 0 rejected items, 0 selected-subset coverage shortfall, and 2 waived items from an honest no-competitor marker. |

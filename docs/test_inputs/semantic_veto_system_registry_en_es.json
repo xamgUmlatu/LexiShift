@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "registry_id": "en_es_semantic_veto_system_registry_v1",
-  "last_updated": "2026-05-08",
+  "last_updated": "2026-05-09",
   "purpose": "Machine-readable reconciliation map for the en-es semantic sentence-veto runtime, research harnesses, candidate artifacts, and follow-up audit passes.",
   "state_definitions": {
     "current_runtime": "Participates in the browser/helper YES/NO decision path today.",
@@ -3947,6 +3947,74 @@
         "docs/test_outputs/semantic_veto_evidence_gap_generation_score_contribution_active_only_poc_en_es_latest.json",
         "scripts/testing/semantic_veto_evidence_gap_generation_score_contribution_en_es.py",
         "core/tests/dev/test_semantic_veto_evidence_gap_generation_score_contribution_en_es.py"
+      ]
+    },
+    {
+      "artifact_id": "evidence_gap_generation_postprocess_harness",
+      "title": "Semantic veto generated-evidence postprocess harness",
+      "component": "diagnostics",
+      "state": "current_research",
+      "path": "scripts/testing/semantic_veto_evidence_gap_generation_postprocess_en_es.py",
+      "role": "Audits admitted generated active evidence for mechanical risks and rescoring views without mutating raw LLM output.",
+      "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
+      "current_use": "Compares sentence-plus-note, sentence-only, note-only diagnostic, eval-overlap-filtered, POS-anchored, conservative, and quality-ranked evidence views over the frozen active-only PoC denominator.",
+      "risk": "Postprocess filters are diagnostics and promotion candidates; they do not change runtime policy and do not validate shadow or no-winner generation quality.",
+      "next_audit_pass": "research_harness",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_veto_evidence_gap_generation_postprocess_en_es.py",
+        "docs/test_outputs/semantic_veto_evidence_gap_generation_postprocess_active_only_poc_en_es_latest.md",
+        "scripts/testing/semantic_veto_evidence_gap_generation_score_contribution_core.py"
+      ]
+    },
+    {
+      "artifact_id": "evidence_gap_active_only_prompt_variant_requests_harness",
+      "title": "Semantic veto active-only prompt-variant request renderer",
+      "component": "diagnostics",
+      "state": "current_research",
+      "path": "scripts/testing/semantic_veto_evidence_gap_prompt_variant_requests_en_es.py",
+      "role": "Renders no-spend prompt-variant request packets over the same frozen 24-family active-only PoC denominator.",
+      "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
+      "current_use": "Creates v5_refresh_control, v6_pos_only, v6_diversity_only, and v6_pos_diversity packets with identical family coverage for a fair prompt bakeoff.",
+      "risk": "Request packets are generation inputs only; results must pass live generation, admission, postprocess scoring, and later locked evaluation before promotion.",
+      "next_audit_pass": "research_harness",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_veto_evidence_gap_prompt_variant_requests_en_es.py",
+        "docs/test_outputs/semantic_veto_evidence_gap_prompt_variant_requests_en_es_latest.md",
+        "docs/test_inputs/semantic_veto_evidence_gap_prompt_variant_requests_en_es/v5_refresh_control.json"
+      ]
+    },
+    {
+      "artifact_id": "evidence_gap_active_only_prompt_variant_bakeoff_summary_harness",
+      "title": "Semantic veto active-only prompt-variant bakeoff summary harness",
+      "component": "diagnostics",
+      "state": "current_research",
+      "path": "scripts/testing/semantic_veto_evidence_gap_prompt_variant_bakeoff_summary_en_es.py",
+      "role": "Consolidates generation, admission, postprocess, token, and primary-view metrics for the active-only prompt-variant bakeoff.",
+      "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
+      "current_use": "Ranks the four active-only prompt variants on the primary no-high-eval-overlap sentence-only view while preserving admission warnings and cost estimates.",
+      "risk": "Small active-only prompt bakeoff; useful for prompt choice but not a full en-es semantic-veto promotion claim.",
+      "next_audit_pass": "research_harness",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_veto_evidence_gap_prompt_variant_bakeoff_summary_en_es.py",
+        "docs/test_outputs/semantic_veto_evidence_gap_prompt_variant_bakeoff_summary_en_es_latest.md",
+        "docs/test_outputs/semantic_veto_evidence_gap_generation_postprocess_prompt_bakeoff_v5_refresh_control_en_es_latest.json"
+      ]
+    },
+    {
+      "artifact_id": "evidence_gap_active_only_prompt_variant_bakeoff_summary_report",
+      "title": "Semantic veto active-only prompt-variant bakeoff summary report",
+      "component": "diagnostics",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_veto_evidence_gap_prompt_variant_bakeoff_summary_en_es_latest.md",
+      "role": "Human-facing summary of the live active-only prompt-variant bakeoff.",
+      "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
+      "current_use": "Shows v5_refresh_control as the best primary-view result at 73.63% accuracy, 50.00% replace recall, 0 harmful replacements, and 24 false abstains; v6 variants improve some mechanical labels but score worse downstream.",
+      "risk": "Current result argues against heavier v6 wording for this active-only lane; it should not be generalized to shadow, phrase/no-winner, or full language-pair coverage without separate tests.",
+      "next_audit_pass": "data_artifacts",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_evidence_gap_prompt_variant_bakeoff_summary_en_es_latest.json",
+        "scripts/testing/semantic_veto_evidence_gap_prompt_variant_bakeoff_summary_en_es.py",
+        "docs/test_outputs/semantic_veto_evidence_gap_generation_admission_prompt_bakeoff_v6_pos_diversity_en_es_latest.md"
       ]
     },
     {

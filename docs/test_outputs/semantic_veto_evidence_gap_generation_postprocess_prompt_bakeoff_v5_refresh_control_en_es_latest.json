@@ -1,0 +1,3068 @@
+{
+  "decision": "generated_evidence_postprocess_ready_for_interpretation",
+  "generated_at": "2026-05-09T00:20:45Z",
+  "inputs": {
+    "admission_path": "docs/test_outputs/semantic_veto_evidence_gap_generation_admission_prompt_bakeoff_v5_refresh_control_en_es_latest.json",
+    "dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_full_family_repaired_full_v1.json"
+  },
+  "item_audits": [
+    {
+      "audit_id": "generated_active_item:001",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:adjoining:vecino:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.0909,
+        "risk": "low",
+        "sentence": "The adjoining farm belongs to a neighboring family."
+      },
+      "evidence_note": "Shows the sense of neighboring or adjacent rooms.",
+      "expected_pos": "adjective",
+      "family_id": "en-es:full-family-repaired-full:adjoining:vecino",
+      "flags": [],
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "adjective_attributive",
+      "peer_similarity_max": 0.0833,
+      "pos_anchor_strength": 0.9,
+      "quality_score": 1.0,
+      "sentence": "The hotel booked us an adjoining room next to the suite.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "adjoining",
+      "target_lemma": "vecino",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:002",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:adjoining:vecino:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.1,
+        "risk": "low",
+        "sentence": "The adjoining farm belongs to a neighboring family."
+      },
+      "evidence_note": "Shows the sense of a neighboring or adjacent garden.",
+      "expected_pos": "adjective",
+      "family_id": "en-es:full-family-repaired-full:adjoining:vecino",
+      "flags": [],
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "adjective_attributive",
+      "peer_similarity_max": 0.0833,
+      "pos_anchor_strength": 0.9,
+      "quality_score": 1.0,
+      "sentence": "We planted herbs in the adjoining garden beside our house.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "adjoining",
+      "target_lemma": "vecino",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:003",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:entirely:enteramente:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.1111,
+        "risk": "low",
+        "sentence": "The decision was entirely voluntary."
+      },
+      "evidence_note": "entirely means completely, with no light at all.",
+      "expected_pos": "adverb",
+      "family_id": "en-es:full-family-repaired-full:entirely:enteramente",
+      "flags": [],
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:entirely:enteramente:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "adverb",
+      "peer_similarity_max": 0.1,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 1.0,
+      "sentence": "The room was entirely dark after the power went out.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "entirely",
+      "target_lemma": "enteramente",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:004",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:entirely:enteramente:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.1667,
+        "risk": "low",
+        "sentence": "The decision was entirely voluntary."
+      },
+      "evidence_note": "entirely means wholly, with full responsibility.",
+      "expected_pos": "adverb",
+      "family_id": "en-es:full-family-repaired-full:entirely:enteramente",
+      "flags": [],
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:entirely:enteramente:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "adverb",
+      "peer_similarity_max": 0.1,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 1.0,
+      "sentence": "She was entirely responsible for organizing the event.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "entirely",
+      "target_lemma": "enteramente",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:005",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:bouillon:caldo:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.0833,
+        "risk": "low",
+        "sentence": "Add bouillon to the rice for a richer flavor."
+      },
+      "evidence_note": "Shows bouillon as a clear seasoned broth used in cooking.",
+      "expected_pos": "noun",
+      "family_id": "en-es:full-family-repaired-full:bouillon:caldo",
+      "flags": [],
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:bouillon:caldo:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_context",
+      "peer_similarity_max": 0.0667,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 1.0,
+      "sentence": "The chef simmered the bones for hours to make a rich bouillon for the soup.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "bouillon",
+      "target_lemma": "caldo",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:006",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:bouillon:caldo:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.3,
+        "risk": "medium",
+        "sentence": "Add bouillon to the rice for a richer flavor."
+      },
+      "evidence_note": "Uses bouillon as broth added to a dish, matching the active sense.",
+      "expected_pos": "noun",
+      "family_id": "en-es:full-family-repaired-full:bouillon:caldo",
+      "flags": [
+        "medium_eval_overlap"
+      ],
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:bouillon:caldo:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_context",
+      "peer_similarity_max": 0.0667,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 0.9,
+      "sentence": "She added a cup of hot bouillon to the rice to give it more flavor.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "bouillon",
+      "target_lemma": "caldo",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:007",
+      "definition_like_sentence": true,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:december:diciembre:002",
+        "gold_decision": "replace",
+        "max_jaccard": 0.1111,
+        "risk": "low",
+        "sentence": "Their lease expires in December."
+      },
+      "evidence_note": "Shows december as the calendar month at the end of the year.",
+      "expected_pos": "noun",
+      "family_id": "en-es:full-family-repaired-full:december:diciembre",
+      "flags": [
+        "definition_like_sentence"
+      ],
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:december:diciembre:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "month_name",
+      "peer_similarity_max": 0.0769,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 0.85,
+      "sentence": "We plan to visit family in december, the twelfth month of the year.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "december",
+      "target_lemma": "diciembre",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:008",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:december:diciembre:002",
+        "gold_decision": "replace",
+        "max_jaccard": 0.1111,
+        "risk": "low",
+        "sentence": "Their lease expires in December."
+      },
+      "evidence_note": "Uses december in its month sense, with seasonal context.",
+      "expected_pos": "noun",
+      "family_id": "en-es:full-family-repaired-full:december:diciembre",
+      "flags": [],
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:december:diciembre:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "month_name",
+      "peer_similarity_max": 0.0769,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 1.0,
+      "sentence": "The store closes early every december because of the holiday season.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "december",
+      "target_lemma": "diciembre",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:009",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:american:americano:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.1429,
+        "risk": "low",
+        "sentence": "The museum displayed American quilts."
+      },
+      "evidence_note": "American is used as a nationality adjective referring to the United States.",
+      "expected_pos": "adjective",
+      "family_id": "en-es:full-family-repaired-full:american:americano",
+      "flags": [],
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:american:americano:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "adjective_attributive",
+      "peer_similarity_max": 0.1111,
+      "pos_anchor_strength": 0.9,
+      "quality_score": 1.0,
+      "sentence": "She studied American history in college.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "american",
+      "target_lemma": "americano",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:010",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:american:americano:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.25,
+        "risk": "low",
+        "sentence": "The museum displayed American quilts."
+      },
+      "evidence_note": "American modifies a cultural noun and clearly means from the United States.",
+      "expected_pos": "adjective",
+      "family_id": "en-es:full-family-repaired-full:american:americano",
+      "flags": [],
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:american:americano:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "adjective_attributive",
+      "peer_similarity_max": 0.1111,
+      "pos_anchor_strength": 0.9,
+      "quality_score": 1.0,
+      "sentence": "The museum featured American art from the nineteenth century.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "american",
+      "target_lemma": "americano",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:011",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:among:entre:002",
+        "gold_decision": "replace",
+        "max_jaccard": 0.1111,
+        "risk": "low",
+        "sentence": "She felt comfortable among the volunteers."
+      },
+      "evidence_note": "Shows inclusion within a group of gifts.",
+      "expected_pos": "preposition",
+      "family_id": "en-es:full-family-repaired-full:among:entre",
+      "flags": [],
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:among:entre:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "preposition",
+      "peer_similarity_max": 0.0909,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 1.0,
+      "sentence": "The red umbrella was among the many gifts on the table.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "among",
+      "target_lemma": "entre",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:012",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:among:entre:002",
+        "gold_decision": "replace",
+        "max_jaccard": 0.25,
+        "risk": "low",
+        "sentence": "She felt comfortable among the volunteers."
+      },
+      "evidence_note": "Shows being in the midst of a group of people.",
+      "expected_pos": "preposition",
+      "family_id": "en-es:full-family-repaired-full:among:entre",
+      "flags": [],
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:among:entre:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "preposition",
+      "peer_similarity_max": 0.0909,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 1.0,
+      "sentence": "She felt calm among her closest friends at the reunion.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "among",
+      "target_lemma": "entre",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:013",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:begin:comenzar:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.3333,
+        "risk": "medium",
+        "sentence": "The lecture will begin at nine."
+      },
+      "evidence_note": "Shows the active sense of starting an event.",
+      "expected_pos": "verb",
+      "family_id": "en-es:full-family-repaired-full:begin:comenzar",
+      "flags": [
+        "medium_eval_overlap"
+      ],
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:begin:comenzar:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "verb_after_modal",
+      "peer_similarity_max": 0.1111,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 0.9,
+      "sentence": "We will begin the meeting at nine o'clock.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "begin",
+      "target_lemma": "comenzar",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:014",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:begin:comenzar:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.1429,
+        "risk": "low",
+        "sentence": "The lecture will begin at nine."
+      },
+      "evidence_note": "Shows the active sense of coming into being or starting.",
+      "expected_pos": "verb",
+      "family_id": "en-es:full-family-repaired-full:begin:comenzar",
+      "flags": [],
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:begin:comenzar:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "verb_before_infinitive",
+      "peer_similarity_max": 0.1111,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 1.0,
+      "sentence": "The flowers begin to bloom in early spring.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "begin",
+      "target_lemma": "comenzar",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:015",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:dentist:dentista:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.1,
+        "risk": "low",
+        "sentence": "The dentist repaired the chipped tooth before lunch."
+      },
+      "evidence_note": "Shows a dental professional examining teeth and performing treatment.",
+      "expected_pos": "noun",
+      "family_id": "en-es:full-family-repaired-full:dentist:dentista",
+      "flags": [],
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:dentist:dentista:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.0714,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 1.0,
+      "sentence": "The dentist checked my teeth and filled a small cavity.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "dentist",
+      "target_lemma": "dentista",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:016",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:dentist:dentista:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.2727,
+        "risk": "low",
+        "sentence": "The dentist repaired the chipped tooth before lunch."
+      },
+      "evidence_note": "Clearly refers to a person who practices dentistry and provides oral care.",
+      "expected_pos": "noun",
+      "family_id": "en-es:full-family-repaired-full:dentist:dentista",
+      "flags": [],
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:dentist:dentista:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.0714,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 1.0,
+      "sentence": "I booked an appointment with the dentist to clean my gums and fix a chipped tooth.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "dentist",
+      "target_lemma": "dentista",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:017",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:brother:hermano:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.1,
+        "risk": "low",
+        "sentence": "My brother still lives near our parents."
+      },
+      "evidence_note": "Uses brother as a male sibling.",
+      "expected_pos": "noun",
+      "family_id": "en-es:full-family-repaired-full:brother:hermano",
+      "flags": [],
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:brother:hermano:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.0909,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 1.0,
+      "sentence": "My brother helped me move into my new apartment.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "brother",
+      "target_lemma": "hermano",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:018",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:brother:hermano:002",
+        "gold_decision": "replace",
+        "max_jaccard": 0.2222,
+        "risk": "low",
+        "sentence": "The monks called each brother to the chapel."
+      },
+      "evidence_note": "Uses brother as a family relation, a male sibling.",
+      "expected_pos": "noun",
+      "family_id": "en-es:full-family-repaired-full:brother:hermano",
+      "flags": [],
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:brother:hermano:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.0909,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 1.0,
+      "sentence": "She called her brother to ask for advice about the car.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "brother",
+      "target_lemma": "hermano",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:019",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:german:alem-n:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.2222,
+        "risk": "low",
+        "sentence": "The class studied German poetry."
+      },
+      "evidence_note": "Language sense: german refers to the German language.",
+      "expected_pos": "adjective",
+      "family_id": "en-es:full-family-repaired-full:german:alem-n",
+      "flags": [],
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:german:alem-n:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "adjective_attributive",
+      "peer_similarity_max": 0.0769,
+      "pos_anchor_strength": 0.9,
+      "quality_score": 1.0,
+      "sentence": "She studied german in school so she could speak with visitors from Berlin.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "german",
+      "target_lemma": "alemán",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:020",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:german:alem-n:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.1,
+        "risk": "low",
+        "sentence": "The class studied German poetry."
+      },
+      "evidence_note": "Nationality/country adjective sense: german describes origin from Germany.",
+      "expected_pos": "adjective",
+      "family_id": "en-es:full-family-repaired-full:german:alem-n",
+      "flags": [],
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:german:alem-n:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "adjective_attributive",
+      "peer_similarity_max": 0.0769,
+      "pos_anchor_strength": 0.9,
+      "quality_score": 1.0,
+      "sentence": "The museum labeled the painting as a german work from the 19th century.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "german",
+      "target_lemma": "alemán",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:021",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:heart:coraz-n:002",
+        "gold_decision": "replace",
+        "max_jaccard": 0.1111,
+        "risk": "low",
+        "sentence": "He spoke from the heart during the ceremony."
+      },
+      "evidence_note": "Physical organ sense: the heart is being examined by a doctor.",
+      "expected_pos": "noun",
+      "family_id": "en-es:full-family-repaired-full:heart:coraz-n",
+      "flags": [],
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:heart:coraz-n:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.0833,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 1.0,
+      "sentence": "The doctor listened to her heart and said the rhythm was steady.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "heart",
+      "target_lemma": "corazón",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:022",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:heart:coraz-n:002",
+        "gold_decision": "replace",
+        "max_jaccard": 0.1,
+        "risk": "low",
+        "sentence": "He spoke from the heart during the ceremony."
+      },
+      "evidence_note": "Physical organ sense: the heart is referenced in a bodily gesture.",
+      "expected_pos": "noun",
+      "family_id": "en-es:full-family-repaired-full:heart:coraz-n",
+      "flags": [],
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:heart:coraz-n:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.0833,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 1.0,
+      "sentence": "He put his hand over his heart when the music began.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "heart",
+      "target_lemma": "corazón",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:023",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:rumanian:rumano:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.0769,
+        "risk": "low",
+        "sentence": "The museum displayed Rumanian folk costumes."
+      },
+      "evidence_note": "Uses rumanian as a nationality/country adjective in a clear Romanian context.",
+      "expected_pos": "adjective",
+      "family_id": "en-es:full-family-repaired-full:rumanian:rumano",
+      "flags": [],
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:rumanian:rumano:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "adjective_attributive",
+      "peer_similarity_max": 0.0588,
+      "pos_anchor_strength": 0.9,
+      "quality_score": 1.0,
+      "sentence": "She studied rumanian history to better understand the country's modern identity.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "rumanian",
+      "target_lemma": "rumano",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:024",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:rumanian:rumano:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.2727,
+        "risk": "low",
+        "sentence": "The museum displayed Rumanian folk costumes."
+      },
+      "evidence_note": "Uses rumanian for the language sense, matching the active target meaning.",
+      "expected_pos": "adjective",
+      "family_id": "en-es:full-family-repaired-full:rumanian:rumano",
+      "flags": [],
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:rumanian:rumano:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "adjective_attributive",
+      "peer_similarity_max": 0.0588,
+      "pos_anchor_strength": 0.9,
+      "quality_score": 1.0,
+      "sentence": "The museum added a rumanian language exhibit with books, songs, and folk tales.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "rumanian",
+      "target_lemma": "rumano",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:025",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:salesman:vendedor:002",
+        "gold_decision": "replace",
+        "max_jaccard": 0.1667,
+        "risk": "low",
+        "sentence": "A traveling salesman visited the shop every spring."
+      },
+      "evidence_note": "Shows a person selling goods or services to customers.",
+      "expected_pos": "noun",
+      "family_id": "en-es:full-family-repaired-full:salesman:vendedor",
+      "flags": [],
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:salesman:vendedor:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.0625,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 1.0,
+      "sentence": "The salesman visited our office to demonstrate the new software and discuss pricing.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "salesman",
+      "target_lemma": "vendedor",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:026",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:salesman:vendedor:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.0833,
+        "risk": "low",
+        "sentence": "The salesman explained the warranty in detail."
+      },
+      "evidence_note": "Clearly refers to a retail worker whose job is selling products.",
+      "expected_pos": "noun",
+      "family_id": "en-es:full-family-repaired-full:salesman:vendedor",
+      "flags": [],
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:salesman:vendedor:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.0625,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 1.0,
+      "sentence": "A salesman at the electronics store helped me compare the features of three laptops.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "salesman",
+      "target_lemma": "vendedor",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:027",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:tomorrow:ma-ana:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.1429,
+        "risk": "low",
+        "sentence": "The hearing is scheduled for tomorrow."
+      },
+      "evidence_note": "Refers to the next day after today.",
+      "expected_pos": "noun",
+      "family_id": "en-es:full-family-repaired-full:tomorrow:ma-ana",
+      "flags": [
+        "pos_unknown",
+        "pos_weak"
+      ],
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:tomorrow:ma-ana:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "unknown",
+      "peer_similarity_max": 0.1,
+      "pos_anchor_strength": 0.55,
+      "quality_score": 0.8,
+      "sentence": "I have a dentist appointment tomorrow morning.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "tomorrow",
+      "target_lemma": "mañana",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:028",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:tomorrow:ma-ana:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.125,
+        "risk": "low",
+        "sentence": "The hearing is scheduled for tomorrow."
+      },
+      "evidence_note": "Refers to the following day in a scheduling context.",
+      "expected_pos": "noun",
+      "family_id": "en-es:full-family-repaired-full:tomorrow:ma-ana",
+      "flags": [
+        "pos_unknown",
+        "pos_weak"
+      ],
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:tomorrow:ma-ana:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "unknown",
+      "peer_similarity_max": 0.1,
+      "pos_anchor_strength": 0.55,
+      "quality_score": 0.8,
+      "sentence": "Please send the report tomorrow, not today.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "tomorrow",
+      "target_lemma": "mañana",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:029",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:acceptable:razonable:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.2222,
+        "risk": "low",
+        "sentence": "The committee considered the compromise acceptable."
+      },
+      "evidence_note": "Shows acceptable meaning reasonable in degree or quality.",
+      "expected_pos": "adjective",
+      "family_id": "en-es:full-family-repaired-full:acceptable:razonable",
+      "flags": [],
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:acceptable:razonable:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "predicative",
+      "peer_similarity_max": 0.0714,
+      "pos_anchor_strength": 0.9,
+      "quality_score": 1.0,
+      "sentence": "The proposal is acceptable because it offers a fair compromise for both sides.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0909,
+        "risk": "low",
+        "shadow_id": "en-es:full-family-repaired-full:acceptable:razonable:shadow:1:correcto"
+      },
+      "source_phrase": "acceptable",
+      "target_lemma": "razonable",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:030",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:acceptable:razonable:002",
+        "gold_decision": "replace",
+        "max_jaccard": 0.1818,
+        "risk": "low",
+        "sentence": "The offer seemed acceptable after the repairs."
+      },
+      "evidence_note": "Shows acceptable meaning sufficiently good or reasonable.",
+      "expected_pos": "adjective",
+      "family_id": "en-es:full-family-repaired-full:acceptable:razonable",
+      "flags": [],
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:acceptable:razonable:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "predicative",
+      "peer_similarity_max": 0.0714,
+      "pos_anchor_strength": 0.9,
+      "quality_score": 1.0,
+      "sentence": "Her explanation was acceptable after she added the missing details and corrected the errors.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0833,
+        "risk": "low",
+        "shadow_id": "en-es:full-family-repaired-full:acceptable:razonable:shadow:1:correcto"
+      },
+      "source_phrase": "acceptable",
+      "target_lemma": "razonable",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:031",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:chic:elegante:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.0714,
+        "risk": "low",
+        "sentence": "She chose a chic black coat for the dinner."
+      },
+      "evidence_note": "Describes a stylish, refined appearance.",
+      "expected_pos": "adjective",
+      "family_id": "en-es:full-family-repaired-full:chic:elegante",
+      "flags": [],
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:chic:elegante:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "adjective_attributive",
+      "peer_similarity_max": 0.0526,
+      "pos_anchor_strength": 0.9,
+      "quality_score": 1.0,
+      "sentence": "Her apartment looks chic, with clean lines, soft lighting, and carefully chosen furniture.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0714,
+        "risk": "low",
+        "shadow_id": "en-es:full-family-repaired-full:chic:elegante:shadow:1:elegancia"
+      },
+      "source_phrase": "chic",
+      "target_lemma": "elegante",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:032",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:chic:elegante:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.1538,
+        "risk": "low",
+        "sentence": "She chose a chic black coat for the dinner."
+      },
+      "evidence_note": "Shows fashionable, sophisticated style.",
+      "expected_pos": "adjective",
+      "family_id": "en-es:full-family-repaired-full:chic:elegante",
+      "flags": [],
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:chic:elegante:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "adjective_attributive",
+      "peer_similarity_max": 0.0526,
+      "pos_anchor_strength": 0.9,
+      "quality_score": 1.0,
+      "sentence": "He wore a chic black suit to the gala, and everyone noticed how polished he looked.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0714,
+        "risk": "low",
+        "shadow_id": "en-es:full-family-repaired-full:chic:elegante:shadow:1:elegancia"
+      },
+      "source_phrase": "chic",
+      "target_lemma": "elegante",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:033",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:smile:sonre-r:003",
+        "gold_decision": "abstain",
+        "max_jaccard": 0.5714,
+        "risk": "high",
+        "sentence": "Her smile returned after the good news."
+      },
+      "evidence_note": "The verb smile shows a facial expression of happiness, matching the active sense.",
+      "expected_pos": "verb",
+      "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+      "flags": [
+        "high_eval_overlap"
+      ],
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "verb_infinitive",
+      "peer_similarity_max": 0.0769,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 0.75,
+      "sentence": "She tried to smile after hearing the good news.",
+      "shadow_confusability": {
+        "max_jaccard": 0.1,
+        "risk": "low",
+        "shadow_id": "en-es:full-family-repaired-full:smile:sonre-r:shadow:1:sonrisa"
+      },
+      "source_phrase": "smile",
+      "target_lemma": "sonreír",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:034",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:smile:sonre-r:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.1818,
+        "risk": "low",
+        "sentence": "She began to smile when the child waved."
+      },
+      "evidence_note": "The context clearly uses smile as an intentional facial expression, not a noun.",
+      "expected_pos": "verb",
+      "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+      "flags": [
+        "pos_unknown",
+        "pos_weak"
+      ],
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "unknown",
+      "peer_similarity_max": 0.0769,
+      "pos_anchor_strength": 0.25,
+      "quality_score": 0.8,
+      "sentence": "He could not help but smile when he saw the baby laugh.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0833,
+        "risk": "low",
+        "shadow_id": "en-es:full-family-repaired-full:smile:sonre-r:shadow:1:sonrisa"
+      },
+      "source_phrase": "smile",
+      "target_lemma": "sonreír",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:035",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:break:quebrar:004",
+        "gold_decision": "abstain",
+        "max_jaccard": 0.0909,
+        "risk": "low",
+        "sentence": "Her internship became the break that launched her career."
+      },
+      "evidence_note": "Physical force causes an object to crack or separate into pieces.",
+      "expected_pos": "verb",
+      "family_id": "en-es:full-family-repaired-full:break:quebrar",
+      "flags": [],
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:break:quebrar:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "verb_after_modal",
+      "peer_similarity_max": 0.0833,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 1.0,
+      "sentence": "The glass will break if it falls onto the tile floor.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0833,
+        "risk": "low",
+        "shadow_id": "en-es:full-family-repaired-full:break:quebrar:shadow:1:interrumpir"
+      },
+      "source_phrase": "break",
+      "target_lemma": "quebrar",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:036",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:break:quebrar:002",
+        "gold_decision": "replace",
+        "max_jaccard": 0.3333,
+        "risk": "medium",
+        "sentence": "A dry branch can break under sudden pressure."
+      },
+      "evidence_note": "Something solid fails structurally and splits because of pressure.",
+      "expected_pos": "verb",
+      "family_id": "en-es:full-family-repaired-full:break:quebrar",
+      "flags": [
+        "medium_eval_overlap"
+      ],
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:break:quebrar:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "verb_after_modal",
+      "peer_similarity_max": 0.0833,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 0.9,
+      "sentence": "A heavy branch can break under the weight of the snow.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0909,
+        "risk": "low",
+        "shadow_id": "en-es:full-family-repaired-full:break:quebrar:shadow:1:interrumpir"
+      },
+      "source_phrase": "break",
+      "target_lemma": "quebrar",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:037",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:rebate:descuento:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.25,
+        "risk": "low",
+        "sentence": "The store offered a rebate on the new refrigerator."
+      },
+      "evidence_note": "Shows a price reduction applied after purchase.",
+      "expected_pos": "noun",
+      "family_id": "en-es:full-family-repaired-full:rebate:descuento",
+      "flags": [],
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:rebate:descuento:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.0556,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 1.0,
+      "sentence": "The store offered a rebate on the laptop, so the final price was lower than the sticker price.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0667,
+        "risk": "low",
+        "shadow_id": "en-es:full-family-repaired-full:rebate:descuento:shadow:1:ranura"
+      },
+      "source_phrase": "rebate",
+      "target_lemma": "descuento",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:038",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:rebate:descuento:002",
+        "gold_decision": "replace",
+        "max_jaccard": 0.3636,
+        "risk": "medium",
+        "sentence": "Customers receive a rebate after mailing the form."
+      },
+      "evidence_note": "Shows a refund or reduction in the amount paid.",
+      "expected_pos": "noun",
+      "family_id": "en-es:full-family-repaired-full:rebate:descuento",
+      "flags": [
+        "medium_eval_overlap"
+      ],
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:rebate:descuento:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.0556,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 0.9,
+      "sentence": "After mailing in the form, she received a rebate that reduced the amount she had paid for the appliance.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0714,
+        "risk": "low",
+        "shadow_id": "en-es:full-family-repaired-full:rebate:descuento:shadow:1:ranura"
+      },
+      "source_phrase": "rebate",
+      "target_lemma": "descuento",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:039",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:govern:gobernar:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.375,
+        "risk": "medium",
+        "sentence": "The elected council will govern the province."
+      },
+      "evidence_note": "Shows governing authority over a city.",
+      "expected_pos": "verb",
+      "family_id": "en-es:full-family-repaired-full:govern:gobernar",
+      "flags": [
+        "medium_eval_overlap"
+      ],
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:govern:gobernar:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "verb_after_modal",
+      "peer_similarity_max": 0.0833,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 0.9,
+      "sentence": "The elected council will govern the city for the next four years.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0909,
+        "risk": "low",
+        "shadow_id": "en-es:full-family-repaired-full:govern:gobernar:shadow:1:regular"
+      },
+      "source_phrase": "govern",
+      "target_lemma": "gobernar",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:040",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:govern:gobernar:002",
+        "gold_decision": "replace",
+        "max_jaccard": 0.2222,
+        "risk": "low",
+        "sentence": "A coalition tried to govern after the election."
+      },
+      "evidence_note": "Shows formal authority over a country.",
+      "expected_pos": "verb",
+      "family_id": "en-es:full-family-repaired-full:govern:gobernar",
+      "flags": [],
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:govern:gobernar:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "verb_after_modal",
+      "peer_similarity_max": 0.0833,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 1.0,
+      "sentence": "A new constitution will govern the country after the transition.",
+      "shadow_confusability": {
+        "max_jaccard": 0.1,
+        "risk": "low",
+        "shadow_id": "en-es:full-family-repaired-full:govern:gobernar:shadow:1:regular"
+      },
+      "source_phrase": "govern",
+      "target_lemma": "gobernar",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:041",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:offset:distancia:002",
+        "gold_decision": "replace",
+        "max_jaccard": 0.1111,
+        "risk": "low",
+        "sentence": "The sensor has a small offset from the center line."
+      },
+      "evidence_note": "offset is used as a measured distance from a reference point.",
+      "expected_pos": "noun",
+      "family_id": "en-es:full-family-repaired-full:offset:distancia",
+      "flags": [],
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:offset:distancia:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.0909,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 1.0,
+      "sentence": "The survey marked the offset from the bridge as 12 meters.",
+      "shadow_confusability": {
+        "max_jaccard": 0.1111,
+        "risk": "low",
+        "shadow_id": "en-es:full-family-repaired-full:offset:distancia:shadow:1:compensar"
+      },
+      "source_phrase": "offset",
+      "target_lemma": "distancia",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:042",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:offset:distancia:002",
+        "gold_decision": "replace",
+        "max_jaccard": 0.2,
+        "risk": "low",
+        "sentence": "The sensor has a small offset from the center line."
+      },
+      "evidence_note": "offset clearly refers to physical distance between two points.",
+      "expected_pos": "noun",
+      "family_id": "en-es:full-family-repaired-full:offset:distancia",
+      "flags": [],
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:offset:distancia:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.0909,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 1.0,
+      "sentence": "We measured the offset between the wall and the sensor to align the equipment.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0909,
+        "risk": "low",
+        "shadow_id": "en-es:full-family-repaired-full:offset:distancia:shadow:1:compensar"
+      },
+      "source_phrase": "offset",
+      "target_lemma": "distancia",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:043",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:control:gobernar:003",
+        "gold_decision": "abstain",
+        "max_jaccard": 0.0909,
+        "risk": "low",
+        "sentence": "Use the slider to control the volume."
+      },
+      "evidence_note": "control means exercising authority over a place or group.",
+      "expected_pos": "verb",
+      "family_id": "en-es:full-family-repaired-full:control:gobernar",
+      "flags": [],
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:control:gobernar:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "verb_before_infinitive",
+      "peer_similarity_max": 0.1429,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 1.0,
+      "sentence": "The mayor used his control to govern the city through a difficult winter.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0769,
+        "risk": "low",
+        "shadow_id": "en-es:full-family-repaired-full:control:gobernar:shadow:1:ajustar"
+      },
+      "source_phrase": "control",
+      "target_lemma": "gobernar",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:044",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:control:gobernar:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.2727,
+        "risk": "low",
+        "sentence": "The coalition hoped to control parliament after the election."
+      },
+      "evidence_note": "control indicates holding power to govern.",
+      "expected_pos": "verb",
+      "family_id": "en-es:full-family-repaired-full:control:gobernar",
+      "flags": [
+        "pos_unknown",
+        "pos_weak"
+      ],
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:control:gobernar:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "unknown",
+      "peer_similarity_max": 0.1429,
+      "pos_anchor_strength": 0.25,
+      "quality_score": 0.8,
+      "sentence": "After the election, the party gained control and began to govern the country.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0769,
+        "risk": "low",
+        "shadow_id": "en-es:full-family-repaired-full:control:gobernar:shadow:1:ajustar"
+      },
+      "source_phrase": "control",
+      "target_lemma": "gobernar",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:045",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:bridle:reprimir:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.25,
+        "risk": "low",
+        "sentence": "She tried to bridle her anger during the meeting."
+      },
+      "evidence_note": "Shows restraining a strong reaction.",
+      "expected_pos": "verb",
+      "family_id": "en-es:full-family-repaired-full:bridle:reprimir",
+      "flags": [
+        "high_shadow_confusability"
+      ],
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:bridle:reprimir:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "verb_infinitive",
+      "peer_similarity_max": 0.1,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 0.75,
+      "sentence": "She had to bridle her anger before answering the rude remark.",
+      "shadow_confusability": {
+        "max_jaccard": 0.25,
+        "risk": "high",
+        "shadow_id": "en-es:full-family-repaired-full:bridle:reprimir:shadow:2:ofenderse"
+      },
+      "source_phrase": "bridle",
+      "target_lemma": "reprimir",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:046",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:bridle:reprimir:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.5714,
+        "risk": "high",
+        "sentence": "She tried to bridle her anger during the meeting."
+      },
+      "evidence_note": "Shows holding back an action or reaction.",
+      "expected_pos": "verb",
+      "family_id": "en-es:full-family-repaired-full:bridle:reprimir",
+      "flags": [
+        "high_eval_overlap"
+      ],
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:bridle:reprimir:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "verb_infinitive",
+      "peer_similarity_max": 0.1,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 0.75,
+      "sentence": "He tried to bridle his impulse to shout during the meeting.",
+      "shadow_confusability": {
+        "max_jaccard": 0.1,
+        "risk": "low",
+        "shadow_id": "en-es:full-family-repaired-full:bridle:reprimir:shadow:1:brida"
+      },
+      "source_phrase": "bridle",
+      "target_lemma": "reprimir",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:047",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:bar:cercar:003",
+        "gold_decision": "abstain",
+        "max_jaccard": 0.1111,
+        "risk": "low",
+        "sentence": "They met at the bar after work."
+      },
+      "evidence_note": "bar means block passage with a barrier or by closing access.",
+      "expected_pos": "verb",
+      "family_id": "en-es:full-family-repaired-full:bar:cercar",
+      "flags": [
+        "pos_unknown",
+        "pos_weak"
+      ],
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:bar:cercar:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "unknown",
+      "peer_similarity_max": 0.0769,
+      "pos_anchor_strength": 0.25,
+      "quality_score": 0.8,
+      "sentence": "The guards bar the gate to keep the crowd out.",
+      "shadow_confusability": {
+        "max_jaccard": 0.1,
+        "risk": "low",
+        "shadow_id": "en-es:full-family-repaired-full:bar:cercar:shadow:1:taberna"
+      },
+      "source_phrase": "bar",
+      "target_lemma": "cercar",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:048",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:bar:cercar:003",
+        "gold_decision": "abstain",
+        "max_jaccard": 0.0909,
+        "risk": "low",
+        "sentence": "They met at the bar after work."
+      },
+      "evidence_note": "bar means fence in or prevent passage.",
+      "expected_pos": "verb",
+      "family_id": "en-es:full-family-repaired-full:bar:cercar",
+      "flags": [
+        "pos_unknown",
+        "pos_weak"
+      ],
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:bar:cercar:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "unknown",
+      "peer_similarity_max": 0.0769,
+      "pos_anchor_strength": 0.25,
+      "quality_score": 0.8,
+      "sentence": "We bar the trail with fallen branches until the fire is under control.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0833,
+        "risk": "low",
+        "shadow_id": "en-es:full-family-repaired-full:bar:cercar:shadow:1:taberna"
+      },
+      "source_phrase": "bar",
+      "target_lemma": "cercar",
+      "target_lemma_in_evidence_note": false
+    }
+  ],
+  "limitations": [
+    "offline no-spend postprocess over already generated active-only rows",
+    "heuristic POS and overlap labels are diagnostic, not gold labels",
+    "note-only views are diagnostics and should not be promoted as runtime evidence",
+    "same selected-family denominator is held across views for comparability",
+    "this does not validate shadow or no-winner generation at scale"
+  ],
+  "methodology": {
+    "context_view": "masked_sentence",
+    "current_control_view": "all_sentence_plus_note",
+    "evidence_view": "all_evidence_text",
+    "llm_call": "none",
+    "postprocess_role": "audit_raw_generated_items_then_score_derived_views",
+    "raw_llm_output_mutation": "none",
+    "runtime_policy_change": "none",
+    "scorer_id": "tfidf_cosine"
+  },
+  "pair": "en-es",
+  "recommendations": [
+    "Treat evidence_note text as an active experimental variable; note-only evidence moved decisions, so sentence-only should be the safer promotion candidate.",
+    "Prefer sentence-only evidence for the next generated batch because it preserves or improves the control without explanatory-note leakage.",
+    "Use the conservative sentence-only view as the safety check before any paid scale-up; it removes high-overlap and weak-POS rows while keeping the denominator fixed."
+  ],
+  "schema_version": 1,
+  "status": "ok",
+  "summary": {
+    "active_item_count": 48,
+    "definition_like_count": 1,
+    "family_count": 24,
+    "high_eval_overlap_count": 2,
+    "high_shadow_confusable_count": 1,
+    "issues": [],
+    "medium_eval_overlap_count": 5,
+    "model_source_pos_frame_count": 0,
+    "model_topic_frame_count": 0,
+    "pos_weak_count": 6,
+    "target_lemma_in_note_count": 0,
+    "view_count": 11
+  },
+  "view_scores": [
+    {
+      "case_change_counts": {
+        "fixed": 18,
+        "regressed": 2,
+        "still_correct": 44,
+        "still_wrong": 27
+      },
+      "comparison": {
+        "decision_accuracy_delta": 0.175824,
+        "false_abstain_delta": -17,
+        "harmful_replace_delta": 1,
+        "predicted_replace_delta": 18,
+        "replace_recall_delta": 0.354167,
+        "winner_accuracy_delta": 0.104478
+      },
+      "description": "control: current scoring appends generated sentence plus evidence_note",
+      "evidence_variant": "sentence_plus_note",
+      "fixed_cases_sample": [
+        {
+          "active_score_delta": 0.03288,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:offset:distancia:001",
+          "family_id": "en-es:full-family-repaired-full:offset:distancia",
+          "gold_decision": "replace",
+          "sentence": "Set the image offset to twelve pixels from the left edge."
+        },
+        {
+          "active_score_delta": 0.224378,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:bridle:reprimir:001",
+          "family_id": "en-es:full-family-repaired-full:bridle:reprimir",
+          "gold_decision": "replace",
+          "sentence": "She tried to bridle her anger during the meeting."
+        },
+        {
+          "active_score_delta": 0.083003,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:bridle:reprimir:002",
+          "family_id": "en-es:full-family-repaired-full:bridle:reprimir",
+          "gold_decision": "replace",
+          "sentence": "The lawyer had to bridle his frustration after the ruling."
+        },
+        {
+          "active_score_delta": 0.078617,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:dentist:dentista:001",
+          "family_id": "en-es:full-family-repaired-full:dentist:dentista",
+          "gold_decision": "replace",
+          "sentence": "The dentist repaired the chipped tooth before lunch."
+        },
+        {
+          "active_score_delta": 0.135173,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:dentist:dentista:002",
+          "family_id": "en-es:full-family-repaired-full:dentist:dentista",
+          "gold_decision": "replace",
+          "sentence": "She booked an appointment with a dentist near the station."
+        },
+        {
+          "active_score_delta": 0.122423,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:bouillon:caldo:001",
+          "family_id": "en-es:full-family-repaired-full:bouillon:caldo",
+          "gold_decision": "replace",
+          "sentence": "Add bouillon to the rice for a richer flavor."
+        },
+        {
+          "active_score_delta": 0.092069,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:control:gobernar:001",
+          "family_id": "en-es:full-family-repaired-full:control:gobernar",
+          "gold_decision": "replace",
+          "sentence": "The coalition hoped to control parliament after the election."
+        },
+        {
+          "active_score_delta": 0.045375,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:control:gobernar:002",
+          "family_id": "en-es:full-family-repaired-full:control:gobernar",
+          "gold_decision": "replace",
+          "sentence": "A small council continued to control the territory after the coup."
+        },
+        {
+          "active_score_delta": -0.010767,
+          "base_predicted_decision": "replace",
+          "candidate_predicted_decision": "abstain",
+          "case_id": "en-es:full-family-repaired-full:control:gobernar:004",
+          "family_id": "en-es:full-family-repaired-full:control:gobernar",
+          "gold_decision": "abstain",
+          "sentence": "The study included a control group and a treatment group."
+        },
+        {
+          "active_score_delta": 0.076498,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:rumanian:rumano:001",
+          "family_id": "en-es:full-family-repaired-full:rumanian:rumano",
+          "gold_decision": "replace",
+          "sentence": "The museum displayed Rumanian folk costumes."
+        }
+      ],
+      "generated_active_only": {
+        "cases_total": 91,
+        "decision_accuracy": 0.6813186813186813,
+        "false_abstain_count": 27,
+        "harmful_replace_count": 2,
+        "predicted_replace_cases": 23,
+        "replace_recall": 0.4375,
+        "winner_accuracy": 0.8059701492537313
+      },
+      "item_count": 48,
+      "regressions": [
+        {
+          "active_score_delta": 0.119528,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:smile:sonre-r:003",
+          "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+          "gold_decision": "abstain",
+          "sentence": "Her smile returned after the good news."
+        },
+        {
+          "active_score_delta": 0.024539,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:smile:sonre-r:005",
+          "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+          "gold_decision": "abstain",
+          "sentence": "The dashboard listed Smile as an internal project code."
+        }
+      ],
+      "score_issues": [],
+      "score_status": "ok",
+      "view_id": "all_sentence_plus_note"
+    },
+    {
+      "case_change_counts": {
+        "fixed": 18,
+        "regressed": 2,
+        "still_correct": 44,
+        "still_wrong": 27
+      },
+      "comparison": {
+        "decision_accuracy_delta": 0.175824,
+        "false_abstain_delta": -17,
+        "harmful_replace_delta": 1,
+        "predicted_replace_delta": 18,
+        "replace_recall_delta": 0.354167,
+        "winner_accuracy_delta": 0.104478
+      },
+      "description": "mechanically remove target lemmas and meta labels from evidence_note",
+      "evidence_variant": "sentence_plus_scrubbed_note",
+      "fixed_cases_sample": [
+        {
+          "active_score_delta": 0.03288,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:offset:distancia:001",
+          "family_id": "en-es:full-family-repaired-full:offset:distancia",
+          "gold_decision": "replace",
+          "sentence": "Set the image offset to twelve pixels from the left edge."
+        },
+        {
+          "active_score_delta": 0.228165,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:bridle:reprimir:001",
+          "family_id": "en-es:full-family-repaired-full:bridle:reprimir",
+          "gold_decision": "replace",
+          "sentence": "She tried to bridle her anger during the meeting."
+        },
+        {
+          "active_score_delta": 0.084404,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:bridle:reprimir:002",
+          "family_id": "en-es:full-family-repaired-full:bridle:reprimir",
+          "gold_decision": "replace",
+          "sentence": "The lawyer had to bridle his frustration after the ruling."
+        },
+        {
+          "active_score_delta": 0.078962,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:dentist:dentista:001",
+          "family_id": "en-es:full-family-repaired-full:dentist:dentista",
+          "gold_decision": "replace",
+          "sentence": "The dentist repaired the chipped tooth before lunch."
+        },
+        {
+          "active_score_delta": 0.135816,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:dentist:dentista:002",
+          "family_id": "en-es:full-family-repaired-full:dentist:dentista",
+          "gold_decision": "replace",
+          "sentence": "She booked an appointment with a dentist near the station."
+        },
+        {
+          "active_score_delta": 0.125975,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:bouillon:caldo:001",
+          "family_id": "en-es:full-family-repaired-full:bouillon:caldo",
+          "gold_decision": "replace",
+          "sentence": "Add bouillon to the rice for a richer flavor."
+        },
+        {
+          "active_score_delta": 0.092069,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:control:gobernar:001",
+          "family_id": "en-es:full-family-repaired-full:control:gobernar",
+          "gold_decision": "replace",
+          "sentence": "The coalition hoped to control parliament after the election."
+        },
+        {
+          "active_score_delta": 0.045375,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:control:gobernar:002",
+          "family_id": "en-es:full-family-repaired-full:control:gobernar",
+          "gold_decision": "replace",
+          "sentence": "A small council continued to control the territory after the coup."
+        },
+        {
+          "active_score_delta": -0.010767,
+          "base_predicted_decision": "replace",
+          "candidate_predicted_decision": "abstain",
+          "case_id": "en-es:full-family-repaired-full:control:gobernar:004",
+          "family_id": "en-es:full-family-repaired-full:control:gobernar",
+          "gold_decision": "abstain",
+          "sentence": "The study included a control group and a treatment group."
+        },
+        {
+          "active_score_delta": 0.078675,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:rumanian:rumano:001",
+          "family_id": "en-es:full-family-repaired-full:rumanian:rumano",
+          "gold_decision": "replace",
+          "sentence": "The museum displayed Rumanian folk costumes."
+        }
+      ],
+      "generated_active_only": {
+        "cases_total": 91,
+        "decision_accuracy": 0.6813186813186813,
+        "false_abstain_count": 27,
+        "harmful_replace_count": 2,
+        "predicted_replace_cases": 23,
+        "replace_recall": 0.4375,
+        "winner_accuracy": 0.8059701492537313
+      },
+      "item_count": 48,
+      "regressions": [
+        {
+          "active_score_delta": 0.122517,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:smile:sonre-r:003",
+          "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+          "gold_decision": "abstain",
+          "sentence": "Her smile returned after the good news."
+        },
+        {
+          "active_score_delta": 0.025876,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:smile:sonre-r:005",
+          "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+          "gold_decision": "abstain",
+          "sentence": "The dashboard listed Smile as an internal project code."
+        }
+      ],
+      "score_issues": [],
+      "score_status": "ok",
+      "view_id": "sentence_plus_scrubbed_note"
+    },
+    {
+      "case_change_counts": {
+        "fixed": 22,
+        "regressed": 2,
+        "still_correct": 44,
+        "still_wrong": 23
+      },
+      "comparison": {
+        "decision_accuracy_delta": 0.21978,
+        "false_abstain_delta": -21,
+        "harmful_replace_delta": 1,
+        "predicted_replace_delta": 22,
+        "replace_recall_delta": 0.4375,
+        "winner_accuracy_delta": 0.089552
+      },
+      "description": "use generated browser sentences only, dropping explanatory notes",
+      "evidence_variant": "sentence_only",
+      "fixed_cases_sample": [
+        {
+          "active_score_delta": 0.042162,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:offset:distancia:001",
+          "family_id": "en-es:full-family-repaired-full:offset:distancia",
+          "gold_decision": "replace",
+          "sentence": "Set the image offset to twelve pixels from the left edge."
+        },
+        {
+          "active_score_delta": 0.29034,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:bridle:reprimir:001",
+          "family_id": "en-es:full-family-repaired-full:bridle:reprimir",
+          "gold_decision": "replace",
+          "sentence": "She tried to bridle her anger during the meeting."
+        },
+        {
+          "active_score_delta": 0.108577,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:bridle:reprimir:002",
+          "family_id": "en-es:full-family-repaired-full:bridle:reprimir",
+          "gold_decision": "replace",
+          "sentence": "The lawyer had to bridle his frustration after the ruling."
+        },
+        {
+          "active_score_delta": 0.103302,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:dentist:dentista:001",
+          "family_id": "en-es:full-family-repaired-full:dentist:dentista",
+          "gold_decision": "replace",
+          "sentence": "The dentist repaired the chipped tooth before lunch."
+        },
+        {
+          "active_score_delta": 0.176027,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:dentist:dentista:002",
+          "family_id": "en-es:full-family-repaired-full:dentist:dentista",
+          "gold_decision": "replace",
+          "sentence": "She booked an appointment with a dentist near the station."
+        },
+        {
+          "active_score_delta": 0.166442,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:bouillon:caldo:001",
+          "family_id": "en-es:full-family-repaired-full:bouillon:caldo",
+          "gold_decision": "replace",
+          "sentence": "Add bouillon to the rice for a richer flavor."
+        },
+        {
+          "active_score_delta": 0.119386,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:control:gobernar:001",
+          "family_id": "en-es:full-family-repaired-full:control:gobernar",
+          "gold_decision": "replace",
+          "sentence": "The coalition hoped to control parliament after the election."
+        },
+        {
+          "active_score_delta": 0.056576,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:control:gobernar:002",
+          "family_id": "en-es:full-family-repaired-full:control:gobernar",
+          "gold_decision": "replace",
+          "sentence": "A small council continued to control the territory after the coup."
+        },
+        {
+          "active_score_delta": -0.025428,
+          "base_predicted_decision": "replace",
+          "candidate_predicted_decision": "abstain",
+          "case_id": "en-es:full-family-repaired-full:control:gobernar:004",
+          "family_id": "en-es:full-family-repaired-full:control:gobernar",
+          "gold_decision": "abstain",
+          "sentence": "The study included a control group and a treatment group."
+        },
+        {
+          "active_score_delta": 0.103083,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:rumanian:rumano:001",
+          "family_id": "en-es:full-family-repaired-full:rumanian:rumano",
+          "gold_decision": "replace",
+          "sentence": "The museum displayed Rumanian folk costumes."
+        }
+      ],
+      "generated_active_only": {
+        "cases_total": 91,
+        "decision_accuracy": 0.7252747252747253,
+        "false_abstain_count": 23,
+        "harmful_replace_count": 2,
+        "predicted_replace_cases": 27,
+        "replace_recall": 0.5208333333333334,
+        "winner_accuracy": 0.7910447761194029
+      },
+      "item_count": 48,
+      "regressions": [
+        {
+          "active_score_delta": 0.05476,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:bridle:reprimir:004",
+          "family_id": "en-es:full-family-repaired-full:bridle:reprimir",
+          "gold_decision": "abstain",
+          "sentence": "He began to bridle at the accusation."
+        },
+        {
+          "active_score_delta": 0.171256,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:smile:sonre-r:003",
+          "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+          "gold_decision": "abstain",
+          "sentence": "Her smile returned after the good news."
+        }
+      ],
+      "score_issues": [],
+      "score_status": "ok",
+      "view_id": "sentence_only_all"
+    },
+    {
+      "case_change_counts": {
+        "fixed": 1,
+        "regressed": 3,
+        "still_correct": 43,
+        "still_wrong": 44
+      },
+      "comparison": {
+        "decision_accuracy_delta": -0.021978,
+        "false_abstain_delta": 1,
+        "harmful_replace_delta": 1,
+        "predicted_replace_delta": 0,
+        "replace_recall_delta": -0.020833,
+        "winner_accuracy_delta": 0.059701
+      },
+      "description": "diagnostic: evidence_note only, to see whether notes are driving lift",
+      "evidence_variant": "note_only",
+      "fixed_cases_sample": [
+        {
+          "active_score_delta": 0.05371,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:chic:elegante:002",
+          "family_id": "en-es:full-family-repaired-full:chic:elegante",
+          "gold_decision": "replace",
+          "sentence": "The hotel lobby has a chic modern style."
+        }
+      ],
+      "generated_active_only": {
+        "cases_total": 91,
+        "decision_accuracy": 0.4835164835164835,
+        "false_abstain_count": 45,
+        "harmful_replace_count": 2,
+        "predicted_replace_cases": 5,
+        "replace_recall": 0.0625,
+        "winner_accuracy": 0.7611940298507462
+      },
+      "item_count": 48,
+      "regressions": [
+        {
+          "active_score_delta": -0.013436,
+          "base_predicted_decision": "replace",
+          "candidate_predicted_decision": "abstain",
+          "case_id": "en-es:full-family-repaired-full:offset:distancia:002",
+          "family_id": "en-es:full-family-repaired-full:offset:distancia",
+          "gold_decision": "replace",
+          "sentence": "The sensor has a small offset from the center line."
+        },
+        {
+          "active_score_delta": -0.014631,
+          "base_predicted_decision": "replace",
+          "candidate_predicted_decision": "abstain",
+          "case_id": "en-es:full-family-repaired-full:rebate:descuento:001",
+          "family_id": "en-es:full-family-repaired-full:rebate:descuento",
+          "gold_decision": "replace",
+          "sentence": "The store offered a rebate on the new refrigerator."
+        },
+        {
+          "active_score_delta": 0.035676,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:smile:sonre-r:005",
+          "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+          "gold_decision": "abstain",
+          "sentence": "The dashboard listed Smile as an internal project code."
+        }
+      ],
+      "score_issues": [],
+      "score_status": "ok",
+      "view_id": "note_only_diagnostic"
+    },
+    {
+      "case_change_counts": {
+        "fixed": 17,
+        "regressed": 1,
+        "still_correct": 45,
+        "still_wrong": 28
+      },
+      "comparison": {
+        "decision_accuracy_delta": 0.175824,
+        "false_abstain_delta": -16,
+        "harmful_replace_delta": 0,
+        "predicted_replace_delta": 16,
+        "replace_recall_delta": 0.333333,
+        "winner_accuracy_delta": 0.104478
+      },
+      "description": "drop generated rows with high lexical overlap against frozen eval cases",
+      "evidence_variant": "sentence_plus_note",
+      "fixed_cases_sample": [
+        {
+          "active_score_delta": 0.03305,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:offset:distancia:001",
+          "family_id": "en-es:full-family-repaired-full:offset:distancia",
+          "gold_decision": "replace",
+          "sentence": "Set the image offset to twelve pixels from the left edge."
+        },
+        {
+          "active_score_delta": 0.114847,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:bridle:reprimir:001",
+          "family_id": "en-es:full-family-repaired-full:bridle:reprimir",
+          "gold_decision": "replace",
+          "sentence": "She tried to bridle her anger during the meeting."
+        },
+        {
+          "active_score_delta": 0.075862,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:bridle:reprimir:002",
+          "family_id": "en-es:full-family-repaired-full:bridle:reprimir",
+          "gold_decision": "replace",
+          "sentence": "The lawyer had to bridle his frustration after the ruling."
+        },
+        {
+          "active_score_delta": 0.078573,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:dentist:dentista:001",
+          "family_id": "en-es:full-family-repaired-full:dentist:dentista",
+          "gold_decision": "replace",
+          "sentence": "The dentist repaired the chipped tooth before lunch."
+        },
+        {
+          "active_score_delta": 0.135018,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:dentist:dentista:002",
+          "family_id": "en-es:full-family-repaired-full:dentist:dentista",
+          "gold_decision": "replace",
+          "sentence": "She booked an appointment with a dentist near the station."
+        },
+        {
+          "active_score_delta": 0.12254,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:bouillon:caldo:001",
+          "family_id": "en-es:full-family-repaired-full:bouillon:caldo",
+          "gold_decision": "replace",
+          "sentence": "Add bouillon to the rice for a richer flavor."
+        },
+        {
+          "active_score_delta": 0.092611,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:control:gobernar:001",
+          "family_id": "en-es:full-family-repaired-full:control:gobernar",
+          "gold_decision": "replace",
+          "sentence": "The coalition hoped to control parliament after the election."
+        },
+        {
+          "active_score_delta": 0.045928,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:control:gobernar:002",
+          "family_id": "en-es:full-family-repaired-full:control:gobernar",
+          "gold_decision": "replace",
+          "sentence": "A small council continued to control the territory after the coup."
+        },
+        {
+          "active_score_delta": -0.010876,
+          "base_predicted_decision": "replace",
+          "candidate_predicted_decision": "abstain",
+          "case_id": "en-es:full-family-repaired-full:control:gobernar:004",
+          "family_id": "en-es:full-family-repaired-full:control:gobernar",
+          "gold_decision": "abstain",
+          "sentence": "The study included a control group and a treatment group."
+        },
+        {
+          "active_score_delta": 0.076375,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:rumanian:rumano:001",
+          "family_id": "en-es:full-family-repaired-full:rumanian:rumano",
+          "gold_decision": "replace",
+          "sentence": "The museum displayed Rumanian folk costumes."
+        }
+      ],
+      "generated_active_only": {
+        "cases_total": 91,
+        "decision_accuracy": 0.6813186813186813,
+        "false_abstain_count": 28,
+        "harmful_replace_count": 1,
+        "predicted_replace_cases": 21,
+        "replace_recall": 0.4166666666666667,
+        "winner_accuracy": 0.8059701492537313
+      },
+      "item_count": 46,
+      "regressions": [
+        {
+          "active_score_delta": 0.036456,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:smile:sonre-r:005",
+          "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+          "gold_decision": "abstain",
+          "sentence": "The dashboard listed Smile as an internal project code."
+        }
+      ],
+      "score_issues": [],
+      "score_status": "ok",
+      "view_id": "no_high_eval_overlap_sentence_plus_note"
+    },
+    {
+      "case_change_counts": {
+        "fixed": 21,
+        "regressed": 0,
+        "still_correct": 46,
+        "still_wrong": 24
+      },
+      "comparison": {
+        "decision_accuracy_delta": 0.230769,
+        "false_abstain_delta": -20,
+        "harmful_replace_delta": -1,
+        "predicted_replace_delta": 19,
+        "replace_recall_delta": 0.416667,
+        "winner_accuracy_delta": 0.089552
+      },
+      "description": "drop high eval-overlap rows and use sentence-only evidence",
+      "evidence_variant": "sentence_only",
+      "fixed_cases_sample": [
+        {
+          "active_score_delta": 0.0423,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:offset:distancia:001",
+          "family_id": "en-es:full-family-repaired-full:offset:distancia",
+          "gold_decision": "replace",
+          "sentence": "Set the image offset to twelve pixels from the left edge."
+        },
+        {
+          "active_score_delta": 0.130149,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:bridle:reprimir:001",
+          "family_id": "en-es:full-family-repaired-full:bridle:reprimir",
+          "gold_decision": "replace",
+          "sentence": "She tried to bridle her anger during the meeting."
+        },
+        {
+          "active_score_delta": 0.086223,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:bridle:reprimir:002",
+          "family_id": "en-es:full-family-repaired-full:bridle:reprimir",
+          "gold_decision": "replace",
+          "sentence": "The lawyer had to bridle his frustration after the ruling."
+        },
+        {
+          "active_score_delta": 0.103286,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:dentist:dentista:001",
+          "family_id": "en-es:full-family-repaired-full:dentist:dentista",
+          "gold_decision": "replace",
+          "sentence": "The dentist repaired the chipped tooth before lunch."
+        },
+        {
+          "active_score_delta": 0.175905,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:dentist:dentista:002",
+          "family_id": "en-es:full-family-repaired-full:dentist:dentista",
+          "gold_decision": "replace",
+          "sentence": "She booked an appointment with a dentist near the station."
+        },
+        {
+          "active_score_delta": 0.166854,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:bouillon:caldo:001",
+          "family_id": "en-es:full-family-repaired-full:bouillon:caldo",
+          "gold_decision": "replace",
+          "sentence": "Add bouillon to the rice for a richer flavor."
+        },
+        {
+          "active_score_delta": 0.120057,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:control:gobernar:001",
+          "family_id": "en-es:full-family-repaired-full:control:gobernar",
+          "gold_decision": "replace",
+          "sentence": "The coalition hoped to control parliament after the election."
+        },
+        {
+          "active_score_delta": 0.057262,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:control:gobernar:002",
+          "family_id": "en-es:full-family-repaired-full:control:gobernar",
+          "gold_decision": "replace",
+          "sentence": "A small council continued to control the territory after the coup."
+        },
+        {
+          "active_score_delta": -0.025493,
+          "base_predicted_decision": "replace",
+          "candidate_predicted_decision": "abstain",
+          "case_id": "en-es:full-family-repaired-full:control:gobernar:004",
+          "family_id": "en-es:full-family-repaired-full:control:gobernar",
+          "gold_decision": "abstain",
+          "sentence": "The study included a control group and a treatment group."
+        },
+        {
+          "active_score_delta": 0.103047,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:rumanian:rumano:001",
+          "family_id": "en-es:full-family-repaired-full:rumanian:rumano",
+          "gold_decision": "replace",
+          "sentence": "The museum displayed Rumanian folk costumes."
+        }
+      ],
+      "generated_active_only": {
+        "cases_total": 91,
+        "decision_accuracy": 0.7362637362637363,
+        "false_abstain_count": 24,
+        "harmful_replace_count": 0,
+        "predicted_replace_cases": 24,
+        "replace_recall": 0.5,
+        "winner_accuracy": 0.7910447761194029
+      },
+      "item_count": 46,
+      "regressions": [],
+      "score_issues": [],
+      "score_status": "ok",
+      "view_id": "no_high_eval_overlap_sentence_only"
+    },
+    {
+      "case_change_counts": {
+        "fixed": 19,
+        "regressed": 2,
+        "still_correct": 44,
+        "still_wrong": 26
+      },
+      "comparison": {
+        "decision_accuracy_delta": 0.186813,
+        "false_abstain_delta": -18,
+        "harmful_replace_delta": 1,
+        "predicted_replace_delta": 19,
+        "replace_recall_delta": 0.375,
+        "winner_accuracy_delta": 0.089552
+      },
+      "description": "keep rows whose generated source usage mechanically matches expected POS",
+      "evidence_variant": "sentence_only",
+      "fixed_cases_sample": [
+        {
+          "active_score_delta": 0.042522,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:offset:distancia:001",
+          "family_id": "en-es:full-family-repaired-full:offset:distancia",
+          "gold_decision": "replace",
+          "sentence": "Set the image offset to twelve pixels from the left edge."
+        },
+        {
+          "active_score_delta": 0.290158,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:bridle:reprimir:001",
+          "family_id": "en-es:full-family-repaired-full:bridle:reprimir",
+          "gold_decision": "replace",
+          "sentence": "She tried to bridle her anger during the meeting."
+        },
+        {
+          "active_score_delta": 0.108787,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:bridle:reprimir:002",
+          "family_id": "en-es:full-family-repaired-full:bridle:reprimir",
+          "gold_decision": "replace",
+          "sentence": "The lawyer had to bridle his frustration after the ruling."
+        },
+        {
+          "active_score_delta": 0.101863,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:dentist:dentista:001",
+          "family_id": "en-es:full-family-repaired-full:dentist:dentista",
+          "gold_decision": "replace",
+          "sentence": "The dentist repaired the chipped tooth before lunch."
+        },
+        {
+          "active_score_delta": 0.176203,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:dentist:dentista:002",
+          "family_id": "en-es:full-family-repaired-full:dentist:dentista",
+          "gold_decision": "replace",
+          "sentence": "She booked an appointment with a dentist near the station."
+        },
+        {
+          "active_score_delta": 0.167033,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:bouillon:caldo:001",
+          "family_id": "en-es:full-family-repaired-full:bouillon:caldo",
+          "gold_decision": "replace",
+          "sentence": "Add bouillon to the rice for a richer flavor."
+        },
+        {
+          "active_score_delta": -0.023807,
+          "base_predicted_decision": "replace",
+          "candidate_predicted_decision": "abstain",
+          "case_id": "en-es:full-family-repaired-full:control:gobernar:004",
+          "family_id": "en-es:full-family-repaired-full:control:gobernar",
+          "gold_decision": "abstain",
+          "sentence": "The study included a control group and a treatment group."
+        },
+        {
+          "active_score_delta": 0.102921,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:rumanian:rumano:001",
+          "family_id": "en-es:full-family-repaired-full:rumanian:rumano",
+          "gold_decision": "replace",
+          "sentence": "The museum displayed Rumanian folk costumes."
+        },
+        {
+          "active_score_delta": 0.159624,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:begin:comenzar:001",
+          "family_id": "en-es:full-family-repaired-full:begin:comenzar",
+          "gold_decision": "replace",
+          "sentence": "The lecture will begin at nine."
+        },
+        {
+          "active_score_delta": 0.102142,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:among:entre:002",
+          "family_id": "en-es:full-family-repaired-full:among:entre",
+          "gold_decision": "replace",
+          "sentence": "She felt comfortable among the volunteers."
+        }
+      ],
+      "generated_active_only": {
+        "cases_total": 91,
+        "decision_accuracy": 0.6923076923076923,
+        "false_abstain_count": 26,
+        "harmful_replace_count": 2,
+        "predicted_replace_cases": 24,
+        "replace_recall": 0.4583333333333333,
+        "winner_accuracy": 0.7910447761194029
+      },
+      "item_count": 42,
+      "regressions": [
+        {
+          "active_score_delta": 0.056309,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:bridle:reprimir:004",
+          "family_id": "en-es:full-family-repaired-full:bridle:reprimir",
+          "gold_decision": "abstain",
+          "sentence": "He began to bridle at the accusation."
+        },
+        {
+          "active_score_delta": 0.229956,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:smile:sonre-r:003",
+          "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+          "gold_decision": "abstain",
+          "sentence": "Her smile returned after the good news."
+        }
+      ],
+      "score_issues": [],
+      "score_status": "ok",
+      "view_id": "pos_anchored_sentence_only"
+    },
+    {
+      "case_change_counts": {
+        "fixed": 22,
+        "regressed": 2,
+        "still_correct": 44,
+        "still_wrong": 23
+      },
+      "comparison": {
+        "decision_accuracy_delta": 0.21978,
+        "false_abstain_delta": -21,
+        "harmful_replace_delta": 1,
+        "predicted_replace_delta": 22,
+        "replace_recall_delta": 0.4375,
+        "winner_accuracy_delta": 0.089552
+      },
+      "description": "drop definition-like generated browser sentences and use sentence-only evidence",
+      "evidence_variant": "sentence_only",
+      "fixed_cases_sample": [
+        {
+          "active_score_delta": 0.042236,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:offset:distancia:001",
+          "family_id": "en-es:full-family-repaired-full:offset:distancia",
+          "gold_decision": "replace",
+          "sentence": "Set the image offset to twelve pixels from the left edge."
+        },
+        {
+          "active_score_delta": 0.29079,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:bridle:reprimir:001",
+          "family_id": "en-es:full-family-repaired-full:bridle:reprimir",
+          "gold_decision": "replace",
+          "sentence": "She tried to bridle her anger during the meeting."
+        },
+        {
+          "active_score_delta": 0.109067,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:bridle:reprimir:002",
+          "family_id": "en-es:full-family-repaired-full:bridle:reprimir",
+          "gold_decision": "replace",
+          "sentence": "The lawyer had to bridle his frustration after the ruling."
+        },
+        {
+          "active_score_delta": 0.103286,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:dentist:dentista:001",
+          "family_id": "en-es:full-family-repaired-full:dentist:dentista",
+          "gold_decision": "replace",
+          "sentence": "The dentist repaired the chipped tooth before lunch."
+        },
+        {
+          "active_score_delta": 0.175999,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:dentist:dentista:002",
+          "family_id": "en-es:full-family-repaired-full:dentist:dentista",
+          "gold_decision": "replace",
+          "sentence": "She booked an appointment with a dentist near the station."
+        },
+        {
+          "active_score_delta": 0.166907,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:bouillon:caldo:001",
+          "family_id": "en-es:full-family-repaired-full:bouillon:caldo",
+          "gold_decision": "replace",
+          "sentence": "Add bouillon to the rice for a richer flavor."
+        },
+        {
+          "active_score_delta": 0.119726,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:control:gobernar:001",
+          "family_id": "en-es:full-family-repaired-full:control:gobernar",
+          "gold_decision": "replace",
+          "sentence": "The coalition hoped to control parliament after the election."
+        },
+        {
+          "active_score_delta": 0.056903,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:control:gobernar:002",
+          "family_id": "en-es:full-family-repaired-full:control:gobernar",
+          "gold_decision": "replace",
+          "sentence": "A small council continued to control the territory after the coup."
+        },
+        {
+          "active_score_delta": -0.02544,
+          "base_predicted_decision": "replace",
+          "candidate_predicted_decision": "abstain",
+          "case_id": "en-es:full-family-repaired-full:control:gobernar:004",
+          "family_id": "en-es:full-family-repaired-full:control:gobernar",
+          "gold_decision": "abstain",
+          "sentence": "The study included a control group and a treatment group."
+        },
+        {
+          "active_score_delta": 0.103079,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:rumanian:rumano:001",
+          "family_id": "en-es:full-family-repaired-full:rumanian:rumano",
+          "gold_decision": "replace",
+          "sentence": "The museum displayed Rumanian folk costumes."
+        }
+      ],
+      "generated_active_only": {
+        "cases_total": 91,
+        "decision_accuracy": 0.7252747252747253,
+        "false_abstain_count": 23,
+        "harmful_replace_count": 2,
+        "predicted_replace_cases": 27,
+        "replace_recall": 0.5208333333333334,
+        "winner_accuracy": 0.7910447761194029
+      },
+      "item_count": 47,
+      "regressions": [
+        {
+          "active_score_delta": 0.055444,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:bridle:reprimir:004",
+          "family_id": "en-es:full-family-repaired-full:bridle:reprimir",
+          "gold_decision": "abstain",
+          "sentence": "He began to bridle at the accusation."
+        },
+        {
+          "active_score_delta": 0.171249,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:smile:sonre-r:003",
+          "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+          "gold_decision": "abstain",
+          "sentence": "Her smile returned after the good news."
+        }
+      ],
+      "score_issues": [],
+      "score_status": "ok",
+      "view_id": "no_definition_like_sentence_only"
+    },
+    {
+      "case_change_counts": {
+        "fixed": 16,
+        "regressed": 0,
+        "still_correct": 46,
+        "still_wrong": 29
+      },
+      "comparison": {
+        "decision_accuracy_delta": 0.175824,
+        "false_abstain_delta": -15,
+        "harmful_replace_delta": -1,
+        "predicted_replace_delta": 14,
+        "replace_recall_delta": 0.3125,
+        "winner_accuracy_delta": 0.074627
+      },
+      "description": "sentence-only rows with no high eval overlap, POS anchor, no definition-like sentence, and no high shadow confusability",
+      "evidence_variant": "sentence_only",
+      "fixed_cases_sample": [
+        {
+          "active_score_delta": 0.043638,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:offset:distancia:001",
+          "family_id": "en-es:full-family-repaired-full:offset:distancia",
+          "gold_decision": "replace",
+          "sentence": "Set the image offset to twelve pixels from the left edge."
+        },
+        {
+          "active_score_delta": 0.101579,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:dentist:dentista:001",
+          "family_id": "en-es:full-family-repaired-full:dentist:dentista",
+          "gold_decision": "replace",
+          "sentence": "The dentist repaired the chipped tooth before lunch."
+        },
+        {
+          "active_score_delta": 0.175751,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:dentist:dentista:002",
+          "family_id": "en-es:full-family-repaired-full:dentist:dentista",
+          "gold_decision": "replace",
+          "sentence": "She booked an appointment with a dentist near the station."
+        },
+        {
+          "active_score_delta": 0.168417,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:bouillon:caldo:001",
+          "family_id": "en-es:full-family-repaired-full:bouillon:caldo",
+          "gold_decision": "replace",
+          "sentence": "Add bouillon to the rice for a richer flavor."
+        },
+        {
+          "active_score_delta": -0.023789,
+          "base_predicted_decision": "replace",
+          "candidate_predicted_decision": "abstain",
+          "case_id": "en-es:full-family-repaired-full:control:gobernar:004",
+          "family_id": "en-es:full-family-repaired-full:control:gobernar",
+          "gold_decision": "abstain",
+          "sentence": "The study included a control group and a treatment group."
+        },
+        {
+          "active_score_delta": 0.102858,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:rumanian:rumano:001",
+          "family_id": "en-es:full-family-repaired-full:rumanian:rumano",
+          "gold_decision": "replace",
+          "sentence": "The museum displayed Rumanian folk costumes."
+        },
+        {
+          "active_score_delta": 0.158874,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:begin:comenzar:001",
+          "family_id": "en-es:full-family-repaired-full:begin:comenzar",
+          "gold_decision": "replace",
+          "sentence": "The lecture will begin at nine."
+        },
+        {
+          "active_score_delta": 0.103301,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:among:entre:002",
+          "family_id": "en-es:full-family-repaired-full:among:entre",
+          "gold_decision": "replace",
+          "sentence": "She felt comfortable among the volunteers."
+        },
+        {
+          "active_score_delta": 0.082345,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:american:americano:001",
+          "family_id": "en-es:full-family-repaired-full:american:americano",
+          "gold_decision": "replace",
+          "sentence": "The museum displayed American quilts."
+        },
+        {
+          "active_score_delta": 0.131385,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:rebate:descuento:002",
+          "family_id": "en-es:full-family-repaired-full:rebate:descuento",
+          "gold_decision": "replace",
+          "sentence": "Customers receive a rebate after mailing the form."
+        }
+      ],
+      "generated_active_only": {
+        "cases_total": 91,
+        "decision_accuracy": 0.6813186813186813,
+        "false_abstain_count": 29,
+        "harmful_replace_count": 0,
+        "predicted_replace_cases": 19,
+        "replace_recall": 0.3958333333333333,
+        "winner_accuracy": 0.7761194029850746
+      },
+      "item_count": 38,
+      "regressions": [],
+      "score_issues": [],
+      "score_status": "ok",
+      "view_id": "conservative_sentence_only"
+    },
+    {
+      "case_change_counts": {
+        "fixed": 11,
+        "regressed": 1,
+        "still_correct": 45,
+        "still_wrong": 34
+      },
+      "comparison": {
+        "decision_accuracy_delta": 0.10989,
+        "false_abstain_delta": -9,
+        "harmful_replace_delta": -1,
+        "predicted_replace_delta": 8,
+        "replace_recall_delta": 0.1875,
+        "winner_accuracy_delta": 0.074627
+      },
+      "description": "keep one highest-quality sentence-only row per family",
+      "evidence_variant": "sentence_only",
+      "fixed_cases_sample": [
+        {
+          "active_score_delta": 0.052642,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:offset:distancia:001",
+          "family_id": "en-es:full-family-repaired-full:offset:distancia",
+          "gold_decision": "replace",
+          "sentence": "Set the image offset to twelve pixels from the left edge."
+        },
+        {
+          "active_score_delta": 0.136521,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:bridle:reprimir:001",
+          "family_id": "en-es:full-family-repaired-full:bridle:reprimir",
+          "gold_decision": "replace",
+          "sentence": "She tried to bridle her anger during the meeting."
+        },
+        {
+          "active_score_delta": 0.090403,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:bridle:reprimir:002",
+          "family_id": "en-es:full-family-repaired-full:bridle:reprimir",
+          "gold_decision": "replace",
+          "sentence": "The lawyer had to bridle his frustration after the ruling."
+        },
+        {
+          "active_score_delta": 0.0633,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:bouillon:caldo:001",
+          "family_id": "en-es:full-family-repaired-full:bouillon:caldo",
+          "gold_decision": "replace",
+          "sentence": "Add bouillon to the rice for a richer flavor."
+        },
+        {
+          "active_score_delta": -0.023525,
+          "base_predicted_decision": "replace",
+          "candidate_predicted_decision": "abstain",
+          "case_id": "en-es:full-family-repaired-full:control:gobernar:004",
+          "family_id": "en-es:full-family-repaired-full:control:gobernar",
+          "gold_decision": "abstain",
+          "sentence": "The study included a control group and a treatment group."
+        },
+        {
+          "active_score_delta": 0.04118,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:salesman:vendedor:002",
+          "family_id": "en-es:full-family-repaired-full:salesman:vendedor",
+          "gold_decision": "replace",
+          "sentence": "A traveling salesman visited the shop every spring."
+        },
+        {
+          "active_score_delta": 0.054632,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:heart:coraz-n:001",
+          "family_id": "en-es:full-family-repaired-full:heart:coraz-n",
+          "gold_decision": "replace",
+          "sentence": "Her heart was beating quickly after the race."
+        },
+        {
+          "active_score_delta": 0.069888,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:smile:sonre-r:002",
+          "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+          "gold_decision": "replace",
+          "sentence": "He tried to smile for the camera."
+        },
+        {
+          "active_score_delta": 0.058578,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:govern:gobernar:002",
+          "family_id": "en-es:full-family-repaired-full:govern:gobernar",
+          "gold_decision": "replace",
+          "sentence": "A coalition tried to govern after the election."
+        },
+        {
+          "active_score_delta": 0.07401,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:brother:hermano:001",
+          "family_id": "en-es:full-family-repaired-full:brother:hermano",
+          "gold_decision": "replace",
+          "sentence": "My brother still lives near our parents."
+        }
+      ],
+      "generated_active_only": {
+        "cases_total": 91,
+        "decision_accuracy": 0.6153846153846154,
+        "false_abstain_count": 35,
+        "harmful_replace_count": 0,
+        "predicted_replace_cases": 13,
+        "replace_recall": 0.2708333333333333,
+        "winner_accuracy": 0.7761194029850746
+      },
+      "item_count": 24,
+      "regressions": [
+        {
+          "active_score_delta": -0.019709,
+          "base_predicted_decision": "replace",
+          "candidate_predicted_decision": "abstain",
+          "case_id": "en-es:full-family-repaired-full:break:quebrar:002",
+          "family_id": "en-es:full-family-repaired-full:break:quebrar",
+          "gold_decision": "replace",
+          "sentence": "A dry branch can break under sudden pressure."
+        }
+      ],
+      "score_issues": [],
+      "score_status": "ok",
+      "view_id": "quality_top1_sentence_only"
+    },
+    {
+      "case_change_counts": {
+        "fixed": 22,
+        "regressed": 2,
+        "still_correct": 44,
+        "still_wrong": 23
+      },
+      "comparison": {
+        "decision_accuracy_delta": 0.21978,
+        "false_abstain_delta": -21,
+        "harmful_replace_delta": 1,
+        "predicted_replace_delta": 22,
+        "replace_recall_delta": 0.4375,
+        "winner_accuracy_delta": 0.089552
+      },
+      "description": "keep up to two highest-quality sentence-only rows per family after audit scoring",
+      "evidence_variant": "sentence_only",
+      "fixed_cases_sample": [
+        {
+          "active_score_delta": 0.042162,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:offset:distancia:001",
+          "family_id": "en-es:full-family-repaired-full:offset:distancia",
+          "gold_decision": "replace",
+          "sentence": "Set the image offset to twelve pixels from the left edge."
+        },
+        {
+          "active_score_delta": 0.29034,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:bridle:reprimir:001",
+          "family_id": "en-es:full-family-repaired-full:bridle:reprimir",
+          "gold_decision": "replace",
+          "sentence": "She tried to bridle her anger during the meeting."
+        },
+        {
+          "active_score_delta": 0.108577,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:bridle:reprimir:002",
+          "family_id": "en-es:full-family-repaired-full:bridle:reprimir",
+          "gold_decision": "replace",
+          "sentence": "The lawyer had to bridle his frustration after the ruling."
+        },
+        {
+          "active_score_delta": 0.103302,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:dentist:dentista:001",
+          "family_id": "en-es:full-family-repaired-full:dentist:dentista",
+          "gold_decision": "replace",
+          "sentence": "The dentist repaired the chipped tooth before lunch."
+        },
+        {
+          "active_score_delta": 0.176027,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:dentist:dentista:002",
+          "family_id": "en-es:full-family-repaired-full:dentist:dentista",
+          "gold_decision": "replace",
+          "sentence": "She booked an appointment with a dentist near the station."
+        },
+        {
+          "active_score_delta": 0.166442,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:bouillon:caldo:001",
+          "family_id": "en-es:full-family-repaired-full:bouillon:caldo",
+          "gold_decision": "replace",
+          "sentence": "Add bouillon to the rice for a richer flavor."
+        },
+        {
+          "active_score_delta": 0.119386,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:control:gobernar:001",
+          "family_id": "en-es:full-family-repaired-full:control:gobernar",
+          "gold_decision": "replace",
+          "sentence": "The coalition hoped to control parliament after the election."
+        },
+        {
+          "active_score_delta": 0.056576,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:control:gobernar:002",
+          "family_id": "en-es:full-family-repaired-full:control:gobernar",
+          "gold_decision": "replace",
+          "sentence": "A small council continued to control the territory after the coup."
+        },
+        {
+          "active_score_delta": -0.025428,
+          "base_predicted_decision": "replace",
+          "candidate_predicted_decision": "abstain",
+          "case_id": "en-es:full-family-repaired-full:control:gobernar:004",
+          "family_id": "en-es:full-family-repaired-full:control:gobernar",
+          "gold_decision": "abstain",
+          "sentence": "The study included a control group and a treatment group."
+        },
+        {
+          "active_score_delta": 0.103083,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:rumanian:rumano:001",
+          "family_id": "en-es:full-family-repaired-full:rumanian:rumano",
+          "gold_decision": "replace",
+          "sentence": "The museum displayed Rumanian folk costumes."
+        }
+      ],
+      "generated_active_only": {
+        "cases_total": 91,
+        "decision_accuracy": 0.7252747252747253,
+        "false_abstain_count": 23,
+        "harmful_replace_count": 2,
+        "predicted_replace_cases": 27,
+        "replace_recall": 0.5208333333333334,
+        "winner_accuracy": 0.7910447761194029
+      },
+      "item_count": 48,
+      "regressions": [
+        {
+          "active_score_delta": 0.05476,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:bridle:reprimir:004",
+          "family_id": "en-es:full-family-repaired-full:bridle:reprimir",
+          "gold_decision": "abstain",
+          "sentence": "He began to bridle at the accusation."
+        },
+        {
+          "active_score_delta": 0.171256,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:smile:sonre-r:003",
+          "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+          "gold_decision": "abstain",
+          "sentence": "Her smile returned after the good news."
+        }
+      ],
+      "score_issues": [],
+      "score_status": "ok",
+      "view_id": "quality_top2_sentence_only"
+    }
+  ]
+}
