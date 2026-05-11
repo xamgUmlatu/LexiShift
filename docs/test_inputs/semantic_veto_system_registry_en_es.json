@@ -174,16 +174,20 @@
       "full_srs_active_target_count": 342,
       "full_active_only_covered_families": 49,
       "full_active_only_uncovered_families": 521,
-      "full_active_only_planned_generated_rows": 1042,
-      "full_active_only_first_tranche_families": 50,
-      "full_active_only_first_tranche_expected_rows": 100,
-      "full_active_only_first_tranche_estimated_input_tokens": 26079,
-      "full_active_only_first_tranche_output_token_budget": 14000
+      "full_active_only_reviewed_first_tranche_candidates": 50,
+      "full_active_only_reviewed_first_tranche_approved": 42,
+      "full_active_only_reviewed_first_tranche_excluded": 8,
+      "full_active_only_generation_queue_families_after_review": 513,
+      "full_active_only_planned_generated_rows": 1026,
+      "full_active_only_first_tranche_families": 42,
+      "full_active_only_first_tranche_expected_rows": 84,
+      "full_active_only_first_tranche_estimated_input_tokens": 21898,
+      "full_active_only_first_tranche_output_token_budget": 11760
     },
     "promotion_blockers": [
       "the current helper-published sidecar is an isolated smoke fixture under docs/test_outputs, not real user profile data",
       "the 49-family denominator is still a repaired product-scope research suite, not full en-es language-wide proof",
-      "the full current SRS-derived source-target family universe is now measured at 570 families, but 521 active-only families remain ungenerated and unvalidated beyond the product-smoke pack",
+      "the full current SRS-derived source-target family universe is now measured at 570 families, but 521 active-only families remain ungenerated beyond the product-smoke pack; the first 50 queued rows have been reviewed, approving 42 and rejecting 8 before spend",
       "manual browser/helper behavior has only had an initial positive product-feel review on the combined fixture",
       "rollback and generation identity must stay aligned with ruleset, snapshot, semantic inventory, and manifest publication"
     ]
@@ -1616,13 +1620,14 @@
       "source_artifacts": [
         "srs_zipf_bridge_latest_report",
         "active_only_combined_product_scope_normalized_evidence",
+        "active_only_generation_source_target_review_manifest",
         "active_only_full_generation_plan_harness",
         "active_only_full_generation_plan_latest_report"
       ],
-      "action": "Compute the current full en-es SRS-derived source-target denominator, compare it with the active-only product-smoke pack, and freeze the first no-spend active-only generation tranche.",
-      "evidence_needed": "The active-only full generation plan reads the refreshed SRS Zipf bridge and combined active-only normalized evidence. It records 570 current source-target families, 49 covered families, 521 uncovered families, 1,042 planned active rows at 2 rows per family, and a conservative first runnable 50-family request packet.",
+      "action": "Compute the current full en-es SRS-derived source-target denominator, compare it with the active-only product-smoke pack, and freeze the first reviewed no-spend active-only generation packet.",
+      "evidence_needed": "The active-only full generation plan reads the refreshed SRS Zipf bridge, combined active-only normalized evidence, and first-tranche source-target review manifest. It records 570 current source-target families, 49 covered families, 521 uncovered families, 50 reviewed first-tranche candidates, 42 approved paid-generation rows, 8 pre-spend rejections, 1,026 planned active rows for the currently queued families at 2 rows per family, and a first runnable approved request packet of 42 families.",
       "validation": "Run the SRS Zipf bridge with --include-full-rulegen --fail-on-review, run the active-only full generation planner with --fail-on-review, run focused pytest for the planner, Ruff, registry summary, doc-reference checks, and git diff whitespace checks.",
-      "promotion_impact": "Turns full en-es from a vague language-wide concern into a measured installed-SRS denominator and a resumable first-tranche plan. It does not change runtime policy or spend any LLM budget."
+      "promotion_impact": "Turns full en-es from a vague language-wide concern into a measured installed-SRS denominator and a reviewed resumable first-tranche plan. It does not change runtime policy or spend any LLM budget."
     }
   ],
   "entries": [
@@ -6769,15 +6774,31 @@
       ]
     },
     {
+      "artifact_id": "active_only_generation_source_target_review_manifest",
+      "title": "Semantic veto active-only generation source-target review manifest",
+      "component": "diagnostics",
+      "state": "current_research",
+      "path": "docs/test_inputs/semantic_veto_active_only_generation_source_target_review_en_es.json",
+      "role": "Records manual pre-spend approval/exclusion decisions for source-target rows before paid active-only evidence generation.",
+      "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
+      "current_use": "Reviews the first 50 exposure-first rows from the active-only full-generation queue, approving 42 and excluding 8 no-visible or weak source-target mappings before spend.",
+      "risk": "Manual source-target review input only; it does not score generated evidence or veto runtime behavior, and it currently covers only the first queued packet.",
+      "next_audit_pass": "data_artifacts",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_active_only_full_generation_plan_en_es_latest.md",
+        "core/tests/dev/test_semantic_veto_active_only_full_generation_plan_en_es.py"
+      ]
+    },
+    {
       "artifact_id": "active_only_full_generation_plan_harness",
       "title": "Semantic veto active-only full generation plan harness",
       "component": "diagnostics",
       "state": "current_research",
       "path": "scripts/testing/semantic_veto_active_only_full_generation_plan_en_es.py",
-      "role": "Builds a no-spend active-only coverage and request plan from the current full SRS source-target denominator.",
+      "role": "Builds a no-spend active-only coverage and reviewed request plan from the current full SRS source-target denominator.",
       "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
-      "current_use": "Compares full_source_target_pairs from the SRS Zipf bridge against current active-only evidence coverage and emits the first runnable request tranche.",
-      "risk": "Planning harness only; Zipf ordering is exposure-first and should not be treated as proof of semantic-veto difficulty.",
+      "current_use": "Compares full_source_target_pairs from the SRS Zipf bridge against current active-only evidence coverage, applies the source-target review manifest when present, and emits only approved rows in the runnable request packet.",
+      "risk": "Planning harness only; Zipf ordering is exposure-first and should not be treated as proof of semantic-veto difficulty. The review manifest currently covers the first queued packet, not all later rows.",
       "next_audit_pass": "data_artifacts",
       "verification_artifacts": [
         "core/tests/dev/test_semantic_veto_active_only_full_generation_plan_en_es.py",
@@ -6792,7 +6813,7 @@
       "path": "docs/test_outputs/semantic_veto_active_only_full_generation_plan_en_es_latest.md",
       "role": "Human-facing no-spend denominator and first-tranche request plan for broad en-es active-only semantic evidence generation.",
       "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
-      "current_use": "Shows 570 denominator source-target families, 49 active-only covered families, 521 uncovered families, 11 planned tranches, and a first runnable 50-family request packet with 100 expected active rows.",
+      "current_use": "Shows 570 denominator source-target families, 49 active-only covered families, 521 uncovered families, first-tranche review status of 42 approved / 8 excluded / 471 unreviewed, and a first runnable approved 42-family request packet with 84 expected active rows.",
       "risk": "Request packet and coverage plan only; generated rows still need live generation, admission, postprocess, packaging, replay, helper smoke, and page review.",
       "next_audit_pass": "data_artifacts",
       "verification_artifacts": [

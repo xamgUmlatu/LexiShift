@@ -1,0 +1,375 @@
+{
+  "schema_version": 1,
+  "pair": "en-es",
+  "review_id": "en-es-active-only-full-v1-tranche-001-source-target-review",
+  "decision": "tranche_001_reviewed_for_pre_spend_active_only_generation",
+  "reviewed_at": "2026-05-11",
+  "review_scope": {
+    "input_plan": "docs/test_outputs/semantic_veto_active_only_full_generation_plan_en_es_latest.json",
+    "selected_global_need_ranks": "1-50 from the unreviewed exposure-first queue",
+    "purpose": "prevent paid active-only evidence generation for rows that are not useful visible source->target replacement families"
+  },
+  "review_policy": {
+    "approve": "Approve rows where the source->target mapping is a usable visible replacement sense and active evidence can plausibly improve runtime semantic decisions.",
+    "exclude_no_visible_replacement": "Exclude rows where source and target render as the same browser text, because the user would not see a useful replacement.",
+    "exclude_weak_source_target_mapping": "Exclude rows where the target is a weak, archaic, idiomatic-only, or visibly wrong replacement for the English source.",
+    "not_a_veto_accuracy_claim": "This review validates paid generation inputs only; it does not score the veto algorithm."
+  },
+  "first_source_checks_used": [
+    "SRS Zipf bridge selected source-target rows",
+    "Rulegen result metadata for confidence, gloss index, reverse-check hit/rank, and semantic admission status",
+    "Manual source-target linguistic review for visible replacement usefulness"
+  ],
+  "decisions": [
+    {
+      "source": "away",
+      "target": "lejos",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Ordinary location/distance sense; active evidence can distinguish from idioms like away game or away from work."
+    },
+    {
+      "source": "beginning",
+      "target": "principio",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Ordinary beginning/principle-start sense with visible replacement value."
+    },
+    {
+      "source": "between",
+      "target": "entre",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Core preposition mapping and high product exposure."
+    },
+    {
+      "source": "capital",
+      "target": "capital",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_no_visible_replacement",
+      "rationale": "English and Spanish browser text are identical, so paid active evidence would not create a visible user-facing replacement."
+    },
+    {
+      "source": "century",
+      "target": "siglo",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct common noun mapping."
+    },
+    {
+      "source": "chief",
+      "target": "jefe",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Usable chief/boss/head mapping; active evidence can separate title/person contexts from adjective chief."
+    },
+    {
+      "source": "director",
+      "target": "director",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_no_visible_replacement",
+      "rationale": "English and Spanish browser text are identical, so this is not worth paid active-only evidence in the visible product lane."
+    },
+    {
+      "source": "even",
+      "target": "par",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_polysemic_active_mapping",
+      "rationale": "Valid for even-number/parity contexts; high ambiguity makes active evidence useful."
+    },
+    {
+      "source": "far",
+      "target": "lejos",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Ordinary distance mapping despite broad idiomatic uses."
+    },
+    {
+      "source": "hour",
+      "target": "hora",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct time-unit mapping."
+    },
+    {
+      "source": "inside",
+      "target": "dentro",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Common spatial mapping with visible replacement value."
+    },
+    {
+      "source": "just",
+      "target": "sólo",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_polysemic_active_mapping",
+      "rationale": "Valid only/merely sense; active evidence can separate it from fair/just and intensifier senses."
+    },
+    {
+      "source": "light",
+      "target": "luz",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_polysemic_active_mapping",
+      "rationale": "Valid noun-light sense; ambiguity with weight/color/verb makes active evidence useful."
+    },
+    {
+      "source": "little",
+      "target": "pequeño",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Common size mapping with useful visible replacement."
+    },
+    {
+      "source": "making",
+      "target": "producción",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Usable in production/creation contexts such as the making of a film; active evidence should keep this narrow."
+    },
+    {
+      "source": "more",
+      "target": "más",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Core quantity/comparison mapping."
+    },
+    {
+      "source": "morning",
+      "target": "mañana",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct morning mapping; Spanish target ambiguity with tomorrow is target-side and acceptable for this active-only lane."
+    },
+    {
+      "source": "music",
+      "target": "música",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping with visible accent difference."
+    },
+    {
+      "source": "national",
+      "target": "nacional",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct adjective/noun mapping with visible replacement value."
+    },
+    {
+      "source": "need",
+      "target": "necesidad",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_polysemic_active_mapping",
+      "rationale": "Valid noun need/necessity mapping; active evidence can separate it from verb uses."
+    },
+    {
+      "source": "now",
+      "target": "actualmente",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Usable current/currently sense, though not every now context; active evidence should bias toward currently/nowadays contexts."
+    },
+    {
+      "source": "official",
+      "target": "oficial",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct adjective/noun mapping."
+    },
+    {
+      "source": "only",
+      "target": "sólo",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Core only/merely mapping."
+    },
+    {
+      "source": "read",
+      "target": "leer",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct verb mapping."
+    },
+    {
+      "source": "room",
+      "target": "espacio",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_polysemic_active_mapping",
+      "rationale": "Valid space/capacity sense; active evidence can separate it from bedroom/office-room senses."
+    },
+    {
+      "source": "section",
+      "target": "departamento",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Usable organizational section/department sense, narrow enough to need active evidence."
+    },
+    {
+      "source": "small",
+      "target": "pequeño",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct size mapping."
+    },
+    {
+      "source": "space",
+      "target": "espacio",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping."
+    },
+    {
+      "source": "stand",
+      "target": "puesto",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_polysemic_active_mapping",
+      "rationale": "Valid booth/stall/stand sense; high ambiguity makes active evidence useful."
+    },
+    {
+      "source": "start",
+      "target": "poner",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "The useful Spanish expression is usually multiword or idiomatic, while target lemma poner alone is not a good visible replacement for start."
+    },
+    {
+      "source": "start",
+      "target": "principio",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_polysemic_active_mapping",
+      "rationale": "Valid noun start/beginning sense; active evidence can separate it from verb uses."
+    },
+    {
+      "source": "time",
+      "target": "hora",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_polysemic_active_mapping",
+      "rationale": "Valid clock-time/hour sense; active evidence can separate it from abstract time."
+    },
+    {
+      "source": "want",
+      "target": "necesidad",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "The want=lack/need noun sense is too rare for high-exposure paid active evidence; need->necesidad already covers the productive mapping."
+    },
+    {
+      "source": "work",
+      "target": "trabajar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_polysemic_active_mapping",
+      "rationale": "Valid verb work mapping; active evidence can separate it from noun work/job/artwork senses."
+    },
+    {
+      "source": "access",
+      "target": "entrada",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_polysemic_active_mapping",
+      "rationale": "Valid entry/access sense; active evidence can separate access-rights and doorway/entry contexts."
+    },
+    {
+      "source": "action",
+      "target": "batalla",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Action can mean combat in narrow contexts, but batalla is too narrow for a high-exposure source word and would waste the first paid tranche."
+    },
+    {
+      "source": "ask",
+      "target": "preguntar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct ask/question verb mapping."
+    },
+    {
+      "source": "break",
+      "target": "romper",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_polysemic_active_mapping",
+      "rationale": "Valid break/rupture verb mapping; active evidence can separate pause/news-break contexts."
+    },
+    {
+      "source": "car",
+      "target": "automóvil",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping."
+    },
+    {
+      "source": "chief",
+      "target": "amo",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Amo is a weaker master/owner target for chief; chief->jefe is already in the approved tranche."
+    },
+    {
+      "source": "close",
+      "target": "estrecho",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_polysemic_active_mapping",
+      "rationale": "Valid close/narrow/intimate sense; active evidence is useful because close is highly polysemic."
+    },
+    {
+      "source": "court",
+      "target": "patio",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_polysemic_active_mapping",
+      "rationale": "Valid courtyard sense; active evidence can separate legal/sports court contexts."
+    },
+    {
+      "source": "cup",
+      "target": "taza",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct object/container mapping."
+    },
+    {
+      "source": "double",
+      "target": "doble",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct adjective/noun mapping."
+    },
+    {
+      "source": "eight",
+      "target": "ocho",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct number mapping."
+    },
+    {
+      "source": "exactly",
+      "target": "justamente",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Usable exactly/precisely mapping."
+    },
+    {
+      "source": "face",
+      "target": "rostro",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_polysemic_active_mapping",
+      "rationale": "Valid human-face sense; active evidence can separate verb face and surface/front senses."
+    },
+    {
+      "source": "hit",
+      "target": "llamar",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Hit is not a normal standalone source for llamar in the product setting; paid evidence should not reinforce this mapping."
+    },
+    {
+      "source": "ice",
+      "target": "hielo",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping."
+    },
+    {
+      "source": "kind",
+      "target": "gracioso",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Kind normally maps to type or amable; gracioso is funny/graceful and should not receive paid active-only evidence for kind."
+    }
+  ]
+}

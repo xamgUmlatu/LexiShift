@@ -4,7 +4,7 @@ Status: active plan
 Role: Planning / pre-scan framing
 Purpose: define what semantic-routing data should eventually be generated with LLM support, which units deserve queueing, what can be inferred automatically versus what remains hypothesis, and how to avoid redundant generation work
 Last updated: 2026-05-12
-Last verified: 2026-05-12 active-only prompt-variant bakeoff, generated-evidence admission, postprocess scoring over the frozen 24-family PoC denominator, the product-scope band-grading v1 active-only reuse tranche, the active-only scale tranche through combined 49-family packaging, inventory replay, helper runtime smoke, live-page scan, named-pack installer smoke, initial browser review with the product-soft `min_active_score=0.015` active-only policy, and the no-spend full active-only generation denominator plan over the current 570-family installed SRS source-target universe
+Last verified: 2026-05-12 active-only prompt-variant bakeoff, generated-evidence admission, postprocess scoring over the frozen 24-family PoC denominator, the product-scope band-grading v1 active-only reuse tranche, the active-only scale tranche through combined 49-family packaging, inventory replay, helper runtime smoke, live-page scan, named-pack installer smoke, initial browser review with the product-soft `min_active_score=0.015` active-only policy, the no-spend full active-only generation denominator plan over the current 570-family installed SRS source-target universe, and first-tranche pre-spend source-target review
 Source-of-truth: planning doc only; current implemented truth still lives in the semantic-routing contracts, inventory publication code, and offline evidence normalization seam
 Related docs:
 - `docs/rulegen/semantic_shadow_source_intake_plan.md`
@@ -224,12 +224,15 @@ As of 2026-05-12, steps 2 and 3 have an explicit no-spend denominator plan:
 - current combined active-only semantic pack coverage: 49 of those 570
   source-target families, or 8.6%,
 - remaining active-only coverage gap: 521 source-target families,
-- planned active-only generation volume at 2 rows per family: 1,042 generated
-  active cue rows if every uncovered family is attempted,
-- conservative first runnable request packet: 50 families / 100 expected active
-  rows / 26,079 estimated input tokens / 14,000 output-token budget,
-- full active-only plan shape: 11 resumable tranches at 50 families per tranche,
-  with the final tranche carrying 21 families.
+- first pre-spend source-target review covers the top 50 exposure-first rows,
+  approves 42, rejects 8, and leaves 471 later uncovered rows unreviewed,
+- planned active-only generation volume after known first-tranche rejections:
+  1,026 generated active cue rows if every currently queued family is attempted,
+- conservative first runnable request packet: 42 approved families / 84 expected
+  active rows / 21,898 estimated input tokens / 11,760 output-token budget,
+- full active-only queue shape after known rejections: 11 resumable queue
+  tranches, with future tranche rows still requiring the same pre-spend
+  source-target review.
 
 The current plan artifact is:
 
@@ -237,7 +240,8 @@ The current plan artifact is:
 
 This changes the immediate engineering gap. The family universe is now measured;
 the next gap is executing and validating tranche 001 without changing the
-runtime policy or prompt contract.
+runtime policy or prompt contract. The first paid run must use the reviewed
+approved request packet, not the original unreviewed 50-row queue.
 
 The scale-generation program should therefore proceed in lanes:
 

@@ -244,16 +244,23 @@ SRS-admissible semantic-family universe for scale planning:
 - 49 source-target families already covered by the combined active-only
   product-smoke pack,
 - 521 active-only uncovered source-target families,
-- 1,042 expected active cue rows if the remaining uncovered families are
-  generated at 2 rows per family,
-- 11 planned 50-family tranches, with a final 21-family tranche.
+- 50 source-target families reviewed before first-tranche spend,
+- 42 of those first-tranche candidates approved for paid active-only generation,
+- 8 rejected before spend because they were no-visible or weak source-target
+  mappings,
+- 513 currently queued source-target families after known first-tranche
+  rejections,
+- 1,026 expected active cue rows if the currently queued families are generated
+  at 2 rows per family,
+- 11 queue tranches after known rejections, with future tranche rows still
+  requiring the same pre-spend source-target review.
 
-The current first runnable request packet is tranche 001:
+The current first runnable request packet is the reviewed-approved tranche 001:
 
-- 50 source-target families,
-- 100 expected active cue rows,
-- 26,079 estimated input tokens,
-- 14,000 output-token budget.
+- 42 approved source-target families,
+- 84 expected active cue rows,
+- 21,898 estimated input tokens,
+- 11,760 output-token budget.
 
 This is the next unit to price with current model rates at execution time. The
 older table rows such as `common-source active-only pass` remain historical
@@ -285,7 +292,7 @@ Recommended initial caps:
 
 | Batch | `--require-selected-request-count` | Expected cap | Ceiling cap |
 | --- | ---: | ---: | ---: |
-| next active-only tranche | `50` | `$1` | `$5` |
+| next active-only reviewed tranche | `42` | `$1` | `$5` |
 | larger active-only tranche | `100` | `$2` | `$10` |
 | common-source active-only pass | `344` | `$5` | `$25` |
 

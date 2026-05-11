@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 import argparse
-from collections import Counter, defaultdict
+from collections import Counter
 from datetime import datetime, timezone
 from hashlib import sha1
 import json
@@ -26,10 +26,20 @@ from semantic_veto_evidence_gap_generation_requests_en_es import (  # noqa: E402
     _estimate_tokens,
     _prompt_text,
 )
+from semantic_veto_active_only_full_generation_plan_rendering import (  # noqa: E402
+    render_active_only_full_generation_plan_markdown,
+)
+from semantic_veto_active_only_full_generation_plan_support import (  # noqa: E402
+    ZIPF_BAND_ORDER,
+    annotate_source_target_review,
+    coverage_breakdown,
+    coverage_key,
+    coverage_matrix,
+    source_target_review_decisions,
+    source_target_review_excludes,
+)
 from semantic_veto_product_quality_en_es import (  # noqa: E402
     _as_mapping,
-    _escape_md,
-    _format_percent,
     _load_json,
     _mapping_rows,
     _repo_path,
@@ -51,18 +61,17 @@ DEFAULT_JSON_OUT = (
 DEFAULT_MARKDOWN_OUT = (
     TEST_OUTPUTS_ROOT / "semantic_veto_active_only_full_generation_plan_en_es_latest.md"
 )
+DEFAULT_SOURCE_TARGET_REVIEW_JSON = (
+    PROJECT_ROOT
+    / "docs"
+    / "test_inputs"
+    / "semantic_veto_active_only_generation_source_target_review_en_es.json"
+)
 DEFAULT_PILOT_ID = "semantic_veto_active_only_full_en_es_v1"
 ACTIVE_SLOT = "active_evidence_expansion"
 DEFAULT_REQUESTED_ITEMS = 2
 DEFAULT_TRANCHE_SIZE = 50
 DEFAULT_REQUEST_FAMILY_LIMIT = 50
-ZIPF_BAND_ORDER = (
-    "zipf_5_plus_very_common",
-    "zipf_4_to_5_common",
-    "zipf_3_to_4_mid",
-    "zipf_below_3_rare",
-    "missing",
-)
 ZIPF_BAND_WEIGHTS = {
     "zipf_5_plus_very_common": 1.0,
     "zipf_4_to_5_common": 0.8,
@@ -104,6 +113,20 @@ def _parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--json-out", type=Path, default=DEFAULT_JSON_OUT)
     parser.add_argument("--markdown-out", type=Path, default=DEFAULT_MARKDOWN_OUT)
+    parser.add_argument(
+        "--source-target-review-json",
+        type=Path,
+        default=DEFAULT_SOURCE_TARGET_REVIEW_JSON,
+        help=(
+            "Optional pre-spend source-target review manifest. When present, the "
+            "runnable request packet includes only rows explicitly approved by the manifest."
+        ),
+    )
+    parser.add_argument(
+        "--ignore-source-target-review",
+        action="store_true",
+        help="Ignore the default/manual source-target review manifest.",
+    )
     parser.add_argument("--fail-on-review", action="store_true")
     return parser.parse_args()
 
@@ -118,6 +141,20 @@ def main() -> int:
         ],
         srs_zipf_bridge_path=args.srs_zipf_bridge_json,
         existing_evidence_paths=existing_paths,
+        source_target_review_payload=(
+            _load_json(_resolve_repo_path(args.source_target_review_json))
+            if not args.ignore_source_target_review
+            and args.source_target_review_json
+            and _resolve_repo_path(args.source_target_review_json).exists()
+            else None
+        ),
+        source_target_review_path=(
+            args.source_target_review_json
+            if not args.ignore_source_target_review
+            and args.source_target_review_json
+            and _resolve_repo_path(args.source_target_review_json).exists()
+            else None
+        ),
         pilot_id=str(args.pilot_id),
         requested_items=max(1, int(args.requested_items)),
         tranche_size=max(1, int(args.tranche_size)),
@@ -139,6 +176,8 @@ def build_active_only_full_generation_plan_report(
     existing_evidence_payloads: Sequence[Mapping[str, object]],
     srs_zipf_bridge_path: Path | None = None,
     existing_evidence_paths: Sequence[Path] = (),
+    source_target_review_payload: Mapping[str, object] | None = None,
+    source_target_review_path: Path | None = None,
     pilot_id: str = DEFAULT_PILOT_ID,
     requested_items: int = DEFAULT_REQUESTED_ITEMS,
     tranche_size: int = DEFAULT_TRANCHE_SIZE,
@@ -148,12 +187,18 @@ def build_active_only_full_generation_plan_report(
     generated_at = generated_at or _utc_now()
     denominator_rows = _denominator_rows(srs_zipf_bridge_payload)
     covered_by_key = _active_evidence_coverage(existing_evidence_payloads)
+    review_decisions = source_target_review_decisions(source_target_review_payload)
+    source_target_review_active = source_target_review_payload is not None
     denominator_keys = {str(row["coverage_key"]) for row in denominator_rows}
     covered_denominator_keys = denominator_keys.intersection(covered_by_key)
     uncovered_rows = [
         _generation_family_row(row)
         for row in denominator_rows
         if str(row["coverage_key"]) not in covered_denominator_keys
+    ]
+    uncovered_rows = [
+        annotate_source_target_review(row, review_decisions=review_decisions)
+        for row in uncovered_rows
     ]
     uncovered_rows.sort(key=_uncovered_sort_key)
     for rank, row in enumerate(uncovered_rows, start=1):
@@ -169,7 +214,17 @@ def build_active_only_full_generation_plan_report(
             }
         ]
 
-    selected_rows = list(uncovered_rows)
+    generation_queue_rows = [
+        row for row in uncovered_rows if not source_target_review_excludes(row)
+    ]
+    selected_pool_rows = list(generation_queue_rows)
+    if source_target_review_active:
+        selected_pool_rows = [
+            row
+            for row in generation_queue_rows
+            if str(row.get("source_target_review_status") or "") == "approved"
+        ]
+    selected_rows = list(selected_pool_rows)
     if request_family_limit:
         selected_rows = selected_rows[: int(request_family_limit)]
     requests = [
@@ -181,7 +236,7 @@ def build_active_only_full_generation_plan_report(
         for row in selected_rows
     ]
     tranches = _tranche_plan(
-        uncovered_rows=uncovered_rows,
+        uncovered_rows=generation_queue_rows,
         pilot_id=pilot_id,
         tranche_size=tranche_size,
         requested_items=requested_items,
@@ -193,6 +248,8 @@ def build_active_only_full_generation_plan_report(
         requests=requests,
         request_family_limit=request_family_limit,
         srs_zipf_bridge_payload=srs_zipf_bridge_payload,
+        source_target_review_active=source_target_review_active,
+        selected_rows=selected_rows,
     )
     status = "ok" if not issues else "review"
     decision = (
@@ -212,11 +269,18 @@ def build_active_only_full_generation_plan_report(
             "srs_zipf_bridge_json": _repo_path(srs_zipf_bridge_path),
             "srs_zipf_bridge_decision": str(srs_zipf_bridge_payload.get("decision") or ""),
             "existing_evidence_paths": [_repo_path(path) for path in existing_evidence_paths],
+            "source_target_review_json": _repo_path(source_target_review_path),
+            "source_target_review_decision": str(
+                _as_mapping(source_target_review_payload).get("decision") or ""
+            ),
         },
         "strict_flow": {
             "runtime_policy_change": "none",
             "llm_call": "none",
             "request_packet_role": "pre_spend_active_only_generation_inputs",
+            "source_target_review": (
+                "approved_rows_only" if source_target_review_active else "not_applied"
+            ),
             "shadow_generation": "excluded_until_active_only_coverage_is_measured",
             "phrase_no_winner_generation": "excluded_until_active_only_coverage_is_measured",
             "request_packet_scope": (
@@ -247,24 +311,27 @@ def build_active_only_full_generation_plan_report(
             denominator_rows=denominator_rows,
             covered_by_key=covered_by_key,
             covered_denominator_keys=covered_denominator_keys,
-            uncovered_rows=uncovered_rows,
             evidence_outside_denominator=evidence_outside_denominator,
             requests=requests,
             tranches=tranches,
+            source_target_review_active=source_target_review_active,
+            source_target_review_decisions=review_decisions,
+            uncovered_rows=uncovered_rows,
+            generation_queue_rows=generation_queue_rows,
         ),
-        "coverage_by_source_band": _coverage_breakdown(
+        "coverage_by_source_band": coverage_breakdown(
             denominator_rows=denominator_rows,
             covered_denominator_keys=covered_denominator_keys,
             group_key="source_zipf_band_en",
             label="source_band",
         ),
-        "coverage_by_target_band": _coverage_breakdown(
+        "coverage_by_target_band": coverage_breakdown(
             denominator_rows=denominator_rows,
             covered_denominator_keys=covered_denominator_keys,
             group_key="target_zipf_band_es",
             label="target_band",
         ),
-        "coverage_matrix": _coverage_matrix(
+        "coverage_matrix": coverage_matrix(
             denominator_rows=denominator_rows,
             covered_denominator_keys=covered_denominator_keys,
         ),
@@ -284,6 +351,7 @@ def build_active_only_full_generation_plan_report(
             "active-only rows do not add repaired shadows or phrase/no-winner controls",
             "Zipf ordering is an exposure queue, not proof of veto difficulty",
             "source-target-only rows have weaker sense hints than manually reviewed families",
+            "manual pre-spend source-target review covers only rows present in the review manifest",
             "live generation must be run in small resumable tranches with explicit spend guards",
         ],
         "next_steps": [
@@ -296,109 +364,6 @@ def build_active_only_full_generation_plan_report(
     }
 
 
-def render_active_only_full_generation_plan_markdown(report: Mapping[str, object]) -> str:
-    summary = _as_mapping(report.get("summary"))
-    lines = [
-        "# en-es Semantic Veto Active-Only Full Generation Plan",
-        "",
-        f"- Status: `{report.get('status', '')}`",
-        f"- Decision: `{report.get('decision', '')}`",
-        f"- Generated: `{report.get('generated_at', '')}`",
-        f"- Denominator source-target families: `{summary.get('denominator_family_count', 0)}`",
-        f"- Current active-only covered families: `{summary.get('covered_denominator_family_count', 0)}` ({_format_percent(summary.get('covered_denominator_family_share'))})",
-        f"- Uncovered active-only families: `{summary.get('uncovered_family_count', 0)}`",
-        f"- Runnable request packet families: `{summary.get('selected_request_family_count', 0)}`",
-        f"- Runnable request packet expected items: `{summary.get('selected_expected_generated_item_count', 0)}`",
-        f"- Runnable request packet estimated input tokens: `{summary.get('selected_estimated_input_tokens', 0)}`",
-        f"- Runnable request packet output-token budget: `{summary.get('selected_expected_output_token_budget', 0)}`",
-        "",
-        "## What This Means",
-        "",
-        "The current pack is a product-smoke control, not full en-es coverage. This "
-        "report treats the SRS Zipf bridge full source-target pairs as the current "
-        "installed en-es semantic-veto denominator, then prepares only the next "
-        "active-only tranche for safe generation.",
-        "",
-        "## Source-Band Coverage",
-        "",
-        _coverage_table(report.get("coverage_by_source_band"), "Band"),
-        "",
-        "## Target-Band Coverage",
-        "",
-        _coverage_table(report.get("coverage_by_target_band"), "Band"),
-        "",
-        "## Tranche Plan",
-        "",
-        "| Tranche | Families | Requests | Expected items | Input tokens | Output-token budget | Tier mix |",
-        "| --- | ---: | ---: | ---: | ---: | ---: | --- |",
-    ]
-    for row in _mapping_rows(report.get("tranche_plan")):
-        tier_mix = ", ".join(
-            f"{key}:{value}" for key, value in _as_mapping(row.get("priority_tier_counts")).items()
-        )
-        lines.append(
-            f"| `{_escape_md(str(row.get('tranche_id') or ''))}` | "
-            f"{row.get('family_count', 0)} | {row.get('request_count', 0)} | "
-            f"{row.get('expected_generated_item_count', 0)} | "
-            f"{row.get('estimated_input_tokens', 0)} | "
-            f"{row.get('expected_output_token_budget', 0)} | "
-            f"{_escape_md(tier_mix)} |"
-        )
-    lines.extend(
-        [
-            "",
-            "## Selected Request Families",
-            "",
-            "| Rank | Tier | Source | Target | Source band | Target band | Need |",
-            "| ---: | --- | --- | --- | --- | --- | ---: |",
-        ]
-    )
-    for row in _mapping_rows(report.get("selected_request_families"))[:75]:
-        lines.append(
-            f"| {row.get('global_need_rank', 0)} | "
-            f"`{_escape_md(str(row.get('priority_tier') or ''))}` | "
-            f"`{_escape_md(str(row.get('source') or ''))}` | "
-            f"`{_escape_md(str(row.get('target') or ''))}` | "
-            f"`{_escape_md(str(row.get('source_zipf_band_en') or ''))}` | "
-            f"`{_escape_md(str(row.get('target_zipf_band_es') or ''))}` | "
-            f"{float(row.get('active_only_generation_need_score') or 0.0):.4f} |"
-        )
-    lines.extend(
-        [
-            "",
-            "## Safe First-Run Command Shape",
-            "",
-            "```bash",
-            "python3 scripts/testing/semantic_veto_evidence_gap_generation_run_en_es.py \\",
-            "  --request-json docs/test_outputs/semantic_veto_active_only_full_generation_plan_en_es_latest.json \\",
-            "  --run-id en-es-active-only-full-v1-tranche-001 \\",
-            f"  --max-requests {summary.get('selected_request_count', 0)} \\",
-            f"  --require-selected-request-count {summary.get('selected_request_count', 0)} \\",
-            "  --input-rate-per-1m <current-input-rate> \\",
-            "  --output-rate-per-1m <current-output-rate> \\",
-            "  --max-estimated-cost-usd <small-tranche-budget> \\",
-            "  --max-estimated-cost-ceiling-usd <small-tranche-ceiling> \\",
-            "  --execute-live --resume",
-            "```",
-            "",
-            "## Guardrails",
-            "",
-            "| Check | Value |",
-            "| --- | --- |",
-        ]
-    )
-    for key, value in _as_mapping(report.get("e2e_checks")).items():
-        lines.append(f"| `{_escape_md(str(key))}` | `{value}` |")
-    lines.extend(["", "## Limitations", ""])
-    lines.extend(f"- `{_escape_md(str(item))}`" for item in report.get("limitations", []))
-    lines.extend(["", "## Next Steps", ""])
-    lines.extend(f"- {item}" for item in report.get("next_steps", []))
-    if report.get("issues"):
-        lines.extend(["", "## Issues", ""])
-        lines.extend(f"- `{_escape_md(str(item))}`" for item in report.get("issues", []))
-    return "\n".join(lines) + "\n"
-
-
 def _denominator_rows(payload: Mapping[str, object]) -> list[dict[str, object]]:
     rows_by_key: dict[str, dict[str, object]] = {}
     for row in _mapping_rows(payload.get("full_source_target_pairs")):
@@ -406,7 +371,7 @@ def _denominator_rows(payload: Mapping[str, object]) -> list[dict[str, object]]:
         target = str(row.get("target") or "").strip()
         if not source or not target:
             continue
-        key = _coverage_key(source=source, target=target)
+        key = coverage_key(source=source, target=target)
         if key in rows_by_key:
             continue
         rows_by_key[key] = {
@@ -439,7 +404,7 @@ def _active_evidence_coverage(
             ).strip()
             if not source or not target:
                 continue
-            key = _coverage_key(source=source, target=target)
+            key = coverage_key(source=source, target=target)
             entry = covered.setdefault(
                 key,
                 {
@@ -575,10 +540,16 @@ def _summary(
     covered_by_key: Mapping[str, Mapping[str, object]],
     covered_denominator_keys: set[str],
     uncovered_rows: Sequence[Mapping[str, object]],
+    generation_queue_rows: Sequence[Mapping[str, object]],
     evidence_outside_denominator: Sequence[str],
     requests: Sequence[Mapping[str, object]],
     tranches: Sequence[Mapping[str, object]],
+    source_target_review_active: bool,
+    source_target_review_decisions: Mapping[str, Mapping[str, object]],
 ) -> dict[str, object]:
+    review_status_counts = Counter(
+        str(row.get("source_target_review_status") or "not_reviewed") for row in uncovered_rows
+    )
     return {
         "denominator_family_count": len(denominator_rows),
         "denominator_source_trigger_count": len(
@@ -591,6 +562,7 @@ def _summary(
             len(covered_denominator_keys), len(denominator_rows)
         ),
         "uncovered_family_count": len(uncovered_rows),
+        "generation_queue_family_count": len(generation_queue_rows),
         "evidence_outside_denominator_key_count": len(evidence_outside_denominator),
         "selected_request_family_count": len({request.get("family_id") for request in requests}),
         "selected_request_count": len(requests),
@@ -605,109 +577,16 @@ def _summary(
         ),
         "full_expected_generated_item_count": sum(
             int(row.get("planned_generation_slots", [{}])[0].get("requested_items") or 0)
-            for row in uncovered_rows
+            for row in generation_queue_rows
         ),
         "tranche_count": len(tranches),
         "uncovered_priority_tier_counts": dict(
             sorted(Counter(str(row.get("priority_tier") or "") for row in uncovered_rows).items())
         ),
+        "source_target_review_active": bool(source_target_review_active),
+        "source_target_review_decision_count": len(source_target_review_decisions),
+        "source_target_review_status_counts": dict(sorted(review_status_counts.items())),
     }
-
-
-def _coverage_breakdown(
-    *,
-    denominator_rows: Sequence[Mapping[str, object]],
-    covered_denominator_keys: set[str],
-    group_key: str,
-    label: str,
-) -> list[dict[str, object]]:
-    grouped: dict[str, list[Mapping[str, object]]] = defaultdict(list)
-    for row in denominator_rows:
-        grouped[str(row.get(group_key) or "missing")].append(row)
-    rows = []
-    for band in ZIPF_BAND_ORDER:
-        bucket = grouped.get(band, [])
-        if not bucket:
-            continue
-        covered = [
-            row for row in bucket if str(row.get("coverage_key") or "") in covered_denominator_keys
-        ]
-        rows.append(
-            {
-                label: band,
-                "family_count": len(bucket),
-                "covered_family_count": len(covered),
-                "covered_share": _ratio(len(covered), len(bucket)),
-                "uncovered_family_count": len(bucket) - len(covered),
-                "sample_uncovered": [
-                    {"source": row.get("source"), "target": row.get("target")}
-                    for row in bucket
-                    if str(row.get("coverage_key") or "") not in covered_denominator_keys
-                ][:10],
-            }
-        )
-    return rows
-
-
-def _coverage_matrix(
-    *,
-    denominator_rows: Sequence[Mapping[str, object]],
-    covered_denominator_keys: set[str],
-) -> list[dict[str, object]]:
-    grouped: dict[tuple[str, str], list[Mapping[str, object]]] = defaultdict(list)
-    for row in denominator_rows:
-        grouped[
-            (
-                str(row.get("source_zipf_band_en") or "missing"),
-                str(row.get("target_zipf_band_es") or "missing"),
-            )
-        ].append(row)
-    matrix = []
-    for source_band in ZIPF_BAND_ORDER:
-        for target_band in ZIPF_BAND_ORDER:
-            bucket = grouped.get((source_band, target_band), [])
-            if not bucket:
-                continue
-            covered = [
-                row
-                for row in bucket
-                if str(row.get("coverage_key") or "") in covered_denominator_keys
-            ]
-            matrix.append(
-                {
-                    "source_zipf_band_en": source_band,
-                    "target_zipf_band_es": target_band,
-                    "family_count": len(bucket),
-                    "covered_family_count": len(covered),
-                    "covered_share": _ratio(len(covered), len(bucket)),
-                    "uncovered_family_count": len(bucket) - len(covered),
-                }
-            )
-    return matrix
-
-
-def _coverage_table(value: object, label: str) -> str:
-    rows = _mapping_rows(value)
-    if not rows:
-        return "No coverage rows available."
-    lines = [
-        f"| {label} | Families | Covered | Covered Share | Uncovered | Sample Uncovered |",
-        "| --- | ---: | ---: | ---: | ---: | --- |",
-    ]
-    for row in rows:
-        samples = ", ".join(
-            f"`{_escape_md(str(sample.get('source') or ''))}` -> "
-            f"`{_escape_md(str(sample.get('target') or ''))}`"
-            for sample in _mapping_rows(row.get("sample_uncovered"))[:6]
-        )
-        band = str(row.get("source_band") or row.get("target_band") or "")
-        lines.append(
-            f"| `{_escape_md(band)}` | {row.get('family_count', 0)} | "
-            f"{row.get('covered_family_count', 0)} | "
-            f"{_format_percent(row.get('covered_share'))} | "
-            f"{row.get('uncovered_family_count', 0)} | {samples} |"
-        )
-    return "\n".join(lines)
 
 
 def _e2e_checks(
@@ -736,6 +615,10 @@ def _e2e_checks(
         "all_requests_have_target": all(
             str(row.get("active_target_lemma") or "").strip() for row in requests
         ),
+        "selected_rows_review_approved_or_review_inactive": all(
+            str(row.get("source_target_review_status") or "") in {"", "approved"}
+            for row in selected_rows
+        ),
     }
 
 
@@ -746,6 +629,8 @@ def _issues(
     requests: Sequence[Mapping[str, object]],
     request_family_limit: int,
     srs_zipf_bridge_payload: Mapping[str, object],
+    source_target_review_active: bool,
+    selected_rows: Sequence[Mapping[str, object]],
 ) -> list[str]:
     issues = []
     if str(srs_zipf_bridge_payload.get("decision") or "") != "srs_zipf_bridge_established":
@@ -758,6 +643,10 @@ def _issues(
         issues.append("all_uncovered_requests_emitted_review_before_live_spend")
     if any(str(request.get("slot_type") or "") != ACTIVE_SLOT for request in requests):
         issues.append("non_active_request_emitted")
+    if source_target_review_active and any(
+        str(row.get("source_target_review_status") or "") != "approved" for row in selected_rows
+    ):
+        issues.append("selected_request_rows_not_source_target_review_approved")
     return issues
 
 
@@ -804,16 +693,8 @@ def _band_order(value: str) -> int:
     return ZIPF_BAND_ORDER.index(value) if value in ZIPF_BAND_ORDER else len(ZIPF_BAND_ORDER)
 
 
-def _coverage_key(*, source: str, target: str) -> str:
-    return f"{_normalize_key_part(source)}::{_normalize_key_part(target)}"
-
-
-def _normalize_key_part(value: str) -> str:
-    return " ".join(str(value or "").strip().casefold().split())
-
-
 def _family_id(*, source: str, target: str) -> str:
-    digest = sha1(_coverage_key(source=source, target=target).encode("utf-8")).hexdigest()[:8]
+    digest = sha1(coverage_key(source=source, target=target).encode("utf-8")).hexdigest()[:8]
     return f"en-es:srs-source-target:{_slug(source)}:{_slug(target)}:{digest}"
 
 

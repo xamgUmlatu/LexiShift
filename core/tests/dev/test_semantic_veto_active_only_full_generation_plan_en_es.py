@@ -67,6 +67,46 @@ class SemanticVetoActiveOnlyFullGenerationPlanTests(unittest.TestCase):
         self.assertIn("full_source_target_denominator_missing", report["issues"])
         self.assertIn("srs_zipf_bridge_not_established", report["issues"])
 
+    def test_source_target_review_filters_paid_request_packet(self) -> None:
+        report = build_active_only_full_generation_plan_report(
+            srs_zipf_bridge_payload=_bridge_payload(),
+            existing_evidence_payloads=[],
+            source_target_review_payload={
+                "decision": "test_review",
+                "decisions": [
+                    {
+                        "source": "bank",
+                        "target": "banco",
+                        "approved_for_active_only_generation": False,
+                        "decision": "exclude_no_visible_replacement",
+                    },
+                    {
+                        "source": "current",
+                        "target": "corriente",
+                        "approved_for_active_only_generation": True,
+                        "decision": "approve_direct_mapping",
+                    },
+                ],
+            },
+            requested_items=2,
+            tranche_size=2,
+            request_family_limit=3,
+            generated_at="2026-05-12T00:00:00Z",
+        )
+
+        self.assertEqual(report["status"], "ok")
+        self.assertEqual(report["strict_flow"]["source_target_review"], "approved_rows_only")
+        self.assertEqual(report["summary"]["source_target_review_active"], True)
+        self.assertEqual(report["summary"]["source_target_review_status_counts"]["approved"], 1)
+        self.assertEqual(report["summary"]["source_target_review_status_counts"]["excluded"], 1)
+        self.assertEqual(report["summary"]["source_target_review_status_counts"]["unreviewed"], 1)
+        self.assertEqual(report["summary"]["selected_request_count"], 1)
+        self.assertEqual(report["selected_request_families"][0]["source"], "current")
+        self.assertEqual(
+            report["e2e_checks"]["selected_rows_review_approved_or_review_inactive"], True
+        )
+        self.assertNotIn("bank:banco", report["requests"][0]["request_id"])
+
 
 def _bridge_payload() -> dict[str, object]:
     return {
