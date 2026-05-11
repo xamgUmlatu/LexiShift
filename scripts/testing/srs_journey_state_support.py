@@ -62,6 +62,20 @@ def published_sources_from_ruleset(path: Path) -> list[str]:
     return sources
 
 
+def published_source_target_pairs_from_ruleset(path: Path) -> list[dict[str, str]]:
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    rules = payload.get("rules", [])
+    pairs: set[tuple[str, str]] = set()
+    for rule in rules:
+        if not isinstance(rule, Mapping):
+            continue
+        source = str(rule.get("source_phrase") or "").strip()
+        target = str(rule.get("replacement") or "").strip()
+        if source and target:
+            pairs.add((source, target))
+    return [{"source": source, "target": target} for source, target in sorted(pairs)]
+
+
 def snapshot_targets_from_snapshot(path: Path) -> list[str]:
     payload = json.loads(path.read_text(encoding="utf-8"))
     targets = payload.get("targets", [])
@@ -157,6 +171,9 @@ def phase_snapshot(
     published_sources = (
         published_sources_from_ruleset(ruleset_path) if ruleset_path.exists() else []
     )
+    published_source_target_pairs = (
+        published_source_target_pairs_from_ruleset(ruleset_path) if ruleset_path.exists() else []
+    )
     snapshot_lemmas = (
         set(snapshot_targets_from_snapshot(snapshot_path)) if snapshot_path.exists() else set()
     )
@@ -168,7 +185,9 @@ def phase_snapshot(
             "diagnostics": diagnostics,
             "ruleset_path": str(ruleset_path),
             "snapshot_path": str(snapshot_path),
+            "ruleset_sources": published_sources,
             "ruleset_sources_preview": published_sources[:5],
+            "ruleset_source_target_pairs": published_source_target_pairs,
             "snapshot_targets": sorted(snapshot_lemmas),
         },
         "sets": {

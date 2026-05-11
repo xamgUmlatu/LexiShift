@@ -1,0 +1,191 @@
+{
+  "batch_id": "en-es:semantic-veto-evidence-gap-generation:product-scope-band-grading-v1-20260510-001:high-shadow-subset",
+  "execution_mode": "live",
+  "generated_at": "2026-05-09T20:29:52Z",
+  "model_id": "gpt-5.4-mini",
+  "pair": "en-es",
+  "pilot_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es",
+  "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+  "raw_response_bundle_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json",
+  "responses": [
+    {
+      "active_sense_contrast": "cite here means to issue a legal citation or summons, not to mention or refer to a source.",
+      "competitor_sense_label": "legal citation / summon to appear",
+      "family_id": "en-es:full-family-repaired-full:cite:mencionar",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "active_mismatch_note": "mencionar is wrong here because the sentence is about penalizing the driver, not mentioning a source or fact.",
+          "evidence_note": "cite means to issue a citation or ticket.",
+          "sentence": "The officer will cite the driver for speeding after the stop."
+        },
+        {
+          "active_mismatch_note": "mencionar is wrong here because the action is enforcement and punishment, not referring to information.",
+          "evidence_note": "cite means to formally penalize with a citation.",
+          "sentence": "If you park there again, the city will cite you and send a fine."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "multar",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:cite:mencionar:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:cite:mencionar:shadow_or_competitor_evidence_probe",
+      "slot_id": "en-es:full-family-repaired-full:cite:mencionar:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "source_phrase": "cite",
+      "target_lemma": "multar",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "The active sense is the verb sense 'sonreír' (to smile), but these sentences use the noun sense 'sonrisa' (a smile).",
+      "competitor_sense_label": "noun: facial expression of happiness",
+      "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "active_mismatch_note": "sonreír is wrong here because the sentence needs a noun for the facial expression, not the verb 'to smile'.",
+          "evidence_note": "smile is a noun meaning a facial expression, so Spanish would use sonrisa.",
+          "sentence": "Her smile lit up the room during the ceremony."
+        },
+        {
+          "active_mismatch_note": "sonreír is wrong here because the sentence describes a noun phrase for the expression itself, not an action verb.",
+          "evidence_note": "smile refers to a brief facial expression, which maps to sonrisa.",
+          "sentence": "He gave a quick smile before answering the question."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "sonrisa",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe",
+      "slot_id": "en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "source_phrase": "smile",
+      "target_lemma": "sonrisa",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "The sentence uses bar as a place where people drink and socialize, not as a barrier or fence.",
+      "competitor_sense_label": "public drinking place",
+      "family_id": "en-es:full-family-repaired-full:bar:cercar",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "active_mismatch_note": "cercar is wrong here because the sentence is about a drinking place, not blocking or fencing anything.",
+          "evidence_note": "bar means a tavern or pub here, so taberna is the right Spanish choice.",
+          "sentence": "We met at the bar after work for a quick drink."
+        },
+        {
+          "active_mismatch_note": "cercar is wrong here because nothing is being enclosed or prevented from passing.",
+          "evidence_note": "bar refers to a tavern in this context, so taberna fits best.",
+          "sentence": "The old bar on Main Street stayed open until midnight."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "taberna",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:bar:cercar:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:bar:cercar:shadow_or_competitor_evidence_probe",
+      "slot_id": "en-es:full-family-repaired-full:bar:cercar:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "source_phrase": "bar",
+      "target_lemma": "taberna",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "The sentence uses control in the sense of regulating or adjusting a device or system, not exercising authority over a group.",
+      "competitor_sense_label": "regulate or adjust settings",
+      "family_id": "en-es:full-family-repaired-full:control:gobernar",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "active_mismatch_note": "gobernar is wrong here because the sentence is about changing a device setting, not exercising authority over a place, organization, or group.",
+          "evidence_note": "control means regulate or adjust the thermostat settings.",
+          "sentence": "Please control the thermostat before the guests arrive."
+        },
+        {
+          "active_mismatch_note": "gobernar is wrong here because the sentence refers to tuning a camera, not ruling over people or an institution.",
+          "evidence_note": "control means adjust the camera exposure settings.",
+          "sentence": "She learned how to control the camera exposure in low light."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "ajustar",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:control:gobernar:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:control:gobernar:shadow_or_competitor_evidence_probe",
+      "slot_id": "en-es:full-family-repaired-full:control:gobernar:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "source_phrase": "control",
+      "target_lemma": "ajustar",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "The English source_phrase is used as an exclusion marker meaning 'except/excluding', not as a verb meaning 'to object'.",
+      "competitor_sense_label": "preposition_or_conjunction_exclusion",
+      "family_id": "en-es:full-family-repaired-full:except:excepto",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "active_mismatch_note": "objetar is wrong here because the sentence uses except to exclude one person, not to express disagreement or protest.",
+          "evidence_note": "except marks Maria as excluded from the group.",
+          "sentence": "Everyone except Maria arrived on time."
+        },
+        {
+          "active_mismatch_note": "objetar is wrong here because except functions as an exclusion preposition, not as an act of objecting.",
+          "evidence_note": "except introduces the one day that is excluded.",
+          "sentence": "The store is open every day except Sunday."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "objetar",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:except:excepto:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:except:excepto:shadow_or_competitor_evidence_probe",
+      "slot_id": "en-es:full-family-repaired-full:except:excepto:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "source_phrase": "except",
+      "target_lemma": "objetar",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "The sentence uses region to mean a local district or comarca-like administrative area, not a broad area or zone.",
+      "competitor_sense_label": "geographic administrative district sense",
+      "family_id": "en-es:full-family-repaired-full:region:comarca",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "active_mismatch_note": "comarca is wrong here because the sentence is about voting districts, not a comarca-like local district.",
+          "evidence_note": "region refers to an administrative district that can be rendered as zona in this context.",
+          "sentence": "The county divided the region into three voting districts after the census."
+        },
+        {
+          "active_mismatch_note": "comarca is wrong here because the sentence describes a tax office and council for an administrative district, not a comarca.",
+          "evidence_note": "region refers to a local administrative area, so zona fits as the Spanish replacement.",
+          "sentence": "Each region has its own tax office and local council."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "zona",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:region:comarca:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:region:comarca:shadow_or_competitor_evidence_probe",
+      "slot_id": "en-es:full-family-repaired-full:region:comarca:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "source_phrase": "region",
+      "target_lemma": "zona",
+      "unable_to_find_distinct_competitor": false
+    }
+  ],
+  "schema_version": 1,
+  "selected_request_ids": [
+    "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:bar:cercar:shadow_or_competitor_evidence_probe",
+    "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:cite:mencionar:shadow_or_competitor_evidence_probe",
+    "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:control:gobernar:shadow_or_competitor_evidence_probe",
+    "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:except:excepto:shadow_or_competitor_evidence_probe",
+    "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:region:comarca:shadow_or_competitor_evidence_probe",
+    "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe"
+  ],
+  "source_request_packet": "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_requests_en_es_latest.json",
+  "subset_note": "Filtered exact high_need shadow_or_competitor_evidence_probe request ids for gpt-5.4-mini vs gpt-5.5 comparison."
+}

@@ -458,6 +458,38 @@
             <div class="actions">
               <button id="srs-rulegen-sampled-preview" data-i18n="button_srs_rulegen_sampled_preview">Run sampled rulegen (5)…</button>
             </div>
+            <div class="field-row">
+              <label for="debug-semantic-pack-inventory-path" data-i18n="label_semantic_pack_inventory_path">Semantic inventory path override</label>
+              <input
+                id="debug-semantic-pack-inventory-path"
+                type="text"
+                placeholder="optional; backend resolves the selected pack"
+              />
+            </div>
+            <div class="field-row">
+              <label for="debug-semantic-pack-id" data-i18n="label_semantic_pack_id">Semantic pack id</label>
+              <input
+                id="debug-semantic-pack-id"
+                type="text"
+                value="en-es-active-only-combined-product-scope-v1"
+              />
+            </div>
+            <label class="toggle">
+              <input id="debug-semantic-pack-default-data-root" type="checkbox" />
+              <span data-i18n="toggle_semantic_pack_default_data_root">Install to default helper data folder</span>
+            </label>
+            <div class="field-row">
+              <label for="debug-semantic-pack-data-root" data-i18n="label_semantic_pack_data_root">Semantic pack data root</label>
+              <input
+                id="debug-semantic-pack-data-root"
+                type="text"
+                placeholder="/path/to/disposable/lexishift-data-root"
+              />
+            </div>
+            <div class="actions">
+              <button id="debug-semantic-pack-install" data-i18n="button_semantic_pack_install">Install semantic pack…</button>
+              <span id="debug-semantic-pack-install-output" class="hint"></span>
+            </div>
             <div class="actions">
               <button id="debug-helper-test" data-i18n="button_helper_test">Test helper connection</button>
               <span id="debug-helper-test-output" class="hint"></span>
@@ -729,6 +761,7 @@
     <script src="options/controllers/srs/actions/rebalance_workflow.js"></script>
     <script src="options/controllers/srs/actions/formatters.js"></script>
     <script src="options/controllers/srs/actions/shared.js"></script>
+    <script src="options/controllers/srs/actions/semantic_pack_install_workflow.js"></script>
     <script src="options/controllers/srs/actions/maintenance_workflow.js"></script>
     <script src="options/controllers/srs/actions/workflows.js"></script>
     <script src="options/controllers/srs/actions_controller.js"></script>

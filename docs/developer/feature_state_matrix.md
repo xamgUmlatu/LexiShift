@@ -820,8 +820,8 @@ Use this file when:
 ## Semantic Routing Runtime Admission Layer
 
 - Status: `implemented`, `default-on-when-capable`, `verified`
-- Last documented checkpoint: `2026-04-25` the prompt-only loop is closed and the example-frame source lane now has filtered residual generation, benchmark-leakage admission, rekeyed remediation row ids, and a surface-POS prototype guard; structural source completion alone failed, but the filtered generated-source composite plus local containment and surface-POS rescue/preemption now clears the prototype-quality gate as a promotion candidate; the subsequent plant-only source attempts did not fix the remaining same-POS false abstains because stricter canonical leakage admission filtered both accepted live rows
-- Last verified: `2026-04-25` targeted prompt preflight/downstream/failure/source-insertion/prototype-admission/example-frame generation and leakage-admission tests, live/replayed residual generation artifacts, plant-only remediation artifacts, refreshed contract/prototype/quality-gate/generalization artifacts, doc reference checks, feature-state audit, and local changed-scope gate
+- Last documented checkpoint: `2026-05-12` the active-only soft-assist candidate is packaged as canonical source evidence, replayed through an inventory-shaped evaluator, published into an isolated helper runtime smoke fixture, exercised against a balanced public-page sentence scan for manual product-feel review, and materializable through helper CLI, native-host install command, and the extension Advanced debug install flow into an explicit profile/data root. The installer now resolves named semantic pack ids before using a file-path override, so product-like testing no longer requires pasting an inventory path. The fixture is manual-testing ready and does not mutate real profile data unless the default data-root safety flag is explicitly passed.
+- Last verified: `2026-05-12` active-only source packaging, inventory replay, helper runtime smoke, live page scan, productization readiness, semantic pack installer tests, named-pack resolver tests, native-host installer routing tests, semantic runtime policy tests, registry summary, doc reference checks, Ruff checks, and whitespace checks
 - Default behavior:
   - Semantic admission is no longer a normal user preference. The browser runtime auto-uses helper-side semantic admission only when the current pair/profile publication is actually capable of real semantic decisioning.
   - If a pair/profile has semantic metadata but no ready subset yet, LexiShift stays on standard SRS replacement behavior instead of asking the user to choose a fallback posture.
@@ -830,6 +830,7 @@ Use this file when:
     - helper publication can write a semantic inventory sidecar
     - helper publication now also writes a generation-aligned publication manifest for the ruleset/snapshot/semantic-inventory family
     - helper/native-host can now serve that semantic inventory as a first-class artifact
+    - helper CLI/native-host can now materialize a compiled semantic pack into a profile-local publication family and pair-level pack copy, while requiring an explicit data root unless the caller explicitly opts into the platform default; the installer can resolve a named pack id from an installed pack copy, `LEXISHIFT_SEMANTIC_PACK_CATALOG`, or the current repo dev pack before falling back to a developer inventory-path override; the shared extension helper client and Advanced debug options flow now expose a named `installSemanticPack` route
     - extension helper cache/runtime can now persist and resolve semantic inventory in parallel with ruleset/snapshot
     - helper source-of-truth diagnostics can inspect pointer coverage, sidecar coverage, publication generation ids, and recomputed manifest-family state from the live helper artifacts
     - extension options/runtime diagnostics can surface best-effort cache counts plus cached snapshot/semantic generation ids and simple alignment, helper semantic capability/reason state, runtime semantic capability/pointer/ready counts, live semantic gate enablement, helper vs helper-cache source/error, aggregate ready/replace/abstain/soft-affordance counts, and the last resolved `decision_policy_id` from the shipped runtime path
@@ -838,6 +839,7 @@ Use this file when:
     - only SRS-origin rules that already carry `metadata.semantic_admission` are eligible
     - runtime activation now depends on computed capability (`active`, `published_unready`, `unavailable`, `error`) rather than a visible toggle
     - the shipped runtime still uses `legacy_on_unavailable` internally for ready-rule failure cases, so missing inventory/service does not silently suppress standard SRS behavior
+    - `selection_mode=active_only` is now an explicit ready competition-set shape for active-only cue evidence with no shadows; for `en-es`, active-only inventories auto-select `en_es_sentence_veto_v2` when the request does not provide a decision-policy override, while ordinary `automatic`, `manual`, and `mixed` ready competition sets still require real shadow senses
     - the schema still reserves `soft_affordance` as a future optional non-replace outcome, but current DOM behavior only acts on `replace` and otherwise keeps the original text
   - The browser extension options page now exposes a read-only semantic-admission status row:
     - `Automatic`
@@ -855,6 +857,7 @@ Use this file when:
   - `en-es` now has a narrow publication PoC:
     - if real sibling senses for the same trigger are present either in the active emitted ruleset or in the broader initialize/refresh semantic-context pool, `metadata.semantic_admission.status` can be promoted to `ready` for the active rules without widening the visible SRS ruleset
     - the semantic inventory then publishes `competition_sets` with `selection_mode=automatic` and `selection_policy_version=en_es_emitted_rule_siblings_v1`
+    - active-only generated cue rows can be tested through an isolated helper fixture using `selection_mode=active_only` and a generation-aligned ruleset/snapshot/semantic-inventory/manifest family
   - That PoC is intentionally limited to emitted siblings reachable from helper-side initialize/refresh context; it is not broad shadow mining, phrase-preemption publication, or LP-parity runtime readiness.
   - `en-es` now also has a research-only shadow inventory path:
     - `scripts/testing/semantic_shadow_inventory_en_es.py` mines sibling candidates from reviewed benchmark trigger phrases plus installed translation packs
@@ -962,10 +965,10 @@ Use this file when:
 	    - the current `en-es` fixed-shadow evaluation dataset lives at `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v10.json`
 	    - this harness explicitly measures runtime-scoring quality separately from upstream shadow-mining quality
 	    - the default sweep stays on the cheap lexical scorer family, while `sentence_transformer_cosine` is available as an explicit heavier model-choice lane
-	    - the shipped `en-es` helper runtime now defaults to the bounded sentence-transformer gate via `en_es_sentence_veto_v3` (`sentence_transformer_cosine + masked_sentence + all_evidence_text + min_active=0.00 + min_margin=0.00`); the lexical `en_es_sentence_veto_v2` row remains the explicit conservative control
+	    - the shipped ordinary `en-es` helper runtime now defaults to the bounded sentence-transformer gate via `en_es_sentence_veto_v3` (`sentence_transformer_cosine + masked_sentence + all_evidence_text + min_active=0.00 + min_margin=0.00`); active-only cue inventories auto-select the cheaper lexical `en_es_sentence_veto_v2` row, now set to the product-soft floor `min_active=0.015 + min_margin=0.00`
 	  - First current lexical result on that harness:
 	    - the original higher threshold ladder (`min_active >= 0.25`) collapses to total abstention
-	    - once the sweep includes `min_active_score=0.00` and `0.05`, the best current lexical row is `tfidf_cosine + masked_sentence + all_evidence_text + min_active=0.05 + min_margin=0.00`
+	    - once the sweep includes `min_active_score=0.00` and `0.05`, the best zero-harmful lexical control row was `tfidf_cosine + masked_sentence + all_evidence_text + min_active=0.05 + min_margin=0.00`; the current active-only product-smoke posture deliberately lowers that floor to `0.015` to reduce false abstains after live-page review accepted some harmful-replace risk
 	    - on the expanded `v10` dataset, that row reaches `73.7%` decision accuracy with `0.0%` harmful replace, `100.0%` replace precision, and `34.2%` replace recall on the current 95-case curated dataset
 	  - First current model-choice result on that harness:
 	    - the shipped `v3` sentence-transformer default is still the bounded runtime experiment, but the active `v10` evaluation slice still does not show a clean hard-replace story

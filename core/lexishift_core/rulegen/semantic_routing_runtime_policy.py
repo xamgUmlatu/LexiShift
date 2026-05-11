@@ -96,7 +96,7 @@ PRODUCTION_SEMANTIC_DECISION_POLICIES: dict[str, SemanticDecisionPolicyConfig] =
         scorer_id="tfidf_cosine",
         context_view="masked_sentence",
         evidence_view="all_evidence_text",
-        min_active_score=0.05,
+        min_active_score=0.015,
         min_margin=0.0,
         phrase_control_mode="noun_family_frame_guard",
         active_rescue_mode="sense_label_near_tie_active_rescue",
@@ -157,6 +157,21 @@ def resolve_runtime_fallback_decision(fallback_policy: str) -> str:
     if normalized == "soft_affordance_on_unavailable":
         return "soft_affordance"
     return "abstain"
+
+
+def _resolve_inventory_default_decision_policy_id(
+    *,
+    pair: str,
+    inventory: Mapping[str, object] | None,
+) -> str | None:
+    normalized_pair = str(pair or "").strip().lower()
+    capability = inventory.get("capability") if isinstance(inventory, Mapping) else None
+    if not isinstance(capability, Mapping):
+        return None
+    competition_mode = str(capability.get("competition_mode") or "").strip()
+    if normalized_pair == "en-es" and competition_mode == "active_only_anchor_cue":
+        return "en_es_sentence_veto_v2"
+    return None
 
 
 def evaluate_runtime_semantic_match(
@@ -325,7 +340,8 @@ def collect_runtime_policy_fit_texts(
             for sense in (senses.get(str(shadow_sense_id or "").strip()),)
             if isinstance(sense, Mapping)
         ]
-        if not shadow_senses:
+        selection_mode = str(competition_set.get("selection_mode") or "").strip()
+        if not shadow_senses and selection_mode != "active_only":
             continue
         sentence = str(raw_match.get("context_text") or "").strip()
         source_phrase = str(raw_match.get("source_phrase") or "").strip()
@@ -378,9 +394,18 @@ def build_semantic_admit_batch_response(
         str(fallback_policy or "").strip() or DEFAULT_RUNTIME_SEMANTIC_FALLBACK_POLICY
     )
     fallback_decision = resolve_runtime_fallback_decision(resolved_fallback_policy)
+    resolved_decision_policy_id = str(decision_policy_id or "").strip()
+    if not resolved_decision_policy_id:
+        resolved_decision_policy_id = (
+            _resolve_inventory_default_decision_policy_id(
+                pair=normalized_pair,
+                inventory=inventory,
+            )
+            or ""
+        )
     policy = resolve_semantic_decision_policy(
         pair=normalized_pair,
-        decision_policy_id=decision_policy_id,
+        decision_policy_id=resolved_decision_policy_id or None,
     )
     prepared_matches: list[dict[str, object]] = []
     inventory_reason_code = _validate_inventory_for_pair(
@@ -598,7 +623,9 @@ def _prepare_runtime_policy_match(
         for sense in (senses.get(str(shadow_sense_id or "").strip()),)
         if isinstance(sense, Mapping) and str(sense.get("status") or "ready").strip() == "ready"
     ]
-    if not shadow_senses:
+    selection_mode = str(competition_set.get("selection_mode") or "").strip()
+    active_only_competition = selection_mode == "active_only"
+    if not shadow_senses and not active_only_competition:
         return {
             "mode": "fallback",
             "decision_record": _build_fallback_decision_record(

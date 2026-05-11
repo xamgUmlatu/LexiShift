@@ -39,7 +39,7 @@ class SemanticRoutingRuntimePolicyTests(unittest.TestCase):
         self.assertEqual(policy.policy_id, "en_es_sentence_veto_v2")
         self.assertEqual(policy.scorer_id, "tfidf_cosine")
         self.assertEqual(policy.evidence_view, "all_evidence_text")
-        self.assertEqual(policy.min_active_score, 0.05)
+        self.assertEqual(policy.min_active_score, 0.015)
 
     def test_resolve_semantic_decision_policy_allows_explicit_legacy_v1(self) -> None:
         policy = resolve_semantic_decision_policy(
@@ -196,3 +196,135 @@ class SemanticRoutingRuntimePolicyTests(unittest.TestCase):
         self.assertEqual(response["decisions"][0]["sense_id"], "sense:banco")
         self.assertEqual(response["decisions"][0]["competition_set_id"], "comp:bank")
         self.assertEqual(response["decisions"][0]["context_view_id"], "masked_sentence")
+
+    def test_build_semantic_admit_batch_response_allows_explicit_active_only_competition(
+        self,
+    ) -> None:
+        class FakeBackend:
+            def __init__(self, *, scorer_id: str, model_name: str = "") -> None:
+                self.scorer_id = scorer_id
+                self.model_name = model_name
+
+            def fit(self, texts: object) -> None:
+                return None
+
+            def similarity(self, left_text: str, right_text: str) -> float:
+                if "near the station" in str(left_text or "").lower():
+                    return 0.88 if "medical professional" in str(right_text or "").lower() else 0.0
+                return 0.0
+
+        inventory = {
+            "schema_version": 1,
+            "pair": "en-es",
+            "profile_id": "default",
+            "capability": {
+                "competition_mode": "active_only_anchor_cue",
+            },
+            "senses": {
+                "sense:dentista": {
+                    "sense_id": "sense:dentista",
+                    "target_lemma": "dentista",
+                    "sense_label": "dentist",
+                    "canonical_pos": "noun",
+                    "evidence_views": {
+                        "all_evidence_text": "medical professional dentist appointment"
+                    },
+                }
+            },
+            "competition_sets": {
+                "comp:dentist": {
+                    "competition_set_id": "comp:dentist",
+                    "status": "ready",
+                    "active_sense_id": "sense:dentista",
+                    "shadow_sense_ids": [],
+                    "selection_mode": "active_only",
+                    "selection_policy_version": "active_only_anchor_cue_v1",
+                }
+            },
+        }
+        matches = [
+            {
+                "match_id": "match:dentist:1",
+                "source_phrase": "dentist",
+                "context_text": "She booked an appointment with a dentist near the station.",
+                "semantic_admission": {
+                    "schema_version": 1,
+                    "status": "ready",
+                    "trigger_id": "en-es:trigger:dentist",
+                    "sense_id": "sense:dentista",
+                    "competition_set_id": "comp:dentist",
+                },
+            }
+        ]
+
+        response = build_semantic_admit_batch_response(
+            pair="en-es",
+            profile_id="default",
+            matches=matches,
+            inventory=inventory,
+            backend_factory=FakeBackend,
+        )
+
+        self.assertEqual(response["decision_policy_id"], "en_es_sentence_veto_v2")
+        decision = response["decisions"][0]
+        self.assertEqual(decision["decision"], "replace")
+        self.assertEqual(decision["decision_source"], "policy")
+        self.assertEqual(decision["top_shadow_score"], 0.0)
+        self.assertEqual(decision["score_margin"], decision["active_score"])
+
+    def test_build_semantic_admit_batch_response_falls_back_on_empty_non_active_only_shadows(
+        self,
+    ) -> None:
+        inventory = {
+            "schema_version": 1,
+            "pair": "en-es",
+            "profile_id": "default",
+            "senses": {
+                "sense:dentista": {
+                    "sense_id": "sense:dentista",
+                    "target_lemma": "dentista",
+                    "sense_label": "dentist",
+                    "canonical_pos": "noun",
+                    "evidence_views": {
+                        "all_evidence_text": "medical professional dentist appointment"
+                    },
+                }
+            },
+            "competition_sets": {
+                "comp:dentist": {
+                    "competition_set_id": "comp:dentist",
+                    "status": "ready",
+                    "active_sense_id": "sense:dentista",
+                    "shadow_sense_ids": [],
+                    "selection_mode": "automatic",
+                    "selection_policy_version": "en_es_emitted_rule_siblings_v1",
+                }
+            },
+        }
+        matches = [
+            {
+                "match_id": "match:dentist:1",
+                "source_phrase": "dentist",
+                "context_text": "She booked an appointment with a dentist near the station.",
+                "semantic_admission": {
+                    "schema_version": 1,
+                    "status": "ready",
+                    "trigger_id": "en-es:trigger:dentist",
+                    "sense_id": "sense:dentista",
+                    "competition_set_id": "comp:dentist",
+                },
+            }
+        ]
+
+        response = build_semantic_admit_batch_response(
+            pair="en-es",
+            profile_id="default",
+            matches=matches,
+            inventory=inventory,
+            decision_policy_id="en_es_sentence_veto_v2",
+        )
+
+        decision = response["decisions"][0]
+        self.assertEqual(decision["decision"], "abstain")
+        self.assertEqual(decision["decision_source"], "fallback_policy")
+        self.assertIn("shadow_senses_missing", decision["reason_codes"])

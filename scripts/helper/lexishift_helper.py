@@ -34,6 +34,7 @@ from lexishift_core.helper.lp_capabilities import (
     default_jmdict_path,
     default_translation_dictionary_path,
 )
+from lexishift_helper_semantic_pack import register_install_semantic_pack_command
 from srs_admission_cli_support import register_srs_preview_and_rebalance_commands
 
 
@@ -749,6 +750,8 @@ def build_parser() -> argparse.ArgumentParser:
         "--profile-id", help="Profile id (default: resolved active profile)"
     )
     profile_rulesets_get.set_defaults(func=cmd_profile_rulesets_get)
+
+    register_install_semantic_pack_command(sub)
 
     return parser
 

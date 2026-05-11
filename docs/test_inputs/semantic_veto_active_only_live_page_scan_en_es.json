@@ -1,0 +1,133 @@
+{
+  "schema_version": 1,
+  "scan_id": "en_es_active_only_prod_feel_pages_v1",
+  "pair": "en-es",
+  "purpose": "Small online-page review packet for manually judging whether the active-only semantic-veto candidate feels useful on real prose.",
+  "page_selection": {
+    "method": "hand-picked public pages that are likely to contain current active-only candidate triggers in both ordinary and ambiguous uses",
+    "promotion_claim": "none",
+    "review_use": "Read the extracted sentences and decide whether each replace/abstain decision feels acceptable."
+  },
+  "pages": [
+    {
+      "page_id": "wikipedia_dentist",
+      "url": "https://en.wikipedia.org/wiki/Dentist",
+      "expected_triggers": [
+        "dentist"
+      ]
+    },
+    {
+      "page_id": "wikipedia_bar_establishment",
+      "url": "https://en.wikipedia.org/wiki/Bar_(establishment)",
+      "expected_triggers": [
+        "bar"
+      ]
+    },
+    {
+      "page_id": "wikipedia_bar_music",
+      "url": "https://en.wikipedia.org/wiki/Bar_(music)",
+      "expected_triggers": [
+        "bar"
+      ]
+    },
+    {
+      "page_id": "wikipedia_offset_computing",
+      "url": "https://en.wikipedia.org/wiki/Offset_(computer_science)",
+      "expected_triggers": [
+        "offset"
+      ]
+    },
+    {
+      "page_id": "wikipedia_carbon_offset",
+      "url": "https://en.wikipedia.org/wiki/Carbon_offset",
+      "expected_triggers": [
+        "offset"
+      ]
+    },
+    {
+      "page_id": "wikipedia_bridle",
+      "url": "https://en.wikipedia.org/wiki/Bridle",
+      "expected_triggers": [
+        "bridle"
+      ]
+    },
+    {
+      "page_id": "wikipedia_self_control",
+      "url": "https://en.wikipedia.org/wiki/Self-control",
+      "expected_triggers": [
+        "control"
+      ]
+    },
+    {
+      "page_id": "wikipedia_december",
+      "url": "https://en.wikipedia.org/wiki/December",
+      "expected_triggers": [
+        "december"
+      ]
+    },
+    {
+      "page_id": "wikipedia_tomorrow",
+      "url": "https://en.wikipedia.org/wiki/Tomorrow",
+      "expected_triggers": [
+        "tomorrow"
+      ]
+    },
+    {
+      "page_id": "wikipedia_heart",
+      "url": "https://en.wikipedia.org/wiki/Heart",
+      "expected_triggers": [
+        "heart"
+      ]
+    },
+    {
+      "page_id": "wikipedia_brother",
+      "url": "https://en.wikipedia.org/wiki/Brother",
+      "expected_triggers": [
+        "brother"
+      ]
+    },
+    {
+      "page_id": "wikipedia_rebate_marketing",
+      "url": "https://en.wikipedia.org/wiki/Rebate_(marketing)",
+      "expected_triggers": [
+        "rebate"
+      ]
+    },
+    {
+      "page_id": "wikipedia_smile",
+      "url": "https://en.wikipedia.org/wiki/Smile",
+      "expected_triggers": [
+        "smile"
+      ]
+    },
+    {
+      "page_id": "wikipedia_governance",
+      "url": "https://en.wikipedia.org/wiki/Governance",
+      "expected_triggers": [
+        "govern",
+        "control"
+      ]
+    },
+    {
+      "page_id": "wikipedia_bouillon_cube",
+      "url": "https://en.wikipedia.org/wiki/Bouillon_cube",
+      "expected_triggers": [
+        "bouillon"
+      ]
+    },
+    {
+      "page_id": "wikipedia_chic",
+      "url": "https://en.wikipedia.org/wiki/Chic",
+      "expected_triggers": [
+        "chic"
+      ]
+    },
+    {
+      "page_id": "wikipedia_salesperson",
+      "url": "https://en.wikipedia.org/wiki/Salesperson",
+      "expected_triggers": [
+        "salesman"
+      ]
+    }
+  ]
+}

@@ -10,6 +10,10 @@ PROJECT_ROOT = Path(__file__).resolve().parents[3]
 MAINTENANCE_WORKFLOW_JS = (
     PROJECT_ROOT / "apps/chrome-extension/options/controllers/srs/actions/maintenance_workflow.js"
 )
+SEMANTIC_PACK_INSTALL_WORKFLOW_JS = (
+    PROJECT_ROOT
+    / "apps/chrome-extension/options/controllers/srs/actions/semantic_pack_install_workflow.js"
+)
 
 
 def _run_node(script: str) -> None:
@@ -38,6 +42,7 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const vm = require("node:vm");
 
+const semanticPackModulePath = {json.dumps(str(SEMANTIC_PACK_INSTALL_WORKFLOW_JS))};
 const modulePath = {json.dumps(str(MAINTENANCE_WORKFLOW_JS))};
 const context = vm.createContext({{ console }});
 context.globalThis = context;
@@ -50,6 +55,7 @@ context.LexiShift = {{
     }}
   }}
 }};
+vm.runInContext(fs.readFileSync(semanticPackModulePath, "utf8"), context, {{ filename: semanticPackModulePath }});
 vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
 
 const createMaintenanceWorkflows =
@@ -447,6 +453,130 @@ const workflows = createMaintenanceWorkflows({{
   assert.equal(statuses[1].color, "#b42318");
   assert.equal(output.textContent, "stale output");
   assert.equal(confirmMessages.length, 5);
+}})().catch((error) => {{
+  console.error(error);
+  process.exit(1);
+}});
+"""
+        _run_node(script)
+
+    def test_semantic_pack_install_workflow_requires_review_and_refreshes_status(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const semanticPackModulePath = {json.dumps(str(SEMANTIC_PACK_INSTALL_WORKFLOW_JS))};
+const modulePath = {json.dumps(str(MAINTENANCE_WORKFLOW_JS))};
+const context = vm.createContext({{ console }});
+context.globalThis = context;
+context.LexiShift = {{
+  optionsTranslateResolver: {{
+    resolveTranslate(translate) {{
+      return typeof translate === "function"
+        ? translate
+        : ((_key, _args, fallback) => fallback);
+    }}
+  }}
+}};
+vm.runInContext(fs.readFileSync(semanticPackModulePath, "utf8"), context, {{ filename: semanticPackModulePath }});
+vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
+
+const createMaintenanceWorkflows =
+  context.LexiShift.optionsSrsActionMaintenanceWorkflow.createMaintenanceWorkflows;
+const normalize = (value) => JSON.parse(JSON.stringify(value));
+const button = {{ disabled: false }};
+const inventoryInput = {{ value: "" }};
+const packInput = {{ value: "en-es-active-v1" }};
+const defaultRootInput = {{ checked: false }};
+const dataRootInput = {{ value: "/tmp/lexishift-data" }};
+const output = {{ textContent: "" }};
+const helperCalls = [];
+const statuses = [];
+const confirms = [];
+let rulesetUpdatedCount = 0;
+let semanticStatusRefresh = null;
+
+const workflows = createMaintenanceWorkflows({{
+  settingsManager: {{
+    async load() {{
+      return {{ saved: true }};
+    }}
+  }},
+  helperManager: {{
+    async installSemanticPack(pair, options) {{
+      helperCalls.push({{ pair, options }});
+      return {{
+        status: "ok",
+        pack_id: "en-es-active-v1",
+        profile_id: "semantic-alpha",
+        summary: {{
+          rule_count: 49,
+          competition_set_count: 49
+        }},
+        target_paths: {{
+          ruleset: "/tmp/lexishift-data/srs/profiles/semantic-alpha/srs_ruleset_en-es.json"
+        }}
+      }};
+    }}
+  }},
+  translate: null,
+  setStatus: (message, color) => {{
+    statuses.push({{ message, color }});
+  }},
+  resolvePair: () => "en-es",
+  syncSelectedProfile: async (items) => ({{ items, profileId: "semantic-alpha" }}),
+  confirmFn: (message) => {{
+    confirms.push(message);
+    return true;
+  }},
+  log: () => {{}},
+  colors: {{
+    SUCCESS: "#3c5a2a",
+    ERROR: "#b42318",
+    DEFAULT: "#6c675f"
+  }},
+  semanticPackInventoryPathInput: inventoryInput,
+  semanticPackIdInput: packInput,
+  semanticPackDefaultDataRootInput: defaultRootInput,
+  semanticPackDataRootInput: dataRootInput,
+  semanticPackInstallButton: button,
+  semanticPackInstallOutput: output,
+  markRulesetUpdatedNow: async () => {{
+    rulesetUpdatedCount += 1;
+  }},
+  refreshSemanticAdmissionStatus: async (pair, profileId) => {{
+    semanticStatusRefresh = {{ pair, profileId }};
+  }}
+}});
+
+(async () => {{
+  await workflows.installSemanticPack();
+
+  assert.equal(button.disabled, false);
+  assert.equal(confirms.length, 1);
+  assert.equal(confirms[0], "Install semantic pack for en-es profile semantic-alpha? This overwrites the profile-local semantic publication files.");
+  assert.deepEqual(normalize(helperCalls), [
+    {{
+      pair: "en-es",
+      options: {{
+        profileId: "semantic-alpha",
+        semanticInventoryPath: "",
+        packId: "en-es-active-v1",
+        allowDefaultDataRoot: false,
+        dataRoot: "/tmp/lexishift-data"
+      }}
+    }}
+  ]);
+  assert.equal(output.textContent.includes("Installed en-es-active-v1 for semantic-alpha"), true);
+  assert.equal(output.textContent.includes("ruleset: /tmp/lexishift-data"), true);
+  assert.equal(rulesetUpdatedCount, 1);
+  assert.deepEqual(normalize(semanticStatusRefresh), {{
+    pair: "en-es",
+    profileId: "semantic-alpha"
+  }});
+  assert.equal(statuses[0].message, "Semantic pack installed.");
+  assert.equal(statuses[0].color, "#3c5a2a");
 }})().catch((error) => {{
   console.error(error);
   process.exit(1);

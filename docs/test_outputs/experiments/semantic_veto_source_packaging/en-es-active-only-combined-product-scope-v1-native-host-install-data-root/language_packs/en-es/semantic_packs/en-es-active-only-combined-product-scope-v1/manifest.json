@@ -1,0 +1,17 @@
+{
+  "artifacts": {
+    "semantic_inventory": {
+      "bytes": 136471,
+      "path": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-product-scope-v1-native-host-install-data-root/language_packs/en-es/semantic_packs/en-es-active-only-combined-product-scope-v1/semantic_inventory.json",
+      "sha1": "b819b39fbdb290c99e41745b813047fc89155a8c"
+    }
+  },
+  "generated_at": "2026-05-10T00:00:00Z",
+  "normalized_inventory_sha1": "428ca725312637fe5832ce3a7c2dfc9ab7d198e1",
+  "pack_id": "en-es-active-only-combined-product-scope-v1",
+  "pack_kind": "semantic_inventory_pack",
+  "pair": "en-es",
+  "raw_inventory_sha1": "1f0ad105cbaa503cb3293ab023666c84294ca7d4",
+  "schema_version": 1,
+  "source_path": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-product-scope-v1-inventory-replay-latest_semantic_inventory.json"
+}

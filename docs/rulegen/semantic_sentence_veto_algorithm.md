@@ -2,8 +2,8 @@
 
 Status: active reference
 Role: Algorithm reference / research alignment
-Last updated: 2026-04-29
-Last verified: 2026-04-29 against `semantic_routing_runtime_scoring.py`, `semantic_routing_runtime_policy.py`, current decision-rule matrix manifests, and latest phrasing/order plus context-conditioned evidence bakeoff artifacts
+Last updated: 2026-05-09
+Last verified: 2026-05-09 against `semantic_routing_runtime_scoring.py`, `semantic_routing_runtime_policy.py`, current decision-rule matrix manifests, latest phrasing/order plus context-conditioned evidence bakeoff artifacts, the product-scope algorithm bakeoff, and the corrected product-scope candidate/band rerun
 Purpose: describe the semantic sentence-veto algorithm end to end so runtime behavior, source-admission work, phrase handling, and decision-rule experiments stay aligned
 Source-of-truth: explanatory reference only; implementation truth lives in the code, tests, manifests, and generated artifacts named below
 
@@ -14,6 +14,9 @@ Primary implementation references:
 - `scripts/testing/semantic_decision_rule_matrix_en_es.py`
 - `scripts/testing/semantic_decision_research_lanes_summary.py`
 - `scripts/testing/semantic_routing_sentence_veto_sweep.py`
+- `scripts/testing/semantic_veto_product_scope_algorithm_bakeoff_en_es.py`
+- `scripts/testing/semantic_veto_product_scope_selected_candidate_surface_en_es.py`
+- `scripts/testing/semantic_veto_repaired_full_band_formula_sweep_en_es.py`
 - `scripts/testing/semantic_source_admission_cycle_en_es.py`
 - `docs/test_inputs/semantic_decision_research_lanes_en_es.json`
 - `docs/rulegen/semantic_routing_runtime_readiness.md`
@@ -35,13 +38,18 @@ Example:
 - if yes, show the replacement
 - if no, leave the source text alone
 
-The governing safety rule is asymmetric:
+The governing product rule is asymmetric:
 
-- harmful replacement is expensive and should be driven toward zero
-- false abstain is acceptable while the system is still learning coverage
+- showing good replacements is the primary value
+- hiding clearly bad replacements is useful, but not a zero-harm contract
+- false abstain is visible as "nothing happened" and should be reduced when it
+  costs too many good replacements
+- false allow is tolerable when the replacement is not obviously destructive and
+  the veto still improves over lexical allow-all
 
-That asymmetry is why the current architecture is a conservative veto/admission
-gate rather than a nearest-neighbor replacement engine.
+That asymmetry is why current product research ranks candidate policies by
+positive allow, negative abstain, and utility versus lexical allow-all, not by a
+single zero-harm gate.
 
 ## End-To-End Shape
 
@@ -112,7 +120,7 @@ As of this reference:
 | Policy | Scorer | Context | Evidence | Thresholds | Phrase | Rescue |
 | --- | --- | --- | --- | --- | --- | --- |
 | `en_es_sentence_veto_v1` | `sentence_transformer_cosine` | `masked_sentence` | `gloss_text` | active `0.0`, margin `0.0` | on | on |
-| `en_es_sentence_veto_v2` | `tfidf_cosine` | `masked_sentence` | `all_evidence_text` | active `0.05`, margin `0.0` | on | on |
+| `en_es_sentence_veto_v2` | `tfidf_cosine` | `masked_sentence` | `all_evidence_text` | active `0.015`, margin `0.0` | on | on |
 | `en_es_sentence_veto_v3` | `sentence_transformer_cosine` | `masked_sentence` | `all_evidence_text` | active `0.0`, margin `0.0` | on | on |
 
 The current pair default in code is:

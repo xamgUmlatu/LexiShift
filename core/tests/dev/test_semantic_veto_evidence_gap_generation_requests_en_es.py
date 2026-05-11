@@ -41,11 +41,16 @@ class SemanticVetoEvidenceGapGenerationRequestsTests(unittest.TestCase):
 
         shadow = report["requests"][1]
         self.assertIn("active_mismatch_note", shadow["prompt_text"])
+        self.assertIn("starts with active_target_lemma exactly", shadow["prompt_text"])
+        self.assertIn("target_lemma the correct Spanish replacement", shadow["prompt_text"])
         self.assertIn("active_sense_contrast", shadow["prompt_text"])
 
         no_winner = report["requests"][2]
         self.assertIn("runtime_trigger_note", no_winner["prompt_text"])
-        self.assertIn("Avoid filenames", no_winner["prompt_text"])
+        self.assertIn("filenames", no_winner["prompt_text"])
+        self.assertIn("proper_name_or_title", no_winner["prompt_text"])
+        self.assertIn("source_language_meta_use", no_winner["prompt_text"])
+        self.assertNotIn("search_query", no_winner["prompt_text"])
 
         markdown = render_evidence_gap_generation_request_markdown(report)
         self.assertIn("Evidence-Gap Generation Requests", markdown)

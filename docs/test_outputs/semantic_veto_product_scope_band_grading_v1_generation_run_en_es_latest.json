@@ -1,0 +1,1354 @@
+{
+  "admission_preview": {
+    "admitted_item_count": 67,
+    "coverage_shortfall_count": 13,
+    "coverage_waived_item_count": 10,
+    "decision": "generated_responses_need_repair",
+    "rejected_item_count": 5,
+    "status": "review"
+  },
+  "artifacts": {
+    "generated_responses_json": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_generated_responses.json",
+    "journal_jsonl": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_journal.jsonl",
+    "raw_response_bundle_json": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json"
+  },
+  "batch_id": "en-es:semantic-veto-evidence-gap-generation:product-scope-band-grading-v1-20260510-001",
+  "execution_mode": "live",
+  "generated_at": "2026-05-09T20:29:52Z",
+  "pair": "en-es",
+  "pilot_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es",
+  "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+  "replay_source": "",
+  "request_rows": [
+    {
+      "family_id": "en-es:full-family-repaired-full:cite:mencionar",
+      "first_sentence": "In the report, please cite the study that supports your conclusion.",
+      "item_count": 2,
+      "pilot_arm": "high_need",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:cite:mencionar:active_evidence_expansion",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:cite:mencionar:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_078bc4275a92a1d70169ff98b9d7788193b88e203bec808217",
+      "slot_id": "en-es:full-family-repaired-full:cite:mencionar:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 477,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 175,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 652
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:cite:mencionar",
+      "first_sentence": "The officer will cite the driver for speeding after the stop.",
+      "item_count": 2,
+      "pilot_arm": "high_need",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:cite:mencionar:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:cite:mencionar:shadow_or_competitor_evidence_probe",
+      "requested_items": 2,
+      "response_id": "resp_04b69f710a73d26c0169ff98bca1008195a88836e5eaa2b628",
+      "slot_id": "en-es:full-family-repaired-full:cite:mencionar:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 866,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 303,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 1169
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:cite:mencionar",
+      "first_sentence": "The book title \"cite\" appears on the cover, but it is just a title and not a request to mention a source.",
+      "item_count": 1,
+      "pilot_arm": "high_need",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:cite:mencionar:no_winner_context_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:cite:mencionar:no_winner_context_probe",
+      "requested_items": 1,
+      "response_id": "resp_093d7a9dfd3468790169ff98bf57d481909d8fd24ef96f0651",
+      "slot_id": "en-es:full-family-repaired-full:cite:mencionar:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 706,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 193,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 899
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+      "first_sentence": "She tried to smile after hearing the good news.",
+      "item_count": 2,
+      "pilot_arm": "high_need",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:smile:sonre-r:active_evidence_expansion",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:smile:sonre-r:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_02c06852de915e410169ff98c1748881978d2760240ac9a33b",
+      "slot_id": "en-es:full-family-repaired-full:smile:sonre-r:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 495,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 180,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 675
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+      "first_sentence": "Her smile lit up the room during the ceremony.",
+      "item_count": 2,
+      "pilot_arm": "high_need",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe",
+      "requested_items": 2,
+      "response_id": "resp_06326a337452bfef0169ff98c2f63c8193bf702e61278620fd",
+      "slot_id": "en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 882,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 334,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 1216
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+      "first_sentence": "The dictionary entry for smile says it is a verb, but the quoted word \"smile\" in the note is being discussed as a term, not used to mean sonreír.",
+      "item_count": 1,
+      "pilot_arm": "high_need",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:smile:sonre-r:no_winner_context_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:smile:sonre-r:no_winner_context_probe",
+      "requested_items": 1,
+      "response_id": "resp_06ec7633528e68630169ff98c55638819695222b2dc9fc9721",
+      "slot_id": "en-es:full-family-repaired-full:smile:sonre-r:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 722,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 222,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 944
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:bar:cercar",
+      "first_sentence": "The police used a truck to bar the road after the landslide.",
+      "item_count": 2,
+      "pilot_arm": "high_need",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:bar:cercar:active_evidence_expansion",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:bar:cercar:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0baa3ce70309983f0169ff98c938f88196859b258f0e39588d",
+      "slot_id": "en-es:full-family-repaired-full:bar:cercar:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 482,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 169,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 651
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:bar:cercar",
+      "first_sentence": "We met at the bar after work for a quick drink.",
+      "item_count": 2,
+      "pilot_arm": "high_need",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:bar:cercar:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:bar:cercar:shadow_or_competitor_evidence_probe",
+      "requested_items": 2,
+      "response_id": "resp_0821f0139aadaa270169ff98cb004481908337d665918ba443",
+      "slot_id": "en-es:full-family-repaired-full:bar:cercar:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 870,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 305,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 1175
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:bar:cercar",
+      "first_sentence": "The song \"bar\" was played again, but the title is just a music label and not a command to block anything.",
+      "item_count": 1,
+      "pilot_arm": "high_need",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:bar:cercar:no_winner_context_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:bar:cercar:no_winner_context_probe",
+      "requested_items": 1,
+      "response_id": "resp_08ed7cbc680261ed0169ff98cd86c88195bc5cc2222e2e1c05",
+      "slot_id": "en-es:full-family-repaired-full:bar:cercar:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 710,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 206,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 916
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:control:gobernar",
+      "first_sentence": "The mayor used his control to govern the city through a difficult winter.",
+      "item_count": 2,
+      "pilot_arm": "high_need",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:control:gobernar:active_evidence_expansion",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:control:gobernar:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0d4c70f18e3010a60169ff98cf41d08193b8a76afb4c24b257",
+      "slot_id": "en-es:full-family-repaired-full:control:gobernar:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 486,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 187,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 673
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:control:gobernar",
+      "first_sentence": "Please control the thermostat before the guests arrive.",
+      "item_count": 2,
+      "pilot_arm": "high_need",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:control:gobernar:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:control:gobernar:shadow_or_competitor_evidence_probe",
+      "requested_items": 2,
+      "response_id": "resp_0448ef88d95aac120169ff98d21bd08195b39e7667f8e762c8",
+      "slot_id": "en-es:full-family-repaired-full:control:gobernar:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 873,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 312,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 1185
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:control:gobernar",
+      "first_sentence": "The translation note says the word \"control\" is a noun here, not a verb, and the dictionary entry stays in English.",
+      "item_count": 1,
+      "pilot_arm": "high_need",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:control:gobernar:no_winner_context_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:control:gobernar:no_winner_context_probe",
+      "requested_items": 1,
+      "response_id": "resp_043c615e91d35cbe0169ff98d44bbc8194806b124ecfd1a756",
+      "slot_id": "en-es:full-family-repaired-full:control:gobernar:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 713,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 196,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 909
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:except:excepto",
+      "first_sentence": "Everyone may join the hike except the injured runner.",
+      "item_count": 2,
+      "pilot_arm": "high_need",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:except:excepto:active_evidence_expansion",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:except:excepto:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0963b996949d94ea0169ff98d653e481949a5936f02933116a",
+      "slot_id": "en-es:full-family-repaired-full:except:excepto:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 473,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 158,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 631
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:except:excepto",
+      "first_sentence": "Everyone except Maria arrived on time.",
+      "item_count": 2,
+      "pilot_arm": "high_need",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:except:excepto:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:except:excepto:shadow_or_competitor_evidence_probe",
+      "requested_items": 2,
+      "response_id": "resp_0b9f1d14ff8415ff0169ff98d7da64819687c0c67a50a72171",
+      "slot_id": "en-es:full-family-repaired-full:except:excepto:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 863,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 299,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 1162
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:except:excepto",
+      "first_sentence": "The dictionary entry for \"except\" was highlighted, but the note said it was a quoted word, not a translation target.",
+      "item_count": 1,
+      "pilot_arm": "high_need",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:except:excepto:no_winner_context_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:except:excepto:no_winner_context_probe",
+      "requested_items": 1,
+      "response_id": "resp_0e619a5465de8b560169ff9940da3c81909d1628c42bb64b3d",
+      "slot_id": "en-es:full-family-repaired-full:except:excepto:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 703,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 191,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 894
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:region:comarca",
+      "first_sentence": "The council mapped each region by its villages, roads, and shared local services.",
+      "item_count": 2,
+      "pilot_arm": "high_need",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:region:comarca:active_evidence_expansion",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:region:comarca:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0499863515bdbe230169ff98dbf5188190b4d8b371f2ac61ea",
+      "slot_id": "en-es:full-family-repaired-full:region:comarca:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 474,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 177,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 651
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:region:comarca",
+      "first_sentence": "The county divided the region into three voting districts after the census.",
+      "item_count": 2,
+      "pilot_arm": "high_need",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:region:comarca:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:region:comarca:shadow_or_competitor_evidence_probe",
+      "requested_items": 2,
+      "response_id": "resp_0781e09815bdcdcd0169ff98dd99a48190a9a1185d57dde08f",
+      "slot_id": "en-es:full-family-repaired-full:region:comarca:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 862,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 312,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 1174
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:region:comarca",
+      "first_sentence": "The translation note says the word region is broad in English, but the quoted term here is just a label in the glossary.",
+      "item_count": 1,
+      "pilot_arm": "high_need",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:region:comarca:no_winner_context_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:region:comarca:no_winner_context_probe",
+      "requested_items": 1,
+      "response_id": "resp_063a19f0249ead490169ff98dfe1048197919da66bd6fefd18",
+      "slot_id": "en-es:full-family-repaired-full:region:comarca:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 704,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 181,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 885
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:govern:gobernar",
+      "first_sentence": "The elected council will govern the city for the next four years.",
+      "item_count": 2,
+      "pilot_arm": "middle_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:govern:gobernar:active_evidence_expansion",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:govern:gobernar:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_02320428d1c6437d0169ff98e1942c8195a48f015b0a2f6adc",
+      "slot_id": "en-es:full-family-repaired-full:govern:gobernar:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 493,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 180,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 673
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:govern:gobernar",
+      "first_sentence": "The committee will govern the use of the lab equipment with strict safety rules.",
+      "item_count": 2,
+      "pilot_arm": "middle_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:govern:gobernar:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:govern:gobernar:shadow_or_competitor_evidence_probe",
+      "requested_items": 2,
+      "response_id": "resp_09d0e5cd65d5bf5f0169ff98e305f481908f06bbee3669b269",
+      "slot_id": "en-es:full-family-repaired-full:govern:gobernar:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 878,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 325,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 1203
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:govern:gobernar",
+      "first_sentence": "The translation note says govern is a verb, but here the word is quoted as a term in the dictionary entry.",
+      "item_count": 1,
+      "pilot_arm": "middle_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:govern:gobernar:no_winner_context_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:govern:gobernar:no_winner_context_probe",
+      "requested_items": 1,
+      "response_id": "resp_02252fdb530d85a30169ff98e579348196b1c3b922add1cb80",
+      "slot_id": "en-es:full-family-repaired-full:govern:gobernar:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 720,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 216,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 936
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:german:alem-n",
+      "first_sentence": "She is learning german so she can speak with her relatives in Berlin.",
+      "item_count": 2,
+      "pilot_arm": "middle_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:german:alem-n:active_evidence_expansion",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:german:alem-n:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0dc79f0c3f0da1f70169ff98e73c5881979f7b22a6b7ca8c13",
+      "slot_id": "en-es:full-family-repaired-full:german:alem-n:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 470,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 174,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 644
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:german:alem-n",
+      "first_sentence": "The recipe calls for one german of salt, not a full cup.",
+      "item_count": 2,
+      "pilot_arm": "middle_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:german:alem-n:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:german:alem-n:shadow_or_competitor_evidence_probe",
+      "requested_items": 2,
+      "response_id": "resp_0843803df802a5650169ff98e8c3008194928b2e4d453eb421",
+      "slot_id": "en-es:full-family-repaired-full:german:alem-n:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 855,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 336,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 1191
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:german:alem-n",
+      "first_sentence": "The translation note says the word german is borrowed from another language, but the English discussion keeps it as a quoted term.",
+      "item_count": 1,
+      "pilot_arm": "middle_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:german:alem-n:no_winner_context_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:german:alem-n:no_winner_context_probe",
+      "requested_items": 1,
+      "response_id": "resp_082b5476791c10fc0169ff98eb27ec8196af6b793aa1c69d08",
+      "slot_id": "en-es:full-family-repaired-full:german:alem-n:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 700,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 206,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 906
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:american:americano",
+      "first_sentence": "She became an american citizen after living in Chicago for ten years.",
+      "item_count": 2,
+      "pilot_arm": "middle_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:american:americano:active_evidence_expansion",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:american:americano:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_09dddb60fc2043cc0169ff98ed30dc8195a93fa23f14f4aff7",
+      "slot_id": "en-es:full-family-repaired-full:american:americano:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 460,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 174,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 634
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:american:americano",
+      "first_sentence": "She bought an american flag to hang outside the school.",
+      "item_count": 2,
+      "pilot_arm": "middle_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:american:americano:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:american:americano:shadow_or_competitor_evidence_probe",
+      "requested_items": 2,
+      "response_id": "resp_0f3d319fd43ebee50169ff98eeea408195a849ec3293ff8df7",
+      "slot_id": "en-es:full-family-repaired-full:american:americano:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 846,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 318,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 1164
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:american:americano",
+      "first_sentence": "The dictionary entry for american was discussed in class, but the word was quoted only as a term and not as a nationality.",
+      "item_count": 1,
+      "pilot_arm": "middle_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:american:americano:no_winner_context_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:american:americano:no_winner_context_probe",
+      "requested_items": 1,
+      "response_id": "resp_0a02a7567b5e0f4b0169ff98f1628c81958c4cf23d6ecb7f58",
+      "slot_id": "en-es:full-family-repaired-full:american:americano:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 691,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 192,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 883
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:endure:durar",
+      "first_sentence": "The old bridge can endure for another fifty years with regular maintenance.",
+      "item_count": 2,
+      "pilot_arm": "middle_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:endure:durar:active_evidence_expansion",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:endure:durar:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0700098afb6a29b20169ff98f318c08190b527ea1212314f7e",
+      "slot_id": "en-es:full-family-repaired-full:endure:durar:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 467,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 174,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 641
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:endure:durar",
+      "first_sentence": "The old bridge will endure for another century if it is maintained properly.",
+      "item_count": 2,
+      "pilot_arm": "middle_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:endure:durar:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:endure:durar:shadow_or_competitor_evidence_probe",
+      "requested_items": 2,
+      "response_id": "resp_01b585414d49bce80169ff98f4a0c08196b1f6507dbbd86106",
+      "slot_id": "en-es:full-family-repaired-full:endure:durar:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 858,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 320,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 1178
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:endure:durar",
+      "first_sentence": "The translation note says the English word endure is marked as a quoted term, but the Spanish gloss is intentionally left blank.",
+      "item_count": 1,
+      "pilot_arm": "middle_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:endure:durar:no_winner_context_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:endure:durar:no_winner_context_probe",
+      "requested_items": 1,
+      "response_id": "resp_05279cd1078cade00169ff98f6eeb48193ab21fe72d180483b",
+      "slot_id": "en-es:full-family-repaired-full:endure:durar:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 697,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 197,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 894
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:tomorrow:ma-ana",
+      "first_sentence": "I have a dentist appointment tomorrow morning.",
+      "item_count": 2,
+      "pilot_arm": "middle_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:tomorrow:ma-ana:active_evidence_expansion",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:tomorrow:ma-ana:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_03d17eb1636f52ec0169ff98f8a2088195acfaf98400a434a7",
+      "slot_id": "en-es:full-family-repaired-full:tomorrow:ma-ana:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 486,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 167,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 653
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:tomorrow:ma-ana",
+      "first_sentence": "",
+      "item_count": 0,
+      "pilot_arm": "middle_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:tomorrow:ma-ana:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:tomorrow:ma-ana:shadow_or_competitor_evidence_probe",
+      "requested_items": 2,
+      "response_id": "resp_0769721129ed52d80169ff98f9f61481938e357c2a92f7283a",
+      "slot_id": "en-es:full-family-repaired-full:tomorrow:ma-ana:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 871,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 207,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 1078
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:tomorrow:ma-ana",
+      "first_sentence": "The song called tomorrow is on repeat in the studio, but here it is just a title, not a date.",
+      "item_count": 1,
+      "pilot_arm": "middle_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:tomorrow:ma-ana:no_winner_context_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:tomorrow:ma-ana:no_winner_context_probe",
+      "requested_items": 1,
+      "response_id": "resp_00978da338933af10169ff98fbaaa48190ad0bdf492fb30ce7",
+      "slot_id": "en-es:full-family-repaired-full:tomorrow:ma-ana:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 716,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 196,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 912
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:russian:ruso",
+      "first_sentence": "She studied russian history and could read the old letters from Moscow.",
+      "item_count": 2,
+      "pilot_arm": "middle_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:russian:ruso:active_evidence_expansion",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:russian:ruso:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0d90942b546926e00169ff98fd597881908198a780e150a5a7",
+      "slot_id": "en-es:full-family-repaired-full:russian:ruso:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 464,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 173,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 637
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:russian:ruso",
+      "first_sentence": "",
+      "item_count": 0,
+      "pilot_arm": "middle_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:russian:ruso:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:russian:ruso:shadow_or_competitor_evidence_probe",
+      "requested_items": 2,
+      "response_id": "resp_04b2b76910d85d2b0169ff98feeeac8196b3ebe066c6d41ba7",
+      "slot_id": "en-es:full-family-repaired-full:russian:ruso:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 849,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 207,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 1056
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:russian:ruso",
+      "first_sentence": "The book called russian is shelved in the language section, but the word is being discussed as English vocabulary rather than a translation target.",
+      "item_count": 1,
+      "pilot_arm": "middle_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:russian:ruso:no_winner_context_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:russian:ruso:no_winner_context_probe",
+      "requested_items": 1,
+      "response_id": "resp_0b577c9b8c19729e0169ff9900d1588194a4cf26572be9b278",
+      "slot_id": "en-es:full-family-repaired-full:russian:ruso:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 694,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 204,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 898
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:dentist:dentista",
+      "first_sentence": "The dentist checked my teeth and filled a small cavity.",
+      "item_count": 2,
+      "pilot_arm": "low_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:dentist:dentista:active_evidence_expansion",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:dentist:dentista:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_04be9a4bfed021c60169ff9903105c8195b7f6b40f1a057550",
+      "slot_id": "en-es:full-family-repaired-full:dentist:dentista:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 476,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 169,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 645
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:dentist:dentista",
+      "first_sentence": "",
+      "item_count": 0,
+      "pilot_arm": "low_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:dentist:dentista:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:dentist:dentista:shadow_or_competitor_evidence_probe",
+      "requested_items": 2,
+      "response_id": "resp_0c179a452a66b2db0169ff9904a4ac8196b34433b7b95299ce",
+      "slot_id": "en-es:full-family-repaired-full:dentist:dentista:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 860,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 218,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 1078
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:dentist:dentista",
+      "first_sentence": "The translation note says the word dentist is kept in English because the dictionary entry is discussing usage, not a Spanish replacement.",
+      "item_count": 1,
+      "pilot_arm": "low_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:dentist:dentista:no_winner_context_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:dentist:dentista:no_winner_context_probe",
+      "requested_items": 1,
+      "response_id": "resp_0dd929128561dc0d0169ff99065c00819697f59031a15a4692",
+      "slot_id": "en-es:full-family-repaired-full:dentist:dentista:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 705,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 192,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 897
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:pub:taberna",
+      "first_sentence": "We met at the pub for a quick drink and some chips after work.",
+      "item_count": 2,
+      "pilot_arm": "low_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:pub:taberna:active_evidence_expansion",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:pub:taberna:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_02aeede34af96ca20169ff9908193c8196a604461350c93641",
+      "slot_id": "en-es:full-family-repaired-full:pub:taberna:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 475,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 175,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 650
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:pub:taberna",
+      "first_sentence": "The university pub released a special issue on climate policy last week.",
+      "item_count": 2,
+      "pilot_arm": "low_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:pub:taberna:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:pub:taberna:shadow_or_competitor_evidence_probe",
+      "requested_items": 2,
+      "response_id": "resp_0e2ebef04adad9510169ff990991648193b792f423cc72089c",
+      "slot_id": "en-es:full-family-repaired-full:pub:taberna:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 859,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 315,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 1174
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:pub:taberna",
+      "first_sentence": "The translation note says the word pub is quoted in the dictionary, but it should stay in English because the entry is discussing spelling, not a venue.",
+      "item_count": 1,
+      "pilot_arm": "low_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:pub:taberna:no_winner_context_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:pub:taberna:no_winner_context_probe",
+      "requested_items": 1,
+      "response_id": "resp_05abf78225a5dc170169ff990bfa6081948837e3365c68075f",
+      "slot_id": "en-es:full-family-repaired-full:pub:taberna:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 704,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 194,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 898
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:shortage:falta",
+      "first_sentence": "The clinic had to cancel appointments because of a shortage of nurses.",
+      "item_count": 2,
+      "pilot_arm": "low_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:shortage:falta:active_evidence_expansion",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:shortage:falta:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_05dcffe7c2e3f8c10169ff990df29c8195a8b8b93110f9197c",
+      "slot_id": "en-es:full-family-repaired-full:shortage:falta:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 469,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 169,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 638
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:shortage:falta",
+      "first_sentence": "The city faced a shortage of bus drivers during the winter storm.",
+      "item_count": 2,
+      "pilot_arm": "low_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:shortage:falta:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:shortage:falta:shadow_or_competitor_evidence_probe",
+      "requested_items": 2,
+      "response_id": "resp_039eb87e1598c0b20169ff991103dc8190954681b5545467e2",
+      "slot_id": "en-es:full-family-repaired-full:shortage:falta:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 854,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 318,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 1172
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:shortage:falta",
+      "first_sentence": "The word shortage was quoted in the dictionary note, but the discussion was about spelling, not meaning.",
+      "item_count": 1,
+      "pilot_arm": "low_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:shortage:falta:no_winner_context_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:shortage:falta:no_winner_context_probe",
+      "requested_items": 1,
+      "response_id": "resp_0bb163dccd6dfda50169ff991394ac819781a58ff58db11d05",
+      "slot_id": "en-es:full-family-repaired-full:shortage:falta:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 699,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 192,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 891
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:rumanian:rumano",
+      "first_sentence": "She studied rumanian history to better understand the country's traditions and identity.",
+      "item_count": 2,
+      "pilot_arm": "low_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:rumanian:rumano:active_evidence_expansion",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:rumanian:rumano:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0a3e7da464238fc00169ff99155a4881949500c8ac17a87635",
+      "slot_id": "en-es:full-family-repaired-full:rumanian:rumano:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 485,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 182,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 667
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:rumanian:rumano",
+      "first_sentence": "",
+      "item_count": 0,
+      "pilot_arm": "low_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:rumanian:rumano:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:rumanian:rumano:shadow_or_competitor_evidence_probe",
+      "requested_items": 2,
+      "response_id": "resp_013ac0eae6617c6c0169ff99170b7881969efa003042ffa197",
+      "slot_id": "en-es:full-family-repaired-full:rumanian:rumano:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 869,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 239,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 1108
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:rumanian:rumano",
+      "first_sentence": "The dictionary entry marked rumanian is quoted as a spelling note, not as a nationality term.",
+      "item_count": 1,
+      "pilot_arm": "low_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:rumanian:rumano:no_winner_context_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:rumanian:rumano:no_winner_context_probe",
+      "requested_items": 1,
+      "response_id": "resp_08908abeb8c8a40c0169ff9918fa648196951efed99bff4ec5",
+      "slot_id": "en-es:full-family-repaired-full:rumanian:rumano:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 714,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 197,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 911
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:argentinean:argentino",
+      "first_sentence": "She proudly described herself as argentinean when talking about her family roots in Buenos Aires.",
+      "item_count": 2,
+      "pilot_arm": "low_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:argentinean:argentino:active_evidence_expansion",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:argentinean:argentino:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0d1715a84fc7deb70169ff991aca588194b39e0828ed7fe14b",
+      "slot_id": "en-es:full-family-repaired-full:argentinean:argentino:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 485,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 193,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 678
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:argentinean:argentino",
+      "first_sentence": "",
+      "item_count": 0,
+      "pilot_arm": "low_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:argentinean:argentino:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:argentinean:argentino:shadow_or_competitor_evidence_probe",
+      "requested_items": 2,
+      "response_id": "resp_0ff5cf60dce20d9b0169ff991c8280819393b1cdc75ae30b95",
+      "slot_id": "en-es:full-family-repaired-full:argentinean:argentino:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 870,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 207,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 1077
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:argentinean:argentino",
+      "first_sentence": "The book called argentinean stays in English because the title is a proper name, not a nationality term.",
+      "item_count": 1,
+      "pilot_arm": "low_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:argentinean:argentino:no_winner_context_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:argentinean:argentino:no_winner_context_probe",
+      "requested_items": 1,
+      "response_id": "resp_09aa88b22eb353330169ff991e15a08194bc8ce1265fe07515",
+      "slot_id": "en-es:full-family-repaired-full:argentinean:argentino:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 715,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 200,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 915
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:owe:deber",
+      "first_sentence": "I owe the bank three hundred dollars for the car repair.",
+      "item_count": 2,
+      "pilot_arm": "low_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:owe:deber:active_evidence_expansion",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:owe:deber:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0c20015a65d8bc110169ff991fe7f481979517348a54e648cc",
+      "slot_id": "en-es:full-family-repaired-full:owe:deber:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 470,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 161,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 631
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:owe:deber",
+      "first_sentence": "I still owe the bank 500 dollars, so I need to make a payment this week.",
+      "item_count": 2,
+      "pilot_arm": "low_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:owe:deber:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:owe:deber:shadow_or_competitor_evidence_probe",
+      "requested_items": 2,
+      "response_id": "resp_097a42c68f35a0c40169ff9921678081909c0a6f2d210992ea",
+      "slot_id": "en-es:full-family-repaired-full:owe:deber:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 855,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 308,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 1163
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:owe:deber",
+      "first_sentence": "In the dictionary, the word owe is marked as a verb, but the note says the translation should stay in English for this entry.",
+      "item_count": 1,
+      "pilot_arm": "low_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:owe:deber:no_winner_context_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:owe:deber:no_winner_context_probe",
+      "requested_items": 1,
+      "response_id": "resp_0cd43b6318c18e640169ff992386748197bb821c29c0dca91d",
+      "slot_id": "en-es:full-family-repaired-full:owe:deber:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 700,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 204,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 904
+      }
+    }
+  ],
+  "schema_version": 1,
+  "selected_model_id": "gpt-5.4-mini",
+  "selected_temperature": 0.2,
+  "status": "ok",
+  "summary": {
+    "accepted_generated_item_count": 80,
+    "accepted_items_by_slot_type": {
+      "active_evidence_expansion": 36,
+      "no_winner_context_probe": 18,
+      "shadow_or_competitor_evidence_probe": 26
+    },
+    "accepted_response_count": 54,
+    "accepted_responses_by_arm": {
+      "high_need": 18,
+      "low_control": 18,
+      "middle_control": 18
+    },
+    "accepted_responses_by_slot_type": {
+      "active_evidence_expansion": 18,
+      "no_winner_context_probe": 18,
+      "shadow_or_competitor_evidence_probe": 18
+    },
+    "admission_status": "review",
+    "admitted_item_count": 67,
+    "api_error_count": 0,
+    "coverage_shortfall_count": 13,
+    "coverage_waived_item_count": 10,
+    "input_tokens": 36840,
+    "invalid_output_count": 0,
+    "output_tokens": 11899,
+    "reasoning_tokens": 0,
+    "rejected_item_count": 5,
+    "selected_request_count": 54
+  }
+}

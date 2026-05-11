@@ -92,6 +92,11 @@ try:
     from lexishift_core.helper.os import open_path
     from lexishift_core.helper.paths import build_helper_paths
     from lexishift_core.helper.status import load_status
+    from lexishift_core.helper.use_cases.semantic_pack_install import (
+        DEFAULT_PACK_ID,
+        SemanticPackInstallConfig,
+        install_semantic_pack,
+    )
     from lexishift_core.helper.lp_capabilities import (
         default_frequency_db_path,
         default_jmdict_path,
@@ -223,6 +228,37 @@ def _resolve_pair_resource_paths(
     return jmdict_path, translation_dict_path, set_source_db
 
 
+def _handle_install_semantic_pack(payload: Dict[str, Any]) -> dict[str, object]:
+    data_root = _optional_path(payload, "data_root")
+    allow_default_data_root = _optional_bool(payload, "allow_default_data_root") is True
+    if data_root is None and not allow_default_data_root:
+        raise ValueError(
+            "install_semantic_pack requires payload.data_root for now, or "
+            "payload.allow_default_data_root to target the platform default."
+        )
+    semantic_inventory_path = _optional_path(payload, "semantic_inventory_path")
+    copy_pack = _optional_bool(payload, "copy_pack")
+    if copy_pack is None:
+        copy_pack = _optional_bool(payload, "no_pack_copy") is not True
+    paths = build_helper_paths(data_root)
+    return install_semantic_pack(
+        paths,
+        config=SemanticPackInstallConfig(
+            pair=str(payload.get("pair", "en-es")).strip() or "en-es",
+            profile_id=_optional_profile_id(payload) or "default",
+            semantic_inventory_path=semantic_inventory_path,
+            pack_id=str(payload.get("pack_id", DEFAULT_PACK_ID)).strip() or DEFAULT_PACK_ID,
+            generated_at=str(payload.get("generated_at", "")).strip(),
+            copy_pack=copy_pack,
+            dry_run=_optional_bool(payload, "dry_run") is True,
+            rule_source=str(payload.get("rule_source", "semantic_pack_install")).strip()
+            or "semantic_pack_install",
+            rule_source_type=str(payload.get("rule_source_type", "semantic_veto_candidate")).strip()
+            or "semantic_veto_candidate",
+        ),
+    )
+
+
 def _validate_request(request: Dict[str, Any]) -> tuple[str, str, dict]:
     request_id = str(request.get("id", ""))
     if not request_id:
@@ -240,6 +276,8 @@ def _validate_request(request: Dict[str, Any]) -> tuple[str, str, dict]:
 
 
 def _handle_request(msg_type: str, payload: dict) -> dict:
+    if msg_type == "install_semantic_pack":
+        return _handle_install_semantic_pack(payload)
     paths = build_helper_paths()
     profile_id = _optional_profile_id(payload)
     if msg_type == "hello":

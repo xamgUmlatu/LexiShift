@@ -1,0 +1,206 @@
+{
+  "batch_id": "en-es:semantic-veto:product-scope-band-grading-v1-active-only-source-packaging-latest",
+  "decision": "active_only_source_packaging_ready_for_inventory_compile",
+  "excluded_items": [
+    {
+      "exclusion_reason": "high_eval_overlap",
+      "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+      "item_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:smile:sonre-r:active_evidence_expansion:item:001",
+      "postprocess_audit_id": "generated_active_item:003",
+      "source_phrase": "smile",
+      "target_lemma": "sonreír"
+    }
+  ],
+  "family_rows": [
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:american:americano",
+      "packaged_row_count": 2,
+      "targets": [
+        "americano"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:argentinean:argentino",
+      "packaged_row_count": 2,
+      "targets": [
+        "argentino"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:bar:cercar",
+      "packaged_row_count": 2,
+      "targets": [
+        "cercar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:cite:mencionar",
+      "packaged_row_count": 2,
+      "targets": [
+        "mencionar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:control:gobernar",
+      "packaged_row_count": 2,
+      "targets": [
+        "gobernar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:dentist:dentista",
+      "packaged_row_count": 2,
+      "targets": [
+        "dentista"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:endure:durar",
+      "packaged_row_count": 2,
+      "targets": [
+        "durar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:except:excepto",
+      "packaged_row_count": 2,
+      "targets": [
+        "excepto"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:german:alem-n",
+      "packaged_row_count": 2,
+      "targets": [
+        "alemán"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:govern:gobernar",
+      "packaged_row_count": 2,
+      "targets": [
+        "gobernar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:owe:deber",
+      "packaged_row_count": 2,
+      "targets": [
+        "deber"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:pub:taberna",
+      "packaged_row_count": 2,
+      "targets": [
+        "taberna"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:region:comarca",
+      "packaged_row_count": 2,
+      "targets": [
+        "comarca"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:rumanian:rumano",
+      "packaged_row_count": 2,
+      "targets": [
+        "rumano"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:russian:ruso",
+      "packaged_row_count": 2,
+      "targets": [
+        "ruso"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:shortage:falta",
+      "packaged_row_count": 2,
+      "targets": [
+        "falta"
+      ]
+    },
+    {
+      "excluded_row_count": 1,
+      "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+      "packaged_row_count": 1,
+      "targets": [
+        "sonreír"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:tomorrow:ma-ana",
+      "packaged_row_count": 2,
+      "targets": [
+        "mañana"
+      ]
+    }
+  ],
+  "generated_at": "2026-05-09T22:31:02Z",
+  "inputs": {
+    "admission_path": "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_admission_en_es_latest.json",
+    "generation_run_path": "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_run_en_es_latest.json",
+    "postprocess_path": "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_active_only_postprocess_en_es_latest.json"
+  },
+  "issues": [],
+  "normalization_version": "semantic_evidence_v1",
+  "pair": "en-es",
+  "provenance_summary": {
+    "input_tokens": 36840,
+    "model_id": "gpt-5.4-mini",
+    "output_tokens": 11899,
+    "postprocess_status": "ok",
+    "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+    "raw_output_mutation": "none",
+    "temperature": 0.2
+  },
+  "runtime_boundary": [
+    "normalized rows remain runtime_publishable=false",
+    "this output is canonical source evidence, not a semantic inventory sidecar",
+    "the next step is an inventory compiler that appends packaged anchor cues to ready active-sense evidence_views",
+    "runtime policy and thresholds remain unchanged"
+  ],
+  "schema_version": 1,
+  "status": "ok",
+  "summary": {
+    "admitted_input_item_count": 67,
+    "excluded_row_count": 1,
+    "exclusion_reason_counts": {
+      "high_eval_overlap": 1
+    },
+    "family_count": 18,
+    "packaged_row_count": 35,
+    "promotion_state_counts": {
+      "proposed": 35
+    },
+    "relation_type_counts": {
+      "anchor_cue": 35
+    },
+    "review_state_counts": {
+      "unreviewed": 35
+    },
+    "runtime_publishable_row_count": 0
+  },
+  "view_id": "no_high_eval_overlap_sentence_only"
+}

@@ -1,0 +1,1304 @@
+{
+  "decision": "manual_review_packet_ready",
+  "fixture": {
+    "data_root": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-product-scope-band-grading-v1-active-only-helper-runtime-smoke-data-root",
+    "profile_id": "default",
+    "ruleset_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-product-scope-band-grading-v1-active-only-helper-runtime-smoke-data-root/srs/profiles/default/srs_ruleset_en-es.json",
+    "semantic_inventory_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-product-scope-band-grading-v1-active-only-helper-runtime-smoke-data-root/srs/profiles/default/srs_semantic_inventory_en-es.json"
+  },
+  "issues": [],
+  "manifest_path": "docs/test_inputs/semantic_veto_active_only_live_page_scan_en_es.json",
+  "methodology": {
+    "decision_policy": "browser-style inventory default; active-only en-es fixture resolves to en_es_sentence_veto_v2",
+    "limits": {
+      "max_sentences_per_page": 10,
+      "max_sentences_per_trigger": 4,
+      "max_total_matches": 120,
+      "request_delay_seconds": 2.5
+    },
+    "promotion_claim": "none",
+    "review_goal": "manual product-feel review of real online sentences",
+    "runtime_path": "helper semantic_admit_batch against isolated active-only fixture",
+    "sentence_splitter": "simple punctuation splitter after HTML text extraction"
+  },
+  "pages": [
+    {
+      "expected_triggers": [
+        "dentist"
+      ],
+      "fetch_error": "",
+      "fetch_status": "ok",
+      "matched_sentence_count": 8,
+      "page_id": "wikipedia_dentist",
+      "text_char_count": 12921,
+      "url": "https://en.wikipedia.org/wiki/Dentist"
+    },
+    {
+      "expected_triggers": [
+        "bar"
+      ],
+      "fetch_error": "",
+      "fetch_status": "ok",
+      "matched_sentence_count": 9,
+      "page_id": "wikipedia_bar_establishment",
+      "text_char_count": 7677,
+      "url": "https://en.wikipedia.org/wiki/Bar_(establishment)"
+    },
+    {
+      "expected_triggers": [
+        "bar"
+      ],
+      "fetch_error": "",
+      "fetch_status": "ok",
+      "matched_sentence_count": 4,
+      "page_id": "wikipedia_bar_music",
+      "text_char_count": 4611,
+      "url": "https://en.wikipedia.org/wiki/Bar_(music)"
+    },
+    {
+      "expected_triggers": [
+        "offset"
+      ],
+      "fetch_error": "",
+      "fetch_status": "ok",
+      "matched_sentence_count": 0,
+      "page_id": "wikipedia_offset_computing",
+      "text_char_count": 2530,
+      "url": "https://en.wikipedia.org/wiki/Offset_(computer_science)"
+    },
+    {
+      "expected_triggers": [
+        "offset"
+      ],
+      "fetch_error": "",
+      "fetch_status": "ok",
+      "matched_sentence_count": 2,
+      "page_id": "wikipedia_carbon_offset",
+      "text_char_count": 42241,
+      "url": "https://en.wikipedia.org/wiki/Carbon_offset"
+    },
+    {
+      "expected_triggers": [
+        "bridle"
+      ],
+      "fetch_error": "",
+      "fetch_status": "ok",
+      "matched_sentence_count": 7,
+      "page_id": "wikipedia_bridle",
+      "text_char_count": 17710,
+      "url": "https://en.wikipedia.org/wiki/Bridle"
+    },
+    {
+      "expected_triggers": [
+        "control"
+      ],
+      "fetch_error": "",
+      "fetch_status": "ok",
+      "matched_sentence_count": 7,
+      "page_id": "wikipedia_self_control",
+      "text_char_count": 32344,
+      "url": "https://en.wikipedia.org/wiki/Self-control"
+    },
+    {
+      "expected_triggers": [
+        "december"
+      ],
+      "fetch_error": "",
+      "fetch_status": "ok",
+      "matched_sentence_count": 0,
+      "page_id": "wikipedia_december",
+      "text_char_count": 13464,
+      "url": "https://en.wikipedia.org/wiki/December"
+    },
+    {
+      "expected_triggers": [
+        "tomorrow"
+      ],
+      "fetch_error": "",
+      "fetch_status": "ok",
+      "matched_sentence_count": 1,
+      "page_id": "wikipedia_tomorrow",
+      "text_char_count": 6359,
+      "url": "https://en.wikipedia.org/wiki/Tomorrow"
+    },
+    {
+      "expected_triggers": [
+        "heart"
+      ],
+      "fetch_error": "",
+      "fetch_status": "ok",
+      "matched_sentence_count": 7,
+      "page_id": "wikipedia_heart",
+      "text_char_count": 78212,
+      "url": "https://en.wikipedia.org/wiki/Heart"
+    },
+    {
+      "expected_triggers": [
+        "brother"
+      ],
+      "fetch_error": "",
+      "fetch_status": "ok",
+      "matched_sentence_count": 0,
+      "page_id": "wikipedia_brother",
+      "text_char_count": 3618,
+      "url": "https://en.wikipedia.org/wiki/Brother"
+    },
+    {
+      "expected_triggers": [
+        "rebate"
+      ],
+      "fetch_error": "",
+      "fetch_status": "ok",
+      "matched_sentence_count": 2,
+      "page_id": "wikipedia_rebate_marketing",
+      "text_char_count": 18436,
+      "url": "https://en.wikipedia.org/wiki/Rebate_(marketing)"
+    },
+    {
+      "expected_triggers": [
+        "smile"
+      ],
+      "fetch_error": "",
+      "fetch_status": "ok",
+      "matched_sentence_count": 5,
+      "page_id": "wikipedia_smile",
+      "text_char_count": 7440,
+      "url": "https://en.wikipedia.org/wiki/Smile"
+    },
+    {
+      "expected_triggers": [
+        "govern",
+        "control"
+      ],
+      "fetch_error": "",
+      "fetch_status": "ok",
+      "matched_sentence_count": 8,
+      "page_id": "wikipedia_governance",
+      "text_char_count": 36111,
+      "url": "https://en.wikipedia.org/wiki/Governance"
+    },
+    {
+      "expected_triggers": [
+        "bouillon"
+      ],
+      "fetch_error": "",
+      "fetch_status": "ok",
+      "matched_sentence_count": 1,
+      "page_id": "wikipedia_bouillon_cube",
+      "text_char_count": 2684,
+      "url": "https://en.wikipedia.org/wiki/Bouillon_cube"
+    },
+    {
+      "expected_triggers": [
+        "chic"
+      ],
+      "fetch_error": "",
+      "fetch_status": "ok",
+      "matched_sentence_count": 1,
+      "page_id": "wikipedia_chic",
+      "text_char_count": 3952,
+      "url": "https://en.wikipedia.org/wiki/Chic"
+    },
+    {
+      "expected_triggers": [
+        "salesman"
+      ],
+      "fetch_error": "",
+      "fetch_status": "ok",
+      "matched_sentence_count": 1,
+      "page_id": "wikipedia_salesperson",
+      "text_char_count": 21939,
+      "url": "https://en.wikipedia.org/wiki/Salesperson"
+    }
+  ],
+  "pair": "en-es",
+  "review_rows": [
+    {
+      "active_score": 0.05707196906809038,
+      "context_text": "A dentist, also known as a dental doctor, dental physician, dental surgeon, is a health care professional who specializes in dentistry, the branch of medicine focused on the teeth, gums, and mouth.",
+      "decision": "replace",
+      "decision_source": "policy",
+      "match_id": "wikipedia_dentist:1:dentist",
+      "page_id": "wikipedia_dentist",
+      "reason_codes": [
+        "active_margin_clear"
+      ],
+      "replacement": "dentista",
+      "score_margin": 0.05707196906809038,
+      "source_phrase": "dentist",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Dentist"
+    },
+    {
+      "active_score": 0.030731852937447113,
+      "context_text": "The American Dental Association was established in 1859 after a meeting with 26 dentists.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_dentist:2:american",
+      "page_id": "wikipedia_dentist",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "americano",
+      "score_margin": 0.030731852937447113,
+      "source_phrase": "american",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Dentist"
+    },
+    {
+      "active_score": 0.012233593746878893,
+      "context_text": "In 1895, the dental X-ray was discovered by a German physicist, Wilhelm Röntgen.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_dentist:3:german",
+      "page_id": "wikipedia_dentist",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "alemán",
+      "score_margin": 0.012233593746878893,
+      "source_phrase": "german",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Dentist"
+    },
+    {
+      "active_score": 0.018210279139182918,
+      "context_text": "Responsibilities By nature of their general training, a licensed dentist can carry out most dental treatments such as restorative (dental restorations, crowns, bridges), orthodontics (braces), prosthodontic (dentures, crown/bridge), endodontic (root canal) therapy, periodontal (gum) therapy, and oral surgery (extraction of teeth), as well as performing examinations, taking radiographs (x-rays) and diagnosis.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_dentist:4:dentist",
+      "page_id": "wikipedia_dentist",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "dentista",
+      "score_margin": 0.018210279139182918,
+      "source_phrase": "dentist",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Dentist"
+    },
+    {
+      "active_score": 0.05231722516102036,
+      "context_text": "United States In the US, dental specialties are recognized by the American Dental Association (ADA) or the American Board of Dental Specialties (ABDS) Currently, the ADA lists twelve dental specialties, who are recognized by the National Commission on Recognition of Dental Specialties and Certifying Boards, while the ABDS recognizes four dental specialty boards.",
+      "decision": "replace",
+      "decision_source": "policy",
+      "match_id": "wikipedia_dentist:5:american",
+      "page_id": "wikipedia_dentist",
+      "reason_codes": [
+        "active_margin_clear"
+      ],
+      "replacement": "americano",
+      "score_margin": 0.05231722516102036,
+      "source_phrase": "american",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Dentist"
+    },
+    {
+      "active_score": 0.01984692002670961,
+      "context_text": "List of Dental Specialties under the ADA: Dental anesthesiology – The study and administration of general anesthesia, sedation, local anesthesia, and advanced methods of pain control.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_dentist:6:control",
+      "page_id": "wikipedia_dentist",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "gobernar",
+      "score_margin": 0.01984692002670961,
+      "source_phrase": "control",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Dentist"
+    },
+    {
+      "active_score": 0.022796461062454056,
+      "context_text": "Oral medicine - the discipline of dentistry concerned with the oral health care of medically complex patients – including the diagnosis and management of medical conditions that affect the oral and maxillofacial region.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_dentist:7:region",
+      "page_id": "wikipedia_dentist",
+      "reason_codes": [
+        "active_score_below_floor",
+        "active_margin_below_floor",
+        "shadow_winner"
+      ],
+      "replacement": "comarca",
+      "score_margin": -0.0048736085029513765,
+      "source_phrase": "region",
+      "top_shadow_score": 0.027670069565405433,
+      "url": "https://en.wikipedia.org/wiki/Dentist"
+    },
+    {
+      "active_score": 0.024751623943946362,
+      "context_text": "Oral medicine – This specialty deals with the diagnosis and non-surgical management of patients with disorders related to the oral and maxillofacial region.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_dentist:8:region",
+      "page_id": "wikipedia_dentist",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "comarca",
+      "score_margin": 0.010571393033125435,
+      "source_phrase": "region",
+      "top_shadow_score": 0.014180230910820928,
+      "url": "https://en.wikipedia.org/wiki/Dentist"
+    },
+    {
+      "active_score": 0.028112542628781358,
+      "context_text": "A bar, also known as a saloon, a tavern or tippling house, or sometimes as a pub or club, is a retail business that serves alcoholic beverages, such as beer, wine, liquor, cocktails, and other beverages such as mineral water and soft drinks.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_bar_establishment:1:bar",
+      "page_id": "wikipedia_bar_establishment",
+      "reason_codes": [
+        "active_score_below_floor",
+        "active_margin_below_floor",
+        "shadow_winner"
+      ],
+      "replacement": "cercar",
+      "score_margin": -0.0686522221921197,
+      "source_phrase": "bar",
+      "top_shadow_score": 0.09676476482090106,
+      "url": "https://en.wikipedia.org/wiki/Bar_(establishment)"
+    },
+    {
+      "active_score": 0.08649295275171259,
+      "context_text": "A bar, also known as a saloon, a tavern or tippling house, or sometimes as a pub or club, is a retail business that serves alcoholic beverages, such as beer, wine, liquor, cocktails, and other beverages such as mineral water and soft drinks.",
+      "decision": "replace",
+      "decision_source": "policy",
+      "match_id": "wikipedia_bar_establishment:2:pub",
+      "page_id": "wikipedia_bar_establishment",
+      "reason_codes": [
+        "active_margin_clear"
+      ],
+      "replacement": "taberna",
+      "score_margin": 0.08649295275171259,
+      "source_phrase": "pub",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Bar_(establishment)"
+    },
+    {
+      "active_score": 0.09948888554689238,
+      "context_text": "The term \"bar\" refers both to the countertop where drinks are prepared and served and also by extension to the entirety of the establishment in which the bar is located.",
+      "decision": "replace",
+      "decision_source": "policy",
+      "match_id": "wikipedia_bar_establishment:3:bar",
+      "page_id": "wikipedia_bar_establishment",
+      "reason_codes": [
+        "active_margin_clear"
+      ],
+      "replacement": "cercar",
+      "score_margin": 0.016439385066386383,
+      "source_phrase": "bar",
+      "top_shadow_score": 0.083049500480506,
+      "url": "https://en.wikipedia.org/wiki/Bar_(establishment)"
+    },
+    {
+      "active_score": 0.09669973806010851,
+      "context_text": "The term derives from the metal or wooden bar (barrier) that is often located along the length of the \"bar\".",
+      "decision": "replace",
+      "decision_source": "policy",
+      "match_id": "wikipedia_bar_establishment:4:bar",
+      "page_id": "wikipedia_bar_establishment",
+      "reason_codes": [
+        "active_margin_clear"
+      ],
+      "replacement": "cercar",
+      "score_margin": 0.049929122382351365,
+      "source_phrase": "bar",
+      "top_shadow_score": 0.046770615677757144,
+      "url": "https://en.wikipedia.org/wiki/Bar_(establishment)"
+    },
+    {
+      "active_score": 0.05635890337320888,
+      "context_text": "Today, even when an establishment uses a different name, such as \"tavern\" or \"saloon\" or, in the United Kingdom, a \"pub\", the area of the establishment where the bartender pours or mixes beverages is normally called \"the bar\".",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_bar_establishment:5:bar",
+      "page_id": "wikipedia_bar_establishment",
+      "reason_codes": [
+        "active_margin_below_floor",
+        "shadow_winner"
+      ],
+      "replacement": "cercar",
+      "score_margin": -0.05384916238996275,
+      "source_phrase": "bar",
+      "top_shadow_score": 0.11020806576317163,
+      "url": "https://en.wikipedia.org/wiki/Bar_(establishment)"
+    },
+    {
+      "active_score": 0.060549321191932945,
+      "context_text": "Today, even when an establishment uses a different name, such as \"tavern\" or \"saloon\" or, in the United Kingdom, a \"pub\", the area of the establishment where the bartender pours or mixes beverages is normally called \"the bar\".",
+      "decision": "replace",
+      "decision_source": "policy",
+      "match_id": "wikipedia_bar_establishment:6:pub",
+      "page_id": "wikipedia_bar_establishment",
+      "reason_codes": [
+        "active_margin_clear"
+      ],
+      "replacement": "taberna",
+      "score_margin": 0.060549321191932945,
+      "source_phrase": "pub",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Bar_(establishment)"
+    },
+    {
+      "active_score": 0.0344013650874653,
+      "context_text": "In many jurisdictions, if those under legal drinking age are allowed to enter, as is the case with pubs that serve food, they are not allowed to drink; in the U.S., there are 8 states where children may drink in a pub if accompanied by their parents.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_bar_establishment:7:pub",
+      "page_id": "wikipedia_bar_establishment",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "taberna",
+      "score_margin": 0.0344013650874653,
+      "source_phrase": "pub",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Bar_(establishment)"
+    },
+    {
+      "active_score": 0.034015143402042855,
+      "context_text": "A brew pub has an on-site brewery and serves craft beers.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_bar_establishment:8:pub",
+      "page_id": "wikipedia_bar_establishment",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "taberna",
+      "score_margin": 0.034015143402042855,
+      "source_phrase": "pub",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Bar_(establishment)"
+    },
+    {
+      "active_score": 0.034653684843126274,
+      "context_text": "\"Fern bar\" is an American slang term for an upscale or preppy (or yuppie) bar.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_bar_establishment:9:american",
+      "page_id": "wikipedia_bar_establishment",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "americano",
+      "score_margin": 0.034653684843126274,
+      "source_phrase": "american",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Bar_(establishment)"
+    },
+    {
+      "active_score": 0.049825644489690735,
+      "context_text": "In musical notation, a bar (or measure) is a segment of music bounded by vertical lines, known as bar lines (or barlines), usually indicating one or more recurring beats.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_bar_music:1:bar",
+      "page_id": "wikipedia_bar_music",
+      "reason_codes": [
+        "active_score_below_floor",
+        "active_margin_below_floor",
+        "shadow_winner"
+      ],
+      "replacement": "cercar",
+      "score_margin": -0.06624963397085229,
+      "source_phrase": "bar",
+      "top_shadow_score": 0.11607527846054302,
+      "url": "https://en.wikipedia.org/wiki/Bar_(music)"
+    },
+    {
+      "active_score": 0.03421407179851894,
+      "context_text": "The length of the bar, measured by the number of note values it contains, is normally indicated by the time signature.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_bar_music:2:bar",
+      "page_id": "wikipedia_bar_music",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "cercar",
+      "score_margin": 0.03421407179851894,
+      "source_phrase": "bar",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Bar_(music)"
+    },
+    {
+      "active_score": 0.0699381754110946,
+      "context_text": "Types of bar lines Regular bar lines consist of a thin vertical line extending from the top line to the bottom line of the staff, sometimes also extending between staves in the case of a grand staff or a family of instruments in an orchestral score.",
+      "decision": "replace",
+      "decision_source": "policy",
+      "match_id": "wikipedia_bar_music:3:bar",
+      "page_id": "wikipedia_bar_music",
+      "reason_codes": [
+        "active_margin_clear"
+      ],
+      "replacement": "cercar",
+      "score_margin": 0.0316061610458346,
+      "source_phrase": "bar",
+      "top_shadow_score": 0.03833201436525999,
+      "url": "https://en.wikipedia.org/wiki/Bar_(music)"
+    },
+    {
+      "active_score": 0.10577335599497253,
+      "context_text": "A double bar line (or double bar) consists of two single bar lines drawn close together, separating two sections within a piece, or a bar line followed by a thicker bar line, indicating the end of a piece or movement.",
+      "decision": "replace",
+      "decision_source": "policy",
+      "match_id": "wikipedia_bar_music:4:bar",
+      "page_id": "wikipedia_bar_music",
+      "reason_codes": [
+        "active_margin_clear"
+      ],
+      "replacement": "cercar",
+      "score_margin": 0.03637031898824551,
+      "source_phrase": "bar",
+      "top_shadow_score": 0.06940303700672702,
+      "url": "https://en.wikipedia.org/wiki/Bar_(music)"
+    },
+    {
+      "active_score": 0.007238467468512755,
+      "context_text": "Emissions trading systems Emissions trading are now an important element of regulatory programs to control pollution, including GHG emissions.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_carbon_offset:1:control",
+      "page_id": "wikipedia_carbon_offset",
+      "reason_codes": [
+        "active_score_below_floor",
+        "active_margin_below_floor",
+        "shadow_winner"
+      ],
+      "replacement": "gobernar",
+      "score_margin": -0.004351613864238919,
+      "source_phrase": "control",
+      "top_shadow_score": 0.011590081332751674,
+      "url": "https://en.wikipedia.org/wiki/Carbon_offset"
+    },
+    {
+      "active_score": 0.026007151054478164,
+      "context_text": "They include the Verified Carbon Standard issued by Verra, the Gold Standard, the Global Carbon Council based in Qatar, the Climate Action Reserve, the American Carbon Registry, and Plan Vivo.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_carbon_offset:2:american",
+      "page_id": "wikipedia_carbon_offset",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "americano",
+      "score_margin": 0.026007151054478164,
+      "source_phrase": "american",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Carbon_offset"
+    },
+    {
+      "active_score": 0.029007807724219986,
+      "context_text": "It provides additional control and communication through rein pressure.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_bridle:1:control",
+      "page_id": "wikipedia_bridle",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "gobernar",
+      "score_margin": 0.029007807724219986,
+      "source_phrase": "control",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Bridle"
+    },
+    {
+      "active_score": 0.04925301497280698,
+      "context_text": "Headgear without a bit that uses a noseband to control a horse is called a hackamore, or, in some areas, a bitless bridle.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_bridle:2:control",
+      "page_id": "wikipedia_bridle",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "gobernar",
+      "score_margin": 0.008922287187566671,
+      "source_phrase": "control",
+      "top_shadow_score": 0.04033072778524031,
+      "url": "https://en.wikipedia.org/wiki/Bridle"
+    },
+    {
+      "active_score": 0.03227331063740575,
+      "context_text": "There are many different designs with many different name variations, but all use a noseband that is designed to exert pressure on sensitive areas of the animal's face to provide direction and control.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_bridle:3:control",
+      "page_id": "wikipedia_bridle",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "gobernar",
+      "score_margin": 0.027398312119802384,
+      "source_phrase": "control",
+      "top_shadow_score": 0.004874998517603367,
+      "url": "https://en.wikipedia.org/wiki/Bridle"
+    },
+    {
+      "active_score": 0.026065116899049716,
+      "context_text": "The bridle was devised by Indo-European herders of the Pontic-Caspian steppes to control horses between 3000 BC and 2000 BC.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_bridle:4:control",
+      "page_id": "wikipedia_bridle",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "gobernar",
+      "score_margin": 0.026065116899049716,
+      "source_phrase": "control",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Bridle"
+    },
+    {
+      "active_score": 0.057073839897975515,
+      "context_text": "Frentera, a strap running from the browband to the noseband, primarily seen on bridles of certain South American designs.",
+      "decision": "replace",
+      "decision_source": "policy",
+      "match_id": "wikipedia_bridle:5:american",
+      "page_id": "wikipedia_bridle",
+      "reason_codes": [
+        "active_margin_clear"
+      ],
+      "replacement": "americano",
+      "score_margin": 0.057073839897975515,
+      "source_phrase": "american",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Bridle"
+    },
+    {
+      "active_score": 0.05409888524257817,
+      "context_text": "Shank hobble: A strap, bar or chain that connects the shanks of a curb bit at the bottom of the bit.",
+      "decision": "replace",
+      "decision_source": "policy",
+      "match_id": "wikipedia_bridle:6:bar",
+      "page_id": "wikipedia_bridle",
+      "reason_codes": [
+        "active_margin_clear"
+      ],
+      "replacement": "cercar",
+      "score_margin": 0.032023341910393036,
+      "source_phrase": "bar",
+      "top_shadow_score": 0.022075543332185137,
+      "url": "https://en.wikipedia.org/wiki/Bridle"
+    },
+    {
+      "active_score": 0.010532374005458743,
+      "context_text": "Stock horse and working styles Western bridle: used for American-style western riding, this bridle usually does not have a noseband.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_bridle:7:american",
+      "page_id": "wikipedia_bridle",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "americano",
+      "score_margin": 0.010532374005458743,
+      "source_phrase": "american",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Bridle"
+    },
+    {
+      "active_score": 0.06250159183692788,
+      "context_text": "Self-control is the ability to regulate one's emotions, thoughts, and behavior in the face of temptations and impulses.",
+      "decision": "replace",
+      "decision_source": "policy",
+      "match_id": "wikipedia_self_control:1:control",
+      "page_id": "wikipedia_self_control",
+      "reason_codes": [
+        "active_margin_clear"
+      ],
+      "replacement": "gobernar",
+      "score_margin": 0.01043464354458408,
+      "source_phrase": "control",
+      "top_shadow_score": 0.052066948292343804,
+      "url": "https://en.wikipedia.org/wiki/Self-control"
+    },
+    {
+      "active_score": 0.05764640077593948,
+      "context_text": "Self-control is closely related to the ability to delay gratification, which refers to resisting immediate rewards in favor of larger or later benefits.",
+      "decision": "replace",
+      "decision_source": "policy",
+      "match_id": "wikipedia_self_control:2:control",
+      "page_id": "wikipedia_self_control",
+      "reason_codes": [
+        "active_margin_clear"
+      ],
+      "replacement": "gobernar",
+      "score_margin": 0.013664079125028865,
+      "source_phrase": "control",
+      "top_shadow_score": 0.043982321650910615,
+      "url": "https://en.wikipedia.org/wiki/Self-control"
+    },
+    {
+      "active_score": 0.010288687024926732,
+      "context_text": "It is an aspect of inhibitory control, one of the core human executive functions.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_self_control:3:control",
+      "page_id": "wikipedia_self_control",
+      "reason_codes": [
+        "active_score_below_floor",
+        "active_margin_below_floor",
+        "shadow_winner"
+      ],
+      "replacement": "gobernar",
+      "score_margin": -0.006696342877049236,
+      "source_phrase": "control",
+      "top_shadow_score": 0.01698502990197597,
+      "url": "https://en.wikipedia.org/wiki/Self-control"
+    },
+    {
+      "active_score": 0.05410516449741094,
+      "context_text": "Neuroscientific research has identified the prefrontal cortex as a critical brain region involved in self-control, decision making, and the regulation of impulses.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_self_control:4:control",
+      "page_id": "wikipedia_self_control",
+      "reason_codes": [
+        "active_margin_below_floor",
+        "shadow_winner"
+      ],
+      "replacement": "gobernar",
+      "score_margin": -0.0001718415627123132,
+      "source_phrase": "control",
+      "top_shadow_score": 0.054277006060123256,
+      "url": "https://en.wikipedia.org/wiki/Self-control"
+    },
+    {
+      "active_score": 0.02179922295545456,
+      "context_text": "Neuroscientific research has identified the prefrontal cortex as a critical brain region involved in self-control, decision making, and the regulation of impulses.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_self_control:5:region",
+      "page_id": "wikipedia_self_control",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "comarca",
+      "score_margin": 0.006543693114102463,
+      "source_phrase": "region",
+      "top_shadow_score": 0.015255529841352096,
+      "url": "https://en.wikipedia.org/wiki/Self-control"
+    },
+    {
+      "active_score": 0.021937593701642426,
+      "context_text": "They are also more likely to choose an apple over a candy bar in behavioral tasks.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_self_control:6:bar",
+      "page_id": "wikipedia_self_control",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "cercar",
+      "score_margin": 0.0011419681537817757,
+      "source_phrase": "bar",
+      "top_shadow_score": 0.02079562554786065,
+      "url": "https://en.wikipedia.org/wiki/Self-control"
+    },
+    {
+      "active_score": 0.017071719715163185,
+      "context_text": "The term draws on the American folk hero John Henry, whose legendary death followed intense physical labor; the concept has since been discussed in both academic and popular accounts of stress and health inequalities.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_self_control:7:american",
+      "page_id": "wikipedia_self_control",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "americano",
+      "score_margin": 0.017071719715163185,
+      "source_phrase": "american",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Self-control"
+    },
+    {
+      "active_score": 0.016243235455552747,
+      "context_text": "Morrow, a supervillain from DC Comics Tomorrow \"Tomo\", a fictional character in the webtoon Live with Yourself!",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_tomorrow:1:tomorrow",
+      "page_id": "wikipedia_tomorrow",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "mañana",
+      "score_margin": 0.016243235455552747,
+      "source_phrase": "tomorrow",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Tomorrow"
+    },
+    {
+      "active_score": 0.022987321689447338,
+      "context_text": "These nerves act to influence, but not control, the heart rate.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_heart:1:control",
+      "page_id": "wikipedia_heart",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "gobernar",
+      "score_margin": 0.022987321689447338,
+      "source_phrase": "control",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Heart"
+    },
+    {
+      "active_score": 0.028331392052619003,
+      "context_text": "The heart derives from splanchnopleuric mesenchyme in the neural plate which forms the cardiogenic region.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_heart:2:region",
+      "page_id": "wikipedia_heart",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "comarca",
+      "score_margin": 0.01289670221651109,
+      "source_phrase": "region",
+      "top_shadow_score": 0.015434689836107914,
+      "url": "https://en.wikipedia.org/wiki/Heart"
+    },
+    {
+      "active_score": 0.06684367070836443,
+      "context_text": "The cardiovascular centres in the brainstem control the sympathetic and parasympathetic influences to the heart through the vagus nerve and sympathetic trunk.",
+      "decision": "replace",
+      "decision_source": "policy",
+      "match_id": "wikipedia_heart:3:control",
+      "page_id": "wikipedia_heart",
+      "reason_codes": [
+        "active_margin_clear"
+      ],
+      "replacement": "gobernar",
+      "score_margin": 0.05859411770226716,
+      "source_phrase": "control",
+      "top_shadow_score": 0.008249553006097265,
+      "url": "https://en.wikipedia.org/wiki/Heart"
+    },
+    {
+      "active_score": 0.009893387428485697,
+      "context_text": "If medications fail to control an arrhythmia, another treatment option may be catheter ablation.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_heart:4:control",
+      "page_id": "wikipedia_heart",
+      "reason_codes": [
+        "active_score_below_floor",
+        "active_margin_below_floor",
+        "shadow_winner"
+      ],
+      "replacement": "gobernar",
+      "score_margin": -0.0059476957084302635,
+      "source_phrase": "control",
+      "top_shadow_score": 0.01584108313691596,
+      "url": "https://en.wikipedia.org/wiki/Heart"
+    },
+    {
+      "active_score": 0.0,
+      "context_text": "Otto Frank (1865–1944) was a German physiologist; among his many published works are detailed studies of this important heart relationship.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_heart:5:german",
+      "page_id": "wikipedia_heart",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "alemán",
+      "score_margin": 0.0,
+      "source_phrase": "german",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Heart"
+    },
+    {
+      "active_score": 0.01644198726397232,
+      "context_text": "The American surgeon Norman Shumway has been credited for his efforts to improve transplantation techniques, along with pioneers Richard Lower, Vladimir Demikhov and Adrian Kantrowitz.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_heart:6:american",
+      "page_id": "wikipedia_heart",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "americano",
+      "score_margin": 0.01644198726397232,
+      "source_phrase": "american",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Heart"
+    },
+    {
+      "active_score": 0.027100595682447028,
+      "context_text": "Many recipes combined them with other giblets, such as the Mexican pollo en menudencias and the Russian ragu iz kurinyikh potrokhov.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_heart:7:russian",
+      "page_id": "wikipedia_heart",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "ruso",
+      "score_margin": 0.027100595682447028,
+      "source_phrase": "russian",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Heart"
+    },
+    {
+      "active_score": 0.013983814247633468,
+      "context_text": "The typical American household that takes advantage of consumer rebates saves an average of $150 annually.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_rebate_marketing:1:american",
+      "page_id": "wikipedia_rebate_marketing",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "americano",
+      "score_margin": 0.013983814247633468,
+      "source_phrase": "american",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Rebate_(marketing)"
+    },
+    {
+      "active_score": 0.009516022325141567,
+      "context_text": "More than $8 billion was issued back to American households in 2011 alone by rebate programs.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_rebate_marketing:2:american",
+      "page_id": "wikipedia_rebate_marketing",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "americano",
+      "score_margin": 0.009516022325141567,
+      "source_phrase": "american",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Rebate_(marketing)"
+    },
+    {
+      "active_score": 0.10474306527520749,
+      "context_text": "A smile is a facial expression formed primarily by flexing the muscles at the sides of the mouth.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_smile:1:smile",
+      "page_id": "wikipedia_smile",
+      "reason_codes": [
+        "active_margin_below_floor",
+        "shadow_winner"
+      ],
+      "replacement": "sonreír",
+      "score_margin": -0.12572079821869228,
+      "source_phrase": "smile",
+      "top_shadow_score": 0.23046386349389977,
+      "url": "https://en.wikipedia.org/wiki/Smile"
+    },
+    {
+      "active_score": 0.04702111448812035,
+      "context_text": "Some smiles include a contraction of the muscles at the corner of the eyes, an action known as a Duchenne smile.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_smile:2:smile",
+      "page_id": "wikipedia_smile",
+      "reason_codes": [
+        "active_score_below_floor",
+        "active_margin_below_floor",
+        "shadow_winner"
+      ],
+      "replacement": "sonreír",
+      "score_margin": -0.023270385479346956,
+      "source_phrase": "smile",
+      "top_shadow_score": 0.07029149996746731,
+      "url": "https://en.wikipedia.org/wiki/Smile"
+    },
+    {
+      "active_score": 0.010304358049075805,
+      "context_text": "Among humans, a smile expresses delight, sociability, happiness, joy, or amusement.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_smile:3:smile",
+      "page_id": "wikipedia_smile",
+      "reason_codes": [
+        "active_score_below_floor",
+        "active_margin_below_floor",
+        "shadow_winner"
+      ],
+      "replacement": "sonreír",
+      "score_margin": -0.008873439358854821,
+      "source_phrase": "smile",
+      "top_shadow_score": 0.019177797407930627,
+      "url": "https://en.wikipedia.org/wiki/Smile"
+    },
+    {
+      "active_score": 0.0065014253648571245,
+      "context_text": "Evolutionary background Primatologist Signe Preuschoft traces the smile back over 30 million years of evolution to a \"fear grin\" stemming from monkeys and apes, who often used barely clenched teeth to portray to predators that they were harmless or to signal submission to more dominant group members.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_smile:4:smile",
+      "page_id": "wikipedia_smile",
+      "reason_codes": [
+        "active_score_below_floor",
+        "active_margin_below_floor",
+        "shadow_winner"
+      ],
+      "replacement": "sonreír",
+      "score_margin": -0.002241380809248979,
+      "source_phrase": "smile",
+      "top_shadow_score": 0.008742806174106103,
+      "url": "https://en.wikipedia.org/wiki/Smile"
+    },
+    {
+      "active_score": 0.021009449935058176,
+      "context_text": "It is named after the now-defunct airline Pan American World Airways, whose flight attendants would always flash every passenger the same perfunctory smile.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_smile:5:american",
+      "page_id": "wikipedia_smile",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "americano",
+      "score_margin": 0.021009449935058176,
+      "source_phrase": "american",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Smile"
+    },
+    {
+      "active_score": 0.03294252611389644,
+      "context_text": "A government may operate as a democracy where citizens vote on who should govern towards the goal of public good.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_governance:1:govern",
+      "page_id": "wikipedia_governance",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "gobernar",
+      "score_margin": 0.01965039122198918,
+      "source_phrase": "govern",
+      "top_shadow_score": 0.013292134891907262,
+      "url": "https://en.wikipedia.org/wiki/Governance"
+    },
+    {
+      "active_score": 0.03819156974908089,
+      "context_text": "This considers the process by which governments are selected, monitored and replaced; the capacity of the government to effectively formulate and implement sound policies and the respect of citizens and the state of the institutions that govern economic and social interactions among them.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_governance:2:govern",
+      "page_id": "wikipedia_governance",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "gobernar",
+      "score_margin": 0.03819156974908089,
+      "source_phrase": "govern",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Governance"
+    },
+    {
+      "active_score": 0.04648547459384555,
+      "context_text": "An alternate definition sees governance as: the use of institutions, structures of authority and even collaboration to allocate resources and coordinate or control activity in society or the economy.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_governance:3:control",
+      "page_id": "wikipedia_governance",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "gobernar",
+      "score_margin": 0.02782972121702326,
+      "source_phrase": "control",
+      "top_shadow_score": 0.01865575337682229,
+      "url": "https://en.wikipedia.org/wiki/Governance"
+    },
+    {
+      "active_score": 0.018447368203172602,
+      "context_text": "Absence of effective governance When a state fails to govern effectively, this does not simply imply the absence of the characteristics of effective governance.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_governance:4:govern",
+      "page_id": "wikipedia_governance",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "gobernar",
+      "score_margin": 0.013203332148510126,
+      "source_phrase": "govern",
+      "top_shadow_score": 0.005244036054662476,
+      "url": "https://en.wikipedia.org/wiki/Governance"
+    },
+    {
+      "active_score": 0.013357841939858284,
+      "context_text": "The project reports aggregate and individual indicators for more than 200 countries for six dimensions of governance: voice and accountability, political stability and lack of violence, government effectiveness, regulatory quality, rule of law, control of corruption.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_governance:5:control",
+      "page_id": "wikipedia_governance",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "gobernar",
+      "score_margin": 0.013357841939858284,
+      "source_phrase": "control",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Governance"
+    },
+    {
+      "active_score": 0.03267659990241603,
+      "context_text": "For instance, in the European context, a health policy framework called Health 2020 Archived 2020-04-27 at the Wayback Machine was developed as a result of the collaboration between State members in the region.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_governance:6:region",
+      "page_id": "wikipedia_governance",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "comarca",
+      "score_margin": 0.006373819103994757,
+      "source_phrase": "region",
+      "top_shadow_score": 0.026302780798421275,
+      "url": "https://en.wikipedia.org/wiki/Governance"
+    },
+    {
+      "active_score": 0.03711005510167195,
+      "context_text": "Corporate governance consists of the set of processes, customs, policies, laws and institutions affecting the way people direct, administer or control an organization.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_governance:7:control",
+      "page_id": "wikipedia_governance",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "gobernar",
+      "score_margin": 0.024470599118568317,
+      "source_phrase": "control",
+      "top_shadow_score": 0.012639455983103636,
+      "url": "https://en.wikipedia.org/wiki/Governance"
+    },
+    {
+      "active_score": 0.035799837119637176,
+      "context_text": "It consists of the policies, processes and institutions by which decisions about the access to, use of and control over land are made, implemented and enforced; it is also about managing and reconciling competing claims on land.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_governance:8:control",
+      "page_id": "wikipedia_governance",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "gobernar",
+      "score_margin": 0.035799837119637176,
+      "source_phrase": "control",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Governance"
+    },
+    {
+      "active_score": 0.018130307380296688,
+      "context_text": "Portable soup of less extended vintage was, according to the 1881 Household Cyclopedia, \"exceedingly convenient for private families, for by putting one of the cakes in a saucepan with about a quart of water, and a little salt, a basin of good broth may be made in a few minutes.\" In the mid-19th century, German chemist Justus von Liebig developed meat extract, but it was more expensive than bouillon cubes.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_bouillon_cube:1:german",
+      "page_id": "wikipedia_bouillon_cube",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "alemán",
+      "score_margin": 0.018130307380296688,
+      "source_phrase": "german",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Bouillon_cube"
+    },
+    {
+      "active_score": 0.026450881632898243,
+      "context_text": "There is a similar word in German, schick, with a meaning similar to chic, which may be the origin of the word in French; another theory links chic to the word chicane.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_chic:1:german",
+      "page_id": "wikipedia_chic",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "alemán",
+      "score_margin": 0.026450881632898243,
+      "source_phrase": "german",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Chic"
+    },
+    {
+      "active_score": 0.030292852557746254,
+      "context_text": "Within these three tenets, the following definition of professional selling is offered by the American Society for Training and Development (ASTD): The holistic business system required to effectively develop, manage, enable, and execute a mutually beneficial, interpersonal exchange of goods or services for equitable value.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_salesperson:1:american",
+      "page_id": "wikipedia_salesperson",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "americano",
+      "score_margin": 0.030292852557746254,
+      "source_phrase": "american",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Salesperson"
+    }
+  ],
+  "scan_id": "en_es_active_only_prod_feel_pages_v1",
+  "schema_version": 1,
+  "status": "ok",
+  "summary": {
+    "decision_counts": {
+      "abstain": 50,
+      "replace": 13
+    },
+    "decision_source_counts": {
+      "policy": 63
+    },
+    "manifest_page_count": 17,
+    "page_error_count": 0,
+    "review_row_count": 63,
+    "rule_count": 18,
+    "scan_stopped_reason": "manifest_exhausted",
+    "scanned_page_count": 17,
+    "trigger_decision_counts": {
+      "american": {
+        "abstain": 10,
+        "replace": 2
+      },
+      "bar": {
+        "abstain": 5,
+        "replace": 5
+      },
+      "control": {
+        "abstain": 14,
+        "replace": 3
+      },
+      "dentist": {
+        "abstain": 1,
+        "replace": 1
+      },
+      "german": {
+        "abstain": 4
+      },
+      "govern": {
+        "abstain": 3
+      },
+      "pub": {
+        "abstain": 2,
+        "replace": 2
+      },
+      "region": {
+        "abstain": 5
+      },
+      "russian": {
+        "abstain": 1
+      },
+      "smile": {
+        "abstain": 4
+      },
+      "tomorrow": {
+        "abstain": 1
+      }
+    }
+  }
+}

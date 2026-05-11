@@ -1,0 +1,21 @@
+{
+  "batch_id": "en-es:semantic-veto-evidence-gap-generation:product-scope-band-grading-v1-shadow-gpt55-20260510-001",
+  "execution_mode": "live",
+  "generated_at": "2026-05-09T21:37:16Z",
+  "model_id": "gpt-5.5",
+  "pair": "en-es",
+  "pilot_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es",
+  "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+  "raw_response_bundle_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-shadow-gpt55-20260510-001_raw_responses.json",
+  "responses": [],
+  "schema_version": 1,
+  "selected_request_ids": [
+    "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:cite:mencionar:shadow_or_competitor_evidence_probe",
+    "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe",
+    "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:bar:cercar:shadow_or_competitor_evidence_probe",
+    "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:control:gobernar:shadow_or_competitor_evidence_probe",
+    "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:except:excepto:shadow_or_competitor_evidence_probe",
+    "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:region:comarca:shadow_or_competitor_evidence_probe"
+  ],
+  "source_request_packet": "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_requests_en_es_latest.json"
+}

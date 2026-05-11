@@ -43,7 +43,13 @@
         refreshButton: dom.srsRefreshSetButton,
         diagnosticsButton: dom.srsRuntimeDiagnosticsButton,
         sampledButton: dom.srsRulegenSampledButton,
-        resetButton: dom.srsResetButton
+        resetButton: dom.srsResetButton,
+        semanticPackInventoryPathInput: dom.debugSemanticPackInventoryPathInput,
+        semanticPackIdInput: dom.debugSemanticPackIdInput,
+        semanticPackDefaultDataRootInput: dom.debugSemanticPackDefaultDataRootInput,
+        semanticPackDataRootInput: dom.debugSemanticPackDataRootInput,
+        semanticPackInstallButton: dom.debugSemanticPackInstallButton,
+        semanticPackInstallOutput: dom.debugSemanticPackInstallOutput
       },
       rulesShare: {
         rulesInput: dom.rulesInput,
@@ -198,6 +204,7 @@
         srsRuntimeDiagnosticsButton: dom.srsRuntimeDiagnosticsButton,
         srsRulegenSampledButton: dom.srsRulegenSampledButton,
         srsResetButton: dom.srsResetButton,
+        semanticPackInstallButton: dom.debugSemanticPackInstallButton,
         srsAdmissionPreviewOutput: dom.srsAdmissionPreviewOutput,
         srsRulegenSampledOutput: dom.srsRulegenSampledOutput,
         debugHelperTestButton: dom.debugHelperTestButton,

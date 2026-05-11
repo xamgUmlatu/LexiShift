@@ -51,6 +51,8 @@ class SemanticVetoEvidenceGapGenerationScoreContributionTests(unittest.TestCase)
             1,
         )
         self.assertGreater(report["summary"]["policy_sweep_row_count"], 0)
+        self.assertEqual(report["methodology"]["min_active_score"], 0.05)
+        self.assertEqual(report["methodology"]["min_margin"], 0.0)
         self.assertIn("0", report["best_by_harmful_budget"])
         self.assertEqual(
             {
@@ -73,6 +75,26 @@ class SemanticVetoEvidenceGapGenerationScoreContributionTests(unittest.TestCase)
         self.assertIn("Score Contribution", markdown)
         self.assertIn("generated_synthetic_shadows", markdown)
         self.assertIn("Policy Sweep Best By Harmful Budget", markdown)
+
+    def test_custom_decision_thresholds_and_skip_policy_sweep_are_recorded(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            report = build_evidence_gap_score_contribution_report(
+                dataset_payload=_dataset_payload(),
+                admission_payload=_admission_payload(),
+                augmented_dir=Path(tmp),
+                min_active_score=0.0,
+                min_margin=0.015,
+                include_policy_sweep=False,
+                generated_at="2026-05-09T00:00:00Z",
+            )
+
+        self.assertEqual(report["status"], "ok")
+        self.assertEqual(report["methodology"]["min_active_score"], 0.0)
+        self.assertEqual(report["methodology"]["min_margin"], 0.015)
+        self.assertFalse(report["methodology"]["include_policy_sweep"])
+        self.assertEqual(report["summary"]["policy_sweep_row_count"], 0)
+        self.assertEqual(report["policy_sweep_rows"], [])
+        self.assertEqual(report["best_by_harmful_budget"], {})
 
     def test_missing_admitted_items_is_review(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

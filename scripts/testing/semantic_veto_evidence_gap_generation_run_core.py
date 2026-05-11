@@ -26,6 +26,26 @@ from semantic_veto_evidence_gap_generation_admission_en_es import (  # noqa: E40
 from semantic_veto_llm_pilot_generation_run_support import (  # noqa: E402
     _should_retry_prior_outcome,
 )
+from semantic_veto_evidence_gap_generation_run_artifacts import (  # noqa: E402
+    _append_live_run_outcome,
+    _as_path,
+    _build_batch_id,
+    _bundle_ref,
+    _failure_events,
+    _final_run_manifest,
+    _mapping_rows,
+    _prepare_generation_journal,
+    _prepare_live_run_artifacts,
+    _raw_and_failure_events_from_journal,
+    _raw_response_events,
+    _request_outcome_event,
+    _request_queue_events,
+    _request_started_event,
+    _run_artifact_refs,
+    _write_json_atomic,
+    _write_jsonl_atomic,
+    _write_text_atomic,
+)
 
 
 DEFAULT_MODEL_ID = "gpt-5.4-mini"
@@ -39,7 +59,7 @@ def build_evidence_gap_generation_run_bundle(
     responses_client: Any,
     batch_dir: Path,
     model_id: str = DEFAULT_MODEL_ID,
-    temperature: float = DEFAULT_TEMPERATURE,
+    temperature: float | None = DEFAULT_TEMPERATURE,
     max_output_tokens: int = DEFAULT_MAX_OUTPUT_TOKENS,
     execution_mode: str = "live",
     replay_source: str = "",
@@ -72,6 +92,10 @@ def build_evidence_gap_generation_run_bundle(
     raw_response_bundle_path = batch_dir / f"{batch_slug}_raw_responses.json"
     generated_responses_path = batch_dir / f"{batch_slug}_generated_responses.json"
     journal_path = batch_dir / f"{batch_slug}_journal.jsonl"
+    run_manifest_path = batch_dir / f"{batch_slug}_run_manifest.json"
+    request_queue_path = batch_dir / f"{batch_slug}_request_queue.jsonl"
+    raw_responses_jsonl_path = batch_dir / f"{batch_slug}_raw_responses.jsonl"
+    failures_path = batch_dir / f"{batch_slug}_failures.jsonl"
 
     prior_outcomes: dict[str, dict[str, object]] = {}
     if resolved_execution_mode == "live":
@@ -80,6 +104,33 @@ def build_evidence_gap_generation_run_bundle(
             batch_id=batch_id,
             resume=resume,
             selected_request_rows=selected_requests,
+        )
+        _prepare_live_run_artifacts(
+            run_manifest_path=run_manifest_path,
+            request_queue_path=request_queue_path,
+            raw_responses_jsonl_path=raw_responses_jsonl_path,
+            failures_path=failures_path,
+            batch_id=batch_id,
+            pair=pair,
+            pilot=pilot,
+            prompt_id=prompt_id,
+            generated_at=generated_at,
+            model_id=model_id,
+            temperature=temperature,
+            execution_mode=resolved_execution_mode,
+            replay_source=replay_source,
+            request_payload=request_payload,
+            selected_requests=selected_requests,
+            resume=resume,
+            artifacts=_run_artifact_refs(
+                journal_path=journal_path,
+                raw_response_bundle_path=raw_response_bundle_path,
+                generated_responses_path=generated_responses_path,
+                run_manifest_path=run_manifest_path,
+                request_queue_path=request_queue_path,
+                raw_responses_jsonl_path=raw_responses_jsonl_path,
+                failures_path=failures_path,
+            ),
         )
 
     raw_request_rows: list[dict[str, object]] = []
@@ -129,6 +180,16 @@ def build_evidence_gap_generation_run_bundle(
                     summary_row=outcome["summary_row"],
                     generated_response=outcome.get("generated_response"),
                 ),
+            )
+            _append_live_run_outcome(
+                raw_responses_jsonl_path=raw_responses_jsonl_path,
+                failures_path=failures_path,
+                batch_id=batch_id,
+                generated_at=generated_at,
+                request_id=request_id,
+                raw_request_row=outcome["raw_request_row"],
+                summary_row=outcome["summary_row"],
+                generated_response=outcome.get("generated_response"),
             )
         raw_request_rows.append(outcome["raw_request_row"])
         request_outcomes.append(outcome["summary_row"])
@@ -210,6 +271,10 @@ def build_evidence_gap_generation_run_bundle(
             "journal_jsonl": _display_path(journal_path)
             if resolved_execution_mode == "live"
             else "",
+            "run_manifest_json": _display_path(run_manifest_path),
+            "request_queue_jsonl": _display_path(request_queue_path),
+            "raw_responses_jsonl": _display_path(raw_responses_jsonl_path),
+            "failures_jsonl": _display_path(failures_path),
             "raw_response_bundle_json": _display_path(raw_response_bundle_path),
             "generated_responses_json": _display_path(generated_responses_path),
         },
@@ -222,6 +287,15 @@ def build_evidence_gap_generation_run_bundle(
         "journal_path": journal_path,
         "raw_response_bundle_path": raw_response_bundle_path,
         "generated_responses_path": generated_responses_path,
+        "run_manifest_path": run_manifest_path,
+        "request_queue_path": request_queue_path,
+        "raw_responses_jsonl_path": raw_responses_jsonl_path,
+        "failures_path": failures_path,
+        "request_queue_events": _request_queue_events(
+            batch_id=batch_id,
+            generated_at=generated_at,
+            selected_requests=selected_requests,
+        ),
     }
 
 
@@ -235,37 +309,52 @@ def write_evidence_gap_generation_run_bundle(
     report = _as_mapping(bundle.get("report"))
     raw_response_bundle = _as_mapping(bundle.get("raw_response_bundle"))
     generated_responses_payload = _as_mapping(bundle.get("generated_responses_payload"))
+    journal_path = _as_path(bundle.get("journal_path"))
     raw_response_bundle_path = _as_path(bundle.get("raw_response_bundle_path"))
     generated_responses_path = _as_path(bundle.get("generated_responses_path"))
+    run_manifest_path = _as_path(bundle.get("run_manifest_path"))
+    request_queue_path = _as_path(bundle.get("request_queue_path"))
+    raw_responses_jsonl_path = _as_path(bundle.get("raw_responses_jsonl_path"))
+    failures_path = _as_path(bundle.get("failures_path"))
+    request_queue_events = _mapping_rows(bundle.get("request_queue_events"))
 
-    raw_response_bundle_path.parent.mkdir(parents=True, exist_ok=True)
-    raw_response_bundle_path.write_text(
-        json.dumps(raw_response_bundle, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
-        encoding="utf-8",
+    _write_json_atomic(raw_response_bundle_path, raw_response_bundle)
+    _write_json_atomic(generated_responses_path, generated_responses_payload)
+    _write_json_atomic(generated_responses_out, generated_responses_payload)
+    _write_json_atomic(json_out, report)
+    _write_jsonl_atomic(request_queue_path, request_queue_events)
+    if str(report.get("execution_mode") or "") == "live" and journal_path.exists():
+        raw_response_events, failure_events = _raw_and_failure_events_from_journal(journal_path)
+    else:
+        raw_response_events = _raw_response_events(
+            batch_id=str(report.get("batch_id") or ""),
+            generated_at=str(report.get("generated_at") or ""),
+            raw_request_rows=_mapping_rows(raw_response_bundle.get("requests")),
+            request_outcomes=_mapping_rows(report.get("request_rows")),
+            generated_responses=_mapping_rows(generated_responses_payload.get("responses")),
+        )
+        failure_events = _failure_events(
+            batch_id=str(report.get("batch_id") or ""),
+            generated_at=str(report.get("generated_at") or ""),
+            raw_request_rows=_mapping_rows(raw_response_bundle.get("requests")),
+            request_outcomes=_mapping_rows(report.get("request_rows")),
+            generated_responses=_mapping_rows(generated_responses_payload.get("responses")),
+        )
+    _write_jsonl_atomic(raw_responses_jsonl_path, raw_response_events)
+    _write_jsonl_atomic(failures_path, failure_events)
+    _write_json_atomic(
+        run_manifest_path,
+        _final_run_manifest(
+            report=report,
+            request_queue_events=request_queue_events,
+            artifacts=_as_mapping(report.get("artifacts")),
+        ),
     )
-    generated_responses_path.parent.mkdir(parents=True, exist_ok=True)
-    generated_responses_path.write_text(
-        json.dumps(generated_responses_payload, ensure_ascii=False, indent=2, sort_keys=True)
-        + "\n",
-        encoding="utf-8",
-    )
-    generated_responses_out.parent.mkdir(parents=True, exist_ok=True)
-    generated_responses_out.write_text(
-        json.dumps(generated_responses_payload, ensure_ascii=False, indent=2, sort_keys=True)
-        + "\n",
-        encoding="utf-8",
-    )
-    json_out.parent.mkdir(parents=True, exist_ok=True)
-    json_out.write_text(
-        json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
-        encoding="utf-8",
-    )
-    markdown_out.parent.mkdir(parents=True, exist_ok=True)
     from semantic_veto_evidence_gap_generation_run_rendering import (
         render_evidence_gap_generation_run_markdown,
     )
 
-    markdown_out.write_text(render_evidence_gap_generation_run_markdown(report), encoding="utf-8")
+    _write_text_atomic(markdown_out, render_evidence_gap_generation_run_markdown(report))
 
 
 def _execute_generation_request(
@@ -273,7 +362,7 @@ def _execute_generation_request(
     request_row: Mapping[str, object],
     responses_client: Any,
     model_id: str,
-    temperature: float,
+    temperature: float | None,
     max_output_tokens: int,
     prompt_id: str,
     raw_response_ref: str,
@@ -295,20 +384,22 @@ def _execute_generation_request(
         "status": "pending",
     }
     try:
-        response = responses_client.create(
-            model=model_id,
-            input=str(request_row.get("prompt_text") or "").strip(),
-            temperature=temperature,
-            max_output_tokens=max_output_tokens,
-            text={"format": {"type": "json_object"}},
-            metadata={
+        create_kwargs: dict[str, object] = {
+            "model": model_id,
+            "input": str(request_row.get("prompt_text") or "").strip(),
+            "max_output_tokens": max_output_tokens,
+            "text": {"format": {"type": "json_object"}},
+            "metadata": {
                 "request_id": request_id,
                 "family_id": str(request_row.get("family_id") or ""),
                 "slot_id": str(request_row.get("slot_id") or ""),
                 "prompt_id": prompt_id,
             },
-            store=False,
-        )
+            "store": False,
+        }
+        if temperature is not None:
+            create_kwargs["temperature"] = temperature
+        response = responses_client.create(**create_kwargs)
     except Exception as exc:  # pragma: no cover - exercised by fake clients
         message = f"{type(exc).__name__}: {exc}"
         raw_request_row["status"] = "api_error"
@@ -389,6 +480,14 @@ def _build_generated_response(
 ) -> dict[str, object]:
     if not isinstance(parsed_payload, Mapping):
         raise ValueError("model output must be a JSON object")
+    parsed_payload = dict(parsed_payload)
+    normalization_notes: list[str] = []
+    if (
+        not str(parsed_payload.get("source_phrase") or "").strip()
+        and str(request_row.get("trigger") or "").strip()
+    ):
+        parsed_payload["source_phrase"] = str(request_row.get("trigger") or "").strip()
+        normalization_notes.append("source_phrase_filled_from_request_trigger")
     required_fields = [
         "request_id",
         "family_id",
@@ -435,6 +534,8 @@ def _build_generated_response(
     response["generator_id"] = model_id
     response["prompt_id"] = prompt_id
     response["raw_response_ref"] = raw_response_ref
+    if normalization_notes:
+        response["normalization_notes"] = normalization_notes
     return response
 
 
@@ -559,193 +660,6 @@ def _aggregate_usage(rows: Sequence[Mapping[str, object]]) -> dict[str, object]:
         "output_tokens": output_tokens,
         "reasoning_tokens": reasoning_tokens,
     }
-
-
-def _prepare_generation_journal(
-    *,
-    journal_path: Path,
-    batch_id: str,
-    resume: bool,
-    selected_request_rows: Sequence[Mapping[str, object]],
-) -> dict[str, dict[str, object]]:
-    if not journal_path.exists():
-        if resume:
-            raise ValueError(
-                f"Resume requested but journal does not exist: {_display_path(journal_path)}"
-            )
-        return {}
-    if not resume:
-        raise ValueError(
-            f"Live journal already exists: {_display_path(journal_path)}. "
-            "Use --resume to continue this exact run or choose a new --run-id."
-        )
-    journal_state = _load_generation_journal_state(journal_path)
-    if journal_state["batch_id"] and journal_state["batch_id"] != batch_id:
-        raise ValueError(
-            f"Journal batch id {journal_state['batch_id']!r} did not match current batch id {batch_id!r}."
-        )
-    if journal_state["ambiguous_request_ids"]:
-        ambiguous = ", ".join(sorted(journal_state["ambiguous_request_ids"]))
-        raise ValueError(
-            "Journal contains started requests without recorded outcomes; refusing resume to avoid "
-            f"duplicate spend. Inspect {_display_path(journal_path)} and resolve: {ambiguous}"
-        )
-    selected_request_ids = {
-        str(row.get("request_id") or "").strip()
-        for row in selected_request_rows
-        if str(row.get("request_id") or "").strip()
-    }
-    prior_request_ids = set(journal_state["outcomes_by_request_id"].keys())
-    extra_request_ids = sorted(prior_request_ids - selected_request_ids)
-    if extra_request_ids:
-        raise ValueError(
-            "Journal contains outcomes for request ids outside the current selection; refusing resume: "
-            + ", ".join(extra_request_ids)
-        )
-    return journal_state["outcomes_by_request_id"]
-
-
-def _load_generation_journal_state(journal_path: Path) -> dict[str, object]:
-    batch_id = ""
-    started_request_ids: list[str] = []
-    outcomes_by_request_id: dict[str, dict[str, object]] = {}
-    with journal_path.open("r", encoding="utf-8") as handle:
-        for line_number, raw_line in enumerate(handle, start=1):
-            line = raw_line.strip()
-            if not line:
-                continue
-            event = json.loads(line)
-            if not isinstance(event, Mapping):
-                raise ValueError(f"Journal event on line {line_number} is not an object.")
-            event_batch_id = str(event.get("batch_id") or "").strip()
-            if event_batch_id:
-                if not batch_id:
-                    batch_id = event_batch_id
-                elif batch_id != event_batch_id:
-                    raise ValueError(
-                        f"Journal {_display_path(journal_path)} mixes batch ids {batch_id!r} and {event_batch_id!r}."
-                    )
-            event_type = str(event.get("event_type") or "").strip()
-            request_id = str(event.get("request_id") or "").strip()
-            if event_type == "request_started":
-                if request_id:
-                    started_request_ids.append(request_id)
-                continue
-            if event_type != "request_outcome":
-                raise ValueError(
-                    f"Unknown journal event_type {event_type!r} on line {line_number}."
-                )
-            raw_request_row = event.get("raw_request_row")
-            summary_row = event.get("summary_row")
-            generated_response = event.get("generated_response")
-            if (
-                not request_id
-                or not isinstance(raw_request_row, Mapping)
-                or not isinstance(summary_row, Mapping)
-            ):
-                raise ValueError(f"Malformed journal outcome on line {line_number}.")
-            if request_id in outcomes_by_request_id:
-                existing = outcomes_by_request_id[request_id]
-                existing_status = str(_as_mapping(existing.get("summary_row")).get("status") or "")
-                next_status = str(summary_row.get("status") or "")
-                if existing_status == "accepted" or next_status != "accepted":
-                    raise ValueError(f"Duplicate journal outcome for {request_id!r}.")
-            entry = {
-                "raw_request_row": dict(raw_request_row),
-                "summary_row": dict(summary_row),
-            }
-            if isinstance(generated_response, Mapping):
-                entry["generated_response"] = dict(generated_response)
-            outcomes_by_request_id[request_id] = entry
-    ambiguous_request_ids = sorted(
-        request_id for request_id in started_request_ids if request_id not in outcomes_by_request_id
-    )
-    return {
-        "batch_id": batch_id,
-        "ambiguous_request_ids": ambiguous_request_ids,
-        "outcomes_by_request_id": outcomes_by_request_id,
-    }
-
-
-def _request_started_event(
-    *,
-    batch_id: str,
-    generated_at: str,
-    request_row: Mapping[str, object],
-    model_id: str,
-) -> dict[str, object]:
-    return {
-        "schema_version": 1,
-        "event_type": "request_started",
-        "batch_id": batch_id,
-        "generated_at": generated_at,
-        "request_id": str(request_row.get("request_id") or ""),
-        "family_id": str(request_row.get("family_id") or ""),
-        "slot_id": str(request_row.get("slot_id") or ""),
-        "slot_type": str(request_row.get("slot_type") or ""),
-        "model_id": model_id,
-    }
-
-
-def _request_outcome_event(
-    *,
-    batch_id: str,
-    generated_at: str,
-    request_id: str,
-    raw_request_row: Mapping[str, object],
-    summary_row: Mapping[str, object],
-    generated_response: Mapping[str, object] | None,
-) -> dict[str, object]:
-    event: dict[str, object] = {
-        "schema_version": 1,
-        "event_type": "request_outcome",
-        "batch_id": batch_id,
-        "generated_at": generated_at,
-        "request_id": request_id,
-        "raw_request_row": dict(raw_request_row),
-        "summary_row": dict(summary_row),
-    }
-    if isinstance(generated_response, Mapping):
-        event["generated_response"] = dict(generated_response)
-    return event
-
-
-def _build_batch_id(
-    *,
-    pair: str,
-    generated_at: str,
-    execution_mode: str,
-    run_id: str = "",
-) -> str:
-    timestamp = generated_at.replace("-", "").replace(":", "").replace("T", "T")
-    run_component = str(run_id or "").strip() or timestamp
-    suffix = "" if execution_mode == "live" else f":{execution_mode}"
-    return f"{pair}:semantic-veto-evidence-gap-generation:{run_component}{suffix}"
-
-
-def _bundle_ref(path: Path, request_id: object) -> str:
-    return f"{_display_path(path)}#{str(request_id or '').strip()}"
-
-
-def _as_path(value: object) -> Path:
-    if isinstance(value, Path):
-        return value
-    text = str(value or "").strip()
-    if not text:
-        raise ValueError("expected path value")
-    return Path(text)
-
-
-def _load_json(path: Path | None) -> Mapping[str, object]:
-    if path is None:
-        return {}
-    return json.loads(path.read_text(encoding="utf-8"))
-
-
-def _mapping_rows(value: object) -> list[Mapping[str, object]]:
-    if isinstance(value, Sequence) and not isinstance(value, (str, bytes)):
-        return [row for row in value if isinstance(row, Mapping)]
-    return []
 
 
 def _as_mapping(value: object) -> Mapping[str, object]:

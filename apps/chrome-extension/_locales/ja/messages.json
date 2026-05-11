@@ -1141,5 +1141,41 @@
   },
   "button_get_plugin": {
     "message": "BetterDiscordプラグインを入手"
+  },
+  "label_semantic_pack_inventory_path": {
+    "message": "Semantic inventory path override"
+  },
+  "label_semantic_pack_id": {
+    "message": "Semantic pack id"
+  },
+  "toggle_semantic_pack_default_data_root": {
+    "message": "Install to default helper data folder"
+  },
+  "label_semantic_pack_data_root": {
+    "message": "Semantic pack data root"
+  },
+  "button_semantic_pack_install": {
+    "message": "Install semantic pack…"
+  },
+  "status_semantic_pack_inventory_path_required": {
+    "message": "Semantic inventory path is required."
+  },
+  "status_semantic_pack_data_root_required": {
+    "message": "Data root is required unless default data root is enabled."
+  },
+  "confirm_semantic_pack_install": {
+    "message": "Install semantic pack for $1 profile $2? This overwrites the profile-local semantic publication files."
+  },
+  "status_semantic_pack_install_running": {
+    "message": "Installing semantic pack…"
+  },
+  "status_semantic_pack_install_success": {
+    "message": "Installed $1 for $2: $3 rules, $4 competition sets."
+  },
+  "status_semantic_pack_install_ready": {
+    "message": "Semantic pack installed."
+  },
+  "status_semantic_pack_install_failed": {
+    "message": "Semantic pack install failed."
   }
 }

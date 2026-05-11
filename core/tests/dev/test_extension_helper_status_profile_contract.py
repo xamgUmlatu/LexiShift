@@ -8,6 +8,15 @@ from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 HELPER_CLIENT_JS = PROJECT_ROOT / "apps/chrome-extension/shared/helper/helper_client.js"
+HELPER_ERROR_COPY_JS = PROJECT_ROOT / "apps/chrome-extension/shared/helper/helper_error_copy.js"
+HELPER_BASE_METHODS_JS = PROJECT_ROOT / "apps/chrome-extension/options/core/helper/base_methods.js"
+HELPER_DIAGNOSTICS_METHODS_JS = (
+    PROJECT_ROOT / "apps/chrome-extension/options/core/helper/diagnostics_methods.js"
+)
+HELPER_SRS_SET_METHODS_JS = (
+    PROJECT_ROOT / "apps/chrome-extension/options/core/helper/srs_set_methods.js"
+)
+HELPER_MANAGER_JS = PROJECT_ROOT / "apps/chrome-extension/options/core/helper_manager.js"
 TRANSLATE_RESOLVER_JS = (
     PROJECT_ROOT / "apps/chrome-extension/options/core/bootstrap/translate_resolver.js"
 )
@@ -43,6 +52,7 @@ const vm = require("node:vm");
 
 const clientPath = {json.dumps(str(HELPER_CLIENT_JS))};
 const context = vm.createContext({{ console }});
+const normalize = (value) => JSON.parse(JSON.stringify(value));
 context.globalThis = context;
 context.LexiShift = {{}};
 vm.runInContext(fs.readFileSync(clientPath, "utf8"), context, {{ filename: clientPath }});
@@ -63,6 +73,130 @@ const client = new HelperClient({{
     {{ type: "status", payload: {{ profile_id: "suisui" }} }},
     {{ type: "status", payload: {{}} }}
   ]));
+}})().catch((error) => {{
+  console.error(error);
+  process.exit(1);
+}});
+"""
+        _run_node(script)
+
+    def test_helper_client_routes_semantic_pack_install_with_long_timeout(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const clientPath = {json.dumps(str(HELPER_CLIENT_JS))};
+const context = vm.createContext({{ console }});
+context.globalThis = context;
+context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(clientPath, "utf8"), context, {{ filename: clientPath }});
+
+const HelperClient = context.LexiShift.helperClient;
+const calls = [];
+const client = new HelperClient({{
+  async send(type, payload, timeoutMs) {{
+    calls.push({{ type, payload, timeoutMs }});
+    return {{ ok: true, data: null }};
+  }}
+}});
+
+(async () => {{
+  await client.installSemanticPack({{
+    pair: "en-es",
+    profile_id: "semantic-alpha",
+    semantic_inventory_path: "/tmp/inventory.json",
+    data_root: "/tmp/lexishift-data"
+  }});
+  assert.equal(calls.length, 1);
+  assert.equal(calls[0].type, "install_semantic_pack");
+  assert.equal(calls[0].payload.profile_id, "semantic-alpha");
+  assert.equal(calls[0].timeoutMs, 60000);
+}})().catch((error) => {{
+  console.error(error);
+  process.exit(1);
+}});
+"""
+        _run_node(script)
+
+    def test_helper_manager_installs_semantic_pack_and_clears_pair_cache(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const files = [
+  {json.dumps(str(HELPER_ERROR_COPY_JS))},
+  {json.dumps(str(HELPER_CLIENT_JS))},
+  {json.dumps(str(HELPER_BASE_METHODS_JS))},
+  {json.dumps(str(HELPER_DIAGNOSTICS_METHODS_JS))},
+  {json.dumps(str(HELPER_SRS_SET_METHODS_JS))},
+  {json.dumps(str(HELPER_MANAGER_JS))}
+];
+const context = vm.createContext({{ console }});
+const normalize = (value) => JSON.parse(JSON.stringify(value));
+context.globalThis = context;
+context.LexiShift = {{
+  helperCache: {{
+    clearCalls: [],
+    async clearPair(pair, options) {{
+      this.clearCalls.push({{ pair, options }});
+    }}
+  }},
+  helperTransportExtension: {{
+    calls: [],
+    async send(type, payload, timeoutMs) {{
+      this.calls.push({{ type, payload, timeoutMs }});
+      return {{
+        ok: true,
+        data: {{
+          status: "ok",
+          pack_id: payload.pack_id,
+          profile_id: payload.profile_id,
+          summary: {{ rule_count: 49, competition_set_count: 49 }}
+        }}
+      }};
+    }}
+  }}
+}};
+for (const file of files) {{
+  const source = fs.readFileSync(file, "utf8");
+  vm.runInContext(
+    file === {json.dumps(str(HELPER_MANAGER_JS))}
+      ? `${{source}}\nthis.__HelperManager = HelperManager;`
+      : source,
+    context,
+    {{ filename: file }}
+  );
+}}
+
+const manager = new context.__HelperManager({{
+  t: (_key, _args, fallback) => fallback || ""
+}}, () => {{}});
+
+(async () => {{
+  const result = await manager.installSemanticPack("en-es", {{
+    profileId: "semantic-alpha",
+    packId: "en-es-pack-v1",
+    allowDefaultDataRoot: false,
+    dataRoot: "/tmp/lexishift-data"
+  }});
+  assert.equal(result.status, "ok");
+  const call = context.LexiShift.helperTransportExtension.calls[0];
+  assert.equal(call.type, "install_semantic_pack");
+  assert.equal(call.timeoutMs, 60000);
+  assert.deepEqual(normalize(call.payload), {{
+    pair: "en-es",
+    profile_id: "semantic-alpha",
+    pack_id: "en-es-pack-v1",
+    data_root: "/tmp/lexishift-data",
+    allow_default_data_root: false,
+    dry_run: false,
+    no_pack_copy: false
+  }});
+  assert.deepEqual(normalize(context.LexiShift.helperCache.clearCalls), [
+    {{ pair: "en-es", options: {{ profileId: "semantic-alpha" }} }}
+  ]);
 }})().catch((error) => {{
   console.error(error);
   process.exit(1);

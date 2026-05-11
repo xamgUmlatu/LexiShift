@@ -1,0 +1,879 @@
+{
+  "capability": {
+    "competition_mode": "offline_inventory_replay",
+    "phrase_mode": "not_published"
+  },
+  "competition_sets": {
+    "en-es:full-family-repaired-full:acceptable:razonable:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:acceptable:razonable:active",
+      "competition_set_id": "en-es:full-family-repaired-full:acceptable:razonable:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [
+        "en-es:full-family-repaired-full:acceptable:razonable:shadow:1:correcto",
+        "en-es:full-family-repaired-full:acceptable:razonable:shadow:2:apto"
+      ],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:acceptable:razonable:trigger"
+    },
+    "en-es:full-family-repaired-full:adjoining:vecino:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:adjoining:vecino:active",
+      "competition_set_id": "en-es:full-family-repaired-full:adjoining:vecino:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:adjoining:vecino:trigger"
+    },
+    "en-es:full-family-repaired-full:american:americano:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:american:americano:active",
+      "competition_set_id": "en-es:full-family-repaired-full:american:americano:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:american:americano:trigger"
+    },
+    "en-es:full-family-repaired-full:among:entre:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:among:entre:active",
+      "competition_set_id": "en-es:full-family-repaired-full:among:entre:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:among:entre:trigger"
+    },
+    "en-es:full-family-repaired-full:bar:cercar:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:bar:cercar:active",
+      "competition_set_id": "en-es:full-family-repaired-full:bar:cercar:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [
+        "en-es:full-family-repaired-full:bar:cercar:shadow:1:taberna",
+        "en-es:full-family-repaired-full:bar:cercar:shadow:2:comp-s"
+      ],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:bar:cercar:trigger"
+    },
+    "en-es:full-family-repaired-full:begin:comenzar:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:begin:comenzar:active",
+      "competition_set_id": "en-es:full-family-repaired-full:begin:comenzar:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:begin:comenzar:trigger"
+    },
+    "en-es:full-family-repaired-full:bouillon:caldo:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:bouillon:caldo:active",
+      "competition_set_id": "en-es:full-family-repaired-full:bouillon:caldo:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:bouillon:caldo:trigger"
+    },
+    "en-es:full-family-repaired-full:break:quebrar:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:break:quebrar:active",
+      "competition_set_id": "en-es:full-family-repaired-full:break:quebrar:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [
+        "en-es:full-family-repaired-full:break:quebrar:shadow:1:interrumpir",
+        "en-es:full-family-repaired-full:break:quebrar:shadow:2:oportunidad"
+      ],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:break:quebrar:trigger"
+    },
+    "en-es:full-family-repaired-full:bridle:reprimir:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:bridle:reprimir:active",
+      "competition_set_id": "en-es:full-family-repaired-full:bridle:reprimir:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [
+        "en-es:full-family-repaired-full:bridle:reprimir:shadow:1:brida",
+        "en-es:full-family-repaired-full:bridle:reprimir:shadow:2:ofenderse"
+      ],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:bridle:reprimir:trigger"
+    },
+    "en-es:full-family-repaired-full:brother:hermano:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:brother:hermano:active",
+      "competition_set_id": "en-es:full-family-repaired-full:brother:hermano:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:brother:hermano:trigger"
+    },
+    "en-es:full-family-repaired-full:chic:elegante:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:chic:elegante:active",
+      "competition_set_id": "en-es:full-family-repaired-full:chic:elegante:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [
+        "en-es:full-family-repaired-full:chic:elegante:shadow:1:elegancia"
+      ],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:chic:elegante:trigger"
+    },
+    "en-es:full-family-repaired-full:control:gobernar:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:control:gobernar:active",
+      "competition_set_id": "en-es:full-family-repaired-full:control:gobernar:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [
+        "en-es:full-family-repaired-full:control:gobernar:shadow:1:ajustar",
+        "en-es:full-family-repaired-full:control:gobernar:shadow:2:grupo-de-control"
+      ],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:control:gobernar:trigger"
+    },
+    "en-es:full-family-repaired-full:december:diciembre:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:december:diciembre:active",
+      "competition_set_id": "en-es:full-family-repaired-full:december:diciembre:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:december:diciembre:trigger"
+    },
+    "en-es:full-family-repaired-full:dentist:dentista:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:dentist:dentista:active",
+      "competition_set_id": "en-es:full-family-repaired-full:dentist:dentista:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:dentist:dentista:trigger"
+    },
+    "en-es:full-family-repaired-full:entirely:enteramente:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:entirely:enteramente:active",
+      "competition_set_id": "en-es:full-family-repaired-full:entirely:enteramente:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:entirely:enteramente:trigger"
+    },
+    "en-es:full-family-repaired-full:german:alem-n:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:german:alem-n:active",
+      "competition_set_id": "en-es:full-family-repaired-full:german:alem-n:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:german:alem-n:trigger"
+    },
+    "en-es:full-family-repaired-full:govern:gobernar:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:govern:gobernar:active",
+      "competition_set_id": "en-es:full-family-repaired-full:govern:gobernar:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [
+        "en-es:full-family-repaired-full:govern:gobernar:shadow:1:regular",
+        "en-es:full-family-repaired-full:govern:gobernar:shadow:2:regir"
+      ],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:govern:gobernar:trigger"
+    },
+    "en-es:full-family-repaired-full:heart:coraz-n:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:heart:coraz-n:active",
+      "competition_set_id": "en-es:full-family-repaired-full:heart:coraz-n:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:heart:coraz-n:trigger"
+    },
+    "en-es:full-family-repaired-full:offset:distancia:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:offset:distancia:active",
+      "competition_set_id": "en-es:full-family-repaired-full:offset:distancia:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [
+        "en-es:full-family-repaired-full:offset:distancia:shadow:1:compensar",
+        "en-es:full-family-repaired-full:offset:distancia:shadow:2:reembolso"
+      ],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:offset:distancia:trigger"
+    },
+    "en-es:full-family-repaired-full:rebate:descuento:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:rebate:descuento:active",
+      "competition_set_id": "en-es:full-family-repaired-full:rebate:descuento:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [
+        "en-es:full-family-repaired-full:rebate:descuento:shadow:1:ranura",
+        "en-es:full-family-repaired-full:rebate:descuento:shadow:2:reembolsar"
+      ],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:rebate:descuento:trigger"
+    },
+    "en-es:full-family-repaired-full:rumanian:rumano:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:rumanian:rumano:active",
+      "competition_set_id": "en-es:full-family-repaired-full:rumanian:rumano:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:rumanian:rumano:trigger"
+    },
+    "en-es:full-family-repaired-full:salesman:vendedor:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:salesman:vendedor:active",
+      "competition_set_id": "en-es:full-family-repaired-full:salesman:vendedor:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:salesman:vendedor:trigger"
+    },
+    "en-es:full-family-repaired-full:smile:sonre-r:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:smile:sonre-r:active",
+      "competition_set_id": "en-es:full-family-repaired-full:smile:sonre-r:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [
+        "en-es:full-family-repaired-full:smile:sonre-r:shadow:1:sonrisa",
+        "en-es:full-family-repaired-full:smile:sonre-r:shadow:2:agradecer-con-una-sonrisa"
+      ],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:smile:sonre-r:trigger"
+    },
+    "en-es:full-family-repaired-full:tomorrow:ma-ana:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:tomorrow:ma-ana:active",
+      "competition_set_id": "en-es:full-family-repaired-full:tomorrow:ma-ana:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:tomorrow:ma-ana:trigger"
+    }
+  },
+  "generated_at": "2026-05-09T02:04:34Z",
+  "pair": "en-es",
+  "phrase_sets": {},
+  "profile_id": "inventory_replay",
+  "schema_version": 1,
+  "senses": {
+    "en-es:full-family-repaired-full:acceptable:razonable:active": {
+      "canonical_pos": "adjective",
+      "evidence_views": {
+        "all_evidence_text": "acceptable -> razonable | acceptable or reasonable in degree or quality | generated evidence: The proposal is acceptable because it balances cost, safety, and time. | generated evidence: Her explanation was acceptable after the team checked the facts and found it fair.",
+        "gloss_text": "acceptable or reasonable in degree or quality",
+        "sense_gloss_bundle": "acceptable -> razonable | acceptable or reasonable in degree or quality",
+        "sense_label": "acceptable -> razonable"
+      },
+      "sense_id": "en-es:full-family-repaired-full:acceptable:razonable:active",
+      "target_lemma": "razonable"
+    },
+    "en-es:full-family-repaired-full:acceptable:razonable:shadow:1:correcto": {
+      "canonical_pos": "adjective",
+      "evidence_views": {
+        "all_evidence_text": "acceptable -> correcto | approved usage or correctness",
+        "gloss_text": "approved usage or correctness",
+        "sense_gloss_bundle": "acceptable -> correcto | approved usage or correctness",
+        "sense_label": "acceptable -> correcto"
+      },
+      "sense_id": "en-es:full-family-repaired-full:acceptable:razonable:shadow:1:correcto",
+      "target_lemma": "correcto"
+    },
+    "en-es:full-family-repaired-full:acceptable:razonable:shadow:2:apto": {
+      "canonical_pos": "adjective",
+      "evidence_views": {
+        "all_evidence_text": "acceptable -> apto | meeting a technical requirement",
+        "gloss_text": "meeting a technical requirement",
+        "sense_gloss_bundle": "acceptable -> apto | meeting a technical requirement",
+        "sense_label": "acceptable -> apto"
+      },
+      "sense_id": "en-es:full-family-repaired-full:acceptable:razonable:shadow:2:apto",
+      "target_lemma": "apto"
+    },
+    "en-es:full-family-repaired-full:adjoining:vecino:active": {
+      "canonical_pos": "adjective",
+      "evidence_views": {
+        "all_evidence_text": "adjoining -> vecino | neighboring or adjacent | generated evidence: The library is in the adjoining building, just next door to the museum. | generated evidence: We parked in the adjoining lot because the main lot was full.",
+        "gloss_text": "neighboring or adjacent",
+        "sense_gloss_bundle": "adjoining -> vecino | neighboring or adjacent",
+        "sense_label": "adjoining -> vecino"
+      },
+      "sense_id": "en-es:full-family-repaired-full:adjoining:vecino:active",
+      "target_lemma": "vecino"
+    },
+    "en-es:full-family-repaired-full:american:americano:active": {
+      "canonical_pos": "adjective",
+      "evidence_views": {
+        "all_evidence_text": "american -> americano | American as a nationality or regional adjective | generated evidence: She is an american citizen who was born in Texas. | generated evidence: The museum featured american art from the nineteenth century.",
+        "gloss_text": "American as a nationality or regional adjective",
+        "sense_gloss_bundle": "american -> americano | American as a nationality or regional adjective",
+        "sense_label": "american -> americano"
+      },
+      "sense_id": "en-es:full-family-repaired-full:american:americano:active",
+      "target_lemma": "americano"
+    },
+    "en-es:full-family-repaired-full:among:entre:active": {
+      "canonical_pos": "preposition",
+      "evidence_views": {
+        "all_evidence_text": "among -> entre | in the midst of or included within a group | generated evidence: The red umbrella was among the many gifts piled by the door. | generated evidence: She found her old notebook among the books on the shelf.",
+        "gloss_text": "in the midst of or included within a group",
+        "sense_gloss_bundle": "among -> entre | in the midst of or included within a group",
+        "sense_label": "among -> entre"
+      },
+      "sense_id": "en-es:full-family-repaired-full:among:entre:active",
+      "target_lemma": "entre"
+    },
+    "en-es:full-family-repaired-full:bar:cercar:active": {
+      "canonical_pos": "verb",
+      "evidence_views": {
+        "all_evidence_text": "bar -> cercar | block, bar, fence in, or prevent passage with a barrier | generated evidence: The workers used steel panels to bar the entrance and keep the crowd out. | generated evidence: A fallen tree can bar the road until crews clear it away.",
+        "gloss_text": "block, bar, fence in, or prevent passage with a barrier",
+        "sense_gloss_bundle": "bar -> cercar | block, bar, fence in, or prevent passage with a barrier",
+        "sense_label": "bar -> cercar"
+      },
+      "sense_id": "en-es:full-family-repaired-full:bar:cercar:active",
+      "target_lemma": "cercar"
+    },
+    "en-es:full-family-repaired-full:bar:cercar:shadow:1:taberna": {
+      "canonical_pos": "verb",
+      "evidence_views": {
+        "all_evidence_text": "bar -> taberna | an establishment that serves drinks",
+        "gloss_text": "an establishment that serves drinks",
+        "sense_gloss_bundle": "bar -> taberna | an establishment that serves drinks",
+        "sense_label": "bar -> taberna"
+      },
+      "sense_id": "en-es:full-family-repaired-full:bar:cercar:shadow:1:taberna",
+      "target_lemma": "taberna"
+    },
+    "en-es:full-family-repaired-full:bar:cercar:shadow:2:comp-s": {
+      "canonical_pos": "verb",
+      "evidence_views": {
+        "all_evidence_text": "bar -> compás | a measure in written music",
+        "gloss_text": "a measure in written music",
+        "sense_gloss_bundle": "bar -> compás | a measure in written music",
+        "sense_label": "bar -> compás"
+      },
+      "sense_id": "en-es:full-family-repaired-full:bar:cercar:shadow:2:comp-s",
+      "target_lemma": "compás"
+    },
+    "en-es:full-family-repaired-full:begin:comenzar:active": {
+      "canonical_pos": "verb",
+      "evidence_views": {
+        "all_evidence_text": "begin -> comenzar | start or come into being | generated evidence: We will begin the meeting at nine o'clock. | generated evidence: The flowers begin to bloom in early spring.",
+        "gloss_text": "start or come into being",
+        "sense_gloss_bundle": "begin -> comenzar | start or come into being",
+        "sense_label": "begin -> comenzar"
+      },
+      "sense_id": "en-es:full-family-repaired-full:begin:comenzar:active",
+      "target_lemma": "comenzar"
+    },
+    "en-es:full-family-repaired-full:bouillon:caldo:active": {
+      "canonical_pos": "noun",
+      "evidence_views": {
+        "all_evidence_text": "bouillon -> caldo | a clear seasoned broth | generated evidence: I simmered the bones for hours to make a rich bouillon for the soup. | generated evidence: The recipe starts with hot bouillon before you add the vegetables and noodles.",
+        "gloss_text": "a clear seasoned broth",
+        "sense_gloss_bundle": "bouillon -> caldo | a clear seasoned broth",
+        "sense_label": "bouillon -> caldo"
+      },
+      "sense_id": "en-es:full-family-repaired-full:bouillon:caldo:active",
+      "target_lemma": "caldo"
+    },
+    "en-es:full-family-repaired-full:break:quebrar:active": {
+      "canonical_pos": "verb",
+      "evidence_views": {
+        "all_evidence_text": "break -> quebrar | become separated into pieces or crack under force | generated evidence: The glass will break if it hits the concrete floor. | generated evidence: A heavy branch can break when the wind bends it too far.",
+        "gloss_text": "become separated into pieces or crack under force",
+        "sense_gloss_bundle": "break -> quebrar | become separated into pieces or crack under force",
+        "sense_label": "break -> quebrar"
+      },
+      "sense_id": "en-es:full-family-repaired-full:break:quebrar:active",
+      "target_lemma": "quebrar"
+    },
+    "en-es:full-family-repaired-full:break:quebrar:shadow:1:interrumpir": {
+      "canonical_pos": "verb",
+      "evidence_views": {
+        "all_evidence_text": "break -> interrumpir | interrupt or cut into an ongoing event",
+        "gloss_text": "interrupt or cut into an ongoing event",
+        "sense_gloss_bundle": "break -> interrumpir | interrupt or cut into an ongoing event",
+        "sense_label": "break -> interrumpir"
+      },
+      "sense_id": "en-es:full-family-repaired-full:break:quebrar:shadow:1:interrumpir",
+      "target_lemma": "interrumpir"
+    },
+    "en-es:full-family-repaired-full:break:quebrar:shadow:2:oportunidad": {
+      "canonical_pos": "verb",
+      "evidence_views": {
+        "all_evidence_text": "break -> oportunidad | a lucky chance or career opportunity",
+        "gloss_text": "a lucky chance or career opportunity",
+        "sense_gloss_bundle": "break -> oportunidad | a lucky chance or career opportunity",
+        "sense_label": "break -> oportunidad"
+      },
+      "sense_id": "en-es:full-family-repaired-full:break:quebrar:shadow:2:oportunidad",
+      "target_lemma": "oportunidad"
+    },
+    "en-es:full-family-repaired-full:bridle:reprimir:active": {
+      "canonical_pos": "verb",
+      "evidence_views": {
+        "all_evidence_text": "bridle -> reprimir | restrain, repress, or hold back an action or reaction | generated evidence: She had to bridle her anger before answering the rude remark.",
+        "gloss_text": "restrain, repress, or hold back an action or reaction",
+        "sense_gloss_bundle": "bridle -> reprimir | restrain, repress, or hold back an action or reaction",
+        "sense_label": "bridle -> reprimir"
+      },
+      "sense_id": "en-es:full-family-repaired-full:bridle:reprimir:active",
+      "target_lemma": "reprimir"
+    },
+    "en-es:full-family-repaired-full:bridle:reprimir:shadow:1:brida": {
+      "canonical_pos": "verb",
+      "evidence_views": {
+        "all_evidence_text": "bridle -> brida | horse headgear with reins",
+        "gloss_text": "horse headgear with reins",
+        "sense_gloss_bundle": "bridle -> brida | horse headgear with reins",
+        "sense_label": "bridle -> brida"
+      },
+      "sense_id": "en-es:full-family-repaired-full:bridle:reprimir:shadow:1:brida",
+      "target_lemma": "brida"
+    },
+    "en-es:full-family-repaired-full:bridle:reprimir:shadow:2:ofenderse": {
+      "canonical_pos": "verb",
+      "evidence_views": {
+        "all_evidence_text": "bridle -> ofenderse | react with anger or offense",
+        "gloss_text": "react with anger or offense",
+        "sense_gloss_bundle": "bridle -> ofenderse | react with anger or offense",
+        "sense_label": "bridle -> ofenderse"
+      },
+      "sense_id": "en-es:full-family-repaired-full:bridle:reprimir:shadow:2:ofenderse",
+      "target_lemma": "ofenderse"
+    },
+    "en-es:full-family-repaired-full:brother:hermano:active": {
+      "canonical_pos": "noun",
+      "evidence_views": {
+        "all_evidence_text": "brother -> hermano | a male sibling, fellow member, or fraternal address | generated evidence: My brother helped me move into my new apartment. | generated evidence: She called her brother to ask about the family reunion.",
+        "gloss_text": "a male sibling, fellow member, or fraternal address",
+        "sense_gloss_bundle": "brother -> hermano | a male sibling, fellow member, or fraternal address",
+        "sense_label": "brother -> hermano"
+      },
+      "sense_id": "en-es:full-family-repaired-full:brother:hermano:active",
+      "target_lemma": "hermano"
+    },
+    "en-es:full-family-repaired-full:chic:elegante:active": {
+      "canonical_pos": "adjective",
+      "evidence_views": {
+        "all_evidence_text": "chic -> elegante | elegant and stylish | generated evidence: Her apartment looked chic, with clean lines, soft lighting, and carefully chosen furniture. | generated evidence: He wore a chic black suit that made him look polished and modern at the gala.",
+        "gloss_text": "elegant and stylish",
+        "sense_gloss_bundle": "chic -> elegante | elegant and stylish",
+        "sense_label": "chic -> elegante"
+      },
+      "sense_id": "en-es:full-family-repaired-full:chic:elegante:active",
+      "target_lemma": "elegante"
+    },
+    "en-es:full-family-repaired-full:chic:elegante:shadow:1:elegancia": {
+      "canonical_pos": "adjective",
+      "evidence_views": {
+        "all_evidence_text": "chic -> elegancia | fashionable elegance as a noun",
+        "gloss_text": "fashionable elegance as a noun",
+        "sense_gloss_bundle": "chic -> elegancia | fashionable elegance as a noun",
+        "sense_label": "chic -> elegancia"
+      },
+      "sense_id": "en-es:full-family-repaired-full:chic:elegante:shadow:1:elegancia",
+      "target_lemma": "elegancia"
+    },
+    "en-es:full-family-repaired-full:control:gobernar:active": {
+      "canonical_pos": "verb",
+      "evidence_views": {
+        "all_evidence_text": "control -> gobernar | exercise authority over a place, organization, or group | generated evidence: The mayor used his control to govern the city through a period of unrest. | generated evidence: After the election, the council gained control and began to govern the region directly.",
+        "gloss_text": "exercise authority over a place, organization, or group",
+        "sense_gloss_bundle": "control -> gobernar | exercise authority over a place, organization, or group",
+        "sense_label": "control -> gobernar"
+      },
+      "sense_id": "en-es:full-family-repaired-full:control:gobernar:active",
+      "target_lemma": "gobernar"
+    },
+    "en-es:full-family-repaired-full:control:gobernar:shadow:1:ajustar": {
+      "canonical_pos": "verb",
+      "evidence_views": {
+        "all_evidence_text": "control -> ajustar | operate or adjust a device setting",
+        "gloss_text": "operate or adjust a device setting",
+        "sense_gloss_bundle": "control -> ajustar | operate or adjust a device setting",
+        "sense_label": "control -> ajustar"
+      },
+      "sense_id": "en-es:full-family-repaired-full:control:gobernar:shadow:1:ajustar",
+      "target_lemma": "ajustar"
+    },
+    "en-es:full-family-repaired-full:control:gobernar:shadow:2:grupo-de-control": {
+      "canonical_pos": "verb",
+      "evidence_views": {
+        "all_evidence_text": "control -> grupo de control | a comparison group in an experiment",
+        "gloss_text": "a comparison group in an experiment",
+        "sense_gloss_bundle": "control -> grupo de control | a comparison group in an experiment",
+        "sense_label": "control -> grupo de control"
+      },
+      "sense_id": "en-es:full-family-repaired-full:control:gobernar:shadow:2:grupo-de-control",
+      "target_lemma": "grupo de control"
+    },
+    "en-es:full-family-repaired-full:december:diciembre:active": {
+      "canonical_pos": "noun",
+      "evidence_views": {
+        "all_evidence_text": "december -> diciembre | the twelfth month of the year | generated evidence: The report was due in december, the twelfth month of the year. | generated evidence: We booked the trip for december because the twelfth month is when the festival begins.",
+        "gloss_text": "the twelfth month of the year",
+        "sense_gloss_bundle": "december -> diciembre | the twelfth month of the year",
+        "sense_label": "december -> diciembre"
+      },
+      "sense_id": "en-es:full-family-repaired-full:december:diciembre:active",
+      "target_lemma": "diciembre"
+    },
+    "en-es:full-family-repaired-full:dentist:dentista:active": {
+      "canonical_pos": "noun",
+      "evidence_views": {
+        "all_evidence_text": "dentist -> dentista | a person qualified to practice dentistry | generated evidence: The dentist checked my teeth and filled a small cavity. | generated evidence: She booked an appointment with the dentist for a routine cleaning.",
+        "gloss_text": "a person qualified to practice dentistry",
+        "sense_gloss_bundle": "dentist -> dentista | a person qualified to practice dentistry",
+        "sense_label": "dentist -> dentista"
+      },
+      "sense_id": "en-es:full-family-repaired-full:dentist:dentista:active",
+      "target_lemma": "dentista"
+    },
+    "en-es:full-family-repaired-full:entirely:enteramente:active": {
+      "canonical_pos": "adverb",
+      "evidence_views": {
+        "all_evidence_text": "entirely -> enteramente | completely, wholly, or entirely | generated evidence: The room was entirely dark after the power went out. | generated evidence: She was entirely responsible for organizing the event.",
+        "gloss_text": "completely, wholly, or entirely",
+        "sense_gloss_bundle": "entirely -> enteramente | completely, wholly, or entirely",
+        "sense_label": "entirely -> enteramente"
+      },
+      "sense_id": "en-es:full-family-repaired-full:entirely:enteramente:active",
+      "target_lemma": "enteramente"
+    },
+    "en-es:full-family-repaired-full:german:alem-n:active": {
+      "canonical_pos": "adjective",
+      "evidence_views": {
+        "all_evidence_text": "german -> alemán | German as nationality, language, or country adjective | generated evidence: She studied german history and learned how the language changed over time. | generated evidence: The museum featured a german passport from the 1920s.",
+        "gloss_text": "German as nationality, language, or country adjective",
+        "sense_gloss_bundle": "german -> alemán | German as nationality, language, or country adjective",
+        "sense_label": "german -> alemán"
+      },
+      "sense_id": "en-es:full-family-repaired-full:german:alem-n:active",
+      "target_lemma": "alemán"
+    },
+    "en-es:full-family-repaired-full:govern:gobernar:active": {
+      "canonical_pos": "verb",
+      "evidence_views": {
+        "all_evidence_text": "govern -> gobernar | exercise governing authority over a country, place, or organization | generated evidence: The elected council will govern the city for the next four years.",
+        "gloss_text": "exercise governing authority over a country, place, or organization",
+        "sense_gloss_bundle": "govern -> gobernar | exercise governing authority over a country, place, or organization",
+        "sense_label": "govern -> gobernar"
+      },
+      "sense_id": "en-es:full-family-repaired-full:govern:gobernar:active",
+      "target_lemma": "gobernar"
+    },
+    "en-es:full-family-repaired-full:govern:gobernar:shadow:1:regular": {
+      "canonical_pos": "verb",
+      "evidence_views": {
+        "all_evidence_text": "govern -> regular | regulate rules or behavior",
+        "gloss_text": "regulate rules or behavior",
+        "sense_gloss_bundle": "govern -> regular | regulate rules or behavior",
+        "sense_label": "govern -> regular"
+      },
+      "sense_id": "en-es:full-family-repaired-full:govern:gobernar:shadow:1:regular",
+      "target_lemma": "regular"
+    },
+    "en-es:full-family-repaired-full:govern:gobernar:shadow:2:regir": {
+      "canonical_pos": "verb",
+      "evidence_views": {
+        "all_evidence_text": "govern -> regir | take a grammatical object or case",
+        "gloss_text": "take a grammatical object or case",
+        "sense_gloss_bundle": "govern -> regir | take a grammatical object or case",
+        "sense_label": "govern -> regir"
+      },
+      "sense_id": "en-es:full-family-repaired-full:govern:gobernar:shadow:2:regir",
+      "target_lemma": "regir"
+    },
+    "en-es:full-family-repaired-full:heart:coraz-n:active": {
+      "canonical_pos": "noun",
+      "evidence_views": {
+        "all_evidence_text": "heart -> corazón | heart as emotional center or physical organ | generated evidence: The doctor listened to her heart and said it was beating normally. | generated evidence: After the long climb, he felt his heart pounding in his chest.",
+        "gloss_text": "heart as emotional center or physical organ",
+        "sense_gloss_bundle": "heart -> corazón | heart as emotional center or physical organ",
+        "sense_label": "heart -> corazón"
+      },
+      "sense_id": "en-es:full-family-repaired-full:heart:coraz-n:active",
+      "target_lemma": "corazón"
+    },
+    "en-es:full-family-repaired-full:offset:distancia:active": {
+      "canonical_pos": "noun",
+      "evidence_views": {
+        "all_evidence_text": "offset -> distancia | a measured displacement or distance from a reference point | generated evidence: The survey marked the offset from the trailhead to the campsite as 3 miles. | generated evidence: We measured the offset between the two sensors to check their spacing.",
+        "gloss_text": "a measured displacement or distance from a reference point",
+        "sense_gloss_bundle": "offset -> distancia | a measured displacement or distance from a reference point",
+        "sense_label": "offset -> distancia"
+      },
+      "sense_id": "en-es:full-family-repaired-full:offset:distancia:active",
+      "target_lemma": "distancia"
+    },
+    "en-es:full-family-repaired-full:offset:distancia:shadow:1:compensar": {
+      "canonical_pos": "noun",
+      "evidence_views": {
+        "all_evidence_text": "offset -> compensar | counterbalance or compensate for something",
+        "gloss_text": "counterbalance or compensate for something",
+        "sense_gloss_bundle": "offset -> compensar | counterbalance or compensate for something",
+        "sense_label": "offset -> compensar"
+      },
+      "sense_id": "en-es:full-family-repaired-full:offset:distancia:shadow:1:compensar",
+      "target_lemma": "compensar"
+    },
+    "en-es:full-family-repaired-full:offset:distancia:shadow:2:reembolso": {
+      "canonical_pos": "noun",
+      "evidence_views": {
+        "all_evidence_text": "offset -> reembolso | a refund or credit against a charge",
+        "gloss_text": "a refund or credit against a charge",
+        "sense_gloss_bundle": "offset -> reembolso | a refund or credit against a charge",
+        "sense_label": "offset -> reembolso"
+      },
+      "sense_id": "en-es:full-family-repaired-full:offset:distancia:shadow:2:reembolso",
+      "target_lemma": "reembolso"
+    },
+    "en-es:full-family-repaired-full:rebate:descuento:active": {
+      "canonical_pos": "noun",
+      "evidence_views": {
+        "all_evidence_text": "rebate -> descuento | a refund, reduction, or discount on an amount paid | generated evidence: The store gave me a rebate on the laptop after I mailed in the receipt. | generated evidence: Customers received a rebate when they bought the appliance during the holiday sale.",
+        "gloss_text": "a refund, reduction, or discount on an amount paid",
+        "sense_gloss_bundle": "rebate -> descuento | a refund, reduction, or discount on an amount paid",
+        "sense_label": "rebate -> descuento"
+      },
+      "sense_id": "en-es:full-family-repaired-full:rebate:descuento:active",
+      "target_lemma": "descuento"
+    },
+    "en-es:full-family-repaired-full:rebate:descuento:shadow:1:ranura": {
+      "canonical_pos": "noun",
+      "evidence_views": {
+        "all_evidence_text": "rebate -> ranura | a groove cut into wood or stone",
+        "gloss_text": "a groove cut into wood or stone",
+        "sense_gloss_bundle": "rebate -> ranura | a groove cut into wood or stone",
+        "sense_label": "rebate -> ranura"
+      },
+      "sense_id": "en-es:full-family-repaired-full:rebate:descuento:shadow:1:ranura",
+      "target_lemma": "ranura"
+    },
+    "en-es:full-family-repaired-full:rebate:descuento:shadow:2:reembolsar": {
+      "canonical_pos": "noun",
+      "evidence_views": {
+        "all_evidence_text": "rebate -> reembolsar | give money back as a refund",
+        "gloss_text": "give money back as a refund",
+        "sense_gloss_bundle": "rebate -> reembolsar | give money back as a refund",
+        "sense_label": "rebate -> reembolsar"
+      },
+      "sense_id": "en-es:full-family-repaired-full:rebate:descuento:shadow:2:reembolsar",
+      "target_lemma": "reembolsar"
+    },
+    "en-es:full-family-repaired-full:rumanian:rumano:active": {
+      "canonical_pos": "adjective",
+      "evidence_views": {
+        "all_evidence_text": "rumanian -> rumano | Romanian as a nationality, language, or country adjective | generated evidence: She studied rumanian history to better understand the country's modern identity. | generated evidence: The museum added a rumanian language exhibit for visitors interested in regional literature.",
+        "gloss_text": "Romanian as a nationality, language, or country adjective",
+        "sense_gloss_bundle": "rumanian -> rumano | Romanian as a nationality, language, or country adjective",
+        "sense_label": "rumanian -> rumano"
+      },
+      "sense_id": "en-es:full-family-repaired-full:rumanian:rumano:active",
+      "target_lemma": "rumano"
+    },
+    "en-es:full-family-repaired-full:salesman:vendedor:active": {
+      "canonical_pos": "noun",
+      "evidence_views": {
+        "all_evidence_text": "salesman -> vendedor | a person whose job is selling goods or services | generated evidence: The salesman explained the warranty and helped the customer choose the right laptop. | generated evidence: At the car dealership, the salesman negotiated the price and closed the deal.",
+        "gloss_text": "a person whose job is selling goods or services",
+        "sense_gloss_bundle": "salesman -> vendedor | a person whose job is selling goods or services",
+        "sense_label": "salesman -> vendedor"
+      },
+      "sense_id": "en-es:full-family-repaired-full:salesman:vendedor:active",
+      "target_lemma": "vendedor"
+    },
+    "en-es:full-family-repaired-full:smile:sonre-r:active": {
+      "canonical_pos": "verb",
+      "evidence_views": {
+        "all_evidence_text": "smile -> sonreír | smile as a verb, changing one's facial expression | generated evidence: He could not smile because the bright light made him squint.",
+        "gloss_text": "smile as a verb, changing one's facial expression",
+        "sense_gloss_bundle": "smile -> sonreír | smile as a verb, changing one's facial expression",
+        "sense_label": "smile -> sonreír"
+      },
+      "sense_id": "en-es:full-family-repaired-full:smile:sonre-r:active",
+      "target_lemma": "sonreír"
+    },
+    "en-es:full-family-repaired-full:smile:sonre-r:shadow:1:sonrisa": {
+      "canonical_pos": "verb",
+      "evidence_views": {
+        "all_evidence_text": "smile -> sonrisa | a facial expression as a noun",
+        "gloss_text": "a facial expression as a noun",
+        "sense_gloss_bundle": "smile -> sonrisa | a facial expression as a noun",
+        "sense_label": "smile -> sonrisa"
+      },
+      "sense_id": "en-es:full-family-repaired-full:smile:sonre-r:shadow:1:sonrisa",
+      "target_lemma": "sonrisa"
+    },
+    "en-es:full-family-repaired-full:smile:sonre-r:shadow:2:agradecer-con-una-sonrisa": {
+      "canonical_pos": "verb",
+      "evidence_views": {
+        "all_evidence_text": "smile -> agradecer con una sonrisa | express something by smiling",
+        "gloss_text": "express something by smiling",
+        "sense_gloss_bundle": "smile -> agradecer con una sonrisa | express something by smiling",
+        "sense_label": "smile -> agradecer con una sonrisa"
+      },
+      "sense_id": "en-es:full-family-repaired-full:smile:sonre-r:shadow:2:agradecer-con-una-sonrisa",
+      "target_lemma": "agradecer con una sonrisa"
+    },
+    "en-es:full-family-repaired-full:tomorrow:ma-ana:active": {
+      "canonical_pos": "noun",
+      "evidence_views": {
+        "all_evidence_text": "tomorrow -> mañana | the day after today, the next day, or the near future | generated evidence: I have a dentist appointment tomorrow at 9 a.m. | generated evidence: Please send the report tomorrow, after the meeting ends.",
+        "gloss_text": "the day after today, the next day, or the near future",
+        "sense_gloss_bundle": "tomorrow -> mañana | the day after today, the next day, or the near future",
+        "sense_label": "tomorrow -> mañana"
+      },
+      "sense_id": "en-es:full-family-repaired-full:tomorrow:ma-ana:active",
+      "target_lemma": "mañana"
+    }
+  },
+  "triggers": {
+    "en-es:full-family-repaired-full:acceptable:razonable:trigger": {
+      "normalized_source_phrase": "acceptable",
+      "source_phrase": "acceptable",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:acceptable:razonable:trigger"
+    },
+    "en-es:full-family-repaired-full:adjoining:vecino:trigger": {
+      "normalized_source_phrase": "adjoining",
+      "source_phrase": "adjoining",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:adjoining:vecino:trigger"
+    },
+    "en-es:full-family-repaired-full:american:americano:trigger": {
+      "normalized_source_phrase": "american",
+      "source_phrase": "american",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:american:americano:trigger"
+    },
+    "en-es:full-family-repaired-full:among:entre:trigger": {
+      "normalized_source_phrase": "among",
+      "source_phrase": "among",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:among:entre:trigger"
+    },
+    "en-es:full-family-repaired-full:bar:cercar:trigger": {
+      "normalized_source_phrase": "bar",
+      "source_phrase": "bar",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:bar:cercar:trigger"
+    },
+    "en-es:full-family-repaired-full:begin:comenzar:trigger": {
+      "normalized_source_phrase": "begin",
+      "source_phrase": "begin",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:begin:comenzar:trigger"
+    },
+    "en-es:full-family-repaired-full:bouillon:caldo:trigger": {
+      "normalized_source_phrase": "bouillon",
+      "source_phrase": "bouillon",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:bouillon:caldo:trigger"
+    },
+    "en-es:full-family-repaired-full:break:quebrar:trigger": {
+      "normalized_source_phrase": "break",
+      "source_phrase": "break",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:break:quebrar:trigger"
+    },
+    "en-es:full-family-repaired-full:bridle:reprimir:trigger": {
+      "normalized_source_phrase": "bridle",
+      "source_phrase": "bridle",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:bridle:reprimir:trigger"
+    },
+    "en-es:full-family-repaired-full:brother:hermano:trigger": {
+      "normalized_source_phrase": "brother",
+      "source_phrase": "brother",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:brother:hermano:trigger"
+    },
+    "en-es:full-family-repaired-full:chic:elegante:trigger": {
+      "normalized_source_phrase": "chic",
+      "source_phrase": "chic",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:chic:elegante:trigger"
+    },
+    "en-es:full-family-repaired-full:control:gobernar:trigger": {
+      "normalized_source_phrase": "control",
+      "source_phrase": "control",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:control:gobernar:trigger"
+    },
+    "en-es:full-family-repaired-full:december:diciembre:trigger": {
+      "normalized_source_phrase": "december",
+      "source_phrase": "december",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:december:diciembre:trigger"
+    },
+    "en-es:full-family-repaired-full:dentist:dentista:trigger": {
+      "normalized_source_phrase": "dentist",
+      "source_phrase": "dentist",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:dentist:dentista:trigger"
+    },
+    "en-es:full-family-repaired-full:entirely:enteramente:trigger": {
+      "normalized_source_phrase": "entirely",
+      "source_phrase": "entirely",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:entirely:enteramente:trigger"
+    },
+    "en-es:full-family-repaired-full:german:alem-n:trigger": {
+      "normalized_source_phrase": "german",
+      "source_phrase": "german",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:german:alem-n:trigger"
+    },
+    "en-es:full-family-repaired-full:govern:gobernar:trigger": {
+      "normalized_source_phrase": "govern",
+      "source_phrase": "govern",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:govern:gobernar:trigger"
+    },
+    "en-es:full-family-repaired-full:heart:coraz-n:trigger": {
+      "normalized_source_phrase": "heart",
+      "source_phrase": "heart",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:heart:coraz-n:trigger"
+    },
+    "en-es:full-family-repaired-full:offset:distancia:trigger": {
+      "normalized_source_phrase": "offset",
+      "source_phrase": "offset",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:offset:distancia:trigger"
+    },
+    "en-es:full-family-repaired-full:rebate:descuento:trigger": {
+      "normalized_source_phrase": "rebate",
+      "source_phrase": "rebate",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:rebate:descuento:trigger"
+    },
+    "en-es:full-family-repaired-full:rumanian:rumano:trigger": {
+      "normalized_source_phrase": "rumanian",
+      "source_phrase": "rumanian",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:rumanian:rumano:trigger"
+    },
+    "en-es:full-family-repaired-full:salesman:vendedor:trigger": {
+      "normalized_source_phrase": "salesman",
+      "source_phrase": "salesman",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:salesman:vendedor:trigger"
+    },
+    "en-es:full-family-repaired-full:smile:sonre-r:trigger": {
+      "normalized_source_phrase": "smile",
+      "source_phrase": "smile",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:smile:sonre-r:trigger"
+    },
+    "en-es:full-family-repaired-full:tomorrow:ma-ana:trigger": {
+      "normalized_source_phrase": "tomorrow",
+      "source_phrase": "tomorrow",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:tomorrow:ma-ana:trigger"
+    }
+  }
+}

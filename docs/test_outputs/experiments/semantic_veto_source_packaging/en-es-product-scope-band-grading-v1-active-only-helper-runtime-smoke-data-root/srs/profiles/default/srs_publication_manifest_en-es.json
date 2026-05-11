@@ -1,0 +1,33 @@
+{
+  "artifacts": {
+    "ruleset": {
+      "bytes": 13141,
+      "exists": true,
+      "path": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-product-scope-band-grading-v1-active-only-helper-runtime-smoke-data-root/srs/profiles/default/srs_ruleset_en-es.json",
+      "sha1": "b5041f618db5bc22214019562bda5b7be3984a4c"
+    },
+    "semantic_inventory": {
+      "bytes": 51778,
+      "exists": true,
+      "path": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-product-scope-band-grading-v1-active-only-helper-runtime-smoke-data-root/srs/profiles/default/srs_semantic_inventory_en-es.json",
+      "sha1": "3f41c9ea0f523c5f506b65be8bc7459b15b5c2a7"
+    },
+    "snapshot": {
+      "bytes": 1681,
+      "exists": true,
+      "path": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-product-scope-band-grading-v1-active-only-helper-runtime-smoke-data-root/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
+      "sha1": "37b842262a2576b37c641162d06abb6da0132563"
+    }
+  },
+  "generated_at": "2026-05-09T22:31:56Z",
+  "generation_id": "en-es:default:34281603b7efd681",
+  "pair": "en-es",
+  "profile_id": "default",
+  "published_at": "2026-05-09T22:31:56Z",
+  "schema_version": 1,
+  "validation": {
+    "errors": [],
+    "family_valid": true,
+    "semantic_inventory_included": true
+  }
+}

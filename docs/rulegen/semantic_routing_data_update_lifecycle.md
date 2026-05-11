@@ -2,8 +2,8 @@
 
 Status: active plan
 Role: Planning / operational
-Last updated: 2026-04-16
-Last verified: 2026-04-16 repo-doc routing review against the semantic-routing contracts, implementation roadmap, and launch/research document split
+Last updated: 2026-05-12
+Last verified: 2026-05-12 helper CLI/native-host semantic-pack installer tests, named-pack resolver tests, and disposable product-root install smoke
 Purpose: define the update process for semantic-routing data so LexiShift can add mined, manual, and later LLM-derived evidence without creating awkward runtime coupling, redundant storage, or unsafe publication flow
 Source-of-truth: planning doc only; current implemented truth still lives in helper publication/runtime code and the semantic-routing contracts
 Related docs:
@@ -294,6 +294,20 @@ LLM batches should also carry:
 - `temperature`
 - `cost_metadata`
 
+Paid LLM generation runs should preserve a durable run directory before any row
+is normalized or admitted. The recommended local product path is:
+
+```text
+<lexishift_data_root>/language_packs/<pair>/semantic_generation_runs/<run-id>
+```
+
+That directory should contain the run manifest, exact request queue, append-only
+journal, raw-response JSONL, failure JSONL, final raw bundle, and final generated
+responses. Raw paid outputs are source material. If later normalization,
+postprocessing, scoring, or publication fails, the project should be able to
+rebuild from that run directory without paying for the same completed requests
+again.
+
 Current repo anchor for the first LLM lane:
 
 - `docs/test_inputs/semantic_routing/semantic_llm_intake_batch.schema.json`
@@ -391,6 +405,76 @@ The browser/helper runtime should not care whether the upstream source was:
 - or enriched by LLM
 
 It should only care that the local helper paths contain one valid aligned publication family.
+
+Current local materializer:
+
+```bash
+python3 scripts/helper/lexishift_helper.py install_semantic_pack \
+  --pair en-es \
+  --profile-id <profile-id> \
+  --pack-id <stable-pack-id> \
+  --data-root <disposable-or-product-data-root>
+```
+
+`--semantic-inventory` is now an optional developer override, not the normal
+product-shaped route. When it is omitted, the helper resolves the requested
+`pack_id` in this order:
+
+1. an already-installed local pack copy under
+   `<data-root>/language_packs/<pair>/semantic_packs/<pack-id>/semantic_inventory.json`
+2. an explicit semantic-pack catalog file from `LEXISHIFT_SEMANTIC_PACK_CATALOG`
+3. the current repo dev-pack path for
+   `en-es-active-only-combined-product-scope-v1`
+
+That keeps tests and first product checks honest: the UI/backend contract is
+"install this named pack into this profile/data root", while file paths remain
+available for diagnostics, replay, and one-off source debugging.
+
+The same materializer is also exposed through the native-host command
+`install_semantic_pack`. Its payload uses the same fields as the CLI:
+
+```json
+{
+  "type": "install_semantic_pack",
+  "payload": {
+    "pair": "en-es",
+    "profile_id": "<profile-id>",
+    "pack_id": "<stable-pack-id>",
+    "data_root": "<disposable-or-product-data-root>"
+  }
+}
+```
+
+`semantic_inventory_path` may still be supplied in that payload as an explicit
+override. It should not be required by normal product testing.
+
+The command intentionally requires `--data-root` on the CLI or
+`payload.data_root` through native host unless the corresponding
+`allow_default_data_root` flag is passed. That keeps the first product checks in
+a disposable root such as:
+
+```text
+docs/test_outputs/experiments/semantic_veto_source_packaging/<pack-id>-product-install-data-root
+```
+
+It writes two layers:
+
+- pair-level pack copy:
+  `<data-root>/language_packs/<pair>/semantic_packs/<pack-id>/`
+- profile-local runtime publication family:
+  `<data-root>/srs/profiles/<profile-id>/srs_ruleset_<pair>.json`,
+  `srs_rulegen_snapshot_<pair>.json`,
+  `srs_semantic_inventory_<pair>.json`, and
+  `srs_publication_manifest_<pair>.json`
+
+The command also supports `--dry-run`, which validates and reports the target
+paths without writing profile artifacts.
+
+The browser extension options page exposes the same route under Advanced debug
+tools. That UI installs by semantic `pack_id`, accepts a local compiled inventory
+path only as an override, and still requires either a disposable data root or an
+explicit opt-in to the default helper data root. It is for product validation and
+local release testing, not a final end-user pack download flow.
 
 ## Recommended Identity Model
 

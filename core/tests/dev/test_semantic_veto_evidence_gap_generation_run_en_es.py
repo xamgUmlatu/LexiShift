@@ -74,6 +74,15 @@ class SemanticVetoEvidenceGapGenerationRunTests(unittest.TestCase):
             )
             self.assertTrue((Path(tmp) / "summary.json").exists())
             self.assertTrue((Path(tmp) / "generated_responses.json").exists())
+            artifacts = report["artifacts"]
+            manifest = json.loads(Path(artifacts["run_manifest_json"]).read_text(encoding="utf-8"))
+            self.assertEqual(manifest["manifest_kind"], "semantic_veto_evidence_gap_generation_run")
+            self.assertEqual(manifest["status"], "ok")
+            self.assertTrue(Path(artifacts["request_queue_jsonl"]).exists())
+            raw_events = _read_jsonl(Path(artifacts["raw_responses_jsonl"]))
+            self.assertEqual(len(raw_events), 1)
+            self.assertEqual(raw_events[0]["event_type"], "raw_response")
+            self.assertEqual(_read_jsonl(Path(artifacts["failures_jsonl"])), [])
 
     def test_replay_run_rejects_wrong_request_id_before_admission(self) -> None:
         bad_response = _active_response()
@@ -100,6 +109,46 @@ class SemanticVetoEvidenceGapGenerationRunTests(unittest.TestCase):
         self.assertEqual(report["status"], "error")
         self.assertEqual(report["summary"]["invalid_output_count"], 1)
         self.assertIn("request_id did not match", report["request_rows"][0]["error_message"])
+
+    def test_live_run_writes_resume_artifacts_before_final_bundle_write(self) -> None:
+        bad_response = _active_response()
+        bad_response["request_id"] = "wrong"
+        with tempfile.TemporaryDirectory() as tmp:
+            bundle = build_evidence_gap_generation_run_bundle(
+                request_payload=_request_payload(),
+                responses_client=_ReplayResponsesClient(
+                    {
+                        "requests": [
+                            {
+                                "request_id": "pilot:req:active",
+                                "output_text": json.dumps(bad_response),
+                            }
+                        ]
+                    }
+                ),
+                batch_dir=Path(tmp),
+                execution_mode="live",
+                run_id="durable-artifacts",
+                generated_at="2026-05-08T00:00:00Z",
+                max_requests=1,
+            )
+
+            report = bundle["report"]
+            self.assertEqual(report["status"], "error")
+            artifacts = report["artifacts"]
+            manifest = json.loads(Path(artifacts["run_manifest_json"]).read_text(encoding="utf-8"))
+            self.assertEqual(manifest["status"], "started")
+            self.assertEqual(manifest["selected_request_count"], 1)
+            self.assertEqual(
+                _read_jsonl(Path(artifacts["request_queue_jsonl"]))[0]["event_type"],
+                "request_queued",
+            )
+            raw_events = _read_jsonl(Path(artifacts["raw_responses_jsonl"]))
+            self.assertEqual(len(raw_events), 1)
+            self.assertEqual(raw_events[0]["summary_row"]["status"], "invalid_output")
+            failure_events = _read_jsonl(Path(artifacts["failures_jsonl"]))
+            self.assertEqual(len(failure_events), 1)
+            self.assertEqual(failure_events[0]["event_type"], "request_failure")
 
     def test_replay_run_accepts_honest_no_competitor_marker(self) -> None:
         bundle = build_evidence_gap_generation_run_bundle(
@@ -141,6 +190,117 @@ class SemanticVetoEvidenceGapGenerationRunTests(unittest.TestCase):
         self.assertEqual(report["admission_preview"]["status"], "ok")
         self.assertEqual(report["admission_preview"]["coverage_shortfall_count"], 0)
 
+    def test_replay_run_fills_missing_source_phrase_from_request(self) -> None:
+        response = _active_response()
+        response.pop("source_phrase")
+        bundle = build_evidence_gap_generation_run_bundle(
+            request_payload=_request_payload(),
+            responses_client=_ReplayResponsesClient(
+                {
+                    "requests": [
+                        {
+                            "request_id": "pilot:req:active",
+                            "output_text": json.dumps(response),
+                        }
+                    ]
+                }
+            ),
+            batch_dir=Path("unused"),
+            execution_mode="replay",
+            replay_source="fixture",
+            generated_at="2026-05-08T00:00:00Z",
+            max_requests=1,
+        )
+
+        self.assertEqual(bundle["report"]["status"], "ok")
+        generated_response = bundle["generated_responses_payload"]["responses"][0]
+        self.assertEqual(generated_response["source_phrase"], "bank")
+        self.assertEqual(
+            generated_response["normalization_notes"],
+            ["source_phrase_filled_from_request_trigger"],
+        )
+
+    def test_live_resume_can_retry_invalid_output_more_than_once(self) -> None:
+        bad_response = _active_response()
+        bad_response.pop("target_lemma")
+        with tempfile.TemporaryDirectory() as tmp:
+            first = build_evidence_gap_generation_run_bundle(
+                request_payload=_request_payload(),
+                responses_client=_ReplayResponsesClient(
+                    {
+                        "requests": [
+                            {
+                                "request_id": "pilot:req:active",
+                                "output_text": json.dumps(bad_response),
+                            }
+                        ]
+                    }
+                ),
+                batch_dir=Path(tmp),
+                execution_mode="live",
+                run_id="retry-twice",
+                generated_at="2026-05-08T00:00:00Z",
+            )
+            self.assertEqual(first["report"]["status"], "error")
+            self.assertEqual(first["report"]["summary"]["invalid_output_count"], 1)
+
+            second = build_evidence_gap_generation_run_bundle(
+                request_payload=_request_payload(),
+                responses_client=_ReplayResponsesClient(
+                    {
+                        "requests": [
+                            {
+                                "request_id": "pilot:req:active",
+                                "output_text": json.dumps(bad_response),
+                            }
+                        ]
+                    }
+                ),
+                batch_dir=Path(tmp),
+                execution_mode="live",
+                run_id="retry-twice",
+                resume=True,
+                retry_invalid_outputs=True,
+                generated_at="2026-05-08T00:00:00Z",
+            )
+            self.assertEqual(second["report"]["status"], "error")
+            self.assertEqual(second["report"]["summary"]["invalid_output_count"], 1)
+
+            third = build_evidence_gap_generation_run_bundle(
+                request_payload=_request_payload(),
+                responses_client=_ReplayResponsesClient(
+                    {
+                        "requests": [
+                            {
+                                "request_id": "pilot:req:active",
+                                "output_text": json.dumps(_active_response()),
+                            }
+                        ]
+                    }
+                ),
+                batch_dir=Path(tmp),
+                execution_mode="live",
+                run_id="retry-twice",
+                resume=True,
+                retry_invalid_outputs=True,
+                generated_at="2026-05-08T00:00:00Z",
+            )
+            self.assertEqual(third["report"]["status"], "ok")
+            self.assertEqual(third["report"]["summary"]["accepted_response_count"], 1)
+            write_evidence_gap_generation_run_bundle(
+                bundle=third,
+                json_out=Path(tmp) / "summary.json",
+                markdown_out=Path(tmp) / "summary.md",
+                generated_responses_out=Path(tmp) / "generated_responses.json",
+            )
+            artifacts = third["report"]["artifacts"]
+            raw_events = _read_jsonl(Path(artifacts["raw_responses_jsonl"]))
+            self.assertEqual(
+                [row["summary_row"]["status"] for row in raw_events],
+                ["invalid_output", "invalid_output", "accepted"],
+            )
+            self.assertEqual(len(_read_jsonl(Path(artifacts["failures_jsonl"]))), 2)
+
     def test_safety_report_estimates_selected_request_cost(self) -> None:
         report = build_evidence_gap_generation_execution_safety_report(
             request_payload=_request_payload(),
@@ -153,6 +313,46 @@ class SemanticVetoEvidenceGapGenerationRunTests(unittest.TestCase):
         self.assertEqual(report["summary"]["selected_request_count"], 1)
         self.assertGreater(report["summary"]["estimated_input_tokens"], 0)
         self.assertIn("estimated_cost_ceiling", report["summary"])
+
+    def test_run_can_omit_temperature_for_models_that_reject_sampling_controls(self) -> None:
+        client = _RecordingReplayResponsesClient(
+            {
+                "requests": [
+                    {
+                        "request_id": "pilot:req:active",
+                        "response_id": "resp_omit_temperature",
+                        "output_text": json.dumps(_active_response()),
+                    }
+                ]
+            }
+        )
+
+        bundle = build_evidence_gap_generation_run_bundle(
+            request_payload=_request_payload(),
+            responses_client=client,
+            batch_dir=Path("unused"),
+            execution_mode="replay",
+            replay_source="fixture",
+            generated_at="2026-05-08T00:00:00Z",
+            max_requests=1,
+            model_id="gpt-5.5",
+            temperature=None,
+        )
+
+        self.assertEqual(bundle["report"]["status"], "ok")
+        self.assertIsNone(bundle["report"]["selected_temperature"])
+        self.assertEqual(len(client.calls), 1)
+        self.assertNotIn("temperature", client.calls[0])
+
+
+class _RecordingReplayResponsesClient(_ReplayResponsesClient):
+    def __init__(self, replay_payload: dict[str, object]) -> None:
+        super().__init__(replay_payload)
+        self.calls: list[dict[str, object]] = []
+
+    def create(self, **kwargs: object) -> object:
+        self.calls.append(dict(kwargs))
+        return super().create(**kwargs)
 
 
 def _request_payload() -> dict[str, object]:
@@ -236,6 +436,12 @@ def _active_response() -> dict[str, object]:
             },
         ],
     }
+
+
+def _read_jsonl(path: Path) -> list[dict[str, object]]:
+    return [
+        json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()
+    ]
 
 
 if __name__ == "__main__":

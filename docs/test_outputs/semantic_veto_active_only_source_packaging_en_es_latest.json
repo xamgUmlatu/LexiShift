@@ -1,0 +1,270 @@
+{
+  "batch_id": "en-es:semantic-veto:active-only-poc-v5-source-packaging-latest",
+  "decision": "active_only_source_packaging_ready_for_inventory_compile",
+  "excluded_items": [
+    {
+      "exclusion_reason": "high_eval_overlap",
+      "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:active_evidence_expansion:item:001",
+      "postprocess_audit_id": "generated_active_item:033",
+      "source_phrase": "smile",
+      "target_lemma": "sonreír"
+    },
+    {
+      "exclusion_reason": "high_eval_overlap",
+      "family_id": "en-es:full-family-repaired-full:govern:gobernar",
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:govern:gobernar:active_evidence_expansion:item:002",
+      "postprocess_audit_id": "generated_active_item:040",
+      "source_phrase": "govern",
+      "target_lemma": "gobernar"
+    },
+    {
+      "exclusion_reason": "high_eval_overlap",
+      "family_id": "en-es:full-family-repaired-full:bridle:reprimir",
+      "item_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:bridle:reprimir:active_evidence_expansion:item:002",
+      "postprocess_audit_id": "generated_active_item:046",
+      "source_phrase": "bridle",
+      "target_lemma": "reprimir"
+    }
+  ],
+  "family_rows": [
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:acceptable:razonable",
+      "packaged_row_count": 2,
+      "targets": [
+        "razonable"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:adjoining:vecino",
+      "packaged_row_count": 2,
+      "targets": [
+        "vecino"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:american:americano",
+      "packaged_row_count": 2,
+      "targets": [
+        "americano"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:among:entre",
+      "packaged_row_count": 2,
+      "targets": [
+        "entre"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:bar:cercar",
+      "packaged_row_count": 2,
+      "targets": [
+        "cercar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:begin:comenzar",
+      "packaged_row_count": 2,
+      "targets": [
+        "comenzar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:bouillon:caldo",
+      "packaged_row_count": 2,
+      "targets": [
+        "caldo"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:break:quebrar",
+      "packaged_row_count": 2,
+      "targets": [
+        "quebrar"
+      ]
+    },
+    {
+      "excluded_row_count": 1,
+      "family_id": "en-es:full-family-repaired-full:bridle:reprimir",
+      "packaged_row_count": 1,
+      "targets": [
+        "reprimir"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:brother:hermano",
+      "packaged_row_count": 2,
+      "targets": [
+        "hermano"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:chic:elegante",
+      "packaged_row_count": 2,
+      "targets": [
+        "elegante"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:control:gobernar",
+      "packaged_row_count": 2,
+      "targets": [
+        "gobernar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:december:diciembre",
+      "packaged_row_count": 2,
+      "targets": [
+        "diciembre"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:dentist:dentista",
+      "packaged_row_count": 2,
+      "targets": [
+        "dentista"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:entirely:enteramente",
+      "packaged_row_count": 2,
+      "targets": [
+        "enteramente"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:german:alem-n",
+      "packaged_row_count": 2,
+      "targets": [
+        "alemán"
+      ]
+    },
+    {
+      "excluded_row_count": 1,
+      "family_id": "en-es:full-family-repaired-full:govern:gobernar",
+      "packaged_row_count": 1,
+      "targets": [
+        "gobernar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:heart:coraz-n",
+      "packaged_row_count": 2,
+      "targets": [
+        "corazón"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:offset:distancia",
+      "packaged_row_count": 2,
+      "targets": [
+        "distancia"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:rebate:descuento",
+      "packaged_row_count": 2,
+      "targets": [
+        "descuento"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:rumanian:rumano",
+      "packaged_row_count": 2,
+      "targets": [
+        "rumano"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:salesman:vendedor",
+      "packaged_row_count": 2,
+      "targets": [
+        "vendedor"
+      ]
+    },
+    {
+      "excluded_row_count": 1,
+      "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+      "packaged_row_count": 1,
+      "targets": [
+        "sonreír"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:tomorrow:ma-ana",
+      "packaged_row_count": 2,
+      "targets": [
+        "mañana"
+      ]
+    }
+  ],
+  "generated_at": "2026-05-09T02:04:33Z",
+  "inputs": {
+    "admission_path": "docs/test_outputs/semantic_veto_evidence_gap_generation_admission_active_only_poc_en_es_latest.json",
+    "generation_run_path": "docs/test_outputs/semantic_veto_evidence_gap_generation_run_active_only_poc_en_es_latest.json",
+    "postprocess_path": "docs/test_outputs/semantic_veto_evidence_gap_generation_postprocess_active_only_poc_en_es_latest.json"
+  },
+  "issues": [],
+  "normalization_version": "semantic_evidence_v1",
+  "pair": "en-es",
+  "provenance_summary": {
+    "input_tokens": 11421,
+    "model_id": "gpt-5.4-mini",
+    "output_tokens": 4177,
+    "postprocess_status": "ok",
+    "prompt_id": "semantic_veto_evidence_gap_generation_v5",
+    "raw_output_mutation": "none",
+    "temperature": 0.2
+  },
+  "runtime_boundary": [
+    "normalized rows remain runtime_publishable=false",
+    "this output is canonical source evidence, not a semantic inventory sidecar",
+    "the next step is an inventory compiler that appends packaged anchor cues to ready active-sense evidence_views",
+    "runtime policy and thresholds remain unchanged"
+  ],
+  "schema_version": 1,
+  "status": "ok",
+  "summary": {
+    "admitted_input_item_count": 48,
+    "excluded_row_count": 3,
+    "exclusion_reason_counts": {
+      "high_eval_overlap": 3
+    },
+    "family_count": 24,
+    "packaged_row_count": 45,
+    "promotion_state_counts": {
+      "proposed": 45
+    },
+    "relation_type_counts": {
+      "anchor_cue": 45
+    },
+    "review_state_counts": {
+      "unreviewed": 45
+    },
+    "runtime_publishable_row_count": 0
+  },
+  "view_id": "no_high_eval_overlap_sentence_only"
+}

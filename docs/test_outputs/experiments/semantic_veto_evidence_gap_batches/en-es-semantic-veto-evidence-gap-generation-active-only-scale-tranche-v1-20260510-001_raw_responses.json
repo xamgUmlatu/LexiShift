@@ -1,0 +1,1727 @@
+{
+  "batch_id": "en-es:semantic-veto-evidence-gap-generation:active-only-scale-tranche-v1-20260510-001",
+  "execution_mode": "live",
+  "generated_at": "2026-05-09T22:50:44Z",
+  "pair": "en-es",
+  "pilot_id": "semantic_veto_active_only_scale_tranche_v1_en_es",
+  "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+  "replay_source": "",
+  "request_count": 16,
+  "requests": [
+    {
+      "family_id": "en-es:full-family-repaired-full:current:contempor-neo",
+      "model_id": "gpt-5.4-mini",
+      "output_text": "{\"request_id\":\"semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:current:contempor-neo:active_evidence_expansion\",\"family_id\":\"en-es:full-family-repaired-full:current:contempor-neo\",\"slot_id\":\"en-es:full-family-repaired-full:current:contempor-neo:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"current\",\"target_lemma\":\"contemporáneo\",\"items\":[{\"sentence\":\"The museum opened a current exhibition of contemporary sculpture.\",\"evidence_note\":\"current means happening now, matching the present-time sense.\"},{\"sentence\":\"Her current research focuses on current trends in urban design.\",\"evidence_note\":\"current refers to the present period, supporting the contemporary sense.\"}]}",
+      "pilot_arm": "high_need",
+      "prompt_text": "Return exactly one JSON object. Preserve request_id, family_id, slot_id, slot_type, source_phrase, and target_lemma exactly as given. Do not include markdown. Generated English sentences must not contain Spanish target lemmas. Do not add labels like allow, abstain, active, shadow, or no-winner inside generated sentences. Every generated sentence must contain source_phrase as an exact standalone browser-replaceable token separated by spaces or ordinary punctuation. Do not hide source_phrase inside filenames, URLs, code identifiers, hashtags, handles, underscores, camelCase, or compounds. Return exactly requested_items item objects unless you are returning the explicit unable_to_find_distinct_competitor marker.\n\nrequest_id: semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:current:contempor-neo:active_evidence_expansion\nfamily_id: en-es:full-family-repaired-full:current:contempor-neo\nslot_id: en-es:full-family-repaired-full:current:contempor-neo:active_evidence_expansion\nslot_type: active_evidence_expansion\nsource_phrase: current\ntarget_lemma: contemporáneo\nactive_target_lemma: contemporáneo\nactive_evidence_text: current -> contemporáneo | belonging to the present time; contemporary\nknown_shadow_targets: corriente eléctrica, corriente\nrequested_items: 2\n\nRequired top-level JSON fields and exact values:\n{\"request_id\": \"semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:current:contempor-neo:active_evidence_expansion\", \"family_id\": \"en-es:full-family-repaired-full:current:contempor-neo\", \"slot_id\": \"en-es:full-family-repaired-full:current:contempor-neo:active_evidence_expansion\", \"slot_type\": \"active_evidence_expansion\", \"source_phrase\": \"current\", \"target_lemma\": \"contemporáneo\", \"items\": \"...\"}\n\nTask: generate concise English evidence examples for the active sense. Each item should be a natural sentence containing the source_phrase and making the active target sense clear from context.\nSchema: {request_id, family_id, slot_id, slot_type, source_phrase, target_lemma, items:[{sentence, evidence_note}]}",
+      "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:current:contempor-neo:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_03ecd7499626f7ea0169ffba0f4054819496837c6e4873e735",
+      "response_json": {
+        "background": false,
+        "billing": {
+          "payer": "developer"
+        },
+        "completed_at": 1778366992.0,
+        "conversation": null,
+        "created_at": 1778366991.0,
+        "error": null,
+        "frequency_penalty": 0.0,
+        "id": "resp_03ecd7499626f7ea0169ffba0f4054819496837c6e4873e735",
+        "incomplete_details": null,
+        "instructions": null,
+        "max_output_tokens": 700,
+        "max_tool_calls": null,
+        "metadata": {
+          "family_id": "en-es:full-family-repaired-full:current:contempor-neo",
+          "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+          "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:current:contempor-neo:active_evidence_expansion",
+          "slot_id": "en-es:full-family-repaired-full:current:contempor-neo:active_evidence_expansion"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "moderation": null,
+        "object": "response",
+        "output": [
+          {
+            "content": [
+              {
+                "annotations": [],
+                "logprobs": [],
+                "text": "{\"request_id\":\"semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:current:contempor-neo:active_evidence_expansion\",\"family_id\":\"en-es:full-family-repaired-full:current:contempor-neo\",\"slot_id\":\"en-es:full-family-repaired-full:current:contempor-neo:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"current\",\"target_lemma\":\"contemporáneo\",\"items\":[{\"sentence\":\"The museum opened a current exhibition of contemporary sculpture.\",\"evidence_note\":\"current means happening now, matching the present-time sense.\"},{\"sentence\":\"Her current research focuses on current trends in urban design.\",\"evidence_note\":\"current refers to the present period, supporting the contemporary sense.\"}]}",
+                "type": "output_text"
+              }
+            ],
+            "id": "msg_03ecd7499626f7ea0169ffba0fc1cc8194b654273bfe204e5b",
+            "phase": "final_answer",
+            "role": "assistant",
+            "status": "completed",
+            "type": "message"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "presence_penalty": 0.0,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "store": false,
+        "temperature": 0.2,
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "tool_choice": "auto",
+        "tools": [],
+        "top_logprobs": 0,
+        "top_p": 0.98,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 483,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 174,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 657
+        },
+        "user": null
+      },
+      "response_status": "completed",
+      "slot_id": "en-es:full-family-repaired-full:current:contempor-neo:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "completed",
+      "temperature": 0.2,
+      "usage": {
+        "input_tokens": 483,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 174,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 657
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:continue:durar",
+      "model_id": "gpt-5.4-mini",
+      "output_text": "{\"request_id\":\"semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:continue:durar:active_evidence_expansion\",\"family_id\":\"en-es:full-family-repaired-full:continue:durar\",\"slot_id\":\"en-es:full-family-repaired-full:continue:durar:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"continue\",\"target_lemma\":\"durar\",\"items\":[{\"sentence\":\"The meeting will continue for another two hours.\",\"evidence_note\":\"Shows duration over time.\"},{\"sentence\":\"If the rain continues through the night, the game will be postponed.\",\"evidence_note\":\"Indicates something lasts for a period of time.\"}]}",
+      "pilot_arm": "high_need",
+      "prompt_text": "Return exactly one JSON object. Preserve request_id, family_id, slot_id, slot_type, source_phrase, and target_lemma exactly as given. Do not include markdown. Generated English sentences must not contain Spanish target lemmas. Do not add labels like allow, abstain, active, shadow, or no-winner inside generated sentences. Every generated sentence must contain source_phrase as an exact standalone browser-replaceable token separated by spaces or ordinary punctuation. Do not hide source_phrase inside filenames, URLs, code identifiers, hashtags, handles, underscores, camelCase, or compounds. Return exactly requested_items item objects unless you are returning the explicit unable_to_find_distinct_competitor marker.\n\nrequest_id: semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:continue:durar:active_evidence_expansion\nfamily_id: en-es:full-family-repaired-full:continue:durar\nslot_id: en-es:full-family-repaired-full:continue:durar:active_evidence_expansion\nslot_type: active_evidence_expansion\nsource_phrase: continue\ntarget_lemma: durar\nactive_target_lemma: durar\nactive_evidence_text: continue -> durar | last or continue for a period of time\nknown_shadow_targets: seguir, reanudar\nrequested_items: 2\n\nRequired top-level JSON fields and exact values:\n{\"request_id\": \"semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:continue:durar:active_evidence_expansion\", \"family_id\": \"en-es:full-family-repaired-full:continue:durar\", \"slot_id\": \"en-es:full-family-repaired-full:continue:durar:active_evidence_expansion\", \"slot_type\": \"active_evidence_expansion\", \"source_phrase\": \"continue\", \"target_lemma\": \"durar\", \"items\": \"...\"}\n\nTask: generate concise English evidence examples for the active sense. Each item should be a natural sentence containing the source_phrase and making the active target sense clear from context.\nSchema: {request_id, family_id, slot_id, slot_type, source_phrase, target_lemma, items:[{sentence, evidence_note}]}",
+      "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:continue:durar:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_01f7950a584bfec00169ffba1103b48194855ab199a67af14d",
+      "response_json": {
+        "background": false,
+        "billing": {
+          "payer": "developer"
+        },
+        "completed_at": 1778366994.0,
+        "conversation": null,
+        "created_at": 1778366993.0,
+        "error": null,
+        "frequency_penalty": 0.0,
+        "id": "resp_01f7950a584bfec00169ffba1103b48194855ab199a67af14d",
+        "incomplete_details": null,
+        "instructions": null,
+        "max_output_tokens": 700,
+        "max_tool_calls": null,
+        "metadata": {
+          "family_id": "en-es:full-family-repaired-full:continue:durar",
+          "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+          "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:continue:durar:active_evidence_expansion",
+          "slot_id": "en-es:full-family-repaired-full:continue:durar:active_evidence_expansion"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "moderation": null,
+        "object": "response",
+        "output": [
+          {
+            "content": [
+              {
+                "annotations": [],
+                "logprobs": [],
+                "text": "{\"request_id\":\"semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:continue:durar:active_evidence_expansion\",\"family_id\":\"en-es:full-family-repaired-full:continue:durar\",\"slot_id\":\"en-es:full-family-repaired-full:continue:durar:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"continue\",\"target_lemma\":\"durar\",\"items\":[{\"sentence\":\"The meeting will continue for another two hours.\",\"evidence_note\":\"Shows duration over time.\"},{\"sentence\":\"If the rain continues through the night, the game will be postponed.\",\"evidence_note\":\"Indicates something lasts for a period of time.\"}]}",
+                "type": "output_text"
+              }
+            ],
+            "id": "msg_01f7950a584bfec00169ffba1188e4819490a9e2704c27bdfc",
+            "phase": "final_answer",
+            "role": "assistant",
+            "status": "completed",
+            "type": "message"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "presence_penalty": 0.0,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "store": false,
+        "temperature": 0.2,
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "tool_choice": "auto",
+        "tools": [],
+        "top_logprobs": 0,
+        "top_p": 0.98,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 463,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 158,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 621
+        },
+        "user": null
+      },
+      "response_status": "completed",
+      "slot_id": "en-es:full-family-repaired-full:continue:durar:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "completed",
+      "temperature": 0.2,
+      "usage": {
+        "input_tokens": 463,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 158,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 621
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:parrot:loro",
+      "model_id": "gpt-5.4-mini",
+      "output_text": "{\"request_id\":\"semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:parrot:loro:active_evidence_expansion\",\"family_id\":\"en-es:full-family-repaired-full:parrot:loro\",\"slot_id\":\"en-es:full-family-repaired-full:parrot:loro:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"parrot\",\"target_lemma\":\"loro\",\"items\":[{\"sentence\":\"The parrot perched on the branch and cracked a sunflower seed with its beak.\",\"evidence_note\":\"Bird sense: a living parrot in a cage or tree setting.\"},{\"sentence\":\"At the zoo, a bright green parrot squawked loudly when visitors walked past.\",\"evidence_note\":\"Bird sense: an actual parrot making bird sounds.\"}]}",
+      "pilot_arm": "high_need",
+      "prompt_text": "Return exactly one JSON object. Preserve request_id, family_id, slot_id, slot_type, source_phrase, and target_lemma exactly as given. Do not include markdown. Generated English sentences must not contain Spanish target lemmas. Do not add labels like allow, abstain, active, shadow, or no-winner inside generated sentences. Every generated sentence must contain source_phrase as an exact standalone browser-replaceable token separated by spaces or ordinary punctuation. Do not hide source_phrase inside filenames, URLs, code identifiers, hashtags, handles, underscores, camelCase, or compounds. Return exactly requested_items item objects unless you are returning the explicit unable_to_find_distinct_competitor marker.\n\nrequest_id: semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:parrot:loro:active_evidence_expansion\nfamily_id: en-es:full-family-repaired-full:parrot:loro\nslot_id: en-es:full-family-repaired-full:parrot:loro:active_evidence_expansion\nslot_type: active_evidence_expansion\nsource_phrase: parrot\ntarget_lemma: loro\nactive_target_lemma: loro\nactive_evidence_text: parrot -> loro | a parrot bird\nknown_shadow_targets: repetir, imitador\nrequested_items: 2\n\nRequired top-level JSON fields and exact values:\n{\"request_id\": \"semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:parrot:loro:active_evidence_expansion\", \"family_id\": \"en-es:full-family-repaired-full:parrot:loro\", \"slot_id\": \"en-es:full-family-repaired-full:parrot:loro:active_evidence_expansion\", \"slot_type\": \"active_evidence_expansion\", \"source_phrase\": \"parrot\", \"target_lemma\": \"loro\", \"items\": \"...\"}\n\nTask: generate concise English evidence examples for the active sense. Each item should be a natural sentence containing the source_phrase and making the active target sense clear from context.\nSchema: {request_id, family_id, slot_id, slot_type, source_phrase, target_lemma, items:[{sentence, evidence_note}]}",
+      "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:parrot:loro:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_09bf98a68f363d8a0169ffba13bb648194a2caac0365233954",
+      "response_json": {
+        "background": false,
+        "billing": {
+          "payer": "developer"
+        },
+        "completed_at": 1778366997.0,
+        "conversation": null,
+        "created_at": 1778366995.0,
+        "error": null,
+        "frequency_penalty": 0.0,
+        "id": "resp_09bf98a68f363d8a0169ffba13bb648194a2caac0365233954",
+        "incomplete_details": null,
+        "instructions": null,
+        "max_output_tokens": 700,
+        "max_tool_calls": null,
+        "metadata": {
+          "family_id": "en-es:full-family-repaired-full:parrot:loro",
+          "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+          "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:parrot:loro:active_evidence_expansion",
+          "slot_id": "en-es:full-family-repaired-full:parrot:loro:active_evidence_expansion"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "moderation": null,
+        "object": "response",
+        "output": [
+          {
+            "content": [
+              {
+                "annotations": [],
+                "logprobs": [],
+                "text": "{\"request_id\":\"semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:parrot:loro:active_evidence_expansion\",\"family_id\":\"en-es:full-family-repaired-full:parrot:loro\",\"slot_id\":\"en-es:full-family-repaired-full:parrot:loro:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"parrot\",\"target_lemma\":\"loro\",\"items\":[{\"sentence\":\"The parrot perched on the branch and cracked a sunflower seed with its beak.\",\"evidence_note\":\"Bird sense: a living parrot in a cage or tree setting.\"},{\"sentence\":\"At the zoo, a bright green parrot squawked loudly when visitors walked past.\",\"evidence_note\":\"Bird sense: an actual parrot making bird sounds.\"}]}",
+                "type": "output_text"
+              }
+            ],
+            "id": "msg_09bf98a68f363d8a0169ffba143fc8819495bedd4a274d1737",
+            "phase": "final_answer",
+            "role": "assistant",
+            "status": "completed",
+            "type": "message"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "presence_penalty": 0.0,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "store": false,
+        "temperature": 0.2,
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "tool_choice": "auto",
+        "tools": [],
+        "top_logprobs": 0,
+        "top_p": 0.98,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 467,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 184,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 651
+        },
+        "user": null
+      },
+      "response_status": "completed",
+      "slot_id": "en-es:full-family-repaired-full:parrot:loro:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "completed",
+      "temperature": 0.2,
+      "usage": {
+        "input_tokens": 467,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 184,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 651
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:recover:sanar",
+      "model_id": "gpt-5.4-mini",
+      "output_text": "{\"request_id\":\"semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:recover:sanar:active_evidence_expansion\",\"family_id\":\"en-es:full-family-repaired-full:recover:sanar\",\"slot_id\":\"en-es:full-family-repaired-full:recover:sanar:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"recover\",\"target_lemma\":\"sanar\",\"items\":[{\"sentence\":\"The cut began to recover after she cleaned it and kept it covered.\",\"evidence_note\":\"Active healing of a wound or injury.\"},{\"sentence\":\"With rest and proper care, the burn should recover in a few weeks.\",\"evidence_note\":\"Active healing from an injury.\"}]}",
+      "pilot_arm": "high_need",
+      "prompt_text": "Return exactly one JSON object. Preserve request_id, family_id, slot_id, slot_type, source_phrase, and target_lemma exactly as given. Do not include markdown. Generated English sentences must not contain Spanish target lemmas. Do not add labels like allow, abstain, active, shadow, or no-winner inside generated sentences. Every generated sentence must contain source_phrase as an exact standalone browser-replaceable token separated by spaces or ordinary punctuation. Do not hide source_phrase inside filenames, URLs, code identifiers, hashtags, handles, underscores, camelCase, or compounds. Return exactly requested_items item objects unless you are returning the explicit unable_to_find_distinct_competitor marker.\n\nrequest_id: semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:recover:sanar:active_evidence_expansion\nfamily_id: en-es:full-family-repaired-full:recover:sanar\nslot_id: en-es:full-family-repaired-full:recover:sanar:active_evidence_expansion\nslot_type: active_evidence_expansion\nsource_phrase: recover\ntarget_lemma: sanar\nactive_target_lemma: sanar\nactive_evidence_text: recover -> sanar | recover from illness, injury, or shock; heal\nknown_shadow_targets: recuperar, retapizar\nrequested_items: 2\n\nRequired top-level JSON fields and exact values:\n{\"request_id\": \"semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:recover:sanar:active_evidence_expansion\", \"family_id\": \"en-es:full-family-repaired-full:recover:sanar\", \"slot_id\": \"en-es:full-family-repaired-full:recover:sanar:active_evidence_expansion\", \"slot_type\": \"active_evidence_expansion\", \"source_phrase\": \"recover\", \"target_lemma\": \"sanar\", \"items\": \"...\"}\n\nTask: generate concise English evidence examples for the active sense. Each item should be a natural sentence containing the source_phrase and making the active target sense clear from context.\nSchema: {request_id, family_id, slot_id, slot_type, source_phrase, target_lemma, items:[{sentence, evidence_note}]}",
+      "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:recover:sanar:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0736be69b921e4580169ffba15ae38819593f4d84a4bc83d54",
+      "response_json": {
+        "background": false,
+        "billing": {
+          "payer": "developer"
+        },
+        "completed_at": 1778366998.0,
+        "conversation": null,
+        "created_at": 1778366997.0,
+        "error": null,
+        "frequency_penalty": 0.0,
+        "id": "resp_0736be69b921e4580169ffba15ae38819593f4d84a4bc83d54",
+        "incomplete_details": null,
+        "instructions": null,
+        "max_output_tokens": 700,
+        "max_tool_calls": null,
+        "metadata": {
+          "family_id": "en-es:full-family-repaired-full:recover:sanar",
+          "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+          "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:recover:sanar:active_evidence_expansion",
+          "slot_id": "en-es:full-family-repaired-full:recover:sanar:active_evidence_expansion"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "moderation": null,
+        "object": "response",
+        "output": [
+          {
+            "content": [
+              {
+                "annotations": [],
+                "logprobs": [],
+                "text": "{\"request_id\":\"semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:recover:sanar:active_evidence_expansion\",\"family_id\":\"en-es:full-family-repaired-full:recover:sanar\",\"slot_id\":\"en-es:full-family-repaired-full:recover:sanar:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"recover\",\"target_lemma\":\"sanar\",\"items\":[{\"sentence\":\"The cut began to recover after she cleaned it and kept it covered.\",\"evidence_note\":\"Active healing of a wound or injury.\"},{\"sentence\":\"With rest and proper care, the burn should recover in a few weeks.\",\"evidence_note\":\"Active healing from an injury.\"}]}",
+                "type": "output_text"
+              }
+            ],
+            "id": "msg_0736be69b921e4580169ffba15f318819589e5139ba5cb61b2",
+            "phase": "final_answer",
+            "role": "assistant",
+            "status": "completed",
+            "type": "message"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "presence_penalty": 0.0,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "store": false,
+        "temperature": 0.2,
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "tool_choice": "auto",
+        "tools": [],
+        "top_logprobs": 0,
+        "top_p": 0.98,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 465,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 163,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 628
+        },
+        "user": null
+      },
+      "response_status": "completed",
+      "slot_id": "en-es:full-family-repaired-full:recover:sanar:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "completed",
+      "temperature": 0.2,
+      "usage": {
+        "input_tokens": 465,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 163,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 628
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:billow:oleaje",
+      "model_id": "gpt-5.4-mini",
+      "output_text": "{\"request_id\":\"semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:billow:oleaje:active_evidence_expansion\",\"family_id\":\"en-es:full-family-repaired-full:billow:oleaje\",\"slot_id\":\"en-es:full-family-repaired-full:billow:oleaje:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"billow\",\"target_lemma\":\"oleaje\",\"items\":[{\"sentence\":\"A billow rolled toward the shore and broke into white foam.\",\"evidence_note\":\"Describes a large sea wave or swell moving on the ocean.\"},{\"sentence\":\"From the deck, we watched a billow rise and fall across the dark water.\",\"evidence_note\":\"Uses billow in the sense of a sea swell on the water.\"}]}",
+      "pilot_arm": "high_need",
+      "prompt_text": "Return exactly one JSON object. Preserve request_id, family_id, slot_id, slot_type, source_phrase, and target_lemma exactly as given. Do not include markdown. Generated English sentences must not contain Spanish target lemmas. Do not add labels like allow, abstain, active, shadow, or no-winner inside generated sentences. Every generated sentence must contain source_phrase as an exact standalone browser-replaceable token separated by spaces or ordinary punctuation. Do not hide source_phrase inside filenames, URLs, code identifiers, hashtags, handles, underscores, camelCase, or compounds. Return exactly requested_items item objects unless you are returning the explicit unable_to_find_distinct_competitor marker.\n\nrequest_id: semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:billow:oleaje:active_evidence_expansion\nfamily_id: en-es:full-family-repaired-full:billow:oleaje\nslot_id: en-es:full-family-repaired-full:billow:oleaje:active_evidence_expansion\nslot_type: active_evidence_expansion\nsource_phrase: billow\ntarget_lemma: oleaje\nactive_target_lemma: oleaje\nactive_evidence_text: billow -> oleaje | a large sea wave or swell\nknown_shadow_targets: elevarse, hincharse\nrequested_items: 2\n\nRequired top-level JSON fields and exact values:\n{\"request_id\": \"semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:billow:oleaje:active_evidence_expansion\", \"family_id\": \"en-es:full-family-repaired-full:billow:oleaje\", \"slot_id\": \"en-es:full-family-repaired-full:billow:oleaje:active_evidence_expansion\", \"slot_type\": \"active_evidence_expansion\", \"source_phrase\": \"billow\", \"target_lemma\": \"oleaje\", \"items\": \"...\"}\n\nTask: generate concise English evidence examples for the active sense. Each item should be a natural sentence containing the source_phrase and making the active target sense clear from context.\nSchema: {request_id, family_id, slot_id, slot_type, source_phrase, target_lemma, items:[{sentence, evidence_note}]}",
+      "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:billow:oleaje:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0b4a987325c0c9980169ffba171d2c81909ef2e3a249aa1cb1",
+      "response_json": {
+        "background": false,
+        "billing": {
+          "payer": "developer"
+        },
+        "completed_at": 1778367000.0,
+        "conversation": null,
+        "created_at": 1778366999.0,
+        "error": null,
+        "frequency_penalty": 0.0,
+        "id": "resp_0b4a987325c0c9980169ffba171d2c81909ef2e3a249aa1cb1",
+        "incomplete_details": null,
+        "instructions": null,
+        "max_output_tokens": 700,
+        "max_tool_calls": null,
+        "metadata": {
+          "family_id": "en-es:full-family-repaired-full:billow:oleaje",
+          "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+          "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:billow:oleaje:active_evidence_expansion",
+          "slot_id": "en-es:full-family-repaired-full:billow:oleaje:active_evidence_expansion"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "moderation": null,
+        "object": "response",
+        "output": [
+          {
+            "content": [
+              {
+                "annotations": [],
+                "logprobs": [],
+                "text": "{\"request_id\":\"semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:billow:oleaje:active_evidence_expansion\",\"family_id\":\"en-es:full-family-repaired-full:billow:oleaje\",\"slot_id\":\"en-es:full-family-repaired-full:billow:oleaje:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"billow\",\"target_lemma\":\"oleaje\",\"items\":[{\"sentence\":\"A billow rolled toward the shore and broke into white foam.\",\"evidence_note\":\"Describes a large sea wave or swell moving on the ocean.\"},{\"sentence\":\"From the deck, we watched a billow rise and fall across the dark water.\",\"evidence_note\":\"Uses billow in the sense of a sea swell on the water.\"}]}",
+                "type": "output_text"
+              }
+            ],
+            "id": "msg_0b4a987325c0c9980169ffba175a1881909147adf5f4ba162d",
+            "phase": "final_answer",
+            "role": "assistant",
+            "status": "completed",
+            "type": "message"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "presence_penalty": 0.0,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "store": false,
+        "temperature": 0.2,
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "tool_choice": "auto",
+        "tools": [],
+        "top_logprobs": 0,
+        "top_p": 0.98,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 480,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 184,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 664
+        },
+        "user": null
+      },
+      "response_status": "completed",
+      "slot_id": "en-es:full-family-repaired-full:billow:oleaje:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "completed",
+      "temperature": 0.2,
+      "usage": {
+        "input_tokens": 480,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 184,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 664
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:stall:cuadra",
+      "model_id": "gpt-5.4-mini",
+      "output_text": "{\"request_id\":\"semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:stall:cuadra:active_evidence_expansion\",\"family_id\":\"en-es:full-family-repaired-full:stall:cuadra\",\"slot_id\":\"en-es:full-family-repaired-full:stall:cuadra:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"stall\",\"target_lemma\":\"cuadra\",\"items\":[{\"sentence\":\"The horse was led back to its stall after the ride.\",\"evidence_note\":\"A stall is a compartment in a stable where an animal is kept.\"},{\"sentence\":\"Each stall in the barn had fresh hay and a water bucket.\",\"evidence_note\":\"The context shows a stable compartment for an animal.\"}]}",
+      "pilot_arm": "high_need",
+      "prompt_text": "Return exactly one JSON object. Preserve request_id, family_id, slot_id, slot_type, source_phrase, and target_lemma exactly as given. Do not include markdown. Generated English sentences must not contain Spanish target lemmas. Do not add labels like allow, abstain, active, shadow, or no-winner inside generated sentences. Every generated sentence must contain source_phrase as an exact standalone browser-replaceable token separated by spaces or ordinary punctuation. Do not hide source_phrase inside filenames, URLs, code identifiers, hashtags, handles, underscores, camelCase, or compounds. Return exactly requested_items item objects unless you are returning the explicit unable_to_find_distinct_competitor marker.\n\nrequest_id: semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:stall:cuadra:active_evidence_expansion\nfamily_id: en-es:full-family-repaired-full:stall:cuadra\nslot_id: en-es:full-family-repaired-full:stall:cuadra:active_evidence_expansion\nslot_type: active_evidence_expansion\nsource_phrase: stall\ntarget_lemma: cuadra\nactive_target_lemma: cuadra\nactive_evidence_text: stall -> cuadra | a compartment in a stable where an animal is kept\nknown_shadow_targets: retrasar, calarse\nrequested_items: 2\n\nRequired top-level JSON fields and exact values:\n{\"request_id\": \"semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:stall:cuadra:active_evidence_expansion\", \"family_id\": \"en-es:full-family-repaired-full:stall:cuadra\", \"slot_id\": \"en-es:full-family-repaired-full:stall:cuadra:active_evidence_expansion\", \"slot_type\": \"active_evidence_expansion\", \"source_phrase\": \"stall\", \"target_lemma\": \"cuadra\", \"items\": \"...\"}\n\nTask: generate concise English evidence examples for the active sense. Each item should be a natural sentence containing the source_phrase and making the active target sense clear from context.\nSchema: {request_id, family_id, slot_id, slot_type, source_phrase, target_lemma, items:[{sentence, evidence_note}]}",
+      "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:stall:cuadra:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_07c58134eab91ef10169ffba19e5988194b60c2b913342c687",
+      "response_json": {
+        "background": false,
+        "billing": {
+          "payer": "developer"
+        },
+        "completed_at": 1778367003.0,
+        "conversation": null,
+        "created_at": 1778367001.0,
+        "error": null,
+        "frequency_penalty": 0.0,
+        "id": "resp_07c58134eab91ef10169ffba19e5988194b60c2b913342c687",
+        "incomplete_details": null,
+        "instructions": null,
+        "max_output_tokens": 700,
+        "max_tool_calls": null,
+        "metadata": {
+          "family_id": "en-es:full-family-repaired-full:stall:cuadra",
+          "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+          "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:stall:cuadra:active_evidence_expansion",
+          "slot_id": "en-es:full-family-repaired-full:stall:cuadra:active_evidence_expansion"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "moderation": null,
+        "object": "response",
+        "output": [
+          {
+            "content": [
+              {
+                "annotations": [],
+                "logprobs": [],
+                "text": "{\"request_id\":\"semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:stall:cuadra:active_evidence_expansion\",\"family_id\":\"en-es:full-family-repaired-full:stall:cuadra\",\"slot_id\":\"en-es:full-family-repaired-full:stall:cuadra:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"stall\",\"target_lemma\":\"cuadra\",\"items\":[{\"sentence\":\"The horse was led back to its stall after the ride.\",\"evidence_note\":\"A stall is a compartment in a stable where an animal is kept.\"},{\"sentence\":\"Each stall in the barn had fresh hay and a water bucket.\",\"evidence_note\":\"The context shows a stable compartment for an animal.\"}]}",
+                "type": "output_text"
+              }
+            ],
+            "id": "msg_07c58134eab91ef10169ffba1a50d881949bbb8643f30f38f8",
+            "phase": "final_answer",
+            "role": "assistant",
+            "status": "completed",
+            "type": "message"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "presence_penalty": 0.0,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "store": false,
+        "temperature": 0.2,
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "tool_choice": "auto",
+        "tools": [],
+        "top_logprobs": 0,
+        "top_p": 0.98,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 474,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 172,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 646
+        },
+        "user": null
+      },
+      "response_status": "completed",
+      "slot_id": "en-es:full-family-repaired-full:stall:cuadra:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "completed",
+      "temperature": 0.2,
+      "usage": {
+        "input_tokens": 474,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 172,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 646
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:upon:sobre",
+      "model_id": "gpt-5.4-mini",
+      "output_text": "{\"request_id\":\"semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:upon:sobre:active_evidence_expansion\",\"family_id\":\"en-es:full-family-repaired-full:upon:sobre\",\"slot_id\":\"en-es:full-family-repaired-full:upon:sobre:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"upon\",\"target_lemma\":\"sobre\",\"items\":[{\"sentence\":\"The report was written upon the latest survey results.\",\"evidence_note\":\"upon means regarding or based on the survey results.\"},{\"sentence\":\"She commented upon the proposal during the meeting.\",\"evidence_note\":\"upon means regarding the proposal.\"}]}",
+      "pilot_arm": "middle_control",
+      "prompt_text": "Return exactly one JSON object. Preserve request_id, family_id, slot_id, slot_type, source_phrase, and target_lemma exactly as given. Do not include markdown. Generated English sentences must not contain Spanish target lemmas. Do not add labels like allow, abstain, active, shadow, or no-winner inside generated sentences. Every generated sentence must contain source_phrase as an exact standalone browser-replaceable token separated by spaces or ordinary punctuation. Do not hide source_phrase inside filenames, URLs, code identifiers, hashtags, handles, underscores, camelCase, or compounds. Return exactly requested_items item objects unless you are returning the explicit unable_to_find_distinct_competitor marker.\n\nrequest_id: semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:upon:sobre:active_evidence_expansion\nfamily_id: en-es:full-family-repaired-full:upon:sobre\nslot_id: en-es:full-family-repaired-full:upon:sobre:active_evidence_expansion\nslot_type: active_evidence_expansion\nsource_phrase: upon\ntarget_lemma: sobre\nactive_target_lemma: sobre\nactive_evidence_text: upon -> sobre | on, onto, or regarding, depending on context\nknown_shadow_targets: -\nrequested_items: 2\n\nRequired top-level JSON fields and exact values:\n{\"request_id\": \"semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:upon:sobre:active_evidence_expansion\", \"family_id\": \"en-es:full-family-repaired-full:upon:sobre\", \"slot_id\": \"en-es:full-family-repaired-full:upon:sobre:active_evidence_expansion\", \"slot_type\": \"active_evidence_expansion\", \"source_phrase\": \"upon\", \"target_lemma\": \"sobre\", \"items\": \"...\"}\n\nTask: generate concise English evidence examples for the active sense. Each item should be a natural sentence containing the source_phrase and making the active target sense clear from context.\nSchema: {request_id, family_id, slot_id, slot_type, source_phrase, target_lemma, items:[{sentence, evidence_note}]}",
+      "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:upon:sobre:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_03af3660ae3ca8000169ffba457d9c819783a42257cea3f66a",
+      "response_json": {
+        "background": false,
+        "billing": {
+          "payer": "developer"
+        },
+        "completed_at": 1778367046.0,
+        "conversation": null,
+        "created_at": 1778367045.0,
+        "error": null,
+        "frequency_penalty": 0.0,
+        "id": "resp_03af3660ae3ca8000169ffba457d9c819783a42257cea3f66a",
+        "incomplete_details": null,
+        "instructions": null,
+        "max_output_tokens": 700,
+        "max_tool_calls": null,
+        "metadata": {
+          "family_id": "en-es:full-family-repaired-full:upon:sobre",
+          "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+          "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:upon:sobre:active_evidence_expansion",
+          "slot_id": "en-es:full-family-repaired-full:upon:sobre:active_evidence_expansion"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "moderation": null,
+        "object": "response",
+        "output": [
+          {
+            "content": [
+              {
+                "annotations": [],
+                "logprobs": [],
+                "text": "{\"request_id\":\"semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:upon:sobre:active_evidence_expansion\",\"family_id\":\"en-es:full-family-repaired-full:upon:sobre\",\"slot_id\":\"en-es:full-family-repaired-full:upon:sobre:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"upon\",\"target_lemma\":\"sobre\",\"items\":[{\"sentence\":\"The report was written upon the latest survey results.\",\"evidence_note\":\"upon means regarding or based on the survey results.\"},{\"sentence\":\"She commented upon the proposal during the meeting.\",\"evidence_note\":\"upon means regarding the proposal.\"}]}",
+                "type": "output_text"
+              }
+            ],
+            "id": "msg_03af3660ae3ca8000169ffba45cbb88197b19d9272ff51a74d",
+            "phase": "final_answer",
+            "role": "assistant",
+            "status": "completed",
+            "type": "message"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "presence_penalty": 0.0,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "store": false,
+        "temperature": 0.2,
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "tool_choice": "auto",
+        "tools": [],
+        "top_logprobs": 0,
+        "top_p": 0.98,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 459,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 154,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 613
+        },
+        "user": null
+      },
+      "response_status": "completed",
+      "slot_id": "en-es:full-family-repaired-full:upon:sobre:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "completed",
+      "temperature": 0.2,
+      "usage": {
+        "input_tokens": 459,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 154,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 613
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:pair:par",
+      "model_id": "gpt-5.4-mini",
+      "output_text": "{\"request_id\":\"semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:pair:par:active_evidence_expansion\",\"family_id\":\"en-es:full-family-repaired-full:pair:par\",\"slot_id\":\"en-es:full-family-repaired-full:pair:par:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"pair\",\"target_lemma\":\"par\",\"items\":[{\"sentence\":\"She bought a pair of socks for the trip.\",\"evidence_note\":\"pair means two matching items\"},{\"sentence\":\"The recipe calls for a pair of eggs in the batter.\",\"evidence_note\":\"pair means two things together\"}]}",
+      "pilot_arm": "middle_control",
+      "prompt_text": "Return exactly one JSON object. Preserve request_id, family_id, slot_id, slot_type, source_phrase, and target_lemma exactly as given. Do not include markdown. Generated English sentences must not contain Spanish target lemmas. Do not add labels like allow, abstain, active, shadow, or no-winner inside generated sentences. Every generated sentence must contain source_phrase as an exact standalone browser-replaceable token separated by spaces or ordinary punctuation. Do not hide source_phrase inside filenames, URLs, code identifiers, hashtags, handles, underscores, camelCase, or compounds. Return exactly requested_items item objects unless you are returning the explicit unable_to_find_distinct_competitor marker.\n\nrequest_id: semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:pair:par:active_evidence_expansion\nfamily_id: en-es:full-family-repaired-full:pair:par\nslot_id: en-es:full-family-repaired-full:pair:par:active_evidence_expansion\nslot_type: active_evidence_expansion\nsource_phrase: pair\ntarget_lemma: par\nactive_target_lemma: par\nactive_evidence_text: pair -> par | a pair or set of two things\nknown_shadow_targets: emparejar\nrequested_items: 2\n\nRequired top-level JSON fields and exact values:\n{\"request_id\": \"semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:pair:par:active_evidence_expansion\", \"family_id\": \"en-es:full-family-repaired-full:pair:par\", \"slot_id\": \"en-es:full-family-repaired-full:pair:par:active_evidence_expansion\", \"slot_type\": \"active_evidence_expansion\", \"source_phrase\": \"pair\", \"target_lemma\": \"par\", \"items\": \"...\"}\n\nTask: generate concise English evidence examples for the active sense. Each item should be a natural sentence containing the source_phrase and making the active target sense clear from context.\nSchema: {request_id, family_id, slot_id, slot_type, source_phrase, target_lemma, items:[{sentence, evidence_note}]}",
+      "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:pair:par:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0a644896815b21e40169ffba1d79248190b5e8018160cfdef9",
+      "response_json": {
+        "background": false,
+        "billing": {
+          "payer": "developer"
+        },
+        "completed_at": 1778367006.0,
+        "conversation": null,
+        "created_at": 1778367005.0,
+        "error": null,
+        "frequency_penalty": 0.0,
+        "id": "resp_0a644896815b21e40169ffba1d79248190b5e8018160cfdef9",
+        "incomplete_details": null,
+        "instructions": null,
+        "max_output_tokens": 700,
+        "max_tool_calls": null,
+        "metadata": {
+          "family_id": "en-es:full-family-repaired-full:pair:par",
+          "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+          "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:pair:par:active_evidence_expansion",
+          "slot_id": "en-es:full-family-repaired-full:pair:par:active_evidence_expansion"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "moderation": null,
+        "object": "response",
+        "output": [
+          {
+            "content": [
+              {
+                "annotations": [],
+                "logprobs": [],
+                "text": "{\"request_id\":\"semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:pair:par:active_evidence_expansion\",\"family_id\":\"en-es:full-family-repaired-full:pair:par\",\"slot_id\":\"en-es:full-family-repaired-full:pair:par:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"pair\",\"target_lemma\":\"par\",\"items\":[{\"sentence\":\"She bought a pair of socks for the trip.\",\"evidence_note\":\"pair means two matching items\"},{\"sentence\":\"The recipe calls for a pair of eggs in the batter.\",\"evidence_note\":\"pair means two things together\"}]}",
+                "type": "output_text"
+              }
+            ],
+            "id": "msg_0a644896815b21e40169ffba1dd8008190bb5ec064701aaa6e",
+            "phase": "final_answer",
+            "role": "assistant",
+            "status": "completed",
+            "type": "message"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "presence_penalty": 0.0,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "store": false,
+        "temperature": 0.2,
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "tool_choice": "auto",
+        "tools": [],
+        "top_logprobs": 0,
+        "top_p": 0.98,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 459,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 151,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 610
+        },
+        "user": null
+      },
+      "response_status": "completed",
+      "slot_id": "en-es:full-family-repaired-full:pair:par:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "completed",
+      "temperature": 0.2,
+      "usage": {
+        "input_tokens": 459,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 151,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 610
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:health:salud",
+      "model_id": "gpt-5.4-mini",
+      "output_text": "{\"request_id\":\"semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:health:salud:active_evidence_expansion\",\"family_id\":\"en-es:full-family-repaired-full:health:salud\",\"slot_id\":\"en-es:full-family-repaired-full:health:salud:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"health\",\"target_lemma\":\"salud\",\"items\":[{\"sentence\":\"Regular exercise can improve your health and lower the risk of disease.\",\"evidence_note\":\"health means bodily wellbeing and condition.\"},{\"sentence\":\"The doctor said her health was stable after the surgery.\",\"evidence_note\":\"health refers to the person's physical condition.\"}]}",
+      "pilot_arm": "middle_control",
+      "prompt_text": "Return exactly one JSON object. Preserve request_id, family_id, slot_id, slot_type, source_phrase, and target_lemma exactly as given. Do not include markdown. Generated English sentences must not contain Spanish target lemmas. Do not add labels like allow, abstain, active, shadow, or no-winner inside generated sentences. Every generated sentence must contain source_phrase as an exact standalone browser-replaceable token separated by spaces or ordinary punctuation. Do not hide source_phrase inside filenames, URLs, code identifiers, hashtags, handles, underscores, camelCase, or compounds. Return exactly requested_items item objects unless you are returning the explicit unable_to_find_distinct_competitor marker.\n\nrequest_id: semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:health:salud:active_evidence_expansion\nfamily_id: en-es:full-family-repaired-full:health:salud\nslot_id: en-es:full-family-repaired-full:health:salud:active_evidence_expansion\nslot_type: active_evidence_expansion\nsource_phrase: health\ntarget_lemma: salud\nactive_target_lemma: salud\nactive_evidence_text: health -> salud | health as wellbeing or bodily/mental condition\nknown_shadow_targets: -\nrequested_items: 2\n\nRequired top-level JSON fields and exact values:\n{\"request_id\": \"semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:health:salud:active_evidence_expansion\", \"family_id\": \"en-es:full-family-repaired-full:health:salud\", \"slot_id\": \"en-es:full-family-repaired-full:health:salud:active_evidence_expansion\", \"slot_type\": \"active_evidence_expansion\", \"source_phrase\": \"health\", \"target_lemma\": \"salud\", \"items\": \"...\"}\n\nTask: generate concise English evidence examples for the active sense. Each item should be a natural sentence containing the source_phrase and making the active target sense clear from context.\nSchema: {request_id, family_id, slot_id, slot_type, source_phrase, target_lemma, items:[{sentence, evidence_note}]}",
+      "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:health:salud:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_079870c8fedc92130169ffba1ee78c81938cc38bae74d94074",
+      "response_json": {
+        "background": false,
+        "billing": {
+          "payer": "developer"
+        },
+        "completed_at": 1778367008.0,
+        "conversation": null,
+        "created_at": 1778367006.0,
+        "error": null,
+        "frequency_penalty": 0.0,
+        "id": "resp_079870c8fedc92130169ffba1ee78c81938cc38bae74d94074",
+        "incomplete_details": null,
+        "instructions": null,
+        "max_output_tokens": 700,
+        "max_tool_calls": null,
+        "metadata": {
+          "family_id": "en-es:full-family-repaired-full:health:salud",
+          "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+          "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:health:salud:active_evidence_expansion",
+          "slot_id": "en-es:full-family-repaired-full:health:salud:active_evidence_expansion"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "moderation": null,
+        "object": "response",
+        "output": [
+          {
+            "content": [
+              {
+                "annotations": [],
+                "logprobs": [],
+                "text": "{\"request_id\":\"semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:health:salud:active_evidence_expansion\",\"family_id\":\"en-es:full-family-repaired-full:health:salud\",\"slot_id\":\"en-es:full-family-repaired-full:health:salud:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"health\",\"target_lemma\":\"salud\",\"items\":[{\"sentence\":\"Regular exercise can improve your health and lower the risk of disease.\",\"evidence_note\":\"health means bodily wellbeing and condition.\"},{\"sentence\":\"The doctor said her health was stable after the surgery.\",\"evidence_note\":\"health refers to the person's physical condition.\"}]}",
+                "type": "output_text"
+              }
+            ],
+            "id": "msg_079870c8fedc92130169ffba1f60f081938637d5d7d1e3de25",
+            "phase": "final_answer",
+            "role": "assistant",
+            "status": "completed",
+            "type": "message"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "presence_penalty": 0.0,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "store": false,
+        "temperature": 0.2,
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "tool_choice": "auto",
+        "tools": [],
+        "top_logprobs": 0,
+        "top_p": 0.98,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 464,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 162,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 626
+        },
+        "user": null
+      },
+      "response_status": "completed",
+      "slot_id": "en-es:full-family-repaired-full:health:salud:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "completed",
+      "temperature": 0.2,
+      "usage": {
+        "input_tokens": 464,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 162,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 626
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:snore:roncar",
+      "model_id": "gpt-5.4-mini",
+      "output_text": "{\"request_id\":\"semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:snore:roncar:active_evidence_expansion\",\"family_id\":\"en-es:full-family-repaired-full:snore:roncar\",\"slot_id\":\"en-es:full-family-repaired-full:snore:roncar:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"snore\",\"target_lemma\":\"roncar\",\"items\":[{\"sentence\":\"After the long hike, he fell asleep and began to snore softly in the tent.\",\"evidence_note\":\"Sleeping person breathing noisily, which matches the active sense.\"},{\"sentence\":\"She could hear her grandfather snore from the next room all night.\",\"evidence_note\":\"The context shows a sleeping person making loud breathing sounds.\"}]}",
+      "pilot_arm": "middle_control",
+      "prompt_text": "Return exactly one JSON object. Preserve request_id, family_id, slot_id, slot_type, source_phrase, and target_lemma exactly as given. Do not include markdown. Generated English sentences must not contain Spanish target lemmas. Do not add labels like allow, abstain, active, shadow, or no-winner inside generated sentences. Every generated sentence must contain source_phrase as an exact standalone browser-replaceable token separated by spaces or ordinary punctuation. Do not hide source_phrase inside filenames, URLs, code identifiers, hashtags, handles, underscores, camelCase, or compounds. Return exactly requested_items item objects unless you are returning the explicit unable_to_find_distinct_competitor marker.\n\nrequest_id: semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:snore:roncar:active_evidence_expansion\nfamily_id: en-es:full-family-repaired-full:snore:roncar\nslot_id: en-es:full-family-repaired-full:snore:roncar:active_evidence_expansion\nslot_type: active_evidence_expansion\nsource_phrase: snore\ntarget_lemma: roncar\nactive_target_lemma: roncar\nactive_evidence_text: snore -> roncar | breathe noisily while sleeping\nknown_shadow_targets: ronquido\nrequested_items: 2\n\nRequired top-level JSON fields and exact values:\n{\"request_id\": \"semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:snore:roncar:active_evidence_expansion\", \"family_id\": \"en-es:full-family-repaired-full:snore:roncar\", \"slot_id\": \"en-es:full-family-repaired-full:snore:roncar:active_evidence_expansion\", \"slot_type\": \"active_evidence_expansion\", \"source_phrase\": \"snore\", \"target_lemma\": \"roncar\", \"items\": \"...\"}\n\nTask: generate concise English evidence examples for the active sense. Each item should be a natural sentence containing the source_phrase and making the active target sense clear from context.\nSchema: {request_id, family_id, slot_id, slot_type, source_phrase, target_lemma, items:[{sentence, evidence_note}]}",
+      "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:snore:roncar:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_09b5f4de48e31aaa0169ffba21245481979f72365605e4c769",
+      "response_json": {
+        "background": false,
+        "billing": {
+          "payer": "developer"
+        },
+        "completed_at": 1778367010.0,
+        "conversation": null,
+        "created_at": 1778367009.0,
+        "error": null,
+        "frequency_penalty": 0.0,
+        "id": "resp_09b5f4de48e31aaa0169ffba21245481979f72365605e4c769",
+        "incomplete_details": null,
+        "instructions": null,
+        "max_output_tokens": 700,
+        "max_tool_calls": null,
+        "metadata": {
+          "family_id": "en-es:full-family-repaired-full:snore:roncar",
+          "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+          "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:snore:roncar:active_evidence_expansion",
+          "slot_id": "en-es:full-family-repaired-full:snore:roncar:active_evidence_expansion"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "moderation": null,
+        "object": "response",
+        "output": [
+          {
+            "content": [
+              {
+                "annotations": [],
+                "logprobs": [],
+                "text": "{\"request_id\":\"semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:snore:roncar:active_evidence_expansion\",\"family_id\":\"en-es:full-family-repaired-full:snore:roncar\",\"slot_id\":\"en-es:full-family-repaired-full:snore:roncar:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"snore\",\"target_lemma\":\"roncar\",\"items\":[{\"sentence\":\"After the long hike, he fell asleep and began to snore softly in the tent.\",\"evidence_note\":\"Sleeping person breathing noisily, which matches the active sense.\"},{\"sentence\":\"She could hear her grandfather snore from the next room all night.\",\"evidence_note\":\"The context shows a sleeping person making loud breathing sounds.\"}]}",
+                "type": "output_text"
+              }
+            ],
+            "id": "msg_09b5f4de48e31aaa0169ffba2168f48197a3acd4a834795abb",
+            "phase": "final_answer",
+            "role": "assistant",
+            "status": "completed",
+            "type": "message"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "presence_penalty": 0.0,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "store": false,
+        "temperature": 0.2,
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "tool_choice": "auto",
+        "tools": [],
+        "top_logprobs": 0,
+        "top_p": 0.98,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 476,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 182,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 658
+        },
+        "user": null
+      },
+      "response_status": "completed",
+      "slot_id": "en-es:full-family-repaired-full:snore:roncar:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "completed",
+      "temperature": 0.2,
+      "usage": {
+        "input_tokens": 476,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 182,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 658
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:handiwork:artesan-a",
+      "model_id": "gpt-5.4-mini",
+      "output_text": "{\"request_id\":\"semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:handiwork:artesan-a:active_evidence_expansion\",\"family_id\":\"en-es:full-family-repaired-full:handiwork:artesan-a\",\"slot_id\":\"en-es:full-family-repaired-full:handiwork:artesan-a:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"handiwork\",\"target_lemma\":\"artesanía\",\"items\":[{\"sentence\":\"The carved chair was clearly the handiwork of a skilled woodworker.\",\"evidence_note\":\"Refers to a hand-made crafted object.\"},{\"sentence\":\"Her handiwork showed careful stitching and fine detail in every seam.\",\"evidence_note\":\"Refers to work produced by hand.\"}]}",
+      "pilot_arm": "low_control",
+      "prompt_text": "Return exactly one JSON object. Preserve request_id, family_id, slot_id, slot_type, source_phrase, and target_lemma exactly as given. Do not include markdown. Generated English sentences must not contain Spanish target lemmas. Do not add labels like allow, abstain, active, shadow, or no-winner inside generated sentences. Every generated sentence must contain source_phrase as an exact standalone browser-replaceable token separated by spaces or ordinary punctuation. Do not hide source_phrase inside filenames, URLs, code identifiers, hashtags, handles, underscores, camelCase, or compounds. Return exactly requested_items item objects unless you are returning the explicit unable_to_find_distinct_competitor marker.\n\nrequest_id: semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:handiwork:artesan-a:active_evidence_expansion\nfamily_id: en-es:full-family-repaired-full:handiwork:artesan-a\nslot_id: en-es:full-family-repaired-full:handiwork:artesan-a:active_evidence_expansion\nslot_type: active_evidence_expansion\nsource_phrase: handiwork\ntarget_lemma: artesanía\nactive_target_lemma: artesanía\nactive_evidence_text: handiwork -> artesanía | work or craft produced by hand\nknown_shadow_targets: -\nrequested_items: 2\n\nRequired top-level JSON fields and exact values:\n{\"request_id\": \"semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:handiwork:artesan-a:active_evidence_expansion\", \"family_id\": \"en-es:full-family-repaired-full:handiwork:artesan-a\", \"slot_id\": \"en-es:full-family-repaired-full:handiwork:artesan-a:active_evidence_expansion\", \"slot_type\": \"active_evidence_expansion\", \"source_phrase\": \"handiwork\", \"target_lemma\": \"artesanía\", \"items\": \"...\"}\n\nTask: generate concise English evidence examples for the active sense. Each item should be a natural sentence containing the source_phrase and making the active target sense clear from context.\nSchema: {request_id, family_id, slot_id, slot_type, source_phrase, target_lemma, items:[{sentence, evidence_note}]}",
+      "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:handiwork:artesan-a:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_000b457b396e49920169ffba22cc548194abf227a5b25d7ac6",
+      "response_json": {
+        "background": false,
+        "billing": {
+          "payer": "developer"
+        },
+        "completed_at": 1778367012.0,
+        "conversation": null,
+        "created_at": 1778367010.0,
+        "error": null,
+        "frequency_penalty": 0.0,
+        "id": "resp_000b457b396e49920169ffba22cc548194abf227a5b25d7ac6",
+        "incomplete_details": null,
+        "instructions": null,
+        "max_output_tokens": 700,
+        "max_tool_calls": null,
+        "metadata": {
+          "family_id": "en-es:full-family-repaired-full:handiwork:artesan-a",
+          "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+          "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:handiwork:artesan-a:active_evidence_expansion",
+          "slot_id": "en-es:full-family-repaired-full:handiwork:artesan-a:active_evidence_expansion"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "moderation": null,
+        "object": "response",
+        "output": [
+          {
+            "content": [
+              {
+                "annotations": [],
+                "logprobs": [],
+                "text": "{\"request_id\":\"semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:handiwork:artesan-a:active_evidence_expansion\",\"family_id\":\"en-es:full-family-repaired-full:handiwork:artesan-a\",\"slot_id\":\"en-es:full-family-repaired-full:handiwork:artesan-a:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"handiwork\",\"target_lemma\":\"artesanía\",\"items\":[{\"sentence\":\"The carved chair was clearly the handiwork of a skilled woodworker.\",\"evidence_note\":\"Refers to a hand-made crafted object.\"},{\"sentence\":\"Her handiwork showed careful stitching and fine detail in every seam.\",\"evidence_note\":\"Refers to work produced by hand.\"}]}",
+                "type": "output_text"
+              }
+            ],
+            "id": "msg_000b457b396e49920169ffba230c788194868eebc43a7fea91",
+            "phase": "final_answer",
+            "role": "assistant",
+            "status": "completed",
+            "type": "message"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "presence_penalty": 0.0,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "store": false,
+        "temperature": 0.2,
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "tool_choice": "auto",
+        "tools": [],
+        "top_logprobs": 0,
+        "top_p": 0.98,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 488,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 179,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 667
+        },
+        "user": null
+      },
+      "response_status": "completed",
+      "slot_id": "en-es:full-family-repaired-full:handiwork:artesan-a:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "completed",
+      "temperature": 0.2,
+      "usage": {
+        "input_tokens": 488,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 179,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 667
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:adjoining:contiguo",
+      "model_id": "gpt-5.4-mini",
+      "output_text": "{\"request_id\":\"semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:adjoining:contiguo:active_evidence_expansion\",\"family_id\":\"en-es:full-family-repaired-full:adjoining:contiguo\",\"slot_id\":\"en-es:full-family-repaired-full:adjoining:contiguo:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"adjoining\",\"target_lemma\":\"contiguo\",\"items\":[{\"sentence\":\"The garden has an adjoining lot that shares a fence with the house.\",\"evidence_note\":\"Shows the lot is next to and sharing a boundary with the house.\"},{\"sentence\":\"We rented an adjoining room because it was directly next to ours.\",\"evidence_note\":\"Makes the sense clear by stating the room is directly beside another room.\"}]}",
+      "pilot_arm": "low_control",
+      "prompt_text": "Return exactly one JSON object. Preserve request_id, family_id, slot_id, slot_type, source_phrase, and target_lemma exactly as given. Do not include markdown. Generated English sentences must not contain Spanish target lemmas. Do not add labels like allow, abstain, active, shadow, or no-winner inside generated sentences. Every generated sentence must contain source_phrase as an exact standalone browser-replaceable token separated by spaces or ordinary punctuation. Do not hide source_phrase inside filenames, URLs, code identifiers, hashtags, handles, underscores, camelCase, or compounds. Return exactly requested_items item objects unless you are returning the explicit unable_to_find_distinct_competitor marker.\n\nrequest_id: semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:adjoining:contiguo:active_evidence_expansion\nfamily_id: en-es:full-family-repaired-full:adjoining:contiguo\nslot_id: en-es:full-family-repaired-full:adjoining:contiguo:active_evidence_expansion\nslot_type: active_evidence_expansion\nsource_phrase: adjoining\ntarget_lemma: contiguo\nactive_target_lemma: contiguo\nactive_evidence_text: adjoining -> contiguo | next to or sharing a boundary with something\nknown_shadow_targets: -\nrequested_items: 2\n\nRequired top-level JSON fields and exact values:\n{\"request_id\": \"semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:adjoining:contiguo:active_evidence_expansion\", \"family_id\": \"en-es:full-family-repaired-full:adjoining:contiguo\", \"slot_id\": \"en-es:full-family-repaired-full:adjoining:contiguo:active_evidence_expansion\", \"slot_type\": \"active_evidence_expansion\", \"source_phrase\": \"adjoining\", \"target_lemma\": \"contiguo\", \"items\": \"...\"}\n\nTask: generate concise English evidence examples for the active sense. Each item should be a natural sentence containing the source_phrase and making the active target sense clear from context.\nSchema: {request_id, family_id, slot_id, slot_type, source_phrase, target_lemma, items:[{sentence, evidence_note}]}",
+      "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:adjoining:contiguo:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_012b988d550165c60169ffba2490f8819786ff266a53ca9109",
+      "response_json": {
+        "background": false,
+        "billing": {
+          "payer": "developer"
+        },
+        "completed_at": 1778367014.0,
+        "conversation": null,
+        "created_at": 1778367012.0,
+        "error": null,
+        "frequency_penalty": 0.0,
+        "id": "resp_012b988d550165c60169ffba2490f8819786ff266a53ca9109",
+        "incomplete_details": null,
+        "instructions": null,
+        "max_output_tokens": 700,
+        "max_tool_calls": null,
+        "metadata": {
+          "family_id": "en-es:full-family-repaired-full:adjoining:contiguo",
+          "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+          "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:adjoining:contiguo:active_evidence_expansion",
+          "slot_id": "en-es:full-family-repaired-full:adjoining:contiguo:active_evidence_expansion"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "moderation": null,
+        "object": "response",
+        "output": [
+          {
+            "content": [
+              {
+                "annotations": [],
+                "logprobs": [],
+                "text": "{\"request_id\":\"semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:adjoining:contiguo:active_evidence_expansion\",\"family_id\":\"en-es:full-family-repaired-full:adjoining:contiguo\",\"slot_id\":\"en-es:full-family-repaired-full:adjoining:contiguo:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"adjoining\",\"target_lemma\":\"contiguo\",\"items\":[{\"sentence\":\"The garden has an adjoining lot that shares a fence with the house.\",\"evidence_note\":\"Shows the lot is next to and sharing a boundary with the house.\"},{\"sentence\":\"We rented an adjoining room because it was directly next to ours.\",\"evidence_note\":\"Makes the sense clear by stating the room is directly beside another room.\"}]}",
+                "type": "output_text"
+              }
+            ],
+            "id": "msg_012b988d550165c60169ffba24eb288197b5a95381e307b9eb",
+            "phase": "final_answer",
+            "role": "assistant",
+            "status": "completed",
+            "type": "message"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "presence_penalty": 0.0,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "store": false,
+        "temperature": 0.2,
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "tool_choice": "auto",
+        "tools": [],
+        "top_logprobs": 0,
+        "top_p": 0.98,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 484,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 186,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 670
+        },
+        "user": null
+      },
+      "response_status": "completed",
+      "slot_id": "en-es:full-family-repaired-full:adjoining:contiguo:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "completed",
+      "temperature": 0.2,
+      "usage": {
+        "input_tokens": 484,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 186,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 670
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:adder:v-bora",
+      "model_id": "gpt-5.4-mini",
+      "output_text": "{\"request_id\":\"semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:adder:v-bora:active_evidence_expansion\",\"family_id\":\"en-es:full-family-repaired-full:adder:v-bora\",\"slot_id\":\"en-es:full-family-repaired-full:adder:v-bora:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"adder\",\"target_lemma\":\"víbora\",\"items\":[{\"sentence\":\"The hiker froze when an adder slid across the path near his boot.\",\"evidence_note\":\"Refers to a venomous snake.\"},{\"sentence\":\"A bright warning sign told campers to watch for an adder in the grass.\",\"evidence_note\":\"Snake context makes the meaning clear.\"}]}",
+      "pilot_arm": "low_control",
+      "prompt_text": "Return exactly one JSON object. Preserve request_id, family_id, slot_id, slot_type, source_phrase, and target_lemma exactly as given. Do not include markdown. Generated English sentences must not contain Spanish target lemmas. Do not add labels like allow, abstain, active, shadow, or no-winner inside generated sentences. Every generated sentence must contain source_phrase as an exact standalone browser-replaceable token separated by spaces or ordinary punctuation. Do not hide source_phrase inside filenames, URLs, code identifiers, hashtags, handles, underscores, camelCase, or compounds. Return exactly requested_items item objects unless you are returning the explicit unable_to_find_distinct_competitor marker.\n\nrequest_id: semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:adder:v-bora:active_evidence_expansion\nfamily_id: en-es:full-family-repaired-full:adder:v-bora\nslot_id: en-es:full-family-repaired-full:adder:v-bora:active_evidence_expansion\nslot_type: active_evidence_expansion\nsource_phrase: adder\ntarget_lemma: víbora\nactive_target_lemma: víbora\nactive_evidence_text: adder -> víbora | a small viper snake\nknown_shadow_targets: sumador\nrequested_items: 2\n\nRequired top-level JSON fields and exact values:\n{\"request_id\": \"semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:adder:v-bora:active_evidence_expansion\", \"family_id\": \"en-es:full-family-repaired-full:adder:v-bora\", \"slot_id\": \"en-es:full-family-repaired-full:adder:v-bora:active_evidence_expansion\", \"slot_type\": \"active_evidence_expansion\", \"source_phrase\": \"adder\", \"target_lemma\": \"víbora\", \"items\": \"...\"}\n\nTask: generate concise English evidence examples for the active sense. Each item should be a natural sentence containing the source_phrase and making the active target sense clear from context.\nSchema: {request_id, family_id, slot_id, slot_type, source_phrase, target_lemma, items:[{sentence, evidence_note}]}",
+      "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:adder:v-bora:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_018e787551babc7d0169ffba265eec8190a973a1f3734d14ba",
+      "response_json": {
+        "background": false,
+        "billing": {
+          "payer": "developer"
+        },
+        "completed_at": 1778367015.0,
+        "conversation": null,
+        "created_at": 1778367014.0,
+        "error": null,
+        "frequency_penalty": 0.0,
+        "id": "resp_018e787551babc7d0169ffba265eec8190a973a1f3734d14ba",
+        "incomplete_details": null,
+        "instructions": null,
+        "max_output_tokens": 700,
+        "max_tool_calls": null,
+        "metadata": {
+          "family_id": "en-es:full-family-repaired-full:adder:v-bora",
+          "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+          "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:adder:v-bora:active_evidence_expansion",
+          "slot_id": "en-es:full-family-repaired-full:adder:v-bora:active_evidence_expansion"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "moderation": null,
+        "object": "response",
+        "output": [
+          {
+            "content": [
+              {
+                "annotations": [],
+                "logprobs": [],
+                "text": "{\"request_id\":\"semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:adder:v-bora:active_evidence_expansion\",\"family_id\":\"en-es:full-family-repaired-full:adder:v-bora\",\"slot_id\":\"en-es:full-family-repaired-full:adder:v-bora:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"adder\",\"target_lemma\":\"víbora\",\"items\":[{\"sentence\":\"The hiker froze when an adder slid across the path near his boot.\",\"evidence_note\":\"Refers to a venomous snake.\"},{\"sentence\":\"A bright warning sign told campers to watch for an adder in the grass.\",\"evidence_note\":\"Snake context makes the meaning clear.\"}]}",
+                "type": "output_text"
+              }
+            ],
+            "id": "msg_018e787551babc7d0169ffba26b140819094fb1f6a2ce5984b",
+            "phase": "final_answer",
+            "role": "assistant",
+            "status": "completed",
+            "type": "message"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "presence_penalty": 0.0,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "store": false,
+        "temperature": 0.2,
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "tool_choice": "auto",
+        "tools": [],
+        "top_logprobs": 0,
+        "top_p": 0.98,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 472,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 171,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 643
+        },
+        "user": null
+      },
+      "response_status": "completed",
+      "slot_id": "en-es:full-family-repaired-full:adder:v-bora:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "completed",
+      "temperature": 0.2,
+      "usage": {
+        "input_tokens": 472,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 171,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 643
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:altitude:elevaci-n",
+      "model_id": "gpt-5.4-mini",
+      "output_text": "{\"request_id\":\"semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:altitude:elevaci-n:active_evidence_expansion\",\"family_id\":\"en-es:full-family-repaired-full:altitude:elevaci-n\",\"slot_id\":\"en-es:full-family-repaired-full:altitude:elevaci-n:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"altitude\",\"target_lemma\":\"elevación\",\"items\":[{\"sentence\":\"The hikers adjusted their pace as the altitude increased above the valley floor.\",\"evidence_note\":\"Shows altitude as height above a reference level.\"},{\"sentence\":\"At this altitude, the air is thinner and the temperature drops quickly.\",\"evidence_note\":\"Uses altitude in the sense of elevation above sea level.\"}]}",
+      "pilot_arm": "low_control",
+      "prompt_text": "Return exactly one JSON object. Preserve request_id, family_id, slot_id, slot_type, source_phrase, and target_lemma exactly as given. Do not include markdown. Generated English sentences must not contain Spanish target lemmas. Do not add labels like allow, abstain, active, shadow, or no-winner inside generated sentences. Every generated sentence must contain source_phrase as an exact standalone browser-replaceable token separated by spaces or ordinary punctuation. Do not hide source_phrase inside filenames, URLs, code identifiers, hashtags, handles, underscores, camelCase, or compounds. Return exactly requested_items item objects unless you are returning the explicit unable_to_find_distinct_competitor marker.\n\nrequest_id: semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:altitude:elevaci-n:active_evidence_expansion\nfamily_id: en-es:full-family-repaired-full:altitude:elevaci-n\nslot_id: en-es:full-family-repaired-full:altitude:elevaci-n:active_evidence_expansion\nslot_type: active_evidence_expansion\nsource_phrase: altitude\ntarget_lemma: elevación\nactive_target_lemma: elevación\nactive_evidence_text: altitude -> elevación | height or elevation above a reference level\nknown_shadow_targets: -\nrequested_items: 2\n\nRequired top-level JSON fields and exact values:\n{\"request_id\": \"semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:altitude:elevaci-n:active_evidence_expansion\", \"family_id\": \"en-es:full-family-repaired-full:altitude:elevaci-n\", \"slot_id\": \"en-es:full-family-repaired-full:altitude:elevaci-n:active_evidence_expansion\", \"slot_type\": \"active_evidence_expansion\", \"source_phrase\": \"altitude\", \"target_lemma\": \"elevación\", \"items\": \"...\"}\n\nTask: generate concise English evidence examples for the active sense. Each item should be a natural sentence containing the source_phrase and making the active target sense clear from context.\nSchema: {request_id, family_id, slot_id, slot_type, source_phrase, target_lemma, items:[{sentence, evidence_note}]}",
+      "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:altitude:elevaci-n:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0915f9383ad4632c0169ffba28278481979b5d03e4b64b8123",
+      "response_json": {
+        "background": false,
+        "billing": {
+          "payer": "developer"
+        },
+        "completed_at": 1778367017.0,
+        "conversation": null,
+        "created_at": 1778367016.0,
+        "error": null,
+        "frequency_penalty": 0.0,
+        "id": "resp_0915f9383ad4632c0169ffba28278481979b5d03e4b64b8123",
+        "incomplete_details": null,
+        "instructions": null,
+        "max_output_tokens": 700,
+        "max_tool_calls": null,
+        "metadata": {
+          "family_id": "en-es:full-family-repaired-full:altitude:elevaci-n",
+          "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+          "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:altitude:elevaci-n:active_evidence_expansion",
+          "slot_id": "en-es:full-family-repaired-full:altitude:elevaci-n:active_evidence_expansion"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "moderation": null,
+        "object": "response",
+        "output": [
+          {
+            "content": [
+              {
+                "annotations": [],
+                "logprobs": [],
+                "text": "{\"request_id\":\"semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:altitude:elevaci-n:active_evidence_expansion\",\"family_id\":\"en-es:full-family-repaired-full:altitude:elevaci-n\",\"slot_id\":\"en-es:full-family-repaired-full:altitude:elevaci-n:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"altitude\",\"target_lemma\":\"elevación\",\"items\":[{\"sentence\":\"The hikers adjusted their pace as the altitude increased above the valley floor.\",\"evidence_note\":\"Shows altitude as height above a reference level.\"},{\"sentence\":\"At this altitude, the air is thinner and the temperature drops quickly.\",\"evidence_note\":\"Uses altitude in the sense of elevation above sea level.\"}]}",
+                "type": "output_text"
+              }
+            ],
+            "id": "msg_0915f9383ad4632c0169ffba286ce081978d37f737abf728e8",
+            "phase": "final_answer",
+            "role": "assistant",
+            "status": "completed",
+            "type": "message"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "presence_penalty": 0.0,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "store": false,
+        "temperature": 0.2,
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "tool_choice": "auto",
+        "tools": [],
+        "top_logprobs": 0,
+        "top_p": 0.98,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 480,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 179,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 659
+        },
+        "user": null
+      },
+      "response_status": "completed",
+      "slot_id": "en-es:full-family-repaired-full:altitude:elevaci-n:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "completed",
+      "temperature": 0.2,
+      "usage": {
+        "input_tokens": 480,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 179,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 659
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:june:junio",
+      "model_id": "gpt-5.4-mini",
+      "output_text": "{\"request_id\":\"semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:june:junio:active_evidence_expansion\",\"family_id\":\"en-es:full-family-repaired-full:june:junio\",\"slot_id\":\"en-es:full-family-repaired-full:june:junio:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"june\",\"target_lemma\":\"junio\",\"items\":[{\"sentence\":\"We plan to travel in june after the school year ends.\",\"evidence_note\":\"Refers to the month between May and July.\"},{\"sentence\":\"The report is due in june, so we need to finish it soon.\",\"evidence_note\":\"Uses june as a calendar month in a date context.\"}]}",
+      "pilot_arm": "low_control",
+      "prompt_text": "Return exactly one JSON object. Preserve request_id, family_id, slot_id, slot_type, source_phrase, and target_lemma exactly as given. Do not include markdown. Generated English sentences must not contain Spanish target lemmas. Do not add labels like allow, abstain, active, shadow, or no-winner inside generated sentences. Every generated sentence must contain source_phrase as an exact standalone browser-replaceable token separated by spaces or ordinary punctuation. Do not hide source_phrase inside filenames, URLs, code identifiers, hashtags, handles, underscores, camelCase, or compounds. Return exactly requested_items item objects unless you are returning the explicit unable_to_find_distinct_competitor marker.\n\nrequest_id: semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:june:junio:active_evidence_expansion\nfamily_id: en-es:full-family-repaired-full:june:junio\nslot_id: en-es:full-family-repaired-full:june:junio:active_evidence_expansion\nslot_type: active_evidence_expansion\nsource_phrase: june\ntarget_lemma: junio\nactive_target_lemma: junio\nactive_evidence_text: june -> junio | the month following May and preceding July\nknown_shadow_targets: -\nrequested_items: 2\n\nRequired top-level JSON fields and exact values:\n{\"request_id\": \"semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:june:junio:active_evidence_expansion\", \"family_id\": \"en-es:full-family-repaired-full:june:junio\", \"slot_id\": \"en-es:full-family-repaired-full:june:junio:active_evidence_expansion\", \"slot_type\": \"active_evidence_expansion\", \"source_phrase\": \"june\", \"target_lemma\": \"junio\", \"items\": \"...\"}\n\nTask: generate concise English evidence examples for the active sense. Each item should be a natural sentence containing the source_phrase and making the active target sense clear from context.\nSchema: {request_id, family_id, slot_id, slot_type, source_phrase, target_lemma, items:[{sentence, evidence_note}]}",
+      "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:june:junio:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0a0f1ca8ac7d18130169ffba29f3d08193b0d49f6476ff56b3",
+      "response_json": {
+        "background": false,
+        "billing": {
+          "payer": "developer"
+        },
+        "completed_at": 1778367019.0,
+        "conversation": null,
+        "created_at": 1778367017.0,
+        "error": null,
+        "frequency_penalty": 0.0,
+        "id": "resp_0a0f1ca8ac7d18130169ffba29f3d08193b0d49f6476ff56b3",
+        "incomplete_details": null,
+        "instructions": null,
+        "max_output_tokens": 700,
+        "max_tool_calls": null,
+        "metadata": {
+          "family_id": "en-es:full-family-repaired-full:june:junio",
+          "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+          "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:june:junio:active_evidence_expansion",
+          "slot_id": "en-es:full-family-repaired-full:june:junio:active_evidence_expansion"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "moderation": null,
+        "object": "response",
+        "output": [
+          {
+            "content": [
+              {
+                "annotations": [],
+                "logprobs": [],
+                "text": "{\"request_id\":\"semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:june:junio:active_evidence_expansion\",\"family_id\":\"en-es:full-family-repaired-full:june:junio\",\"slot_id\":\"en-es:full-family-repaired-full:june:junio:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"june\",\"target_lemma\":\"junio\",\"items\":[{\"sentence\":\"We plan to travel in june after the school year ends.\",\"evidence_note\":\"Refers to the month between May and July.\"},{\"sentence\":\"The report is due in june, so we need to finish it soon.\",\"evidence_note\":\"Uses june as a calendar month in a date context.\"}]}",
+                "type": "output_text"
+              }
+            ],
+            "id": "msg_0a0f1ca8ac7d18130169ffba2a44d48193b6cb740a6633c987",
+            "phase": "final_answer",
+            "role": "assistant",
+            "status": "completed",
+            "type": "message"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "presence_penalty": 0.0,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "store": false,
+        "temperature": 0.2,
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "tool_choice": "auto",
+        "tools": [],
+        "top_logprobs": 0,
+        "top_p": 0.98,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 464,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 172,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 636
+        },
+        "user": null
+      },
+      "response_status": "completed",
+      "slot_id": "en-es:full-family-repaired-full:june:junio:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "completed",
+      "temperature": 0.2,
+      "usage": {
+        "input_tokens": 464,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 172,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 636
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:emotion:emoci-n",
+      "model_id": "gpt-5.4-mini",
+      "output_text": "{\"request_id\":\"semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:emotion:emoci-n:active_evidence_expansion\",\"family_id\":\"en-es:full-family-repaired-full:emotion:emoci-n\",\"slot_id\":\"en-es:full-family-repaired-full:emotion:emoci-n:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"emotion\",\"target_lemma\":\"emoción\",\"items\":[{\"sentence\":\"Her voice shook with emotion when she heard the good news.\",\"evidence_note\":\"Shows a strong feeling in response to an event.\"},{\"sentence\":\"He could not hide his emotion during the farewell speech.\",\"evidence_note\":\"Refers to an intense affective state visible in behavior.\"}]}",
+      "pilot_arm": "low_control",
+      "prompt_text": "Return exactly one JSON object. Preserve request_id, family_id, slot_id, slot_type, source_phrase, and target_lemma exactly as given. Do not include markdown. Generated English sentences must not contain Spanish target lemmas. Do not add labels like allow, abstain, active, shadow, or no-winner inside generated sentences. Every generated sentence must contain source_phrase as an exact standalone browser-replaceable token separated by spaces or ordinary punctuation. Do not hide source_phrase inside filenames, URLs, code identifiers, hashtags, handles, underscores, camelCase, or compounds. Return exactly requested_items item objects unless you are returning the explicit unable_to_find_distinct_competitor marker.\n\nrequest_id: semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:emotion:emoci-n:active_evidence_expansion\nfamily_id: en-es:full-family-repaired-full:emotion:emoci-n\nslot_id: en-es:full-family-repaired-full:emotion:emoci-n:active_evidence_expansion\nslot_type: active_evidence_expansion\nsource_phrase: emotion\ntarget_lemma: emoción\nactive_target_lemma: emoción\nactive_evidence_text: emotion -> emoción | a strong feeling or affective state\nknown_shadow_targets: -\nrequested_items: 2\n\nRequired top-level JSON fields and exact values:\n{\"request_id\": \"semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:emotion:emoci-n:active_evidence_expansion\", \"family_id\": \"en-es:full-family-repaired-full:emotion:emoci-n\", \"slot_id\": \"en-es:full-family-repaired-full:emotion:emoci-n:active_evidence_expansion\", \"slot_type\": \"active_evidence_expansion\", \"source_phrase\": \"emotion\", \"target_lemma\": \"emoción\", \"items\": \"...\"}\n\nTask: generate concise English evidence examples for the active sense. Each item should be a natural sentence containing the source_phrase and making the active target sense clear from context.\nSchema: {request_id, family_id, slot_id, slot_type, source_phrase, target_lemma, items:[{sentence, evidence_note}]}",
+      "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:emotion:emoci-n:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_08764f073ac6f2a80169ffba2bb6bc8196b552d2f89dd0a771",
+      "response_json": {
+        "background": false,
+        "billing": {
+          "payer": "developer"
+        },
+        "completed_at": 1778367024.0,
+        "conversation": null,
+        "created_at": 1778367019.0,
+        "error": null,
+        "frequency_penalty": 0.0,
+        "id": "resp_08764f073ac6f2a80169ffba2bb6bc8196b552d2f89dd0a771",
+        "incomplete_details": null,
+        "instructions": null,
+        "max_output_tokens": 700,
+        "max_tool_calls": null,
+        "metadata": {
+          "family_id": "en-es:full-family-repaired-full:emotion:emoci-n",
+          "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+          "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:emotion:emoci-n:active_evidence_expansion",
+          "slot_id": "en-es:full-family-repaired-full:emotion:emoci-n:active_evidence_expansion"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "moderation": null,
+        "object": "response",
+        "output": [
+          {
+            "content": [
+              {
+                "annotations": [],
+                "logprobs": [],
+                "text": "{\"request_id\":\"semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:emotion:emoci-n:active_evidence_expansion\",\"family_id\":\"en-es:full-family-repaired-full:emotion:emoci-n\",\"slot_id\":\"en-es:full-family-repaired-full:emotion:emoci-n:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"emotion\",\"target_lemma\":\"emoción\",\"items\":[{\"sentence\":\"Her voice shook with emotion when she heard the good news.\",\"evidence_note\":\"Shows a strong feeling in response to an event.\"},{\"sentence\":\"He could not hide his emotion during the farewell speech.\",\"evidence_note\":\"Refers to an intense affective state visible in behavior.\"}]}",
+                "type": "output_text"
+              }
+            ],
+            "id": "msg_08764f073ac6f2a80169ffba2c04648196a9f6a593feb169b3",
+            "phase": "final_answer",
+            "role": "assistant",
+            "status": "completed",
+            "type": "message"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "presence_penalty": 0.0,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "store": false,
+        "temperature": 0.2,
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "tool_choice": "auto",
+        "tools": [],
+        "top_logprobs": 0,
+        "top_p": 0.98,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 469,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 171,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 640
+        },
+        "user": null
+      },
+      "response_status": "completed",
+      "slot_id": "en-es:full-family-repaired-full:emotion:emoci-n:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "completed",
+      "temperature": 0.2,
+      "usage": {
+        "input_tokens": 469,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 171,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 640
+      }
+    }
+  ],
+  "schema_version": 1,
+  "selected_model_id": "gpt-5.4-mini",
+  "selected_temperature": 0.2
+}

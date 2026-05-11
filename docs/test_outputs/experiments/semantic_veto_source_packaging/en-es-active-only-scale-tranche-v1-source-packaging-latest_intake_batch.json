@@ -1,0 +1,1759 @@
+{
+  "batch_id": "en-es:semantic-veto:active-only-scale-tranche-v1-source-packaging-latest",
+  "cost_metadata": {
+    "input_tokens": 7547,
+    "output_tokens": 2742,
+    "reasoning_tokens": 0
+  },
+  "generated_at": "2026-05-09T22:50:44Z",
+  "ingested_at": "2026-05-09T22:53:13Z",
+  "items": [
+    {
+      "active_sense_hint": {
+        "canonical_pos": "adjective",
+        "note": "active-only generated anchor cue",
+        "sense_label": "current -> contemporáneo",
+        "target_key": "contemporáneo"
+      },
+      "active_target": "contemporáneo",
+      "candidate_pos": "adjective",
+      "candidate_sense_hint": {
+        "canonical_pos": "adjective",
+        "note": "active-only generated anchor cue",
+        "sense_label": "current -> contemporáneo",
+        "target_key": "contemporáneo"
+      },
+      "candidate_target": "contemporáneo",
+      "evidence_text": "The museum opened a current exhibition of contemporary sculpture.",
+      "input_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:current:contempor-neo:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 5,
+        "evidence_note": "current means happening now, matching the present-time sense.",
+        "family_id": "en-es:full-family-repaired-full:current:contempor-neo",
+        "global_need_rank": 1,
+        "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:current:contempor-neo:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:001",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:current:contempor-neo:001",
+          "eval_overlap_risk": "low",
+          "expected_pos": "adjective",
+          "flags": [],
+          "observed_source_syntax": "adjective_attributive",
+          "quality_score": 1.0,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "high_need",
+        "postprocess_audit_id": "generated_active_item:001",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.8,
+        "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:current:contempor-neo:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:current:contempor-neo:active_evidence_expansion",
+        "source_sentence": "The museum opened a current exhibition of contemporary sculpture."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:current:contempor-neo:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-scale-tranche-v1-source-packaging-latest-source-row-001-current-contempor-neo",
+      "runtime_publishable": false,
+      "trigger": "current"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "adjective",
+        "note": "active-only generated anchor cue",
+        "sense_label": "current -> contemporáneo",
+        "target_key": "contemporáneo"
+      },
+      "active_target": "contemporáneo",
+      "candidate_pos": "adjective",
+      "candidate_sense_hint": {
+        "canonical_pos": "adjective",
+        "note": "active-only generated anchor cue",
+        "sense_label": "current -> contemporáneo",
+        "target_key": "contemporáneo"
+      },
+      "candidate_target": "contemporáneo",
+      "evidence_text": "Her current research focuses on current trends in urban design.",
+      "input_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:current:contempor-neo:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 5,
+        "evidence_note": "current refers to the present period, supporting the contemporary sense.",
+        "family_id": "en-es:full-family-repaired-full:current:contempor-neo",
+        "global_need_rank": 1,
+        "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:current:contempor-neo:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:002",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:current:contempor-neo:002",
+          "eval_overlap_risk": "medium",
+          "expected_pos": "adjective",
+          "flags": [
+            "medium_eval_overlap"
+          ],
+          "observed_source_syntax": "adjective_attributive",
+          "quality_score": 0.9,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "high_need",
+        "postprocess_audit_id": "generated_active_item:002",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.8,
+        "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:current:contempor-neo:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:current:contempor-neo:active_evidence_expansion",
+        "source_sentence": "Her current research focuses on current trends in urban design."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:current:contempor-neo:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-scale-tranche-v1-source-packaging-latest-source-row-002-current-contempor-neo",
+      "runtime_publishable": false,
+      "trigger": "current"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "verb",
+        "note": "active-only generated anchor cue",
+        "sense_label": "continue -> durar",
+        "target_key": "durar"
+      },
+      "active_target": "durar",
+      "candidate_pos": "verb",
+      "candidate_sense_hint": {
+        "canonical_pos": "verb",
+        "note": "active-only generated anchor cue",
+        "sense_label": "continue -> durar",
+        "target_key": "durar"
+      },
+      "candidate_target": "durar",
+      "evidence_text": "The meeting will continue for another two hours.",
+      "input_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:continue:durar:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 6,
+        "evidence_note": "Shows duration of an ongoing event.",
+        "family_id": "en-es:full-family-repaired-full:continue:durar",
+        "global_need_rank": 2,
+        "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:continue:durar:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:003",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:continue:durar:001",
+          "eval_overlap_risk": "low",
+          "expected_pos": "verb",
+          "flags": [],
+          "observed_source_syntax": "verb_after_modal",
+          "quality_score": 1.0,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "high_need",
+        "postprocess_audit_id": "generated_active_item:003",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.7962,
+        "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:continue:durar:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:continue:durar:active_evidence_expansion",
+        "source_sentence": "The meeting will continue for another two hours."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:continue:durar:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-scale-tranche-v1-source-packaging-latest-source-row-003-continue-durar",
+      "runtime_publishable": false,
+      "trigger": "continue"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "verb",
+        "note": "active-only generated anchor cue",
+        "sense_label": "continue -> durar",
+        "target_key": "durar"
+      },
+      "active_target": "durar",
+      "candidate_pos": "verb",
+      "candidate_sense_hint": {
+        "canonical_pos": "verb",
+        "note": "active-only generated anchor cue",
+        "sense_label": "continue -> durar",
+        "target_key": "durar"
+      },
+      "candidate_target": "durar",
+      "evidence_text": "The storm is expected to continue through the night.",
+      "input_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:continue:durar:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 6,
+        "evidence_note": "Indicates that a state lasts over a period of time.",
+        "family_id": "en-es:full-family-repaired-full:continue:durar",
+        "global_need_rank": 2,
+        "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:continue:durar:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:004",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:continue:durar:002",
+          "eval_overlap_risk": "low",
+          "expected_pos": "verb",
+          "flags": [],
+          "observed_source_syntax": "verb_infinitive",
+          "quality_score": 1.0,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "high_need",
+        "postprocess_audit_id": "generated_active_item:004",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.7962,
+        "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:continue:durar:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:continue:durar:active_evidence_expansion",
+        "source_sentence": "The storm is expected to continue through the night."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:continue:durar:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-scale-tranche-v1-source-packaging-latest-source-row-004-continue-durar",
+      "runtime_publishable": false,
+      "trigger": "continue"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "parrot -> loro",
+        "target_key": "loro"
+      },
+      "active_target": "loro",
+      "candidate_pos": "noun",
+      "candidate_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "parrot -> loro",
+        "target_key": "loro"
+      },
+      "candidate_target": "loro",
+      "evidence_text": "The parrot perched on the branch and cracked a sunflower seed with its beak.",
+      "input_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:parrot:loro:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 9,
+        "evidence_note": "Bird sense: a living parrot in a cage or tree setting.",
+        "family_id": "en-es:full-family-repaired-full:parrot:loro",
+        "global_need_rank": 3,
+        "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:parrot:loro:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:005",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:parrot:loro:001",
+          "eval_overlap_risk": "low",
+          "expected_pos": "noun",
+          "flags": [],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 1.0,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "high_need",
+        "postprocess_audit_id": "generated_active_item:005",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.6885,
+        "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:parrot:loro:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:parrot:loro:active_evidence_expansion",
+        "source_sentence": "The parrot perched on the branch and cracked a sunflower seed with its beak."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:parrot:loro:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-scale-tranche-v1-source-packaging-latest-source-row-005-parrot-loro",
+      "runtime_publishable": false,
+      "trigger": "parrot"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "parrot -> loro",
+        "target_key": "loro"
+      },
+      "active_target": "loro",
+      "candidate_pos": "noun",
+      "candidate_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "parrot -> loro",
+        "target_key": "loro"
+      },
+      "candidate_target": "loro",
+      "evidence_text": "At the zoo, a bright green parrot squawked loudly when visitors walked past.",
+      "input_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:parrot:loro:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 9,
+        "evidence_note": "Bird sense: an actual parrot making bird sounds.",
+        "family_id": "en-es:full-family-repaired-full:parrot:loro",
+        "global_need_rank": 3,
+        "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:parrot:loro:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:006",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:parrot:loro:001",
+          "eval_overlap_risk": "low",
+          "expected_pos": "noun",
+          "flags": [],
+          "observed_source_syntax": "noun_subject",
+          "quality_score": 1.0,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "high_need",
+        "postprocess_audit_id": "generated_active_item:006",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.6885,
+        "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:parrot:loro:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:parrot:loro:active_evidence_expansion",
+        "source_sentence": "At the zoo, a bright green parrot squawked loudly when visitors walked past."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:parrot:loro:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-scale-tranche-v1-source-packaging-latest-source-row-006-parrot-loro",
+      "runtime_publishable": false,
+      "trigger": "parrot"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "verb",
+        "note": "active-only generated anchor cue",
+        "sense_label": "recover -> sanar",
+        "target_key": "sanar"
+      },
+      "active_target": "sanar",
+      "candidate_pos": "verb",
+      "candidate_sense_hint": {
+        "canonical_pos": "verb",
+        "note": "active-only generated anchor cue",
+        "sense_label": "recover -> sanar",
+        "target_key": "sanar"
+      },
+      "candidate_target": "sanar",
+      "evidence_text": "The cut began to recover after she cleaned it and kept it covered.",
+      "input_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:recover:sanar:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 11,
+        "evidence_note": "Active healing of a wound or injury.",
+        "family_id": "en-es:full-family-repaired-full:recover:sanar",
+        "global_need_rank": 4,
+        "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:recover:sanar:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:007",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:recover:sanar:002",
+          "eval_overlap_risk": "medium",
+          "expected_pos": "verb",
+          "flags": [
+            "medium_eval_overlap"
+          ],
+          "observed_source_syntax": "verb_infinitive",
+          "quality_score": 0.9,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "high_need",
+        "postprocess_audit_id": "generated_active_item:007",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.6885,
+        "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:recover:sanar:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:recover:sanar:active_evidence_expansion",
+        "source_sentence": "The cut began to recover after she cleaned it and kept it covered."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:recover:sanar:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-scale-tranche-v1-source-packaging-latest-source-row-007-recover-sanar",
+      "runtime_publishable": false,
+      "trigger": "recover"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "verb",
+        "note": "active-only generated anchor cue",
+        "sense_label": "recover -> sanar",
+        "target_key": "sanar"
+      },
+      "active_target": "sanar",
+      "candidate_pos": "verb",
+      "candidate_sense_hint": {
+        "canonical_pos": "verb",
+        "note": "active-only generated anchor cue",
+        "sense_label": "recover -> sanar",
+        "target_key": "sanar"
+      },
+      "candidate_target": "sanar",
+      "evidence_text": "With rest and proper care, the burn should recover in a few weeks.",
+      "input_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:recover:sanar:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 11,
+        "evidence_note": "Active healing from an injury.",
+        "family_id": "en-es:full-family-repaired-full:recover:sanar",
+        "global_need_rank": 4,
+        "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:recover:sanar:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:008",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:recover:sanar:001",
+          "eval_overlap_risk": "low",
+          "expected_pos": "verb",
+          "flags": [],
+          "observed_source_syntax": "verb_after_modal",
+          "quality_score": 1.0,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "high_need",
+        "postprocess_audit_id": "generated_active_item:008",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.6885,
+        "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:recover:sanar:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:recover:sanar:active_evidence_expansion",
+        "source_sentence": "With rest and proper care, the burn should recover in a few weeks."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:recover:sanar:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-scale-tranche-v1-source-packaging-latest-source-row-008-recover-sanar",
+      "runtime_publishable": false,
+      "trigger": "recover"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "billow -> oleaje",
+        "target_key": "oleaje"
+      },
+      "active_target": "oleaje",
+      "candidate_pos": "noun",
+      "candidate_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "billow -> oleaje",
+        "target_key": "oleaje"
+      },
+      "candidate_target": "oleaje",
+      "evidence_text": "A billow rolled toward the shore and broke into white foam.",
+      "input_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:billow:oleaje:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 14,
+        "evidence_note": "Describes a large sea wave or swell moving on the ocean.",
+        "family_id": "en-es:full-family-repaired-full:billow:oleaje",
+        "global_need_rank": 5,
+        "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:billow:oleaje:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:009",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:billow:oleaje:001",
+          "eval_overlap_risk": "low",
+          "expected_pos": "noun",
+          "flags": [],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 1.0,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "high_need",
+        "postprocess_audit_id": "generated_active_item:009",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.6615,
+        "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:billow:oleaje:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:billow:oleaje:active_evidence_expansion",
+        "source_sentence": "A billow rolled toward the shore and broke into white foam."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:billow:oleaje:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-scale-tranche-v1-source-packaging-latest-source-row-009-billow-oleaje",
+      "runtime_publishable": false,
+      "trigger": "billow"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "billow -> oleaje",
+        "target_key": "oleaje"
+      },
+      "active_target": "oleaje",
+      "candidate_pos": "noun",
+      "candidate_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "billow -> oleaje",
+        "target_key": "oleaje"
+      },
+      "candidate_target": "oleaje",
+      "evidence_text": "From the deck, we watched a billow rise and fall across the dark water.",
+      "input_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:billow:oleaje:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 14,
+        "evidence_note": "Uses billow in the sense of a sea swell on the water.",
+        "family_id": "en-es:full-family-repaired-full:billow:oleaje",
+        "global_need_rank": 5,
+        "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:billow:oleaje:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:010",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:billow:oleaje:001",
+          "eval_overlap_risk": "medium",
+          "expected_pos": "noun",
+          "flags": [
+            "medium_eval_overlap",
+            "medium_shadow_confusability"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "medium",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "high_need",
+        "postprocess_audit_id": "generated_active_item:010",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.6615,
+        "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:billow:oleaje:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:billow:oleaje:active_evidence_expansion",
+        "source_sentence": "From the deck, we watched a billow rise and fall across the dark water."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:billow:oleaje:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-scale-tranche-v1-source-packaging-latest-source-row-010-billow-oleaje",
+      "runtime_publishable": false,
+      "trigger": "billow"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "stall -> cuadra",
+        "target_key": "cuadra"
+      },
+      "active_target": "cuadra",
+      "candidate_pos": "noun",
+      "candidate_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "stall -> cuadra",
+        "target_key": "cuadra"
+      },
+      "candidate_target": "cuadra",
+      "evidence_text": "The horse was led back to its stall after the ride.",
+      "input_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:stall:cuadra:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 15,
+        "evidence_note": "A stall is a compartment in a stable where an animal is kept.",
+        "family_id": "en-es:full-family-repaired-full:stall:cuadra",
+        "global_need_rank": 6,
+        "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:stall:cuadra:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:011",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:stall:cuadra:001",
+          "eval_overlap_risk": "medium",
+          "expected_pos": "noun",
+          "flags": [
+            "medium_eval_overlap"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.9,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "high_need",
+        "postprocess_audit_id": "generated_active_item:011",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.75,
+        "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:stall:cuadra:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:stall:cuadra:active_evidence_expansion",
+        "source_sentence": "The horse was led back to its stall after the ride."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:stall:cuadra:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-scale-tranche-v1-source-packaging-latest-source-row-011-stall-cuadra",
+      "runtime_publishable": false,
+      "trigger": "stall"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "stall -> cuadra",
+        "target_key": "cuadra"
+      },
+      "active_target": "cuadra",
+      "candidate_pos": "noun",
+      "candidate_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "stall -> cuadra",
+        "target_key": "cuadra"
+      },
+      "candidate_target": "cuadra",
+      "evidence_text": "Each stall in the barn had fresh hay and a water bucket.",
+      "input_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:stall:cuadra:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 15,
+        "evidence_note": "The context shows a stable compartment for an animal.",
+        "family_id": "en-es:full-family-repaired-full:stall:cuadra",
+        "global_need_rank": 6,
+        "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:stall:cuadra:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:012",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:stall:cuadra:002",
+          "eval_overlap_risk": "low",
+          "expected_pos": "noun",
+          "flags": [],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 1.0,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "high_need",
+        "postprocess_audit_id": "generated_active_item:012",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.75,
+        "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:stall:cuadra:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:stall:cuadra:active_evidence_expansion",
+        "source_sentence": "Each stall in the barn had fresh hay and a water bucket."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:stall:cuadra:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-scale-tranche-v1-source-packaging-latest-source-row-012-stall-cuadra",
+      "runtime_publishable": false,
+      "trigger": "stall"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "preposition",
+        "note": "active-only generated anchor cue",
+        "sense_label": "upon -> sobre",
+        "target_key": "sobre"
+      },
+      "active_target": "sobre",
+      "candidate_pos": "preposition",
+      "candidate_sense_hint": {
+        "canonical_pos": "preposition",
+        "note": "active-only generated anchor cue",
+        "sense_label": "upon -> sobre",
+        "target_key": "sobre"
+      },
+      "candidate_target": "sobre",
+      "evidence_text": "The report was written upon the latest survey results.",
+      "input_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:upon:sobre:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 3,
+        "evidence_note": "upon means regarding or based on the survey results.",
+        "family_id": "en-es:full-family-repaired-full:upon:sobre",
+        "global_need_rank": 7,
+        "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:upon:sobre:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:013",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:upon:sobre:001",
+          "eval_overlap_risk": "low",
+          "expected_pos": "preposition",
+          "flags": [
+            "pos_unknown",
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "middle_control",
+        "postprocess_audit_id": "generated_active_item:013",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5077,
+        "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:upon:sobre:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:upon:sobre:active_evidence_expansion",
+        "source_sentence": "The report was written upon the latest survey results."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:upon:sobre:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-scale-tranche-v1-source-packaging-latest-source-row-013-upon-sobre",
+      "runtime_publishable": false,
+      "trigger": "upon"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "preposition",
+        "note": "active-only generated anchor cue",
+        "sense_label": "upon -> sobre",
+        "target_key": "sobre"
+      },
+      "active_target": "sobre",
+      "candidate_pos": "preposition",
+      "candidate_sense_hint": {
+        "canonical_pos": "preposition",
+        "note": "active-only generated anchor cue",
+        "sense_label": "upon -> sobre",
+        "target_key": "sobre"
+      },
+      "candidate_target": "sobre",
+      "evidence_text": "She commented upon the proposal during the meeting.",
+      "input_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:upon:sobre:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 3,
+        "evidence_note": "upon means regarding the proposal.",
+        "family_id": "en-es:full-family-repaired-full:upon:sobre",
+        "global_need_rank": 7,
+        "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:upon:sobre:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:014",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:upon:sobre:001",
+          "eval_overlap_risk": "low",
+          "expected_pos": "preposition",
+          "flags": [
+            "pos_unknown",
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "middle_control",
+        "postprocess_audit_id": "generated_active_item:014",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5077,
+        "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:upon:sobre:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:upon:sobre:active_evidence_expansion",
+        "source_sentence": "She commented upon the proposal during the meeting."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:upon:sobre:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-scale-tranche-v1-source-packaging-latest-source-row-014-upon-sobre",
+      "runtime_publishable": false,
+      "trigger": "upon"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "pair -> par",
+        "target_key": "par"
+      },
+      "active_target": "par",
+      "candidate_pos": "noun",
+      "candidate_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "pair -> par",
+        "target_key": "par"
+      },
+      "candidate_target": "par",
+      "evidence_text": "She bought a pair of socks for the trip.",
+      "input_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:pair:par:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 4,
+        "evidence_note": "pair means two matching items",
+        "family_id": "en-es:full-family-repaired-full:pair:par",
+        "global_need_rank": 8,
+        "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:pair:par:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:015",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:pair:par:001",
+          "eval_overlap_risk": "medium",
+          "expected_pos": "noun",
+          "flags": [
+            "medium_eval_overlap"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.9,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "middle_control",
+        "postprocess_audit_id": "generated_active_item:015",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.6577,
+        "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:pair:par:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:pair:par:active_evidence_expansion",
+        "source_sentence": "She bought a pair of socks for the trip."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:pair:par:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-scale-tranche-v1-source-packaging-latest-source-row-015-pair-par",
+      "runtime_publishable": false,
+      "trigger": "pair"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "pair -> par",
+        "target_key": "par"
+      },
+      "active_target": "par",
+      "candidate_pos": "noun",
+      "candidate_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "pair -> par",
+        "target_key": "par"
+      },
+      "candidate_target": "par",
+      "evidence_text": "The recipe calls for a pair of eggs in the batter.",
+      "input_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:pair:par:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 4,
+        "evidence_note": "pair means two things together",
+        "family_id": "en-es:full-family-repaired-full:pair:par",
+        "global_need_rank": 8,
+        "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:pair:par:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:016",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:pair:par:001",
+          "eval_overlap_risk": "low",
+          "expected_pos": "noun",
+          "flags": [],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 1.0,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "middle_control",
+        "postprocess_audit_id": "generated_active_item:016",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.6577,
+        "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:pair:par:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:pair:par:active_evidence_expansion",
+        "source_sentence": "The recipe calls for a pair of eggs in the batter."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:pair:par:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-scale-tranche-v1-source-packaging-latest-source-row-016-pair-par",
+      "runtime_publishable": false,
+      "trigger": "pair"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "health -> salud",
+        "target_key": "salud"
+      },
+      "active_target": "salud",
+      "candidate_pos": "noun",
+      "candidate_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "health -> salud",
+        "target_key": "salud"
+      },
+      "candidate_target": "salud",
+      "evidence_text": "Regular exercise can improve your health and lower the risk of disease.",
+      "input_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:health:salud:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 13,
+        "evidence_note": "health means bodily wellbeing and condition.",
+        "family_id": "en-es:full-family-repaired-full:health:salud",
+        "global_need_rank": 9,
+        "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:health:salud:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:017",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:health:salud:001",
+          "eval_overlap_risk": "medium",
+          "expected_pos": "noun",
+          "flags": [
+            "medium_eval_overlap"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.9,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "middle_control",
+        "postprocess_audit_id": "generated_active_item:017",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.4962,
+        "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:health:salud:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:health:salud:active_evidence_expansion",
+        "source_sentence": "Regular exercise can improve your health and lower the risk of disease."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:health:salud:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-scale-tranche-v1-source-packaging-latest-source-row-017-health-salud",
+      "runtime_publishable": false,
+      "trigger": "health"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "health -> salud",
+        "target_key": "salud"
+      },
+      "active_target": "salud",
+      "candidate_pos": "noun",
+      "candidate_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "health -> salud",
+        "target_key": "salud"
+      },
+      "candidate_target": "salud",
+      "evidence_text": "The doctor said her health was stable after the surgery.",
+      "input_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:health:salud:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 13,
+        "evidence_note": "health refers to the person's physical condition.",
+        "family_id": "en-es:full-family-repaired-full:health:salud",
+        "global_need_rank": 9,
+        "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:health:salud:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:018",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:health:salud:001",
+          "eval_overlap_risk": "low",
+          "expected_pos": "noun",
+          "flags": [],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 1.0,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "middle_control",
+        "postprocess_audit_id": "generated_active_item:018",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.4962,
+        "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:health:salud:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:health:salud:active_evidence_expansion",
+        "source_sentence": "The doctor said her health was stable after the surgery."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:health:salud:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-scale-tranche-v1-source-packaging-latest-source-row-018-health-salud",
+      "runtime_publishable": false,
+      "trigger": "health"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "verb",
+        "note": "active-only generated anchor cue",
+        "sense_label": "snore -> roncar",
+        "target_key": "roncar"
+      },
+      "active_target": "roncar",
+      "candidate_pos": "verb",
+      "candidate_sense_hint": {
+        "canonical_pos": "verb",
+        "note": "active-only generated anchor cue",
+        "sense_label": "snore -> roncar",
+        "target_key": "roncar"
+      },
+      "candidate_target": "roncar",
+      "evidence_text": "After the long hike, he fell asleep and began to snore softly in the tent.",
+      "input_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:snore:roncar:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 14,
+        "evidence_note": "Sleeping person breathing noisily, which matches the active sense.",
+        "family_id": "en-es:full-family-repaired-full:snore:roncar",
+        "global_need_rank": 10,
+        "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:snore:roncar:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:019",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:snore:roncar:002",
+          "eval_overlap_risk": "low",
+          "expected_pos": "verb",
+          "flags": [],
+          "observed_source_syntax": "verb_infinitive",
+          "quality_score": 1.0,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "middle_control",
+        "postprocess_audit_id": "generated_active_item:019",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.6,
+        "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:snore:roncar:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:snore:roncar:active_evidence_expansion",
+        "source_sentence": "After the long hike, he fell asleep and began to snore softly in the tent."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:snore:roncar:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-scale-tranche-v1-source-packaging-latest-source-row-019-snore-roncar",
+      "runtime_publishable": false,
+      "trigger": "snore"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "verb",
+        "note": "active-only generated anchor cue",
+        "sense_label": "snore -> roncar",
+        "target_key": "roncar"
+      },
+      "active_target": "roncar",
+      "candidate_pos": "verb",
+      "candidate_sense_hint": {
+        "canonical_pos": "verb",
+        "note": "active-only generated anchor cue",
+        "sense_label": "snore -> roncar",
+        "target_key": "roncar"
+      },
+      "candidate_target": "roncar",
+      "evidence_text": "She could hear her grandfather snore from the next room all night.",
+      "input_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:snore:roncar:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 14,
+        "evidence_note": "The context shows a sleeping person making loud breathing sounds.",
+        "family_id": "en-es:full-family-repaired-full:snore:roncar",
+        "global_need_rank": 10,
+        "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:snore:roncar:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:020",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:snore:roncar:003",
+          "eval_overlap_risk": "medium",
+          "expected_pos": "verb",
+          "flags": [
+            "medium_eval_overlap",
+            "pos_unknown",
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.7,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "middle_control",
+        "postprocess_audit_id": "generated_active_item:020",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.6,
+        "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:snore:roncar:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:snore:roncar:active_evidence_expansion",
+        "source_sentence": "She could hear her grandfather snore from the next room all night."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:snore:roncar:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-scale-tranche-v1-source-packaging-latest-source-row-020-snore-roncar",
+      "runtime_publishable": false,
+      "trigger": "snore"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "handiwork -> artesanía",
+        "target_key": "artesanía"
+      },
+      "active_target": "artesanía",
+      "candidate_pos": "noun",
+      "candidate_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "handiwork -> artesanía",
+        "target_key": "artesanía"
+      },
+      "candidate_target": "artesanía",
+      "evidence_text": "The carved chair was clearly the handiwork of a skilled woodworker.",
+      "input_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:handiwork:artesan-a:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 5,
+        "evidence_note": "Refers to a hand-made crafted object.",
+        "family_id": "en-es:full-family-repaired-full:handiwork:artesan-a",
+        "global_need_rank": 11,
+        "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:handiwork:artesan-a:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:021",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:handiwork:artesan-a:002",
+          "eval_overlap_risk": "low",
+          "expected_pos": "noun",
+          "flags": [],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 1.0,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "low_control",
+        "postprocess_audit_id": "generated_active_item:021",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.3,
+        "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:handiwork:artesan-a:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:handiwork:artesan-a:active_evidence_expansion",
+        "source_sentence": "The carved chair was clearly the handiwork of a skilled woodworker."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:handiwork:artesan-a:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-scale-tranche-v1-source-packaging-latest-source-row-021-handiwork-artesan-a",
+      "runtime_publishable": false,
+      "trigger": "handiwork"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "handiwork -> artesanía",
+        "target_key": "artesanía"
+      },
+      "active_target": "artesanía",
+      "candidate_pos": "noun",
+      "candidate_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "handiwork -> artesanía",
+        "target_key": "artesanía"
+      },
+      "candidate_target": "artesanía",
+      "evidence_text": "Her handiwork showed careful stitching and fine detail in every seam.",
+      "input_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:handiwork:artesan-a:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 5,
+        "evidence_note": "Refers to work produced by hand.",
+        "family_id": "en-es:full-family-repaired-full:handiwork:artesan-a",
+        "global_need_rank": 11,
+        "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:handiwork:artesan-a:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:022",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:handiwork:artesan-a:002",
+          "eval_overlap_risk": "low",
+          "expected_pos": "noun",
+          "flags": [],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 1.0,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "low_control",
+        "postprocess_audit_id": "generated_active_item:022",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.3,
+        "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:handiwork:artesan-a:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:handiwork:artesan-a:active_evidence_expansion",
+        "source_sentence": "Her handiwork showed careful stitching and fine detail in every seam."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:handiwork:artesan-a:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-scale-tranche-v1-source-packaging-latest-source-row-022-handiwork-artesan-a",
+      "runtime_publishable": false,
+      "trigger": "handiwork"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "adjective",
+        "note": "active-only generated anchor cue",
+        "sense_label": "adjoining -> contiguo",
+        "target_key": "contiguo"
+      },
+      "active_target": "contiguo",
+      "candidate_pos": "adjective",
+      "candidate_sense_hint": {
+        "canonical_pos": "adjective",
+        "note": "active-only generated anchor cue",
+        "sense_label": "adjoining -> contiguo",
+        "target_key": "contiguo"
+      },
+      "candidate_target": "contiguo",
+      "evidence_text": "The garden has an adjoining lot that shares a fence with the house.",
+      "input_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:adjoining:contiguo:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 6,
+        "evidence_note": "Shows the lot is next to and sharing a boundary with the house.",
+        "family_id": "en-es:full-family-repaired-full:adjoining:contiguo",
+        "global_need_rank": 12,
+        "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:adjoining:contiguo:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:023",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:adjoining:contiguo:001",
+          "eval_overlap_risk": "low",
+          "expected_pos": "adjective",
+          "flags": [],
+          "observed_source_syntax": "adjective_attributive",
+          "quality_score": 1.0,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "low_control",
+        "postprocess_audit_id": "generated_active_item:023",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.4808,
+        "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:adjoining:contiguo:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:adjoining:contiguo:active_evidence_expansion",
+        "source_sentence": "The garden has an adjoining lot that shares a fence with the house."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:adjoining:contiguo:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-scale-tranche-v1-source-packaging-latest-source-row-023-adjoining-contiguo",
+      "runtime_publishable": false,
+      "trigger": "adjoining"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "adjective",
+        "note": "active-only generated anchor cue",
+        "sense_label": "adjoining -> contiguo",
+        "target_key": "contiguo"
+      },
+      "active_target": "contiguo",
+      "candidate_pos": "adjective",
+      "candidate_sense_hint": {
+        "canonical_pos": "adjective",
+        "note": "active-only generated anchor cue",
+        "sense_label": "adjoining -> contiguo",
+        "target_key": "contiguo"
+      },
+      "candidate_target": "contiguo",
+      "evidence_text": "We rented an adjoining room because it was directly next to ours.",
+      "input_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:adjoining:contiguo:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 6,
+        "evidence_note": "Makes the sense clear by stating the room is directly beside another room.",
+        "family_id": "en-es:full-family-repaired-full:adjoining:contiguo",
+        "global_need_rank": 12,
+        "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:adjoining:contiguo:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:024",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:adjoining:contiguo:001",
+          "eval_overlap_risk": "low",
+          "expected_pos": "adjective",
+          "flags": [],
+          "observed_source_syntax": "adjective_attributive",
+          "quality_score": 1.0,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "low_control",
+        "postprocess_audit_id": "generated_active_item:024",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.4808,
+        "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:adjoining:contiguo:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:adjoining:contiguo:active_evidence_expansion",
+        "source_sentence": "We rented an adjoining room because it was directly next to ours."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:adjoining:contiguo:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-scale-tranche-v1-source-packaging-latest-source-row-024-adjoining-contiguo",
+      "runtime_publishable": false,
+      "trigger": "adjoining"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "adder -> víbora",
+        "target_key": "víbora"
+      },
+      "active_target": "víbora",
+      "candidate_pos": "noun",
+      "candidate_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "adder -> víbora",
+        "target_key": "víbora"
+      },
+      "candidate_target": "víbora",
+      "evidence_text": "The hiker froze when an adder slid across the path near his boot.",
+      "input_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:adder:v-bora:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 9,
+        "evidence_note": "Refers to a venomous snake.",
+        "family_id": "en-es:full-family-repaired-full:adder:v-bora",
+        "global_need_rank": 13,
+        "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:adder:v-bora:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:025",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:adder:v-bora:001",
+          "eval_overlap_risk": "medium",
+          "expected_pos": "noun",
+          "flags": [
+            "medium_eval_overlap"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.9,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "low_control",
+        "postprocess_audit_id": "generated_active_item:025",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.4885,
+        "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:adder:v-bora:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:adder:v-bora:active_evidence_expansion",
+        "source_sentence": "The hiker froze when an adder slid across the path near his boot."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:adder:v-bora:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-scale-tranche-v1-source-packaging-latest-source-row-025-adder-v-bora",
+      "runtime_publishable": false,
+      "trigger": "adder"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "adder -> víbora",
+        "target_key": "víbora"
+      },
+      "active_target": "víbora",
+      "candidate_pos": "noun",
+      "candidate_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "adder -> víbora",
+        "target_key": "víbora"
+      },
+      "candidate_target": "víbora",
+      "evidence_text": "A bright warning sign told campers to watch for an adder in the grass.",
+      "input_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:adder:v-bora:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 9,
+        "evidence_note": "Snake context makes the meaning clear.",
+        "family_id": "en-es:full-family-repaired-full:adder:v-bora",
+        "global_need_rank": 13,
+        "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:adder:v-bora:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:026",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:adder:v-bora:001",
+          "eval_overlap_risk": "low",
+          "expected_pos": "noun",
+          "flags": [],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 1.0,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "low_control",
+        "postprocess_audit_id": "generated_active_item:026",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.4885,
+        "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:adder:v-bora:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:adder:v-bora:active_evidence_expansion",
+        "source_sentence": "A bright warning sign told campers to watch for an adder in the grass."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:adder:v-bora:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-scale-tranche-v1-source-packaging-latest-source-row-026-adder-v-bora",
+      "runtime_publishable": false,
+      "trigger": "adder"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "altitude -> elevación",
+        "target_key": "elevación"
+      },
+      "active_target": "elevación",
+      "candidate_pos": "noun",
+      "candidate_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "altitude -> elevación",
+        "target_key": "elevación"
+      },
+      "candidate_target": "elevación",
+      "evidence_text": "The hikers adjusted their pace as the altitude increased above the valley floor.",
+      "input_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:altitude:elevaci-n:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 10,
+        "evidence_note": "Shows altitude as height above a reference level.",
+        "family_id": "en-es:full-family-repaired-full:altitude:elevaci-n",
+        "global_need_rank": 14,
+        "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:altitude:elevaci-n:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:027",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:altitude:elevaci-n:001",
+          "eval_overlap_risk": "low",
+          "expected_pos": "noun",
+          "flags": [],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 1.0,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "low_control",
+        "postprocess_audit_id": "generated_active_item:027",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.4385,
+        "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:altitude:elevaci-n:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:altitude:elevaci-n:active_evidence_expansion",
+        "source_sentence": "The hikers adjusted their pace as the altitude increased above the valley floor."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:altitude:elevaci-n:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-scale-tranche-v1-source-packaging-latest-source-row-027-altitude-elevaci-n",
+      "runtime_publishable": false,
+      "trigger": "altitude"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "altitude -> elevación",
+        "target_key": "elevación"
+      },
+      "active_target": "elevación",
+      "candidate_pos": "noun",
+      "candidate_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "altitude -> elevación",
+        "target_key": "elevación"
+      },
+      "candidate_target": "elevación",
+      "evidence_text": "At this altitude, the air is thinner and the temperature drops quickly.",
+      "input_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:altitude:elevaci-n:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 10,
+        "evidence_note": "Uses altitude in the sense of elevation above sea level.",
+        "family_id": "en-es:full-family-repaired-full:altitude:elevaci-n",
+        "global_need_rank": 14,
+        "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:altitude:elevaci-n:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:028",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:altitude:elevaci-n:001",
+          "eval_overlap_risk": "low",
+          "expected_pos": "noun",
+          "flags": [],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 1.0,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "low_control",
+        "postprocess_audit_id": "generated_active_item:028",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.4385,
+        "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:altitude:elevaci-n:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:altitude:elevaci-n:active_evidence_expansion",
+        "source_sentence": "At this altitude, the air is thinner and the temperature drops quickly."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:altitude:elevaci-n:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-scale-tranche-v1-source-packaging-latest-source-row-028-altitude-elevaci-n",
+      "runtime_publishable": false,
+      "trigger": "altitude"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "june -> junio",
+        "target_key": "junio"
+      },
+      "active_target": "junio",
+      "candidate_pos": "noun",
+      "candidate_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "june -> junio",
+        "target_key": "junio"
+      },
+      "candidate_target": "junio",
+      "evidence_text": "We plan to travel in june after the school year ends.",
+      "input_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:june:junio:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 11,
+        "evidence_note": "Refers to the month between May and July.",
+        "family_id": "en-es:full-family-repaired-full:june:junio",
+        "global_need_rank": 15,
+        "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:june:junio:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:029",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:june:junio:001",
+          "eval_overlap_risk": "low",
+          "expected_pos": "noun",
+          "flags": [],
+          "observed_source_syntax": "month_name",
+          "quality_score": 1.0,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "low_control",
+        "postprocess_audit_id": "generated_active_item:029",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.4154,
+        "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:june:junio:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:june:junio:active_evidence_expansion",
+        "source_sentence": "We plan to travel in june after the school year ends."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:june:junio:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-scale-tranche-v1-source-packaging-latest-source-row-029-june-junio",
+      "runtime_publishable": false,
+      "trigger": "june"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "june -> junio",
+        "target_key": "junio"
+      },
+      "active_target": "junio",
+      "candidate_pos": "noun",
+      "candidate_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "june -> junio",
+        "target_key": "junio"
+      },
+      "candidate_target": "junio",
+      "evidence_text": "The report is due in june, so we need to finish it soon.",
+      "input_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:june:junio:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 11,
+        "evidence_note": "Uses june as a calendar month in a date context.",
+        "family_id": "en-es:full-family-repaired-full:june:junio",
+        "global_need_rank": 15,
+        "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:june:junio:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:030",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:june:junio:001",
+          "eval_overlap_risk": "low",
+          "expected_pos": "noun",
+          "flags": [],
+          "observed_source_syntax": "month_name",
+          "quality_score": 1.0,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "low_control",
+        "postprocess_audit_id": "generated_active_item:030",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.4154,
+        "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:june:junio:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:june:junio:active_evidence_expansion",
+        "source_sentence": "The report is due in june, so we need to finish it soon."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:june:junio:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-scale-tranche-v1-source-packaging-latest-source-row-030-june-junio",
+      "runtime_publishable": false,
+      "trigger": "june"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "emotion -> emoción",
+        "target_key": "emoción"
+      },
+      "active_target": "emoción",
+      "candidate_pos": "noun",
+      "candidate_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "emotion -> emoción",
+        "target_key": "emoción"
+      },
+      "candidate_target": "emoción",
+      "evidence_text": "Her voice shook with emotion when she heard the good news.",
+      "input_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:emotion:emoci-n:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 13,
+        "evidence_note": "Shows a strong feeling in response to an event.",
+        "family_id": "en-es:full-family-repaired-full:emotion:emoci-n",
+        "global_need_rank": 16,
+        "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:emotion:emoci-n:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:031",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:emotion:emoci-n:001",
+          "eval_overlap_risk": "low",
+          "expected_pos": "noun",
+          "flags": [
+            "pos_unknown",
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "low_control",
+        "postprocess_audit_id": "generated_active_item:031",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.3808,
+        "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:emotion:emoci-n:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:emotion:emoci-n:active_evidence_expansion",
+        "source_sentence": "Her voice shook with emotion when she heard the good news."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:emotion:emoci-n:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-scale-tranche-v1-source-packaging-latest-source-row-031-emotion-emoci-n",
+      "runtime_publishable": false,
+      "trigger": "emotion"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "emotion -> emoción",
+        "target_key": "emoción"
+      },
+      "active_target": "emoción",
+      "candidate_pos": "noun",
+      "candidate_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "emotion -> emoción",
+        "target_key": "emoción"
+      },
+      "candidate_target": "emoción",
+      "evidence_text": "He could not hide his emotion during the farewell speech.",
+      "input_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:emotion:emoci-n:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 13,
+        "evidence_note": "Refers to an intense affective state visible in behavior.",
+        "family_id": "en-es:full-family-repaired-full:emotion:emoci-n",
+        "global_need_rank": 16,
+        "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:emotion:emoci-n:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:032",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:emotion:emoci-n:001",
+          "eval_overlap_risk": "low",
+          "expected_pos": "noun",
+          "flags": [],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 1.0,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "low_control",
+        "postprocess_audit_id": "generated_active_item:032",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.3808,
+        "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:emotion:emoci-n:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:emotion:emoci-n:active_evidence_expansion",
+        "source_sentence": "He could not hide his emotion during the farewell speech."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:emotion:emoci-n:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-scale-tranche-v1-source-packaging-latest-source-row-032-emotion-emoci-n",
+      "runtime_publishable": false,
+      "trigger": "emotion"
+    }
+  ],
+  "model_id": "gpt-5.4-mini",
+  "pair": "en-es",
+  "prompt_version": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+  "provenance": {
+    "admission_generated_at": "2026-05-09T22:52:30Z",
+    "admitted_input_item_count": 32,
+    "evidence_variant": "sentence_only",
+    "excluded_item_count": 0,
+    "postprocess_generated_at": "2026-05-09T22:52:38Z",
+    "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+    "raw_output_mutation": "none",
+    "selected_item_count": 32,
+    "source_packaging_run_id": "active-only-scale-tranche-v1-source-packaging-latest"
+  },
+  "review_state": "unreviewed",
+  "roles": [
+    "cue_generation"
+  ],
+  "schema_version": 1,
+  "source_family": "silver_llm_generation",
+  "source_id": "active-only-scale-tranche-v1-source-packaging-latest",
+  "source_type": "llm",
+  "temperature": 0.2
+}

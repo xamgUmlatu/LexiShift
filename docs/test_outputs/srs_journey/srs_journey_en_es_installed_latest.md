@@ -1,4 +1,4 @@
-# SRS Journey Harness
+# SRS Journey en-es Installed
 
 - Status: WARN
 - Findings: pass=9 warn=2 fail=0
@@ -6,7 +6,7 @@
 - Pair: `en-es`
 - Lane: `installed_resource_journey`
 - Contract mode: `observe_current_behavior`
-- Generated at: `2026-03-21T05:21:30.372760+00:00`
+- Generated at: `2026-05-05T23:22:00.512607+00:00`
 
 ## Phases
 

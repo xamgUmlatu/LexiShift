@@ -113,7 +113,8 @@
           "type": "string",
           "enum": [
             "not_published",
-            "emitted_rule_siblings"
+            "emitted_rule_siblings",
+            "active_only_anchor_cue"
           ]
         },
         "competition_reason_code": {
@@ -423,7 +424,6 @@
         },
         "shadow_sense_ids": {
           "type": "array",
-          "minItems": 1,
           "items": {
             "type": "string",
             "minLength": 1
@@ -434,7 +434,8 @@
           "enum": [
             "automatic",
             "manual",
-            "mixed"
+            "mixed",
+            "active_only"
           ]
         },
         "selection_policy_version": {
@@ -458,6 +459,48 @@
               "selection_mode",
               "selection_policy_version"
             ]
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "status",
+              "selection_mode"
+            ],
+            "properties": {
+              "status": {
+                "const": "ready"
+              },
+              "selection_mode": {
+                "const": "active_only"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "shadow_sense_ids": {
+                "maxItems": 0
+              }
+            }
+          },
+          "else": {
+            "if": {
+              "required": [
+                "status"
+              ],
+              "properties": {
+                "status": {
+                  "const": "ready"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "shadow_sense_ids": {
+                  "minItems": 1
+                }
+              }
+            }
           }
         },
         {

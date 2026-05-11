@@ -46,6 +46,7 @@
     const srsRuntimeDiagnosticsButton = elements.srsRuntimeDiagnosticsButton || null;
     const srsRulegenSampledButton = elements.srsRulegenSampledButton || null;
     const srsResetButton = elements.srsResetButton || null;
+    const semanticPackInstallButton = elements.semanticPackInstallButton || null;
     const srsAdmissionPreviewOutput = elements.srsAdmissionPreviewOutput || null;
     const srsRulegenSampledOutput = elements.srsRulegenSampledOutput || null;
     const debugHelperTestButton = elements.debugHelperTestButton || null;
@@ -156,6 +157,10 @@
           srsRulegenOutput.textContent = message;
         }
       }
+    });
+    bindAsyncListener(semanticPackInstallButton, "click", () => srsActionsController.installSemanticPack(), {
+      fallbackMessage: () => translate("status_semantic_pack_install_failed", null, "Semantic pack install failed."),
+      logMessage: "Semantic pack install failed."
     });
     bindAsyncListener(srsResetButton, "click", () => srsActionsController.resetSrsData(), {
       fallbackMessage: () => translate("status_srs_reset_failed", null, "SRS reset failed."),

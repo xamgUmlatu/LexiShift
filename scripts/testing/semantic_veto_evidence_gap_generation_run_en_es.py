@@ -78,6 +78,14 @@ def _parse_args() -> argparse.Namespace:
     parser.add_argument("--max-requests", type=int, default=0)
     parser.add_argument("--model-id", default=DEFAULT_MODEL_ID)
     parser.add_argument("--temperature", type=float, default=DEFAULT_TEMPERATURE)
+    parser.add_argument(
+        "--omit-temperature",
+        action="store_true",
+        help=(
+            "Do not send a temperature parameter to the Responses API. "
+            "Use this for models that reject sampling controls."
+        ),
+    )
     parser.add_argument("--max-output-tokens", type=int, default=DEFAULT_MAX_OUTPUT_TOKENS)
     parser.add_argument("--chars-per-token", type=float, default=DEFAULT_CHARS_PER_TOKEN)
     parser.add_argument(
@@ -151,7 +159,7 @@ def main() -> int:
         responses_client=responses_client,
         batch_dir=args.batch_dir,
         model_id=args.model_id,
-        temperature=args.temperature,
+        temperature=None if args.omit_temperature else args.temperature,
         max_output_tokens=args.max_output_tokens,
         execution_mode=execution_mode,
         replay_source=replay_source,

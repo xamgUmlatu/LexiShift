@@ -1,0 +1,1365 @@
+{
+  "generated_at": "2026-05-09T20:22:29Z",
+  "generation_contract": {
+    "evaluation_rule": "Apply generated evidence to every arm under the same selected candidate policies, then compare improvement for high_need versus middle_control and low_control. Do not tune thresholds from the generated rows.",
+    "same_contract_for_all_arms": true,
+    "slot_types": [
+      "active_evidence_expansion",
+      "shadow_or_competitor_evidence_probe",
+      "no_winner_context_probe"
+    ]
+  },
+  "pair": "en-es",
+  "pilot_families": [
+    {
+      "active": {
+        "canonical_pos": "verb",
+        "evidence_text": "cite -> mencionar | mention or refer to a source, person, or fact",
+        "sense_id": "en-es:full-family-repaired-full:cite:mencionar:active",
+        "target_lemma": "mencionar"
+      },
+      "arm_rank": 1,
+      "band_id": "high_need",
+      "band_rank": 2,
+      "case_count": 4,
+      "failure_count": 1,
+      "false_abstain_count": 1,
+      "family_id": "en-es:full-family-repaired-full:cite:mencionar",
+      "feature_context": {
+        "polysemy_band": "medium_4_to_9",
+        "pos_shape": "cross_pos_polysemy",
+        "shadow_count": 2,
+        "source_zipf_band_en": "zipf_3_to_4_mid",
+        "target_zipf_band_es": "zipf_4_to_5_common"
+      },
+      "global_need_rank": 13,
+      "harmful_replace_count": 0,
+      "observed_failure_rate": 0.25,
+      "pilot_arm": "high_need",
+      "planned_generation_slots": [
+        {
+          "purpose": "Improve active-sense examples without changing decision thresholds.",
+          "requested_items": 2,
+          "slot_id": "en-es:full-family-repaired-full:cite:mencionar:active_evidence_expansion",
+          "slot_type": "active_evidence_expansion",
+          "source_phrase": "cite",
+          "target_lemma": "mencionar"
+        },
+        {
+          "purpose": "Improve an existing competitor sense when present; otherwise discover one plausible competing sense before evidence generation.",
+          "requested_items": 2,
+          "slot_id": "en-es:full-family-repaired-full:cite:mencionar:shadow_or_competitor_evidence_probe",
+          "slot_type": "shadow_or_competitor_evidence_probe",
+          "source_phrase": "cite",
+          "target_lemma": "multar"
+        },
+        {
+          "purpose": "Collect a runtime-like context where no offered Spanish target should win, for guard calibration.",
+          "requested_items": 1,
+          "slot_id": "en-es:full-family-repaired-full:cite:mencionar:no_winner_context_probe",
+          "slot_type": "no_winner_context_probe",
+          "source_phrase": "cite",
+          "target_lemma": ""
+        }
+      ],
+      "predicted_need": 0.6731,
+      "previous_admitted_overlap": false,
+      "previous_pilot_overlap": false,
+      "selection_features": {
+        "polysemy_risk": 0.6,
+        "pos_shape_risk": 0.9,
+        "shadow_coverage_risk": 0.85,
+        "source_zipf_risk": 0.45,
+        "target_zipf_risk": 0.35
+      },
+      "selection_formula": "sweep_linear_2169",
+      "selection_scorer": "safest_80pct_positive_sentence_transformer_a0000_m0015",
+      "shadow_count": 2,
+      "shadows": [
+        {
+          "canonical_pos": "verb",
+          "evidence_text": "cite -> multar | issue a legal citation or fine",
+          "sense_id": "en-es:full-family-repaired-full:cite:mencionar:shadow:1:multar",
+          "target_lemma": "multar"
+        },
+        {
+          "canonical_pos": "verb",
+          "evidence_text": "cite -> elogiar | commend someone officially",
+          "sense_id": "en-es:full-family-repaired-full:cite:mencionar:shadow:2:elogiar",
+          "target_lemma": "elogiar"
+        }
+      ],
+      "target_lemma": "mencionar",
+      "trigger": "cite"
+    },
+    {
+      "active": {
+        "canonical_pos": "verb",
+        "evidence_text": "smile -> sonreír | smile as a verb, changing one's facial expression",
+        "sense_id": "en-es:full-family-repaired-full:smile:sonre-r:active",
+        "target_lemma": "sonreír"
+      },
+      "arm_rank": 2,
+      "band_id": "high_need",
+      "band_rank": 3,
+      "case_count": 4,
+      "failure_count": 0,
+      "false_abstain_count": 0,
+      "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+      "feature_context": {
+        "polysemy_band": "low_1_to_3",
+        "pos_shape": "cross_pos_polysemy",
+        "shadow_count": 2,
+        "source_zipf_band_en": "zipf_4_to_5_common",
+        "target_zipf_band_es": "zipf_3_to_4_mid"
+      },
+      "global_need_rank": 7,
+      "harmful_replace_count": 0,
+      "observed_failure_rate": 0.0,
+      "pilot_arm": "high_need",
+      "planned_generation_slots": [
+        {
+          "purpose": "Improve active-sense examples without changing decision thresholds.",
+          "requested_items": 2,
+          "slot_id": "en-es:full-family-repaired-full:smile:sonre-r:active_evidence_expansion",
+          "slot_type": "active_evidence_expansion",
+          "source_phrase": "smile",
+          "target_lemma": "sonreír"
+        },
+        {
+          "purpose": "Improve an existing competitor sense when present; otherwise discover one plausible competing sense before evidence generation.",
+          "requested_items": 2,
+          "slot_id": "en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe",
+          "slot_type": "shadow_or_competitor_evidence_probe",
+          "source_phrase": "smile",
+          "target_lemma": "sonrisa"
+        },
+        {
+          "purpose": "Collect a runtime-like context where no offered Spanish target should win, for guard calibration.",
+          "requested_items": 1,
+          "slot_id": "en-es:full-family-repaired-full:smile:sonre-r:no_winner_context_probe",
+          "slot_type": "no_winner_context_probe",
+          "source_phrase": "smile",
+          "target_lemma": ""
+        }
+      ],
+      "predicted_need": 0.7577,
+      "previous_admitted_overlap": false,
+      "previous_pilot_overlap": false,
+      "selection_features": {
+        "polysemy_risk": 0.2,
+        "pos_shape_risk": 0.9,
+        "shadow_coverage_risk": 0.85,
+        "source_zipf_risk": 0.75,
+        "target_zipf_risk": 0.65
+      },
+      "selection_formula": "sweep_linear_2169",
+      "selection_scorer": "safest_80pct_positive_sentence_transformer_a0000_m0015",
+      "shadow_count": 2,
+      "shadows": [
+        {
+          "canonical_pos": "verb",
+          "evidence_text": "smile -> sonrisa | a facial expression as a noun",
+          "sense_id": "en-es:full-family-repaired-full:smile:sonre-r:shadow:1:sonrisa",
+          "target_lemma": "sonrisa"
+        },
+        {
+          "canonical_pos": "verb",
+          "evidence_text": "smile -> agradecer con una sonrisa | express something by smiling",
+          "sense_id": "en-es:full-family-repaired-full:smile:sonre-r:shadow:2:agradecer-con-una-sonrisa",
+          "target_lemma": "agradecer con una sonrisa"
+        }
+      ],
+      "target_lemma": "sonreír",
+      "trigger": "smile"
+    },
+    {
+      "active": {
+        "canonical_pos": "verb",
+        "evidence_text": "bar -> cercar | block, bar, fence in, or prevent passage with a barrier",
+        "sense_id": "en-es:full-family-repaired-full:bar:cercar:active",
+        "target_lemma": "cercar"
+      },
+      "arm_rank": 3,
+      "band_id": "high_need",
+      "band_rank": 4,
+      "case_count": 4,
+      "failure_count": 0,
+      "false_abstain_count": 0,
+      "family_id": "en-es:full-family-repaired-full:bar:cercar",
+      "feature_context": {
+        "polysemy_band": "high_10_plus",
+        "pos_shape": "cross_pos_polysemy",
+        "shadow_count": 2,
+        "source_zipf_band_en": "zipf_4_to_5_common",
+        "target_zipf_band_es": "zipf_below_3_rare"
+      },
+      "global_need_rank": 2,
+      "harmful_replace_count": 0,
+      "observed_failure_rate": 0.0,
+      "pilot_arm": "high_need",
+      "planned_generation_slots": [
+        {
+          "purpose": "Improve active-sense examples without changing decision thresholds.",
+          "requested_items": 2,
+          "slot_id": "en-es:full-family-repaired-full:bar:cercar:active_evidence_expansion",
+          "slot_type": "active_evidence_expansion",
+          "source_phrase": "bar",
+          "target_lemma": "cercar"
+        },
+        {
+          "purpose": "Improve an existing competitor sense when present; otherwise discover one plausible competing sense before evidence generation.",
+          "requested_items": 2,
+          "slot_id": "en-es:full-family-repaired-full:bar:cercar:shadow_or_competitor_evidence_probe",
+          "slot_type": "shadow_or_competitor_evidence_probe",
+          "source_phrase": "bar",
+          "target_lemma": "taberna"
+        },
+        {
+          "purpose": "Collect a runtime-like context where no offered Spanish target should win, for guard calibration.",
+          "requested_items": 1,
+          "slot_id": "en-es:full-family-repaired-full:bar:cercar:no_winner_context_probe",
+          "slot_type": "no_winner_context_probe",
+          "source_phrase": "bar",
+          "target_lemma": ""
+        }
+      ],
+      "predicted_need": 0.85,
+      "previous_admitted_overlap": false,
+      "previous_pilot_overlap": false,
+      "selection_features": {
+        "polysemy_risk": 1.0,
+        "pos_shape_risk": 0.9,
+        "shadow_coverage_risk": 0.85,
+        "source_zipf_risk": 0.75,
+        "target_zipf_risk": 0.85
+      },
+      "selection_formula": "sweep_linear_2169",
+      "selection_scorer": "safest_80pct_positive_sentence_transformer_a0000_m0015",
+      "shadow_count": 2,
+      "shadows": [
+        {
+          "canonical_pos": "verb",
+          "evidence_text": "bar -> taberna | an establishment that serves drinks",
+          "sense_id": "en-es:full-family-repaired-full:bar:cercar:shadow:1:taberna",
+          "target_lemma": "taberna"
+        },
+        {
+          "canonical_pos": "verb",
+          "evidence_text": "bar -> compás | a measure in written music",
+          "sense_id": "en-es:full-family-repaired-full:bar:cercar:shadow:2:comp-s",
+          "target_lemma": "compás"
+        }
+      ],
+      "target_lemma": "cercar",
+      "trigger": "bar"
+    },
+    {
+      "active": {
+        "canonical_pos": "verb",
+        "evidence_text": "control -> gobernar | exercise authority over a place, organization, or group",
+        "sense_id": "en-es:full-family-repaired-full:control:gobernar:active",
+        "target_lemma": "gobernar"
+      },
+      "arm_rank": 4,
+      "band_id": "high_need",
+      "band_rank": 10,
+      "case_count": 4,
+      "failure_count": 1,
+      "false_abstain_count": 1,
+      "family_id": "en-es:full-family-repaired-full:control:gobernar",
+      "feature_context": {
+        "polysemy_band": "high_10_plus",
+        "pos_shape": "cross_pos_polysemy",
+        "shadow_count": 2,
+        "source_zipf_band_en": "zipf_5_plus_very_common",
+        "target_zipf_band_es": "zipf_4_to_5_common"
+      },
+      "global_need_rank": 3,
+      "harmful_replace_count": 0,
+      "observed_failure_rate": 0.25,
+      "pilot_arm": "high_need",
+      "planned_generation_slots": [
+        {
+          "purpose": "Improve active-sense examples without changing decision thresholds.",
+          "requested_items": 2,
+          "slot_id": "en-es:full-family-repaired-full:control:gobernar:active_evidence_expansion",
+          "slot_type": "active_evidence_expansion",
+          "source_phrase": "control",
+          "target_lemma": "gobernar"
+        },
+        {
+          "purpose": "Improve an existing competitor sense when present; otherwise discover one plausible competing sense before evidence generation.",
+          "requested_items": 2,
+          "slot_id": "en-es:full-family-repaired-full:control:gobernar:shadow_or_competitor_evidence_probe",
+          "slot_type": "shadow_or_competitor_evidence_probe",
+          "source_phrase": "control",
+          "target_lemma": "ajustar"
+        },
+        {
+          "purpose": "Collect a runtime-like context where no offered Spanish target should win, for guard calibration.",
+          "requested_items": 1,
+          "slot_id": "en-es:full-family-repaired-full:control:gobernar:no_winner_context_probe",
+          "slot_type": "no_winner_context_probe",
+          "source_phrase": "control",
+          "target_lemma": ""
+        }
+      ],
+      "predicted_need": 0.8308,
+      "previous_admitted_overlap": false,
+      "previous_pilot_overlap": false,
+      "selection_features": {
+        "polysemy_risk": 1.0,
+        "pos_shape_risk": 0.9,
+        "shadow_coverage_risk": 0.85,
+        "source_zipf_risk": 1.0,
+        "target_zipf_risk": 0.35
+      },
+      "selection_formula": "sweep_linear_2169",
+      "selection_scorer": "safest_80pct_positive_sentence_transformer_a0000_m0015",
+      "shadow_count": 2,
+      "shadows": [
+        {
+          "canonical_pos": "verb",
+          "evidence_text": "control -> ajustar | operate or adjust a device setting",
+          "sense_id": "en-es:full-family-repaired-full:control:gobernar:shadow:1:ajustar",
+          "target_lemma": "ajustar"
+        },
+        {
+          "canonical_pos": "verb",
+          "evidence_text": "control -> grupo de control | a comparison group in an experiment",
+          "sense_id": "en-es:full-family-repaired-full:control:gobernar:shadow:2:grupo-de-control",
+          "target_lemma": "grupo de control"
+        }
+      ],
+      "target_lemma": "gobernar",
+      "trigger": "control"
+    },
+    {
+      "active": {
+        "canonical_pos": "preposition",
+        "evidence_text": "except -> excepto | except/excluding as a preposition or conjunction",
+        "sense_id": "en-es:full-family-repaired-full:except:excepto:active",
+        "target_lemma": "excepto"
+      },
+      "arm_rank": 5,
+      "band_id": "high_need",
+      "band_rank": 12,
+      "case_count": 4,
+      "failure_count": 1,
+      "false_abstain_count": 1,
+      "family_id": "en-es:full-family-repaired-full:except:excepto",
+      "feature_context": {
+        "polysemy_band": "low_1_to_3",
+        "pos_shape": "same_pos_polysemy",
+        "shadow_count": 2,
+        "source_zipf_band_en": "zipf_5_plus_very_common",
+        "target_zipf_band_es": "zipf_4_to_5_common"
+      },
+      "global_need_rank": 10,
+      "harmful_replace_count": 0,
+      "observed_failure_rate": 0.25,
+      "pilot_arm": "high_need",
+      "planned_generation_slots": [
+        {
+          "purpose": "Improve active-sense examples without changing decision thresholds.",
+          "requested_items": 2,
+          "slot_id": "en-es:full-family-repaired-full:except:excepto:active_evidence_expansion",
+          "slot_type": "active_evidence_expansion",
+          "source_phrase": "except",
+          "target_lemma": "excepto"
+        },
+        {
+          "purpose": "Improve an existing competitor sense when present; otherwise discover one plausible competing sense before evidence generation.",
+          "requested_items": 2,
+          "slot_id": "en-es:full-family-repaired-full:except:excepto:shadow_or_competitor_evidence_probe",
+          "slot_type": "shadow_or_competitor_evidence_probe",
+          "source_phrase": "except",
+          "target_lemma": "objetar"
+        },
+        {
+          "purpose": "Collect a runtime-like context where no offered Spanish target should win, for guard calibration.",
+          "requested_items": 1,
+          "slot_id": "en-es:full-family-repaired-full:except:excepto:no_winner_context_probe",
+          "slot_type": "no_winner_context_probe",
+          "source_phrase": "except",
+          "target_lemma": ""
+        }
+      ],
+      "predicted_need": 0.6885,
+      "previous_admitted_overlap": false,
+      "previous_pilot_overlap": false,
+      "selection_features": {
+        "polysemy_risk": 0.2,
+        "pos_shape_risk": 0.55,
+        "shadow_coverage_risk": 0.85,
+        "source_zipf_risk": 1.0,
+        "target_zipf_risk": 0.35
+      },
+      "selection_formula": "sweep_linear_2169",
+      "selection_scorer": "safest_80pct_positive_sentence_transformer_a0000_m0015",
+      "shadow_count": 2,
+      "shadows": [
+        {
+          "canonical_pos": "preposition",
+          "evidence_text": "except -> objetar | object to a proposal",
+          "sense_id": "en-es:full-family-repaired-full:except:excepto:shadow:1:objetar",
+          "target_lemma": "objetar"
+        },
+        {
+          "canonical_pos": "preposition",
+          "evidence_text": "except -> excluir | leave something out of consideration",
+          "sense_id": "en-es:full-family-repaired-full:except:excepto:shadow:2:excluir",
+          "target_lemma": "excluir"
+        }
+      ],
+      "target_lemma": "excepto",
+      "trigger": "except"
+    },
+    {
+      "active": {
+        "canonical_pos": "noun",
+        "evidence_text": "region -> comarca | a local district, territory, or comarca-like region",
+        "sense_id": "en-es:full-family-repaired-full:region:comarca:active",
+        "target_lemma": "comarca"
+      },
+      "arm_rank": 6,
+      "band_id": "high_need",
+      "band_rank": 13,
+      "case_count": 4,
+      "failure_count": 0,
+      "false_abstain_count": 0,
+      "family_id": "en-es:full-family-repaired-full:region:comarca",
+      "feature_context": {
+        "polysemy_band": "medium_4_to_9",
+        "pos_shape": "same_pos_polysemy",
+        "shadow_count": 2,
+        "source_zipf_band_en": "zipf_5_plus_very_common",
+        "target_zipf_band_es": "zipf_3_to_4_mid"
+      },
+      "global_need_rank": 6,
+      "harmful_replace_count": 0,
+      "observed_failure_rate": 0.0,
+      "pilot_arm": "high_need",
+      "planned_generation_slots": [
+        {
+          "purpose": "Improve active-sense examples without changing decision thresholds.",
+          "requested_items": 2,
+          "slot_id": "en-es:full-family-repaired-full:region:comarca:active_evidence_expansion",
+          "slot_type": "active_evidence_expansion",
+          "source_phrase": "region",
+          "target_lemma": "comarca"
+        },
+        {
+          "purpose": "Improve an existing competitor sense when present; otherwise discover one plausible competing sense before evidence generation.",
+          "requested_items": 2,
+          "slot_id": "en-es:full-family-repaired-full:region:comarca:shadow_or_competitor_evidence_probe",
+          "slot_type": "shadow_or_competitor_evidence_probe",
+          "source_phrase": "region",
+          "target_lemma": "zona"
+        },
+        {
+          "purpose": "Collect a runtime-like context where no offered Spanish target should win, for guard calibration.",
+          "requested_items": 1,
+          "slot_id": "en-es:full-family-repaired-full:region:comarca:no_winner_context_probe",
+          "slot_type": "no_winner_context_probe",
+          "source_phrase": "region",
+          "target_lemma": ""
+        }
+      ],
+      "predicted_need": 0.7654,
+      "previous_admitted_overlap": false,
+      "previous_pilot_overlap": false,
+      "selection_features": {
+        "polysemy_risk": 0.6,
+        "pos_shape_risk": 0.55,
+        "shadow_coverage_risk": 0.85,
+        "source_zipf_risk": 1.0,
+        "target_zipf_risk": 0.65
+      },
+      "selection_formula": "sweep_linear_2169",
+      "selection_scorer": "safest_80pct_positive_sentence_transformer_a0000_m0015",
+      "shadow_count": 2,
+      "shadows": [
+        {
+          "canonical_pos": "noun",
+          "evidence_text": "region -> zona | an area of the body or another broad area",
+          "sense_id": "en-es:full-family-repaired-full:region:comarca:shadow:1:zona",
+          "target_lemma": "zona"
+        },
+        {
+          "canonical_pos": "noun",
+          "evidence_text": "region -> alrededor de | an approximate amount",
+          "sense_id": "en-es:full-family-repaired-full:region:comarca:shadow:2:alrededor-de",
+          "target_lemma": "alrededor de"
+        }
+      ],
+      "target_lemma": "comarca",
+      "trigger": "region"
+    },
+    {
+      "active": {
+        "canonical_pos": "verb",
+        "evidence_text": "govern -> gobernar | exercise governing authority over a country, place, or organization",
+        "sense_id": "en-es:full-family-repaired-full:govern:gobernar:active",
+        "target_lemma": "gobernar"
+      },
+      "arm_rank": 1,
+      "band_id": "middle_need",
+      "band_rank": 1,
+      "case_count": 4,
+      "failure_count": 0,
+      "false_abstain_count": 0,
+      "family_id": "en-es:full-family-repaired-full:govern:gobernar",
+      "feature_context": {
+        "polysemy_band": "medium_4_to_9",
+        "pos_shape": "same_pos_polysemy",
+        "shadow_count": 2,
+        "source_zipf_band_en": "zipf_3_to_4_mid",
+        "target_zipf_band_es": "zipf_4_to_5_common"
+      },
+      "global_need_rank": 23,
+      "harmful_replace_count": 0,
+      "observed_failure_rate": 0.0,
+      "pilot_arm": "middle_control",
+      "planned_generation_slots": [
+        {
+          "purpose": "Improve active-sense examples without changing decision thresholds.",
+          "requested_items": 2,
+          "slot_id": "en-es:full-family-repaired-full:govern:gobernar:active_evidence_expansion",
+          "slot_type": "active_evidence_expansion",
+          "source_phrase": "govern",
+          "target_lemma": "gobernar"
+        },
+        {
+          "purpose": "Improve an existing competitor sense when present; otherwise discover one plausible competing sense before evidence generation.",
+          "requested_items": 2,
+          "slot_id": "en-es:full-family-repaired-full:govern:gobernar:shadow_or_competitor_evidence_probe",
+          "slot_type": "shadow_or_competitor_evidence_probe",
+          "source_phrase": "govern",
+          "target_lemma": "regular"
+        },
+        {
+          "purpose": "Collect a runtime-like context where no offered Spanish target should win, for guard calibration.",
+          "requested_items": 1,
+          "slot_id": "en-es:full-family-repaired-full:govern:gobernar:no_winner_context_probe",
+          "slot_type": "no_winner_context_probe",
+          "source_phrase": "govern",
+          "target_lemma": ""
+        }
+      ],
+      "predicted_need": 0.5923,
+      "previous_admitted_overlap": false,
+      "previous_pilot_overlap": false,
+      "selection_features": {
+        "polysemy_risk": 0.6,
+        "pos_shape_risk": 0.55,
+        "shadow_coverage_risk": 0.85,
+        "source_zipf_risk": 0.45,
+        "target_zipf_risk": 0.35
+      },
+      "selection_formula": "sweep_linear_2169",
+      "selection_scorer": "safest_80pct_positive_sentence_transformer_a0000_m0015",
+      "shadow_count": 2,
+      "shadows": [
+        {
+          "canonical_pos": "verb",
+          "evidence_text": "govern -> regular | regulate rules or behavior",
+          "sense_id": "en-es:full-family-repaired-full:govern:gobernar:shadow:1:regular",
+          "target_lemma": "regular"
+        },
+        {
+          "canonical_pos": "verb",
+          "evidence_text": "govern -> regir | take a grammatical object or case",
+          "sense_id": "en-es:full-family-repaired-full:govern:gobernar:shadow:2:regir",
+          "target_lemma": "regir"
+        }
+      ],
+      "target_lemma": "gobernar",
+      "trigger": "govern"
+    },
+    {
+      "active": {
+        "canonical_pos": "adjective",
+        "evidence_text": "german -> alemán | German as nationality, language, or country adjective",
+        "sense_id": "en-es:full-family-repaired-full:german:alem-n:active",
+        "target_lemma": "alemán"
+      },
+      "arm_rank": 2,
+      "band_id": "middle_need",
+      "band_rank": 2,
+      "case_count": 2,
+      "failure_count": 0,
+      "false_abstain_count": 0,
+      "family_id": "en-es:full-family-repaired-full:german:alem-n",
+      "feature_context": {
+        "polysemy_band": "low_1_to_3",
+        "pos_shape": "cross_pos_polysemy",
+        "shadow_count": 0,
+        "source_zipf_band_en": "zipf_4_to_5_common",
+        "target_zipf_band_es": "zipf_4_to_5_common"
+      },
+      "global_need_rank": 27,
+      "harmful_replace_count": 0,
+      "observed_failure_rate": 0.0,
+      "pilot_arm": "middle_control",
+      "planned_generation_slots": [
+        {
+          "purpose": "Improve active-sense examples without changing decision thresholds.",
+          "requested_items": 2,
+          "slot_id": "en-es:full-family-repaired-full:german:alem-n:active_evidence_expansion",
+          "slot_type": "active_evidence_expansion",
+          "source_phrase": "german",
+          "target_lemma": "alemán"
+        },
+        {
+          "purpose": "Improve an existing competitor sense when present; otherwise discover one plausible competing sense before evidence generation.",
+          "requested_items": 2,
+          "slot_id": "en-es:full-family-repaired-full:german:alem-n:shadow_or_competitor_evidence_probe",
+          "slot_type": "shadow_or_competitor_evidence_probe",
+          "source_phrase": "german",
+          "target_lemma": ""
+        },
+        {
+          "purpose": "Collect a runtime-like context where no offered Spanish target should win, for guard calibration.",
+          "requested_items": 1,
+          "slot_id": "en-es:full-family-repaired-full:german:alem-n:no_winner_context_probe",
+          "slot_type": "no_winner_context_probe",
+          "source_phrase": "german",
+          "target_lemma": ""
+        }
+      ],
+      "predicted_need": 0.5423,
+      "previous_admitted_overlap": false,
+      "previous_pilot_overlap": false,
+      "selection_features": {
+        "polysemy_risk": 0.2,
+        "pos_shape_risk": 0.9,
+        "shadow_coverage_risk": 0.3,
+        "source_zipf_risk": 0.75,
+        "target_zipf_risk": 0.35
+      },
+      "selection_formula": "sweep_linear_2169",
+      "selection_scorer": "safest_80pct_positive_sentence_transformer_a0000_m0015",
+      "shadow_count": 0,
+      "shadows": [],
+      "target_lemma": "alemán",
+      "trigger": "german"
+    },
+    {
+      "active": {
+        "canonical_pos": "adjective",
+        "evidence_text": "american -> americano | American as a nationality or regional adjective",
+        "sense_id": "en-es:full-family-repaired-full:american:americano:active",
+        "target_lemma": "americano"
+      },
+      "arm_rank": 3,
+      "band_id": "middle_need",
+      "band_rank": 8,
+      "case_count": 2,
+      "failure_count": 0,
+      "false_abstain_count": 0,
+      "family_id": "en-es:full-family-repaired-full:american:americano",
+      "feature_context": {
+        "polysemy_band": "medium_4_to_9",
+        "pos_shape": "cross_pos_polysemy",
+        "shadow_count": 0,
+        "source_zipf_band_en": "zipf_5_plus_very_common",
+        "target_zipf_band_es": "zipf_4_to_5_common"
+      },
+      "global_need_rank": 20,
+      "harmful_replace_count": 0,
+      "observed_failure_rate": 0.0,
+      "pilot_arm": "middle_control",
+      "planned_generation_slots": [
+        {
+          "purpose": "Improve active-sense examples without changing decision thresholds.",
+          "requested_items": 2,
+          "slot_id": "en-es:full-family-repaired-full:american:americano:active_evidence_expansion",
+          "slot_type": "active_evidence_expansion",
+          "source_phrase": "american",
+          "target_lemma": "americano"
+        },
+        {
+          "purpose": "Improve an existing competitor sense when present; otherwise discover one plausible competing sense before evidence generation.",
+          "requested_items": 2,
+          "slot_id": "en-es:full-family-repaired-full:american:americano:shadow_or_competitor_evidence_probe",
+          "slot_type": "shadow_or_competitor_evidence_probe",
+          "source_phrase": "american",
+          "target_lemma": ""
+        },
+        {
+          "purpose": "Collect a runtime-like context where no offered Spanish target should win, for guard calibration.",
+          "requested_items": 1,
+          "slot_id": "en-es:full-family-repaired-full:american:americano:no_winner_context_probe",
+          "slot_type": "no_winner_context_probe",
+          "source_phrase": "american",
+          "target_lemma": ""
+        }
+      ],
+      "predicted_need": 0.6308,
+      "previous_admitted_overlap": false,
+      "previous_pilot_overlap": false,
+      "selection_features": {
+        "polysemy_risk": 0.6,
+        "pos_shape_risk": 0.9,
+        "shadow_coverage_risk": 0.3,
+        "source_zipf_risk": 1.0,
+        "target_zipf_risk": 0.35
+      },
+      "selection_formula": "sweep_linear_2169",
+      "selection_scorer": "safest_80pct_positive_sentence_transformer_a0000_m0015",
+      "shadow_count": 0,
+      "shadows": [],
+      "target_lemma": "americano",
+      "trigger": "american"
+    },
+    {
+      "active": {
+        "canonical_pos": "verb",
+        "evidence_text": "endure -> durar | continue to exist or last over time",
+        "sense_id": "en-es:full-family-repaired-full:endure:durar:active",
+        "target_lemma": "durar"
+      },
+      "arm_rank": 4,
+      "band_id": "middle_need",
+      "band_rank": 9,
+      "case_count": 4,
+      "failure_count": 0,
+      "false_abstain_count": 0,
+      "family_id": "en-es:full-family-repaired-full:endure:durar",
+      "feature_context": {
+        "polysemy_band": "medium_4_to_9",
+        "pos_shape": "same_pos_polysemy",
+        "shadow_count": 2,
+        "source_zipf_band_en": "zipf_3_to_4_mid",
+        "target_zipf_band_es": "zipf_3_to_4_mid"
+      },
+      "global_need_rank": 19,
+      "harmful_replace_count": 0,
+      "observed_failure_rate": 0.0,
+      "pilot_arm": "middle_control",
+      "planned_generation_slots": [
+        {
+          "purpose": "Improve active-sense examples without changing decision thresholds.",
+          "requested_items": 2,
+          "slot_id": "en-es:full-family-repaired-full:endure:durar:active_evidence_expansion",
+          "slot_type": "active_evidence_expansion",
+          "source_phrase": "endure",
+          "target_lemma": "durar"
+        },
+        {
+          "purpose": "Improve an existing competitor sense when present; otherwise discover one plausible competing sense before evidence generation.",
+          "requested_items": 2,
+          "slot_id": "en-es:full-family-repaired-full:endure:durar:shadow_or_competitor_evidence_probe",
+          "slot_type": "shadow_or_competitor_evidence_probe",
+          "source_phrase": "endure",
+          "target_lemma": "soportar"
+        },
+        {
+          "purpose": "Collect a runtime-like context where no offered Spanish target should win, for guard calibration.",
+          "requested_items": 1,
+          "slot_id": "en-es:full-family-repaired-full:endure:durar:no_winner_context_probe",
+          "slot_type": "no_winner_context_probe",
+          "source_phrase": "endure",
+          "target_lemma": ""
+        }
+      ],
+      "predicted_need": 0.6385,
+      "previous_admitted_overlap": false,
+      "previous_pilot_overlap": false,
+      "selection_features": {
+        "polysemy_risk": 0.6,
+        "pos_shape_risk": 0.55,
+        "shadow_coverage_risk": 0.85,
+        "source_zipf_risk": 0.45,
+        "target_zipf_risk": 0.65
+      },
+      "selection_formula": "sweep_linear_2169",
+      "selection_scorer": "safest_80pct_positive_sentence_transformer_a0000_m0015",
+      "shadow_count": 2,
+      "shadows": [
+        {
+          "canonical_pos": "verb",
+          "evidence_text": "endure -> soportar | tolerate something unpleasant",
+          "sense_id": "en-es:full-family-repaired-full:endure:durar:shadow:1:soportar",
+          "target_lemma": "soportar"
+        },
+        {
+          "canonical_pos": "verb",
+          "evidence_text": "endure -> aguantar | withstand hardship or pressure",
+          "sense_id": "en-es:full-family-repaired-full:endure:durar:shadow:2:aguantar",
+          "target_lemma": "aguantar"
+        }
+      ],
+      "target_lemma": "durar",
+      "trigger": "endure"
+    },
+    {
+      "active": {
+        "canonical_pos": "noun",
+        "evidence_text": "tomorrow -> mañana | the day after today, the next day, or the near future",
+        "sense_id": "en-es:full-family-repaired-full:tomorrow:ma-ana:active",
+        "target_lemma": "mañana"
+      },
+      "arm_rank": 5,
+      "band_id": "middle_need",
+      "band_rank": 10,
+      "case_count": 2,
+      "failure_count": 0,
+      "false_abstain_count": 0,
+      "family_id": "en-es:full-family-repaired-full:tomorrow:ma-ana",
+      "feature_context": {
+        "polysemy_band": "low_1_to_3",
+        "pos_shape": "cross_pos_polysemy",
+        "shadow_count": 0,
+        "source_zipf_band_en": "zipf_5_plus_very_common",
+        "target_zipf_band_es": "zipf_5_plus_very_common"
+      },
+      "global_need_rank": 25,
+      "harmful_replace_count": 0,
+      "observed_failure_rate": 0.0,
+      "pilot_arm": "middle_control",
+      "planned_generation_slots": [
+        {
+          "purpose": "Improve active-sense examples without changing decision thresholds.",
+          "requested_items": 2,
+          "slot_id": "en-es:full-family-repaired-full:tomorrow:ma-ana:active_evidence_expansion",
+          "slot_type": "active_evidence_expansion",
+          "source_phrase": "tomorrow",
+          "target_lemma": "mañana"
+        },
+        {
+          "purpose": "Improve an existing competitor sense when present; otherwise discover one plausible competing sense before evidence generation.",
+          "requested_items": 2,
+          "slot_id": "en-es:full-family-repaired-full:tomorrow:ma-ana:shadow_or_competitor_evidence_probe",
+          "slot_type": "shadow_or_competitor_evidence_probe",
+          "source_phrase": "tomorrow",
+          "target_lemma": ""
+        },
+        {
+          "purpose": "Collect a runtime-like context where no offered Spanish target should win, for guard calibration.",
+          "requested_items": 1,
+          "slot_id": "en-es:full-family-repaired-full:tomorrow:ma-ana:no_winner_context_probe",
+          "slot_type": "no_winner_context_probe",
+          "source_phrase": "tomorrow",
+          "target_lemma": ""
+        }
+      ],
+      "predicted_need": 0.5769,
+      "previous_admitted_overlap": false,
+      "previous_pilot_overlap": false,
+      "selection_features": {
+        "polysemy_risk": 0.2,
+        "pos_shape_risk": 0.9,
+        "shadow_coverage_risk": 0.3,
+        "source_zipf_risk": 1.0,
+        "target_zipf_risk": 0.2
+      },
+      "selection_formula": "sweep_linear_2169",
+      "selection_scorer": "safest_80pct_positive_sentence_transformer_a0000_m0015",
+      "shadow_count": 0,
+      "shadows": [],
+      "target_lemma": "mañana",
+      "trigger": "tomorrow"
+    },
+    {
+      "active": {
+        "canonical_pos": "adjective",
+        "evidence_text": "russian -> ruso | Russian as nationality, language, or country adjective",
+        "sense_id": "en-es:full-family-repaired-full:russian:ruso:active",
+        "target_lemma": "ruso"
+      },
+      "arm_rank": 6,
+      "band_id": "middle_need",
+      "band_rank": 16,
+      "case_count": 2,
+      "failure_count": 0,
+      "false_abstain_count": 0,
+      "family_id": "en-es:full-family-repaired-full:russian:ruso",
+      "feature_context": {
+        "polysemy_band": "low_1_to_3",
+        "pos_shape": "cross_pos_polysemy",
+        "shadow_count": 0,
+        "source_zipf_band_en": "zipf_5_plus_very_common",
+        "target_zipf_band_es": "zipf_4_to_5_common"
+      },
+      "global_need_rank": 21,
+      "harmful_replace_count": 0,
+      "observed_failure_rate": 0.0,
+      "pilot_arm": "middle_control",
+      "planned_generation_slots": [
+        {
+          "purpose": "Improve active-sense examples without changing decision thresholds.",
+          "requested_items": 2,
+          "slot_id": "en-es:full-family-repaired-full:russian:ruso:active_evidence_expansion",
+          "slot_type": "active_evidence_expansion",
+          "source_phrase": "russian",
+          "target_lemma": "ruso"
+        },
+        {
+          "purpose": "Improve an existing competitor sense when present; otherwise discover one plausible competing sense before evidence generation.",
+          "requested_items": 2,
+          "slot_id": "en-es:full-family-repaired-full:russian:ruso:shadow_or_competitor_evidence_probe",
+          "slot_type": "shadow_or_competitor_evidence_probe",
+          "source_phrase": "russian",
+          "target_lemma": ""
+        },
+        {
+          "purpose": "Collect a runtime-like context where no offered Spanish target should win, for guard calibration.",
+          "requested_items": 1,
+          "slot_id": "en-es:full-family-repaired-full:russian:ruso:no_winner_context_probe",
+          "slot_type": "no_winner_context_probe",
+          "source_phrase": "russian",
+          "target_lemma": ""
+        }
+      ],
+      "predicted_need": 0.6,
+      "previous_admitted_overlap": false,
+      "previous_pilot_overlap": false,
+      "selection_features": {
+        "polysemy_risk": 0.2,
+        "pos_shape_risk": 0.9,
+        "shadow_coverage_risk": 0.3,
+        "source_zipf_risk": 1.0,
+        "target_zipf_risk": 0.35
+      },
+      "selection_formula": "sweep_linear_2169",
+      "selection_scorer": "safest_80pct_positive_sentence_transformer_a0000_m0015",
+      "shadow_count": 0,
+      "shadows": [],
+      "target_lemma": "ruso",
+      "trigger": "russian"
+    },
+    {
+      "active": {
+        "canonical_pos": "noun",
+        "evidence_text": "dentist -> dentista | a person qualified to practice dentistry",
+        "sense_id": "en-es:full-family-repaired-full:dentist:dentista:active",
+        "target_lemma": "dentista"
+      },
+      "arm_rank": 1,
+      "band_id": "low_need",
+      "band_rank": 1,
+      "case_count": 2,
+      "failure_count": 0,
+      "false_abstain_count": 0,
+      "family_id": "en-es:full-family-repaired-full:dentist:dentista",
+      "feature_context": {
+        "polysemy_band": "low_1_to_3",
+        "pos_shape": "single_sense",
+        "shadow_count": 0,
+        "source_zipf_band_en": "zipf_3_to_4_mid",
+        "target_zipf_band_es": "zipf_3_to_4_mid"
+      },
+      "global_need_rank": 45,
+      "harmful_replace_count": 0,
+      "observed_failure_rate": 0.0,
+      "pilot_arm": "low_control",
+      "planned_generation_slots": [
+        {
+          "purpose": "Improve active-sense examples without changing decision thresholds.",
+          "requested_items": 2,
+          "slot_id": "en-es:full-family-repaired-full:dentist:dentista:active_evidence_expansion",
+          "slot_type": "active_evidence_expansion",
+          "source_phrase": "dentist",
+          "target_lemma": "dentista"
+        },
+        {
+          "purpose": "Improve an existing competitor sense when present; otherwise discover one plausible competing sense before evidence generation.",
+          "requested_items": 2,
+          "slot_id": "en-es:full-family-repaired-full:dentist:dentista:shadow_or_competitor_evidence_probe",
+          "slot_type": "shadow_or_competitor_evidence_probe",
+          "source_phrase": "dentist",
+          "target_lemma": ""
+        },
+        {
+          "purpose": "Collect a runtime-like context where no offered Spanish target should win, for guard calibration.",
+          "requested_items": 1,
+          "slot_id": "en-es:full-family-repaired-full:dentist:dentista:no_winner_context_probe",
+          "slot_type": "no_winner_context_probe",
+          "source_phrase": "dentist",
+          "target_lemma": ""
+        }
+      ],
+      "predicted_need": 0.3577,
+      "previous_admitted_overlap": false,
+      "previous_pilot_overlap": false,
+      "selection_features": {
+        "polysemy_risk": 0.2,
+        "pos_shape_risk": 0.2,
+        "shadow_coverage_risk": 0.3,
+        "source_zipf_risk": 0.45,
+        "target_zipf_risk": 0.65
+      },
+      "selection_formula": "sweep_linear_2169",
+      "selection_scorer": "safest_80pct_positive_sentence_transformer_a0000_m0015",
+      "shadow_count": 0,
+      "shadows": [],
+      "target_lemma": "dentista",
+      "trigger": "dentist"
+    },
+    {
+      "active": {
+        "canonical_pos": "noun",
+        "evidence_text": "pub -> taberna | a tavern or public house serving drinks and often light meals",
+        "sense_id": "en-es:full-family-repaired-full:pub:taberna:active",
+        "target_lemma": "taberna"
+      },
+      "arm_rank": 2,
+      "band_id": "low_need",
+      "band_rank": 2,
+      "case_count": 2,
+      "failure_count": 0,
+      "false_abstain_count": 0,
+      "family_id": "en-es:full-family-repaired-full:pub:taberna",
+      "feature_context": {
+        "polysemy_band": "low_1_to_3",
+        "pos_shape": "single_sense",
+        "shadow_count": 0,
+        "source_zipf_band_en": "zipf_4_to_5_common",
+        "target_zipf_band_es": "zipf_3_to_4_mid"
+      },
+      "global_need_rank": 39,
+      "harmful_replace_count": 0,
+      "observed_failure_rate": 0.0,
+      "pilot_arm": "low_control",
+      "planned_generation_slots": [
+        {
+          "purpose": "Improve active-sense examples without changing decision thresholds.",
+          "requested_items": 2,
+          "slot_id": "en-es:full-family-repaired-full:pub:taberna:active_evidence_expansion",
+          "slot_type": "active_evidence_expansion",
+          "source_phrase": "pub",
+          "target_lemma": "taberna"
+        },
+        {
+          "purpose": "Improve an existing competitor sense when present; otherwise discover one plausible competing sense before evidence generation.",
+          "requested_items": 2,
+          "slot_id": "en-es:full-family-repaired-full:pub:taberna:shadow_or_competitor_evidence_probe",
+          "slot_type": "shadow_or_competitor_evidence_probe",
+          "source_phrase": "pub",
+          "target_lemma": ""
+        },
+        {
+          "purpose": "Collect a runtime-like context where no offered Spanish target should win, for guard calibration.",
+          "requested_items": 1,
+          "slot_id": "en-es:full-family-repaired-full:pub:taberna:no_winner_context_probe",
+          "slot_type": "no_winner_context_probe",
+          "source_phrase": "pub",
+          "target_lemma": ""
+        }
+      ],
+      "predicted_need": 0.4269,
+      "previous_admitted_overlap": false,
+      "previous_pilot_overlap": false,
+      "selection_features": {
+        "polysemy_risk": 0.2,
+        "pos_shape_risk": 0.2,
+        "shadow_coverage_risk": 0.3,
+        "source_zipf_risk": 0.75,
+        "target_zipf_risk": 0.65
+      },
+      "selection_formula": "sweep_linear_2169",
+      "selection_scorer": "safest_80pct_positive_sentence_transformer_a0000_m0015",
+      "shadow_count": 0,
+      "shadows": [],
+      "target_lemma": "taberna",
+      "trigger": "pub"
+    },
+    {
+      "active": {
+        "canonical_pos": "noun",
+        "evidence_text": "shortage -> falta | a lack, deficit, or insufficient amount",
+        "sense_id": "en-es:full-family-repaired-full:shortage:falta:active",
+        "target_lemma": "falta"
+      },
+      "arm_rank": 3,
+      "band_id": "low_need",
+      "band_rank": 4,
+      "case_count": 2,
+      "failure_count": 0,
+      "false_abstain_count": 0,
+      "family_id": "en-es:full-family-repaired-full:shortage:falta",
+      "feature_context": {
+        "polysemy_band": "low_1_to_3",
+        "pos_shape": "same_pos_polysemy",
+        "shadow_count": 0,
+        "source_zipf_band_en": "zipf_3_to_4_mid",
+        "target_zipf_band_es": "zipf_5_plus_very_common"
+      },
+      "global_need_rank": 44,
+      "harmful_replace_count": 0,
+      "observed_failure_rate": 0.0,
+      "pilot_arm": "low_control",
+      "planned_generation_slots": [
+        {
+          "purpose": "Improve active-sense examples without changing decision thresholds.",
+          "requested_items": 2,
+          "slot_id": "en-es:full-family-repaired-full:shortage:falta:active_evidence_expansion",
+          "slot_type": "active_evidence_expansion",
+          "source_phrase": "shortage",
+          "target_lemma": "falta"
+        },
+        {
+          "purpose": "Improve an existing competitor sense when present; otherwise discover one plausible competing sense before evidence generation.",
+          "requested_items": 2,
+          "slot_id": "en-es:full-family-repaired-full:shortage:falta:shadow_or_competitor_evidence_probe",
+          "slot_type": "shadow_or_competitor_evidence_probe",
+          "source_phrase": "shortage",
+          "target_lemma": ""
+        },
+        {
+          "purpose": "Collect a runtime-like context where no offered Spanish target should win, for guard calibration.",
+          "requested_items": 1,
+          "slot_id": "en-es:full-family-repaired-full:shortage:falta:no_winner_context_probe",
+          "slot_type": "no_winner_context_probe",
+          "source_phrase": "shortage",
+          "target_lemma": ""
+        }
+      ],
+      "predicted_need": 0.3692,
+      "previous_admitted_overlap": false,
+      "previous_pilot_overlap": false,
+      "selection_features": {
+        "polysemy_risk": 0.2,
+        "pos_shape_risk": 0.55,
+        "shadow_coverage_risk": 0.3,
+        "source_zipf_risk": 0.45,
+        "target_zipf_risk": 0.2
+      },
+      "selection_formula": "sweep_linear_2169",
+      "selection_scorer": "safest_80pct_positive_sentence_transformer_a0000_m0015",
+      "shadow_count": 0,
+      "shadows": [],
+      "target_lemma": "falta",
+      "trigger": "shortage"
+    },
+    {
+      "active": {
+        "canonical_pos": "adjective",
+        "evidence_text": "rumanian -> rumano | Romanian as a nationality, language, or country adjective",
+        "sense_id": "en-es:full-family-repaired-full:rumanian:rumano:active",
+        "target_lemma": "rumano"
+      },
+      "arm_rank": 4,
+      "band_id": "low_need",
+      "band_rank": 7,
+      "case_count": 2,
+      "failure_count": 0,
+      "false_abstain_count": 0,
+      "family_id": "en-es:full-family-repaired-full:rumanian:rumano",
+      "feature_context": {
+        "polysemy_band": "low_1_to_3",
+        "pos_shape": "cross_pos_polysemy",
+        "shadow_count": 0,
+        "source_zipf_band_en": "zipf_below_3_rare",
+        "target_zipf_band_es": "zipf_3_to_4_mid"
+      },
+      "global_need_rank": 37,
+      "harmful_replace_count": 0,
+      "observed_failure_rate": 0.0,
+      "pilot_arm": "low_control",
+      "planned_generation_slots": [
+        {
+          "purpose": "Improve active-sense examples without changing decision thresholds.",
+          "requested_items": 2,
+          "slot_id": "en-es:full-family-repaired-full:rumanian:rumano:active_evidence_expansion",
+          "slot_type": "active_evidence_expansion",
+          "source_phrase": "rumanian",
+          "target_lemma": "rumano"
+        },
+        {
+          "purpose": "Improve an existing competitor sense when present; otherwise discover one plausible competing sense before evidence generation.",
+          "requested_items": 2,
+          "slot_id": "en-es:full-family-repaired-full:rumanian:rumano:shadow_or_competitor_evidence_probe",
+          "slot_type": "shadow_or_competitor_evidence_probe",
+          "source_phrase": "rumanian",
+          "target_lemma": ""
+        },
+        {
+          "purpose": "Collect a runtime-like context where no offered Spanish target should win, for guard calibration.",
+          "requested_items": 1,
+          "slot_id": "en-es:full-family-repaired-full:rumanian:rumano:no_winner_context_probe",
+          "slot_type": "no_winner_context_probe",
+          "source_phrase": "rumanian",
+          "target_lemma": ""
+        }
+      ],
+      "predicted_need": 0.4615,
+      "previous_admitted_overlap": false,
+      "previous_pilot_overlap": false,
+      "selection_features": {
+        "polysemy_risk": 0.2,
+        "pos_shape_risk": 0.9,
+        "shadow_coverage_risk": 0.3,
+        "source_zipf_risk": 0.2,
+        "target_zipf_risk": 0.65
+      },
+      "selection_formula": "sweep_linear_2169",
+      "selection_scorer": "safest_80pct_positive_sentence_transformer_a0000_m0015",
+      "shadow_count": 0,
+      "shadows": [],
+      "target_lemma": "rumano",
+      "trigger": "rumanian"
+    },
+    {
+      "active": {
+        "canonical_pos": "adjective",
+        "evidence_text": "argentinean -> argentino | Argentine as a nationality or country adjective",
+        "sense_id": "en-es:full-family-repaired-full:argentinean:argentino:active",
+        "target_lemma": "argentino"
+      },
+      "arm_rank": 5,
+      "band_id": "low_need",
+      "band_rank": 12,
+      "case_count": 2,
+      "failure_count": 0,
+      "false_abstain_count": 0,
+      "family_id": "en-es:full-family-repaired-full:argentinean:argentino",
+      "feature_context": {
+        "polysemy_band": "missing",
+        "pos_shape": "missing",
+        "shadow_count": 0,
+        "source_zipf_band_en": "zipf_below_3_rare",
+        "target_zipf_band_es": "zipf_4_to_5_common"
+      },
+      "global_need_rank": 46,
+      "harmful_replace_count": 0,
+      "observed_failure_rate": 0.0,
+      "pilot_arm": "low_control",
+      "planned_generation_slots": [
+        {
+          "purpose": "Improve active-sense examples without changing decision thresholds.",
+          "requested_items": 2,
+          "slot_id": "en-es:full-family-repaired-full:argentinean:argentino:active_evidence_expansion",
+          "slot_type": "active_evidence_expansion",
+          "source_phrase": "argentinean",
+          "target_lemma": "argentino"
+        },
+        {
+          "purpose": "Improve an existing competitor sense when present; otherwise discover one plausible competing sense before evidence generation.",
+          "requested_items": 2,
+          "slot_id": "en-es:full-family-repaired-full:argentinean:argentino:shadow_or_competitor_evidence_probe",
+          "slot_type": "shadow_or_competitor_evidence_probe",
+          "source_phrase": "argentinean",
+          "target_lemma": ""
+        },
+        {
+          "purpose": "Collect a runtime-like context where no offered Spanish target should win, for guard calibration.",
+          "requested_items": 1,
+          "slot_id": "en-es:full-family-repaired-full:argentinean:argentino:no_winner_context_probe",
+          "slot_type": "no_winner_context_probe",
+          "source_phrase": "argentinean",
+          "target_lemma": ""
+        }
+      ],
+      "predicted_need": 0.3462,
+      "previous_admitted_overlap": false,
+      "previous_pilot_overlap": false,
+      "selection_features": {
+        "polysemy_risk": 0.5,
+        "pos_shape_risk": 0.5,
+        "shadow_coverage_risk": 0.3,
+        "source_zipf_risk": 0.2,
+        "target_zipf_risk": 0.35
+      },
+      "selection_formula": "sweep_linear_2169",
+      "selection_scorer": "safest_80pct_positive_sentence_transformer_a0000_m0015",
+      "shadow_count": 0,
+      "shadows": [],
+      "target_lemma": "argentino",
+      "trigger": "argentinean"
+    },
+    {
+      "active": {
+        "canonical_pos": "verb",
+        "evidence_text": "owe -> deber | owe, be obliged to pay, or be indebted",
+        "sense_id": "en-es:full-family-repaired-full:owe:deber:active",
+        "target_lemma": "deber"
+      },
+      "arm_rank": 6,
+      "band_id": "low_need",
+      "band_rank": 15,
+      "case_count": 2,
+      "failure_count": 0,
+      "false_abstain_count": 0,
+      "family_id": "en-es:full-family-repaired-full:owe:deber",
+      "feature_context": {
+        "polysemy_band": "low_1_to_3",
+        "pos_shape": "same_pos_polysemy",
+        "shadow_count": 0,
+        "source_zipf_band_en": "zipf_4_to_5_common",
+        "target_zipf_band_es": "zipf_4_to_5_common"
+      },
+      "global_need_rank": 36,
+      "harmful_replace_count": 0,
+      "observed_failure_rate": 0.0,
+      "pilot_arm": "low_control",
+      "planned_generation_slots": [
+        {
+          "purpose": "Improve active-sense examples without changing decision thresholds.",
+          "requested_items": 2,
+          "slot_id": "en-es:full-family-repaired-full:owe:deber:active_evidence_expansion",
+          "slot_type": "active_evidence_expansion",
+          "source_phrase": "owe",
+          "target_lemma": "deber"
+        },
+        {
+          "purpose": "Improve an existing competitor sense when present; otherwise discover one plausible competing sense before evidence generation.",
+          "requested_items": 2,
+          "slot_id": "en-es:full-family-repaired-full:owe:deber:shadow_or_competitor_evidence_probe",
+          "slot_type": "shadow_or_competitor_evidence_probe",
+          "source_phrase": "owe",
+          "target_lemma": ""
+        },
+        {
+          "purpose": "Collect a runtime-like context where no offered Spanish target should win, for guard calibration.",
+          "requested_items": 1,
+          "slot_id": "en-es:full-family-repaired-full:owe:deber:no_winner_context_probe",
+          "slot_type": "no_winner_context_probe",
+          "source_phrase": "owe",
+          "target_lemma": ""
+        }
+      ],
+      "predicted_need": 0.4615,
+      "previous_admitted_overlap": false,
+      "previous_pilot_overlap": false,
+      "selection_features": {
+        "polysemy_risk": 0.2,
+        "pos_shape_risk": 0.55,
+        "shadow_coverage_risk": 0.3,
+        "source_zipf_risk": 0.75,
+        "target_zipf_risk": 0.35
+      },
+      "selection_formula": "sweep_linear_2169",
+      "selection_scorer": "safest_80pct_positive_sentence_transformer_a0000_m0015",
+      "shadow_count": 0,
+      "shadows": [],
+      "target_lemma": "deber",
+      "trigger": "owe"
+    }
+  ],
+  "pilot_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es",
+  "schema_version": 1,
+  "selection": {
+    "acceptance_audit_path": "docs/test_outputs/semantic_veto_product_scope_band_grading_acceptance_audit_en_es_latest.json",
+    "allow_previous_overlap": false,
+    "band_formula_path": "docs/test_outputs/semantic_veto_product_scope_band_formula_sweep_en_es_latest.json",
+    "candidate_id": "product_scope_band_grading_v1",
+    "dataset_path": "docs/test_outputs/semantic_veto_product_scope_repaired_full_dataset_en_es_latest.json",
+    "previous_plan_path": "docs/test_inputs/semantic_veto_product_scope_llm_allocation_pilot_plan_en_es.json",
+    "selection_formula": "sweep_linear_2169",
+    "selection_formula_weights": {
+      "polysemy_risk": 0.07692307692307693,
+      "pos_shape_risk": 0.23076923076923078,
+      "shadow_coverage_risk": 0.3076923076923077,
+      "source_zipf_risk": 0.23076923076923078,
+      "target_zipf_risk": 0.15384615384615385
+    },
+    "selection_scorer": "safest_80pct_positive_sentence_transformer_a0000_m0015",
+    "selection_seed": "product-scope-band-grading-v1-follow-through",
+    "selection_uses_observed_outcomes": false
+  },
+  "status": "no_spend_manifest_only"
+}

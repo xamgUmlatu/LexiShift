@@ -108,6 +108,7 @@ class TestExtensionStructure(unittest.TestCase):
             'src="options/controllers/srs/actions/rebalance_workflow.js"',
             'src="options/controllers/srs/actions/formatters.js"',
             'src="options/controllers/srs/actions/shared.js"',
+            'src="options/controllers/srs/actions/semantic_pack_install_workflow.js"',
             'src="options/controllers/srs/actions/maintenance_workflow.js"',
             'src="options/controllers/srs/actions/workflows.js"',
             'src="options/controllers/srs/actions_controller.js"',

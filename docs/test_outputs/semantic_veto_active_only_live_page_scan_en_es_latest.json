@@ -1,0 +1,2148 @@
+{
+  "decision": "manual_review_packet_ready",
+  "fixture": {
+    "data_root": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-poc-v5-helper-runtime-smoke-data-root",
+    "profile_id": "default",
+    "ruleset_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-poc-v5-helper-runtime-smoke-data-root/srs/profiles/default/srs_ruleset_en-es.json",
+    "semantic_inventory_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-poc-v5-helper-runtime-smoke-data-root/srs/profiles/default/srs_semantic_inventory_en-es.json"
+  },
+  "issues": [],
+  "manifest_path": "docs/test_inputs/semantic_veto_active_only_live_page_scan_en_es.json",
+  "methodology": {
+    "decision_policy": "browser-style inventory default; active-only en-es fixture resolves to en_es_sentence_veto_v2",
+    "limits": {
+      "max_sentences_per_page": 10,
+      "max_sentences_per_trigger": 4,
+      "max_total_matches": 120,
+      "request_delay_seconds": 2.5
+    },
+    "promotion_claim": "none",
+    "review_goal": "manual product-feel review of real online sentences",
+    "runtime_path": "helper semantic_admit_batch against isolated active-only fixture",
+    "sentence_splitter": "simple punctuation splitter after HTML text extraction"
+  },
+  "pages": [
+    {
+      "expected_triggers": [
+        "dentist"
+      ],
+      "fetch_error": "",
+      "fetch_status": "ok",
+      "matched_sentence_count": 7,
+      "page_id": "wikipedia_dentist",
+      "text_char_count": 12921,
+      "url": "https://en.wikipedia.org/wiki/Dentist"
+    },
+    {
+      "expected_triggers": [
+        "bar"
+      ],
+      "fetch_error": "",
+      "fetch_status": "ok",
+      "matched_sentence_count": 5,
+      "page_id": "wikipedia_bar_establishment",
+      "text_char_count": 7677,
+      "url": "https://en.wikipedia.org/wiki/Bar_(establishment)"
+    },
+    {
+      "expected_triggers": [
+        "bar"
+      ],
+      "fetch_error": "",
+      "fetch_status": "ok",
+      "matched_sentence_count": 6,
+      "page_id": "wikipedia_bar_music",
+      "text_char_count": 4611,
+      "url": "https://en.wikipedia.org/wiki/Bar_(music)"
+    },
+    {
+      "expected_triggers": [
+        "offset"
+      ],
+      "fetch_error": "",
+      "fetch_status": "ok",
+      "matched_sentence_count": 4,
+      "page_id": "wikipedia_offset_computing",
+      "text_char_count": 2530,
+      "url": "https://en.wikipedia.org/wiki/Offset_(computer_science)"
+    },
+    {
+      "expected_triggers": [
+        "offset"
+      ],
+      "fetch_error": "",
+      "fetch_status": "ok",
+      "matched_sentence_count": 7,
+      "page_id": "wikipedia_carbon_offset",
+      "text_char_count": 42241,
+      "url": "https://en.wikipedia.org/wiki/Carbon_offset"
+    },
+    {
+      "expected_triggers": [
+        "bridle"
+      ],
+      "fetch_error": "",
+      "fetch_status": "ok",
+      "matched_sentence_count": 10,
+      "page_id": "wikipedia_bridle",
+      "text_char_count": 17710,
+      "url": "https://en.wikipedia.org/wiki/Bridle"
+    },
+    {
+      "expected_triggers": [
+        "control"
+      ],
+      "fetch_error": "",
+      "fetch_status": "ok",
+      "matched_sentence_count": 8,
+      "page_id": "wikipedia_self_control",
+      "text_char_count": 32344,
+      "url": "https://en.wikipedia.org/wiki/Self-control"
+    },
+    {
+      "expected_triggers": [
+        "december"
+      ],
+      "fetch_error": "",
+      "fetch_status": "ok",
+      "matched_sentence_count": 4,
+      "page_id": "wikipedia_december",
+      "text_char_count": 13464,
+      "url": "https://en.wikipedia.org/wiki/December"
+    },
+    {
+      "expected_triggers": [
+        "tomorrow"
+      ],
+      "fetch_error": "",
+      "fetch_status": "ok",
+      "matched_sentence_count": 1,
+      "page_id": "wikipedia_tomorrow",
+      "text_char_count": 6359,
+      "url": "https://en.wikipedia.org/wiki/Tomorrow"
+    },
+    {
+      "expected_triggers": [
+        "heart"
+      ],
+      "fetch_error": "",
+      "fetch_status": "ok",
+      "matched_sentence_count": 10,
+      "page_id": "wikipedia_heart",
+      "text_char_count": 78212,
+      "url": "https://en.wikipedia.org/wiki/Heart"
+    },
+    {
+      "expected_triggers": [
+        "brother"
+      ],
+      "fetch_error": "",
+      "fetch_status": "ok",
+      "matched_sentence_count": 5,
+      "page_id": "wikipedia_brother",
+      "text_char_count": 3618,
+      "url": "https://en.wikipedia.org/wiki/Brother"
+    },
+    {
+      "expected_triggers": [
+        "rebate"
+      ],
+      "fetch_error": "",
+      "fetch_status": "ok",
+      "matched_sentence_count": 9,
+      "page_id": "wikipedia_rebate_marketing",
+      "text_char_count": 18436,
+      "url": "https://en.wikipedia.org/wiki/Rebate_(marketing)"
+    },
+    {
+      "expected_triggers": [
+        "smile"
+      ],
+      "fetch_error": "",
+      "fetch_status": "ok",
+      "matched_sentence_count": 8,
+      "page_id": "wikipedia_smile",
+      "text_char_count": 7440,
+      "url": "https://en.wikipedia.org/wiki/Smile"
+    },
+    {
+      "expected_triggers": [
+        "govern",
+        "control"
+      ],
+      "fetch_error": "",
+      "fetch_status": "ok",
+      "matched_sentence_count": 10,
+      "page_id": "wikipedia_governance",
+      "text_char_count": 36111,
+      "url": "https://en.wikipedia.org/wiki/Governance"
+    },
+    {
+      "expected_triggers": [
+        "bouillon"
+      ],
+      "fetch_error": "",
+      "fetch_status": "ok",
+      "matched_sentence_count": 5,
+      "page_id": "wikipedia_bouillon_cube",
+      "text_char_count": 2684,
+      "url": "https://en.wikipedia.org/wiki/Bouillon_cube"
+    },
+    {
+      "expected_triggers": [
+        "chic"
+      ],
+      "fetch_error": "",
+      "fetch_status": "ok",
+      "matched_sentence_count": 6,
+      "page_id": "wikipedia_chic",
+      "text_char_count": 3952,
+      "url": "https://en.wikipedia.org/wiki/Chic"
+    },
+    {
+      "expected_triggers": [
+        "salesman"
+      ],
+      "fetch_error": "",
+      "fetch_status": "ok",
+      "matched_sentence_count": 8,
+      "page_id": "wikipedia_salesperson",
+      "text_char_count": 21939,
+      "url": "https://en.wikipedia.org/wiki/Salesperson"
+    }
+  ],
+  "pair": "en-es",
+  "review_rows": [
+    {
+      "active_score": 0.05718210730904135,
+      "context_text": "A dentist, also known as a dental doctor, dental physician, dental surgeon, is a health care professional who specializes in dentistry, the branch of medicine focused on the teeth, gums, and mouth.",
+      "decision": "replace",
+      "decision_source": "policy",
+      "match_id": "wikipedia_dentist:1:dentist",
+      "page_id": "wikipedia_dentist",
+      "reason_codes": [
+        "active_margin_clear"
+      ],
+      "replacement": "dentista",
+      "score_margin": 0.05718210730904135,
+      "source_phrase": "dentist",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Dentist"
+    },
+    {
+      "active_score": 0.02471131467403445,
+      "context_text": "The American Dental Association was established in 1859 after a meeting with 26 dentists.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_dentist:2:american",
+      "page_id": "wikipedia_dentist",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "americano",
+      "score_margin": 0.02471131467403445,
+      "source_phrase": "american",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Dentist"
+    },
+    {
+      "active_score": 0.0136647896975892,
+      "context_text": "New dental boards, such as the National Association of Dental Examiners, were created to establish standards and uniformity among dentists.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_dentist:3:among",
+      "page_id": "wikipedia_dentist",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "entre",
+      "score_margin": 0.0136647896975892,
+      "source_phrase": "among",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Dentist"
+    },
+    {
+      "active_score": 0.009953288334828479,
+      "context_text": "In 1895, the dental X-ray was discovered by a German physicist, Wilhelm Röntgen.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_dentist:4:german",
+      "page_id": "wikipedia_dentist",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "alemán",
+      "score_margin": 0.009953288334828479,
+      "source_phrase": "german",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Dentist"
+    },
+    {
+      "active_score": 0.017891490207677458,
+      "context_text": "Responsibilities By nature of their general training, a licensed dentist can carry out most dental treatments such as restorative (dental restorations, crowns, bridges), orthodontics (braces), prosthodontic (dentures, crown/bridge), endodontic (root canal) therapy, periodontal (gum) therapy, and oral surgery (extraction of teeth), as well as performing examinations, taking radiographs (x-rays) and diagnosis.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_dentist:5:dentist",
+      "page_id": "wikipedia_dentist",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "dentista",
+      "score_margin": 0.017891490207677458,
+      "source_phrase": "dentist",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Dentist"
+    },
+    {
+      "active_score": 0.055093140242174155,
+      "context_text": "United States In the US, dental specialties are recognized by the American Dental Association (ADA) or the American Board of Dental Specialties (ABDS) Currently, the ADA lists twelve dental specialties, who are recognized by the National Commission on Recognition of Dental Specialties and Certifying Boards, while the ABDS recognizes four dental specialty boards.",
+      "decision": "replace",
+      "decision_source": "policy",
+      "match_id": "wikipedia_dentist:6:american",
+      "page_id": "wikipedia_dentist",
+      "reason_codes": [
+        "active_margin_clear"
+      ],
+      "replacement": "americano",
+      "score_margin": 0.055093140242174155,
+      "source_phrase": "american",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Dentist"
+    },
+    {
+      "active_score": 0.025979956755255905,
+      "context_text": "List of Dental Specialties under the ADA: Dental anesthesiology – The study and administration of general anesthesia, sedation, local anesthesia, and advanced methods of pain control.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_dentist:7:control",
+      "page_id": "wikipedia_dentist",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "gobernar",
+      "score_margin": 0.025979956755255905,
+      "source_phrase": "control",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Dentist"
+    },
+    {
+      "active_score": 0.025690515664486255,
+      "context_text": "A bar, also known as a saloon, a tavern or tippling house, or sometimes as a pub or club, is a retail business that serves alcoholic beverages, such as beer, wine, liquor, cocktails, and other beverages such as mineral water and soft drinks.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_bar_establishment:1:bar",
+      "page_id": "wikipedia_bar_establishment",
+      "reason_codes": [
+        "active_score_below_floor",
+        "active_margin_below_floor",
+        "shadow_winner"
+      ],
+      "replacement": "cercar",
+      "score_margin": -0.07821416753582147,
+      "source_phrase": "bar",
+      "top_shadow_score": 0.10390468320030773,
+      "url": "https://en.wikipedia.org/wiki/Bar_(establishment)"
+    },
+    {
+      "active_score": 0.07354505322301053,
+      "context_text": "The term \"bar\" refers both to the countertop where drinks are prepared and served and also by extension to the entirety of the establishment in which the bar is located.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_bar_establishment:2:bar",
+      "page_id": "wikipedia_bar_establishment",
+      "reason_codes": [
+        "active_margin_below_floor",
+        "shadow_winner"
+      ],
+      "replacement": "cercar",
+      "score_margin": -0.02368742190817341,
+      "source_phrase": "bar",
+      "top_shadow_score": 0.09723247513118394,
+      "url": "https://en.wikipedia.org/wiki/Bar_(establishment)"
+    },
+    {
+      "active_score": 0.09023835992574537,
+      "context_text": "The term derives from the metal or wooden bar (barrier) that is often located along the length of the \"bar\".",
+      "decision": "replace",
+      "decision_source": "policy",
+      "match_id": "wikipedia_bar_establishment:3:bar",
+      "page_id": "wikipedia_bar_establishment",
+      "reason_codes": [
+        "active_margin_clear"
+      ],
+      "replacement": "cercar",
+      "score_margin": 0.04392039701393656,
+      "source_phrase": "bar",
+      "top_shadow_score": 0.04631796291180881,
+      "url": "https://en.wikipedia.org/wiki/Bar_(establishment)"
+    },
+    {
+      "active_score": 0.04117057929224219,
+      "context_text": "Today, even when an establishment uses a different name, such as \"tavern\" or \"saloon\" or, in the United Kingdom, a \"pub\", the area of the establishment where the bartender pours or mixes beverages is normally called \"the bar\".",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_bar_establishment:4:bar",
+      "page_id": "wikipedia_bar_establishment",
+      "reason_codes": [
+        "active_score_below_floor",
+        "active_margin_below_floor",
+        "shadow_winner"
+      ],
+      "replacement": "cercar",
+      "score_margin": -0.07176060042885363,
+      "source_phrase": "bar",
+      "top_shadow_score": 0.11293117972109581,
+      "url": "https://en.wikipedia.org/wiki/Bar_(establishment)"
+    },
+    {
+      "active_score": 0.04463121238195013,
+      "context_text": "\"Fern bar\" is an American slang term for an upscale or preppy (or yuppie) bar.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_bar_establishment:5:american",
+      "page_id": "wikipedia_bar_establishment",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "americano",
+      "score_margin": 0.04463121238195013,
+      "source_phrase": "american",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Bar_(establishment)"
+    },
+    {
+      "active_score": 0.048537750466472795,
+      "context_text": "In musical notation, a bar (or measure) is a segment of music bounded by vertical lines, known as bar lines (or barlines), usually indicating one or more recurring beats.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_bar_music:1:bar",
+      "page_id": "wikipedia_bar_music",
+      "reason_codes": [
+        "active_score_below_floor",
+        "active_margin_below_floor",
+        "shadow_winner"
+      ],
+      "replacement": "cercar",
+      "score_margin": -0.07091495077588272,
+      "source_phrase": "bar",
+      "top_shadow_score": 0.11945270124235552,
+      "url": "https://en.wikipedia.org/wiki/Bar_(music)"
+    },
+    {
+      "active_score": 0.03507690309541446,
+      "context_text": "The length of the bar, measured by the number of note values it contains, is normally indicated by the time signature.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_bar_music:2:bar",
+      "page_id": "wikipedia_bar_music",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "cercar",
+      "score_margin": 0.03507690309541446,
+      "source_phrase": "bar",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Bar_(music)"
+    },
+    {
+      "active_score": 0.0559799730932911,
+      "context_text": "Types of bar lines Regular bar lines consist of a thin vertical line extending from the top line to the bottom line of the staff, sometimes also extending between staves in the case of a grand staff or a family of instruments in an orchestral score.",
+      "decision": "replace",
+      "decision_source": "policy",
+      "match_id": "wikipedia_bar_music:3:bar",
+      "page_id": "wikipedia_bar_music",
+      "reason_codes": [
+        "active_margin_clear"
+      ],
+      "replacement": "cercar",
+      "score_margin": 0.018307722890113266,
+      "source_phrase": "bar",
+      "top_shadow_score": 0.03767225020317783,
+      "url": "https://en.wikipedia.org/wiki/Bar_(music)"
+    },
+    {
+      "active_score": 0.11278609449744571,
+      "context_text": "A double bar line (or double bar) consists of two single bar lines drawn close together, separating two sections within a piece, or a bar line followed by a thicker bar line, indicating the end of a piece or movement.",
+      "decision": "replace",
+      "decision_source": "policy",
+      "match_id": "wikipedia_bar_music:4:bar",
+      "page_id": "wikipedia_bar_music",
+      "reason_codes": [
+        "active_margin_clear"
+      ],
+      "replacement": "cercar",
+      "score_margin": 0.03358746161722753,
+      "source_phrase": "bar",
+      "top_shadow_score": 0.07919863288021818,
+      "url": "https://en.wikipedia.org/wiki/Bar_(music)"
+    },
+    {
+      "active_score": 0.023452450868106524,
+      "context_text": "The beginning of the repeated passage can be marked by a begin-repeat sign; if this is absent, the repeat is understood to be from the beginning of the piece or movement.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_bar_music:5:begin",
+      "page_id": "wikipedia_bar_music",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "comenzar",
+      "score_margin": 0.023452450868106524,
+      "source_phrase": "begin",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Bar_(music)"
+    },
+    {
+      "active_score": 0.023864976053129216,
+      "context_text": "This begin-repeat sign, if appearing at the beginning of a staff, does not act as a bar line because no bar is before it; its only function is to indicate the beginning of the passage to be repeated.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_bar_music:6:begin",
+      "page_id": "wikipedia_bar_music",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "comenzar",
+      "score_margin": 0.023864976053129216,
+      "source_phrase": "begin",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Bar_(music)"
+    },
+    {
+      "active_score": 0.09558589884857928,
+      "context_text": "In computer science, an offset within an array or other data structure object is an integer indicating the distance (displacement) between the beginning of the object and a given element or point, presumably within the same object.",
+      "decision": "replace",
+      "decision_source": "policy",
+      "match_id": "wikipedia_offset_computing:1:offset",
+      "page_id": "wikipedia_offset_computing",
+      "reason_codes": [
+        "active_margin_clear"
+      ],
+      "replacement": "distancia",
+      "score_margin": 0.07684048641072222,
+      "source_phrase": "offset",
+      "top_shadow_score": 0.018745412437857066,
+      "url": "https://en.wikipedia.org/wiki/Offset_(computer_science)"
+    },
+    {
+      "active_score": 0.05965053162736662,
+      "context_text": "For example, if A is an array of characters containing \"abcdef\", the fourth element containing the character 'd' has an offset of three from the start of A.",
+      "decision": "replace",
+      "decision_source": "policy",
+      "match_id": "wikipedia_offset_computing:2:offset",
+      "page_id": "wikipedia_offset_computing",
+      "reason_codes": [
+        "active_margin_clear"
+      ],
+      "replacement": "distancia",
+      "score_margin": 0.04014781834767904,
+      "source_phrase": "offset",
+      "top_shadow_score": 0.01950271327968758,
+      "url": "https://en.wikipedia.org/wiki/Offset_(computer_science)"
+    },
+    {
+      "active_score": 0.029575482237854115,
+      "context_text": "In assembly language In computer engineering and low-level programming (such as assembly language), an offset usually denotes the number of address locations added to a base address in order to get to a specific absolute address.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_offset_computing:3:offset",
+      "page_id": "wikipedia_offset_computing",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "distancia",
+      "score_margin": 0.014295470079291939,
+      "source_phrase": "offset",
+      "top_shadow_score": 0.015280012158562176,
+      "url": "https://en.wikipedia.org/wiki/Offset_(computer_science)"
+    },
+    {
+      "active_score": 0.034910458601475916,
+      "context_text": "In this (original) meaning of offset, only the basic address unit, usually the 8-bit byte, is used to specify the offset's size.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_offset_computing:4:offset",
+      "page_id": "wikipedia_offset_computing",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "distancia",
+      "score_margin": 0.034910458601475916,
+      "source_phrase": "offset",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Offset_(computer_science)"
+    },
+    {
+      "active_score": 0.01855732258488549,
+      "context_text": "Carbon offsetting is the practice of using carbon credits to offset or counter an entity's greenhouse gas inventory emissions in line with reporting programs or institutional emissions targets/goals.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_carbon_offset:1:offset",
+      "page_id": "wikipedia_carbon_offset",
+      "reason_codes": [
+        "phrase_preemption",
+        "infinitive_trigger_frame"
+      ],
+      "replacement": "distancia",
+      "score_margin": 0.005151117021718145,
+      "source_phrase": "offset",
+      "top_shadow_score": 0.013406205563167344,
+      "url": "https://en.wikipedia.org/wiki/Carbon_offset"
+    },
+    {
+      "active_score": 0.027691993308168888,
+      "context_text": "Carbon credit trading mechanisms (i.e., crediting programs), enable project developers to implement projects that mitigate GHGs and receive carbon credits which can be sold to interested buyers who may use the credits to claim they have offset their inventory GHG emissions.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_carbon_offset:2:offset",
+      "page_id": "wikipedia_carbon_offset",
+      "reason_codes": [
+        "phrase_preemption",
+        "subject_trigger_object_frame"
+      ],
+      "replacement": "distancia",
+      "score_margin": 0.0026048527386630486,
+      "source_phrase": "offset",
+      "top_shadow_score": 0.02508714056950584,
+      "url": "https://en.wikipedia.org/wiki/Carbon_offset"
+    },
+    {
+      "active_score": 0.05683840729539383,
+      "context_text": "The vintage of a carbon credit is the year in which a carbon credit was issued by a crediting program, which usually corresponds to the year in which a third party auditor reviews the project — generates the carbon offset credit is known as the vintage.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_carbon_offset:3:offset",
+      "page_id": "wikipedia_carbon_offset",
+      "reason_codes": [
+        "active_margin_below_floor",
+        "shadow_winner"
+      ],
+      "replacement": "distancia",
+      "score_margin": -0.03430568483069783,
+      "source_phrase": "offset",
+      "top_shadow_score": 0.09114409212609166,
+      "url": "https://en.wikipedia.org/wiki/Carbon_offset"
+    },
+    {
+      "active_score": 0.04173456445193666,
+      "context_text": "History In 1977, major amendments to the US Clean Air Act created one of the first tradable emission offset mechanisms, allowing permitted facilities to increase emissions in exchange for paying another company to reduce its emissions of the same pollutant by a greater amount.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_carbon_offset:4:offset",
+      "page_id": "wikipedia_carbon_offset",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "distancia",
+      "score_margin": 0.02873108874768359,
+      "source_phrase": "offset",
+      "top_shadow_score": 0.013003475704253064,
+      "url": "https://en.wikipedia.org/wiki/Carbon_offset"
+    },
+    {
+      "active_score": 0.04111246657314487,
+      "context_text": "Economics The economics behind programs such as the Kyoto Protocol was that the marginal cost of reducing emissions would differ among countries.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_carbon_offset:5:among",
+      "page_id": "wikipedia_carbon_offset",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "entre",
+      "score_margin": 0.04111246657314487,
+      "source_phrase": "among",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Carbon_offset"
+    },
+    {
+      "active_score": 0.008263596410330816,
+      "context_text": "Emissions trading systems Emissions trading are now an important element of regulatory programs to control pollution, including GHG emissions.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_carbon_offset:6:control",
+      "page_id": "wikipedia_carbon_offset",
+      "reason_codes": [
+        "active_score_below_floor",
+        "active_margin_below_floor",
+        "shadow_winner"
+      ],
+      "replacement": "gobernar",
+      "score_margin": -0.0036189646148509676,
+      "source_phrase": "control",
+      "top_shadow_score": 0.011882561025181784,
+      "url": "https://en.wikipedia.org/wiki/Carbon_offset"
+    },
+    {
+      "active_score": 0.01704193590838023,
+      "context_text": "They include the Verified Carbon Standard issued by Verra, the Gold Standard, the Global Carbon Council based in Qatar, the Climate Action Reserve, the American Carbon Registry, and Plan Vivo.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_carbon_offset:7:american",
+      "page_id": "wikipedia_carbon_offset",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "americano",
+      "score_margin": 0.01704193590838023,
+      "source_phrase": "american",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Carbon_offset"
+    },
+    {
+      "active_score": 0.0065655108691926554,
+      "context_text": "A bridle is a piece of equipment used to direct a horse.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_bridle:1:bridle",
+      "page_id": "wikipedia_bridle",
+      "reason_codes": [
+        "active_score_below_floor",
+        "active_margin_below_floor",
+        "shadow_winner"
+      ],
+      "replacement": "reprimir",
+      "score_margin": -0.05514360022127454,
+      "source_phrase": "bridle",
+      "top_shadow_score": 0.06170911109046719,
+      "url": "https://en.wikipedia.org/wiki/Bridle"
+    },
+    {
+      "active_score": 0.030188939852587846,
+      "context_text": "It provides additional control and communication through rein pressure.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_bridle:2:control",
+      "page_id": "wikipedia_bridle",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "gobernar",
+      "score_margin": 0.030188939852587846,
+      "source_phrase": "control",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Bridle"
+    },
+    {
+      "active_score": 0.013348880726418138,
+      "context_text": "Headgear without a bit that uses a noseband to control a horse is called a hackamore, or, in some areas, a bitless bridle.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_bridle:3:bridle",
+      "page_id": "wikipedia_bridle",
+      "reason_codes": [
+        "active_score_below_floor",
+        "active_margin_below_floor",
+        "shadow_winner"
+      ],
+      "replacement": "reprimir",
+      "score_margin": -0.07527948203934108,
+      "source_phrase": "bridle",
+      "top_shadow_score": 0.08862836276575922,
+      "url": "https://en.wikipedia.org/wiki/Bridle"
+    },
+    {
+      "active_score": 0.034811933146715504,
+      "context_text": "Headgear without a bit that uses a noseband to control a horse is called a hackamore, or, in some areas, a bitless bridle.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_bridle:4:control",
+      "page_id": "wikipedia_bridle",
+      "reason_codes": [
+        "active_score_below_floor",
+        "active_margin_below_floor",
+        "shadow_winner"
+      ],
+      "replacement": "gobernar",
+      "score_margin": -0.0029183381570710154,
+      "source_phrase": "control",
+      "top_shadow_score": 0.03773027130378652,
+      "url": "https://en.wikipedia.org/wiki/Bridle"
+    },
+    {
+      "active_score": 0.024234035683481397,
+      "context_text": "There are many different designs with many different name variations, but all use a noseband that is designed to exert pressure on sensitive areas of the animal's face to provide direction and control.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_bridle:5:control",
+      "page_id": "wikipedia_bridle",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "gobernar",
+      "score_margin": 0.019773887347635567,
+      "source_phrase": "control",
+      "top_shadow_score": 0.00446014833584583,
+      "url": "https://en.wikipedia.org/wiki/Bridle"
+    },
+    {
+      "active_score": 0.009041267553568771,
+      "context_text": "The bridle was devised by Indo-European herders of the Pontic-Caspian steppes to control horses between 3000 BC and 2000 BC.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_bridle:6:bridle",
+      "page_id": "wikipedia_bridle",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "reprimir",
+      "score_margin": 0.009041267553568771,
+      "source_phrase": "bridle",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Bridle"
+    },
+    {
+      "active_score": 0.028994492572171387,
+      "context_text": "The bridle was devised by Indo-European herders of the Pontic-Caspian steppes to control horses between 3000 BC and 2000 BC.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_bridle:7:control",
+      "page_id": "wikipedia_bridle",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "gobernar",
+      "score_margin": 0.028994492572171387,
+      "source_phrase": "control",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Bridle"
+    },
+    {
+      "active_score": 0.018088930006510153,
+      "context_text": "Parts The bridle consists of the following elements: Crownpiece: The crownpiece, headstall (US) or headpiece (UK) goes over the horse's head just behind the animal's ears, at the poll.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_bridle:8:bridle",
+      "page_id": "wikipedia_bridle",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "reprimir",
+      "score_margin": 0.011449200673735631,
+      "source_phrase": "bridle",
+      "top_shadow_score": 0.006639729332774522,
+      "url": "https://en.wikipedia.org/wiki/Bridle"
+    },
+    {
+      "active_score": 0.035627356542912866,
+      "context_text": "Frentera, a strap running from the browband to the noseband, primarily seen on bridles of certain South American designs.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_bridle:9:american",
+      "page_id": "wikipedia_bridle",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "americano",
+      "score_margin": 0.035627356542912866,
+      "source_phrase": "american",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Bridle"
+    },
+    {
+      "active_score": 0.033389131540474834,
+      "context_text": "Shank hobble: A strap, bar or chain that connects the shanks of a curb bit at the bottom of the bit.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_bridle:10:bar",
+      "page_id": "wikipedia_bridle",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "cercar",
+      "score_margin": 0.014493706108105069,
+      "source_phrase": "bar",
+      "top_shadow_score": 0.018895425432369765,
+      "url": "https://en.wikipedia.org/wiki/Bridle"
+    },
+    {
+      "active_score": 0.06598239228490972,
+      "context_text": "Self-control is the ability to regulate one's emotions, thoughts, and behavior in the face of temptations and impulses.",
+      "decision": "replace",
+      "decision_source": "policy",
+      "match_id": "wikipedia_self_control:1:control",
+      "page_id": "wikipedia_self_control",
+      "reason_codes": [
+        "active_margin_clear"
+      ],
+      "replacement": "gobernar",
+      "score_margin": 0.012872380476516669,
+      "source_phrase": "control",
+      "top_shadow_score": 0.05311001180839305,
+      "url": "https://en.wikipedia.org/wiki/Self-control"
+    },
+    {
+      "active_score": 0.05765241788964173,
+      "context_text": "Self-control is closely related to the ability to delay gratification, which refers to resisting immediate rewards in favor of larger or later benefits.",
+      "decision": "replace",
+      "decision_source": "policy",
+      "match_id": "wikipedia_self_control:2:control",
+      "page_id": "wikipedia_self_control",
+      "reason_codes": [
+        "active_margin_clear"
+      ],
+      "replacement": "gobernar",
+      "score_margin": 0.01235653428817033,
+      "source_phrase": "control",
+      "top_shadow_score": 0.0452958836014714,
+      "url": "https://en.wikipedia.org/wiki/Self-control"
+    },
+    {
+      "active_score": 0.01750290433592589,
+      "context_text": "It is an aspect of inhibitory control, one of the core human executive functions.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_self_control:3:control",
+      "page_id": "wikipedia_self_control",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "gobernar",
+      "score_margin": 0.0006691732132177441,
+      "source_phrase": "control",
+      "top_shadow_score": 0.016833731122708147,
+      "url": "https://en.wikipedia.org/wiki/Self-control"
+    },
+    {
+      "active_score": 0.07008635027323326,
+      "context_text": "Neuroscientific research has identified the prefrontal cortex as a critical brain region involved in self-control, decision making, and the regulation of impulses.",
+      "decision": "replace",
+      "decision_source": "policy",
+      "match_id": "wikipedia_self_control:4:control",
+      "page_id": "wikipedia_self_control",
+      "reason_codes": [
+        "active_margin_clear"
+      ],
+      "replacement": "gobernar",
+      "score_margin": 0.018894660553553808,
+      "source_phrase": "control",
+      "top_shadow_score": 0.051191689719679453,
+      "url": "https://en.wikipedia.org/wiki/Self-control"
+    },
+    {
+      "active_score": 0.013032073646136164,
+      "context_text": "They are also more likely to choose an apple over a candy bar in behavioral tasks.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_self_control:5:bar",
+      "page_id": "wikipedia_self_control",
+      "reason_codes": [
+        "active_score_below_floor",
+        "active_margin_below_floor",
+        "shadow_winner"
+      ],
+      "replacement": "cercar",
+      "score_margin": -0.005562561692123467,
+      "source_phrase": "bar",
+      "top_shadow_score": 0.01859463533825963,
+      "url": "https://en.wikipedia.org/wiki/Self-control"
+    },
+    {
+      "active_score": 0.009453338044184072,
+      "context_text": "James’s research linked this coping pattern to elevated risks of hypertension and cardiovascular strain among Black Americans in North Carolina, particularly in contexts of chronic stress and disadvantage.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_self_control:6:among",
+      "page_id": "wikipedia_self_control",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "entre",
+      "score_margin": 0.009453338044184072,
+      "source_phrase": "among",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Self-control"
+    },
+    {
+      "active_score": 0.011222574344797384,
+      "context_text": "The term draws on the American folk hero John Henry, whose legendary death followed intense physical labor; the concept has since been discussed in both academic and popular accounts of stress and health inequalities.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_self_control:7:american",
+      "page_id": "wikipedia_self_control",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "americano",
+      "score_margin": 0.011222574344797384,
+      "source_phrase": "american",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Self-control"
+    },
+    {
+      "active_score": 0.02404450143507306,
+      "context_text": "A common theme among studies of desire is an investigation of the underlying cognitive processes of a craving for an addictive substance, such as nicotine or alcohol.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_self_control:8:among",
+      "page_id": "wikipedia_self_control",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "entre",
+      "score_margin": 0.02404450143507306,
+      "source_phrase": "among",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Self-control"
+    },
+    {
+      "active_score": 0.22258016269956596,
+      "context_text": "December is the 12th and final month of the year in the Julian and Gregorian calendars.",
+      "decision": "replace",
+      "decision_source": "policy",
+      "match_id": "wikipedia_december:1:december",
+      "page_id": "wikipedia_december",
+      "reason_codes": [
+        "active_margin_clear"
+      ],
+      "replacement": "diciembre",
+      "score_margin": 0.22258016269956596,
+      "source_phrase": "december",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/December"
+    },
+    {
+      "active_score": 0.07134722904386961,
+      "context_text": "The winter days following December were not included as part of any month.",
+      "decision": "replace",
+      "decision_source": "policy",
+      "match_id": "wikipedia_december:2:december",
+      "page_id": "wikipedia_december",
+      "reason_codes": [
+        "active_margin_clear"
+      ],
+      "replacement": "diciembre",
+      "score_margin": 0.07134722904386961,
+      "source_phrase": "december",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/December"
+    },
+    {
+      "active_score": 0.06884704495431451,
+      "context_text": "Later, the months of January and February were created out of the monthless period and added to the beginning of the calendar, but December retained its name.",
+      "decision": "replace",
+      "decision_source": "policy",
+      "match_id": "wikipedia_december:3:december",
+      "page_id": "wikipedia_december",
+      "reason_codes": [
+        "active_margin_clear"
+      ],
+      "replacement": "diciembre",
+      "score_margin": 0.06884704495431451,
+      "source_phrase": "december",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/December"
+    },
+    {
+      "active_score": 0.1778976935932261,
+      "context_text": "December is the first month of winter in the Northern Hemisphere and the first month of summer in the Southern Hemisphere.",
+      "decision": "replace",
+      "decision_source": "policy",
+      "match_id": "wikipedia_december:4:december",
+      "page_id": "wikipedia_december",
+      "reason_codes": [
+        "active_margin_clear"
+      ],
+      "replacement": "diciembre",
+      "score_margin": 0.1778976935932261,
+      "source_phrase": "december",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/December"
+    },
+    {
+      "active_score": 0.020800635863817335,
+      "context_text": "Morrow, a supervillain from DC Comics Tomorrow \"Tomo\", a fictional character in the webtoon Live with Yourself!",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_tomorrow:1:tomorrow",
+      "page_id": "wikipedia_tomorrow",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "mañana",
+      "score_margin": 0.020800635863817335,
+      "source_phrase": "tomorrow",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Tomorrow"
+    },
+    {
+      "active_score": 0.04242781153990619,
+      "context_text": "The heart is a muscular organ found in humans and other animals.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_heart:1:heart",
+      "page_id": "wikipedia_heart",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "corazón",
+      "score_margin": 0.04242781153990619,
+      "source_phrase": "heart",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Heart"
+    },
+    {
+      "active_score": 0.014269014745638188,
+      "context_text": "The heart and blood vessels together make up the circulatory system.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_heart:2:heart",
+      "page_id": "wikipedia_heart",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "corazón",
+      "score_margin": 0.014269014745638188,
+      "source_phrase": "heart",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Heart"
+    },
+    {
+      "active_score": 0.042630830833672306,
+      "context_text": "In humans, the heart is approximately the size of a closed fist and is located between the lungs, in the middle compartment of the chest, called the mediastinum.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_heart:3:heart",
+      "page_id": "wikipedia_heart",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "corazón",
+      "score_margin": 0.042630830833672306,
+      "source_phrase": "heart",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Heart"
+    },
+    {
+      "active_score": 0.014933213166610807,
+      "context_text": "In humans, the heart is divided into four chambers: upper left and right atria and lower left and right ventricles.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_heart:4:heart",
+      "page_id": "wikipedia_heart",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "corazón",
+      "score_margin": 0.014933213166610807,
+      "source_phrase": "heart",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Heart"
+    },
+    {
+      "active_score": 0.0,
+      "context_text": "Risk factors include: smoking, being overweight, little exercise, high cholesterol, high blood pressure, and poorly controlled diabetes, among others.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_heart:5:among",
+      "page_id": "wikipedia_heart",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "entre",
+      "score_margin": 0.0,
+      "source_phrase": "among",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Heart"
+    },
+    {
+      "active_score": 0.06387876774915793,
+      "context_text": "The largest part of the heart is usually slightly offset to the left side of the chest (levocardia).",
+      "decision": "replace",
+      "decision_source": "policy",
+      "match_id": "wikipedia_heart:6:offset",
+      "page_id": "wikipedia_heart",
+      "reason_codes": [
+        "active_margin_clear"
+      ],
+      "replacement": "distancia",
+      "score_margin": 0.06387876774915793,
+      "source_phrase": "offset",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Heart"
+    },
+    {
+      "active_score": 0.05214365140068325,
+      "context_text": "In a rare congenital disorder (dextrocardia) the heart is offset to the right side and is felt to be on the left because the left heart is stronger and larger, since it pumps to all body parts.",
+      "decision": "replace",
+      "decision_source": "policy",
+      "match_id": "wikipedia_heart:7:offset",
+      "page_id": "wikipedia_heart",
+      "reason_codes": [
+        "active_margin_clear"
+      ],
+      "replacement": "distancia",
+      "score_margin": 0.0439407116164101,
+      "source_phrase": "offset",
+      "top_shadow_score": 0.008202939784273156,
+      "url": "https://en.wikipedia.org/wiki/Heart"
+    },
+    {
+      "active_score": 0.021382278058603998,
+      "context_text": "These nerves act to influence, but not control, the heart rate.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_heart:8:control",
+      "page_id": "wikipedia_heart",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "gobernar",
+      "score_margin": 0.021382278058603998,
+      "source_phrase": "control",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Heart"
+    },
+    {
+      "active_score": 0.01607363506487643,
+      "context_text": "Once the cell has a sufficiently high charge, the sodium channels close and calcium ions then begin to enter the cell, shortly after which potassium begins to leave it.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_heart:9:begin",
+      "page_id": "wikipedia_heart",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "comenzar",
+      "score_margin": 0.01607363506487643,
+      "source_phrase": "begin",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Heart"
+    },
+    {
+      "active_score": 0.013440675593300595,
+      "context_text": "When the membrane potential reaches approximately −60 mV, the potassium channels close and the process may begin again.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_heart:10:begin",
+      "page_id": "wikipedia_heart",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "comenzar",
+      "score_margin": 0.013440675593300595,
+      "source_phrase": "begin",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Heart"
+    },
+    {
+      "active_score": 0.0931787946290206,
+      "context_text": "A brother (pl.: brothers or brethren) is a man or boy who shares one or more parents with another; a male sibling.",
+      "decision": "replace",
+      "decision_source": "policy",
+      "match_id": "wikipedia_brother:1:brother",
+      "page_id": "wikipedia_brother",
+      "reason_codes": [
+        "active_margin_clear"
+      ],
+      "replacement": "hermano",
+      "score_margin": 0.0931787946290206,
+      "source_phrase": "brother",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Brother"
+    },
+    {
+      "active_score": 0.009539457235612378,
+      "context_text": "A full brother is a first degree relative.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_brother:2:brother",
+      "page_id": "wikipedia_brother",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "hermano",
+      "score_margin": 0.009539457235612378,
+      "source_phrase": "brother",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Brother"
+    },
+    {
+      "active_score": 0.0053659900830863045,
+      "context_text": "Overview The term brother comes from the Proto-Indo-European *bʰréh₂tēr, which becomes Latin frater, of the same meaning.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_brother:3:brother",
+      "page_id": "wikipedia_brother",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "hermano",
+      "score_margin": 0.0053659900830863045,
+      "source_phrase": "brother",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Brother"
+    },
+    {
+      "active_score": 0.01882548462728174,
+      "context_text": "The cause of this phenomenon in which sibling warmth is only correlated with risk taking behaviours in brother pairs still is unclear.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_brother:4:brother",
+      "page_id": "wikipedia_brother",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "hermano",
+      "score_margin": 0.01882548462728174,
+      "source_phrase": "brother",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Brother"
+    },
+    {
+      "active_score": 0.04680090976030442,
+      "context_text": "Aristotle also adds this on the matter of retaining the action of doing good once imitated: \"Once the habits of ethics or immorality become entrenched, they are difficult to break.\" The good habits that are created by the influence of the older brother become habit in the life of the younger brother and turn out to be seemingly permanent.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_brother:5:break",
+      "page_id": "wikipedia_brother",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "quebrar",
+      "score_margin": 0.042634811370672154,
+      "source_phrase": "break",
+      "top_shadow_score": 0.0041660983896322605,
+      "url": "https://en.wikipedia.org/wiki/Brother"
+    },
+    {
+      "active_score": 0.15037553552670285,
+      "context_text": "In marketing, a rebate is a form of buying discount and is an amount paid by way of reduction, return, or refund that is paid retrospectively.",
+      "decision": "replace",
+      "decision_source": "policy",
+      "match_id": "wikipedia_rebate_marketing:1:rebate",
+      "page_id": "wikipedia_rebate_marketing",
+      "reason_codes": [
+        "active_margin_clear"
+      ],
+      "replacement": "descuento",
+      "score_margin": 0.10513442365640327,
+      "source_phrase": "rebate",
+      "top_shadow_score": 0.04524111187029958,
+      "url": "https://en.wikipedia.org/wiki/Rebate_(marketing)"
+    },
+    {
+      "active_score": 0.03381088599996875,
+      "context_text": "The mail-in rebate (MIR) is the most common.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_rebate_marketing:2:rebate",
+      "page_id": "wikipedia_rebate_marketing",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "descuento",
+      "score_margin": 0.03381088599996875,
+      "source_phrase": "rebate",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Rebate_(marketing)"
+    },
+    {
+      "active_score": 0.04827557523882742,
+      "context_text": "Rebate forms and special receipts are sometimes printed by the cash register at time of purchase on a separate receipt or available online for download.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_rebate_marketing:3:rebate",
+      "page_id": "wikipedia_rebate_marketing",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "descuento",
+      "score_margin": 0.03666070340815683,
+      "source_phrase": "rebate",
+      "top_shadow_score": 0.011614871830670583,
+      "url": "https://en.wikipedia.org/wiki/Rebate_(marketing)"
+    },
+    {
+      "active_score": 0.05680290706587297,
+      "context_text": "In some cases, the rebate may be available immediately, in which case it is referred to as an instant rebate.",
+      "decision": "replace",
+      "decision_source": "policy",
+      "match_id": "wikipedia_rebate_marketing:4:rebate",
+      "page_id": "wikipedia_rebate_marketing",
+      "reason_codes": [
+        "active_margin_clear"
+      ],
+      "replacement": "descuento",
+      "score_margin": 0.012864735102605877,
+      "source_phrase": "rebate",
+      "top_shadow_score": 0.043938171963267096,
+      "url": "https://en.wikipedia.org/wiki/Rebate_(marketing)"
+    },
+    {
+      "active_score": 0.028996846886228184,
+      "context_text": "New companies that want to make a break into a market can offer substantial rebate savings on their new product as a means of capturing a customer's attention.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_rebate_marketing:5:break",
+      "page_id": "wikipedia_rebate_marketing",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "quebrar",
+      "score_margin": 0.0074031528073699795,
+      "source_phrase": "break",
+      "top_shadow_score": 0.021593694078858205,
+      "url": "https://en.wikipedia.org/wiki/Rebate_(marketing)"
+    },
+    {
+      "active_score": 0.0032230785417923066,
+      "context_text": "CompUSA used rebates regularly until it started closing its remaining stores in December 2007.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_rebate_marketing:6:december",
+      "page_id": "wikipedia_rebate_marketing",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "diciembre",
+      "score_margin": 0.0032230785417923066,
+      "source_phrase": "december",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Rebate_(marketing)"
+    },
+    {
+      "active_score": 0.025945412599005124,
+      "context_text": "Among different sources, radically different numbers on both ends of the spectrum can be cited.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_rebate_marketing:7:among",
+      "page_id": "wikipedia_rebate_marketing",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "entre",
+      "score_margin": 0.025945412599005124,
+      "source_phrase": "among",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Rebate_(marketing)"
+    },
+    {
+      "active_score": 0.011717577680231026,
+      "context_text": "The typical American household that takes advantage of consumer rebates saves an average of $150 annually.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_rebate_marketing:8:american",
+      "page_id": "wikipedia_rebate_marketing",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "americano",
+      "score_margin": 0.011717577680231026,
+      "source_phrase": "american",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Rebate_(marketing)"
+    },
+    {
+      "active_score": 0.014556283157036581,
+      "context_text": "More than $8 billion was issued back to American households in 2011 alone by rebate programs.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_rebate_marketing:9:american",
+      "page_id": "wikipedia_rebate_marketing",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "americano",
+      "score_margin": 0.014556283157036581,
+      "source_phrase": "american",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Rebate_(marketing)"
+    },
+    {
+      "active_score": 0.09444479250411739,
+      "context_text": "A smile is a facial expression formed primarily by flexing the muscles at the sides of the mouth.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_smile:1:smile",
+      "page_id": "wikipedia_smile",
+      "reason_codes": [
+        "active_margin_below_floor",
+        "shadow_winner"
+      ],
+      "replacement": "sonreír",
+      "score_margin": -0.14673066472255278,
+      "source_phrase": "smile",
+      "top_shadow_score": 0.24117545722667016,
+      "url": "https://en.wikipedia.org/wiki/Smile"
+    },
+    {
+      "active_score": 0.03455318271522827,
+      "context_text": "Some smiles include a contraction of the muscles at the corner of the eyes, an action known as a Duchenne smile.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_smile:2:smile",
+      "page_id": "wikipedia_smile",
+      "reason_codes": [
+        "active_score_below_floor",
+        "active_margin_below_floor",
+        "shadow_winner"
+      ],
+      "replacement": "sonreír",
+      "score_margin": -0.032411684590958,
+      "source_phrase": "smile",
+      "top_shadow_score": 0.06696486730618627,
+      "url": "https://en.wikipedia.org/wiki/Smile"
+    },
+    {
+      "active_score": 0.008715870468381043,
+      "context_text": "Among humans, a smile expresses delight, sociability, happiness, joy, or amusement.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_smile:3:among",
+      "page_id": "wikipedia_smile",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "entre",
+      "score_margin": 0.008715870468381043,
+      "source_phrase": "among",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Smile"
+    },
+    {
+      "active_score": 0.004878212370069812,
+      "context_text": "Among humans, a smile expresses delight, sociability, happiness, joy, or amusement.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_smile:4:smile",
+      "page_id": "wikipedia_smile",
+      "reason_codes": [
+        "active_score_below_floor",
+        "active_margin_below_floor",
+        "shadow_winner"
+      ],
+      "replacement": "sonreír",
+      "score_margin": -0.01418190970390431,
+      "source_phrase": "smile",
+      "top_shadow_score": 0.01906012207397412,
+      "url": "https://en.wikipedia.org/wiki/Smile"
+    },
+    {
+      "active_score": 0.014155794328119843,
+      "context_text": "Although cross-cultural studies have shown that smiling is a means of communication throughout the world, there are large differences among different cultures, religions, and societies, with some using smiles to convey confusion, embarrassment, or awkwardness.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_smile:5:among",
+      "page_id": "wikipedia_smile",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "entre",
+      "score_margin": 0.014155794328119843,
+      "source_phrase": "among",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Smile"
+    },
+    {
+      "active_score": 0.003522421748883801,
+      "context_text": "Evolutionary background Primatologist Signe Preuschoft traces the smile back over 30 million years of evolution to a \"fear grin\" stemming from monkeys and apes, who often used barely clenched teeth to portray to predators that they were harmless or to signal submission to more dominant group members.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_smile:6:smile",
+      "page_id": "wikipedia_smile",
+      "reason_codes": [
+        "active_score_below_floor",
+        "active_margin_below_floor",
+        "shadow_winner"
+      ],
+      "replacement": "sonreír",
+      "score_margin": -0.004610159678193493,
+      "source_phrase": "smile",
+      "top_shadow_score": 0.008132581427077294,
+      "url": "https://en.wikipedia.org/wiki/Smile"
+    },
+    {
+      "active_score": 0.0757453980587829,
+      "context_text": "The smile may have evolved differently among species, especially among humans.",
+      "decision": "replace",
+      "decision_source": "policy",
+      "match_id": "wikipedia_smile:7:among",
+      "page_id": "wikipedia_smile",
+      "reason_codes": [
+        "active_margin_clear"
+      ],
+      "replacement": "entre",
+      "score_margin": 0.0757453980587829,
+      "source_phrase": "among",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Smile"
+    },
+    {
+      "active_score": 0.010363147319413023,
+      "context_text": "It is named after the now-defunct airline Pan American World Airways, whose flight attendants would always flash every passenger the same perfunctory smile.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_smile:8:american",
+      "page_id": "wikipedia_smile",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "americano",
+      "score_margin": 0.010363147319413023,
+      "source_phrase": "american",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Smile"
+    },
+    {
+      "active_score": 0.04721814397464097,
+      "context_text": "It sets the boundaries of acceptable conduct and practices of different actors of the group and controls their decision-making powers through the creation and enforcement of rules and regulations.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_governance:1:acceptable",
+      "page_id": "wikipedia_governance",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "razonable",
+      "score_margin": 0.04721814397464097,
+      "source_phrase": "acceptable",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Governance"
+    },
+    {
+      "active_score": 0.014244992191384923,
+      "context_text": "A government may operate as a democracy where citizens vote on who should govern towards the goal of public good.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_governance:2:govern",
+      "page_id": "wikipedia_governance",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "gobernar",
+      "score_margin": 0.0018880473364241198,
+      "source_phrase": "govern",
+      "top_shadow_score": 0.012356944854960803,
+      "url": "https://en.wikipedia.org/wiki/Governance"
+    },
+    {
+      "active_score": 0.029318987816869802,
+      "context_text": "Many institutions of higher education - such as the Balsillie School of International Affairs, Munk School of Global Affairs, Sciences Po Paris, Graduate Institute Geneva, Hertie School, and the London School of Economics, among others - offer governance as an academic subjects.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_governance:3:among",
+      "page_id": "wikipedia_governance",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "entre",
+      "score_margin": 0.029318987816869802,
+      "source_phrase": "among",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Governance"
+    },
+    {
+      "active_score": 0.0556555233013546,
+      "context_text": "This considers the process by which governments are selected, monitored and replaced; the capacity of the government to effectively formulate and implement sound policies and the respect of citizens and the state of the institutions that govern economic and social interactions among them.",
+      "decision": "replace",
+      "decision_source": "policy",
+      "match_id": "wikipedia_governance:4:among",
+      "page_id": "wikipedia_governance",
+      "reason_codes": [
+        "active_margin_clear"
+      ],
+      "replacement": "entre",
+      "score_margin": 0.0556555233013546,
+      "source_phrase": "among",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Governance"
+    },
+    {
+      "active_score": 0.029766937250551483,
+      "context_text": "This considers the process by which governments are selected, monitored and replaced; the capacity of the government to effectively formulate and implement sound policies and the respect of citizens and the state of the institutions that govern economic and social interactions among them.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_governance:5:govern",
+      "page_id": "wikipedia_governance",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "gobernar",
+      "score_margin": 0.029766937250551483,
+      "source_phrase": "govern",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Governance"
+    },
+    {
+      "active_score": 0.04855723627759032,
+      "context_text": "An alternate definition sees governance as: the use of institutions, structures of authority and even collaboration to allocate resources and coordinate or control activity in society or the economy.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_governance:6:control",
+      "page_id": "wikipedia_governance",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "gobernar",
+      "score_margin": 0.03183256674948941,
+      "source_phrase": "control",
+      "top_shadow_score": 0.016724669528100918,
+      "url": "https://en.wikipedia.org/wiki/Governance"
+    },
+    {
+      "active_score": 0.02848457172019679,
+      "context_text": "This usage of \"governance\" to refer to the arrangements of governing became orthodox including in Sidney Low's seminal text of the same title in 1904 and among some later British constitutional historians.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_governance:7:among",
+      "page_id": "wikipedia_governance",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "entre",
+      "score_margin": 0.02848457172019679,
+      "source_phrase": "among",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Governance"
+    },
+    {
+      "active_score": 0.005787946815556182,
+      "context_text": "Normative concepts of fair governance or good governance are common among political, public sector, voluntary, and private sector organizations.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_governance:8:among",
+      "page_id": "wikipedia_governance",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "entre",
+      "score_margin": 0.005787946815556182,
+      "source_phrase": "among",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Governance"
+    },
+    {
+      "active_score": 0.01422161103030146,
+      "context_text": "Absence of effective governance When a state fails to govern effectively, this does not simply imply the absence of the characteristics of effective governance.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_governance:9:govern",
+      "page_id": "wikipedia_governance",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "gobernar",
+      "score_margin": 0.009342173188440737,
+      "source_phrase": "govern",
+      "top_shadow_score": 0.004879437841860721,
+      "url": "https://en.wikipedia.org/wiki/Governance"
+    },
+    {
+      "active_score": 0.01978407611547061,
+      "context_text": "The project reports aggregate and individual indicators for more than 200 countries for six dimensions of governance: voice and accountability, political stability and lack of violence, government effectiveness, regulatory quality, rule of law, control of corruption.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_governance:10:control",
+      "page_id": "wikipedia_governance",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "gobernar",
+      "score_margin": 0.01978407611547061,
+      "source_phrase": "control",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Governance"
+    },
+    {
+      "active_score": 0.028050099401649063,
+      "context_text": "A bouillon cube (also known as a stock cube) is dehydrated broth or stock formed into a small cube or other cuboid shape.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_bouillon_cube:1:bouillon",
+      "page_id": "wikipedia_bouillon_cube",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "caldo",
+      "score_margin": 0.028050099401649063,
+      "source_phrase": "bouillon",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Bouillon_cube"
+    },
+    {
+      "active_score": 0.004607373801948334,
+      "context_text": "Bouillon is also available in granular, powdered, liquid, and paste forms.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_bouillon_cube:2:bouillon",
+      "page_id": "wikipedia_bouillon_cube",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "caldo",
+      "score_margin": 0.004607373801948334,
+      "source_phrase": "bouillon",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Bouillon_cube"
+    },
+    {
+      "active_score": 0.02816274760100513,
+      "context_text": "Various French cooks in the early 19th century (Lefesse, Massué, and Martin) tried to patent bouillon cubes and tablets, but were turned down for lack of originality.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_bouillon_cube:3:bouillon",
+      "page_id": "wikipedia_bouillon_cube",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "caldo",
+      "score_margin": 0.02816274760100513,
+      "source_phrase": "bouillon",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Bouillon_cube"
+    },
+    {
+      "active_score": 0.0,
+      "context_text": "Nicolas Appert also proposed such dehydrated bouillon in 1831.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_bouillon_cube:4:bouillon",
+      "page_id": "wikipedia_bouillon_cube",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "caldo",
+      "score_margin": 0.0,
+      "source_phrase": "bouillon",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Bouillon_cube"
+    },
+    {
+      "active_score": 0.0165146099820365,
+      "context_text": "Portable soup of less extended vintage was, according to the 1881 Household Cyclopedia, \"exceedingly convenient for private families, for by putting one of the cakes in a saucepan with about a quart of water, and a little salt, a basin of good broth may be made in a few minutes.\" In the mid-19th century, German chemist Justus von Liebig developed meat extract, but it was more expensive than bouillon cubes.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_bouillon_cube:5:german",
+      "page_id": "wikipedia_bouillon_cube",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "alemán",
+      "score_margin": 0.0165146099820365,
+      "source_phrase": "german",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Bouillon_cube"
+    },
+    {
+      "active_score": 0.02646930383307686,
+      "context_text": "Chic (; French: [ʃik]), meaning \"stylish\" or \"smart\", is an element of fashion.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_chic:1:chic",
+      "page_id": "wikipedia_chic",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "elegante",
+      "score_margin": 0.02646930383307686,
+      "source_phrase": "chic",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Chic"
+    },
+    {
+      "active_score": 0.01847623962408406,
+      "context_text": "Etymology Chic is a French word, established in English since at least the 1870s.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_chic:2:chic",
+      "page_id": "wikipedia_chic",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "elegante",
+      "score_margin": 0.010016105095193765,
+      "source_phrase": "chic",
+      "top_shadow_score": 0.008460134528890296,
+      "url": "https://en.wikipedia.org/wiki/Chic"
+    },
+    {
+      "active_score": 0.0200000176224898,
+      "context_text": "Early references in English dictionaries classified it as slang and New Zealand-born lexicographer Eric Partridge noted, with reference to its colloquial meaning, that it was \"not so used in Fr.\" Gustave Flaubert notes in Madame Bovary (published in 1856) that \"chicard\" (one who is chic) is then Parisian very current slang for \"classy\" noting, perhaps derisively, perhaps not, that it was bourgeois.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_chic:3:chic",
+      "page_id": "wikipedia_chic",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "elegante",
+      "score_margin": 0.012745955116115978,
+      "source_phrase": "chic",
+      "top_shadow_score": 0.0072540625063738234,
+      "url": "https://en.wikipedia.org/wiki/Chic"
+    },
+    {
+      "active_score": 0.043574312582904035,
+      "context_text": "There is a similar word in German, schick, with a meaning similar to chic, which may be the origin of the word in French; another theory links chic to the word chicane.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_chic:4:chic",
+      "page_id": "wikipedia_chic",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "elegante",
+      "score_margin": 0.007888490058426942,
+      "source_phrase": "chic",
+      "top_shadow_score": 0.03568582252447709,
+      "url": "https://en.wikipedia.org/wiki/Chic"
+    },
+    {
+      "active_score": 0.016475052837222,
+      "context_text": "There is a similar word in German, schick, with a meaning similar to chic, which may be the origin of the word in French; another theory links chic to the word chicane.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_chic:5:german",
+      "page_id": "wikipedia_chic",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "alemán",
+      "score_margin": 0.016475052837222,
+      "source_phrase": "german",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Chic"
+    },
+    {
+      "active_score": 0.01591685299153041,
+      "context_text": "Quotes Over the years \"chic\" has been applied to, among other things, social events, situations, individuals, and modes or styles of dress.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_chic:6:among",
+      "page_id": "wikipedia_chic",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "entre",
+      "score_margin": 0.01591685299153041,
+      "source_phrase": "among",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Chic"
+    },
+    {
+      "active_score": 0.09966945493957845,
+      "context_text": "In the case of indirect interaction, a person who sells goods or service on behalf of the owner is known as a salesman or saleswoman or salesperson, but this often refers to someone selling goods in a store/shop, in which case other terms are also common, including salesclerk, shop assistant, and retail clerk.",
+      "decision": "replace",
+      "decision_source": "policy",
+      "match_id": "wikipedia_salesperson:1:salesman",
+      "page_id": "wikipedia_salesperson",
+      "reason_codes": [
+        "active_margin_clear"
+      ],
+      "replacement": "vendedor",
+      "score_margin": 0.09966945493957845,
+      "source_phrase": "salesman",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Salesperson"
+    },
+    {
+      "active_score": 0.04019823472039204,
+      "context_text": "Contrary to popular belief, the methodological approach of selling refers to a systematic process of repetitive and measurable milestones, by which a salesman relates his or her offering of a product or service in return enabling the buyer to achieve their goal in an economic way.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_salesperson:2:salesman",
+      "page_id": "wikipedia_salesperson",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "vendedor",
+      "score_margin": 0.04019823472039204,
+      "source_phrase": "salesman",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Salesperson"
+    },
+    {
+      "active_score": 0.014186745448918127,
+      "context_text": "Within these three tenets, the following definition of professional selling is offered by the American Society for Training and Development (ASTD): The holistic business system required to effectively develop, manage, enable, and execute a mutually beneficial, interpersonal exchange of goods or services for equitable value.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_salesperson:3:american",
+      "page_id": "wikipedia_salesperson",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "americano",
+      "score_margin": 0.014186745448918127,
+      "source_phrase": "american",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Salesperson"
+    },
+    {
+      "active_score": 0.007774820755088317,
+      "context_text": "As sales is the forefront of any organization, this would always need to take place before any other business process may begin.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_salesperson:4:begin",
+      "page_id": "wikipedia_salesperson",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "comenzar",
+      "score_margin": 0.007774820755088317,
+      "source_phrase": "begin",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Salesperson"
+    },
+    {
+      "active_score": 0.020817521670516186,
+      "context_text": "Industrial marketing The idea that marketing can potentially eliminate the need for salespeople depends entirely on context.",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "match_id": "wikipedia_salesperson:5:entirely",
+      "page_id": "wikipedia_salesperson",
+      "reason_codes": [
+        "active_score_below_floor"
+      ],
+      "replacement": "enteramente",
+      "score_margin": 0.020817521670516186,
+      "source_phrase": "entirely",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Salesperson"
+    },
+    {
+      "active_score": 0.05236154158993667,
+      "context_text": "Disclosed dual agent: This is where the salesman represents both parties in the sale and acts as a mediator for the transaction.",
+      "decision": "replace",
+      "decision_source": "policy",
+      "match_id": "wikipedia_salesperson:6:salesman",
+      "page_id": "wikipedia_salesperson",
+      "reason_codes": [
+        "active_margin_clear"
+      ],
+      "replacement": "vendedor",
+      "score_margin": 0.05236154158993667,
+      "source_phrase": "salesman",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Salesperson"
+    },
+    {
+      "active_score": 0.061133854238681715,
+      "context_text": "The role of the salesman here is to oversee that both parties receive an honest and fair deal.",
+      "decision": "replace",
+      "decision_source": "policy",
+      "match_id": "wikipedia_salesperson:7:salesman",
+      "page_id": "wikipedia_salesperson",
+      "reason_codes": [
+        "active_margin_clear"
+      ],
+      "replacement": "vendedor",
+      "score_margin": 0.061133854238681715,
+      "source_phrase": "salesman",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Salesperson"
+    },
+    {
+      "active_score": 0.07434670822781922,
+      "context_text": "However, the proposal was withdrawn in December 2014 when the Commission's work plan was rationalised.",
+      "decision": "replace",
+      "decision_source": "policy",
+      "match_id": "wikipedia_salesperson:8:december",
+      "page_id": "wikipedia_salesperson",
+      "reason_codes": [
+        "active_margin_clear"
+      ],
+      "replacement": "diciembre",
+      "score_margin": 0.07434670822781922,
+      "source_phrase": "december",
+      "top_shadow_score": 0.0,
+      "url": "https://en.wikipedia.org/wiki/Salesperson"
+    }
+  ],
+  "scan_id": "en_es_active_only_prod_feel_pages_v1",
+  "schema_version": 1,
+  "status": "ok",
+  "summary": {
+    "decision_counts": {
+      "abstain": 88,
+      "replace": 25
+    },
+    "decision_source_counts": {
+      "policy": 113
+    },
+    "manifest_page_count": 17,
+    "page_error_count": 0,
+    "review_row_count": 113,
+    "rule_count": 24,
+    "scan_stopped_reason": "manifest_exhausted",
+    "scanned_page_count": 17,
+    "trigger_decision_counts": {
+      "acceptable": {
+        "abstain": 1
+      },
+      "american": {
+        "abstain": 9,
+        "replace": 1
+      },
+      "among": {
+        "abstain": 12,
+        "replace": 2
+      },
+      "bar": {
+        "abstain": 7,
+        "replace": 3
+      },
+      "begin": {
+        "abstain": 5
+      },
+      "bouillon": {
+        "abstain": 4
+      },
+      "break": {
+        "abstain": 2
+      },
+      "bridle": {
+        "abstain": 4
+      },
+      "brother": {
+        "abstain": 3,
+        "replace": 1
+      },
+      "chic": {
+        "abstain": 4
+      },
+      "control": {
+        "abstain": 10,
+        "replace": 3
+      },
+      "december": {
+        "abstain": 1,
+        "replace": 5
+      },
+      "dentist": {
+        "abstain": 1,
+        "replace": 1
+      },
+      "entirely": {
+        "abstain": 1
+      },
+      "german": {
+        "abstain": 3
+      },
+      "govern": {
+        "abstain": 3
+      },
+      "heart": {
+        "abstain": 4
+      },
+      "offset": {
+        "abstain": 6,
+        "replace": 4
+      },
+      "rebate": {
+        "abstain": 2,
+        "replace": 2
+      },
+      "salesman": {
+        "abstain": 1,
+        "replace": 3
+      },
+      "smile": {
+        "abstain": 4
+      },
+      "tomorrow": {
+        "abstain": 1
+      }
+    }
+  }
+}

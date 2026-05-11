@@ -1,10 +1,7 @@
 from __future__ import annotations
 
 from copy import deepcopy
-from datetime import datetime, timezone
-import json
 from pathlib import Path
-import re
 import sys
 from typing import Mapping, Sequence
 
@@ -28,6 +25,18 @@ from semantic_veto_evidence_gap_generation_admission_en_es import (  # noqa: E40
 )
 from semantic_veto_product_quality_en_es import _repo_path  # noqa: E402
 from semantic_veto_evidence_gap_generation_score_contribution_summary import _next_steps  # noqa: E402
+from semantic_veto_evidence_gap_generation_score_contribution_utils import (  # noqa: E402
+    _application_summary,
+    _as_mapping,
+    _count_by,
+    _delta,
+    _mapping_rows,
+    _normalize_target,
+    _report_modes,
+    _slug,
+    _utc_now,
+    _write_dataset,
+)
 
 
 DEFAULT_SCORER_ID = "tfidf_cosine"
@@ -54,6 +63,10 @@ def build_evidence_gap_score_contribution_report(
     scorer_id: str = DEFAULT_SCORER_ID,
     context_view: str = DEFAULT_CONTEXT_VIEW,
     evidence_view: str = DEFAULT_EVIDENCE_VIEW,
+    min_active_score: float = 0.05,
+    min_margin: float = 0.0,
+    phrase_control_mode: str = "off",
+    active_rescue_mode: str = "off",
     include_policy_sweep: bool = True,
     generated_at: str | None = None,
 ) -> dict[str, object]:
@@ -92,6 +105,11 @@ def build_evidence_gap_score_contribution_report(
                 scorer_id=scorer_id,
                 context_view=context_view,
                 evidence_view=evidence_view,
+                min_active_score=min_active_score,
+                min_margin=min_margin,
+                phrase_control_mode=phrase_control_mode,
+                active_rescue_mode=active_rescue_mode,
+                include_policy_sweep=include_policy_sweep,
             ),
             "artifacts": {},
             "summary": {
@@ -176,36 +194,60 @@ def build_evidence_gap_score_contribution_report(
             scorer_id=scorer_id,
             context_view=context_view,
             evidence_view=evidence_view,
+            min_active_score=min_active_score,
+            min_margin=min_margin,
+            phrase_control_mode=phrase_control_mode,
+            active_rescue_mode=active_rescue_mode,
         ),
         "generated_active_only": _sentence_report(
             active_only_dataset_path,
             scorer_id=scorer_id,
             context_view=context_view,
             evidence_view=evidence_view,
+            min_active_score=min_active_score,
+            min_margin=min_margin,
+            phrase_control_mode=phrase_control_mode,
+            active_rescue_mode=active_rescue_mode,
         ),
         "generated_shadow_existing_only": _sentence_report(
             shadow_existing_only_dataset_path,
             scorer_id=scorer_id,
             context_view=context_view,
             evidence_view=evidence_view,
+            min_active_score=min_active_score,
+            min_margin=min_margin,
+            phrase_control_mode=phrase_control_mode,
+            active_rescue_mode=active_rescue_mode,
         ),
         "generated_shadow_synthetic_only": _sentence_report(
             shadow_synthetic_only_dataset_path,
             scorer_id=scorer_id,
             context_view=context_view,
             evidence_view=evidence_view,
+            min_active_score=min_active_score,
+            min_margin=min_margin,
+            phrase_control_mode=phrase_control_mode,
+            active_rescue_mode=active_rescue_mode,
         ),
         "generated_existing_shadows": _sentence_report(
             existing_dataset_path,
             scorer_id=scorer_id,
             context_view=context_view,
             evidence_view=evidence_view,
+            min_active_score=min_active_score,
+            min_margin=min_margin,
+            phrase_control_mode=phrase_control_mode,
+            active_rescue_mode=active_rescue_mode,
         ),
         "generated_synthetic_shadows": _sentence_report(
             synthetic_dataset_path,
             scorer_id=scorer_id,
             context_view=context_view,
             evidence_view=evidence_view,
+            min_active_score=min_active_score,
+            min_margin=min_margin,
+            phrase_control_mode=phrase_control_mode,
+            active_rescue_mode=active_rescue_mode,
         ),
     }
     application_dataset_paths = {
@@ -253,6 +295,11 @@ def build_evidence_gap_score_contribution_report(
             scorer_id=scorer_id,
             context_view=context_view,
             evidence_view=evidence_view,
+            min_active_score=min_active_score,
+            min_margin=min_margin,
+            phrase_control_mode=phrase_control_mode,
+            active_rescue_mode=active_rescue_mode,
+            include_policy_sweep=include_policy_sweep,
         ),
         "artifacts": {
             "base_selected_dataset": _repo_path(base_dataset_path),
@@ -345,7 +392,17 @@ def _selected_dataset(
     return payload
 
 
-def _methodology(*, scorer_id: str, context_view: str, evidence_view: str) -> dict[str, object]:
+def _methodology(
+    *,
+    scorer_id: str,
+    context_view: str,
+    evidence_view: str,
+    min_active_score: float,
+    min_margin: float,
+    phrase_control_mode: str,
+    active_rescue_mode: str,
+    include_policy_sweep: bool,
+) -> dict[str, object]:
     return {
         "runtime_policy_change": "none",
         "llm_call": "none",
@@ -353,6 +410,11 @@ def _methodology(*, scorer_id: str, context_view: str, evidence_view: str) -> di
         "scorer_id": scorer_id,
         "context_view": context_view,
         "evidence_view": evidence_view,
+        "min_active_score": float(min_active_score),
+        "min_margin": float(min_margin),
+        "phrase_control_mode": phrase_control_mode,
+        "active_rescue_mode": active_rescue_mode,
+        "include_policy_sweep": bool(include_policy_sweep),
         "base_dataset_role": "frozen_manual_eval_cases",
         "generated_active_items": "appended_to_active_all_evidence_text",
         "generated_shadow_existing_mode": "append_only_when_target_matches_existing_shadow",
@@ -717,105 +779,3 @@ def _summary_slice(report: Mapping[str, object]) -> dict[str, object]:
         "predicted_replace_cases",
     )
     return {key: summary.get(key) for key in keys}
-
-
-def _application_summary(rows: Sequence[Mapping[str, object]]) -> dict[str, int]:
-    return {
-        "active_items_applied": sum(
-            1 for row in rows if row.get("action") == "active_evidence_appended"
-        ),
-        "active_items_ignored": sum(
-            1 for row in rows if row.get("action") == "active_evidence_ignored"
-        ),
-        "existing_shadow_items_applied": sum(
-            1 for row in rows if row.get("action") == "existing_shadow_evidence_appended"
-        ),
-        "shadow_items_ignored": sum(
-            1 for row in rows if row.get("action") == "shadow_evidence_ignored"
-        ),
-        "synthetic_shadow_items_applied": sum(
-            1 for row in rows if row.get("action") == "synthetic_shadow_created"
-        ),
-        "new_shadow_items_ignored": sum(
-            1 for row in rows if row.get("action") == "new_shadow_target_ignored"
-        ),
-        "no_winner_items_ignored": sum(
-            1 for row in rows if row.get("action") == "no_winner_context_not_runtime_evidence"
-        ),
-    }
-
-
-def _report_modes(*, include_base: bool = False) -> tuple[str, ...]:
-    modes = (
-        "generated_active_only",
-        "generated_shadow_existing_only",
-        "generated_shadow_synthetic_only",
-        "generated_existing_shadows",
-        "generated_synthetic_shadows",
-    )
-    return ("base", *modes) if include_base else modes
-
-
-def _write_dataset(path: Path, payload: Mapping[str, object]) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(
-        json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
-        encoding="utf-8",
-    )
-
-
-def _count_by(rows: Sequence[Mapping[str, object]], key: str) -> dict[str, int]:
-    counts: dict[str, int] = {}
-    for row in rows:
-        value = str(row.get(key) or "")
-        counts[value] = counts.get(value, 0) + 1
-    return dict(sorted(counts.items()))
-
-
-def _delta(candidate: Mapping[str, object], base: Mapping[str, object], key: str) -> float | None:
-    candidate_value = candidate.get(key)
-    base_value = base.get(key)
-    if candidate_value is None or base_value is None:
-        return None
-    return round(float(candidate_value) - float(base_value), 6)
-
-
-def _fmt(value: object) -> str:
-    if value is None:
-        return "n/a"
-    if isinstance(value, float):
-        return f"{value:.4f}"
-    return str(value)
-
-
-def _normalize_target(value: str) -> str:
-    return " ".join(value.lower().split())
-
-
-def _slug(value: str) -> str:
-    slug = re.sub(r"[^A-Za-z0-9_-]+", "-", value.strip()).strip("-").lower()
-    return slug or "unnamed"
-
-
-def _load_json(path: Path) -> Mapping[str, object]:
-    return json.loads(path.read_text(encoding="utf-8"))
-
-
-def _mapping_rows(value: object) -> list[Mapping[str, object]]:
-    if isinstance(value, Sequence) and not isinstance(value, (str, bytes)):
-        return [row for row in value if isinstance(row, Mapping)]
-    return []
-
-
-def _as_mapping(value: object) -> dict[str, object]:
-    return dict(value) if isinstance(value, Mapping) else {}
-
-
-def _as_sequence(value: object) -> list[object]:
-    if isinstance(value, Sequence) and not isinstance(value, (str, bytes)):
-        return list(value)
-    return []
-
-
-def _utc_now() -> str:
-    return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")

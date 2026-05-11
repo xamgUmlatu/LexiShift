@@ -171,22 +171,51 @@ def render_markdown(report: Mapping[str, object]) -> str:
         f"- Runtime policy change: `{candidate.get('runtime_policy_change', '')}`",
         f"- Control: {candidate.get('control', '')}",
         f"- Summary: {candidate.get('candidate_summary', '')}",
-        f"- Active/shadow: `{result.get('active_shadow_harmful_replacements', '')}` harmful / "
-        f"`{result.get('active_shadow_false_abstains', '')}` false abstains / "
-        f"`{result.get('active_shadow_decision_accuracy', '')}` accuracy",
-        f"- Phrase/no-winner before replay: "
-        f"`{result.get('unrescued_phrase_harmful_replacements', '')}` harmful",
-        f"- Rescue replay passing policies: "
-        f"`{result.get('rescue_replay_passing_policy_count', '')}`",
-        f"- Scorer-backed rescue policy: "
-        f"`{result.get('scorer_backed_policy_harmful_replacements', '')}` harmful / "
-        f"`{result.get('scorer_backed_policy_false_abstains', '')}` false abstains / "
-        f"`{result.get('scorer_backed_policy_cases', '')}` cases",
-        f"- Next breadth gate: `{result.get('next_breadth_gate', '')}`",
-        "",
-        "## Audit",
-        "",
     ]
+    if "helper_runtime_smoke_decision_accuracy" in result:
+        lines.extend(
+            [
+                f"- Packaged/inventory rows: `{result.get('packaged_canonical_rows', '')}` / "
+                f"`{result.get('inventory_replay_applied_rows', '')}`",
+                f"- Inventory replay: `{result.get('candidate_decision_accuracy', '')}` accuracy / "
+                f"`{result.get('candidate_replace_recall', '')}` recall / "
+                f"`{result.get('candidate_false_abstains', '')}` false abstains / "
+                f"`{result.get('candidate_harmful_replacements', '')}` harmful",
+                f"- Helper runtime smoke: "
+                f"`{result.get('helper_runtime_smoke_decision_accuracy', '')}` accuracy / "
+                f"`{result.get('helper_runtime_smoke_replace_recall', '')}` recall / "
+                f"`{result.get('helper_runtime_smoke_false_abstains', '')}` false abstains / "
+                f"`{result.get('helper_runtime_smoke_harmful_replacements', '')}` harmful / "
+                f"`{result.get('helper_runtime_smoke_fallback_decisions', '')}` fallbacks",
+            ]
+        )
+        if "live_page_scan_review_rows" in result:
+            lines.append(
+                f"- Live page scan: `{result.get('live_page_scan_pages', '')}` pages / "
+                f"`{result.get('live_page_scan_review_rows', '')}` review rows / "
+                f"`{result.get('live_page_scan_replace_decisions', '')}` replace / "
+                f"`{result.get('live_page_scan_abstain_decisions', '')}` abstain / "
+                f"`{result.get('live_page_scan_page_fetch_errors', '')}` page errors / "
+                f"`{result.get('live_page_scan_fallback_decisions', '')}` fallbacks"
+            )
+    else:
+        lines.extend(
+            [
+                f"- Active/shadow: `{result.get('active_shadow_harmful_replacements', '')}` "
+                f"harmful / `{result.get('active_shadow_false_abstains', '')}` false abstains / "
+                f"`{result.get('active_shadow_decision_accuracy', '')}` accuracy",
+                f"- Phrase/no-winner before replay: "
+                f"`{result.get('unrescued_phrase_harmful_replacements', '')}` harmful",
+                f"- Rescue replay passing policies: "
+                f"`{result.get('rescue_replay_passing_policy_count', '')}`",
+                f"- Scorer-backed rescue policy: "
+                f"`{result.get('scorer_backed_policy_harmful_replacements', '')}` harmful / "
+                f"`{result.get('scorer_backed_policy_false_abstains', '')}` false abstains / "
+                f"`{result.get('scorer_backed_policy_cases', '')}` cases",
+                f"- Next breadth gate: `{result.get('next_breadth_gate', '')}`",
+            ]
+        )
+    lines.extend(["", "## Audit", ""])
     issues = _mapping_rows(report.get("issues"))
     if issues:
         for issue in issues:

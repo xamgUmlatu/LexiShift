@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "registry_id": "en_es_semantic_veto_system_registry_v1",
-  "last_updated": "2026-05-09",
+  "last_updated": "2026-05-12",
   "purpose": "Machine-readable reconciliation map for the en-es semantic sentence-veto runtime, research harnesses, candidate artifacts, and follow-up audit passes.",
   "state_definitions": {
     "current_runtime": "Participates in the browser/helper YES/NO decision path today.",
@@ -130,34 +130,52 @@
     }
   ],
   "current_candidate": {
-    "candidate_id": "wave6_auth_frame_raw_sentence_surface_pos_rescue",
-    "production_status": "research_only",
-    "runtime_policy_change": "none",
-    "control": "wave6 alternate-phrase semantic surface-POS raw-sentence lane before authorization-frame rows",
-    "candidate_summary": "Translation-sense plus alternate-sense phrase evidence, raw-sentence context, semantic phrase prototypes, surface-POS rescue/preemption, deterministic source-backed authorization-frame rows, replayed rescue gates, and offline scorer-backed rescue confirmation.",
+    "candidate_id": "active_only_combined_product_scope_v1",
+    "production_status": "manual_testing_ready",
+    "runtime_policy_change": "selection_mode=active_only can score ready active evidence without shadow senses and auto-selects en_es_sentence_veto_v2 for active-only en-es inventories when no policy override is requested; en_es_sentence_veto_v2 now uses the product-soft floor min_active_score=0.015 / min_margin=0.0 after live browser review accepted fewer abstains with some harmful-replace risk",
+    "control": "base repaired-full active-only inventory/helper state before generated active evidence",
+    "candidate_summary": "Soft-assist active-only generated evidence using the v5/v7 active cue path, no_high_eval_overlap_sentence_only postprocess view, and combined PoC + v1 reuse + scale-tranche source evidence over the current 49-family repaired product-scope denominator; generated shadows and no-winner rows remain paused.",
     "current_result": {
-      "active_shadow_cases": 38,
-      "active_shadow_harmful_replacements": 0,
-      "active_shadow_false_abstains": 0,
-      "active_shadow_replace_recall": 1.0,
-      "active_shadow_decision_accuracy": 1.0,
-      "phrase_no_winner_cases": 16,
-      "unrescued_phrase_harmful_replacements": 2,
-      "rescue_replay_passing_policy_count": 12,
-      "scorer_backed_policy_cases": 54,
-      "scorer_backed_policy_harmful_replacements": 0,
-      "scorer_backed_policy_false_abstains": 0,
-      "scorer_backed_policy_active_rescues": 3,
-      "next_breadth_gate": "wave7_source_class_breadth_v1",
-      "latest_breadth_gate_status": "executed_failed",
-      "latest_breadth_gate_harmful_replacements": 7,
-      "latest_breadth_gate_false_abstains": 2
+      "families": 49,
+      "score_cases": 189,
+      "admitted_active_evidence_items": 32,
+      "combined_packaged_canonical_rows": 112,
+      "scale_tranche_packaged_canonical_rows": 32,
+      "combined_inventory_replay_applied_rows": 112,
+      "scale_tranche_rejected_generated_items": 0,
+      "scale_tranche_coverage_shortfall": 0,
+      "combined_base_decision_accuracy": 0.5026,
+      "combined_candidate_decision_accuracy": 0.7196,
+      "combined_base_replace_recall": 0.051,
+      "combined_candidate_replace_recall": 0.4694,
+      "combined_base_false_abstains": 93,
+      "combined_candidate_false_abstains": 52,
+      "combined_base_harmful_replacements": 1,
+      "combined_candidate_harmful_replacements": 1,
+      "helper_runtime_smoke_decision_accuracy": 0.7249,
+      "helper_runtime_smoke_replace_recall": 0.4898,
+      "helper_runtime_smoke_false_abstains": 50,
+      "helper_runtime_smoke_harmful_replacements": 2,
+      "helper_runtime_smoke_fallback_decisions": 0,
+      "live_page_scan_pages_scanned": 16,
+      "live_page_scan_manifest_pages": 17,
+      "live_page_scan_review_rows": 120,
+      "live_page_scan_replace_decisions": 25,
+      "live_page_scan_abstain_decisions": 95,
+      "live_page_scan_page_fetch_errors": 0,
+      "live_page_scan_fallback_decisions": 0,
+      "scale_tranche_journal_inclusive_input_tokens": 8469,
+      "scale_tranche_journal_inclusive_output_tokens": 3079,
+      "scale_tranche_estimated_mini_cost_usd": 0.02,
+      "initial_live_browser_review_status": "accepted_for_soft_assist_smoke",
+      "runtime_publication_status": "manual_testing_ready"
     },
     "promotion_blockers": [
-      "bounded to 16 families and 54 heldout cases",
-      "scorer-backed confirmation is still offline and not a runtime policy change",
-      "wave7_source_class_breadth_v1 executed and failed with harmful replacements plus false abstains",
-      "phrase/no-winner safety must stay visible separately from active/shadow scoring"
+      "the current helper-published sidecar is an isolated smoke fixture under docs/test_outputs, not real user profile data",
+      "the 49-family denominator is still a repaired product-scope research suite, not full en-es language-wide proof",
+      "the full en-es SRS-admissible semantic-family universe has not been generated or measured yet",
+      "manual browser/helper behavior has only had an initial positive product-feel review on the combined fixture",
+      "rollback and generation identity must stay aligned with ruleset, snapshot, semantic inventory, and manifest publication"
     ]
   },
   "data_artifact_lanes": [
@@ -1282,6 +1300,83 @@
       "promotion_impact": "Provides the one-shot PoC follow-through reading requested by product direction. It supports packaging a bounded active-only soft-assist configuration if desired, while keeping runtime policy unchanged and pausing further open-ended semantic-veto research."
     },
     {
+      "action_id": "semantic_veto_productization_readiness",
+      "priority": "P1",
+      "status": "done",
+      "pass_id": "best_candidate",
+      "source_artifacts": [
+        "evidence_gap_active_only_prompt_variant_bakeoff_summary_report",
+        "evidence_gap_generation_admission_active_only_poc_report",
+        "evidence_gap_generation_postprocess_active_only_poc_report",
+        "evidence_gap_generation_score_contribution_active_only_poc_report",
+        "semantic_veto_productization_readiness_report"
+      ],
+      "action": "Make the active-only PoC productization boundary explicit before any runtime wiring.",
+      "evidence_needed": "The readiness report confirms v5_refresh_control is the current prompt candidate, the active-only PoC admitted 48 active evidence items with 0 rejects and 0 shortfall, the selected postprocess view packages 45 canonical rows, inventory-shaped replay covers 91 cases, and helper runtime smoke covers 91 cases with 0 fallback decisions.",
+      "validation": "Run the productization readiness harness with --fail-on-review, focused pytest for the harness, registry summary, doc-reference checks, Ruff, and git diff whitespace checks.",
+      "promotion_impact": "Prevents research/admission artifacts from being mistaken for production data and defines the current bounded engineering step: isolated manual helper/runtime testing before any real profile publication."
+    },
+    {
+      "action_id": "semantic_veto_active_only_source_packaging",
+      "priority": "P1",
+      "status": "done",
+      "pass_id": "data_artifacts",
+      "source_artifacts": [
+        "evidence_gap_generation_admission_active_only_poc_report",
+        "evidence_gap_generation_postprocess_active_only_poc_report",
+        "semantic_veto_active_only_source_packaging_report",
+        "semantic_veto_active_only_source_packaging_normalized_evidence"
+      ],
+      "action": "Package the selected active-only PoC generated examples as canonical semantic source evidence without runtime publication.",
+      "evidence_needed": "The source-packaging report packages 45 anchor_cue rows from the no_high_eval_overlap_sentence_only view, excludes 3 high-eval-overlap rows, preserves prompt/model/token provenance, and confirms 0 runtime_publishable rows.",
+      "validation": "Run the active-only source-packaging harness with --fail-on-review, focused pytest for the harness, registry summary, doc-reference checks, Ruff, and git diff whitespace checks.",
+      "promotion_impact": "Proves the paid pilot rows can enter the canonical semantic evidence layer safely while preserving the runtime-publication boundary."
+    },
+    {
+      "action_id": "semantic_veto_active_only_inventory_replay",
+      "priority": "P1",
+      "status": "done",
+      "pass_id": "research_harness",
+      "source_artifacts": [
+        "semantic_veto_active_only_source_packaging_normalized_evidence",
+        "semantic_veto_active_only_inventory_replay_report",
+        "semantic_veto_active_only_inventory_replay_candidate_inventory"
+      ],
+      "action": "Replay the packaged active-only source evidence through an inventory-shaped runtime evaluator before helper publication.",
+      "evidence_needed": "The inventory replay applies all 45 packaged rows across 24 families and 91 cases. Under the no-spend TF-IDF replay policy, it matches the selected postprocess candidate: decision accuracy improves from 50.5% to 73.6%, replace recall from 8.3% to 50.0%, false abstains from 44 to 24, and harmful replacements from 1 to 0.",
+      "validation": "Run the active-only inventory replay harness with --fail-on-review, focused pytest for the harness, registry summary, doc-reference checks, Ruff, and git diff whitespace checks.",
+      "promotion_impact": "Moves the candidate past research augmentation into an inventory-shaped proof, which is now followed by the isolated helper runtime smoke fixture."
+    },
+    {
+      "action_id": "semantic_veto_active_only_helper_runtime_smoke",
+      "priority": "P1",
+      "status": "done",
+      "pass_id": "runtime_path",
+      "source_artifacts": [
+        "semantic_veto_active_only_inventory_replay_candidate_inventory",
+        "semantic_veto_active_only_helper_runtime_smoke_report"
+      ],
+      "action": "Publish the active-only candidate into an isolated helper data root and call the real semantic_admit_batch path.",
+      "evidence_needed": "The helper runtime smoke writes a generation-aligned ruleset, snapshot, semantic inventory, and publication manifest under an isolated fixture root. It runs 91 repaired-full cases through helper semantic_admit_batch with the browser-style auto-selected en_es_sentence_veto_v2 active-only policy, produces 91 policy decisions, 0 fallback decisions, 76.9% decision accuracy, 58.3% replace recall, 20 false abstains, and 1 harmful replacement.",
+      "validation": "Run the helper runtime smoke harness with --fail-on-review, focused pytest for the harness and runtime policy, registry summary, doc-reference checks, Ruff, and git diff whitespace checks.",
+      "promotion_impact": "Moves the candidate from inventory-shaped research into a real helper/runtime smoke fixture while keeping default user data untouched. Manual testing can now use the fixture before any real profile publication."
+    },
+    {
+      "action_id": "semantic_veto_active_only_live_page_scan",
+      "priority": "P1",
+      "status": "done",
+      "pass_id": "runtime_path",
+      "source_artifacts": [
+        "semantic_veto_active_only_helper_runtime_smoke_report",
+        "semantic_veto_active_only_live_page_scan_manifest",
+        "semantic_veto_active_only_live_page_scan_report"
+      ],
+      "action": "Create a product-feel manual review packet from public online pages using the isolated active-only helper fixture.",
+      "evidence_needed": "The live page scan fetches 17 public Wikipedia pages, extracts source-trigger sentences from the current 24-rule active-only fixture, runs them through helper semantic_admit_batch with the browser-style active-only policy, and writes 113 review rows with 88 abstain decisions, 25 replace decisions, 113 policy decisions, 0 fallback decisions, and 0 page fetch errors.",
+      "validation": "Run the live page scan with --fail-on-review, focused pytest for the harness, registry summary, doc-reference checks, Ruff, and git diff whitespace checks.",
+      "promotion_impact": "Gives the user a prod-like sentence packet to judge visible replacement feel before any real profile publication or larger paid generation."
+    },
+    {
       "action_id": "full_family_repaired_pilot_candidate",
       "priority": "P1",
       "status": "done",
@@ -1483,6 +1578,25 @@
       "evidence_needed": "Defined wave7_source_class_breadth_v1 with required exclusions, source-detectable class buckets, heldout floor, acceptance evidence, and stop rules.",
       "validation": "Regenerate the registry summary, run doc-reference checks, and keep the gate explicitly marked as definition-only until the expanded lane is executed.",
       "promotion_impact": "Prevents more tuning on the current 16-family wave before the next breadth lane is locked."
+    },
+    {
+      "action_id": "active_only_scale_tranche_product_scope_followthrough",
+      "priority": "P1",
+      "status": "done",
+      "pass_id": "data_artifacts",
+      "source_artifacts": [
+        "active_only_scale_tranche_requests_report",
+        "active_only_scale_tranche_generation_run_report",
+        "active_only_scale_tranche_generation_admission_report",
+        "active_only_scale_tranche_source_packaging_report",
+        "active_only_combined_product_scope_inventory_replay_report",
+        "active_only_combined_product_scope_helper_runtime_smoke_report",
+        "active_only_combined_product_scope_live_page_scan_report"
+      ],
+      "action": "Run the first fresh active-only scale tranche and combine all active-only source evidence across the current 49-family product-scope denominator.",
+      "evidence_needed": "The request renderer selected 16 uncovered active-only families after excluding 33 families already covered by prior packaged active evidence. Live mini generation produced 16 accepted active responses after one resume retry, then a one-request exact-token repair supplied the continue -> durar response; admission over the repaired generated responses accepted 32/32 active items with 0 rejects and 0 shortfall. Source packaging produced 32 new anchor_cue rows. The combined PoC + v1 reuse + scale-tranche normalized evidence has 112 rows across 49 families. Combined inventory replay improved decision accuracy from 50.3% to 72.0%, replace recall from 5.1% to 46.9%, and false abstains from 93 to 52 while keeping harmful replacements at 1. Helper runtime smoke over the combined fixture produced 189 policy decisions, 0 fallback decisions, 72.5% decision accuracy, 49.0% replace recall, 2 harmful replacements, and 50 false abstains. Live page scan produced 120 manual-review rows with 25 replace and 95 abstain decisions.",
+      "validation": "Request renderer --fail-on-review, focused pytest for the renderer, Ruff check/format, live generation with spend/count guards, repaired generated-response admission --fail-on-review, postprocess --fail-on-review, source packaging --fail-on-review, inventory replay --fail-on-review, helper runtime smoke --fail-on-review, live page scan --fail-on-review.",
+      "promotion_impact": "Moves active-only generated evidence from a 24-family PoC and 18-family reuse tranche to full coverage of the current 49-family repaired product-scope denominator. The current next step is manual product-feel review and publication planning, not more broad shadow generation."
     }
   ],
   "entries": [
@@ -3839,7 +3953,7 @@
       "path": "scripts/testing/semantic_veto_evidence_gap_generation_score_contribution_en_es.py",
       "role": "Measures how admitted generated evidence changes frozen manual sentence-veto outcomes under separate application modes.",
       "owner_doc": "docs/rulegen/semantic_veto_difficulty_stratification_research_plan.md",
-      "current_use": "Builds selected base and augmented datasets from the repaired-full manual packet, runs TF-IDF sentence-veto scoring, reports five generated-evidence application modes, and runs a 240-row no-spend policy sweep across min active, margin, phrase guard, and active-rescue settings.",
+      "current_use": "Builds selected base and augmented datasets from the repaired-full manual packet, runs sentence-veto scoring, reports five generated-evidence application modes, exposes fixed decision parameters for targeted scorer reads, and can run a 240-row no-spend policy sweep across min active, margin, phrase guard, and active-rescue settings.",
       "risk": "No runtime policy or threshold is changed; selected balanced-smoke and policy-sweep results are diagnostic and must not be treated as full-pilot proof.",
       "next_audit_pass": "research_harness",
       "verification_artifacts": [
@@ -3967,6 +4081,23 @@
       ]
     },
     {
+      "artifact_id": "evidence_gap_generation_postprocess_active_only_poc_report",
+      "title": "Semantic veto generated-evidence postprocess active-only PoC report",
+      "component": "diagnostics",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_veto_evidence_gap_generation_postprocess_active_only_poc_en_es_latest.md",
+      "role": "Records mechanical postprocess and rescoring views for the active-only PoC generated evidence.",
+      "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
+      "current_use": "Shows 48 active items over 24 families with 3 high eval-overlap rows, 6 medium eval-overlap rows, 2 definition-like rows, 1 POS-weak row, and 1 target-lemma-in-note row before the selected sentence-only filtered view is interpreted.",
+      "risk": "Mechanical postprocess report only; it supports candidate packaging decisions but is not runtime source evidence by itself.",
+      "next_audit_pass": "data_artifacts",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_evidence_gap_generation_postprocess_active_only_poc_en_es_latest.json",
+        "scripts/testing/semantic_veto_evidence_gap_generation_postprocess_en_es.py",
+        "core/tests/dev/test_semantic_veto_evidence_gap_generation_postprocess_en_es.py"
+      ]
+    },
+    {
       "artifact_id": "evidence_gap_active_only_prompt_variant_requests_harness",
       "title": "Semantic veto active-only prompt-variant request renderer",
       "component": "diagnostics",
@@ -4015,6 +4146,311 @@
         "docs/test_outputs/semantic_veto_evidence_gap_prompt_variant_bakeoff_summary_en_es_latest.json",
         "scripts/testing/semantic_veto_evidence_gap_prompt_variant_bakeoff_summary_en_es.py",
         "docs/test_outputs/semantic_veto_evidence_gap_generation_admission_prompt_bakeoff_v6_pos_diversity_en_es_latest.md"
+      ]
+    },
+    {
+      "artifact_id": "semantic_veto_productization_readiness_harness",
+      "title": "Semantic veto productization readiness harness",
+      "component": "process_governance",
+      "state": "current_research",
+      "path": "scripts/testing/semantic_veto_productization_readiness_en_es.py",
+      "role": "Consolidates prompt, admission, postprocess, score-contribution, and runtime-publication seam checks for the current active-only PoC candidate.",
+      "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
+      "current_use": "Separates candidate quality from production readiness and now reports the isolated helper runtime smoke as manual-testing ready.",
+      "risk": "Readiness summary only; real profile publication remains separate from the isolated helper fixture.",
+      "next_audit_pass": "best_candidate",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_veto_productization_readiness_en_es.py",
+        "docs/test_outputs/semantic_veto_productization_readiness_en_es_latest.md",
+        "docs/test_outputs/semantic_veto_evidence_gap_generation_score_contribution_active_only_poc_en_es_latest.json"
+      ]
+    },
+    {
+      "artifact_id": "semantic_veto_productization_readiness_report",
+      "title": "Semantic veto productization readiness report",
+      "component": "process_governance",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_veto_productization_readiness_en_es_latest.md",
+      "role": "Human-facing productization boundary report for the current active-only PoC candidate.",
+      "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
+      "current_use": "Confirms the candidate is v5_refresh_control generated_active_only, accepted 48 active evidence items with 0 rejects, packaged 45 canonical rows, passed inventory-shaped replay, and passed isolated helper runtime smoke with 0 fallback decisions.",
+      "risk": "Does not prove full en-es quality; manual testing and real profile publication remain separate from the fixture.",
+      "next_audit_pass": "best_candidate",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_productization_readiness_en_es_latest.json",
+        "scripts/testing/semantic_veto_productization_readiness_en_es.py",
+        "core/tests/dev/test_semantic_veto_productization_readiness_en_es.py"
+      ]
+    },
+    {
+      "artifact_id": "semantic_veto_active_only_source_packaging_harness",
+      "title": "Semantic veto active-only source-packaging harness",
+      "component": "source_admission",
+      "state": "current_research",
+      "path": "scripts/testing/semantic_veto_active_only_source_packaging_en_es.py",
+      "role": "Converts selected active-only PoC admitted items into canonical semantic evidence rows without runtime publication.",
+      "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
+      "current_use": "Packages the no_high_eval_overlap_sentence_only candidate view as anchor_cue rows and records excluded high-overlap rows.",
+      "risk": "Source packaging only; rows remain runtime_publishable=false and do not by themselves modify helper runtime behavior.",
+      "next_audit_pass": "data_artifacts",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_veto_active_only_source_packaging_en_es.py",
+        "docs/test_outputs/semantic_veto_active_only_source_packaging_en_es_latest.md",
+        "docs/test_outputs/semantic_veto_evidence_gap_generation_postprocess_active_only_poc_en_es_latest.json"
+      ]
+    },
+    {
+      "artifact_id": "semantic_veto_active_only_source_packaging_report",
+      "title": "Semantic veto active-only source-packaging report",
+      "component": "source_admission",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_veto_active_only_source_packaging_en_es_latest.md",
+      "role": "Human-facing report for the canonical source packaging pass over the active-only PoC evidence.",
+      "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
+      "current_use": "Shows 45 packaged anchor_cue rows, 3 high-eval-overlap exclusions, 24 families, and 0 runtime_publishable rows.",
+      "risk": "Does not compile or publish a semantic inventory sidecar; it only proves canonical evidence normalization.",
+      "next_audit_pass": "data_artifacts",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_active_only_source_packaging_en_es_latest.json",
+        "scripts/testing/semantic_veto_active_only_source_packaging_en_es.py",
+        "core/tests/dev/test_semantic_veto_active_only_source_packaging_en_es.py"
+      ]
+    },
+    {
+      "artifact_id": "semantic_veto_active_only_source_packaging_normalized_evidence",
+      "title": "Semantic veto active-only source-packaging normalized evidence",
+      "component": "source_admission",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-poc-v5-source-packaging-latest_normalized_evidence.json",
+      "role": "Canonical semantic_evidence_v1 batch generated from the selected active-only PoC source-packaging view.",
+      "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
+      "current_use": "Provides 45 normalized anchor_cue rows with provenance for inventory-shaped replay.",
+      "risk": "Experiment source batch only; all rows are runtime_publishable=false and require later inventory compilation.",
+      "next_audit_pass": "data_artifacts",
+      "verification_artifacts": [
+        "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-poc-v5-source-packaging-latest_intake_batch.json",
+        "docs/test_outputs/semantic_veto_active_only_source_packaging_en_es_latest.json",
+        "scripts/testing/semantic_veto_active_only_source_packaging_en_es.py"
+      ]
+    },
+    {
+      "artifact_id": "semantic_veto_active_only_inventory_replay_harness",
+      "title": "Semantic veto active-only inventory replay harness",
+      "component": "diagnostics",
+      "state": "current_research",
+      "path": "scripts/testing/semantic_veto_active_only_inventory_replay_en_es.py",
+      "role": "Builds an experiment semantic inventory from repaired-full families, appends packaged active-only cues, and replays runtime scoring without helper publication.",
+      "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
+      "current_use": "Confirms the packaged source rows reproduce the selected postprocess lift through an inventory-shaped evaluator.",
+      "risk": "Uses a no-spend TF-IDF replay policy and experiment inventory; production helper/runtime smoke is still required.",
+      "next_audit_pass": "research_harness",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_veto_active_only_inventory_replay_en_es.py",
+        "docs/test_outputs/semantic_veto_active_only_inventory_replay_en_es_latest.md",
+        "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-poc-v5-source-packaging-latest_normalized_evidence.json"
+      ]
+    },
+    {
+      "artifact_id": "semantic_veto_active_only_inventory_replay_report",
+      "title": "Semantic veto active-only inventory replay report",
+      "component": "diagnostics",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_veto_active_only_inventory_replay_en_es_latest.md",
+      "role": "Human-facing inventory-shaped replay report for the active-only PoC packaged source evidence.",
+      "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
+      "current_use": "Shows 45/45 packaged rows applied across 24 families and 91 cases, with decision accuracy 50.5% to 73.6%, replace recall 8.3% to 50.0%, false abstains 44 to 24, and harmful replacements 1 to 0 under the replay policy.",
+      "risk": "Not helper-published production evidence; it proves the inventory-shaped path before runtime smoke.",
+      "next_audit_pass": "data_artifacts",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_active_only_inventory_replay_en_es_latest.json",
+        "scripts/testing/semantic_veto_active_only_inventory_replay_en_es.py",
+        "core/tests/dev/test_semantic_veto_active_only_inventory_replay_en_es.py"
+      ]
+    },
+    {
+      "artifact_id": "semantic_veto_active_only_inventory_replay_candidate_inventory",
+      "title": "Semantic veto active-only inventory replay candidate inventory",
+      "component": "diagnostics",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-poc-v5-inventory-replay-latest_semantic_inventory.json",
+      "role": "Experiment semantic inventory with packaged active-only cues appended to active-sense all_evidence_text fields.",
+      "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
+      "current_use": "Input/output artifact for the inventory-shaped replay before helper publication.",
+      "risk": "Experiment inventory only; it must not be confused with a helper-published srs_semantic_inventory_en-es.json sidecar.",
+      "next_audit_pass": "data_artifacts",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_active_only_inventory_replay_en_es_latest.json",
+        "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-poc-v5-source-packaging-latest_normalized_evidence.json",
+        "scripts/testing/semantic_veto_active_only_inventory_replay_en_es.py"
+      ]
+    },
+    {
+      "artifact_id": "semantic_veto_active_only_helper_runtime_smoke_harness",
+      "title": "Semantic veto active-only helper runtime smoke harness",
+      "component": "diagnostics",
+      "state": "current_candidate",
+      "path": "scripts/testing/semantic_veto_active_only_helper_runtime_smoke_en_es.py",
+      "role": "Publishes the active-only PoC candidate into an isolated helper data root and calls helper semantic_admit_batch over repaired-full cases.",
+      "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
+      "current_use": "Verifies the real helper publication family and semantic-admission path before manual testing, without mutating default user profile data.",
+      "risk": "Uses an isolated fixture and explicit no-spend en_es_sentence_veto_v2 policy by default; it is not broad paid generation or real profile publication.",
+      "next_audit_pass": "runtime_path",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_veto_active_only_helper_runtime_smoke_en_es.py",
+        "core/tests/rulegen/test_semantic_routing_runtime_policy.py",
+        "docs/test_outputs/semantic_veto_active_only_helper_runtime_smoke_en_es_latest.md"
+      ]
+    },
+    {
+      "artifact_id": "semantic_veto_active_only_helper_runtime_smoke_report",
+      "title": "Semantic veto active-only helper runtime smoke report",
+      "component": "diagnostics",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_veto_active_only_helper_runtime_smoke_en_es_latest.md",
+      "role": "Human-facing report for the isolated helper publication and semantic_admit_batch smoke run.",
+      "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
+      "current_use": "Shows 24 rules/families and 91 cases published to an isolated fixture, with 91 policy decisions, 0 fallback decisions, 76.9% decision accuracy, 58.3% replace recall, 20 false abstains, and 1 harmful replacement.",
+      "risk": "Manual-testing fixture only; it does not prove full en-es quality or mutate live user profile data.",
+      "next_audit_pass": "runtime_path",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_active_only_helper_runtime_smoke_en_es_latest.json",
+        "scripts/testing/semantic_veto_active_only_helper_runtime_smoke_en_es.py",
+        "core/tests/dev/test_semantic_veto_active_only_helper_runtime_smoke_en_es.py"
+      ]
+    },
+    {
+      "artifact_id": "semantic_veto_active_only_live_page_scan_harness",
+      "title": "Semantic veto active-only live page scan harness",
+      "component": "diagnostics",
+      "state": "current_candidate",
+      "path": "scripts/testing/semantic_veto_active_only_live_page_scan_en_es.py",
+      "role": "Fetches public pages, extracts current active-only trigger sentences, and runs them through helper semantic_admit_batch for manual product-feel review.",
+      "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
+      "current_use": "Builds the current 17-page, 113-row manual review packet from the isolated active-only helper fixture.",
+      "risk": "Manual product-feel packet only; page selection is hand-picked and online fetches can drift, so it is not a stable promotion metric.",
+      "next_audit_pass": "runtime_path",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_veto_active_only_live_page_scan_en_es.py",
+        "docs/test_inputs/semantic_veto_active_only_live_page_scan_en_es.json",
+        "docs/test_outputs/semantic_veto_active_only_live_page_scan_en_es_latest.md"
+      ]
+    },
+    {
+      "artifact_id": "semantic_veto_active_only_live_page_scan_manifest",
+      "title": "Semantic veto active-only live page scan manifest",
+      "component": "diagnostics",
+      "state": "current_candidate",
+      "path": "docs/test_inputs/semantic_veto_active_only_live_page_scan_en_es.json",
+      "role": "Defines the public page set used for the current active-only product-feel sentence scan.",
+      "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
+      "current_use": "Lists 17 public Wikipedia pages selected to expose current active-only triggers in ordinary and ambiguous prose.",
+      "risk": "Hand-picked exploratory page set; use it for manual feel checks, not statistical product-quality claims.",
+      "next_audit_pass": "runtime_path",
+      "verification_artifacts": [
+        "scripts/testing/semantic_veto_active_only_live_page_scan_en_es.py",
+        "docs/test_outputs/semantic_veto_active_only_live_page_scan_en_es_latest.md"
+      ]
+    },
+    {
+      "artifact_id": "semantic_veto_active_only_live_page_scan_report",
+      "title": "Semantic veto active-only live page scan report",
+      "component": "diagnostics",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_veto_active_only_live_page_scan_en_es_latest.md",
+      "role": "Human-facing public-page sentence review packet for the active-only helper fixture.",
+      "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
+      "current_use": "Shows 17 scanned pages, 113 review rows, 88 abstain decisions, 25 replace decisions, 113 policy decisions, 0 fallback decisions, and 0 page fetch errors.",
+      "risk": "Prod-like manual review packet only; sentence extraction and online page contents can drift between runs.",
+      "next_audit_pass": "runtime_path",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_active_only_live_page_scan_en_es_latest.json",
+        "scripts/testing/semantic_veto_active_only_live_page_scan_en_es.py",
+        "core/tests/dev/test_semantic_veto_active_only_live_page_scan_en_es.py"
+      ]
+    },
+    {
+      "artifact_id": "product_scope_band_grading_v1_active_only_postprocess_report",
+      "title": "Semantic veto product-scope band-grading v1 active-only postprocess report",
+      "component": "diagnostics",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_active_only_postprocess_en_es_latest.md",
+      "role": "Audits and rescoring-checks the already generated product_scope_band_grading_v1 active evidence before source packaging.",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "current_use": "Shows 36 active items across 18 families, 1 high eval-overlap item, selected no_high_eval_overlap_sentence_only view, and 68.6% decision accuracy with 1 harmful replace and 21 false abstains on 70 cases.",
+      "risk": "Mechanical postprocess over an existing generated batch; supports packaging but is not runtime evidence by itself.",
+      "next_audit_pass": "data_artifacts",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_active_only_postprocess_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_admission_en_es_latest.json",
+        "scripts/testing/semantic_veto_evidence_gap_generation_postprocess_en_es.py"
+      ]
+    },
+    {
+      "artifact_id": "product_scope_band_grading_v1_active_only_source_packaging_report",
+      "title": "Semantic veto product-scope band-grading v1 active-only source-packaging report",
+      "component": "source_admission",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_active_only_source_packaging_en_es_latest.md",
+      "role": "Packages the v1 active-only postprocess view into canonical semantic evidence with tranche-specific provenance.",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "current_use": "Shows 35 packaged anchor_cue rows across 18 families, 1 high-overlap exclusion, 0 runtime_publishable rows, and tranche-specific source_id / row_id values.",
+      "risk": "Canonical evidence packaging only; rows still require inventory compilation and runtime smoke before product interpretation.",
+      "next_audit_pass": "data_artifacts",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_active_only_source_packaging_en_es_latest.json",
+        "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-product-scope-band-grading-v1-active-only-source-packaging-latest_normalized_evidence.json",
+        "scripts/testing/semantic_veto_active_only_source_packaging_en_es.py"
+      ]
+    },
+    {
+      "artifact_id": "product_scope_band_grading_v1_active_only_inventory_replay_report",
+      "title": "Semantic veto product-scope band-grading v1 active-only inventory replay report",
+      "component": "diagnostics",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_active_only_inventory_replay_en_es_latest.md",
+      "role": "Replays the v1 active-only packaged rows through an inventory-shaped evaluator before helper publication.",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "current_use": "Shows 35/35 packaged rows applied across 18 families and 70 cases, decision accuracy 47.1% to 68.6%, replace recall 0.0% to 41.7%, false abstains 36 to 21, and harmful replacements unchanged at 1.",
+      "risk": "Uses an experiment inventory and TF-IDF replay policy; helper runtime smoke remains the stronger product-path check.",
+      "next_audit_pass": "research_harness",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_active_only_inventory_replay_en_es_latest.json",
+        "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-product-scope-band-grading-v1-active-only-inventory-replay-latest_semantic_inventory.json",
+        "scripts/testing/semantic_veto_active_only_inventory_replay_en_es.py"
+      ]
+    },
+    {
+      "artifact_id": "product_scope_band_grading_v1_active_only_helper_runtime_smoke_report",
+      "title": "Semantic veto product-scope band-grading v1 active-only helper runtime smoke report",
+      "component": "diagnostics",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_active_only_helper_runtime_smoke_en_es_latest.md",
+      "role": "Publishes the v1 active-only tranche into an isolated helper data root and runs the real helper semantic_admit_batch path.",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "current_use": "Shows 18 rules/families, 70 policy decisions, 0 fallback decisions, 67.1% decision accuracy, 44.4% replace recall, 3 harmful replaces, and 20 false abstains.",
+      "risk": "Manual-testing fixture only; it does not mutate live profile data and should be interpreted as soft-assist product-feel evidence.",
+      "next_audit_pass": "runtime_path",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_active_only_helper_runtime_smoke_en_es_latest.json",
+        "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-product-scope-band-grading-v1-active-only-helper-runtime-smoke-data-root/",
+        "scripts/testing/semantic_veto_active_only_helper_runtime_smoke_en_es.py"
+      ]
+    },
+    {
+      "artifact_id": "product_scope_band_grading_v1_active_only_live_page_scan_report",
+      "title": "Semantic veto product-scope band-grading v1 active-only live page scan report",
+      "component": "diagnostics",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_active_only_live_page_scan_en_es_latest.md",
+      "role": "Runs the existing public-page product-feel scan against the isolated v1 active-only helper fixture.",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "current_use": "Shows 17/17 pages fetched, 63 manual-review rows, 13 replace decisions, 50 abstain decisions, 63 policy decisions, 0 fallback decisions, and 0 page fetch errors.",
+      "risk": "Public-page contents and extraction drift over time; this is a manual feel packet, not a stable promotion metric.",
+      "next_audit_pass": "runtime_path",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_active_only_live_page_scan_en_es_latest.json",
+        "docs/test_inputs/semantic_veto_active_only_live_page_scan_en_es.json",
+        "scripts/testing/semantic_veto_active_only_live_page_scan_en_es.py"
       ]
     },
     {
@@ -4244,6 +4680,494 @@
       "verification_artifacts": [
         "docs/test_outputs/semantic_veto_product_objective_bakeoff_en_es_latest.json",
         "docs/test_inputs/semantic_veto_product_quality_policy_en_es.json"
+      ]
+    },
+    {
+      "artifact_id": "product_scope_algorithm_bakeoff_harness",
+      "title": "Semantic veto product-scope algorithm bakeoff harness",
+      "component": "decision_research",
+      "state": "current_research",
+      "path": "scripts/testing/semantic_veto_product_scope_algorithm_bakeoff_en_es.py",
+      "role": "Filters diagnostic label-preservation rows, materializes product-scope score traces, and sweeps scorer/context/evidence/threshold/phrase/rescue parameters before downstream band or LLM allocation tests.",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "current_use": "Corrects the repaired-full parameter read after internal-project-code label rows were judged non-product errors under the browser soft-assist stance.",
+      "risk": "Discovery research only; do not treat the corrected parameter peak as runtime promotion or as proof of representative browsing performance.",
+      "next_audit_pass": "research_harness",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_veto_product_scope_algorithm_bakeoff_en_es.py",
+        "docs/test_outputs/semantic_veto_product_scope_algorithm_bakeoff_en_es_latest.md"
+      ]
+    },
+    {
+      "artifact_id": "product_scope_algorithm_bakeoff_latest_report",
+      "title": "Semantic veto product-scope algorithm bakeoff latest report",
+      "component": "decision_research",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_veto_product_scope_algorithm_bakeoff_en_es_latest.md",
+      "role": "Records the product-scope repaired-full algorithm-parameter sweep after excluding diagnostic internal-project-code label rows.",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "current_use": "Shows 140 product-scope rows retained, 49 diagnostic label rows excluded, 1056 candidate parameter rows evaluated, 460 product target-pass rows, and a best sentence-transformer masked/all-evidence phrase-guard row at 92.9% positive allow and 88.1% negative abstain.",
+      "risk": "Can be overread because it is still repaired-full discovery evidence, not final browsing distribution, not LLM-expanded evaluation, and not runtime promotion.",
+      "next_audit_pass": "best_candidate",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_product_scope_algorithm_bakeoff_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_product_scope_repaired_full_dataset_en_es_latest.json",
+        "docs/test_inputs/semantic_veto_product_quality_policy_en_es.json"
+      ]
+    },
+    {
+      "artifact_id": "product_scope_selected_candidate_surface_harness",
+      "title": "Semantic veto product-scope selected candidate surface harness",
+      "component": "decision_research",
+      "state": "current_research",
+      "path": "scripts/testing/semantic_veto_product_scope_selected_candidate_surface_en_es.py",
+      "role": "Materializes selected product-scope algorithm candidates as a score surface for downstream band/formula and LLM-allocation analysis.",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "current_use": "Carries the best utility row, safer 80%-positive row, current v3-like row, TF-IDF best-by-scorer row, and high-recall comparator into later heuristic sweeps without reusing the old label-preservation denominator.",
+      "risk": "The candidate set is selected from discovery bakeoff results and should not be mistaken for final promotion evidence.",
+      "next_audit_pass": "research_harness",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_veto_product_scope_selected_candidate_surface_en_es.py",
+        "docs/test_outputs/semantic_veto_product_scope_selected_candidate_surface_en_es_latest.md"
+      ]
+    },
+    {
+      "artifact_id": "product_scope_selected_candidate_surface_latest_report",
+      "title": "Semantic veto product-scope selected candidate surface latest report",
+      "component": "decision_research",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_veto_product_scope_selected_candidate_surface_en_es_latest.md",
+      "role": "Records the five selected product-scope candidate policies and their per-case row surface.",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "current_use": "Shows 5 carried-forward candidates and 700 row results, including the best utility ST row at 92.9% positive allow / 88.1% negative abstain and the safer ST row at 83.7% / 97.6%.",
+      "risk": "Candidate IDs are encoded as scorer IDs for downstream sweep compatibility; do not compare them as raw scorer backends without reading the candidate metadata.",
+      "next_audit_pass": "best_candidate",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_product_scope_selected_candidate_surface_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_product_scope_algorithm_bakeoff_en_es_latest.json"
+      ]
+    },
+    {
+      "artifact_id": "product_scope_band_formula_sweep_latest_report",
+      "title": "Semantic veto product-scope band formula sweep latest report",
+      "component": "decision_research",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_veto_product_scope_band_formula_sweep_en_es_latest.md",
+      "role": "Reruns the repaired-full family-ranking heuristic sweep on the product-scope filtered dataset and selected candidate surface.",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "current_use": "Shows 49 families, 245 observations, 10 fixed formulas, 3124 swept linear formulas, and shadow_coverage_only as the repeated best cheap allocation signal across selected candidate scopes.",
+      "risk": "The locked proxy is still small and the result is an LLM-allocation guide, not proof of a final top-N policy or runtime threshold promotion.",
+      "next_audit_pass": "best_candidate",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_product_scope_band_formula_sweep_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_product_scope_selected_candidate_surface_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_product_scope_repaired_full_dataset_en_es_latest.json"
+      ]
+    },
+    {
+      "artifact_id": "product_scope_band_grading_harness",
+      "title": "Semantic veto product-scope band grading harness",
+      "component": "decision_research",
+      "state": "current_research",
+      "path": "scripts/testing/semantic_veto_product_scope_band_grading_en_es.py",
+      "role": "Grades family-level heuristic formulas by the actual high/middle/low product-scope bands they create, then normalizes band performance against explicit test and SRS case-type mixes.",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "current_use": "Turns the formula-sweep ranking question into the user's band question: whether high-need bands actually fail more than low-need bands after accounting for missing SRS-wide case coverage.",
+      "risk": "Research-only; SRS-prior normalization is measured-only where product-scope rows lack phrase/no-winner cases, and should not be read as full product accuracy.",
+      "next_audit_pass": "research_harness",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_veto_product_scope_band_grading_en_es.py",
+        "docs/test_outputs/semantic_veto_product_scope_band_grading_en_es_latest.md",
+        "docs/test_outputs/semantic_veto_srs_case_mix_prior_en_es_latest.json"
+      ]
+    },
+    {
+      "artifact_id": "product_scope_band_grading_latest_report",
+      "title": "Semantic veto product-scope band grading latest report",
+      "component": "decision_research",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_veto_product_scope_band_grading_en_es_latest.md",
+      "role": "Records band-first formula grading on the corrected product-scope selected-candidate surface with SRS case-mix normalization targets.",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "current_use": "Shows 15,670 formula scopes, product-scope rows with 70% positive-active and 30% shadow-negative test mix, base SRS prior with 73.8% positive-active / 15.0% shadow-negative / 11.2% phrase-no-winner, and a strongest current mixed formula on the safer ST candidate.",
+      "risk": "The phrase/no-winner prior mass is visible but unmeasured in this product-scope surface; use the report to guide LLM data allocation, not to claim final SRS-weighted product quality.",
+      "next_audit_pass": "best_candidate",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_product_scope_band_grading_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_product_scope_band_formula_sweep_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_product_scope_selected_candidate_surface_en_es_latest.json"
+      ]
+    },
+    {
+      "artifact_id": "product_scope_top_heavy_band_grading_harness",
+      "title": "Semantic veto product-scope top-heavy band grading harness",
+      "component": "decision_research",
+      "state": "current_research",
+      "path": "scripts/testing/semantic_veto_product_scope_top_heavy_band_grading_en_es.py",
+      "role": "Compares equal-tertile allocation bands against concentrated top-heavy and source-exposure-weighted bands using the same repaired product-scope formula and score-surface artifacts.",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "current_use": "Tests whether high-need evidence generation should switch from equal research tertiles to top-heavy product slices before larger LLM allocation.",
+      "risk": "Default run is bounded to the strongest existing formula scopes plus the accepted candidate; pass --formula-scope-limit 0 for an exhaustive but slower matrix.",
+      "next_audit_pass": "research_harness",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_veto_product_scope_top_heavy_band_grading_en_es.py",
+        "docs/test_outputs/semantic_veto_product_scope_top_heavy_band_grading_en_es_latest.md",
+        "docs/test_outputs/semantic_veto_product_scope_band_formula_sweep_en_es_latest.json"
+      ]
+    },
+    {
+      "artifact_id": "product_scope_top_heavy_band_grading_latest_report",
+      "title": "Semantic veto product-scope top-heavy band grading latest report",
+      "component": "decision_research",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_veto_product_scope_top_heavy_band_grading_en_es_latest.md",
+      "role": "Records the no-spend top-heavy allocation recheck against the accepted product-scope band heuristic.",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "current_use": "Shows 2,001 / 15,670 formula scopes and 48,024 strategy scopes evaluated; for the accepted sentence-transformer candidate, the best top-heavy alternative has signal but does not beat equal-tertile control.",
+      "risk": "Top-heavy high bands are tiny on the 49-family suite, so this is a budget-allocation diagnostic rather than a final top-N production cutoff.",
+      "next_audit_pass": "best_candidate",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_product_scope_top_heavy_band_grading_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_product_scope_top_heavy_band_grading_en_es_latest.md",
+        "scripts/testing/semantic_veto_product_scope_top_heavy_band_grading_en_es.py"
+      ]
+    },
+    {
+      "artifact_id": "product_scope_band_grading_acceptance_audit_harness",
+      "title": "Semantic veto product-scope band grading acceptance audit harness",
+      "component": "decision_research",
+      "state": "current_research",
+      "path": "scripts/testing/semantic_veto_product_scope_band_grading_acceptance_audit_en_es.py",
+      "role": "Runs the bounded falsification pass for the current product-scope band heuristic before it is carried into the next LLM-allocation research stage.",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "current_use": "Checks normalization sensitivity, sentence-transformer scorer/config sensitivity, near-neighbor stability, and fixed-control comparisons for the current best band-grading formula.",
+      "risk": "Acceptance means research-stage carry-forward only; it does not prove backend-agnostic validity, final product accuracy, or runtime policy readiness.",
+      "next_audit_pass": "research_harness",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_veto_product_scope_band_grading_acceptance_audit_en_es.py",
+        "docs/test_outputs/semantic_veto_product_scope_band_grading_acceptance_audit_en_es_latest.md",
+        "docs/test_outputs/semantic_veto_product_scope_band_grading_en_es_latest.json"
+      ]
+    },
+    {
+      "artifact_id": "product_scope_band_grading_acceptance_audit_latest_report",
+      "title": "Semantic veto product-scope band grading acceptance audit latest report",
+      "component": "decision_research",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_veto_product_scope_band_grading_acceptance_audit_en_es_latest.md",
+      "role": "Records the acceptance decision for freezing the current mixed band heuristic as the v1 LLM-allocation candidate.",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "current_use": "Accepts sweep_linear_2169 on the safest sentence-transformer candidate for the next research stage, with all normalization targets positive and monotonic, 17 near-neighbor formulas within 90% of the top grade, and fixed controls beaten.",
+      "risk": "The report explicitly says the heuristic is not backend-agnostic because TF-IDF configs do not consistently support the same formula; phrase/no-winner mass also remains visible but unmeasured in the current product-scope surface.",
+      "next_audit_pass": "best_candidate",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_product_scope_band_grading_acceptance_audit_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_product_scope_band_grading_en_es_latest.json",
+        "scripts/testing/semantic_veto_product_scope_band_grading_acceptance_audit_en_es.py"
+      ]
+    },
+    {
+      "artifact_id": "product_scope_band_grading_v1_allocation_plan_harness",
+      "title": "Semantic veto product-scope band-grading v1 allocation plan harness",
+      "component": "source_admission",
+      "state": "current_research",
+      "path": "scripts/testing/semantic_veto_product_scope_band_grading_v1_allocation_plan_en_es.py",
+      "role": "Freezes the accepted product_scope_band_grading_v1 heuristic into a no-spend high/middle/low follow-through batch before paid generation.",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "current_use": "Selects a balanced 6/6/6 new-family batch from the accepted v1 bands, excludes previous paid-pilot families by default, and emits a manifest compatible with the existing evidence-gap generation request renderer.",
+      "risk": "This is a spend preflight, not generated data; it still uses the 49-family repaired product-scope denominator and should not be treated as language-wide allocation proof.",
+      "next_audit_pass": "research_harness",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_veto_product_scope_band_grading_v1_allocation_plan_en_es.py",
+        "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_allocation_plan_en_es_latest.md",
+        "docs/test_inputs/semantic_veto_product_scope_band_grading_v1_allocation_plan_en_es.json"
+      ]
+    },
+    {
+      "artifact_id": "product_scope_band_grading_v1_allocation_plan_latest_report",
+      "title": "Semantic veto product-scope band-grading v1 allocation plan latest report",
+      "component": "source_admission",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_allocation_plan_en_es_latest.md",
+      "role": "Records the no-spend v1 allocation follow-through batch selected from accepted band-grading heuristic bands.",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "current_use": "Shows 17 high / 16 middle / 16 low available families, previous paid-pilot overlap by band, and an 18-family no-overlap follow-through batch with 54 planned slots and 90 expected generated items.",
+      "risk": "The selected batch deliberately avoids previous paid-pilot overlap, so it tests coverage expansion; generation and downstream rescoring are still pending.",
+      "next_audit_pass": "research_harness",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_allocation_plan_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_product_scope_band_grading_acceptance_audit_en_es_latest.json",
+        "docs/test_inputs/semantic_veto_product_scope_band_grading_v1_allocation_plan_en_es.json"
+      ]
+    },
+    {
+      "artifact_id": "product_scope_band_grading_v1_generation_requests_latest_report",
+      "title": "Semantic veto product-scope band-grading v1 generation requests latest report",
+      "component": "source_admission",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_requests_en_es_latest.md",
+      "role": "Renders the no-spend generation request packet for the accepted v1 allocation follow-through batch.",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "current_use": "Shows 54 requests across 18 families, equal 30 expected items per arm, 40,848 estimated input tokens, and 12,600 expected output-token budget using the existing v7 prompt contract.",
+      "risk": "The packet is not generated data; inspect the prompts and selected families before any paid LLM execution.",
+      "next_audit_pass": "research_harness",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_requests_en_es_latest.json",
+        "docs/test_inputs/semantic_veto_product_scope_band_grading_v1_allocation_plan_en_es.json",
+        "scripts/testing/semantic_veto_evidence_gap_generation_requests_en_es.py"
+      ]
+    },
+    {
+      "artifact_id": "product_scope_band_grading_v1_generation_run_latest_report",
+      "title": "Semantic veto product-scope band-grading v1 generation run latest report",
+      "component": "source_admission",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_run_en_es_latest.md",
+      "role": "Records the paid live generation run for the accepted product-scope band-grading v1 follow-through batch.",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "current_use": "Shows live batch product-scope-band-grading-v1-20260510-001 using prompt semantic_veto_evidence_gap_generation_v7_shadow_target_correctness with 54/54 accepted responses after one request-id retry, 80 generated items, and about $0.083 journal-inclusive standard-processing cost.",
+      "risk": "Generation acceptance is not admission or source promotion; paired admission and contribution reports still review shadow/competitor quality.",
+      "next_audit_pass": "data_artifacts",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_run_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generated_responses_en_es_latest.json",
+        "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_raw_responses.json"
+      ]
+    },
+    {
+      "artifact_id": "product_scope_band_grading_v1_generation_admission_latest_report",
+      "title": "Semantic veto product-scope band-grading v1 generation admission latest report",
+      "component": "source_admission",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_admission_en_es_latest.md",
+      "role": "Admits generated evidence-gap rows from the accepted v1 follow-through batch before any source promotion.",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "current_use": "Shows admission review status with 67 admitted items, 10 waived items, 5 rejected items, and 13 coverage shortfall; active slots are complete while shadow/competitor slots remain the main shortfall.",
+      "risk": "Do not treat the full generated batch as promoted evidence; shadow rows still need competitor-target review and repair before automatic use.",
+      "next_audit_pass": "data_artifacts",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_admission_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_requests_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generated_responses_en_es_latest.json"
+      ]
+    },
+    {
+      "artifact_id": "product_scope_band_grading_v1_generation_contribution_latest_report",
+      "title": "Semantic veto product-scope band-grading v1 generation contribution latest report",
+      "component": "source_admission",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_contribution_en_es_latest.md",
+      "role": "Queues admitted v1 generated rows for role-quality review before source promotion.",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "current_use": "Shows 67 admitted items, 31 semantic-review-required non-active rows, 6 possible active-role pollution flags, 4 metadata active-overlap flags, and 1 new competitor-target item.",
+      "risk": "Similarity flags are diagnostics, not semantic judgments; generated shadow and no-winner rows remain review-gated.",
+      "next_audit_pass": "data_artifacts",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_contribution_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_admission_en_es_latest.json"
+      ]
+    },
+    {
+      "artifact_id": "product_scope_band_grading_v1_generation_score_contribution_tfidf_latest_report",
+      "title": "Semantic veto product-scope band-grading v1 generation score contribution TF-IDF latest report",
+      "component": "source_admission",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_score_contribution_tfidf_en_es_latest.md",
+      "role": "Measures v1 generated evidence contribution on the selected follow-through families with the fast TF-IDF scorer.",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "current_use": "Shows TF-IDF base decision accuracy 47.1%, generated_active_only 65.7%, and generated_existing_shadows 62.9%; false abstains drop from 36 base to 22 active-only, with harmful replaces increasing from 1 to 2.",
+      "risk": "TF-IDF is a fast diagnostic and not the accepted v1 product-scope band scorer; compare with the sentence-transformer accepted-config report before steering allocation.",
+      "next_audit_pass": "research_harness",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_score_contribution_tfidf_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_admission_en_es_latest.json",
+        "scripts/testing/semantic_veto_evidence_gap_generation_score_contribution_en_es.py"
+      ]
+    },
+    {
+      "artifact_id": "product_scope_band_grading_v1_generation_score_contribution_sentence_transformer_latest_report",
+      "title": "Semantic veto product-scope band-grading v1 generation score contribution sentence-transformer latest report",
+      "component": "source_admission",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_score_contribution_sentence_transformer_a0000_m0015_en_es_latest.md",
+      "role": "Measures v1 generated evidence contribution with the accepted sentence-transformer configuration used by the v1 allocation heuristic.",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "current_use": "Shows base decision accuracy 77.1%, generated_active_only 78.6%, and generated_existing_shadows 75.7% at min_active_score 0.0 / min_margin 0.015; active-only lift is concentrated in high_need, while middle and low controls are flat.",
+      "risk": "This selected-family offline contribution probe supports prioritizing high-need active evidence, but it is not language-wide proof and does not justify broad automatic shadow generation.",
+      "next_audit_pass": "research_harness",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_score_contribution_sentence_transformer_a0000_m0015_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_admission_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_product_scope_band_grading_acceptance_audit_en_es_latest.json",
+        "scripts/testing/semantic_veto_evidence_gap_generation_score_contribution_en_es.py"
+      ]
+    },
+    {
+      "artifact_id": "product_scope_band_grading_v1_shadow_gpt55_generation_run_latest_report",
+      "title": "Semantic veto product-scope band-grading v1 high-need shadow gpt-5.5 generation run latest report",
+      "component": "source_admission",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_shadow_gpt55_generation_run_en_es_latest.md",
+      "role": "Records the narrow paid gpt-5.5 rerun for the six high_need shadow_or_competitor_evidence_probe slots from product_scope_band_grading_v1.",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "current_use": "Shows 6/6 accepted responses after retrying three truncated JSON outputs with a larger output cap, 12 generated shadow items, and about $0.233 journal-inclusive standard-processing cost at the 2026-05-09 price snapshot.",
+      "risk": "This is a small shadow-generation probe, not evidence that broad shadow generation improves veto decisions.",
+      "next_audit_pass": "data_artifacts",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_shadow_gpt55_generation_run_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_shadow_gpt55_generated_responses_en_es_latest.json",
+        "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-shadow-gpt55-20260510-002_journal.jsonl"
+      ]
+    },
+    {
+      "artifact_id": "product_scope_band_grading_v1_shadow_gpt55_generation_admission_latest_report",
+      "title": "Semantic veto product-scope band-grading v1 high-need shadow gpt-5.5 admission latest report",
+      "component": "source_admission",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_shadow_gpt55_generation_admission_en_es_latest.md",
+      "role": "Admits the six high_need gpt-5.5 shadow generated responses before the score-contribution comparison.",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "current_use": "Shows 12/12 expected generated shadow items admitted, 0 rejected, and 0 coverage shortfall; this improves admissibility over the same-six gpt-5.4-mini subset.",
+      "risk": "Admission checks contract shape and basic row validity; it does not prove that the shadow evidence improves the decision surface.",
+      "next_audit_pass": "data_artifacts",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_shadow_gpt55_generation_admission_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_shadow_gpt55_generated_responses_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_requests_en_es_latest.json"
+      ]
+    },
+    {
+      "artifact_id": "product_scope_band_grading_v1_shadow_gpt55_generation_score_contribution_sentence_transformer_latest_report",
+      "title": "Semantic veto product-scope band-grading v1 high-need shadow gpt-5.5 score contribution sentence-transformer latest report",
+      "component": "source_admission",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_shadow_gpt55_generation_score_contribution_sentence_transformer_a0000_m0015_en_es_latest.md",
+      "role": "Measures whether the gpt-5.5 high-need shadow rows improve the fixed sentence-transformer veto score on the same selected families.",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "current_use": "Shows selected-family base 83.3% decision accuracy and generated_existing_shadows 80.0% at min_active_score 0.0 / min_margin 0.015; harmful replaces stay at 2 while false abstains increase from 3 to 4.",
+      "risk": "This argues against broad automatic shadow promotion under the fixed scorer; it is still a six-family probe and should not be overread as a language-wide shadow result.",
+      "next_audit_pass": "research_harness",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_shadow_gpt55_generation_score_contribution_sentence_transformer_a0000_m0015_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_shadow_gpt55_generation_admission_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_shadow_mini_high_generation_score_contribution_sentence_transformer_a0000_m0015_en_es_latest.json",
+        "scripts/testing/semantic_veto_evidence_gap_generation_score_contribution_en_es.py"
+      ]
+    },
+    {
+      "artifact_id": "product_scope_llm_allocation_pilot_plan_harness",
+      "title": "Semantic veto product-scope LLM allocation pilot plan harness",
+      "component": "source_admission",
+      "state": "current_research",
+      "path": "scripts/testing/semantic_veto_product_scope_llm_allocation_pilot_plan_en_es.py",
+      "role": "Freezes a no-spend high/middle/low LLM-allocation pilot from the corrected product-scope shadow-coverage band signal.",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "current_use": "Selects 20 product-scope families by pre-outcome shadow_coverage_only bands with deterministic seed sampling, writes a manifest compatible with the existing evidence-gap generation request renderer, and keeps observed failures diagnostic-only.",
+      "risk": "The plan is a spend preflight and cannot prove the allocation heuristic until generated evidence is admitted and rescored against high, middle, and low controls.",
+      "next_audit_pass": "research_harness",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_veto_product_scope_llm_allocation_pilot_plan_en_es.py",
+        "docs/test_outputs/semantic_veto_product_scope_llm_allocation_pilot_plan_en_es_latest.md",
+        "docs/test_inputs/semantic_veto_product_scope_llm_allocation_pilot_plan_en_es.json"
+      ]
+    },
+    {
+      "artifact_id": "product_scope_llm_allocation_pilot_plan_latest_report",
+      "title": "Semantic veto product-scope LLM allocation pilot plan latest report",
+      "component": "source_admission",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_veto_product_scope_llm_allocation_pilot_plan_en_es_latest.md",
+      "role": "Records the current no-spend high/middle/low product-scope LLM allocation pilot selection.",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "current_use": "Shows 49 candidate families, 20 selected families, 60 planned generation slots, and 100 expected generated items across 8 high-need, 4 middle-control, and 8 low-control families.",
+      "risk": "Can be overread because selected families are still from the repaired 49-family denominator and no generated evidence has been applied yet.",
+      "next_audit_pass": "research_harness",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_product_scope_llm_allocation_pilot_plan_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_product_scope_band_formula_sweep_en_es_latest.json"
+      ]
+    },
+    {
+      "artifact_id": "product_scope_llm_allocation_generation_requests_latest_report",
+      "title": "Semantic veto product-scope LLM allocation generation requests latest report",
+      "component": "source_admission",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_veto_product_scope_llm_allocation_generation_requests_en_es_latest.md",
+      "role": "Pre-spend generation request packet rendered from the product-scope LLM allocation pilot manifest.",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "current_use": "Shows the v7 product-scope generation request packet: 60 requests for 20 families, 100 expected generated items, about 45,211 estimated input tokens, and 14,000 expected output-token budget.",
+      "risk": "The packet is not generated data; generated outputs still need admission, source merge, and downstream rescoring before any product claim.",
+      "next_audit_pass": "research_harness",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_product_scope_llm_allocation_generation_requests_en_es_latest.json",
+        "docs/test_inputs/semantic_veto_product_scope_llm_allocation_pilot_plan_en_es.json"
+      ]
+    },
+    {
+      "artifact_id": "product_scope_llm_allocation_generation_run_latest_report",
+      "title": "Semantic veto product-scope LLM allocation generation run latest report",
+      "component": "source_admission",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_veto_product_scope_llm_allocation_generation_run_en_es_latest.md",
+      "role": "Records the paid live generation run for the frozen product-scope LLM allocation pilot.",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "current_use": "Shows live batch product-scope-allocation-20260509-003 using prompt semantic_veto_evidence_gap_generation_v7_shadow_target_correctness with 60/60 accepted responses, 90 generated items, 41,107 input tokens, and 13,405 output tokens.",
+      "risk": "Generation acceptance is not source admission; the paired admission report still has review status because shadow/competitor rows have rejected items and shortfall.",
+      "next_audit_pass": "data_artifacts",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_product_scope_llm_allocation_generation_run_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_product_scope_llm_allocation_generated_responses_en_es_latest.json",
+        "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json"
+      ]
+    },
+    {
+      "artifact_id": "product_scope_llm_allocation_generation_admission_latest_report",
+      "title": "Semantic veto product-scope LLM allocation generation admission latest report",
+      "component": "source_admission",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_veto_product_scope_llm_allocation_generation_admission_en_es_latest.md",
+      "role": "Admits generated evidence-gap rows from the product-scope LLM allocation pilot before any source promotion.",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "current_use": "Shows admission review status with 84 admitted items, 10 waived items, 4 rejected items, and 6 coverage shortfall; active and no-winner slots are complete, while shadow/competitor remains partial.",
+      "risk": "Do not treat the full generated batch as promoted source evidence; shadow rows still need competitor-target review and repair before full source promotion.",
+      "next_audit_pass": "data_artifacts",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_product_scope_llm_allocation_generation_admission_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_product_scope_llm_allocation_generation_requests_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_product_scope_llm_allocation_generated_responses_en_es_latest.json"
+      ]
+    },
+    {
+      "artifact_id": "product_scope_llm_allocation_generation_contribution_latest_report",
+      "title": "Semantic veto product-scope LLM allocation generation contribution latest report",
+      "component": "source_admission",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_veto_product_scope_llm_allocation_generation_contribution_en_es_latest.md",
+      "role": "Queues admitted generated rows for role-quality review before source promotion.",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "current_use": "Shows 84 admitted items, 44 review-required non-active rows, 10 possible active-role pollution flags, 5 metadata active-overlap flags, and 4 new competitor-target items.",
+      "risk": "Similarity flags are diagnostics, not semantic judgments; generated shadow and no-winner rows still need review or downstream score contribution before use.",
+      "next_audit_pass": "data_artifacts",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_product_scope_llm_allocation_generation_contribution_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_product_scope_llm_allocation_generation_admission_en_es_latest.json"
+      ]
+    },
+    {
+      "artifact_id": "product_scope_llm_allocation_generation_score_contribution_tfidf_latest_report",
+      "title": "Semantic veto product-scope LLM allocation generation score contribution TF-IDF latest report",
+      "component": "source_admission",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_veto_product_scope_llm_allocation_generation_score_contribution_tfidf_en_es_latest.md",
+      "role": "Measures the admitted generated evidence contribution on the selected product-scope families with the fast TF-IDF scorer.",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "current_use": "Shows base decision accuracy 41.7%, generated_active_only 70.0%, generated_existing_shadows 65.0%, zero harmful replaces in all compared modes, and false abstains dropping from 35 base to 18 active-only.",
+      "risk": "This is a selected-family offline contribution probe, not a full representative product claim; the sentence-transformer contribution lane was interrupted and remains unreported.",
+      "next_audit_pass": "research_harness",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_product_scope_llm_allocation_generation_score_contribution_tfidf_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_product_scope_llm_allocation_generation_admission_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_product_scope_repaired_full_dataset_en_es_latest.json"
       ]
     },
     {
@@ -5640,6 +6564,182 @@
         "docs/test_outputs/semantic_wave7_residual_blocker_probe_wave7_source_class_breadth_v1_phrase_control_triage_latest.json",
         "scripts/testing/semantic_wave7_residual_blocker_probe_en_es.py",
         "core/tests/dev/test_semantic_wave7_residual_blocker_probe_en_es.py"
+      ]
+    },
+    {
+      "artifact_id": "active_only_scale_tranche_requests_harness",
+      "title": "Semantic veto active-only scale tranche request renderer",
+      "component": "diagnostics",
+      "state": "current_research",
+      "path": "scripts/testing/semantic_veto_active_only_scale_tranche_requests_en_es.py",
+      "role": "Selects product-scope families not already covered by packaged active evidence and renders active-only generation requests.",
+      "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
+      "current_use": "Selected 16 uncovered families from the current 49-family product-scope denominator and rendered 16 active_evidence_expansion requests for 32 expected generated items.",
+      "risk": "Request renderer only; no LLM call or runtime policy change.",
+      "next_audit_pass": "research_harness",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_veto_active_only_scale_tranche_requests_en_es.py",
+        "docs/test_outputs/semantic_veto_active_only_scale_tranche_v1_requests_en_es_latest.md"
+      ]
+    },
+    {
+      "artifact_id": "active_only_scale_tranche_requests_report",
+      "title": "Semantic veto active-only scale tranche request packet report",
+      "component": "diagnostics",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_veto_active_only_scale_tranche_v1_requests_en_es_latest.md",
+      "role": "Human-facing pre-spend request packet for the active-only scale tranche.",
+      "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
+      "current_use": "Shows 33 covered families excluded, 16 uncovered families selected, 16 active-only requests, 32 expected items, and 7,967 estimated input tokens.",
+      "risk": "Input packet only; not generated data or runtime evidence.",
+      "next_audit_pass": "data_artifacts",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_active_only_scale_tranche_v1_requests_en_es_latest.json",
+        "scripts/testing/semantic_veto_active_only_scale_tranche_requests_en_es.py"
+      ]
+    },
+    {
+      "artifact_id": "active_only_scale_tranche_generation_run_report",
+      "title": "Semantic veto active-only scale tranche generation run report",
+      "component": "diagnostics",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_veto_active_only_scale_tranche_v1_generation_run_en_es_latest.md",
+      "role": "Records the paid live mini generation run for the active-only scale tranche.",
+      "owner_doc": "docs/rulegen/semantic_llm_generation_budget_reference.md",
+      "current_use": "Shows 16 selected requests, 16 accepted responses after resume, 32 generated active items, 7,547 accepted-run input tokens, and 2,742 accepted-run output tokens; journal-inclusive scale-tranche spend including repair attempts is about $0.020 at mini rates.",
+      "risk": "Generated evidence remains research-only until admission, postprocess, packaging, replay, and helper smoke pass.",
+      "next_audit_pass": "data_artifacts",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_active_only_scale_tranche_v1_generation_run_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_active_only_scale_tranche_v1_generated_responses_repaired_en_es_latest.json"
+      ]
+    },
+    {
+      "artifact_id": "active_only_scale_tranche_generation_admission_report",
+      "title": "Semantic veto active-only scale tranche generation admission report",
+      "component": "diagnostics",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_veto_active_only_scale_tranche_v1_generation_admission_en_es_latest.md",
+      "role": "Records structural admission for the repaired active-only scale-tranche generated responses.",
+      "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
+      "current_use": "Shows 16 expected requests, 16 generated responses, 32 expected items, 32 admitted items, 0 rejected items, and 0 coverage shortfall.",
+      "risk": "Structural admission only; postprocess/replay decide whether the rows improve decisions.",
+      "next_audit_pass": "data_artifacts",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_active_only_scale_tranche_v1_generation_admission_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_active_only_scale_tranche_v1_generated_responses_repaired_en_es_latest.json"
+      ]
+    },
+    {
+      "artifact_id": "active_only_scale_tranche_postprocess_report",
+      "title": "Semantic veto active-only scale tranche postprocess report",
+      "component": "diagnostics",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_veto_active_only_scale_tranche_v1_postprocess_en_es_latest.md",
+      "role": "Audits and rescoring-checks the active-only scale tranche before packaging.",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "current_use": "Shows 32 active items across 16 families, 0 high eval-overlap items, selected sentence-only views at 71.4% decision accuracy and 50.0% replace recall on 63 cases.",
+      "risk": "Mechanical postprocess only; selected rows remain source candidates until packaging.",
+      "next_audit_pass": "data_artifacts",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_active_only_scale_tranche_v1_postprocess_en_es_latest.json",
+        "scripts/testing/semantic_veto_evidence_gap_generation_postprocess_en_es.py"
+      ]
+    },
+    {
+      "artifact_id": "active_only_scale_tranche_source_packaging_report",
+      "title": "Semantic veto active-only scale tranche source-packaging report",
+      "component": "source_admission",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_veto_active_only_scale_tranche_v1_source_packaging_en_es_latest.md",
+      "role": "Packages the scale-tranche postprocess view into canonical semantic evidence with tranche-specific provenance.",
+      "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
+      "current_use": "Shows 32 packaged anchor_cue rows across 16 families, 0 exclusions, and 0 runtime_publishable rows.",
+      "risk": "Canonical source batch only; it must be compiled into an experiment inventory before helper runtime checks.",
+      "next_audit_pass": "data_artifacts",
+      "verification_artifacts": [
+        "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-scale-tranche-v1-source-packaging-latest_normalized_evidence.json",
+        "scripts/testing/semantic_veto_active_only_source_packaging_en_es.py"
+      ]
+    },
+    {
+      "artifact_id": "active_only_scale_tranche_inventory_replay_report",
+      "title": "Semantic veto active-only scale tranche inventory replay report",
+      "component": "diagnostics",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_veto_active_only_scale_tranche_v1_inventory_replay_en_es_latest.md",
+      "role": "Replays the new scale-tranche rows through the inventory-shaped evaluator on their selected families.",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "current_use": "Shows 32/32 packaged rows applied across 16 families and 63 cases, with decision accuracy 55.6% to 71.4%, replace recall 12.5% to 50.0%, false abstains 28 to 16, and harmful replacements 0 to 2.",
+      "risk": "Tranche-only reading; use the combined product-scope replay for the current candidate state.",
+      "next_audit_pass": "research_harness",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_active_only_scale_tranche_v1_inventory_replay_en_es_latest.json",
+        "scripts/testing/semantic_veto_active_only_inventory_replay_en_es.py"
+      ]
+    },
+    {
+      "artifact_id": "active_only_combined_product_scope_normalized_evidence",
+      "title": "Semantic veto active-only combined product-scope normalized evidence",
+      "component": "source_admission",
+      "state": "current_candidate",
+      "path": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-product-scope-v1-normalized_evidence.json",
+      "role": "Combined canonical semantic evidence batch for the current active-only product-scope candidate.",
+      "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
+      "current_use": "Combines PoC active-only, v1 reuse active-only, and scale-tranche active-only batches into 112 normalized anchor_cue rows across 49 families.",
+      "risk": "Experiment evidence bundle only; rows are not live profile data and require helper fixture publication for runtime checks.",
+      "next_audit_pass": "data_artifacts",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_active_only_combined_product_scope_v1_inventory_replay_en_es_latest.json",
+        "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-scale-tranche-v1-source-packaging-latest_normalized_evidence.json"
+      ]
+    },
+    {
+      "artifact_id": "active_only_combined_product_scope_inventory_replay_report",
+      "title": "Semantic veto active-only combined product-scope inventory replay report",
+      "component": "diagnostics",
+      "state": "current_candidate",
+      "path": "docs/test_outputs/semantic_veto_active_only_combined_product_scope_v1_inventory_replay_en_es_latest.md",
+      "role": "Replays the combined active-only source evidence across the current 49-family repaired product-scope denominator.",
+      "owner_doc": "docs/rulegen/semantic_veto_product_quality_goals.md",
+      "current_use": "Shows 112/112 packaged rows applied across 49 families and 189 cases, with decision accuracy 50.3% to 72.0%, replace recall 5.1% to 46.9%, false abstains 93 to 52, and harmful replacements unchanged at 1.",
+      "risk": "Offline replay with the TF-IDF active-only policy; helper runtime smoke is required before manual product-feel review.",
+      "next_audit_pass": "research_harness",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_active_only_combined_product_scope_v1_inventory_replay_en_es_latest.json",
+        "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-product-scope-v1-inventory-replay-latest_semantic_inventory.json"
+      ]
+    },
+    {
+      "artifact_id": "active_only_combined_product_scope_helper_runtime_smoke_report",
+      "title": "Semantic veto active-only combined product-scope helper runtime smoke report",
+      "component": "diagnostics",
+      "state": "current_candidate",
+      "path": "docs/test_outputs/semantic_veto_active_only_combined_product_scope_v1_helper_runtime_smoke_en_es_latest.md",
+      "role": "Publishes the combined active-only candidate into an isolated helper data root and runs helper semantic_admit_batch.",
+      "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
+      "current_use": "Shows 49 rules/families, 189 policy decisions, 0 fallback decisions, 72.5% decision accuracy, 49.0% replace recall, 2 harmful replacements, and 50 false abstains.",
+      "risk": "Manual-testing fixture only; it does not mutate live profile data.",
+      "next_audit_pass": "runtime_path",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_active_only_combined_product_scope_v1_helper_runtime_smoke_en_es_latest.json",
+        "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-product-scope-v1-helper-runtime-smoke-data-root/"
+      ]
+    },
+    {
+      "artifact_id": "active_only_combined_product_scope_live_page_scan_report",
+      "title": "Semantic veto active-only combined product-scope live page scan report",
+      "component": "diagnostics",
+      "state": "current_candidate",
+      "path": "docs/test_outputs/semantic_veto_active_only_combined_product_scope_v1_live_page_scan_en_es_latest.md",
+      "role": "Runs the existing public-page product-feel scan against the combined active-only helper fixture.",
+      "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
+      "current_use": "Shows 16/17 pages scanned before max_total_matches, 120 manual-review rows, 25 replace decisions, 95 abstain decisions, 120 policy decisions, 0 fallback decisions, and 0 page fetch errors.",
+      "risk": "Manual product-feel packet only; public-page contents and extraction can drift.",
+      "next_audit_pass": "runtime_path",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_active_only_combined_product_scope_v1_live_page_scan_en_es_latest.json",
+        "docs/test_inputs/semantic_veto_active_only_live_page_scan_en_es.json"
       ]
     }
   ]

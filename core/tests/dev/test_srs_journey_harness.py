@@ -133,6 +133,7 @@ class TestSrsJourneyHarness(unittest.TestCase):
         self.assertTrue(
             all(not str(source).startswith("journey_src_") for source in first_phase_sources)
         )
+        self.assertTrue(phases[0]["runtime"]["ruleset_source_target_pairs"])
         self.assertEqual(phases[2]["relationships"]["due_not_published"], [])
         self.assertEqual(
             phases[2]["runtime"]["diagnostics"]["store_items_with_word_package_for_pair"],

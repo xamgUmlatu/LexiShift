@@ -3,8 +3,8 @@
 Status: draft reference
 Role: Draft decision log
 Purpose: define the product-oriented acceptance calculus for semantic-veto work so research does not optimize for zero-harm purity when the user experience target is broader replacement usefulness
-Last updated: 2026-05-06
-Last verified: 2026-05-06 against current product-quality, LLM pilot, threshold-bakeoff, difficulty-stratification, sampling-design, Stage 1 materialization, Stage 1 representative scoring, and strict veto-only validation outputs
+Last updated: 2026-05-10
+Last verified: 2026-05-10 against current product-quality, LLM pilot, threshold-bakeoff, difficulty-stratification, sampling-design, Stage 1 materialization, Stage 1 representative scoring, strict veto-only validation outputs, the product-scope algorithm bakeoff, the corrected product-scope band/formula rerun, the product-scope LLM allocation pilot generation/admission/contribution artifacts, the narrow `gpt-5.5` high-need shadow probe, and the active-only scale tranche through combined 49-family helper smoke plus live-page scan
 Source-of-truth: this document is planning guidance only; runtime truth remains in code, test inputs, generated outputs, and the semantic-veto registry
 
 ## Product Frame
@@ -625,6 +625,1098 @@ Interpretation:
   positive-allow target,
 - next work should search for blocker signals that separate representative
   negatives from positives, instead of only sliding one shared shadow threshold.
+
+### Milestone 1g: Product-Scope Algorithm Parameter Bakeoff Exists
+
+The full-family repaired dataset previously included synthetic rows like:
+
+```text
+The dashboard listed X as an internal project code.
+```
+
+Those rows are useful diagnostics for label-preservation behavior, but they are
+not product errors under the current browser soft-assist stance. It is acceptable
+for visible labels to be replaced; the product goal is to avoid clearly wrong
+ordinary-context replacements while preserving most good replacements.
+
+The corrected first step is therefore parameter-first:
+
+1. filter diagnostic label-preservation rows out of the evaluation denominator,
+2. sweep algorithm parameters,
+3. record the candidate peaks,
+4. only then carry selected peaks into band and heuristic allocation tests.
+
+Artifacts:
+
+```text
+scripts/testing/semantic_veto_product_scope_filter_en_es.py
+scripts/testing/semantic_veto_product_scope_algorithm_bakeoff_en_es.py
+docs/test_outputs/semantic_veto_product_scope_repaired_full_dataset_en_es_latest.json
+docs/test_outputs/semantic_veto_product_scope_algorithm_bakeoff_en_es_latest.json
+docs/test_outputs/semantic_veto_product_scope_algorithm_bakeoff_en_es_latest.md
+```
+
+Run:
+
+```bash
+python3 scripts/testing/semantic_veto_product_scope_algorithm_bakeoff_en_es.py \
+  --fail-on-review
+```
+
+Current read:
+
+```text
+original repaired-full rows: 189
+product-scope rows retained: 140
+diagnostic label rows excluded: 49
+candidate rows evaluated: 1056
+product target-pass rows: 460
+best row: sentence_transformer_cosine, masked_sentence, all_evidence_text,
+  phrase guard on, active rescue off, min_active=0.0, min_margin=-0.025
+best positive_allow_rate: 92.9%
+best negative_abstain_rate: 88.1%
+best harmful share of visible replacements: 5.2%
+best utility: 114.8
+current v3-like row: 85.7% positive allow, 92.9% negative abstain,
+  3.5% harmful share, target pass
+tfidf v2-like row: 5.1% positive allow, 97.6% negative abstain, target fail
+```
+
+Interpretation:
+
+- the label-row correction materially changes the reading: sentence-transformer
+  rows that looked harmed by label preservation now look product-promising on
+  ordinary repaired-full cases,
+- `min_active_score` is not the metric; it is one swept parameter inside the
+  decision rule,
+- the repeated top rows are expected because all active scores in that structural
+  row are above the low active-score grid values, so the margin and phrase guard
+  dominate,
+- the corrected algorithm peaks are discovery research, not runtime promotion,
+- the next methodological step is to rerun band/heuristic allocation on the
+  corrected product-scope denominator using at least the best utility row, a
+  safer high-negative-abstain row, the current v3-like row, and a TF-IDF
+  comparator.
+
+### Milestone 1h: Product-Scope Candidate Surface And Band Formula Rerun Exist
+
+After the parameter-first bakeoff, the next step was to carry representative
+candidate peaks into the family-ranking heuristic sweep. This prevents band or
+LLM-allocation conclusions from being based on the old label-preservation
+denominator or on only one hand-picked threshold.
+
+Artifacts:
+
+```text
+scripts/testing/semantic_veto_product_scope_selected_candidate_surface_en_es.py
+docs/test_outputs/semantic_veto_product_scope_selected_candidate_surface_en_es_latest.json
+docs/test_outputs/semantic_veto_product_scope_selected_candidate_surface_en_es_latest.md
+docs/test_outputs/semantic_veto_product_scope_band_formula_sweep_en_es_latest.json
+docs/test_outputs/semantic_veto_product_scope_band_formula_sweep_en_es_latest.md
+```
+
+Run:
+
+```bash
+python3 scripts/testing/semantic_veto_product_scope_selected_candidate_surface_en_es.py \
+  --fail-on-review
+
+python3 scripts/testing/semantic_veto_repaired_full_band_formula_sweep_en_es.py \
+  --dataset-json docs/test_outputs/semantic_veto_product_scope_repaired_full_dataset_en_es_latest.json \
+  --score-surface-json docs/test_outputs/semantic_veto_product_scope_selected_candidate_surface_en_es_latest.json \
+  --json-out docs/test_outputs/semantic_veto_product_scope_band_formula_sweep_en_es_latest.json \
+  --markdown-out docs/test_outputs/semantic_veto_product_scope_band_formula_sweep_en_es_latest.md \
+  --fail-on-review
+```
+
+Candidate surface:
+
+```text
+candidates carried forward: 5
+row results emitted: 700
+best utility ST row: 92.9% positive allow, 88.1% negative abstain
+safest 80% positive ST row: 83.7% positive allow, 97.6% negative abstain
+current v3-like ST row: 85.7% positive allow, 92.9% negative abstain
+TF-IDF best-by-scorer row: 91.8% positive allow, 50.0% negative abstain
+high-recall TF-IDF comparator: 99.0% positive allow, 11.9% negative abstain
+```
+
+Band/formula rerun:
+
+```text
+families: 49
+observations: 245
+fixed formulas: 10
+sweep formulas: 3124
+split counts: discovery_proxy=175, locked_eval_proxy=70
+best repeated allocation signal: shadow_coverage_only
+```
+
+Interpretation:
+
+- frequency and WordNet-style polysemy still do not prove the user's original
+  frequency-band hypothesis on this corrected lane,
+- the best cheap family-ranking signal is currently whether the family already
+  has shadow-competitor coverage, which is a proxy for "this trigger has real
+  competing-sense structure",
+- this is useful for allocating an LLM pilot because it can identify families
+  where semantic evidence is likely to matter, but it is not enough to claim a
+  final top-N policy for the whole language,
+- the locked proxy remains small, so the right use is a small LLM evidence
+  pilot with high-ranked families plus low-ranked controls, not another round
+  of threshold promotion.
+
+### Milestone 1i: Product-Scope LLM Allocation Pilot Plan Exists
+
+The corrected band/formula rerun gives a concrete next spend question:
+
+```text
+Do high shadow-coverage families benefit more from generated evidence than
+middle and low shadow-coverage controls?
+```
+
+This is the right pilot before broad generation because it tests whether the
+current best cheap allocation signal actually predicts evidence value. The
+pilot is still no-spend at this stage; it freezes the selection and renders the
+generation request packet only.
+
+Artifacts:
+
+```text
+scripts/testing/semantic_veto_product_scope_llm_allocation_pilot_plan_en_es.py
+docs/test_inputs/semantic_veto_product_scope_llm_allocation_pilot_plan_en_es.json
+docs/test_outputs/semantic_veto_product_scope_llm_allocation_pilot_plan_en_es_latest.json
+docs/test_outputs/semantic_veto_product_scope_llm_allocation_pilot_plan_en_es_latest.md
+docs/test_outputs/semantic_veto_product_scope_llm_allocation_generation_requests_en_es_latest.json
+docs/test_outputs/semantic_veto_product_scope_llm_allocation_generation_requests_en_es_latest.md
+```
+
+Run:
+
+```bash
+python3 scripts/testing/semantic_veto_product_scope_llm_allocation_pilot_plan_en_es.py \
+  --fail-on-review
+
+python3 scripts/testing/semantic_veto_evidence_gap_generation_requests_en_es.py \
+  --plan-json docs/test_inputs/semantic_veto_product_scope_llm_allocation_pilot_plan_en_es.json \
+  --json-out docs/test_outputs/semantic_veto_product_scope_llm_allocation_generation_requests_en_es_latest.json \
+  --markdown-out docs/test_outputs/semantic_veto_product_scope_llm_allocation_generation_requests_en_es_latest.md \
+  --fail-on-review
+```
+
+Current pilot:
+
+```text
+candidate families: 49
+selected families: 20
+high_need: 8 of 19 available families, predicted need 0.85
+middle_control: all 4 available families, predicted need 0.65
+low_control: 8 of 26 available families, predicted need 0.30
+planned generation slots: 60
+expected generated items: 100
+expected output-token budget: 14,000
+latest prompt id: semantic_veto_evidence_gap_generation_v7_shadow_target_correctness
+estimated input tokens: 45,211
+```
+
+Selection guardrails:
+
+- selected by the pre-outcome `shadow_coverage_only` formula,
+- deterministic seed sampling inside tied bands,
+- observed failures attached only after selection for diagnostics,
+- same active, shadow/competitor, and no-winner generation slots for every
+  selected family,
+- no threshold tuning or runtime promotion from this request packet.
+
+Interpretation:
+
+- if high-need families improve materially more than middle and low controls,
+  the shadow-coverage band is useful for prioritizing broader LLM generation,
+- if improvement is flat across bands, the project should stop treating this
+  heuristic as a strong allocation rule and use a simpler product-spend plan,
+- the middle band is undersized in the current 49-family denominator, so it is
+  included as a control but should not be overread by itself.
+
+### Milestone 1j: Product-Scope LLM Allocation Pilot Generated
+
+The first product-scope paid pilot has now been executed against the frozen
+20-family, 60-request allocation packet. Runtime policy remains unchanged; this
+is still source/admission research.
+
+Artifacts:
+
+```text
+docs/test_outputs/semantic_veto_product_scope_llm_allocation_generation_run_en_es_latest.json
+docs/test_outputs/semantic_veto_product_scope_llm_allocation_generation_run_en_es_latest.md
+docs/test_outputs/semantic_veto_product_scope_llm_allocation_generated_responses_en_es_latest.json
+docs/test_outputs/semantic_veto_product_scope_llm_allocation_generation_admission_en_es_latest.json
+docs/test_outputs/semantic_veto_product_scope_llm_allocation_generation_admission_en_es_latest.md
+docs/test_outputs/semantic_veto_product_scope_llm_allocation_generation_contribution_en_es_latest.json
+docs/test_outputs/semantic_veto_product_scope_llm_allocation_generation_contribution_en_es_latest.md
+docs/test_outputs/semantic_veto_product_scope_llm_allocation_generation_score_contribution_tfidf_en_es_latest.json
+docs/test_outputs/semantic_veto_product_scope_llm_allocation_generation_score_contribution_tfidf_en_es_latest.md
+```
+
+Live generation:
+
+```text
+batch id: en-es:semantic-veto-evidence-gap-generation:product-scope-allocation-20260509-003
+model: gpt-5.4-mini
+prompt id: semantic_veto_evidence_gap_generation_v7_shadow_target_correctness
+accepted responses: 60 / 60
+accepted generated items: 90
+input tokens: 41,107
+output tokens: 13,405
+```
+
+Admission:
+
+```text
+status: review
+admitted items: 84 / 100 expected
+waived items: 10
+rejected items: 4
+coverage shortfall: 6
+
+active_evidence_expansion: 40 admitted / 40 expected
+no_winner_context_probe: 20 admitted / 20 expected
+shadow_or_competitor_evidence_probe: 24 admitted, 10 waived, 4 rejected, 6 shortfall
+```
+
+Interpretation:
+
+- the prompt now works well for active evidence and no-winner contexts,
+- shadow generation is still the weak point because some provided or proposed
+  competitor targets are not true distinct competitors,
+- the remaining rejections are useful signal, not a formatting issue: examples
+  include `begin -> comenzar` proposing near-synonym `empezar`, and
+  `billow -> oleaje` receiving questionable `elevarse` competitor contexts,
+- the role-contribution report queues 44 non-active rows for review before any
+  source promotion; this is expected because shadow and no-winner generated
+  rows are more dangerous than active evidence rows.
+
+TF-IDF score contribution on the selected 20 families:
+
+```text
+base decision accuracy: 41.7%
+generated_active_only decision accuracy: 70.0%
+generated_existing_shadows decision accuracy: 65.0%
+base replace recall: 12.5%
+generated_active_only replace recall: 55.0%
+generated_existing_shadows replace recall: 47.5%
+harmful replaces: 0 in base and generated modes
+false abstains: 35 base, 18 active-only, 21 active+existing-shadows
+```
+
+Arm-level false-abstain movement under TF-IDF:
+
+```text
+generated_active_only:
+  high_need: 13 -> 3 false abstains
+  middle_control: 7 -> 5 false abstains
+  low_control: 15 -> 10 false abstains
+
+generated_existing_shadows:
+  high_need: 13 -> 5 false abstains
+  middle_control: 7 -> 6 false abstains
+  low_control: 15 -> 10 false abstains
+```
+
+This is a real downstream signal: generated active evidence materially reduces
+false abstains on the selected families. Shadow evidence alone hurts recall,
+and active-plus-shadow trails active-only on decision accuracy while improving
+winner accuracy slightly. The immediate practical lesson is to treat active
+evidence generation as the first product-value lane, and to keep shadow evidence
+behind stricter competitor-target review.
+
+The sentence-transformer contribution run was attempted but interrupted after
+it did not complete promptly on this checkpoint. Do not cite an ST contribution
+result until that slower lane is rerun or optimized.
+
+### Milestone 1k: Product-Scope Band Grading And SRS-Mix Normalization Exist
+
+The original band/formula sweep graded formulas mainly as a rank-ordering
+problem: predicted need versus observed family failure rate. That is useful, but
+it is not the same question as:
+
+```text
+If this formula creates high/middle/low need bands, do those bands actually have
+different veto failure rates after accounting for the expected SRS case mix?
+```
+
+The product-scope band-grading report now answers that question directly. It
+uses the current product-scope formula sweep, the selected candidate case-level
+surface, and the SRS case-mix prior report. Runtime policy remains unchanged.
+
+Artifacts:
+
+```text
+scripts/testing/semantic_veto_product_scope_band_grading_en_es.py
+docs/test_outputs/semantic_veto_product_scope_band_grading_en_es_latest.json
+docs/test_outputs/semantic_veto_product_scope_band_grading_en_es_latest.md
+```
+
+Run:
+
+```bash
+python3 scripts/testing/semantic_veto_product_scope_band_grading_en_es.py \
+  --fail-on-review
+```
+
+Current normalization targets:
+
+```text
+global_test_case_mix: positive_active 70.0%, shadow_negative 30.0%, phrase_no_winner 0.0%
+base_product_prior: positive_active 73.8%, shadow_negative 15.0%, phrase_no_winner 11.2%
+high_no_winner_product_prior: positive_active 64.7%, shadow_negative 15.0%, phrase_no_winner 20.3%
+```
+
+Important boundary:
+
+- the current product-scope selected-candidate surface has positive-active and
+  shadow-negative rows, but no phrase/no-winner rows,
+- therefore SRS-prior normalization is explicitly `measured-only` for the
+  observed mass and reports the unmeasured phrase/no-winner mass instead of
+  pretending it has been tested,
+- this is the correct data-science posture: the report can compare formula bands
+  on the evidence we have, and it also states exactly which part of the SRS
+  distribution is not measured.
+
+Current best band-grade row:
+
+```text
+scorer/config: safest_80pct_positive_sentence_transformer_a0000_m0015
+formula: sweep_linear_2169
+weights:
+  source_zipf_risk: 0.2308
+  target_zipf_risk: 0.1538
+  polysemy_risk: 0.0769
+  pos_shape_risk: 0.2308
+  shadow_coverage_risk: 0.3077
+bands: high_need 17 families, middle_need 16, low_need 16
+raw high-low failure delta: +14.6 percentage points
+base-SRS-prior measured high-low failure delta: +24.8 percentage points
+unmeasured base-prior mass: 11.2%
+```
+
+The old repeated `shadow_coverage_only` signal remains a useful representative
+comparison, but it is weaker under this band-first grading:
+
+```text
+safest ST + shadow_coverage_only:
+  raw high-low failure delta: +11.9 points
+  base-SRS-prior measured high-low failure delta: +20.6 points
+  order score: 0.6667
+```
+
+Interpretation:
+
+- the corrected feature-list fix means the fixed `linear_equal` and `max_signal`
+  formulas now use the same actual feature ids as the swept formulas,
+- the band-first report supports the user's concern that raw test-suite mix can
+  distort the read,
+- the best current allocation hypothesis is no longer merely "shadow coverage
+  alone"; a mixed formula with source frequency, target frequency, POS shape, and
+  shadow coverage gives the strongest measured band separation on the current
+  product-scope lane,
+- this is still an allocation research signal, not a final product-quality
+  claim, because phrase/no-winner product mass is visible but unmeasured here.
+
+### Milestone 1l: Product-Scope Band Heuristic Accepted For Next Research Stage
+
+Before carrying the new mixed heuristic into another LLM follow-through batch,
+we ran a bounded acceptance audit rather than relying on the top row alone.
+
+Artifacts:
+
+```text
+scripts/testing/semantic_veto_product_scope_band_grading_acceptance_audit_en_es.py
+docs/test_outputs/semantic_veto_product_scope_band_grading_acceptance_audit_en_es_latest.json
+docs/test_outputs/semantic_veto_product_scope_band_grading_acceptance_audit_en_es_latest.md
+```
+
+Run:
+
+```bash
+python3 scripts/testing/semantic_veto_product_scope_band_grading_acceptance_audit_en_es.py \
+  --fail-on-review
+```
+
+Decision:
+
+```text
+accept_band_grading_v1_for_next_research_stage
+```
+
+Candidate frozen for the next research stage:
+
+```text
+candidate id: product_scope_band_grading_v1
+scorer/config: safest_80pct_positive_sentence_transformer_a0000_m0015
+formula: sweep_linear_2169
+weights:
+  source_zipf_risk: 0.2308
+  target_zipf_risk: 0.1538
+  polysemy_risk: 0.0769
+  pos_shape_risk: 0.2308
+  shadow_coverage_risk: 0.3077
+bands: high_need 17 families, middle_need 16, low_need 16
+```
+
+Bounded falsification checks passed:
+
+```text
+candidate detail available: pass
+normalization targets all positive: pass
+normalization order all monotonic: pass
+sentence-transformer configs positive: pass
+near-neighbor formula family available: pass
+candidate beats fixed controls: pass
+```
+
+Normalization sensitivity:
+
+```text
+balanced measured mix: high 17.6%, middle 6.2%, low 1.6%, high-low +16.1 pp
+global test mix: high 23.5%, middle 8.8%, low 2.2%, high-low +21.3 pp
+base SRS prior: high 27.4%, middle 10.4%, low 2.6%, high-low +24.8 pp
+high no-winner SRS prior: high 26.8%, middle 10.2%, low 2.5%, high-low +24.3 pp
+low no-winner SRS prior: high 29.3%, middle 11.2%, low 2.8%, high-low +26.5 pp
+```
+
+Scorer/config sensitivity:
+
+```text
+sentence-transformer configs:
+  best_product_rank_sentence_transformer_a0000_mneg0025: +9.2 pp, monotonic
+  current_v3_like_sentence_transformer_a0000_m0000: +20.9 pp, monotonic
+  safest_80pct_positive_sentence_transformer_a0000_m0015: +24.8 pp, monotonic
+
+TF-IDF configs:
+  high_recall_soft_assist_tfidf_a0000_mneg0050: +1.0 pp, non-monotonic
+  tfidf_best_by_scorer_tfidf_a0000_mneg0005: -6.2 pp, non-monotonic
+```
+
+Interpretation:
+
+- accept this heuristic as the v1 allocation heuristic for the
+  sentence-transformer product lane,
+- do not call it backend-agnostic,
+- do not promote runtime policy from it,
+- use it to pick the next high/middle/low LLM follow-through batch, with
+  low-band controls preserved.
+
+### Milestone 1m: Product-Scope Band-Grading v1 Follow-Through Plan Exists
+
+The accepted v1 heuristic is now materialized as a no-spend allocation plan and
+generation request packet. This is the handoff point before another paid
+generation run.
+
+Artifacts:
+
+```text
+scripts/testing/semantic_veto_product_scope_band_grading_v1_allocation_plan_en_es.py
+docs/test_inputs/semantic_veto_product_scope_band_grading_v1_allocation_plan_en_es.json
+docs/test_outputs/semantic_veto_product_scope_band_grading_v1_allocation_plan_en_es_latest.json
+docs/test_outputs/semantic_veto_product_scope_band_grading_v1_allocation_plan_en_es_latest.md
+docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_requests_en_es_latest.json
+docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_requests_en_es_latest.md
+```
+
+Run:
+
+```bash
+python3 scripts/testing/semantic_veto_product_scope_band_grading_v1_allocation_plan_en_es.py \
+  --fail-on-review
+
+python3 scripts/testing/semantic_veto_evidence_gap_generation_requests_en_es.py \
+  --plan-json docs/test_inputs/semantic_veto_product_scope_band_grading_v1_allocation_plan_en_es.json \
+  --json-out docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_requests_en_es_latest.json \
+  --markdown-out docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_requests_en_es_latest.md \
+  --fail-on-review
+```
+
+Current plan:
+
+```text
+candidate id: product_scope_band_grading_v1
+source denominator: 49 repaired product-scope families
+band availability:
+  high_need: 17 families, 8 previous-pilot overlap, 9 new
+  middle_need: 16 families, 6 previous-pilot overlap, 10 new
+  low_need: 16 families, 6 previous-pilot overlap, 10 new
+selected follow-through batch: 18 new families
+selected arms: 6 high_need, 6 middle_control, 6 low_control
+previous-pilot selected overlap: 0
+planned generation slots: 54
+expected generated items: 90
+estimated input tokens: 40,848
+expected output-token budget: 12,600
+```
+
+Selected families:
+
+```text
+high_need: cite->mencionar, smile->sonreír, bar->cercar,
+  control->gobernar, except->excepto, region->comarca
+middle_control: govern->gobernar, german->alemán, american->americano,
+  endure->durar, tomorrow->mañana, russian->ruso
+low_control: dentist->dentista, pub->taberna, shortage->falta,
+  rumanian->rumano, argentinean->argentino, owe->deber
+```
+
+Interpretation:
+
+- this plan expands coverage rather than duplicating the previous paid pilot,
+- it keeps the same active, shadow/competitor, and no-winner request contract
+  for all arms,
+- observed historical failures are shown for diagnostics only and are not used
+  for selection,
+- the next paid step should not happen until the request packet is reviewed.
+
+### Milestone 1n: Product-Scope Band-Grading v1 Follow-Through Generated
+
+The v1 follow-through batch has now been generated, admitted, and rescored. This
+does not change runtime policy and does not promote generated rows directly into
+source evidence.
+
+Artifacts:
+
+```text
+docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_run_en_es_latest.json
+docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_run_en_es_latest.md
+docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generated_responses_en_es_latest.json
+docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_admission_en_es_latest.json
+docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_admission_en_es_latest.md
+docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_contribution_en_es_latest.json
+docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_contribution_en_es_latest.md
+docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_score_contribution_tfidf_en_es_latest.json
+docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_score_contribution_tfidf_en_es_latest.md
+docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_score_contribution_sentence_transformer_a0000_m0015_en_es_latest.json
+docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_score_contribution_sentence_transformer_a0000_m0015_en_es_latest.md
+```
+
+Run:
+
+```bash
+.venv/bin/python scripts/testing/semantic_veto_evidence_gap_generation_run_en_es.py \
+  --request-json docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_requests_en_es_latest.json \
+  --run-id product-scope-band-grading-v1-20260510-001 \
+  --execute-live \
+  --model-id gpt-5.4-mini \
+  --input-rate-per-1m 0.75 \
+  --output-rate-per-1m 4.50 \
+  --require-selected-request-count 54 \
+  --max-estimated-cost-usd 1 \
+  --max-estimated-cost-ceiling-usd 2 \
+  --json-out docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_run_en_es_latest.json \
+  --markdown-out docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_run_en_es_latest.md \
+  --generated-responses-out docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generated_responses_en_es_latest.json
+
+.venv/bin/python scripts/testing/semantic_veto_evidence_gap_generation_run_en_es.py \
+  --request-json docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_requests_en_es_latest.json \
+  --run-id product-scope-band-grading-v1-20260510-001 \
+  --execute-live \
+  --resume \
+  --retry-invalid-outputs \
+  --model-id gpt-5.4-mini \
+  --input-rate-per-1m 0.75 \
+  --output-rate-per-1m 4.50 \
+  --require-selected-request-count 54 \
+  --max-estimated-cost-usd 1 \
+  --max-estimated-cost-ceiling-usd 2 \
+  --json-out docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_run_en_es_latest.json \
+  --markdown-out docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_run_en_es_latest.md \
+  --generated-responses-out docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generated_responses_en_es_latest.json
+
+.venv/bin/python scripts/testing/semantic_veto_evidence_gap_generation_admission_en_es.py \
+  --generation-requests-json docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_requests_en_es_latest.json \
+  --generated-responses-json docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generated_responses_en_es_latest.json \
+  --json-out docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_admission_en_es_latest.json \
+  --markdown-out docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_admission_en_es_latest.md
+
+.venv/bin/python scripts/testing/semantic_veto_evidence_gap_generation_contribution_en_es.py \
+  --generation-requests-json docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_requests_en_es_latest.json \
+  --admission-json docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_admission_en_es_latest.json \
+  --json-out docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_contribution_en_es_latest.json \
+  --markdown-out docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_contribution_en_es_latest.md
+
+python3 scripts/testing/semantic_veto_evidence_gap_generation_score_contribution_en_es.py \
+  --dataset-json docs/test_inputs/semantic_routing_cases/en_es_full_family_repaired_full_v1.json \
+  --admission-json docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_admission_en_es_latest.json \
+  --scorer-id sentence_transformer_cosine \
+  --min-active-score 0 \
+  --min-margin 0.015 \
+  --skip-policy-sweep \
+  --json-out docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_score_contribution_sentence_transformer_a0000_m0015_en_es_latest.json \
+  --markdown-out docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_score_contribution_sentence_transformer_a0000_m0015_en_es_latest.md
+```
+
+Generation:
+
+```text
+batch id: en-es:semantic-veto-evidence-gap-generation:product-scope-band-grading-v1-20260510-001
+model: gpt-5.4-mini
+prompt id: semantic_veto_evidence_gap_generation_v7_shadow_target_correctness
+accepted responses: 54 / 54 after one request-id retry
+accepted generated items: 80
+latest accepted-token summary: 36,840 input / 11,899 output
+journal-inclusive paid outcomes: 37,543 input / 12,085 output
+estimated standard-processing cost from journal: about $0.083
+```
+
+Admission:
+
+```text
+status: review
+admitted items: 67 / 90 expected
+active_evidence_expansion: 36 admitted / 36 expected
+no_winner_context_probe: 17 admitted / 18 expected
+shadow_or_competitor_evidence_probe: 14 admitted, 10 waived, 4 rejected, 12 shortfall
+```
+
+Accepted sentence-transformer configuration read:
+
+```text
+scorer: sentence_transformer_cosine
+min_active_score: 0.0
+min_margin: 0.015
+policy sweep: skipped for this targeted read
+
+base: 77.1% decision accuracy, 91.7% replace recall, 13 harmful replaces, 3 false abstains
+generated_active_only: 78.6% decision accuracy, 97.2% replace recall, 14 harmful replaces, 1 false abstain
+generated_existing_shadows: 75.7% decision accuracy, 91.7% replace recall, 14 harmful replaces, 3 false abstains
+```
+
+Per-arm accepted-config read:
+
+```text
+generated_active_only:
+  high_need: +3.3 pp accuracy, +16.7 pp replace recall, false abstains 3 -> 1, harmful 2 -> 3
+  middle_control: flat
+  low_control: flat
+
+generated_existing_shadows:
+  high_need: flat accuracy, +16.7 pp replace recall, false abstains 3 -> 1, harmful 2 -> 4
+  middle_control: -4.5 pp accuracy, -16.7 pp recall
+  low_control: flat
+```
+
+TF-IDF read, kept as a fast diagnostic rather than the accepted product scorer:
+
+```text
+base: 47.1% decision accuracy, 0.0% replace recall, 1 harmful replace, 36 false abstains
+generated_active_only: 65.7% decision accuracy, 38.9% replace recall, 2 harmful replaces, 22 false abstains
+generated_existing_shadows: 62.9% decision accuracy, 33.3% replace recall, 2 harmful replaces, 24 false abstains
+```
+
+Interpretation:
+
+- active evidence generation is the only clearly useful part of this batch,
+- the accepted sentence-transformer configuration shows the lift concentrated in
+  `high_need`; middle and low controls are flat under active-only application,
+- shadow/competitor generation still creates too much admission shortfall and can
+  hurt scoring, so it should remain review-gated rather than used as automatic
+  source evidence,
+- no-winner generated rows are useful as diagnostics but are not applied as
+  runtime evidence in the current score-contribution probe,
+- the heuristic is not proven language-wide, but this follow-through supports the
+  practical next posture: use LLM budget first for active evidence on high-need
+  families, keep a small control slice, and pause broad shadow generation until
+  the competitor-target problem is cleaner.
+
+### Milestone 1o: Top-Heavy Allocation Recheck
+
+The equal-thirds banding decision has been rechecked against a more product-like
+top-heavy allocation view. This is a no-spend research report; it does not change
+runtime policy and does not replace the v1 evidence already generated.
+
+Artifacts:
+
+```text
+scripts/testing/semantic_veto_product_scope_top_heavy_band_grading_en_es.py
+core/tests/dev/test_semantic_veto_product_scope_top_heavy_band_grading_en_es.py
+docs/test_outputs/semantic_veto_product_scope_top_heavy_band_grading_en_es_latest.json
+docs/test_outputs/semantic_veto_product_scope_top_heavy_band_grading_en_es_latest.md
+```
+
+Run:
+
+```bash
+python3 scripts/testing/semantic_veto_product_scope_top_heavy_band_grading_en_es.py \
+  --fail-on-review
+```
+
+Current read:
+
+```text
+formula scopes evaluated: 2,001 / 15,670
+strategy scopes evaluated: 48,024
+band strategies: equal tertiles, top 5/15/rest, top 10/20/rest,
+  top 15/25/rest, top 20/30/rest, top 25/25/rest
+ranking modes: algorithm_need, source_exposure_product,
+  source_exposure_blend_25, source_exposure_blend_50
+```
+
+Accepted candidate takeaway:
+
+```text
+decision: top_heavy_has_signal_but_does_not_beat_equal_tertile_control
+accepted equal-tertile control:
+  bands: 17 high / 16 middle / 16 low
+  high failure: 27.4%
+  rest failure: 6.5%
+  high-rest delta: 20.9 pp
+  grade: 0.1856
+
+best accepted top-heavy alternative:
+  strategy: top_05_next_15_rest
+  ranking: source_exposure_blend_50
+  bands: 3 high / 7 middle / 39 low
+  high failure: 27.7%
+  rest failure: 13.1%
+  high-rest delta: 14.6 pp
+  grade: 0.0864
+  grade ratio to equal-tertile control: 0.4655
+```
+
+Interpretation:
+
+- the top-heavy/common-language intuition is not wrong: the best concentrated
+  slice does find a tiny high-failure group (`break`, `control`, `current`),
+- but on the current repaired 49-family product-scope suite, that concentrated
+  slice does not beat the equal-tertile accepted candidate as an allocation
+  heuristic,
+- the equal-tertile result remains stronger because failures are spread through
+  a broader upper group, not only the first few daily-language families,
+- source exposure is still useful for product framing and top-N budget curves,
+  but this report does not justify switching the next allocation strategy to a
+  tiny top-heavy batch yet,
+- the result is sample-fragile because top 5% is only three families in this
+  suite; treat it as a hypothesis to revisit when the SRS candidate universe is
+  scored, not as a final product cutoff.
+
+### Milestone 1p: High-Need Shadow Stronger-Model Probe
+
+The harder shadow/competitor slots were tested with a stronger model before
+spending broadly on shadow data. This was intentionally narrow: the exact six
+`high_need` shadow requests from `product_scope_band_grading_v1` were rerun with
+`gpt-5.5`, then admitted and rescored against the same repaired manual sentence
+cases. Runtime policy remains unchanged.
+
+Artifacts:
+
+```text
+docs/test_outputs/semantic_veto_product_scope_band_grading_v1_shadow_gpt55_generation_run_en_es_latest.json
+docs/test_outputs/semantic_veto_product_scope_band_grading_v1_shadow_gpt55_generation_run_en_es_latest.md
+docs/test_outputs/semantic_veto_product_scope_band_grading_v1_shadow_gpt55_generated_responses_en_es_latest.json
+docs/test_outputs/semantic_veto_product_scope_band_grading_v1_shadow_gpt55_generation_admission_en_es_latest.json
+docs/test_outputs/semantic_veto_product_scope_band_grading_v1_shadow_gpt55_generation_admission_en_es_latest.md
+docs/test_outputs/semantic_veto_product_scope_band_grading_v1_shadow_gpt55_generation_contribution_en_es_latest.json
+docs/test_outputs/semantic_veto_product_scope_band_grading_v1_shadow_gpt55_generation_contribution_en_es_latest.md
+docs/test_outputs/semantic_veto_product_scope_band_grading_v1_shadow_gpt55_generation_score_contribution_sentence_transformer_a0000_m0015_en_es_latest.json
+docs/test_outputs/semantic_veto_product_scope_band_grading_v1_shadow_gpt55_generation_score_contribution_sentence_transformer_a0000_m0015_en_es_latest.md
+docs/test_outputs/semantic_veto_product_scope_band_grading_v1_shadow_mini_high_generated_responses_en_es_latest.json
+docs/test_outputs/semantic_veto_product_scope_band_grading_v1_shadow_mini_high_generation_admission_en_es_latest.json
+docs/test_outputs/semantic_veto_product_scope_band_grading_v1_shadow_mini_high_generation_admission_en_es_latest.md
+docs/test_outputs/semantic_veto_product_scope_band_grading_v1_shadow_mini_high_generation_score_contribution_sentence_transformer_a0000_m0015_en_es_latest.json
+docs/test_outputs/semantic_veto_product_scope_band_grading_v1_shadow_mini_high_generation_score_contribution_sentence_transformer_a0000_m0015_en_es_latest.md
+```
+
+Run shape:
+
+```text
+model: gpt-5.5
+request scope: six high_need shadow_or_competitor_evidence_probe requests
+temperature: omitted, because this model rejects the temperature parameter
+retry policy: one retry of the three truncated JSON outputs with max_output_tokens 1400
+journal-inclusive usage: 7,807 input tokens / 6,449 output tokens
+estimated standard-processing cost at the 2026-05-09 price snapshot: about $0.233
+```
+
+Admission comparison:
+
+```text
+gpt-5.4-mini same six high-need shadow requests:
+  admitted 10 / 12 expected items
+  rejected 2 items
+  selected families reaching scoring: 5
+
+gpt-5.5 same six high-need shadow requests:
+  admitted 12 / 12 expected items
+  rejected 0 items
+  selected families reaching scoring: 6
+```
+
+Fixed sentence-transformer score contribution at `min_active_score=0.0` and
+`min_margin=0.015`:
+
+```text
+gpt-5.5 selected-family base:
+  83.3% decision accuracy, 75.0% replace recall,
+  2 harmful replaces, 3 false abstains
+
+gpt-5.5 generated_existing_shadows:
+  80.0% decision accuracy, 66.7% replace recall,
+  2 harmful replaces, 4 false abstains
+
+gpt-5.4-mini same-six subset generated_existing_shadows:
+  76.0% decision accuracy, 70.0% replace recall,
+  3 harmful replaces, 3 false abstains
+```
+
+Interpretation:
+
+- the stronger model materially improved shadow-row admissibility; for example,
+  it generated usable `except -> objetar` competitor contexts where the mini
+  row fell back to the active `excepto` sense and was rejected,
+- that admission improvement did not translate into fixed-threshold veto lift;
+  stronger shadows still added abstention pressure and did not reduce harmful
+  replacements on this six-family slice,
+- therefore broad paid shadow generation should stay paused unless the next
+  change also changes how shadow evidence is represented, weighted, or admitted,
+  or unless a separate reviewer lane can prove that accepted shadows improve
+  downstream decisions outside this fixed scorer setup,
+- the practical paid-data path remains active evidence first for high-need
+  families, with shadow generation reserved for narrow experiments.
+
+### Milestone 1q: Active-Only v1 Reuse Tranche
+
+Before spending on another active-only batch, the already generated
+`product_scope_band_grading_v1` active evidence was carried through the
+productization path as a no-spend scale-up rehearsal. This answers whether the
+current active-only packaging/replay/helper flow can handle another tranche with
+tranche-specific provenance.
+
+Artifacts:
+
+```text
+docs/test_outputs/semantic_veto_product_scope_band_grading_v1_active_only_postprocess_en_es_latest.json
+docs/test_outputs/semantic_veto_product_scope_band_grading_v1_active_only_postprocess_en_es_latest.md
+docs/test_outputs/semantic_veto_product_scope_band_grading_v1_active_only_source_packaging_en_es_latest.json
+docs/test_outputs/semantic_veto_product_scope_band_grading_v1_active_only_source_packaging_en_es_latest.md
+docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-product-scope-band-grading-v1-active-only-source-packaging-latest_intake_batch.json
+docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-product-scope-band-grading-v1-active-only-source-packaging-latest_normalized_evidence.json
+docs/test_outputs/semantic_veto_product_scope_band_grading_v1_active_only_inventory_replay_en_es_latest.json
+docs/test_outputs/semantic_veto_product_scope_band_grading_v1_active_only_inventory_replay_en_es_latest.md
+docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-product-scope-band-grading-v1-active-only-inventory-replay-latest_semantic_inventory.json
+docs/test_outputs/semantic_veto_product_scope_band_grading_v1_active_only_helper_runtime_smoke_en_es_latest.json
+docs/test_outputs/semantic_veto_product_scope_band_grading_v1_active_only_helper_runtime_smoke_en_es_latest.md
+docs/test_outputs/semantic_veto_product_scope_band_grading_v1_active_only_live_page_scan_en_es_latest.json
+docs/test_outputs/semantic_veto_product_scope_band_grading_v1_active_only_live_page_scan_en_es_latest.md
+```
+
+Postprocess:
+
+```text
+active items audited: 36
+families: 18
+high eval-overlap items: 1
+POS-weak items: 12
+target lemma in evidence note: 0
+selected view: no_high_eval_overlap_sentence_only
+selected view score: 68.6% decision accuracy, 41.7% replace recall,
+  1 harmful replace, 21 false abstains on 70 cases
+```
+
+Source packaging:
+
+```text
+packaged anchor_cue rows: 35
+excluded rows: 1 high eval-overlap row
+families: 18
+runtime_publishable rows: 0
+source_id / row_id provenance: tranche-specific
+```
+
+Inventory-shaped replay:
+
+```text
+applied rows: 35 / 35
+cases: 70
+base: 47.1% decision accuracy, 0.0% replace recall,
+  1 harmful replace, 36 false abstains
+candidate: 68.6% decision accuracy, 41.7% replace recall,
+  1 harmful replace, 21 false abstains
+delta: +21.4 pp decision accuracy, +41.7 pp replace recall,
+  -15 false abstains, +0 harmful replaces
+```
+
+Helper runtime smoke:
+
+```text
+families / rules: 18
+cases: 70
+policy decisions: 70
+fallback decisions: 0
+decision accuracy: 67.1%
+replace recall: 44.4%
+harmful replaces: 3
+false abstains: 20
+```
+
+Live page scan:
+
+```text
+pages scanned: 17 / 17
+page fetch errors: 0
+review rows: 63
+decisions: 13 replace / 50 abstain
+fallback decisions: 0
+```
+
+Interpretation:
+
+- the scale-up flow works without new spend: generated active rows can be
+  audited, packaged, normalized, replayed, helper-published into an isolated
+  fixture, and scanned against public pages with no fallback decisions,
+- this tranche reproduces the core active-only benefit: it mainly reduces false
+  abstains and increases replacement recall,
+- the helper/runtime smoke is more product-realistic than the inventory replay
+  and shows the expected soft-assist tradeoff: more visible replacements plus a
+  few harmful allows,
+- the next paid generation step should use the same active-only path, not broad
+  shadow generation, and should be stopped if a tranche fails admission,
+  packaging, replay, or manual page feel.
+
+### Milestone 1r: Active-Only Scale Tranche and Combined Product-Scope Fixture
+
+The next paid active-only tranche was run after excluding families already
+covered by the PoC and v1 reuse batches. The purpose was not to retune the
+algorithm. It was to complete active generated-evidence coverage for the current
+49-family repaired product-scope denominator, then replay the combined source
+evidence through the same offline and helper paths.
+
+Artifacts:
+
+```text
+scripts/testing/semantic_veto_active_only_scale_tranche_requests_en_es.py
+docs/test_outputs/semantic_veto_active_only_scale_tranche_v1_requests_en_es_latest.json
+docs/test_outputs/semantic_veto_active_only_scale_tranche_v1_requests_en_es_latest.md
+docs/test_outputs/semantic_veto_active_only_scale_tranche_v1_generation_run_en_es_latest.json
+docs/test_outputs/semantic_veto_active_only_scale_tranche_v1_generation_run_en_es_latest.md
+docs/test_outputs/semantic_veto_active_only_scale_tranche_v1_generated_responses_repaired_en_es_latest.json
+docs/test_outputs/semantic_veto_active_only_scale_tranche_v1_generation_admission_en_es_latest.json
+docs/test_outputs/semantic_veto_active_only_scale_tranche_v1_generation_admission_en_es_latest.md
+docs/test_outputs/semantic_veto_active_only_scale_tranche_v1_postprocess_en_es_latest.json
+docs/test_outputs/semantic_veto_active_only_scale_tranche_v1_postprocess_en_es_latest.md
+docs/test_outputs/semantic_veto_active_only_scale_tranche_v1_source_packaging_en_es_latest.json
+docs/test_outputs/semantic_veto_active_only_scale_tranche_v1_source_packaging_en_es_latest.md
+docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-scale-tranche-v1-source-packaging-latest_normalized_evidence.json
+docs/test_outputs/semantic_veto_active_only_scale_tranche_v1_inventory_replay_en_es_latest.json
+docs/test_outputs/semantic_veto_active_only_scale_tranche_v1_inventory_replay_en_es_latest.md
+docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-product-scope-v1-normalized_evidence.json
+docs/test_outputs/semantic_veto_active_only_combined_product_scope_v1_inventory_replay_en_es_latest.json
+docs/test_outputs/semantic_veto_active_only_combined_product_scope_v1_inventory_replay_en_es_latest.md
+docs/test_outputs/semantic_veto_active_only_combined_product_scope_v1_helper_runtime_smoke_en_es_latest.json
+docs/test_outputs/semantic_veto_active_only_combined_product_scope_v1_helper_runtime_smoke_en_es_latest.md
+docs/test_outputs/semantic_veto_active_only_combined_product_scope_v1_live_page_scan_en_es_latest.json
+docs/test_outputs/semantic_veto_active_only_combined_product_scope_v1_live_page_scan_en_es_latest.md
+```
+
+Request packet:
+
+```text
+covered families excluded: 33
+selected uncovered families: 16
+requests: 16 active_evidence_expansion
+expected generated items: 32
+arms: 6 high_need, 4 middle_control, 6 low_control
+estimated input tokens: 7,967
+expected output-token budget: 4,480
+```
+
+Generation and admission:
+
+```text
+model: gpt-5.4-mini
+accepted responses after resume: 16 / 16
+admitted active items after repair: 32 / 32
+rejected generated items: 0
+coverage shortfall: 0
+journal-inclusive paid outcomes: 18
+journal-inclusive usage: 8,469 input tokens / 3,079 output tokens
+estimated cost at the 2026-05-09 mini rates: about $0.020
+```
+
+One mechanical repair was applied to the generated-response bundle:
+
+```text
+continue -> durar repair:
+  initial accepted response had one rejected item because it used "continues"
+  instead of the exact runtime token "continue";
+  the one-request repair response used exact-token sentences but changed
+  request_id metadata from en_es to en-es;
+  the repaired generated-response artifact corrects only that request_id
+  metadata and leaves generated sentences unchanged.
+```
+
+Scale-tranche-only replay:
+
+```text
+families: 16
+cases: 63
+packaged rows: 32
+base: 55.6% decision accuracy, 12.5% replace recall,
+  0 harmful replaces, 28 false abstains
+candidate: 71.4% decision accuracy, 50.0% replace recall,
+  2 harmful replaces, 16 false abstains
+delta: +15.9 pp decision accuracy, +37.5 pp replace recall,
+  -12 false abstains, +2 harmful replaces
+```
+
+Combined product-scope replay:
+
+```text
+combined batches: PoC active-only + v1 reuse active-only + scale tranche
+families: 49
+cases: 189
+packaged rows: 112
+base: 50.3% decision accuracy, 5.1% replace recall,
+  1 harmful replace, 93 false abstains
+candidate: 72.0% decision accuracy, 46.9% replace recall,
+  1 harmful replace, 52 false abstains
+delta: +21.7 pp decision accuracy, +41.8 pp replace recall,
+  -41 false abstains, +0 harmful replaces
+```
+
+Combined helper runtime smoke:
+
+```text
+families / rules: 49
+cases: 189
+policy decisions: 189
+fallback decisions: 0
+decision accuracy: 72.5%
+replace recall: 49.0%
+harmful replaces: 2
+false abstains: 50
+```
+
+Combined live page scan:
+
+```text
+pages scanned: 16 / 17
+page fetch errors: 0
+review rows: 120
+decisions: 25 replace / 95 abstain
+decision source: 120 policy, 0 fallback
+scan stopped reason: max_total_matches
+```
+
+Interpretation:
+
+- the active-only path now has source evidence coverage for the full current
+  49-family product-scope denominator,
+- the combined offline replay is a clean improvement over the base product-scope
+  state and does not increase harmful replacements under that replay policy,
+- the helper smoke is the more runtime-realistic reading and shows the expected
+  soft-assist tradeoff: nearly half of positives allowed, 50 false abstains
+  remaining, and 2 harmful replacements,
+- the live-page scan is still a manual product-feel packet, not a statistical
+  promotion metric,
+- broad shadow generation remains paused because the strongest shadow probe did
+  not improve fixed scorer outcomes.
 
 ### Milestone 2: Existing Data Product Read
 

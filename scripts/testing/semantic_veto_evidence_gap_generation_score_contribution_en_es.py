@@ -58,6 +58,11 @@ def _parse_args() -> argparse.Namespace:
     parser.add_argument("--scorer-id", default=DEFAULT_SCORER_ID)
     parser.add_argument("--context-view", default=DEFAULT_CONTEXT_VIEW)
     parser.add_argument("--evidence-view", default=DEFAULT_EVIDENCE_VIEW)
+    parser.add_argument("--min-active-score", type=float, default=0.05)
+    parser.add_argument("--min-margin", type=float, default=0.0)
+    parser.add_argument("--phrase-control-mode", default="off")
+    parser.add_argument("--active-rescue-mode", default="off")
+    parser.add_argument("--skip-policy-sweep", action="store_true")
     parser.add_argument("--json-out", type=Path, default=DEFAULT_JSON_OUT)
     parser.add_argument("--markdown-out", type=Path, default=DEFAULT_MARKDOWN_OUT)
     parser.add_argument("--fail-on-review", action="store_true")
@@ -75,6 +80,11 @@ def main() -> int:
         scorer_id=args.scorer_id,
         context_view=args.context_view,
         evidence_view=args.evidence_view,
+        min_active_score=args.min_active_score,
+        min_margin=args.min_margin,
+        phrase_control_mode=args.phrase_control_mode,
+        active_rescue_mode=args.active_rescue_mode,
+        include_policy_sweep=not args.skip_policy_sweep,
     )
     args.json_out.parent.mkdir(parents=True, exist_ok=True)
     args.markdown_out.parent.mkdir(parents=True, exist_ok=True)

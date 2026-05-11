@@ -70,6 +70,13 @@
     const refreshSemanticAdmissionStatus = typeof opts.refreshSemanticAdmissionStatus === "function"
       ? opts.refreshSemanticAdmissionStatus
       : (() => Promise.resolve());
+    const semanticPackWorkflowFactory = root.optionsSrsSemanticPackInstallWorkflow
+      && typeof root.optionsSrsSemanticPackInstallWorkflow.createSemanticPackInstallWorkflow === "function"
+      ? root.optionsSrsSemanticPackInstallWorkflow.createSemanticPackInstallWorkflow
+      : null;
+    const semanticPackWorkflow = semanticPackWorkflowFactory
+      ? semanticPackWorkflowFactory(opts)
+      : { installSemanticPack: async () => {} };
 
     async function initializeSet() {
       if (!initializeButton || !output) {
@@ -401,6 +408,7 @@
       refreshSetNow,
       runRuntimeDiagnostics,
       previewSampledRulegen,
+      installSemanticPack: semanticPackWorkflow.installSemanticPack,
       resetSrsData
     };
   }

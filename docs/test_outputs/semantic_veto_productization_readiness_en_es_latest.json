@@ -1,0 +1,149 @@
+{
+  "blocking_next_work": [
+    "Use the isolated helper fixture for manual browser/helper testing before mutating any real profile data.",
+    "If manual behavior is acceptable, package a bounded real helper candidate or stop the veto lane as a soft-assist PoC.",
+    "Keep broader paid generation blocked until the manual smoke confirms the user-facing replace-or-abstain behavior is acceptable."
+  ],
+  "candidate": {
+    "admission_status": "ok",
+    "admitted_item_count": 48,
+    "application_mode": "generated_active_only",
+    "base_metrics": {
+      "cases_total": 91,
+      "decision_accuracy": 0.5054945054945055,
+      "false_abstain_count": 44,
+      "harmful_replace_count": 1,
+      "predicted_replace_cases": 5,
+      "replace_recall": 0.08333333333333333,
+      "winner_accuracy": 0.7014925373134329
+    },
+    "coverage_shortfall_count": 0,
+    "postprocess_flags": {
+      "definition_like_count": 2,
+      "high_eval_overlap_count": 3,
+      "medium_eval_overlap_count": 6,
+      "pos_weak_count": 1,
+      "target_lemma_in_note_count": 1
+    },
+    "postprocess_status": "ok",
+    "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+    "prompt_bakeoff_status": "ok",
+    "prompt_variant_id": "v5_refresh_control",
+    "rejected_item_count": 0,
+    "score_contribution_status": "ok",
+    "score_delta": {
+      "decision_accuracy_delta": 0.230769,
+      "false_abstain_delta": -20,
+      "harmful_replace_delta": -1,
+      "replace_recall_delta": 0.416667,
+      "winner_accuracy_delta": 0.104478
+    },
+    "score_metrics": {
+      "cases_total": 91,
+      "decision_accuracy": 0.7362637362637363,
+      "false_abstain_count": 24,
+      "harmful_replace_count": 0,
+      "predicted_replace_cases": 24,
+      "replace_recall": 0.5,
+      "winner_accuracy": 0.8059701492537313
+    }
+  },
+  "current_runtime_policy": {
+    "active_rescue_mode": "sense_label_near_tie_active_rescue",
+    "context_view": "masked_sentence",
+    "evidence_view": "all_evidence_text",
+    "min_active_score": 0.0,
+    "min_margin": 0.0,
+    "phrase_control_mode": "noun_family_frame_guard",
+    "policy_id": "en_es_sentence_veto_v3",
+    "scorer_id": "sentence_transformer_cosine"
+  },
+  "decision": "active_only_candidate_ready_for_manual_testing",
+  "generated_at": "2026-05-09T02:08:16Z",
+  "inputs": {
+    "admission_path": "docs/test_outputs/semantic_veto_evidence_gap_generation_admission_active_only_poc_en_es_latest.json",
+    "helper_runtime_smoke_path": "docs/test_outputs/semantic_veto_active_only_helper_runtime_smoke_en_es_latest.json",
+    "inventory_replay_path": "docs/test_outputs/semantic_veto_active_only_inventory_replay_en_es_latest.json",
+    "postprocess_path": "docs/test_outputs/semantic_veto_evidence_gap_generation_postprocess_active_only_poc_en_es_latest.json",
+    "prompt_bakeoff_path": "docs/test_outputs/semantic_veto_evidence_gap_prompt_variant_bakeoff_summary_en_es_latest.json",
+    "score_contribution_path": "docs/test_outputs/semantic_veto_evidence_gap_generation_score_contribution_active_only_poc_en_es_latest.json",
+    "source_packaging_path": "docs/test_outputs/semantic_veto_active_only_source_packaging_en_es_latest.json"
+  },
+  "non_goals_for_this_slice": [
+    "do not tune runtime thresholds",
+    "do not promote v6 prompt wording",
+    "do not use generated shadows or no-winner rows for production",
+    "do not claim full en-es product accuracy from the 24-family PoC denominator"
+  ],
+  "pair": "en-es",
+  "product_stance": {
+    "harmful_replacements_allowed": true,
+    "mode": "soft_assist",
+    "runtime_policy_change_requested": false,
+    "runtime_ux": "binary_replace_or_do_not_replace",
+    "threshold_change_requested": false
+  },
+  "readiness_checks": [
+    {
+      "check_id": "prompt_candidate_selected",
+      "detail": "best primary prompt is v5_refresh_control; expected v5_refresh_control",
+      "result": "pass"
+    },
+    {
+      "check_id": "admission_clean",
+      "detail": "48 admitted; 0 rejected; 0 shortfall",
+      "result": "pass"
+    },
+    {
+      "check_id": "offline_lift_observed",
+      "detail": "accuracy delta +0.2308; false abstain delta -20",
+      "result": "pass"
+    },
+    {
+      "check_id": "soft_assist_harm_budget_preserved",
+      "detail": "harmful replaces 0; delta -1",
+      "result": "pass"
+    },
+    {
+      "check_id": "same_denominator_confirmed",
+      "detail": "prompt, admission, and score artifacts are all status ok",
+      "result": "pass"
+    },
+    {
+      "check_id": "source_packaging_done",
+      "detail": "45 canonical rows; 0 runtime-publishable rows",
+      "result": "pass"
+    },
+    {
+      "check_id": "inventory_replay_done",
+      "detail": "91 cases; 45 applied rows; accuracy delta +0.2308",
+      "result": "pass"
+    },
+    {
+      "check_id": "helper_runtime_smoke_done",
+      "detail": "91 cases; 0 fallback decisions; accuracy 0.7692; recall 0.5833; harmful 1",
+      "result": "pass"
+    }
+  ],
+  "runtime_publication_status": "manual_testing_ready",
+  "schema_version": 1,
+  "source_to_runtime_seams": {
+    "canonical_source_packaging_available": true,
+    "generated_rows_are_research_admission_rows": true,
+    "helper_runtime_smoke_available": true,
+    "helper_runtime_smoke_case_count": 91,
+    "helper_runtime_smoke_decision_accuracy": 0.7692307692307693,
+    "helper_runtime_smoke_fallback_decision_count": 0,
+    "helper_runtime_smoke_false_abstain_count": 20,
+    "helper_runtime_smoke_harmful_replace_count": 1,
+    "helper_runtime_smoke_replace_recall": 0.5833333333333334,
+    "inventory_replay_case_count": 91,
+    "inventory_shaped_replay_available": true,
+    "llm_rows_compiled_into_runtime_inventory": true,
+    "packaged_canonical_row_count": 45,
+    "semantic_evidence_normalization_version": "semantic_evidence_v1",
+    "semantic_evidence_normalizer_available": true,
+    "semantic_inventory_publication_available": true
+  },
+  "status": "ok"
+}

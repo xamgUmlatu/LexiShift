@@ -181766,7 +181766,7 @@
       "formula_family": "sweep_linear"
     }
   ],
-  "generated_at": "2026-05-07T19:55:26Z",
+  "generated_at": "2026-05-09T19:34:07Z",
   "inputs": {
     "dataset_id": "en_es_full_family_repaired_full_v1",
     "dataset_manual_review_state": "approved_by_user",
@@ -181783,14 +181783,13 @@
   ],
   "methodology": {
     "forbidden_formula_features": [
-      "error_type",
+      "case_count",
+      "failure_count",
       "gold_decision",
-      "gold_winner",
-      "gold_winner_type",
-      "manual_case_type",
       "observed_failure_rate",
       "predicted_decision",
-      "predicted_winner_type"
+      "product_outcome",
+      "winner_accuracy"
     ],
     "formula_features": [
       "source_zipf_risk",

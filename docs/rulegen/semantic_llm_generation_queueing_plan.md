@@ -3,8 +3,8 @@
 Status: active plan
 Role: Planning / pre-scan framing
 Purpose: define what semantic-routing data should eventually be generated with LLM support, which units deserve queueing, what can be inferred automatically versus what remains hypothesis, and how to avoid redundant generation work
-Last updated: 2026-05-09
-Last verified: 2026-05-09 active-only prompt-variant bakeoff, generated-evidence admission, and postprocess scoring over the frozen 24-family PoC denominator
+Last updated: 2026-05-12
+Last verified: 2026-05-12 active-only prompt-variant bakeoff, generated-evidence admission, postprocess scoring over the frozen 24-family PoC denominator, the product-scope band-grading v1 active-only reuse tranche, the active-only scale tranche through combined 49-family packaging, inventory replay, helper runtime smoke, live-page scan, named-pack installer smoke, and initial browser review with the product-soft `min_active_score=0.015` active-only policy
 Source-of-truth: planning doc only; current implemented truth still lives in the semantic-routing contracts, inventory publication code, and offline evidence normalization seam
 Related docs:
 - `docs/rulegen/semantic_shadow_source_intake_plan.md`
@@ -71,6 +71,169 @@ In other words:
 - `en-es / trigger=ball / active sense=pelota(ball-object)` is the real unit
 
 That matches the current semantic-routing architecture more closely than a word list does.
+
+## Current productization boundary
+
+As of 2026-05-09, the current candidate is:
+
+- `v5_refresh_control` prompt wording
+- active-only generated evidence
+- `no_high_eval_overlap_sentence_only` postprocess view
+- soft-assist product posture, not a zero-harmful semantic gate
+
+The current evidence is promising but not runtime-published:
+
+- 48 active evidence items admitted across 24 PoC families
+- 0 generated-item rejects and 0 coverage shortfall
+- score-contribution denominator: 91 frozen repaired-full cases
+- selected postprocess view packaged 45 canonical `anchor_cue` rows
+- 3 high-eval-overlap rows were excluded before packaging
+- inventory-shaped replay applied all 45 rows across 24 families and 91 cases
+- decision accuracy improved from 50.5% to 73.6%
+- replace recall improved from 8.3% to 50.0%
+- false abstains dropped from 44 to 24
+- harmful replacements dropped from 1 to 0
+- isolated helper runtime smoke wrote a generation-aligned ruleset, snapshot,
+  semantic inventory, and publication manifest under a fixture data root
+- helper semantic_admit_batch produced 91 policy decisions and 0 fallback
+  decisions using the browser-style auto-selected `en_es_sentence_veto_v2`
+  policy for active-only inventories
+- helper-smoke decision accuracy was 76.9%, replace recall was 58.3%, false
+  abstains were 20, and harmful replacements were 1
+- live online-page scan produced 113 manually reviewable real-page sentence
+  decisions across 17 public pages, with 0 page fetch errors and 0 fallback
+  decisions
+
+The next engineering step is manual helper/browser testing from the isolated
+fixture, not another prompt rewrite and not more paid generation. The generated
+rows are now canonical source evidence and have passed both inventory-shaped
+replay and real helper semantic-admission smoke. They are still not published
+into real user profile data.
+
+As of 2026-05-10, the next no-spend reuse tranche has also been carried through
+the same path:
+
+- `product_scope_band_grading_v1` contributed 36 already generated active items
+  across 18 families,
+- postprocess selected the `no_high_eval_overlap_sentence_only` view,
+- source packaging produced 35 tranche-specific `anchor_cue` rows and excluded
+  1 high-overlap row,
+- inventory-shaped replay applied 35/35 rows, improved decision accuracy from
+  47.1% to 68.6%, improved replace recall from 0.0% to 41.7%, reduced false
+  abstains from 36 to 21, and did not increase harmful replacements under the
+  replay policy,
+- isolated helper runtime smoke covered 70 cases with 70 policy decisions, 0
+  fallback decisions, 67.1% decision accuracy, 44.4% replace recall, 3 harmful
+  replacements, and 20 false abstains,
+- live public-page scan produced 63 manual-review rows across 17 pages with 13
+  replace and 50 abstain decisions.
+
+This confirms the ramping posture: use active-only generation in additive
+tranches, preserve tranche provenance in source ids and row ids, and require
+admission, postprocess, packaging, replay, helper smoke, and page-feel review
+before increasing spend. Shadow generation remains paused for scale because the
+stronger-model shadow probe improved admissibility but did not improve fixed
+veto scoring.
+
+As of the later 2026-05-10 paid scale tranche, the active-only path has also
+completed coverage of the current 49-family repaired product-scope denominator:
+
+- the active-only scale request renderer selected the 16 remaining uncovered
+  families after excluding 33 families already covered by packaged active
+  evidence,
+- the live mini run produced 16 active responses and 32 generated active items
+  after one resume retry,
+- one follow-up response was used for `continue -> durar` after the initial
+  admitted response contained an inflected `continues` item; the repaired
+  generated-response artifact corrects only request-id metadata from the repair
+  response and keeps generated sentences unchanged,
+- admission accepted 32/32 active items with 0 rejected items and 0 coverage
+  shortfall,
+- source packaging produced 32 new canonical `anchor_cue` rows across 16
+  families with 0 exclusions under `no_high_eval_overlap_sentence_only`,
+- combining the PoC, v1 reuse, and scale-tranche normalized evidence produced
+  112 rows over 49 families,
+- the combined inventory replay on 189 repaired-full cases improved decision
+  accuracy from 50.3% to 72.0%, replace recall from 5.1% to 46.9%, and false
+  abstains from 93 to 52, with harmful replacements unchanged at 1,
+- the combined helper runtime smoke produced 189 policy decisions, 0 fallback
+  decisions, 72.5% decision accuracy, 49.0% replace recall, 2 harmful
+  replacements, and 50 false abstains,
+- the combined live-page scan produced 120 manual-review rows from 16 fetched
+  public pages, with 25 replace and 95 abstain decisions.
+
+This is the current best manual-testing fixture. The remaining product question
+is no longer whether active cue generation can materially move the curve; it can.
+Initial browser review of the combined fixture found the lower-abstain
+`min_active_score=0.015` active-only policy acceptable as a soft-assist smoke.
+That is not a language-wide `en-es` generation result. It only proves that the
+current active-only data path can be generated, admitted, packaged, installed,
+and felt in a real browser on a bounded pack.
+
+Current boundary artifact:
+
+- `docs/test_outputs/semantic_veto_productization_readiness_en_es_latest.md`
+- `docs/test_outputs/semantic_veto_active_only_source_packaging_en_es_latest.md`
+- `docs/test_outputs/semantic_veto_active_only_inventory_replay_en_es_latest.md`
+- `docs/test_outputs/semantic_veto_active_only_helper_runtime_smoke_en_es_latest.md`
+- `docs/test_outputs/semantic_veto_active_only_live_page_scan_en_es_latest.md`
+- `docs/test_outputs/semantic_veto_product_scope_band_grading_v1_active_only_source_packaging_en_es_latest.md`
+- `docs/test_outputs/semantic_veto_product_scope_band_grading_v1_active_only_inventory_replay_en_es_latest.md`
+- `docs/test_outputs/semantic_veto_product_scope_band_grading_v1_active_only_helper_runtime_smoke_en_es_latest.md`
+- `docs/test_outputs/semantic_veto_product_scope_band_grading_v1_active_only_live_page_scan_en_es_latest.md`
+- `docs/test_outputs/semantic_veto_active_only_scale_tranche_v1_requests_en_es_latest.md`
+- `docs/test_outputs/semantic_veto_active_only_scale_tranche_v1_generation_admission_en_es_latest.md`
+- `docs/test_outputs/semantic_veto_active_only_scale_tranche_v1_source_packaging_en_es_latest.md`
+- `docs/test_outputs/semantic_veto_active_only_scale_tranche_v1_inventory_replay_en_es_latest.md`
+- `docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-product-scope-v1-normalized_evidence.json`
+- `docs/test_outputs/semantic_veto_active_only_combined_product_scope_v1_inventory_replay_en_es_latest.md`
+- `docs/test_outputs/semantic_veto_active_only_combined_product_scope_v1_helper_runtime_smoke_en_es_latest.md`
+- `docs/test_outputs/semantic_veto_active_only_combined_product_scope_v1_live_page_scan_en_es_latest.md`
+
+## Full `en-es` generation boundary
+
+The entire `en-es` semantic-veto data set has not been generated.
+
+The completed pack is:
+
+- active-only cue evidence,
+- 112 canonical evidence rows,
+- 49 repaired product-scope families,
+- no generated phrase/no-winner controls,
+- no broad generated shadow/competitor coverage,
+- and no cloud-hosted distribution path.
+
+For product scale, "full `en-es`" should not mean every English dictionary word.
+It should mean the SRS-admissible `en-es` semantic-family universe that can
+actually surface during browsing:
+
+- a trigger/source phrase the browser can match,
+- a target the learner can actually have active through SRS/rulegen,
+- an active semantic inventory row worth serving,
+- and, only where useful, shadow/competitor rows that block clearly wrong
+  replacements.
+
+The scale-generation program should therefore proceed in lanes:
+
+1. Freeze the current `active_only_combined_product_scope_v1` pack as the
+   product-smoke control.
+2. Compute the SRS-admissible family universe from current `en-es` rulegen/SRS
+   candidate data, with enough metadata to identify already-covered families.
+3. Render a no-spend active-only request plan for uncovered families in
+   deterministic resumable tranches.
+4. Generate active cue evidence first, because this is the only paid data shape
+   that has repeatedly admitted cleanly and improved downstream false abstains.
+5. Run admission, postprocess, source packaging, inventory replay, helper smoke,
+   and live-page sample review after each tranche before larger spend.
+6. Add generated shadows only for high-need or observed-harm families where
+   active-only evidence still allows clearly wrong replacements.
+7. Keep phrase/no-winner controls as a separate lane; active cue generation does
+   not solve those cases.
+
+The immediate engineering gap is step 2: materialize the real SRS-admissible
+family universe and quantify how much of it is already covered by the 49-family
+pack. After that, the next paid run should be a conservative active-only tranche,
+not an attempt to spend the whole budget at once.
 
 ## What "worried about polysemy" should mean
 
@@ -774,6 +937,12 @@ Current status on that seam:
   - completed request outcomes are append-only and resumable
   - rerunning without `--resume` over an existing journal is rejected
   - ambiguous started-without-outcome requests block resume instead of risking duplicate spend
+- the evidence-gap generation runner now also emits scale-safe run artifacts:
+  - `*_run_manifest.json` before live spend and after final bundle write
+  - `*_request_queue.jsonl` before live spend
+  - `*_raw_responses.jsonl` immediately after each live outcome
+  - `*_failures.jsonl` immediately after each failed live outcome
+  - final JSON/Markdown/JSONL bundle writes use temp-file-and-rename atomic writes
 - the current Codex command shell still does not inherit `OPENAI_API_KEY` automatically, but the sourced-shell + repo-venv path is now surfaced explicitly by the preflight artifact
 - current token-volume review is also explicit before any paid run:
   - latest target-overlap preflight selected `6` target requests

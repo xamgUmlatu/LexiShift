@@ -376,6 +376,9 @@ Recommended record responsibilities:
   - active sense
   - promoted shadows
   - shadow-selection policy version
+  - `selection_mode: active_only` is allowed only for active-only cue evidence with an
+    empty `shadow_sense_ids` array; ordinary `automatic`, `manual`, and `mixed`
+    ready competition sets still require at least one real shadow sense
 
 - `capability`
   - which locator modes this pair can currently emit
@@ -385,6 +388,15 @@ Recommended record responsibilities:
 
 - `phrase_sets`
   - phrase/idiom blockers that should preempt semantic scoring
+
+Active-only cue batches use the same runtime admission seam, but their inventory shape is
+intentionally distinct from ordinary shadow competition. A ready active-only competition set uses
+`competition_mode: active_only_anchor_cue`, `selection_mode: active_only`, and
+`shadow_sense_ids: []`. Runtime then compares the browser context against the active evidence only,
+with a shadow score of `0.0`. This is a soft-assist mode for allowing clear positive contexts, not
+proof that no competing sense exists. When no request-level `decision_policy_id` is provided, an
+`en-es` inventory with `competition_mode: active_only_anchor_cue` auto-selects
+`en_es_sentence_veto_v2`; ordinary `en-es` inventories still use the pair default.
 
 ### Layer C. Runtime Admission Request / Response
 

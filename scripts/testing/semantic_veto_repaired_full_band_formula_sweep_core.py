@@ -39,11 +39,11 @@ FORBIDDEN_FORMULA_FEATURES = {
     "case_count",
 }
 FEATURE_IDS = (
-    "source_exposure_risk",
-    "source_polysemy_risk",
-    "source_pos_risk",
-    "translation_competitor_risk",
-    "case_mix_risk",
+    "source_zipf_risk",
+    "target_zipf_risk",
+    "polysemy_risk",
+    "pos_shape_risk",
+    "shadow_coverage_risk",
 )
 TOP_K = 8
 

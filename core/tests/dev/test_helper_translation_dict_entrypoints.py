@@ -78,6 +78,7 @@ class TestHelperTranslationDictEntrypoints(unittest.TestCase):
         self.assertIn("preview_srs_admission", help_text)
         self.assertIn("plan_srs_rebalance", help_text)
         self.assertIn("apply_srs_rebalance", help_text)
+        self.assertIn("install_semantic_pack", help_text)
 
     def test_helper_cli_preview_admission_help_lists_profile_preview_flags(self) -> None:
         result = subprocess.run(
@@ -93,6 +94,138 @@ class TestHelperTranslationDictEntrypoints(unittest.TestCase):
         self.assertIn("--preview-count", help_text)
         self.assertIn("--preview-sampling-mode", help_text)
         self.assertIn("--profile-context-json", help_text)
+
+    def test_helper_cli_install_semantic_pack_help_lists_safety_flags(self) -> None:
+        result = subprocess.run(
+            [sys.executable, str(HELPER_SCRIPT), "install_semantic_pack", "--help"],
+            cwd=REPO_ROOT,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+
+        self.assertEqual(result.returncode, 0, msg=result.stderr)
+        help_text = result.stdout
+        self.assertIn("--semantic-inventory", help_text)
+        self.assertIn("--data-root", help_text)
+        self.assertIn("--allow-default-data-root", help_text)
+        self.assertIn("--dry-run", help_text)
+
+    def test_helper_cli_install_semantic_pack_requires_explicit_data_root(self) -> None:
+        result = subprocess.run(
+            [
+                sys.executable,
+                str(HELPER_SCRIPT),
+                "install_semantic_pack",
+                "--semantic-inventory",
+                "missing.json",
+                "--dry-run",
+            ],
+            cwd=REPO_ROOT,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+
+        self.assertEqual(result.returncode, 2)
+        self.assertIn("requires --data-root", result.stderr)
+
+    def test_native_host_install_semantic_pack_requires_explicit_data_root(self) -> None:
+        module = _load_module("lexishift_native_host_install_safety_test", NATIVE_HOST_SCRIPT)
+
+        with patch.object(module, "build_helper_paths", side_effect=AssertionError):
+            with self.assertRaisesRegex(ValueError, "requires payload.data_root"):
+                module._handle_request(
+                    "install_semantic_pack",
+                    {
+                        "pair": "en-es",
+                        "profile_id": "semantic alpha",
+                        "semantic_inventory_path": "missing.json",
+                    },
+                )
+
+    def test_native_host_installs_semantic_pack_into_profile_publication_family(self) -> None:
+        module = _load_module(
+            "lexishift_native_host_install_semantic_pack_test", NATIVE_HOST_SCRIPT
+        )
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            source_inventory = root / "source_inventory.json"
+            source_inventory.write_text(
+                json.dumps(_sample_semantic_inventory(), ensure_ascii=False),
+                encoding="utf-8",
+            )
+            data_root = root / "data-root"
+
+            response = module._handle_request(
+                "install_semantic_pack",
+                {
+                    "pair": "en-es",
+                    "profile_id": "semantic alpha",
+                    "semantic_inventory_path": str(source_inventory),
+                    "pack_id": "en-es-active-only-native-v1",
+                    "data_root": str(data_root),
+                    "generated_at": "2026-05-10T00:00:00Z",
+                },
+            )
+            paths = build_helper_paths(data_root)
+
+            self.assertEqual(response["status"], "ok")
+            self.assertEqual(response["profile_id"], "semantic_alpha")
+            self.assertEqual(response["summary"]["rule_count"], 1)
+            self.assertTrue(paths.ruleset_path("en-es", profile_id="semantic_alpha").exists())
+            self.assertTrue(
+                paths.semantic_inventory_path("en-es", profile_id="semantic_alpha").exists()
+            )
+            self.assertTrue(
+                (
+                    paths.language_packs_dir
+                    / "en-es"
+                    / "semantic_packs"
+                    / "en-es-active-only-native-v1"
+                    / "semantic_inventory.json"
+                ).exists()
+            )
+
+    def test_native_host_installs_named_semantic_pack_without_source_path(self) -> None:
+        module = _load_module("lexishift_native_host_named_semantic_pack_test", NATIVE_HOST_SCRIPT)
+
+        with tempfile.TemporaryDirectory() as tmp:
+            data_root = Path(tmp) / "data-root"
+            paths = build_helper_paths(data_root)
+            pack_inventory = (
+                paths.language_packs_dir
+                / "en-es"
+                / "semantic_packs"
+                / "en-es-installed-native-v1"
+                / "semantic_inventory.json"
+            )
+            pack_inventory.parent.mkdir(parents=True, exist_ok=True)
+            pack_inventory.write_text(
+                json.dumps(_sample_semantic_inventory(), ensure_ascii=False),
+                encoding="utf-8",
+            )
+
+            response = module._handle_request(
+                "install_semantic_pack",
+                {
+                    "pair": "en-es",
+                    "profile_id": "semantic alpha",
+                    "pack_id": "en-es-installed-native-v1",
+                    "data_root": str(data_root),
+                    "generated_at": "2026-05-10T00:00:00Z",
+                    "no_pack_copy": True,
+                },
+            )
+
+            self.assertEqual(response["status"], "ok")
+            self.assertEqual(response["profile_id"], "semantic_alpha")
+            self.assertEqual(response["summary"]["rule_count"], 1)
+            self.assertEqual(
+                response["source"]["semantic_inventory_path"],
+                str(pack_inventory),
+            )
 
     def test_native_host_ignores_legacy_translation_dict_payload_key(self) -> None:
         module = _load_module("lexishift_native_host_test", NATIVE_HOST_SCRIPT)
@@ -268,6 +401,46 @@ class TestHelperTranslationDictEntrypoints(unittest.TestCase):
         self.assertEqual(apply_config.strategy, "profile_growth")
         self.assertEqual(apply_config.max_active_items, 12)
         self.assertEqual(apply_config.profile_context, {"interests": ["animals"]})
+
+
+def _sample_semantic_inventory() -> dict[str, object]:
+    return {
+        "schema_version": 1,
+        "pair": "en-es",
+        "triggers": {
+            "family:bank:trigger": {
+                "trigger_id": "family:bank:trigger",
+                "source_phrase": "bank",
+            }
+        },
+        "senses": {
+            "family:bank:active": {
+                "sense_id": "family:bank:active",
+                "target_lemma": "banco",
+                "evidence_views": {
+                    "sense_label": "financial institution",
+                    "all_evidence_text": "The bank approved the loan.",
+                },
+            },
+            "family:bank:shadow": {
+                "sense_id": "family:bank:shadow",
+                "target_lemma": "orilla",
+                "evidence_views": {
+                    "sense_label": "river edge",
+                    "all_evidence_text": "They sat on the bank of the river.",
+                },
+            },
+        },
+        "competition_sets": {
+            "family:bank:banco:v1": {
+                "competition_set_id": "family:bank:banco:v1",
+                "trigger_id": "family:bank:trigger",
+                "active_sense_id": "family:bank:active",
+                "shadow_sense_ids": ["family:bank:shadow"],
+            }
+        },
+        "phrase_sets": {},
+    }
 
 
 if __name__ == "__main__":

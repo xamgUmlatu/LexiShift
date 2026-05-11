@@ -230,6 +230,52 @@
       if (!snapshot) throw new Error(this.i18n.t("status_srs_rulegen_failed", null, "Rule preview failed."));
       return { rulegenData, snapshot, duration };
     };
+
+    proto.installSemanticPack = async function installSemanticPack(pair, options) {
+      const client = this.getClient();
+      if (!client || typeof client.installSemanticPack !== "function") {
+        throw new Error(this.i18n.t("status_helper_missing", null, "Helper unavailable."));
+      }
+      const opts = options && typeof options === "object" ? options : {};
+      const profileId = this.normalizeProfileId(opts.profileId);
+      const semanticInventoryPath = String(opts.semanticInventoryPath || "").trim();
+      const dataRoot = String(opts.dataRoot || "").trim();
+      const allowDefaultDataRoot = opts.allowDefaultDataRoot === true;
+      if (!dataRoot && !allowDefaultDataRoot) {
+        throw new Error(
+          this.i18n.t(
+            "status_semantic_pack_data_root_required",
+            null,
+            "Data root is required unless default data root is enabled."
+          )
+        );
+      }
+      const response = await client.installSemanticPack({
+        pair: pair,
+        profile_id: profileId,
+        semantic_inventory_path: semanticInventoryPath || undefined,
+        pack_id: String(opts.packId || "en-es-active-only-combined-product-scope-v1").trim()
+          || "en-es-active-only-combined-product-scope-v1",
+        data_root: dataRoot || undefined,
+        allow_default_data_root: allowDefaultDataRoot,
+        dry_run: opts.dryRun === true,
+        no_pack_copy: opts.copyPack === false
+      }, 60000);
+      if (!response || response.ok === false) {
+        throw new Error(
+          this.normalizeHelperErrorMessage(
+            response && response.error,
+            "status_semantic_pack_install_failed",
+            "Semantic pack install failed."
+          )
+        );
+      }
+      const helperCache = globalThis.LexiShift && globalThis.LexiShift.helperCache;
+      if (helperCache && typeof helperCache.clearPair === "function") {
+        await helperCache.clearPair(pair, { profileId });
+      }
+      return response.data || {};
+    };
   }
 
   root.installHelperDiagnosticsMethods = installHelperDiagnosticsMethods;

@@ -2,6 +2,7 @@
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
 
   const DEFAULT_TIMEOUT_MS = 4000;
+  const INSTALL_SEMANTIC_PACK_TIMEOUT_MS = 60000;
 
   class HelperClient {
     constructor(transport) {
@@ -39,6 +40,14 @@
     semanticAdmitBatch(payload, timeoutMs = DEFAULT_TIMEOUT_MS) {
       return this.send(
         "semantic_admit_batch",
+        payload && typeof payload === "object" ? payload : {},
+        timeoutMs
+      );
+    }
+
+    installSemanticPack(payload, timeoutMs = INSTALL_SEMANTIC_PACK_TIMEOUT_MS) {
+      return this.send(
+        "install_semantic_pack",
         payload && typeof payload === "object" ? payload : {},
         timeoutMs
       );
