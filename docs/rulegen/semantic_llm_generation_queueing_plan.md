@@ -230,6 +230,9 @@ As of 2026-05-12, steps 2 and 3 have an explicit no-spend denominator plan:
   1,026 generated active cue rows if every currently queued family is attempted,
 - conservative first runnable request packet: 42 approved families / 84 expected
   active rows / 21,898 estimated input tokens / 11,760 output-token budget,
+- current no-spend mini safety estimate for that packet:
+  approximately `$0.070` expected / `$0.149` max-output ceiling using the
+  2026-05-12 official `gpt-5.4-mini` standard rates,
 - full active-only queue shape after known rejections: 11 resumable queue
   tranches, with future tranche rows still requiring the same pre-spend
   source-target review.

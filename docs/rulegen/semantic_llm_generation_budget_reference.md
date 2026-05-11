@@ -10,7 +10,7 @@ and pass the rates explicitly to the run harness.
 
 ## Current Price Snapshot
 
-Snapshot date: 2026-05-09.
+Snapshot date: 2026-05-12.
 
 | Model | Input / 1M tokens | Output / 1M tokens | Notes |
 | --- | ---: | ---: | --- |
@@ -260,7 +260,10 @@ The current first runnable request packet is the reviewed-approved tranche 001:
 - 42 approved source-target families,
 - 84 expected active cue rows,
 - 21,898 estimated input tokens,
-- 11,760 output-token budget.
+- 11,760 output-token budget,
+- no-spend safety estimate with current `gpt-5.4-mini` rates and
+  `--expected-output-tokens 280`: about `$0.070` expected / `$0.149`
+  max-output ceiling.
 
 This is the next unit to price with current model rates at execution time. The
 older table rows such as `common-source active-only pass` remain historical

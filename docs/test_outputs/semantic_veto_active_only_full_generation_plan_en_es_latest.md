@@ -2,7 +2,7 @@
 
 - Status: `ok`
 - Decision: `active_only_full_generation_plan_ready`
-- Generated: `2026-05-11T22:27:26Z`
+- Generated: `2026-05-11T22:30:34Z`
 - Denominator source-target families: `570`
 - Current active-only covered families: `49` (8.6%)
 - Uncovered active-only families: `521`
@@ -108,6 +108,7 @@ python3 scripts/testing/semantic_veto_evidence_gap_generation_run_en_es.py \
   --run-id en-es-active-only-full-v1-tranche-001-approved \
   --max-requests 42 \
   --require-selected-request-count 42 \
+  --expected-output-tokens 280 \
   --input-rate-per-1m <current-input-rate> \
   --output-rate-per-1m <current-output-rate> \
   --max-estimated-cost-usd <small-tranche-budget> \

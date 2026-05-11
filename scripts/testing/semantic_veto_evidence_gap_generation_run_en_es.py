@@ -15,6 +15,7 @@ from semantic_llm_prompt_bakeoff_en_es import (  # noqa: E402
     _assert_live_safety_guards,
     _build_responses_client,
     _display_path,
+    _load_json,
     _ReplayResponsesClient,
 )
 from semantic_veto_evidence_gap_generation_run_core import (  # noqa: E402
@@ -23,7 +24,6 @@ from semantic_veto_evidence_gap_generation_run_core import (  # noqa: E402
     DEFAULT_TEMPERATURE,
     build_evidence_gap_generation_run_bundle as build_evidence_gap_generation_run_bundle,
     write_evidence_gap_generation_run_bundle as write_evidence_gap_generation_run_bundle,
-    _load_json,
     _utc_now,
 )
 from semantic_veto_evidence_gap_generation_run_rendering import (  # noqa: E402

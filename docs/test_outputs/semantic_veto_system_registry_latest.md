@@ -1,7 +1,7 @@
 # Semantic Veto System Registry
 
 - Status: `ok`
-- Generated: `2026-05-11T22:27:26Z`
+- Generated: `2026-05-11T22:30:34Z`
 - Registry: `/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_veto_system_registry_en_es.json`
 - Entries: `317`
 - Passes: `7`

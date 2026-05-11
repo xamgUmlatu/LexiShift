@@ -93,6 +93,7 @@ def render_active_only_full_generation_plan_markdown(report: Mapping[str, object
             f"  --run-id {_safe_first_run_id(summary)} \\",
             f"  --max-requests {summary.get('selected_request_count', 0)} \\",
             f"  --require-selected-request-count {summary.get('selected_request_count', 0)} \\",
+            f"  --expected-output-tokens {_expected_output_tokens_per_request(summary)} \\",
             "  --input-rate-per-1m <current-input-rate> \\",
             "  --output-rate-per-1m <current-output-rate> \\",
             "  --max-estimated-cost-usd <small-tranche-budget> \\",
@@ -155,3 +156,11 @@ def _safe_first_run_id(summary: Mapping[str, object]) -> str:
     if bool(summary.get("source_target_review_active")):
         return "en-es-active-only-full-v1-tranche-001-approved"
     return "en-es-active-only-full-v1-tranche-001"
+
+
+def _expected_output_tokens_per_request(summary: Mapping[str, object]) -> int:
+    request_count = int(summary.get("selected_request_count") or 0)
+    output_budget = int(summary.get("selected_expected_output_token_budget") or 0)
+    if request_count <= 0 or output_budget <= 0:
+        return 180
+    return max(1, int(round(output_budget / request_count)))
