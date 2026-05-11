@@ -73,6 +73,8 @@ def build_evidence_gap_generation_admission_report(
         if str(row.get("request_id") or "")
     }
     generated_responses = _generated_responses(generated_responses_payload)
+    generated_response_mapping = _as_mapping(generated_responses_payload)
+    operator_repairs = _mapping_rows(generated_response_mapping.get("operator_repairs"))
     generated_responses_present = generated_responses_payload is not None
     selected_request_ids = _selected_request_ids(generated_responses_payload)
     expected_request_ids = selected_request_ids or frozenset(requests_by_id)
@@ -148,6 +150,10 @@ def build_evidence_gap_generation_admission_report(
             "generation_requests_path": _repo_path(generation_requests_path),
             "generated_responses_path": _repo_path(generated_responses_path),
             "generated_responses_present": generated_responses_present,
+        },
+        "generated_response_metadata": {
+            "operator_repair_count": len(operator_repairs),
+            "operator_repairs": operator_repairs,
         },
         "strict_flow": {
             "runtime_policy_change": "none",

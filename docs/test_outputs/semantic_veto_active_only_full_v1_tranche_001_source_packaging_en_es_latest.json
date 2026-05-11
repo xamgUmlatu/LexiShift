@@ -1,0 +1,395 @@
+{
+  "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-001",
+  "decision": "active_only_source_packaging_ready_for_inventory_compile",
+  "excluded_items": [],
+  "family_rows": [
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:access:entrada:f606af7f",
+      "packaged_row_count": 2,
+      "targets": [
+        "entrada"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:ask:preguntar:fd844e28",
+      "packaged_row_count": 2,
+      "targets": [
+        "preguntar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:away:lejos:4bacff77",
+      "packaged_row_count": 2,
+      "targets": [
+        "lejos"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:beginning:principio:85cb6780",
+      "packaged_row_count": 2,
+      "targets": [
+        "principio"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:between:entre:e39f176b",
+      "packaged_row_count": 2,
+      "targets": [
+        "entre"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:break:romper:5975739f",
+      "packaged_row_count": 2,
+      "targets": [
+        "romper"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:car:automovil:993c7cd2",
+      "packaged_row_count": 2,
+      "targets": [
+        "automóvil"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:century:siglo:f6f9470d",
+      "packaged_row_count": 2,
+      "targets": [
+        "siglo"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:chief:jefe:344be945",
+      "packaged_row_count": 2,
+      "targets": [
+        "jefe"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:close:estrecho:370fec2a",
+      "packaged_row_count": 2,
+      "targets": [
+        "estrecho"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:court:patio:98c516cc",
+      "packaged_row_count": 2,
+      "targets": [
+        "patio"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:cup:taza:6484ea57",
+      "packaged_row_count": 2,
+      "targets": [
+        "taza"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:double:doble:b7f1fbea",
+      "packaged_row_count": 2,
+      "targets": [
+        "doble"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:eight:ocho:1a5d9885",
+      "packaged_row_count": 2,
+      "targets": [
+        "ocho"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:even:par:70e2069a",
+      "packaged_row_count": 2,
+      "targets": [
+        "par"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:exactly:justamente:c1f472af",
+      "packaged_row_count": 2,
+      "targets": [
+        "justamente"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:face:rostro:a561d564",
+      "packaged_row_count": 2,
+      "targets": [
+        "rostro"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:far:lejos:1afe4736",
+      "packaged_row_count": 2,
+      "targets": [
+        "lejos"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:hour:hora:a56c0a35",
+      "packaged_row_count": 2,
+      "targets": [
+        "hora"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:ice:hielo:355f4a5a",
+      "packaged_row_count": 2,
+      "targets": [
+        "hielo"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:inside:dentro:04a73bd0",
+      "packaged_row_count": 2,
+      "targets": [
+        "dentro"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:just:solo:4416541d",
+      "packaged_row_count": 2,
+      "targets": [
+        "sólo"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:light:luz:362574ca",
+      "packaged_row_count": 2,
+      "targets": [
+        "luz"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:little:pequeno:01e0e186",
+      "packaged_row_count": 2,
+      "targets": [
+        "pequeño"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:making:produccion:2b7930ef",
+      "packaged_row_count": 2,
+      "targets": [
+        "producción"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:more:mas:69fad969",
+      "packaged_row_count": 2,
+      "targets": [
+        "más"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:morning:manana:33f98a45",
+      "packaged_row_count": 2,
+      "targets": [
+        "mañana"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:music:musica:d3fd1c45",
+      "packaged_row_count": 2,
+      "targets": [
+        "música"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:national:nacional:0bd1f394",
+      "packaged_row_count": 2,
+      "targets": [
+        "nacional"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:need:necesidad:37b1c756",
+      "packaged_row_count": 2,
+      "targets": [
+        "necesidad"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:now:actualmente:34ed5d09",
+      "packaged_row_count": 2,
+      "targets": [
+        "actualmente"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:official:oficial:4c111a94",
+      "packaged_row_count": 2,
+      "targets": [
+        "oficial"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:only:solo:d7d1ae75",
+      "packaged_row_count": 2,
+      "targets": [
+        "sólo"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:read:leer:5515bafa",
+      "packaged_row_count": 2,
+      "targets": [
+        "leer"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:room:espacio:5c2c2c9c",
+      "packaged_row_count": 2,
+      "targets": [
+        "espacio"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:section:departamento:9051f03f",
+      "packaged_row_count": 2,
+      "targets": [
+        "departamento"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:small:pequeno:bc4c21fe",
+      "packaged_row_count": 2,
+      "targets": [
+        "pequeño"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:space:espacio:055c8ea5",
+      "packaged_row_count": 2,
+      "targets": [
+        "espacio"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:stand:puesto:936738dc",
+      "packaged_row_count": 2,
+      "targets": [
+        "puesto"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:start:principio:f6e41fb0",
+      "packaged_row_count": 2,
+      "targets": [
+        "principio"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:time:hora:edd6bcb5",
+      "packaged_row_count": 2,
+      "targets": [
+        "hora"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:work:trabajar:41fc059d",
+      "packaged_row_count": 2,
+      "targets": [
+        "trabajar"
+      ]
+    }
+  ],
+  "generated_at": "2026-05-11T22:44:10Z",
+  "inputs": {
+    "admission_path": "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_001_repaired_generation_admission_en_es_latest.json",
+    "generation_run_path": "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_001_generation_run_en_es_latest.json",
+    "postprocess_path": "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_001_postprocess_en_es_latest.json"
+  },
+  "issues": [],
+  "normalization_version": "semantic_evidence_v1",
+  "pair": "en-es",
+  "provenance_summary": {
+    "input_tokens": 20992,
+    "model_id": "gpt-5.4-mini",
+    "operator_repair_count": 1,
+    "operator_repairs": [
+      {
+        "reason": "replace the single work->trabajar response whose second generated item used works instead of the exact runtime trigger token work",
+        "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:work:trabajar:41fc059d:active_evidence_expansion",
+        "source": "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_001_work_repair_manual_exact_token_generated_responses_en_es_latest.json"
+      }
+    ],
+    "output_tokens": 7411,
+    "postprocess_status": "ok",
+    "prompt_id": "",
+    "raw_output_mutation": "operator_repaired_after_generation",
+    "temperature": 0.2
+  },
+  "runtime_boundary": [
+    "normalized rows remain runtime_publishable=false",
+    "this output is canonical source evidence, not a semantic inventory sidecar",
+    "the next step is an inventory compiler that appends packaged anchor cues to ready active-sense evidence_views",
+    "runtime policy and thresholds remain unchanged"
+  ],
+  "schema_version": 1,
+  "status": "ok",
+  "summary": {
+    "admitted_input_item_count": 84,
+    "excluded_row_count": 0,
+    "exclusion_reason_counts": {},
+    "family_count": 42,
+    "packaged_row_count": 84,
+    "promotion_state_counts": {
+      "proposed": 84
+    },
+    "relation_type_counts": {
+      "anchor_cue": 84
+    },
+    "review_state_counts": {
+      "unreviewed": 84
+    },
+    "runtime_publishable_row_count": 0
+  },
+  "view_id": "no_high_eval_overlap_sentence_only"
+}

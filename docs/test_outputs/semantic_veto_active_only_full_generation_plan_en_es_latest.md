@@ -2,7 +2,7 @@
 
 - Status: `ok`
 - Decision: `active_only_full_generation_plan_ready`
-- Generated: `2026-05-11T22:30:34Z`
+- Generated: `2026-05-11T22:59:09Z`
 - Denominator source-target families: `570`
 - Current active-only covered families: `49` (8.6%)
 - Uncovered active-only families: `521`

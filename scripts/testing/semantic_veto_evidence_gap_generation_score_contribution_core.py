@@ -30,6 +30,8 @@ from semantic_veto_evidence_gap_generation_score_contribution_utils import (  # 
     _as_mapping,
     _count_by,
     _delta,
+    _fmt as _fmt,
+    _load_json as _load_json,
     _mapping_rows,
     _normalize_target,
     _report_modes,

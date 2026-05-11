@@ -261,6 +261,8 @@ def _build_intake_batch(
     generated_at: str,
 ) -> dict[str, object]:
     generation_summary = _as_mapping(generation_run_payload.get("summary"))
+    generated_response_metadata = _as_mapping(admission_payload.get("generated_response_metadata"))
+    operator_repairs = _mapping_rows(generated_response_metadata.get("operator_repairs"))
     batch_id = f"en-es:semantic-veto:{run_id}"
     return {
         "schema_version": 1,
@@ -288,7 +290,9 @@ def _build_intake_batch(
             "postprocess_view_id": view_id,
             "admission_generated_at": str(admission_payload.get("generated_at") or ""),
             "postprocess_generated_at": str(postprocess_payload.get("generated_at") or ""),
-            "raw_output_mutation": "none",
+            "raw_output_mutation": _raw_output_mutation(admission_payload),
+            "operator_repair_count": len(operator_repairs),
+            "operator_repairs": operator_repairs,
             "evidence_variant": _view_evidence_variant(view_id),
             "admitted_input_item_count": int(
                 _as_mapping(admission_payload.get("summary")).get("admitted_item_count") or 0
@@ -371,6 +375,8 @@ def _build_report(
     rows = _mapping_rows((normalized_batch or {}).get("rows"))
     runtime_publishable_count = sum(1 for row in rows if bool(row.get("runtime_publishable")))
     generation_summary = _as_mapping(generation_run_payload.get("summary"))
+    generated_response_metadata = _as_mapping(admission_payload.get("generated_response_metadata"))
+    operator_repairs = _mapping_rows(generated_response_metadata.get("operator_repairs"))
     family_rows = _family_rows(selected_items=selected_items, excluded_items=excluded_items)
     report_issues = list(issues)
     if runtime_publishable_count:
@@ -413,7 +419,9 @@ def _build_report(
             "temperature": generation_run_payload.get("selected_temperature"),
             "input_tokens": int(generation_summary.get("input_tokens") or 0),
             "output_tokens": int(generation_summary.get("output_tokens") or 0),
-            "raw_output_mutation": "none",
+            "raw_output_mutation": _raw_output_mutation(admission_payload),
+            "operator_repair_count": len(operator_repairs),
+            "operator_repairs": operator_repairs,
             "postprocess_status": str(postprocess_payload.get("status") or ""),
         },
         "family_rows": family_rows,
@@ -549,6 +557,13 @@ def _count_by(rows: Sequence[Mapping[str, object]], key: str) -> dict[str, int]:
         value = str(row.get(key) or "").strip() or "missing"
         counts[value] = counts.get(value, 0) + 1
     return dict(sorted(counts.items()))
+
+
+def _raw_output_mutation(admission_payload: Mapping[str, object]) -> str:
+    metadata = _as_mapping(admission_payload.get("generated_response_metadata"))
+    if _mapping_rows(metadata.get("operator_repairs")):
+        return "operator_repaired_after_generation"
+    return "none"
 
 
 def _load_json(path: Path) -> dict[str, object]:

@@ -19426,7 +19426,7 @@
     "selected_rows_review_approved_or_review_inactive": true
   },
   "evidence_outside_denominator_keys": [],
-  "generated_at": "2026-05-11T22:30:34Z",
+  "generated_at": "2026-05-11T22:59:09Z",
   "inputs": {
     "existing_evidence_paths": [
       "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-product-scope-v1-normalized_evidence.json"
@@ -19458,6 +19458,12 @@
     "Generate shadows only for high-need or observed-harm families after active-only coverage has been measured."
   ],
   "pair": "en-es",
+  "pilot": {
+    "pilot_id": "semantic_veto_active_only_full_en_es_v1",
+    "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+    "request_kind": "semantic_veto_evidence_gap_generation",
+    "requested_items_per_request": 2
+  },
   "requests": [
     {
       "active_evidence_text": "Use 'away' in natural English contexts where the intended Spanish replacement is 'lejos'. The sentence should make that source-target sense clear without using the Spanish word.",

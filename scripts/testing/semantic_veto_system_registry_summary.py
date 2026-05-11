@@ -173,22 +173,43 @@ def render_markdown(report: Mapping[str, object]) -> str:
         f"- Summary: {candidate.get('candidate_summary', '')}",
     ]
     if "helper_runtime_smoke_decision_accuracy" in result:
-        lines.extend(
-            [
-                f"- Packaged/inventory rows: `{result.get('packaged_canonical_rows', '')}` / "
-                f"`{result.get('inventory_replay_applied_rows', '')}`",
-                f"- Inventory replay: `{result.get('candidate_decision_accuracy', '')}` accuracy / "
-                f"`{result.get('candidate_replace_recall', '')}` recall / "
-                f"`{result.get('candidate_false_abstains', '')}` false abstains / "
-                f"`{result.get('candidate_harmful_replacements', '')}` harmful",
-                f"- Helper runtime smoke: "
-                f"`{result.get('helper_runtime_smoke_decision_accuracy', '')}` accuracy / "
-                f"`{result.get('helper_runtime_smoke_replace_recall', '')}` recall / "
-                f"`{result.get('helper_runtime_smoke_false_abstains', '')}` false abstains / "
-                f"`{result.get('helper_runtime_smoke_harmful_replacements', '')}` harmful / "
-                f"`{result.get('helper_runtime_smoke_fallback_decisions', '')}` fallbacks",
-            ]
-        )
+        if "combined_full_pack_families" in result:
+            lines.extend(
+                [
+                    f"- Combined full pack: `{result.get('combined_full_pack_families', '')}` "
+                    f"families / `{result.get('combined_full_pack_normalized_rows', '')}` "
+                    f"normalized rows / `{result.get('combined_full_pack_installed_rule_count', '')}` "
+                    "installed rules",
+                    f"- Installed competition sets: "
+                    f"`{result.get('combined_full_pack_installed_active_only_competition_sets', '')}` "
+                    f"active-only / "
+                    f"`{result.get('combined_full_pack_installed_shadowed_competition_sets', '')}` "
+                    "shadowed",
+                    f"- Product-scope helper smoke control: "
+                    f"`{result.get('helper_runtime_smoke_decision_accuracy', '')}` accuracy / "
+                    f"`{result.get('helper_runtime_smoke_replace_recall', '')}` recall / "
+                    f"`{result.get('helper_runtime_smoke_false_abstains', '')}` false abstains / "
+                    f"`{result.get('helper_runtime_smoke_harmful_replacements', '')}` harmful / "
+                    f"`{result.get('helper_runtime_smoke_fallback_decisions', '')}` fallbacks",
+                ]
+            )
+        else:
+            lines.extend(
+                [
+                    f"- Packaged/inventory rows: `{result.get('packaged_canonical_rows', '')}` / "
+                    f"`{result.get('inventory_replay_applied_rows', '')}`",
+                    f"- Inventory replay: `{result.get('candidate_decision_accuracy', '')}` accuracy / "
+                    f"`{result.get('candidate_replace_recall', '')}` recall / "
+                    f"`{result.get('candidate_false_abstains', '')}` false abstains / "
+                    f"`{result.get('candidate_harmful_replacements', '')}` harmful",
+                    f"- Helper runtime smoke: "
+                    f"`{result.get('helper_runtime_smoke_decision_accuracy', '')}` accuracy / "
+                    f"`{result.get('helper_runtime_smoke_replace_recall', '')}` recall / "
+                    f"`{result.get('helper_runtime_smoke_false_abstains', '')}` false abstains / "
+                    f"`{result.get('helper_runtime_smoke_harmful_replacements', '')}` harmful / "
+                    f"`{result.get('helper_runtime_smoke_fallback_decisions', '')}` fallbacks",
+                ]
+            )
         if "live_page_scan_review_rows" in result:
             lines.append(
                 f"- Live page scan: `{result.get('live_page_scan_pages', '')}` pages / "
@@ -197,6 +218,15 @@ def render_markdown(report: Mapping[str, object]) -> str:
                 f"`{result.get('live_page_scan_abstain_decisions', '')}` abstain / "
                 f"`{result.get('live_page_scan_page_fetch_errors', '')}` page errors / "
                 f"`{result.get('live_page_scan_fallback_decisions', '')}` fallbacks"
+            )
+        if "combined_full_live_page_scan_review_rows" in result:
+            lines.append(
+                "- Combined full live page scan: "
+                f"`{result.get('combined_full_live_page_scan_review_rows', '')}` review rows / "
+                f"`{result.get('combined_full_live_page_scan_replace_decisions', '')}` replace / "
+                f"`{result.get('combined_full_live_page_scan_abstain_decisions', '')}` abstain / "
+                f"`{result.get('combined_full_live_page_scan_page_fetch_errors', '')}` page errors / "
+                f"`{result.get('combined_full_live_page_scan_fallback_decisions', '')}` fallbacks"
             )
     else:
         lines.extend(

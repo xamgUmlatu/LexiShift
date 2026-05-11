@@ -1,0 +1,237 @@
+{
+  "admitted_items": [
+    {
+      "active_mismatch_note": "",
+      "active_sense_contrast": "",
+      "active_target_lemma": "trabajar",
+      "admission_status": "admitted",
+      "arm_rank": 34,
+      "competitor_sense_label": "",
+      "diversity_note": "",
+      "evidence_note": "work means to do a job or labor.",
+      "family_id": "en-es:srs-source-target:work:trabajar:41fc059d",
+      "global_need_rank": 34,
+      "item_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:work:trabajar:41fc059d:active_evidence_expansion:item:001",
+      "no_winner_context_class": "",
+      "no_winner_reason": "",
+      "pilot_arm": "P0_exposure_first",
+      "predicted_need": 1.0,
+      "proposed_competitor_target_lemma": "",
+      "rejection_reasons": [],
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:work:trabajar:41fc059d:active_evidence_expansion",
+      "runtime_trigger_note": "",
+      "sentence": "I have to work late tonight to finish the report.",
+      "slot_id": "en-es:srs-source-target:work:trabajar:41fc059d:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "work",
+      "source_pos_frame": "",
+      "target_lemma": "trabajar",
+      "topic_frame": ""
+    },
+    {
+      "active_mismatch_note": "",
+      "active_sense_contrast": "",
+      "active_target_lemma": "trabajar",
+      "admission_status": "admitted",
+      "arm_rank": 34,
+      "competitor_sense_label": "",
+      "diversity_note": "",
+      "evidence_note": "work means to be employed and perform duties.",
+      "family_id": "en-es:srs-source-target:work:trabajar:41fc059d",
+      "global_need_rank": 34,
+      "item_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:work:trabajar:41fc059d:active_evidence_expansion:item:002",
+      "no_winner_context_class": "",
+      "no_winner_reason": "",
+      "pilot_arm": "P0_exposure_first",
+      "predicted_need": 1.0,
+      "proposed_competitor_target_lemma": "",
+      "rejection_reasons": [],
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:work:trabajar:41fc059d:active_evidence_expansion",
+      "runtime_trigger_note": "",
+      "sentence": "She will work at the hospital starting at 7 a.m.",
+      "slot_id": "en-es:srs-source-target:work:trabajar:41fc059d:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "work",
+      "source_pos_frame": "",
+      "target_lemma": "trabajar",
+      "topic_frame": ""
+    }
+  ],
+  "alignment": {
+    "duplicate_response_request_count": 0,
+    "expected_request_count": 1,
+    "issues": [],
+    "matched_expected_request_count": 1,
+    "missing_expected_request_ids": [],
+    "response_request_count": 1,
+    "unexpected_response_request_ids": []
+  },
+  "coverage": [
+    {
+      "admitted_item_count": 2,
+      "expected_item_count": 2,
+      "family_id": "en-es:srs-source-target:work:trabajar:41fc059d",
+      "pilot_arm": "P0_exposure_first",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:work:trabajar:41fc059d:active_evidence_expansion",
+      "shortfall_count": 0,
+      "slot_type": "active_evidence_expansion",
+      "trigger": "work",
+      "waived_item_count": 0
+    }
+  ],
+  "decision": "generated_items_admitted_for_pilot_rescoring",
+  "generated_at": "2026-05-11T22:43:57Z",
+  "generated_response_metadata": {
+    "operator_repair_count": 1,
+    "operator_repairs": [
+      {
+        "after": "She will work at the hospital starting at 7 a.m.",
+        "before": "She works at the hospital and starts at 7 a.m.",
+        "field": "sentence",
+        "item_index": 2,
+        "reason": "restore exact runtime trigger token after generated inflection failed admission",
+        "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:work:trabajar:41fc059d:active_evidence_expansion"
+      }
+    ]
+  },
+  "limitations": [
+    "research-only generated-response admission lane",
+    "no LLM call is made by this script",
+    "no generated item is source evidence until a later explicit promotion step",
+    "no runtime policy or threshold changes are made",
+    "semantic correctness of generated text still needs scoring and spot review"
+  ],
+  "next_steps": [
+    "Run the downstream evidence-application/rescoring harness on admitted generated items.",
+    "Compare improvement by high_need, middle_control, and low_control arms.",
+    "Treat this as heuristic validation, not runtime promotion."
+  ],
+  "pair": "en-es",
+  "pilot": {
+    "generated_responses_path": "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_001_work_repair_manual_exact_token_generated_responses_en_es_latest.json",
+    "generated_responses_present": true,
+    "generation_requests_path": "docs/test_outputs/semantic_veto_active_only_full_generation_plan_en_es_latest.json",
+    "pilot_id": "semantic_veto_active_only_full_en_es_v1",
+    "request_kind": "semantic_veto_evidence_gap_generation"
+  },
+  "rejected_items": [],
+  "rejection_reasons": {},
+  "request_packet_checks": {
+    "issue_count": 0,
+    "issues": [],
+    "request_count": 42,
+    "unique_request_ids": true
+  },
+  "response_results": [
+    {
+      "admitted_item_count": 2,
+      "admitted_items": [
+        {
+          "active_mismatch_note": "",
+          "active_sense_contrast": "",
+          "active_target_lemma": "trabajar",
+          "admission_status": "admitted",
+          "arm_rank": 34,
+          "competitor_sense_label": "",
+          "diversity_note": "",
+          "evidence_note": "work means to do a job or labor.",
+          "family_id": "en-es:srs-source-target:work:trabajar:41fc059d",
+          "global_need_rank": 34,
+          "item_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:work:trabajar:41fc059d:active_evidence_expansion:item:001",
+          "no_winner_context_class": "",
+          "no_winner_reason": "",
+          "pilot_arm": "P0_exposure_first",
+          "predicted_need": 1.0,
+          "proposed_competitor_target_lemma": "",
+          "rejection_reasons": [],
+          "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:work:trabajar:41fc059d:active_evidence_expansion",
+          "runtime_trigger_note": "",
+          "sentence": "I have to work late tonight to finish the report.",
+          "slot_id": "en-es:srs-source-target:work:trabajar:41fc059d:active_evidence_expansion",
+          "slot_type": "active_evidence_expansion",
+          "source_phrase": "work",
+          "source_pos_frame": "",
+          "target_lemma": "trabajar",
+          "topic_frame": ""
+        },
+        {
+          "active_mismatch_note": "",
+          "active_sense_contrast": "",
+          "active_target_lemma": "trabajar",
+          "admission_status": "admitted",
+          "arm_rank": 34,
+          "competitor_sense_label": "",
+          "diversity_note": "",
+          "evidence_note": "work means to be employed and perform duties.",
+          "family_id": "en-es:srs-source-target:work:trabajar:41fc059d",
+          "global_need_rank": 34,
+          "item_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:work:trabajar:41fc059d:active_evidence_expansion:item:002",
+          "no_winner_context_class": "",
+          "no_winner_reason": "",
+          "pilot_arm": "P0_exposure_first",
+          "predicted_need": 1.0,
+          "proposed_competitor_target_lemma": "",
+          "rejection_reasons": [],
+          "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:work:trabajar:41fc059d:active_evidence_expansion",
+          "runtime_trigger_note": "",
+          "sentence": "She will work at the hospital starting at 7 a.m.",
+          "slot_id": "en-es:srs-source-target:work:trabajar:41fc059d:active_evidence_expansion",
+          "slot_type": "active_evidence_expansion",
+          "source_phrase": "work",
+          "source_pos_frame": "",
+          "target_lemma": "trabajar",
+          "topic_frame": ""
+        }
+      ],
+      "family_id": "en-es:srs-source-target:work:trabajar:41fc059d",
+      "item_count": 2,
+      "no_competitor_marker": false,
+      "rejected_item_count": 0,
+      "rejected_items": [],
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:work:trabajar:41fc059d:active_evidence_expansion",
+      "response_rejection_reasons": [],
+      "slot_id": "en-es:srs-source-target:work:trabajar:41fc059d:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion"
+    }
+  ],
+  "schema_version": 1,
+  "status": "ok",
+  "strict_flow": {
+    "admission_role": "pre_scoring_generated_response_filter",
+    "runtime_policy_change": "none",
+    "selected_request_subset_allowed": true,
+    "source_evidence_promotion": "none",
+    "threshold_tuning": "none"
+  },
+  "summary": {
+    "admitted_item_count": 2,
+    "by_arm": {
+      "P0_exposure_first": {
+        "admitted_item_count": 2,
+        "expected_item_count": 2,
+        "expected_request_count": 1,
+        "rejected_item_count": 0,
+        "shortfall_count": 0,
+        "waived_item_count": 0
+      }
+    },
+    "by_slot_type": {
+      "active_evidence_expansion": {
+        "admitted_item_count": 2,
+        "expected_item_count": 2,
+        "expected_request_count": 1,
+        "rejected_item_count": 0,
+        "shortfall_count": 0,
+        "waived_item_count": 0
+      }
+    },
+    "coverage_shortfall_count": 0,
+    "coverage_waived_item_count": 0,
+    "expected_item_count": 2,
+    "expected_request_count": 1,
+    "generated_response_count": 1,
+    "rejected_item_count": 0,
+    "response_level_error_count": 0,
+    "total_request_packet_count": 42
+  }
+}

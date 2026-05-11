@@ -128,6 +128,50 @@ confirms that the active-only request shape remains extremely cheap compared
 with the `$100` budget; the quality stop remains downstream usefulness, not
 price.
 
+## Observed Full Active-Only Tranche 001 Cost Anchor
+
+Artifacts:
+
+- `docs/test_outputs/semantic_veto_active_only_full_v1_tranche_001_generation_run_en_es_latest.json`
+- `docs/test_outputs/semantic_veto_active_only_full_v1_tranche_001_work_repair_generation_run_en_es_latest.json`
+- `docs/test_outputs/semantic_veto_active_only_full_v1_tranche_001_repaired_generation_admission_en_es_latest.json`
+- `docs/test_outputs/semantic_veto_active_only_full_v1_tranche_001_source_packaging_en_es_latest.json`
+- `docs/test_outputs/semantic_veto_en-es-active-only-combined-full-v1-tranche-001_pack_builder_latest.json`
+- `docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_001_pack_install_en_es_latest.json`
+
+Observed run shape:
+
+- model: `gpt-5.4-mini`
+- request scope: `42` reviewed/approved uncovered active-only SRS-derived
+  source-target families
+- main accepted responses: `42/42`
+- repaired admitted active items: `84/84`
+- one generated item used `works` instead of the exact runtime trigger token
+  `work`; a one-request repair plus explicit operator repair produced the final
+  admitted response bundle
+- source packaging produced `84` canonical `anchor_cue` rows across `42`
+  families
+- combined pack build now covers `91/570` current SRS-derived source-target
+  families with `194` normalized evidence rows
+
+Accepted main-run usage:
+
+- input tokens: `20,992`
+- output tokens: `7,411`
+- actual cost at the 2026-05-12 `gpt-5.4-mini` snapshot: about `$0.049`
+
+One-request repair usage:
+
+- input tokens: `498`
+- output tokens: `172`
+- actual cost at the 2026-05-12 `gpt-5.4-mini` snapshot: about `$0.001`
+
+Total accepted main plus repair cost was about `$0.050`. This confirms the
+budget posture: even after moving from product-scope pilots to SRS-derived
+tranches, active-only cue generation remains cheap. The gating work is now
+source-target review, admission quality, and product-feel checks, not dollar
+cost.
+
 ## Observed Balanced v1 Follow-Through Cost Anchor
 
 Artifact:

@@ -4,7 +4,7 @@ Status: active plan
 Role: Planning / pre-scan framing
 Purpose: define what semantic-routing data should eventually be generated with LLM support, which units deserve queueing, what can be inferred automatically versus what remains hypothesis, and how to avoid redundant generation work
 Last updated: 2026-05-12
-Last verified: 2026-05-12 active-only prompt-variant bakeoff, generated-evidence admission, postprocess scoring over the frozen 24-family PoC denominator, the product-scope band-grading v1 active-only reuse tranche, the active-only scale tranche through combined 49-family packaging, inventory replay, helper runtime smoke, live-page scan, named-pack installer smoke, initial browser review with the product-soft `min_active_score=0.015` active-only policy, the no-spend full active-only generation denominator plan over the current 570-family installed SRS source-target universe, and first-tranche pre-spend source-target review
+Last verified: 2026-05-12 active-only prompt-variant bakeoff, generated-evidence admission, postprocess scoring over the frozen 24-family PoC denominator, the product-scope band-grading v1 active-only reuse tranche, the active-only scale tranche through combined 49-family packaging, inventory replay, helper runtime smoke, live-page scan, named-pack installer smoke, initial browser review with the product-soft `min_active_score=0.015` active-only policy, the no-spend full active-only generation denominator plan over the current 570-family installed SRS source-target universe, first-tranche pre-spend source-target review, first paid full active-only tranche generation/admission/source packaging, combined 91-family pack build, named-pack install smoke, live-page scan, and post-tranche coverage plan
 Source-of-truth: planning doc only; current implemented truth still lives in the semantic-routing contracts, inventory publication code, and offline evidence normalization seam
 Related docs:
 - `docs/rulegen/semantic_shadow_source_intake_plan.md`
@@ -191,6 +191,13 @@ Current boundary artifact:
 - `docs/test_outputs/semantic_veto_active_only_combined_product_scope_v1_live_page_scan_en_es_latest.md`
 - `docs/test_outputs/semantic_veto_srs_zipf_bridge_en_es_latest.md`
 - `docs/test_outputs/semantic_veto_active_only_full_generation_plan_en_es_latest.md`
+- `docs/test_outputs/semantic_veto_active_only_full_v1_tranche_001_generation_run_en_es_latest.md`
+- `docs/test_outputs/semantic_veto_active_only_full_v1_tranche_001_repaired_generation_admission_en_es_latest.md`
+- `docs/test_outputs/semantic_veto_active_only_full_v1_tranche_001_source_packaging_en_es_latest.md`
+- `docs/test_outputs/semantic_veto_en-es-active-only-combined-full-v1-tranche-001_pack_builder_latest.md`
+- `docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_001_pack_install_en_es_latest.json`
+- `docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_001_live_page_scan_en_es_latest.md`
+- `docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_001_en_es_latest.md`
 
 ## Full `en-es` generation boundary
 
@@ -241,10 +248,48 @@ The current plan artifact is:
 
 - `docs/test_outputs/semantic_veto_active_only_full_generation_plan_en_es_latest.md`
 
-This changes the immediate engineering gap. The family universe is now measured;
-the next gap is executing and validating tranche 001 without changing the
-runtime policy or prompt contract. The first paid run must use the reviewed
-approved request packet, not the original unreviewed 50-row queue.
+The first paid tranche has now been executed against that reviewed request
+packet:
+
+- live `gpt-5.4-mini` generation accepted `42/42` active-only responses,
+- one generated item used the inflected token `works`; a one-request repair was
+  run, then the repaired response bundle explicitly replaced that one response,
+- repaired admission accepted `84/84` active items with `0` rejects and `0`
+  coverage shortfall,
+- source packaging produced `84` canonical `anchor_cue` rows across `42`
+  families with `0` exclusions under `no_high_eval_overlap_sentence_only`,
+- the accepted main run used `20,992` input tokens and `7,411` output tokens,
+  about `$0.049` at the 2026-05-12 `gpt-5.4-mini` standard rates; the one
+  request repair adds a negligible additional amount,
+- the combined active-only pack now has `194` normalized evidence rows across
+  `91` families after deduping two duplicate rows from the prior product-scope
+  pack,
+- the combined semantic inventory has `91` triggers, `133` senses, and `91`
+  competition sets,
+- the isolated named-pack install wrote `91` helper rules, `68` active-only
+  competition sets, and `23` shadowed/mixed sets,
+- live public-page scan over the installed 91-rule fixture produced `80`
+  policy decisions, `0` fallback decisions, `51` replace decisions, `29`
+  abstain decisions, and `0` page fetch errors.
+
+The post-tranche coverage artifact is:
+
+- `docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_001_en_es_latest.md`
+
+Post-tranche state:
+
+- current active-only coverage is `91/570` families, or `16.0%`,
+- remaining uncovered active-only families are `479`,
+- the remaining generation queue has `471` unreviewed source-target rows after
+  excluding the `8` rows rejected in the first source-target review,
+- the next runnable paid request packet is intentionally empty until the next
+  pre-spend source-target review approves more rows.
+
+This changes the immediate engineering gap again. The tranche-001 execution
+chain is real through named pack install and live helper page scan. The next
+gap is not more paid generation; it is reviewing the next tranche candidates
+and deciding whether the 91-family soft-assist fixture feels good enough to
+keep scaling.
 
 The scale-generation program should therefore proceed in lanes:
 
@@ -257,18 +302,17 @@ The scale-generation program should therefore proceed in lanes:
    families in deterministic resumable tranches.
 4. Generate active cue evidence first, because this is the only paid data shape
    that has repeatedly admitted cleanly and improved downstream false abstains.
-5. Run admission, postprocess, source packaging, inventory replay, helper smoke,
-   and live-page sample review after each tranche before larger spend.
+5. Run admission, postprocess, source packaging, product-shaped pack build,
+   named-pack install, and live-page sample review after each tranche before
+   larger spend. Inventory replay remains useful only when the generated
+   families overlap a frozen manual sentence suite.
 6. Add generated shadows only for high-need or observed-harm families where
    active-only evidence still allows clearly wrong replacements.
 7. Keep phrase/no-winner controls as a separate lane; active cue generation does
    not solve those cases.
 
-The immediate engineering gap is now step 4 for tranche 001: run one
-conservative active-only generation tranche, then carry it through admission,
-postprocess, source packaging, inventory replay, helper smoke, and page-feel
-review before any larger spend. Do not attempt to spend the whole budget at
-once.
+The immediate engineering gap is now the next source-target review slice. Do not
+attempt to spend the whole budget at once.
 
 ## What "worried about polysemy" should mean
 

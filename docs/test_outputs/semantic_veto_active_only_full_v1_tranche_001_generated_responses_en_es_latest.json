@@ -1,0 +1,1150 @@
+{
+  "batch_id": "en-es:semantic-veto-evidence-gap-generation:en-es-active-only-full-v1-tranche-001-approved",
+  "execution_mode": "live",
+  "generated_at": "2026-05-11T22:34:49Z",
+  "model_id": "gpt-5.4-mini",
+  "pair": "en-es",
+  "pilot_id": "",
+  "prompt_id": "",
+  "raw_response_bundle_ref": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-approved/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-approved_raw_responses.json",
+  "responses": [
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:away:lejos:4bacff77",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "away means at a great distance from the road.",
+          "sentence": "The cabin is far away from the nearest road."
+        },
+        {
+          "evidence_note": "away indicates a location far from the city center.",
+          "sentence": "Her office is away from the city center, so the commute takes longer."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-approved/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:away:lejos:4bacff77:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:away:lejos:4bacff77:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:away:lejos:4bacff77:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "away",
+      "target_lemma": "lejos",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:beginning:principio:85cb6780",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Uses beginning in the sense of the start or first part of an event.",
+          "sentence": "At the beginning of the lesson, the teacher explained the basic rule first."
+        },
+        {
+          "evidence_note": "Uses beginning to mean the initial stage or starting point.",
+          "sentence": "From the beginning, she wanted to understand the core idea before anything else."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-approved/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:beginning:principio:85cb6780:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:beginning:principio:85cb6780:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:beginning:principio:85cb6780:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "beginning",
+      "target_lemma": "principio",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:between:entre:e39f176b",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Shows location in the middle of two places.",
+          "sentence": "The café is tucked between the library and the post office."
+        },
+        {
+          "evidence_note": "Shows distribution among two recipients.",
+          "sentence": "She divided the cookies between her two children."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-approved/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:between:entre:e39f176b:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:between:entre:e39f176b:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:between:entre:e39f176b:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "between",
+      "target_lemma": "entre",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:century:siglo:f6f9470d",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Refers to a 100-year historical period.",
+          "sentence": "The castle was built in the 12th century and still stands on the hill."
+        },
+        {
+          "evidence_note": "Uses century as a time span in history.",
+          "sentence": "Historians debated how life changed during the 19th century."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-approved/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:century:siglo:f6f9470d:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:century:siglo:f6f9470d:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:century:siglo:f6f9470d:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "century",
+      "target_lemma": "siglo",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:chief:jefe:344be945",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "chief means the person in charge of the group",
+          "sentence": "The chief approved the budget and told the team to start on Monday."
+        },
+        {
+          "evidence_note": "chief refers to the boss or leader making decisions",
+          "sentence": "After the meeting, the chief asked every department head to send a progress report."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-approved/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:chief:jefe:344be945:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:chief:jefe:344be945:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:chief:jefe:344be945:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "chief",
+      "target_lemma": "jefe",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:even:par:70e2069a",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "even means level or tied in score",
+          "sentence": "The two teams finished even after the final round, so they had to play one more match."
+        },
+        {
+          "evidence_note": "even means flat and level",
+          "sentence": "Keep the shelves even so the books do not slide off."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-approved/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:even:par:70e2069a:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:even:par:70e2069a:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:even:par:70e2069a:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "even",
+      "target_lemma": "par",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:far:lejos:1afe4736",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "far describes a large physical distance from the road.",
+          "sentence": "The cabin is far from the nearest road, so we have to walk a long way to reach it."
+        },
+        {
+          "evidence_note": "far indicates the office is located at a great distance from downtown.",
+          "sentence": "Her office is far from downtown, which is why she takes the train every morning."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-approved/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:far:lejos:1afe4736:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:far:lejos:1afe4736:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:far:lejos:1afe4736:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "far",
+      "target_lemma": "lejos",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:hour:hora:a56c0a35",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Refers to a unit of time before an event.",
+          "sentence": "The meeting starts in one hour, so please be ready."
+        },
+        {
+          "evidence_note": "Refers to a duration of sixty minutes.",
+          "sentence": "I waited an hour for the train to arrive."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-approved/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:hour:hora:a56c0a35:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:hour:hora:a56c0a35:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:hour:hora:a56c0a35:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "hour",
+      "target_lemma": "hora",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:inside:dentro:04a73bd0",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Shows location within an enclosed space.",
+          "sentence": "The keys are inside the drawer."
+        },
+        {
+          "evidence_note": "Shows being within a building or enclosed area.",
+          "sentence": "Please wait inside the house until the rain stops."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-approved/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:inside:dentro:04a73bd0:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:inside:dentro:04a73bd0:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:inside:dentro:04a73bd0:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "inside",
+      "target_lemma": "dentro",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:just:solo:4416541d",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "just means only a small amount of time is needed.",
+          "sentence": "I just need a minute to finish this form."
+        },
+        {
+          "evidence_note": "just means only one, matching the restrictive sense.",
+          "sentence": "She wanted just one ticket for the concert."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-approved/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:just:solo:4416541d:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:just:solo:4416541d:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:just:solo:4416541d:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "just",
+      "target_lemma": "sólo",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:light:luz:362574ca",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "light means illumination in the room",
+          "sentence": "The room felt brighter when I opened the curtains and let in more light."
+        },
+        {
+          "evidence_note": "light refers to a lamp or source of illumination",
+          "sentence": "Please turn on the light so I can read this page."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-approved/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:light:luz:362574ca:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:light:luz:362574ca:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:light:luz:362574ca:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "light",
+      "target_lemma": "luz",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:little:pequeno:01e0e186",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "little describes a small physical object, matching the intended sense.",
+          "sentence": "They bought a little table for the kitchen corner."
+        },
+        {
+          "evidence_note": "little clearly means small in size, not amount or age.",
+          "sentence": "She packed her clothes into a little suitcase for the weekend trip."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-approved/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:little:pequeno:01e0e186:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:little:pequeno:01e0e186:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:little:pequeno:01e0e186:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "little",
+      "target_lemma": "pequeño",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:making:produccion:2b7930ef",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Industrial production of goods.",
+          "sentence": "The factory is making thousands of bottles every hour."
+        },
+        {
+          "evidence_note": "Creative production of a film.",
+          "sentence": "The studio is making a new documentary about ocean life."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-approved/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:making:produccion:2b7930ef:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:making:produccion:2b7930ef:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:making:produccion:2b7930ef:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "making",
+      "target_lemma": "producción",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:more:mas:69fad969",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "more expresses a greater quantity, matching the intended sense of 'más'.",
+          "sentence": "I need more coffee before the meeting starts."
+        },
+        {
+          "evidence_note": "more indicates an increased amount, which corresponds to 'más'.",
+          "sentence": "Please add more sugar to the recipe."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-approved/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:more:mas:69fad969:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:more:mas:69fad969:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:more:mas:69fad969:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "more",
+      "target_lemma": "más",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:morning:manana:33f98a45",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Refers to the early part of the day.",
+          "sentence": "We will leave in the morning, before the heat gets too strong."
+        },
+        {
+          "evidence_note": "Refers to the next day’s early time period.",
+          "sentence": "She finished the report by morning and sent it to the team."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-approved/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:morning:manana:33f98a45:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:morning:manana:33f98a45:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:morning:manana:33f98a45:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "morning",
+      "target_lemma": "mañana",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:music:musica:d3fd1c45",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Refers to songs and sound played for entertainment.",
+          "sentence": "The music at the wedding kept everyone dancing late into the night."
+        },
+        {
+          "evidence_note": "Refers to the art and study of organized sound.",
+          "sentence": "She studies music theory to understand how melodies and harmony work."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-approved/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:music:musica:d3fd1c45:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:music:musica:d3fd1c45:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:music:musica:d3fd1c45:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "music",
+      "target_lemma": "música",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:national:nacional:0bd1f394",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "national describes something belonging to or representing the whole country.",
+          "sentence": "The museum opened a national exhibit that showcases artifacts from every region of the country."
+        },
+        {
+          "evidence_note": "national indicates a countrywide program, not a local one.",
+          "sentence": "She won a national scholarship that is awarded by the government to top students across the country."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-approved/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:national:nacional:0bd1f394:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:national:nacional:0bd1f394:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:national:nacional:0bd1f394:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "national",
+      "target_lemma": "nacional",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:need:necesidad:37b1c756",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Shows a practical requirement or necessity.",
+          "sentence": "We need more water before the hike starts."
+        },
+        {
+          "evidence_note": "Expresses a condition of necessity or lack.",
+          "sentence": "There is a need for better lighting in the hallway."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-approved/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:need:necesidad:37b1c756:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:need:necesidad:37b1c756:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:need:necesidad:37b1c756:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "need",
+      "target_lemma": "necesidad",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:now:actualmente:34ed5d09",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Indicates the present time or current situation.",
+          "sentence": "I am now working from home, so email is the fastest way to reach me."
+        },
+        {
+          "evidence_note": "Describes the current state as of today.",
+          "sentence": "The company now has offices in three countries and is hiring again."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-approved/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:now:actualmente:34ed5d09:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:now:actualmente:34ed5d09:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:now:actualmente:34ed5d09:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "now",
+      "target_lemma": "actualmente",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:official:oficial:4c111a94",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Uses official to mean authorized or formally issued.",
+          "sentence": "The official report confirmed the new safety rules."
+        },
+        {
+          "evidence_note": "Uses official to mean formally approved or public.",
+          "sentence": "She waited for the official announcement before sharing the news."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-approved/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:official:oficial:4c111a94:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:official:oficial:4c111a94:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:official:oficial:4c111a94:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "official",
+      "target_lemma": "oficial",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:only:solo:d7d1ae75",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Restrictive sense: the action is limited to one thing.",
+          "sentence": "She only wanted a glass of water, not a full meal."
+        },
+        {
+          "evidence_note": "Restrictive sense: the amount of time is limited.",
+          "sentence": "I only have ten minutes before the meeting starts."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-approved/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:only:solo:d7d1ae75:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:only:solo:d7d1ae75:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:only:solo:d7d1ae75:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "only",
+      "target_lemma": "sólo",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:read:leer:5515bafa",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Active sense of understanding written text.",
+          "sentence": "I like to read before bed to relax."
+        },
+        {
+          "evidence_note": "Active sense of processing written material.",
+          "sentence": "She will read the article and summarize it for the team."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-approved/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:read:leer:5515bafa:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:read:leer:5515bafa:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:read:leer:5515bafa:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "read",
+      "target_lemma": "leer",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:room:espacio:5c2c2c9c",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "room means available space for an additional object.",
+          "sentence": "There is enough room for one more chair by the window."
+        },
+        {
+          "evidence_note": "room means free space that can be cleared or used.",
+          "sentence": "Please make room on the shelf for the new books."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-approved/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:room:espacio:5c2c2c9c:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:room:espacio:5c2c2c9c:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:room:espacio:5c2c2c9c:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "room",
+      "target_lemma": "espacio",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:section:departamento:9051f03f",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "section refers to an internal department handling a business function.",
+          "sentence": "Please send the invoice to the accounting section for approval."
+        },
+        {
+          "evidence_note": "section refers to a workplace department responsible for a specific service.",
+          "sentence": "The HR section will handle your benefits questions this afternoon."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-approved/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:section:departamento:9051f03f:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:section:departamento:9051f03f:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:section:departamento:9051f03f:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "section",
+      "target_lemma": "departamento",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:small:pequeno:bc4c21fe",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "small describes physical size, matching the intended sense of pequeño.",
+          "sentence": "She bought a small table for the apartment entrance."
+        },
+        {
+          "evidence_note": "small refers to a compact object size, clearly the size sense.",
+          "sentence": "The child held a small red ball in both hands."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-approved/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:small:pequeno:bc4c21fe:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:small:pequeno:bc4c21fe:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:small:pequeno:bc4c21fe:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "small",
+      "target_lemma": "pequeño",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:space:espacio:055c8ea5",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "space means physical room or gap between objects.",
+          "sentence": "Please leave a little space between the chairs so people can walk through."
+        },
+        {
+          "evidence_note": "space means available room inside a container.",
+          "sentence": "The box is too small, so there is no space for the extra book."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-approved/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:space:espacio:055c8ea5:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:space:espacio:055c8ea5:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:space:espacio:055c8ea5:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "space",
+      "target_lemma": "espacio",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:stand:puesto:936738dc",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "stand means a booth or stall set up for selling goods.",
+          "sentence": "The vendor set up a stand at the market to sell fresh fruit."
+        },
+        {
+          "evidence_note": "stand refers to a staffed kiosk or booth.",
+          "sentence": "We stopped at the information stand to pick up a map and ask for directions."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-approved/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:stand:puesto:936738dc:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:stand:puesto:936738dc:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:stand:puesto:936738dc:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "stand",
+      "target_lemma": "puesto",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:start:principio:f6e41fb0",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "start refers to the beginning of something.",
+          "sentence": "At the start of the book, the author explains the rules clearly."
+        },
+        {
+          "evidence_note": "start marks the opening point in time.",
+          "sentence": "We met at the start of the meeting to review the agenda."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-approved/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:start:principio:f6e41fb0:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:start:principio:f6e41fb0:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:start:principio:f6e41fb0:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "start",
+      "target_lemma": "principio",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:time:hora:edd6bcb5",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Asking for the clock time of departure.",
+          "sentence": "What time does the train leave tomorrow morning?"
+        },
+        {
+          "evidence_note": "Refers to a specific clock time for scheduling.",
+          "sentence": "Please tell me the time so I can join the meeting on time."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-approved/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:time:hora:edd6bcb5:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:time:hora:edd6bcb5:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:time:hora:edd6bcb5:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "time",
+      "target_lemma": "hora",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:work:trabajar:41fc059d",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "work means to do a job or labor",
+          "sentence": "I have to work late tonight to finish the report."
+        },
+        {
+          "evidence_note": "work means to be employed and perform duties",
+          "sentence": "She works at the hospital and starts at 7 a.m."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-approved/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:work:trabajar:41fc059d:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:work:trabajar:41fc059d:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:work:trabajar:41fc059d:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "work",
+      "target_lemma": "trabajar",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:access:entrada:f606af7f",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "access means an entrance or way in",
+          "sentence": "Please use the side access to enter the stadium after your ticket is checked."
+        },
+        {
+          "evidence_note": "access refers to an entry point",
+          "sentence": "The museum opened a new access for visitors near the main square."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-approved/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:access:entrada:f606af7f:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:access:entrada:f606af7f:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:access:entrada:f606af7f:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "access",
+      "target_lemma": "entrada",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:ask:preguntar:fd844e28",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "ask means to inquire directly about information.",
+          "sentence": "I will ask the teacher what the homework is."
+        },
+        {
+          "evidence_note": "ask means to question someone for a specific answer.",
+          "sentence": "Please ask her where the meeting starts."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-approved/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:ask:preguntar:fd844e28:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:ask:preguntar:fd844e28:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:ask:preguntar:fd844e28:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "ask",
+      "target_lemma": "preguntar",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:break:romper:5975739f",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Physical damage to an object; active sense matches 'romper'.",
+          "sentence": "Please don't break the glass vase when you move it."
+        },
+        {
+          "evidence_note": "Causing a mechanism to fail or be damaged; active sense matches 'romper'.",
+          "sentence": "If you twist the handle too hard, you might break the door lock."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-approved/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:break:romper:5975739f:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:break:romper:5975739f:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:break:romper:5975739f:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "break",
+      "target_lemma": "romper",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:car:automovil:993c7cd2",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Refers to a personal motor vehicle.",
+          "sentence": "She parked her car in the garage before dinner."
+        },
+        {
+          "evidence_note": "Refers to a road-going automobile.",
+          "sentence": "The car needs new tires before the road trip."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-approved/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:car:automovil:993c7cd2:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:car:automovil:993c7cd2:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:car:automovil:993c7cd2:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "car",
+      "target_lemma": "automóvil",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:close:estrecho:370fec2a",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Describes limited width or tight spacing.",
+          "sentence": "The alley was so close that two people could not pass side by side."
+        },
+        {
+          "evidence_note": "Uses close to mean narrow or tight.",
+          "sentence": "We had to squeeze through a close gap between the fence and the wall."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-approved/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:close:estrecho:370fec2a:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:close:estrecho:370fec2a:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:close:estrecho:370fec2a:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "close",
+      "target_lemma": "estrecho",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:court:patio:98c516cc",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "court refers to an open inner patio used for dining and gathering.",
+          "sentence": "We ate lunch in the court behind the old inn, where the tables were shaded by vines."
+        },
+        {
+          "evidence_note": "court refers to an enclosed outdoor patio area attached to the building.",
+          "sentence": "The apartment opens onto a quiet court with potted plants and a fountain in the center."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-approved/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:court:patio:98c516cc:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:court:patio:98c516cc:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:court:patio:98c516cc:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "court",
+      "target_lemma": "patio",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:cup:taza:6484ea57",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Hot tea in a drinking vessel indicates the intended sense is a mug-like cup.",
+          "sentence": "She poured hot tea into a cup before sitting down to read."
+        },
+        {
+          "evidence_note": "A kitchen item used for drinking makes the cup sense clear.",
+          "sentence": "He washed the cup after breakfast and put it back in the cabinet."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-approved/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:cup:taza:6484ea57:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:cup:taza:6484ea57:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:cup:taza:6484ea57:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "cup",
+      "target_lemma": "taza",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:double:doble:b7f1fbea",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Means to make the amount twice as much.",
+          "sentence": "Please double the recipe so we have enough soup for everyone."
+        },
+        {
+          "evidence_note": "Means to increase to twice the current size.",
+          "sentence": "The company will double its storage capacity by adding a second warehouse."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-approved/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:double:doble:b7f1fbea:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:double:doble:b7f1fbea:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:double:doble:b7f1fbea:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "double",
+      "target_lemma": "doble",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:eight:ocho:1a5d9885",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Time duration uses eight in the sense of Spanish ocho.",
+          "sentence": "Please set the timer for eight minutes so the pasta does not overcook."
+        },
+        {
+          "evidence_note": "Clock time uses eight in the sense of Spanish ocho.",
+          "sentence": "She arrived at eight o'clock and the meeting started right away."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-approved/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:eight:ocho:1a5d9885:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:eight:ocho:1a5d9885:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:eight:ocho:1a5d9885:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "eight",
+      "target_lemma": "ocho",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:exactly:justamente:c1f472af",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "exactly marks precise agreement with the intended point.",
+          "sentence": "That is exactly what I meant when I said the plan needed more time."
+        },
+        {
+          "evidence_note": "exactly expresses precise timing, matching the intended sense.",
+          "sentence": "She arrived exactly when the meeting was about to start."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-approved/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:exactly:justamente:c1f472af:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:exactly:justamente:c1f472af:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:exactly:justamente:c1f472af:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "exactly",
+      "target_lemma": "justamente",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:face:rostro:a561d564",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Physical face on a person, the intended body-part sense.",
+          "sentence": "She wiped the rain from her face before stepping inside."
+        },
+        {
+          "evidence_note": "Refers to a person's face as an anatomical feature.",
+          "sentence": "The doctor examined his face for signs of swelling after the fall."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-approved/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:face:rostro:a561d564:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:face:rostro:a561d564:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:face:rostro:a561d564:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "face",
+      "target_lemma": "rostro",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:ice:hielo:355f4a5a",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "ice refers to frozen water used for cooling drinks.",
+          "sentence": "Please add ice to the cooler so the drinks stay cold."
+        },
+        {
+          "evidence_note": "ice refers to frozen water on the ground.",
+          "sentence": "The sidewalk was covered with ice after the overnight freeze."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-approved/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:ice:hielo:355f4a5a:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:ice:hielo:355f4a5a:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:ice:hielo:355f4a5a:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "ice",
+      "target_lemma": "hielo",
+      "unable_to_find_distinct_competitor": false
+    }
+  ],
+  "schema_version": 1,
+  "selected_request_ids": [
+    "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:away:lejos:4bacff77:active_evidence_expansion",
+    "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:beginning:principio:85cb6780:active_evidence_expansion",
+    "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:between:entre:e39f176b:active_evidence_expansion",
+    "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:century:siglo:f6f9470d:active_evidence_expansion",
+    "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:chief:jefe:344be945:active_evidence_expansion",
+    "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:even:par:70e2069a:active_evidence_expansion",
+    "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:far:lejos:1afe4736:active_evidence_expansion",
+    "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:hour:hora:a56c0a35:active_evidence_expansion",
+    "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:inside:dentro:04a73bd0:active_evidence_expansion",
+    "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:just:solo:4416541d:active_evidence_expansion",
+    "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:light:luz:362574ca:active_evidence_expansion",
+    "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:little:pequeno:01e0e186:active_evidence_expansion",
+    "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:making:produccion:2b7930ef:active_evidence_expansion",
+    "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:more:mas:69fad969:active_evidence_expansion",
+    "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:morning:manana:33f98a45:active_evidence_expansion",
+    "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:music:musica:d3fd1c45:active_evidence_expansion",
+    "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:national:nacional:0bd1f394:active_evidence_expansion",
+    "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:need:necesidad:37b1c756:active_evidence_expansion",
+    "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:now:actualmente:34ed5d09:active_evidence_expansion",
+    "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:official:oficial:4c111a94:active_evidence_expansion",
+    "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:only:solo:d7d1ae75:active_evidence_expansion",
+    "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:read:leer:5515bafa:active_evidence_expansion",
+    "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:room:espacio:5c2c2c9c:active_evidence_expansion",
+    "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:section:departamento:9051f03f:active_evidence_expansion",
+    "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:small:pequeno:bc4c21fe:active_evidence_expansion",
+    "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:space:espacio:055c8ea5:active_evidence_expansion",
+    "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:stand:puesto:936738dc:active_evidence_expansion",
+    "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:start:principio:f6e41fb0:active_evidence_expansion",
+    "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:time:hora:edd6bcb5:active_evidence_expansion",
+    "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:work:trabajar:41fc059d:active_evidence_expansion",
+    "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:access:entrada:f606af7f:active_evidence_expansion",
+    "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:ask:preguntar:fd844e28:active_evidence_expansion",
+    "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:break:romper:5975739f:active_evidence_expansion",
+    "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:car:automovil:993c7cd2:active_evidence_expansion",
+    "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:close:estrecho:370fec2a:active_evidence_expansion",
+    "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:court:patio:98c516cc:active_evidence_expansion",
+    "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:cup:taza:6484ea57:active_evidence_expansion",
+    "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:double:doble:b7f1fbea:active_evidence_expansion",
+    "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:eight:ocho:1a5d9885:active_evidence_expansion",
+    "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:exactly:justamente:c1f472af:active_evidence_expansion",
+    "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:face:rostro:a561d564:active_evidence_expansion",
+    "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:ice:hielo:355f4a5a:active_evidence_expansion"
+  ],
+  "source_request_packet": "docs/test_outputs/semantic_veto_active_only_full_generation_plan_en_es_latest.json"
+}

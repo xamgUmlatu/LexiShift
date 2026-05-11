@@ -259,12 +259,30 @@ def build_active_only_full_generation_plan_report(
     )
     if denominator_rows and not uncovered_rows:
         decision = "active_only_full_generation_already_covered"
+    next_steps = [
+        "Run the first request tranche only, with --max-requests and --require-selected-request-count matching the selected request count.",
+        "Run postprocess, admission, source packaging, inventory replay, helper smoke, and live-page scan on that tranche before continuing.",
+        "Append admitted rows to the product-smoke active-only pack only after replay shows the same soft-assist behavior.",
+        "Generate shadows only for high-need or observed-harm families after active-only coverage has been measured.",
+    ]
+    if not requests and uncovered_rows:
+        next_steps = [
+            "Expand the source-target review manifest for the next uncovered tranche before any paid generation.",
+            "Rerun this planner with the updated review manifest and require a nonzero selected request count before calling the live generation harness.",
+            "Keep the current combined pack as the product-smoke control while the next tranche is reviewed.",
+        ]
     return {
         "schema_version": 1,
         "pair": str(srs_zipf_bridge_payload.get("pair") or "en-es"),
         "status": status,
         "decision": decision,
         "generated_at": generated_at,
+        "pilot": {
+            "pilot_id": pilot_id,
+            "prompt_id": PROMPT_ID,
+            "request_kind": REQUEST_KIND,
+            "requested_items_per_request": requested_items,
+        },
         "inputs": {
             "srs_zipf_bridge_json": _repo_path(srs_zipf_bridge_path),
             "srs_zipf_bridge_decision": str(srs_zipf_bridge_payload.get("decision") or ""),
@@ -354,12 +372,7 @@ def build_active_only_full_generation_plan_report(
             "manual pre-spend source-target review covers only rows present in the review manifest",
             "live generation must be run in small resumable tranches with explicit spend guards",
         ],
-        "next_steps": [
-            "Run the first request tranche only, with --max-requests and --require-selected-request-count matching the selected request count.",
-            "Run postprocess, admission, source packaging, inventory replay, helper smoke, and live-page scan on that tranche before continuing.",
-            "Append admitted rows to the product-smoke active-only pack only after replay shows the same soft-assist behavior.",
-            "Generate shadows only for high-need or observed-harm families after active-only coverage has been measured.",
-        ],
+        "next_steps": next_steps,
         "issues": issues,
     }
 

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from copy import deepcopy
+from collections.abc import Iterable
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from hashlib import sha1
@@ -8,7 +9,7 @@ import json
 import os
 from pathlib import Path
 import tempfile
-from typing import Iterable, Mapping, Sequence
+from typing import Mapping, Sequence
 
 from lexishift_core.helper.paths import HelperPaths
 from lexishift_core.helper.rulegen_outputs import build_snapshot, write_rulegen_outputs
@@ -448,6 +449,8 @@ def _mapping_rows(value: object) -> list[Mapping[str, object]]:
     if isinstance(value, Mapping):
         iterable = value.values()
     elif isinstance(value, Sequence) and not isinstance(value, (str, bytes)):
+        iterable = value
+    elif isinstance(value, Iterable) and not isinstance(value, (str, bytes)):
         iterable = value
     else:
         return []
