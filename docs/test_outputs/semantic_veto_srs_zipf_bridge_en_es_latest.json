@@ -5628,10 +5628,10 @@
     "term_label": "source",
     "weight_sum": null
   },
-  "generated_at": "2026-05-06T00:44:11+00:00",
+  "generated_at": "2026-05-11T21:09:08+00:00",
   "inputs": {
     "full_rulegen": {
-      "elapsed_seconds": 5.745,
+      "elapsed_seconds": 5.877,
       "jmdict_path": "",
       "pair": "en-es",
       "reverse_translation_dict_exists": true,

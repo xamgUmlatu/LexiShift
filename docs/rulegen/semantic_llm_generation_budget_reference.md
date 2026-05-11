@@ -234,21 +234,32 @@ current prompt path even if almost no budget was spent.
 The 49-family active-only product-smoke pack is not full `en-es` coverage. It is
 the current proven fixture.
 
-Before estimating full-scale spend, first compute the current SRS-admissible
-semantic-family universe:
+The current no-spend denominator pass has now computed the installed
+SRS-admissible semantic-family universe for scale planning:
 
-- all `en-es` source triggers that can be emitted into SRS-backed browser rules,
-- their active target lemmas,
-- current semantic-pack coverage state,
-- and high-need priority metadata from the accepted heuristic lane.
+- 1,984 unique full SRS-admissible Spanish targets,
+- 570 current generated `en-es` source-target rule families,
+- 536 unique English source triggers,
+- 342 unique Spanish active targets,
+- 49 source-target families already covered by the combined active-only
+  product-smoke pack,
+- 521 active-only uncovered source-target families,
+- 1,042 expected active cue rows if the remaining uncovered families are
+  generated at 2 rows per family,
+- 11 planned 50-family tranches, with a final 21-family tranche.
 
-Only then should the scale estimate be converted into request count. The
-existing table rows such as `common-source active-only pass` are planning
-anchors, not a confirmed denominator for the whole product. Once the universe
-count is known, estimate active-only spend with the formula above and generate
-in resumable tranches. Do not spend toward broad generated shadows until
-active-only coverage has been measured and the remaining harmful-replace cases
-are known.
+The current first runnable request packet is tranche 001:
+
+- 50 source-target families,
+- 100 expected active cue rows,
+- 26,079 estimated input tokens,
+- 14,000 output-token budget.
+
+This is the next unit to price with current model rates at execution time. The
+older table rows such as `common-source active-only pass` remain historical
+planning anchors, not the denominator for the whole product. Do not spend toward
+broad generated shadows until active-only coverage has been measured and the
+remaining harmful-replace cases are known.
 
 ## Live-Run Guard Pattern
 

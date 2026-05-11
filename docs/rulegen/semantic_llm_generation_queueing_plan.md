@@ -4,7 +4,7 @@ Status: active plan
 Role: Planning / pre-scan framing
 Purpose: define what semantic-routing data should eventually be generated with LLM support, which units deserve queueing, what can be inferred automatically versus what remains hypothesis, and how to avoid redundant generation work
 Last updated: 2026-05-12
-Last verified: 2026-05-12 active-only prompt-variant bakeoff, generated-evidence admission, postprocess scoring over the frozen 24-family PoC denominator, the product-scope band-grading v1 active-only reuse tranche, the active-only scale tranche through combined 49-family packaging, inventory replay, helper runtime smoke, live-page scan, named-pack installer smoke, and initial browser review with the product-soft `min_active_score=0.015` active-only policy
+Last verified: 2026-05-12 active-only prompt-variant bakeoff, generated-evidence admission, postprocess scoring over the frozen 24-family PoC denominator, the product-scope band-grading v1 active-only reuse tranche, the active-only scale tranche through combined 49-family packaging, inventory replay, helper runtime smoke, live-page scan, named-pack installer smoke, initial browser review with the product-soft `min_active_score=0.015` active-only policy, and the no-spend full active-only generation denominator plan over the current 570-family installed SRS source-target universe
 Source-of-truth: planning doc only; current implemented truth still lives in the semantic-routing contracts, inventory publication code, and offline evidence normalization seam
 Related docs:
 - `docs/rulegen/semantic_shadow_source_intake_plan.md`
@@ -189,6 +189,8 @@ Current boundary artifact:
 - `docs/test_outputs/semantic_veto_active_only_combined_product_scope_v1_inventory_replay_en_es_latest.md`
 - `docs/test_outputs/semantic_veto_active_only_combined_product_scope_v1_helper_runtime_smoke_en_es_latest.md`
 - `docs/test_outputs/semantic_veto_active_only_combined_product_scope_v1_live_page_scan_en_es_latest.md`
+- `docs/test_outputs/semantic_veto_srs_zipf_bridge_en_es_latest.md`
+- `docs/test_outputs/semantic_veto_active_only_full_generation_plan_en_es_latest.md`
 
 ## Full `en-es` generation boundary
 
@@ -213,14 +215,39 @@ actually surface during browsing:
 - and, only where useful, shadow/competitor rows that block clearly wrong
   replacements.
 
+As of 2026-05-12, steps 2 and 3 have an explicit no-spend denominator plan:
+
+- current installed full SRS-admissible target universe: 1,984 unique Spanish
+  targets from 2,000 SRS seed rows,
+- current generated rule source-target denominator: 570 source-target families
+  from 536 unique English source triggers and 342 unique Spanish targets,
+- current combined active-only semantic pack coverage: 49 of those 570
+  source-target families, or 8.6%,
+- remaining active-only coverage gap: 521 source-target families,
+- planned active-only generation volume at 2 rows per family: 1,042 generated
+  active cue rows if every uncovered family is attempted,
+- conservative first runnable request packet: 50 families / 100 expected active
+  rows / 26,079 estimated input tokens / 14,000 output-token budget,
+- full active-only plan shape: 11 resumable tranches at 50 families per tranche,
+  with the final tranche carrying 21 families.
+
+The current plan artifact is:
+
+- `docs/test_outputs/semantic_veto_active_only_full_generation_plan_en_es_latest.md`
+
+This changes the immediate engineering gap. The family universe is now measured;
+the next gap is executing and validating tranche 001 without changing the
+runtime policy or prompt contract.
+
 The scale-generation program should therefore proceed in lanes:
 
 1. Freeze the current `active_only_combined_product_scope_v1` pack as the
    product-smoke control.
-2. Compute the SRS-admissible family universe from current `en-es` rulegen/SRS
-   candidate data, with enough metadata to identify already-covered families.
-3. Render a no-spend active-only request plan for uncovered families in
-   deterministic resumable tranches.
+2. Keep the SRS-admissible family universe refreshed from current `en-es`
+   rulegen/SRS candidate data, with enough metadata to identify already-covered
+   families.
+3. Render and refresh the no-spend active-only request plan for uncovered
+   families in deterministic resumable tranches.
 4. Generate active cue evidence first, because this is the only paid data shape
    that has repeatedly admitted cleanly and improved downstream false abstains.
 5. Run admission, postprocess, source packaging, inventory replay, helper smoke,
@@ -230,10 +257,11 @@ The scale-generation program should therefore proceed in lanes:
 7. Keep phrase/no-winner controls as a separate lane; active cue generation does
    not solve those cases.
 
-The immediate engineering gap is step 2: materialize the real SRS-admissible
-family universe and quantify how much of it is already covered by the 49-family
-pack. After that, the next paid run should be a conservative active-only tranche,
-not an attempt to spend the whole budget at once.
+The immediate engineering gap is now step 4 for tranche 001: run one
+conservative active-only generation tranche, then carry it through admission,
+postprocess, source packaging, inventory replay, helper smoke, and page-feel
+review before any larger spend. Do not attempt to spend the whole budget at
+once.
 
 ## What "worried about polysemy" should mean
 

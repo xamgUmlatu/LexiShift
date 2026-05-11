@@ -168,12 +168,22 @@
       "scale_tranche_journal_inclusive_output_tokens": 3079,
       "scale_tranche_estimated_mini_cost_usd": 0.02,
       "initial_live_browser_review_status": "accepted_for_soft_assist_smoke",
-      "runtime_publication_status": "manual_testing_ready"
+      "runtime_publication_status": "manual_testing_ready",
+      "full_srs_source_target_denominator_families": 570,
+      "full_srs_source_trigger_count": 536,
+      "full_srs_active_target_count": 342,
+      "full_active_only_covered_families": 49,
+      "full_active_only_uncovered_families": 521,
+      "full_active_only_planned_generated_rows": 1042,
+      "full_active_only_first_tranche_families": 50,
+      "full_active_only_first_tranche_expected_rows": 100,
+      "full_active_only_first_tranche_estimated_input_tokens": 26079,
+      "full_active_only_first_tranche_output_token_budget": 14000
     },
     "promotion_blockers": [
       "the current helper-published sidecar is an isolated smoke fixture under docs/test_outputs, not real user profile data",
       "the 49-family denominator is still a repaired product-scope research suite, not full en-es language-wide proof",
-      "the full en-es SRS-admissible semantic-family universe has not been generated or measured yet",
+      "the full current SRS-derived source-target family universe is now measured at 570 families, but 521 active-only families remain ungenerated and unvalidated beyond the product-smoke pack",
       "manual browser/helper behavior has only had an initial positive product-feel review on the combined fixture",
       "rollback and generation identity must stay aligned with ruleset, snapshot, semantic inventory, and manifest publication"
     ]
@@ -1597,6 +1607,22 @@
       "evidence_needed": "The request renderer selected 16 uncovered active-only families after excluding 33 families already covered by prior packaged active evidence. Live mini generation produced 16 accepted active responses after one resume retry, then a one-request exact-token repair supplied the continue -> durar response; admission over the repaired generated responses accepted 32/32 active items with 0 rejects and 0 shortfall. Source packaging produced 32 new anchor_cue rows. The combined PoC + v1 reuse + scale-tranche normalized evidence has 112 rows across 49 families. Combined inventory replay improved decision accuracy from 50.3% to 72.0%, replace recall from 5.1% to 46.9%, and false abstains from 93 to 52 while keeping harmful replacements at 1. Helper runtime smoke over the combined fixture produced 189 policy decisions, 0 fallback decisions, 72.5% decision accuracy, 49.0% replace recall, 2 harmful replacements, and 50 false abstains. Live page scan produced 120 manual-review rows with 25 replace and 95 abstain decisions.",
       "validation": "Request renderer --fail-on-review, focused pytest for the renderer, Ruff check/format, live generation with spend/count guards, repaired generated-response admission --fail-on-review, postprocess --fail-on-review, source packaging --fail-on-review, inventory replay --fail-on-review, helper runtime smoke --fail-on-review, live page scan --fail-on-review.",
       "promotion_impact": "Moves active-only generated evidence from a 24-family PoC and 18-family reuse tranche to full coverage of the current 49-family repaired product-scope denominator. The current next step is manual product-feel review and publication planning, not more broad shadow generation."
+    },
+    {
+      "action_id": "active_only_full_generation_denominator_plan",
+      "priority": "P1",
+      "status": "done",
+      "pass_id": "data_artifacts",
+      "source_artifacts": [
+        "srs_zipf_bridge_latest_report",
+        "active_only_combined_product_scope_normalized_evidence",
+        "active_only_full_generation_plan_harness",
+        "active_only_full_generation_plan_latest_report"
+      ],
+      "action": "Compute the current full en-es SRS-derived source-target denominator, compare it with the active-only product-smoke pack, and freeze the first no-spend active-only generation tranche.",
+      "evidence_needed": "The active-only full generation plan reads the refreshed SRS Zipf bridge and combined active-only normalized evidence. It records 570 current source-target families, 49 covered families, 521 uncovered families, 1,042 planned active rows at 2 rows per family, and a conservative first runnable 50-family request packet.",
+      "validation": "Run the SRS Zipf bridge with --include-full-rulegen --fail-on-review, run the active-only full generation planner with --fail-on-review, run focused pytest for the planner, Ruff, registry summary, doc-reference checks, and git diff whitespace checks.",
+      "promotion_impact": "Turns full en-es from a vague language-wide concern into a measured installed-SRS denominator and a resumable first-tranche plan. It does not change runtime policy or spend any LLM budget."
     }
   ],
   "entries": [
@@ -6740,6 +6766,39 @@
       "verification_artifacts": [
         "docs/test_outputs/semantic_veto_active_only_combined_product_scope_v1_live_page_scan_en_es_latest.json",
         "docs/test_inputs/semantic_veto_active_only_live_page_scan_en_es.json"
+      ]
+    },
+    {
+      "artifact_id": "active_only_full_generation_plan_harness",
+      "title": "Semantic veto active-only full generation plan harness",
+      "component": "diagnostics",
+      "state": "current_research",
+      "path": "scripts/testing/semantic_veto_active_only_full_generation_plan_en_es.py",
+      "role": "Builds a no-spend active-only coverage and request plan from the current full SRS source-target denominator.",
+      "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
+      "current_use": "Compares full_source_target_pairs from the SRS Zipf bridge against current active-only evidence coverage and emits the first runnable request tranche.",
+      "risk": "Planning harness only; Zipf ordering is exposure-first and should not be treated as proof of semantic-veto difficulty.",
+      "next_audit_pass": "data_artifacts",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_veto_active_only_full_generation_plan_en_es.py",
+        "docs/test_outputs/semantic_veto_active_only_full_generation_plan_en_es_latest.md"
+      ]
+    },
+    {
+      "artifact_id": "active_only_full_generation_plan_latest_report",
+      "title": "Semantic veto active-only full generation plan latest report",
+      "component": "diagnostics",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_veto_active_only_full_generation_plan_en_es_latest.md",
+      "role": "Human-facing no-spend denominator and first-tranche request plan for broad en-es active-only semantic evidence generation.",
+      "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
+      "current_use": "Shows 570 denominator source-target families, 49 active-only covered families, 521 uncovered families, 11 planned tranches, and a first runnable 50-family request packet with 100 expected active rows.",
+      "risk": "Request packet and coverage plan only; generated rows still need live generation, admission, postprocess, packaging, replay, helper smoke, and page review.",
+      "next_audit_pass": "data_artifacts",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_active_only_full_generation_plan_en_es_latest.json",
+        "scripts/testing/semantic_veto_active_only_full_generation_plan_en_es.py",
+        "docs/test_outputs/semantic_veto_srs_zipf_bridge_en_es_latest.json"
       ]
     }
   ]
