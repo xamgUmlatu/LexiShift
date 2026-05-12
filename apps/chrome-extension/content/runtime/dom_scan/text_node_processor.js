@@ -1,5 +1,16 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
+  const semanticContextModule = root.contentDomScanSemanticContext || {};
+  const createSemanticContextResolver = typeof semanticContextModule.createResolver === "function"
+    ? semanticContextModule.createResolver
+    : (() => null);
+  const createSemanticContextCache = typeof semanticContextModule.createContextCache === "function"
+    ? semanticContextModule.createContextCache
+    : (() => null);
+  const semanticPerformanceModule = root.contentDomScanSemanticPerformanceMetrics || {};
+  const mergeSemanticSummary = typeof semanticPerformanceModule.mergeSummaryIntoCounter === "function"
+    ? semanticPerformanceModule.mergeSummaryIntoCounter
+    : ((_counter, _summary) => {});
 
   function createTextNodeProcessor(options) {
     const opts = options && typeof options === "object" ? options : {};
@@ -75,6 +86,20 @@
     const updatePageBudgetUsage = typeof opts.updatePageBudgetUsage === "function"
       ? opts.updatePageBudgetUsage
       : ((_state, _replacements) => {});
+    const semanticContextCaches = new WeakMap();
+
+    function getSemanticContextCache(counter) {
+      if (!counter || typeof counter !== "object") return null;
+      let cache = semanticContextCaches.get(counter);
+      if (!cache) {
+        cache = createSemanticContextCache();
+        if (cache) semanticContextCaches.set(counter, cache);
+      }
+      if (cache && cache.stats && typeof cache.stats === "object") {
+        counter.semanticContextCacheStats = cache.stats;
+      }
+      return cache;
+    }
 
     function targetLanguageFromPair(pair) {
       const normalized = String(pair || "").trim().toLowerCase();
@@ -112,40 +137,12 @@
         && rect.left < viewportWidth;
     }
 
-    function mergeSemanticSummary(counter, summary) {
-      if (!counter || !summary || typeof summary !== "object") {
-        return;
-      }
-      const nextDecisionPolicyId = String(summary.decisionPolicyId || "").trim();
-      counter.semanticEligible += Number(summary.eligible || 0);
-      counter.semanticReady += Number(summary.ready || 0);
-      counter.semanticPolicyReplaces += Number(summary.policyReplaces || 0);
-      counter.semanticPolicyAbstains += Number(summary.policyAbstains || 0);
-      counter.semanticPolicySoftAffordances += Number(summary.policySoftAffordances || 0);
-      counter.semanticFallbackReplaces += Number(summary.fallbackReplaces || 0);
-      counter.semanticFallbackAbstains += Number(summary.fallbackAbstains || 0);
-      counter.semanticFallbackSoftAffordances += Number(summary.fallbackSoftAffordances || 0);
-      counter.semanticDebugOverrideApplied += Number(summary.debugOverrideApplied || 0);
-      const nextDebugDecisionOverride = String(summary.debugDecisionOverride || "").trim();
-      if (nextDecisionPolicyId) {
-        if (!counter.semanticDecisionPolicyId) {
-          counter.semanticDecisionPolicyId = nextDecisionPolicyId;
-        } else if (counter.semanticDecisionPolicyId !== nextDecisionPolicyId) {
-          counter.semanticDecisionPolicyId = "mixed";
-        }
-      }
-      if (nextDebugDecisionOverride) {
-        if (!counter.semanticDebugDecisionOverride) {
-          counter.semanticDebugDecisionOverride = nextDebugDecisionOverride;
-        } else if (counter.semanticDebugDecisionOverride !== nextDebugDecisionOverride) {
-          counter.semanticDebugDecisionOverride = "mixed";
-        }
-      }
-    }
-
-    async function processTextNode(node, counter) {
+    async function processTextNode(node, counter, processOptions) {
+      const runOptions = processOptions && typeof processOptions === "object" ? processOptions : {};
+      const trackCounters = Boolean(counter && runOptions.countCounters !== false);
+      const semanticDryRun = runOptions.semanticDryRun === true;
       if (!node || !node.nodeValue) {
-        if (counter) counter.emptyNodes += 1;
+        if (trackCounters) counter.emptyNodes += 1;
         return;
       }
       const currentSettings = getCurrentSettings();
@@ -154,29 +151,29 @@
       if (!currentTrie || !currentSettings.enabled || !processedNodes || !buildReplacementFragment) {
         return;
       }
-      if (counter) {
+      if (trackCounters) {
         counter.totalNodes += 1;
       }
       if (/^\s+$/.test(node.nodeValue)) {
-        if (counter) {
+        if (trackCounters) {
           counter.whitespaceNodes += 1;
         }
         processedNodes.set(node, node.nodeValue);
         return;
       }
-      const focusWord = counter ? counter.focusWord : "";
+      const focusWord = trackCounters ? counter.focusWord : "";
       const focusEnabled = Boolean(focusWord);
       const focusInfo = focusEnabled
         ? getFocusInfo(node.nodeValue, focusWord)
         : { substring: false, token: false, index: -1 };
-      if (counter && focusInfo.substring) {
+      if (trackCounters && focusInfo.substring) {
         counter.focusSubstringNodes += 1;
       }
-      if (counter && focusInfo.token) {
+      if (trackCounters && focusInfo.token) {
         counter.focusTokenNodes += 1;
       }
       if (isEditable(node)) {
-        if (counter) {
+        if (trackCounters) {
           counter.skippedEditable += 1;
           if (focusInfo.substring) {
             counter.focusSkippedEditable += 1;
@@ -185,7 +182,7 @@
         return;
       }
       if (isExcluded(node)) {
-        if (counter) {
+        if (trackCounters) {
           counter.skippedExcluded += 1;
           if (focusInfo.substring) {
             counter.focusSkippedExcluded += 1;
@@ -194,7 +191,7 @@
         return;
       }
       if (isLexiShiftNode(node)) {
-        if (counter) {
+        if (trackCounters) {
           counter.skippedLexi += 1;
           if (focusInfo.substring) {
             counter.focusSkippedLexi += 1;
@@ -204,7 +201,7 @@
       }
       const last = processedNodes.get(node);
       if (last === node.nodeValue) {
-        if (counter) {
+        if (trackCounters) {
           counter.skippedCached += 1;
           if (focusInfo.substring) {
             counter.focusSkippedCached += 1;
@@ -212,8 +209,8 @@
         }
         return;
       }
-      if (counter) counter.scanned += 1;
-      if (focusEnabled && focusInfo.substring && !focusInfo.token && counter) {
+      if (trackCounters) counter.scanned += 1;
+      if (focusEnabled && focusInfo.substring && !focusInfo.token && trackCounters) {
         counter.focusSubstringNoToken += 1;
         if (currentSettings.debugEnabled && counter.focusDetailLogs < counter.focusDetailLimit) {
           const parent = node.parentElement;
@@ -227,7 +224,9 @@
           counter.focusDetailTruncated = true;
         }
       }
-      const pageBudgetState = getPageBudgetState();
+      const pageBudgetState = semanticDryRun
+        ? (runOptions.semanticPreflightBudget || null)
+        : getPageBudgetState();
       const scanStartedAtMs = counter && Number.isFinite(Number(counter.scanStartedAtMs))
         ? Number(counter.scanStartedAtMs)
         : nowMs();
@@ -237,6 +236,19 @@
       const originResolver = (rule) => {
         return String(rule && rule.metadata ? rule.metadata.lexishift_origin : "");
       };
+      const semanticContextResolver = semanticGateRuntime
+        ? createSemanticContextResolver(node, {
+            nodeFilters,
+            cache: getSemanticContextCache(counter)
+          })
+        : null;
+      const replacementOptions = {};
+      if (semanticDryRun) {
+        replacementOptions.dryRun = true;
+      }
+      if (runOptions.semanticResultOverride) {
+        replacementOptions.semanticResultOverride = runOptions.semanticResultOverride;
+      }
       const result = await buildReplacementFragment(
         node.nodeValue,
         currentTrie,
@@ -246,22 +258,27 @@
         },
         originResolver,
         pageBudgetState,
-        semanticGateRuntime
+        semanticGateRuntime,
+        semanticContextResolver,
+        Object.keys(replacementOptions).length ? replacementOptions : null
       );
-      if (result && result.semanticSummary) {
+      if (counter && result && result.semanticSummary) {
         mergeSemanticSummary(counter, result.semanticSummary);
+      }
+      if (semanticDryRun) {
+        return result;
       }
       if (result && result.fragment) {
         const parent = node.parentNode;
         if (parent) {
-          if (counter && !Number.isFinite(Number(counter.firstReplacementLatencyMs))) {
+          if (trackCounters && !Number.isFinite(Number(counter.firstReplacementLatencyMs))) {
             counter.firstReplacementLatencyMs = nowMs() - scanStartedAtMs;
             if (currentSettings.debugEnabled) {
               log(`First replacement applied after ${Number(counter.firstReplacementLatencyMs).toFixed(1)} ms.`);
             }
           }
           if (
-            counter
+            trackCounters
             && !Number.isFinite(Number(counter.firstVisibleReplacementLatencyMs))
             && isVisibleInViewport(parent)
           ) {
@@ -343,7 +360,7 @@
               });
             }
           }
-          if (counter) {
+          if (trackCounters) {
             counter.replacements += result.replacements;
             counter.nodes += 1;
             if (currentSettings.debugEnabled && result.details && result.details.length) {
@@ -380,7 +397,7 @@
           }
         }
       } else {
-        if (focusEnabled && focusInfo.token && counter) {
+        if (focusEnabled && focusInfo.token && trackCounters) {
           counter.focusUnmatched += 1;
           const semanticFiltered = Boolean(
             result
@@ -409,8 +426,18 @@
       }
     }
 
+    const preflightSemanticTextNode = (node, counter, preflightOptions) => {
+      const options = preflightOptions && typeof preflightOptions === "object" ? preflightOptions : {};
+      return processTextNode(node, counter, {
+        semanticDryRun: true,
+        countCounters: false,
+        semanticPreflightBudget: options.semanticPreflightBudget || null
+      });
+    };
+
     return {
-      processTextNode
+      processTextNode,
+      preflightSemanticTextNode
     };
   }
 

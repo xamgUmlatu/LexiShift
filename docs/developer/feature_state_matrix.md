@@ -821,7 +821,7 @@ Use this file when:
 
 - Status: `implemented`, `default-on-when-capable`, `verified`
 - Last documented checkpoint: `2026-05-12` the active-only soft-assist candidate is packaged as canonical source evidence, replayed through an inventory-shaped evaluator, published into an isolated helper runtime smoke fixture, exercised against a balanced public-page sentence scan for manual product-feel review, and materializable through helper CLI, native-host install command, and the extension Advanced debug install flow into an explicit profile/data root. The installer now resolves named semantic pack ids before using a file-path override, so product-like testing no longer requires pasting an inventory path. The tranche-002 data is operator-approved as the current soft-assist PoC; rerun the operator smoke only for new profiles/machines, install-path changes, or new data. The fixture does not mutate real profile data unless the default data-root safety flag is explicitly passed.
-- Last verified: `2026-05-12` active-only source packaging, inventory replay, helper runtime smoke, live page scan, productization readiness, semantic pack installer tests, named-pack resolver tests, native-host installer routing tests, semantic runtime policy tests, registry summary, doc reference checks, Ruff checks, and whitespace checks
+- Last verified: `2026-05-13` active-only source packaging, inventory replay, helper runtime smoke, live page scan, productization readiness, semantic pack installer tests, named-pack resolver tests, native-host installer routing tests, semantic runtime policy tests, split-inline, edge-case, cache-reuse, performance-instrumentation, same-context helper-coalescing, successful inventory-resolution reuse, per-match-fit cross-context helper-batching, and budgeted semantic-scan preflight DOM semantic-context contract tests, live fetched Castle-page DOM-split regression plus optimized call-topology measurement, live Castle budgeted-batch reload showing helper round trips reduced from `266` to `137` while preserving `267` semantic requests, registry summary, doc reference checks, Ruff checks, and whitespace checks
 - Default behavior:
   - Semantic admission is no longer a normal user preference. The browser runtime auto-uses helper-side semantic admission only when the current pair/profile publication is actually capable of real semantic decisioning.
   - If a pair/profile has semantic metadata but no ready subset yet, LexiShift stays on standard SRS replacement behavior instead of asking the user to choose a fallback posture.
@@ -833,7 +833,7 @@ Use this file when:
     - helper CLI/native-host can now materialize a compiled semantic pack into a profile-local publication family and pair-level pack copy, while requiring an explicit data root unless the caller explicitly opts into the platform default; the installer can resolve a named pack id from an installed pack copy, `LEXISHIFT_SEMANTIC_PACK_CATALOG`, or the current repo dev pack before falling back to a developer inventory-path override; the shared extension helper client and Advanced debug options flow now expose a named `installSemanticPack` route
     - extension helper cache/runtime can now persist and resolve semantic inventory in parallel with ruleset/snapshot
     - helper source-of-truth diagnostics can inspect pointer coverage, sidecar coverage, publication generation ids, and recomputed manifest-family state from the live helper artifacts
-    - extension options/runtime diagnostics can surface best-effort cache counts plus cached snapshot/semantic generation ids and simple alignment, helper semantic capability/reason state, runtime semantic capability/pointer/ready counts, live semantic gate enablement, helper vs helper-cache source/error, aggregate ready/replace/abstain/soft-affordance counts, and the last resolved `decision_policy_id` from the shipped runtime path
+    - extension options/runtime diagnostics can surface best-effort cache counts plus cached snapshot/semantic generation ids and simple alignment, helper semantic capability/reason state, runtime semantic capability/pointer/ready counts, live semantic gate enablement, helper vs helper-cache source/error, aggregate ready/replace/abstain/soft-affordance counts, semantic helper batch/latency metrics, semantic scan scheduler metrics, DOM context-cache reuse metrics, and the last resolved `decision_policy_id` from the shipped runtime path
     - helper/native-host can now also answer `semantic_admit_batch` using a named shared policy registry, and the extension runtime can call that service when semantic admission is active
   - The shipped runtime gate is still intentionally conservative:
     - only SRS-origin rules that already carry `metadata.semantic_admission` are eligible
@@ -852,6 +852,7 @@ Use this file when:
     - lexical trie matching happens first
     - semantic admission activates only when the current enabled SRS rules have nonzero `status=ready` coverage and semantic inventory resolves cleanly
     - eligible matches are counted, but only `status=ready` eligible matches are batched to helper `semantic_admit_batch`
+    - ready semantic helper requests use bounded block/sentence-window DOM context when inline markup splits the visible sentence across text nodes, with scan-local context-buffer reuse for small complete blocks, same-context helper-call coalescing, pair/profile inventory-resolution reuse across serial admissions, explicit `fit_scope=per_match` batching across different context strings, and two-phase semantic preflight for budgeted scans so TF-IDF-style scoring keeps one-match semantics while native helper calls are reduced; replacement edits remain scoped to the original text node and final page-budget enforcement remains ordered
     - non-ready eligible matches still resolve locally through the shipped internal legacy fallback posture
     - runtime replaces only `replace` decisions and keeps the original otherwise
   - `en-es` now has a narrow publication PoC:
@@ -1227,10 +1228,19 @@ Use this file when:
   - `core/lexishift_core/rulegen/semantic_routing_runtime_scoring.py`
   - `core/lexishift_core/rulegen/semantic_shadow_evaluation.py`
   - `core/lexishift_core/rulegen/semantic_shadow_representative_pruning.py`
+  - `apps/chrome-extension/manifest.json`
+  - `apps/chrome-extension/content/processing/replacement_semantic_debug.js`
+  - `apps/chrome-extension/content/processing/replacement_semantic_override.js`
   - `apps/chrome-extension/content/processing/replacements.js`
   - `apps/chrome-extension/content/runtime/rules/helper_rules_runtime.js`
   - `apps/chrome-extension/content/runtime/rules/active_rules_runtime.js`
+  - `apps/chrome-extension/content/runtime/dom_scan/semantic_context.js`
+  - `apps/chrome-extension/content/runtime/dom_scan/semantic_node_scheduler.js`
+  - `apps/chrome-extension/content/runtime/dom_scan/semantic_performance_metrics.js`
+  - `apps/chrome-extension/content/runtime/semantic/semantic_gate_batch.js`
+  - `apps/chrome-extension/content/runtime/semantic/semantic_gate_summary.js`
   - `apps/chrome-extension/content/runtime/semantic/semantic_gate_runtime.js`
+  - `apps/chrome-extension/content/runtime/semantic/semantic_request_context.js`
   - `apps/chrome-extension/content/runtime/dom_scan/text_node_processor.js`
   - `apps/chrome-extension/content/runtime/dom_scan_runtime.js`
   - `apps/chrome-extension/content/runtime/apply_runtime_actions.js`
@@ -1247,6 +1257,8 @@ Use this file when:
   - `core/tests/dev/test_extension_srs_runtime_diagnostics_contract.py`
   - `core/tests/dev/test_extension_srs_action_formatters.py`
   - `core/tests/dev/test_extension_srs_settings_contract.py`
+  - `core/tests/dev/test_extension_semantic_gate_runtime_contract.py`
+  - `core/tests/dev/test_extension_text_node_processor_context_contract.py`
   - `core/tests/rulegen/test_semantic_shadow_frequency.py`
   - `core/tests/rulegen/test_semantic_shadow_embedding_bridge.py`
   - `core/tests/rulegen/test_semantic_routing_runtime_policy.py`

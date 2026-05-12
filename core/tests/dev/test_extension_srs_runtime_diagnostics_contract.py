@@ -89,19 +89,41 @@ reporter.report({{
   semanticInventoryLoaded: true,
   semanticInventorySource: "helper",
   semanticInventoryError: "",
-  scanSummary: {{
-    semanticEligible: 8,
-    semanticReady: 5,
-    semanticPolicyReplaces: 2,
-    semanticPolicyAbstains: 1,
-    semanticPolicySoftAffordances: 2,
-  semanticFallbackReplaces: 0,
-  semanticFallbackAbstains: 1,
-  semanticFallbackSoftAffordances: 2,
-  semanticDecisionPolicyId: "en_es_sentence_veto_v3",
-  semanticDebugDecisionOverride: "replace",
-  semanticDebugOverrideApplied: 3
-  }},
+	  scanSummary: {{
+	    semanticEligible: 8,
+	    semanticReady: 5,
+	    semanticPolicyReplaces: 2,
+	    semanticPolicyAbstains: 1,
+	    semanticPolicySoftAffordances: 2,
+	    semanticFallbackReplaces: 0,
+	    semanticFallbackAbstains: 1,
+	    semanticFallbackSoftAffordances: 2,
+	    semanticDecisionPolicyId: "en_es_sentence_veto_v3",
+	    semanticDebugDecisionOverride: "replace",
+	    semanticDebugOverrideApplied: 3,
+	    semanticInventoryLookupCalls: 2,
+	    semanticInventoryLookupLatencyMsTotal: 7.5,
+	    semanticInventoryLookupLatencyMsMax: 5.5,
+	    semanticHelperBatchCalls: 3,
+	    semanticHelperRequestCount: 5,
+	    semanticHelperBatchMinSize: 1,
+	    semanticHelperBatchMaxSize: 3,
+	    semanticHelperLatencyMsTotal: 42,
+	    semanticHelperLatencyMsMax: 20,
+	    semanticScanNodeBatchCalls: 2,
+	    semanticScanNodeCount: 48,
+	    semanticScanNodeBatchMinSize: 24,
+	    semanticScanNodeBatchMaxSize: 24,
+	    semanticScanNodeConcurrentBatches: 2,
+	    semanticScanNodeSerialBatches: 0,
+	    semanticScanNodeSerialBudgetBatches: 0,
+	    semanticContextCacheStats: {{
+	      containerBuilds: 1,
+	      recordReuses: 4,
+	      usableReuses: 5,
+	      bypasses: 0
+	    }}
+	  }},
   timings: {{
     applyTotalMs: 512.5,
     activeRulesResolveMs: 150,
@@ -132,6 +154,30 @@ assert.equal(persisted[0].semantic_overall_abstain_rate, 0.25);
 assert.equal(persisted[0].semantic_decision_policy_id, "en_es_sentence_veto_v3");
 assert.equal(persisted[0].semantic_debug_decision_override, "replace");
 assert.equal(persisted[0].semantic_debug_override_applied, 3);
+assert.equal(persisted[0].semantic_inventory_lookup_calls, 2);
+assert.equal(persisted[0].semantic_inventory_lookup_latency_ms_total, 7.5);
+assert.equal(persisted[0].semantic_inventory_lookup_latency_ms_max, 5.5);
+assert.equal(persisted[0].semantic_inventory_lookup_latency_ms_avg, 3.75);
+assert.equal(persisted[0].semantic_helper_batch_calls, 3);
+assert.equal(persisted[0].semantic_helper_request_count, 5);
+assert.equal(persisted[0].semantic_helper_batch_min_size, 1);
+assert.equal(persisted[0].semantic_helper_batch_max_size, 3);
+assert.equal(persisted[0].semantic_helper_batch_avg_size, 5 / 3);
+assert.equal(persisted[0].semantic_helper_latency_ms_total, 42);
+assert.equal(persisted[0].semantic_helper_latency_ms_max, 20);
+assert.equal(persisted[0].semantic_helper_latency_ms_avg, 14);
+assert.equal(persisted[0].semantic_scan_node_batch_calls, 2);
+assert.equal(persisted[0].semantic_scan_node_count, 48);
+assert.equal(persisted[0].semantic_scan_node_batch_min_size, 24);
+assert.equal(persisted[0].semantic_scan_node_batch_max_size, 24);
+assert.equal(persisted[0].semantic_scan_node_batch_avg_size, 24);
+assert.equal(persisted[0].semantic_scan_node_concurrent_batches, 2);
+assert.equal(persisted[0].semantic_scan_node_serial_batches, 0);
+assert.equal(persisted[0].semantic_scan_node_serial_budget_batches, 0);
+assert.equal(persisted[0].semantic_context_cache_container_builds, 1);
+assert.equal(persisted[0].semantic_context_cache_record_reuses, 4);
+assert.equal(persisted[0].semantic_context_cache_usable_reuses, 5);
+assert.equal(persisted[0].semantic_context_cache_bypasses, 0);
 assert.equal(persisted[0].apply_total_ms, 512.5);
 assert.equal(persisted[0].first_replacement_latency_ms, 203.25);
 assert.equal(persisted[0].first_visible_replacement_latency_ms, 110.5);
@@ -252,9 +298,25 @@ const runtimeDiagnostics = context.LexiShift.srsRuntimeDiagnostics;
     semantic_fallback_abstain_rate: 0.5,
     semantic_overall_abstain_rate: 1 / 3,
     semantic_decision_policy_id: "en_es_sentence_veto_v3",
-    semantic_debug_decision_override: "replace",
-    semantic_debug_override_applied: 4,
-    apply_total_ms: 480,
+	    semantic_debug_decision_override: "replace",
+	    semantic_debug_override_applied: 4,
+	    semantic_inventory_lookup_calls: 2,
+	    semantic_inventory_lookup_latency_ms_total: 8,
+	    semantic_inventory_lookup_latency_ms_max: 6,
+	    semantic_inventory_lookup_latency_ms_avg: 4,
+	    semantic_helper_batch_calls: 3,
+	    semantic_helper_request_count: 5,
+	    semantic_helper_batch_min_size: 1,
+	    semantic_helper_batch_max_size: 3,
+	    semantic_helper_batch_avg_size: 5 / 3,
+	    semantic_helper_latency_ms_total: 45,
+	    semantic_helper_latency_ms_max: 25,
+	    semantic_helper_latency_ms_avg: 15,
+	    semantic_context_cache_container_builds: 1,
+	    semantic_context_cache_record_reuses: 4,
+	    semantic_context_cache_usable_reuses: 5,
+	    semantic_context_cache_bypasses: 0,
+	    apply_total_ms: 480,
     first_replacement_latency_ms: 215,
     first_visible_replacement_latency_ms: 125
   }});
@@ -273,9 +335,25 @@ const runtimeDiagnostics = context.LexiShift.srsRuntimeDiagnostics;
   assert.equal(loaded.semantic_fallback_abstain_rate, 0.5);
   assert.equal(loaded.semantic_overall_abstain_rate, 1 / 3);
   assert.equal(loaded.semantic_decision_policy_id, "en_es_sentence_veto_v3");
-  assert.equal(loaded.semantic_debug_decision_override, "replace");
-  assert.equal(loaded.semantic_debug_override_applied, 4);
-  assert.equal(loaded.apply_total_ms, 480);
+	  assert.equal(loaded.semantic_debug_decision_override, "replace");
+	  assert.equal(loaded.semantic_debug_override_applied, 4);
+	  assert.equal(loaded.semantic_inventory_lookup_calls, 2);
+	  assert.equal(loaded.semantic_inventory_lookup_latency_ms_total, 8);
+	  assert.equal(loaded.semantic_inventory_lookup_latency_ms_max, 6);
+	  assert.equal(loaded.semantic_inventory_lookup_latency_ms_avg, 4);
+	  assert.equal(loaded.semantic_helper_batch_calls, 3);
+	  assert.equal(loaded.semantic_helper_request_count, 5);
+	  assert.equal(loaded.semantic_helper_batch_min_size, 1);
+	  assert.equal(loaded.semantic_helper_batch_max_size, 3);
+	  assert.equal(loaded.semantic_helper_batch_avg_size, 5 / 3);
+	  assert.equal(loaded.semantic_helper_latency_ms_total, 45);
+	  assert.equal(loaded.semantic_helper_latency_ms_max, 25);
+	  assert.equal(loaded.semantic_helper_latency_ms_avg, 15);
+	  assert.equal(loaded.semantic_context_cache_container_builds, 1);
+	  assert.equal(loaded.semantic_context_cache_record_reuses, 4);
+	  assert.equal(loaded.semantic_context_cache_usable_reuses, 5);
+	  assert.equal(loaded.semantic_context_cache_bypasses, 0);
+	  assert.equal(loaded.apply_total_ms, 480);
   assert.equal(loaded.first_replacement_latency_ms, 215);
   assert.equal(loaded.first_visible_replacement_latency_ms, 125);
 }})().catch((error) => {{

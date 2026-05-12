@@ -42,4 +42,5 @@ def semantic_admit_batch(
             payload.get("fallback_policy") or DEFAULT_RUNTIME_SEMANTIC_FALLBACK_POLICY
         ),
         decision_policy_id=str(payload.get("decision_policy_id") or "").strip() or None,
+        fit_scope=str(payload.get("fit_scope") or "").strip() or "batch",
     )

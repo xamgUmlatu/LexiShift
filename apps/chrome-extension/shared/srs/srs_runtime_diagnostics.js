@@ -11,7 +11,7 @@
     if (!state || typeof state !== "object") {
       return null;
     }
-    const normalizeTiming = (value) => Number.isFinite(Number(value))
+    const normalizeTiming = (value) => value !== null && value !== undefined && value !== "" && Number.isFinite(Number(value))
       ? Number(value)
       : null;
     return {
@@ -104,6 +104,66 @@
         : "",
       semantic_debug_override_applied: Number.isFinite(Number(state.semantic_debug_override_applied))
         ? Number(state.semantic_debug_override_applied)
+        : 0,
+      semantic_inventory_lookup_calls: Number.isFinite(Number(state.semantic_inventory_lookup_calls))
+        ? Number(state.semantic_inventory_lookup_calls)
+        : 0,
+      semantic_inventory_lookup_latency_ms_total: normalizeTiming(
+        state.semantic_inventory_lookup_latency_ms_total
+      ),
+      semantic_inventory_lookup_latency_ms_max: normalizeTiming(state.semantic_inventory_lookup_latency_ms_max),
+      semantic_inventory_lookup_latency_ms_avg: normalizeTiming(state.semantic_inventory_lookup_latency_ms_avg),
+      semantic_helper_batch_calls: Number.isFinite(Number(state.semantic_helper_batch_calls))
+        ? Number(state.semantic_helper_batch_calls)
+        : 0,
+      semantic_helper_request_count: Number.isFinite(Number(state.semantic_helper_request_count))
+        ? Number(state.semantic_helper_request_count)
+        : 0,
+      semantic_helper_batch_min_size: normalizeTiming(state.semantic_helper_batch_min_size),
+      semantic_helper_batch_max_size: Number.isFinite(Number(state.semantic_helper_batch_max_size))
+        ? Number(state.semantic_helper_batch_max_size)
+        : 0,
+      semantic_helper_batch_avg_size: normalizeTiming(state.semantic_helper_batch_avg_size),
+      semantic_helper_latency_ms_total: normalizeTiming(state.semantic_helper_latency_ms_total),
+      semantic_helper_latency_ms_max: normalizeTiming(state.semantic_helper_latency_ms_max),
+      semantic_helper_latency_ms_avg: normalizeTiming(state.semantic_helper_latency_ms_avg),
+      semantic_scan_node_batch_calls: Number.isFinite(Number(state.semantic_scan_node_batch_calls))
+        ? Number(state.semantic_scan_node_batch_calls)
+        : 0,
+      semantic_scan_node_count: Number.isFinite(Number(state.semantic_scan_node_count))
+        ? Number(state.semantic_scan_node_count)
+        : 0,
+      semantic_scan_node_batch_min_size: normalizeTiming(state.semantic_scan_node_batch_min_size),
+      semantic_scan_node_batch_max_size: Number.isFinite(Number(state.semantic_scan_node_batch_max_size))
+        ? Number(state.semantic_scan_node_batch_max_size)
+        : 0,
+      semantic_scan_node_batch_avg_size: normalizeTiming(state.semantic_scan_node_batch_avg_size),
+      semantic_scan_node_concurrent_batches: Number.isFinite(
+        Number(state.semantic_scan_node_concurrent_batches)
+      )
+        ? Number(state.semantic_scan_node_concurrent_batches)
+        : 0,
+      semantic_scan_node_serial_batches: Number.isFinite(Number(state.semantic_scan_node_serial_batches))
+        ? Number(state.semantic_scan_node_serial_batches)
+        : 0,
+      semantic_scan_node_serial_budget_batches: Number.isFinite(
+        Number(state.semantic_scan_node_serial_budget_batches)
+      )
+        ? Number(state.semantic_scan_node_serial_budget_batches)
+        : 0,
+      semantic_context_cache_container_builds: Number.isFinite(
+        Number(state.semantic_context_cache_container_builds)
+      )
+        ? Number(state.semantic_context_cache_container_builds)
+        : 0,
+      semantic_context_cache_record_reuses: Number.isFinite(Number(state.semantic_context_cache_record_reuses))
+        ? Number(state.semantic_context_cache_record_reuses)
+        : 0,
+      semantic_context_cache_usable_reuses: Number.isFinite(Number(state.semantic_context_cache_usable_reuses))
+        ? Number(state.semantic_context_cache_usable_reuses)
+        : 0,
+      semantic_context_cache_bypasses: Number.isFinite(Number(state.semantic_context_cache_bypasses))
+        ? Number(state.semantic_context_cache_bypasses)
         : 0,
       apply_total_ms: normalizeTiming(state.apply_total_ms),
       active_rules_resolve_ms: normalizeTiming(state.active_rules_resolve_ms),

@@ -1,5 +1,9 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
+  const semanticPerformanceModule = root.contentDomScanSemanticPerformanceMetrics || {};
+  const createSemanticCounterDefaults = typeof semanticPerformanceModule.createCounterDefaults === "function"
+    ? semanticPerformanceModule.createCounterDefaults
+    : (() => ({}));
 
   function createScanCounters(options) {
     const opts = options && typeof options === "object" ? options : {};
@@ -37,7 +41,8 @@
         focusSubstringNoToken: 0,
         focusDetailLogs: 0,
         focusDetailLimit,
-        focusDetailTruncated: false
+        focusDetailTruncated: false,
+        ...createSemanticCounterDefaults()
       };
     }
 

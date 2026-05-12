@@ -28,6 +28,10 @@
         : null;
     }
 
+    function isFiniteMetric(value) {
+      return value !== null && value !== undefined && value !== "" && Number.isFinite(Number(value));
+    }
+
     function buildSemanticDecisionMetrics(scanSummary) {
       const summary = scanSummary && typeof scanSummary === "object" ? scanSummary : {};
       const policyDecisionTotal = (
@@ -51,6 +55,53 @@
           Number(summary.semanticPolicyAbstains || 0) + Number(summary.semanticFallbackAbstains || 0),
           overallDecisionTotal
         )
+      };
+    }
+
+    function buildSemanticPerformanceMetrics(scanSummary) {
+      const summary = scanSummary && typeof scanSummary === "object" ? scanSummary : {};
+      const contextStats = summary.semanticContextCacheStats
+        && typeof summary.semanticContextCacheStats === "object"
+        ? summary.semanticContextCacheStats
+        : {};
+      const inventoryLookupCalls = Number(summary.semanticInventoryLookupCalls || 0);
+      const helperBatchCalls = Number(summary.semanticHelperBatchCalls || 0);
+      const helperRequestCount = Number(summary.semanticHelperRequestCount || 0);
+      return {
+        inventoryLookupCalls,
+        inventoryLookupLatencyMsTotal: Number(summary.semanticInventoryLookupLatencyMsTotal || 0),
+        inventoryLookupLatencyMsMax: Number(summary.semanticInventoryLookupLatencyMsMax || 0),
+        inventoryLookupLatencyMsAvg: normalizeRate(
+          summary.semanticInventoryLookupLatencyMsTotal || 0,
+          inventoryLookupCalls
+        ),
+        helperBatchCalls,
+        helperRequestCount,
+        helperBatchMinSize: isFiniteMetric(summary.semanticHelperBatchMinSize)
+          ? Number(summary.semanticHelperBatchMinSize)
+          : null,
+        helperBatchMaxSize: Number(summary.semanticHelperBatchMaxSize || 0),
+        helperBatchAvgSize: normalizeRate(helperRequestCount, helperBatchCalls),
+        helperLatencyMsTotal: Number(summary.semanticHelperLatencyMsTotal || 0),
+        helperLatencyMsMax: Number(summary.semanticHelperLatencyMsMax || 0),
+        helperLatencyMsAvg: normalizeRate(summary.semanticHelperLatencyMsTotal || 0, helperBatchCalls),
+        scanNodeBatchCalls: Number(summary.semanticScanNodeBatchCalls || 0),
+        scanNodeCount: Number(summary.semanticScanNodeCount || 0),
+        scanNodeBatchMinSize: isFiniteMetric(summary.semanticScanNodeBatchMinSize)
+          ? Number(summary.semanticScanNodeBatchMinSize)
+          : null,
+        scanNodeBatchMaxSize: Number(summary.semanticScanNodeBatchMaxSize || 0),
+        scanNodeBatchAvgSize: normalizeRate(
+          summary.semanticScanNodeCount || 0,
+          summary.semanticScanNodeBatchCalls || 0
+        ),
+        scanNodeConcurrentBatches: Number(summary.semanticScanNodeConcurrentBatches || 0),
+        scanNodeSerialBatches: Number(summary.semanticScanNodeSerialBatches || 0),
+        scanNodeSerialBudgetBatches: Number(summary.semanticScanNodeSerialBudgetBatches || 0),
+        contextCacheContainerBuilds: Number(contextStats.containerBuilds || 0),
+        contextCacheRecordReuses: Number(contextStats.recordReuses || 0),
+        contextCacheUsableReuses: Number(contextStats.usableReuses || 0),
+        contextCacheBypasses: Number(contextStats.bypasses || 0)
       };
     }
 
@@ -106,6 +157,7 @@
         ? state.scanSummary
         : null;
       const semanticDecisionMetrics = buildSemanticDecisionMetrics(scanSummary);
+      const semanticPerformanceMetrics = buildSemanticPerformanceMetrics(scanSummary);
       let srsRulesWithScriptForms = 0;
       let activeSrsRulesWithScriptForms = 0;
       let srsRulesWithWordPackage = 0;
@@ -219,6 +271,7 @@
           debugDecisionOverride: String(scanSummary.semanticDebugDecisionOverride || ""),
           debugOverrideApplied: Number(scanSummary.semanticDebugOverrideApplied || 0)
         });
+        log("Semantic admission performance summary:", semanticPerformanceMetrics);
       }
       if (currentSettings.debugEnabled) {
         log("Apply timing:", {
@@ -283,6 +336,30 @@
           semantic_debug_override_applied: scanSummary
             ? Number(scanSummary.semanticDebugOverrideApplied || 0)
             : 0,
+          semantic_inventory_lookup_calls: semanticPerformanceMetrics.inventoryLookupCalls,
+          semantic_inventory_lookup_latency_ms_total: semanticPerformanceMetrics.inventoryLookupLatencyMsTotal,
+          semantic_inventory_lookup_latency_ms_max: semanticPerformanceMetrics.inventoryLookupLatencyMsMax,
+          semantic_inventory_lookup_latency_ms_avg: semanticPerformanceMetrics.inventoryLookupLatencyMsAvg,
+          semantic_helper_batch_calls: semanticPerformanceMetrics.helperBatchCalls,
+          semantic_helper_request_count: semanticPerformanceMetrics.helperRequestCount,
+          semantic_helper_batch_min_size: semanticPerformanceMetrics.helperBatchMinSize,
+          semantic_helper_batch_max_size: semanticPerformanceMetrics.helperBatchMaxSize,
+          semantic_helper_batch_avg_size: semanticPerformanceMetrics.helperBatchAvgSize,
+          semantic_helper_latency_ms_total: semanticPerformanceMetrics.helperLatencyMsTotal,
+          semantic_helper_latency_ms_max: semanticPerformanceMetrics.helperLatencyMsMax,
+          semantic_helper_latency_ms_avg: semanticPerformanceMetrics.helperLatencyMsAvg,
+          semantic_scan_node_batch_calls: semanticPerformanceMetrics.scanNodeBatchCalls,
+          semantic_scan_node_count: semanticPerformanceMetrics.scanNodeCount,
+          semantic_scan_node_batch_min_size: semanticPerformanceMetrics.scanNodeBatchMinSize,
+          semantic_scan_node_batch_max_size: semanticPerformanceMetrics.scanNodeBatchMaxSize,
+          semantic_scan_node_batch_avg_size: semanticPerformanceMetrics.scanNodeBatchAvgSize,
+          semantic_scan_node_concurrent_batches: semanticPerformanceMetrics.scanNodeConcurrentBatches,
+          semantic_scan_node_serial_batches: semanticPerformanceMetrics.scanNodeSerialBatches,
+          semantic_scan_node_serial_budget_batches: semanticPerformanceMetrics.scanNodeSerialBudgetBatches,
+          semantic_context_cache_container_builds: semanticPerformanceMetrics.contextCacheContainerBuilds,
+          semantic_context_cache_record_reuses: semanticPerformanceMetrics.contextCacheRecordReuses,
+          semantic_context_cache_usable_reuses: semanticPerformanceMetrics.contextCacheUsableReuses,
+          semantic_context_cache_bypasses: semanticPerformanceMetrics.contextCacheBypasses,
           apply_total_ms: applyTotalMs,
           active_rules_resolve_ms: activeRulesResolveMs,
           helper_rules_resolve_ms: helperRulesResolveMs,

@@ -272,6 +272,115 @@ class SemanticRoutingRuntimePolicyTests(unittest.TestCase):
         self.assertEqual(decision["top_shadow_score"], 0.0)
         self.assertEqual(decision["score_margin"], decision["active_score"])
 
+    def test_per_match_fit_scope_preserves_single_match_tfidf_semantics(self) -> None:
+        class FitSensitiveBackend:
+            def __init__(self, *, scorer_id: str, model_name: str = "") -> None:
+                self.scorer_id = scorer_id
+                self.model_name = model_name
+                self.fit_count = 0
+
+            def fit(self, texts: object) -> None:
+                self.fit_count = len(list(texts))
+
+            def similarity(self, _left_text: str, _right_text: str) -> float:
+                return 0.9 if self.fit_count <= 3 else 0.0
+
+        inventory = {
+            "schema_version": 1,
+            "pair": "en-es",
+            "profile_id": "default",
+            "capability": {
+                "competition_mode": "active_only_anchor_cue",
+            },
+            "senses": {
+                "sense:dentista": {
+                    "sense_id": "sense:dentista",
+                    "target_lemma": "dentista",
+                    "sense_label": "dentist",
+                    "canonical_pos": "noun",
+                    "evidence_views": {
+                        "all_evidence_text": "medical professional dentist appointment"
+                    },
+                },
+                "sense:castillo": {
+                    "sense_id": "sense:castillo",
+                    "target_lemma": "castillo",
+                    "sense_label": "castle",
+                    "canonical_pos": "noun",
+                    "evidence_views": {"all_evidence_text": "fortified castle medieval residence"},
+                },
+            },
+            "competition_sets": {
+                "comp:dentist": {
+                    "competition_set_id": "comp:dentist",
+                    "status": "ready",
+                    "active_sense_id": "sense:dentista",
+                    "shadow_sense_ids": [],
+                    "selection_mode": "active_only",
+                },
+                "comp:castle": {
+                    "competition_set_id": "comp:castle",
+                    "status": "ready",
+                    "active_sense_id": "sense:castillo",
+                    "shadow_sense_ids": [],
+                    "selection_mode": "active_only",
+                },
+            },
+        }
+        matches = [
+            {
+                "match_id": "match:dentist",
+                "source_phrase": "dentist",
+                "context_text": "She booked an appointment with a dentist near the station.",
+                "semantic_admission": {
+                    "schema_version": 1,
+                    "status": "ready",
+                    "trigger_id": "en-es:trigger:dentist",
+                    "sense_id": "sense:dentista",
+                    "competition_set_id": "comp:dentist",
+                },
+            },
+            {
+                "match_id": "match:castle",
+                "source_phrase": "castle",
+                "context_text": "A castle is a type of fortified structure.",
+                "semantic_admission": {
+                    "schema_version": 1,
+                    "status": "ready",
+                    "trigger_id": "en-es:trigger:castle",
+                    "sense_id": "sense:castillo",
+                    "competition_set_id": "comp:castle",
+                },
+            },
+        ]
+
+        batched = build_semantic_admit_batch_response(
+            pair="en-es",
+            profile_id="default",
+            matches=matches,
+            inventory=inventory,
+            backend_factory=FitSensitiveBackend,
+        )
+        per_match = build_semantic_admit_batch_response(
+            pair="en-es",
+            profile_id="default",
+            matches=matches,
+            inventory=inventory,
+            fit_scope="per_match",
+            backend_factory=FitSensitiveBackend,
+        )
+
+        self.assertEqual(batched["fit_scope"], "batch")
+        self.assertEqual(per_match["fit_scope"], "per_match")
+        self.assertEqual(
+            [decision["decision"] for decision in batched["decisions"]],
+            ["abstain", "abstain"],
+        )
+        self.assertEqual(
+            [decision["decision"] for decision in per_match["decisions"]],
+            ["replace", "replace"],
+        )
+
     def test_build_semantic_admit_batch_response_falls_back_on_empty_non_active_only_shadows(
         self,
     ) -> None:

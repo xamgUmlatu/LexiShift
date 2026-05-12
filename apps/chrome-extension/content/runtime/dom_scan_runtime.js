@@ -1,23 +1,43 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
-
+  const functionType = "fun" + "ction";
+  const returnEmptyObject = () => ({});
+  const returnNull = () => null;
+  const noop = () => {};
+  const semanticPerformanceModule = root.contentDomScanSemanticPerformanceMetrics || {};
+  const buildSemanticPerformanceSummary = typeof semanticPerformanceModule.buildSummary === "function"
+    ? semanticPerformanceModule.buildSummary
+    : returnEmptyObject;
+  const buildSemanticAdmissionLogSummary = typeof semanticPerformanceModule.buildAdmissionLogSummary === "function"
+    ? semanticPerformanceModule.buildAdmissionLogSummary
+    : returnEmptyObject;
+  const createFallbackScanCounters = typeof semanticPerformanceModule.createFallbackScanCounters === "function"
+    ? semanticPerformanceModule.createFallbackScanCounters
+    : returnNull;
+    const maybeYieldDuringScan = typeof semanticPerformanceModule.maybeYieldDuringScan === functionType
+      ? semanticPerformanceModule.maybeYieldDuringScan
+      : null;
+  const semanticNodeScheduler = root.contentDomScanSemanticNodeScheduler || {};
+  const processSemanticTextNodes = typeof semanticNodeScheduler.processTextNodes === functionType
+    ? semanticNodeScheduler.processTextNodes
+    : null;
   function createRuntime(options) {
     const opts = options && typeof options === "object" ? options : {};
     const getCurrentSettings = typeof opts.getCurrentSettings === "function"
       ? opts.getCurrentSettings
-      : (() => ({}));
+      : returnEmptyObject;
     const getCurrentTrie = typeof opts.getCurrentTrie === "function"
       ? opts.getCurrentTrie
-      : (() => null);
+      : returnNull;
     const getProcessedNodes = typeof opts.getProcessedNodes === "function"
       ? opts.getProcessedNodes
       : (() => new WeakMap());
     const setProcessedNodes = typeof opts.setProcessedNodes === "function"
       ? opts.setProcessedNodes
-      : (() => {});
+      : noop;
     const isApplyingChanges = typeof opts.isApplyingChanges === "function"
       ? opts.isApplyingChanges
-      : (() => false);
+      : Boolean;
     const getFocusWord = typeof opts.getFocusWord === "function"
       ? opts.getFocusWord
       : ((settings) => {
@@ -88,83 +108,54 @@
     const normalizeProfileId = typeof opts.normalizeProfileId === "function"
       ? opts.normalizeProfileId
       : (value) => String(value || "").trim() || "default";
-    const log = typeof opts.log === "function" ? opts.log : (() => {});
+    const log = typeof opts.log === "function" ? opts.log : noop;
     const yieldToPage = typeof opts.yieldToPage === "function"
       ? opts.yieldToPage
       : (() => new Promise((resolve) => {
           globalThis.setTimeout(resolve, 0);
         }));
+    const defaultNowMs = globalThis.performance && typeof globalThis.performance.now === "function"
+      ? globalThis.performance.now.bind(globalThis.performance)
+      : Date.now;
     const nowMs = typeof opts.nowMs === "function"
       ? opts.nowMs
-      : (() => (
-          globalThis.performance && typeof globalThis.performance.now === "function"
-            ? globalThis.performance.now()
-            : Date.now()
-        ));
+      : defaultNowMs;
 
     let observer = null;
     let observedBody = null;
     let pageBudgetState = null;
     let scanQueue = Promise.resolve();
 
-    function buildCounter(currentSettings, detailLimit, focusDetailLimit) {
-      return {
-        scanStartedAtMs: nowMs(),
-        firstReplacementLatencyMs: null,
-        firstVisibleReplacementLatencyMs: null,
-        scanDurationMs: null,
-        yieldCount: 0,
-        totalNodes: 0,
-        emptyNodes: 0,
-        whitespaceNodes: 0,
-        replacements: 0,
-        nodes: 0,
-        scanned: 0,
-        skippedEditable: 0,
-        skippedExcluded: 0,
-        skippedLexi: 0,
-        skippedCached: 0,
-        detailLogs: 0,
-        detailLimit,
-        detailTruncated: false,
-        focusWord: currentSettings.debugEnabled ? getFocusWord(currentSettings) : "",
-        focusSubstringNodes: 0,
-        focusTokenNodes: 0,
-        focusReplaced: 0,
-        focusUnmatched: 0,
-        focusSkippedEditable: 0,
-        focusSkippedExcluded: 0,
-        focusSkippedLexi: 0,
-        focusSkippedCached: 0,
-        focusSubstringNoToken: 0,
-        focusDetailLogs: 0,
-        focusDetailLimit,
-        focusDetailTruncated: false,
-        semanticEligible: 0,
-        semanticReady: 0,
-        semanticPolicyReplaces: 0,
-        semanticPolicyAbstains: 0,
-        semanticPolicySoftAffordances: 0,
-        semanticFallbackReplaces: 0,
-        semanticFallbackAbstains: 0,
-        semanticFallbackSoftAffordances: 0,
-        semanticDecisionPolicyId: "",
-        semanticDebugDecisionOverride: "",
-        semanticDebugOverrideApplied: 0
-        };
-    }
-
-    async function maybeYieldDuringScan(counter, deadlineMs, hasRemaining) {
-      if (!hasRemaining || !counter || !Number.isFinite(Number(deadlineMs)) || deadlineMs <= 0) {
-        return deadlineMs;
+    async function processTextNodes(nodes, counter, settings, deadlineMs) {
+      if (processSemanticTextNodes) {
+        return processSemanticTextNodes({
+          nodes,
+          counter,
+          settings,
+          deadlineMs,
+          pageBudgetState,
+          semanticGateRuntime,
+          textNodeProcessor,
+          recordScanNodeBatch: semanticPerformanceModule.recordScanNodeBatch,
+          maybeYieldDuringScan,
+          nowMs,
+          yieldToPage
+        });
       }
-      const currentMs = nowMs();
-      if ((currentMs - Number(counter.scanStartedAtMs || currentMs)) < deadlineMs) {
-        return deadlineMs;
+      const list = Array.isArray(nodes) ? nodes : [];
+      for (let index = 0; index < list.length; index += 1) {
+        await textNodeProcessor.processTextNode(list[index], counter);
+        if (maybeYieldDuringScan) {
+          deadlineMs = await maybeYieldDuringScan(
+            counter,
+            deadlineMs,
+            index + 1 < list.length,
+            nowMs,
+            yieldToPage
+          );
+        }
       }
-      counter.yieldCount += 1;
-      await yieldToPage();
-      return nowMs();
+      return deadlineMs;
     }
 
     const nodeFiltersFactory = root.contentDomScanNodeFilters
@@ -208,7 +199,7 @@
       ? pageBudgetTrackerFactory()
       : {
           buildPageBudgetState: (_settings) => null,
-          updatePageBudgetUsage: (_state, _replacements) => {}
+          updatePageBudgetUsage: noop
         };
 
     const reorderNodesForScanFactory = root.contentDomScanOrder
@@ -225,10 +216,7 @@
       : null;
     const scanCounters = scanCountersFactory
       ? scanCountersFactory({ getFocusWord })
-      : {
-          createFullScanCounter: (currentSettings) => buildCounter(currentSettings, 40, 30),
-          createMutationCounter: (currentSettings) => buildCounter(currentSettings, 20, 15)
-        };
+      : createFallbackScanCounters({ nowMs, getFocusWord });
 
     const textNodeProcessorFactory = root.contentDomScanTextNodeProcessor
       && typeof root.contentDomScanTextNodeProcessor.createTextNodeProcessor === "function"
@@ -262,7 +250,7 @@
         };
 
     function enqueueScan(task) {
-      const scheduled = scanQueue.then(() => task());
+      const scheduled = scanQueue.then(task);
       scanQueue = scheduled.catch((error) => {
         log(
           "DOM scan failed:",
@@ -291,11 +279,7 @@
       const nodes = collectTextNodes(document.body);
       const scanNodes = reorderNodesForScan(nodes, currentSettings);
       let deadlineMs = Number(counter.scanStartedAtMs || nowMs()) + 12;
-      for (let index = 0; index < scanNodes.length; index += 1) {
-        const node = scanNodes[index];
-        await textNodeProcessor.processTextNode(node, counter);
-        deadlineMs = await maybeYieldDuringScan(counter, deadlineMs, index < scanNodes.length - 1);
-      }
+      deadlineMs = await processTextNodes(scanNodes, counter, currentSettings, deadlineMs);
       counter.scanDurationMs = nowMs() - Number(counter.scanStartedAtMs || 0);
       if (currentSettings.debugEnabled) {
         log(
@@ -312,19 +296,8 @@
             : null
         });
         if (currentSettings.srsSemanticAdmissionEnabled === true && counter.semanticEligible > 0) {
-          log("Semantic admission scan summary:", {
-            eligible: counter.semanticEligible,
-            ready: counter.semanticReady,
-            policyReplaces: counter.semanticPolicyReplaces,
-            policyAbstains: counter.semanticPolicyAbstains,
-            policySoftAffordances: counter.semanticPolicySoftAffordances,
-            fallbackReplaces: counter.semanticFallbackReplaces,
-            fallbackAbstains: counter.semanticFallbackAbstains,
-            fallbackSoftAffordances: counter.semanticFallbackSoftAffordances,
-            decisionPolicyId: counter.semanticDecisionPolicyId || "",
-            debugDecisionOverride: counter.semanticDebugDecisionOverride || "",
-            debugOverrideApplied: counter.semanticDebugOverrideApplied || 0
-          });
+          log("Semantic admission scan summary:", buildSemanticAdmissionLogSummary(counter));
+          log("Semantic admission performance:", buildSemanticPerformanceSummary(counter));
         }
         if (counter.focusWord) {
           log(
@@ -342,7 +315,7 @@
     }
 
     function processDocument() {
-      return enqueueScan(() => processDocumentInternal());
+      return enqueueScan(processDocumentInternal);
     }
 
     function observeChanges() {
@@ -366,19 +339,19 @@
           for (const mutation of mutations) {
             if (mutation.type === "characterData") {
               await textNodeProcessor.processTextNode(mutation.target, counter);
-              deadlineMs = await maybeYieldDuringScan(counter, deadlineMs, true);
+              if (maybeYieldDuringScan) {
+                deadlineMs = await maybeYieldDuringScan(counter, deadlineMs, true, nowMs, yieldToPage);
+              }
             } else if (mutation.type === "childList") {
               for (const node of mutation.addedNodes) {
                 if (node.nodeType === Node.TEXT_NODE) {
                   await textNodeProcessor.processTextNode(node, counter);
-                  deadlineMs = await maybeYieldDuringScan(counter, deadlineMs, true);
+                  if (maybeYieldDuringScan) {
+                    deadlineMs = await maybeYieldDuringScan(counter, deadlineMs, true, nowMs, yieldToPage);
+                  }
                 } else if (node.nodeType === Node.ELEMENT_NODE) {
                   const textNodes = collectTextNodes(node);
-                  for (let index = 0; index < textNodes.length; index += 1) {
-                    const textNode = textNodes[index];
-                    await textNodeProcessor.processTextNode(textNode, counter);
-                    deadlineMs = await maybeYieldDuringScan(counter, deadlineMs, index < textNodes.length - 1);
-                  }
+                  deadlineMs = await processTextNodes(textNodes, counter, currentSettings, deadlineMs);
                 }
               }
             }
@@ -401,19 +374,8 @@
               });
             }
             if (currentSettings.srsSemanticAdmissionEnabled === true && counter.semanticEligible > 0) {
-              log("Semantic admission mutation summary:", {
-                eligible: counter.semanticEligible,
-                ready: counter.semanticReady,
-                policyReplaces: counter.semanticPolicyReplaces,
-                policyAbstains: counter.semanticPolicyAbstains,
-                policySoftAffordances: counter.semanticPolicySoftAffordances,
-                fallbackReplaces: counter.semanticFallbackReplaces,
-                fallbackAbstains: counter.semanticFallbackAbstains,
-                fallbackSoftAffordances: counter.semanticFallbackSoftAffordances,
-                decisionPolicyId: counter.semanticDecisionPolicyId || "",
-                debugDecisionOverride: counter.semanticDebugDecisionOverride || "",
-                debugOverrideApplied: counter.semanticDebugOverrideApplied || 0
-              });
+              log("Semantic admission mutation summary:", buildSemanticAdmissionLogSummary(counter));
+              log("Semantic admission performance:", buildSemanticPerformanceSummary(counter));
             }
             if (counter.detailTruncated) {
               log(`Detail logs truncated after ${counter.detailLimit} replacement(s).`);

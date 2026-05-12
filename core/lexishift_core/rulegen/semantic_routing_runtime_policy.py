@@ -28,6 +28,8 @@ RUNTIME_SEMANTIC_FALLBACK_POLICIES = (
     "abstain_on_unavailable",
     "soft_affordance_on_unavailable",
 )
+DEFAULT_RUNTIME_SEMANTIC_FIT_SCOPE = "batch"
+RUNTIME_SEMANTIC_FIT_SCOPES = ("batch", "per_match")
 _ACTIVE_RESCUE_PRIMARY_MARGIN_FLOOR = -0.02
 _ACTIVE_RESCUE_BACKUP_MARGIN_FLOOR = 0.02
 _ACTIVE_RESCUE_BACKUP_EVIDENCE_VIEW = "sense_label"
@@ -386,6 +388,7 @@ def build_semantic_admit_batch_response(
     inventory: Mapping[str, object] | None,
     fallback_policy: str = DEFAULT_RUNTIME_SEMANTIC_FALLBACK_POLICY,
     decision_policy_id: str | None = None,
+    fit_scope: str = DEFAULT_RUNTIME_SEMANTIC_FIT_SCOPE,
     backend_factory: Callable[..., RuntimeSimilarityBackend] = RuntimeSimilarityBackend,
 ) -> dict[str, object]:
     normalized_pair = str(pair or "").strip().lower()
@@ -393,6 +396,39 @@ def build_semantic_admit_batch_response(
     resolved_fallback_policy = (
         str(fallback_policy or "").strip() or DEFAULT_RUNTIME_SEMANTIC_FALLBACK_POLICY
     )
+    resolved_fit_scope = str(fit_scope or "").strip() or DEFAULT_RUNTIME_SEMANTIC_FIT_SCOPE
+    if resolved_fit_scope not in RUNTIME_SEMANTIC_FIT_SCOPES:
+        resolved_fit_scope = DEFAULT_RUNTIME_SEMANTIC_FIT_SCOPE
+    if resolved_fit_scope == "per_match" and len(matches) > 1:
+        decisions: list[dict[str, object]] = []
+        resolved_policy_id = ""
+        for match in matches:
+            response = build_semantic_admit_batch_response(
+                pair=normalized_pair,
+                profile_id=normalized_profile_id,
+                matches=[match],
+                inventory=inventory,
+                fallback_policy=resolved_fallback_policy,
+                decision_policy_id=decision_policy_id,
+                fit_scope=DEFAULT_RUNTIME_SEMANTIC_FIT_SCOPE,
+                backend_factory=backend_factory,
+            )
+            if not resolved_policy_id:
+                resolved_policy_id = str(response.get("decision_policy_id") or "")
+            decisions.extend(
+                dict(decision)
+                for decision in response.get("decisions", [])
+                if isinstance(decision, Mapping)
+            )
+        return {
+            "schema_version": 1,
+            "pair": normalized_pair,
+            "profile_id": normalized_profile_id,
+            "decision_policy_id": resolved_policy_id,
+            "fallback_policy": resolved_fallback_policy,
+            "fit_scope": resolved_fit_scope,
+            "decisions": decisions,
+        }
     fallback_decision = resolve_runtime_fallback_decision(resolved_fallback_policy)
     resolved_decision_policy_id = str(decision_policy_id or "").strip()
     if not resolved_decision_policy_id:
@@ -525,6 +561,7 @@ def build_semantic_admit_batch_response(
         "profile_id": normalized_profile_id,
         "decision_policy_id": policy.policy_id,
         "fallback_policy": resolved_fallback_policy,
+        "fit_scope": resolved_fit_scope,
         "decisions": decisions,
     }
 

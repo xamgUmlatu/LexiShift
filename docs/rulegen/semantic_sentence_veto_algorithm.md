@@ -2,8 +2,8 @@
 
 Status: active reference
 Role: Algorithm reference / research alignment
-Last updated: 2026-05-09
-Last verified: 2026-05-09 against `semantic_routing_runtime_scoring.py`, `semantic_routing_runtime_policy.py`, current decision-rule matrix manifests, latest phrasing/order plus context-conditioned evidence bakeoff artifacts, the product-scope algorithm bakeoff, and the corrected product-scope candidate/band rerun
+Last updated: 2026-05-13
+Last verified: 2026-05-13 against `semantic_routing_runtime_scoring.py`, `semantic_routing_runtime_policy.py`, current decision-rule matrix manifests, latest phrasing/order plus context-conditioned evidence bakeoff artifacts, the product-scope algorithm bakeoff, the corrected product-scope candidate/band rerun, the browser extension `context_text` assembly path plus edge-case context resolver contracts, and a live fetched Castle-page DOM-split regression
 Purpose: describe the semantic sentence-veto algorithm end to end so runtime behavior, source-admission work, phrase handling, and decision-rule experiments stay aligned
 Source-of-truth: explanatory reference only; implementation truth lives in the code, tests, manifests, and generated artifacts named below
 
@@ -11,6 +11,8 @@ Primary implementation references:
 
 - `core/lexishift_core/rulegen/semantic_routing_runtime_scoring.py`
 - `core/lexishift_core/rulegen/semantic_routing_runtime_policy.py`
+- `apps/chrome-extension/content/runtime/dom_scan/semantic_context.js`
+- `apps/chrome-extension/content/runtime/semantic/semantic_request_context.js`
 - `scripts/testing/semantic_decision_rule_matrix_en_es.py`
 - `scripts/testing/semantic_decision_research_lanes_summary.py`
 - `scripts/testing/semantic_routing_sentence_veto_sweep.py`
@@ -170,6 +172,257 @@ The matrix harness also has harness-only experimental views such as ordered
 n-grams, skip-grams, before/after slots, surface frames, POS frames,
 dependency-role approximations, negation/modal signals, shuffled context, and
 reversed context. Those are not production runtime views.
+
+### DOM Context Assembly
+
+Status: implemented in the browser extension runtime with scan-local context
+buffer reuse.
+
+The browser extension still finds replacement candidates inside one raw DOM text
+node, but semantic admission no longer has to use that same text-node string as
+`context_text`. Inline markup can split one visible sentence into many text
+nodes. On pages such as Wikipedia, a visible sentence like `A castle is a type of
+fortified structure` previously reached the semantic scorer as only `castle`,
+which starved the active-sense score even when the visible sentence was a clear
+active context.
+
+The runtime fix keeps DOM edits text-node-local while widening only the semantic
+context sent to helper admission:
+
+1. Match and replacement rendering remain scoped to the original text node.
+2. Before semantic admission, derive a bounded visible context around the match
+   from nearby DOM text nodes.
+3. Send the widened `context_text` plus `match_start` / `match_end` offsets
+   relative to that widened context.
+4. If widened context assembly is unavailable or offset mapping is ambiguous,
+   fall back to the current text-node-local context rather than guessing.
+
+Context assembly should use two separate controls:
+
+- a block-ish ancestor as a safety fence, so the search does not drift into
+  unrelated navigation, captions, cards, or sibling blocks
+- punctuation and word budgets as clipping heuristics inside that fence
+
+Implemented runtime algorithm:
+
+1. Walk up from the current text node to the nearest sane text container such as
+   `p`, `li`, `td`, `th`, `blockquote`, `figcaption`, `dd`, `dt`, or a compact
+   article/content `div`. Stop at `body` and use a small ancestor-depth cap.
+2. Traverse visible text-node siblings inside that container in document order,
+   skipping editable nodes, script/style/noscript content, hidden nodes, and
+   existing `.lexishift-replacement` spans.
+3. Build a visible text buffer with an offset map back to each participating
+   text node and the text-node-local match span. During one scan, small complete
+   container snapshots are cached by containing block and node-filter policy so
+   multiple matched text nodes in the same visible block can reuse the same
+   assembled buffer. If a container is too large, truncated, or not fully
+   mappable, the resolver falls back to the per-node assembly path.
+4. Clip around the mapped match span. Prefer strong sentence boundaries (`.`,
+   `?`, `!`). If no strong boundary is available, use the hard word-window cap.
+   Commas are not hard stops because they often carry the disambiguating
+   appositive or relative clause. Semicolons and colons are not hard stops in
+   the current runtime; long run-ons that use them are still bounded by the word
+   cap.
+5. Enforce hard caps while collecting and clipping. The implementation should
+   have named constants for maximum visible words, maximum characters, maximum
+   text nodes visited, and maximum ancestor depth. The search must stop when the
+   word cap is reached even if no punctuation boundary was found.
+
+The hard cap is part of the semantic policy, not just performance protection.
+Longer context can drift after punctuation, and the marginal benefit usually
+falls once the current sentence or sentence-like window is present. A reasonable
+starting point is a hard maximum of sentence-window scale, then tune with
+observed false abstains and helper latency.
+
+Current contract coverage includes:
+
+- split inline paragraph context, for example
+  `<p>A <a>castle</a> is a type of <b>fortified</b> structure...</p>`
+- hard word-cap enforcement when a container has no punctuation boundary
+- helper request serialization of widened `context_text` with mapped
+  `match_start` / `match_end` offsets
+- comma/appositive cases where stopping at the first comma would remove useful
+  disambiguating context
+- repeated source phrases in one block, proving `match_start` / `match_end`
+  point at the current text-node occurrence inside the widened context
+- negative cases that must not cross into sibling blocks, hidden text, or
+  LexiShift replacement spans
+- single text nodes containing multiple sentences, proving the resolver clips to
+  the sentence around the current match rather than the whole text node
+- multiple ready SRS matches in one sentence, proving helper requests share the
+  same sentence context while preserving independent `source_phrase`, offset,
+  and decision records
+- scan-local block context cache reuse, proving multiple matched text nodes in a
+  small complete block reuse one assembled container buffer
+
+Live page regression:
+
+- `2026-05-13`: fetched `https://en.wikipedia.org/wiki/Castle` and confirmed
+  the first paragraph still arrives as split text chunks such as `A `,
+  `castle`, ` is a type of `, `fortified`, ` structure built during the `,
+  `Middle Ages`, and later `. Scholars usually consider a `, `castle`.
+- Replaying those chunks through the current resolver returned the first
+  sentence for the first `castle` and `fortified`, the second sentence for the
+  later `castle`, and reused one complete block buffer for all three lookups
+  (`containerBuilds=1`, `recordReuses=2`, `usableReuses=3`, `bypasses=0`).
+
+Performance instrumentation:
+
+- Debug scan/mutation logs now include `Semantic admission performance` with
+  inventory lookup count/latency, helper batch call count, helper request count,
+  helper batch min/max/average size, helper latency total/max/average, and
+  context-cache build/reuse/bypass counts. The same summary also includes scan
+  scheduler counters: `scanNodeBatchCalls`, `scanNodeCount`,
+  `scanNodeBatchMaxSize`, `scanNodeConcurrentBatches`,
+  `scanNodeSerialBatches`, and `scanNodeSerialBudgetBatches`.
+- Debug apply diagnostics persist the same fields under
+  `srsRuntimeLastState`, including:
+  `semantic_helper_batch_calls`, `semantic_helper_request_count`,
+  `semantic_helper_batch_avg_size`, `semantic_helper_latency_ms_total`,
+  `semantic_helper_latency_ms_avg`,
+  `semantic_context_cache_container_builds`,
+  `semantic_context_cache_record_reuses`,
+  `semantic_context_cache_usable_reuses`, and
+  `semantic_context_cache_bypasses`. Debug state also persists the scheduler
+  fields as `semantic_scan_node_batch_*`,
+  `semantic_scan_node_concurrent_batches`,
+  `semantic_scan_node_serial_batches`, and
+  `semantic_scan_node_serial_budget_batches`.
+- These metrics are meant to prove user-facing performance changes against
+  `first_visible_replacement_latency_ms`, not just lower internal work counts.
+- Successful semantic-inventory resolution is cached inside the content-script
+  semantic gate by pair/profile. That cache exists above individual text-node
+  admissions, so a serial scan no longer has to pay helper inventory lookup
+  latency once per ready match. Missing/error inventory responses are not
+  treated as stable success. The metrics count actual inventory resolutions,
+  not cache hits, so an optimized single-pair page scan should normally show
+  roughly one `semantic_inventory_lookup_calls` value for the active
+  pair/profile even if helper admission still evaluates many matches.
+- Helper admission batching now uses explicit `fit_scope=per_match` for browser
+  page batches that contain different `context_text` values. This is the
+  scorer-contract guardrail: a batch can reduce native-message/helper startup
+  overhead while the helper still evaluates each match with the same fit corpus
+  shape it would have had as a one-match request. This matters for TF-IDF
+  policies, where fitting on many unrelated browser contexts can change scores.
+- Budgeted semantic scans now use a two-phase node pass. The runtime first
+  preflights semantic decisions for a small batch of text nodes concurrently,
+  then renders those nodes in DOM order with the normal page-budget state and a
+  semantic-result override. The preflight sees a read-only snapshot of the
+  already-consumed page budget, but it does not mutate the live budget; actual
+  replacement application remains text-node-local and budget-enforced.
+
+Current Castle measurement:
+
+- `2026-05-13`: replayed the fetched Castle first-paragraph chunks through the
+  current resolver and semantic gate with a mock helper delay to measure call
+  topology. The paragraph had `32` text chunks; the measured ready nodes were
+  the first `castle`, first `fortified`, and later `castle`.
+- Current optimized topology for those three ready matches:
+  `semantic_inventory_lookup_calls=1`, `semantic_helper_batch_calls=2`,
+  `semantic_helper_request_count=3`, `semantic_helper_batch_min_size=1`,
+  `semantic_helper_batch_max_size=2`, `semantic_helper_batch_avg_size=1.5`,
+  helper call sizes `[2, 1]`.
+- Context assembly was already reused:
+  `semantic_context_cache_container_builds=1`,
+  `semantic_context_cache_record_reuses=2`,
+  `semantic_context_cache_usable_reuses=3`,
+  `semantic_context_cache_bypasses=0`.
+- Interpretation: the runtime now coalesces concurrent ready admissions when
+  they resolve to the same widened `context_text`, pair/profile, and fallback
+  policy. On Castle, the first `castle` and `fortified` share the first
+  sentence and batch together; the later `castle` is in the next sentence and
+  stays in a separate helper call. That preserves the scorer input shape that
+  would have existed if the sentence had been one DOM text node, while avoiding
+  broader cross-sentence batching that could change batch-sensitive scorers.
+  Actual end-to-end latency impact must still be measured in a live extension
+  run because mock helper latency is only a topology probe.
+- A live Castle extension run before the semantic-gate inventory cache showed
+  `inventoryLookupCalls=267`, `helperBatchCalls=267`,
+  `helperRequestCount=267`, `helperBatchMaxSize=1`,
+  `inventoryLookupLatencyMsAvg=198.3`, and `helperLatencyMsAvg=197.3`.
+  Interpretation: instrumentation was live, but same-context helper coalescing
+  did not materially apply in that browser run; the repeated helper inventory
+  preflight was the immediate latency bug. The inventory cache is therefore the
+  first live-runtime optimization to verify before broader helper request
+  coalescing changes.
+- A live Castle reload after the inventory-cache patch showed
+  `inventoryLookupCalls=1`, `inventoryLookupLatencyMsTotal=187.6`,
+  `helperBatchCalls=266`, `helperRequestCount=266`, `helperBatchMaxSize=1`,
+  and `helperLatencyMsTotal=52074`. Interpretation: inventory preflight was
+  fixed, and the remaining latency was isolated to one native helper admission
+  request per ready match. The next optimization is therefore per-match-fit
+  helper batching across different contexts, not more context-cache work.
+- A follow-up live Castle reload still showed `helperBatchMaxSize=1` and added
+  scan scheduler evidence:
+  `scanNodeBatchCalls=6737`, `scanNodeBatchMaxSize=1`,
+  `scanNodeSerialBudgetBatches=6737`. Interpretation: helper batching code was
+  present, but page-budget mode was forcing every text node through the serial
+  scanner, so the helper batcher never saw multiple pending semantic requests.
+  The current runtime patch addresses that scheduler constraint with the
+  two-phase budgeted semantic scan described above.
+- A live Castle reload after the two-phase budgeted semantic scan showed the
+  intended user-facing performance win:
+  `inventoryLookupCalls=1`, `helperRequestCount=267`,
+  `helperBatchCalls=137`, `helperBatchMaxSize=5`,
+  `helperBatchAvgSize=1.95`, `helperLatencyMsTotal=26449.8`,
+  `scanNodeBatchCalls=281`, `scanNodeBatchMaxSize=24`,
+  `scanNodeConcurrentBatches=281`, and `scanNodeSerialBudgetBatches=0`.
+  Compared with the post-inventory-cache run, the runtime still evaluated the
+  same `267` semantic requests, but native-helper round trips fell from `266` to
+  `137` and total helper time fell from about `52.1s` to about `26.4s`.
+  Plainly: this did not make one helper call faster; it made the browser send
+  the same work in fewer helper calls. The observed page experience was
+  materially faster.
+
+Live E2E measurement workflow:
+
+1. Enable extension debug logging and semantic admission for a ready semantic
+   pack/profile.
+2. Load the target page in a fresh tab and wait for initial replacements.
+3. Inspect the debug log entries named `Semantic admission performance`,
+   `Semantic admission performance summary`, and `Apply timing`.
+4. Read `chrome.storage.local.srsRuntimeLastState` while debug mode is enabled
+   and record at least `page_url`, `first_visible_replacement_latency_ms`,
+   `semantic_helper_batch_calls`, `semantic_helper_request_count`,
+   `semantic_helper_batch_max_size`, `semantic_helper_batch_avg_size`,
+   `semantic_helper_latency_ms_total`, `semantic_helper_latency_ms_avg`,
+   `semantic_scan_node_batch_max_size`,
+   `semantic_scan_node_serial_budget_batches`,
+   `semantic_context_cache_container_builds`,
+   `semantic_context_cache_usable_reuses`, and
+   `semantic_context_cache_bypasses`.
+5. Compare before/after optimization runs on the same page, profile, browser
+   session shape, and semantic pack. A useful coalescing win should lower helper
+   batch calls and first visible replacement latency without changing replace /
+   abstain decisions.
+
+Deferred performance follow-up:
+
+- Same-context helper-call coalescing is implemented, and browser helper batches
+  can now coalesce different context strings only when the helper request uses
+  explicit `fit_scope=per_match`.
+- Budgeted semantic pages now have a two-phase scan path, so the next live
+  metric to watch is `helperBatchAvgSize` / `helperBatchMaxSize` together with
+  `scanNodeBatchMaxSize` / `scanNodeSerialBudgetBatches`. On a page like Castle,
+  a healthy run should no longer have `helperBatchMaxSize=1` because page-budget
+  mode should no longer force semantic node scans into one-node batches.
+- The first live Castle run after this patch reached `helperBatchAvgSize=1.95`
+  and `helperBatchMaxSize=5`. Further tuning can experiment with larger scan
+  batches or a short semantic-batch flush window, but those changes should be
+  evaluated against first-visible replacement latency and page responsiveness,
+  not helper-call counts alone.
+- If `helperBatchMaxSize` remains `1`, use the scan scheduler counters:
+  - if `scanNodeBatchMaxSize` is also `1` and
+    `scanNodeSerialBudgetBatches > 0`, the browser is still running an older
+    build or the budgeted preflight method was unavailable
+  - if `scanNodeBatchMaxSize` is larger than `1` while
+    `helperBatchMaxSize` remains `1`, the semantic-gate/helper batching path is
+    failing after node scheduling
+  - if the scan scheduler counters are missing entirely, the browser did not
+    load this instrumentation revision
+- If semicolon/colon clipping becomes necessary for long run-ons, implement it
+  as a separate boundary-policy change with examples proving that definitions
+  after `:` and closely related clauses after `;` are not accidentally removed.
 
 ### 5. Evidence Representation
 

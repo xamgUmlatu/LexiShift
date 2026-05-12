@@ -3,6 +3,18 @@
   const { tokenize, computeGapOk } = root.tokenizer || {};
   const { findLongestMatch, applyCase } = root.matcher || {};
   const replacementSelection = root.replacementSelection || {};
+  const semanticDebug = root.replacementSemanticDebug || {
+    applyToSpan: () => {},
+    buildMetadata: () => null,
+    copyDecision: () => null
+  };
+  const semanticOverride = root.replacementSemanticOverride || {
+    buildDecisionBySignature: () => new Map(),
+    buildResultOverride: () => ({ allowedMatchSignatures: new Set(), decisionBySignature: new Map() }),
+    getAdmission: () => null,
+    getMatchSignature: () => "",
+    normalizeResultOverride: () => null
+  };
   const RULE_ORIGIN_SRS = "srs";
   const MAX_CONTEXT_WORDS = 15;
   const createSelectionSeed = typeof replacementSelection.createSelectionSeed === "function"
@@ -152,89 +164,6 @@
     };
   }
 
-  function normalizeSemanticReasonCodes(reasonCodes) {
-    return Array.isArray(reasonCodes)
-      ? reasonCodes.map((code) => String(code || "")).filter(Boolean)
-      : [];
-  }
-
-  function buildSemanticDebugMetadata(semanticAdmission, semanticDecision) {
-    if (!semanticAdmission && !semanticDecision) {
-      return null;
-    }
-    return {
-      status: semanticAdmission ? String(semanticAdmission.status || "") : "",
-      trigger_id: semanticAdmission ? String(semanticAdmission.trigger_id || "") : "",
-      phrase_set_id: semanticAdmission ? String(semanticAdmission.phrase_set_id || "") : "",
-      decision: semanticDecision ? String(semanticDecision.decision || "") : "",
-      decision_source: semanticDecision ? String(semanticDecision.decision_source || "") : "",
-      effective_decision: semanticDecision ? String(semanticDecision.effective_decision || "") : "",
-      effective_decision_source: semanticDecision ? String(semanticDecision.effective_decision_source || "") : "",
-      debug_override: semanticDecision ? String(semanticDecision.debug_override || "") : "",
-      debug_original_decision: semanticDecision ? String(semanticDecision.debug_original_decision || "") : "",
-      debug_original_decision_source: semanticDecision ? String(semanticDecision.debug_original_decision_source || "") : "",
-      reason_codes: normalizeSemanticReasonCodes(semanticDecision && semanticDecision.reason_codes),
-      sense_id: semanticDecision ? String(semanticDecision.sense_id || "") : "",
-      competition_set_id: semanticDecision ? String(semanticDecision.competition_set_id || "") : "",
-      score_margin: semanticDecision && Number.isFinite(Number(semanticDecision.score_margin)) ? Number(semanticDecision.score_margin) : null,
-      active_score: semanticDecision && Number.isFinite(Number(semanticDecision.active_score)) ? Number(semanticDecision.active_score) : null,
-      top_shadow_score: semanticDecision && Number.isFinite(Number(semanticDecision.top_shadow_score)) ? Number(semanticDecision.top_shadow_score) : null,
-      phrase_preempted: semanticDecision ? semanticDecision.phrase_preempted === true : false
-    };
-  }
-
-  function copySemanticDecision(semanticDecision) {
-    if (!semanticDecision) {
-      return null;
-    }
-    return {
-      decision: String(semanticDecision.decision || ""),
-      decision_source: String(semanticDecision.decision_source || ""),
-      effective_decision: String(semanticDecision.effective_decision || ""),
-      effective_decision_source: String(semanticDecision.effective_decision_source || ""),
-      debug_override: String(semanticDecision.debug_override || ""),
-      debug_original_decision: String(semanticDecision.debug_original_decision || ""),
-      debug_original_decision_source: String(semanticDecision.debug_original_decision_source || ""),
-      reason_codes: normalizeSemanticReasonCodes(semanticDecision.reason_codes),
-      sense_id: String(semanticDecision.sense_id || ""),
-      competition_set_id: String(semanticDecision.competition_set_id || ""),
-      score_margin: Number.isFinite(Number(semanticDecision.score_margin)) ? Number(semanticDecision.score_margin) : null,
-      active_score: Number.isFinite(Number(semanticDecision.active_score)) ? Number(semanticDecision.active_score) : null,
-      top_shadow_score: Number.isFinite(Number(semanticDecision.top_shadow_score)) ? Number(semanticDecision.top_shadow_score) : null,
-      phrase_preempted: semanticDecision.phrase_preempted === true
-    };
-  }
-
-  function applySemanticDebugMetadata(span, metadata) {
-    if (!span || !metadata || typeof metadata !== "object") {
-      return;
-    }
-    const mappings = [["status", "semanticStatus"], ["decision", "semanticDecision"], ["decision_source", "semanticDecisionSource"], ["effective_decision", "semanticEffectiveDecision"], ["effective_decision_source", "semanticEffectiveDecisionSource"], ["debug_override", "semanticDebugOverride"], ["debug_original_decision", "semanticDebugOriginalDecision"], ["debug_original_decision_source", "semanticDebugOriginalDecisionSource"], ["sense_id", "semanticSenseId"], ["competition_set_id", "semanticCompetitionSetId"], ["phrase_set_id", "semanticPhraseSetId"], ["trigger_id", "semanticTriggerId"]];
-    for (const [sourceKey, datasetKey] of mappings) {
-      if (metadata[sourceKey]) {
-        span.dataset[datasetKey] = String(metadata[sourceKey]);
-      }
-    }
-    if (Array.isArray(metadata.reason_codes) && metadata.reason_codes.length) {
-      span.dataset.semanticReasonCodes = metadata.reason_codes
-        .map((code) => String(code || "").trim())
-        .filter(Boolean)
-        .join(",");
-    }
-    if (Number.isFinite(Number(metadata.score_margin))) {
-      span.dataset.semanticScoreMargin = String(Number(metadata.score_margin));
-    }
-    if (Number.isFinite(Number(metadata.active_score))) {
-      span.dataset.semanticActiveScore = String(Number(metadata.active_score));
-    }
-    if (Number.isFinite(Number(metadata.top_shadow_score))) {
-      span.dataset.semanticTopShadowScore = String(Number(metadata.top_shadow_score));
-    }
-    if (metadata.phrase_preempted === true) {
-      span.dataset.semanticPhrasePreempted = "true";
-    }
-  }
-
   function createReplacementSpan(originalText, displayPayload, rule, highlightEnabled, origin, debugMetadata) {
     const payload = displayPayload && typeof displayPayload === "object"
       ? displayPayload
@@ -283,7 +212,7 @@
     }
     const metadata = debugMetadata && typeof debugMetadata === "object" ? debugMetadata : null;
     if (metadata) {
-      applySemanticDebugMetadata(span, metadata);
+      semanticDebug.applyToSpan(span, metadata);
     }
 
     let tooltip = "Click to toggle original";
@@ -344,8 +273,11 @@
     onTextNode,
     originResolver,
     budget,
-    semanticGateRuntime
+    semanticGateRuntime, semanticContextResolver, options
   ) {
+    const buildOptions = options && typeof options === "object" ? options : {};
+    const dryRun = buildOptions.dryRun === true;
+    const semanticResultOverride = semanticOverride.normalizeResultOverride(buildOptions.semanticResultOverride);
     const trackDetails = settings.debugEnabled === true;
     const details = trackDetails ? [] : null;
     const budgetKeys = budget ? [] : null;
@@ -377,8 +309,15 @@
     const selectionSeed = createSelectionSeed(text, settings);
     let finalMatches = filterMatchesByPolicy(matches, settings, gapOk, budget, selectionSeed);
     let semanticDecisionMap = null;
+    let semanticDecisionBySignature = semanticResultOverride
+      ? semanticResultOverride.decisionBySignature
+      : null;
     let semanticSummary = null;
-    if (
+    if (semanticResultOverride) {
+      finalMatches = finalMatches.filter((match) =>
+        semanticResultOverride.allowedMatchSignatures.has(semanticOverride.getMatchSignature(match))
+      );
+    } else if (
       semanticGateRuntime
       && typeof semanticGateRuntime.admitMatches === "function"
       && finalMatches.length
@@ -388,17 +327,28 @@
         tokens,
         wordPositions,
         matches: finalMatches,
-        settings
+        settings, semanticContextResolver
       });
       if (semanticResult && Array.isArray(semanticResult.matches)) {
         finalMatches = semanticResult.matches;
         semanticDecisionMap = semanticResult.decisionMap instanceof Map
           ? semanticResult.decisionMap
           : null;
+        semanticDecisionBySignature = semanticOverride.buildDecisionBySignature(semanticDecisionMap);
         semanticSummary = semanticResult.summary && typeof semanticResult.summary === "object"
           ? semanticResult.summary
           : null;
       }
+    }
+    if (dryRun) {
+      return {
+        fragment: null,
+        replacements: finalMatches.length,
+        details,
+        budgetKeys,
+        semanticSummary,
+        semanticResultOverride: semanticOverride.buildResultOverride(finalMatches, semanticDecisionMap)
+      };
     }
     if (!finalMatches.length) {
       if (!semanticSummary) {
@@ -432,18 +382,14 @@
       const origin = originResolver
         ? originResolver(match.rule, displayPayload.displayReplacement)
         : null;
-      const semanticDecision = semanticDecisionMap ? semanticDecisionMap.get(match) : null;
-      const semanticAdmission = (
-        match.rule
-        && match.rule.metadata
-        && typeof match.rule.metadata === "object"
-        && match.rule.metadata.semantic_admission
-        && typeof match.rule.metadata.semantic_admission === "object"
-      )
-        ? match.rule.metadata.semantic_admission
-        : null;
+      const semanticDecision = semanticDecisionMap
+        ? semanticDecisionMap.get(match)
+        : (semanticDecisionBySignature
+          ? semanticDecisionBySignature.get(semanticOverride.getMatchSignature(match))
+          : null);
+      const semanticAdmission = semanticOverride.getAdmission(match.rule);
       const semanticDebugMetadata = settings.debugEnabled === true
-        ? buildSemanticDebugMetadata(semanticAdmission, semanticDecision)
+        ? semanticDebug.buildMetadata(semanticAdmission, semanticDecision)
         : null;
       if (budgetKeys) {
         budgetKeys.push(displayPayload.canonicalReplacement);
@@ -472,7 +418,7 @@
             ? String(displayPayload.wordPackage.language_tag || "")
             : "",
           word_package: displayPayload.wordPackage || null,
-          semantic_decision: copySemanticDecision(semanticDecision)
+          semantic_decision: semanticDebug.copyDecision(semanticDecision)
         });
       }
       tokenCursor = endTokenIdx + 1;

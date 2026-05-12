@@ -81,6 +81,10 @@ Module layout
   - Filters matches based on settings (max-one-per-block, allow-adjacent, page budgets).
   - Keeps optional replacement detail logs for debug mode.
   - Adds `data-origin`, `data-language-pair`, and `data-source` for downstream UI control.
+- `apps/chrome-extension/content/processing/replacement_semantic_debug.js`
+  - Serializes semantic admission decisions onto debug replacement metadata.
+- `apps/chrome-extension/content/processing/replacement_semantic_override.js`
+  - Builds stable per-match semantic-result overrides so budgeted scan preflight can reuse helper decisions during ordered DOM rendering.
 - `apps/chrome-extension/content/runtime/dom_scan_runtime.js`
   - Owns DOM text-node scanning, mutation observer updates, and page budget enforcement orchestration.
   - Delegates node filtering, budget tracking, counter construction, and text-node replacement handling to `content/runtime/dom_scan/*`.
@@ -90,6 +94,8 @@ Module layout
   - Builds and updates page-level replacement budget state (`maxReplacementsPerPage`, per-lemma cap).
 - `apps/chrome-extension/content/runtime/dom_scan/scan_order.js`
   - Deterministically redistributes full-scan node order by page/profile when page budgets are active.
+- `apps/chrome-extension/content/runtime/dom_scan/semantic_node_scheduler.js`
+  - Batches semantic text-node preflight work, including the two-phase path that preserves ordered page-budget rendering.
 - `apps/chrome-extension/content/runtime/dom_scan/scan_counters.js`
   - Constructs scan diagnostics counters for full scans and mutation scans.
 - `apps/chrome-extension/content/runtime/dom_scan/text_node_processor.js`
