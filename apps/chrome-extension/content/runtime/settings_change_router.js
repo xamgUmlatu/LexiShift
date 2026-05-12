@@ -60,6 +60,8 @@
       "srsSemanticAdmissionEnabled",
       "srsSemanticAdmissionFallbackPolicy",
       "debugSemanticDecisionOverride",
+      "debugSemanticScanNodeBatchSize",
+      "debugSemanticHelperBatchFlushMs",
       "targetDisplayScript"
     ];
     const highlightKeys = [

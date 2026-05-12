@@ -1139,6 +1139,125 @@ const readyMatch = {{
 """
         _run_node(script)
 
+    def test_gate_debug_flush_window_batches_later_admissions(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const summaryPath = {json.dumps(str(SEMANTIC_GATE_SUMMARY_JS))};
+const batchPath = {json.dumps(str(SEMANTIC_GATE_BATCH_JS))};
+const calls = [];
+let nowValue = 100;
+const context = vm.createContext({{
+  console,
+  setTimeout,
+  clearTimeout
+}});
+context.globalThis = context;
+context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(summaryPath, "utf8"), context, {{ filename: summaryPath }});
+vm.runInContext(fs.readFileSync(batchPath, "utf8"), context, {{ filename: batchPath }});
+
+const summary = context.LexiShift.contentSemanticGateSummary;
+const admitter = context.LexiShift.contentSemanticGateBatch.createAdmitter({{
+  helperRulesRuntime: {{
+    async resolveSemanticInventory() {{
+      return {{ inventory: {{ pair: "en-es", profile_id: "default" }}, source: "helper", error: null }};
+    }},
+    async semanticAdmitBatch(payload) {{
+      calls.push(JSON.parse(JSON.stringify(payload)));
+      return {{
+        response: {{
+          schema_version: 1,
+          pair: "en-es",
+          profile_id: "default",
+          decisions: payload.matches.map((match) => ({{
+            match_id: match.match_id,
+            decision: "replace",
+            decision_source: "policy",
+            reason_codes: ["active_margin_clear"]
+          }}))
+        }},
+        error: null
+      }};
+    }}
+  }},
+  getRuleOrigin: (rule) => String(rule && rule.metadata && rule.metadata.lexishift_origin || "ruleset"),
+  normalizeProfileId: (value) => String(value || "").trim() || "default",
+  ruleOriginSrs: "srs",
+  nowMs: () => {{
+    nowValue += 1;
+    return nowValue;
+  }},
+  createRequestMatch: (request) => ({{
+    match_id: request.descriptor.matchId,
+    context_text: request.text,
+    source_phrase: request.descriptor.match.rule.source_phrase,
+    semantic_admission: request.descriptor.admission
+  }}),
+  createSummary: summary.createSummary,
+  finalizeSummary: summary.finalizeSummary,
+  summarizeHelperBatch: summary.summarizeHelperBatch,
+  summarizeInventoryLookup: summary.summarizeInventoryLookup,
+  summarizeDecision: summary.summarizeDecision
+}});
+
+function contextFor(source) {{
+  return {{
+    text: `context for ${{source}}`,
+    tokens: [],
+    wordPositions: [],
+    matches: [{{
+      startWordIndex: 0,
+      endWordIndex: 0,
+      rule: {{
+        source_phrase: source,
+        metadata: {{
+          lexishift_origin: "srs",
+          language_pair: "en-es",
+          semantic_admission: {{
+            schema_version: 1,
+            status: "ready",
+            trigger_id: `trigger:${{source}}`,
+            sense_id: `sense:${{source}}`,
+            competition_set_id: `comp:${{source}}`
+          }}
+        }}
+      }}
+    }}],
+    settings: {{
+      srsEnabled: true,
+      srsSemanticAdmissionEnabled: true,
+      srsPair: "en-es",
+      srsProfileId: "default",
+      debugSemanticHelperBatchFlushMs: 20
+    }}
+  }};
+}}
+
+(async () => {{
+  const first = admitter.admitMatches(contextFor("castle"));
+  await new Promise((resolve) => setTimeout(resolve, 0));
+  const second = admitter.admitMatches(contextFor("fortified"));
+  const results = await Promise.all([first, second]);
+
+  assert.equal(calls.length, 1);
+  assert.equal(calls[0].matches.length, 2);
+  assert.deepEqual(
+    calls[0].matches.map((match) => match.source_phrase),
+    ["castle", "fortified"]
+  );
+  assert.equal(results[0].summary.helperBatchCalls, 1);
+  assert.equal(results[0].summary.helperBatchMaxSize, 2);
+  assert.equal(results[1].summary.helperBatchCalls, 0);
+}})().catch((error) => {{
+  console.error(error);
+  process.exit(1);
+}});
+"""
+        _run_node(script)
+
 
 if __name__ == "__main__":
     unittest.main()

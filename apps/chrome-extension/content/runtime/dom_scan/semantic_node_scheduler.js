@@ -1,5 +1,18 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
+  const DEFAULT_SEMANTIC_SCAN_NODE_BATCH_SIZE = 96;
+  const MAX_SEMANTIC_SCAN_NODE_BATCH_SIZE = 128;
+
+  function resolveSemanticScanNodeBatchSize(settings, concurrent) {
+    if (!concurrent) {
+      return 1;
+    }
+    const parsed = Number.parseInt(settings && settings.debugSemanticScanNodeBatchSize, 10);
+    if (!Number.isFinite(parsed) || parsed <= 0) {
+      return DEFAULT_SEMANTIC_SCAN_NODE_BATCH_SIZE;
+    }
+    return Math.min(MAX_SEMANTIC_SCAN_NODE_BATCH_SIZE, Math.max(1, parsed));
+  }
 
   async function processTextNodes(options) {
     const opts = options && typeof options === "object" ? options : {};
@@ -17,7 +30,7 @@
       && typeof textNodeProcessor.preflightSemanticTextNode === "function"
     );
     const concurrent = Boolean(semanticBatchable && (!pageBudgetState || budgetedSemanticPreflight));
-    const batchSize = concurrent ? 24 : 1;
+    const batchSize = resolveSemanticScanNodeBatchSize(opts.settings, concurrent);
     let deadlineMs = opts.deadlineMs;
     for (let index = 0; index < list.length; index += batchSize) {
       const batch = list.slice(index, index + batchSize);

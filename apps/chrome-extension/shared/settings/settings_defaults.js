@@ -29,6 +29,8 @@
     debugEnabled: false,
     debugFocusWord: "",
     debugSemanticDecisionOverride: "",
+    debugSemanticScanNodeBatchSize: 96,
+    debugSemanticHelperBatchFlushMs: 0,
     uiLanguage: "system",
     rulesSource: "editor",
     rulesFileName: "",

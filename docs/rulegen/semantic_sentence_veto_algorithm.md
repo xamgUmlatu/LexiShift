@@ -305,7 +305,7 @@ Performance instrumentation:
   shape it would have had as a one-match request. This matters for TF-IDF
   policies, where fitting on many unrelated browser contexts can change scores.
 - Budgeted semantic scans now use a two-phase node pass. The runtime first
-  preflights semantic decisions for a small batch of text nodes concurrently,
+  preflights semantic decisions for a bounded batch of text nodes concurrently,
   then renders those nodes in DOM order with the normal page-budget state and a
   semantic-result override. The preflight sees a read-only snapshot of the
   already-consumed page budget, but it does not mutate the live budget; actual
@@ -373,6 +373,21 @@ Current Castle measurement:
   Plainly: this did not make one helper call faster; it made the browser send
   the same work in fewer helper calls. The observed page experience was
   materially faster.
+- Live Castle scheduler tuning then compared the default `24` semantic text-node
+  batch with a larger `96` batch while keeping the helper flush window at `0`.
+  The `24` run had `first_visible_replacement_latency_ms=876.9`,
+  `scan_ms=28092.9`, `semantic_helper_batch_calls=139`, and
+  `semantic_helper_latency_ms_total=27605.1`. The `96` run had
+  `first_visible_replacement_latency_ms=859.6`, `scan_ms=9866.2`,
+  `semantic_helper_batch_calls=47`, and
+  `semantic_helper_latency_ms_total=9462.6`. Interpretation: on this page,
+  the larger batch preserved first-visible latency while cutting whole-page
+  scan/helper time by roughly two thirds, so `96` is the current default.
+- A short helper flush window did not help the same Castle run. With scheduler
+  batch `96`, `debugSemanticHelperBatchFlushMs=5` and `10` both produced
+  `semantic_helper_batch_calls=47` and `semantic_helper_batch_avg_size=5.81`,
+  while helper latency rose relative to the `0` flush run. The default remains
+  `0`; keep the flush knob for controlled experiments only.
 
 Live E2E measurement workflow:
 
@@ -393,8 +408,8 @@ Live E2E measurement workflow:
    `semantic_context_cache_bypasses`.
 5. Compare before/after optimization runs on the same page, profile, browser
    session shape, and semantic pack. A useful coalescing win should lower helper
-   batch calls and first visible replacement latency without changing replace /
-   abstain decisions.
+   batch calls and total scan/helper time without changing replace / abstain
+   decisions or materially regressing first-visible replacement latency.
 
 Deferred performance follow-up:
 
@@ -411,6 +426,17 @@ Deferred performance follow-up:
   batches or a short semantic-batch flush window, but those changes should be
   evaluated against first-visible replacement latency and page responsiveness,
   not helper-call counts alone.
+- Two debug-only storage knobs exist for live tuning experiments:
+  `debugSemanticScanNodeBatchSize` controls the semantic text-node scheduler
+  batch size, and `debugSemanticHelperBatchFlushMs` adds a bounded helper
+  admission flush delay. Defaults are `96` and `0`, matching the best measured
+  Castle UX/throughput tradeoff so far.
+- The remaining validation before treating `96` as universal is cross-page
+  smoke, not more Castle tuning. Use one dense article, one JS-heavy page with
+  navigation/sidebar text, and one long documentation page. If any page shows a
+  material first-visible regression at `96`, revisit viewport-first or hybrid
+  scheduling; otherwise keep the single default batch to avoid unnecessary
+  scheduler complexity.
 - If `helperBatchMaxSize` remains `1`, use the scan scheduler counters:
   - if `scanNodeBatchMaxSize` is also `1` and
     `scanNodeSerialBudgetBatches > 0`, the browser is still running an older

@@ -612,6 +612,107 @@ const runtime = context.LexiShift.contentDomScanRuntime.createRuntime({{
 """
         _run_node(script)
 
+    def test_dom_scan_runtime_uses_debug_semantic_scan_batch_size(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const semanticPerformancePath = {json.dumps(str(SEMANTIC_PERFORMANCE_JS))};
+const semanticNodeSchedulerPath = {json.dumps(str(SEMANTIC_NODE_SCHEDULER_JS))};
+const modulePath = {json.dumps(str(DOM_SCAN_RUNTIME_JS))};
+const context = vm.createContext({{
+  console,
+  document: {{
+    body: {{
+      innerText: "one two three four five",
+      textContent: "one two three four five"
+    }}
+  }}
+}});
+context.globalThis = context;
+context.LexiShift = {{
+  contentDomScanTextNodeProcessor: {{
+    createTextNodeProcessor() {{
+      return {{
+        async processTextNode(_node, counter) {{
+          counter.scanned += 1;
+        }}
+      }};
+    }}
+  }}
+}};
+vm.runInContext(fs.readFileSync(semanticPerformancePath, "utf8"), context, {{ filename: semanticPerformancePath }});
+vm.runInContext(fs.readFileSync(semanticNodeSchedulerPath, "utf8"), context, {{ filename: semanticNodeSchedulerPath }});
+vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
+
+const runtime = context.LexiShift.contentDomScanRuntime.createRuntime({{
+  getCurrentSettings: () => ({{
+    enabled: true,
+    debugEnabled: false,
+    srsSemanticAdmissionEnabled: true,
+    debugSemanticScanNodeBatchSize: 2
+  }}),
+  getCurrentTrie: () => ({{ ready: true }}),
+  getProcessedNodes: () => new WeakMap(),
+  setProcessedNodes: () => {{}},
+  isApplyingChanges: () => false,
+  buildReplacementFragment: () => null,
+  semanticGateRuntime: {{ admitMatches: async () => ({{ matches: [], decisionMap: new Map(), summary: null }}) }},
+  collectTextNodes: () => [1, 2, 3, 4, 5].map((id) => ({{ id }})),
+  log: () => {{}}
+}});
+
+(async () => {{
+  const counter = await runtime.processDocument();
+  assert.equal(counter.scanned, 5);
+  assert.equal(counter.semanticScanNodeBatchCalls, 3);
+  assert.equal(counter.semanticScanNodeBatchMinSize, 1);
+  assert.equal(counter.semanticScanNodeBatchMaxSize, 2);
+  assert.equal(counter.semanticScanNodeCount, 5);
+}})().catch((error) => {{
+  console.error(error);
+  process.exit(1);
+}});
+"""
+        _run_node(script)
+
+    def test_semantic_node_scheduler_defaults_to_measured_batch_size(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const semanticNodeSchedulerPath = {json.dumps(str(SEMANTIC_NODE_SCHEDULER_JS))};
+const context = vm.createContext({{ console }});
+context.globalThis = context;
+context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(semanticNodeSchedulerPath, "utf8"), context, {{ filename: semanticNodeSchedulerPath }});
+
+const batchSizes = [];
+const nodes = Array.from({{ length: 97 }}, (_value, index) => ({{ id: index + 1 }}));
+
+(async () => {{
+  await context.LexiShift.contentDomScanSemanticNodeScheduler.processTextNodes({{
+    nodes,
+    counter: {{}},
+    settings: {{
+      srsSemanticAdmissionEnabled: true
+    }},
+    semanticGateRuntime: {{ admitMatches: async () => ({{ matches: [], decisionMap: new Map(), summary: null }}) }},
+    textNodeProcessor: {{
+      async processTextNode() {{}}
+    }},
+    recordScanNodeBatch: (_counter, size) => batchSizes.push(size)
+  }});
+  assert.deepEqual(batchSizes, [96, 1]);
+}})().catch((error) => {{
+  console.error(error);
+  process.exit(1);
+}});
+"""
+        _run_node(script)
+
     def test_dom_scan_runtime_reports_page_budget_serial_semantic_scheduling(self) -> None:
         script = f"""
 const assert = require("node:assert/strict");

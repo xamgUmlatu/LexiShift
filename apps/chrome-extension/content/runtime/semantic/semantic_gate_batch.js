@@ -1,6 +1,5 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
-
   const DEFAULT_SEMANTIC_FALLBACK_POLICY = "legacy_on_unavailable";
   const FALLBACK_POLICIES = new Set(["legacy_on_unavailable", "abstain_on_unavailable", "soft_affordance_on_unavailable"]);
   const DEBUG_DECISION_OVERRIDES = new Set(["replace", "abstain", "soft_affordance"]);
@@ -8,7 +7,7 @@
   const SEMANTIC_HELPER_BATCH_FIT_SCOPE = "per_match";
   const SEMANTIC_HELPER_MAX_REQUESTS_PER_BATCH = 32;
   const SEMANTIC_HELPER_BATCH_TIMEOUT_MS = 15000;
-
+  const MAX_DEBUG_HELPER_BATCH_FLUSH_MS = 50;
   function createAdmitter(options) {
     const opts = options && typeof options === "object" ? options : {};
     const helperRulesRuntime = opts.helperRulesRuntime && typeof opts.helperRulesRuntime === "object"
@@ -38,30 +37,30 @@
     const inventoryResolutionCache = new Map();
     let queuedAdmissions = [];
     let queuedFlushScheduled = false;
-
     function isSemanticAdmissionEnabled(settings) {
       return Boolean(settings && settings.srsEnabled === true && settings.srsSemanticAdmissionEnabled === true);
     }
-
     function resolveFallbackPolicy(settings) {
       const normalized = String(settings && settings.srsSemanticAdmissionFallbackPolicy
         ? settings.srsSemanticAdmissionFallbackPolicy
         : DEFAULT_SEMANTIC_FALLBACK_POLICY).trim() || DEFAULT_SEMANTIC_FALLBACK_POLICY;
       return FALLBACK_POLICIES.has(normalized) ? normalized : DEFAULT_SEMANTIC_FALLBACK_POLICY;
     }
-
     function resolveFallbackDecision(fallbackPolicy) {
       if (fallbackPolicy === "abstain_on_unavailable") return "abstain";
       if (fallbackPolicy === "soft_affordance_on_unavailable") return "soft_affordance";
       return "replace";
     }
-
     function resolveDebugDecisionOverride(settings) {
       if (!settings || settings.debugEnabled !== true) return "";
       const normalized = String(settings.debugSemanticDecisionOverride || "").trim().toLowerCase();
       return DEBUG_DECISION_OVERRIDES.has(normalized) ? normalized : "";
     }
-
+    function resolveDebugHelperBatchFlushMs(context) {
+      const settings = context && context.settings && typeof context.settings === "object" ? context.settings : {};
+      const parsed = Number.parseInt(settings.debugSemanticHelperBatchFlushMs, 10);
+      return Number.isFinite(parsed) && parsed > 0 ? Math.min(MAX_DEBUG_HELPER_BATCH_FLUSH_MS, parsed) : 0;
+    }
     function resolveSemanticAdmission(match) {
       const metadata = match && match.rule && match.rule.metadata && typeof match.rule.metadata === "object"
         ? match.rule.metadata
@@ -71,7 +70,6 @@
         : null;
       return admission ? { ...admission } : null;
     }
-
     function resolvePairForMatch(match, settings) {
       const metadata = match && match.rule && match.rule.metadata && typeof match.rule.metadata === "object"
         ? match.rule.metadata
@@ -80,12 +78,10 @@
         .trim()
         .toLowerCase();
     }
-
     function shouldConsiderMatch(match, settings) {
       if (!match || !match.rule || getRuleOrigin(match.rule) !== ruleOriginSrs) return false;
       return Boolean(resolveSemanticAdmission(match) && isSemanticAdmissionEnabled(settings));
     }
-
     function buildDecisionRecord(matchId, admission, decision, decisionSource, reasonCodes) {
       const pointer = admission && typeof admission === "object" ? admission : {};
       return {
@@ -101,7 +97,6 @@
         phrase_set_id: String(pointer.phrase_set_id || "")
       };
     }
-
     function buildEffectiveDecisionRecord(decisionRecord, debugDecisionOverride) {
       if (!decisionRecord || !debugDecisionOverride) return decisionRecord;
       const originalDecision = String(decisionRecord.decision || "");
@@ -116,7 +111,6 @@
         debug_original_decision_source: originalSource
       };
     }
-
     function createState(context, contextIndex, contextCount) {
       const ctx = context && typeof context === "object" ? context : {};
       const settings = ctx.settings && typeof ctx.settings === "object" ? ctx.settings : {};
@@ -136,7 +130,6 @@
         summary: null
       };
     }
-
     function groupKeyForDescriptor(descriptor) {
       return JSON.stringify([
         descriptor.pair,
@@ -144,7 +137,6 @@
         descriptor.state.fallbackPolicy
       ]);
     }
-
     function addReadyDescriptor(groups, descriptor) {
       const key = groupKeyForDescriptor(descriptor);
       if (!groups.has(key)) {
@@ -157,11 +149,9 @@
       }
       groups.get(key).descriptors.push(descriptor);
     }
-
     function groupStates(group) {
       return [...new Set(group.descriptors.map((descriptor) => descriptor.state))];
     }
-
     function setInventorySummary(group, inventoryResolution) {
       for (const state of groupStates(group)) {
         if (inventoryResolution && inventoryResolution.source && state.summary.inventorySource === "none") {
@@ -172,7 +162,6 @@
         }
       }
     }
-
     function setHelperSummary(group, payload, response) {
       for (const state of groupStates(group)) {
         if (!state.summary.decisionPolicyId && payload && payload.decision_policy_id) {
@@ -419,7 +408,6 @@
       }
       return states.map(finalizeState);
     }
-
     function flushQueuedAdmissions() {
       const entries = queuedAdmissions;
       queuedAdmissions = [];
@@ -430,23 +418,22 @@
         entries.forEach((entry) => entry.reject(error));
       });
     }
-
     function admitMatches(context) {
       return new Promise((resolve, reject) => {
         queuedAdmissions.push({ context, resolve, reject });
         if (!queuedFlushScheduled) {
           queuedFlushScheduled = true;
-          Promise.resolve().then(flushQueuedAdmissions);
+          const flushMs = resolveDebugHelperBatchFlushMs(context);
+          if (flushMs > 0 && typeof globalThis.setTimeout === "function") globalThis.setTimeout(flushQueuedAdmissions, flushMs);
+          else Promise.resolve().then(flushQueuedAdmissions);
         }
       });
     }
-
     return {
       admitContextBatch,
       admitMatches
     };
   }
-
   root.contentSemanticGateBatch = {
     createAdmitter
   };
