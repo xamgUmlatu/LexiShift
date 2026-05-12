@@ -7,8 +7,10 @@ from pathlib import Path
 
 from lexishift_core.helper.paths import build_helper_paths
 from lexishift_core.helper.use_cases.semantic_pack_install import (
+    DEFAULT_PACK_ID,
     SemanticPackInstallConfig,
     install_semantic_pack,
+    resolve_semantic_pack_inventory_path,
 )
 
 
@@ -113,6 +115,24 @@ class TestSemanticPackInstall(unittest.TestCase):
             )
             self.assertTrue(
                 paths.semantic_inventory_path("en-es", profile_id="semantic-alpha").exists()
+            )
+
+    def test_default_dev_pack_resolves_to_current_tranche_fixture(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = build_helper_paths(Path(tmp) / "data-root")
+
+            resolved = resolve_semantic_pack_inventory_path(
+                paths=paths,
+                pair="en-es",
+                pack_id=DEFAULT_PACK_ID,
+            )
+
+            self.assertIsNotNone(resolved)
+            assert resolved is not None
+            self.assertTrue(resolved.exists())
+            self.assertEqual(
+                resolved.name,
+                "en-es-active-only-combined-full-v1-tranche-002_semantic_inventory.json",
             )
 
 

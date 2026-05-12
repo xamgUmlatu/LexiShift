@@ -1,0 +1,713 @@
+{
+  "generated_at": "2026-05-11T23:49:26Z",
+  "generation_id": "en-es:default:452e67beabd6586e",
+  "pair": "en-es",
+  "stats": {
+    "rule_count": 135,
+    "source_count": 135,
+    "target_count": 113
+  },
+  "targets": [
+    {
+      "lemma": "academia",
+      "sources": [
+        "academy"
+      ]
+    },
+    {
+      "lemma": "actualmente",
+      "sources": [
+        "now"
+      ]
+    },
+    {
+      "lemma": "alem\u00e1n",
+      "sources": [
+        "german"
+      ]
+    },
+    {
+      "lemma": "americano",
+      "sources": [
+        "american"
+      ]
+    },
+    {
+      "lemma": "anciano",
+      "sources": [
+        "old"
+      ]
+    },
+    {
+      "lemma": "argentino",
+      "sources": [
+        "argentinean"
+      ]
+    },
+    {
+      "lemma": "arreglar",
+      "sources": [
+        "arrange"
+      ]
+    },
+    {
+      "lemma": "artesan\u00eda",
+      "sources": [
+        "handiwork"
+      ]
+    },
+    {
+      "lemma": "autom\u00f3vil",
+      "sources": [
+        "car"
+      ]
+    },
+    {
+      "lemma": "autor",
+      "sources": [
+        "author",
+        "writer"
+      ]
+    },
+    {
+      "lemma": "ayer",
+      "sources": [
+        "yesterday"
+      ]
+    },
+    {
+      "lemma": "batalla",
+      "sources": [
+        "battle"
+      ]
+    },
+    {
+      "lemma": "caldo",
+      "sources": [
+        "bouillon"
+      ]
+    },
+    {
+      "lemma": "cercar",
+      "sources": [
+        "bar"
+      ]
+    },
+    {
+      "lemma": "comarca",
+      "sources": [
+        "region"
+      ]
+    },
+    {
+      "lemma": "comenzar",
+      "sources": [
+        "begin",
+        "start"
+      ]
+    },
+    {
+      "lemma": "contempor\u00e1neo",
+      "sources": [
+        "current",
+        "present"
+      ]
+    },
+    {
+      "lemma": "contiguo",
+      "sources": [
+        "adjoining"
+      ]
+    },
+    {
+      "lemma": "coraz\u00f3n",
+      "sources": [
+        "heart"
+      ]
+    },
+    {
+      "lemma": "correr",
+      "sources": [
+        "race",
+        "run"
+      ]
+    },
+    {
+      "lemma": "cuadra",
+      "sources": [
+        "stall"
+      ]
+    },
+    {
+      "lemma": "deber",
+      "sources": [
+        "owe"
+      ]
+    },
+    {
+      "lemma": "dentista",
+      "sources": [
+        "dentist"
+      ]
+    },
+    {
+      "lemma": "dentro",
+      "sources": [
+        "inside"
+      ]
+    },
+    {
+      "lemma": "departamento",
+      "sources": [
+        "section"
+      ]
+    },
+    {
+      "lemma": "descansar",
+      "sources": [
+        "rest"
+      ]
+    },
+    {
+      "lemma": "descuento",
+      "sources": [
+        "rebate"
+      ]
+    },
+    {
+      "lemma": "desnudo",
+      "sources": [
+        "bare"
+      ]
+    },
+    {
+      "lemma": "diciembre",
+      "sources": [
+        "december"
+      ]
+    },
+    {
+      "lemma": "director",
+      "sources": [
+        "manager"
+      ]
+    },
+    {
+      "lemma": "distancia",
+      "sources": [
+        "offset"
+      ]
+    },
+    {
+      "lemma": "doble",
+      "sources": [
+        "double"
+      ]
+    },
+    {
+      "lemma": "durar",
+      "sources": [
+        "continue",
+        "endure"
+      ]
+    },
+    {
+      "lemma": "d\u00e9bil",
+      "sources": [
+        "light"
+      ]
+    },
+    {
+      "lemma": "eje",
+      "sources": [
+        "axis"
+      ]
+    },
+    {
+      "lemma": "elegante",
+      "sources": [
+        "chic"
+      ]
+    },
+    {
+      "lemma": "elevaci\u00f3n",
+      "sources": [
+        "altitude"
+      ]
+    },
+    {
+      "lemma": "emoci\u00f3n",
+      "sources": [
+        "emotion"
+      ]
+    },
+    {
+      "lemma": "enteramente",
+      "sources": [
+        "entirely"
+      ]
+    },
+    {
+      "lemma": "entrada",
+      "sources": [
+        "access"
+      ]
+    },
+    {
+      "lemma": "entre",
+      "sources": [
+        "among",
+        "between"
+      ]
+    },
+    {
+      "lemma": "espacio",
+      "sources": [
+        "room",
+        "space"
+      ]
+    },
+    {
+      "lemma": "esposa",
+      "sources": [
+        "wife"
+      ]
+    },
+    {
+      "lemma": "estrecho",
+      "sources": [
+        "close"
+      ]
+    },
+    {
+      "lemma": "excepto",
+      "sources": [
+        "except"
+      ]
+    },
+    {
+      "lemma": "falta",
+      "sources": [
+        "shortage",
+        "absence",
+        "lack"
+      ]
+    },
+    {
+      "lemma": "favor",
+      "sources": [
+        "favour"
+      ]
+    },
+    {
+      "lemma": "fondo",
+      "sources": [
+        "background"
+      ]
+    },
+    {
+      "lemma": "funcionario",
+      "sources": [
+        "officer",
+        "official"
+      ]
+    },
+    {
+      "lemma": "gobernar",
+      "sources": [
+        "control",
+        "govern"
+      ]
+    },
+    {
+      "lemma": "hermano",
+      "sources": [
+        "brother"
+      ]
+    },
+    {
+      "lemma": "hielo",
+      "sources": [
+        "ice"
+      ]
+    },
+    {
+      "lemma": "hora",
+      "sources": [
+        "hour",
+        "time"
+      ]
+    },
+    {
+      "lemma": "imponer",
+      "sources": [
+        "tax"
+      ]
+    },
+    {
+      "lemma": "informar",
+      "sources": [
+        "report"
+      ]
+    },
+    {
+      "lemma": "jam\u00e1s",
+      "sources": [
+        "never"
+      ]
+    },
+    {
+      "lemma": "jefe",
+      "sources": [
+        "boss",
+        "chief",
+        "leader"
+      ]
+    },
+    {
+      "lemma": "junio",
+      "sources": [
+        "june"
+      ]
+    },
+    {
+      "lemma": "justamente",
+      "sources": [
+        "exactly"
+      ]
+    },
+    {
+      "lemma": "leer",
+      "sources": [
+        "read"
+      ]
+    },
+    {
+      "lemma": "lejos",
+      "sources": [
+        "away",
+        "far"
+      ]
+    },
+    {
+      "lemma": "loro",
+      "sources": [
+        "parrot"
+      ]
+    },
+    {
+      "lemma": "luz",
+      "sources": [
+        "light"
+      ]
+    },
+    {
+      "lemma": "mayor\u00eda",
+      "sources": [
+        "majority"
+      ]
+    },
+    {
+      "lemma": "ma\u00f1ana",
+      "sources": [
+        "tomorrow",
+        "morning"
+      ]
+    },
+    {
+      "lemma": "mencionar",
+      "sources": [
+        "cite"
+      ]
+    },
+    {
+      "lemma": "mil",
+      "sources": [
+        "thousand"
+      ]
+    },
+    {
+      "lemma": "mill\u00f3n",
+      "sources": [
+        "million"
+      ]
+    },
+    {
+      "lemma": "mostrar",
+      "sources": [
+        "show"
+      ]
+    },
+    {
+      "lemma": "m\u00e1s",
+      "sources": [
+        "more"
+      ]
+    },
+    {
+      "lemma": "m\u00fasica",
+      "sources": [
+        "music"
+      ]
+    },
+    {
+      "lemma": "nacional",
+      "sources": [
+        "national"
+      ]
+    },
+    {
+      "lemma": "necesidad",
+      "sources": [
+        "need"
+      ]
+    },
+    {
+      "lemma": "ocho",
+      "sources": [
+        "eight"
+      ]
+    },
+    {
+      "lemma": "oeste",
+      "sources": [
+        "west"
+      ]
+    },
+    {
+      "lemma": "oficial",
+      "sources": [
+        "official"
+      ]
+    },
+    {
+      "lemma": "oleaje",
+      "sources": [
+        "billow"
+      ]
+    },
+    {
+      "lemma": "par",
+      "sources": [
+        "pair",
+        "even"
+      ]
+    },
+    {
+      "lemma": "patio",
+      "sources": [
+        "court"
+      ]
+    },
+    {
+      "lemma": "peque\u00f1o",
+      "sources": [
+        "little",
+        "small"
+      ]
+    },
+    {
+      "lemma": "pol\u00edtico",
+      "sources": [
+        "politician"
+      ]
+    },
+    {
+      "lemma": "poner",
+      "sources": [
+        "lay"
+      ]
+    },
+    {
+      "lemma": "preguntar",
+      "sources": [
+        "ask"
+      ]
+    },
+    {
+      "lemma": "principio",
+      "sources": [
+        "beginning",
+        "start"
+      ]
+    },
+    {
+      "lemma": "producci\u00f3n",
+      "sources": [
+        "making"
+      ]
+    },
+    {
+      "lemma": "puesto",
+      "sources": [
+        "stand"
+      ]
+    },
+    {
+      "lemma": "quebrar",
+      "sources": [
+        "break"
+      ]
+    },
+    {
+      "lemma": "quiz\u00e1s",
+      "sources": [
+        "maybe"
+      ]
+    },
+    {
+      "lemma": "razonable",
+      "sources": [
+        "acceptable"
+      ]
+    },
+    {
+      "lemma": "reprimir",
+      "sources": [
+        "bridle"
+      ]
+    },
+    {
+      "lemma": "rep\u00fablica",
+      "sources": [
+        "republic"
+      ]
+    },
+    {
+      "lemma": "rico",
+      "sources": [
+        "nice"
+      ]
+    },
+    {
+      "lemma": "rojo",
+      "sources": [
+        "red"
+      ]
+    },
+    {
+      "lemma": "romper",
+      "sources": [
+        "break"
+      ]
+    },
+    {
+      "lemma": "roncar",
+      "sources": [
+        "snore"
+      ]
+    },
+    {
+      "lemma": "rostro",
+      "sources": [
+        "face"
+      ]
+    },
+    {
+      "lemma": "rumano",
+      "sources": [
+        "rumanian"
+      ]
+    },
+    {
+      "lemma": "ruso",
+      "sources": [
+        "russian"
+      ]
+    },
+    {
+      "lemma": "salud",
+      "sources": [
+        "health"
+      ]
+    },
+    {
+      "lemma": "sanar",
+      "sources": [
+        "recover"
+      ]
+    },
+    {
+      "lemma": "siglo",
+      "sources": [
+        "century"
+      ]
+    },
+    {
+      "lemma": "sobre",
+      "sources": [
+        "upon"
+      ]
+    },
+    {
+      "lemma": "sol",
+      "sources": [
+        "sun"
+      ]
+    },
+    {
+      "lemma": "sonre\u00edr",
+      "sources": [
+        "smile"
+      ]
+    },
+    {
+      "lemma": "s\u00f3lo",
+      "sources": [
+        "exclusively",
+        "just",
+        "only"
+      ]
+    },
+    {
+      "lemma": "taberna",
+      "sources": [
+        "pub"
+      ]
+    },
+    {
+      "lemma": "tarde",
+      "sources": [
+        "afternoon"
+      ]
+    },
+    {
+      "lemma": "taza",
+      "sources": [
+        "cup"
+      ]
+    },
+    {
+      "lemma": "trabajar",
+      "sources": [
+        "work"
+      ]
+    },
+    {
+      "lemma": "vecino",
+      "sources": [
+        "adjoining",
+        "adjacent"
+      ]
+    },
+    {
+      "lemma": "vendedor",
+      "sources": [
+        "salesman"
+      ]
+    },
+    {
+      "lemma": "visita",
+      "sources": [
+        "visit"
+      ]
+    },
+    {
+      "lemma": "v\u00edbora",
+      "sources": [
+        "adder"
+      ]
+    }
+  ],
+  "version": 1
+}

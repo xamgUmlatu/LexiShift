@@ -741,15 +741,36 @@ def write_report(
     json_out: Path,
     markdown_out: Path,
 ) -> None:
+    materialized_report = {
+        **dict(report),
+        "artifact_paths": {
+            "json": _repo_path(json_out),
+            "markdown": _repo_path(markdown_out),
+        },
+        "run_command": {
+            "request_json": _repo_path(json_out),
+            "run_id": _suggest_live_run_id(report=report, json_out=json_out),
+        },
+    }
     json_out.parent.mkdir(parents=True, exist_ok=True)
     markdown_out.parent.mkdir(parents=True, exist_ok=True)
     json_out.write_text(
-        json.dumps(dict(report), ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        json.dumps(materialized_report, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
     )
     markdown_out.write_text(
-        render_active_only_full_generation_plan_markdown(report), encoding="utf-8"
+        render_active_only_full_generation_plan_markdown(materialized_report), encoding="utf-8"
     )
+
+
+def _suggest_live_run_id(*, report: Mapping[str, object], json_out: Path) -> str:
+    match = re.search(r"tranche[_-](\d{3})", json_out.stem)
+    if match:
+        return f"en-es-active-only-full-v1-tranche-{match.group(1)}-approved"
+    summary = _as_mapping(report.get("summary"))
+    if bool(summary.get("source_target_review_active")):
+        return "en-es-active-only-full-v1-tranche-001-approved"
+    return "en-es-active-only-full-v1-tranche-001"
 
 
 if __name__ == "__main__":

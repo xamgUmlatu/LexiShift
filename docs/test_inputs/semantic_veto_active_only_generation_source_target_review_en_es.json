@@ -1,14 +1,30 @@
 {
   "schema_version": 1,
   "pair": "en-es",
-  "review_id": "en-es-active-only-full-v1-tranche-001-source-target-review",
-  "decision": "tranche_001_reviewed_for_pre_spend_active_only_generation",
-  "reviewed_at": "2026-05-11",
+  "review_id": "en-es-active-only-full-v1-cumulative-source-target-review",
+  "decision": "cumulative_reviewed_for_pre_spend_active_only_generation",
+  "reviewed_at": "2026-05-12",
   "review_scope": {
-    "input_plan": "docs/test_outputs/semantic_veto_active_only_full_generation_plan_en_es_latest.json",
-    "selected_global_need_ranks": "1-50 from the unreviewed exposure-first queue",
+    "input_plan": "docs/test_outputs/semantic_veto_active_only_full_generation_plan_en_es_latest.json and docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_001_en_es_latest.json",
+    "selected_global_need_ranks": "tranche 001 reviewed ranks 1-50 from the original queue; tranche 002 prep reviewed the first 50 unreviewed rows after tranche 001 coverage/exclusion, global_need_rank 9-58 in the post-tranche queue",
     "purpose": "prevent paid active-only evidence generation for rows that are not useful visible source->target replacement families"
   },
+  "reviewed_slices": [
+    {
+      "slice_id": "tranche_001_pre_spend",
+      "input_plan": "docs/test_outputs/semantic_veto_active_only_full_generation_plan_en_es_latest.json",
+      "selection": "global_need_rank 1-50 from the original exposure-first queue",
+      "approved_count": 42,
+      "excluded_count": 8
+    },
+    {
+      "slice_id": "tranche_002_pre_spend",
+      "input_plan": "docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_001_en_es_latest.json",
+      "selection": "first 50 source_target_review_status=unreviewed rows after tranche 001 coverage and exclusions",
+      "approved_count": 44,
+      "excluded_count": 6
+    }
+  ],
   "review_policy": {
     "approve": "Approve rows where the source->target mapping is a usable visible replacement sense and active evidence can plausibly improve runtime semantic decisions.",
     "exclude_no_visible_replacement": "Exclude rows where source and target render as the same browser text, because the user would not see a useful replacement.",
@@ -370,6 +386,356 @@
       "approved_for_active_only_generation": false,
       "decision": "exclude_weak_source_target_mapping",
       "rationale": "Kind normally maps to type or amable; gracioso is funny/graceful and should not receive paid active-only evidence for kind."
+    },
+    {
+      "source": "light",
+      "target": "débil",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Valid for weak/light-intensity contexts such as light rain or light pressure, but active evidence must keep it separate from illumination, weight, and color senses."
+    },
+    {
+      "source": "maybe",
+      "target": "quizás",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct maybe/perhaps adverb mapping with visible replacement value."
+    },
+    {
+      "source": "million",
+      "target": "millón",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct number noun mapping."
+    },
+    {
+      "source": "never",
+      "target": "jamás",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct never/never-ever adverb mapping with useful active evidence for emphatic negative contexts."
+    },
+    {
+      "source": "nice",
+      "target": "rico",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Usable pleasant/tasty/nice sense in contexts like nice food or a nice feeling, but active evidence should keep it away from general polite/good-looking senses."
+    },
+    {
+      "source": "officer",
+      "target": "funcionario",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Valid public-official/officer sense; active evidence can separate it from police or military officer contexts."
+    },
+    {
+      "source": "official",
+      "target": "funcionario",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_polysemic_active_mapping",
+      "rationale": "Valid noun sense meaning an official or functionary; active evidence should distinguish it from the adjective official/oficial sense."
+    },
+    {
+      "source": "old",
+      "target": "anciano",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Valid elderly-person sense; active evidence can separate it from old objects, old information, and duration senses."
+    },
+    {
+      "source": "present",
+      "target": "contemporáneo",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Valid present-day/contemporary sense; active evidence is needed because present also covers gift, attendance, and presentation senses."
+    },
+    {
+      "source": "race",
+      "target": "correr",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_polysemic_active_mapping",
+      "rationale": "Valid verb sense meaning to race/run quickly; active evidence can separate it from race as ethnicity or a competition noun."
+    },
+    {
+      "source": "red",
+      "target": "rojo",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct color mapping."
+    },
+    {
+      "source": "report",
+      "target": "informar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_polysemic_active_mapping",
+      "rationale": "Valid verb sense meaning to report/inform; active evidence can separate it from the noun report/informe sense."
+    },
+    {
+      "source": "rest",
+      "target": "descansar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_polysemic_active_mapping",
+      "rationale": "Valid verb sense meaning to rest; active evidence can separate it from remainder/the rest contexts."
+    },
+    {
+      "source": "run",
+      "target": "correr",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_polysemic_active_mapping",
+      "rationale": "Valid core verb mapping; active evidence is useful because run is highly polysemic."
+    },
+    {
+      "source": "show",
+      "target": "mostrar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct verb mapping."
+    },
+    {
+      "source": "speed",
+      "target": "prisa",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Prisa is haste/hurry rather than the ordinary speed/velocity sense, so paid active-only evidence would reinforce a narrow and often surprising replacement."
+    },
+    {
+      "source": "start",
+      "target": "comenzar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct verb mapping."
+    },
+    {
+      "source": "tax",
+      "target": "imponer",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Valid verb sense meaning to levy or impose a tax; active evidence can separate it from noun tax/impuesto contexts."
+    },
+    {
+      "source": "visit",
+      "target": "visita",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_polysemic_active_mapping",
+      "rationale": "Valid noun sense meaning a visit; active evidence can separate it from verb visit/visitar contexts."
+    },
+    {
+      "source": "west",
+      "target": "oeste",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct compass-direction mapping."
+    },
+    {
+      "source": "wife",
+      "target": "esposa",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct spouse noun mapping."
+    },
+    {
+      "source": "absence",
+      "target": "falta",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Usable absence/lack mapping with visible replacement value."
+    },
+    {
+      "source": "afternoon",
+      "target": "tarde",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct time-of-day mapping."
+    },
+    {
+      "source": "author",
+      "target": "autor",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping."
+    },
+    {
+      "source": "background",
+      "target": "fondo",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_polysemic_active_mapping",
+      "rationale": "Valid visual/background/backdrop sense; active evidence can separate it from personal history or context senses."
+    },
+    {
+      "source": "boss",
+      "target": "jefe",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct workplace leader mapping."
+    },
+    {
+      "source": "crisis",
+      "target": "crisis",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_no_visible_replacement",
+      "rationale": "English and Spanish browser text are identical, so paid active evidence would not create a visible user-facing replacement."
+    },
+    {
+      "source": "depression",
+      "target": "crisis",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Depression usually maps to depresión; crisis is broader and only situationally related, so this is too loose for paid active-only evidence."
+    },
+    {
+      "source": "emergency",
+      "target": "crisis",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Emergency usually maps to emergencia; crisis is related but not a reliable visible replacement target for this lane."
+    },
+    {
+      "source": "exclusively",
+      "target": "sólo",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct exclusively/only adverb mapping."
+    },
+    {
+      "source": "favor",
+      "target": "favor",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_no_visible_replacement",
+      "rationale": "English and Spanish browser text are identical, so paid active evidence would not create a visible user-facing replacement."
+    },
+    {
+      "source": "favour",
+      "target": "favor",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct British-English favour to Spanish favor mapping with a visible spelling change."
+    },
+    {
+      "source": "lack",
+      "target": "falta",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_polysemic_active_mapping",
+      "rationale": "Valid lack/absence noun mapping; active evidence can separate it from verb lack/faltar contexts."
+    },
+    {
+      "source": "lay",
+      "target": "poner",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_polysemic_active_mapping",
+      "rationale": "Valid verb sense meaning put/place; active evidence can separate it from lay eggs, lay person, and past-tense lie contexts."
+    },
+    {
+      "source": "leader",
+      "target": "jefe",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Usable leader/head/boss mapping."
+    },
+    {
+      "source": "majority",
+      "target": "mayoría",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping."
+    },
+    {
+      "source": "manager",
+      "target": "director",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Usable high-level manager/director sense; active evidence can keep it away from everyday gerente/administrator contexts."
+    },
+    {
+      "source": "politician",
+      "target": "político",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping."
+    },
+    {
+      "source": "republic",
+      "target": "república",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct political noun mapping."
+    },
+    {
+      "source": "shed",
+      "target": "puesto",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Puesto is a stand/post/position, not the ordinary shed building sense, so this mapping is too loose for paid active-only evidence."
+    },
+    {
+      "source": "sun",
+      "target": "sol",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping."
+    },
+    {
+      "source": "thousand",
+      "target": "mil",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct number mapping."
+    },
+    {
+      "source": "writer",
+      "target": "autor",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Usable writer/author noun mapping."
+    },
+    {
+      "source": "yesterday",
+      "target": "ayer",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct time adverb/noun mapping."
+    },
+    {
+      "source": "academy",
+      "target": "academia",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct institution noun mapping."
+    },
+    {
+      "source": "adjacent",
+      "target": "vecino",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Usable neighboring/adjacent sense in contexts like adjacent cells or areas; active evidence can keep it from personal neighbor noun contexts."
+    },
+    {
+      "source": "arrange",
+      "target": "arreglar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_polysemic_active_mapping",
+      "rationale": "Valid arrange/set in order/fix sense; active evidence can separate scheduling, repair, and ordering contexts."
+    },
+    {
+      "source": "axis",
+      "target": "eje",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct geometry/mechanics noun mapping."
+    },
+    {
+      "source": "bare",
+      "target": "desnudo",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct bare/naked adjective mapping."
+    },
+    {
+      "source": "battle",
+      "target": "batalla",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping."
     }
   ]
 }

@@ -82,7 +82,15 @@ def render_active_only_full_generation_plan_markdown(report: Mapping[str, object
             f"{float(row.get('active_only_generation_need_score') or 0.0):.4f} | "
             f"`{_escape_md(str(row.get('source_target_review_decision') or ''))}` |"
         )
-    lines.extend(["", *_run_command_section(summary), "", "## Guardrails", ""])
+    lines.extend(
+        [
+            "",
+            *_run_command_section_for_report(summary=summary, report=report),
+            "",
+            "## Guardrails",
+            "",
+        ]
+    )
     lines.extend(["| Check | Value |", "| --- | --- |"])
     for key, value in _as_mapping(report.get("e2e_checks")).items():
         lines.append(f"| `{_escape_md(str(key))}` | `{value}` |")
@@ -130,6 +138,12 @@ def _source_target_review_summary_label(summary: Mapping[str, object]) -> str:
 
 
 def _run_command_section(summary: Mapping[str, object]) -> list[str]:
+    return _run_command_section_for_report(summary=summary, report={})
+
+
+def _run_command_section_for_report(
+    *, summary: Mapping[str, object], report: Mapping[str, object]
+) -> list[str]:
     selected_request_count = int(summary.get("selected_request_count") or 0)
     if selected_request_count <= 0:
         return [
@@ -138,13 +152,19 @@ def _run_command_section(summary: Mapping[str, object]) -> list[str]:
             "The selected request packet is empty. Expand source-target review before "
             "running the paid generation harness.",
         ]
+    run_command = _as_mapping(report.get("run_command"))
+    request_json = str(
+        run_command.get("request_json")
+        or "docs/test_outputs/semantic_veto_active_only_full_generation_plan_en_es_latest.json"
+    )
+    run_id = str(run_command.get("run_id") or _safe_first_run_id(summary))
     return [
         "## Safe First-Run Command Shape",
         "",
         "```bash",
         "python3 scripts/testing/semantic_veto_evidence_gap_generation_run_en_es.py \\",
-        "  --request-json docs/test_outputs/semantic_veto_active_only_full_generation_plan_en_es_latest.json \\",
-        f"  --run-id {_safe_first_run_id(summary)} \\",
+        f"  --request-json {_escape_md(request_json)} \\",
+        f"  --run-id {_escape_md(run_id)} \\",
         f"  --max-requests {selected_request_count} \\",
         f"  --require-selected-request-count {selected_request_count} \\",
         f"  --expected-output-tokens {_expected_output_tokens_per_request(summary)} \\",

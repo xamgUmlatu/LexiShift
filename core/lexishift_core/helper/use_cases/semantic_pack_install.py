@@ -19,7 +19,7 @@ from lexishift_core.replacement.core import RuleMetadata, VocabRule
 ACTIVE_ONLY_COMPETITION_MODE = "active_only_anchor_cue"
 ACTIVE_ONLY_SELECTION_POLICY = "active_only_anchor_cue_v1"
 MIXED_SELECTION_POLICY = "active_only_anchor_cue_with_repaired_shadows_v1"
-DEFAULT_PACK_ID = "en-es-active-only-combined-product-scope-v1"
+DEFAULT_PACK_ID = "en-es-active-only-combined-full-v1-tranche-002"
 SEMANTIC_PACK_CATALOG_ENV = "LEXISHIFT_SEMANTIC_PACK_CATALOG"
 _DEV_PACK_INVENTORY_BY_PAIR_AND_ID = {
     (
@@ -27,8 +27,22 @@ _DEV_PACK_INVENTORY_BY_PAIR_AND_ID = {
         DEFAULT_PACK_ID,
     ): Path(
         "docs/test_outputs/experiments/semantic_veto_source_packaging/"
+        "en-es-active-only-combined-full-v1-tranche-002_semantic_inventory.json"
+    ),
+    (
+        "en-es",
+        "en-es-active-only-combined-full-v1-tranche-001",
+    ): Path(
+        "docs/test_outputs/experiments/semantic_veto_source_packaging/"
+        "en-es-active-only-combined-full-v1-tranche-001_semantic_inventory.json"
+    ),
+    (
+        "en-es",
+        "en-es-active-only-combined-product-scope-v1",
+    ): Path(
+        "docs/test_outputs/experiments/semantic_veto_source_packaging/"
         "en-es-active-only-combined-product-scope-v1-inventory-replay-latest_semantic_inventory.json"
-    )
+    ),
 }
 
 

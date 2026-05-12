@@ -172,6 +172,44 @@ tranches, active-only cue generation remains cheap. The gating work is now
 source-target review, admission quality, and product-feel checks, not dollar
 cost.
 
+## Observed Full Active-Only Tranche 002 Cost Anchor
+
+Artifacts:
+
+- `docs/test_outputs/semantic_veto_active_only_full_v1_tranche_002_generation_run_en_es_latest.json`
+- `docs/test_outputs/semantic_veto_active_only_full_v1_tranche_002_repaired_generation_admission_en_es_latest.json`
+- `docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_002_pack_install_en_es_latest.json`
+
+Observed run shape:
+
+- model: `gpt-5.4-mini`
+- request scope: `44` reviewed/approved uncovered active-only SRS-derived
+  source-target families
+- first completed bundle accepted `42/44` responses and reported `2` invalid
+  outputs caused by request-id metadata drift
+- one guarded retry reproduced those same two metadata mistakes, so the final
+  admitted response bundle applied `2` explicit operator repairs that restored
+  request/family/slot ids while preserving generated sentence content
+- repaired admitted active items: `88/88`
+- source packaging produced `88` canonical `anchor_cue` rows across `44`
+  families
+- combined pack build now covers `135/570` current SRS-derived source-target
+  families with `282` normalized evidence rows
+
+Journal-inclusive paid outcome usage:
+
+- outcome events: `46`
+- completed outcomes: `42`
+- invalid-output outcomes: `4`
+- input tokens: `23,080`
+- output tokens: `8,297`
+- actual cost at the 2026-05-12 `gpt-5.4-mini` snapshot: about `$0.055`
+
+This is slightly more expensive than tranche 001 because two invalid metadata
+outputs were retried, but it is still trivial relative to the `$100` budget.
+The practical limiter remains reviewed source-target quality and downstream
+admission/packaging hygiene.
+
 ## Observed Balanced v1 Follow-Through Cost Anchor
 
 Artifact:
@@ -285,35 +323,27 @@ SRS-admissible semantic-family universe for scale planning:
 - 570 current generated `en-es` source-target rule families,
 - 536 unique English source triggers,
 - 342 unique Spanish active targets,
-- 49 source-target families already covered by the combined active-only
-  product-smoke pack,
-- 521 active-only uncovered source-target families,
-- 50 source-target families reviewed before first-tranche spend,
-- 42 of those first-tranche candidates approved for paid active-only generation,
-- 8 rejected before spend because they were no-visible or weak source-target
+- 135 source-target families currently covered by the combined active-only
+  product-smoke plus full-tranche pack,
+- 435 active-only uncovered source-target families,
+- 100 source-target rows reviewed across the first two pre-spend slices,
+- 86 of those reviewed candidates approved for paid active-only generation,
+- 14 rejected before spend because they were no-visible or weak source-target
   mappings,
-- 513 currently queued source-target families after known first-tranche
-  rejections,
-- 1,026 expected active cue rows if the currently queued families are generated
+- 421 currently queued source-target families after known cumulative rejections,
+- 842 expected active cue rows if the currently queued families are generated
   at 2 rows per family,
-- 11 queue tranches after known rejections, with future tranche rows still
-  requiring the same pre-spend source-target review.
+- 9 queue tranches after known cumulative rejections, with future tranche rows
+  still requiring the same pre-spend source-target review.
 
-The current first runnable request packet is the reviewed-approved tranche 001:
-
-- 42 approved source-target families,
-- 84 expected active cue rows,
-- 21,898 estimated input tokens,
-- 11,760 output-token budget,
-- no-spend safety estimate with current `gpt-5.4-mini` rates and
-  `--expected-output-tokens 280`: about `$0.070` expected / `$0.149`
-  max-output ceiling.
-
-This is the next unit to price with current model rates at execution time. The
-older table rows such as `common-source active-only pass` remain historical
-planning anchors, not the denominator for the whole product. Do not spend toward
-broad generated shadows until active-only coverage has been measured and the
-remaining harmful-replace cases are known.
+There is no current runnable paid packet immediately after tranche 002 because
+the approved rows are now covered. The next spend unit is therefore not model
+execution; it is the next source-target review slice, followed by a refreshed
+request plan with explicit cardinality and cost guards. Older table rows such
+as `common-source active-only pass` remain historical planning anchors, not the
+denominator for the whole product. Do not spend toward broad generated shadows
+until active-only coverage has been measured and the remaining harmful-replace
+cases are known.
 
 ## Live-Run Guard Pattern
 

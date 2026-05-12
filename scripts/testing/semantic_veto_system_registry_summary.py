@@ -174,16 +174,31 @@ def render_markdown(report: Mapping[str, object]) -> str:
     ]
     if "helper_runtime_smoke_decision_accuracy" in result:
         if "combined_full_pack_families" in result:
+            combined_pack_families = result.get(
+                "combined_full_tranche_002_pack_families"
+            ) or result.get("combined_full_pack_families", "")
+            combined_pack_rows = result.get(
+                "combined_full_tranche_002_pack_normalized_rows"
+            ) or result.get("combined_full_pack_normalized_rows", "")
+            combined_pack_rules = result.get(
+                "combined_full_tranche_002_pack_installed_rule_count"
+            ) or result.get("combined_full_pack_installed_rule_count", "")
+            combined_active_only_sets = result.get(
+                "combined_full_tranche_002_pack_installed_active_only_competition_sets"
+            ) or result.get("combined_full_pack_installed_active_only_competition_sets", "")
+            combined_shadowed_sets = result.get(
+                "combined_full_tranche_002_pack_installed_shadowed_competition_sets"
+            ) or result.get("combined_full_pack_installed_shadowed_competition_sets", "")
             lines.extend(
                 [
-                    f"- Combined full pack: `{result.get('combined_full_pack_families', '')}` "
-                    f"families / `{result.get('combined_full_pack_normalized_rows', '')}` "
-                    f"normalized rows / `{result.get('combined_full_pack_installed_rule_count', '')}` "
+                    f"- Combined full pack: `{combined_pack_families}` "
+                    f"families / `{combined_pack_rows}` "
+                    f"normalized rows / `{combined_pack_rules}` "
                     "installed rules",
                     f"- Installed competition sets: "
-                    f"`{result.get('combined_full_pack_installed_active_only_competition_sets', '')}` "
+                    f"`{combined_active_only_sets}` "
                     f"active-only / "
-                    f"`{result.get('combined_full_pack_installed_shadowed_competition_sets', '')}` "
+                    f"`{combined_shadowed_sets}` "
                     "shadowed",
                     f"- Product-scope helper smoke control: "
                     f"`{result.get('helper_runtime_smoke_decision_accuracy', '')}` accuracy / "
@@ -227,6 +242,23 @@ def render_markdown(report: Mapping[str, object]) -> str:
                 f"`{result.get('combined_full_live_page_scan_abstain_decisions', '')}` abstain / "
                 f"`{result.get('combined_full_live_page_scan_page_fetch_errors', '')}` page errors / "
                 f"`{result.get('combined_full_live_page_scan_fallback_decisions', '')}` fallbacks"
+            )
+        if "combined_full_tranche_002_live_page_scan_review_rows" in result:
+            lines.append(
+                "- Combined full tranche-002 live page scan: "
+                f"`{result.get('combined_full_tranche_002_live_page_scan_review_rows', '')}` review rows / "
+                f"`{result.get('combined_full_tranche_002_live_page_scan_replace_decisions', '')}` replace / "
+                f"`{result.get('combined_full_tranche_002_live_page_scan_abstain_decisions', '')}` abstain / "
+                f"`{result.get('combined_full_tranche_002_live_page_scan_page_fetch_errors', '')}` page errors / "
+                f"`{result.get('combined_full_tranche_002_live_page_scan_fallback_decisions', '')}` fallbacks"
+            )
+        if result.get("combined_full_tranche_002_operator_extension_smoke_status"):
+            lines.append(
+                "- Operator extension smoke: "
+                f"`{result.get('combined_full_tranche_002_operator_extension_smoke_status', '')}` / "
+                f"`{result.get('combined_full_tranche_002_operator_extension_smoke_pack_id', '')}` / "
+                f"`{result.get('combined_full_tranche_002_operator_extension_smoke_policy_id', '')}` / "
+                "accepted product-soft `min_active_score=0.015` behavior"
             )
     else:
         lines.extend(

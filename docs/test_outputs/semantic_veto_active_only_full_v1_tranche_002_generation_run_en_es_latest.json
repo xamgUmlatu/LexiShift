@@ -1,0 +1,1091 @@
+{
+  "admission_preview": {
+    "admitted_item_count": 84,
+    "coverage_shortfall_count": 4,
+    "coverage_waived_item_count": 0,
+    "decision": "generated_responses_need_repair",
+    "rejected_item_count": 0,
+    "status": "review"
+  },
+  "artifacts": {
+    "failures_jsonl": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_failures.jsonl",
+    "generated_responses_json": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_generated_responses.json",
+    "journal_jsonl": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_journal.jsonl",
+    "raw_response_bundle_json": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_raw_responses.json",
+    "raw_responses_jsonl": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_raw_responses.jsonl",
+    "request_queue_jsonl": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_request_queue.jsonl",
+    "run_manifest_json": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_run_manifest.json"
+  },
+  "batch_id": "en-es:semantic-veto-evidence-gap-generation:en-es-active-only-full-v1-tranche-002-approved",
+  "execution_mode": "live",
+  "generated_at": "2026-05-11T23:46:45Z",
+  "pair": "en-es",
+  "pilot_id": "semantic_veto_active_only_full_en_es_v1",
+  "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+  "replay_source": "",
+  "request_rows": [
+    {
+      "family_id": "en-es:srs-source-target:light:debil:2cf12e4e",
+      "first_sentence": "After the illness, he felt too light to carry his own suitcase.",
+      "item_count": 2,
+      "pilot_arm": "P0_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:light:debil:2cf12e4e:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:light:debil:2cf12e4e:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0293d6e36967033e016a0269fd24ec819080938e0d83d7f295",
+      "slot_id": "en-es:srs-source-target:light:debil:2cf12e4e:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 512,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 186,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 698
+      }
+    },
+    {
+      "error_message": "ValueError: request_id did not match request packet",
+      "family_id": "en-es:srs-source-target:maybe:quizas:5c3f45a1",
+      "item_count": 0,
+      "output_text": "{\"request_id\":\"semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:maybe:quizas:5c3c45a1:active_evidence_expansion\",\"family_id\":\"en-es:srs-source-target:maybe:quizas:5c3c45a1\",\"slot_id\":\"en-es:srs-source-target:maybe:quizas:5c3c45a1:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"maybe\",\"target_lemma\":\"quizás\",\"items\":[{\"sentence\":\"Maybe we should leave early so we can avoid the traffic.\",\"evidence_note\":\"Used to express uncertainty and a tentative plan.\"},{\"sentence\":\"He will maybe call later if the meeting ends soon.\",\"evidence_note\":\"Used to indicate possibility rather than a definite action.\"}]}",
+      "pilot_arm": "P0_exposure_first",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:maybe:quizas:5c3f45a1:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_07ebdb45159bc467016a026a65e82881908f4cc373e0e0d485",
+      "slot_id": "en-es:srs-source-target:maybe:quizas:5c3f45a1:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "invalid_output"
+    },
+    {
+      "family_id": "en-es:srs-source-target:million:millon:1eb67060",
+      "first_sentence": "The charity raised a million dollars for the new clinic.",
+      "item_count": 2,
+      "pilot_arm": "P0_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:million:millon:1eb67060:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:million:millon:1eb67060:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_040a96ceddfe0dc9016a026a00aaf88190950df4d9b23e5627",
+      "slot_id": "en-es:srs-source-target:million:millon:1eb67060:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 492,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 169,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 661
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:never:jamas:93b82cf1",
+      "first_sentence": "I will never betray my friends.",
+      "item_count": 2,
+      "pilot_arm": "P0_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:never:jamas:93b82cf1:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:never:jamas:93b82cf1:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0b08c3af8fe4e850016a026a021d1c819097c4f7480d8a7eee",
+      "slot_id": "en-es:srs-source-target:never:jamas:93b82cf1:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 498,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 164,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 662
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:nice:rico:4430e567",
+      "first_sentence": "The soup was nice and hot, with a deep tomato flavor.",
+      "item_count": 2,
+      "pilot_arm": "P0_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:nice:rico:4430e567:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:nice:rico:4430e567:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_02904d27e2e446e1016a026a03bc908194abd49ca7bd328269",
+      "slot_id": "en-es:srs-source-target:nice:rico:4430e567:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 490,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 175,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 665
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:officer:funcionario:dae225aa",
+      "first_sentence": "The customs officer reviewed the paperwork and stamped our passports.",
+      "item_count": 2,
+      "pilot_arm": "P0_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:officer:funcionario:dae225aa:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:officer:funcionario:dae225aa:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_010e695fc85aff0b016a026a05964481938ed75b8eb3de7a41",
+      "slot_id": "en-es:srs-source-target:officer:funcionario:dae225aa:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 500,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 169,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 669
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:official:funcionario:b160a162",
+      "first_sentence": "The official from the city hall answered questions about the new permit rules.",
+      "item_count": 2,
+      "pilot_arm": "P0_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:official:funcionario:b160a162:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:official:funcionario:b160a162:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0420d16d989f69a1016a026a073fe881909e7710363a85b548",
+      "slot_id": "en-es:srs-source-target:official:funcionario:b160a162:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 492,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 170,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 662
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:old:anciano:2c3b44d9",
+      "first_sentence": "The old man walked slowly with a cane to the bench in the park.",
+      "item_count": 2,
+      "pilot_arm": "P0_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:old:anciano:2c3b44d9:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:old:anciano:2c3b44d9:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0d040e3bbece063f016a026a099d7c8190bb88e4ec0d31904c",
+      "slot_id": "en-es:srs-source-target:old:anciano:2c3b44d9:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 518,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 192,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 710
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:present:contemporaneo:6a5bc877",
+      "first_sentence": "The museum opened a present art wing with works by local painters.",
+      "item_count": 2,
+      "pilot_arm": "P0_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:present:contemporaneo:6a5bc877:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:present:contemporaneo:6a5bc877:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_003df86c2d0ee13b016a026a0c20dc8197818f9b266744acae",
+      "slot_id": "en-es:srs-source-target:present:contemporaneo:6a5bc877:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 514,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 192,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 706
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:race:correr:fcb7ba09",
+      "first_sentence": "I had to race to catch the last train before it left the station.",
+      "item_count": 2,
+      "pilot_arm": "P0_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:race:correr:fcb7ba09:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:race:correr:fcb7ba09:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_094f33c5023ae60d016a026a0dcc2c81938eeb8f3aad73bb7a",
+      "slot_id": "en-es:srs-source-target:race:correr:fcb7ba09:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 492,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 181,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 673
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:red:rojo:43f57e5e",
+      "first_sentence": "She painted the bedroom red to create a warm, bold look.",
+      "item_count": 2,
+      "pilot_arm": "P0_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:red:rojo:43f57e5e:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:red:rojo:43f57e5e:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_09a17859f9fe47e0016a026a109cf08196886a9d1b1b3d26c9",
+      "slot_id": "en-es:srs-source-target:red:rojo:43f57e5e:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 504,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 190,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 694
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:report:informar:e73a0d90",
+      "first_sentence": "Please report any changes to the team lead before noon.",
+      "item_count": 2,
+      "pilot_arm": "P0_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:report:informar:e73a0d90:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:report:informar:e73a0d90:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_041feb2cb8b45499016a026a13ba308190a62bd60f7eb17c1e",
+      "slot_id": "en-es:srs-source-target:report:informar:e73a0d90:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 504,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 180,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 684
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:rest:descansar:75cbcdb9",
+      "first_sentence": "After the hike, we stopped by the lake to rest before heading home.",
+      "item_count": 2,
+      "pilot_arm": "P0_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:rest:descansar:75cbcdb9:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:rest:descansar:75cbcdb9:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0866b638732c17bb016a026a153434819684c95240901aca8e",
+      "slot_id": "en-es:srs-source-target:rest:descansar:75cbcdb9:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 506,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 183,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 689
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:run:correr:1b592b59",
+      "first_sentence": "I go to the park every morning to run before work.",
+      "item_count": 2,
+      "pilot_arm": "P0_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:run:correr:1b592b59:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:run:correr:1b592b59:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_01b3aa79d9a87fdf016a026a16bc8c81958b4848a533b48ae7",
+      "slot_id": "en-es:srs-source-target:run:correr:1b592b59:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 498,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 183,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 681
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:show:mostrar:c078d25e",
+      "first_sentence": "Please show me the new design on the tablet.",
+      "item_count": 2,
+      "pilot_arm": "P0_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:show:mostrar:c078d25e:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:show:mostrar:c078d25e:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_03141b3fdac070ee016a026a18cfe48196b11883dcd10064eb",
+      "slot_id": "en-es:srs-source-target:show:mostrar:c078d25e:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 490,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 166,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 656
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:start:comenzar:dc408000",
+      "first_sentence": "Please start the meeting at 9 a.m. sharp.",
+      "item_count": 2,
+      "pilot_arm": "P0_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:start:comenzar:dc408000:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:start:comenzar:dc408000:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0463e4b977602daa016a026a1a07ec8194927f4fa1c04e20d1",
+      "slot_id": "en-es:srs-source-target:start:comenzar:dc408000:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 494,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 177,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 671
+      }
+    },
+    {
+      "error_message": "ValueError: request_id did not match request packet",
+      "family_id": "en-es:srs-source-target:tax:imponer:e1fe585a",
+      "item_count": 0,
+      "output_text": "{\"request_id\":\"semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:tax:e1fe585a:active_evidence_expansion\",\"family_id\":\"en-es:srs-source-target:tax:imponer:e1fe585a\",\"slot_id\":\"en-es:srs-source-target:tax:imponer:e1fe585a:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"tax\",\"target_lemma\":\"imponer\",\"items\":[{\"sentence\":\"The council plans to tax a fee on late permits.\",\"evidence_note\":\"tax means to impose a charge or levy\"},{\"sentence\":\"The coach decided to tax a new rule on every player before practice.\",\"evidence_note\":\"tax means to impose a requirement or rule\"}]}",
+      "pilot_arm": "P0_exposure_first",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:tax:imponer:e1fe585a:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_09a0bf1c6e554192016a026a678bc88195897374bbcf10bdf3",
+      "slot_id": "en-es:srs-source-target:tax:imponer:e1fe585a:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "invalid_output"
+    },
+    {
+      "family_id": "en-es:srs-source-target:visit:visita:73faef93",
+      "first_sentence": "I will visit my grandmother this weekend at her house.",
+      "item_count": 2,
+      "pilot_arm": "P0_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:visit:visita:73faef93:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:visit:visita:73faef93:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0481f5000d14eea6016a026a1d66c88193b7b0f78277f69907",
+      "slot_id": "en-es:srs-source-target:visit:visita:73faef93:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 498,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 180,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 678
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:west:oeste:febbff35",
+      "first_sentence": "The sun set in the west behind the hills.",
+      "item_count": 2,
+      "pilot_arm": "P0_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:west:oeste:febbff35:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:west:oeste:febbff35:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_09ec5b471df84371016a026a1f3b308193a9d0701a1349e3fd",
+      "slot_id": "en-es:srs-source-target:west:oeste:febbff35:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 486,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 168,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 654
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:wife:esposa:84d8bd95",
+      "first_sentence": "My wife and I are celebrating our tenth anniversary tonight.",
+      "item_count": 2,
+      "pilot_arm": "P0_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:wife:esposa:84d8bd95:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:wife:esposa:84d8bd95:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_041346b0dc26e501016a026a20d4b481939c16918fd37dc064",
+      "slot_id": "en-es:srs-source-target:wife:esposa:84d8bd95:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 504,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 181,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 685
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:absence:falta:19c6195c",
+      "first_sentence": "Her absence from the meeting caused the project to lose its final approval.",
+      "item_count": 2,
+      "pilot_arm": "P0_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:absence:falta:19c6195c:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:absence:falta:19c6195c:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0c206b5d904a297f016a026a2280388196943a3a5aae28dc74",
+      "slot_id": "en-es:srs-source-target:absence:falta:19c6195c:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 498,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 185,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 683
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:afternoon:tarde:43049987",
+      "first_sentence": "We have a meeting in the afternoon, after lunch and before the day ends.",
+      "item_count": 2,
+      "pilot_arm": "P0_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:afternoon:tarde:43049987:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:afternoon:tarde:43049987:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_08ef85a1fa7b824f016a026a2446b08190bc7069f8baccc2f4",
+      "slot_id": "en-es:srs-source-target:afternoon:tarde:43049987:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 494,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 185,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 679
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:author:autor:d4af7245",
+      "first_sentence": "The author signed copies of the novel after the reading.",
+      "item_count": 2,
+      "pilot_arm": "P0_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:author:autor:d4af7245:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:author:autor:d4af7245:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0c034036deaa1062016a026a25a7cc81949ffffdcebce69902",
+      "slot_id": "en-es:srs-source-target:author:autor:d4af7245:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 490,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 165,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 655
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:background:fondo:486c1600",
+      "first_sentence": "The white text stood out clearly against the dark background of the poster.",
+      "item_count": 2,
+      "pilot_arm": "P0_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:background:fondo:486c1600:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:background:fondo:486c1600:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_099f3df3cd9a6105016a026a27167881979e4d6ca0d7a9bc2f",
+      "slot_id": "en-es:srs-source-target:background:fondo:486c1600:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 492,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 187,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 679
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:boss:jefe:7dce968c",
+      "first_sentence": "My boss approved the budget for the new team project.",
+      "item_count": 2,
+      "pilot_arm": "P0_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:boss:jefe:7dce968c:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:boss:jefe:7dce968c:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0b1432b25e5d6dc0016a026a28d4888190ab8b9d2af7e80999",
+      "slot_id": "en-es:srs-source-target:boss:jefe:7dce968c:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 498,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 174,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 672
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:exclusively:solo:2db6ddde",
+      "first_sentence": "This offer is available exclusively to new subscribers.",
+      "item_count": 2,
+      "pilot_arm": "P0_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:exclusively:solo:2db6ddde:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:exclusively:solo:2db6ddde:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0e38790b89978f89016a026a2a53148190879e1eb18314b99e",
+      "slot_id": "en-es:srs-source-target:exclusively:solo:2db6ddde:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 516,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 178,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 694
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:favour:favor:18639b63",
+      "first_sentence": "Could you do me a favour and call the supplier before noon?",
+      "item_count": 2,
+      "pilot_arm": "P0_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:favour:favor:18639b63:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:favour:favor:18639b63:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_01b32cae20ca9c4d016a026a2be0188190ac74a4558bbc85b7",
+      "slot_id": "en-es:srs-source-target:favour:favor:18639b63:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 492,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 170,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 662
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:lack:falta:99e2f8f3",
+      "first_sentence": "The report noted a lack of clean water in the village.",
+      "item_count": 2,
+      "pilot_arm": "P0_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:lack:falta:99e2f8f3:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:lack:falta:99e2f8f3:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_05ef80aef81f1c26016a026a2d6e88819484bfd5ac2d2100dc",
+      "slot_id": "en-es:srs-source-target:lack:falta:99e2f8f3:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 510,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 177,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 687
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:lay:poner:88e4d6a7",
+      "first_sentence": "Please lay the book on the table before you leave.",
+      "item_count": 2,
+      "pilot_arm": "P0_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:lay:poner:88e4d6a7:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:lay:poner:88e4d6a7:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_00891c00bede8252016a026a2ff938819597f3dfc4d4ef5571",
+      "slot_id": "en-es:srs-source-target:lay:poner:88e4d6a7:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 508,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 181,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 689
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:leader:jefe:40cbdd5f",
+      "first_sentence": "The leader set our work schedule and approved every request.",
+      "item_count": 2,
+      "pilot_arm": "P0_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:leader:jefe:40cbdd5f:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:leader:jefe:40cbdd5f:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_044354ded8902d0f016a026a32d9c48197a0f7cfe43aaf41e3",
+      "slot_id": "en-es:srs-source-target:leader:jefe:40cbdd5f:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 498,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 177,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 675
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:majority:mayoria:f1c946e7",
+      "first_sentence": "The majority of voters supported the new plan.",
+      "item_count": 2,
+      "pilot_arm": "P0_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:majority:mayoria:f1c946e7:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:majority:mayoria:f1c946e7:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_04562fe0b1f6db34016a026a3531f881949c6f8290eaf0e0e0",
+      "slot_id": "en-es:srs-source-target:majority:mayoria:f1c946e7:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 512,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 183,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 695
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:manager:director:f001fe23",
+      "first_sentence": "After the merger, the new manager approved the season lineup and supervised every department.",
+      "item_count": 2,
+      "pilot_arm": "P0_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:manager:director:f001fe23:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:manager:director:f001fe23:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0379160b0bf2a937016a026a36ae9c8193a759ce8bfdd7a19e",
+      "slot_id": "en-es:srs-source-target:manager:director:f001fe23:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 484,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 191,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 675
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:politician:politico:affee2fd",
+      "first_sentence": "The politician promised to lower taxes and spoke at the town hall last night.",
+      "item_count": 2,
+      "pilot_arm": "P0_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:politician:politico:affee2fd:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:politician:politico:affee2fd:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0bd2c1d9ef2d0c67016a026a3891888193bb9f6134338e5255",
+      "slot_id": "en-es:srs-source-target:politician:politico:affee2fd:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 506,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 181,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 687
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:republic:republica:af4a945b",
+      "first_sentence": "The founders wanted the new republic to guarantee voting rights for all citizens.",
+      "item_count": 2,
+      "pilot_arm": "P0_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:republic:republica:af4a945b:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:republic:republica:af4a945b:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0a6eea91005a2245016a026a3a20e08197809e8b0c3f8ea1a2",
+      "slot_id": "en-es:srs-source-target:republic:republica:af4a945b:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 520,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 193,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 713
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:sun:sol:d3e33a85",
+      "first_sentence": "The sun rose over the mountains, warming the valley before breakfast.",
+      "item_count": 2,
+      "pilot_arm": "P0_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:sun:sol:d3e33a85:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:sun:sol:d3e33a85:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0591537062619b2f016a026a3d7bd88190aadf940d39bc43be",
+      "slot_id": "en-es:srs-source-target:sun:sol:d3e33a85:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 496,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 183,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 679
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:thousand:mil:eb4dcfd8",
+      "first_sentence": "The fundraiser reached a thousand dollars by sunset.",
+      "item_count": 2,
+      "pilot_arm": "P0_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:thousand:mil:eb4dcfd8:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:thousand:mil:eb4dcfd8:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_084ef354a020cc54016a026a3f0cd08193a70a3af89be4c8d0",
+      "slot_id": "en-es:srs-source-target:thousand:mil:eb4dcfd8:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 504,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 173,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 677
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:writer:autor:ff4e19b6",
+      "first_sentence": "The writer signed copies of her new novel at the bookstore.",
+      "item_count": 2,
+      "pilot_arm": "P0_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:writer:autor:ff4e19b6:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:writer:autor:ff4e19b6:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_070a860f752a65ab016a026a40a2308195b76a9adc971b783e",
+      "slot_id": "en-es:srs-source-target:writer:autor:ff4e19b6:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 502,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 182,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 684
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:yesterday:ayer:124f1659",
+      "first_sentence": "I submitted the report yesterday after the meeting ended.",
+      "item_count": 2,
+      "pilot_arm": "P0_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:yesterday:ayer:124f1659:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:yesterday:ayer:124f1659:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_069b6d7f7617e3f2016a026a422c848190b0a46e67c53a6a8b",
+      "slot_id": "en-es:srs-source-target:yesterday:ayer:124f1659:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 492,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 178,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 670
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:academy:academia:717639a3",
+      "first_sentence": "She enrolled at the academy to study art, history, and philosophy.",
+      "item_count": 2,
+      "pilot_arm": "P1_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:academy:academia:717639a3:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:academy:academia:717639a3:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0467baafaf2351c7016a026a4573b881908f380d79c17bf09b",
+      "slot_id": "en-es:srs-source-target:academy:academia:717639a3:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 498,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 169,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 667
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:adjacent:vecino:f732391d",
+      "first_sentence": "The library is adjacent to the park, so we can walk there in two minutes.",
+      "item_count": 2,
+      "pilot_arm": "P1_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:adjacent:vecino:f732391d:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:adjacent:vecino:f732391d:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_012cdb88f78391ce016a026a46ed008195b743267d71118b6a",
+      "slot_id": "en-es:srs-source-target:adjacent:vecino:f732391d:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 500,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 192,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 692
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:arrange:arreglar:4513f094",
+      "first_sentence": "Can you arrange the broken chair before guests arrive?",
+      "item_count": 2,
+      "pilot_arm": "P1_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:arrange:arreglar:4513f094:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:arrange:arreglar:4513f094:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0f104185c773eb40016a026a48737c8194aeefe7ef5e915296",
+      "slot_id": "en-es:srs-source-target:arrange:arreglar:4513f094:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 516,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 187,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 703
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:axis:eje:0048e9cf",
+      "first_sentence": "The wheel was slightly bent, so the mechanic checked the axis before tightening the bearings.",
+      "item_count": 2,
+      "pilot_arm": "P1_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:axis:eje:0048e9cf:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:axis:eje:0048e9cf:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0b193b9438b3f3fa016a026a4a6ff08190bc008931dd10b511",
+      "slot_id": "en-es:srs-source-target:axis:eje:0048e9cf:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 498,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 200,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 698
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:bare:desnudo:9adf3ea8",
+      "first_sentence": "The statue stood bare in the center of the courtyard, with no clothes or covering at all.",
+      "item_count": 2,
+      "pilot_arm": "P1_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:bare:desnudo:9adf3ea8:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:bare:desnudo:9adf3ea8:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_04f9ecf7203fb0e3016a026a4c03488194856f4b2c5dbdc078",
+      "slot_id": "en-es:srs-source-target:bare:desnudo:9adf3ea8:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 520,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 204,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 724
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:battle:batalla:4bc7c7b3",
+      "first_sentence": "The generals planned the battle at dawn before the troops moved into the valley.",
+      "item_count": 2,
+      "pilot_arm": "P1_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:battle:batalla:4bc7c7b3:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:battle:batalla:4bc7c7b3:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_099b7b2daf4300bf016a026a4d95188196acc7273c2b992564",
+      "slot_id": "en-es:srs-source-target:battle:batalla:4bc7c7b3:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 516,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 191,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 707
+      }
+    }
+  ],
+  "schema_version": 1,
+  "selected_model_id": "gpt-5.4-mini",
+  "selected_temperature": null,
+  "status": "partial",
+  "summary": {
+    "accepted_generated_item_count": 84,
+    "accepted_items_by_slot_type": {
+      "active_evidence_expansion": 84
+    },
+    "accepted_response_count": 42,
+    "accepted_responses_by_arm": {
+      "P0_exposure_first": 36,
+      "P1_exposure_first": 6
+    },
+    "accepted_responses_by_slot_type": {
+      "active_evidence_expansion": 42
+    },
+    "admission_status": "review",
+    "admitted_item_count": 84,
+    "api_error_count": 0,
+    "coverage_shortfall_count": 4,
+    "coverage_waived_item_count": 0,
+    "input_tokens": 22066,
+    "invalid_output_count": 2,
+    "output_tokens": 7941,
+    "reasoning_tokens": 0,
+    "rejected_item_count": 0,
+    "selected_request_count": 44
+  }
+}
