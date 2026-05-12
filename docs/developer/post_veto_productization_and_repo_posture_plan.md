@@ -74,6 +74,7 @@ Work:
 
 - keep named semantic-pack installation as the default test flow,
 - use `docs/rulegen/semantic_pack_operator_smoke_runbook.md` as the tester runbook for installing the pack, reloading the extension, and choosing test pages,
+- use `docs/rulegen/semantic_veto_active_only_tranche_runbook.md` for tranche-003 and later generated-data follow-through,
 - verify diagnostics expose enough information to distinguish replace, abstain, helper error, inventory error, fallback, and policy id,
 - decide whether the current Advanced debug install path is sufficient for the private PoC or whether a first-class local semantic-pack installer is needed.
 

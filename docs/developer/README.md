@@ -3,7 +3,7 @@
 Status: active developer hub
 Role: Canonical current
 Last updated: 2026-05-12
-Last verified: 2026-05-12 developer-doc routing update for post-veto consolidation planning and semantic-pack operator smoke runbook
+Last verified: 2026-05-12 developer-doc routing update for post-veto consolidation planning, semantic-pack operator smoke runbook, and active-only tranche runbook
 Source-of-truth: developer routing guide; defer runtime truth to source code, `feature_state_matrix.md`, and linked subsystem docs.
 
 Purpose:
@@ -33,6 +33,7 @@ Use these first when you need current behavior or current operating commands:
 - Documentation governance + archive policy: `documentation_governance.md`
 - Feature state ledger: `feature_state_matrix.md`
 - Semantic pack operator smoke runbook: `../rulegen/semantic_pack_operator_smoke_runbook.md`
+- Semantic-veto active-only tranche runbook: `../rulegen/semantic_veto_active_only_tranche_runbook.md`
 - Repo safety commands: `npm --prefix scripts run check` and `npm --prefix scripts run build`
 - Canonical doc integrity check: `npm --prefix scripts run check:docs`
 - Script map: `../../scripts/README.md`

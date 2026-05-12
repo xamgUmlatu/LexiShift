@@ -12,6 +12,7 @@ Related docs:
 - `docs/rulegen/semantic_routing_data_update_lifecycle.md`
 - `docs/rulegen/semantic_feedback_promotion_flow.md`
 - `docs/rulegen/semantic_llm_generation_budget_reference.md`
+- `docs/rulegen/semantic_veto_active_only_tranche_runbook.md`
 - `docs/rulegen/semantic_routing_data_contract.md`
 - `docs/rulegen/semantic_routing_runtime_readiness.md`
 - `docs/test_inputs/semantic_routing/semantic_family_inventory.schema.json`
@@ -388,6 +389,11 @@ The scale-generation program should therefore proceed in lanes:
 
 The immediate engineering gap is now the next source-target review slice. Do not
 attempt to spend the whole budget at once.
+
+Use `docs/rulegen/semantic_veto_active_only_tranche_runbook.md` for the
+repeatable active-only tranche cycle. That runbook owns the step-by-step gates,
+commit points, and stop rules for tranche-003 and later; this queueing plan owns
+the rationale and current state.
 
 ## What "worried about polysemy" should mean
 
