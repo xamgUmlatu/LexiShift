@@ -425,7 +425,7 @@ product-shaped route. When it is omitted, the helper resolves the requested
    `<data-root>/language_packs/<pair>/semantic_packs/<pack-id>/semantic_inventory.json`
 2. an explicit semantic-pack catalog file from `LEXISHIFT_SEMANTIC_PACK_CATALOG`
 3. the current repo dev-pack path for named development packs, including the
-   current default `en-es-active-only-combined-full-v1-tranche-002`
+   current default `en-es-active-only-combined-full-v1-tranche-003`
 
 That keeps tests and first product checks honest: the UI/backend contract is
 "install this named pack into this profile/data root", while file paths remain

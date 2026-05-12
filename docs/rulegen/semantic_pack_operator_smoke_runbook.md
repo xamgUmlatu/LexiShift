@@ -3,7 +3,7 @@
 Status: active runbook
 Role: Runbook / operational
 Last updated: 2026-05-12
-Last verified: 2026-05-12 against the `en-es-active-only-combined-full-v1-tranche-002` default pack id, Advanced debug install flow, helper/native-host install command, and tranche-002 operator smoke evidence
+Last verified: 2026-05-12 against the `en-es-active-only-combined-full-v1-tranche-003` default pack id, Advanced debug install flow wiring, helper/native-host install command, tranche-003 automated install/page-scan evidence, and tranche-002 operator smoke evidence
 Purpose: give a tester a repeatable way to install and smoke-test the current semantic-veto pack without relying on chat history
 Source-of-truth: operational runbook only; implementation truth lives in `core/lexishift_core/helper/use_cases/semantic_pack_install.py`, `scripts/helper/lexishift_native_host.py`, `apps/chrome-extension/options.html`, and the extension helper client
 Related docs:
@@ -18,18 +18,21 @@ Related docs:
 This runbook is for the current private/operator semantic-veto smoke path:
 
 - pair: `en-es`
-- pack id: `en-es-active-only-combined-full-v1-tranche-002`
+- pack id: `en-es-active-only-combined-full-v1-tranche-003`
 - runtime policy: `en_es_sentence_veto_v2`
 - active-only floor: `min_active_score=0.015`
 - install surface: extension Options -> Advanced debug tools -> semantic pack installer
 
 This is not the normal end-user install flow and not a cloud distribution plan.
-It is the controlled way to repeat the accepted tranche-002 soft-assist smoke.
+It is the controlled way to test the latest generated pack through the same
+soft-assist smoke path.
 
 ## Current Approval Status
 
-The current tranche-002 data is already approved for the soft-assist PoC.
-Do not rerun this smoke merely to approve the same data again.
+The tranche-002 data is already approved for the soft-assist PoC. The
+tranche-003 pack is automated-clean and is the current default pack for the
+Options installer, but it still needs an operator browser-extension smoke if we
+want the same human product-feel approval record.
 
 Rerun it when:
 
@@ -81,17 +84,17 @@ That is usually better than a disconnected temp root for live browser review.
 5. Enable SRS practice mode.
 6. Open `Advanced debug tools`.
 7. Leave `Semantic inventory path override` blank.
-8. Leave `Semantic pack id` as `en-es-active-only-combined-full-v1-tranche-002`.
+8. Leave `Semantic pack id` as `en-es-active-only-combined-full-v1-tranche-003`.
 9. For live extension smoke, leave `Install to default helper data folder` checked.
 10. Click `Install semantic pack...`.
 11. Confirm the overwrite prompt.
 
 Expected current install result:
 
-- pack id: `en-es-active-only-combined-full-v1-tranche-002`
+- pack id: `en-es-active-only-combined-full-v1-tranche-003`
 - profile id: the selected profile, usually `default`
-- rules: `135`
-- competition sets: `135`
+- rules: `178`
+- competition sets: `178`
 
 The install route writes both:
 
@@ -129,7 +132,8 @@ That is not an install failure by itself.
 
 Use ordinary pages that contain words from the current pack.
 
-Known useful pages from the tranche-002 scan:
+Known useful pages from the tranche-003 automated scan and earlier tranche-002
+smoke:
 
 - `https://en.wikipedia.org/wiki/Dentist`
 - `https://en.wikipedia.org/wiki/Bar_(establishment)`
@@ -229,7 +233,7 @@ Product-like default helper-root install:
 python3 scripts/helper/lexishift_helper.py install_semantic_pack \
   --pair en-es \
   --profile-id default \
-  --pack-id en-es-active-only-combined-full-v1-tranche-002 \
+  --pack-id en-es-active-only-combined-full-v1-tranche-003 \
   --allow-default-data-root
 ```
 
@@ -239,7 +243,7 @@ Disposable materialization check:
 python3 scripts/helper/lexishift_helper.py install_semantic_pack \
   --pair en-es \
   --profile-id default \
-  --pack-id en-es-active-only-combined-full-v1-tranche-002 \
+  --pack-id en-es-active-only-combined-full-v1-tranche-003 \
   --data-root /tmp/lexishift-semantic-pack-smoke
 ```
 
@@ -249,7 +253,7 @@ Dry-run preview:
 python3 scripts/helper/lexishift_helper.py install_semantic_pack \
   --pair en-es \
   --profile-id default \
-  --pack-id en-es-active-only-combined-full-v1-tranche-002 \
+  --pack-id en-es-active-only-combined-full-v1-tranche-003 \
   --allow-default-data-root \
   --dry-run
 ```
@@ -262,10 +266,10 @@ Normal product-shaped testing should use `--pack-id`.
 For a disposable test profile, reset or replace the profile-local SRS publication files.
 
 For the default helper root, the low-risk rollback is to reinstall the previous pack id or refresh the profile from normal SRS/rulegen publication.
-The previous named semantic pack remains:
+The previous operator-approved named semantic pack remains:
 
 ```text
-en-es-active-only-combined-full-v1-tranche-001
+en-es-active-only-combined-full-v1-tranche-002
 ```
 
 If the goal is only to stop semantic-veto behavior temporarily, disable SRS practice mode or test with a profile that has no semantic-ready publication.
