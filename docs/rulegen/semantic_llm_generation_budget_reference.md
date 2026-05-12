@@ -210,6 +210,44 @@ outputs were retried, but it is still trivial relative to the `$100` budget.
 The practical limiter remains reviewed source-target quality and downstream
 admission/packaging hygiene.
 
+## Observed Full Active-Only Tranche 003 Cost Anchor
+
+Artifacts:
+
+- `docs/test_outputs/semantic_veto_active_only_full_v1_tranche_003_generation_run_en_es_latest.json`
+- `docs/test_outputs/semantic_veto_active_only_full_v1_tranche_003_repaired_generation_admission_en_es_latest.json`
+- `docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_003_pack_install_en_es_latest.json`
+
+Observed run shape:
+
+- model: `gpt-5.4-mini`
+- request scope: `43` reviewed/approved uncovered active-only SRS-derived
+  source-target families
+- first completed bundle accepted `42/43` responses and reported `1` invalid
+  metadata output for `horizon -> horizonte`
+- one guarded retry accepted the `horizon -> horizonte` response
+- the final generated-response bundle applied `1` explicit operator repair for
+  `indicate -> mostrar`, replacing two `indicates` sentences with exact-token
+  `indicate` sentences
+- repaired admitted active items: `86/86`
+- source packaging produced `86` canonical `anchor_cue` rows across `43`
+  families
+- combined pack build now covers `178/570` current SRS-derived source-target
+  families with `368` normalized evidence rows
+
+Journal-inclusive paid outcome usage:
+
+- outcome events: `44`
+- completed outcomes: `43`
+- invalid-output outcomes: `1`
+- input tokens: `22,259`
+- output tokens: `8,106`
+- actual cost at the 2026-05-12 `gpt-5.4-mini` snapshot: about `$0.053`
+
+The cost pattern remains consistent with tranches 001 and 002. The operational
+limiter remains source-target review and downstream generated-row hygiene, not
+budget.
+
 ## Observed Balanced v1 Follow-Through Cost Anchor
 
 Artifact:
@@ -323,25 +361,22 @@ SRS-admissible semantic-family universe for scale planning:
 - 570 current generated `en-es` source-target rule families,
 - 536 unique English source triggers,
 - 342 unique Spanish active targets,
-- 135 source-target families currently covered by the combined active-only
+- 178 source-target families currently covered by the combined active-only
   product-smoke plus full-tranche pack,
-- 435 active-only uncovered source-target families,
+- 392 active-only uncovered source-target families,
 - 150 source-target rows reviewed across the first three pre-spend slices,
 - 129 of those reviewed candidates approved for paid active-only generation,
 - 21 rejected before spend because they were no-visible or weak source-target
   mappings,
-- 414 currently queued source-target families after known cumulative rejections,
-- 828 expected active cue rows if the currently queued families are generated
+- 371 currently queued source-target families after known cumulative rejections,
+- 742 expected active cue rows if the currently queued families are generated
   at 2 rows per family,
-- 9 queue tranches after known cumulative rejections, with future tranche rows
+- 8 queue tranches after known cumulative rejections, with future tranche rows
   still requiring the same pre-spend source-target review.
 
-The current runnable paid packet is the tranche-003 pre-spend request plan:
-
-- `43` reviewed and approved source-target families,
-- `86` expected active cue rows,
-- `22,570` estimated input tokens,
-- `12,040` output-token budget.
+There is no current runnable paid packet immediately after tranche 003 because
+the approved rows are now covered. The next spend unit is source-target review,
+followed by a refreshed request plan with explicit cardinality and cost guards.
 
 Older table rows such as `common-source active-only pass` remain historical
 planning anchors, not the denominator for the whole product. Do not spend
@@ -372,7 +407,7 @@ Recommended initial caps:
 
 | Batch | `--require-selected-request-count` | Expected cap | Ceiling cap |
 | --- | ---: | ---: | ---: |
-| next active-only reviewed tranche | `43` | `$1` | `$5` |
+| next active-only reviewed tranche | `<reviewed-count>` | `$1` | `$5` |
 | larger active-only tranche | `100` | `$2` | `$10` |
 | common-source active-only pass | `344` | `$5` | `$25` |
 

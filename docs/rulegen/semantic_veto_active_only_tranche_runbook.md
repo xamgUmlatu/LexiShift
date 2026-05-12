@@ -3,7 +3,7 @@
 Status: active runbook
 Role: Runbook / operational
 Last updated: 2026-05-12
-Last verified: 2026-05-12 against tranche-001/tranche-002 artifacts, the post-tranche-002 coverage plan, active-only generation planner, live generation runner, admission gate, source packaging, pack builder, semantic-pack installer, live-page scanner, registry summary, and cost reference
+Last verified: 2026-05-12 against tranche-001/tranche-003 artifacts, the post-tranche-003 coverage plan, active-only generation planner, live generation runner, admission gate, source packaging, pack builder, semantic-pack installer, live-page scanner, registry summary, and cost reference
 Purpose: make future active-only semantic-veto data tranches repeatable, guarded, and easy to checkpoint without reopening algorithm research
 Source-of-truth: operational runbook only; current implementation truth lives in the scripts and generated artifacts named below
 Related docs:
@@ -15,27 +15,30 @@ Related docs:
 
 ## Current State
 
-The current approved soft-assist pack is:
+The latest automated-clean soft-assist pack is:
 
 ```text
-en-es-active-only-combined-full-v1-tranche-002
+en-es-active-only-combined-full-v1-tranche-003
 ```
+
+The latest operator-approved browser-extension smoke remains tranche-002 until
+someone installs and reviews tranche-003 through the extension.
 
 Current checkpoint:
 
-- approved active-only coverage: `135 / 570` current SRS-derived source-target families,
-- remaining uncovered families: `435`,
-- remaining unreviewed generation queue rows after tranche-003 prep: `371`,
-- next runnable paid request packet: tranche-003 pre-spend plan with `43`
-  reviewed/approved families and `86` expected active cue items,
-- next required work: commit the tranche-003 pre-spend checkpoint, then run the
-  bounded paid generation command if the operator approves spend.
+- automated-clean active-only coverage: `178 / 570` current SRS-derived source-target families,
+- remaining uncovered families: `392`,
+- remaining unreviewed generation queue rows after tranche-003: `371`,
+- next runnable paid request packet: empty,
+- next required work: source-target review for the next tranche, or optional
+  operator browser-extension smoke on the tranche-003 pack.
 
-Do not start a paid run from the post-tranche-002 plan as-is.
-Use the tranche-003 pre-spend plan instead:
+Do not start another paid run from the post-tranche-003 plan as-is.
+It intentionally has `0` selected request families until more source-target rows
+are reviewed and approved.
 
 ```text
-docs/test_outputs/semantic_veto_active_only_full_generation_plan_tranche_003_pre_spend_en_es_latest.md
+docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_003_en_es_latest.md
 ```
 
 ## What This Runbook Improves
@@ -51,7 +54,7 @@ This runbook improves only the repeated generated-data cycle:
 It does not change:
 
 - the semantic decision algorithm,
-- the current approved tranche-002 data,
+- the latest generated tranche-003 data,
 - the product-soft `0.015` active-only policy,
 - the operator smoke result.
 

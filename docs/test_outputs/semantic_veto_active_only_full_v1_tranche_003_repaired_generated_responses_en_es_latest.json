@@ -1,0 +1,1190 @@
+{
+  "batch_id": "en-es:semantic-veto-evidence-gap-generation:en-es-active-only-full-v1-tranche-003-approved",
+  "execution_mode": "live",
+  "generated_at": "2026-05-12T02:38:09Z",
+  "model_id": "gpt-5.4-mini",
+  "operator_repairs": [
+    {
+      "family_id": "en-es:srs-source-target:indicate:mostrar:c5e780b0",
+      "repair_reason": "replace the two indicate->mostrar generated sentences whose source token appeared only as the inflected form indicates instead of the exact runtime trigger token indicate",
+      "repair_type": "sentence_exact_token_restoration",
+      "request_id": "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:indicate:mostrar:c5e780b0:active_evidence_expansion",
+      "reviewed_by": "codex_operator",
+      "sentence_content_changed": true,
+      "slot_id": "en-es:srs-source-target:indicate:mostrar:c5e780b0:active_evidence_expansion",
+      "source_phrase": "indicate",
+      "target_lemma": "mostrar"
+    }
+  ],
+  "pair": "en-es",
+  "pilot_id": "en-es-active-only-full-v1-tranche-003",
+  "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+  "raw_response_bundle_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-003-approved_raw_responses.json",
+  "responses": [
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:bird:ave:7d7a82c6",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Uses bird in the sense of a living flying creature, matching the intended Spanish meaning.",
+          "sentence": "A bird crossed the garden, landing on the fence before flying off."
+        },
+        {
+          "evidence_note": "Refers to a real animal, giving clear active evidence for the target sense.",
+          "sentence": "The injured bird was rescued and taken to a wildlife clinic."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-003-approved_raw_responses.json#en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:bird:ave:7d7a82c6:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:bird:ave:7d7a82c6:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:bird:ave:7d7a82c6:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "bird",
+      "target_lemma": "ave",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:blind:ciego:b0c47758",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Describes loss of vision, matching the active target sense.",
+          "sentence": "The doctor said the injury left him blind in his left eye."
+        },
+        {
+          "evidence_note": "Uses blind for a person who cannot see, matching the intended sense.",
+          "sentence": "After the accident, she was blind and needed help crossing the street."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-003-approved_raw_responses.json#en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:blind:ciego:b0c47758:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:blind:ciego:b0c47758:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:blind:ciego:b0c47758:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "blind",
+      "target_lemma": "ciego",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:boat:barco:27bbf09b",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Refers to a watercraft used for transport on the water.",
+          "sentence": "The boat carried tourists across the harbor at sunset."
+        },
+        {
+          "evidence_note": "Clear maritime/lake context showing the intended vehicle sense.",
+          "sentence": "We rented a small boat for a quiet afternoon on the lake."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-003-approved_raw_responses.json#en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:boat:barco:27bbf09b:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:boat:barco:27bbf09b:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:boat:barco:27bbf09b:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "boat",
+      "target_lemma": "barco",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:boss:amo:31737fee",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Active sense: a master who dominates others, matching Spanish amo.",
+          "sentence": "The old cat acted like the boss of the house, expecting everyone to serve him."
+        },
+        {
+          "evidence_note": "Active sense: the animal's owner or master, matching Spanish amo.",
+          "sentence": "On the farm, the dog waited at the gate for the boss to bring its dinner."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-003-approved_raw_responses.json#en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:boss:amo:31737fee:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:boss:amo:31737fee:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:boss:amo:31737fee:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "boss",
+      "target_lemma": "amo",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:brazilian:brasileno:d170f7a3",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "brazilian clearly describes something from Brazil, matching the intended country-related sense.",
+          "sentence": "She ordered a brazilian coffee after dinner and enjoyed its rich, sweet flavor."
+        },
+        {
+          "evidence_note": "brazilian modifies art from Brazil, making the national-origin meaning clear.",
+          "sentence": "The museum opened a brazilian art exhibit featuring modern painters from São Paulo."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-003-approved_raw_responses.json#en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:brazilian:brasileno:d170f7a3:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:brazilian:brasileno:d170f7a3:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:brazilian:brasileno:d170f7a3:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "brazilian",
+      "target_lemma": "brasileño",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:burden:cargar:03d5c181",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Active loading sense: placing items onto a vehicle.",
+          "sentence": "We had to burden the truck with boxes before dawn."
+        },
+        {
+          "evidence_note": "Active loading sense: adding weight or cargo onto something for transport.",
+          "sentence": "Please burden the cart with the sacks and roll it to the shed."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-003-approved_raw_responses.json#en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:burden:cargar:03d5c181:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:burden:cargar:03d5c181:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:burden:cargar:03d5c181:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "burden",
+      "target_lemma": "cargar",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:burn:quemar:f2a206dd",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Active sense: cause food to scorch or be damaged by heat.",
+          "sentence": "Be careful not to burn the toast."
+        },
+        {
+          "evidence_note": "Active sense: deliberately set something on fire or damage it with heat.",
+          "sentence": "She could burn the paper with a single match."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-003-approved_raw_responses.json#en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:burn:quemar:f2a206dd:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:burn:quemar:f2a206dd:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:burn:quemar:f2a206dd:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "burn",
+      "target_lemma": "quemar",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:castle:castillo:86f51d0e",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Refers to a historic fortified building, matching the intended sense.",
+          "sentence": "The old castle on the hill drew visitors from miles away."
+        },
+        {
+          "evidence_note": "Describes a traditional fortress-style building, clear active sense.",
+          "sentence": "We toured the castle and admired its stone towers and moat."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-003-approved_raw_responses.json#en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:castle:castillo:86f51d0e:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:castle:castillo:86f51d0e:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:castle:castillo:86f51d0e:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "castle",
+      "target_lemma": "castillo",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:cat:gato:97d69670",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Household animal context clearly indicates the sense that maps to Spanish gato.",
+          "sentence": "The cat curled up on the windowsill and watched the birds outside."
+        },
+        {
+          "evidence_note": "Refers to a living feline animal, matching the intended translation sense.",
+          "sentence": "A stray cat followed me down the alley, then rubbed against my leg."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-003-approved_raw_responses.json#en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:cat:gato:97d69670:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:cat:gato:97d69670:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:cat:gato:97d69670:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "cat",
+      "target_lemma": "gato",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:chair:silla:f3abdb4f",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "chair refers to a seat for one person.",
+          "sentence": "Please pull up a chair and join us at the table."
+        },
+        {
+          "evidence_note": "chair is used as a piece of furniture to sit on.",
+          "sentence": "He moved the chair closer to the desk before sitting down."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-003-approved_raw_responses.json#en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:chair:silla:f3abdb4f:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:chair:silla:f3abdb4f:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:chair:silla:f3abdb4f:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "chair",
+      "target_lemma": "silla",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:communist:comunista:70a9c8e8",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Political ideology context makes the intended sense clear.",
+          "sentence": "The historian described him as a communist who organized labor strikes and advocated collective ownership."
+        },
+        {
+          "evidence_note": "References beliefs and economic policy in a political sense.",
+          "sentence": "During the debate, she defended her communist beliefs and argued for public control of key industries."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-003-approved_raw_responses.json#en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:communist:comunista:70a9c8e8:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:communist:comunista:70a9c8e8:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:communist:comunista:70a9c8e8:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "communist",
+      "target_lemma": "comunista",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:competition:competencia:429ac049",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Shows competition as rivalry among applicants for a job.",
+          "sentence": "The competition for the open engineering role was intense, with dozens of qualified applicants."
+        },
+        {
+          "evidence_note": "Shows competition as a contest between rivals for a prize.",
+          "sentence": "Her startup entered the competition for the city grant and hoped to beat rival teams."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-003-approved_raw_responses.json#en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:competition:competencia:429ac049:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:competition:competencia:429ac049:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:competition:competencia:429ac049:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "competition",
+      "target_lemma": "competencia",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:constant:continuo:e276bb77",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "constant describes an unbroken, steady state over time",
+          "sentence": "The machine runs at a constant speed, so the output stays even from start to finish."
+        },
+        {
+          "evidence_note": "constant describes something continuous and persistent",
+          "sentence": "She heard a constant drip from the faucet throughout the night, which made it hard to sleep."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-003-approved_raw_responses.json#en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:constant:continuo:e276bb77:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:constant:continuo:e276bb77:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:constant:continuo:e276bb77:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "constant",
+      "target_lemma": "continuo",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:corruption:corrupcion:f5e98e25",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Political and financial wrongdoing by officials.",
+          "sentence": "The minister resigned after investigators uncovered corruption in the public works contract."
+        },
+        {
+          "evidence_note": "Abuse of power for private gain in government.",
+          "sentence": "Journalists exposed corruption that had drained the city budget for years."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-003-approved_raw_responses.json#en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:corruption:corrupcion:f5e98e25:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:corruption:corrupcion:f5e98e25:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:corruption:corrupcion:f5e98e25:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "corruption",
+      "target_lemma": "corrupción",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:cousin:primo:ceaeba19",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Family relation is clearly a male relative from the uncle's side.",
+          "sentence": "My cousin is my uncle's son, and we grew up playing soccer together."
+        },
+        {
+          "evidence_note": "The context shows the cousin is male and a family member.",
+          "sentence": "At the reunion, my cousin introduced me to his wife and their new baby."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-003-approved_raw_responses.json#en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:cousin:primo:ceaeba19:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:cousin:primo:ceaeba19:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:cousin:primo:ceaeba19:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "cousin",
+      "target_lemma": "primo",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:cry:grito:cc8dff03",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "cry is used as a loud shout or exclamation, matching the active sense.",
+          "sentence": "A sudden cry from the alley made everyone turn around."
+        },
+        {
+          "evidence_note": "cry refers to an audible shout caused by alarm or surprise.",
+          "sentence": "She let out a cry when she saw the car swerve toward the curb."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-003-approved_raw_responses.json#en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:cry:grito:cc8dff03:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:cry:grito:cc8dff03:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:cry:grito:cc8dff03:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "cry",
+      "target_lemma": "grito",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:debt:deuda:679248ae",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Financial obligation that must be repaid.",
+          "sentence": "After losing his job, he worked two part-time shifts to pay off his debt."
+        },
+        {
+          "evidence_note": "Business money owed, clearly in the financial sense.",
+          "sentence": "The company spent years reducing its debt before opening a new office."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-003-approved_raw_responses.json#en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:debt:deuda:679248ae:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:debt:deuda:679248ae:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:debt:deuda:679248ae:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "debt",
+      "target_lemma": "deuda",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:defeat:derrota:65acb792",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "defeat means losing in an election or contest.",
+          "sentence": "The candidate’s defeat stunned the campaign team after months of confident polling."
+        },
+        {
+          "evidence_note": "defeat means being beaten by an opponent.",
+          "sentence": "Their defeat in the final match ended a perfect season and left the stadium silent."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-003-approved_raw_responses.json#en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:defeat:derrota:65acb792:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:defeat:derrota:65acb792:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:defeat:derrota:65acb792:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "defeat",
+      "target_lemma": "derrota",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:deputy:diputado:faf8f453",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "refers to an elected lawmaker in a legislative body",
+          "sentence": "The deputy introduced a bill to expand rural broadband access."
+        },
+        {
+          "evidence_note": "shows a parliamentary representative speaking with voters about legislation",
+          "sentence": "After the debate, the deputy met with constituents to discuss the new tax proposal."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-003-approved_raw_responses.json#en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:deputy:diputado:faf8f453:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:deputy:diputado:faf8f453:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:deputy:diputado:faf8f453:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "deputy",
+      "target_lemma": "diputado",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:determine:determinar:e94fb91b",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Active sense of deciding or establishing an outcome.",
+          "sentence": "The committee will determine the final budget after reviewing every proposal."
+        },
+        {
+          "evidence_note": "Active sense of figuring out or deciding based on evidence.",
+          "sentence": "We need the survey results to determine which route is safest for the hikers."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-003-approved_raw_responses.json#en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:determine:determinar:e94fb91b:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:determine:determinar:e94fb91b:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:determine:determinar:e94fb91b:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "determine",
+      "target_lemma": "determinar",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:diameter:diametro:e330b978",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Refers to the width across a circular object.",
+          "sentence": "The pipe has a diameter of 4 inches, so it fits the connector perfectly."
+        },
+        {
+          "evidence_note": "Clear geometric sense: distance across a circle.",
+          "sentence": "Measure the diameter of the circle before you draw the center line."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-003-approved_raw_responses.json#en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:diameter:diametro:e330b978:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:diameter:diametro:e330b978:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:diameter:diametro:e330b978:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "diameter",
+      "target_lemma": "diámetro",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:dictionary:diccionario:43961cca",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "A dictionary is used here as a reference book for words and spellings.",
+          "sentence": "I looked up the word in the dictionary to check its spelling."
+        },
+        {
+          "evidence_note": "The context shows dictionary as a book or resource for word meanings and translations.",
+          "sentence": "She keeps a small dictionary on her desk for quick translations."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-003-approved_raw_responses.json#en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:dictionary:diccionario:43961cca:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:dictionary:diccionario:43961cca:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:dictionary:diccionario:43961cca:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "dictionary",
+      "target_lemma": "diccionario",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:dinner:cena:7ececdb0",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Late evening meal in a Spanish-speaking context, matching the intended translation sense.",
+          "sentence": "We had dinner at 9 p.m. after the movie, so it was quite late."
+        },
+        {
+          "evidence_note": "Refers to the main evening meal, the sense typically translated as cena.",
+          "sentence": "Please save me a plate for dinner because I will not get home until after 8."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-003-approved_raw_responses.json#en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:dinner:cena:7ececdb0:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:dinner:cena:7ececdb0:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:dinner:cena:7ececdb0:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "dinner",
+      "target_lemma": "cena",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:discount:descuento:ae4ba547",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "The sentence shows a price reduction on a purchase.",
+          "sentence": "The store gave me a discount on the winter coat because it was the last one in stock."
+        },
+        {
+          "evidence_note": "The context makes clear the discount lowers the amount to pay.",
+          "sentence": "If you pay in cash, the dealer will apply a discount to the final bill."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-003-approved_raw_responses.json#en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:discount:descuento:ae4ba547:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:discount:descuento:ae4ba547:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:discount:descuento:ae4ba547:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "discount",
+      "target_lemma": "descuento",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:distance:distancia:32a485d3",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Physical separation between places, matching the intended sense of distancia.",
+          "sentence": "The distance between the two towns is about 30 miles."
+        },
+        {
+          "evidence_note": "Refers to spacing between people and a place, a clear distance sense.",
+          "sentence": "Please keep a safe distance from the edge of the platform."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-003-approved_raw_responses.json#en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:distance:distancia:32a485d3:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:distance:distancia:32a485d3:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:distance:distancia:32a485d3:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "distance",
+      "target_lemma": "distancia",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:dual:doble:f7b226b5",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "dual means double here, describing two beds.",
+          "sentence": "The hotel room had dual beds for the two guests."
+        },
+        {
+          "evidence_note": "dual indicates a double portion intended for two people.",
+          "sentence": "She ordered a dual portion of rice so both children could share."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-003-approved_raw_responses.json#en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:dual:doble:f7b226b5:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:dual:doble:f7b226b5:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:dual:doble:f7b226b5:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "dual",
+      "target_lemma": "doble",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:duty:deber:c268619f",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Duty means an obligation that must be carried out.",
+          "sentence": "It is our duty to report the broken safety gate before anyone gets hurt."
+        },
+        {
+          "evidence_note": "Duty refers to a moral responsibility or obligation.",
+          "sentence": "As a parent, she felt a duty to stay with her son during the difficult night."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-003-approved_raw_responses.json#en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:duty:deber:c268619f:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:duty:deber:c268619f:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:duty:deber:c268619f:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "duty",
+      "target_lemma": "deber",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:earthquake:terremoto:eb12163f",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Natural disaster context; source_phrase refers to a seismic event.",
+          "sentence": "The earthquake damaged roads and knocked out power across the city."
+        },
+        {
+          "evidence_note": "Shows a damaging seismic event that matches the intended sense.",
+          "sentence": "After the earthquake, emergency crews inspected cracks in the school building."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-003-approved_raw_responses.json#en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:earthquake:terremoto:eb12163f:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:earthquake:terremoto:eb12163f:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:earthquake:terremoto:eb12163f:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "earthquake",
+      "target_lemma": "terremoto",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:entrance:entrada:c4bbeaba",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Refers to the main access point into a place.",
+          "sentence": "The entrance to the museum is on the left side of the building."
+        },
+        {
+          "evidence_note": "Refers to the doorway or access point where people go in.",
+          "sentence": "We waited near the entrance while the guard checked our tickets."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-003-approved_raw_responses.json#en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:entrance:entrada:c4bbeaba:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:entrance:entrada:c4bbeaba:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:entrance:entrada:c4bbeaba:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "entrance",
+      "target_lemma": "entrada",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:experienced:experto:9e1e7d71",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "describes a highly skilled professional",
+          "sentence": "She is an experienced surgeon who trains new residents in the operating room."
+        },
+        {
+          "evidence_note": "shows expertise in a practical trade",
+          "sentence": "We hired an experienced mechanic to diagnose the engine problem quickly."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-003-approved_raw_responses.json#en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:experienced:experto:9e1e7d71:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:experienced:experto:9e1e7d71:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:experienced:experto:9e1e7d71:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "experienced",
+      "target_lemma": "experto",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:expert:experto:735a32d1",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "expert means a person with specialized knowledge or skill.",
+          "sentence": "She asked the expert to explain the results in plain language."
+        },
+        {
+          "evidence_note": "expert refers to a specialist consulted for informed judgment.",
+          "sentence": "The expert confirmed that the diagnosis was correct after reviewing the scans."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-003-approved_raw_responses.json#en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:expert:experto:735a32d1:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:expert:experto:735a32d1:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:expert:experto:735a32d1:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "expert",
+      "target_lemma": "experto",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:faithful:fiel:12545c8a",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "describes loyalty in marriage",
+          "sentence": "She remained faithful to her husband through many difficult years."
+        },
+        {
+          "evidence_note": "describes loyal companionship",
+          "sentence": "The dog was faithful and waited by the door every evening."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-003-approved_raw_responses.json#en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:faithful:fiel:12545c8a:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:faithful:fiel:12545c8a:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:faithful:fiel:12545c8a:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "faithful",
+      "target_lemma": "fiel",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:famous:famoso:f381be0a",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Describes something well known by many people, matching the active sense.",
+          "sentence": "The museum became famous after the world tour featured its rare paintings."
+        },
+        {
+          "evidence_note": "Uses famous in the sense of being widely recognized for an achievement.",
+          "sentence": "She is famous for designing the stadium that changed the city's skyline."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-003-approved_raw_responses.json#en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:famous:famoso:f381be0a:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:famous:famoso:f381be0a:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:famous:famoso:f381be0a:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "famous",
+      "target_lemma": "famoso",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:fat:grasa:0a02e8fe",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "fat refers to cooking grease or animal fat left in the pan.",
+          "sentence": "The pan was slick with fat after the bacon finished cooking."
+        },
+        {
+          "evidence_note": "fat means the fatty tissue that can be cut away from meat.",
+          "sentence": "Trim the fat from the roast before you put it in the oven."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-003-approved_raw_responses.json#en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:fat:grasa:0a02e8fe:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:fat:grasa:0a02e8fe:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:fat:grasa:0a02e8fe:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "fat",
+      "target_lemma": "grasa",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:fix:determinar:3d45f4a8",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "fix means to determine or set the date.",
+          "sentence": "We need to fix the date before we send the invitations."
+        },
+        {
+          "evidence_note": "fix means to determine the number in advance.",
+          "sentence": "Can you fix the number of guests for the final count?"
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-003-approved_raw_responses.json#en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:fix:determinar:3d45f4a8:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:fix:determinar:3d45f4a8:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:fix:determinar:3d45f4a8:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "fix",
+      "target_lemma": "determinar",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:flow:correr:65baab3a",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "flow means to run or go in a continuous path through the area",
+          "sentence": "The marathon route will flow through downtown before ending at the park."
+        },
+        {
+          "evidence_note": "flow means to run continuously while the system is operating",
+          "sentence": "The program can flow in the background without slowing down the computer."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-003-approved_raw_responses.json#en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:flow:correr:65baab3a:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:flow:correr:65baab3a:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:flow:correr:65baab3a:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "flow",
+      "target_lemma": "correr",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:guilty:culpable:b806d7d3",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "The context shows legal responsibility for a crime.",
+          "sentence": "The jury found him guilty of fraud after reviewing the documents."
+        },
+        {
+          "evidence_note": "The context shows moral responsibility and remorse.",
+          "sentence": "She felt guilty after forgetting her friend's birthday."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-003-approved_raw_responses.json#en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:guilty:culpable:b806d7d3:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:guilty:culpable:b806d7d3:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:guilty:culpable:b806d7d3:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "guilty",
+      "target_lemma": "culpable",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:height:altura:153fff4c",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Uses height for vertical measurement of a natural object.",
+          "sentence": "The climbers checked the height of the cliff before starting the ascent."
+        },
+        {
+          "evidence_note": "Uses height as a measured vertical dimension.",
+          "sentence": "Please enter the height of the doorway so we can confirm the tall cabinet will fit."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-003-approved_raw_responses.json#en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:height:altura:153fff4c:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:height:altura:153fff4c:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:height:altura:153fff4c:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "height",
+      "target_lemma": "altura",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:hide:piel:bdb7a98a",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "hide refers to an animal skin or outer covering.",
+          "sentence": "The lotion helped hide the roughness on her hide after a long day in the sun."
+        },
+        {
+          "evidence_note": "hide means an animal's skin used as material.",
+          "sentence": "The taxidermist worked carefully to preserve the hide for the museum display."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-003-approved_raw_responses.json#en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:hide:piel:bdb7a98a:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:hide:piel:bdb7a98a:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:hide:piel:bdb7a98a:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "hide",
+      "target_lemma": "piel",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:horizon:horizonte:c626e791",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Refers to the line where earth and sky appear to meet.",
+          "sentence": "The sun dipped below the horizon as we watched from the beach."
+        },
+        {
+          "evidence_note": "Uses horizon in the sense of the distant boundary line in the landscape.",
+          "sentence": "A red glow spread across the horizon before dawn."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-003-approved_raw_responses.json#en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:horizon:horizonte:c626e791:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:horizon:horizonte:c626e791:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:horizon:horizonte:c626e791:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "horizon",
+      "target_lemma": "horizonte",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:impossible:imposible:e274aeae",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Describes something that cannot be done, matching the active sense of the target word.",
+          "sentence": "It is impossible to finish the puzzle without all four keys."
+        },
+        {
+          "evidence_note": "Shows a situation that cannot happen or be completed, clearly reflecting the intended meaning.",
+          "sentence": "Without the password, it was impossible to open the account."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-003-approved_raw_responses.json#en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:impossible:imposible:e274aeae:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:impossible:imposible:e274aeae:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:impossible:imposible:e274aeae:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "impossible",
+      "target_lemma": "imposible",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:indicate:mostrar:c5e780b0",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "indicate means to show or make something visible through data.",
+          "sentence": "The chart can indicate a sharp rise in sales this quarter."
+        },
+        {
+          "evidence_note": "indicate means to point out or show the correct path.",
+          "sentence": "The signs can indicate the fastest route to the station."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-003-approved_raw_responses.json#en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:indicate:mostrar:c5e780b0:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:indicate:mostrar:c5e780b0:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:indicate:mostrar:c5e780b0:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "indicate",
+      "target_lemma": "mostrar",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:inform:informar:140e9859",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Directly means to tell the staff about updated information.",
+          "sentence": "Please inform the staff as soon as the schedule changes."
+        },
+        {
+          "evidence_note": "Means to notify or make the family aware of the results.",
+          "sentence": "The nurse will inform the family about the test results this afternoon."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-003-approved_raw_responses.json#en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:inform:informar:140e9859:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:inform:informar:140e9859:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:inform:informar:140e9859:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "inform",
+      "target_lemma": "informar",
+      "unable_to_find_distinct_competitor": false
+    }
+  ],
+  "schema_version": 1,
+  "selected_request_ids": [
+    "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:bird:ave:7d7a82c6:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:blind:ciego:b0c47758:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:boat:barco:27bbf09b:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:boss:amo:31737fee:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:brazilian:brasileno:d170f7a3:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:burden:cargar:03d5c181:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:burn:quemar:f2a206dd:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:castle:castillo:86f51d0e:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:cat:gato:97d69670:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:chair:silla:f3abdb4f:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:communist:comunista:70a9c8e8:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:competition:competencia:429ac049:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:constant:continuo:e276bb77:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:corruption:corrupcion:f5e98e25:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:cousin:primo:ceaeba19:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:cry:grito:cc8dff03:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:debt:deuda:679248ae:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:defeat:derrota:65acb792:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:deputy:diputado:faf8f453:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:determine:determinar:e94fb91b:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:diameter:diametro:e330b978:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:dictionary:diccionario:43961cca:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:dinner:cena:7ececdb0:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:discount:descuento:ae4ba547:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:distance:distancia:32a485d3:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:dual:doble:f7b226b5:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:duty:deber:c268619f:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:earthquake:terremoto:eb12163f:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:entrance:entrada:c4bbeaba:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:experienced:experto:9e1e7d71:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:expert:experto:735a32d1:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:faithful:fiel:12545c8a:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:famous:famoso:f381be0a:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:fat:grasa:0a02e8fe:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:fix:determinar:3d45f4a8:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:flow:correr:65baab3a:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:guilty:culpable:b806d7d3:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:height:altura:153fff4c:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:hide:piel:bdb7a98a:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:horizon:horizonte:c626e791:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:impossible:imposible:e274aeae:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:indicate:mostrar:c5e780b0:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:inform:informar:140e9859:active_evidence_expansion"
+  ],
+  "source_request_packet": "docs/test_outputs/semantic_veto_active_only_full_generation_plan_tranche_003_pre_spend_en_es_latest.json"
+}

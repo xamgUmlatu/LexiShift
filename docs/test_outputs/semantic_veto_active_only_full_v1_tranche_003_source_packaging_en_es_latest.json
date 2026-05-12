@@ -1,0 +1,409 @@
+{
+  "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-003",
+  "decision": "active_only_source_packaging_ready_for_inventory_compile",
+  "excluded_items": [],
+  "family_rows": [
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:bird:ave:7d7a82c6",
+      "packaged_row_count": 2,
+      "targets": [
+        "ave"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:blind:ciego:b0c47758",
+      "packaged_row_count": 2,
+      "targets": [
+        "ciego"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:boat:barco:27bbf09b",
+      "packaged_row_count": 2,
+      "targets": [
+        "barco"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:boss:amo:31737fee",
+      "packaged_row_count": 2,
+      "targets": [
+        "amo"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:brazilian:brasileno:d170f7a3",
+      "packaged_row_count": 2,
+      "targets": [
+        "brasileño"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:burden:cargar:03d5c181",
+      "packaged_row_count": 2,
+      "targets": [
+        "cargar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:burn:quemar:f2a206dd",
+      "packaged_row_count": 2,
+      "targets": [
+        "quemar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:castle:castillo:86f51d0e",
+      "packaged_row_count": 2,
+      "targets": [
+        "castillo"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:cat:gato:97d69670",
+      "packaged_row_count": 2,
+      "targets": [
+        "gato"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:chair:silla:f3abdb4f",
+      "packaged_row_count": 2,
+      "targets": [
+        "silla"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:communist:comunista:70a9c8e8",
+      "packaged_row_count": 2,
+      "targets": [
+        "comunista"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:competition:competencia:429ac049",
+      "packaged_row_count": 2,
+      "targets": [
+        "competencia"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:constant:continuo:e276bb77",
+      "packaged_row_count": 2,
+      "targets": [
+        "continuo"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:corruption:corrupcion:f5e98e25",
+      "packaged_row_count": 2,
+      "targets": [
+        "corrupción"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:cousin:primo:ceaeba19",
+      "packaged_row_count": 2,
+      "targets": [
+        "primo"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:cry:grito:cc8dff03",
+      "packaged_row_count": 2,
+      "targets": [
+        "grito"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:debt:deuda:679248ae",
+      "packaged_row_count": 2,
+      "targets": [
+        "deuda"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:defeat:derrota:65acb792",
+      "packaged_row_count": 2,
+      "targets": [
+        "derrota"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:deputy:diputado:faf8f453",
+      "packaged_row_count": 2,
+      "targets": [
+        "diputado"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:determine:determinar:e94fb91b",
+      "packaged_row_count": 2,
+      "targets": [
+        "determinar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:diameter:diametro:e330b978",
+      "packaged_row_count": 2,
+      "targets": [
+        "diámetro"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:dictionary:diccionario:43961cca",
+      "packaged_row_count": 2,
+      "targets": [
+        "diccionario"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:dinner:cena:7ececdb0",
+      "packaged_row_count": 2,
+      "targets": [
+        "cena"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:discount:descuento:ae4ba547",
+      "packaged_row_count": 2,
+      "targets": [
+        "descuento"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:distance:distancia:32a485d3",
+      "packaged_row_count": 2,
+      "targets": [
+        "distancia"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:dual:doble:f7b226b5",
+      "packaged_row_count": 2,
+      "targets": [
+        "doble"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:duty:deber:c268619f",
+      "packaged_row_count": 2,
+      "targets": [
+        "deber"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:earthquake:terremoto:eb12163f",
+      "packaged_row_count": 2,
+      "targets": [
+        "terremoto"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:entrance:entrada:c4bbeaba",
+      "packaged_row_count": 2,
+      "targets": [
+        "entrada"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:experienced:experto:9e1e7d71",
+      "packaged_row_count": 2,
+      "targets": [
+        "experto"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:expert:experto:735a32d1",
+      "packaged_row_count": 2,
+      "targets": [
+        "experto"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:faithful:fiel:12545c8a",
+      "packaged_row_count": 2,
+      "targets": [
+        "fiel"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:famous:famoso:f381be0a",
+      "packaged_row_count": 2,
+      "targets": [
+        "famoso"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:fat:grasa:0a02e8fe",
+      "packaged_row_count": 2,
+      "targets": [
+        "grasa"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:fix:determinar:3d45f4a8",
+      "packaged_row_count": 2,
+      "targets": [
+        "determinar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:flow:correr:65baab3a",
+      "packaged_row_count": 2,
+      "targets": [
+        "correr"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:guilty:culpable:b806d7d3",
+      "packaged_row_count": 2,
+      "targets": [
+        "culpable"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:height:altura:153fff4c",
+      "packaged_row_count": 2,
+      "targets": [
+        "altura"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:hide:piel:bdb7a98a",
+      "packaged_row_count": 2,
+      "targets": [
+        "piel"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:horizon:horizonte:c626e791",
+      "packaged_row_count": 2,
+      "targets": [
+        "horizonte"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:impossible:imposible:e274aeae",
+      "packaged_row_count": 2,
+      "targets": [
+        "imposible"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:indicate:mostrar:c5e780b0",
+      "packaged_row_count": 2,
+      "targets": [
+        "mostrar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:inform:informar:140e9859",
+      "packaged_row_count": 2,
+      "targets": [
+        "informar"
+      ]
+    }
+  ],
+  "generated_at": "2026-05-12T02:40:12Z",
+  "inputs": {
+    "admission_path": "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_003_repaired_generation_admission_en_es_latest.json",
+    "generation_run_path": "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_003_generation_run_en_es_latest.json",
+    "postprocess_path": "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_003_generation_postprocess_en_es_latest.json"
+  },
+  "issues": [],
+  "normalization_version": "semantic_evidence_v1",
+  "pair": "en-es",
+  "provenance_summary": {
+    "input_tokens": 21761,
+    "model_id": "gpt-5.4-mini",
+    "operator_repair_count": 1,
+    "operator_repairs": [
+      {
+        "family_id": "en-es:srs-source-target:indicate:mostrar:c5e780b0",
+        "repair_reason": "replace the two indicate->mostrar generated sentences whose source token appeared only as the inflected form indicates instead of the exact runtime trigger token indicate",
+        "repair_type": "sentence_exact_token_restoration",
+        "request_id": "en-es-active-only-full-v1-tranche-003:en-es:srs-source-target:indicate:mostrar:c5e780b0:active_evidence_expansion",
+        "reviewed_by": "codex_operator",
+        "sentence_content_changed": true,
+        "slot_id": "en-es:srs-source-target:indicate:mostrar:c5e780b0:active_evidence_expansion",
+        "source_phrase": "indicate",
+        "target_lemma": "mostrar"
+      }
+    ],
+    "output_tokens": 7918,
+    "postprocess_status": "ok",
+    "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+    "raw_output_mutation": "operator_repaired_after_generation",
+    "temperature": null
+  },
+  "runtime_boundary": [
+    "normalized rows remain runtime_publishable=false",
+    "this output is canonical source evidence, not a semantic inventory sidecar",
+    "the next step is an inventory compiler that appends packaged anchor cues to ready active-sense evidence_views",
+    "runtime policy and thresholds remain unchanged"
+  ],
+  "schema_version": 1,
+  "status": "ok",
+  "summary": {
+    "admitted_input_item_count": 86,
+    "excluded_row_count": 0,
+    "exclusion_reason_counts": {},
+    "family_count": 43,
+    "packaged_row_count": 86,
+    "promotion_state_counts": {
+      "proposed": 86
+    },
+    "relation_type_counts": {
+      "anchor_cue": 86
+    },
+    "review_state_counts": {
+      "unreviewed": 86
+    },
+    "runtime_publishable_row_count": 0
+  },
+  "view_id": "no_high_eval_overlap_sentence_only"
+}

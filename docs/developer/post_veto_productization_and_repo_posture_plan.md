@@ -3,7 +3,7 @@
 Status: active planning
 Role: Planning / WIP
 Last updated: 2026-05-12
-Last verified: 2026-05-12 doc-routing slice against `feature_state_matrix.md`, semantic-veto registry summary, tranche-002 smoke artifacts, and the semantic-pack operator smoke runbook
+Last verified: 2026-05-12 doc-routing slice against `feature_state_matrix.md`, semantic-veto registry summary, tranche-003 automated follow-through artifacts, tranche-002 operator smoke artifacts, and the semantic-pack operator smoke runbook
 Purpose: organize the work after the first successful semantic-veto product smoke, without reopening open-ended veto research by default
 Source-of-truth: planning document only; current implementation truth lives in source code, `docs/developer/feature_state_matrix.md`, and the semantic-veto registry artifacts
 
@@ -11,12 +11,12 @@ Source-of-truth: planning document only; current implementation truth lives in s
 
 The semantic-veto workstream has reached a real product-smoke checkpoint:
 
-- `en-es-active-only-combined-full-v1-tranche-002` is the current manual-testing pack.
-- The pack has `135` source-target families, `282` normalized evidence rows, and installs as `135` helper rules.
-- Installed competition sets are `112` active-only and `23` shadowed/mixed.
+- `en-es-active-only-combined-full-v1-tranche-003` is the latest automated-clean generated-data pack.
+- The pack has `178` source-target families, `368` normalized evidence rows, and installs as `178` helper rules.
+- Installed competition sets are `155` active-only and `23` shadowed/mixed.
 - The extension Advanced debug install flow can install the named pack without pasting an inventory file path.
-- Live browser smoke accepted the `en_es_sentence_veto_v2` active-only policy with `min_active_score=0.015` as useful soft-assist behavior.
-- The current tranche-002 data is approved for the soft-assist PoC; it does not need another approval smoke unless the profile/machine, install path, runtime policy, or data pack changes.
+- Live browser smoke accepted the tranche-002 pack with the `en_es_sentence_veto_v2` active-only policy and `min_active_score=0.015` as useful soft-assist behavior.
+- Tranche-003 has passed generated-data admission, postprocess, source packaging, isolated pack install, and automated live-page scan; it still needs a human browser-extension smoke before being treated as operator-approved.
 
 This is not full `en-es` semantic coverage, and it is not a near-zero-harmful replacement guarantee.
 It is a bounded soft-assist feature checkpoint: many good replacements become visible, some bad replacements are still expected, and false abstains remain acceptable if the browsing experience still improves.
@@ -139,9 +139,9 @@ Exit criteria:
 
 ## Immediate Next Slices
 
-1. Run the semantic-pack operator smoke runbook on any new test machine/profile.
-2. Commit the tranche-003 source-target review and no-spend pre-spend request packet.
-3. Resume paid generation only through the 43-request tranche-003 packet, then run admission, postprocess, source packaging, pack build/install, and page scan before another tranche.
+1. Optionally run the semantic-pack operator smoke runbook against tranche-003 on a real extension/profile.
+2. Commit the tranche-003 paid-generation, admission, packaging, install, page-scan, and post-tranche coverage artifacts.
+3. Prepare the next source-target review slice before any tranche-004 spend.
 4. Product install polish and public README posture remain separate slices after the generated-data checkpoint is safe.
 
 ## Verification
