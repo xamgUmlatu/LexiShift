@@ -2,8 +2,8 @@
 
 Status: active developer hub
 Role: Canonical current
-Last updated: 2026-04-16
-Last verified: 2026-04-16 developer-doc routing audit
+Last updated: 2026-05-12
+Last verified: 2026-05-12 developer-doc routing update for post-veto consolidation planning
 Source-of-truth: developer routing guide; defer runtime truth to source code, `feature_state_matrix.md`, and linked subsystem docs.
 
 Purpose:
@@ -47,6 +47,7 @@ Treat these as planning/history surfaces unless their own metadata says otherwis
 - Documentation grooming queue: `documentation_grooming_workstream.md`
 - Data-source normalization architecture: `data_source_normalization_architecture.md`
 - Data-source normalization execution order: `data_source_normalization_execution_order.md`
+- Post-veto productization and repo posture plan: `post_veto_productization_and_repo_posture_plan.md`
 - Language-pair/data-source generalization roadmap: `language_pair_generalization_roadmap.md`
 - `de-en` proof-LP roadmap: `../language_pairs/de_en_workstream_roadmap.md`
 - `en-de` advisory quality roadmap: `../language_pairs/en_de_workstream_roadmap.md`
