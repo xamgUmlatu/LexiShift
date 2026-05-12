@@ -140,8 +140,9 @@ Exit criteria:
 ## Immediate Next Slices
 
 1. Run the semantic-pack operator smoke runbook on any new test machine/profile.
-2. Decide whether the next implementation slice is product install polish, next source-target review tranche, or public README posture.
-3. Only resume paid generation after the next reviewed tranche exists as a no-spend artifact.
+2. Commit the tranche-003 source-target review and no-spend pre-spend request packet.
+3. Resume paid generation only through the 43-request tranche-003 packet, then run admission, postprocess, source packaging, pack build/install, and page scan before another tranche.
+4. Product install polish and public README posture remain separate slices after the generated-data checkpoint is safe.
 
 ## Verification
 

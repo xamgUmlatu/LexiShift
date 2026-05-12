@@ -4,7 +4,7 @@ Status: active plan
 Role: Planning / pre-scan framing
 Purpose: define what semantic-routing data should eventually be generated with LLM support, which units deserve queueing, what can be inferred automatically versus what remains hypothesis, and how to avoid redundant generation work
 Last updated: 2026-05-12
-Last verified: 2026-05-12 active-only prompt-variant bakeoff, generated-evidence admission, postprocess scoring over the frozen 24-family PoC denominator, the product-scope band-grading v1 active-only reuse tranche, the active-only scale tranche through combined 49-family packaging, inventory replay, helper runtime smoke, live-page scan, named-pack installer smoke, initial browser review with the product-soft `min_active_score=0.015` active-only policy, the no-spend full active-only generation denominator plan over the current 570-family installed SRS source-target universe, first-tranche pre-spend source-target review, first paid full active-only tranche generation/admission/source packaging, combined 91-family pack build, named-pack install smoke, live-page scan, post-tranche coverage plan, tranche-002 pre-spend source-target review/request plan, tranche-002 paid generation/admission/source packaging, combined 135-family pack build, named-pack install smoke, live-page scan, and post-tranche-002 coverage plan
+Last verified: 2026-05-12 active-only prompt-variant bakeoff, generated-evidence admission, postprocess scoring over the frozen 24-family PoC denominator, the product-scope band-grading v1 active-only reuse tranche, the active-only scale tranche through combined 49-family packaging, inventory replay, helper runtime smoke, live-page scan, named-pack installer smoke, initial browser review with the product-soft `min_active_score=0.015` active-only policy, the no-spend full active-only generation denominator plan over the current 570-family installed SRS source-target universe, first-tranche pre-spend source-target review, first paid full active-only tranche generation/admission/source packaging, combined 91-family pack build, named-pack install smoke, live-page scan, post-tranche coverage plan, tranche-002 pre-spend source-target review/request plan, tranche-002 paid generation/admission/source packaging, combined 135-family pack build, named-pack install smoke, live-page scan, post-tranche-002 coverage plan, and tranche-003 pre-spend source-target review/request plan
 Source-of-truth: planning doc only; current implemented truth still lives in the semantic-routing contracts, inventory publication code, and offline evidence normalization seam
 Related docs:
 - `docs/rulegen/semantic_shadow_source_intake_plan.md`
@@ -354,8 +354,32 @@ Post-tranche-002 state:
 - remaining uncovered active-only families are `435`,
 - the remaining generation queue has `421` unreviewed source-target rows after
   excluding the `14` cumulative rejected rows,
-- the next runnable paid request packet is intentionally empty until the next
+- the post-tranche-002 request packet is intentionally empty until the next
   pre-spend source-target review approves more rows.
+
+The tranche-003 pre-spend review slice has now been prepared without making
+paid model calls:
+
+- the cumulative source-target review manifest covers `150` reviewed rows,
+- tranche-003 prep reviewed the first `50` still-unreviewed rows after
+  tranche-002 coverage/exclusion, global_need_rank `15-64` in the
+  post-tranche-002 queue,
+- tranche-003 prep approves `43` of those rows and excludes `7` weak or
+  no-visible-replacement mappings,
+- the refreshed tranche-003 request plan is `ok` and selects only those `43`
+  approved rows,
+- the planned paid tranche would request `86` active cue items, with `22,570`
+  estimated input tokens and `12,040` output-token budget,
+- `371` remaining uncovered rows are still unreviewed after this prep slice.
+
+The tranche-003 prep artifact is:
+
+- `docs/test_outputs/semantic_veto_active_only_full_generation_plan_tranche_003_pre_spend_en_es_latest.md`
+
+That changes the current engineering gate from source-target review to a
+bounded paid run. The only acceptable spend path is the 43-request tranche with
+explicit spend/count guards plus the same admission, postprocess, packaging,
+install, and page-scan validation used for tranches 001 and 002.
 
 Operator live-smoke result:
 
@@ -387,8 +411,9 @@ The scale-generation program should therefore proceed in lanes:
 7. Keep phrase/no-winner controls as a separate lane; active cue generation does
    not solve those cases.
 
-The immediate engineering gap is now the next source-target review slice. Do not
-attempt to spend the whole budget at once.
+The immediate engineering gap is now the tranche-003 bounded paid run and its
+downstream admission, postprocess, packaging, install, and page-scan validation.
+Do not attempt to spend the whole budget at once.
 
 Use `docs/rulegen/semantic_veto_active_only_tranche_runbook.md` for the
 repeatable active-only tranche cycle. That runbook owns the step-by-step gates,

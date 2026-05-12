@@ -5,8 +5,8 @@
   "decision": "cumulative_reviewed_for_pre_spend_active_only_generation",
   "reviewed_at": "2026-05-12",
   "review_scope": {
-    "input_plan": "docs/test_outputs/semantic_veto_active_only_full_generation_plan_en_es_latest.json and docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_001_en_es_latest.json",
-    "selected_global_need_ranks": "tranche 001 reviewed ranks 1-50 from the original queue; tranche 002 prep reviewed the first 50 unreviewed rows after tranche 001 coverage/exclusion, global_need_rank 9-58 in the post-tranche queue",
+    "input_plan": "docs/test_outputs/semantic_veto_active_only_full_generation_plan_en_es_latest.json, docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_001_en_es_latest.json, and docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_002_en_es_latest.json",
+    "selected_global_need_ranks": "tranche 001 reviewed ranks 1-50 from the original queue; tranche 002 prep reviewed the first 50 unreviewed rows after tranche 001 coverage/exclusion, global_need_rank 9-58 in the post-tranche queue; tranche 003 prep reviewed the first 50 unreviewed rows after tranche 002 coverage/exclusion, global_need_rank 15-64 in the post-tranche-002 queue",
     "purpose": "prevent paid active-only evidence generation for rows that are not useful visible source->target replacement families"
   },
   "reviewed_slices": [
@@ -23,6 +23,13 @@
       "selection": "first 50 source_target_review_status=unreviewed rows after tranche 001 coverage and exclusions",
       "approved_count": 44,
       "excluded_count": 6
+    },
+    {
+      "slice_id": "tranche_003_pre_spend",
+      "input_plan": "docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_002_en_es_latest.json",
+      "selection": "first 50 source_target_review_status=unreviewed rows after tranche 002 coverage and exclusions, global_need_rank 15-64",
+      "approved_count": 43,
+      "excluded_count": 7
     }
   ],
   "review_policy": {
@@ -736,6 +743,356 @@
       "approved_for_active_only_generation": true,
       "decision": "approve_direct_mapping",
       "rationale": "Direct noun mapping."
+    },
+    {
+      "source": "bird",
+      "target": "ave",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping with visible replacement value."
+    },
+    {
+      "source": "blind",
+      "target": "ciego",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct blind/sightless adjective or noun mapping."
+    },
+    {
+      "source": "boat",
+      "target": "barco",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct vehicle/vessel noun mapping."
+    },
+    {
+      "source": "boss",
+      "target": "amo",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Usable master/owner/boss sense, but narrower than ordinary workplace boss; active evidence should keep it in authority or master contexts."
+    },
+    {
+      "source": "brazilian",
+      "target": "brasileño",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct nationality adjective/noun mapping."
+    },
+    {
+      "source": "burden",
+      "target": "cargar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Usable verb sense meaning to burden/load someone with something; active evidence should keep it away from ordinary noun burden contexts."
+    },
+    {
+      "source": "burn",
+      "target": "quemar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct verb mapping."
+    },
+    {
+      "source": "calm",
+      "target": "silencio",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Silencio means silence, while calm is usually calma, tranquilo, or serenidad; the mapping is too loose for paid active-only evidence."
+    },
+    {
+      "source": "castle",
+      "target": "castillo",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct building noun mapping."
+    },
+    {
+      "source": "cat",
+      "target": "gato",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct animal noun mapping."
+    },
+    {
+      "source": "chair",
+      "target": "silla",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct furniture noun mapping."
+    },
+    {
+      "source": "communist",
+      "target": "comunista",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct political adjective/noun mapping."
+    },
+    {
+      "source": "competition",
+      "target": "competencia",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct contest/rivalry noun mapping."
+    },
+    {
+      "source": "constant",
+      "target": "continuo",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Usable uninterrupted/continuous sense of constant, though not the mathematical noun or every ordinary constant adjective context."
+    },
+    {
+      "source": "corruption",
+      "target": "corrupción",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping with visible accent difference."
+    },
+    {
+      "source": "cousin",
+      "target": "primo",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct family noun mapping."
+    },
+    {
+      "source": "cry",
+      "target": "grito",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_polysemic_active_mapping",
+      "rationale": "Valid noun sense meaning shout or outcry; active evidence can separate it from crying/tears verb contexts."
+    },
+    {
+      "source": "damage",
+      "target": "defecto",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Defecto means defect/flaw, while damage is normally daño or perjuicio; the mapping is too loose for paid active-only evidence."
+    },
+    {
+      "source": "debt",
+      "target": "deuda",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping."
+    },
+    {
+      "source": "defeat",
+      "target": "derrota",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping."
+    },
+    {
+      "source": "deputy",
+      "target": "diputado",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Usable political representative sense, but narrower than deputy as substitute or assistant; active evidence should keep it political."
+    },
+    {
+      "source": "determine",
+      "target": "determinar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct verb mapping."
+    },
+    {
+      "source": "diameter",
+      "target": "diámetro",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct geometry noun mapping with visible accent difference."
+    },
+    {
+      "source": "dictionary",
+      "target": "diccionario",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping."
+    },
+    {
+      "source": "dinner",
+      "target": "cena",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct meal noun mapping."
+    },
+    {
+      "source": "discount",
+      "target": "descuento",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping."
+    },
+    {
+      "source": "distance",
+      "target": "distancia",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping."
+    },
+    {
+      "source": "dual",
+      "target": "doble",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Usable double/twofold adjective mapping."
+    },
+    {
+      "source": "duty",
+      "target": "deber",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_polysemic_active_mapping",
+      "rationale": "Valid noun duty/obligation sense; active evidence can separate it from tax-duty and modal ought-to contexts."
+    },
+    {
+      "source": "earthquake",
+      "target": "terremoto",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct event noun mapping."
+    },
+    {
+      "source": "entrance",
+      "target": "entrada",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_polysemic_active_mapping",
+      "rationale": "Valid noun entrance/entry sense; active evidence can separate it from the verb meaning to captivate."
+    },
+    {
+      "source": "experienced",
+      "target": "experto",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Usable skilled/experienced-person adjective sense, but narrower than all having-experienced contexts."
+    },
+    {
+      "source": "expert",
+      "target": "experto",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct skilled-person adjective/noun mapping."
+    },
+    {
+      "source": "faithful",
+      "target": "fiel",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct loyal/faithful adjective mapping."
+    },
+    {
+      "source": "famous",
+      "target": "famoso",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct adjective mapping."
+    },
+    {
+      "source": "fat",
+      "target": "grasa",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_polysemic_active_mapping",
+      "rationale": "Valid noun fat/grease sense; active evidence can separate it from the adjective meaning overweight."
+    },
+    {
+      "source": "fix",
+      "target": "determinar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_polysemic_active_mapping",
+      "rationale": "Valid set/determine sense, as in fixing a date or price; active evidence can separate it from repair contexts."
+    },
+    {
+      "source": "flow",
+      "target": "correr",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_polysemic_active_mapping",
+      "rationale": "Valid run/flow sense for liquids or movement; active evidence can separate it from noun-flow contexts."
+    },
+    {
+      "source": "friendly",
+      "target": "gracioso",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Gracioso usually means funny or amusing, while friendly is normally amistoso or amable; the mapping is too weak for paid active-only evidence."
+    },
+    {
+      "source": "fur",
+      "target": "piel",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Piel means skin or hide, while fur is normally pelaje; the mapping is too loose for a single-word visible replacement."
+    },
+    {
+      "source": "gentle",
+      "target": "dulce",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Dulce means sweet, while gentle is usually suave or amable; only poetic edge cases overlap."
+    },
+    {
+      "source": "glorious",
+      "target": "famoso",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Famoso means famous, not glorious; this would pay for a visibly wrong replacement family."
+    },
+    {
+      "source": "guilty",
+      "target": "culpable",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct adjective/noun mapping."
+    },
+    {
+      "source": "height",
+      "target": "altura",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping."
+    },
+    {
+      "source": "hide",
+      "target": "piel",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_polysemic_active_mapping",
+      "rationale": "Valid noun sense meaning animal skin or hide; active evidence can separate it from the verb meaning conceal."
+    },
+    {
+      "source": "horizon",
+      "target": "horizonte",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping."
+    },
+    {
+      "source": "ideal",
+      "target": "ideal",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_no_visible_replacement",
+      "rationale": "English and Spanish browser text are identical, so paid active evidence would not create a visible user-facing replacement."
+    },
+    {
+      "source": "impossible",
+      "target": "imposible",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct adjective mapping with visible spelling difference."
+    },
+    {
+      "source": "indicate",
+      "target": "mostrar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Usable show/point-out sense, but narrower than every indicate or imply context."
+    },
+    {
+      "source": "inform",
+      "target": "informar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct verb mapping."
     }
   ]
 }

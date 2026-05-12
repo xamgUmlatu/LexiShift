@@ -25,12 +25,18 @@ Current checkpoint:
 
 - approved active-only coverage: `135 / 570` current SRS-derived source-target families,
 - remaining uncovered families: `435`,
-- remaining unreviewed generation queue rows: `421`,
-- next runnable paid request packet: empty,
-- next required work: source-target review for the next tranche.
+- remaining unreviewed generation queue rows after tranche-003 prep: `371`,
+- next runnable paid request packet: tranche-003 pre-spend plan with `43`
+  reviewed/approved families and `86` expected active cue items,
+- next required work: commit the tranche-003 pre-spend checkpoint, then run the
+  bounded paid generation command if the operator approves spend.
 
 Do not start a paid run from the post-tranche-002 plan as-is.
-The plan intentionally has `0` selected request families until more source-target rows are reviewed and approved.
+Use the tranche-003 pre-spend plan instead:
+
+```text
+docs/test_outputs/semantic_veto_active_only_full_generation_plan_tranche_003_pre_spend_en_es_latest.md
+```
 
 ## What This Runbook Improves
 

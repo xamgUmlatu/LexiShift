@@ -326,24 +326,27 @@ SRS-admissible semantic-family universe for scale planning:
 - 135 source-target families currently covered by the combined active-only
   product-smoke plus full-tranche pack,
 - 435 active-only uncovered source-target families,
-- 100 source-target rows reviewed across the first two pre-spend slices,
-- 86 of those reviewed candidates approved for paid active-only generation,
-- 14 rejected before spend because they were no-visible or weak source-target
+- 150 source-target rows reviewed across the first three pre-spend slices,
+- 129 of those reviewed candidates approved for paid active-only generation,
+- 21 rejected before spend because they were no-visible or weak source-target
   mappings,
-- 421 currently queued source-target families after known cumulative rejections,
-- 842 expected active cue rows if the currently queued families are generated
+- 414 currently queued source-target families after known cumulative rejections,
+- 828 expected active cue rows if the currently queued families are generated
   at 2 rows per family,
 - 9 queue tranches after known cumulative rejections, with future tranche rows
   still requiring the same pre-spend source-target review.
 
-There is no current runnable paid packet immediately after tranche 002 because
-the approved rows are now covered. The next spend unit is therefore not model
-execution; it is the next source-target review slice, followed by a refreshed
-request plan with explicit cardinality and cost guards. Older table rows such
-as `common-source active-only pass` remain historical planning anchors, not the
-denominator for the whole product. Do not spend toward broad generated shadows
-until active-only coverage has been measured and the remaining harmful-replace
-cases are known.
+The current runnable paid packet is the tranche-003 pre-spend request plan:
+
+- `43` reviewed and approved source-target families,
+- `86` expected active cue rows,
+- `22,570` estimated input tokens,
+- `12,040` output-token budget.
+
+Older table rows such as `common-source active-only pass` remain historical
+planning anchors, not the denominator for the whole product. Do not spend
+toward broad generated shadows until active-only coverage has been measured and
+the remaining harmful-replace cases are known.
 
 ## Live-Run Guard Pattern
 
@@ -369,7 +372,7 @@ Recommended initial caps:
 
 | Batch | `--require-selected-request-count` | Expected cap | Ceiling cap |
 | --- | ---: | ---: | ---: |
-| next active-only reviewed tranche | `42` | `$1` | `$5` |
+| next active-only reviewed tranche | `43` | `$1` | `$5` |
 | larger active-only tranche | `100` | `$2` | `$10` |
 | common-source active-only pass | `344` | `$5` | `$25` |
 
