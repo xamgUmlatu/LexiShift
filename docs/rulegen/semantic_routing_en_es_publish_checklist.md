@@ -2,8 +2,8 @@
 
 Status: active launch checklist
 Role: Runbook / operational
-Last updated: 2026-04-22
-Last verified: 2026-04-22 capability-driven semantic-runtime contract sweep against helper diagnostics, extension runtime, options status UX, and current launch posture docs
+Last updated: 2026-05-12
+Last verified: 2026-05-12 routing update against the semantic-pack operator smoke runbook and current tranche-002 Advanced debug validation path
 Purpose: define the exact checklist for a controlled `en-es` browser-extension launch of semantic runtime veto without hard-coding the architecture to `en-es`
 Source-of-truth: this checklist is the launch runbook; code truth still lives in runtime/helper code, `docs/developer/feature_state_matrix.md`, and generated test artifacts
 Related docs:
@@ -11,6 +11,7 @@ Related docs:
 - `docs/rulegen/semantic_routing_publication_contract.md`
 - `docs/rulegen/semantic_routing_runtime_readiness.md`
 - `docs/rulegen/semantic_routing_implementation_roadmap.md`
+- `docs/rulegen/semantic_pack_operator_smoke_runbook.md`
 
 ## Scope
 
@@ -22,6 +23,11 @@ This checklist is for the first controlled `en-es` launch shape only:
 - artifact transport: local helper files plus extension cache fallback
 - published `status=ready` rows: only the current helper-side `emitted_rule_siblings` PoC when real sibling senses are available in the active emitted ruleset or the broader initialize/refresh semantic-context pool
 - runtime action: `replace` or keep original text
+
+For the current tranche-002 active-only pack installed through Options ->
+Advanced debug tools, use `docs/rulegen/semantic_pack_operator_smoke_runbook.md`.
+That runbook is the private/operator product-feel smoke path. This checklist
+remains the controlled launch checklist.
 
 Not in scope for this checklist:
 

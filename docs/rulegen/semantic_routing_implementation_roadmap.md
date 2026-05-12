@@ -2,8 +2,8 @@
 
 Status: planning slice
 Role: Planning / WIP
-Last updated: 2026-04-19
-Last verified: 2026-04-19 doc-routing review against the current contract, launch, and research-plan docs plus stable semantic publication/runtime references
+Last updated: 2026-05-12
+Last verified: 2026-05-12 runbook-routing update against the current semantic-pack operator smoke path plus stable semantic publication/runtime references
 Purpose: sequence the work required to turn semantic-routing publication scaffolding plus research harnesses into a real runtime admission layer, while keeping the architecture LP-symmetric and transport-agnostic
 Source-of-truth: planning doc only; current implemented truth still lives in code, `docs/developer/feature_state_matrix.md`, and the linked planning docs
 Related planning docs:
@@ -19,6 +19,7 @@ Related planning docs:
 - `docs/rulegen/semantic_shadow_source_intake_plan.md`
 Related runbooks:
 - `docs/rulegen/semantic_routing_en_es_publish_checklist.md`
+- `docs/rulegen/semantic_pack_operator_smoke_runbook.md`
 Verification:
 - `core/lexishift_core/rulegen/semantic_publication.py`
 - `core/lexishift_core/helper/rulegen.py`

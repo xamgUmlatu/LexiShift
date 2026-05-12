@@ -3,7 +3,7 @@
 Status: active planning
 Role: Planning / WIP
 Last updated: 2026-05-12
-Last verified: 2026-05-12 doc-routing slice against `feature_state_matrix.md`, semantic-veto registry summary, and tranche-002 smoke artifacts
+Last verified: 2026-05-12 doc-routing slice against `feature_state_matrix.md`, semantic-veto registry summary, tranche-002 smoke artifacts, and the semantic-pack operator smoke runbook
 Purpose: organize the work after the first successful semantic-veto product smoke, without reopening open-ended veto research by default
 Source-of-truth: planning document only; current implementation truth lives in source code, `docs/developer/feature_state_matrix.md`, and the semantic-veto registry artifacts
 
@@ -72,7 +72,7 @@ Goal: make product-shaped testing repeatable without developer-only path guessin
 Work:
 
 - keep named semantic-pack installation as the default test flow,
-- add or refine a tester runbook for installing the pack, reloading the extension, and choosing test pages,
+- use `docs/rulegen/semantic_pack_operator_smoke_runbook.md` as the tester runbook for installing the pack, reloading the extension, and choosing test pages,
 - verify diagnostics expose enough information to distinguish replace, abstain, helper error, inventory error, fallback, and policy id,
 - decide whether the current Advanced debug install path is sufficient for the private PoC or whether a first-class local semantic-pack installer is needed.
 
@@ -137,10 +137,9 @@ Exit criteria:
 
 ## Immediate Next Slices
 
-1. Finish this planning slice and validate doc routing.
-2. Create or refresh a short semantic-pack tester runbook if the existing docs do not already give a clean operator path.
-3. Decide whether the next implementation slice is product install polish, next source-target review tranche, or public README posture.
-4. Only resume paid generation after the next reviewed tranche exists as a no-spend artifact.
+1. Run the semantic-pack operator smoke runbook on any new test machine/profile.
+2. Decide whether the next implementation slice is product install polish, next source-target review tranche, or public README posture.
+3. Only resume paid generation after the next reviewed tranche exists as a no-spend artifact.
 
 ## Verification
 

@@ -14,6 +14,7 @@ Related docs:
 - `docs/rulegen/semantic_feedback_promotion_flow.md`
 - `docs/rulegen/semantic_shadow_source_intake_plan.md`
 - `docs/rulegen/semantic_routing_en_es_publish_checklist.md`
+- `docs/rulegen/semantic_pack_operator_smoke_runbook.md`
 
 Routing note:
 
@@ -423,8 +424,8 @@ product-shaped route. When it is omitted, the helper resolves the requested
 1. an already-installed local pack copy under
    `<data-root>/language_packs/<pair>/semantic_packs/<pack-id>/semantic_inventory.json`
 2. an explicit semantic-pack catalog file from `LEXISHIFT_SEMANTIC_PACK_CATALOG`
-3. the current repo dev-pack path for
-   `en-es-active-only-combined-product-scope-v1`
+3. the current repo dev-pack path for named development packs, including the
+   current default `en-es-active-only-combined-full-v1-tranche-002`
 
 That keeps tests and first product checks honest: the UI/backend contract is
 "install this named pack into this profile/data root", while file paths remain
@@ -475,6 +476,13 @@ tools. That UI installs by semantic `pack_id`, accepts a local compiled inventor
 path only as an override, and still requires either a disposable data root or an
 explicit opt-in to the default helper data root. It is for product validation and
 local release testing, not a final end-user pack download flow.
+
+Use `docs/rulegen/semantic_pack_operator_smoke_runbook.md` for the current
+operator-facing install and browser-smoke steps. In particular, live extension
+smoke should either target the helper's default data root or run the native host
+with the same `LEXISHIFT_DATA_DIR` used during installation; otherwise a
+disposable materialization root will not be the root used by later page-runtime
+requests.
 
 ## Recommended Identity Model
 
