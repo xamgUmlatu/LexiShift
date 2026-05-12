@@ -1440,6 +1440,7 @@
       "combined_full_tranche_002_pack_trigger_count": 135,
       "combined_inventory_replay_applied_rows": 112,
       "combined_packaged_canonical_rows": 112,
+      "current_data_approval_status": "operator_approved_current_tranche_002_data",
       "families": 49,
       "full_active_only_covered_families": 91,
       "full_active_only_first_tranche_accepted_responses": 42,
@@ -1515,7 +1516,7 @@
       "scale_tranche_rejected_generated_items": 0,
       "score_cases": 189
     },
-    "production_status": "manual_testing_ready",
+    "production_status": "operator_approved_soft_assist_poc",
     "promotion_blockers": [
       "the current helper-published sidecar is an isolated smoke fixture under docs/test_outputs, not real user profile data",
       "the 49-family denominator is still a repaired product-scope research suite, not full en-es language-wide proof",
@@ -7101,7 +7102,7 @@
     }
   ],
   "entry_count": 334,
-  "generated_at": "2026-05-12T01:14:44Z",
+  "generated_at": "2026-05-12T02:13:48Z",
   "issues": [],
   "next_passes": [],
   "pass_count": 7,

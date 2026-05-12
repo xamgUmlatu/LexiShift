@@ -1,7 +1,7 @@
 # Semantic Veto System Registry
 
 - Status: `ok`
-- Generated: `2026-05-12T01:14:44Z`
+- Generated: `2026-05-12T02:13:48Z`
 - Registry: `/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_veto_system_registry_en_es.json`
 - Entries: `334`
 - Passes: `7`
@@ -9,7 +9,7 @@
 ## Current Candidate
 
 - Candidate: `active_only_combined_full_v1_tranche_002`
-- Production status: `manual_testing_ready`
+- Production status: `operator_approved_soft_assist_poc`
 - Runtime policy change: `selection_mode=active_only can score ready active evidence without shadow senses and auto-selects en_es_sentence_veto_v2 for active-only en-es inventories when no policy override is requested; en_es_sentence_veto_v2 now uses the product-soft floor min_active_score=0.015 / min_margin=0.0 after live browser review accepted fewer abstains with some harmful-replace risk`
 - Control: base repaired-full active-only inventory/helper state before generated active evidence
 - Summary: Soft-assist active-only generated evidence using the v5/v7 active cue path, no_high_eval_overlap_sentence_only postprocess view, combined PoC + v1 reuse + scale-tranche source evidence over the 49-family repaired product-scope denominator, plus the first two SRS-derived full-generation tranches covering 86 reviewed source-target families. Generated shadows and no-winner rows remain paused.

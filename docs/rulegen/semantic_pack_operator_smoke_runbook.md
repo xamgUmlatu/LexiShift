@@ -26,6 +26,19 @@ This runbook is for the current private/operator semantic-veto smoke path:
 This is not the normal end-user install flow and not a cloud distribution plan.
 It is the controlled way to repeat the accepted tranche-002 soft-assist smoke.
 
+## Current Approval Status
+
+The current tranche-002 data is already approved for the soft-assist PoC.
+Do not rerun this smoke merely to approve the same data again.
+
+Rerun it when:
+
+- testing on a new machine or browser profile,
+- changing the helper/native-host install path,
+- changing the selected SRS profile or helper data root,
+- changing runtime policy,
+- generating or installing a new semantic pack.
+
 ## What Success Means
 
 A successful smoke means:

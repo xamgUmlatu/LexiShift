@@ -131,7 +131,7 @@
   ],
   "current_candidate": {
     "candidate_id": "active_only_combined_full_v1_tranche_002",
-    "production_status": "manual_testing_ready",
+    "production_status": "operator_approved_soft_assist_poc",
     "runtime_policy_change": "selection_mode=active_only can score ready active evidence without shadow senses and auto-selects en_es_sentence_veto_v2 for active-only en-es inventories when no policy override is requested; en_es_sentence_veto_v2 now uses the product-soft floor min_active_score=0.015 / min_margin=0.0 after live browser review accepted fewer abstains with some harmful-replace risk",
     "control": "base repaired-full active-only inventory/helper state before generated active evidence",
     "candidate_summary": "Soft-assist active-only generated evidence using the v5/v7 active cue path, no_high_eval_overlap_sentence_only postprocess view, combined PoC + v1 reuse + scale-tranche source evidence over the 49-family repaired product-scope denominator, plus the first two SRS-derived full-generation tranches covering 86 reviewed source-target families. Generated shadows and no-winner rows remain paused.",
@@ -169,6 +169,7 @@
       "scale_tranche_journal_inclusive_output_tokens": 3079,
       "scale_tranche_estimated_mini_cost_usd": 0.02,
       "initial_live_browser_review_status": "accepted_for_soft_assist_smoke",
+      "current_data_approval_status": "operator_approved_current_tranche_002_data",
       "runtime_publication_status": "manual_testing_ready",
       "full_srs_source_target_denominator_families": 570,
       "full_srs_source_trigger_count": 536,

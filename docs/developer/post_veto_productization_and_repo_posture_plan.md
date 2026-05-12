@@ -16,6 +16,7 @@ The semantic-veto workstream has reached a real product-smoke checkpoint:
 - Installed competition sets are `112` active-only and `23` shadowed/mixed.
 - The extension Advanced debug install flow can install the named pack without pasting an inventory file path.
 - Live browser smoke accepted the `en_es_sentence_veto_v2` active-only policy with `min_active_score=0.015` as useful soft-assist behavior.
+- The current tranche-002 data is approved for the soft-assist PoC; it does not need another approval smoke unless the profile/machine, install path, runtime policy, or data pack changes.
 
 This is not full `en-es` semantic coverage, and it is not a near-zero-harmful replacement guarantee.
 It is a bounded soft-assist feature checkpoint: many good replacements become visible, some bad replacements are still expected, and false abstains remain acceptable if the browsing experience still improves.
