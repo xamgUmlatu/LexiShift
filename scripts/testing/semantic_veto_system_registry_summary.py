@@ -174,21 +174,37 @@ def render_markdown(report: Mapping[str, object]) -> str:
     ]
     if "helper_runtime_smoke_decision_accuracy" in result:
         if "combined_full_pack_families" in result:
-            combined_pack_families = result.get(
-                "combined_full_tranche_002_pack_families"
-            ) or result.get("combined_full_pack_families", "")
-            combined_pack_rows = result.get(
-                "combined_full_tranche_002_pack_normalized_rows"
-            ) or result.get("combined_full_pack_normalized_rows", "")
-            combined_pack_rules = result.get(
-                "combined_full_tranche_002_pack_installed_rule_count"
-            ) or result.get("combined_full_pack_installed_rule_count", "")
-            combined_active_only_sets = result.get(
-                "combined_full_tranche_002_pack_installed_active_only_competition_sets"
-            ) or result.get("combined_full_pack_installed_active_only_competition_sets", "")
-            combined_shadowed_sets = result.get(
-                "combined_full_tranche_002_pack_installed_shadowed_competition_sets"
-            ) or result.get("combined_full_pack_installed_shadowed_competition_sets", "")
+            current_pack_prefix = ""
+            for prefix in ("combined_full_tranche_003", "combined_full_tranche_002"):
+                if result.get(f"{prefix}_pack_families"):
+                    current_pack_prefix = prefix
+                    break
+
+            def current_pack_value(suffix: str, fallback_key: str) -> object:
+                if current_pack_prefix:
+                    value = result.get(f"{current_pack_prefix}_{suffix}")
+                    if value not in (None, ""):
+                        return value
+                return result.get(fallback_key, "")
+
+            combined_pack_families = current_pack_value(
+                "pack_families", "combined_full_pack_families"
+            )
+            combined_pack_rows = current_pack_value(
+                "pack_normalized_rows", "combined_full_pack_normalized_rows"
+            )
+            combined_pack_rules = current_pack_value(
+                "pack_installed_rule_count",
+                "combined_full_pack_installed_rule_count",
+            )
+            combined_active_only_sets = current_pack_value(
+                "pack_installed_active_only_competition_sets",
+                "combined_full_pack_installed_active_only_competition_sets",
+            )
+            combined_shadowed_sets = current_pack_value(
+                "pack_installed_shadowed_competition_sets",
+                "combined_full_pack_installed_shadowed_competition_sets",
+            )
             lines.extend(
                 [
                     f"- Combined full pack: `{combined_pack_families}` "
@@ -252,12 +268,26 @@ def render_markdown(report: Mapping[str, object]) -> str:
                 f"`{result.get('combined_full_tranche_002_live_page_scan_page_fetch_errors', '')}` page errors / "
                 f"`{result.get('combined_full_tranche_002_live_page_scan_fallback_decisions', '')}` fallbacks"
             )
-        if result.get("combined_full_tranche_002_operator_extension_smoke_status"):
+        if "combined_full_tranche_003_live_page_scan_review_rows" in result:
+            lines.append(
+                "- Combined full tranche-003 live page scan: "
+                f"`{result.get('combined_full_tranche_003_live_page_scan_review_rows', '')}` review rows / "
+                f"`{result.get('combined_full_tranche_003_live_page_scan_replace_decisions', '')}` replace / "
+                f"`{result.get('combined_full_tranche_003_live_page_scan_abstain_decisions', '')}` abstain / "
+                f"`{result.get('combined_full_tranche_003_live_page_scan_page_fetch_errors', '')}` page errors / "
+                f"`{result.get('combined_full_tranche_003_live_page_scan_fallback_decisions', '')}` fallbacks"
+            )
+        operator_smoke_prefix = ""
+        for prefix in ("combined_full_tranche_003", "combined_full_tranche_002"):
+            if result.get(f"{prefix}_operator_extension_smoke_status"):
+                operator_smoke_prefix = prefix
+                break
+        if operator_smoke_prefix:
             lines.append(
                 "- Operator extension smoke: "
-                f"`{result.get('combined_full_tranche_002_operator_extension_smoke_status', '')}` / "
-                f"`{result.get('combined_full_tranche_002_operator_extension_smoke_pack_id', '')}` / "
-                f"`{result.get('combined_full_tranche_002_operator_extension_smoke_policy_id', '')}` / "
+                f"`{result.get(f'{operator_smoke_prefix}_operator_extension_smoke_status', '')}` / "
+                f"`{result.get(f'{operator_smoke_prefix}_operator_extension_smoke_pack_id', '')}` / "
+                f"`{result.get(f'{operator_smoke_prefix}_operator_extension_smoke_policy_id', '')}` / "
                 "accepted product-soft `min_active_score=0.015` behavior"
             )
     else:

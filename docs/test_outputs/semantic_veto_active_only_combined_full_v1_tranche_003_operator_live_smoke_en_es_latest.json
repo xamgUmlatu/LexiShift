@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "status": "ok",
+  "decision": "operator_product_smoke_success",
+  "generated_at": "2026-05-13",
+  "pair": "en-es",
+  "pack_id": "en-es-active-only-combined-full-v1-tranche-003",
+  "runtime_policy_id": "en_es_sentence_veto_v2",
+  "selection_mode": "active_only",
+  "product_thresholds": {
+    "min_active_score": 0.015,
+    "min_margin": 0.0
+  },
+  "install_surface": {
+    "surface": "chrome_extension_options_advanced_debug",
+    "default_helper_data_root": true,
+    "semantic_pack_data_root_override": "",
+    "pack_id_only_install": true
+  },
+  "runtime_context_fix": {
+    "status": "included_in_operator_smoke",
+    "description": "Browser semantic admission now uses surrounding sentence/block context for split-inline DOM text instead of only the raw text node fragment."
+  },
+  "runtime_speed_fix": {
+    "status": "included_in_operator_smoke",
+    "operator_read": "The runtime speed optimization was reported as over 2x faster before tranche-003 approval."
+  },
+  "operator_observation": {
+    "summary": "Operator tested the tranche-003 runtime after the context and speed fixes and reported that it feels good.",
+    "helper_errors_observed": 0,
+    "inventory_errors_observed": 0,
+    "product_feel": "good",
+    "summary_logs_observed": true
+  },
+  "interpretation": {
+    "product_smoke_result": "success",
+    "accepted_imperfection_policy": "soft_assist_poc",
+    "known_imperfections_accepted_for_now": [
+      "false abstains remain acceptable",
+      "some harmful replacements are expected",
+      "this does not prove broad en-es language-wide accuracy"
+    ],
+    "operator_read": "The live extension behavior with the 178-rule tranche-003 active-only pack is accepted as the current soft-assist PoC checkpoint."
+  },
+  "scope_notes": [
+    "This is a product-feel smoke checkpoint, not a statistical accuracy estimate.",
+    "This records user/operator approval of the live tranche-003 runtime after the split-inline DOM context fix.",
+    "Do not treat this as approval to start another paid tranche without source-target review."
+  ],
+  "source_artifacts": [
+    "docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_003_pack_install_en_es_latest.json",
+    "docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_003_live_page_scan_en_es_latest.json",
+    "apps/chrome-extension/content/runtime/dom_scan/semantic_context.js",
+    "apps/chrome-extension/content/runtime/semantic/semantic_gate_batch.js",
+    "apps/chrome-extension/options.html",
+    "core/lexishift_core/helper/use_cases/semantic_pack_install.py"
+  ],
+  "supporting_commits": [
+    "10bde342 Optimize semantic admission DOM context batching",
+    "f100f85b Tune semantic admission batching default"
+  ]
+}

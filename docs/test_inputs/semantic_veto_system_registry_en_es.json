@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "registry_id": "en_es_semantic_veto_system_registry_v1",
-  "last_updated": "2026-05-12",
+  "last_updated": "2026-05-13",
   "purpose": "Machine-readable reconciliation map for the en-es semantic sentence-veto runtime, research harnesses, candidate artifacts, and follow-up audit passes.",
   "state_definitions": {
     "current_runtime": "Participates in the browser/helper YES/NO decision path today.",
@@ -130,11 +130,11 @@
     }
   ],
   "current_candidate": {
-    "candidate_id": "active_only_combined_full_v1_tranche_002",
+    "candidate_id": "active_only_combined_full_v1_tranche_003",
     "production_status": "operator_approved_soft_assist_poc",
     "runtime_policy_change": "selection_mode=active_only can score ready active evidence without shadow senses and auto-selects en_es_sentence_veto_v2 for active-only en-es inventories when no policy override is requested; en_es_sentence_veto_v2 now uses the product-soft floor min_active_score=0.015 / min_margin=0.0 after live browser review accepted fewer abstains with some harmful-replace risk",
     "control": "base repaired-full active-only inventory/helper state before generated active evidence",
-    "candidate_summary": "Soft-assist active-only generated evidence using the v5/v7 active cue path, no_high_eval_overlap_sentence_only postprocess view, combined PoC + v1 reuse + scale-tranche source evidence over the 49-family repaired product-scope denominator, plus the first two SRS-derived full-generation tranches covering 86 reviewed source-target families. Generated shadows and no-winner rows remain paused.",
+    "candidate_summary": "Soft-assist active-only generated evidence using the v5/v7 active cue path, no_high_eval_overlap_sentence_only postprocess view, combined PoC + v1 reuse + scale-tranche source evidence over the 49-family repaired product-scope denominator, plus the first three SRS-derived full-generation tranches covering 129 reviewed source-target families. Generated shadows and no-winner rows remain paused.",
     "current_result": {
       "families": 49,
       "score_cases": 189,
@@ -169,8 +169,8 @@
       "scale_tranche_journal_inclusive_output_tokens": 3079,
       "scale_tranche_estimated_mini_cost_usd": 0.02,
       "initial_live_browser_review_status": "accepted_for_soft_assist_smoke",
-      "current_data_approval_status": "operator_approved_current_tranche_002_data",
-      "runtime_publication_status": "manual_testing_ready",
+      "current_data_approval_status": "operator_approved_current_tranche_003_data",
+      "runtime_publication_status": "operator_approved_soft_assist_poc",
       "full_srs_source_target_denominator_families": 570,
       "full_srs_source_trigger_count": 536,
       "full_srs_active_target_count": 342,
@@ -278,6 +278,13 @@
       "combined_full_tranche_003_live_page_scan_abstain_decisions": 48,
       "combined_full_tranche_003_live_page_scan_fallback_decisions": 0,
       "combined_full_tranche_003_live_page_scan_page_fetch_errors": 0,
+      "combined_full_tranche_003_operator_extension_smoke_status": "success",
+      "combined_full_tranche_003_operator_extension_smoke_pack_id": "en-es-active-only-combined-full-v1-tranche-003",
+      "combined_full_tranche_003_operator_extension_smoke_policy_id": "en_es_sentence_veto_v2",
+      "combined_full_tranche_003_operator_extension_smoke_min_active_score": 0.015,
+      "combined_full_tranche_003_operator_extension_smoke_context_fix": "split-inline DOM semantic admission uses surrounding sentence/block context instead of only raw text-node fragments",
+      "combined_full_tranche_003_operator_extension_smoke_runtime_speed": "semantic admission batching reported over 2x faster before approval",
+      "combined_full_tranche_003_operator_extension_smoke_interpretation": "Manual browser-extension product smoke accepted the installed 178-rule active-only tranche-003 pack as usable soft-assist behavior after the split-inline DOM context fix and semantic batching speedup. The operator reported that tranche-003 runtime feels good.",
       "full_active_only_post_tranche_002_covered_families": 135,
       "full_active_only_post_tranche_002_uncovered_families": 435,
       "full_active_only_post_tranche_002_generation_queue_families_after_review": 421,
@@ -291,7 +298,7 @@
       "the current helper-published sidecar is an isolated smoke fixture under docs/test_outputs, not real user profile data",
       "the 49-family denominator is still a repaired product-scope research suite, not full en-es language-wide proof",
       "the full current SRS-derived source-target family universe is now measured at 570 families, and the first three paid tranches raise active-only coverage to 178 families; 392 active-only families remain uncovered, with 371 still requiring pre-spend source-target review before more paid generation",
-      "manual browser/helper behavior has only had an initial positive product-feel review on the combined fixture",
+      "manual browser/helper behavior is approved for the current tranche-003 soft-assist PoC, but the approval is qualitative product-feel evidence rather than a statistical language-wide accuracy estimate",
       "rollback and generation identity must stay aligned with ruleset, snapshot, semantic inventory, and manifest publication"
     ]
   },
@@ -7362,11 +7369,29 @@
       "role": "Runs public-page sentences through the isolated 178-rule helper fixture for manual product-feel review.",
       "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
       "current_use": "Shows 120 policy decisions, 72 replace decisions, 48 abstains, 0 fallback decisions, and 0 page fetch errors over the installed combined-full tranche-003 fixture.",
-      "risk": "Manual page-feel packet only; it is not a statistical language-wide accuracy claim, and it has not yet been separately operator-approved through the browser extension.",
+      "risk": "Manual page-feel packet only; it is not a statistical language-wide accuracy claim. Pair it with the operator live smoke report for the qualitative approval record.",
       "next_audit_pass": "data_artifacts",
       "verification_artifacts": [
         "docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_003_live_page_scan_en_es_latest.json",
         "docs/test_inputs/semantic_veto_active_only_live_page_scan_en_es.json"
+      ]
+    },
+    {
+      "artifact_id": "active_only_full_tranche_003_operator_live_smoke_report",
+      "title": "Semantic veto active-only combined full tranche 003 operator live smoke report",
+      "component": "diagnostics",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_003_operator_live_smoke_en_es_latest.md",
+      "role": "Records the real browser-extension product smoke after installing the 178-rule tranche-003 pack through the options page debug installer.",
+      "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
+      "current_use": "Marks the current operator live test as a product-smoke success: the installed pack used en_es_sentence_veto_v2 with product-soft min_active_score=0.015 after the split-inline DOM semantic-context fix and optimized semantic batching, and the operator accepted the live runtime feel as good.",
+      "risk": "Operator smoke is a product-feel checkpoint, not a statistical accuracy claim or proof that broad en-es source-target suitability is solved.",
+      "next_audit_pass": "data_artifacts",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_003_operator_live_smoke_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_003_pack_install_en_es_latest.json",
+        "apps/chrome-extension/content/runtime/dom_scan/semantic_context.js",
+        "apps/chrome-extension/content/runtime/semantic/semantic_gate_batch.js"
       ]
     },
     {

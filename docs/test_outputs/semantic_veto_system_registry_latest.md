@@ -1,25 +1,26 @@
 # Semantic Veto System Registry
 
 - Status: `ok`
-- Generated: `2026-05-12T02:47:28Z`
+- Generated: `2026-05-13T01:15:56Z`
 - Registry: `/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_veto_system_registry_en_es.json`
-- Entries: `342`
+- Entries: `343`
 - Passes: `7`
 
 ## Current Candidate
 
-- Candidate: `active_only_combined_full_v1_tranche_002`
+- Candidate: `active_only_combined_full_v1_tranche_003`
 - Production status: `operator_approved_soft_assist_poc`
 - Runtime policy change: `selection_mode=active_only can score ready active evidence without shadow senses and auto-selects en_es_sentence_veto_v2 for active-only en-es inventories when no policy override is requested; en_es_sentence_veto_v2 now uses the product-soft floor min_active_score=0.015 / min_margin=0.0 after live browser review accepted fewer abstains with some harmful-replace risk`
 - Control: base repaired-full active-only inventory/helper state before generated active evidence
-- Summary: Soft-assist active-only generated evidence using the v5/v7 active cue path, no_high_eval_overlap_sentence_only postprocess view, combined PoC + v1 reuse + scale-tranche source evidence over the 49-family repaired product-scope denominator, plus the first two SRS-derived full-generation tranches covering 86 reviewed source-target families. Generated shadows and no-winner rows remain paused.
-- Combined full pack: `135` families / `282` normalized rows / `135` installed rules
-- Installed competition sets: `112` active-only / `23` shadowed
+- Summary: Soft-assist active-only generated evidence using the v5/v7 active cue path, no_high_eval_overlap_sentence_only postprocess view, combined PoC + v1 reuse + scale-tranche source evidence over the 49-family repaired product-scope denominator, plus the first three SRS-derived full-generation tranches covering 129 reviewed source-target families. Generated shadows and no-winner rows remain paused.
+- Combined full pack: `178` families / `368` normalized rows / `178` installed rules
+- Installed competition sets: `155` active-only / `23` shadowed
 - Product-scope helper smoke control: `0.7249` accuracy / `0.4898` recall / `50` false abstains / `2` harmful / `0` fallbacks
 - Live page scan: `16` pages / `120` review rows / `25` replace / `95` abstain / `0` page errors / `0` fallbacks
 - Combined full live page scan: `80` review rows / `51` replace / `29` abstain / `0` page errors / `0` fallbacks
 - Combined full tranche-002 live page scan: `120` review rows / `69` replace / `51` abstain / `0` page errors / `0` fallbacks
-- Operator extension smoke: `success` / `en-es-active-only-combined-full-v1-tranche-002` / `en_es_sentence_veto_v2` / accepted product-soft `min_active_score=0.015` behavior
+- Combined full tranche-003 live page scan: `120` review rows / `72` replace / `48` abstain / `0` page errors / `0` fallbacks
+- Operator extension smoke: `success` / `en-es-active-only-combined-full-v1-tranche-003` / `en_es_sentence_veto_v2` / accepted product-soft `min_active_score=0.015` behavior
 
 ## Audit
 
@@ -117,7 +118,7 @@
 - `current_research`: `94`
 - `current_runtime`: `16`
 - `diagnostic_only`: `1`
-- `generated_evidence`: `183`
+- `generated_evidence`: `184`
 - `historical_reference`: `5`
 - `superseded`: `2`
 - `supporting_current`: `2`
@@ -125,7 +126,7 @@
 ### Components
 - `candidate_wave6`: `11`
 - `decision_research`: `29`
-- `diagnostics`: `160`
+- `diagnostics`: `161`
 - `evaluation_data`: `45`
 - `historical_or_seed`: `7`
 - `process_governance`: `15`
@@ -327,7 +328,8 @@
 | active_only_full_live_page_scan_report | generated_evidence | diagnostics | Manual page-feel packet only; it is not a statistical language-wide accuracy claim. | data_artifacts |
 | active_only_full_tranche_002_live_page_scan_report | generated_evidence | diagnostics | Manual page-feel packet only; it is not a statistical language-wide accuracy claim. | data_artifacts |
 | active_only_full_tranche_002_operator_live_smoke_report | generated_evidence | diagnostics | Operator smoke is a product-feel checkpoint, not a statistical accuracy claim or proof that narrow source-target mappings are solved. | data_artifacts |
-| active_only_full_tranche_003_live_page_scan_report | generated_evidence | diagnostics | Manual page-feel packet only; it is not a statistical language-wide accuracy claim, and it has not yet been separately operator-approved through the browser extension. | data_artifacts |
+| active_only_full_tranche_003_live_page_scan_report | generated_evidence | diagnostics | Manual page-feel packet only; it is not a statistical language-wide accuracy claim. Pair it with the operator live smoke report for the qualitative approval record. | data_artifacts |
+| active_only_full_tranche_003_operator_live_smoke_report | generated_evidence | diagnostics | Operator smoke is a product-feel checkpoint, not a statistical accuracy claim or proof that broad en-es source-target suitability is solved. | data_artifacts |
 | active_only_scale_tranche_generation_admission_report | generated_evidence | diagnostics | Structural admission only; postprocess/replay decide whether the rows improve decisions. | data_artifacts |
 | active_only_scale_tranche_generation_run_report | generated_evidence | diagnostics | Generated evidence remains research-only until admission, postprocess, packaging, replay, and helper smoke pass. | data_artifacts |
 | active_only_scale_tranche_inventory_replay_report | generated_evidence | diagnostics | Tranche-only reading; use the combined product-scope replay for the current candidate state. | research_harness |
@@ -668,6 +670,7 @@
 | active_only_full_tranche_002_live_page_scan_report | generated_evidence | diagnostics | docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_002_live_page_scan_en_es_latest.md | Shows 120 policy decisions, 69 replace decisions, 51 abstains, 0 fallback decisions, and 0 page fetch errors over the installed combined-full tranche-002 fixture. |
 | active_only_full_tranche_002_operator_live_smoke_report | generated_evidence | diagnostics | docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_002_operator_live_smoke_en_es_latest.md | Marks the initial operator live test as a product-smoke success: the installed pack used en_es_sentence_veto_v2 with product-soft min_active_score=0.015, replaced some acceptable occurrences on Wikipedia Acceptable sources, abstained on others, and was accepted as useful despite known imperfect narrow mappings. |
 | active_only_full_tranche_003_live_page_scan_report | generated_evidence | diagnostics | docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_003_live_page_scan_en_es_latest.md | Shows 120 policy decisions, 72 replace decisions, 48 abstains, 0 fallback decisions, and 0 page fetch errors over the installed combined-full tranche-003 fixture. |
+| active_only_full_tranche_003_operator_live_smoke_report | generated_evidence | diagnostics | docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_003_operator_live_smoke_en_es_latest.md | Marks the current operator live test as a product-smoke success: the installed pack used en_es_sentence_veto_v2 with product-soft min_active_score=0.015 after the split-inline DOM semantic-context fix and optimized semantic batching, and the operator accepted the live runtime feel as good. |
 | active_only_scale_tranche_generation_admission_report | generated_evidence | diagnostics | docs/test_outputs/semantic_veto_active_only_scale_tranche_v1_generation_admission_en_es_latest.md | Shows 16 expected requests, 16 generated responses, 32 expected items, 32 admitted items, 0 rejected items, and 0 coverage shortfall. |
 | active_only_scale_tranche_generation_run_report | generated_evidence | diagnostics | docs/test_outputs/semantic_veto_active_only_scale_tranche_v1_generation_run_en_es_latest.md | Shows 16 selected requests, 16 accepted responses after resume, 32 generated active items, 7,547 accepted-run input tokens, and 2,742 accepted-run output tokens; journal-inclusive scale-tranche spend including repair attempts is about $0.020 at mini rates. |
 | active_only_scale_tranche_inventory_replay_report | generated_evidence | diagnostics | docs/test_outputs/semantic_veto_active_only_scale_tranche_v1_inventory_replay_en_es_latest.md | Shows 32/32 packaged rows applied across 16 families and 63 cases, with decision accuracy 55.6% to 71.4%, replace recall 12.5% to 50.0%, false abstains 28 to 16, and harmful replacements 0 to 2. |

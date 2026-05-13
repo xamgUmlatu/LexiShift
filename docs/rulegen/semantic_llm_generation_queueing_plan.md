@@ -4,7 +4,7 @@ Status: active plan
 Role: Planning / pre-scan framing
 Purpose: define what semantic-routing data should eventually be generated with LLM support, which units deserve queueing, what can be inferred automatically versus what remains hypothesis, and how to avoid redundant generation work
 Last updated: 2026-05-12
-Last verified: 2026-05-12 active-only prompt-variant bakeoff, generated-evidence admission, postprocess scoring over the frozen 24-family PoC denominator, the product-scope band-grading v1 active-only reuse tranche, the active-only scale tranche through combined 49-family packaging, inventory replay, helper runtime smoke, live-page scan, named-pack installer smoke, initial browser review with the product-soft `min_active_score=0.015` active-only policy, the no-spend full active-only generation denominator plan over the current 570-family installed SRS source-target universe, first-tranche pre-spend source-target review, first paid full active-only tranche generation/admission/source packaging, combined 91-family pack build, named-pack install smoke, live-page scan, post-tranche coverage plan, tranche-002 pre-spend source-target review/request plan, tranche-002 paid generation/admission/source packaging, combined 135-family pack build, named-pack install smoke, live-page scan, post-tranche-002 coverage plan, tranche-003 pre-spend source-target review/request plan, tranche-003 paid generation/admission/source packaging, combined 178-family pack build, named-pack install smoke, live-page scan, and post-tranche-003 coverage plan
+Last verified: 2026-05-13 active-only prompt-variant bakeoff, generated-evidence admission, postprocess scoring over the frozen 24-family PoC denominator, the product-scope band-grading v1 active-only reuse tranche, the active-only scale tranche through combined 49-family packaging, inventory replay, helper runtime smoke, live-page scan, named-pack installer smoke, initial browser review with the product-soft `min_active_score=0.015` active-only policy, the no-spend full active-only generation denominator plan over the current 570-family installed SRS source-target universe, first-tranche pre-spend source-target review, first paid full active-only tranche generation/admission/source packaging, combined 91-family pack build, named-pack install smoke, live-page scan, post-tranche coverage plan, tranche-002 pre-spend source-target review/request plan, tranche-002 paid generation/admission/source packaging, combined 135-family pack build, named-pack install smoke, live-page scan, post-tranche-002 coverage plan, tranche-003 pre-spend source-target review/request plan, tranche-003 paid generation/admission/source packaging, combined 178-family pack build, named-pack install smoke, live-page scan, post-tranche-003 coverage plan, split-inline DOM semantic-context runtime fix, optimized semantic batching, and tranche-003 operator browser-extension smoke
 Source-of-truth: planning doc only; current implemented truth still lives in the semantic-routing contracts, inventory publication code, and offline evidence normalization seam
 Related docs:
 - `docs/rulegen/semantic_shadow_source_intake_plan.md`
@@ -431,15 +431,16 @@ Post-tranche-003 state:
 
 Operator live-smoke result:
 
-- the options-page Advanced debug installer can install the current tranche-002
+- the options-page Advanced debug installer can install the current tranche-003
   pack by default pack id,
-- a real browser-extension smoke on Wikipedia Acceptable sources is accepted as
-  successful product-feel evidence for the PoC,
+- tranche-002 remains a successful earlier smoke on Wikipedia Acceptable
+  sources,
+- after the split-inline DOM semantic-context fix and batching speedup, a real
+  browser-extension smoke of tranche-003 is accepted as successful product-feel
+  evidence for the PoC,
 - the accepted product posture is soft assist: false abstains and some harmful
   replacements are tolerated, and narrow source-target mappings such as
   `tax -> imponer` are not a blocker for this checkpoint.
-- tranche-003 has passed automated install and live-page scan, but has not yet
-  had the same human browser-extension smoke.
 
 The scale-generation program should therefore proceed in lanes:
 
@@ -461,9 +462,8 @@ The scale-generation program should therefore proceed in lanes:
 7. Keep phrase/no-winner controls as a separate lane; active cue generation does
    not solve those cases.
 
-The immediate engineering gap is now either an optional tranche-003
-browser-extension smoke or the next source-target review slice. Do not attempt
-to spend the whole budget at once.
+The immediate engineering gap is now the next source-target review slice before
+any tranche-004 spend. Do not attempt to spend the whole budget at once.
 
 Use `docs/rulegen/semantic_veto_active_only_tranche_runbook.md` for the
 repeatable active-only tranche cycle. That runbook owns the step-by-step gates,

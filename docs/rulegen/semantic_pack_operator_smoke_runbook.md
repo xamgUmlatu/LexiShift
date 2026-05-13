@@ -2,8 +2,8 @@
 
 Status: active runbook
 Role: Runbook / operational
-Last updated: 2026-05-12
-Last verified: 2026-05-12 against the `en-es-active-only-combined-full-v1-tranche-003` default pack id, Advanced debug install flow wiring, helper/native-host install command, tranche-003 automated install/page-scan evidence, and tranche-002 operator smoke evidence
+Last updated: 2026-05-13
+Last verified: 2026-05-13 against the `en-es-active-only-combined-full-v1-tranche-003` default pack id, Advanced debug install flow wiring, helper/native-host install command, split-inline DOM semantic-context runtime fix, optimized semantic batching, tranche-003 automated install/page-scan evidence, and tranche-003 operator smoke evidence
 Purpose: give a tester a repeatable way to install and smoke-test the current semantic-veto pack without relying on chat history
 Source-of-truth: operational runbook only; implementation truth lives in `core/lexishift_core/helper/use_cases/semantic_pack_install.py`, `scripts/helper/lexishift_native_host.py`, `apps/chrome-extension/options.html`, and the extension helper client
 Related docs:
@@ -29,10 +29,15 @@ soft-assist smoke path.
 
 ## Current Approval Status
 
-The tranche-002 data is already approved for the soft-assist PoC. The
-tranche-003 pack is automated-clean and is the current default pack for the
-Options installer, but it still needs an operator browser-extension smoke if we
-want the same human product-feel approval record.
+The tranche-003 pack is operator-approved for the current soft-assist PoC.
+This approval was recorded after the runtime began sending surrounding
+sentence/block context instead of tiny split-inline text-node fragments, and
+after the semantic admission batching speedup. The operator tested tranche-003
+in the browser runtime and judged the product feel good enough to mark the
+checkpoint successful.
+
+The previous tranche-002 data remains a useful rollback/comparison pack, but it
+is no longer the latest operator-approved pack.
 
 Rerun it when:
 

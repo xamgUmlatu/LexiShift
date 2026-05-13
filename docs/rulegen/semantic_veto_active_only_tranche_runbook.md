@@ -2,8 +2,8 @@
 
 Status: active runbook
 Role: Runbook / operational
-Last updated: 2026-05-12
-Last verified: 2026-05-12 against tranche-001/tranche-003 artifacts, the post-tranche-003 coverage plan, active-only generation planner, live generation runner, admission gate, source packaging, pack builder, semantic-pack installer, live-page scanner, registry summary, and cost reference
+Last updated: 2026-05-13
+Last verified: 2026-05-13 against tranche-001/tranche-003 artifacts, the post-tranche-003 coverage plan, active-only generation planner, live generation runner, admission gate, source packaging, pack builder, semantic-pack installer, live-page scanner, registry summary, cost reference, split-inline DOM semantic-context runtime fix, optimized semantic batching, and tranche-003 operator browser-extension smoke
 Purpose: make future active-only semantic-veto data tranches repeatable, guarded, and easy to checkpoint without reopening algorithm research
 Source-of-truth: operational runbook only; current implementation truth lives in the scripts and generated artifacts named below
 Related docs:
@@ -21,8 +21,9 @@ The latest automated-clean soft-assist pack is:
 en-es-active-only-combined-full-v1-tranche-003
 ```
 
-The latest operator-approved browser-extension smoke remains tranche-002 until
-someone installs and reviews tranche-003 through the extension.
+The latest operator-approved browser-extension smoke is also tranche-003.
+The operator tested the fixed runtime with tranche-003 and accepted it as a
+successful soft-assist product-feel checkpoint.
 
 Current checkpoint:
 
@@ -30,8 +31,8 @@ Current checkpoint:
 - remaining uncovered families: `392`,
 - remaining unreviewed generation queue rows after tranche-003: `371`,
 - next runnable paid request packet: empty,
-- next required work: source-target review for the next tranche, or optional
-  operator browser-extension smoke on the tranche-003 pack.
+- next required work: source-target review for the next tranche before any
+  tranche-004 spend.
 
 Do not start another paid run from the post-tranche-003 plan as-is.
 It intentionally has `0` selected request families until more source-target rows
@@ -56,7 +57,7 @@ It does not change:
 - the semantic decision algorithm,
 - the latest generated tranche-003 data,
 - the product-soft `0.015` active-only policy,
-- the operator smoke result.
+- the tranche-003 operator smoke result.
 
 ## Tranche Loop
 
@@ -281,10 +282,12 @@ python3 scripts/testing/semantic_veto_active_only_live_page_scan_en_es.py \
   --fail-on-review
 ```
 
-Optional operator smoke:
+Operator smoke:
 
 - use `docs/rulegen/semantic_pack_operator_smoke_runbook.md`,
-- only after the isolated install and page scan are clean.
+- only after the isolated install and page scan are clean,
+- tranche-003 is already operator-approved; repeat only for a new profile,
+  machine, install/runtime change, or new generated pack.
 
 Commit point:
 
