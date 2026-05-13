@@ -5,8 +5,8 @@
   "decision": "cumulative_reviewed_for_pre_spend_active_only_generation",
   "reviewed_at": "2026-05-14",
   "review_scope": {
-    "input_plan": "docs/test_outputs/semantic_veto_active_only_full_generation_plan_en_es_latest.json, docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_001_en_es_latest.json, docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_002_en_es_latest.json, docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_003_en_es_latest.json, docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_004_en_es_latest.json, docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_005_en_es_latest.json, and docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_006_en_es_latest.json, and docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_007_en_es_latest.json",
-    "selected_global_need_ranks": "tranche 001 reviewed ranks 1-50 from the original queue; tranche 002 prep reviewed the first 50 unreviewed rows after tranche 001 coverage/exclusion, global_need_rank 9-58 in the post-tranche queue; tranche 003 prep reviewed the first 50 unreviewed rows after tranche 002 coverage/exclusion, global_need_rank 15-64 in the post-tranche-002 queue; tranche 004 prep reviewed the first 50 unreviewed rows after tranche 003 coverage/exclusion, global_need_rank 22-71 in the post-tranche-003 queue; tranche 005 prep reviewed the first 50 unreviewed rows after tranche 004 coverage/exclusion, global_need_rank 26-75 in the post-tranche-004 queue; tranche 006 prep reviewed the first 50 unreviewed rows after tranche 005 coverage/exclusion, global_need_rank 39-88 in the post-tranche-005 queue; tranche 007 prep reviewed the first 50 unreviewed rows after tranche 006 coverage/exclusion, global_need_rank 50-99 in the post-tranche-006 queue; tranche 008 prep reviewed the first 50 unreviewed rows after tranche 007 coverage/exclusion, global_need_rank 62-111 in the post-tranche-007 queue",
+    "input_plan": "docs/test_outputs/semantic_veto_active_only_full_generation_plan_en_es_latest.json, docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_001_en_es_latest.json, docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_002_en_es_latest.json, docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_003_en_es_latest.json, docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_004_en_es_latest.json, docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_005_en_es_latest.json, and docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_006_en_es_latest.json, and docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_007_en_es_latest.json, and docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_008_en_es_latest.json",
+    "selected_global_need_ranks": "tranche 001 reviewed ranks 1-50 from the original queue; tranche 002 prep reviewed the first 50 unreviewed rows after tranche 001 coverage/exclusion, global_need_rank 9-58 in the post-tranche queue; tranche 003 prep reviewed the first 50 unreviewed rows after tranche 002 coverage/exclusion, global_need_rank 15-64 in the post-tranche-002 queue; tranche 004 prep reviewed the first 50 unreviewed rows after tranche 003 coverage/exclusion, global_need_rank 22-71 in the post-tranche-003 queue; tranche 005 prep reviewed the first 50 unreviewed rows after tranche 004 coverage/exclusion, global_need_rank 26-75 in the post-tranche-004 queue; tranche 006 prep reviewed the first 50 unreviewed rows after tranche 005 coverage/exclusion, global_need_rank 39-88 in the post-tranche-005 queue; tranche 007 prep reviewed the first 50 unreviewed rows after tranche 006 coverage/exclusion, global_need_rank 50-99 in the post-tranche-006 queue; tranche 008 prep reviewed the first 50 unreviewed rows after tranche 007 coverage/exclusion, global_need_rank 62-111 in the post-tranche-007 queue; tranche 009 prep reviewed the first 50 unreviewed rows after tranche 008 coverage and exclusions, global_need_rank 72-121 in the post-tranche-008 queue",
     "purpose": "prevent paid active-only evidence generation for rows that are not useful visible source->target replacement families"
   },
   "reviewed_slices": [
@@ -65,6 +65,13 @@
       "selection": "first 50 source_target_review_status=unreviewed rows after tranche 007 coverage and exclusions, global_need_rank 62-111",
       "approved_count": 40,
       "excluded_count": 10
+    },
+    {
+      "slice_id": "tranche_009_pre_spend",
+      "input_plan": "docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_008_en_es_latest.json",
+      "selection": "first 50 source_target_review_status=unreviewed rows after tranche 008 coverage and exclusions, global_need_rank 72-121",
+      "approved_count": 38,
+      "excluded_count": 12
     }
   ],
   "review_policy": {
@@ -2878,6 +2885,356 @@
       "approved_for_active_only_generation": true,
       "decision": "approve_direct_mapping",
       "rationale": "Direct noun mapping."
+    },
+    {
+      "source": "glove",
+      "target": "guante",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping."
+    },
+    {
+      "source": "goose",
+      "target": "ganso",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping."
+    },
+    {
+      "source": "idol",
+      "target": "ídolo",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping."
+    },
+    {
+      "source": "inflammation",
+      "target": "inflamación",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct medical noun mapping."
+    },
+    {
+      "source": "infusion",
+      "target": "extracto",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Infusion is usually infusión or an infused drink/process; extracto means extract and is too weak for a visible replacement."
+    },
+    {
+      "source": "intoxicated",
+      "target": "ebrio",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Valid adjective mapping for drunk/inebriated contexts; intoxicated can also mean poisoned."
+    },
+    {
+      "source": "jest",
+      "target": "bromear",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Usable verb mapping for joking; jest is also commonly a noun."
+    },
+    {
+      "source": "lick",
+      "target": "lamer",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Usable verb mapping for licking; lick is also a noun in some contexts."
+    },
+    {
+      "source": "mist",
+      "target": "niebla",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Usable weather noun mapping."
+    },
+    {
+      "source": "mosaic",
+      "target": "mosaico",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping."
+    },
+    {
+      "source": "nameless",
+      "target": "anónimo",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct adjective mapping."
+    },
+    {
+      "source": "offspring",
+      "target": "descendiente",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct lineage noun mapping."
+    },
+    {
+      "source": "patriarch",
+      "target": "patriarca",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping."
+    },
+    {
+      "source": "phenomenal",
+      "target": "fenomenal",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct adjective cognate mapping."
+    },
+    {
+      "source": "pigeon",
+      "target": "paloma",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Usable bird noun mapping; Spanish paloma can cover dove/pigeon contexts."
+    },
+    {
+      "source": "protestant",
+      "target": "protestante",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct religious adjective/noun mapping."
+    },
+    {
+      "source": "relinquish",
+      "target": "ceder",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Usable verb mapping for yielding or giving up."
+    },
+    {
+      "source": "restrain",
+      "target": "reprimir",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Valid mapping where restrain means suppress/repress; restrain can also mean physically hold back."
+    },
+    {
+      "source": "roller",
+      "target": "cilindro",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Roller is usually rodillo or a person/device; cilindro is only a broad shape relation and too weak as a visible replacement."
+    },
+    {
+      "source": "romanian",
+      "target": "rumano",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct nationality/language adjective or noun mapping."
+    },
+    {
+      "source": "satisfy",
+      "target": "complacer",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Valid mapping where satisfy means please; satisfy can also mean meet a requirement."
+    },
+    {
+      "source": "skirt",
+      "target": "falda",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct clothing noun mapping."
+    },
+    {
+      "source": "stoke",
+      "target": "calentar",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Stoke means feed or stir up a fire/emotion; calentar means heat and is too broad/weak for this source."
+    },
+    {
+      "source": "subscriber",
+      "target": "abonado",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping for a subscribed customer/member."
+    },
+    {
+      "source": "successor",
+      "target": "descendiente",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Successor means someone who follows in a role; descendiente means descendant and is not generally correct."
+    },
+    {
+      "source": "swede",
+      "target": "sueco",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Valid mapping for a Swedish person; swede can also mean a rutabaga in some dialects."
+    },
+    {
+      "source": "terrace",
+      "target": "terraza",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping."
+    },
+    {
+      "source": "unmarried",
+      "target": "soltero",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct adjective mapping."
+    },
+    {
+      "source": "urine",
+      "target": "orina",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping."
+    },
+    {
+      "source": "viper",
+      "target": "víbora",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct snake noun mapping."
+    },
+    {
+      "source": "wasp",
+      "target": "avispa",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct insect noun mapping."
+    },
+    {
+      "source": "wholly",
+      "target": "enteramente",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct adverb mapping."
+    },
+    {
+      "source": "widower",
+      "target": "viudo",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping."
+    },
+    {
+      "source": "willow",
+      "target": "sauce",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct tree noun mapping; Spanish sauce means willow."
+    },
+    {
+      "source": "zinc",
+      "target": "zinc",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct identical cognate noun mapping."
+    },
+    {
+      "source": "manifacture",
+      "target": "producción",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_no_visible_replacement",
+      "rationale": "Source appears to be a misspelled/nonstandard manufacture artifact, not a useful browser trigger."
+    },
+    {
+      "source": "onethousand",
+      "target": "mil",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_no_visible_replacement",
+      "rationale": "Source is a fused token artifact for one thousand, not a useful browser-visible replacement."
+    },
+    {
+      "source": "thatmuch",
+      "target": "tanto",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_no_visible_replacement",
+      "rationale": "Source is a fused phrase artifact for that much, not a useful browser-visible replacement."
+    },
+    {
+      "source": "abatement",
+      "target": "descuento",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Usable mapping for reduction/discount contexts such as tax abatement; abatement is broader than discount."
+    },
+    {
+      "source": "acquaint",
+      "target": "informar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Valid mapping where acquaint means inform or make aware; not for introduce personally."
+    },
+    {
+      "source": "affable",
+      "target": "gracioso",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Affable means friendly/easy to talk to; gracioso means funny/graceful and is a weak replacement."
+    },
+    {
+      "source": "alternation",
+      "target": "alternativa",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Alternation means alternancia or switching pattern; alternativa means alternative option."
+    },
+    {
+      "source": "barque",
+      "target": "barco",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Usable noun mapping for a type of boat."
+    },
+    {
+      "source": "burndown",
+      "target": "quemar",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_no_visible_replacement",
+      "rationale": "Source is a fused phrase/artifact; burn down would be visible as two tokens, while burndown is mainly a chart/jargon compound."
+    },
+    {
+      "source": "clod",
+      "target": "bola",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Clod means lump of earth or a dull person; bola means ball and is too weak."
+    },
+    {
+      "source": "depository",
+      "target": "depósito",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Usable noun mapping for a repository/deposit place."
+    },
+    {
+      "source": "mayhap",
+      "target": "quizás",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct archaic/literary adverb mapping for perhaps."
+    },
+    {
+      "source": "otherthan",
+      "target": "excepto",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_no_visible_replacement",
+      "rationale": "Source is a fused phrase artifact for other than, not a useful standalone browser trigger."
+    },
+    {
+      "source": "perchance",
+      "target": "quizás",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct archaic/literary adverb mapping for perhaps."
+    },
+    {
+      "source": "repose",
+      "target": "descansar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Valid verb mapping for resting; repose is also a noun and has broader senses."
     }
   ]
 }

@@ -1,0 +1,372 @@
+{
+  "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-009",
+  "decision": "active_only_source_packaging_ready_for_inventory_compile",
+  "excluded_items": [],
+  "family_rows": [
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:abatement:descuento:8ec99746",
+      "packaged_row_count": 2,
+      "targets": [
+        "descuento"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:acquaint:informar:48d3e377",
+      "packaged_row_count": 2,
+      "targets": [
+        "informar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:barque:barco:5b3c803d",
+      "packaged_row_count": 2,
+      "targets": [
+        "barco"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:depository:deposito:0c2e4143",
+      "packaged_row_count": 2,
+      "targets": [
+        "depósito"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:glove:guante:898c0a5b",
+      "packaged_row_count": 2,
+      "targets": [
+        "guante"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:goose:ganso:6f61cd68",
+      "packaged_row_count": 2,
+      "targets": [
+        "ganso"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:idol:idolo:f73701e0",
+      "packaged_row_count": 2,
+      "targets": [
+        "ídolo"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:inflammation:inflamacion:642fc467",
+      "packaged_row_count": 2,
+      "targets": [
+        "inflamación"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:intoxicated:ebrio:9307c97f",
+      "packaged_row_count": 2,
+      "targets": [
+        "ebrio"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:jest:bromear:55d79731",
+      "packaged_row_count": 2,
+      "targets": [
+        "bromear"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:lick:lamer:ec658c72",
+      "packaged_row_count": 2,
+      "targets": [
+        "lamer"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:mayhap:quizas:f7426c37",
+      "packaged_row_count": 2,
+      "targets": [
+        "quizás"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:mist:niebla:b7b6f5af",
+      "packaged_row_count": 2,
+      "targets": [
+        "niebla"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:mosaic:mosaico:a3468e64",
+      "packaged_row_count": 2,
+      "targets": [
+        "mosaico"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:nameless:anonimo:c9e71255",
+      "packaged_row_count": 2,
+      "targets": [
+        "anónimo"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:offspring:descendiente:5e3ee01c",
+      "packaged_row_count": 2,
+      "targets": [
+        "descendiente"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:patriarch:patriarca:06c74e78",
+      "packaged_row_count": 2,
+      "targets": [
+        "patriarca"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:perchance:quizas:4ed5b37e",
+      "packaged_row_count": 2,
+      "targets": [
+        "quizás"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:phenomenal:fenomenal:856698e7",
+      "packaged_row_count": 2,
+      "targets": [
+        "fenomenal"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:pigeon:paloma:ac24415a",
+      "packaged_row_count": 2,
+      "targets": [
+        "paloma"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:protestant:protestante:d26b0ede",
+      "packaged_row_count": 2,
+      "targets": [
+        "protestante"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:relinquish:ceder:0ecd236b",
+      "packaged_row_count": 2,
+      "targets": [
+        "ceder"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:repose:descansar:42429a75",
+      "packaged_row_count": 2,
+      "targets": [
+        "descansar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:restrain:reprimir:991f7bb9",
+      "packaged_row_count": 2,
+      "targets": [
+        "reprimir"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:romanian:rumano:8319ecf3",
+      "packaged_row_count": 2,
+      "targets": [
+        "rumano"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:satisfy:complacer:a006be45",
+      "packaged_row_count": 2,
+      "targets": [
+        "complacer"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:skirt:falda:f8e36e29",
+      "packaged_row_count": 2,
+      "targets": [
+        "falda"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:subscriber:abonado:aa293bd4",
+      "packaged_row_count": 2,
+      "targets": [
+        "abonado"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:swede:sueco:37f9f298",
+      "packaged_row_count": 2,
+      "targets": [
+        "sueco"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:terrace:terraza:443fe232",
+      "packaged_row_count": 2,
+      "targets": [
+        "terraza"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:unmarried:soltero:cf105107",
+      "packaged_row_count": 2,
+      "targets": [
+        "soltero"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:urine:orina:cab34771",
+      "packaged_row_count": 2,
+      "targets": [
+        "orina"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:viper:vibora:f4742aaa",
+      "packaged_row_count": 2,
+      "targets": [
+        "víbora"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:wasp:avispa:c4a7f83a",
+      "packaged_row_count": 2,
+      "targets": [
+        "avispa"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:wholly:enteramente:98f796f3",
+      "packaged_row_count": 2,
+      "targets": [
+        "enteramente"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:widower:viudo:48deec53",
+      "packaged_row_count": 2,
+      "targets": [
+        "viudo"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:willow:sauce:a4b9514b",
+      "packaged_row_count": 2,
+      "targets": [
+        "sauce"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:zinc:zinc:40042c08",
+      "packaged_row_count": 2,
+      "targets": [
+        "zinc"
+      ]
+    }
+  ],
+  "generated_at": "2026-05-13T19:30:06Z",
+  "inputs": {
+    "admission_path": "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_009_repaired_generation_admission_en_es_latest.json",
+    "generation_run_path": "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_009_generation_run_en_es_latest.json",
+    "postprocess_path": "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_009_generation_postprocess_en_es_latest.json"
+  },
+  "issues": [],
+  "normalization_version": "semantic_evidence_v1",
+  "pair": "en-es",
+  "provenance_summary": {
+    "input_tokens": 21009,
+    "model_id": "gpt-5.4-mini",
+    "operator_repair_count": 1,
+    "operator_repairs": [
+      {
+        "family_id": "en-es:srs-source-target:perchance:quizas:4ed5b37e",
+        "invalid_output_family_id": "en-es:srs-source-target:perchance:quizas:4ed5e37e",
+        "invalid_output_request_id": "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:perchance:quizas:4ed5e37e:active_evidence_expansion",
+        "invalid_output_slot_id": "en-es:srs-source-target:perchance:quizas:4ed5e37e:active_evidence_expansion",
+        "repair_reason": "generator twice changed the source-target hash from 4ed5b37e to 4ed5e37e; sentence content preserved and metadata restored to the reviewed request packet",
+        "repair_type": "metadata_id_restoration_after_repeated_invalid_output",
+        "request_id": "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:perchance:quizas:4ed5b37e:active_evidence_expansion",
+        "reviewed_by": "codex_operator",
+        "sentence_content_changed": false,
+        "slot_id": "en-es:srs-source-target:perchance:quizas:4ed5b37e:active_evidence_expansion",
+        "source_phrase": "perchance",
+        "target_lemma": "quizás"
+      }
+    ],
+    "output_tokens": 7211,
+    "postprocess_status": "ok",
+    "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+    "raw_output_mutation": "operator_repaired_after_generation",
+    "temperature": null
+  },
+  "runtime_boundary": [
+    "normalized rows remain runtime_publishable=false",
+    "this output is canonical source evidence, not a semantic inventory sidecar",
+    "the next step is an inventory compiler that appends packaged anchor cues to ready active-sense evidence_views",
+    "runtime policy and thresholds remain unchanged"
+  ],
+  "schema_version": 1,
+  "status": "ok",
+  "summary": {
+    "admitted_input_item_count": 76,
+    "excluded_row_count": 0,
+    "exclusion_reason_counts": {},
+    "family_count": 38,
+    "packaged_row_count": 76,
+    "promotion_state_counts": {
+      "proposed": 76
+    },
+    "relation_type_counts": {
+      "anchor_cue": 76
+    },
+    "review_state_counts": {
+      "unreviewed": 76
+    },
+    "runtime_publishable_row_count": 0
+  },
+  "view_id": "no_high_eval_overlap_sentence_only"
+}

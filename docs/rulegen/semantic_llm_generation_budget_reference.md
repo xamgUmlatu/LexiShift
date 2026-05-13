@@ -439,6 +439,39 @@ source-target cognates such as `ballet -> ballet` must be allowed through the
 Spanish-target leakage guard, because the required English source token is
 textually identical to the Spanish target lemma.
 
+## Observed Full Active-Only Tranche 009 Cost Anchor
+
+Artifacts:
+
+- `docs/test_outputs/semantic_veto_active_only_full_v1_tranche_009_generation_run_en_es_latest.json`
+- `docs/test_outputs/semantic_veto_active_only_full_v1_tranche_009_repaired_generation_admission_en_es_latest.json`
+- `docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_009_pack_install_en_es_latest.json`
+
+Observed run shape:
+
+- model: `gpt-5.4-mini`
+- request scope: `38` reviewed/approved uncovered active-only SRS-derived
+  source-target families
+- raw live generation accepted `37/38` responses, with one repeated
+  metadata-id drift repaired without changing sentence content
+- repaired admission accepted active items: `76/76`
+- source packaging produced `76` canonical `anchor_cue` rows across `38`
+  families
+- combined pack build now covers `416/570` current SRS-derived source-target
+  families with `844` normalized evidence rows
+
+Journal-inclusive paid usage:
+
+- outcome events: `39`
+- invalid-output outcomes: `2`
+- input tokens: `21,572`
+- output tokens: `7,411`
+- actual cost at the 2026-05-14 `gpt-5.4-mini` snapshot: about `$0.0495`
+
+The ninth tranche confirms the cost pattern: a small active-only tranche remains
+around five cents even with one retried metadata drift. The limiter remains
+source-target review and generated-row usefulness, not spend.
+
 ## Observed Balanced v1 Follow-Through Cost Anchor
 
 Artifact:
